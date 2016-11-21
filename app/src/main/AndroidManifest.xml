@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.deiverbum.liturgiacatolica">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--    <uses-permission android:name="android.permission.SET_DEBUG_APP" />-->
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/app_logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".FullscreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LiturgiaHorasActivity"
+            android:label="@string/title_activity_liturgia_horas"
+            android:parentActivityName=".FullscreenActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.deiverbum.liturgiacatolica.FullscreenActivity" />
+        </activity>
+        <activity
+            android:name=".BreviarioActivity"
+            android:label="@string/title_activity_breviario"
+            android:parentActivityName=".FullscreenActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.deiverbum.liturgiacatolica.FullscreenActivity" />
+        </activity>
+    </application>
+
+</manifest>

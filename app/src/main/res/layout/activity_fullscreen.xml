@@ -1,0 +1,89 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    tools:context="org.deiverbum.liturgiacatolica.FullscreenActivity">
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+
+    <TextView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center"
+        android:keepScreenOn="true"
+        android:text="@string/dummy_content" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:stretchColumns="1"
+        android:orientation="vertical"
+        android:id="@+id/categorias_table">
+
+        <!--ROW-->
+        <LinearLayout
+            android:layout_height="0dp"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_height="fill_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/imageMisa"
+                    android:src="@drawable/ic_store_mall_directory_black_48dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:text="Misa"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:gravity="center"
+                    android:layout_below="@+id/imageMisa"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+       />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_height="fill_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/image_breviario"
+                    android:src="@drawable/ic_local_library_black_48dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:text="Breviario"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:gravity="center"
+                    android:layout_below="@+id/image_breviario"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                   />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+</LinearLayout>
+    </FrameLayout>

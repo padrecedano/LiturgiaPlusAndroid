@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Liturgia Católica</string>
+
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">LITURGIA\nCATÓLICA</string>
+    <string name="title_activity_liturgia_horas">Liturgia de las Horas</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_breviario">Liturgia de las Horas</string>
+    <string name="e_mail">a.cedano@deiverbum.org</string>
+    <string name="ol">Oficio de Lecturas</string>
+    <string name="la">Laudes</string>
+    <string name="hi">Hora Intermedia</string>
+    <string name="vi">Vísperas</string>
+    <string name="co">Completas</string>
+    <string name="mi">Misa</string>
+    <string name="ri">Rituales</string>
+    <string name="tr">Tradición</string>
+    <string name="ot">Otras</string>
+
+</resources>
