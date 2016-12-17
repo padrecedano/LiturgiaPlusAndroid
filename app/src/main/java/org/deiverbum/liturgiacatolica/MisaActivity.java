@@ -2,19 +2,16 @@ package org.deiverbum.liturgiacatolica;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.text.Html;
-import android.text.Spanned;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -35,16 +32,35 @@ import org.json.JSONObject;
 
 import utils.Utils;
 
-import static org.deiverbum.liturgiacatolica.Constants.BRS;
 import static org.deiverbum.liturgiacatolica.Constants.BR;
+import static org.deiverbum.liturgiacatolica.Constants.BRS;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_B_A;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_B_Z;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_RED_A;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_RED_Z;
-import static org.deiverbum.liturgiacatolica.Constants.CSS_SM_A;
-import static org.deiverbum.liturgiacatolica.Constants.CSS_SM_Z;
 import static org.deiverbum.liturgiacatolica.Constants.NBSP_4;
-import static utils.MisaConstantes.*;
+import static utils.MisaConstantes.ADVIENTO;
+import static utils.MisaConstantes.ALELUYA;
+import static utils.MisaConstantes.ALELUYA_R;
+import static utils.MisaConstantes.ANT_COMUNION;
+import static utils.MisaConstantes.ANT_TITULO;
+import static utils.MisaConstantes.EVANGELIO;
+import static utils.MisaConstantes.LECTURA_1;
+import static utils.MisaConstantes.LECTURA_2;
+import static utils.MisaConstantes.L_EUCARISTICA;
+import static utils.MisaConstantes.NO_CREDO;
+import static utils.MisaConstantes.NO_GLORIA;
+import static utils.MisaConstantes.O_COLECTA;
+import static utils.MisaConstantes.O_COMUNION;
+import static utils.MisaConstantes.O_DOMINICAL;
+import static utils.MisaConstantes.O_FIELES;
+import static utils.MisaConstantes.PLEGARIA;
+import static utils.MisaConstantes.PREFACIO;
+import static utils.MisaConstantes.R_COMUNION;
+import static utils.MisaConstantes.R_INICIALES;
+import static utils.MisaConstantes.SALMO_R;
+import static utils.MisaConstantes.SI_CREDO;
+import static utils.MisaConstantes.SI_GLORIA;
 
 
 public class MisaActivity extends AppCompatActivity
