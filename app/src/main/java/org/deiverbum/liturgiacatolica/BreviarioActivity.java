@@ -2,11 +2,14 @@ package org.deiverbum.liturgiacatolica;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -129,10 +132,16 @@ public class BreviarioActivity extends AppCompatActivity
         final TextView textViewToChange = (TextView) findViewById(R.id.txt_container);
 
         if (id == R.id.nav_ol) {
-            getJSON(OL_URL + getFecha());
+            Intent i = new Intent(BreviarioActivity.this, OficioActivity.class);
+            startActivity(i);
+
+
+//            getJSON(OL_URL + getFecha());
+//            Intent i = new Intent(BreviarioActivity.this, OficioActivity.class);
+//            startActivity(i);
 
         } else if (id == R.id.nav_la) {
-            getJSON(LA_URL + getFecha());
+//            getJSON(LA_URL + getFecha());
 
         } else if (id == R.id.nav_hi) {
             getJSON(HI1_URL + getFecha());
@@ -141,7 +150,42 @@ public class BreviarioActivity extends AppCompatActivity
             getJSON(H4_URL + getFecha());
 
         } else if (id == R.id.nav_co) {
-            textViewToChange.setText("Próximamente...");
+            // Check that the activity is using the layout version with
+            // the fragment_container FrameLayout
+            if (findViewById(R.id.fragment_container) != null) {
+
+                // However, if we're being restored from a previous state,
+                // then we don't need to do anything and should return or else
+                // we could end up with overlapping fragments.
+
+                // Create a new Fragment to be placed in the activity layout
+                OficioFragment firstFragment = new OficioFragment();
+
+                // In case this activity was started with special instructions from an
+                // Intent, pass the Intent's extras to the fragment as arguments
+                firstFragment.setArguments(getIntent().getExtras());
+                FragmentManager fragmentManager = getSupportFragmentManager();
+
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.add(R.id.fragment_container, firstFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
+                // Add the fragment to the 'fragment_container' FrameLayout
+            }
+
+//            textViewToChange.setText("Próximamente...");
+//            newFragment.setArguments();
+
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack so the user can navigate back
+//            transaction.replace(R.id.fragment_container, newFragment);
+//            transaction.addToBackStack(null);
+
+// Commit the transaction
+//            transaction.commit();
         } else if (id == R.id.nav_mi) {
             textViewToChange.setText("Próximamente...");
 
@@ -262,7 +306,7 @@ public class BreviarioActivity extends AppCompatActivity
 
             switch (nHora) {
                 case 1:
-                    showOficio(js_arr);
+ //                   showOficio(js_arr);
                     break;
                 case 2:
                     showLaudes(js_arr);
@@ -401,7 +445,7 @@ public class BreviarioActivity extends AppCompatActivity
             String[] introArray = preces.getString("txt_preces_intro").split("\\|");
             String sPrecesCuerpo = getFormato(preces.getString("txt_preces"));
 
-            String sPreces = getPreces(introArray, sPrecesCuerpo);
+            String sPreces = PRECES+getPreces(introArray, sPrecesCuerpo)+PADRENUESTRO;
 
 
             String sOracion = ORACION + getFormato(hora.getString("oracion"));
@@ -442,145 +486,7 @@ public class BreviarioActivity extends AppCompatActivity
     }
 
 
-    protected void showOficio(JSONArray js_arr) {
-        TextView textViewToChange = (TextView) findViewById(R.id.txt_container);
-        StringBuilder sb = new StringBuilder();
 
-        try {
-            JSONObject json_todo = js_arr.getJSONObject(0);
-            JSONObject liturgia = json_todo.getJSONObject("liturgia");
-            JSONObject info = liturgia.getJSONObject("info");
-
-            JSONObject lh = liturgia.getJSONObject("lh");
-            JSONObject hora = lh.getJSONObject("ol");
-            JSONObject s1 = hora.getJSONObject("salmos").getJSONObject("s1");
-            JSONObject s2 = hora.getJSONObject("salmos").getJSONObject("s2");
-            JSONObject s3 = hora.getJSONObject("salmos").getJSONObject("s3");
-
-            JSONObject biblica = hora.getJSONObject("biblica");
-            JSONObject patristica = hora.getJSONObject("patristica");
-
-            String sAntifonaInv = PRE_ANT + hora.getString("antifonai") + BR;
-            String sVida = "";
-
-            int id_tiempo = Integer.parseInt(info.getString("id_tiempo"));
-            switch (id_tiempo) {
-                case 9:
-                    sVida = "<h3>" + hora.getString("txt_santo") + "</h3>" + CSS_SM_A + hora.getString("txt_vida") + CSS_SM_Z + BRS; // they are executed if variable == c1
-                    break;
-                default:
-                    break;
-            }
-
-            String sHimno = HIMNO + getFormato(hora.getString("himno")) + BRS;
-            String sOrden1 = s1.getString("orden");
-            String sAntifona1 = s1.getString("antifona");
-            String sRef1 = s1.getString("txt_ref");
-            String sTema1 = s1.getString("tema");
-            String sIntro1 = s1.getString("txt_intro");
-            String sParte1 = s1.getString("parte");
-
-            String sSalmo1 = s1.getString("txt_salmo");
-            String sSalmoCompleto1 = getSalmoCompleto(sOrden1, sAntifona1, sRef1, sTema1, sIntro1, sParte1, sSalmo1);
-
-            String sOrden2 = s2.getString("orden");
-            String sAntifona2 = s2.getString("antifona");
-            String sRef2 = s2.getString("txt_ref");
-            String sTema2 = s2.getString("tema");
-            String sIntro2 = s2.getString("txt_intro");
-            String sParte2 = s2.getString("parte");
-            String sSalmo2 = s2.getString("txt_salmo");
-            String sSalmoCompleto2 = getSalmoCompleto(sOrden2, sAntifona2, sRef2, sTema2, sIntro2, sParte2, sSalmo2);
-
-            String sOrden3 = s3.getString("orden");
-            String sAntifona3 = s3.getString("antifona");
-            String sRef3 = s3.getString("txt_ref");
-            String sTema3 = s3.getString("tema");
-            String sIntro3 = s3.getString("txt_intro");
-            String sParte3 = s3.getString("parte");
-            String sSalmo3 = s3.getString("txt_salmo");
-            String sSalmoCompleto3 = getSalmoCompleto(sOrden3, sAntifona3, sRef3, sTema3, sIntro3, sParte3, sSalmo3);
-
-            //Lecturas
-            String sRespOl = hora.getString("resp");
-            if (!isNull(sRespOl)) {
-                String[] RespOlarray = sRespOl.split("\\|");
-                sRespOl = RESP_V + RespOlarray[0] + BR + RESP_R + RespOlarray[1] + BRS;
-            }
-            //Bíblica
-            String txt_biblica_obra = PRIMERA_LECTURA + biblica.getString("b_libro") +
-                    CSS_RED_A + NBSP_4 +
-                    biblica.getString("cap") + ", " + biblica.getString("vi") + biblica.getString("vf")
-                    + CSS_RED_Z + BRS;
-            String txt_biblica_tema = CSS_RED_A + biblica.getString("txt_biblica_tema") + CSS_RED_Z;
-            String txt_biblica = biblica.getString("txt_biblica");
-            String txt_biblica_respref = CSS_RED_A + RESP_LOWER + NBSP_2 + biblica.getString("txt_biblica_respref") + CSS_RED_Z + BRS;
-            String sBiblicaResp = biblica.getString("txt_biblica_resp");
-            String txt_biblica_r = "";
-
-            //Hay que construir el responsorio. Los responsorios son recibidos en forma de matriz y en base a un código son desplegados
-
-            if (sBiblicaResp != null && !sBiblicaResp.isEmpty() && !sBiblicaResp.equals("null")) {
-
-                String[] br_parts = sBiblicaResp.split("\\|");
-                txt_biblica_r = getResponsorio(br_parts, 1);
-            }
-
-
-            //Patrística
-            String txt_patristica;
-
-            String padre_obra = SEGUNDA_LECTURA + patristica.getString("padre") + ", " +
-                    patristica.getString("obra_tipo") + patristica.getString("obra");
-            String txt_ref_patristica = BR + CSS_RED_A + CSS_SM_A + "(" + patristica.getString("txt_ref_patristica") + ")" + CSS_SM_Z +
-                    BRS + patristica.getString("txt_tema_patristica") + CSS_RED_Z;
-
-            txt_patristica = patristica.getString("txt_patristica");
-            String txt_patristica_respref = CSS_RED_A + RESP_LOWER + " " + patristica.getString("txt_patristica_respref") + CSS_RED_Z + BRS;
-            String sPatristicaResp = patristica.getString("txt_patristica_resp");
-            String txt_patristica_r = "";
-            if (sPatristicaResp != null && !sPatristicaResp.isEmpty() && !sPatristicaResp.equals("null")) {
-
-                String[] pr_parts = sPatristicaResp.split("\\|");
-                txt_patristica_r = getResponsorio(pr_parts, 1);
-            }
-
-            String sOracion = ORACION + getFormato(hora.getString("oracion"));
-
-            sb.append(OL_TITULO);
-            sb.append(sVida);
-            sb.append(sAntifonaInv);
-            sb.append(sHimno);
-            sb.append(SALMODIA);
-            sb.append(sSalmoCompleto1);
-            sb.append(sSalmoCompleto2);
-            sb.append(sSalmoCompleto3);
-
-            sb.append(sRespOl);
-            sb.append(txt_biblica_obra);
-            sb.append(txt_biblica_tema);
-            sb.append(txt_biblica);
-            sb.append(txt_biblica_respref);
-            sb.append(txt_biblica_r);
-            sb.append(padre_obra);
-            sb.append(txt_ref_patristica);
-            sb.append(txt_patristica);
-            sb.append(txt_patristica_respref);
-            sb.append(txt_patristica_r);
-            sb.append(sOracion);
-
-            textViewToChange.setMovementMethod(new ScrollingMovementMethod());
-            textViewToChange.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-
-            textViewToChange.setText(Html.fromHtml(sHoy + "<br><br>" + sb.toString()));
-            textViewToChange.scrollTo(0, 0);
-        } catch (JSONException e) {
-            textViewToChange.setText(e.getMessage());
-
-            e.printStackTrace();
-        }
-
-    }
 
     protected void showHi(JSONArray js_arr) {
         /*La Hora Intermedia es otro dolorcito de cabeza... estoy pensando sobre la decisión
@@ -765,7 +671,8 @@ public class BreviarioActivity extends AppCompatActivity
             String[] introArray = preces.getString("txt_preces_intro").split("\\|");
             String sPrecesCuerpo = getFormato(preces.getString("txt_preces"));
 
-            String sPreces = getPreces(introArray, sPrecesCuerpo);
+//            String sPreces = getPreces(introArray, sPrecesCuerpo);
+            String sPreces = PRECES+getPreces(introArray, sPrecesCuerpo)+PADRENUESTRO;
 
 
             String sOracion = ORACION + getFormato(hora.getString("oracion"));
@@ -931,7 +838,7 @@ public class BreviarioActivity extends AppCompatActivity
 
     private String getPreces(String introArray[], String sPreces) {
         String sFinal;
-        sFinal = introArray[0] + BRS + "<i>" + introArray[1] + "</i>" + BRS + getFormato(sPreces) + BRS + introArray[2];
+        sFinal = introArray[0] + BRS + "<i>" + introArray[1] + "</i>" + BRS + getFormato(sPreces) +BRS + introArray[2];
         return sFinal;
     }
 

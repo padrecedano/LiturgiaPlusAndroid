@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="#f5e0c2"
     tools:context="org.deiverbum.liturgiacatolica.FullscreenActivity">
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -37,21 +37,27 @@
                 android:layout_height="fill_parent"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:background="@drawable/image_border"
+
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/imageMisa"
-                    android:src="@drawable/ic_store_mall_directory_black_48dp"
+                    android:id="@+id/image_misa"
+                    android:src="@drawable/misa"
+                    style="@style/myImageView"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:background="@drawable/image_border" />
 
                 <TextView
                     android:text="Misa"
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
+                    android:padding="1dp"
+
                     android:gravity="center"
-                    android:layout_below="@+id/imageMisa"
+                    android:layout_below="@+id/image_misa"
                     android:textAllCaps="true"
                     android:textStyle="bold"
        />
@@ -63,14 +69,18 @@
                 android:layout_height="fill_parent"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:background="@drawable/image_border">
 
                 <ImageView
                     android:id="@+id/image_breviario"
-                    android:src="@drawable/ic_local_library_black_48dp"
+                    android:src="@drawable/breviario"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:background="@drawable/image_border"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
 
                 <TextView
                     android:text="Breviario"

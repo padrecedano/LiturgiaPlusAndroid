@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.deiverbum.liturgiacatolica">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--    <uses-permission android:name="android.permission.SET_DEBUG_APP" />-->
+
+    <!-- <uses-permission android:name="android.permission.SET_DEBUG_APP" /> -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
@@ -38,6 +40,33 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.deiverbum.liturgiacatolica.FullscreenActivity" />
+        </activity>
+        <activity
+            android:name=".MisaActivity"
+            android:label="@string/title_activity_misa"
+            android:parentActivityName=".FullscreenActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.deiverbum.liturgiacatolica.FullscreenActivity" />
+        </activity>
+        <activity
+            android:name=".HomiliasActivity"
+            android:label="@string/title_activity_homilias"
+            android:parentActivityName=".MisaActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.deiverbum.liturgiacatolica.MisaActivity" />
+        </activity>
+        <activity
+            android:name=".OficioActivity"
+            android:label="@string/title_activity_oficio"
+            android:parentActivityName=".BreviarioActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.deiverbum.liturgiacatolica.BreviarioActivity" />
         </activity>
     </application>
 

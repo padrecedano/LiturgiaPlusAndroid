@@ -20,5 +20,12 @@
     <string name="ri">Rituales</string>
     <string name="tr">Tradición</string>
     <string name="ot">Otras</string>
+    <string name="title_activity_misa">Misa</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="laudes_fragment">Laudes fragment</string>
+    <string name="title_activity_homilias">Homilias</string>
+    <string name="title_activity_oficio">Oficio de Lecturas</string>
 
 </resources>

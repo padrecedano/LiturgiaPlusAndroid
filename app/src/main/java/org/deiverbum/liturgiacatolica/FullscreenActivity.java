@@ -36,6 +36,7 @@ public class FullscreenActivity extends AppCompatActivity {
     private final Handler mHideHandler = new Handler();
     private View mContentView;
     ImageView imgClick;
+    ImageView imgMisa;
 
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -97,6 +98,21 @@ public class FullscreenActivity extends AppCompatActivity {
         mVisible = true;
 //        mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
+
+        imgMisa = (ImageView)findViewById(R.id.image_misa);
+
+        imgMisa.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+//                Toast.makeText(FullscreenActivity.this, "Seleccione una hora activando el menú en la parte superior izquierda", Toast.LENGTH_LONG).show();
+                Intent myIntent = new Intent(FullscreenActivity.this, MisaActivity.class);
+                startActivity(myIntent);
+
+            }
+        });
+
 
 
         // Set up the user interaction to manually show or hide the system UI.
