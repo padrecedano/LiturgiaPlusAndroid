@@ -142,12 +142,18 @@ public class BreviarioActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_la) {
 //            getJSON(LA_URL + getFecha());
+            Intent i = new Intent(BreviarioActivity.this, LaudesActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_hi) {
-            getJSON(HI1_URL + getFecha());
+//            getJSON(HI1_URL + getFecha());
+            Intent i = new Intent(BreviarioActivity.this, TerciaActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_vi) {
-            getJSON(H4_URL + getFecha());
+//            getJSON(H4_URL + getFecha());
+            Intent i = new Intent(BreviarioActivity.this, VisperasActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_co) {
             // Check that the activity is using the layout version with
@@ -309,15 +315,15 @@ public class BreviarioActivity extends AppCompatActivity
  //                   showOficio(js_arr);
                     break;
                 case 2:
-                    showLaudes(js_arr);
+ //                   showLaudes(js_arr);
                     break;
 
                 case 31:
-                    showHi(js_arr);
+ //                   showHi(js_arr);
                     break;
 
                 case 4:
-                    showVisperas(js_arr);
+  //                  showVisperas(js_arr);
                     break;
 
                 default:
@@ -331,381 +337,11 @@ public class BreviarioActivity extends AppCompatActivity
     }
 
 
-    protected void showLaudes(JSONArray js_arr) {
-        TextView textViewToChange = (TextView) findViewById(R.id.txt_container);
-        StringBuilder sb = new StringBuilder();
 
-        try {
-            JSONObject json_todo = js_arr.getJSONObject(0);
-            JSONObject liturgia = json_todo.getJSONObject("liturgia");
-            JSONObject js_info = liturgia.getJSONObject("info");
-            JSONObject lh = liturgia.getJSONObject("lh");
-            JSONObject hora = lh.getJSONObject("la");
-            JSONObject s1 = hora.getJSONObject("salmos").getJSONObject("s1");
-            JSONObject s2 = hora.getJSONObject("salmos").getJSONObject("s2");
-            JSONObject s3 = hora.getJSONObject("salmos").getJSONObject("s3");
-            JSONObject biblica = hora.getJSONObject("biblica");
-            JSONObject ce = hora.getJSONObject("ce");
 
-            JSONObject preces = hora.getJSONObject("preces");
 
-            String sVida = "";
 
-            int id_tiempo = Integer.parseInt(js_info.getString("id_tiempo"));
-            switch (id_tiempo) {
-                case 9:
-                    sVida = "<h3>" + hora.getString("txt_santo") + "</h3>" + CSS_SM_A + hora.getString("txt_vida") + CSS_SM_Z + BRS; // they are executed if variable == c1
-                    break;
-                default:
-                    break;
-            }
 
-            String sAntifonaInv = PRE_ANT + hora.getString("antifonai") + BR;
-            String sHimno = HIMNO + getFormato(hora.getString("himno"));
-
-            //Contenido completo de cada salmo... ufff
-
-            String sOrden1 = s1.getString("orden");
-            String sAntifona1 = s1.getString("antifona");
-            String sRef1 = s1.getString("txt_ref");
-            String sTema1 = s1.getString("tema");
-            String sIntro1 = s1.getString("txt_intro");
-            String sParte1 = s1.getString("parte");
-            String sSalmo1 = s1.getString("txt_salmo");
-            String sSalmoCompleto1 = getSalmoCompleto(sOrden1, sAntifona1, sRef1, sTema1, sIntro1, sParte1, sSalmo1);
-
-            String sOrden2 = s2.getString("orden");
-            String sAntifona2 = s2.getString("antifona");
-            String sRef2 = s2.getString("txt_ref");
-            String sTema2 = s2.getString("tema");
-            String sIntro2 = s2.getString("txt_intro");
-            String sParte2 = s2.getString("parte");
-            String sSalmo2 = s2.getString("txt_salmo");
-            String sSalmoCompleto2 = getSalmoCompleto(sOrden2, sAntifona2, sRef2, sTema2, sIntro2, sParte2, sSalmo2);
-
-            String sOrden3 = s3.getString("orden");
-            String sAntifona3 = s3.getString("antifona");
-            String sRef3 = s3.getString("txt_ref");
-            String sTema3 = s3.getString("tema");
-            String sIntro3 = s3.getString("txt_intro");
-            String sParte3 = s3.getString("parte");
-            String sSalmo3 = s3.getString("txt_salmo");
-            String sSalmoCompleto3 = getSalmoCompleto(sOrden3, sAntifona3, sRef3, sTema3, sIntro3, sParte3, sSalmo3);
-
-            /* Se ha creado una especie de contrato en la que a través de un código numérico (nForma)
-            se da formato a cada responsorio, usando el método getResponsorio
-             */
-/*
-            int nForma=biblica.getInt("id_forma");
-
-            String sBibilicaResp=biblica.getString("txt_responsorio");
-            if (!isNull(sBibilicaResp)) {
-                String[] respArray = biblica.getString("txt_responsorio").split("\\|");
-                sBibilicaResp=getResponsorio(respArray,nForma);
-            }
-
-*/
-//            String sLecturaBreve=CSS_RED_A+LECTURA_BREVE+NBSP_4+biblica.getString("lbreve_ref")+CSS_RED_Z+BRS+
-//                    biblica.getString("txt_lbreve")+BRS;
-            //        String sRespLBreve=RESP_BREVE+BRS+sRespLBreve;
-
-
-            String sLecturaBreve = "Hay un error con la Lectura Breve, por favor comunícala al desarrollador: padre.cedano@gmail.com";
-            String sRespLBreve = "";
-            String sForma = biblica.getString("id_forma");
-            if (sForma != null && !sForma.isEmpty())
-
-            {
-
-                int nForma = Integer.parseInt(sForma);//biblica.getInt("id_forma");
-
-                String[] respArray = biblica.getString("txt_responsorio").split("\\|");
-                sRespLBreve = getResponsorio(respArray, nForma);
-                sLecturaBreve = CSS_RED_A + LECTURA_BREVE + NBSP_4 + biblica.getString("lbreve_ref") + CSS_RED_Z + BRS +
-                        biblica.getString("txt_lbreve") + BRS;
-                sRespLBreve = RESP_BREVE + BRS + sRespLBreve;
-
-            }
-
-            String sAntifonaCE = ce.getString("txt_antifonace");
-
-            //Otro dolorcito de cabeza a resolver, las antífonas del CE de los Domingos, las cuales son trienales. Una posible solución sería incluirlas en un array
-
-            //CE con 3 ciclos
-/*            String[] ce_parts = ce.getString("txt_antifonace").split("\\|");
-            String txt_antifonace=css_redx+css_smx+"Anfífona"+css_smz+css_redz+brs+
-                    css_nbsp+css_redx+"Año A: "+css_redz+ce_parts[0]+brs+
-                    css_nbsp+css_redx+"Año B: "+css_redz+ce_parts[1]+brs+
-                    css_nbsp+css_redx+"Año C: "+css_redz+ce_parts[2];
-*/
-            sAntifonaCE = CE + sAntifonaCE + BRS;
-//            String sPrecesIntro=PRECES+preces.getString("txt_preces_intro")+BRS;
-//            String sPreces=getFormato(preces.getString("txt_preces"))+BRS;
-
-            String[] introArray = preces.getString("txt_preces_intro").split("\\|");
-            String sPrecesCuerpo = getFormato(preces.getString("txt_preces"));
-
-            String sPreces = PRECES+getPreces(introArray, sPrecesCuerpo)+PADRENUESTRO;
-
-
-            String sOracion = ORACION + getFormato(hora.getString("oracion"));
-
-            //Agregamos el contenido al Stringbuilder y lo mostramos en nuestro textview usando el formta html :)
-
-
-            sb.append(LA_TITULO);
-            sb.append(sVida);
-
-            sb.append(sAntifonaInv);
-            sb.append(sHimno);
-            sb.append(SALMODIA);
-            sb.append(sSalmoCompleto1);
-            sb.append(sSalmoCompleto2);
-            sb.append(sSalmoCompleto3);
-
-            sb.append(sLecturaBreve);
-            sb.append(sRespLBreve);
-            sb.append(sAntifonaCE);
-//            sb.append(sPrecesIntro);
-            sb.append(sPreces);
-            sb.append(sOracion);
-
-
-            textViewToChange.setMovementMethod(new ScrollingMovementMethod());
-            textViewToChange.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-
-            textViewToChange.setText(Html.fromHtml(sHoy + "<br><br>" + sb.toString()), TextView.BufferType.SPANNABLE);
-            textViewToChange.scrollTo(0, 0);
-
-        } catch (JSONException e) {
-            textViewToChange.setText(e.getMessage());
-            e.printStackTrace();
-            e.printStackTrace();
-        }
-
-    }
-
-
-
-
-    protected void showHi(JSONArray js_arr) {
-        /*La Hora Intermedia es otro dolorcito de cabeza... estoy pensando sobre la decisión
-        de qué hora mostrar, de cómo mostrarlo. Se puede usar la hora local del usuario y mostrar
-        la hora que corresponda, si son más de las 5:59 se muestra por defecto la nona.
-        Otra posibilidad es mostrar en el textview tres botones para que el usuario elija la hora.
-        Aparte de eso, hay que manejar los himnos, determinando si el día de la fecha es domingo,
-        si no es domingo, si es o no solemnidad, etc... en fin, ese lío de la hora intermedia
-        tal y como viene en el salterio
-         */
-        // Por el momento muestro la hora tercia, que he llamado, para que nos entendamos con la API, hora 31
-        TextView textViewToChange = (TextView) findViewById(R.id.txt_container);
-        StringBuilder sb = new StringBuilder();
-        try {
-
-            JSONObject json_todo = js_arr.getJSONObject(0);
-            JSONObject liturgia = json_todo.getJSONObject("liturgia");
-            JSONObject js_info = liturgia.getJSONObject("info");
-
-            JSONObject lh = liturgia.getJSONObject("lh");
-            JSONObject hora = lh.getJSONObject("hi");
-            JSONObject s1 = hora.getJSONObject("salmos").getJSONObject("s1");
-            JSONObject s2 = hora.getJSONObject("salmos").getJSONObject("s2");
-            JSONObject s3 = hora.getJSONObject("salmos").getJSONObject("s3");
-            JSONObject biblica = hora.getJSONObject("biblica");
-
-            String sHimno = HIMNO + getHimnos(hora.getString("himnos")) + BRS;
-
-            String sOrden1 = s1.getString("orden");
-            String sAntifona1 = s1.getString("antifona");
-            String sRef1 = s1.getString("txt_ref");
-            String sTema1 = s1.getString("tema");
-            String sIntro1 = s1.getString("txt_intro");
-            String sParte1 = s1.getString("parte");
-
-            String sSalmo1 = s1.getString("txt_salmo");
-            String sSalmoCompleto1 = getSalmoCompleto(sOrden1, sAntifona1, sRef1, sTema1, sIntro1, sParte1, sSalmo1);
-
-            String sOrden2 = s2.getString("orden");
-            String sAntifona2 = s2.getString("antifona");
-            String sRef2 = s2.getString("txt_ref");
-            String sTema2 = s2.getString("tema");
-            String sIntro2 = s2.getString("txt_intro");
-            String sParte2 = s2.getString("parte");
-            String sSalmo2 = s2.getString("txt_salmo");
-            String sSalmoCompleto2 = getSalmoCompleto(sOrden2, sAntifona2, sRef2, sTema2, sIntro2, sParte2, sSalmo2);
-
-            String sOrden3 = s3.getString("orden");
-            String sAntifona3 = s3.getString("antifona");
-            String sRef3 = s3.getString("txt_ref");
-            String sTema3 = s3.getString("tema");
-            String sIntro3 = s3.getString("txt_intro");
-            String sParte3 = s3.getString("parte");
-            String sSalmo3 = s3.getString("txt_salmo");
-            String sSalmoCompleto3 = getSalmoCompleto(sOrden3, sAntifona3, sRef3, sTema3, sIntro3, sParte3, sSalmo3);
-
-            String sBiblicaResp = biblica.getString("txt_responsorio");
-            String sResponsorio = "";
-            if (sBiblicaResp != null && !sBiblicaResp.isEmpty() && !sBiblicaResp.equals("null")) {
-
-                String[] respArray = sBiblicaResp.split("\\|");
-                sResponsorio = getResponsorio(respArray, 31);
-            }
-
-            String sBiblica = CSS_RED_A + LECTURA_BREVE + NBSP_4
-                    + biblica.getString("lbreve_ref") + CSS_RED_Z + BRS + biblica.getString("txt_lbreve") + BRS;
-
-            String sOracion = ORACION + getFormato(hora.getString("oracion"));
-
-            sb.append(HI_TITULO + BRS + "Por el momento sólo se muestra la Hora Tercia" + BRS);
-            sb.append(sHimno);
-            sb.append(SALMODIA);
-            sb.append(sSalmoCompleto1);
-            sb.append(sSalmoCompleto2);
-            sb.append(sSalmoCompleto3);
-
-            sb.append(sBiblica);
-            sb.append(sResponsorio);
-            sb.append(sOracion);
-
-            textViewToChange.setMovementMethod(new ScrollingMovementMethod());
-            textViewToChange.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-
-            textViewToChange.setText(Html.fromHtml(sHoy + "<br><br>" + sb.toString()), TextView.BufferType.SPANNABLE);
-            textViewToChange.scrollTo(0, 0);
-
-        } catch (JSONException e) {
-            textViewToChange.setText(e.getMessage());
-            e.printStackTrace();
-            e.printStackTrace();
-        }
-
-    }
-
-
-    protected void showVisperas(JSONArray js_arr) {
-        TextView textViewToChange = (TextView) findViewById(R.id.txt_container);
-        StringBuilder sb = new StringBuilder();
-
-        try {
-
-            JSONObject json_todo = js_arr.getJSONObject(0);
-            JSONObject liturgia = json_todo.getJSONObject("liturgia");
-            JSONObject js_info = liturgia.getJSONObject("info");
-            JSONObject lh = liturgia.getJSONObject("lh");
-            JSONObject hora = lh.getJSONObject("vi");
-            JSONObject s1 = hora.getJSONObject("salmos").getJSONObject("s1");
-            JSONObject s2 = hora.getJSONObject("salmos").getJSONObject("s2");
-            JSONObject s3 = hora.getJSONObject("salmos").getJSONObject("s3");
-            JSONObject biblica = hora.getJSONObject("biblica");
-            JSONObject ce = hora.getJSONObject("ce");
-
-            JSONObject preces = hora.getJSONObject("preces");
-
-            String sVida = "";
-
-            int id_tiempo = js_info.getInt("id_tiempo");
-            switch (id_tiempo) {
-                case 9:
-                    sVida = CSS_B_A + hora.getString("txt_santo") + CSS_B_Z + BRS + CSS_SM_A + hora.getString("txt_vida") + CSS_SM_Z;
-                    break;
-                default:
-                    break;
-            }
-
-            String sOrden1 = s1.getString("orden");
-            String sAntifona1 = s1.getString("antifona");
-            String sRef1 = s1.getString("txt_ref");
-            String sTema1 = s1.getString("tema");
-            String sIntro1 = s1.getString("txt_intro");
-            String sParte1 = s1.getString("parte");
-            String sSalmo1 = s1.getString("txt_salmo");
-            String sSalmoCompleto1 = getSalmoCompleto(sOrden1, sAntifona1, sRef1, sTema1, sIntro1, sParte1, sSalmo1);
-
-            String sOrden2 = s2.getString("orden");
-            String sAntifona2 = s2.getString("antifona");
-            String sRef2 = s2.getString("txt_ref");
-            String sTema2 = s2.getString("tema");
-            String sIntro2 = s2.getString("txt_intro");
-            String sParte2 = s2.getString("parte");
-            String sSalmo2 = s2.getString("txt_salmo");
-            String sSalmoCompleto2 = getSalmoCompleto(sOrden2, sAntifona2, sRef2, sTema2, sIntro2, sParte2, sSalmo2);
-
-            String sOrden3 = s3.getString("orden");
-            String sAntifona3 = s3.getString("antifona");
-            String sRef3 = s3.getString("txt_ref");
-            String sTema3 = s3.getString("tema");
-            String sIntro3 = s3.getString("txt_intro");
-            String sParte3 = s3.getString("parte");
-            String sSalmo3 = s3.getString("txt_salmo");
-            String sSalmoCompleto3 = getSalmoCompleto(sOrden3, sAntifona3, sRef3, sTema3, sIntro3, sParte3, sSalmo3);
-
-//            String sAntifonaInv = PRE_ANT+hora.getString("antifonai")+BR;
-            String sHimno = HIMNO + getFormato(hora.getString("himno"));
-            String sLecturaBreve = "Hay un error con la Lectura Breve, por favor comunícala al desarrollador: padre.cedano@gmail.com";
-            String sRespLBreve = "";
-            String sForma = biblica.getString("id_forma");
-            if (sForma != null && !sForma.isEmpty())
-
-            {
-
-                int nForma = Integer.parseInt(sForma);//biblica.getInt("id_forma");
-
-                String[] respArray = biblica.getString("txt_responsorio").split("\\|");
-                sRespLBreve = getResponsorio(respArray, nForma);
-                sLecturaBreve = CSS_RED_A + LECTURA_BREVE + NBSP_4 + biblica.getString("lbreve_ref") + CSS_RED_Z + BRS +
-                        biblica.getString("txt_lbreve") + BRS;
-                sRespLBreve = RESP_BREVE + BRS + sRespLBreve;
-
-            }
-            String sAntifonaCE = ce.getString("txt_antifonace");
-
-            //CE con 3 ciclos
-/*            String[] ce_parts = ce.getString("txt_antifonace").split("\\|");
-            String txt_antifonace=css_redx+css_smx+"Anfífona"+css_smz+css_redz+brs+
-                    css_nbsp+css_redx+"Año A: "+css_redz+ce_parts[0]+brs+
-                    css_nbsp+css_redx+"Año B: "+css_redz+ce_parts[1]+brs+
-                    css_nbsp+css_redx+"Año C: "+css_redz+ce_parts[2];
-*/
-            sAntifonaCE = CE + sAntifonaCE + BRS;
-//            String sPrecesIntro=PRECES+preces.getString("txt_preces_intro")+BRS;
-            String[] introArray = preces.getString("txt_preces_intro").split("\\|");
-            String sPrecesCuerpo = getFormato(preces.getString("txt_preces"));
-
-//            String sPreces = getPreces(introArray, sPrecesCuerpo);
-            String sPreces = PRECES+getPreces(introArray, sPrecesCuerpo)+PADRENUESTRO;
-
-
-            String sOracion = ORACION + getFormato(hora.getString("oracion"));
-
-            sb.append(VI_TITULO);
-
-            //           sb.append(sAntifonaInv);
-            sb.append(sHimno);
-            sb.append(SALMODIA);
-            sb.append(sSalmoCompleto1);
-            sb.append(sSalmoCompleto2);
-            sb.append(sSalmoCompleto3);
-
-            sb.append(sLecturaBreve);
-            sb.append(sRespLBreve);
-            sb.append(sAntifonaCE);
-            //           sb.append(sPrecesIntro);
-            sb.append(sPreces);
-            sb.append(sOracion);
-
-            textViewToChange.setMovementMethod(new ScrollingMovementMethod());
-            textViewToChange.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-
-            textViewToChange.setText(Html.fromHtml(sHoy + "<br><br>" + sb.toString()), TextView.BufferType.SPANNABLE);
-            textViewToChange.scrollTo(0, 0);
-
-        } catch (JSONException e) {
-            textViewToChange.setText(e.getMessage());
-            e.printStackTrace();
-            e.printStackTrace();
-        }
-
-    }
 
 
     /**

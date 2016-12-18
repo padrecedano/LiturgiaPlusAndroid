@@ -68,6 +68,33 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.deiverbum.liturgiacatolica.BreviarioActivity" />
         </activity>
+        <activity
+            android:name=".LaudesActivity"
+            android:label="@string/title_activity_laudes"
+            android:parentActivityName=".BreviarioActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.deiverbum.liturgiacatolica.BreviarioActivity" />
+        </activity>
+        <activity
+            android:name=".TerciaActivity"
+            android:label="@string/title_activity_tercia"
+            android:parentActivityName=".BreviarioActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.deiverbum.liturgiacatolica.BreviarioActivity" />
+        </activity>
+        <activity
+            android:name=".VisperasActivity"
+            android:label="@string/title_activity_visperas"
+            android:parentActivityName=".BreviarioActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.deiverbum.liturgiacatolica.BreviarioActivity" />
+        </activity>
     </application>
 
 </manifest>

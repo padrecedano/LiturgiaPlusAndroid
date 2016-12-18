@@ -59,7 +59,7 @@ public class Utils {
                 .replace("_", NBSP_SALMOS)
                 .replace("§", BRS)
                 .replace("~", BR)
-                .replace("¦", BR+NBSP_4)
+                .replace("¦", NBSP_4)
                 .replace("≠", PRECES_R)
                 .replace("∞", PRECES_IL)
                 .replace("ℇ", OBIEN)
@@ -148,7 +148,7 @@ public class Utils {
      * @return Una cadena con el responsorio completo, con sus respectivos V. y R.
      */
 
-    private String getHimnos(String sOrigen)
+    public String getHimnos(String sOrigen)
     {
         String sFinal = "";
 

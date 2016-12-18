@@ -1,10 +1,15 @@
 package org.deiverbum.liturgiacatolica;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,29 +27,20 @@ import org.json.JSONObject;
 
 import utils.Utils;
 
-import static org.deiverbum.liturgiacatolica.Constants.BR;
 import static org.deiverbum.liturgiacatolica.Constants.BRS;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_RED_A;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_RED_Z;
-import static org.deiverbum.liturgiacatolica.Constants.CSS_SM_A;
-import static org.deiverbum.liturgiacatolica.Constants.CSS_SM_Z;
 import static org.deiverbum.liturgiacatolica.Constants.ERR_GENERAL;
+import static org.deiverbum.liturgiacatolica.Constants.HI1_URL;
 import static org.deiverbum.liturgiacatolica.Constants.HIMNO;
+import static org.deiverbum.liturgiacatolica.Constants.HI_TITULO;
 import static org.deiverbum.liturgiacatolica.Constants.LA_URL;
-import static org.deiverbum.liturgiacatolica.Constants.NBSP_2;
+import static org.deiverbum.liturgiacatolica.Constants.LECTURA_BREVE;
 import static org.deiverbum.liturgiacatolica.Constants.NBSP_4;
-import static org.deiverbum.liturgiacatolica.Constants.OL_TITULO;
-import static org.deiverbum.liturgiacatolica.Constants.OL_URL;
 import static org.deiverbum.liturgiacatolica.Constants.ORACION;
-import static org.deiverbum.liturgiacatolica.Constants.PRE_ANT;
-import static org.deiverbum.liturgiacatolica.Constants.PRIMERA_LECTURA;
-import static org.deiverbum.liturgiacatolica.Constants.RESP_LOWER;
-import static org.deiverbum.liturgiacatolica.Constants.RESP_R;
-import static org.deiverbum.liturgiacatolica.Constants.RESP_V;
 import static org.deiverbum.liturgiacatolica.Constants.SALMODIA;
-import static org.deiverbum.liturgiacatolica.Constants.SEGUNDA_LECTURA;
 
-public class OficioActivity extends AppCompatActivity {
+public class TerciaActivity extends AppCompatActivity {
     private Utils utilClass;
     ArrayAdapter adapter;
     ListView listView;
@@ -58,30 +54,30 @@ public class OficioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_oficio);
+        setContentView(R.layout.activity_tercia);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        requestQueue= Volley.newRequestQueue(this);
-
         utilClass = new Utils();
+        requestQueue= Volley.newRequestQueue(this);
 
         // Nueva petición JSONObject
         jsArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                OL_URL + utilClass.getHoy(),
+                HI1_URL + utilClass.getHoy(),
                 "",
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        TextView mTextView = (TextView) findViewById(R.id.txt_oficio);
+                        TextView mTextView = (TextView) findViewById(R.id.txt_tercia);
                         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
 
-                        items = showOficio(response);
+                        items = showTercia(response);
 //                        adapter.notifyDataSetChanged();
-                        mTextView.setText(utilClass.fromHtml(items));
+                        mTextView.setText(Utils.fromHtml(items));
+//                        mTextView.setText(response.toString());
+
 
                     }
                 },
@@ -89,7 +85,7 @@ public class OficioActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, "Error Respuesta en JSON: " + error.getMessage());
-                        TextView mTextView = (TextView) findViewById(R.id.txt_oficio);
+                        TextView mTextView = (TextView) findViewById(R.id.txt_tercia);
                         String sError=ERR_GENERAL+"<br>El error generado es el siguiente: "+error.getMessage().toString();
                         mTextView.setText(utilClass.fromHtml(sError));
                     }
@@ -99,42 +95,36 @@ public class OficioActivity extends AppCompatActivity {
         // Añadir petición a la cola
         requestQueue.add(jsArrayRequest);
 
-
     }
 
-    protected String showOficio(JSONArray js_arr) {
 
-
-
+    protected String showTercia(JSONArray js_arr) {
+        /*La Hora Intermedia es otro dolorcito de cabeza... estoy pensando sobre la decisión
+        de qué hora mostrar, de cómo mostrarlo. Se puede usar la hora local del usuario y mostrar
+        la hora que corresponda, si son más de las 5:59 se muestra por defecto la nona.
+        Otra posibilidad es mostrar en el textview tres botones para que el usuario elija la hora.
+        Aparte de eso, hay que manejar los himnos, determinando si el día de la fecha es domingo,
+        si no es domingo, si es o no solemnidad, etc... en fin, ese lío de la hora intermedia
+        tal y como viene en el salterio
+         */
+        // Por el momento muestro la hora tercia, que he llamado, para que nos entendamos con la API, hora 31
+        TextView textViewToChange = (TextView) findViewById(R.id.txt_container);
         StringBuilder sb = new StringBuilder();
-
         try {
+
             JSONObject json_todo = js_arr.getJSONObject(0);
             JSONObject liturgia = json_todo.getJSONObject("liturgia");
-            JSONObject info = liturgia.getJSONObject("info");
+            JSONObject js_info = liturgia.getJSONObject("info");
 
             JSONObject lh = liturgia.getJSONObject("lh");
-            JSONObject hora = lh.getJSONObject("ol");
+            JSONObject hora = lh.getJSONObject("hi");
             JSONObject s1 = hora.getJSONObject("salmos").getJSONObject("s1");
             JSONObject s2 = hora.getJSONObject("salmos").getJSONObject("s2");
             JSONObject s3 = hora.getJSONObject("salmos").getJSONObject("s3");
-
             JSONObject biblica = hora.getJSONObject("biblica");
-            JSONObject patristica = hora.getJSONObject("patristica");
 
-            String sAntifonaInv = PRE_ANT + hora.getString("antifonai") + BR;
-            String sVida = "";
+            String sHimno = HIMNO + utilClass.getHimnos(hora.getString("himnos")) + BRS;
 
-            int id_tiempo = Integer.parseInt(info.getString("id_tiempo"));
-            switch (id_tiempo) {
-                case 9:
-                    sVida = "<h3>" + hora.getString("txt_santo") + "</h3>" + CSS_SM_A + hora.getString("txt_vida") + CSS_SM_Z + BRS; // they are executed if variable == c1
-                    break;
-                default:
-                    break;
-            }
-
-            String sHimno = HIMNO + utilClass.getFormato(hora.getString("himno")) + BRS;
             String sOrden1 = s1.getString("orden");
             String sAntifona1 = s1.getString("antifona");
             String sRef1 = s1.getString("txt_ref");
@@ -163,85 +153,44 @@ public class OficioActivity extends AppCompatActivity {
             String sSalmo3 = s3.getString("txt_salmo");
             String sSalmoCompleto3 = utilClass.getSalmoCompleto(sOrden3, sAntifona3, sRef3, sTema3, sIntro3, sParte3, sSalmo3);
 
-            //Lecturas
-            String sRespOl = hora.getString("resp");
-            if (!utilClass.isNull(sRespOl)) {
-                String[] RespOlarray = sRespOl.split("\\|");
-                sRespOl = RESP_V + RespOlarray[0] + BR + RESP_R + RespOlarray[1] + BRS;
-            }
-            //Bíblica
-            String txt_biblica_obra = PRIMERA_LECTURA + biblica.getString("b_libro") +
-                    CSS_RED_A + NBSP_4 +
-                    biblica.getString("cap") + ", " + biblica.getString("vi") + biblica.getString("vf")
-                    + CSS_RED_Z + BRS;
-            String txt_biblica_tema = CSS_RED_A + biblica.getString("txt_biblica_tema") + CSS_RED_Z;
-            String txt_biblica = biblica.getString("txt_biblica");
-            String txt_biblica_respref = CSS_RED_A + RESP_LOWER + NBSP_2 + biblica.getString("txt_biblica_respref") + CSS_RED_Z + BRS;
-            String sBiblicaResp = biblica.getString("txt_biblica_resp");
-            String txt_biblica_r = "";
-
-            //Hay que construir el responsorio. Los responsorios son recibidos en forma de matriz y en base a un código son desplegados
-
+            String sBiblicaResp = biblica.getString("txt_responsorio");
+            String sResponsorio = "";
             if (sBiblicaResp != null && !sBiblicaResp.isEmpty() && !sBiblicaResp.equals("null")) {
 
-                String[] br_parts = sBiblicaResp.split("\\|");
-                txt_biblica_r = utilClass.getResponsorio(br_parts, 1);
+                String[] respArray = sBiblicaResp.split("\\|");
+                sResponsorio = utilClass.getResponsorio(respArray, 31);
             }
 
-
-            //Patrística
-            String txt_patristica;
-
-            String padre_obra = SEGUNDA_LECTURA + patristica.getString("padre") + ", " +
-                    patristica.getString("obra_tipo") + patristica.getString("obra");
-            String txt_ref_patristica = BR + CSS_RED_A + CSS_SM_A + "(" + patristica.getString("txt_ref_patristica") + ")" + CSS_SM_Z +
-                    BRS + patristica.getString("txt_tema_patristica") + CSS_RED_Z;
-
-            txt_patristica = patristica.getString("txt_patristica");
-            String txt_patristica_respref = CSS_RED_A + RESP_LOWER + " " + patristica.getString("txt_patristica_respref") + CSS_RED_Z + BRS;
-            String sPatristicaResp = patristica.getString("txt_patristica_resp");
-            String txt_patristica_r = "";
-            if (sPatristicaResp != null && !sPatristicaResp.isEmpty() && !sPatristicaResp.equals("null")) {
-
-                String[] pr_parts = sPatristicaResp.split("\\|");
-                txt_patristica_r = utilClass.getResponsorio(pr_parts, 1);
-            }
+            String sBiblica = CSS_RED_A + LECTURA_BREVE + NBSP_4
+                    + biblica.getString("lbreve_ref") + CSS_RED_Z + BRS + biblica.getString("txt_lbreve") + BRS;
 
             String sOracion = ORACION + utilClass.getFormato(hora.getString("oracion"));
 
-            sb.append(OL_TITULO);
-            sb.append(sVida);
-            sb.append(sAntifonaInv);
+            sb.append(HI_TITULO + BRS + "Por el momento sólo se muestra la Hora Tercia" + BRS);
             sb.append(sHimno);
             sb.append(SALMODIA);
             sb.append(sSalmoCompleto1);
             sb.append(sSalmoCompleto2);
             sb.append(sSalmoCompleto3);
 
-            sb.append(sRespOl);
-            sb.append(txt_biblica_obra);
-            sb.append(txt_biblica_tema);
-            sb.append(txt_biblica);
-            sb.append(txt_biblica_respref);
-            sb.append(txt_biblica_r);
-            sb.append(padre_obra);
-            sb.append(txt_ref_patristica);
-            sb.append(txt_patristica);
-            sb.append(txt_patristica_respref);
-            sb.append(txt_patristica_r);
+            sb.append(sBiblica);
+            sb.append(sResponsorio);
             sb.append(sOracion);
 
- //           textViewToChange.setMovementMethod(new ScrollingMovementMethod());
- //           textViewToChange.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+/*            textViewToChange.setMovementMethod(new ScrollingMovementMethod());
+            textViewToChange.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
 
- //           textViewToChange.setText(Html.fromHtml(utilClass.getHoy() + "<br><br>" + sb.toString()));
- //           textViewToChange.scrollTo(0, 0);
+            textViewToChange.setText(Html.fromHtml(utilClass.getHoy() + "<br><br>" + sb.toString()), TextView.BufferType.SPANNABLE);
+            textViewToChange.scrollTo(0, 0);
+*/
         } catch (JSONException e) {
-//            textViewToChange.setText(e.getMessage());
-
+            textViewToChange.setText(e.getMessage());
+            e.printStackTrace();
             e.printStackTrace();
         }
 
         return sb.toString();
     }
+
+
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Liturgia Católica</string>
+    <string name="app_name">Liturgia+</string>
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">LITURGIA\nCATÓLICA</string>
@@ -27,5 +27,8 @@
     <string name="laudes_fragment">Laudes fragment</string>
     <string name="title_activity_homilias">Homilias</string>
     <string name="title_activity_oficio">Oficio de Lecturas</string>
+    <string name="title_activity_laudes">Laudes</string>
+    <string name="title_activity_tercia">Tercia</string>
+    <string name="title_activity_visperas">Vísperas</string>
 
 </resources>

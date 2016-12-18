@@ -1,10 +1,15 @@
 package org.deiverbum.liturgiacatolica;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,29 +27,28 @@ import org.json.JSONObject;
 
 import utils.Utils;
 
-import static org.deiverbum.liturgiacatolica.Constants.BR;
 import static org.deiverbum.liturgiacatolica.Constants.BRS;
+import static org.deiverbum.liturgiacatolica.Constants.CE;
+import static org.deiverbum.liturgiacatolica.Constants.CSS_B_A;
+import static org.deiverbum.liturgiacatolica.Constants.CSS_B_Z;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_RED_A;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_RED_Z;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_SM_A;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_SM_Z;
 import static org.deiverbum.liturgiacatolica.Constants.ERR_GENERAL;
+import static org.deiverbum.liturgiacatolica.Constants.H4_URL;
 import static org.deiverbum.liturgiacatolica.Constants.HIMNO;
 import static org.deiverbum.liturgiacatolica.Constants.LA_URL;
-import static org.deiverbum.liturgiacatolica.Constants.NBSP_2;
+import static org.deiverbum.liturgiacatolica.Constants.LECTURA_BREVE;
 import static org.deiverbum.liturgiacatolica.Constants.NBSP_4;
-import static org.deiverbum.liturgiacatolica.Constants.OL_TITULO;
-import static org.deiverbum.liturgiacatolica.Constants.OL_URL;
 import static org.deiverbum.liturgiacatolica.Constants.ORACION;
-import static org.deiverbum.liturgiacatolica.Constants.PRE_ANT;
-import static org.deiverbum.liturgiacatolica.Constants.PRIMERA_LECTURA;
-import static org.deiverbum.liturgiacatolica.Constants.RESP_LOWER;
-import static org.deiverbum.liturgiacatolica.Constants.RESP_R;
-import static org.deiverbum.liturgiacatolica.Constants.RESP_V;
+import static org.deiverbum.liturgiacatolica.Constants.PADRENUESTRO;
+import static org.deiverbum.liturgiacatolica.Constants.PRECES;
+import static org.deiverbum.liturgiacatolica.Constants.RESP_BREVE;
 import static org.deiverbum.liturgiacatolica.Constants.SALMODIA;
-import static org.deiverbum.liturgiacatolica.Constants.SEGUNDA_LECTURA;
+import static org.deiverbum.liturgiacatolica.Constants.VI_TITULO;
 
-public class OficioActivity extends AppCompatActivity {
+public class VisperasActivity extends AppCompatActivity {
     private Utils utilClass;
     ArrayAdapter adapter;
     ListView listView;
@@ -58,30 +62,39 @@ public class OficioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_oficio);
+        setContentView(R.layout.activity_visperas);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+/*        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        requestQueue= Volley.newRequestQueue(this);
-
         utilClass = new Utils();
+        requestQueue= Volley.newRequestQueue(this);
 
         // Nueva petición JSONObject
         jsArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                OL_URL + utilClass.getHoy(),
+                H4_URL + utilClass.getHoy(),
                 "",
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        TextView mTextView = (TextView) findViewById(R.id.txt_oficio);
+                        TextView mTextView = (TextView) findViewById(R.id.txt_visperas);
                         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
 
-                        items = showOficio(response);
+                        items = showVisperas(response);
 //                        adapter.notifyDataSetChanged();
-                        mTextView.setText(utilClass.fromHtml(items));
+                        mTextView.setText(Utils.fromHtml(items));
+//                        mTextView.setText(response.toString());
+
 
                     }
                 },
@@ -89,7 +102,7 @@ public class OficioActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, "Error Respuesta en JSON: " + error.getMessage());
-                        TextView mTextView = (TextView) findViewById(R.id.txt_oficio);
+                        TextView mTextView = (TextView) findViewById(R.id.txt_visperas);
                         String sError=ERR_GENERAL+"<br>El error generado es el siguiente: "+error.getMessage().toString();
                         mTextView.setText(utilClass.fromHtml(sError));
                     }
@@ -99,49 +112,43 @@ public class OficioActivity extends AppCompatActivity {
         // Añadir petición a la cola
         requestQueue.add(jsArrayRequest);
 
-
     }
-
-    protected String showOficio(JSONArray js_arr) {
-
-
-
+    protected String showVisperas(JSONArray js_arr) {
+        TextView textViewToChange = (TextView) findViewById(R.id.txt_container);
         StringBuilder sb = new StringBuilder();
 
         try {
+
             JSONObject json_todo = js_arr.getJSONObject(0);
             JSONObject liturgia = json_todo.getJSONObject("liturgia");
-            JSONObject info = liturgia.getJSONObject("info");
-
+            JSONObject js_info = liturgia.getJSONObject("info");
             JSONObject lh = liturgia.getJSONObject("lh");
-            JSONObject hora = lh.getJSONObject("ol");
+            JSONObject hora = lh.getJSONObject("vi");
             JSONObject s1 = hora.getJSONObject("salmos").getJSONObject("s1");
             JSONObject s2 = hora.getJSONObject("salmos").getJSONObject("s2");
             JSONObject s3 = hora.getJSONObject("salmos").getJSONObject("s3");
-
             JSONObject biblica = hora.getJSONObject("biblica");
-            JSONObject patristica = hora.getJSONObject("patristica");
+            JSONObject ce = hora.getJSONObject("ce");
 
-            String sAntifonaInv = PRE_ANT + hora.getString("antifonai") + BR;
+            JSONObject preces = hora.getJSONObject("preces");
+
             String sVida = "";
 
-            int id_tiempo = Integer.parseInt(info.getString("id_tiempo"));
+            int id_tiempo = js_info.getInt("id_tiempo");
             switch (id_tiempo) {
                 case 9:
-                    sVida = "<h3>" + hora.getString("txt_santo") + "</h3>" + CSS_SM_A + hora.getString("txt_vida") + CSS_SM_Z + BRS; // they are executed if variable == c1
+                    sVida = CSS_B_A + hora.getString("txt_santo") + CSS_B_Z + BRS + CSS_SM_A + hora.getString("txt_vida") + CSS_SM_Z;
                     break;
                 default:
                     break;
             }
 
-            String sHimno = HIMNO + utilClass.getFormato(hora.getString("himno")) + BRS;
             String sOrden1 = s1.getString("orden");
             String sAntifona1 = s1.getString("antifona");
             String sRef1 = s1.getString("txt_ref");
             String sTema1 = s1.getString("tema");
             String sIntro1 = s1.getString("txt_intro");
             String sParte1 = s1.getString("parte");
-
             String sSalmo1 = s1.getString("txt_salmo");
             String sSalmoCompleto1 = utilClass.getSalmoCompleto(sOrden1, sAntifona1, sRef1, sTema1, sIntro1, sParte1, sSalmo1);
 
@@ -163,85 +170,72 @@ public class OficioActivity extends AppCompatActivity {
             String sSalmo3 = s3.getString("txt_salmo");
             String sSalmoCompleto3 = utilClass.getSalmoCompleto(sOrden3, sAntifona3, sRef3, sTema3, sIntro3, sParte3, sSalmo3);
 
-            //Lecturas
-            String sRespOl = hora.getString("resp");
-            if (!utilClass.isNull(sRespOl)) {
-                String[] RespOlarray = sRespOl.split("\\|");
-                sRespOl = RESP_V + RespOlarray[0] + BR + RESP_R + RespOlarray[1] + BRS;
+//            String sAntifonaInv = PRE_ANT+hora.getString("antifonai")+BR;
+            String sHimno = HIMNO + utilClass.getFormato(hora.getString("himno"));
+            String sLecturaBreve = "Hay un error con la Lectura Breve, por favor comunícala al desarrollador: padre.cedano@gmail.com";
+            String sRespLBreve = "";
+            String sForma = biblica.getString("id_forma");
+            if (sForma != null && !sForma.isEmpty())
+
+            {
+
+                int nForma = Integer.parseInt(sForma);//biblica.getInt("id_forma");
+
+                String[] respArray = biblica.getString("txt_responsorio").split("\\|");
+                sRespLBreve = utilClass.getResponsorio(respArray, nForma);
+                sLecturaBreve = CSS_RED_A + LECTURA_BREVE + NBSP_4 + biblica.getString("lbreve_ref") + CSS_RED_Z + BRS +
+                        biblica.getString("txt_lbreve") + BRS;
+                sRespLBreve = RESP_BREVE + BRS + sRespLBreve;
+
             }
-            //Bíblica
-            String txt_biblica_obra = PRIMERA_LECTURA + biblica.getString("b_libro") +
-                    CSS_RED_A + NBSP_4 +
-                    biblica.getString("cap") + ", " + biblica.getString("vi") + biblica.getString("vf")
-                    + CSS_RED_Z + BRS;
-            String txt_biblica_tema = CSS_RED_A + biblica.getString("txt_biblica_tema") + CSS_RED_Z;
-            String txt_biblica = biblica.getString("txt_biblica");
-            String txt_biblica_respref = CSS_RED_A + RESP_LOWER + NBSP_2 + biblica.getString("txt_biblica_respref") + CSS_RED_Z + BRS;
-            String sBiblicaResp = biblica.getString("txt_biblica_resp");
-            String txt_biblica_r = "";
+            String sAntifonaCE = ce.getString("txt_antifonace");
 
-            //Hay que construir el responsorio. Los responsorios son recibidos en forma de matriz y en base a un código son desplegados
+            //CE con 3 ciclos
+/*            String[] ce_parts = ce.getString("txt_antifonace").split("\\|");
+            String txt_antifonace=css_redx+css_smx+"Anfífona"+css_smz+css_redz+brs+
+                    css_nbsp+css_redx+"Año A: "+css_redz+ce_parts[0]+brs+
+                    css_nbsp+css_redx+"Año B: "+css_redz+ce_parts[1]+brs+
+                    css_nbsp+css_redx+"Año C: "+css_redz+ce_parts[2];
+*/
+            sAntifonaCE = CE + sAntifonaCE + BRS;
+//            String sPrecesIntro=PRECES+preces.getString("txt_preces_intro")+BRS;
+            String[] introArray = preces.getString("txt_preces_intro").split("\\|");
+            String sPrecesCuerpo = utilClass.getFormato(preces.getString("txt_preces"));
 
-            if (sBiblicaResp != null && !sBiblicaResp.isEmpty() && !sBiblicaResp.equals("null")) {
+//            String sPreces = getPreces(introArray, sPrecesCuerpo);
+            String sPreces = PRECES+utilClass.getPreces(introArray, sPrecesCuerpo)+PADRENUESTRO;
 
-                String[] br_parts = sBiblicaResp.split("\\|");
-                txt_biblica_r = utilClass.getResponsorio(br_parts, 1);
-            }
-
-
-            //Patrística
-            String txt_patristica;
-
-            String padre_obra = SEGUNDA_LECTURA + patristica.getString("padre") + ", " +
-                    patristica.getString("obra_tipo") + patristica.getString("obra");
-            String txt_ref_patristica = BR + CSS_RED_A + CSS_SM_A + "(" + patristica.getString("txt_ref_patristica") + ")" + CSS_SM_Z +
-                    BRS + patristica.getString("txt_tema_patristica") + CSS_RED_Z;
-
-            txt_patristica = patristica.getString("txt_patristica");
-            String txt_patristica_respref = CSS_RED_A + RESP_LOWER + " " + patristica.getString("txt_patristica_respref") + CSS_RED_Z + BRS;
-            String sPatristicaResp = patristica.getString("txt_patristica_resp");
-            String txt_patristica_r = "";
-            if (sPatristicaResp != null && !sPatristicaResp.isEmpty() && !sPatristicaResp.equals("null")) {
-
-                String[] pr_parts = sPatristicaResp.split("\\|");
-                txt_patristica_r = utilClass.getResponsorio(pr_parts, 1);
-            }
 
             String sOracion = ORACION + utilClass.getFormato(hora.getString("oracion"));
 
-            sb.append(OL_TITULO);
-            sb.append(sVida);
-            sb.append(sAntifonaInv);
+            sb.append(VI_TITULO);
+
+            //           sb.append(sAntifonaInv);
             sb.append(sHimno);
             sb.append(SALMODIA);
             sb.append(sSalmoCompleto1);
             sb.append(sSalmoCompleto2);
             sb.append(sSalmoCompleto3);
 
-            sb.append(sRespOl);
-            sb.append(txt_biblica_obra);
-            sb.append(txt_biblica_tema);
-            sb.append(txt_biblica);
-            sb.append(txt_biblica_respref);
-            sb.append(txt_biblica_r);
-            sb.append(padre_obra);
-            sb.append(txt_ref_patristica);
-            sb.append(txt_patristica);
-            sb.append(txt_patristica_respref);
-            sb.append(txt_patristica_r);
+            sb.append(sLecturaBreve);
+            sb.append(sRespLBreve);
+            sb.append(sAntifonaCE);
+            //           sb.append(sPrecesIntro);
+            sb.append(sPreces);
             sb.append(sOracion);
 
- //           textViewToChange.setMovementMethod(new ScrollingMovementMethod());
- //           textViewToChange.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+ /*           textViewToChange.setMovementMethod(new ScrollingMovementMethod());
+            textViewToChange.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
 
- //           textViewToChange.setText(Html.fromHtml(utilClass.getHoy() + "<br><br>" + sb.toString()));
- //           textViewToChange.scrollTo(0, 0);
+            textViewToChange.setText(Html.fromHtml(utilClass.getHoy() + "<br><br>" + sb.toString()), TextView.BufferType.SPANNABLE);
+            textViewToChange.scrollTo(0, 0);
+*/
         } catch (JSONException e) {
-//            textViewToChange.setText(e.getMessage());
-
+            e.printStackTrace();
             e.printStackTrace();
         }
 
         return sb.toString();
     }
+
 }
