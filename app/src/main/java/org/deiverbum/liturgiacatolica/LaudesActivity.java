@@ -1,15 +1,10 @@
 package org.deiverbum.liturgiacatolica;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -48,15 +43,15 @@ import static org.deiverbum.liturgiacatolica.Constants.RESP_BREVE;
 import static org.deiverbum.liturgiacatolica.Constants.SALMODIA;
 
 public class LaudesActivity extends AppCompatActivity {
-    private Utils utilClass;
+    private static final String URL_BASE = "http://deiverbum.org/api/v1/h4.php?fecha=";
+    private static final String URL_JSON = "misa";
+    private static final String TAG = "PostAdapter";
     ArrayAdapter adapter;
     ListView listView;
     String items;
-    private static final String URL_BASE = "http://deiverbum.org/api/v1/h4.php?fecha=";
-    private static final String URL_JSON = "misa";
-    private RequestQueue requestQueue;
     JsonArrayRequest jsArrayRequest;
-    private static final String TAG = "PostAdapter";
+    private Utils utilClass;
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +72,7 @@ public class LaudesActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        TextView mTextView = (TextView) findViewById(R.id.txt_laudes);
+                        TextView mTextView = (TextView) findViewById(R.id.txt_breviario);
                         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
 
                         items = showLaudes(response);
@@ -92,9 +87,9 @@ public class LaudesActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, "Error Respuesta en JSON: " + error.getMessage());
-                        TextView mTextView = (TextView) findViewById(R.id.txt_laudes);
+                        TextView mTextView = (TextView) findViewById(R.id.txt_breviario);
                         String sError=ERR_GENERAL+"<br>El error generado es el siguiente: "+error.getMessage().toString();
-                        mTextView.setText(utilClass.fromHtml(sError));
+                        mTextView.setText(Utils.fromHtml(sError));
                     }
                 }
         );

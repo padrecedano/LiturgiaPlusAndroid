@@ -5,6 +5,7 @@
     android:id="@+id/content_visperas"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/txt_salterio"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -12,16 +13,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="org.deiverbum.liturgiacatolica.VisperasActivity"
     tools:showIn="@layout/activity_visperas">
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/txt_visperas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name" />
-    </ScrollView>
+    <include layout="@layout/content_breviario_general" />
 
 </RelativeLayout>

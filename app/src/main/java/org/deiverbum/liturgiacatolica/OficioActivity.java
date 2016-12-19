@@ -1,5 +1,6 @@
 package org.deiverbum.liturgiacatolica;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -30,12 +31,12 @@ import static org.deiverbum.liturgiacatolica.Constants.CSS_SM_A;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_SM_Z;
 import static org.deiverbum.liturgiacatolica.Constants.ERR_GENERAL;
 import static org.deiverbum.liturgiacatolica.Constants.HIMNO;
-import static org.deiverbum.liturgiacatolica.Constants.LA_URL;
 import static org.deiverbum.liturgiacatolica.Constants.NBSP_2;
 import static org.deiverbum.liturgiacatolica.Constants.NBSP_4;
 import static org.deiverbum.liturgiacatolica.Constants.OL_TITULO;
 import static org.deiverbum.liturgiacatolica.Constants.OL_URL;
 import static org.deiverbum.liturgiacatolica.Constants.ORACION;
+import static org.deiverbum.liturgiacatolica.Constants.PACIENCIA;
 import static org.deiverbum.liturgiacatolica.Constants.PRE_ANT;
 import static org.deiverbum.liturgiacatolica.Constants.PRIMERA_LECTURA;
 import static org.deiverbum.liturgiacatolica.Constants.RESP_LOWER;
@@ -45,15 +46,15 @@ import static org.deiverbum.liturgiacatolica.Constants.SALMODIA;
 import static org.deiverbum.liturgiacatolica.Constants.SEGUNDA_LECTURA;
 
 public class OficioActivity extends AppCompatActivity {
-    private Utils utilClass;
+    private static final String URL_BASE = "";
+    private static final String URL_JSON = "misa";
+    private static final String TAG = "PostAdapter";
     ArrayAdapter adapter;
     ListView listView;
     String items;
-    private static final String URL_BASE = "http://deiverbum.org/api/v1/h4.php?fecha=";
-    private static final String URL_JSON = "misa";
-    private RequestQueue requestQueue;
     JsonArrayRequest jsArrayRequest;
-    private static final String TAG = "PostAdapter";
+    private Utils utilClass;
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,8 @@ public class OficioActivity extends AppCompatActivity {
         requestQueue= Volley.newRequestQueue(this);
 
         utilClass = new Utils();
+        final ProgressDialog progressDialog = new ProgressDialog(OficioActivity.this);
+        progressDialog.setMessage(PACIENCIA);
 
         // Nueva petición JSONObject
         jsArrayRequest = new JsonArrayRequest(
@@ -81,7 +84,8 @@ public class OficioActivity extends AppCompatActivity {
 
                         items = showOficio(response);
 //                        adapter.notifyDataSetChanged();
-                        mTextView.setText(utilClass.fromHtml(items));
+                        mTextView.setText(Utils.fromHtml(items));
+                        progressDialog.dismiss();
 
                     }
                 },
@@ -91,13 +95,16 @@ public class OficioActivity extends AppCompatActivity {
                         Log.d(TAG, "Error Respuesta en JSON: " + error.getMessage());
                         TextView mTextView = (TextView) findViewById(R.id.txt_oficio);
                         String sError=ERR_GENERAL+"<br>El error generado es el siguiente: "+error.getMessage().toString();
-                        mTextView.setText(utilClass.fromHtml(sError));
+                        mTextView.setText(Utils.fromHtml(sError));
+                        progressDialog.dismiss();
+
                     }
                 }
         );
 
         // Añadir petición a la cola
         requestQueue.add(jsArrayRequest);
+        progressDialog.show();
 
 
     }

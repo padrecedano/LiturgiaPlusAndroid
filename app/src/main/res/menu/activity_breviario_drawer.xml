@@ -1,45 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <!--    <group android:checkableBehavior="single">
+            <item
+                android:id="@+id/nav_ol"
+                android:icon="@drawable/ic_today_black"
+                android:title="@string/ol" />
+            <item
+                android:id="@+id/nav_la"
+                android:icon="@drawable/ic_looks_two_black_24dp"
+                android:title="@string/la" />
+            <item
+                android:id="@+id/nav_hi"
+                android:icon="@drawable/ic_looks_3_black_24dp"
+                android:title="@string/hi" />
+            <item
+                android:id="@+id/nav_vi"
+                android:icon="@drawable/ic_looks_4_black_24dp"
+                android:title="@string/vi" />
+            <item
+                android:id="@+id/nav_co"
+                android:icon="@drawable/ic_looks_5_black_24dp"
+                android:title="@string/co" />
+
+        </group>
+
+        <item android:title="@string/ot">
+            <menu>
+    -->
+    <group
+        android:id="@+id/menu_liturgia"
+        android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_ol"
-            android:icon="@drawable/ic_today_black"
-            android:title="@string/ol" />
+            android:id="@+id/nav_misa"
+                android:icon="@drawable/ic_store_mall_directory_black_24dp"
+            android:title="@string/lbl_misa_hoy" />
+            <item
+                android:id="@+id/nav_homilias"
+                android:icon="@drawable/ic_homilias_24dp"
+                android:title="@string/lbl_homilias_hoy" />
         <item
-            android:id="@+id/nav_la"
-            android:icon="@drawable/ic_looks_two_black_24dp"
-            android:title="@string/la" />
-        <item
-            android:id="@+id/nav_hi"
-            android:icon="@drawable/ic_looks_3_black_24dp"
-            android:title="@string/hi" />
-        <item
-            android:id="@+id/nav_vi"
-            android:icon="@drawable/ic_looks_4_black_24dp"
-            android:title="@string/vi" />
-        <item
-            android:id="@+id/nav_co"
-            android:icon="@drawable/ic_looks_5_black_24dp"
-            android:title="@string/co" />
+            android:id="@+id/nav_evangelio"
+            android:icon="@drawable/ic_message_black_24dp"
+            android:title="@string/lbl_comentarios_hoy" />
 
     </group>
+    <group
+        android:id="@+id/menu_santo"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_santo"
+            android:icon="@drawable/ic_santo_24dp"
+            android:title="@string/lbl_santo_hoy" />
+    </group>
+    <group
+        android:id="@+id/menu_libros"
+        android:checkableBehavior="single">
 
-    <item android:title="@string/ot">
-        <menu>
-            <item
-                android:id="@+id/nav_mi"
-                android:icon="@drawable/ic_store_mall_directory_black_24dp"
-                android:title="@string/mi" />
-            <item
-                android:id="@+id/nav_ri"
-                android:icon="@drawable/ic_local_library_black_24dp"
-                android:title="@string/ri" />
-            <item
-                android:id="@+id/nav_tr"
-                android:icon="@drawable/ic_message_black_24dp"
-                android:title="@string/tr" />
-        </menu>
-    </item>
-
+        <item
+            android:id="@+id/nav_rituales"
+            android:icon="@drawable/ic_libro_24dp"
+            android:title="@string/lbl_rituales" />
+    </group>
+    <!--       </menu>
+       </item>
+   -->
 </menu>

@@ -1,15 +1,11 @@
 package org.deiverbum.liturgiacatolica;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,22 +30,22 @@ import static org.deiverbum.liturgiacatolica.Constants.ERR_GENERAL;
 import static org.deiverbum.liturgiacatolica.Constants.HI1_URL;
 import static org.deiverbum.liturgiacatolica.Constants.HIMNO;
 import static org.deiverbum.liturgiacatolica.Constants.HI_TITULO;
-import static org.deiverbum.liturgiacatolica.Constants.LA_URL;
 import static org.deiverbum.liturgiacatolica.Constants.LECTURA_BREVE;
 import static org.deiverbum.liturgiacatolica.Constants.NBSP_4;
 import static org.deiverbum.liturgiacatolica.Constants.ORACION;
+import static org.deiverbum.liturgiacatolica.Constants.PACIENCIA;
 import static org.deiverbum.liturgiacatolica.Constants.SALMODIA;
 
 public class TerciaActivity extends AppCompatActivity {
-    private Utils utilClass;
+    private static final String URL_BASE = "http://deiverbum.org/api/v1/h4.php?fecha=";
+    private static final String URL_JSON = "misa";
+    private static final String TAG = "PostAdapter";
     ArrayAdapter adapter;
     ListView listView;
     String items;
-    private static final String URL_BASE = "http://deiverbum.org/api/v1/h4.php?fecha=";
-    private static final String URL_JSON = "misa";
-    private RequestQueue requestQueue;
     JsonArrayRequest jsArrayRequest;
-    private static final String TAG = "PostAdapter";
+    private Utils utilClass;
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +56,8 @@ public class TerciaActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         utilClass = new Utils();
+        final ProgressDialog progressDialog = new ProgressDialog(TerciaActivity.this);
+        progressDialog.setMessage(PACIENCIA);
         requestQueue= Volley.newRequestQueue(this);
 
         // Nueva petición JSONObject
@@ -77,6 +75,7 @@ public class TerciaActivity extends AppCompatActivity {
 //                        adapter.notifyDataSetChanged();
                         mTextView.setText(Utils.fromHtml(items));
 //                        mTextView.setText(response.toString());
+                        progressDialog.dismiss();
 
 
                     }
@@ -87,13 +86,15 @@ public class TerciaActivity extends AppCompatActivity {
                         Log.d(TAG, "Error Respuesta en JSON: " + error.getMessage());
                         TextView mTextView = (TextView) findViewById(R.id.txt_tercia);
                         String sError=ERR_GENERAL+"<br>El error generado es el siguiente: "+error.getMessage().toString();
-                        mTextView.setText(utilClass.fromHtml(sError));
+                        mTextView.setText(Utils.fromHtml(sError));
+                        progressDialog.dismiss();
                     }
                 }
         );
 
         // Añadir petición a la cola
         requestQueue.add(jsArrayRequest);
+        progressDialog.show();
 
     }
 

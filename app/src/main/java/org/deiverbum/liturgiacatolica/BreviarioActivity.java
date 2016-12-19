@@ -15,11 +15,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CalendarView.OnDateChangeListener;
 import android.widget.TextView;
@@ -39,13 +40,29 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import static org.deiverbum.liturgiacatolica.Constants.*;
+import static org.deiverbum.liturgiacatolica.Constants.BR;
+import static org.deiverbum.liturgiacatolica.Constants.BRS;
+import static org.deiverbum.liturgiacatolica.Constants.CSS_RED_A;
+import static org.deiverbum.liturgiacatolica.Constants.CSS_RED_Z;
+import static org.deiverbum.liturgiacatolica.Constants.CSS_SM_A;
+import static org.deiverbum.liturgiacatolica.Constants.CSS_SM_Z;
+import static org.deiverbum.liturgiacatolica.Constants.ERR_RESPONSORIO;
+import static org.deiverbum.liturgiacatolica.Constants.NBSP_4;
+import static org.deiverbum.liturgiacatolica.Constants.NBSP_SALMOS;
+import static org.deiverbum.liturgiacatolica.Constants.OBIEN;
+import static org.deiverbum.liturgiacatolica.Constants.PRECES_IL;
+import static org.deiverbum.liturgiacatolica.Constants.PRECES_R;
+import static org.deiverbum.liturgiacatolica.Constants.PRE_ANT;
+import static org.deiverbum.liturgiacatolica.Constants.RESP_A;
+import static org.deiverbum.liturgiacatolica.Constants.RESP_R;
+import static org.deiverbum.liturgiacatolica.Constants.RESP_V;
 
 
 public class BreviarioActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnDateChangeListener {
     CalendarView calendar = null;
     private String sHoy = getFecha();//"201610099";
+    private WebView webView;
 
 
     @Override
@@ -79,6 +96,51 @@ public class BreviarioActivity extends AppCompatActivity
         });
 */
 
+        final Button btnMixto = (Button) findViewById(R.id.btn_mixto);
+        btnMixto.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mensajeTemporal();
+//                Intent i = new Intent(BreviarioActivity.this, OficioActivity.class);
+//                startActivity(i);
+
+            }
+        });
+
+        final Button btnOficio = (Button) findViewById(R.id.btn_oficio);
+        btnOficio.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(BreviarioActivity.this, OficioActivity.class);
+                startActivity(i);
+
+            }
+        });
+
+        final Button btnLaudes = (Button) findViewById(R.id.btn_laudes);
+        btnLaudes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(BreviarioActivity.this, LaudesActivity.class);
+                startActivity(i);
+
+            }
+        });
+
+        final Button btnVisperas = (Button) findViewById(R.id.btn_visperas);
+        btnVisperas.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(BreviarioActivity.this, VisperasActivity.class);
+                startActivity(i);
+
+            }
+        });
+
+        final Button btnTercia = (Button) findViewById(R.id.btn_tercia);
+        btnTercia.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(BreviarioActivity.this, TerciaActivity.class);
+                startActivity(i);
+
+            }
+        });
     }
 
 
@@ -131,8 +193,8 @@ public class BreviarioActivity extends AppCompatActivity
         int id = item.getItemId();
         final TextView textViewToChange = (TextView) findViewById(R.id.txt_container);
 
-        if (id == R.id.nav_ol) {
-            Intent i = new Intent(BreviarioActivity.this, OficioActivity.class);
+        if (id == R.id.nav_misa) {
+            Intent i = new Intent(BreviarioActivity.this, MisaActivity.class);
             startActivity(i);
 
 
@@ -140,22 +202,27 @@ public class BreviarioActivity extends AppCompatActivity
 //            Intent i = new Intent(BreviarioActivity.this, OficioActivity.class);
 //            startActivity(i);
 
-        } else if (id == R.id.nav_la) {
+        } else if (id == R.id.nav_rituales) {
 //            getJSON(LA_URL + getFecha());
+
+            webView = (WebView) findViewById(R.id.webViewHomilias);
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.loadUrl("https://drive.google.com/open?id=0B0jwB_jVsocpbjZMTkE5dUVjczQ");
+
             Intent i = new Intent(BreviarioActivity.this, LaudesActivity.class);
             startActivity(i);
 
-        } else if (id == R.id.nav_hi) {
+        } else if (id == R.id.nav_homilias) {
 //            getJSON(HI1_URL + getFecha());
-            Intent i = new Intent(BreviarioActivity.this, TerciaActivity.class);
+            Intent i = new Intent(BreviarioActivity.this, HomiliasActivity.class);
             startActivity(i);
 
-        } else if (id == R.id.nav_vi) {
+        } else if (id == R.id.nav_santo) {
 //            getJSON(H4_URL + getFecha());
             Intent i = new Intent(BreviarioActivity.this, VisperasActivity.class);
             startActivity(i);
 
-        } else if (id == R.id.nav_co) {
+        } else if (id == R.id.nav_evangelio) {
             // Check that the activity is using the layout version with
             // the fragment_container FrameLayout
             if (findViewById(R.id.fragment_container) != null) {
@@ -192,13 +259,6 @@ public class BreviarioActivity extends AppCompatActivity
 
 // Commit the transaction
 //            transaction.commit();
-        } else if (id == R.id.nav_mi) {
-            textViewToChange.setText("Próximamente...");
-
-        } else if (id == R.id.nav_ri) {
-            textViewToChange.setText("Próximamente...");
-        } else if (id == R.id.nav_tr) {
-            textViewToChange.setText("Próximamente...");
 
         }
 
@@ -207,6 +267,14 @@ public class BreviarioActivity extends AppCompatActivity
         return true;
     }
 
+
+    private void mensajeTemporal() {
+        Context context = getApplicationContext();
+        CharSequence text = "Este módulo se encuentra en fase de desarrollo... perdona las molestias.";
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
     private void getJSON(String url) {
 
         class GetJSON extends AsyncTask<String, Void, String> {

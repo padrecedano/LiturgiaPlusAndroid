@@ -65,18 +65,27 @@ import static utils.MisaConstantes.SI_GLORIA;
 
 public class MisaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private Utils utilClass;
-
+    private static final String URL_BASE = "http://deiverbum.org/api/beta/";
+    private static final String URL_JSON = "misa";
+    private static final String TAG = "PostAdapter";
     ArrayAdapter adapter;
     ListView listView;
     String items;
-    private static final String URL_BASE = "http://deiverbum.org/api/";
-    private static final String URL_JSON = "misa";
-    private RequestQueue requestQueue;
     JsonObjectRequest jsArrayRequest;
-    private static final String TAG = "PostAdapter";
+    private Utils utilClass;
+    private RequestQueue requestQueue;
 
-
+    //Ojo solución a fromHTML deprecated... ver: http://stackoverflow.com/questions/37904739/html-fromhtml-deprecated-in-android-n
+    @SuppressWarnings("deprecation")
+    public static Spanned fromHtml(String html) {
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -399,7 +408,6 @@ public class MisaActivity extends AppCompatActivity
 
     }
 
-
     /**
      * Método que determina crea los diferentes elementos de las lecturas de la Misa
      *
@@ -472,27 +480,6 @@ public class MisaActivity extends AppCompatActivity
 */
         return sb.toString();
 
-    }
-
-
-
-
-
-
-
-
-
-
-    //Ojo solución a fromHTML deprecated... ver: http://stackoverflow.com/questions/37904739/html-fromhtml-deprecated-in-android-n
-    @SuppressWarnings("deprecation")
-    public static Spanned fromHtml(String html){
-        Spanned result;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            result = Html.fromHtml(html);
-        }
-        return result;
     }
 
 }

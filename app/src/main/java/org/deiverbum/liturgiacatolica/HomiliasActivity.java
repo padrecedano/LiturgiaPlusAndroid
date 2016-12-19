@@ -7,30 +7,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONObject;
 
 public class HomiliasActivity extends AppCompatActivity {
 
     private static final String URL_BASE = "http://deiverbum.org/api/";
     private static final String URL_JSON = "homilias";
-    private RequestQueue requestQueue;
     JsonObjectRequest jsArrayRequest;
     String items;
     ArrayAdapter adapter;
+    private RequestQueue requestQueue;
+    private WebView webView;
+
+    //Ojo solución a fromHTML deprecated... ver: http://stackoverflow.com/questions/37904739/html-fromhtml-deprecated-in-android-n
+    @SuppressWarnings("deprecation")
+    public static Spanned fromHtml(String html) {
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +43,14 @@ public class HomiliasActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final TextView mTextView = (TextView) findViewById(R.id.txt_homilias);
+//        final TextView mTextView = (TextView) findViewById(R.id.txt_homilias);
+        webView = (WebView) findViewById(R.id.webViewHomilias);
+        webView.setWebViewClient(new MyWebViewClient());
 
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("https://drive.google.com/open?id=0B0jwB_jVsocpbjZMTkE5dUVjczQ");
 // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
+/*        RequestQueue queue = Volley.newRequestQueue(this);
         String url ="http://www.deiverbum.org/api/homilias";
 
 // Request a string response from the provided URL.
@@ -62,7 +70,7 @@ public class HomiliasActivity extends AppCompatActivity {
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
-
+*/
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -74,17 +82,5 @@ public class HomiliasActivity extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    //Ojo solución a fromHTML deprecated... ver: http://stackoverflow.com/questions/37904739/html-fromhtml-deprecated-in-android-n
-    @SuppressWarnings("deprecation")
-    public static Spanned fromHtml(String html){
-        Spanned result;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            result = Html.fromHtml(html);
-        }
-        return result;
     }
 }

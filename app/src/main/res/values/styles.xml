@@ -35,4 +35,38 @@
         <item name="android:background">@drawable/image_border</item>
         <item name="android:scaleType">fitCenter</item>
     </style>
+
+    <style name="st_mixto" parent="Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@color/mixto_boton</item>
+    </style>
+
+    <style name="st_oficio" parent="Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@color/oficio_boton</item>
+    </style>
+
+    <style name="st_laudes" parent="Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@color/laudes_boton</item>
+    </style>
+
+    <style name="st_tercia" parent="Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@color/tercia_boton</item>
+    </style>
+
+    <style name="st_sexta" parent="Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@color/sexta_boton</item>
+    </style>
+
+    <style name="st_nona" parent="Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@color/nona_boton</item>
+    </style>
+
+    <style name="st_visperas" parent="Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@color/visperas_boton</item>
+    </style>
+
+    <style name="st_completas" parent="Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@color/completas_boton</item>
+    </style>
+
+
 </resources>

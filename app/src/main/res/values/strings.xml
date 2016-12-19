@@ -10,15 +10,18 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_breviario">Liturgia de las Horas</string>
-    <string name="e_mail">a.cedano@deiverbum.org</string>
+    <string name="e_mail">padre.cedano@gmail.com</string>
     <string name="ol">Oficio de Lecturas</string>
     <string name="la">Laudes</string>
     <string name="hi">Hora Intermedia</string>
     <string name="vi">Vísperas</string>
     <string name="co">Completas</string>
-    <string name="mi">Misa</string>
-    <string name="ri">Rituales</string>
-    <string name="tr">Tradición</string>
+    <string name="lbl_misa">Misa</string>
+    <string name="lbl_misa_hoy">Misa de hoy</string>
+    <string name="lbl_homilias_hoy">Homilías para hoy</string>
+    <string name="lbl_comentarios_hoy">Comentarios Evangelio</string>
+    <string name="lbl_santo_hoy">Santo del día</string>
+    <string name="lbl_rituales">Rituales</string>
     <string name="ot">Otras</string>
     <string name="title_activity_misa">Misa</string>
 
@@ -28,7 +31,7 @@
     <string name="title_activity_homilias">Homilias</string>
     <string name="title_activity_oficio">Oficio de Lecturas</string>
     <string name="title_activity_laudes">Laudes</string>
-    <string name="title_activity_tercia">Tercia</string>
+    <string name="title_activity_tercia">Hora Intermedia: Tercia</string>
     <string name="title_activity_visperas">Vísperas</string>
 
 </resources>

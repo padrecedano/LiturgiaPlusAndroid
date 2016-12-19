@@ -12,15 +12,22 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="org.deiverbum.liturgiacatolica.HomiliasActivity"
     tools:showIn="@layout/activity_homilias">
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/txt_homilias"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name" />
-    </ScrollView>
+    <WebView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/webViewHomilias"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+    <!--     <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+           <TextView
+                android:id="@+id/txt_homilias"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name" />
+
+        </ScrollView>
+    -->
 </RelativeLayout>
