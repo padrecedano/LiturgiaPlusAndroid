@@ -40,6 +40,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import utils.Utils;
+
 import static org.deiverbum.liturgiacatolica.Constants.BR;
 import static org.deiverbum.liturgiacatolica.Constants.BRS;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_RED_A;
@@ -141,6 +143,38 @@ public class BreviarioActivity extends AppCompatActivity
 
             }
         });
+
+        final Button btnSexta = (Button) findViewById(R.id.btn_sexta);
+        btnSexta.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mensajeTemporal();
+//                Intent i = new Intent(BreviarioActivity.this, OficioActivity.class);
+//                startActivity(i);
+
+            }
+        });
+
+        final Button btnNona = (Button) findViewById(R.id.btn_nona);
+        btnNona.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mensajeTemporal();
+//                Intent i = new Intent(BreviarioActivity.this, OficioActivity.class);
+//                startActivity(i);
+
+            }
+        });
+
+        final Button btnCompletas = (Button) findViewById(R.id.btn_completas);
+        btnCompletas.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mensajeTemporal();
+//                Intent i = new Intent(BreviarioActivity.this, OficioActivity.class);
+//                startActivity(i);
+
+            }
+        });
+
+
     }
 
 
@@ -203,15 +237,18 @@ public class BreviarioActivity extends AppCompatActivity
 //            startActivity(i);
 
         } else if (id == R.id.nav_rituales) {
+            Utils utilClass = new Utils();
+            utilClass.mensajeTemporal(getApplicationContext());
+
 //            getJSON(LA_URL + getFecha());
 
-            webView = (WebView) findViewById(R.id.webViewHomilias);
+/*            webView = (WebView) findViewById(R.id.webViewHomilias);
             webView.getSettings().setJavaScriptEnabled(true);
             webView.loadUrl("https://drive.google.com/open?id=0B0jwB_jVsocpbjZMTkE5dUVjczQ");
-
-            Intent i = new Intent(BreviarioActivity.this, LaudesActivity.class);
+*/
+/*            Intent i = new Intent(BreviarioActivity.this, LaudesActivity.class);
             startActivity(i);
-
+*/
         } else if (id == R.id.nav_homilias) {
 //            getJSON(HI1_URL + getFecha());
             Intent i = new Intent(BreviarioActivity.this, HomiliasActivity.class);
@@ -219,12 +256,16 @@ public class BreviarioActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_santo) {
 //            getJSON(H4_URL + getFecha());
-            Intent i = new Intent(BreviarioActivity.this, VisperasActivity.class);
-            startActivity(i);
+            Utils utilClass = new Utils();
+            utilClass.mensajeTemporal(getApplicationContext());
+
 
         } else if (id == R.id.nav_evangelio) {
             // Check that the activity is using the layout version with
             // the fragment_container FrameLayout
+            Intent i = new Intent(BreviarioActivity.this, EvangelioActivity.class);
+            startActivity(i);
+
             if (findViewById(R.id.fragment_container) != null) {
 
                 // However, if we're being restored from a previous state,

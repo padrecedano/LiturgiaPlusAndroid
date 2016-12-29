@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="txt_salterio">#74f7c65d</color>
+    <color name="home">#30efc85c</color>
 
     <color name="mixto_boton">#32efa65c</color>
     <color name="oficio_boton">#70efc85c</color>

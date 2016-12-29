@@ -61,6 +61,7 @@ public class TerciaActivity extends AppCompatActivity {
         requestQueue= Volley.newRequestQueue(this);
 
         // Nueva petición JSONObject
+        // utilClass.getHoy()
         jsArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 HI1_URL + utilClass.getHoy(),
@@ -115,77 +116,86 @@ public class TerciaActivity extends AppCompatActivity {
 
             JSONObject json_todo = js_arr.getJSONObject(0);
             JSONObject liturgia = json_todo.getJSONObject("liturgia");
-            JSONObject js_info = liturgia.getJSONObject("info");
+            JSONObject oInfo = liturgia.getJSONObject("info");
 
-            JSONObject lh = liturgia.getJSONObject("lh");
-            JSONObject hora = lh.getJSONObject("hi");
-            JSONObject s1 = hora.getJSONObject("salmos").getJSONObject("s1");
-            JSONObject s2 = hora.getJSONObject("salmos").getJSONObject("s2");
-            JSONObject s3 = hora.getJSONObject("salmos").getJSONObject("s3");
-            JSONObject biblica = hora.getJSONObject("biblica");
+            int nCodigo = Integer.parseInt(oInfo.getString("codigo"));
+            if (nCodigo < 1) {
+                sb.append(ERR_GENERAL);
 
-            String sHimno = HIMNO + utilClass.getHimnos(hora.getString("himnos")) + BRS;
+            } else {
 
-            String sOrden1 = s1.getString("orden");
-            String sAntifona1 = s1.getString("antifona");
-            String sRef1 = s1.getString("txt_ref");
-            String sTema1 = s1.getString("tema");
-            String sIntro1 = s1.getString("txt_intro");
-            String sParte1 = s1.getString("parte");
+                JSONObject lh = liturgia.getJSONObject("lh");
+                JSONObject hora = lh.getJSONObject("hi");
+                JSONObject s1 = hora.getJSONObject("salmos").getJSONObject("s1");
+                JSONObject s2 = hora.getJSONObject("salmos").getJSONObject("s2");
+                JSONObject s3 = hora.getJSONObject("salmos").getJSONObject("s3");
+                JSONObject biblica = hora.getJSONObject("biblica");
 
-            String sSalmo1 = s1.getString("txt_salmo");
-            String sSalmoCompleto1 = utilClass.getSalmoCompleto(sOrden1, sAntifona1, sRef1, sTema1, sIntro1, sParte1, sSalmo1);
+                String sMensaje = oInfo.getString("mensaje");
 
-            String sOrden2 = s2.getString("orden");
-            String sAntifona2 = s2.getString("antifona");
-            String sRef2 = s2.getString("txt_ref");
-            String sTema2 = s2.getString("tema");
-            String sIntro2 = s2.getString("txt_intro");
-            String sParte2 = s2.getString("parte");
-            String sSalmo2 = s2.getString("txt_salmo");
-            String sSalmoCompleto2 = utilClass.getSalmoCompleto(sOrden2, sAntifona2, sRef2, sTema2, sIntro2, sParte2, sSalmo2);
+//            String sHimnos =  + utilClass.getHimnos(hora.getString("himnos")) + BRS;
 
-            String sOrden3 = s3.getString("orden");
-            String sAntifona3 = s3.getString("antifona");
-            String sRef3 = s3.getString("txt_ref");
-            String sTema3 = s3.getString("tema");
-            String sIntro3 = s3.getString("txt_intro");
-            String sParte3 = s3.getString("parte");
-            String sSalmo3 = s3.getString("txt_salmo");
-            String sSalmoCompleto3 = utilClass.getSalmoCompleto(sOrden3, sAntifona3, sRef3, sTema3, sIntro3, sParte3, sSalmo3);
 
-            String sBiblicaResp = biblica.getString("txt_responsorio");
-            String sResponsorio = "";
-            if (sBiblicaResp != null && !sBiblicaResp.isEmpty() && !sBiblicaResp.equals("null")) {
+//            if (!utilClass.isNull(sPrecesIntro)) {
 
-                String[] respArray = sBiblicaResp.split("\\|");
-                sResponsorio = utilClass.getResponsorio(respArray, 31);
+
+                String sHimno = HIMNO + utilClass.getHimnos(hora.getString("himnos")) + BRS;
+
+                String sOrden1 = s1.getString("orden");
+                String sAntifona1 = s1.getString("antifona");
+                String sRef1 = s1.getString("txt_ref");
+                String sTema1 = s1.getString("tema");
+                String sIntro1 = s1.getString("txt_intro");
+                String sParte1 = s1.getString("parte");
+
+                String sSalmo1 = s1.getString("txt_salmo");
+                String sSalmoCompleto1 = utilClass.getSalmoCompleto(sOrden1, sAntifona1, sRef1, sTema1, sIntro1, sParte1, sSalmo1);
+
+                String sOrden2 = s2.getString("orden");
+                String sAntifona2 = s2.getString("antifona");
+                String sRef2 = s2.getString("txt_ref");
+                String sTema2 = s2.getString("tema");
+                String sIntro2 = s2.getString("txt_intro");
+                String sParte2 = s2.getString("parte");
+                String sSalmo2 = s2.getString("txt_salmo");
+                String sSalmoCompleto2 = utilClass.getSalmoCompleto(sOrden2, sAntifona2, sRef2, sTema2, sIntro2, sParte2, sSalmo2);
+
+                String sOrden3 = s3.getString("orden");
+                String sAntifona3 = s3.getString("antifona");
+                String sRef3 = s3.getString("txt_ref");
+                String sTema3 = s3.getString("tema");
+                String sIntro3 = s3.getString("txt_intro");
+                String sParte3 = s3.getString("parte");
+                String sSalmo3 = s3.getString("txt_salmo");
+                String sSalmoCompleto3 = utilClass.getSalmoCompleto(sOrden3, sAntifona3, sRef3, sTema3, sIntro3, sParte3, sSalmo3);
+
+                String sBiblicaResp = biblica.getString("txt_responsorio");
+                String sResponsorio = "";
+                if (sBiblicaResp != null && !sBiblicaResp.isEmpty() && !sBiblicaResp.equals("null")) {
+
+                    String[] respArray = sBiblicaResp.split("\\|");
+                    sResponsorio = utilClass.getResponsorio(respArray, 31);
+                }
+
+                String sBiblica = CSS_RED_A + LECTURA_BREVE + NBSP_4
+                        + biblica.getString("lbreve_ref") + CSS_RED_Z + BRS + biblica.getString("txt_lbreve") + BRS;
+
+                String sOracion = ORACION + utilClass.getFormato(hora.getString("oracion"));
+
+                sb.append(HI_TITULO);
+                sb.append(sMensaje);
+
+                sb.append(sHimno);
+                sb.append(SALMODIA);
+                sb.append(sSalmoCompleto1);
+                sb.append(sSalmoCompleto2);
+                sb.append(sSalmoCompleto3);
+
+                sb.append(sBiblica);
+                sb.append(sResponsorio);
+                sb.append(sOracion);
             }
-
-            String sBiblica = CSS_RED_A + LECTURA_BREVE + NBSP_4
-                    + biblica.getString("lbreve_ref") + CSS_RED_Z + BRS + biblica.getString("txt_lbreve") + BRS;
-
-            String sOracion = ORACION + utilClass.getFormato(hora.getString("oracion"));
-
-            sb.append(HI_TITULO + BRS + "Por el momento sólo se muestra la Hora Tercia" + BRS);
-            sb.append(sHimno);
-            sb.append(SALMODIA);
-            sb.append(sSalmoCompleto1);
-            sb.append(sSalmoCompleto2);
-            sb.append(sSalmoCompleto3);
-
-            sb.append(sBiblica);
-            sb.append(sResponsorio);
-            sb.append(sOracion);
-
-/*            textViewToChange.setMovementMethod(new ScrollingMovementMethod());
-            textViewToChange.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-
-            textViewToChange.setText(Html.fromHtml(utilClass.getHoy() + "<br><br>" + sb.toString()), TextView.BufferType.SPANNABLE);
-            textViewToChange.scrollTo(0, 0);
-*/
         } catch (JSONException e) {
-            textViewToChange.setText(e.getMessage());
             e.printStackTrace();
             e.printStackTrace();
         }

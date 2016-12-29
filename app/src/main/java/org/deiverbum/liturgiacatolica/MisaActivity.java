@@ -117,6 +117,7 @@ public class MisaActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final TextView mTextView = (TextView) findViewById(R.id.txt_container);
         mTextView.setMovementMethod(new ScrollingMovementMethod());
@@ -192,9 +193,24 @@ public class MisaActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            final TextView mTextView = (TextView) findViewById(R.id.txt_container);
-            mTextView.setMovementMethod(new ScrollingMovementMethod());
+        if (id == R.id.nav_homilias) {
+            Intent i = new Intent(MisaActivity.this, HomiliasActivity.class);
+            startActivity(i);
+        } else if (id == R.id.nav_evangelio) {
+
+            Intent i = new Intent(MisaActivity.this, EvangelioActivity.class);
+            startActivity(i);
+
+        } else if (id == R.id.nav_santo) {
+            utilClass = new Utils();
+            utilClass.mensajeTemporal(getApplicationContext());
+
+        } else if (id == R.id.nav_rituales) {
+            utilClass = new Utils();
+            utilClass.mensajeTemporal(getApplicationContext());
+
+//            final TextView mTextView = (TextView) findViewById(R.id.txt_container);
+//            mTextView.setMovementMethod(new ScrollingMovementMethod());
 
 /*            requestQueue= Volley.newRequestQueue(this);
 

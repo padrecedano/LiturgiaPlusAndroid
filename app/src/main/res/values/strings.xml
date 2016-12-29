@@ -2,7 +2,7 @@
     <string name="app_name">Liturgia+</string>
 
     <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">LITURGIA\nCATÓLICA</string>
+    <string name="dummy_content">LITURGIA CATÓLICA</string>
     <string name="title_activity_liturgia_horas">Liturgia de las Horas</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -33,5 +33,7 @@
     <string name="title_activity_laudes">Laudes</string>
     <string name="title_activity_tercia">Hora Intermedia: Tercia</string>
     <string name="title_activity_visperas">Vísperas</string>
+    <string name="title_activity_breviario2">Breviario</string>
+    <string name="title_activity_evangelio">Comentarios Evangelio</string>
 
 </resources>

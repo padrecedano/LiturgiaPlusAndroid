@@ -1,7 +1,9 @@
 package utils;
 
+import android.content.Context;
 import android.text.Html;
 import android.text.Spanned;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,6 +31,18 @@ import static org.deiverbum.liturgiacatolica.Constants.RESP_V;
  */
 
 public class Utils {
+    //Ojo solución a fromHTML deprecated... ver: http://stackoverflow.com/questions/37904739/html-fromhtml-deprecated-in-android-n
+    @SuppressWarnings("deprecation")
+    public static Spanned fromHtml(String html) {
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
+    }
+
     /**
      * Método que da formato a algunos textos recibidos desde el servidor <br />
      * He creado una especie de contrato entre la API y la APP para reducir el volúmen de datos <br />
@@ -37,7 +51,7 @@ public class Utils {
      * § : salto de párrafo <br />
      * _ : salto de línea y sangría (para los salmos y algunos himnos)
      * ~ : salto de línea sin sangría
-     * ¦ : varios espacios en blanco (una especia de tabulador), se usa en algunas referencias de textos
+     * ¦ : DIFERENCIAR UNO CON SALTO Y OTRO SIN SALTO varios espacios en blanco (una especia de tabulador), se usa en algunas referencias de textos
      * ∞ : la rúbrica <i>Se pueden añadir algunas intenciones libres.</i>
      * ≠ : salto de línea y sangría con un guión rojo, para las preces
      * ℇ : rúbrica litúrgica "O bien"
@@ -125,6 +139,7 @@ public class Utils {
 
         return sSalmoCompleto;
     }
+
         /**
          * Método que crea las preces *** terminar descripción luego
          *
@@ -140,7 +155,6 @@ public class Utils {
         return sFinal;
     }
 
-
     /**
      * Método que crea las preces *** terminar descripción luego
      *
@@ -151,31 +165,33 @@ public class Utils {
     public String getHimnos(String sOrigen)
     {
         String sFinal = "";
+        if (!isNull(sOrigen)) {
 
-        String[] himnoArray = sOrigen.split("\\|");
-        String[] himno1Array = himnoArray[0].split("\\_");
-        String[] himno2Array = himnoArray[1].split("\\_");
-        switch (Integer.parseInt(himno1Array[0])) {
-            case 0:
-                sFinal = CSS_RED_A + "En los domingos y solemnidades:" + CSS_RED_Z +
-                        BRS + getFormato(himno1Array[1]);
-                break;
-            default:
-                break;
+            String[] himnoArray = sOrigen.split("\\|");
+            String[] himno1Array = himnoArray[0].split("\\_");
+            String[] himno2Array = himnoArray[1].split("\\_");
+            switch (Integer.parseInt(himno1Array[0])) {
+                case 0:
+                    sFinal = CSS_RED_A + "En los domingos y solemnidades:" + CSS_RED_Z +
+                            BRS + getFormato(himno1Array[1]);
+                    break;
+                default:
+                    break;
+            }
+
+            switch (Integer.parseInt(himno2Array[0])) {
+                case 2:
+                    sFinal = sFinal + BRS + CSS_RED_A + "O bien, fuera de los domingos y de las solemnidades:" + CSS_RED_Z +
+                            BRS + getFormato(himno2Array[1]);
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            sFinal = "";
         }
-
-        switch (Integer.parseInt(himno2Array[0])) {
-            case 2:
-                sFinal = sFinal + BRS + CSS_RED_A + "O bien, fuera de los domingos y de las solemnidades:" + CSS_RED_Z +
-                        BRS + getFormato(himno2Array[1]);
-                break;
-            default:
-                break;
-        }
-
         return sFinal;
     }
-
 
     /**
      * Método que crea la cadena completa de un responsorio dado
@@ -270,8 +286,6 @@ public class Utils {
 
     }
 
-
-
     /**
      * Método que evalua si una cadena no tiene datos <br />
      *
@@ -296,15 +310,13 @@ public class Utils {
         String sHoyNew = format.format(new Date());
         return sHoyNew;
     }
-    //Ojo solución a fromHTML deprecated... ver: http://stackoverflow.com/questions/37904739/html-fromhtml-deprecated-in-android-n
-    @SuppressWarnings("deprecation")
-    public static Spanned fromHtml(String html){
-        Spanned result;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            result = Html.fromHtml(html);
-        }
-        return result;
+
+    public void mensajeTemporal(Context context) {
+//        Context context = getApplicationContext();
+        CharSequence text = "Este módulo se encuentra en fase de desarrollo... perdona las molestias.";
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
+
 }

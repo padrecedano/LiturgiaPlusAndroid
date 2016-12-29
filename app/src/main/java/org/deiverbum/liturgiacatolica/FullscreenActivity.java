@@ -2,14 +2,16 @@ package org.deiverbum.liturgiacatolica;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import utils.Utils;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -34,10 +36,20 @@ public class FullscreenActivity extends AppCompatActivity {
      */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
-    private View mContentView;
+    private final Runnable mShowPart2Runnable = new Runnable() {
+        @Override
+        public void run() {
+            // Delayed display of UI elements
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.show();
+            }
+//            mControlsView.setVisibility(View.VISIBLE);
+        }
+    };
     ImageView imgClick;
     ImageView imgMisa;
-
+    private View mContentView;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -56,17 +68,6 @@ public class FullscreenActivity extends AppCompatActivity {
         }
     };
     private View mControlsView;
-    private final Runnable mShowPart2Runnable = new Runnable() {
-        @Override
-        public void run() {
-            // Delayed display of UI elements
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.show();
-            }
-//            mControlsView.setVisibility(View.VISIBLE);
-        }
-    };
     private boolean mVisible;
     private final Runnable mHideRunnable = new Runnable() {
         @Override
@@ -99,9 +100,46 @@ public class FullscreenActivity extends AppCompatActivity {
 //        mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
-        imgMisa = (ImageView)findViewById(R.id.image_misa);
+        final Button btnBreviario = (Button) findViewById(R.id.btn_breviario);
+        btnBreviario.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(FullscreenActivity.this, BreviarioActivity.class);
+                startActivity(i);
 
-        imgMisa.setOnClickListener(new View.OnClickListener() {
+            }
+        });
+
+        final Button btnMisa = (Button) findViewById(R.id.btn_misa);
+        btnMisa.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(FullscreenActivity.this, MisaActivity.class);
+                startActivity(i);
+
+            }
+        });
+
+        final Button btnSanto = (Button) findViewById(R.id.btn_santo);
+        btnSanto.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Utils utilClass = new Utils();
+                utilClass.mensajeTemporal(getApplicationContext());
+
+            }
+        });
+
+        final Button btnOraciones = (Button) findViewById(R.id.btn_oraciones);
+        btnOraciones.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Utils utilClass = new Utils();
+                utilClass.mensajeTemporal(getApplicationContext());
+
+            }
+        });
+
+
+//        imgMisa = (ImageView)findViewById(R.id.image_misa);
+
+/*        imgMisa.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -113,11 +151,11 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         });
 
-
+*/
 
         // Set up the user interaction to manually show or hide the system UI.
 
-        imgClick = (ImageView)findViewById(R.id.image_breviario);
+/*        imgClick = (ImageView)findViewById(R.id.image_breviario);
 
         imgClick.setOnClickListener(new View.OnClickListener() {
 
@@ -130,7 +168,7 @@ public class FullscreenActivity extends AppCompatActivity {
 
             }
         });
-
+*/
         mContentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -44,6 +44,9 @@
         <item name="colorButtonNormal">@color/oficio_boton</item>
     </style>
 
+    <style name="st_home" parent="Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@color/home</item>
+    </style>
     <style name="st_laudes" parent="Widget.AppCompat.Button">
         <item name="colorButtonNormal">@color/laudes_boton</item>
     </style>

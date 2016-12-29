@@ -16,8 +16,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 public class HomiliasActivity extends AppCompatActivity {
 
-    private static final String URL_BASE = "http://deiverbum.org/api/";
-    private static final String URL_JSON = "homilias";
+    //    private static final String URL_BASE = "http://deiverbum.org/api/beta/";
+//    private static final String URL_JSON = "homilias";
+    private static final String URL_BASE = "http://www.deiverbum.org/";
+    private static final String URL_JSON = "homilias-ciclo-a_semana-01_tiempo-adviento_dia-01-domingo";
+
+
     JsonObjectRequest jsArrayRequest;
     String items;
     ArrayAdapter adapter;
@@ -48,7 +52,11 @@ public class HomiliasActivity extends AppCompatActivity {
         webView.setWebViewClient(new MyWebViewClient());
 
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("https://drive.google.com/open?id=0B0jwB_jVsocpbjZMTkE5dUVjczQ");
+        webView.clearCache(true);
+
+        //       webView.loadUrl("https://drive.google.com/open?id=0B0jwB_jVsocpbjZMTkE5dUVjczQ");
+        webView.loadUrl(URL_BASE + URL_JSON);
+
 // Instantiate the RequestQueue.
 /*        RequestQueue queue = Volley.newRequestQueue(this);
         String url ="http://www.deiverbum.org/api/homilias";

@@ -5,7 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <!-- <uses-permission android:name="android.permission.SET_DEBUG_APP" /> -->
+    <!-- <uses-permission android:name="android.permission.SET_DEBUG_APP" />
+    android:debuggable="false"
+    -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,7 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--        <activity
+        <!--
+                    <activity
                     android:name=".LiturgiaHorasActivity"
                     android:label="@string/title_activity_liturgia_horas"
                     android:parentActivityName=".FullscreenActivity"
@@ -95,6 +98,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.deiverbum.liturgiacatolica.BreviarioActivity" />
+        </activity>
+        <activity
+            android:name=".EvangelioActivity"
+            android:label="@string/title_activity_evangelio"
+            android:parentActivityName=".MisaActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.deiverbum.liturgiacatolica.MisaActivity" />
         </activity>
     </application>
 
