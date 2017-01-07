@@ -1,7 +1,7 @@
-# LiturgiaCatolica
+# Liturgia+
 Toda la liturgia de la Iglesia y algo más
 <hr />
-<p>Liturgia Católica es una aplicación para Android que quiere ofrecer <b>de forma totalmente gratuita y sin publicidad</b> toda la liturgia correspondiente a un día específico. A saber:</p>
+<p>Liturgia+ es una aplicación para Android que quiere ofrecer <b>de forma totalmente gratuita y sin publicidad</b> toda la liturgia correspondiente a un día específico. A saber:</p>
 <ol type="a">
 
 <li><b>Liturgia de las Horas</b>, distribuida de la siguiente forma:</li>
