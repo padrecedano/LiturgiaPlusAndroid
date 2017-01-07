@@ -1,12 +1,11 @@
 package org.deiverbum.liturgiacatolica;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -21,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import utils.Utils;
+import utils.VolleyErrorHelper;
 
 import static org.deiverbum.liturgiacatolica.Constants.BRS;
 import static org.deiverbum.liturgiacatolica.Constants.CE;
@@ -37,6 +37,7 @@ import static org.deiverbum.liturgiacatolica.Constants.HIMNO;
 import static org.deiverbum.liturgiacatolica.Constants.LECTURA_BREVE;
 import static org.deiverbum.liturgiacatolica.Constants.NBSP_4;
 import static org.deiverbum.liturgiacatolica.Constants.ORACION;
+import static org.deiverbum.liturgiacatolica.Constants.PACIENCIA;
 import static org.deiverbum.liturgiacatolica.Constants.PADRENUESTRO;
 import static org.deiverbum.liturgiacatolica.Constants.PRECES;
 import static org.deiverbum.liturgiacatolica.Constants.RESP_BREVE;
@@ -44,11 +45,7 @@ import static org.deiverbum.liturgiacatolica.Constants.SALMODIA;
 import static org.deiverbum.liturgiacatolica.Constants.VI_TITULO;
 
 public class VisperasActivity extends AppCompatActivity {
-    private static final String URL_BASE = "http://deiverbum.org/api/v1/h4.php?fecha=";
-    private static final String URL_JSON = "misa";
-    private static final String TAG = "PostAdapter";
-    ArrayAdapter adapter;
-    ListView listView;
+    private static final String TAG = "VisperasActivity";
     String items;
     JsonArrayRequest jsArrayRequest;
     private Utils utilClass;
@@ -60,22 +57,15 @@ public class VisperasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_visperas);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-/*        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         utilClass = new Utils();
+        final TextView mTextView = (TextView) findViewById(R.id.txt_breviario);
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        final ProgressDialog progressDialog = new ProgressDialog(VisperasActivity.this);
+        progressDialog.setMessage(PACIENCIA);
         requestQueue= Volley.newRequestQueue(this);
 
         // Nueva petición JSONObject
-        //utilClass.getHoy()
         jsArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 H4_URL + utilClass.getHoy(),
@@ -83,30 +73,27 @@ public class VisperasActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        TextView mTextView = (TextView) findViewById(R.id.txt_breviario);
-                        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-
                         items = showVisperas(response);
-//                        adapter.notifyDataSetChanged();
                         mTextView.setText(Utils.fromHtml(items));
-//                        mTextView.setText(response.toString());
-
+                        progressDialog.dismiss();
 
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "Error Respuesta en JSON: " + error.getMessage());
-                        TextView mTextView = (TextView) findViewById(R.id.txt_breviario);
-                        String sError = ERR_GENERAL + "<br>El error generado es el siguiente: " + error.getMessage();
+                        VolleyErrorHelper errorVolley = new VolleyErrorHelper();
+                        String sError = VolleyErrorHelper.getMessage(error, getApplicationContext());
+                        Log.d(TAG, "Error: " + sError);
                         mTextView.setText(Utils.fromHtml(sError));
+                        progressDialog.dismiss();
                     }
                 }
         );
 
         // Añadir petición a la cola
         requestQueue.add(jsArrayRequest);
+        progressDialog.show();
 
     }
     protected String showVisperas(JSONArray js_arr) {
@@ -234,12 +221,7 @@ public class VisperasActivity extends AppCompatActivity {
                 sb.append(sPreces);
                 sb.append(sOracion);
             }
- /*           textViewToChange.setMovementMethod(new ScrollingMovementMethod());
-            textViewToChange.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
 
-            textViewToChange.setText(Html.fromHtml(utilClass.getHoy() + "<br><br>" + sb.toString()), TextView.BufferType.SPANNABLE);
-            textViewToChange.scrollTo(0, 0);
-*/
         } catch (JSONException e) {
             e.printStackTrace();
         }

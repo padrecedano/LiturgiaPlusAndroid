@@ -6,10 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import utils.Utils;
+import utils.VolleyErrorHelper;
 
 import static org.deiverbum.liturgiacatolica.Constants.BR;
 import static org.deiverbum.liturgiacatolica.Constants.BRS;
@@ -31,6 +31,7 @@ import static org.deiverbum.liturgiacatolica.Constants.CSS_SM_A;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_SM_Z;
 import static org.deiverbum.liturgiacatolica.Constants.ERR_GENERAL;
 import static org.deiverbum.liturgiacatolica.Constants.HIMNO;
+import static org.deiverbum.liturgiacatolica.Constants.MY_DEFAULT_TIMEOUT;
 import static org.deiverbum.liturgiacatolica.Constants.NBSP_2;
 import static org.deiverbum.liturgiacatolica.Constants.NBSP_4;
 import static org.deiverbum.liturgiacatolica.Constants.OL_TITULO;
@@ -46,11 +47,8 @@ import static org.deiverbum.liturgiacatolica.Constants.SALMODIA;
 import static org.deiverbum.liturgiacatolica.Constants.SEGUNDA_LECTURA;
 
 public class OficioActivity extends AppCompatActivity {
-    private static final String URL_BASE = "";
-    private static final String URL_JSON = "misa";
-    private static final String TAG = "PostAdapter";
-    ArrayAdapter adapter;
-    ListView listView;
+
+    private static final String TAG = "OficioActivity";
     String items;
     JsonArrayRequest jsArrayRequest;
     private Utils utilClass;
@@ -65,66 +63,52 @@ public class OficioActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        requestQueue= Volley.newRequestQueue(this);
 
         utilClass = new Utils();
+        final TextView mTextView = (TextView) findViewById(R.id.txt_oficio);
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        requestQueue = Volley.newRequestQueue(this);
         final ProgressDialog progressDialog = new ProgressDialog(OficioActivity.this);
         progressDialog.setMessage(PACIENCIA);
-
-        // Nueva petición JSONObject
-// + utilClass.getHoy()
         jsArrayRequest = new JsonArrayRequest(
-                Request.Method.GET,
-                OL_URL + utilClass.getHoy(),
-                "",
+                Request.Method.GET, OL_URL + utilClass.getHoy(), "",
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        TextView mTextView = (TextView) findViewById(R.id.txt_oficio);
-                        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-
                         items = showOficio(response);
-//                        adapter.notifyDataSetChanged();
                         mTextView.setText(Utils.fromHtml(items));
                         progressDialog.dismiss();
-
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "Error Respuesta en JSON: " + error.getMessage());
-                        TextView mTextView = (TextView) findViewById(R.id.txt_oficio);
-                        String sError=ERR_GENERAL+"<br>El error generado es el siguiente: "+error.getMessage().toString();
+                        VolleyErrorHelper errorVolley = new VolleyErrorHelper();
+                        String sError = VolleyErrorHelper.getMessage(error, getApplicationContext());
+                        Log.d(TAG, "Error: " + sError);
                         mTextView.setText(Utils.fromHtml(sError));
                         progressDialog.dismiss();
-
                     }
                 }
         );
 
-        // Añadir petición a la cola
+        jsArrayRequest.setRetryPolicy(new DefaultRetryPolicy(
+                MY_DEFAULT_TIMEOUT,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(jsArrayRequest);
         progressDialog.show();
-
-
     }
 
     protected String showOficio(JSONArray js_arr) {
-
-
-
         StringBuilder sb = new StringBuilder();
-
         try {
             JSONObject json_todo = js_arr.getJSONObject(0);
             JSONObject liturgia = json_todo.getJSONObject("liturgia");
             JSONObject info = liturgia.getJSONObject("info");
-
             int nCodigo = Integer.parseInt(info.getString("codigo"));
             if (nCodigo < 1) {
                 sb.append(ERR_GENERAL);
-
             } else {
                 String sMensaje = info.getString("mensaje");
                 JSONObject lh = liturgia.getJSONObject("lh");
@@ -132,10 +116,8 @@ public class OficioActivity extends AppCompatActivity {
                 JSONObject s1 = hora.getJSONObject("salmos").getJSONObject("s1");
                 JSONObject s2 = hora.getJSONObject("salmos").getJSONObject("s2");
                 JSONObject s3 = hora.getJSONObject("salmos").getJSONObject("s3");
-
                 JSONObject biblica = hora.getJSONObject("biblica");
                 JSONObject patristica = hora.getJSONObject("patristica");
-
                 String sAntifonaInv = PRE_ANT + hora.getString("antifonai") + BR;
                 String sVida = "";
 
@@ -246,13 +228,7 @@ public class OficioActivity extends AppCompatActivity {
                 sb.append(txt_patristica_r);
                 sb.append(sOracion);
             }
- //           textViewToChange.setMovementMethod(new ScrollingMovementMethod());
- //           textViewToChange.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-
- //           textViewToChange.setText(Html.fromHtml(utilClass.getHoy() + "<br><br>" + sb.toString()));
- //           textViewToChange.scrollTo(0, 0);
         } catch (JSONException e) {
-//            textViewToChange.setText(e.getMessage());
 
             e.printStackTrace();
         }

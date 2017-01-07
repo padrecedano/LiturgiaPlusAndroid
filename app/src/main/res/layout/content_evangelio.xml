@@ -5,6 +5,7 @@
     android:id="@+id/content_evangelio"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/txt_homilias"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -13,10 +14,25 @@
     tools:context="org.deiverbum.liturgiacatolica.EvangelioActivity"
     tools:showIn="@layout/activity_evangelio">
 
-    <WebView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/webViewEvangelio"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:paddingLeft="0dp"
-        android:paddingRight="0dp" />
+    <!--
+        <WebView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/webViewEvangelio"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp" />
+    -->
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txt_evangelio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name" />
+
+    </ScrollView>
+
 </RelativeLayout>

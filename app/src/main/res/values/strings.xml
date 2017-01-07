@@ -35,5 +35,10 @@
     <string name="title_activity_visperas">Vísperas</string>
     <string name="title_activity_breviario2">Breviario</string>
     <string name="title_activity_evangelio">Comentarios Evangelio</string>
+    <string name="generic_server_down">El servidor está fuera de servicio. Intenta más tarde.</string>
+    <string name="no_internet">No estás <![CDATA[<font color="Red">conectado</font>]]> a internet</string>
+    <string name="generic_error">Ha ocurrido un error desconocido. Intenta más tarde.</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_santo">Santo del Día</string>
 
 </resources>

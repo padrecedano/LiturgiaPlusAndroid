@@ -1,20 +1,31 @@
 package org.deiverbum.liturgiacatolica;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.webkit.WebView;
+import android.util.TypedValue;
+import android.widget.TextView;
+
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import utils.Utils;
 
+import static org.deiverbum.liturgiacatolica.Constants.MY_DEFAULT_TIMEOUT;
+import static org.deiverbum.liturgiacatolica.Constants.PACIENCIA;
+import static org.deiverbum.liturgiacatolica.Constants.URL_EVANGELIO;
+
 public class EvangelioActivity extends AppCompatActivity {
-    private static final String URL_BASE = "http://www.deiverbum.org/";
-    private static final String URL_JSON = "mt-24_37-44";
-    private WebView webView;
+    private static final String TAG = "OficioActivity";
+    String items;
     private Utils utilClass;
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,26 +33,39 @@ public class EvangelioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_evangelio);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        utilClass = new Utils();
+        final TextView mTextView = (TextView) findViewById(R.id.txt_evangelio);
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
 
-        webView = (WebView) findViewById(R.id.webViewEvangelio);
-        webView.setWebViewClient(new MyWebViewClient());
+        requestQueue = Volley.newRequestQueue(this);
+        final ProgressDialog progressDialog = new ProgressDialog(EvangelioActivity.this);
+        progressDialog.setMessage(PACIENCIA);
 
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.clearCache(true);
+        StringRequest sRequest = new StringRequest(Request.Method.GET, URL_EVANGELIO + utilClass.getHoy(),
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String sResponse) {
+                        // Display the first 500 characters of the response string.
+                        mTextView.setText(Utils.fromHtml(sResponse));
+                        progressDialog.dismiss();
 
-        //       webView.loadUrl("https://drive.google.com/open?id=0B0jwB_jVsocpbjZMTkE5dUVjczQ");
-        webView.loadUrl(URL_BASE + URL_JSON);
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+                    }
+                }, new Response.ErrorListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onErrorResponse(VolleyError error) {
+                mTextView.setText("That didn't work!");
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        sRequest.setRetryPolicy(new DefaultRetryPolicy(
+                MY_DEFAULT_TIMEOUT,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        requestQueue.add(sRequest);
+        progressDialog.show();
+
     }
 
 }

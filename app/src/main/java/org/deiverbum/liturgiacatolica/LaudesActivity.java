@@ -1,5 +1,6 @@
 package org.deiverbum.liturgiacatolica;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import utils.Utils;
+import utils.VolleyErrorHelper;
 
 import static org.deiverbum.liturgiacatolica.Constants.BR;
 import static org.deiverbum.liturgiacatolica.Constants.BRS;
@@ -37,6 +39,7 @@ import static org.deiverbum.liturgiacatolica.Constants.LA_URL;
 import static org.deiverbum.liturgiacatolica.Constants.LECTURA_BREVE;
 import static org.deiverbum.liturgiacatolica.Constants.NBSP_4;
 import static org.deiverbum.liturgiacatolica.Constants.ORACION;
+import static org.deiverbum.liturgiacatolica.Constants.PACIENCIA;
 import static org.deiverbum.liturgiacatolica.Constants.PADRENUESTRO;
 import static org.deiverbum.liturgiacatolica.Constants.PRECES;
 import static org.deiverbum.liturgiacatolica.Constants.PRE_ANT;
@@ -46,7 +49,7 @@ import static org.deiverbum.liturgiacatolica.Constants.SALMODIA;
 public class LaudesActivity extends AppCompatActivity {
     private static final String URL_BASE = "http://deiverbum.org/api/v1/h4.php?fecha=";
     private static final String URL_JSON = "misa";
-    private static final String TAG = "PostAdapter";
+    private static final String TAG = "LaudesActivity";
     ArrayAdapter adapter;
     ListView listView;
     String items;
@@ -64,6 +67,10 @@ public class LaudesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         utilClass = new Utils();
         requestQueue= Volley.newRequestQueue(this);
+        final TextView mTextView = (TextView) findViewById(R.id.txt_breviario);
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        final ProgressDialog progressDialog = new ProgressDialog(LaudesActivity.this);
+        progressDialog.setMessage(PACIENCIA);
 
         // Nueva petición JSONObject
         //utilClass.getHoy()
@@ -74,30 +81,26 @@ public class LaudesActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        TextView mTextView = (TextView) findViewById(R.id.txt_breviario);
-                        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-
                         items = showLaudes(response);
-//                        adapter.notifyDataSetChanged();
                         mTextView.setText(Utils.fromHtml(items));
-//                        mTextView.setText(response.toString());
-
-
+                        progressDialog.dismiss();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "Error Respuesta en JSON: " + error.getMessage());
-                        TextView mTextView = (TextView) findViewById(R.id.txt_breviario);
-                        String sError=ERR_GENERAL+"<br>El error generado es el siguiente: "+error.getMessage().toString();
+                        VolleyErrorHelper errorVolley = new VolleyErrorHelper();
+                        String sError = VolleyErrorHelper.getMessage(error, getApplicationContext());
+                        Log.d(TAG, "Error: " + sError);
                         mTextView.setText(Utils.fromHtml(sError));
+                        progressDialog.dismiss();
                     }
                 }
         );
 
         // Añadir petición a la cola
         requestQueue.add(jsArrayRequest);
+        progressDialog.show();
     }
 
 

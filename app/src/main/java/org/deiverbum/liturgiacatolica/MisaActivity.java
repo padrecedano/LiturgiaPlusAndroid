@@ -1,5 +1,6 @@
 package org.deiverbum.liturgiacatolica;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -10,14 +11,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -31,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import utils.Utils;
+import utils.VolleyErrorHelper;
 
 import static org.deiverbum.liturgiacatolica.Constants.BR;
 import static org.deiverbum.liturgiacatolica.Constants.BRS;
@@ -38,7 +41,9 @@ import static org.deiverbum.liturgiacatolica.Constants.CSS_B_A;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_B_Z;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_RED_A;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_RED_Z;
+import static org.deiverbum.liturgiacatolica.Constants.MY_DEFAULT_TIMEOUT;
 import static org.deiverbum.liturgiacatolica.Constants.NBSP_4;
+import static org.deiverbum.liturgiacatolica.Constants.PACIENCIA;
 import static utils.MisaConstantes.ADVIENTO;
 import static utils.MisaConstantes.ALELUYA;
 import static utils.MisaConstantes.ALELUYA_R;
@@ -100,15 +105,15 @@ public class MisaActivity extends AppCompatActivity
 
 
 
-/*        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-*/
+    /*        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+    */
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -117,12 +122,15 @@ public class MisaActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final TextView mTextView = (TextView) findViewById(R.id.txt_container);
-        mTextView.setMovementMethod(new ScrollingMovementMethod());
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+//            mTextView.setMovementMethod(new ScrollingMovementMethod());
 
-        requestQueue= Volley.newRequestQueue(this);
+        requestQueue = Volley.newRequestQueue(this);
+        final ProgressDialog progressDialog = new ProgressDialog(MisaActivity.this);
+        progressDialog.setMessage(PACIENCIA);
 
         // Nueva petición JSONObject
         jsArrayRequest = new JsonObjectRequest(
@@ -135,22 +143,29 @@ public class MisaActivity extends AppCompatActivity
                         items = parseJson(response);
                         adapter.notifyDataSetChanged();
                         mTextView.setText(fromHtml(items));
+                        progressDialog.dismiss();
 
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "Error Respuesta en JSON: " + error.getMessage());
+                        VolleyErrorHelper errorVolley = new VolleyErrorHelper();
+                        String sError = VolleyErrorHelper.getMessage(error, getApplicationContext());
+                        mTextView.setText(Utils.fromHtml(sError));
+                        Log.d(TAG, sError);
+                        progressDialog.dismiss();
 
                     }
                 }
         );
-
+        jsArrayRequest.setRetryPolicy(new DefaultRetryPolicy(
+                MY_DEFAULT_TIMEOUT,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         // Añadir petición a la cola
         requestQueue.add(jsArrayRequest);
-
-
+        progressDialog.show();
 
 
     }
@@ -209,50 +224,76 @@ public class MisaActivity extends AppCompatActivity
             utilClass = new Utils();
             utilClass.mensajeTemporal(getApplicationContext());
 
-//            final TextView mTextView = (TextView) findViewById(R.id.txt_container);
-//            mTextView.setMovementMethod(new ScrollingMovementMethod());
+            //            final TextView mTextView = (TextView) findViewById(R.id.txt_container);
+            //            mTextView.setMovementMethod(new ScrollingMovementMethod());
 
-/*            requestQueue= Volley.newRequestQueue(this);
+    /*            requestQueue= Volley.newRequestQueue(this);
 
-            // Nueva petición JSONObject
-            jsArrayRequest = new JsonObjectRequest(
-                    Request.Method.GET,
-                    URL_BASE + "homilias",
-                    "",
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            items = parseJson(response);
-                            adapter.notifyDataSetChanged();
-                            mTextView.setText(fromHtml(items));
+                // Nueva petición JSONObject
+                jsArrayRequest = new JsonObjectRequest(
+                        Request.Method.GET,
+                        URL_BASE + "homilias",
+                        "",
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                items = parseJson(response);
+                                adapter.notifyDataSetChanged();
+                                mTextView.setText(fromHtml(items));
 
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d(TAG, "Error Respuesta en JSON: " + error.getMessage());
+
+                            }
                         }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.d(TAG, "Error Respuesta en JSON: " + error.getMessage());
+                );
 
-                        }
+                // Añadir petición a la cola
+                requestQueue.add(jsArrayRequest);
+    */
+                /*            // Handle the camera action
+                final TextView mTextView = (TextView) findViewById(R.id.txt_container);
+    // Instantiate the RequestQueue.
+                RequestQueue queue = Volley.newRequestQueue(this);
+                String url ="http://www.deiverbum.org/api/misa";
+
+    // Request a string response from the provided URL.
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                // Display the first 500 characters of the response string.
+                                mTextView.setText("Response is: "+ response);
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        mTextView.setText("That didn't work!"+error.getLocalizedMessage());
                     }
-            );
+                });
+    // Add the request to the RequestQueue.
+                queue.add(stringRequest);
+    */
+        } else if (id == R.id.nav_gallery) {
 
-            // Añadir petición a la cola
-            requestQueue.add(jsArrayRequest);
-*/
-            /*            // Handle the camera action
+        } else if (id == R.id.nav_slideshow) {
             final TextView mTextView = (TextView) findViewById(R.id.txt_container);
-// Instantiate the RequestQueue.
-            RequestQueue queue = Volley.newRequestQueue(this);
-            String url ="http://www.deiverbum.org/api/misa";
 
-// Request a string response from the provided URL.
+            // Instantiate the RequestQueue.
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url = "http://www.deiverbum.org/api/homilias";
+
+            // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             // Display the first 500 characters of the response string.
-                            mTextView.setText("Response is: "+ response);
+                            mTextView.setText("Response is: " + fromHtml(response));
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -260,43 +301,8 @@ public class MisaActivity extends AppCompatActivity
                     mTextView.setText("That didn't work!"+error.getLocalizedMessage());
                 }
             });
-// Add the request to the RequestQueue.
+            // Add the request to the RequestQueue.
             queue.add(stringRequest);
-*/
-        } else if (id == R.id.nav_gallery) {
-            // Obtener instancia de la lista
-            listView= (ListView) findViewById(R.id.listView);
-
-            // Crear y setear adaptador
-            adapter = new PostAdapter(this);
-            listView.setAdapter(adapter);
-
-            final TextView mTextView = (TextView) findViewById(R.id.txt_container);
-//            mTextView.setText(adapter);
-
-        } else if (id == R.id.nav_slideshow) {
-            final TextView mTextView = (TextView) findViewById(R.id.txt_container);
-
-// Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://www.deiverbum.org/api/homilias";
-
-// Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        mTextView.setText("Response is: "+ fromHtml(response));
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                mTextView.setText("That didn't work!"+error.getLocalizedMessage());
-            }
-        });
-// Add the request to the RequestQueue.
-        queue.add(stringRequest);
 
 
         } else if (id == R.id.nav_manage) {
@@ -314,21 +320,21 @@ public class MisaActivity extends AppCompatActivity
         return true;
     }
 
-    public String parseJson(JSONObject jsonObject){
+    public String parseJson(JSONObject jsonObject) {
         // Variables locales
-        String test="";
-        JSONArray jsonArray= null;
+        String test = "";
+        JSONArray jsonArray = null;
         StringBuilder sb = new StringBuilder();
 
-        String sTiempo="";
+        String sTiempo = "";
         try {
             // Obtener el array del objeto
             jsonArray = jsonObject.getJSONArray("misa");
 
-            for(int i=0; i<jsonArray.length(); i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
 
                 try {
-                    JSONObject objeto= jsonArray.getJSONObject(i);
+                    JSONObject objeto = jsonArray.getJSONObject(i);
                     JSONObject oInfo = objeto.getJSONObject("info");
                     JSONObject oInicio = objeto.getJSONObject("inicio");
                     JSONObject oPalabra = objeto.getJSONObject("palabra");
@@ -339,58 +345,57 @@ public class MisaActivity extends AppCompatActivity
                     JSONArray palabraArray = oPalabra.getJSONArray("lecturas");
 
                     int nTiempo = Integer.parseInt(oInfo.getString("tiempo"));
-                    String sMensaje=oInfo.getString("mensaje");
+                    String sMensaje = oInfo.getString("mensaje");
                     if (sMensaje != null && !sMensaje.isEmpty()) {
-                        sb.append(sMensaje+BRS+"<hr>");
+                        sb.append(sMensaje + BRS + "<hr>");
                     }
-                    sTiempo=getTiempo(nTiempo);
-                    String sAntifona=ANT_TITULO+oInicio.getString("ant_txt")+BR
-                            +CSS_RED_A+"("+oInicio.getString("ant_ref")+")"+CSS_RED_Z+BRS;
-                    String sColecta=O_COLECTA+utilClass.getFormato(oInicio.getString("colecta"));
+                    sTiempo = getTiempo(nTiempo);
+                    String sAntifona = ANT_TITULO + oInicio.getString("ant_txt") + BR
+                            + CSS_RED_A + "(" + oInicio.getString("ant_ref") + ")" + CSS_RED_Z + BRS;
+                    String sColecta = O_COLECTA + utilClass.getFormato(oInicio.getString("colecta"));
                     sb.append(sTiempo);
                     sb.append(R_INICIALES);
                     sb.append(sAntifona);
                     sb.append(sColecta);
-                    int nGloria=oInicio.getInt("gloria");
-                    if (nGloria==1) {
+                    int nGloria = oInicio.getInt("gloria");
+                    if (nGloria == 1) {
                         sb.append(SI_GLORIA);
-                    }else{
+                    } else {
                         sb.append(NO_GLORIA);
                     }
 
                     sb.append(getLectura(palabraArray));
-                    int nCredo=oPalabra.getInt("credo");
-                    if (nCredo==1) {
+                    int nCredo = oPalabra.getInt("credo");
+                    if (nCredo == 1) {
                         sb.append(SI_CREDO);
-                    }else{
+                    } else {
                         sb.append(NO_CREDO);
                     }
                     sb.append(L_EUCARISTICA);
 
-                    String sOfrendas=O_FIELES+utilClass.getFormato(oEucaristia.getString("ofrendas"));
+                    String sOfrendas = O_FIELES + utilClass.getFormato(oEucaristia.getString("ofrendas"));
                     sb.append(sOfrendas);
-                    String sPrefacio=PREFACIO+utilClass.getFormato(oPrefacio.getString("nombre"))
-                            +BR+CSS_RED_A+utilClass.getFormato(oPrefacio.getString("tema"))+CSS_RED_Z
-                            +BRS+utilClass.getFormato(oPrefacio.getString("txt"));
+                    String sPrefacio = PREFACIO + utilClass.getFormato(oPrefacio.getString("nombre"))
+                            + BR + CSS_RED_A + utilClass.getFormato(oPrefacio.getString("tema")) + CSS_RED_Z
+                            + BRS + utilClass.getFormato(oPrefacio.getString("txt"));
 
                     sb.append(sPrefacio);
                     sb.append(PLEGARIA);
 
-                    String sComunion=R_COMUNION+O_DOMINICAL
-                            +ANT_COMUNION
-                            +utilClass.getFormato(oComunion.getString("ant"))+BR
-                            +CSS_RED_A+"("+utilClass.getFormato(oComunion.getString("ref"))+")"+CSS_RED_Z
-                            +O_COMUNION
-                            +utilClass.getFormato(oComunion.getString("txt"));
+                    String sComunion = R_COMUNION + O_DOMINICAL
+                            + ANT_COMUNION
+                            + utilClass.getFormato(oComunion.getString("ant")) + BR
+                            + CSS_RED_A + "(" + utilClass.getFormato(oComunion.getString("ref")) + ")" + CSS_RED_Z
+                            + O_COMUNION
+                            + utilClass.getFormato(oComunion.getString("txt"));
 
                     sb.append(sComunion);
 
- //                   sb.append();
-
+                    //                   sb.append();
 
 
                 } catch (JSONException e) {
-                    Log.e(TAG, "Error de parsing: "+ e.getMessage());
+                    Log.e(TAG, "Error de parsing: " + e.getMessage());
                 }
             }
 
@@ -409,9 +414,8 @@ public class MisaActivity extends AppCompatActivity
      * @return Una cadena con el tiempo litúrgico
      */
 
-    private String getTiempo (int nTiempo)
-    {
-        String sTiempo="";
+    private String getTiempo(int nTiempo) {
+        String sTiempo = "";
 
         switch (nTiempo) {
             case 1:
@@ -422,7 +426,7 @@ public class MisaActivity extends AppCompatActivity
         }
         return sTiempo;
 
-    }
+        }
 
     /**
      * Método que determina crea los diferentes elementos de las lecturas de la Misa
@@ -431,36 +435,36 @@ public class MisaActivity extends AppCompatActivity
      * @return Una cadena con la lectura formateada adecuadamente
      */
 
-    private String getLectura (JSONArray palabraArray) throws JSONException
+    private String getLectura(JSONArray palabraArray) throws JSONException
 
     {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < palabraArray.length(); i++) {
             JSONObject oPalabra = palabraArray.getJSONObject(i);
- //           sb.append(jsonobject.toString());
-            int nOrden=oPalabra.getInt("orden");
+            //           sb.append(jsonobject.toString());
+            int nOrden = oPalabra.getInt("orden");
             switch (nOrden) {
                 case 1:
                     sb.append(LECTURA_1);
                     sb.append(CSS_B_A).append("Lectura ").append(oPalabra.getString("libro")).append(BR).append(CSS_RED_A).append(oPalabra.getString("ref")).append(CSS_RED_Z).append(CSS_B_Z).append(BRS);
-                    sb.append(oPalabra.getString("intro")+BRS);
+                    sb.append(CSS_RED_A).append(oPalabra.getString("intro")).append(CSS_RED_Z).append(BRS);
                     sb.append(utilClass.getFormato(oPalabra.getString("txt")));
 
                     break;
 
                 case 2:
                     sb.append(SALMO_R);
-                    sb.append(oPalabra.getString("libro")+NBSP_4);
-                    sb.append(CSS_RED_A+oPalabra.getString("ref")+CSS_RED_Z+BR);
-                    sb.append(oPalabra.getString("intro")+BRS);
+                    sb.append(oPalabra.getString("libro") + NBSP_4);
+                    sb.append(CSS_RED_A + oPalabra.getString("ref") + CSS_RED_Z + BR);
+                    sb.append(oPalabra.getString("intro") + BRS);
                     sb.append(utilClass.getFormato(oPalabra.getString("txt")));
                     break;
 
                 case 3:
                     sb.append(LECTURA_2);
                     sb.append(CSS_B_A).append("Lectura ").append(oPalabra.getString("libro")).append(BR).append(CSS_RED_A).append(oPalabra.getString("ref")).append(CSS_RED_Z).append(CSS_B_Z).append(BRS);
-                    sb.append(oPalabra.getString("intro")+BRS);
+                    sb.append(CSS_RED_A).append(oPalabra.getString("intro")).append(CSS_RED_Z).append(BRS);
                     sb.append(utilClass.getFormato(oPalabra.getString("txt")));
                     break;
 
@@ -474,26 +478,26 @@ public class MisaActivity extends AppCompatActivity
                 case 5:
                     sb.append(EVANGELIO);
                     sb.append(CSS_B_A).append("Lectura ").append(oPalabra.getString("libro")).append(BR).append(CSS_RED_A).append(oPalabra.getString("ref")).append(CSS_RED_Z).append(CSS_B_Z).append(BRS);
-                    sb.append(oPalabra.getString("intro")+BRS);
+                    sb.append(CSS_RED_A).append(oPalabra.getString("intro")).append(CSS_RED_Z).append(BRS);
                     sb.append(utilClass.getFormato(oPalabra.getString("txt")));
                     break;
 
                 default:
                     break;
             }
-  //          String name = jsonobject.getString("intro");
-  //          String url = jsonobject.getString("url");
- //           sb.append(name);
+            //          String name = jsonobject.getString("intro");
+            //          String url = jsonobject.getString("url");
+            //           sb.append(name);
         }
-        /*
-        switch (nOrden) {
-            case 1:
-                sb.append("PRIMERA LECTURA");
-                break;
-            default:
-                break;
-        }
-*/
+            /*
+            switch (nOrden) {
+                case 1:
+                    sb.append("PRIMERA LECTURA");
+                    break;
+                default:
+                    break;
+            }
+    */
         return sb.toString();
 
     }

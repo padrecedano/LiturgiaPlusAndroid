@@ -8,8 +8,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -65,6 +63,7 @@ public class BreviarioActivity extends AppCompatActivity
     CalendarView calendar = null;
     private String sHoy = getFecha();//"201610099";
     private WebView webView;
+    private Utils utilClass;
 
 
     @Override
@@ -97,6 +96,7 @@ public class BreviarioActivity extends AppCompatActivity
 
         });
 */
+        utilClass = new Utils();
 
         final Button btnMixto = (Button) findViewById(R.id.btn_mixto);
         btnMixto.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +113,6 @@ public class BreviarioActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent i = new Intent(BreviarioActivity.this, OficioActivity.class);
                 startActivity(i);
-
             }
         });
 
@@ -265,7 +264,7 @@ public class BreviarioActivity extends AppCompatActivity
             // the fragment_container FrameLayout
             Intent i = new Intent(BreviarioActivity.this, EvangelioActivity.class);
             startActivity(i);
-
+/*
             if (findViewById(R.id.fragment_container) != null) {
 
                 // However, if we're being restored from a previous state,
@@ -287,7 +286,7 @@ public class BreviarioActivity extends AppCompatActivity
 
                 // Add the fragment to the 'fragment_container' FrameLayout
             }
-
+*/
 //            textViewToChange.setText("Próximamente...");
 //            newFragment.setArguments();
 

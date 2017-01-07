@@ -1,6 +1,9 @@
 package utils;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.text.Html;
 import android.text.Spanned;
 import android.widget.Toast;
@@ -43,6 +46,31 @@ public class Utils {
         return result;
     }
 
+    public static boolean isConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+
+            Network[] activeNetworks = cm.getAllNetworks();
+            for (Network n : activeNetworks) {
+                NetworkInfo nInfo = cm.getNetworkInfo(n);
+                if (nInfo.isConnected())
+                    return true;
+            }
+
+        } else {
+            NetworkInfo[] info = cm.getAllNetworkInfo();
+            if (info != null)
+                for (NetworkInfo anInfo : info)
+                    if (anInfo.getState() == NetworkInfo.State.CONNECTED) {
+                        return true;
+                    }
+        }
+
+        return false;
+
+    }
+
     /**
      * Método que da formato a algunos textos recibidos desde el servidor <br />
      * He creado una especie de contrato entre la API y la APP para reducir el volúmen de datos <br />
@@ -57,10 +85,12 @@ public class Utils {
      * ℇ : rúbrica litúrgica "O bien"
      * † : cruz en antífonas
      * ƞ : la N. de color rojo que sustituye el nombre del Papa o del Obispo
-     * Ɽ : la R./ de color rojo (responsorio)
+     * Ʀ : la R./ de color rojo (responsorio)
+     * Ɽ : la R. de color rojo (responsorio sin ./)
      * ⟨ : paréntesis de apertura en rojo
      * ⟩ : paréntesis de cierre en rojo
      * ã : (T. P. Aleluya.):
+     * ≀ : NBSP4 + brs
      *
      * @param sOrigen El texto del salmo como es recibido del servidor (los saltos de línea vienen indicados por '_' y de párrafo por '§'
      * @return Una cadena con el salmo formateado.
@@ -68,12 +98,25 @@ public class Utils {
 
     public String getFormato(String sOrigen) {
         String sFormateado;
+//α β γ δ ε ϝ ϛ ζ η θ ι κ λ μ ν ξ ο π ϟ ϙ ρ σ τ υ φ χ ψ ω ϡ
+        /*
+        u2220: ∠ ∡ ∢ ∣ ∤ ∥ ∦ ∧ ∨ ∩ ∪ ∫ ∬ ∭ ∮ ∯ ∰ ∱ ∲ ∳ ∴ ∵ ∶ ∷ ∸ ∹ ∺ ∻ ∼ ∽ ∾ ∿
 
+        u2240: ≀ ≁ ≂ ≃ ≄ ≅ ≆ ≇ ≈ ≉ ≊ ≋ ≌ ≍ ≎ ≏ ≐ ≑ ≒ ≓ ≔ ≕ ≖ ≗ ≘ ≙ ≚ ≛ ≜ ≝ ≞ ≟
+
+        u2260: ≠ ≡ ≢ ≣ ≤ ≥ ≦ ≧ ≨ ≩ ≪ ≫ ≬ ≭ ≮ ≯ ≰ ≱ ≲ ≳ ≴ ≵ ≶ ≷ ≸ ≹ ≺ ≻ ≼ ≽ ≾ ≿
+
+        u2280: ⊀ ⊁ ⊂ ⊃ ⊄ ⊅ ⊆ ⊇ ⊈ ⊉ ⊊ ⊋ ⊌ ⊍ ⊎ ⊏ ⊐ ⊑ ⊒ ⊓ ⊔ ⊕ ⊖ ⊗ ⊘ ⊙ ⊚ ⊛ ⊜ ⊝ ⊞ ⊟
+
+        u22A0: ⊠ ⊡ ⊢ ⊣ ⊤ ⊥ ⊦ ⊧ ⊨ ⊩ ⊪ ⊫ ⊬ ⊭ ⊮ ⊯ ⊰ ⊱ ⊲ ⊳ ⊴ ⊵ ⊶ ⊷ ⊸ ⊹ ⊺ ⊻ ⊼ ⊽ ⊾ ⊿
+
+*/
         sFormateado = sOrigen
                 .replace("_", NBSP_SALMOS)
                 .replace("§", BRS)
                 .replace("~", BR)
                 .replace("¦", NBSP_4)
+                .replace("⊣", BR + NBSP_4)
                 .replace("≠", PRECES_R)
                 .replace("∞", PRECES_IL)
                 .replace("ℇ", OBIEN)
@@ -92,7 +135,7 @@ public class Utils {
 
     /**
      * Método que organiza todos los componentes de un salmo dado, evaluando los que son nulos para evitar espacios vacíos
-     *
+     * En el caso de las antífonas, llama a su vez al método getAntifonaLimpia() para limpiar la segunda parte de la misma
      * @param sOrden    El orden del salmo: 1, 2, 3
      * @param sAntifona El texto de la antífona
      * @param sRef      La referencia del salmo
@@ -135,9 +178,21 @@ public class Utils {
 
 
         String sSalmoCompleto = CSS_RED_A + PRE_ANT + sOrden + ". " + CSS_RED_Z + sAntifona + BRS + getFormato(sRef) +
-                sTema + sIntro + sParte + getFormato(sSalmo) + BRS + CSS_RED_A + PRE_ANT + CSS_RED_Z + sAntifona + BRS;
+                sTema + sIntro + sParte + getFormato(sSalmo) + BRS + CSS_RED_A + PRE_ANT + CSS_RED_Z + getAntifonaLimpia(sAntifona) + BRS;
 
         return sSalmoCompleto;
+    }
+
+    /**
+     * Método que limpia la segunda parte de la antífona, en el caso del símblo †
+     *
+     * @param sAntifona Una cadena con el texto de la antífona
+     * @return La misma cadena, pero sin el referido símbolo
+     */
+
+    public String getAntifonaLimpia(String sAntifona) {
+        String sAntifonaFormateada = sAntifona.replace("†", "");
+        return sAntifonaFormateada;
     }
 
         /**
@@ -301,12 +356,25 @@ public class Utils {
     /**
      * Método que devuelve la fecha del sistema
      *
-     * @return Una cadena con el responsorio completo, con sus respectivos V. y R.
+     * @return Una cadena con la fecha
      */
 
     public String getHoy() {
         Date newDate = new Date(System.currentTimeMillis());
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        String sHoyNew = format.format(new Date());
+        return sHoyNew;
+    }
+
+    /**
+     * Método que devuelve la fecha del sistema en forma legible
+     *
+     * @return Una cadena con la fecha
+     */
+
+    public String getFecha() {
+        Date newDate = new Date(System.currentTimeMillis());
+        SimpleDateFormat format = new SimpleDateFormat("dd 'de' MMMM yyyy", Locale.getDefault());
         String sHoyNew = format.format(new Date());
         return sHoyNew;
     }
