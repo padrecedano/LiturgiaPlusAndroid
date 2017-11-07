@@ -1,0 +1,69 @@
+[{
+	"liturgia": {
+		"info": {
+			"estado": "200",
+			"codigo": "1",
+			"mensaje": "",
+			"id_liturgia": "0600010702",
+			"id_hora": "2"
+		},
+		"lh": {
+			"la": {
+				"titulo": "LAUDES",
+				"txt_santo": "",
+				"txt_vida": "",
+				"antifonai": "Verdaderamente ha resucitado el Señor. Aleluya.",
+				"himno": "Velaron las estrellas el sueño de su muerte,~sus luces de esperanzas las recogió ya el sol,~en haces luminosos la aurora resplandece,~es hoy el nuevo día en que el Señor actuó.§Los pobres de sí mismos creyeron su palabra,~la noche de los hombres fue grávida de Dios,~él dijo volvería colmando su esperanza,~más fuerte que la muerte fue su infinito amor.§De angustia estremecida lloró y gimió la tierra,~en lágrimas y sangre su humanidad vivió,~pecado, mal y muerte perdieron ya su fuerza,~el Cristo siempre vivo es hoy nuestro blasón.§De gozo reverdecen los valles y praderas,~los pájaros y flores, su canto y su color,~celebran con los hombres la eterna primavera~del día y la victoria en que el Señor actuó.§Recibe, Padre santo, las cánticos y amores~de cuantos en tu Hijo hallaron salvación,~tu Espíritu divino nos llene de sus dones,~los hombres y los pueblos se abran a tu Amor. Amén.",
+				"salmos": {
+					"s1": {
+						"orden": "1",
+						"antifona": "Cristo ha resucitado y con su claridad ilumina al pueblo rescatado con su sangre. Aleluya.",
+						"txt_ref": "Salmo 62, 2-9",
+						"tema": "",
+						"txt_intro": "",
+						"parte": "",
+						"txt_salmo": "¡Oh Dios!, tú eres mi Dios, por ti madrugo,_mi alma está sedienta de ti;_mi carne tiene ansia de ti,_como tierra reseca, agostada, sin agua.§¡Cómo te contemplaba en el santuario_viendo tu fuerza y tu gloria!_Tu gracia vale más que la vida,_te alabarán mis labios.§Toda mi vida te bendeciré_y alzaré las manos invocándote._Me saciaré como de enjundia y de manteca,_y mis labios te alabarán jubilosos.§En el lecho me acuerdo de ti_y velando medito en ti,_porque fuiste mi auxilio,_y a la sombra de tus alas canto con júbilo;_mi alma está unida a ti,_y tu diestra me sostiene."
+					},
+
+					"s2": {
+						"orden": "2",
+						"antifona": "Ha resucitado del sepulcro nuestro Redentor; cantemos un himno al Señor, nuestro Dios. Aleluya.",
+						"txt_ref": "Cántico¦Dn 3, 57-88. 56",
+						"tema": "",
+						"txt_intro": "",
+						"parte": "",
+						"txt_salmo": "Creaturas todas del Señor, bendecid al Señor,_ensalzadlo con himnos por los siglos.§Ángeles del Señor, bendecid al Señor;_cielos, bendecid al Señor.§Aguas del espacio, bendecid al Señor;_ejércitos del Señor, bendecid al Señor.§Sol y luna, bendecid al Señor;_astros del cielo, bendecid al Señor.§Lluvia y rocío, bendecid al Señor;_vientos todos, bendecid al Señor.§Fuego y calor, bendecid al Señor;_fríos y heladas, bendecid al Señor.§Rocíos y nevadas, bendecid al Señor;_témpanos y hielos, bendecid al Señor.§Escarchas y nieves, bendecid al Señor;_noche y día, bendecid al Señor.§Luz y tinieblas, bendecid al Señor;_rayos y nubes, bendecid al Señor.§Bendiga la tierra al Señor,_ensálcelo con himnos por los siglos.§Montes y cumbres, bendecid al Señor;_cuanto germina en la tierra, bendiga al Señor.§Manantiales, bendecid al Señor;_mares y ríos, bendecid al Señor.§Cetáceos y peces, bendecid al Señor;_aves del cielo, bendecid al Señor.§Fieras y ganados, bendecid al Señor,_ensalzadlo con himnos por los siglos.§Hijos de los hombres, bendecid al Señor_bendiga Israel al Señor.§Sacerdotes del Señor, bendecid al Señor;_siervos del Señor, bendecid al Señor.§Almas y espíritus justos, bendecid al Señor;_santos y humildes de corazón, bendecid al Señor.§Ananías, Azarías y Misael, bendecid al Señor,_ensalzadlo con himnos por los siglos.§Bendigamos al Padre y al Hijo con el Espíritu Santo,_ensalcémoslo con himnos por los siglos.§Bendito el Señor en la bóveda del cielo,_alabado y glorioso y ensalzado por los siglos."
+					},
+
+					"s3": {
+						"orden": "3",
+						"antifona": "Aleluya. Ha resucitado el Señor, tal como os lo había anunciado. Aleluya.",
+						"txt_ref": "Salmo 149",
+						"tema": "",
+						"txt_intro": "",
+						"parte": "",
+						"txt_salmo": "Cantad al Señor un cántico nuevo,_resuene su alabanza en la asamblea de los fieles;_que se alegre Israel por su Creador,_los hijos de Sión por su Rey.§Alabad su nombre con danzas,_cantadle con tambores y cítaras;_porque el Señor ama a su pueblo_y adorna con la victoria a los humildes.§Que los fieles festejen su gloria_y canten jubilosos en filas:_con vítores a Dios en la boca_y espadas de dos filos en las manos:§para tomar venganza de los pueblos_y aplicar el castigo a las naciones,_sujetando a los reyes con argollas,_a los nobles con esposas de hierro.§Ejecutar la sentencia dictada_es un honor para todos sus fieles."
+					}
+				},
+
+				"biblica": {
+					"lbreve_ref": "Rm 14, 7-9",
+					"txt_lbreve": "Ninguno de nosotros vive para sí y ninguno muere para sí. Que si vivimos, vivimos para el Señor; y si morimos, para el Señor morimos. En fin, que tanto en vida como en muerte somos del Señor. Para esto murió Cristo y retornó a la vida, para ser Señor de vivos y muertos.",
+					"txt_responsorio": "Éste es el día en que actuó el Señor: sea él nuestra alegría y nuestro gozo. Aleluya.|.",
+					"id_forma": "201"
+				},
+
+				"ce": {
+					"txt_antifonace": "Después de su resurrección, que tuvo lugar a la mañana del primer día de la semana, Jesús se apareció primero a María Magdalena, de la que había arrojado siete demonios. Aleluya."
+				},
+
+				"preces": {
+					"txt_preces_intro": "Oremos a Cristo, pan de vida, que en el último día resucitará a los que se alimentan con su palabra y con su cuerpo, y digámosle:|Señor, danos paz y alegría.|Concluyamos nuestra oración, diciendo juntos las palabras de Jesús, nuestro maestro:",
+					"txt_preces": "Padre Hijo de Dios, que resucitado de entre los muertos eres el Príncipe de la vida,≠bendice y santifica a tus fieles y a todos los hombres.§Tú que concedes paz y alegría a todos los que creen en ti,≠danos vivir como hijos de la luz, y alegrarnos de tu victoria.§Aumenta la fe de tu Iglesia, peregrina en la tierra,≠para que dé al mundo testimonio de tu resurrección.§Tú que, habiendo padecido mucho, has entrado ya en la gloria del Padre,≠convierte en gozo la tristeza de los afligidos.∞"
+				},
+
+				"oracion": "Oh Dios, que con la abundancia de tu gracia~no cesas de aumentar el número de tus hijos,~mira con amor a los que has elegido~como miembros de tu Iglesia,~para que, quienes han renacido por el bautismo,~obtengan también la resurrección gloriosa.~Por nuestro Señor Jesucristo."
+			}
+		}
+	}
+}]
