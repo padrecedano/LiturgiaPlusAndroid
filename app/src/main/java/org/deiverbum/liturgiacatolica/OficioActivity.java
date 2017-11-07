@@ -1,11 +1,16 @@
 package org.deiverbum.liturgiacatolica;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Spanned;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -29,8 +34,8 @@ import static org.deiverbum.liturgiacatolica.Constants.CSS_RED_A;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_RED_Z;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_SM_A;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_SM_Z;
-import static org.deiverbum.liturgiacatolica.Constants.ERR_GENERAL;
 import static org.deiverbum.liturgiacatolica.Constants.HIMNO;
+import static org.deiverbum.liturgiacatolica.Constants.INVITATORIO;
 import static org.deiverbum.liturgiacatolica.Constants.MY_DEFAULT_TIMEOUT;
 import static org.deiverbum.liturgiacatolica.Constants.NBSP_2;
 import static org.deiverbum.liturgiacatolica.Constants.NBSP_4;
@@ -44,15 +49,61 @@ import static org.deiverbum.liturgiacatolica.Constants.RESP_LOWER;
 import static org.deiverbum.liturgiacatolica.Constants.RESP_R;
 import static org.deiverbum.liturgiacatolica.Constants.RESP_V;
 import static org.deiverbum.liturgiacatolica.Constants.SALMODIA;
+import static org.deiverbum.liturgiacatolica.Constants.SALUDO_OFICIO;
 import static org.deiverbum.liturgiacatolica.Constants.SEGUNDA_LECTURA;
+import static org.deiverbum.liturgiacatolica.Constants.SEPARADOR;
 
 public class OficioActivity extends AppCompatActivity {
 
     private static final String TAG = "OficioActivity";
-    String items;
+    Spanned strContenido;
     JsonArrayRequest jsArrayRequest;
+    TextToSpeech textToSpeech;
+    String[] strPartes;
+    String strActual = "0";
+    String strPrevia = "0";
+    String strOracion;
+    int i = 0;
+    int x = 0;
+    TextToSpeech tts;
     private Utils utilClass;
     private RequestQueue requestQueue;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.breviario_menu_action, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+//calendar.setC
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.item_voz) {
+            String[] strPrimera = strContenido.toString().split(SEPARADOR);
+
+            new TTS(getApplicationContext(), strPrimera);
+
+//            ttsFunction();
+            //return true;
+        }
+
+        if (id == R.id.item_calendario) {
+//            Intent i = new Intent(OficioActivity.this, CalendarioActivity.class);
+            Intent i = new Intent(this, CalendarioActivity.class);
+
+            startActivity(i);
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +112,12 @@ public class OficioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_oficio);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         utilClass = new Utils();
-        final TextView mTextView = (TextView) findViewById(R.id.txt_oficio);
+        final TextView mTextView = (TextView) findViewById(R.id.txt_breviario);
+        //   TextView textView = (TextView)findViewById(R.id.textView);  //tambien probe con la linea anterior pero no funciona
+
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         requestQueue = Volley.newRequestQueue(this);
         final ProgressDialog progressDialog = new ProgressDialog(OficioActivity.this);
@@ -75,8 +127,10 @@ public class OficioActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        items = showOficio(response);
-                        mTextView.setText(Utils.fromHtml(items));
+                        Log.i(TAG, response.toString());
+                        String resp = showOficio(response);
+                        strContenido = Utils.fromHtml(resp);
+                        mTextView.setText(Utils.fromHtml(resp.replaceAll(SEPARADOR, "")));
                         progressDialog.dismiss();
                     }
                 },
@@ -106,11 +160,9 @@ public class OficioActivity extends AppCompatActivity {
             JSONObject json_todo = js_arr.getJSONObject(0);
             JSONObject liturgia = json_todo.getJSONObject("liturgia");
             JSONObject info = liturgia.getJSONObject("info");
-            int nCodigo = Integer.parseInt(info.getString("codigo"));
-            if (nCodigo < 1) {
-                sb.append(ERR_GENERAL);
-            } else {
-                String sMensaje = info.getString("mensaje");
+
+
+            String sMensaje = info.getString("mensaje");
                 JSONObject lh = liturgia.getJSONObject("lh");
                 JSONObject hora = lh.getJSONObject("ol");
                 JSONObject s1 = hora.getJSONObject("salmos").getJSONObject("s1");
@@ -118,17 +170,17 @@ public class OficioActivity extends AppCompatActivity {
                 JSONObject s3 = hora.getJSONObject("salmos").getJSONObject("s3");
                 JSONObject biblica = hora.getJSONObject("biblica");
                 JSONObject patristica = hora.getJSONObject("patristica");
-                String sAntifonaInv = PRE_ANT + hora.getString("antifonai") + BR;
+            String sAntifonaInv = "<p>" + PRE_ANT + hora.getString("ant_invitatorio") + "</p>";
+            String strInvitatorio = "<p>" + utilClass.getFormato(hora.getString("invitatorio")) + "</p>";
                 String sVida = "";
 
-                int id_tiempo = Integer.parseInt(info.getString("id_tiempo"));
-                switch (id_tiempo) {
-                    case 9:
-                        sVida = "<h3>" + hora.getString("txt_santo") + "</h3>" + CSS_SM_A + hora.getString("txt_vida") + CSS_SM_Z + BRS; // they are executed if variable == c1
-                        break;
-                    default:
-                        break;
-                }
+//                int id_tiempo = Integer.parseInt(info.getString("id_tiempo"));
+
+            if (!hora.getString("vida_santo").equals("")) {
+                sVida = CSS_SM_A + hora.getString("vida_santo") + CSS_SM_Z + BRS; // they are executed if variable == c1
+
+            }
+
 
                 String sHimno = HIMNO + utilClass.getFormato(hora.getString("himno")) + BRS;
                 String sOrden1 = s1.getString("orden");
@@ -204,35 +256,70 @@ public class OficioActivity extends AppCompatActivity {
                 }
 
                 String sOracion = ORACION + utilClass.getFormato(hora.getString("oracion"));
-
+//                String n = "<font size=\"1\">bold</font>";
                 sb.append(OL_TITULO);
                 sb.append(sMensaje);
+
+            if (!sVida.equals("")) {
                 sb.append(sVida);
+                sb.append(SEPARADOR);
+
+            }
+
+
+            sb.append(INVITATORIO);
+            sb.append("<p>" + SALUDO_OFICIO + "</p>");
                 sb.append(sAntifonaInv);
+            sb.append(strInvitatorio);
+            sb.append(SEPARADOR);
                 sb.append(sHimno);
+            sb.append(SEPARADOR);
                 sb.append(SALMODIA);
-                sb.append(sSalmoCompleto1);
+            sb.append(SEPARADOR);
+
+            sb.append("<p>" + sSalmoCompleto1 + "</p>");
+            sb.append(SEPARADOR);
+
                 sb.append(sSalmoCompleto2);
+            sb.append(SEPARADOR);
                 sb.append(sSalmoCompleto3);
+            sb.append(SEPARADOR);
 
                 sb.append(sRespOl);
+            sb.append(SEPARADOR);
                 sb.append(txt_biblica_obra);
+            sb.append(SEPARADOR);
                 sb.append(txt_biblica_tema);
+            sb.append(SEPARADOR);
                 sb.append(txt_biblica);
+            sb.append(SEPARADOR);
                 sb.append(txt_biblica_respref);
+            sb.append(SEPARADOR);
                 sb.append(txt_biblica_r);
+            sb.append(SEPARADOR);
                 sb.append(padre_obra);
+            sb.append(SEPARADOR);
                 sb.append(txt_ref_patristica);
+            sb.append(SEPARADOR);
                 sb.append(txt_patristica);
+            sb.append(SEPARADOR);
                 sb.append(txt_patristica_respref);
+            sb.append(SEPARADOR);
                 sb.append(txt_patristica_r);
+
+            sb.append(SEPARADOR);
+
                 sb.append(sOracion);
-            }
+
+            //           }
         } catch (JSONException e) {
 
             e.printStackTrace();
+            Log.e(TAG, e.getMessage());
         }
 
         return sb.toString();
     }
+
+
 }

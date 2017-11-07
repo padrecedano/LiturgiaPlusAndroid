@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".BreviarioActivity">
+
+
+    <item
+        android:id="@+id/item_voz"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:icon="@drawable/ic_leer_play"
+        android:title="Leer"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/item_calendario"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:icon="@drawable/ic_show_calendar"
+        android:title="@string/all_calendar"
+        app:showAsAction="ifRoom" />
+</menu>

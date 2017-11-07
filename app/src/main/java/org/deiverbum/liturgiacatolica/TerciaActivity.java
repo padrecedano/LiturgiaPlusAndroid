@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import utils.Utils;
+import utils.VolleyErrorHelper;
 
 import static org.deiverbum.liturgiacatolica.Constants.BRS;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_RED_A;
@@ -56,6 +57,7 @@ public class TerciaActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         utilClass = new Utils();
+        final TextView mTextView = (TextView) findViewById(R.id.txt_breviario);
         final ProgressDialog progressDialog = new ProgressDialog(TerciaActivity.this);
         progressDialog.setMessage(PACIENCIA);
         requestQueue= Volley.newRequestQueue(this);
@@ -69,7 +71,7 @@ public class TerciaActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        TextView mTextView = (TextView) findViewById(R.id.txt_tercia);
+//                        TextView mTextView = (TextView) findViewById(R.id.txt_tercia);
                         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
 
                         items = showTercia(response);
@@ -84,11 +86,19 @@ public class TerciaActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        VolleyErrorHelper errorVolley = new VolleyErrorHelper();
+                        String sError = VolleyErrorHelper.getMessage(error, getApplicationContext());
+                        Log.d(TAG, "Error: " + sError);
+                        mTextView.setText(Utils.fromHtml(sError));
+                        progressDialog.dismiss();
+
+                        /*
                         Log.d(TAG, "Error Respuesta en JSON: " + error.getMessage());
                         TextView mTextView = (TextView) findViewById(R.id.txt_tercia);
                         String sError=ERR_GENERAL+"<br>El error generado es el siguiente: "+error.getMessage().toString();
                         mTextView.setText(Utils.fromHtml(sError));
                         progressDialog.dismiss();
+*/
                     }
                 }
         );
@@ -132,6 +142,8 @@ public class TerciaActivity extends AppCompatActivity {
                 JSONObject biblica = hora.getJSONObject("biblica");
 
                 String sMensaje = oInfo.getString("mensaje");
+                String strTiempo = oInfo.getString("tiempo");
+                String strMeta = oInfo.getString("meta");
 
 //            String sHimnos =  + utilClass.getHimnos(hora.getString("himnos")) + BRS;
 
@@ -183,6 +195,8 @@ public class TerciaActivity extends AppCompatActivity {
                 String sOracion = ORACION + utilClass.getFormato(hora.getString("oracion"));
 
                 sb.append(HI_TITULO);
+                sb.append(strTiempo);
+                sb.append(strMeta);
                 sb.append(sMensaje);
 
                 sb.append(sHimno);

@@ -8,7 +8,11 @@ import android.text.Html;
 import android.text.Spanned;
 import android.widget.Toast;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
+
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -19,6 +23,7 @@ import static org.deiverbum.liturgiacatolica.Constants.CSS_RED_Z;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_SM_A;
 import static org.deiverbum.liturgiacatolica.Constants.CSS_SM_Z;
 import static org.deiverbum.liturgiacatolica.Constants.ERR_RESPONSORIO;
+import static org.deiverbum.liturgiacatolica.Constants.FIN_SALMO;
 import static org.deiverbum.liturgiacatolica.Constants.NBSP_4;
 import static org.deiverbum.liturgiacatolica.Constants.NBSP_SALMOS;
 import static org.deiverbum.liturgiacatolica.Constants.OBIEN;
@@ -178,7 +183,8 @@ public class Utils {
 
 
         String sSalmoCompleto = CSS_RED_A + PRE_ANT + sOrden + ". " + CSS_RED_Z + sAntifona + BRS + getFormato(sRef) +
-                sTema + sIntro + sParte + getFormato(sSalmo) + BRS + CSS_RED_A + PRE_ANT + CSS_RED_Z + getAntifonaLimpia(sAntifona) + BRS;
+                sTema + sIntro + sParte + getFormato(sSalmo) + BRS + FIN_SALMO + BRS +
+                CSS_RED_A + PRE_ANT + CSS_RED_Z + getAntifonaLimpia(sAntifona) + BRS;
 
         return sSalmoCompleto;
     }
@@ -262,11 +268,17 @@ public class Utils {
         switch (nForma) {
 // Modificar los case, usando el modelo: 6001230
             case 1:
-                sResponsorio =
-                        RESP_R + respArray[0] + RESP_A + respArray[1] + BRS +
-                                RESP_V + respArray[2] + BRS +
-                                RESP_R + Character.toUpperCase(respArray[1].charAt(0)) + respArray[1].substring(1);
+                if (respArray.length == 3) {
+                    sResponsorio =
+                            RESP_R + respArray[0] + RESP_A + respArray[1] + BRS +
+                                    RESP_V + respArray[2] + BRS +
+                                    RESP_R + Character.toUpperCase(respArray[1].charAt(0)) + respArray[1].substring(1);
+                } else {
 
+                    sResponsorio = ERR_RESPONSORIO + BRS + "Error " + respArray.length + " de responsorio en la fecha: " + getHoy() + BRS;
+
+
+                }
                 break;
 
             case 2:
@@ -367,6 +379,37 @@ public class Utils {
     }
 
     /**
+     * Método que devuelve la fecha del sistema en forma MMDD para santoral
+     *
+     * @return Una cadena con la fecha
+     */
+
+    public String getFechaMMDD() {
+        Date newDate = new Date(System.currentTimeMillis());
+        SimpleDateFormat format = new SimpleDateFormat("MMdd", Locale.getDefault());
+        String sHoy = format.format(new Date());
+        return sHoy;
+    }
+
+    /**
+     * Método que devuelve la hora del sistema <br />
+     *
+     * @param strFormato Formato de la hora deseado
+     * @return strHora Cadena con la hora formateada.
+     */
+
+    public String getHora(String strFormato) {
+
+        Calendar objCalendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(strFormato);
+
+        String strHora = simpleDateFormat.format(objCalendar.getTime());
+        return strHora;
+
+    }
+
+
+    /**
      * Método que devuelve la fecha del sistema en forma legible
      *
      * @return Una cadena con la fecha
@@ -379,6 +422,7 @@ public class Utils {
         return sHoyNew;
     }
 
+
     public void mensajeTemporal(Context context) {
 //        Context context = getApplicationContext();
         CharSequence text = "Este módulo se encuentra en fase de desarrollo... perdona las molestias.";
@@ -386,5 +430,15 @@ public class Utils {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
+
+
+    public void setFabric(String strEvento, String strTag, String strFechaHoy) {
+
+        Answers.getInstance().logCustom(new CustomEvent(strEvento)
+                .putCustomAttribute(strTag, strFechaHoy));
+
+
+    }
+
 
 }

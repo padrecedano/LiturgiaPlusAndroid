@@ -1,11 +1,7 @@
 package org.deiverbum.liturgiacatolica;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,10 +10,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CalendarView.OnDateChangeListener;
@@ -28,10 +22,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -60,17 +50,15 @@ import static org.deiverbum.liturgiacatolica.Constants.RESP_V;
 
 public class BreviarioActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnDateChangeListener {
-    CalendarView calendar = null;
-    private String sHoy = getFecha();//"201610099";
-    private WebView webView;
+    private static final String TAG = "BreviarioActivity";
+    //   private String sHoy = getFecha();
     private Utils utilClass;
-
+    private String strFechaHoy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_breviario);
-        // setContentView(R.layout.inicio);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -84,23 +72,15 @@ public class BreviarioActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //       calendar=(CalendarView)findViewById(R.id.calendar);
-        //       calendar.setOnDateChangeListener(this);
 
-/*        Button next = (Button) findViewById(R.id.btn_lh);
-        next.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), LiturgiaHoras.class);
-                startActivityForResult(myIntent, 0);
-            }
 
-        });
-*/
         utilClass = new Utils();
-
+        strFechaHoy = utilClass.getFecha();
         final Button btnMixto = (Button) findViewById(R.id.btn_mixto);
         btnMixto.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                utilClass.setFabric("btnMixto", TAG, strFechaHoy);
+
                 mensajeTemporal();
 //                Intent i = new Intent(BreviarioActivity.this, OficioActivity.class);
 //                startActivity(i);
@@ -111,6 +91,8 @@ public class BreviarioActivity extends AppCompatActivity
         final Button btnOficio = (Button) findViewById(R.id.btn_oficio);
         btnOficio.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                utilClass.setFabric("btnOficio", TAG, strFechaHoy);
+
                 Intent i = new Intent(BreviarioActivity.this, OficioActivity.class);
                 startActivity(i);
             }
@@ -119,6 +101,8 @@ public class BreviarioActivity extends AppCompatActivity
         final Button btnLaudes = (Button) findViewById(R.id.btn_laudes);
         btnLaudes.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                utilClass.setFabric("btnLaudes", TAG, strFechaHoy);
+
                 Intent i = new Intent(BreviarioActivity.this, LaudesActivity.class);
                 startActivity(i);
 
@@ -128,6 +112,7 @@ public class BreviarioActivity extends AppCompatActivity
         final Button btnVisperas = (Button) findViewById(R.id.btn_visperas);
         btnVisperas.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                utilClass.setFabric("btnMixto", TAG, strFechaHoy);
                 Intent i = new Intent(BreviarioActivity.this, VisperasActivity.class);
                 startActivity(i);
 
@@ -137,6 +122,7 @@ public class BreviarioActivity extends AppCompatActivity
         final Button btnTercia = (Button) findViewById(R.id.btn_tercia);
         btnTercia.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                utilClass.setFabric("btnTercia", TAG, strFechaHoy);
                 Intent i = new Intent(BreviarioActivity.this, TerciaActivity.class);
                 startActivity(i);
 
@@ -146,6 +132,7 @@ public class BreviarioActivity extends AppCompatActivity
         final Button btnSexta = (Button) findViewById(R.id.btn_sexta);
         btnSexta.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                utilClass.setFabric("btnSexta", TAG, strFechaHoy);
                 mensajeTemporal();
 //                Intent i = new Intent(BreviarioActivity.this, OficioActivity.class);
 //                startActivity(i);
@@ -156,6 +143,8 @@ public class BreviarioActivity extends AppCompatActivity
         final Button btnNona = (Button) findViewById(R.id.btn_nona);
         btnNona.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                utilClass.setFabric("btnNona", TAG, strFechaHoy);
+
                 mensajeTemporal();
 //                Intent i = new Intent(BreviarioActivity.this, OficioActivity.class);
 //                startActivity(i);
@@ -166,6 +155,8 @@ public class BreviarioActivity extends AppCompatActivity
         final Button btnCompletas = (Button) findViewById(R.id.btn_completas);
         btnCompletas.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                utilClass.setFabric("btnCompletas", TAG, strFechaHoy);
+
                 mensajeTemporal();
 //                Intent i = new Intent(BreviarioActivity.this, OficioActivity.class);
 //                startActivity(i);
@@ -197,12 +188,7 @@ public class BreviarioActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.breviario, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -210,6 +196,7 @@ public class BreviarioActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        utilClass.setFabric(item.getTitle().toString(), TAG, strFechaHoy);
 //calendar.setC
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -231,74 +218,22 @@ public class BreviarioActivity extends AppCompatActivity
             startActivity(i);
 
 
-//            getJSON(OL_URL + getFecha());
-//            Intent i = new Intent(BreviarioActivity.this, OficioActivity.class);
-//            startActivity(i);
-
         } else if (id == R.id.nav_rituales) {
             Utils utilClass = new Utils();
             utilClass.mensajeTemporal(getApplicationContext());
 
-//            getJSON(LA_URL + getFecha());
-
-/*            webView = (WebView) findViewById(R.id.webViewHomilias);
-            webView.getSettings().setJavaScriptEnabled(true);
-            webView.loadUrl("https://drive.google.com/open?id=0B0jwB_jVsocpbjZMTkE5dUVjczQ");
-*/
-/*            Intent i = new Intent(BreviarioActivity.this, LaudesActivity.class);
-            startActivity(i);
-*/
         } else if (id == R.id.nav_homilias) {
-//            getJSON(HI1_URL + getFecha());
             Intent i = new Intent(BreviarioActivity.this, HomiliasActivity.class);
             startActivity(i);
 
         } else if (id == R.id.nav_santo) {
-//            getJSON(H4_URL + getFecha());
             Utils utilClass = new Utils();
             utilClass.mensajeTemporal(getApplicationContext());
 
 
         } else if (id == R.id.nav_evangelio) {
-            // Check that the activity is using the layout version with
-            // the fragment_container FrameLayout
             Intent i = new Intent(BreviarioActivity.this, EvangelioActivity.class);
             startActivity(i);
-/*
-            if (findViewById(R.id.fragment_container) != null) {
-
-                // However, if we're being restored from a previous state,
-                // then we don't need to do anything and should return or else
-                // we could end up with overlapping fragments.
-
-                // Create a new Fragment to be placed in the activity layout
-                OficioFragment firstFragment = new OficioFragment();
-
-                // In case this activity was started with special instructions from an
-                // Intent, pass the Intent's extras to the fragment as arguments
-                firstFragment.setArguments(getIntent().getExtras());
-                FragmentManager fragmentManager = getSupportFragmentManager();
-
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.add(R.id.fragment_container, firstFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-
-                // Add the fragment to the 'fragment_container' FrameLayout
-            }
-*/
-//            textViewToChange.setText("Próximamente...");
-//            newFragment.setArguments();
-
-//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack so the user can navigate back
-//            transaction.replace(R.id.fragment_container, newFragment);
-//            transaction.addToBackStack(null);
-
-// Commit the transaction
-//            transaction.commit();
 
         }
 
@@ -314,66 +249,6 @@ public class BreviarioActivity extends AppCompatActivity
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
-    }
-    private void getJSON(String url) {
-
-        class GetJSON extends AsyncTask<String, Void, String> {
-            ProgressDialog loading;
-            ProgressDialog myProgressDialog;//= new  ProgressDialog(MainActivity.this);
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                loading = ProgressDialog.show(BreviarioActivity.this, "Por favor espere...", "cargando", true, true);
-            }
-
-            @Override
-            protected String doInBackground(String... params) {
-                ConnectivityManager connMgr = (ConnectivityManager)
-                        getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-                // Mostrar errores
-                if (networkInfo != null && networkInfo.isConnected()) {
-                    // Operaciones http
-                    String uri = params[0];
-
-                    BufferedReader bufferedReader;
-                    try {
-                        URL url = new URL(uri);
-                        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                        StringBuilder sb = new StringBuilder();
-
-                        bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-                        String json;
-                        while ((json = bufferedReader.readLine()) != null) {
-                            sb.append(json).append("\n");
-                        }
-                        bufferedReader.close();
-                        con.disconnect();
-                        return sb.toString().trim();
-
-                    } catch (Exception e) {
-                        return null;
-                    }
-                } else
-                    return "Parece que tu equipo no está conectado a internet. En esta fase de la aplicación la conexión a internet es necesaria" +
-                            " para su funcionamiento. En posteriores versiones activaremos el uso sin esta limitación. Perdona las molestias.";
-
-
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                final TextView textViewToChange = (TextView) findViewById(R.id.txt_container);
-                show(s);
-                super.onPostExecute(s);
-                loading.dismiss();
-            }
-
-        }
-        GetJSON gj = new GetJSON();
-        gj.execute(url);
     }
 
 
@@ -404,7 +279,7 @@ public class BreviarioActivity extends AppCompatActivity
     }
 
 
-    protected void show(String s) {
+    protected void showBreviario(String s) {
         TextView textViewToChange = (TextView) findViewById(R.id.txt_container);
         int nHora = 0;
 
@@ -665,7 +540,7 @@ public class BreviarioActivity extends AppCompatActivity
                                     RESP_V + respArray[3] + BR +
                                     RESP_R + respArray[0] + BRS;
                 } else {
-                    sResponsorio = ERR_RESPONSORIO + BRS + "Error " + respArray.length + " de responsorio en la fecha: " + sHoy + BRS;
+                    sResponsorio = ERR_RESPONSORIO + BRS + "Error " + respArray.length + " de responsorio en la fecha: " + strFechaHoy + BRS;
                 }
                 break;
 
@@ -683,7 +558,7 @@ public class BreviarioActivity extends AppCompatActivity
                                     RESP_V + respArray[2] + BR +
                                     RESP_R + respArray[0] + BRS;
                 } else {
-                    sResponsorio = ERR_RESPONSORIO + BRS + "Error " + respArray.length + " de responsorio en la fecha: " + sHoy + BRS;
+                    sResponsorio = ERR_RESPONSORIO + BRS + "Error " + respArray.length + " de responsorio en la fecha: " + strFechaHoy + BRS;
                 }
                 break;
 
@@ -706,7 +581,7 @@ public class BreviarioActivity extends AppCompatActivity
 
 
             default:
-                sResponsorio = ERR_RESPONSORIO + BRS + "Error " + respArray.length + " de responsorio en la fecha: " + sHoy + BRS;
+                sResponsorio = ERR_RESPONSORIO + BRS + "Error " + respArray.length + " de responsorio en la fecha: " + strFechaHoy + BRS;
                 break;
         }
         return sResponsorio;

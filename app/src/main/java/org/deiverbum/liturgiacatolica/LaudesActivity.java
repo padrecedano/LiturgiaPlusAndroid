@@ -1,11 +1,15 @@
 package org.deiverbum.liturgiacatolica;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Spanned;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -52,7 +56,7 @@ public class LaudesActivity extends AppCompatActivity {
     private static final String TAG = "LaudesActivity";
     ArrayAdapter adapter;
     ListView listView;
-    String items;
+    Spanned strRespuesta;
     JsonArrayRequest jsArrayRequest;
     private Utils utilClass;
     private RequestQueue requestQueue;
@@ -63,8 +67,8 @@ public class LaudesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_laudes);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         utilClass = new Utils();
         requestQueue= Volley.newRequestQueue(this);
         final TextView mTextView = (TextView) findViewById(R.id.txt_breviario);
@@ -81,8 +85,11 @@ public class LaudesActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        items = showLaudes(response);
-                        mTextView.setText(Utils.fromHtml(items));
+                        String strLaudes = showLaudes(response);
+                        strRespuesta = Utils.fromHtml(strLaudes);
+//                        mTextView.setText(Utils.fromHtml(items));
+                        mTextView.setText(Utils.fromHtml(strLaudes.replaceAll("_", "")));
+
                         progressDialog.dismiss();
                     }
                 },
@@ -209,21 +216,34 @@ public class LaudesActivity extends AppCompatActivity {
 
                 //Agregamos el contenido al Stringbuilder y lo mostramos en nuestro textview usando el formta html :)
                 sb.append(LA_TITULO);
+                sb.append("_");
                 sb.append(sVida);
+                sb.append("_");
                 sb.append(sMensaje);
+                sb.append("_");
 
                 sb.append(sAntifonaInv);
+                sb.append("_");
                 sb.append(sHimno);
+                sb.append("_");
                 sb.append(SALMODIA);
+                sb.append("_");
                 sb.append(sSalmoCompleto1);
+                sb.append("_");
                 sb.append(sSalmoCompleto2);
+                sb.append("_");
                 sb.append(sSalmoCompleto3);
+                sb.append("_");
 
                 sb.append(sLecturaBreve);
+                sb.append("_");
                 sb.append(sRespLBreve);
+                sb.append("_");
                 sb.append(sAntifonaCE);
+                sb.append("_");
 //            sb.append(sPrecesIntro);
                 sb.append(sPreces);
+                sb.append("_");
                 sb.append(sOracion);
             }
 
@@ -242,5 +262,48 @@ public class LaudesActivity extends AppCompatActivity {
         return sb.toString();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.breviario_menu_action, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+//calendar.setC
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.item_voz) {
+
+            //           final TextView mTextView = (TextView) findViewById(R.id.txt_breviario);
+            String strTexto = strRespuesta.toString();//mTextView.getText().toString();
+            String PARAGRAPH_SPLIT_REGEX = "_";
+            String[] strPrimera = strTexto.split(PARAGRAPH_SPLIT_REGEX);
+            new TTS(getApplicationContext(), strPrimera);
+
+//            lector.leerTexto("Test","1");
+
+
+            //ttsFunction();
+            //return true;
+        }
+
+        if (id == R.id.item_calendario) {
+//            Intent i = new Intent(OficioActivity.this, CalendarioActivity.class);
+            Intent i = new Intent(this, CalendarioActivity.class);
+
+            startActivity(i);
+
+//            ttsFunction();
+            //return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
 
 }

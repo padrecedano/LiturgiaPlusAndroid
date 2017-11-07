@@ -22,16 +22,17 @@
     <string name="lbl_comentarios_hoy">Comentarios Evangelio</string>
     <string name="lbl_santo_hoy">Santo del día</string>
     <string name="lbl_rituales">Rituales</string>
+    <string name="all_calendar">Calendario</string>
     <string name="ot">Otras</string>
     <string name="title_activity_misa">Misa</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="laudes_fragment">Laudes fragment</string>
-    <string name="title_activity_homilias">Homilias</string>
-    <string name="title_activity_oficio">Oficio de Lecturas</string>
+    <string name="title_activity_homilias">Homilías</string>
+    <string name="title_activity_oficio">Oficio</string>
     <string name="title_activity_laudes">Laudes</string>
-    <string name="title_activity_tercia">Hora Intermedia: Tercia</string>
+    <string name="title_activity_tercia">Tercia</string>
     <string name="title_activity_visperas">Vísperas</string>
     <string name="title_activity_breviario2">Breviario</string>
     <string name="title_activity_evangelio">Comentarios Evangelio</string>
@@ -40,5 +41,8 @@
     <string name="generic_error">Ha ocurrido un error desconocido. Intenta más tarde.</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_santo">Santo del Día</string>
+    <string name="title_activity_oraciones">Oraciones</string>
+    <string name="default_notification_channel_id">ch22</string>
+
 
 </resources>

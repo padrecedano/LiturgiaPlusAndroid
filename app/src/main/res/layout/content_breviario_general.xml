@@ -8,11 +8,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <TextView
             android:id="@+id/txt_breviario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:enabled="true"
+            android:padding="8dp"
             android:text="@string/app_name" />
     </ScrollView>
-
+    <!--            android:textIsSelectable="true"
+                android:focusable="true"
+                android:longClickable="true" -->
 </FrameLayout>
