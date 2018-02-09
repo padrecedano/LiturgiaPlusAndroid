@@ -4,7 +4,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".BreviarioActivity">
+    tools:context=".activities.BreviarioActivity">
 
 
     <item
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:icon="@drawable/ic_leer_play"
-        android:title="Leer"
+        android:title="@string/leer"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/item_calendario"

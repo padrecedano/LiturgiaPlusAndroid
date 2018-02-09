@@ -2,22 +2,52 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <!--
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+                <TextView
+                    android:id="@+id/txt_breviario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:autoSizeMinTextSize="25sp"
+                    android:text="@string/app_name" />
+
+
+        <org.deiverbum.liturgiacatolica.utils.ZoomTextView
+            android:id="@+id/txt_breviario"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/app_name"
+            android:textSize="@dimen/default_font" />
+
+    </ScrollView>
+-->
+    <!--
+
+ <ZoomTextView
+            android:id="@+id/txt_breviario"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="This is my sample text for pinch zoom demo, you can zoom in and out using pinch zoom, thanks" />
+
 
         <TextView
-            android:id="@+id/txt_breviario"
+            android:id="@+id/txt_breviario2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:enabled="true"
-            android:padding="8dp"
+            android:autoSizeMinTextSize="12sp"
             android:text="@string/app_name" />
-    </ScrollView>
-    <!--            android:textIsSelectable="true"
+                android:textIsSelectable="true"
                 android:focusable="true"
-                android:longClickable="true" -->
+                android:longClickable="true"
+
+
+                -->
 </FrameLayout>

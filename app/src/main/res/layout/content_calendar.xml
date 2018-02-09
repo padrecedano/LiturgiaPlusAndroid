@@ -12,7 +12,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="org.deiverbum.liturgiacatolica.CalendarioActivity"
+    tools:context="org.deiverbum.liturgiacatolica.activities.CalendarioActivity"
     tools:showIn="@layout/activity_tercia">
 
     <ScrollView
@@ -24,8 +24,7 @@
             android:id="@+id/calendarView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignParentStart="true" />
     </ScrollView>
 
 </LinearLayout>

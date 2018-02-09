@@ -21,5 +21,12 @@
     <color name="image_border_end">#FF660000</color>
     <color name="image_border_center">#FFFF3333</color>
     <color name="transparent">#f8faf9f9</color>
+    <color name="colorBreviario">#8D6E63</color>
+    <color name="colorMisa">#f44336</color>
+    <color name="colorHomilias">#EF6C00</color>
+    <color name="colorSantos">#4FC3F7</color>
+    <color name="colorCalendario">#81C784</color>
+    <color name="colorOraciones">#FFC107</color>
+
 
 </resources>

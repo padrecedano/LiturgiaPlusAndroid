@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/menu_liturgia"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_oficio"
+            android:icon="@drawable/ic_store_mall_directory_black_24dp"
+            android:title="@string/lbl_misa_hoy" />
+        <item
+            android:id="@+id/nav_laudes"
+            android:icon="@drawable/ic_homilias_24dp"
+            android:title="@string/lbl_homilias_hoy" />
+        <item
+            android:id="@+id/nav_evangelio"
+            android:icon="@drawable/ic_message_black_24dp"
+            android:title="@string/lbl_comentarios_hoy" />
+
+    </group>
+    <group
+        android:id="@+id/menu_santo"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_santo"
+            android:icon="@drawable/ic_santo_24dp"
+            android:title="@string/lbl_santo_hoy" />
+    </group>
+</menu>

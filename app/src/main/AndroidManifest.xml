@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.deiverbum.liturgiacatolica">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <!--
      <uses-permission android:name="android.permission.SET_DEBUG_APP" />
-    android:debuggable="false"
-    -->
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -25,118 +24,157 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!--
         <activity
-            android:name=".FullscreenActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:name=".data.MainRecycler"
             android:label="@string/app_name"
-            android:theme="@style/FullscreenTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:theme="@style/AppTheme.NoActionBar" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        -->
-        <!--
-                    <activity
-                    android:name=".LiturgiaHorasActivity"
-                    android:label="@string/title_activity_liturgia_horas"
-                    android:parentActivityName=".FullscreenActivity"
-                    android:theme="@style/AppTheme.NoActionBar">
-                    <meta-data
-                        android:name="android.support.PARENT_ACTIVITY"
-                        android:value="org.deiverbum.liturgiacatolica.FullscreenActivity" />
-                </activity>
-        -->
+        <!-- Breviario -->
         <activity
-            android:name=".BreviarioActivity"
+            android:name=".activities.BreviarioActivity"
             android:label="@string/title_activity_breviario"
-            android:parentActivityName=".FullscreenActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.deiverbum.liturgiacatolica.FullscreenActivity" />
+                android:value="org.deiverbum.liturgiacatolica.activities.MainActivity" />
         </activity>
+
+        <!-- Misa -->
         <activity
-            android:name=".MisaActivity"
+            android:name=".activities.MisaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_misa"
-            android:parentActivityName=".FullscreenActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
+            <!--
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.deiverbum.liturgiacatolica.FullscreenActivity" />
+                android:valorg.deiverbum.liturgiacatolica.activities.MainActivityvity" />
+    -->
         </activity>
+
+        <!-- Homilías -->
         <activity
-            android:name=".HomiliasActivity"
+            android:name=".activities.HomiliasActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_homilias"
-            android:parentActivityName=".MisaActivity"
+            android:parentActivityName=".activities.MisaActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.deiverbum.liturgiacatolica.MisaActivity" />
+                android:value="org.deiverbum.liturgiacatolica.activities.MisaActivity" />
         </activity>
+
+        <!-- Evangelio -->
         <activity
-            android:name=".OficioActivity"
-            android:label="@string/title_activity_oficio"
-            android:parentActivityName=".BreviarioActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.deiverbum.liturgiacatolica.BreviarioActivity" />
-        </activity>
-        <activity
-            android:name=".LaudesActivity"
-            android:label="@string/title_activity_laudes"
-            android:parentActivityName=".BreviarioActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.deiverbum.liturgiacatolica.BreviarioActivity" />
-        </activity>
-        <activity
-            android:name=".TerciaActivity"
-            android:label="@string/title_activity_tercia"
-            android:parentActivityName=".BreviarioActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.deiverbum.liturgiacatolica.BreviarioActivity" />
-        </activity>
-        <activity
-            android:name=".VisperasActivity"
-            android:label="@string/title_activity_visperas"
-            android:parentActivityName=".BreviarioActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.deiverbum.liturgiacatolica.BreviarioActivity" />
-        </activity>
-        <activity
-            android:name=".EvangelioActivity"
+            android:name=".activities.EvangelioActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_evangelio"
-            android:parentActivityName=".MisaActivity"
+            android:parentActivityName=".activities.MisaActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.deiverbum.liturgiacatolica.MisaActivity" />
+                android:value="org.deiverbum.liturgiacatolica.activities.MisaActivity" />
         </activity>
-        <!--
-            <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        -->
+
+        <!-- Oficio -->
         <activity
-            android:name=".SantoActivity"
-            android:label="@string/title_activity_santo"
-            android:parentActivityName=".MainActivity"
+            android:name=".activities.OficioActivity"
+            android:label="@string/title_activity_oficio"
+            android:parentActivityName=".activities.BreviarioActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.deiverbum.liturgiacatolica.MainActivity" />
+                android:value="org.deiverbum.liturgiacatolica.activities.BreviarioActivity" />
         </activity>
+        <!-- Laudes -->
+        <activity
+            android:name=".activities.LaudesActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_laudes"
+            android:parentActivityName=".activities.BreviarioActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.deiverbum.liturgiacatolica.activities.BreviarioActivity" />
+        </activity>
+
+        <!-- Tercia -->
+        <activity
+            android:name=".activities.TerciaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_tercia"
+            android:parentActivityName=".activities.BreviarioActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.deiverbum.liturgiacatolica.activities.BreviarioActivity" />
+        </activity>
+
+        <!-- Vísperas -->
+        <activity
+            android:name=".activities.VisperasActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_visperas"
+            android:parentActivityName=".activities.BreviarioActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.deiverbum.liturgiacatolica.activities.BreviarioActivity" />
+        </activity>
+
+        <!-- Santo -->
+        <activity
+            android:name=".activities.SantoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_santo"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.deiverbum.liturgiacatolica.activities.MainActivity" />
+        </activity>
+
+        <!-- Calendario -->
+        <activity
+            android:name=".activities.CalendarioActivity"
+            android:label="@string/title_activity_santo"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.deiverbum.liturgiacatolica.activities.MainActivity" />
+        </activity>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="ce5bc56c5381caf9528a87baaa5684e08461b836" />
+
+        <activity
+            android:name=".activities.OracionesActivity"
+            android:label="@string/title_activity_oraciones"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.deiverbum.liturgiacatolica.activities.MainActivity" />
+        </activity>
+
+        <service
+            android:name=".services.FCMService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission=""
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+
     </application>
 
 </manifest>
