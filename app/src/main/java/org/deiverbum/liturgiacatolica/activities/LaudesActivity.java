@@ -88,7 +88,6 @@ public class LaudesActivity extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(LaudesActivity.this);
         progressDialog.setMessage(PACIENCIA);
 
-        // Nueva petición JSONObject
         //utilClass.getHoy()
         jsArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
