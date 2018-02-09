@@ -1,0 +1,10 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportHeight="89"
+    android:viewportWidth="92">
+    <path
+        android:name="Forma 1"
+        android:fillColor="#000"
+        android:pathData="@string/vector_misa" />
+</vector>
