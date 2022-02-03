@@ -1,11 +1,8 @@
 package org.deiverbum.app.model;
 
-import static org.deiverbum.app.utils.Constants.BR;
-import static org.deiverbum.app.utils.Constants.PRE_ANT;
 import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 
 import org.deiverbum.app.utils.Utils;
 
@@ -14,7 +11,7 @@ public class Laudes extends BreviarioHora{
     private LecturaBreve lecturaBreve;
     private Benedictus benedictus;
     private Preces preces;
-    private PadreNuestro padreNuestro;
+    private final PadreNuestro padreNuestro;
 
     public Laudes(){
         this.padreNuestro=new PadreNuestro();
@@ -24,10 +21,12 @@ public class Laudes extends BreviarioHora{
         return "LAUDES";
     }
 
+    @SuppressWarnings("unused")
     public Invitatorio getInvitatorio() {
         return invitatorio;
     }
 
+    @SuppressWarnings("unused")
     public void setInvitatorio(Invitatorio invitatorio) {
         this.invitatorio = invitatorio;
     }
@@ -36,6 +35,7 @@ public class Laudes extends BreviarioHora{
         return lecturaBreve;
     }
 
+    @SuppressWarnings("unused")
     public void setLecturaBreve(LecturaBreve lecturaBreve) {
         this.lecturaBreve = lecturaBreve;
     }
@@ -44,6 +44,7 @@ public class Laudes extends BreviarioHora{
         return benedictus;
     }
 
+    @SuppressWarnings("unused")
     public void setBenedictus(Benedictus benedictus) {
         this.benedictus = benedictus;
     }
