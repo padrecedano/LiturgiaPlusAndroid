@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_help"
+            android:title="Ayuda" />
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_configuration"
+            android:title="Configuración" />
+
+        <item
+            android:id="@+id/nav_error"
+            android:icon="@drawable/ic_bug_report"
+            android:title="Reportar error" />
+    </group>
+
+    <group
+        android:id="@+id/grp2"
+        android:checkableBehavior="single">
+
+    <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_about"
+                android:title="Sobre Liturgia+" />
+            <item
+                android:id="@+id/nav_author"
+                android:icon="@drawable/ic_author"
+                android:title="Autor" />
+            <item
+                android:id="@+id/nav_thanks"
+                android:icon="@drawable/ic_thanks"
+                android:title="Agradecimientos" />
+
+            <item
+                android:id="@+id/nav_new"
+                android:icon="@drawable/ic_fiber_new_black_24dp"
+                android:title="Novedades" />
+
+    </group>
+    <group
+        android:id="@+id/grp3"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_privacy"
+            android:icon="@drawable/ic_privacy"
+            android:title="Política de Privacidad" />
+        <item
+            android:id="@+id/nav_terms"
+            android:icon="@drawable/ic_terms"
+            android:title="Términos y Condiciones" />
+    </group>
+
+</menu>

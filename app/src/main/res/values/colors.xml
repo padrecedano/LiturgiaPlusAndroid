@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1e88e5</color>
+    <color name="colorPrimaryDark">#1565c0</color>
+    <color name="colorAccent">#ff4340</color>
+    <color name="colorPrimaryVariant">#1e88e5</color>
+    <color name="colorOnPrimary">#1e88e5</color>
+
+    <color name="colorSecondary">#D32F2F</color>
+    <color name="colorSecondaryDark">#1565c0</color>
+    <color name="colorSecondaryVariant">#1e88e5</color>
+    <color name="colorOnSecondary">#1e88e5</color>
+
+    <color name="colorOnBackground">#1e88e5</color>
+    <color name="colorSurface">#0D47A1</color>
+    <color name="colorOnSurface">#FFAB40</color>
+    <color name="colorOnSurfaceVariant">#FFEA00</color>
+
+    <color name="colorError">#1e88e5</color>
+    <color name="colorOnError">#1e88e5</color>
+
+    <color name="amber_200">#FFE082</color>
+    <color name="amber_50">#FFF8E1</color>
+
+    <color name="txt_salterio">#74f7c65d</color>
+
+    <color name="visperas_boton">#c44b89ca</color>
+
+    <color name="transparent">#f8faf9f9</color>
+    <color name="colorMainItemDeprecated">#f8faf9f9</color>
+    <color name="colorMainItem">#FFF59D</color>
+
+    <color name="colorBreviario">#3e2723</color>
+    <color name="colorMisa">#bf360c</color>
+
+    <color name="colorHomilias">#c66900</color>
+
+    <color name="colorSantos">#29434e</color>
+    <color name="colorMain_lecturas_img">#087f23</color>
+    <color name="colorMain_evangelio_img">#880e4f</color>
+
+    <color name="colorBiblia">#00867d</color>
+    <color name="colorPadres">#c8a600</color>
+    <color name="colorSacramentos">#373737</color>
+
+    <color name="colorCalendario">#524c00</color>
+    <color name="colorOraciones">#4d2c91</color>
+    <color name="colorMain_img_mas">#c96f53</color>
+
+    <color name="color_mainrecycler_bg">#E0F7FA</color>
+    <color name="colorMainIcon">#fafafa</color>
+
+    <color name="color_mainrecycler_text">#FFF59D</color>
+
+    <color name="color_nav_start">#8e8e8e</color>
+    <color name="color_nav_center">#616161</color>
+    <color name="color_nav_end">#373737</color>
+
+    <color name="color_fondo_grupo1">#263238</color>
+    <color name="color_fondo_grupo2">#424242</color>
+    <color name="color_fondo_rv">#EB424242</color>
+    <color name="background_material_light">#BCFFAB40</color>
+    <color name="background_player">#ffddb0</color>
+    <color name="navigation_view_background">#B8FFFFFF</color>
+
+    <color name="date_picker_dialog_header_background">@color/colorPrimaryDark</color>
+    <color name="date_picker_dialog_background">#00FFFFFF</color>
+    <color name="date_picker_dialog_selected_day">@color/colorAccent</color>
+    <color name="date_picker_dialog_selected_month">#B71C1C</color>
+    <color name="date_picker_dialog_day_of_week">#611B1B</color>
+    <color name="text_background">#f9e3c6</color>
+    <color name="text_color">#000000</color>
+    <color name="liturgicalRed">#A52A2A</color>
+
+    <color name="colorInput">#C51162</color>
+    <color name="colorTextInput">#283593</color>
+    <color name="colorUnchecked">#8E585A6B</color>
+
+    <color name="md_theme_light_primary">#2C5EA7</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_primaryContainer">#D6E3FF</color>
+    <color name="md_theme_light_onPrimaryContainer">#001A40</color>
+    <color name="md_theme_light_secondary">#565F71</color>
+    <color name="md_theme_light_onSecondary">#FFFFFF</color>
+    <color name="md_theme_light_secondaryContainer">#DAE2F8</color>
+    <color name="md_theme_light_onSecondaryContainer">#131C2C</color>
+    <color name="md_theme_light_tertiary">#1460A4</color>
+    <color name="md_theme_light_onTertiary">#FFFFFF</color>
+    <color name="md_theme_light_tertiaryContainer">#D2E4FF</color>
+    <color name="md_theme_light_onTertiaryContainer">#001C39</color>
+    <color name="md_theme_light_error">#BA1B1B</color>
+    <color name="md_theme_light_errorContainer">#FFDAD4</color>
+    <color name="md_theme_light_onError">#FFFFFF</color>
+    <color name="md_theme_light_onErrorContainer">#410001</color>
+    <color name="md_theme_light_background">#FCFDF7</color>
+    <color name="md_theme_light_onBackground">#1A1C19</color>
+    <color name="md_theme_light_surface">#FCFDF7</color>
+    <color name="md_theme_light_onSurface">#1A1C19</color>
+    <color name="md_theme_light_surfaceVariant">#E0E2EC</color>
+    <color name="md_theme_light_onSurfaceVariant">#44474F</color>
+    <color name="md_theme_light_outline">#74777F</color>
+    <color name="md_theme_light_inverseOnSurface">#F1F1EC</color>
+    <color name="md_theme_light_inverseSurface">#2E312D</color>
+    <color name="md_theme_light_primaryInverse">#A9C7FF</color>
+    <color name="md_theme_dark_primary">#A9C7FF</color>
+    <color name="md_theme_dark_onPrimary">#002F68</color>
+    <color name="md_theme_dark_primaryContainer">#02458E</color>
+    <color name="md_theme_dark_onPrimaryContainer">#D6E3FF</color>
+    <color name="md_theme_dark_secondary">#BEC7DD</color>
+    <color name="md_theme_dark_onSecondary">#283041</color>
+    <color name="md_theme_dark_secondaryContainer">#3E4759</color>
+    <color name="md_theme_dark_onSecondaryContainer">#DAE2F8</color>
+    <color name="md_theme_dark_tertiary">#A0C9FF</color>
+    <color name="md_theme_dark_onTertiary">#00315D</color>
+    <color name="md_theme_dark_tertiaryContainer">#004883</color>
+    <color name="md_theme_dark_onTertiaryContainer">#D2E4FF</color>
+    <color name="md_theme_dark_error">#FFB4A9</color>
+    <color name="md_theme_dark_errorContainer">#930006</color>
+    <color name="md_theme_dark_onError">#680003</color>
+    <color name="md_theme_dark_onErrorContainer">#FFDAD4</color>
+    <color name="md_theme_dark_background">#1A1C19</color>
+    <color name="md_theme_dark_onBackground">#E2E3DD</color>
+    <color name="md_theme_dark_surface">#1A1C19</color>
+    <color name="md_theme_dark_onSurface">#E2E3DD</color>
+    <color name="md_theme_dark_surfaceVariant">#44474F</color>
+    <color name="md_theme_dark_onSurfaceVariant">#C4C6D0</color>
+    <color name="md_theme_dark_outline">#8E9099</color>
+    <color name="md_theme_dark_inverseOnSurface">#1A1C19</color>
+    <color name="md_theme_dark_inverseSurface">#E2E3DD</color>
+    <color name="md_theme_dark_primaryInverse">#2C5EA7</color>
+    <color name="seed">#204A87</color>
+    <color name="error">#BA1B1B</color>
+    <color name="Custom0">#CE5C00</color>
+    <color name="Custom1">#FFBC0E</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="black_overlay">#66000000</color>
+
+</resources>

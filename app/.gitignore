@@ -1,0 +1,15 @@
+/build
+*.iml
+.gradle
+/local.properties
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+.DS_Store
+/captures
+.externalNativeBuild
+!src/res/raw
+/app/fabric.properties
+/utils/Configuration.java
+google-services.json
+

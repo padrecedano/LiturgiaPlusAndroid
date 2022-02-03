@@ -1,0 +1,156 @@
+{
+  "title": "Definiciones",
+  "date": "20220127",
+  "bookType": 2,
+  "chapters": [
+    {
+      "content": [
+        {
+          "type": 0,
+          "text": [
+            "<b>Liturgia+</b> es una aplicación para Android que quiere ofrecer <b>de forma totalmente gratuita y sin publicidad</b> toda la liturgia correspondiente a un día específico.",
+            "Estos son los módulos de que dispone la Aplicación:"
+          ]
+        },
+        {
+          "type": 20,
+          "title": "Liturgia de las Horas",
+          "text": [
+            "«<i>Cuando la oración del Oficio se convierte en verdadera oración personal, entonces se manifiestan mejor los lazos que unen entre sí a la liturgia y a toda la vida cristiana. La vida entera de los fieles, durante cada una de las horas del día y de la noche, constituye como una leitourgia, mediante la cual ellos se ofrecen en servicio de amor a Dios y a los hombres, adhiriéndose a la acción de Cristo, que con su vida entre nosotros y el ofrecimiento de sí mismo ha santificado la vida de todos los hombres</i>». (Pablo VI, papa, <i>Laudis canticum</i>, n. 8)."
+          ]
+        },
+        {
+          "type": 0,
+          "text": [
+            "La oración de las horas, está distribuida del siguiente modo en la aplicación:"
+          ]
+        },
+        {
+          "type": 11,
+          "text": [
+            "Oficio de Lecturas, incluidas las <b>lecturas del ciclo bienal</b>",
+            "Laudes",
+            "Oficio + Laudes + Lecturas del Evangelio del día (con los nuevos textos bíblicos oficiales)",
+            "Hora Intermedia",
+            "Vísperas",
+            "Completas"
+          ]
+        },
+        {
+          "type": 0,
+          "text": [
+            "Las lecturas bíblicas del Oficio han sido tomadas de la <i>Sagrada Biblia</i>, versión oficial de la &copy;Conferencia Episcopal Española."
+          ]
+        },
+        {
+          "type": 20,
+          "title": "Misa",
+          "text": [
+            "«Este es el Misterio de la fe». Con esta expresión, pronunciada inmediatamente después de las palabras de la consagración, el sacerdote proclama el misterio celebrado y manifiesta su admiración ante la conversión sustancial del pan y el vino en el cuerpo y la sangre del Señor Jesús, una realidad que supera toda comprensión humana. En efecto, la Eucaristía es «misterio de la fe» por excelencia: «es el compendio y la suma de nuestra fe». La fe de la Iglesia es esencialmente fe eucarística y se alimenta de modo particular en la mesa de la Eucaristía. La fe y los sacramentos son dos aspectos complementarios de la vida eclesial. La fe que suscita el anuncio de la Palabra de Dios se alimenta y crece en el encuentro de gracia con el Señor resucitado que se produce en los sacramentos: «La fe se expresa en el rito y el rito refuerza y fortalece la fe». Por eso, el Sacramento del altar está siempre en el centro de la vida eclesial; «gracias a la Eucaristía, la Iglesia renace siempre de nuevo». Cuanto más viva es la fe eucarística en el Pueblo de Dios, tanto más profunda es su participación en la vida eclesial a través de la adhesión consciente a la misión que Cristo ha confiado a sus discípulos. La historia misma de la Iglesia es testigo de ello. Toda gran reforma está vinculada de algún modo al redescubrimiento de la fe en la presencia eucarística del Señor en medio de su pueblo. (Benedicto XVI, papa, <i>Sacramentum Caritatis</i>, n. 6)."
+          ]
+        },
+        {
+          "type": 0,
+          "title": "Misa",
+          "text": [
+            "La Aplicación ofrecerá la liturgia de la Eucaristía del día correspondiente. Oraciones, lecturas, prefacios, etc. Se irán incluyendo los textos de la 3ª Edición Típica del Misal Romano, publicada en Octubre de 2016.",
+"Este módulo está todavía en proyecto. Si te interesa colaborar en él puedes ponerte en contacto conmigo."
+          ]
+        },
+        {
+          "type": 20,
+          "title": "Homilías",
+          "text": [
+            "Una recopilación de homilías tomadas de los padres de la Iglesia, de los últimos Papas o de autores de probada ortodoxia."
+          ]
+        },
+        {
+          "type": 20,
+          "title": "Santo del día",
+          "text": [
+            "La vida del Santo del día, a veces con una pequeña reflexión que nos anime también a nosotros a recorrer día a día el camino de la santidad personal."
+          ]
+        },
+        {
+          "type": 20,
+          "title": "Lecturas del día",
+          "text": [
+            "Las lecturas bíblicas de la Misa del día."
+          ]
+        },
+        {
+          "type": 20,
+          "title": "Comentarios Evangelio",
+          "text": [
+            "Como las homilías, recogemos aquí comentarios de los padres o de autores de probada ortodoxia, sobre el Evangelio del día."
+          ]
+        },
+        {
+          "type": 0,
+          "text": [
+            "En un futuro, Dios mediante, incluiremos aquí también los comentarios de la <i>Catena aurea</i>, gran parte de los cuales ya existen en el sitio web <a href=\"https://wwww.deiverbum.org\">deiverbum.org</a>"
+          ]
+        },
+        {
+          "type": 20,
+          "title": "Calendario",
+          "text": [
+            "Donde, a partir de una fecha cualquiera, podremos acceder a los diferentes módulos de la aplicación para esa fecha desde un menú contextual que aparece al tocar el día deseado."
+          ]
+        },
+        {
+          "type": 20,
+          "title": "Oraciones",
+          "text": [
+            "Las más importantes para cada católico: el Santo Rosario, el Ángelus, las Letanías, el Vía Crucis ..."
+          ]
+        },
+        {
+          "type": 20,
+          "title": "Biblia",
+          "text": [
+            "Contenido relativo a la Sagrada Escritura (introducción a los libros, comentarios por perícopas bíblicas, etc)."
+          ]
+        },
+        {
+          "type": 20,
+          "title": "Patrística",
+          "text": [
+            "Contenido patrístico específico, como comentarios de los Padres por temas, vida de los Padres, etc."
+          ]
+        },
+        {
+          "type": 20,
+          "title": "Sacramentos",
+          "text": [
+            "Los rituales de algunos sacramentos y otro material... (en proyecto)."
+          ]
+        },
+        {
+          "type": 20,
+          "title": "Más ...",
+          "text": [
+            "Algunas opciones suplementarias..."
+          ]
+        },
+        {
+          "type": 20,
+          "title": "Nota importante",
+          "text": [
+            "La mayor parte del contenido que maneja la aplicación (sobre todo las homilías y comentarios bíblicos) ha sido recopilado y revisado durante más de 20 años. Gran parte de ese contenido ya existe en el sitio web <a href=\"http://www.deiverbum.org\" target=\"_blank\" rel=\"nofollow\">deiverbum.org</a>. Otro contenido se ha realizado recientemente gracias a algunos colaboradores y queda una gran parte de contenido nuevo en el cual puedes colaborar si lo desearas.</p>"
+          ]
+        },
+        {
+          "type": 20,
+          "title": "Bajo tu amparo nos acogemos...",
+          "text": [
+            "Así reza una antiquísima oración, invocando la intercesión de la Virgen María (Liturgia de las Horas, Completas). Este proyecto está bajo el amparo de la Virgen María y de San José. Por su intercesión, con la gracia de Dios, espero poder llevarlo a feliz término."
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+
+
