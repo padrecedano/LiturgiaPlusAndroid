@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Customize your Primary color here. -->
+    <color name="colorPrimary">#1D2430</color>
+    <color name="colorPrimaryDark">#1D2530</color>
+    <color name="colorAccent">#2962FD</color>
+
+    <color name="colorOnSurface">#FFD600</color>
+    <color name="colorOnSurfaceVariant">#FFD600</color>
+
+    <color name="text_color">#B3FFFFFF</color>
+    <color name="text_background">#0D0D0D</color>
+    <color name="liturgicalRed">#AFB42B</color>
+
+    <color name="colorBreviario">#0D0D0D</color>
+    <color name="colorMisa">#0D0D0D</color>
+    <color name="colorHomilias">#0D0D0D</color>
+
+    <color name="colorSantos">#0D0D0D</color>
+    <color name="colorMain_lecturas_img">#0D0D0D</color>
+    <color name="colorMain_evangelio_img">#0D0D0D</color>
+
+    <color name="colorCalendario">#0D0D0D</color>
+    <color name="colorOraciones">#0D0D0D</color>
+    <color name="colorBiblia">#0D0D0D</color>
+
+    <color name="colorPadres">#0D0D0D</color>
+    <color name="colorSacramentos">#0D0D0D</color>
+    <color name="colorMain_img_mas">#0D0D0D</color>
+    <color name="color_mainrecycler_bg">#BDBDBD</color>
+    <color name="colorMainIcon">#BDBDBD</color>
+    <color name="colorMainItem">@color/amber_200</color>
+
+
+
+
+    <!-- Customize your icon here.
+    <color name="ico">#ff7285a3</color>
+    <color name="iconToolBarTint">#fff5f6fa</color>
+-->
+    <!-- Customize your text here.
+    <color name="tabTextColor">#fff5f6fa</color>
+    -->
+</resources>

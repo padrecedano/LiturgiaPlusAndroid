@@ -1,0 +1,250 @@
+{
+  "author":"A. Cedano",
+  "title":"Política de Privacidad de la Aplicación Liturgia+",
+  "date":"20220125",
+  "abstract":{
+    "paragraphs":[
+      {
+        "text":"Alfertson Cedano Guerrero, en adelante («el Desarrollador», «nosotros», «a nosotros», «nuestro») ha desarrollado y mantiene la aplicación móvil Liturgia+ (en adelante, «el Servicio», «la Aplicación»)."
+      },
+      {
+        "text":"Este documento le informa de nuestras políticas en materia de recopilación, uso y divulgación de datos personales cuando utiliza nuestro Servicio y de las opciones de las que dispone en relación con esos datos."
+      },
+      {
+        "text":"Utilizamos sus datos para prestarle el <i>Servicio</i> y mejorarlo. Al utilizar el <i>Servicio</i>, usted acepta la recopilación y el uso de información de conformidad con esta política. A menos que esta Política de privacidad defina lo contrario, los términos utilizados en ella tienen los mismos significados que nuestros Términos y Condiciones de Uso."
+      }
+    ]
+  },
+  "chapters":[
+    {
+      "id":1,
+      "title":"Definiciones",
+      "content":{
+        "sections":[
+          {
+            "id":1,
+            "orderedlist":[
+              {
+                "item":"Servicio",
+                "text":"Es la aplicación móvil Liturgia+ desarrollada por Alfertson Cedano Guerrero."
+              },
+              {
+                "item":"Datos de uso",
+                "text":"Son los datos recopilados automáticamente, generados por el uso del Servicio o por la propia infraestructura del Servicio (por ejemplo, datos sobre errores ocurridos durante el uso de la aplicación)."
+              },
+              {
+                "item":"Cookies",
+                "text":"Las cookies son pequeños archivos almacenados en su dispositivo (ordenador o dispositivo móvil)."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id":2,
+      "title":"Recopilación y uso de la información",
+      "content":{
+        "preamble":{
+          "paragraphs":[
+            {
+              "text":"Recopilamos diferentes tipos de información con la única finalidad de prestarle el Servicio y mejorarlo."
+            }
+          ]
+        },
+        "sections":[
+          {
+            "id":1,
+            "title":"Tipos de datos recopilados",
+            "subsections":[
+              {
+                "title":"Datos de uso",
+                "paragraphs":[
+                  {
+                    "text":"Cuando accede al Servicio con un dispositivo móvil, podemos recopilar determinada información automáticamente, incluyendo, entre otros, el tipo de dispositivo móvil que utiliza, el identificador exclusivo de su dispositivo móvil, la dirección de IP de su dispositivo móvil, el sistema operativo de su dispositivo móvil, identificadores exclusivos de dispositivos y otros datos de diagnóstico."
+                  }
+                ]
+              },
+              {
+                "title":"Cookies y seguimiento",
+                "paragraphs":[
+                  {
+                    "text":"En algunos casos, podríamos utilizar cookies y tecnologías de seguimiento similares para rastrear la actividad de nuestro Servicio y mantener determinada información."
+                  },
+                  {
+                    "text":"Las cookies son archivos con una pequeña cantidad de datos que pueden incluir un identificador exclusivo anónimo. Las cookies son enviadas a su navegador desde un sitio web y se almacenan en su dispositivo. Otras tecnologías de seguimiento también utilizadas son balizas, etiquetas y scripts para recopilar y rastrear la información, así como para mejorar y analizar nuestro Servicio."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id":3,
+      "title":"¿Qué uso da el <i>Servicio</i> a tus datos?",
+      "content":{
+        "preamble":{
+          "paragraphs":[
+            {
+              "text":"El Servicio utiliza los datos recopilados con diversas finalidades:"
+            }
+          ],
+          "singlelist":[
+            "Suministrar y mantener la Aplicación",
+            "Recopilar análisis o información valiosa que nos permitan mejorar la Aplicación",
+            "Controlar el uso de nuestro Servicio",
+            "Detectar, evitar y resolver problemas técnicos"
+          ]
+        }
+      }
+    },
+    {
+      "id":4,
+      "title":"Transferencia de datos",
+      "content":{
+        "preamble":{
+          "paragraphs":[
+            {
+              "text":"La información recopilada puede ser transferida a —y mantenida en— ordenadores localizados fuera de tu estado, provincia, país u otra jurisdicción gubernamental donde las leyes de protección de datos pueden diferir de las de tu jurisdicción."
+            },
+            {
+              "text":"Al aceptar esta Política de Privacidad manifiestas que estás de acuerdo con dicha transferencia de datos, los cuales, en ningún caso, serán datos personales."
+            },
+            {
+              "text":"Nosotros emprenderemos todas las medidas razonables necesarias para garantizar que tus datos sean tratados de forma segura y de conformidad con esta Política de Privacidad y no se realizará ninguna transferencia de tus Datos personales a una organización o país, salvo que existan unos controles adecuados establecidos incluyendo la seguridad de tus datos y otra información personal."
+            },
+            {
+              "text":"Si te pones en contacto con nosotros por alguno de los medios indicados en diversas partes de la Aplicación, nosotros recibiremos por ese medio los datos personales que tengas configurados en esos programas (por ejemplo el correo electrónico). Esos datos no serán almacenados, ni compartidos con terceros y serán usados únicamente para responder a eventuales dudas o para resolver errores relativos al funcionamiento del Servicio."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id":5,
+      "title":"Divulgación de datos",
+      "content":{
+        "preamble":{
+          "paragraphs":[
+            {
+              "text":"El Desarrollador puede divulgar tus Datos personales de buena fe cuando considere que esta acción es necesaria para lo siguiente:"
+            }
+          ],
+          "singlelist":[
+            "Cumplir una obligación legal",
+            "Proteger y defender los derechos o bienes del Desarrollador o del Servicio",
+            "Prevenir o investigar posibles infracciones en relación con el Servicio",
+            "Proteger la seguridad personal de usuarios del Servicio o del público",
+            "Protegerse frente a consecuencias legales"
+          ]
+        }
+      }
+    },
+    {
+      "id":6,
+      "title":"Seguridad de los datos",
+      "content":{
+        "preamble":{
+          "paragraphs":[
+            {
+              "text":"La seguridad de tus datos es importante para nosotros, pero recuerda que ningún método de transmisión por Internet o método de almacenamiento electrónico resulta 100% seguro. A pesar de que nos esforzamos por utilizar medios comercialmente aceptables para proteger tus Datos personales, no podemos garantizar su seguridad absoluta."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id":7,
+      "title":"Proveedores de servicios",
+      "content":{
+        "preamble":{
+          "paragraphs":[
+            {
+              "text":"La Aplicación utiliza proveedores de servicios terceros para servir parte de su contenido o para resolver de forma eficaz eventuales fallos en el Servicio. Estos terceros tienen acceso a tus Datos de uso únicamente para realizar estas tareas en nuestro nombre y están obligados a no divulgarlos ni utilizarlos con ningún otro fin."
+            },
+            {
+              "text":"Estos son los enlaces a la política de privacidad de los proveedores de servicios de terceros utilizados:"
+            }
+          ],
+          "singlelist":[
+            "<a href=\"https://policies.google.com/privacy?hl=es&gl=es\">Google Play Services</a>",
+            "<a href=\"https://firebase.google.com/policies/analytics\">Firebase Analytics</a>",
+            "<a href=\"https://www.google.com/policies/privacy/?hl=es\">Google Analytics</a>"
+          ]
+        }
+      }
+    },
+    {
+      "id":8,
+      "title":"Enlaces a otros sitios",
+      "content":{
+        "preamble":{
+          "paragraphs":[
+            {
+              "text":"Nuestro Servicio puede contener enlaces a otros sitios no operados por nosotros. Si haces clic en el enlace de un tercero, serás dirigido al sitio de ese tercero. Te recomendamos encarecidamente que revises la Política de Privacidad de todos los sitios que visites."
+            },
+            {
+              "text":"No tenemos ningún control ni asumimos responsabilidad alguna con respecto al contenido, las políticas o prácticas de privacidad de sitios o servicios de terceros a los cuales puedas acceder desde la Aplicación."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id":9,
+      "title":"Privacidad del menor",
+      "content":{
+        "preamble":{
+          "paragraphs":[
+            {
+              "text":"Nuestro servicio no está dirigido a ningún menor de 18 años (en adelante, «Menor»)."
+            },
+            {
+              "text":"No recopilamos de forma consciente información personalmente identificable de menores de 18 años. Si es usted un padre/madre o tutor y tiene conocimiento de que su hijo nos ha facilitado Datos personales, contacte con nosotros. Si tenemos conocimiento de que hemos recopilado Datos personales de menores sin verificación del consentimiento parental, tomamos medidas para eliminar esa información de nuestros servidores."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id":10,
+      "title":"Cambios en esta Política de privacidad",
+      "content":{
+        "preamble":{
+          "paragraphs":[
+            {
+              "text":"Podemos actualizar nuestra Política de privacidad periódicamente. Le notificaremos cualquier cambio publicando la nueva Política de privacidad en esta página."
+            },
+            {
+              "text":"Le informaremos a través de un aviso destacado sobre nuestro Servicio antes de que el cambio entre en vigor y actualizaremos la «fecha efectiva» en la parte superior de esta Política de privacidad."
+            },
+            {
+              "text":"Le recomendamos que revise esta Política de privacidad periódicamente para comprobar si se ha introducido algún cambio. Los cambios en esta Política de privacidad entran en vigor cuando se publican en esta página."
+            },
+            {
+              "text":"Existe <a href=\"https://www.liturgiaplus.app/privacy\">una versión en línea de esta Política de Privacidad</a> actualizada con la última fecha."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id":11,
+      "title":"Contacte con nosotros",
+      "content":{
+        "preamble":{
+          "paragraphs":[
+            {
+              "text":"Si tiene alguna pregunta sobre esta Política de privacidad, contacte con nosotros a través de los canales indicados en la Aplicación: menú de la pantalla principal o en la página <b>Autor</b>. En ambas partes aparece de forma visible la dirección de correo electrónico."
+            },
+            {
+              "text":"Si ve el icono de correo en la parte inferior de esta pantalla, puede usarlo también para ponerse en contacto con el Desarrollador."
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

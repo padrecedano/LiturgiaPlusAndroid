@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/seekbar_layout"
+    >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutforPRICE"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+    <SeekBar
+        android:id="@+id/seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:max="100"
+        android:minHeight="2dip"
+        android:maxHeight="2dip"
+        android:background="@color/background_player"
+        android:layout_margin="20dp" />
+    </RelativeLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppThemeOld" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+
+        <item name="actionModeStyle">@style/Widget.App.ActionMode</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_baseline_close_24</item>
+
+        <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.AppTheme.DisplayBody</item>
+        <item name="textAppearanceBody2">
+            @style/TextAppearance.AppTheme.Body2
+        </item>
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
+        <item name="android:textViewStyle">@style/Widget.App.TextView</item>
+        <item name="checkboxStyle">@style/Widget.App.CheckBox</item>
+
+        <item name="switchStyle">@style/Widget.App.Switch</item>
+        <item name="extendedFloatingActionButtonStyle">@style/Widget.App.ExtendedFloatingActionButton</item>
+
+        <item name="navigationViewStyle">@style/Widget.App.NavigationView</item>
+
+
+        <!--
+                <item name="materialCalendarStyle">@style/Widget.MaterialComponents.MaterialCalendar</item>
+                <item name="materialCalendarTheme">@style/ThemeOverlay.MaterialComponents.MaterialCalendar</item>
+
+                <item name="materialCalendarFullscreenTheme">
+                    @style/CustomThemeOverlay_MaterialCalendar_Fullscreen
+                </item>
+                -->
+        <item name="textAppearanceHeadline6">@style/TextAppearance.App.Headline6</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+
+    </style>
+
+    <style name="ThemeOverlay.App.NavigationView" parent="">
+        <item name="textAppearanceHeadline6">@style/TextAppearance.App.Headline6</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.App.Subtitle2</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.App.Body2</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="colorSurface">@color/transparent</item>
+
+    </style>
+
+    <style name="TextAppearance.App.Headline6" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+    </style>
+
+    <style name="TextAppearance.App.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/text_color</item>
+
+
+    </style>
+
+
+    <style name="Widget.App.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.NavigationView</item>
+        <item name="itemIconTint">@color/colorSacramentos</item>
+        <item name="itemTextColor">@color/colorSurface</item>
+        <item name="itemShapeFillColor">@color/navigation_view_background</item>
+        <item name="colorSurface">@color/cardview_light_background</item>
+
+    </style>
+
+    <style name="TextAppearance.App.Body2" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+
+
+    <style name="Widget.App.TextView" parent="@android:style/Widget.Material.TextView">
+        <item name="android:textAppearance">@style/TextAppearance.AppTheme.Body2</item>
+    </style>
+    <!--END-->
+
+
+    <!--
+    <style name="CustomTextAppearance" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/colorBreviario</item>
+    </style>
+-->
+
+    <style name="Widget.App.ActionMode" parent="Widget.AppCompat.ActionMode">
+        <item name="titleTextStyle">?attr/textAppearanceHeadline6</item>
+        <item name="subtitleTextStyle">?attr/textAppearanceSubtitle1</item>
+        <item name="background">@color/material_grey_900</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_baseline_close_24</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--toolbar, primaryColor en tema claro, surfaceColor en tema oscuro-->
+
+    </style>
+
+    <style name="Widget.App.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Toolbar</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Toolbar" parent="Widget.Material3.AppBarLayout">
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="titleTextColor">@color/colorOnSurface</item>
+        <item name="navigationIconTint">@color/colorOnSurface</item>
+        <item name="android:textColorSecondary">@color/colorOnSurface</item>
+        <item name="subtitleTextColor">@color/colorOnSurfaceVariant</item>
+    </style>
+
+    <style name="Widget.App.ExtendedFloatingActionButton" parent="Widget.Material3.ExtendedFloatingActionButton.Icon.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+    </style>
+    <style name="Widget.App.FloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+    </style>
+
+
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="">
+        <item name="colorContainer">@color/colorPrimary</item>
+        <item name="icon">@android:drawable/ic_dialog_email</item>
+        <item name="colorOnContainer">@color/colorMainIcon</item>
+    </style>
+
+    <!-- Textos Body -->
+
+    <style name="TextAppearance.AppTheme.DisplayBody" parent="TextAppearance.Material3.BodyLarge">
+        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textSize">@dimen/default_font</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textColorLink">@color/colorAccent</item>
+    </style>
+
+    <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout</item>
+        <item name="hintTextColor">?attr/colorOnSurface</item>
+        <item name="android:textColor">?attr/color</item>
+
+    </style>
+
+    <style name="ThemeOverlay.App.TextInputLayout" parent="">
+        <item name="colorPrimary">@color/colorTextInput</item>
+        <item name="colorOnSurface">@color/colorInput</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="color">@color/text_color</item>
+
+        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox
+        </item>
+
+    </style>
+
+    <!-- Textos de Recyclerview -->
+    <style name="TextAppearance.AppTheme.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/roboto_light</item>
+        <item name="android:textSize">17sp</item>
+
+    </style>
+
+    <style name="Widget.App.CheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.CheckBox</item>
+    </style>
+
+    <style name="ThemeOverlay.App.CheckBox" parent="">
+        <item name="colorOnSurface">@color/colorInput</item>
+        <item name="colorSecondary">@color/colorTextInput</item>
+    </style>
+
+
+    <style name="Widget.App.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Switch" parent="">
+        <item name="colorSurface">@color/colorUnchecked</item>
+        <item name="android:textSize">@dimen/default_font</item>
+
+
+
+    </style>
+
+    <style name="Widget.AppThemeOld.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+
+
+    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorPrimary">@color/colorOnBackground</item>
+        <item name="colorSecondary">@color/colorOnBackground</item>
+        <item name="colorSurface">@color/background_player</item>
+        <item name="colorOnSurface">@color/colorBreviario</item>
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.App.Title.Text</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.App.Body.Text</item>
+
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button</item>
+
+    </style>
+
+    <style name="MaterialAlertDialog.App" parent="MaterialAlertDialog.MaterialComponents">
+        <item name="shapeAppearance">@style/ShapeAppearance.App.MediumComponent</item>
+    </style>
+
+    <style name="MaterialAlertDialog.App.Title.Text" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">@color/colorInput</item>
+    </style>
+    <style name="MaterialAlertDialog.App.Body.Text"
+        parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textColor">@color/colorTextInput</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textAppearance">
+            @style/TextAppearance.Material3.HeadlineLarge</item>
+
+
+    </style>
+
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.TextButton</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Button" parent="">
+        <item name="colorPrimary">@color/amber_200</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+    <style name="ThemeOverlay.App.Button.TextButton" parent="">
+        <item name="colorPrimary">@color/colorInput</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+
+    </style>
+
+</resources>

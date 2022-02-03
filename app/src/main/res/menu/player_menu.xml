@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<item
+    android:id="@+id/item_voz"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:icon="@drawable/ic_play"
+    android:visible="false"
+    android:title="@string/leer"
+    app:showAsAction="ifRoom" />
+<item
+    android:id="@+id/nav_calendario"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:icon="@drawable/ic_calendar_toolbar"
+    android:title="@string/all_calendar"
+    app:showAsAction="ifRoom" />
+
+            <item
+                android:id="@+id/nav_settings"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:icon="@drawable/ic_settings_black_32dp"
+                android:title="@string/title_fragment_settings"
+                app:showAsAction="ifRoom" />
+</menu>

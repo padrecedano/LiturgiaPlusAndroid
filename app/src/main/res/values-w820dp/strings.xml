@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="audio_play">Leer</string>
+    <string name="audio_pause">Pausar</string>
+    <string name="audio_stop">Detener</string>
+    <string name="bug_privacy">Pulsa en el botón para enviar el mensaje. Se abrirá tu cliente de correo electrónico, con el mensaje listo para enviar. Deberás pulsar en el botón \"Enviar\" de dicho programa para que el error sea reportado. Tus datos serán tratados únicamente para fines de mejorar la aplicación, como se indica en la Política de Privacidad.</string>
+</resources>

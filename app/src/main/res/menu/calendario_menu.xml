@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:checkableBehavior="single"
+        android:title="file"
+        >
+
+        <item
+            android:id="@+id/nav_misa"
+            android:title="@string/lbl_misa_hoy" />
+        <item
+            android:id="@+id/nav_homilias"
+            android:title="@string/lbl_homilias_hoy" />
+        <item
+            android:id="@+id/nav_lecturas"
+            android:title="Lecturas" />
+        <item
+            android:id="@+id/nav_comentarios"
+            android:title="@string/lbl_comentarios_hoy" />
+
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_santo"
+            android:title="@string/lbl_santo_hoy" />
+    </group>
+
+    <item android:title="Liturgia de las Horas">
+        <menu>
+            <item
+                android:id="@+id/nav_mixto"
+                android:title="Oficio+Laudes" />
+            <item
+                android:id="@+id/nav_oficio"
+                android:title="Oficio" />
+            <item
+                android:id="@+id/nav_laudes"
+                android:title="Laudes" />
+            <item
+                android:id="@+id/nav_tercia"
+                android:title="Tercia" />
+            <item
+                android:id="@+id/nav_sexta"
+                android:title="Sexta" />
+            <item
+                android:id="@+id/nav_nona"
+                android:title="Nona" />
+            <item
+                android:id="@+id/nav_visperas"
+                android:title="Vísperas" />
+            <item
+                android:id="@+id/nav_completas"
+                android:title="Completas" />
+
+        </menu>
+    </item>
+</menu>
