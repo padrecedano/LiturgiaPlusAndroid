@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/LiturgiaCatolica.iml" filepath="$PROJECT_DIR$/LiturgiaCatolica.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$USER_HOME$/Desktop/textviewpinchzoom/textviewpinchzoom.iml" filepath="$USER_HOME$/Desktop/textviewpinchzoom/textviewpinchzoom.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LiturgiaCatolicaF.iml" filepath="$PROJECT_DIR$/.idea/modules/LiturgiaCatolicaF.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LiturgiaCatolicaF.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LiturgiaCatolicaF.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/textviewpinchzoom/LiturgiaCatolicaF.textviewpinchzoom.iml" filepath="$PROJECT_DIR$/.idea/modules/textviewpinchzoom/LiturgiaCatolicaF.textviewpinchzoom.iml" />
     </modules>
   </component>
 </project>

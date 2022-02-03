@@ -4,8 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.text.Spanned;
 import android.util.Log;
 import android.util.TypedValue;
@@ -54,6 +53,9 @@ import static org.deiverbum.liturgiacatolica.utils.Constants.SALMODIA;
 import static org.deiverbum.liturgiacatolica.utils.Constants.SALUDO_OFICIO;
 import static org.deiverbum.liturgiacatolica.utils.Constants.SEGUNDA_LECTURA;
 import static org.deiverbum.liturgiacatolica.utils.Constants.SEPARADOR;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class OficioActivity extends AppCompatActivity {
 
@@ -125,7 +127,7 @@ public class OficioActivity extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(OficioActivity.this);
         progressDialog.setMessage(PACIENCIA);
         jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET, OL_URL + strFechaHoy, "",
+                Request.Method.GET, OL_URL + strFechaHoy, new JSONObject(),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

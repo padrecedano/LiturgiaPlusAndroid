@@ -3,19 +3,21 @@ package org.deiverbum.liturgiacatolica.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.core.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Adapter;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.deiverbum.liturgiacatolica.BuildConfig;
@@ -26,7 +28,6 @@ import org.deiverbum.liturgiacatolica.utils.Utils;
 
 import java.util.ArrayList;
 
-import io.fabric.sdk.android.Fabric;
 
 
 public class MainActivity extends AppCompatActivity
@@ -44,13 +45,12 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         version = BuildConfig.VERSION_NAME + String.valueOf(BuildConfig.VERSION_CODE);
 
-        Fabric.with(this, new Crashlytics());
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+/*
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
+*/
         recyclerView = findViewById(R.id.recyclerView);
         arrayList = new ArrayList<>();
         int colorBreviario = getResources().getColor(R.color.colorBreviario);
@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity
         arrayList.add(new DataModel("Calendario", R.drawable.ic_calendar2_100x100, colorCalendario));
         arrayList.add(new DataModel("Oraciones", R.drawable.ic_oraciones_100x100, colorOraciones));
 
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, arrayList, this);
-        recyclerView.setAdapter(adapter);
+        //Adapter adapter = new Adapter(this, arrayList, this);
+        //recyclerView.setAdapter(adapter);
 
 
         /*
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity
          */
 
         AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(this, 350);
-        recyclerView.setLayoutManager(layoutManager);
+        //recyclerView.setLayoutManager(layoutManager);
 
 
         /*

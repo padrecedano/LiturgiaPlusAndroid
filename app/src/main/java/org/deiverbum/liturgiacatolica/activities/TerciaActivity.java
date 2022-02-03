@@ -4,8 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.text.Spanned;
 import android.util.Log;
 import android.util.TypedValue;
@@ -51,6 +50,9 @@ import static org.deiverbum.liturgiacatolica.utils.Constants.PACIENCIA;
 import static org.deiverbum.liturgiacatolica.utils.Constants.SALMODIA;
 import static org.deiverbum.liturgiacatolica.utils.Constants.SEPARADOR;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 public class TerciaActivity extends AppCompatActivity implements View.OnTouchListener {
     final static float STEP = 200;
     private static final String TAG = "TerciaActivity";
@@ -89,7 +91,7 @@ public class TerciaActivity extends AppCompatActivity implements View.OnTouchLis
         jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 HI1_URL + utilClass.getHoy(),
-                "",
+                new JSONObject(),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

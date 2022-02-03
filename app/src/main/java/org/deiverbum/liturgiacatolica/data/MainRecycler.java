@@ -2,9 +2,11 @@ package org.deiverbum.liturgiacatolica.data;
 
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.deiverbum.liturgiacatolica.R;
 
@@ -32,7 +34,7 @@ public class MainRecycler extends AppCompatActivity implements RecyclerViewAdapt
         arrayList.add(new DataModel("Item 6", R.drawable.app_logo, "#0A9B88"));
 */
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, arrayList, this);
-        recyclerView.setAdapter(adapter);
+        //recyclerView.setAdapter(adapter);
 
 
         //AutoFitGridLayoutManager that auto fits the cells by the column width defined.

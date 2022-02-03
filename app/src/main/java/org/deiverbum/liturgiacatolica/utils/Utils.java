@@ -5,8 +5,6 @@ import android.text.Html;
 import android.text.Spanned;
 import android.widget.Toast;
 
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.CustomEvent;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -399,13 +397,5 @@ public class Utils {
     }
 
 
-    public void setFabric(String strEvento, String strTag, String strFechaHoy) {
-
-        Answers.getInstance().logCustom(new CustomEvent(strEvento)
-                .putCustomAttribute(strTag, strFechaHoy));
-
-
-    }
-
-
-}
+    public void setFabric(String strEvento, String strTag,
+                          String strFechaHoy) {}}

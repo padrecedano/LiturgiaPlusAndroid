@@ -3,17 +3,20 @@ package org.deiverbum.liturgiacatolica.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.core.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.android.material.navigation.NavigationView;
 
 import org.deiverbum.liturgiacatolica.R;
 import org.deiverbum.liturgiacatolica.data.DataModel;
@@ -70,7 +73,7 @@ public class OracionesActivity extends AppCompatActivity
          */
 
         AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(this, 350);
-        recyclerView.setLayoutManager(layoutManager);
+       // recyclerView.setLayoutManager(layoutManager);
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

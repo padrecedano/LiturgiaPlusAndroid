@@ -4,12 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.core.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -28,6 +29,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.navigation.NavigationView;
 
 import org.deiverbum.liturgiacatolica.R;
 import org.deiverbum.liturgiacatolica.utils.Utils;
@@ -123,7 +125,7 @@ public class MisaActivity extends AppCompatActivity
         jsArrayRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 URL_BASE + URL_JSON,
-                "",
+                new JSONObject(),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

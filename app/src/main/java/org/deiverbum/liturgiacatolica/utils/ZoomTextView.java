@@ -12,7 +12,7 @@ import android.widget.TextView;
 // Created by cedano on 19/1/18.
 
 
-public class ZoomTextView extends android.support.v7.widget.AppCompatTextView implements View.OnTouchListener {
+public class ZoomTextView extends androidx.appcompat.widget.AppCompatTextView  implements View.OnTouchListener {
     final static float STEP = 200;
     private static final String TAG = "ZoomTextView";
     TextView mTextView, mtxtRatio2, mtxtRatio3, mtxtRatio4;
