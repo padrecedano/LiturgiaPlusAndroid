@@ -8,8 +8,8 @@
 .DS_Store
 /captures
 .externalNativeBuild
-!src/res/raw
-/app/fabric.properties
 /utils/Configuration.java
-google-services.json
+utils/Configuration.java
+Configuration.java
+
 

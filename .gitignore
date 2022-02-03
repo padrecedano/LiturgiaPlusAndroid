@@ -8,6 +8,5 @@
 /build
 /captures
 .externalNativeBuild
-app/src/main/java/org/deiverbum/app/utils/Configuration.java
-google-services.json
+*.json
 
