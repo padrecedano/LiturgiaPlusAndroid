@@ -1,9 +1,13 @@
 *.iml
 .gradle
 /local.properties
-/.idea/workspace.xml
 /.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
 .DS_Store
 /build
 /captures
 .externalNativeBuild
+app/src/main/java/org/deiverbum/app/utils/Configuration.java
+google-services.json
+
