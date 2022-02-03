@@ -3,8 +3,6 @@ package org.deiverbum.liturgiacatolica.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Spanned;
 import android.util.Log;
 import android.util.TypedValue;
@@ -58,8 +56,11 @@ import static org.deiverbum.liturgiacatolica.utils.Constants.SALMODIA;
 import static org.deiverbum.liturgiacatolica.utils.Constants.SALUDO_OFICIO;
 import static org.deiverbum.liturgiacatolica.utils.Constants.SEPARADOR;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 public class LaudesActivity extends AppCompatActivity {
-    private static final String URL_BASE = "http://deiverbum.org/api/v1/h4.php?fecha=";
+    private static final String URL_BASE = "http://=";
     private static final String URL_JSON = "misa";
     private static final String TAG = "LaudesActivity";
     ArrayAdapter adapter;
@@ -92,7 +93,7 @@ public class LaudesActivity extends AppCompatActivity {
         jsArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 LA_URL + utilClass.getHoy(),
-                "",
+                new JSONArray(),
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {

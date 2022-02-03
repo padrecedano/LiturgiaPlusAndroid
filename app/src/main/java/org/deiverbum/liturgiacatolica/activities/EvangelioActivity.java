@@ -2,8 +2,7 @@ package org.deiverbum.liturgiacatolica.activities;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.util.TypedValue;
 import android.widget.TextView;
 
@@ -21,6 +20,9 @@ import org.deiverbum.liturgiacatolica.utils.Utils;
 import static org.deiverbum.liturgiacatolica.utils.Constants.MY_DEFAULT_TIMEOUT;
 import static org.deiverbum.liturgiacatolica.utils.Constants.PACIENCIA;
 import static org.deiverbum.liturgiacatolica.utils.Constants.URL_EVANGELIO;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class EvangelioActivity extends AppCompatActivity {
     private static final String TAG = "OficioActivity";

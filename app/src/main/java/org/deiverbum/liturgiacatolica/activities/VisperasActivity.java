@@ -3,8 +3,6 @@ package org.deiverbum.liturgiacatolica.activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Spanned;
 import android.util.Log;
 import android.util.TypedValue;
@@ -50,6 +48,9 @@ import static org.deiverbum.liturgiacatolica.utils.Constants.SALMODIA;
 import static org.deiverbum.liturgiacatolica.utils.Constants.SEPARADOR;
 import static org.deiverbum.liturgiacatolica.utils.Constants.VI_TITULO;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 public class VisperasActivity extends AppCompatActivity {
     private static final String TAG = "VisperasActivity";
     String items;
@@ -77,7 +78,7 @@ public class VisperasActivity extends AppCompatActivity {
         jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 H4_URL + utilClass.getHoy(),
-                "",
+                new JSONObject(),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
