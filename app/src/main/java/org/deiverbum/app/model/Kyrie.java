@@ -126,8 +126,6 @@ public class Kyrie {
 
     public SpannableStringBuilder getTextoForRead() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
-        int[] intArray = {0, 1, 2};
-        int mIndex = new Random().nextInt(intArray.length);
         switch (kyrieType) {
             case 0:
                 String text = "<p>Yo confieso ante Dios todopoderoso <br />" +
