@@ -16,10 +16,12 @@ public class Visperas extends BreviarioHora {
         this.padreNuestro=new PadreNuestro();
     }
 
+    @SuppressWarnings("unused")
     public LecturaBreve getLecturaBreve() {
         return lecturaBreve;
     }
 
+    @SuppressWarnings("unused")
     public void setLecturaBreve(LecturaBreve lecturaBreve) {
         this.lecturaBreve = lecturaBreve;
     }
@@ -32,10 +34,12 @@ public class Visperas extends BreviarioHora {
         this.preces = preces;
     }
 
+    @SuppressWarnings("unused")
     public void setMagnificat(Magnificat magnificat) {
         this.magnificat = magnificat;
     }
 
+    @SuppressWarnings("unused")
     public Magnificat getMagnificat() {
         return magnificat;
     }

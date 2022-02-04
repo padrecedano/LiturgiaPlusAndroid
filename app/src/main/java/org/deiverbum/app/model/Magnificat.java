@@ -10,8 +10,7 @@ import org.deiverbum.app.utils.Utils;
 /**
  * @author A. Cedano
  * @version 1.0
- * @date 21/12/21
- * @since 2022.01
+ * @since 2022.1
  */
 public class Magnificat extends Salmo{
 
@@ -25,8 +24,7 @@ public class Magnificat extends Salmo{
         return "CÁNTICO EVANGÉLICO.";
     }
     public Spanned getTexto() {
-
-        String magnificat = new StringBuilder().append("Proclama mi alma la grandeza del Señor,_se alegra mi espíritu en Dios, mi salvador;_porque ha mirado la humillación de su esclava.§Desde ahora me felicitarán todas las generaciones,_porque el Poderoso ha hecho obras grandes por mí:_su nombre es santo,_y su misericordia llega a sus fieles_de generación en generación.§Él hace proezas con su brazo:_dispersa a los soberbios de corazón,_derriba del trono a los poderosos y enaltece a los humildes,_a los hambrientos los colma de bienes_y a los ricos los despide vacíos.§Auxilia a Israel, su siervo,_acordándose de la misericordia_—como lo había prometido a nuestros padres—_en favor de Abrahán y su descendencia por siempre.").toString();
+        String magnificat ="Proclama mi alma la grandeza del Señor,_se alegra mi espíritu en Dios, mi salvador;_porque ha mirado la humillación de su esclava.§Desde ahora me felicitarán todas las generaciones,_porque el Poderoso ha hecho obras grandes por mí:_su nombre es santo,_y su misericordia llega a sus fieles_de generación en generación.§Él hace proezas con su brazo:_dispersa a los soberbios de corazón,_derriba del trono a los poderosos y enaltece a los humildes,_a los hambrientos los colma de bienes_y a los ricos los despide vacíos.§Auxilia a Israel, su siervo,_acordándose de la misericordia_—como lo había prometido a nuestros padres—_en favor de Abrahán y su descendencia por siempre.";
         return Utils.fromHtml(magnificat);
     }
 

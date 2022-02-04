@@ -97,7 +97,7 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-
+        hasInvitatorio=prefs.getBoolean("invitatorio",false);
         isVoiceOn = prefs.getBoolean("voice", true);
         if (isVoiceOn) {
             sbReader = new StringBuilder(VOICE_INI);

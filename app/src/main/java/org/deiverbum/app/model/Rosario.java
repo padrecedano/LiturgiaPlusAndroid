@@ -9,6 +9,7 @@ import android.text.Spanned;
 import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
+import java.util.Locale;
 
 public class Rosario {
     public String saludo;
@@ -43,6 +44,7 @@ public class Rosario {
     }
 
 
+    @SuppressWarnings("unused")
     public void setMisterios(List<Misterio> misterios) {
         this.misterios = misterios;
     }
@@ -51,6 +53,7 @@ public class Rosario {
         return Utils.fromHtml(saludo);
     }
 
+    @SuppressWarnings("unused")
     public void setSaludo(String saludo) {
         this.saludo = saludo;
     }
@@ -59,10 +62,12 @@ public class Rosario {
         return padrenuestro;
     }
 
+    @SuppressWarnings("unused")
     public void setPadrenuestro(String padrenuestro) {
         this.padrenuestro = padrenuestro;
     }
 
+    @SuppressWarnings("unused")
     public SpannableStringBuilder misterioCompleto() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(Utils.fromHtml(getPadrenuestro()));
@@ -81,6 +86,7 @@ public class Rosario {
         return avemaria;
     }
 
+    @SuppressWarnings("unused")
     public void setAvemaria(String avemaria) {
         this.avemaria = avemaria;
     }
@@ -97,6 +103,7 @@ public class Rosario {
         return Utils.fromHtml(letanias);
     }
 
+    @SuppressWarnings("unused")
     public void setLetanias(String letanias) {
         this.letanias = letanias;
     }
@@ -113,10 +120,12 @@ public class Rosario {
         return Utils.fromHtml(salve);
     }
 
+    @SuppressWarnings("unused")
     public void setSalve(String salve) {
         this.salve = salve;
     }
 
+    @SuppressWarnings("unused")
     public int getDay() {
         return day;
     }
@@ -173,7 +182,8 @@ public class Rosario {
             sb.append(LS2);
 
             for (int i = 0; i < 10; i++) {
-                sb.append(Utils.toRed(String.format("%d%s",i+1,".-")));
+                sb.append(Utils.toRed(String.format(Locale.getDefault(), "%d" +
+                        "%s",i+1,".-")));
                 sb.append(LS);
                 sb.append(Utils.fromHtml(getAvemaria()));
                 sb.append(LS2);

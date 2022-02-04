@@ -14,6 +14,7 @@ import java.util.HashMap;
 public class Santo {
     private String nombre;
     private String vida;
+    @SuppressWarnings("unused")
     private String martirologio;
     private boolean crg;
     private String dia;
@@ -50,10 +51,12 @@ public class Santo {
         return martirologio;
     }
 
+    @SuppressWarnings("unused")
     public void setCrg(boolean crg){
         this.crg=crg;
     }
 
+    @SuppressWarnings("unused")
     public boolean getCrg(){
         return this.crg;
     }

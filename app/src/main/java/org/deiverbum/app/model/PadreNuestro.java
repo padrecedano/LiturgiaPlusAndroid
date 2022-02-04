@@ -7,7 +7,7 @@ import android.text.SpannableStringBuilder;
 import org.deiverbum.app.utils.Utils;
 
 public class PadreNuestro {
-    private String texto;
+    private final String texto;
 
     public PadreNuestro() {
         this.texto="Padre nuestro,~¦que estás en el cielo,~¦santificado sea tu Nombre;~¦" +

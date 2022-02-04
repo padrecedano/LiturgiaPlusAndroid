@@ -1,35 +1,13 @@
 package org.deiverbum.app.repository;
 
-import static org.deiverbum.app.utils.Constants.CALENDAR_PATH;
-
 import android.content.Context;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.util.Log;
 
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
 import org.deiverbum.app.R;
-import org.deiverbum.app.model.Breviario;
-import org.deiverbum.app.model.Liturgia;
-import org.deiverbum.app.utils.FirestoreLiveData;
-import org.deiverbum.app.utils.Utils;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import javax.inject.Inject;
 

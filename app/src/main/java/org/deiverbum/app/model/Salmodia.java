@@ -26,23 +26,6 @@ public class Salmodia {
         this.tipo = tipo;
     }
 
-    public SpannableStringBuilder getAllForReads() {
-        SpannableStringBuilder ssb = new SpannableStringBuilder();
-        for (Salmo s : salmos) {
-            String ant = "<p>" + s.getAntifona() + ".</p>";
-            ssb.append(ant);
-            ssb.append(LS2);
-            ssb.append(s.getSalmo());
-            ssb.append(LS2);
-            if (s.getSalmo().endsWith("∸")) {
-            } else {
-                ssb.append(getFinSalmo());
-            }
-            ssb.append(ant);
-            //ssb.append(SEPARADOR);
-        }
-        return ssb;
-    }
 
     public SpannableStringBuilder getSalmosForRead() {
         return getSalmosForRead(-1);
@@ -56,142 +39,12 @@ public class Salmodia {
         this.salmos = salmos;
     }
 
-    public SpannableStringBuilder getSalmoCompletas(int timeID) {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        String salmo = "";
-        String preAntifona = "Ant. ";
-        String antUnica = "";
-
-        if (timeID == 6) {
-            sb.append(Utils.toRed(preAntifona));
-            antUnica = "Aleluya, aleluya, aleluya.";
-            sb.append(antUnica);
-        }
-
-        for (Salmo s : salmos) {
-            SpannableStringBuilder tema = new SpannableStringBuilder();
-            SpannableStringBuilder parte = new SpannableStringBuilder();
-            SpannableStringBuilder intro = new SpannableStringBuilder();
-            SpannableStringBuilder ref = new SpannableStringBuilder();
-            String preRef = String.valueOf(s.getRef());
-
-            if (timeID != 6) {
-                sb.append(Utils.toRed(preAntifona + s.getOrden() + ". "));
-                sb.append(Utils.fromHtml(s.getAntifona()));
-            }
-            if (!s.getTema().equals("")) {
-                tema.append(Utils.toRed(s.getTema()));
-                tema.append(LS2);
-            }
-
-            if (!s.getIntro().equals("")) {
-                intro.append(Utils.fromHtmlSmall(s.getIntro()));
-                intro.append(LS2);
-            }
-            if (!s.getParte().equals("")) {
-                parte.append(Utils.toRed(s.getParte()));
-                parte.append(LS2);
-            }
-            if (preRef != null && !preRef.isEmpty()) {
-                ref.append(Utils.LS);
-                ref.append(s.getRef());
-                ref.append(LS2);
-            }
-
-            sb.append(LS2);
-            sb.append(ref);
-            sb.append(tema);
-            sb.append(intro);
-            sb.append(parte);
-            salmo = Utils.getFormato(s.getSalmo());
-            sb.append(Utils.fromHtml(salmo));
-
-            if (s.getSalmo().endsWith("∸")) {
-                sb.append(Utils.LS);
-                sb.append(Utils.getNoGloria());
-            } else {
-                sb.append(LS2);
-                sb.append(getFinSalmo());
-            }
-
-
-            if (timeID != 6) {
-                sb.append(LS2);
-                sb.append(Utils.toRed(preAntifona));
-                sb.append(getAntifonaLimpia(s.getAntifona()));
-                sb.append(LS2);
-            }
-        }
-        if (timeID == 6) {
-            sb.append(LS2);
-            sb.append(Utils.toRed(preAntifona));
-            sb.append(antUnica);
-            sb.append(LS2);
-        }
-
-        return sb;
-    }
-
-
-    public SpannableStringBuilder getSalmoCompletasForRead(int timeID) {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        String salmo = "";
-        String antUnica = "";
-
-        if (timeID == 6) {
-            antUnica = "Aleluya, aleluya, aleluya.";
-            sb.append(antUnica);
-        }
-
-        for (Salmo s: salmos) {
-            SpannableStringBuilder tema = new SpannableStringBuilder();
-            SpannableStringBuilder parte = new SpannableStringBuilder();
-            SpannableStringBuilder intro = new SpannableStringBuilder();
-            SpannableStringBuilder ref = new SpannableStringBuilder();
-            String preRef = String.valueOf(s.getRef());
-
-            if (timeID != 6) {
-                sb.append(Utils.fromHtml(s.getAntifona()));
-            }
-
-
-            sb.append(LS2);
-            sb.append(ref);
-            sb.append(tema);
-            sb.append(intro);
-            sb.append(parte);
-            //salmo = Utils.getFormato(s.getSalmo());
-            sb.append(Utils.fromHtml(s.getSalmo()));
-
-            if (s.getSalmo().endsWith("∸")) {
-                sb.append(Utils.LS);
-                sb.append(Utils.getNoGloria());
-            } else {
-                sb.append(LS2);
-                sb.append(getFinSalmo());
-            }
-
-
-            if (timeID != 6) {
-                sb.append(LS2);
-                sb.append(getAntifonaLimpia(s.getAntifona()));
-                sb.append(LS2);
-            }
-        }
-        if (timeID == 6) {
-            sb.append(antUnica);
-            sb.append(LS2);
-        }
-
-        return sb;
-    }
 
     public SpannableStringBuilder getSalmos(int hourIndex) {
-        //String tipo = this.tipo;
         SpannableStringBuilder sb = new SpannableStringBuilder("");
-        String salmo = "";
+        String salmo;
         String preAntifona = "Ant. ";
-        String antUnica = "";
+        String antUnica;
 
         if (tipo == 1) {
             sb.append(Utils.toRed(preAntifona));
@@ -276,7 +129,7 @@ public class Salmodia {
 
     public SpannableStringBuilder getSalmosForRead(int hourIndex) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        String salmo = "";
+        String salmo;
         String antUnica = "";
 
         if (tipo == 1) {
@@ -349,7 +202,6 @@ public class Salmodia {
      * @since 2022.01
      * @param hourIndex Un entero con el índice de la hora intermedia
      * @return Un {@link SpannableStringBuilder con el contenido.}
-     * @return
      */
 
     public SpannableStringBuilder getAll(int hourIndex) {
@@ -397,10 +249,9 @@ public class Salmodia {
     }
 
     public String getFinSalmoForRead() {
-        String fin = "Gloria al Padre, y al Hijo, y al Espíritu Santo." +
+        return  "Gloria al Padre, y al Hijo, y al Espíritu Santo." +
                 "Como era en el principio ahora y siempre, "
                 + "por los siglos de los siglos. Amén.";
-        return fin;
     }
 
     /**

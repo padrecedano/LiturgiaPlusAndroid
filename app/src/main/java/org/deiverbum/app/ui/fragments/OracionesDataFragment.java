@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -33,7 +32,6 @@ import net.gotev.speech.TextToSpeechCallback;
 import org.deiverbum.app.R;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentTextBinding;
-import org.deiverbum.app.model.Book;
 import org.deiverbum.app.model.OracionSimple;
 import org.deiverbum.app.model.Rosario;
 import org.deiverbum.app.model.ViaCrucis;
@@ -42,13 +40,10 @@ import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
 import org.deiverbum.app.viewmodel.OracionesViewModel;
 
-import java.util.Objects;
-
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class OracionesDataFragment extends Fragment implements TextToSpeechCallback {
-    private static final String TAG = "OracionesDataFragment";
     private OracionesViewModel mViewModel;
     private FragmentTextBinding binding;
     private ZoomTextView mTextView;
@@ -58,7 +53,6 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
     private SeekBar seekBar;
 
     private boolean isReading = false;
-    private String mDate;
 
     private SharedPreferences prefs;
 
@@ -93,7 +87,7 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
                 new ViewModelProvider(this).get(OracionesViewModel.class);
         mTextView = binding.include.tvZoomable;
         progressBar = binding.progressBar;
-        actionBar = ((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar();
+        actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
@@ -104,7 +98,7 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
 
 
     private void observeHour() {
-        int param = Objects.requireNonNull(getArguments()).getInt("id");
+        int param = requireArguments().getInt("id");
         switch (param) {
             case 1:
             case 2:
@@ -144,7 +138,7 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
     private void observeRosario(int param) {
         boolean isBrevis = prefs.getBoolean("brevis", true);
         mTextView.setText(PACIENCIA);
-        mViewModel.getRosario(param).observe(this, data -> {
+        mViewModel.getRosario(param).observe(getViewLifecycleOwner(), data -> {
             progressBar.setVisibility(View.GONE);
             if (data.status == DataWrapper.Status.SUCCESS) {
                 Rosario rosario=data.getData();
@@ -164,7 +158,7 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
 
     private void observeSingle(String rawPath) {
         mTextView.setText(PACIENCIA);
-        mViewModel.getOracionSimple(rawPath).observe(this, data -> {
+        mViewModel.getOracionSimple(rawPath).observe(getViewLifecycleOwner(), data -> {
             progressBar.setVisibility(View.GONE);
             if (data.status == DataWrapper.Status.SUCCESS) {
                 OracionSimple oracionSimple=data.getData();
@@ -184,13 +178,13 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
 
     private void observeViaCrucis(String rawPath) {
         mTextView.setText(PACIENCIA);
-        mViewModel.getViaCrucis(rawPath).observe(this, data -> {
+        mViewModel.getViaCrucis(rawPath).observe(getViewLifecycleOwner(), data -> {
             progressBar.setVisibility(View.GONE);
             if (data.status == DataWrapper.Status.SUCCESS) {
                 ViaCrucis viaCrucis=data.getData();
                 actionBar.setTitle(viaCrucis.getTitulo());
                 actionBar.setSubtitle("");
-                mTextView.setText(viaCrucis.getForView(false));
+                mTextView.setText(viaCrucis.getForView());
                 if (isVoiceOn) {
                     sbReader = new StringBuilder(VOICE_INI);
                     sbReader.append(viaCrucis.getForRead());
@@ -215,11 +209,11 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
 
         if (item.getItemId() == R.id.item_voz) {
             if (mActionMode == null) {
-                mActionMode = Objects.requireNonNull(getActivity()).startActionMode(mActionModeCallback);
+                mActionMode = requireActivity().startActionMode(mActionModeCallback);
             }
             readText();
             isReading = true;
-            Objects.requireNonNull(getActivity()).invalidateOptionsMenu();
+            requireActivity().invalidateOptionsMenu();
             return true;
         }
 

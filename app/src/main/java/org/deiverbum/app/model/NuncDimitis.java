@@ -10,17 +10,8 @@ public class NuncDimitis extends Salmo{
     private String texto;
 
     public NuncDimitis() {
-        //this.setSalmo("");
     }
 
-    /*
-    public String getAntifona() {
-        return antifona;
-
-    }
-        public void setAntifona(String antifona) {
-        this.antifona = antifona;
-    }*/
     public String getTexto() {
         return Utils.getFormato(texto);
     }

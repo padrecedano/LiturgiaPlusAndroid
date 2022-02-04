@@ -6,8 +6,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * @author A. Cedano
  * @version 1.0
- * @date 26/1/22
- * @since
+ * @since 2022.1
  */
 public class OrderedList {
 
@@ -22,14 +21,16 @@ public class OrderedList {
      * No args constructor for use in serialization
      *
      */
+    @SuppressWarnings("unused")
     public OrderedList() {
     }
 
     /**
      *
-     * @param item
-     * @param text
+     * @param item Título del item
+     * @param text Texto descriptivo
      */
+    @SuppressWarnings("unused")
     public OrderedList(String item, String text) {
         super();
         this.item = item;

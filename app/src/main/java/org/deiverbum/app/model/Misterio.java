@@ -32,6 +32,7 @@ public class Misterio {
         this.titulo = titulo;
     }
 
+    @SuppressWarnings("unused")
     public List<String> getContenidoAll(int dayCode) {
         return contenido;
     }

@@ -30,6 +30,7 @@ public class ViaCrucis {
         return subTitulo;
     }
 
+    @SuppressWarnings("unused")
     public void setSubTitulo(String subTitulo) {
         this.subTitulo = subTitulo;
     }
@@ -50,6 +51,7 @@ public class ViaCrucis {
         this.autor = autor;
     }
 
+    @SuppressWarnings("unused")
     public IntroViaCrucis getIntroViaCrucis() {
         return this.introViaCrucis;
     }
@@ -69,14 +71,17 @@ public class ViaCrucis {
         return sb;//this.adoramus;
     }
 
+    @SuppressWarnings("unused")
     public void setAdoramus(String adoramus) {
         this.adoramus = adoramus;
     }
 
+    @SuppressWarnings("unused")
     public List<String> getRespuestas() {
         return this.respuestas;
     }
 
+    @SuppressWarnings("unused")
     public void setRespuestas(List<String> respuestas) {
         this.respuestas = respuestas;
     }
@@ -105,8 +110,9 @@ public class ViaCrucis {
         return sb;
     }
 
+    @SuppressWarnings("unused")
     public StringBuilder getAllEstacionesForRead() {
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
             String[] textParts = adoramus.split("\\|");
             String txtAdoramus = textParts[0] + "." + textParts[1] + ".";
             for (Estacion e : estaciones) {
@@ -129,10 +135,12 @@ public class ViaCrucis {
         return sb;
     }
 
+    @SuppressWarnings("unused")
     public List<Estacion> getEstaciones() {
         return this.estaciones;
     }
 
+    @SuppressWarnings("unused")
     public void setEstaciones(List<Estacion> estaciones) {
         this.estaciones = estaciones;
     }
@@ -145,7 +153,7 @@ public class ViaCrucis {
         this.oracion = oracion;
     }
 
-    public SpannableStringBuilder getForView(boolean isForRead) {
+    public SpannableStringBuilder getForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         sb.append(Utils.toH2Red(getTitulo()));
         sb.append(LS2);

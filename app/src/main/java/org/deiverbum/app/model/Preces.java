@@ -1,6 +1,5 @@
 package org.deiverbum.app.model;
 
-import static org.deiverbum.app.utils.Constants.BRS;
 import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
@@ -59,16 +58,6 @@ public class Preces {
 
     public String getHeaderForRead() {
         return "PRECES.";
-    }
-
-
-    /**
-     * @deprecated desde la versión 2022.01 - Reemplazar por {@link Preces#getAll()}
-     * @return
-     */
-    @Deprecated
-    public String getPreces() {
-        return "";
     }
 
     public SpannableStringBuilder getAllForRead() {

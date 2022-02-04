@@ -26,6 +26,7 @@ public class Meditacion {
         return textoPost;
     }
 
+    @SuppressWarnings("unused")
     public void setTextoPost(String textoPost) {
         this.textoPost = textoPost;
     }

@@ -8,8 +8,7 @@ import java.util.List;
 /**
  * @author A. Cedano
  * @version 1.0
- * @date 26/1/22
- * @since
+ * @since 2022.1
  */
 public class SubSection {
 
@@ -24,14 +23,16 @@ public class SubSection {
      * No args constructor for use in serialization
      *
      */
+    @SuppressWarnings("unused")
     public SubSection() {
     }
 
     /**
      *
-     * @param title
-     * @param paragraphs
+     * @param title Título
+     * @param paragraphs Conjunto de párrafos
      */
+    @SuppressWarnings("unused")
     public SubSection(String title, List<Paragraph> paragraphs) {
         super();
         this.title = title;
@@ -46,10 +47,12 @@ public class SubSection {
         this.title = title;
     }
 
+    @SuppressWarnings("unused")
     public List<Paragraph> getParagraphs() {
         return paragraphs;
     }
 
+    @SuppressWarnings("unused")
     public void setParagraphs(List<Paragraph> paragraphs) {
         this.paragraphs = paragraphs;
     }

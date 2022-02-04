@@ -8,12 +8,7 @@ import static org.deiverbum.app.utils.Constants.RESP_R;
 import static org.deiverbum.app.utils.Constants.RESP_V;
 import static org.deiverbum.app.utils.Utils.LS2;
 
-import android.text.Layout;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.AlignmentSpan;
 
 import org.deiverbum.app.utils.Utils;
 
@@ -49,13 +44,8 @@ public class Responsorio {
 
     public SpannableStringBuilder getHeader() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-
         sb.append(Utils.toRed(String.format("%s%s", "Responsorio     ",getRef())));
-        //String s= String.format("%" + getRef().length() + "s", getRef());
-        //sb.append(Utils.toRed(s));
         sb.append(LS2);
-        //sb.append(styledResultText);
-        //sb.append(LS2);
         return sb;
     }
 
