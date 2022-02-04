@@ -1,9 +1,5 @@
 package org.deiverbum.app.data.wrappers;
 
-import static org.deiverbum.app.utils.Constants.ERR_CUSTOM;
-
-import android.content.SharedPreferences;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -13,7 +9,6 @@ import java.io.StringWriter;
  * @since 2022.1
  */
 public class CustomException extends Exception {
-    private String trace;
 
     public CustomException () {
     }
@@ -23,9 +18,6 @@ public class CustomException extends Exception {
     }
 
 
-    public CustomException (String message, String trace) {
-        super (message);
-    }
 
     public String getTrace() {
         StringWriter sw = new StringWriter();
@@ -34,9 +26,6 @@ public class CustomException extends Exception {
         return sw.toString();
     }
 
-    public String viewMessage() {
-        return String.format(ERR_CUSTOM,getMessage());
-    }
 
     public CustomException (Throwable cause) {
         super (cause);

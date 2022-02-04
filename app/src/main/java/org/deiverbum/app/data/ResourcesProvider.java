@@ -2,8 +2,6 @@ package org.deiverbum.app.data;
 
 import android.content.Context;
 
-import androidx.lifecycle.LiveData;
-
 import org.deiverbum.app.R;
 
 import java.io.InputStream;
@@ -13,7 +11,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 
 public class ResourcesProvider {
-    private Context mContext;
+    private final Context mContext;
 
     @Inject
     public ResourcesProvider(@ApplicationContext Context context) {

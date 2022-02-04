@@ -2,10 +2,14 @@ package org.deiverbum.app.core.module;
 
 import static org.deiverbum.app.utils.Configuration.URL_API;
 
+import android.app.Application;
 import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import org.deiverbum.app.core.utils.ConnectivityIntecepter;
+import org.deiverbum.app.data.source.remote.network.ApiService;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,7 +19,6 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
-import okhttp3.CacheControl;
 import okhttp3.Dispatcher;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -24,17 +27,10 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
-import android.app.Application;
-
-import org.deiverbum.app.core.utils.ConnectivityIntecepter;
-import org.deiverbum.app.data.source.remote.network.ApiService;
-
 /**
  * @author A. Cedano
  * @version 1.0
- * @date 28/11/21
- * @since 2021.01
+ * @since 2022.1
  */
 
 @Module
@@ -74,15 +70,6 @@ public abstract class NetworkModule {
                 .writeTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
                 .dispatcher(dispatcher);
-        //TODO revisar
-            /*
-        if (BuildConfig.DEBUG){
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        client.addNetworkInterceptor(interceptor);
-        client.addInterceptor(new ChuckInterceptor(application));
-        }
-        */
 
         client.addInterceptor(new ConnectivityIntecepter(application));
         Interceptor interceptor = chain -> {

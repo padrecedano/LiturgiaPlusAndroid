@@ -1,11 +1,12 @@
 package org.deiverbum.app.data.adapters;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,13 +24,11 @@ import java.util.List;
  *
  * @author A. Cedano
  * @version 1.0
- * @date 18/11/21
- * @since 2021.1
+ * @since 2022.1
  */
 
 public class OracionesAdapter extends RecyclerView.Adapter<OracionesAdapter.ViewHolder> {
-    private static final String TAG = "BreviarioAdapter";
-    private List<OracionItem> mDataSet;
+    private final List<OracionItem> mDataSet;
 
     /**
      * Inicializa el dataset del adaptador.
@@ -44,6 +43,7 @@ public class OracionesAdapter extends RecyclerView.Adapter<OracionesAdapter.View
     /**
      * Crea las nuevas vistas (invocadas por el layout manager)
      */
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext())
@@ -79,7 +79,6 @@ public class OracionesAdapter extends RecyclerView.Adapter<OracionesAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView txtTitle;
         private final TextView txtDescription;
-        private RelativeLayout relativeLayout;
         OracionItem mItem;
 
         public ViewHolder(View v) {
@@ -91,9 +90,8 @@ public class OracionesAdapter extends RecyclerView.Adapter<OracionesAdapter.View
                 bundle.putInt("id", mItem.id);
                 Navigation.findNavController(v1).navigate(mItem.navId, bundle);
             });
-            txtTitle = (TextView) v.findViewById(R.id.tv_title);
-            txtDescription = (TextView) v.findViewById(R.id.tv_description);
-            relativeLayout = v.findViewById(R.id.relativeLayout);
+            txtTitle = v.findViewById(R.id.tv_title);
+            txtDescription = v.findViewById(R.id.tv_description);
         }
 
         /**
@@ -101,7 +99,7 @@ public class OracionesAdapter extends RecyclerView.Adapter<OracionesAdapter.View
          * y guarda una referencia del objeto
          * para poder obtener el id de navegación al hacer click
          *
-         * @param item
+         * @param item Item completo con titulo y descripción
          */
         public void setData(OracionItem item) {
             mItem = item;

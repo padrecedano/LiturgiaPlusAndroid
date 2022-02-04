@@ -7,7 +7,6 @@ import static org.deiverbum.app.utils.Constants.DOC_NOTFOUND;
 import static org.deiverbum.app.utils.Constants.ERR_BIBLIA;
 import static org.deiverbum.app.utils.Constants.FIREBASE_SANTOS;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -146,7 +145,7 @@ public class FirebaseDataSource {
                                 emitter.onError(new RuntimeException());
                                 //return;
                             }
-                            hora.setMetaLiturgia(meta);
+                            Objects.requireNonNull(hora).setMetaLiturgia(meta);
                             emitter.onSuccess(new DataWrapper<>(hora));
                         });
                     } else {
@@ -160,38 +159,7 @@ public class FirebaseDataSource {
 
     }
 
-    public Single<DataWrapper<Mixto, CustomException>> getMixtoB(String dateString) {
-        return Single.create(emitter -> {
-            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(dateString);
-            docRef.get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        DocumentReference dataRef = document.getDocumentReference("lh.0");
-                        MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
-                        try {
-                            dataRef.get().addOnSuccessListener((DocumentSnapshot data) -> {
-                                if (data.exists()) {
-                                    Mixto theHour = data.toObject(Mixto.class);
-                                    Objects.requireNonNull(theHour).setMetaLiturgia(meta);
-                                    emitter.onSuccess(new DataWrapper<>(theHour));
-                                } else {
-                                    emitter.onError(new Exception(DATA_NOTFOUND));
-                                }
-                            });
-                        } catch (Exception e) {
-                            emitter.onError(new Exception(e));
-                        }
-                    } else {
-                        emitter.onError(new Exception(DOC_NOTFOUND));
 
-                    }
-                } else {
-                    emitter.onError(task.getException());
-                }
-            });
-        });
-    }
 
     public Single<DataWrapper<Oficio, CustomException>> getOficio(String dateString) {
         return Single.create(emitter -> {
@@ -204,10 +172,10 @@ public class FirebaseDataSource {
                         MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
                         try {
 
-                            dataRef.get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
+                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
                                 if (mSnapshot.exists()) {
                                     Oficio theHour = mSnapshot.toObject(Oficio.class);
-                                    theHour.setMetaLiturgia(meta);
+                                    Objects.requireNonNull(theHour).setMetaLiturgia(meta);
                                     emitter.onSuccess(new DataWrapper<>(theHour));
                                 } else {
                                     emitter.onError(new Exception(DATA_NOTFOUND));
@@ -229,7 +197,7 @@ public class FirebaseDataSource {
 
     public Single<DataWrapper<Laudes, CustomException>> getLaudes(String dateString) {
         return Single.create(emitter -> {
-            DataWrapper data = new DataWrapper();
+            DataWrapper<Laudes, CustomException> data = new DataWrapper<>();
             DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(dateString);
             docRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -239,10 +207,10 @@ public class FirebaseDataSource {
                         MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
                         try {
 
-                            dataRef.get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
+                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
                                 if (mSnapshot.exists()) {
                                     Laudes theHour = mSnapshot.toObject(Laudes.class);
-                                    theHour.setMetaLiturgia(meta);
+                                    Objects.requireNonNull(theHour).setMetaLiturgia(meta);
                                     data.postValue(theHour);
                                     emitter.onSuccess(data);
                                 } else {
@@ -266,7 +234,7 @@ public class FirebaseDataSource {
 
     public Single<DataWrapper<Intermedia, CustomException>> getIntermedia(String dateString, int hourId) {
         return Single.create(emitter -> {
-            DataWrapper data = new DataWrapper();
+            DataWrapper<Intermedia, CustomException> data = new DataWrapper<>();
             DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(dateString);
             docRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -278,10 +246,10 @@ public class FirebaseDataSource {
                         MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
                         try {
 
-                            dataRef.get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
+                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
                                 if (mSnapshot.exists()) {
                                     Intermedia theHour = mSnapshot.toObject(Intermedia.class);
-                                    theHour.setMetaLiturgia(meta);
+                                    Objects.requireNonNull(theHour).setMetaLiturgia(meta);
                                     data.postValue(theHour);
                                     emitter.onSuccess(data);
                                 } else {
@@ -304,7 +272,7 @@ public class FirebaseDataSource {
 
     public Single<DataWrapper<Visperas, CustomException>> getVisperas(String dateString) {
         return Single.create(emitter -> {
-            DataWrapper data = new DataWrapper();
+            DataWrapper<Visperas, CustomException> data = new DataWrapper<>();
             DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(dateString);
             docRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -314,10 +282,10 @@ public class FirebaseDataSource {
                         MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
                         try {
 
-                            dataRef.get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
+                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
                                 if (mSnapshot.exists()) {
                                     Visperas theHour = mSnapshot.toObject(Visperas.class);
-                                    theHour.setMetaLiturgia(meta);
+                                    Objects.requireNonNull(theHour).setMetaLiturgia(meta);
                                     data.postValue(theHour);
                                     emitter.onSuccess(data);
                                 } else {
@@ -341,7 +309,7 @@ public class FirebaseDataSource {
 
     public Single<DataWrapper<MetaLiturgia, CustomException>> getMetaLiturgia(String dateString) {
         return Single.create(emitter -> {
-            DataWrapper data = new DataWrapper();
+            DataWrapper<MetaLiturgia, CustomException> data = new DataWrapper<>();
             DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(dateString);
             docRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -363,7 +331,7 @@ public class FirebaseDataSource {
 
     public Single<DataWrapper<Comentarios, CustomException>> getComentarios(String dateString) {
         return Single.create(emitter -> {
-            DataWrapper finalData = new DataWrapper();
+            DataWrapper<Comentarios, CustomException> finalData = new DataWrapper<>();
             DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(dateString);
             docRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -372,10 +340,10 @@ public class FirebaseDataSource {
                         DocumentReference dataRef = document.getDocumentReference("comentarios");
                         MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
                         try {
-                            dataRef.get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
+                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
                                 if (mSnapshot.exists()) {
                                     Comentarios theData = mSnapshot.toObject(Comentarios.class);
-                                    theData.setMetaLiturgia(meta);
+                                    Objects.requireNonNull(theData).setMetaLiturgia(meta);
                                     finalData.postValue(theData);
                                     emitter.onSuccess(finalData);
                                 } else {
