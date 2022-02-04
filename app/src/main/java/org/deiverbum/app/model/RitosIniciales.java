@@ -11,10 +11,13 @@ public class RitosIniciales {
 
     public RitosIniciales() {
     }
+
+    @SuppressWarnings("unused")
     public String getInvocacion() {
         return invocacion;
     }
 
+    @SuppressWarnings("unused")
     public void setInvocacion(String invocacion) {
         this.invocacion = invocacion;
     }
@@ -23,6 +26,7 @@ public class RitosIniciales {
         return kyrie;
     }
 
+    @SuppressWarnings("unused")
     public void setKyrie(Kyrie kyrie) {
         this.kyrie = kyrie;
     }

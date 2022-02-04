@@ -1,14 +1,13 @@
 package org.deiverbum.app.model;
 
 import android.text.SpannableStringBuilder;
-import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.google.firebase.firestore.PropertyName;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,22 +24,22 @@ public class Liturgia {
     private HashMap<String, Object> lhFirebase;
 
     private List<HomiliaCompleta> homiliaCompleta;
+    @SuppressWarnings("unused")
     private List<ComentarioBiblico> comentarioCompleto;
     private Comentario comentario;
 
     public boolean hasSaint = false;
 
-    private ArrayList<String> times = new ArrayList<>(
-            Arrays.asList("Adviento","Navidad"));
 
     public Liturgia() {
     }
 
-
+    @SuppressWarnings("unused")
     public List<HomiliaCompleta> getHomiliaCompleta() {
         return homiliaCompleta;
     }
 
+    @SuppressWarnings("unused")
     public List<ComentarioBiblico> getComentarioCompleta() {
         return comentarioCompleto;
     }
@@ -52,19 +51,11 @@ public class Liturgia {
     public void setComentario(Comentario comentario) {
         this.comentario = comentario;
     }
+    @SuppressWarnings("unused")
     public void setHomiliaCompleta(List<HomiliaCompleta> homiliaCompleta) {
         this.homiliaCompleta = homiliaCompleta;
     }
 
-    public String getTitulo() {
-
-        if (hasSaint) {
-            //return santo.getNombre() + "\n\n";
-        } else {
-            //return meta.getTitulo() + "\n\n";
-        }
-        return "Este método de <code>Liturgia</code> sera sacado.";
-    }
 
 
     public SpannableStringBuilder getVida() {
@@ -95,57 +86,44 @@ public class Liturgia {
         //Log.d("-aaa",meta.getFecha());
 
         this.breviario = breviario;
-        //Log.d("-aaa",this.breviario.getMetaLiturgia().getFecha());
 
         this.breviario.setMetaLiturgia(metaLiturgia);
-//        Log.d("-aaa",this.breviario.getMetaLiturgia().getFecha());
 
-//        Log.d("-aaa",this.breviario.getMetaLiturgia().getFecha());
 
     }
 
+    @SuppressWarnings("unused")
     public HashMap<String, Object> getLh() {
         return lhFirebase;
     }
-
-    /*
-        @PropertyName("lh")ListList
-        public void setLh(List<String> lh) {
-            this.lh = lh;public void setLh(HashMap<String,Object> lh) {
-        }*/
 
     @PropertyName("meta")
     public void setMetaLiturgia(MetaLiturgia meta) {
         this.metaLiturgia = meta;
         }
 
+    @SuppressWarnings("unused")
     public void setLh(HashMap<String, Object> lh) {
         this.lhFirebase = lh;
     }
+
+    @NonNull
     public String toString() {
         return "This is the data*: " + getMetaLiturgia().getFecha();
     }
 
     public MetaLiturgia getMetaLiturgia() {
-        Log.d("mtl:Liturgia",getClass().getCanonicalName());
-        //Log.d("mtl:Liturgia",this.meta.getFecha());
         return this.metaLiturgia;
     }
 
     public MetaLiturgia getMeta() {
         return meta;
     }
+
+    @SuppressWarnings("unused")
     public void setMetaLiturgias(MetaLiturgia meta) {
         this.meta = meta;
     }
-
-    public String toStringg(){
-        return "Test";
-    }
-
-
-
-
 
     public Misa getMisa() {
         return misa;
@@ -154,9 +132,6 @@ public class Liturgia {
         this.misa = misa;
     }
 
-public String getTimeById(int timeId){
-        return "a";
-}
 
 
 }

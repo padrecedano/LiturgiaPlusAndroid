@@ -11,6 +11,11 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,6 +23,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import static android.graphics.Typeface.BOLD;
 import static org.deiverbum.app.utils.Constants.BR;
@@ -1006,6 +1012,5 @@ public final class Utils {
     public static String getDay(String date) {
         return date.substring(6, 8);
     }
-
 
 }

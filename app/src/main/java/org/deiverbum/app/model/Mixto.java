@@ -26,9 +26,13 @@ public class Mixto extends BreviarioHora{
 public Mixto(){
     this.padreNuestro=new PadreNuestro();
 }
+
+    @SuppressWarnings("unused")
     public Invitatorio getInvitatorio() {
         return invitatorio;
     }
+
+    @SuppressWarnings("unused")
     public void setInvitatorio(Invitatorio invitatorio) {
         this.invitatorio = invitatorio;
     }

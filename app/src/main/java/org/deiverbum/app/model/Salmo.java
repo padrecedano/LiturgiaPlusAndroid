@@ -18,11 +18,7 @@ public class Salmo {
     private String salmo;
 
     public String getOrden() {
-        if (orden != null || !orden.equals("")) {
-            return orden;
-        } else {
-            return null;
-        }
+        return (orden != null ) ?  orden : "";
     }
 
     public void setOrden(String orden) {
@@ -30,20 +26,11 @@ public class Salmo {
     }
 
     public String getAntifona() {
-        if (antifona != null || !antifona.equals("")) {
-
-            return antifona;
-        } else {
-            return "";
-        }
+        return (antifona != null ) ?  antifona : "";
     }
 
     public String getAntifonaForRead() {
-        if (antifona != null || !antifona.equals("")) {
-            return antifona;
-        } else {
-            return "";
-        }
+        return (antifona != null ) ?  antifona : "";
     }
 
 
@@ -51,11 +38,8 @@ public class Salmo {
         this.antifona = antifona;
     }
 
-
     public SpannableStringBuilder getRef() {
-        if (ref != null || !ref.equals("")) {
-            SpannableStringBuilder ssb = new SpannableStringBuilder(Utils.fromHtml(ref));
-
+        if (ref != null) {
             return new SpannableStringBuilder(Utils.toRedHtml(Utils.getFormato(ref)));//Utils.ssbRed((SpannableStringBuilder) Utils.fromHtml(ref));
         } else {
             return null;
@@ -68,13 +52,7 @@ public class Salmo {
     }
 
     public String getTema() {
-        if (tema != null || !tema.equals("")) {
-
-            return tema;
-        } else {
-            return null;
-        }
-
+        return (tema != null ) ? tema : null;
     }
 
     public void setTema(String tema) {
@@ -82,11 +60,7 @@ public class Salmo {
     }
 
     public String getIntro() {
-        if (intro != null || !intro.equals("")) {
-            return intro;
-        } else {
-            return null;
-        }
+        return (intro != null ) ? intro:null;
     }
 
     public void setIntro(String intro) {
@@ -94,12 +68,7 @@ public class Salmo {
     }
 
     public String getParte() {
-        if (parte != null || !parte.equals("")) {
-            return parte;
-        } else {
-            return null;
-        }
-
+        return (parte != null) ? parte: null;
     }
 
     public void setParte(String parte) {
@@ -134,20 +103,9 @@ public class Salmo {
     }
 
     public String getFinSalmoForRead() {
-        String fin = "Gloria al Padre, y al Hijo, y al Espíritu Santo." +
+        return "Gloria al Padre, y al Hijo, y al Espíritu Santo." +
                 "Como era en el principio ahora y siempre, "
                 + "por los siglos de los siglos. Amén.";
-        return fin;
-    }
-
-    /**
-     *
-     * @return La rúbrica cuando no se dice Gloria en los salmos.
-     * @sice 2022.01
-     */
-    public SpannableStringBuilder getNoGloria() {
-        SpannableStringBuilder sb = new SpannableStringBuilder("No se dice Gloria");
-        return Utils.toRedNew(sb);
     }
 
 }

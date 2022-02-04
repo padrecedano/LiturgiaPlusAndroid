@@ -7,6 +7,7 @@ import android.text.SpannableStringBuilder;
 import org.deiverbum.app.utils.Utils;
 
 public class OficioLecturas {
+    @SuppressWarnings("unused")
     private String responsorio;
     private Biblica biblica;
     private Patristica patristica;
@@ -23,7 +24,7 @@ public class OficioLecturas {
     public SpannableStringBuilder getResponsorioForRead() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
 
-        String r = "";
+        String r;
         if (responsorio.contains("|")) {
             r = responsorio.replaceAll("\\|", "<br>");
         } else {
@@ -57,34 +58,40 @@ public class OficioLecturas {
     }
 
 
+    @SuppressWarnings("unused")
     public Patristica getPatristica() {
         return patristica;
     }
 
+    @SuppressWarnings("unused")
     public void setPatristica(Patristica patristica) {
         this.patristica = patristica;
     }
 
+    @SuppressWarnings("unused")
     public Biblica getBiblica() {
         return biblica;
     }
 
+    @SuppressWarnings("unused")
     public void setBiblica(Biblica biblica) {
         this.biblica = biblica;
     }
 
+    @SuppressWarnings("unused")
     public TeDeum getTeDeum() {
         return teDeum;
     }
 
+    @SuppressWarnings("unused")
     public void setTeDeum(TeDeum teDeum) {
         this.teDeum = teDeum;
     }
 
     /**
      * @deprecated
-     * A partir de la versión 2022.01 cambiar por {@link OficioLecturas#getHeader()}
-     * @return
+     * A partir de la versión 2022.1 cambiar por {@link OficioLecturas#getHeader()}
+     * @return Cadena con el título
      */
     public String getTitulo() {
         return "lecturas del oficio";

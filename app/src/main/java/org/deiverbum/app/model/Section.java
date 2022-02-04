@@ -8,8 +8,7 @@ import java.util.List;
 /**
  * @author A. Cedano
  * @version 1.0
- * @date 26/1/22
- * @since
+ * @since 2022.1
  */
 public class Section {
 
@@ -30,16 +29,18 @@ public class Section {
      * No args constructor for use in serialization
      *
      */
+    @SuppressWarnings("unused")
     public Section() {
     }
 
     /**
      *
-     * @param subsections
-     * @param orderedlist
-     * @param id
-     * @param title
+     * @param subsections Subsección
+     * @param orderedlist Lista
+     * @param id Id
+     * @param title Título
      */
+    @SuppressWarnings("unused")
     public Section(Integer id, List<OrderedList> orderedlist, String title,
                    List<SubSection> subsections) {
         super();
@@ -57,10 +58,12 @@ public class Section {
         this.id = id;
     }
 
+    @SuppressWarnings("unused")
     public List<OrderedList> getOrderedlist() {
         return orderedlist;
     }
 
+    @SuppressWarnings("unused")
     public void setOrderedlist(List<OrderedList> orderedlist) {
         this.orderedlist = orderedlist;
     }
@@ -73,10 +76,12 @@ public class Section {
         this.title = title;
     }
 
+    @SuppressWarnings("unused")
     public List<SubSection> getSubsections() {
         return subsections;
     }
 
+    @SuppressWarnings("unused")
     public void setSubsections(List<SubSection> subsections) {
         this.subsections = subsections;
     }

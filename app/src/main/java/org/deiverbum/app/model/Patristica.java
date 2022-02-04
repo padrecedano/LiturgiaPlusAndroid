@@ -44,10 +44,12 @@ public class Patristica {
         this.obra = obra;
     }
 
+    @SuppressWarnings("unused")
     public String getFuente() {
         return fuente;
     }
 
+    @SuppressWarnings("unused")
     public void setFuente(String fuente) {
         this.fuente = fuente;
     }
@@ -69,8 +71,7 @@ public class Patristica {
     }
 
     public Spanned getTextoSpan() {
-        Spanned str = Utils.fromHtml(Utils.getFormato(texto));
-        return str;
+       return Utils.fromHtml(Utils.getFormato(texto));
     }
 
     public void setTexto(String texto) {

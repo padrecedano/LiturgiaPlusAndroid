@@ -1,13 +1,12 @@
 package org.deiverbum.app.model;
 
-import static org.deiverbum.app.utils.Constants.BR;
-
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
 import org.deiverbum.app.utils.Utils;
 
 import java.util.HashMap;
+
 /*
 {
   "fecha":"20211218",
@@ -86,14 +85,17 @@ public class MetaLiturgia {
         return idTiempo;
     }
 
+    @SuppressWarnings("unused")
     public void setCalendarTime(int calendarTime) {
         this.calendarTime = calendarTime;
     }
 
+    @SuppressWarnings("unused")
     public int getCalendarTime() {
         return calendarTime;
     }
 
+    @SuppressWarnings("unused")
     public String getTiempoNombre(boolean isVisperas) {
         int theTime = this.getTiempo();
         if (theTime < 15) {
@@ -159,18 +161,23 @@ public class MetaLiturgia {
     public int getWeekDay() {
         return this.weekDay;
     }
+
+    @SuppressWarnings("unused")
     public int getSemana() {
         return idSemana;
     }
 
+    @SuppressWarnings("unused")
     public void setSemana(int idSemana) {
         this.idSemana = idSemana;
     }
 
+    @SuppressWarnings("unused")
     public int getIdHour() {
         return idHour;
     }
 
+    @SuppressWarnings("unused")
     public void setIdHour(int idHour) {
         this.idHour = idHour;
     }
@@ -183,15 +190,7 @@ public class MetaLiturgia {
         this.mensaje = mensaje;
     }
 
-    @Deprecated
-    public String getSalterio() {
-        return "";
-    }
 
-
-    public void setSalterio(String salterio) {
-        //this.salterio = salterio;
-    }
 
     public int getColor() {
         return idColor;
@@ -201,18 +200,12 @@ public class MetaLiturgia {
         this.idColor = idColor;
     }
 
-    /*public String getMeta() {
-        return meta;
-    }
 
-    public void setMeta(String meta) {
-        this.meta = meta;
-    }
-*/
     public boolean getHasSaint() {
         return hasSaint;
     }
 
+    @SuppressWarnings("unused")
     public void setHasSaint(boolean hasSaint) {
         this.hasSaint = hasSaint;
     }
@@ -232,6 +225,7 @@ public class MetaLiturgia {
         return sb;
     }
 
+    @SuppressWarnings("unused")
     public Spanned getFechaForRead() {
         return Utils.fromHtml("<p>" + getFecha() + ".</p>");
     }
@@ -240,58 +234,72 @@ public class MetaLiturgia {
         return String.format("%s%s",getTitulo(), ".");
     }
 
+    @SuppressWarnings("unused")
     public int getIdTiempo() {
         return idTiempo;
     }
 
+    @SuppressWarnings("unused")
     public void setIdTiempo(int idTiempo) {
         this.idTiempo = idTiempo;
     }
 
+    @SuppressWarnings("unused")
     public int getIdTipo() {
         return idTipo;
     }
 
+    @SuppressWarnings("unused")
     public void setIdTipo(int idTipo) {
         this.idTipo = idTipo;
     }
 
+    @SuppressWarnings("unused")
     public int getIdDia() {
         return idDia;
     }
 
+    @SuppressWarnings("unused")
     public void setIdDia(int idDia) {
         this.idDia = idDia;
     }
 
+    @SuppressWarnings("unused")
     public int getIdSemana() {
         return idSemana;
     }
 
+    @SuppressWarnings("unused")
     public void setIdSemana(int idSemana) {
         this.idSemana = idSemana;
     }
 
+    @SuppressWarnings("unused")
     public int getIdColor() {
         return idColor;
     }
 
+    @SuppressWarnings("unused")
     public void setIdColor(int idColor) {
         this.idColor = idColor;
     }
 
+    @SuppressWarnings("unused")
     public int getIdBreviario() {
         return idBreviario;
     }
 
+    @SuppressWarnings("unused")
     public void setIdBreviario(int idBreviario) {
         this.idBreviario = idBreviario;
     }
 
+    @SuppressWarnings("unused")
     public int getIdLecturas() {
         return idLecturas;
     }
 
+    @SuppressWarnings("unused")
     public void setIdLecturas(int idLecturas) {
         this.idLecturas = idLecturas;
     }
@@ -300,24 +308,27 @@ public class MetaLiturgia {
         return idPrevio;
     }
 
+    @SuppressWarnings("unused")
     public void setIdPrevio(int idPrevio) {
         this.idPrevio = idPrevio;
     }
 
+    @SuppressWarnings("unused")
     public int getIdTiempoPrevio() {
         return idTiempoPrevio;
     }
 
+    @SuppressWarnings("unused")
     public void setIdTiempoPrevio(int idTiempoPrevio) {
         this.idTiempoPrevio = idTiempoPrevio;
     }
 
-
-
+    @SuppressWarnings("unused")
     public String getTituloPrevio() {
         return tituloPrevio;
     }
 
+    @SuppressWarnings("unused")
     public void setTituloPrevio(String tituloPrevio) {
         this.tituloPrevio = tituloPrevio;
     }

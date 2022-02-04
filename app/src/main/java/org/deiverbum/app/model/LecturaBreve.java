@@ -1,7 +1,6 @@
 package org.deiverbum.app.model;
 
 import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 
 import org.deiverbum.app.utils.Utils;
 

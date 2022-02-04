@@ -23,6 +23,7 @@ public class LiturgiaPalabra {
         this.tipo = tipo;
     }
 
+    @SuppressWarnings("unused")
     public String getTipos() {
         return "tipo";
     }
@@ -36,8 +37,7 @@ public class LiturgiaPalabra {
     }
 
     public SpannableStringBuilder getEvangelio() {
-        int tipo = this.tipo;
-        String txtLectura = "";
+        String txtLectura;
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         for (Lectura l : lecturas) {
             if (l.getOrden() == 40) {
@@ -55,8 +55,9 @@ public class LiturgiaPalabra {
     }
 
 
+    @SuppressWarnings("unused")
     public SpannableStringBuilder getLiturgiaPalabra() {
-        String txtLectura = "";
+        String txtLectura;
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         for (Lectura l : lecturas) {
             sb.append(Utils.LS2);
@@ -74,8 +75,10 @@ public class LiturgiaPalabra {
         return sb;
     }
 
+
+    @SuppressWarnings("unused")
     public SpannableStringBuilder getLiturgiaPalabraforRead() {
-        String txtLectura = "";
+        String txtLectura;
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         for (Lectura l : lecturas) {
             sb.append(findOrden(l.getOrden()));
@@ -106,24 +109,7 @@ public class LiturgiaPalabra {
         } else {
             orderText = "Evangelio";
         }
-/*
-        HashMap<Integer, String> orderMap = new HashMap<Integer, String>();
-        orderMap.put(1, "Primera Lectura");
-        orderMap.put(10, "Primera Lectura");
-        orderMap.put(2, "Salmo Responsorial");
-        orderMap.put(20, "Salmo Responsorial");
-        orderMap.put(3, "Segunda Lectura");
-        orderMap.put(30, "Segunda Lectura");
-        orderMap.put(4, "Evangelio");
-        orderMap.put(40, "Evangelio");
-        orderMap.put(41, "Evangelio");
-        orderMap.put(42, "Evangelio");
-        orderMap.put(44, "Evangelio");
-        orderMap.put(45, "Evangelio");
-        orderMap.put(46, "Evangelio");
 
-       // String orderText = orderMap.get(orden);
-*/
         return orderText;
 
 

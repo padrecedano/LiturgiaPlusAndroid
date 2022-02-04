@@ -10,8 +10,7 @@ import org.deiverbum.app.utils.Utils;
 /**
  * @author A. Cedano
  * @version 1.0
- * @date 26/1/22
- * @since
+ * @since 2022.1
  */
 public class Paragraph {
 
@@ -23,13 +22,15 @@ public class Paragraph {
      * No args constructor for use in serialization
      *
      */
+    @SuppressWarnings("unused")
     public Paragraph() {
     }
 
     /**
      *
-     * @param text
+     * @param text Texto del párrafo
      */
+    @SuppressWarnings("unused")
     public Paragraph(String text) {
         super();
         this.text = text;

@@ -10,18 +10,10 @@ import java.util.List;
 /**
  * @author A. Cedano
  * @version 1.0
- * @date 26/1/22
- * @since
+ * @since 2022.1
  */
 public class Preamble extends Content{
-/*
-    @SerializedName("paragraphs")
-    @Expose
-    private List<Paragraph> paragraphs = null;
-    @SerializedName("singlelist")
-    @Expose
-    private List<String> singlelist = null;
-*/
+
 @SerializedName("paragraphs")
 @Expose
 private List<Paragraph> paragraphs = null;
@@ -32,38 +24,12 @@ private List<Paragraph> paragraphs = null;
     public Preamble() {
     }
 
-    /**
-     *
-
-     */
-    /*
-    public Preamble(List<Paragraph> paragraphs, List<String> singlelist) {
-        super();
-        this.paragraphs = paragraphs;
-        this.singlelist = singlelist;
-    }
-
+    @SuppressWarnings("unused")
     public List<Paragraph> getParagraphs() {
         return paragraphs;
     }
 
-    public void setParagraphs(List<Paragraph> paragraphs) {
-        this.paragraphs = paragraphs;
-    }
-
-    public List<String> getSinglelist() {
-        return singlelist;
-    }
-
-    public void setSinglelist(List<String> singlelist) {
-        this.singlelist = singlelist;
-    }
-*/
-
-    public List<Paragraph> getParagraphs() {
-        return paragraphs;
-    }
-
+    @SuppressWarnings("unused")
     public void setParagraphs(List<Paragraph> paragraphs) {
         this.paragraphs = paragraphs;
     }
@@ -76,15 +42,8 @@ private List<Paragraph> paragraphs = null;
         return sb;
     }
 
+    @SuppressWarnings("unused")
     public SpannableStringBuilder getAllForView(){
-        SpannableStringBuilder sb=new SpannableStringBuilder();
-        for(Paragraph p : paragraphs) {
-            sb.append(p.getText());
-        }
-        return sb;
-    }
-
-    public SpannableStringBuilder getXYZ(){
         SpannableStringBuilder sb=new SpannableStringBuilder();
         for(Paragraph p : paragraphs) {
             sb.append(p.getText());

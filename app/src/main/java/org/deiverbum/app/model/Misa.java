@@ -3,6 +3,7 @@ package org.deiverbum.app.model;
 
 public class Misa {
     private MisaLecturas misaLecturas;
+    @SuppressWarnings("unused")
     private LiturgiaPalabra liturgiaPalabra;
 
     public Misa() {
@@ -11,20 +12,10 @@ public class Misa {
             return misaLecturas;
         }
 
-        public void setMisaLecturas(MisaLecturas misaLecturas) {
+    @SuppressWarnings("unused")
+    public void setMisaLecturas(MisaLecturas misaLecturas) {
             this.misaLecturas = misaLecturas;
         }
 
-    public LiturgiaPalabra getLiturgiaPalabra() {
-        return liturgiaPalabra;
-    }
 
-    public String toString() {
-
-        return "This is" + this.getClass();
-    }
-
-    public void setLiturgiaPalabra(LiturgiaPalabra liturgiaPalabra) {
-        this.liturgiaPalabra = liturgiaPalabra;
-    }
 }

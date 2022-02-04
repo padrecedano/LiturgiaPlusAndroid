@@ -37,6 +37,7 @@ public class OracionSimple {
         return this.info;
     }
 
+    @SuppressWarnings("unused")
     public void setInfo(String info) {
         this.info = info;
     }

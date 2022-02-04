@@ -5,8 +5,7 @@ import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import androidx.annotation.NonNull;
 
 import org.deiverbum.app.utils.Utils;
 
@@ -15,25 +14,16 @@ import java.util.List;
 /**
  * @author A. Cedano
  * @version 1.0
- * @date 11/12/21
- * @since 2021.01
+ * @since 2022.1
  */
 public class Lecturas {
     private int tipo;
     private List<Lectura> lecturas;
-    //@SerializedName("metaLiturgia")
-    //@Expose
+    @SuppressWarnings("unused")
     private MetaLiturgia metaliturgia;
 
     public Lecturas(){}
 
-    /*public MetaLiturgia getMetaLiturgia() {
-        return metaliturgia;
-    }
-
-    public void setMetaLiturgia(MetaLiturgia metaLiturgia) {
-        this.metaliturgia = metaliturgia;
-    }*/
 
     public int getTipo() {
         return tipo;
@@ -43,6 +33,7 @@ public class Lecturas {
         this.tipo = tipo;
     }
 
+    @SuppressWarnings("unused")
     public String getTipos() {
         return "tipo";
     }
@@ -56,8 +47,6 @@ public class Lecturas {
     }
 
     public SpannableStringBuilder getEvangelio() {
-        int tipo = this.tipo;
-        String txtLectura = "";
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         for (Lectura l : lecturas) {
             if (l.getOrden() == 40) {
@@ -65,7 +54,7 @@ public class Lecturas {
                 sb.append(LS2);
                 sb.append(Utils.toRed(l.getTema()));
                 sb.append(LS2);
-                txtLectura = Utils.getFormato(l.getTexto());
+                String txtLectura = Utils.getFormato(l.getTexto());
                 sb.append(Utils.fromHtml(txtLectura));
                 sb.append(LS2);
             }
@@ -79,7 +68,6 @@ public class Lecturas {
     }
 
     public SpannableStringBuilder getForView() {
-        String txtLectura = "";
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         sb.append(metaliturgia.getForViewMisa());
         sb.append(LS2);
@@ -95,26 +83,7 @@ public class Lecturas {
             sb.append(LS2);
             sb.append(Utils.toRed(l.getTema()));
             sb.append(LS2);
-            txtLectura = Utils.getFormato(l.getTexto());
-            sb.append(Utils.fromHtml(txtLectura));
-            sb.append(LS2);
-        }
-
-        return sb;
-    }
-
-    public SpannableStringBuilder getLiturgiaPalabraforRead() {
-        String txtLectura = "";
-        SpannableStringBuilder sb = new SpannableStringBuilder("");
-        for (Lectura l : lecturas) {
-            sb.append(findOrden(l.getOrden()));
-            sb.append(LS2);
-            sb.append(l.getLibro());
-            sb.append(LS2);
-            sb.append(LS2);
-            sb.append(l.getTema());
-            sb.append(LS2);
-            txtLectura = l.getTexto();
+            String txtLectura = Utils.getFormato(l.getTexto());
             sb.append(Utils.fromHtml(txtLectura));
             sb.append(LS2);
         }
@@ -134,28 +103,11 @@ public class Lecturas {
         } else {
             orderText = "Evangelio";
         }
-/*
-        HashMap<Integer, String> orderMap = new HashMap<Integer, String>();
-        orderMap.put(1, "Primera Lectura");
-        orderMap.put(10, "Primera Lectura");
-        orderMap.put(2, "Salmo Responsorial");
-        orderMap.put(20, "Salmo Responsorial");
-        orderMap.put(3, "Segunda Lectura");
-        orderMap.put(30, "Segunda Lectura");
-        orderMap.put(4, "Evangelio");
-        orderMap.put(40, "Evangelio");
-        orderMap.put(41, "Evangelio");
-        orderMap.put(42, "Evangelio");
-        orderMap.put(44, "Evangelio");
-        orderMap.put(45, "Evangelio");
-        orderMap.put(46, "Evangelio");
-
-       // String orderText = orderMap.get(orden);
-*/
         return orderText;
 
-
     }
+
+    @NonNull
     public String toString(){
         return "Test";
     }

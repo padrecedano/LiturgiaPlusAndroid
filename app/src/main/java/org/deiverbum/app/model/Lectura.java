@@ -16,10 +16,12 @@ class Lectura {
         this.libro = libro;
     }
 
+    @SuppressWarnings("unused")
     public String getAbreviatura() {
         return abreviatura;
     }
 
+    @SuppressWarnings("unused")
     public void setAbreviatura(String abreviatura) {
         this.abreviatura = abreviatura;
     }

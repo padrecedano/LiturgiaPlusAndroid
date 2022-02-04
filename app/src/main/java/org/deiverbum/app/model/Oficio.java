@@ -24,10 +24,12 @@ public class Oficio extends BreviarioHora {
         this.preces = preces;
     }
 
+    @SuppressWarnings("unused")
     public Invitatorio getInvitatorio() {
         return invitatorio;
     }
 
+    @SuppressWarnings("unused")
     public void setInvitatorio(Invitatorio invitatorio) {
         this.invitatorio = invitatorio;
     }
@@ -36,14 +38,17 @@ public class Oficio extends BreviarioHora {
         return oficioLecturas;
     }
 
+    @SuppressWarnings("unused")
     public void setOficioLecturas(OficioLecturas oficioLecturas) {
         this.oficioLecturas = oficioLecturas;
     }
 
+    @SuppressWarnings("unused")
     public TeDeum getTeDeum() {
         return teDeum;
     }
 
+    @SuppressWarnings("unused")
     public void setTeDeum(TeDeum teDeum) {
         this.teDeum = teDeum;
     }

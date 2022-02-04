@@ -20,6 +20,8 @@ public class Kyrie {
     @SerializedName("conclusion")
     @Expose
     private String conclusion;
+
+    @SuppressWarnings("unused")
     private String tipo;
     private int kyrieType;
 
@@ -60,32 +62,14 @@ public class Kyrie {
         return ssb;
     }
 
+    @SuppressWarnings("unused")
     public void setIntroduccion(String introduccion) {
         this.introduccion = introduccion;
     }
 
     public SpannableStringBuilder getTexto() {
-        int[] intArray = {0, 1, 2};
-        kyrieType = new Random().nextInt(intArray.length);
-
-        //int type = Integer.parseInt(tipo);
+        kyrieType = new Random().nextInt(3);
         return Utils.getKyrie(kyrieType);
-        /*
-        SpannableStringBuilder ssb = new SpannableStringBuilder();
-        this.texto = Utils.getFormato(texto);
-        switch (this.tipo) {
-            case 1:
-                ssb.append(Utils.fromHtml(texto));
-                break;
-            case 2:
-
-                ssb.append(Utils.fromHtml(texto));
-                break;
-            default:
-                ssb.append(texto);
-                break;
-        }
-        return ssb;//texto;*/
     }
 
     public void setTexto(String texto) {

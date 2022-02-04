@@ -24,7 +24,6 @@ import org.deiverbum.app.utils.Utils;
  */
 public class BreviarioHora {
     protected MetaLiturgia metaLiturgia;
-    protected MetaBreviario metaBreviario;
     protected Santo santo;
     protected String metaInfo;
     protected Himno himno;

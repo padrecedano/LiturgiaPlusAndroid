@@ -7,8 +7,10 @@ import android.text.Spanned;
 
 import org.deiverbum.app.utils.Utils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -16,6 +18,7 @@ import java.util.Objects;
 public class Invitatorio extends Salmo {
     public String texto;
     private int id = 1;
+
     private final ArrayList<String> files = new ArrayList<>(
             Arrays.asList("res/raw/invitatorio_1.txt",
                     "res/raw/invitatorio_2.txt",
@@ -23,7 +26,9 @@ public class Invitatorio extends Salmo {
                     "res/raw/invitatorio_4.txt"));
 
     public Invitatorio() {
+
     }
+
 
     public int getId() {
         return id;
@@ -42,25 +47,15 @@ public class Invitatorio extends Salmo {
      * @since 2022.1
      */
     public Spanned getTextoSpan(boolean isVariable) {
-        try {
-
-            if (!isVariable){id=1;}
-            String filePath = files.get(id);
-
-            InputStream in = Objects.requireNonNull(this.getClass().getClassLoader()).getResourceAsStream(filePath);
-            if (in != null) {
-                byte[] b = new byte[in.available()];
-                texto = new String(b);
-            } else {
-                texto = "No se encontró el texto del invitatorio";
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            texto = e.getMessage();
+        if (!isVariable) {
+            id = 1;
         }
-
+        String filePath = files.get(id - 1);
+        texto = readFromFile(filePath);
         return Utils.fromHtml(texto);
     }
+
+
     public void setTexto(String texto) {
         this.texto = texto;
     }
@@ -68,6 +63,7 @@ public class Invitatorio extends Salmo {
     public String getTitle() {
         return "Invitatorio";
     }
+
     public String getTitleForRead() {
         return "Invitatorio.";
     }
@@ -77,7 +73,7 @@ public class Invitatorio extends Salmo {
     }
 
     public SpannableStringBuilder getAll(boolean hasInvitatorio) {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(Utils.formatSubTitle(getTitle().toLowerCase()));
         sb.append(Utils.LS2);
         sb.append(Utils.fromHtml(PRE_ANT));
@@ -93,12 +89,33 @@ public class Invitatorio extends Salmo {
     }
 
     public SpannableStringBuilder getAllForRead(boolean hasInvitatorio) {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getTitleForRead());
         sb.append(getAntifona());
         sb.append(getTextoSpan(hasInvitatorio));
         sb.append(getFinSalmo());
         sb.append(getAntifona());
         return sb;
+    }
+
+    private String readFromFile(String filePath) {
+        StringBuilder sb = new StringBuilder();
+
+        try {
+            InputStream inputStream = Objects.requireNonNull(this.getClass().getClassLoader()).getResourceAsStream(filePath);
+
+            if (inputStream != null) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String s;
+                while ((s = bufferedReader.readLine()) != null) {
+                    sb.append(s);
+                }
+                inputStream.close();
+            }
+        } catch (IOException e) {
+            return e.getMessage();
+        }
+        return sb.toString();
     }
 }
