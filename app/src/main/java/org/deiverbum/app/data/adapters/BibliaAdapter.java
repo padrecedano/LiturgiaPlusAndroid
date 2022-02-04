@@ -29,7 +29,6 @@ import java.util.List;
  */
 
 public class BibliaAdapter extends RecyclerView.Adapter<BibliaAdapter.ViewHolder> {
-    private static final String TAG = "BreviarioAdapter";
     private final List<BibliaLibros> mDataSet;
 
     /**

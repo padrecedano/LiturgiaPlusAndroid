@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,13 +26,11 @@ import java.util.List;
  *
  * @author A. Cedano
  * @version 1.0
- * @date 18/11/21
- * @since 2021.1
+ * @since 2022.1
  */
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
-    private static final String TAG = "HomeAdapter";
-    private List<HomeItem> mDataSet;
+    private final List<HomeItem> mDataSet;
 
     /**
      * Inicializa el dataset del adaptador.
@@ -46,6 +45,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     /**
      * Crea las nuevas vistas (invocadas por el layout manager)
      */
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext())
@@ -81,7 +81,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView viewIcon;
         private final TextView viewText;
-        private RelativeLayout relativeLayout;
+        private final RelativeLayout relativeLayout;
         HomeItem mItem;
 
         public ViewHolder(View v) {
@@ -97,7 +97,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
          * y guarda una referencia del objeto
          * para poder obtener el id de navegación al hacer click
          *
-         * @param item
+         * @param item Item con imagen y texto
          */
         public void setData(HomeItem item) {
             mItem = item;

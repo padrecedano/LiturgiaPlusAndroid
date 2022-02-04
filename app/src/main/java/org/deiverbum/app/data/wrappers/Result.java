@@ -3,8 +3,7 @@ package org.deiverbum.app.data.wrappers;
 /**
  * @author A. Cedano
  * @version 1.0
- * @date 27/11/21
- * @since
+ * @since 2022.1
  */
 // Result.java
 public abstract class Result<T> {

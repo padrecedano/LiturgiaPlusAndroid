@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,13 +23,11 @@ import java.util.List;
  *
  * @author A. Cedano
  * @version 1.0
- * @date 18/11/21
- * @since 2021.1
+ * @since 2022.1
  */
 
 public class BreviarioAdapter extends RecyclerView.Adapter<BreviarioAdapter.ViewHolder> {
-    private static final String TAG = "BreviarioAdapter";
-    private List<BreviarioItem> mDataSet;
+    private final List<BreviarioItem> mDataSet;
 
     /**
      * Inicializa el dataset del adaptador.
@@ -43,6 +42,7 @@ public class BreviarioAdapter extends RecyclerView.Adapter<BreviarioAdapter.View
     /**
      * Crea las nuevas vistas (invocadas por el layout manager)
      */
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext())
@@ -78,14 +78,14 @@ public class BreviarioAdapter extends RecyclerView.Adapter<BreviarioAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView viewIcon;
         private final TextView viewText;
-        private RelativeLayout relativeLayout;
+        private final RelativeLayout relativeLayout;
         BreviarioItem mItem;
 
         public ViewHolder(View v) {
             super(v);
             v.setOnClickListener(v1 -> Navigation.findNavController(v1).navigate(mItem.navId));
-            viewIcon = (TextView) v.findViewById(R.id.tv_Material);
-            viewText = (TextView) v.findViewById(R.id.tv_Elemento);
+            viewIcon = v.findViewById(R.id.tv_Material);
+            viewText = v.findViewById(R.id.tv_Elemento);
             relativeLayout = v.findViewById(R.id.relativeLayout);
         }
 
@@ -94,7 +94,7 @@ public class BreviarioAdapter extends RecyclerView.Adapter<BreviarioAdapter.View
          * y guarda una referencia del objeto
          * para poder obtener el id de navegación al hacer click
          *
-         * @param item
+         * @param item del tipo {@link BreviarioItem}
          */
         public void setData(BreviarioItem item) {
             mItem = item;

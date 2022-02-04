@@ -4,7 +4,6 @@ package org.deiverbum.app.data.adapters;
 //@version 2.0
 
 
-import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.deiverbum.app.R;
@@ -21,9 +21,8 @@ import java.util.ArrayList;
 @Deprecated
 public class BreviarioRecyclerAdapter extends RecyclerView.Adapter<BreviarioRecyclerAdapter.ViewHolder> {
 
-    private ItemListener mListener;
-    private ArrayList<BreviarioDataModel> mValues;
-    private Context mContext;
+    private final ItemListener mListener;
+    private final ArrayList<BreviarioDataModel> mValues;
 
     public BreviarioRecyclerAdapter(ArrayList<BreviarioDataModel> values, ItemListener itemListener) {
 
@@ -32,6 +31,7 @@ public class BreviarioRecyclerAdapter extends RecyclerView.Adapter<BreviarioRecy
         mListener = itemListener;
     }
 
+    @NonNull
     @Override
     public BreviarioRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -80,21 +80,10 @@ public class BreviarioRecyclerAdapter extends RecyclerView.Adapter<BreviarioRecy
 
             textView.setText(item.text);
             textViewMaterial.setText(item.letra);
-            // textViewMaterial.setBackground(v.findViewById(R.id.textViewMaterial));
-            //textView.setGravity(Gravity.CENTER);
-            //textView.setTextColor(Color.GRAY);
 
-//            textViewMaterial.setBackgroundResource(item.drawable);
             textViewMaterial.setBackgroundColor(item.color);
             relativeLayout.setBackgroundColor(item.color);
-/*
-            int newHeight = 250; // New height in pixels
-            int newWidth = 250; // New width in pixels
-            imageView.getLayoutParams().height = newHeight;
 
-            // Apply the new width for ImageView programmatically
-            imageView.getLayoutParams().width = newWidth;
-*/
         }
 
 
