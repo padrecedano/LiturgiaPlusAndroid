@@ -27,7 +27,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
  * @since 2021.01
  */
 public class FileRepository {
-    private  MutableLiveData<String> mText;
+    private  final MutableLiveData<String> mText;
     private final FileDataSource fileDataSource;
 
 

@@ -117,7 +117,7 @@ public class OracionesRepository {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        finalData.postValue(new DataWrapper<Book, CustomException>(new CustomException(String.format("Error:\n%s%s",e.getMessage(),ERR_REPORT))));
+                        finalData.postValue(new DataWrapper<>(new CustomException(String.format("Error:\n%s%s", e.getMessage(), ERR_REPORT))));
                         dispose();
                     }});
 

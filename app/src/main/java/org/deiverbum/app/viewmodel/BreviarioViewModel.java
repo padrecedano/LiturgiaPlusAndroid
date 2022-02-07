@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel;
 
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
+import org.deiverbum.app.model.Intermedia;
 import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.Mixto;
 import org.deiverbum.app.model.Oficio;
+import org.deiverbum.app.model.Visperas;
 import org.deiverbum.app.repository.BreviarioRepository;
 import org.deiverbum.app.utils.Utils;
 
@@ -30,9 +32,7 @@ public class BreviarioViewModel extends ViewModel {
         return mRepository.getMixto(Utils.toDocument(dateString));
     }
 
-    public MediatorLiveData test() {
-        return null;//mRepository.test();
-    }
+
 
     public MutableLiveData<DataWrapper<Oficio, CustomException>> getOficio(String dateString) {
         return mRepository.getOficio(dateString);
@@ -43,21 +43,12 @@ public class BreviarioViewModel extends ViewModel {
     }
 
 
-    public MediatorLiveData getIntermedia(String dateString, int hourId, String endPoint) {
+    public MediatorLiveData<DataWrapper<Intermedia, CustomException>> getIntermedia(String dateString, int hourId, String endPoint) {
         return mRepository.getIntermedia(dateString, hourId, endPoint);
     }
 
-
-
-    public MediatorLiveData getVisperas(String dateString) {
+    public MediatorLiveData<DataWrapper<Visperas, CustomException>> getVisperas(String dateString) {
         return mRepository.getVisperas(dateString);
     }
 
-/*
-    public LiveData<DataWrapper<Oficio, CustomException>> getOficio(String dateString) {
-        return mRepository.getOficio(dateString);
-
-    }
-
- */
 }

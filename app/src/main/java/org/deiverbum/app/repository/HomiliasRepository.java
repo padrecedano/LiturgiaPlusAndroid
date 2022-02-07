@@ -1,5 +1,4 @@
 package org.deiverbum.app.repository;
-import android.content.Context;
 
 import androidx.lifecycle.MediatorLiveData;
 
@@ -12,7 +11,6 @@ import org.deiverbum.app.utils.Utils;
 
 import javax.inject.Inject;
 
-import dagger.hilt.android.qualifiers.ApplicationContext;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -26,19 +24,18 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
  * </ul>
  * @author A. Cedano
  * @version 1.0
- * @CreateDate: 2021/11/11
- * @since 2022.01.01
+ * @since 2022.1
  */
 
 public class HomiliasRepository {
     ApiService apiService;
-    private FirebaseDataSource firebaseDataSource;
-    private MediatorLiveData<DataWrapper<Homilias, CustomException>> mData = new MediatorLiveData<>();
+    private final FirebaseDataSource firebaseDataSource;
+    private final MediatorLiveData<DataWrapper<Homilias, CustomException>> mData = new MediatorLiveData<>();
 
     @Inject
     public HomiliasRepository(FirebaseDataSource firebaseDataSource, ApiService apiService) {
+        this.firebaseDataSource = firebaseDataSource;
         this.apiService = apiService;
-        this.firebaseDataSource = new FirebaseDataSource();
     }
 
     /**
@@ -53,7 +50,7 @@ public class HomiliasRepository {
         firebaseDataSource.getHomilias(param)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<DataWrapper<Homilias,CustomException>>() {
+                .subscribe(new DisposableSingleObserver<DataWrapper<Homilias,CustomException>>() {
 
                     @Override
                     public void onSuccess(DataWrapper<Homilias,CustomException> data) {
@@ -69,30 +66,26 @@ public class HomiliasRepository {
     }
 
 
-    public MediatorLiveData<DataWrapper<Homilias,CustomException>> loadFromApi(String param) {
-        DataWrapper dataWrapper = new DataWrapper();
-
+    public void loadFromApi(String param) {
         apiService.getHomilias(param)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<Homilias>() {
+                .subscribe(new DisposableSingleObserver<Homilias>() {
 
                     @Override public void onStart() {
                     }
                     @Override
                     public void onSuccess(Homilias r) {
-                        dataWrapper.postValue(r);
-                        mData.setValue(dataWrapper);
+                        mData.postValue(new DataWrapper<>(r));
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        dataWrapper.setValue(new CustomException(e));
-                        mData.setValue(dataWrapper);
+                        mData.setValue(new DataWrapper<>(new CustomException(e.getMessage())));
                     }
                 });
 
-        return mData;
+        //return mData;
     }
 }
 

@@ -1,20 +1,18 @@
 package org.deiverbum.app.repository;
 
-import android.content.Context;
-
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.model.Comentarios;
-import org.deiverbum.app.model.Lecturas;
 import org.deiverbum.app.utils.Utils;
 
 import javax.inject.Inject;
 
-import dagger.hilt.android.qualifiers.ApplicationContext;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -28,13 +26,12 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
  * </ul>
  * @author A. Cedano
  * @version 1.0
- * @CreateDate: 2021/11/11
- * @since 2022.01.01
+ * @since 2022.1
  */
 public class ComentariosRepository {
     ApiService apiService;
-    private FirebaseDataSource firebaseDataSource;
-    private MediatorLiveData<DataWrapper<Comentarios, CustomException>> mData = new MediatorLiveData<>();
+    private final FirebaseDataSource firebaseDataSource;
+    private final MediatorLiveData<DataWrapper<Comentarios, CustomException>> mData = new MediatorLiveData<>();
 
     @Inject
     public ComentariosRepository(ApiService apiService, FirebaseDataSource firebaseDataSource) {
@@ -44,58 +41,57 @@ public class ComentariosRepository {
 
     /**
      * Este método inicia la llamada al DataSource.
-     * Primero buscará en Firestore mediante {@link FirebaseDataSource#getLecturas(String)}
-     * y si no encuentra, buscará en la Api mediante {@link ApiService#getLecturas(String)}
+     * Primero buscará en Firestore mediante
+     * {@link FirebaseDataSource#getLecturas(String)}
+     * y si no encuentra, buscará en la Api mediante
+     * {@link ApiService#getLecturas(String)}
      * La llamada a la Api se hará desde el onError
-     * @param dateString El parámetro a buscar, en principio la fecha, quizá también un Id
+     * @param dateString La fecha
      * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
      */
-    public MediatorLiveData<DataWrapper<Comentarios,CustomException>> getData(String dateString) {
-            firebaseDataSource.getComentarios(dateString)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeWith(new DisposableSingleObserver<DataWrapper<Comentarios, CustomException>>() {
-
-                        @Override
-                        public void onSuccess(DataWrapper<Comentarios, CustomException> data) {
-                            mData.postValue(data);
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            loadFromApi(Utils.cleanDate(dateString));
-                        }
-                    });
-        return mData;
-    }
-
-    /**
-     * Obtiene los datos desde la Api
-     * @param dateString La fecha del dato que se necesita
-     * @return Un objeto {@link Comentarios} con los datos que haya encontrado
-     */
-    public MediatorLiveData<DataWrapper<Comentarios,CustomException>> loadFromApi(String dateString) {
-        DataWrapper dataWrapper = new DataWrapper();
-        apiService.getComentarios(dateString)
+    public MutableLiveData<DataWrapper<Comentarios, CustomException>> getComentarios(String dateString) {
+        firebaseDataSource.getComentarios(dateString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<Comentarios>() {
-
-                    @Override public void onStart() {
-                    }
-                    @Override
-                    public void onSuccess(Comentarios r) {
-                        dataWrapper.postValue(r);
-                        mData.setValue(dataWrapper);
-                    }
+                .subscribe(new DisposableSingleObserver<DataWrapper<Comentarios,
+                        CustomException>>() {
 
                     @Override
-                    public void onError(Throwable e) {
-                        dataWrapper.setValue(new CustomException(e));
-                        mData.setValue(dataWrapper);
+                    public void onSuccess(@NonNull DataWrapper<Comentarios,
+                            CustomException> data) {
+                        mData.postValue(data);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        comentariosFromApi(dateString);
                     }
                 });
         return mData;
     }
+
+    /**
+     * Este método buscará los datos en el servidor remoto, si no los encuentra en Firebase.
+     * @param dateString La fecha
+     */
+
+    public void comentariosFromApi(String dateString) {
+        apiService.getComentarios(Utils.cleanDate(dateString))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Comentarios>() {
+                    @Override public void onStart() {
+                    }
+                    @Override
+                    public void onSuccess(@NonNull Comentarios r) {
+                        mData.postValue(new DataWrapper<>(r));
+                    }
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        mData.setValue(new DataWrapper<>(new CustomException(e.getMessage())));
+                    }
+                });
+    }
+
 }
 

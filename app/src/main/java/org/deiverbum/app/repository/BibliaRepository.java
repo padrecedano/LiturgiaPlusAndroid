@@ -18,7 +18,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 /**
  * <p>Repositorio para el módulo Biblia.</p>
  * @author A. Cedano
- * @since 2022.01.01
+ * @since 2022.1
  */
 public class BibliaRepository {
     private final FirebaseDataSource firebaseDataSource;
