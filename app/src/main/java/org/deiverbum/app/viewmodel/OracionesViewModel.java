@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel;
 
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
-import org.deiverbum.app.model.Book;
 import org.deiverbum.app.model.OracionSimple;
 import org.deiverbum.app.model.Rosario;
 import org.deiverbum.app.model.ViaCrucis;
@@ -38,7 +37,4 @@ public class OracionesViewModel extends ViewModel {
         return mRepository.getViaCrucis(rawPath);
     }
 
-    public LiveData<DataWrapper<Book, CustomException>> getBook(String rawPath) {
-        return mRepository.getBook(rawPath);
-    }
 }

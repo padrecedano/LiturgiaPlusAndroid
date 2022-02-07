@@ -1,24 +1,16 @@
 package org.deiverbum.app.viewmodel;
 
-import android.util.Log;
-
-import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
-import org.deiverbum.app.model.Homilias;
+import org.deiverbum.app.model.Santo;
 import org.deiverbum.app.repository.SantosRepository;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.observers.DisposableSingleObserver;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @HiltViewModel
 public class SantosViewModel extends ViewModel {
@@ -29,7 +21,8 @@ public class SantosViewModel extends ViewModel {
         mRepository = repository;
     }
 
-    public MediatorLiveData getObservable(String month, String day) {
+    public LiveData<DataWrapper<Santo, CustomException>> getObservable(String month,
+                                                                       String day) {
         return mRepository.getData(month, day);
     }
 

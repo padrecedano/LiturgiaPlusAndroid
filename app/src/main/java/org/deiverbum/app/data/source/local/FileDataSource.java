@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.model.Book;
+import org.deiverbum.app.model.Completas;
 import org.deiverbum.app.model.OracionSimple;
 import org.deiverbum.app.model.Rosario;
 import org.deiverbum.app.model.ViaCrucis;
@@ -109,6 +110,27 @@ public class FileDataSource {
                 Gson gson = new Gson();
                 Book data = gson.fromJson(new InputStreamReader(raw)
                         , Book.class);
+                emitter.onSuccess(new DataWrapper<>(data));
+            }catch (Exception e) {
+                emitter.onError(new Exception(e));
+            }
+
+        });
+    }
+
+    /**
+     * <p>Obtiene un observable de {@link org.deiverbum.app.model.OracionSimple} envuelto en {@link DataWrapper}.</p>
+     * @param rawPath La ruta del archivo que tiene los datos de la {@link org.deiverbum.app.model.OracionSimple} correspondiente
+     * @return Observable del tipo solicitado o error.
+     * @since 2022.01.01
+     */
+    public Single<DataWrapper<Completas, CustomException>> getCompletas(String rawPath) {
+        return Single.create(emitter -> {
+            try {
+                InputStream raw = Objects.requireNonNull(getClass().getClassLoader()).getResourceAsStream(rawPath);
+                Gson gson = new Gson();
+                Completas data = gson.fromJson(new InputStreamReader(raw)
+                        , Completas.class);
                 emitter.onSuccess(new DataWrapper<>(data));
             }catch (Exception e) {
                 emitter.onError(new Exception(e));

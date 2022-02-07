@@ -1,13 +1,8 @@
 package org.deiverbum.app.data;
-
 import android.content.Context;
-
 import org.deiverbum.app.R;
-
 import java.io.InputStream;
-
 import javax.inject.Inject;
-
 import dagger.hilt.android.qualifiers.ApplicationContext;
 
 public class ResourcesProvider {
@@ -33,7 +28,7 @@ public class ResourcesProvider {
             return new String(b);
 
         } catch (Exception e) {
-            return String.format("Error: <br>%s",e.getMessage());
+            return String.format("Error: <br>%s", e.getMessage());
         }
     }
 }

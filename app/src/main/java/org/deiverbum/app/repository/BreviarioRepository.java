@@ -51,61 +51,7 @@ public class BreviarioRepository {
     }
 
 
-    /**
-     * Este método inicia la llamada al DataSource.
-     * Primero buscará en Firestore mediante {@link FirebaseDataSource#getMixto(String)}
-     * y si no encuentra, buscará en la Api mediante {@link ApiService#getBreviario(String, String)}
-     * La llamada a la Api se hará desde el onError
-     * @param dateString La fecha
-     * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
-     */
 
-    public MediatorLiveData<DataWrapper<Mixto, CustomException>> getMixtoss(String dateString) {
-        final MediatorLiveData<DataWrapper<Mixto,CustomException>> liveDataMixto = new MediatorLiveData<>();
-
-        firebaseDataSource.getMixto(dateString)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<Mixto,CustomException>>() {
-
-                    @Override
-                    public void onSuccess(@NonNull DataWrapper<Mixto,CustomException> data) {
-                        liveDataMixto.postValue(data);
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        mixtoFromApi(dateString);
-                    }
-                });
-        return liveDataMixto;
-    }
-
-
-
-    /**
-     * Este método buscará los datos en el servidor remoto, si no los encuentra en Firebase.
-     * @param dateString La fecha
-     */
-    public DataWrapper<Mixto, CustomException> mixtoFromApis(String dateString) {
-DataWrapper<Mixto, CustomException> dataWrapper=new DataWrapper<>();
-        apiService.getMixto(Utils.cleanDate(dateString))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Mixto>() {
-                    @Override public void onStart() {
-                    }
-                    @Override
-                    public void onSuccess(@NonNull Mixto r) {
-                        dataWrapper.postValue(r);
-                    }
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        dataWrapper.setException(e.getMessage());
-                    }
-                });
-        return dataWrapper;
-    }
     /**
      * Este método inicia la llamada al DataSource.
      * Primero buscará en Firestore mediante {@link FirebaseDataSource#getOficio(String)}
@@ -127,7 +73,6 @@ DataWrapper<Mixto, CustomException> dataWrapper=new DataWrapper<>();
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-
                         oficioFromApi(dateString);
                     }
                 });

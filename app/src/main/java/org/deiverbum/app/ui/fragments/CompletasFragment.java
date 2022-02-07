@@ -121,7 +121,7 @@ observeData();
     private void observeData() {
         mTextView.setText(PACIENCIA);
         mViewModel.getMeta(mDate);
-        mViewModel.getObservable().observe(this, (Observer<DataWrapper<Completas, CustomException>>) data -> {
+        mViewModel.getObservable().observe(getViewLifecycleOwner(), (Observer<DataWrapper<Completas, CustomException>>) data -> {
             progressBar.setVisibility(View.GONE);
             if (data.status == DataWrapper.Status.SUCCESS) {
                     mTextView.setText(data.getData().getForView());
