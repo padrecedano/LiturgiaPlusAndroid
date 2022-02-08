@@ -58,12 +58,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.android.volley:volley:1.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    //implementation 'com.prolificinteractive:material-calendarview:1.4.3'
-    implementation "com.github.prolificinteractive:material-calendarview:${versions.calendarview}"
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.3.0'
 
     implementation platform('com.google.firebase:firebase-bom:29.0.0')
     implementation 'com.google.firebase:firebase-crashlytics'
@@ -101,7 +97,6 @@ dependencies {
     // Navigation
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
-    //implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.8'
 
 
     //   Retrofit
@@ -116,8 +111,6 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxandroid:${versions.rxJava}"
 
     //TTS
-    //implementation 'net.gotev:speech:1.6.2'
-    implementation 'com.github.padrecedano:android-speech:-SNAPSHOT'
 
     //Firebase
     implementation 'com.github.FrangSierra:RxFirebase:1.5.6'
