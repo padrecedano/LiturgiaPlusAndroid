@@ -26,11 +26,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import net.gotev.speech.TextToSpeechCallback;
-
 import org.deiverbum.app.R;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentHomiliasBinding;
+import org.deiverbum.app.utils.TextToSpeechCallback;
 import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
