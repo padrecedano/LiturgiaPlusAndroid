@@ -1,30 +1,5 @@
 package org.deiverbum.app.utils;
 
-import android.graphics.Color;
-import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.CharacterStyle;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Objects;
-
 import static android.graphics.Typeface.BOLD;
 import static org.deiverbum.app.utils.Constants.BR;
 import static org.deiverbum.app.utils.Constants.BRS;
@@ -42,8 +17,26 @@ import static org.deiverbum.app.utils.Constants.RESP_A;
 import static org.deiverbum.app.utils.Constants.RESP_R;
 import static org.deiverbum.app.utils.Constants.RESP_V;
 
+import android.graphics.Color;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.CharacterStyle;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
+
 import org.deiverbum.app.model.BreviarioHora;
 import org.deiverbum.app.model.Intermedia;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Clase utilitaria que se usa en varias partes de la aplicación
@@ -58,7 +51,7 @@ public final class Utils {
     public static final float H2 = 1.7f;
     public static final float H4 = 1.1f;
 
-    private static ForegroundColorSpan liturgicalRed = new ForegroundColorSpan(Color.parseColor("#A52A2A"));
+    private static final ForegroundColorSpan liturgicalRed = new ForegroundColorSpan(Color.parseColor("#A52A2A"));
 
     public static SpannableStringBuilder formatTitle(String sOrigen) {
         SpannableStringBuilder ssb = new SpannableStringBuilder(sOrigen);
@@ -135,16 +128,7 @@ public final class Utils {
 
     }
 
-    public static SpannableStringBuilder fromHtmlToSmall(String sOrigen) {
-        Spanned s = fromHtml(sOrigen);
-        RelativeSizeSpan smallSizeText = new RelativeSizeSpan(0.8f);
-        SpannableStringBuilder ssb = new SpannableStringBuilder("");
-        SpannableString spannableString = new SpannableString(s);
-        spannableString.setSpan(CharacterStyle.wrap(smallSizeText), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ssb.append(spannableString);
-        return ssb;
 
-    }
 
     public static SpannableStringBuilder toH3(String sOrigen) {
         RelativeSizeSpan smallSizeText = new RelativeSizeSpan(H3);
@@ -242,12 +226,12 @@ public final class Utils {
         return new SpannableStringBuilder(s);
     }
 
-    @Deprecated
     /**
      * Este método es @deprecated a partir de la versión 2022.01,
      * porque conviene migrar algunos métodos a clases más propias.
      * Usar en su lugar {@link BreviarioHora#getSaludoOficio()}
      */
+    @Deprecated
 
     public static SpannableStringBuilder getSaludoOficio() {
         SpannableStringBuilder ssb = new SpannableStringBuilder(formatTitle("INVOCACIÓN INICIAL"));
@@ -263,22 +247,7 @@ public final class Utils {
         return ssb;
     }
 
-    /**
-     *
-     * @return
-     * @sice 2022.01
-     */
-    public static Spannable setRed(String text) {
-        Spannable s = new SpannableString(text);
-        s.setSpan(liturgicalRed, 0,text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return s;
-    }
 
-    public static Spannable setRedR(String text) {
-        Spannable s = new SpannableString(text);
-        s.setSpan(liturgicalRed, 0,text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return s;
-    }
         public static SpannableStringBuilder getSaludoEnElNombre() {
         SpannableStringBuilder ssb = new SpannableStringBuilder("");
         SpannableStringBuilder ssbPartial = new SpannableStringBuilder("V/. En el nombre del Padre, y del Hijo, y del Espíritu Santo.");
@@ -291,14 +260,13 @@ public final class Utils {
         return ssb;
     }
 
-    @Deprecated
     /**
      * Este método es @deprecated a partir de la versión 2022.01,
      * porque conviene migrar algunos métodos a clases más propias.
      * Usar en su lugar {@link BreviarioHora#getSaludoOficioForRead()}
      */
+    @Deprecated
     public static SpannableStringBuilder getSaludoOficioForReader() {
-        StringBuilder sb = new StringBuilder();
         SpannableStringBuilder ssb = new SpannableStringBuilder();
         ssb.append("<p>Señor abre mis labios.</p>");
         ssb.append("<p>Y mi boca proclamará tu alabanza.</p>");
@@ -307,12 +275,13 @@ public final class Utils {
         return (SpannableStringBuilder) fromHtml(ssb.toString());
     }
 
-    @Deprecated
     /**
      * Este método es @deprecated a partir de la versión 2022.01,
      * porque conviene migrar algunos métodos a clases más propias.
      * Usar en su lugar {@link BreviarioHora#getSaludoDiosMio()}
      */
+    @Deprecated
+
     public static SpannableStringBuilder getSaludoDiosMio() {
         SpannableStringBuilder ssb = new SpannableStringBuilder(formatTitle("INVOCACIÓN INICIAL"));
         ssb.append(LS2);
@@ -327,12 +296,13 @@ public final class Utils {
         return ssb;
     }
 
-    @Deprecated
     /**
      * Este método es @deprecated a partir de la versión 2022.01,
      * porque conviene migrar algunos métodos a clases más propias.
      * Usar en su lugar {@link BreviarioHora#getSaludoDiosMioForRead()}
      */
+    @Deprecated
+
     public static SpannableStringBuilder getSaludoDiosMioForReader() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
         ssb.append("<p>Dios mío, ven en mi auxilio.</p>");
@@ -346,6 +316,8 @@ public final class Utils {
      * @deprecated desde v. 2022.01 - Usar en su lugar {@link BreviarioHora#getConclusionHorasMayores()}
      * @return Conclusión formateada
      */
+    @Deprecated
+
     public static SpannableStringBuilder getConclusionHorasMayores() {
         SpannableStringBuilder ssb = new SpannableStringBuilder(formatTitle("CONCLUSIÓN"));
         ssb.append(LS2);
@@ -373,7 +345,7 @@ public final class Utils {
 
     /**
      * @deprecated Usar {@link Intermedia#getConclusionHora()}
-     * @return
+     * @return Una cadena con la conclusión
      */
     public static SpannableStringBuilder getConclusionIntermedia() {
         SpannableStringBuilder ssb = new SpannableStringBuilder(formatTitle("CONCLUSIÓN"));
@@ -389,7 +361,7 @@ public final class Utils {
 
     /**
      * @deprecated Usar {@link Intermedia#getConclusionHoraForRead()}
-     * @return
+     * @return Una cadena con la conclusión
      */
     public static SpannableStringBuilder getConclusionIntermediaForRead() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
@@ -499,7 +471,7 @@ public final class Utils {
      *     <li></li>
      * </ul>
      * @param sOrigen Cadena original para hacer el reemplazo
-     * @return
+     * @return La cadena formateada
      */
     public static String getFormato(String sOrigen) {
         String sFormateado;
@@ -562,7 +534,7 @@ public final class Utils {
     }
 
     public static String replaceByTime(String mText, int timeID) {
-        String sFormateado = "";
+        String sFormateado;
         if (timeID == 6) {
             sFormateado = mText
                     .replace("Ƥ", "Aleluya")
@@ -614,8 +586,8 @@ public final class Utils {
      * Remueve también ciertos delimitadores que se usan
      * para dar formato al texto en la vista
      *
-     * @param sOrigen
-     * @return
+     * @param sOrigen Cadena original
+     * @return La cadena sin las comillas
      */
     public static String stripQuotation(String sOrigen) {
         String sFormateado;
@@ -623,7 +595,7 @@ public final class Utils {
                 .replace("«", "")
                 .replace(".»", "».")
                 .replace("\"", "")
-                .replace("\'", "")
+                .replace("'", "")
                 .replace("“", "")
                 .replace("”", "")
                 .replace("(...)", ".")
@@ -650,8 +622,8 @@ public final class Utils {
      * que agrega el punto al final de aquellos contenidos que no lo tengan.
      * El punto es el carácter que se usa para separar los bloques de lectura de voz.
      *
-     * @param sOrigen
-     * @return
+     * @param sOrigen La cadena original
+     * @return Cadena con final normalizado
      */
     public static String normalizeEnd(String sOrigen) {
         return sOrigen.endsWith(".") ? sOrigen : String.format("%s.",sOrigen);
@@ -681,7 +653,6 @@ public final class Utils {
     @Deprecated
     public static String getResponsorio(String[] respArray, int nForma) {
         String sResponsorio = ERR_RESPONSORIO + BR + "Tamaño del responsorio: " + respArray.length + " Código forma: " + nForma + BR;
-        String codigoForma = String.valueOf(nForma);
         switch (nForma) {
             case 1:
                 if (respArray.length == 3) {
@@ -770,7 +741,6 @@ public final class Utils {
     @Deprecated
     public static String getResponsorioForReader(String[] respArray, int nForma) {
         String sResponsorio = ERR_RESPONSORIO + BR + "Tamaño del responsorio: " + respArray.length + " Código forma: " + nForma + BR;
-        String codigoForma = String.valueOf(nForma);
         switch (nForma) {
             case 1:
                 if (respArray.length == 3) {
@@ -849,7 +819,7 @@ public final class Utils {
      * @return Texto del Te Deum
      */
     @Deprecated
-    public static final Spanned getTeDeum() {
+    public static Spanned getTeDeum() {
         String teDeum = "<p>Señor, Dios eterno, alegres te cantamos, <br />a ti nuestra alabanza, <br />a ti, Padre del cielo, te aclama la creación. <br /><br />Postrados ante ti, los ángeles te adoran <br />y cantan sin cesar: <br /><br />Santo, santo, santo es el Señor, <br />Dios del universo; <br />llenos están el cielo y la tierra de tu gloria. <br /><br />A ti, Señor, te alaba el coro celestial de los apóstoles, <br />la multitud de los profetas te enaltece, <br />y el ejército glorioso de los mártires te aclama. <br /><br />A ti la Iglesia santa, <br />por todos los confines extendida, <br />con júbilo te adora y canta tu grandeza: <br /><br />Padre, infinitamente santo, <br />Hijo eterno, unigénito de Dios, <br />Santo Espíritu de amor y de consuelo. <br /><br />Oh Cristo, tú eres el Rey de la gloria, <br />tú el Hijo y Palabra del Padre, <br />tú el Rey de toda la creación. <br /><br />Tú, para salvar al hombre, <br />tomaste la condición de esclavo <br />en el seno de una virgen. <br /><br />Tú destruiste la muerte <br />y abriste a los creyentes las puertas de la gloria. <br /><br />Tú vives ahora, <br />inmortal y glorioso, en el reino del Padre. <br /><br />Tú vendrás algún día, <br />como juez universal. <br /><br />Muéstrate, pues, amigo y defensor <br />de los hombres que salvaste. <br /><br />Y recíbelos por siempre allá en tu reino, <br />con tus santos y elegidos. <br /><br />Salva a tu pueblo, Señor, <br />y bendice a tu heredad. <br /><br />Sé su pastor, <br />y guíalos por siempre. <br /><br />Día tras día te bendeciremos <br />y alabaremos tu nombre por siempre jamás. <br /><br />Dígnate, Señor, <br />guardarnos de pecado en este día. <br /><br />Ten piedad de nosotros, Señor, <br />ten piedad de nosotros. <br /><br />Que tu misericordia, Señor, venga sobre nosotros, <br />como lo esperamos de ti. <br /><br />A ti, Señor, me acojo, <br />no quede yo nunca defraudado.</p>";
         return fromHtml(teDeum);
     }
@@ -857,20 +827,20 @@ public final class Utils {
 
     /**
      * @deprecated Usar en su lugar {@link org.deiverbum.app.model.Salmodia#getNoGloria()}
-     * @return Texto del Te Deum
+     * @return Texto del "No se dice Gloria..."
      */
     @Deprecated
-    public static final SpannableStringBuilder getNoGloria() {
+    public static SpannableStringBuilder getNoGloria() {
         SpannableStringBuilder ssb = new SpannableStringBuilder("No se dice Gloria");
         return toRedNew(ssb);
     }
 
     /**
      * @deprecated Usar en su lugar {@link org.deiverbum.app.model.Salmodia#getFinSalmo()}
-     * @return
+     * @return Fin del salmo para la vista
      */
     @Deprecated
-    public static final Spanned getFinSalmo() {
+    public static Spanned getFinSalmo() {
         String fin = "Gloria al Padre, y al Hijo, y al Espíritu Santo." + BR
                 + NBSP_SALMOS + "Como era en el principio ahora y siempre, "
                 + NBSP_SALMOS + "por los siglos de los siglos. Amén.";
@@ -879,10 +849,10 @@ public final class Utils {
 
     /**
      * @deprecated Usar en su lugar {@link org.deiverbum.app.model.Salmodia#getFinSalmoForRead()}
-     * @return
+     * @return Fin del salmo para lectura
      */
     @Deprecated
-    public static final Spanned getFinSalmoForRead() {
+    public static  Spanned getFinSalmoForRead() {
         String fin = "<p>Gloria al Padre, y al Hijo, y al Espíritu Santo.<br />" +
                 "Como era en el principio ahora y siempre, "
                 + "por los siglos de los siglos. Amén.</p>";
@@ -890,7 +860,7 @@ public final class Utils {
     }
 
     @Deprecated
-    public static final Spanned getPadreNuestro() {
+    public static Spanned getPadreNuestro() {
 
         return fromHtml(PADRENUESTRO);
     }
@@ -902,7 +872,6 @@ public final class Utils {
      */
 
     public static String getHoy() {
-        Date newDate = new Date(System.currentTimeMillis());
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         return format.format(new Date());
     }
@@ -929,7 +898,7 @@ public final class Utils {
                 new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
         DateFormat df = new SimpleDateFormat("yyyyMMdd");
         try {
-            return longFormat.format(df.parse(dateString));
+            return longFormat.format(Objects.requireNonNull(df.parse(dateString)));
         } catch (ParseException e) {
             return "";
         }
@@ -946,7 +915,7 @@ public final class Utils {
                 new SimpleDateFormat("dd 'de' MMMM yyyy", new Locale("es", "ES"));
         DateFormat df = new SimpleDateFormat("yyyyMMdd");
         try {
-            return sdf.format(df.parse(dateString));
+            return sdf.format(Objects.requireNonNull(df.parse(dateString)));
         } catch (ParseException e) {
             return "";
         }
@@ -970,7 +939,7 @@ public final class Utils {
     /**
      * Quita el carácter / a las fechas que son pasadas inicialmente
      * para buscar datos en Firebase, a fin de hacer peticiones de Api
-     * @param dateString
+     * @param dateString Cadena con la fecha
      * @return La cadena limpia
      * @since 2022.01
      */
@@ -997,7 +966,7 @@ public final class Utils {
      * Obtiene las dos cifras del mes desde una cadena de fecha
      * @param date La fecha en formato yyyymmdd
      * @return Una cadena con la parte del mes
-     * @sice 2022.01
+     * @since 2022.1
      */
     public static String getMonth(String date) {
         return date.substring(4, 6);
@@ -1007,7 +976,7 @@ public final class Utils {
      * Obtiene las dos cifras del día desde una cadena de fecha
      * @param date La fecha en formato yyyymmdd
      * @return Una cadena con la parte del día
-     * @sice 2022.01
+     * @since 2022.1
      */
     public static String getDay(String date) {
         return date.substring(6, 8);

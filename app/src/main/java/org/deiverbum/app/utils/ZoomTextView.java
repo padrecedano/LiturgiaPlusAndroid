@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 
 public class ZoomTextView extends androidx.appcompat.widget.AppCompatTextView implements View.OnTouchListener {
     final static float STEP = 200;
-    private static final String TAG = "ZoomTextView";
     float mRatio = 13.0f;
     int mBaseDist;
     float mBaseRatio;
@@ -36,13 +35,6 @@ public class ZoomTextView extends androidx.appcompat.widget.AppCompatTextView im
         this.setTextIsSelectable(true);
     }
 
-    /*
-    private void initialize() {
-        defaultSize = getTextSize();
-        mScaleDetector = new ScaleGestureDetector(getContext(), new ScaleListener());
-
-    }
-*/
 
     /***
      * @param zoomLimit
