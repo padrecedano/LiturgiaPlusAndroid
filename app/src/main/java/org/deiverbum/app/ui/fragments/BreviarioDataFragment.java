@@ -4,6 +4,7 @@ import static org.deiverbum.app.utils.Constants.PACIENCIA;
 import static org.deiverbum.app.utils.Constants.SEPARADOR;
 import static org.deiverbum.app.utils.Constants.VOICE_INI;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -20,7 +21,6 @@ import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -29,15 +29,8 @@ import androidx.navigation.ui.NavigationUI;
 import net.gotev.speech.TextToSpeechCallback;
 
 import org.deiverbum.app.R;
-import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentBreviarioDataBinding;
-import org.deiverbum.app.model.Intermedia;
-import org.deiverbum.app.model.Laudes;
-import org.deiverbum.app.model.Mixto;
-import org.deiverbum.app.model.Oficio;
-import org.deiverbum.app.model.Visperas;
-import org.deiverbum.app.utils.TTS;
 import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
@@ -47,21 +40,17 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class BreviarioDataFragment extends Fragment implements TextToSpeechCallback {
-    private static final String TAG = "BreviarioDataFragment";
     private BreviarioViewModel mViewModel;
     private FragmentBreviarioDataBinding binding;
     private ZoomTextView mTextView;
     private ProgressBar progressBar;
     private boolean isVoiceOn;
     private StringBuilder sbReader;
-    private Menu menu;
     private String mDate;
     private SeekBar seekBar;
     private boolean isReading = false;
 
     private boolean hasInvitatorio;
-    private TTS tts;
-    private SharedPreferences prefs;
 
     private Menu audioMenu;
     private Menu mainMenu;
@@ -91,8 +80,7 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
         mViewModel =
                 new ViewModelProvider(this).get(BreviarioViewModel.class);
         mTextView = binding.include.tvZoomable;
-        //mViewModel.test();
-        //observeMixtos();
+
         progressBar = binding.progressBar;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
@@ -106,7 +94,10 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
     }
 
     private void observeHour() {
-        int hourId = getArguments().getInt("hourId");
+        int hourId = 0;
+        if (getArguments() != null) {
+            hourId = getArguments().getInt("hourId");
+        }
         switch (hourId) {
             case 0:
                 observeMixto();
@@ -136,9 +127,6 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
                 observeVisperas();
                 break;
 
-            case 7:
-                break;
-
             default:
                 break;
         }
@@ -146,7 +134,7 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
 
     private void observeMixto() {
         mTextView.setText(PACIENCIA);
-        mViewModel.getMixto(mDate).observe(getViewLifecycleOwner(), (Observer<DataWrapper<Mixto, CustomException>>) data -> {
+        mViewModel.getMixto(mDate).observe(getViewLifecycleOwner(), data -> {
             progressBar.setVisibility(View.GONE);
             if (data.status == DataWrapper.Status.SUCCESS) {
                 mTextView.setText(data.getData().getForView(hasInvitatorio));
@@ -163,7 +151,7 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
 
     private void observeOficio() {
         mTextView.setText(PACIENCIA);
-        mViewModel.getOficio(mDate).observe(getViewLifecycleOwner(), (Observer<DataWrapper<Oficio, CustomException>>) data -> {
+        mViewModel.getOficio(mDate).observe(getViewLifecycleOwner(), data -> {
             progressBar.setVisibility(View.GONE);
             if (data.status == DataWrapper.Status.SUCCESS) {
                 mTextView.setText(data.getData().getForView(hasInvitatorio));
@@ -179,7 +167,7 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
 
     private void observeLaudes() {
         mTextView.setText(PACIENCIA);
-        mViewModel.getLaudes(mDate).observe(getViewLifecycleOwner(), (Observer<DataWrapper<Laudes, CustomException>>) data -> {
+        mViewModel.getLaudes(mDate).observe(getViewLifecycleOwner(), data -> {
             progressBar.setVisibility(View.GONE);
             if (data.status == DataWrapper.Status.SUCCESS) {
                 mTextView.setText(data.getData().getForView(hasInvitatorio));
@@ -195,7 +183,7 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
 
     private void observeIntermedia(int hourId, String endPoint) {
         mTextView.setText(PACIENCIA);
-        mViewModel.getIntermedia(mDate, hourId, endPoint).observe(getViewLifecycleOwner(), (Observer<DataWrapper<Intermedia, CustomException>>) data -> {
+        mViewModel.getIntermedia(mDate, hourId, endPoint).observe(getViewLifecycleOwner(), data -> {
             progressBar.setVisibility(View.GONE);
             if (data.status == DataWrapper.Status.SUCCESS) {
                 mTextView.setText(data.getData().getForView());
@@ -211,7 +199,7 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
 
     private void observeVisperas() {
         mTextView.setText(PACIENCIA);
-        mViewModel.getVisperas(mDate).observe(getViewLifecycleOwner(), (Observer<DataWrapper<Visperas, CustomException>>) data -> {
+        mViewModel.getVisperas(mDate).observe(getViewLifecycleOwner(), data -> {
             progressBar.setVisibility(View.GONE);
             if (data.status == DataWrapper.Status.SUCCESS) {
                 mTextView.setText(data.getData().getForView());
@@ -241,11 +229,12 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.item_voz) {
             if (mActionMode == null) {
-                mActionMode = getActivity().startActionMode(mActionModeCallback);
+                mActionMode =
+                        requireActivity().startActionMode(mActionModeCallback);
             }
             readText();
             isReading = true;
-            getActivity().invalidateOptionsMenu();
+            requireActivity().invalidateOptionsMenu();
             return true;
         }
 
@@ -319,6 +308,7 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.getMenuInflater().inflate(R.menu.contextual_action_bar, menu);
             audioMenu = menu;
+            @SuppressLint("InflateParams")
             View view = LayoutInflater.from(getContext()).inflate(R.layout.seekbar, null);
             mode.setCustomView(view);
             seekBar = view.findViewById(R.id.seekbar);

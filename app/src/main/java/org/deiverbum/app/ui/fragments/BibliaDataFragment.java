@@ -4,6 +4,7 @@ import static org.deiverbum.app.utils.Constants.PACIENCIA;
 import static org.deiverbum.app.utils.Constants.SEPARADOR;
 import static org.deiverbum.app.utils.Constants.VOICE_INI;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -20,8 +21,6 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -34,22 +33,15 @@ import org.deiverbum.app.R;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentTextBinding;
 import org.deiverbum.app.model.BibliaLibros;
-import org.deiverbum.app.model.OracionSimple;
-import org.deiverbum.app.model.Rosario;
-import org.deiverbum.app.model.ViaCrucis;
 import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
 import org.deiverbum.app.viewmodel.BibliaViewModel;
-import org.deiverbum.app.viewmodel.OracionesViewModel;
-
-import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class BibliaDataFragment extends Fragment implements TextToSpeechCallback {
-    private static final String TAG = "BibliaDataFragment";
     private BibliaViewModel mViewModel;
     private FragmentTextBinding binding;
     private ZoomTextView mTextView;
@@ -59,16 +51,12 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
     private SeekBar seekBar;
 
     private boolean isReading = false;
-    private String mDate;
-
-    private SharedPreferences prefs;
 
     private Menu audioMenu;
     private Menu mainMenu;
 
     public static ActionMode mActionMode;
     private TtsManager mTtsManager;
-    private ActionBar actionBar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -76,10 +64,6 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
         setHasOptionsMenu(true);
         binding = FragmentTextBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        Bundle bundle = getArguments();
-        int bookId = (bundle != null && bundle.containsKey("bookId")) ? bundle.getInt("bookId") : 0;
-
         setConfiguration();
         observeData();
         return root;
@@ -92,9 +76,8 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
         mTextView.setMovementMethod(LinkMovementMethod.getInstance());
         //mTextView.setClickable(true);
         progressBar = binding.progressBar;
-        actionBar = ((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar();
         //actionBar.setSubtitle("");
-        prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         isVoiceOn = prefs.getBoolean("voice", true);
@@ -103,10 +86,10 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
 
 
     private void observeData() {
-        int param = Objects.requireNonNull(getArguments()).getInt("bookId");
+        int param = requireArguments().getInt("bookId");
 
         mTextView.setText(PACIENCIA);
-        mViewModel.getLibro(param).observe(this, data -> {
+        mViewModel.getLibro(param).observe(getViewLifecycleOwner(), data -> {
             progressBar.setVisibility(View.GONE);
             if (data.status == DataWrapper.Status.SUCCESS) {
                 BibliaLibros libro=data.getData();
@@ -133,11 +116,11 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.item_voz) {
             if (mActionMode == null) {
-                mActionMode = Objects.requireNonNull(getActivity()).startActionMode(mActionModeCallback);
+                mActionMode = requireActivity().startActionMode(mActionModeCallback);
             }
             readText();
             isReading = true;
-            Objects.requireNonNull(getActivity()).invalidateOptionsMenu();
+            requireActivity().invalidateOptionsMenu();
             return true;
         }
 
@@ -209,9 +192,9 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.getMenuInflater().inflate(R.menu.contextual_action_bar, menu);
             audioMenu = menu;
-            View view;
-            view = LayoutInflater.from(getActivity()).inflate(R.layout.seekbar,
-                    null);
+
+            @SuppressLint("InflateParams")
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.seekbar, null);
             mode.setCustomView(view);
             seekBar = view.findViewById(R.id.seekbar);
             return true;

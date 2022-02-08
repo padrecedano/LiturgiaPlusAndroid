@@ -12,10 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.deiverbum.app.R;
 import org.deiverbum.app.data.adapters.BibliaAdapter;
-import org.deiverbum.app.data.adapters.OracionItem;
-import org.deiverbum.app.data.adapters.OracionesAdapter;
 import org.deiverbum.app.databinding.FragmentBibliaBinding;
 import org.deiverbum.app.model.BibliaLibros;
 import org.deiverbum.app.utils.Utils;
@@ -32,13 +29,11 @@ import java.util.Objects;
  * </p>
  * @author A. Cedano
  * @version 1.0
- * @since 2022.01.01
+ * @since 2022.1
  */
 public class BibliaFragment extends Fragment{
-    private static final String TAG = "BibliaFragment";
     private FragmentBibliaBinding binding;
     RecyclerView recyclerView;
-    private BibliaAdapter mAdapter;
     private List<BibliaLibros> booksList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -48,7 +43,6 @@ public class BibliaFragment extends Fragment{
         View root = binding.getRoot();
         recyclerView = binding.recyclerView;
         booksList = new ArrayList<>();
-        mAdapter = new BibliaAdapter(booksList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         //recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 3));
 
@@ -66,18 +60,7 @@ public class BibliaFragment extends Fragment{
     }
 
     private void prepareItems() {
-        /*
-        mList.add(new OracionItem(1,"Misterios Gloriosos", "Domingos y Miércoles",R.id.nav_rosario));
-        mList.add(new OracionItem(2,"Misterios Gozosos", "Lunes y Sábados",R.id.nav_rosario));
-        mList.add(new OracionItem(3,"Misterios Dolorosos", "Martes y Viernes",R.id.nav_rosario));
-        mList.add(new OracionItem(4,"Misterios Luminosos", "Jueves",R.id.nav_rosario));
-        mList.add(new OracionItem(5,"Letanías Lauretanas", "Solamente las Letanías",R.id.nav_rosario));
-        mList.add(new OracionItem(6,"Ángelus", "Recuerda la Encarnación de Cristo",R.id.nav_rosario));
-        mList.add(new OracionItem(7,"Regina Coeli", "En lugar del Àngelus, en el tiempo de Pascua",R.id.nav_rosario));
-        mList.add(new OracionItem(8,"Via Crucis 2003", "Con meditaciones de Juan Pablo II",R.id.nav_rosario));
-        mList.add(new OracionItem(9,"Via Crucis 2005", "Con meditaciones de Joseph Ratzinger",R.id.nav_rosario));
-       mAdapter.notifyDataSetChanged();*/
-        //List<BibliaLibros> booksList = new ArrayList<>();
+
         booksList.add(new BibliaLibros(1, "Génesis", "En el principio creó Dios el cielo y la tierra"));
         booksList.add(new BibliaLibros(2, "Éxodo", "...los israelitas que fueron a Egipto con Jacob"));
         booksList.add(new BibliaLibros(3, "Levítico", "Yahvé llamó a Moisés y le habló así..."));
@@ -151,9 +134,8 @@ public class BibliaFragment extends Fragment{
         booksList.add(new BibliaLibros(71, "3 Juan", "..."));
         booksList.add(new BibliaLibros(72, "Judas", "..."));
         booksList.add(new BibliaLibros(73, "Apocalipsis", "..."));
-        mAdapter.notifyDataSetChanged();
+        //mAdapter.notifyDataSetChanged();
 
-        //adapter = new BibliaLibrosItemsAdapter(booksList, this);
     }
 
     private void pickOutDate() {
@@ -164,8 +146,8 @@ public class BibliaFragment extends Fragment{
         }else{
             dateString=Utils.getHoy();
         }
-        ActionBar actionBar = ((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar();
-        actionBar.setSubtitle(Utils.getTitleDate(dateString));
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        Objects.requireNonNull(actionBar).setSubtitle(Utils.getTitleDate(dateString));
     }
 
 }

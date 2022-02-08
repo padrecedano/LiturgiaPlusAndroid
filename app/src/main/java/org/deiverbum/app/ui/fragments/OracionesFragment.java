@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,13 +30,11 @@ import java.util.Objects;
  * </p>
  * @author A. Cedano
  * @version 1.0
- * @since 2022.01.01
+ * @since 2022.1
  */
 public class OracionesFragment extends Fragment{
-    private static final String TAG = "OracionesFragment";
     private FragmentOracionesBinding binding;
     RecyclerView recyclerView;
-    private OracionesAdapter mAdapter;
     private List<OracionItem> mList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -47,10 +44,7 @@ public class OracionesFragment extends Fragment{
         View root = binding.getRoot();
         recyclerView = binding.recyclerView;
         mList = new ArrayList<>();
-        mAdapter = new OracionesAdapter(mList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 3));
-
         recyclerView.setAdapter(new OracionesAdapter(mList));
         prepareItems();
         pickOutDate();
@@ -74,7 +68,7 @@ public class OracionesFragment extends Fragment{
         mList.add(new OracionItem(7,"Regina Coeli", "En lugar del Àngelus, en el tiempo de Pascua",R.id.nav_rosario));
         mList.add(new OracionItem(8,"Via Crucis 2003", "Con meditaciones de Juan Pablo II",R.id.nav_rosario));
         mList.add(new OracionItem(9,"Via Crucis 2005", "Con meditaciones de Joseph Ratzinger",R.id.nav_rosario));
-       mAdapter.notifyDataSetChanged();
+       //mAdapter.notifyDataSetChanged();
     }
 
     private void pickOutDate() {
@@ -85,8 +79,8 @@ public class OracionesFragment extends Fragment{
         }else{
             dateString=Utils.getHoy();
         }
-        ActionBar actionBar = ((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar();
-        actionBar.setSubtitle(Utils.getTitleDate(dateString));
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        Objects.requireNonNull(actionBar).setSubtitle(Utils.getTitleDate(dateString));
     }
 
 }

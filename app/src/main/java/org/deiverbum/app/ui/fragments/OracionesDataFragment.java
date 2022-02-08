@@ -4,6 +4,7 @@ import static org.deiverbum.app.utils.Constants.PACIENCIA;
 import static org.deiverbum.app.utils.Constants.SEPARADOR;
 import static org.deiverbum.app.utils.Constants.VOICE_INI;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -74,12 +75,8 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
         //observeBook();
 
 
-
-
-
         return root;
     }
-
 
 
     private void setConfiguration() {
@@ -133,15 +130,13 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
     }
 
 
-
-
     private void observeRosario(int param) {
         boolean isBrevis = prefs.getBoolean("brevis", true);
         mTextView.setText(PACIENCIA);
         mViewModel.getRosario(param).observe(getViewLifecycleOwner(), data -> {
             progressBar.setVisibility(View.GONE);
             if (data.status == DataWrapper.Status.SUCCESS) {
-                Rosario rosario=data.getData();
+                Rosario rosario = data.getData();
                 actionBar.setTitle("Rosario");
                 actionBar.setSubtitle(rosario.getSubTitle());
                 mTextView.setText(rosario.getForView(isBrevis));
@@ -161,7 +156,7 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
         mViewModel.getOracionSimple(rawPath).observe(getViewLifecycleOwner(), data -> {
             progressBar.setVisibility(View.GONE);
             if (data.status == DataWrapper.Status.SUCCESS) {
-                OracionSimple oracionSimple=data.getData();
+                OracionSimple oracionSimple = data.getData();
                 actionBar.setTitle(oracionSimple.getTitulo());
                 actionBar.setSubtitle("");
                 mTextView.setText(oracionSimple.getForView());
@@ -181,7 +176,7 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
         mViewModel.getViaCrucis(rawPath).observe(getViewLifecycleOwner(), data -> {
             progressBar.setVisibility(View.GONE);
             if (data.status == DataWrapper.Status.SUCCESS) {
-                ViaCrucis viaCrucis=data.getData();
+                ViaCrucis viaCrucis = data.getData();
                 actionBar.setTitle(viaCrucis.getTitulo());
                 actionBar.setSubtitle("");
                 mTextView.setText(viaCrucis.getForView());
@@ -236,6 +231,7 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
             item.setVisible(false);
         }
     }
+
     @Override
     public void onCompleted() {
     }
@@ -287,9 +283,10 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.getMenuInflater().inflate(R.menu.contextual_action_bar, menu);
             audioMenu = menu;
-            View view;
-            view = LayoutInflater.from(getActivity()).inflate(R.layout.seekbar,
-                    null);
+            @SuppressLint("InflateParams")
+            View view =
+                    LayoutInflater.from(getActivity()).inflate(R.layout.seekbar,
+                            null);
             mode.setCustomView(view);
             seekBar = view.findViewById(R.id.seekbar);
             return true;

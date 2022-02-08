@@ -9,7 +9,6 @@ import static org.deiverbum.app.utils.Constants.PACIENCIA;
 import static org.deiverbum.app.utils.Constants.PREF_ACCEPT;
 
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.method.LinkMovementMethod;
@@ -21,7 +20,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -33,8 +31,6 @@ import org.deiverbum.app.databinding.FragmentLegalBinding;
 import org.deiverbum.app.model.Book;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.viewmodel.FileViewModel;
-
-import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -51,12 +47,10 @@ import dagger.hilt.android.AndroidEntryPoint;
  */
 @AndroidEntryPoint
 public class LegalFragment extends Fragment {
-    private static final String TAG = "LegalFragment";
 
     private FileViewModel mViewModel;
     private FragmentLegalBinding binding;
     private TextView mTextView;
-    private ConstraintLayout mLayout;
     private TextView textAgree;
     private TextView textContacto;
     private boolean acceptLegal;
@@ -103,23 +97,26 @@ public class LegalFragment extends Fragment {
     private void observeBook() {
         progressBar.setVisibility(View.VISIBLE);
         mTextView.setText(PACIENCIA);
-        String filePath = getArguments().getString("rawPath");
-        mViewModel.getBook(filePath).observe(getViewLifecycleOwner(),
-                data -> {
-                    progressBar.setVisibility(View.GONE);
-                    if (data.status == DataWrapper.Status.SUCCESS) {
-                        Book book = data.getData();
-                        mTextView.setText(book.getForView(), TextView.BufferType.SPANNABLE);
-                        agreeYes = book.getAgreeYes();
-                        agreeNot = book.getAgreeNot();
-                    } else {
-                        mTextView.setText(Utils.fromHtml(data.getError()));
-                    }
-                    textContacto.setText(MSG_LEGAL);
-                    bottomLayout.setVisibility(View.VISIBLE);
-                    setAcceptText();
+        if (getArguments() != null) {
+            String filePath = getArguments().getString("rawPath");
+            mViewModel.getBook(filePath).observe(getViewLifecycleOwner(),
+                    data -> {
+                        progressBar.setVisibility(View.GONE);
+                        if (data.status == DataWrapper.Status.SUCCESS) {
+                            Book book = data.getData();
+                            mTextView.setText(book.getForView(), TextView.BufferType.SPANNABLE);
+                            agreeYes = book.getAgreeYes();
+                            agreeNot = book.getAgreeNot();
+                        } else {
+                            mTextView.setText(Utils.fromHtml(data.getError()));
+                        }
+                        textContacto.setText(MSG_LEGAL);
+                        bottomLayout.setVisibility(View.VISIBLE);
+                        setAcceptText();
 
-                });
+                    });
+        }
+
     }
 
     private void setAcceptText() {
@@ -131,7 +128,8 @@ public class LegalFragment extends Fragment {
     }
 
     private void showConfirm() {
-        MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(getActivity());
+        MaterialAlertDialogBuilder materialAlertDialogBuilder =
+                new MaterialAlertDialogBuilder(requireActivity());
         materialAlertDialogBuilder.setTitle(DIALOG_LEGAL_TITLE);
         materialAlertDialogBuilder.setMessage(DIALOG_LEGAL_BODY);
         materialAlertDialogBuilder.setPositiveButton(DIALOG_LEGAL_OK,
@@ -142,11 +140,7 @@ public class LegalFragment extends Fragment {
     }
 
     private void closeApp() {
-        if (Build.VERSION.SDK_INT < 21) {
-            requireActivity().finishAffinity();
-        } else {
-            requireActivity().finishAndRemoveTask();
-        }
+        requireActivity().finishAndRemoveTask();
     }
 
     private void updateSwitch() {

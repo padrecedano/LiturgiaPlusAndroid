@@ -19,14 +19,13 @@ import org.deiverbum.app.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class BugReportFragment extends Fragment {
-
-    private static final String TAG = "BugReportFragment";
 
 
     private FragmentBugreportBinding binding;
@@ -60,8 +59,10 @@ public class BugReportFragment extends Fragment {
             }
 
             String textSelected=String.join(", ", selected);
-            String msg=String.format("Mensaje: \n\n%s\n\nEn:\n\n%s", Objects.requireNonNull(binding.message.getText()).toString(),textSelected);
-            String subject= String.format("Reporte de error Liturgia+ v. %d",Constants.VERSION_CODE);
+            String msg=String.format("Mensaje: \n\n%s\n\nEn:\n\n%s", Objects.requireNonNull(binding.message.getText()),textSelected);
+            String subject= String.format(Locale.getDefault(),"Reporte de " +
+                            "error Liturgia+ v. %d"
+                    ,Constants.VERSION_CODE);
             composeEmail(new String[]{Configuration.MY_EMAIL},  subject, msg);
 
         });
@@ -75,10 +76,10 @@ public class BugReportFragment extends Fragment {
         intent.putExtra(Intent.EXTRA_EMAIL, addresses);
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.putExtra(Intent.EXTRA_TEXT, body);
-        if (intent.resolveActivity(Objects.requireNonNull(getActivity()).getPackageManager()) != null) {
+        if (intent.resolveActivity(requireActivity().getPackageManager()) != null) {
             startActivity(intent);
         }
-        getActivity().onBackPressed();
+       requireActivity().onBackPressed();
     }
 
     @Override

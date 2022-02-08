@@ -14,10 +14,9 @@ import android.util.Log;
 import android.view.Menu;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -45,7 +44,7 @@ import org.deiverbum.app.utils.Utils;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
     String strFechaHoy;
     private static final String TAG = "MainActivity";
     private static final int UPDATE_REQUEST_CODE = VERSION_CODE;
@@ -62,9 +61,6 @@ public class MainActivity extends AppCompatActivity  {
     };
 
 
-
-
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -79,20 +75,8 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         strFechaHoy = Utils.getFecha();
-        //showNoticeDialog();
-
-
         setPrivacy();
-        //navController.navigate(R.id.nav_initial);
-
         showMain();
-
-            //navController.navigate(R.id.nav_initial);
-
-            //navController.navigate(R.id.nav_initial);
-            //showMain();
-
-
     }
 
     private void showMain() {
@@ -113,8 +97,7 @@ public class MainActivity extends AppCompatActivity  {
         NavigationUI.setupWithNavController(navigationView, navController);
         if (!acceptTerms) {
             openDialog();
-            //navController.navigate(R.id.nav_initial);
-        }else{
+        } else {
             checkAppUpdate();
             navController.navigate(R.id.nav_home);
 
@@ -126,12 +109,10 @@ public class MainActivity extends AppCompatActivity  {
     private void setPrivacy() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         acceptTerms = prefs.getBoolean(PREF_ACCEPT, false);
-
         boolean collectData = prefs.getBoolean(PREF_ANALYTICS, true);
         boolean collectCrash = prefs.getBoolean(PREF_CRASHLYTICS, true);
         FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(collectData);
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(collectCrash);
-
     }
 
     @Override
@@ -179,7 +160,9 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onResume() {
         super.onResume();
-        checkNewAppVersionState();
+        if (acceptTerms) {
+            checkNewAppVersionState();
+        }
     }
 
     @Override
@@ -213,7 +196,7 @@ public class MainActivity extends AppCompatActivity  {
                         Snackbar.LENGTH_INDEFINITE);
         snackbar.setAction("REINICIAR", view -> appUpdateManager.completeUpdate());
         snackbar.setActionTextColor(
-                getResources().getColor(R.color.colorAccent));
+                ContextCompat.getColor(this, R.color.colorAccent));
         snackbar.show();
 
     }

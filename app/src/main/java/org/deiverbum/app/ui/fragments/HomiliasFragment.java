@@ -4,10 +4,11 @@ import static org.deiverbum.app.utils.Constants.PACIENCIA;
 import static org.deiverbum.app.utils.Constants.SEPARADOR;
 import static org.deiverbum.app.utils.Constants.VOICE_INI;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,11 +20,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -32,11 +29,8 @@ import androidx.navigation.ui.NavigationUI;
 import net.gotev.speech.TextToSpeechCallback;
 
 import org.deiverbum.app.R;
-import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentHomiliasBinding;
-import org.deiverbum.app.model.Homilias;
-import org.deiverbum.app.model.Lecturas;
 import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
@@ -47,7 +41,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
-    private static final String TAG = "HomiliasFragment";
     private HomiliasViewModel mViewModel;
     private FragmentHomiliasBinding binding;
     private ZoomTextView mTextView;
@@ -99,7 +92,7 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
     void observeData() {
         mTextView.setText(PACIENCIA);
         mViewModel.getObservable(mDate).observe(getViewLifecycleOwner(),
-                (Observer<DataWrapper<Homilias, CustomException>>) data -> {
+                data -> {
                     progressBar.setVisibility(View.GONE);
                     if (data.status == DataWrapper.Status.SUCCESS) {
                         mTextView.setText(data.getData().getForView(), TextView.BufferType.SPANNABLE);
@@ -123,13 +116,12 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.item_voz) {
             if (mActionMode == null) {
-                //mActionMode = getActivity().startActionMode(mActionModeCallback);
-                mActionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(mActionModeCallback);
-
+                mActionMode =
+                        requireActivity().startActionMode(mActionModeCallback);
             }
             readText();
             isReading = true;
-            getActivity().invalidateOptionsMenu();
+            requireActivity().invalidateOptionsMenu();
             return true;
         }
 
@@ -205,6 +197,8 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.getMenuInflater().inflate(R.menu.contextual_action_bar, menu);
             audioMenu = menu;
+
+            @SuppressLint("InflateParams")
             View view = LayoutInflater.from(getContext()).inflate(R.layout.seekbar, null);
             mode.setCustomView(view);
             seekBar = view.findViewById(R.id.seekbar);

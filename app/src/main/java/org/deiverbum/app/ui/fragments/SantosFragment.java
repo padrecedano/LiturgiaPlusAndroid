@@ -4,6 +4,7 @@ import static org.deiverbum.app.utils.Constants.PACIENCIA;
 import static org.deiverbum.app.utils.Constants.SEPARADOR;
 import static org.deiverbum.app.utils.Constants.VOICE_INI;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -20,7 +21,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -29,10 +29,8 @@ import androidx.navigation.ui.NavigationUI;
 import net.gotev.speech.TextToSpeechCallback;
 
 import org.deiverbum.app.R;
-import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentSantosBinding;
-import org.deiverbum.app.model.Santo;
 import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
@@ -42,7 +40,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class SantosFragment extends Fragment implements TextToSpeechCallback {
-    private static final String TAG = "SantosFragment";
     private SantosViewModel mViewModel;
     private FragmentSantosBinding binding;
     private ZoomTextView mTextView;
@@ -57,8 +54,6 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
 
     public static ActionMode mActionMode;
 
-    private SharedPreferences prefs;
-    private String mDate;
     private TtsManager mTtsManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -79,7 +74,7 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
                 new ViewModelProvider(this).get(SantosViewModel.class);
         mTextView = binding.include.tvZoomable;
         progressBar = binding.progressBar;
-        prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         isVoiceOn = prefs.getBoolean("voice", true);
         if (isVoiceOn) {
             sbReader = new StringBuilder(VOICE_INI);
@@ -89,7 +84,7 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
 
     private void pickOutDate() {
         Bundle bundle = getArguments();
-        mDate = (bundle != null) ? bundle.getString("FECHA") : Utils.getHoy();
+        String mDate = (bundle != null) ? bundle.getString("FECHA") : Utils.getHoy();
         String month = Utils.getMonth(mDate);
         String day = Utils.getDay(mDate);
         observeData(month,day);
@@ -99,7 +94,7 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
     void observeData(String month, String day) {
         mTextView.setText(PACIENCIA);
         mViewModel.getObservable(month,day).observe(getViewLifecycleOwner(),
-                (Observer<DataWrapper<Santo, CustomException>>) data -> {
+                data -> {
                     progressBar.setVisibility(View.GONE);
                     if (data.status == DataWrapper.Status.SUCCESS) {
                         mTextView.setText(data.getData().getForView(), TextView.BufferType.SPANNABLE);
@@ -113,7 +108,7 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
                 });
     }
 
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         mainMenu = menu;
         inflater.inflate(R.menu.toolbar_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
@@ -123,11 +118,11 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.item_voz) {
             if (mActionMode == null) {
-                mActionMode = getActivity().startActionMode(mActionModeCallback);
+                mActionMode = requireActivity().startActionMode(mActionModeCallback);
             }
             readText();
             isReading = true;
-            getActivity().invalidateOptionsMenu();
+            requireActivity().invalidateOptionsMenu();
             return true;
         }
 
@@ -160,7 +155,7 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
     public void onError() {
     }
 
-    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+    private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 
@@ -202,6 +197,7 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.getMenuInflater().inflate(R.menu.contextual_action_bar, menu);
             audioMenu = menu;
+            @SuppressLint("InflateParams")
             View view = LayoutInflater.from(getContext()).inflate(R.layout.seekbar, null);
             mode.setCustomView(view);
             seekBar = view.findViewById(R.id.seekbar);
