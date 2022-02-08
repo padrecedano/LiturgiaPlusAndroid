@@ -1,6 +1,5 @@
 package org.deiverbum.app.ui.fragments;
 
-import static org.deiverbum.app.utils.Constants.MSG_LEGAL;
 import static org.deiverbum.app.utils.Constants.PACIENCIA;
 
 import android.os.Bundle;
@@ -11,9 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import org.deiverbum.app.data.wrappers.DataWrapper;
@@ -31,11 +28,10 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  * @author A. Cedano
  * @version 1.0
- * @since 2022.01
+ * @since 2022.1
  */
 @AndroidEntryPoint
 public class FileFragment extends Fragment {
-    private static final String TAG = "FileFragment";
 
     private FileViewModel mViewModel;
     private FragmentFileBinding binding;
@@ -53,32 +49,32 @@ public class FileFragment extends Fragment {
         mTextView = binding.includeTv.tvClickable;
         mTextView.setMovementMethod(LinkMovementMethod.getInstance());
         mTextView.setClickable(true);
-        mViewModel.getText(getArguments().getString("rawPath")).observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
+        if (getArguments() != null) {
+            mViewModel.getText(getArguments().getString("rawPath")).observe(getViewLifecycleOwner(), s -> {
                 //textView.setText(Utils.fromHtml(s), TextView.BufferType.SPANNABLE);
-            }
-        });
+            });
+        }
         observeBook();
         return root;
     }
 
     private void observeBook() {
-        //progressBar.setVisibility(View.VISIBLE);
         mTextView.setText(PACIENCIA);
-        String filePath = getArguments().getString("rawPath");
-        mViewModel.getBook(filePath).observe(getViewLifecycleOwner(),
-                data -> {
-                    //progressBar.setVisibility(View.GONE);
-                    if (data.status == DataWrapper.Status.SUCCESS) {
-                        Book book = data.getData();
-                        mTextView.setText(book.getForView(), TextView.BufferType.SPANNABLE);
-                    } else {
-                        mTextView.setText(Utils.fromHtml(data.getError()));
-                    }
+        if (getArguments() != null) {
+            String filePath = getArguments().getString("rawPath");
+            mViewModel.getBook(filePath).observe(getViewLifecycleOwner(),
+                    data -> {
+                        if (data.status == DataWrapper.Status.SUCCESS) {
+                            Book book = data.getData();
+                            mTextView.setText(book.getForView(), TextView.BufferType.SPANNABLE);
+                        } else {
+                            mTextView.setText(Utils.fromHtml(data.getError()));
+                        }
 
-                });
-    }
+                    });
+
+        }
+      }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

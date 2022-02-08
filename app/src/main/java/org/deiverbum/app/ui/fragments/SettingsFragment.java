@@ -7,7 +7,6 @@ import static org.deiverbum.app.utils.Constants.DIALOG_LEGAL_TITLE;
 import static org.deiverbum.app.utils.Constants.PREF_ACCEPT;
 
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
@@ -35,7 +34,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     private void showConfirm() {
-        MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(getActivity());
+        MaterialAlertDialogBuilder materialAlertDialogBuilder =
+                new MaterialAlertDialogBuilder(requireActivity());
         materialAlertDialogBuilder.setTitle(DIALOG_LEGAL_TITLE);
         materialAlertDialogBuilder.setMessage(DIALOG_LEGAL_BODY);
         materialAlertDialogBuilder.setPositiveButton(DIALOG_LEGAL_OK,
@@ -46,11 +46,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     private void closeApp() {
-        if (Build.VERSION.SDK_INT < 21) {
-            requireActivity().finishAffinity();
-        } else {
-            requireActivity().finishAndRemoveTask();
-        }
+        requireActivity().finishAndRemoveTask();
     }
 
     private void updatePreference(){

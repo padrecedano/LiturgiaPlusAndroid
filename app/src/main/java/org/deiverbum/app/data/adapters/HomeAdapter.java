@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import org.deiverbum.app.R;
 import org.deiverbum.app.model.HomeItem;
 
@@ -86,7 +88,17 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         public ViewHolder(View v) {
             super(v);
-            v.setOnClickListener(v1 -> Navigation.findNavController(v1).navigate(mItem.getNavId()));
+            v.setOnClickListener(v1 -> {
+                int itemId=mItem.getItemId();
+                if(itemId==2 || itemId>9){
+                    Snackbar snackbar = Snackbar
+                            .make(v1, "Este módulo está pendiente de " +
+                                            "programación...",
+                                    Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }else {
+                    Navigation.findNavController(v1).navigate(mItem.getNavId());
+                } });
             viewIcon = v.findViewById(R.id.thumbnail);
             viewText = v.findViewById(R.id.title);
             relativeLayout = v.findViewById(R.id.mainCardRelativeLayout);

@@ -4,11 +4,10 @@ import static org.deiverbum.app.utils.Constants.PACIENCIA;
 import static org.deiverbum.app.utils.Constants.SEPARADOR;
 import static org.deiverbum.app.utils.Constants.VOICE_INI;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,41 +20,20 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.stream.JsonReader;
-
 import net.gotev.speech.TextToSpeechCallback;
 
 import org.deiverbum.app.R;
-import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentCompletasBinding;
-import org.deiverbum.app.databinding.FragmentFileBinding;
-import org.deiverbum.app.model.Breviario;
-import org.deiverbum.app.model.Completas;
-import org.deiverbum.app.model.MetaLiturgia;
-import org.deiverbum.app.model.Visperas;
 import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
-import org.deiverbum.app.viewmodel.BreviarioViewModel;
 import org.deiverbum.app.viewmodel.CompletasViewModel;
-import org.deiverbum.app.viewmodel.FileViewModel;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -65,16 +43,12 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  * @author A. Cedano
  * @version 1.0
- * @date 23/12/21
- * @since 2021.01
+ * @since 2022.1
  */
 @AndroidEntryPoint
 public class CompletasFragment extends Fragment implements TextToSpeechCallback {
-    private static final String TAG = "CompletasFragment";
 
-    private FileViewModel mViewModelB;
     private CompletasViewModel mViewModel;
-
     private FragmentCompletasBinding binding;
     private TextView mTextView;
     private String mDate;
@@ -121,7 +95,7 @@ observeData();
     private void observeData() {
         mTextView.setText(PACIENCIA);
         mViewModel.getMeta(mDate);
-        mViewModel.getObservable().observe(getViewLifecycleOwner(), (Observer<DataWrapper<Completas, CustomException>>) data -> {
+        mViewModel.getObservable().observe(getViewLifecycleOwner(), data -> {
             progressBar.setVisibility(View.GONE);
             if (data.status == DataWrapper.Status.SUCCESS) {
                     mTextView.setText(data.getData().getForView());
@@ -141,9 +115,6 @@ observeData();
         mDate= (bundle != null && bundle.containsKey("FECHA")) ? bundle.getString("FECHA") : Utils.getHoy();
     }
 
-    private void showData(String data) {
-
-    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -156,11 +127,11 @@ observeData();
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.item_voz) {
             if (mActionMode == null) {
-                mActionMode = getActivity().startActionMode(mActionModeCallback);
+                mActionMode = requireActivity().startActionMode(mActionModeCallback);
             }
             readText();
             isReading = true;
-            getActivity().invalidateOptionsMenu();
+            requireActivity().invalidateOptionsMenu();
             return true;
         }
 
@@ -185,8 +156,6 @@ observeData();
     }
     @Override
     public void onCompleted() {
-        Log.d(TAG, "completed");
-
     }
 
     @Override
@@ -237,6 +206,7 @@ observeData();
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.getMenuInflater().inflate(R.menu.contextual_action_bar, menu);
             audioMenu = menu;
+            @SuppressLint("InflateParams")
             View view = LayoutInflater.from(getContext()).inflate(R.layout.seekbar, null);
             mode.setCustomView(view);
             seekBar = view.findViewById(R.id.seekbar);
