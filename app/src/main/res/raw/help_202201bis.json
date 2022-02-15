@@ -1,0 +1,19 @@
+{
+  "author": "A. Cedano",
+  "title": "Ayuda",
+  "date": "",
+  "bookType": 2,
+  "chapters": [
+    {
+      "id": 1,
+      "title": "Ver en línea",
+      "content": [
+      {
+        "type": 1,
+        "text": [
+          "Consulta el siguiente enlace con algunas instrucciones sobre el funcionamiento de la App: </p><a href=\"https://www.liturgiaplus.app/ayuda\">Ayuda en línea</a>."
+        ]
+      }
+    ]
+    }]
+  }
