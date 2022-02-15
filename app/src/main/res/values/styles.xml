@@ -87,6 +87,8 @@
 
     <style name="Widget.App.TextView" parent="@android:style/Widget.Material.TextView">
         <item name="android:textAppearance">@style/TextAppearance.AppTheme.Body2</item>
+        <item name="android:textColorLink">@color/colorLink</item>
+
     </style>
     <!--END-->
 
@@ -144,7 +146,7 @@
         <item name="android:letterSpacing">0</item>
         <item name="android:textSize">@dimen/default_font</item>
         <item name="android:textColor">@color/text_color</item>
-        <item name="android:textColorLink">@color/colorAccent</item>
+        <item name="android:textColorLink">@color/colorLink</item>
     </style>
 
     <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -159,6 +161,7 @@
         <item name="colorOnSurface">@color/colorInput</item>
         <item name="colorError">@color/colorError</item>
         <item name="color">@color/text_color</item>
+        <item name="android:textColorLink">@color/colorLink</item>
 
         <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox
         </item>
@@ -169,6 +172,8 @@
     <style name="TextAppearance.AppTheme.Body2" parent="TextAppearance.MaterialComponents.Body2">
         <item name="fontFamily">@font/roboto_light</item>
         <item name="android:textSize">17sp</item>
+        <item name="android:textColorLink">@color/colorLink</item>
+
 
     </style>
 

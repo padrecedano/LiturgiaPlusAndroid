@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e5d8bf"
     tools:context=".ui.fragments.BugReportFragment">
 
     <ScrollView
@@ -29,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:hint="descripción del error">
+                android:hint="@string/error_description">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/message"
@@ -46,7 +45,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:id="@+id/left_side"
@@ -134,7 +134,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:checked="false"
-                        android:text="Otro" />
+                        android:text="@string/otro" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -155,18 +155,11 @@
                 android:layout_margin="10dp"
 
                 android:backgroundTint="@color/colorBreviario"
-                android:text="Enviar eMail"
+                android:text="@string/enviar_email"
                 android:textColor="@color/colorOnSurface"
                 app:icon="@android:drawable/ic_dialog_email"
                 app:iconTint="@color/colorOnSurface" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/loginButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="login"
-                android:textAllCaps="false"
-                android:visibility="invisible" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

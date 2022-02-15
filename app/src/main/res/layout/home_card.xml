@@ -32,7 +32,8 @@
                 android:maxHeight="82dp"
                 android:padding="5dp"
                 card_view:tint="@color/colorMainIcon"
-                android:scaleType="fitCenter"/>
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/app_name" />
                 <!--card_view:tint="@color/color_mainrecycler_bg"-->
 
             <TextView

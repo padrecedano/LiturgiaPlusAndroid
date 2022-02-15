@@ -31,7 +31,8 @@
                 android:maxHeight="82dp"
                 android:padding="5dp"
                 android:scaleType="fitCenter"
-                card_view:tint="@color/colorMainIcon" />
+                card_view:tint="@color/colorMainIcon"
+                android:contentDescription="@string/app_name" />
 
             <TextView
                 android:id="@+id/tv_Material"

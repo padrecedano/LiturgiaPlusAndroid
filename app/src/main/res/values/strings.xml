@@ -166,6 +166,9 @@
         a ellos por separado, desde el menú principal de la Aplicación, el
         cual se activa desde la pantalla inicial, pulsando en el botón superior izquierdo.
         \n\nSi tienes alguna duda, puedes ponerte en contacto conmigo pulsando en el botón <b>"Enviar eMail"</b> que aparece al final de esta pantalla.</string>
+    <string name="enviar_email">Enviar eMail</string>
+    <string name="error_description">descripción del error</string>
+    <string name="otro">Otro</string>
 
 
 </resources>

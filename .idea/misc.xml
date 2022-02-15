@@ -34,12 +34,13 @@
         <entry key="app/src/main/res/layout/example_dialog.xml" value="0.20260416666666667" />
         <entry key="app/src/main/res/layout/fragment_about.xml" value="0.2015625" />
         <entry key="app/src/main/res/layout/fragment_accept.xml" value="0.20260416666666667" />
-        <entry key="app/src/main/res/layout/fragment_acceptance.xml" value="0.37916666666666665" />
+        <entry key="app/src/main/res/layout/fragment_acceptance.xml" value="0.293125" />
         <entry key="app/src/main/res/layout/fragment_acceptance2.xml" value="0.20260416666666667" />
         <entry key="app/src/main/res/layout/fragment_author.xml" value="0.2015625" />
         <entry key="app/src/main/res/layout/fragment_biblia.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/layout/fragment_breviario.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout/fragment_breviario_data.xml" value="0.15162172723720202" />
+        <entry key="app/src/main/res/layout/fragment_breviario_mas.xml" value="0.24427083333333333" />
         <entry key="app/src/main/res/layout/fragment_bugreport.xml" value="0.3755656108597285" />
         <entry key="app/src/main/res/layout/fragment_calendario.xml" value="0.165625" />
         <entry key="app/src/main/res/layout/fragment_comentarios.xml" value="0.2884963768115942" />
@@ -60,6 +61,7 @@
         <entry key="app/src/main/res/layout/fragment_oficio.xml" value="0.2635416666666667" />
         <entry key="app/src/main/res/layout/fragment_oraciones.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/layout/fragment_privacy.xml" value="0.2015625" />
+        <entry key="app/src/main/res/layout/fragment_santos.xml" value="0.24427083333333333" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.24547101449275363" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.20104166666666667" />
         <entry key="app/src/main/res/layout/fragment_text.xml" value="0.20260416666666667" />
