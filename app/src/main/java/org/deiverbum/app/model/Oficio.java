@@ -68,35 +68,36 @@ public class Oficio extends BreviarioHora {
             sb.append(metaLiturgia.getAll());
             sb.append(LS2);
             if (metaLiturgia.getHasSaint()) {
-            sb.append(santo.getVida());
+                sb.append(santo.getVida());
+                sb.append(LS2);
+            }
+
+            sb.append(Utils.toH3Red(getTituloHora().toUpperCase()));
+            sb.append(Utils.fromHtmlToSmallRed(getMetaInfo()));
             sb.append(LS2);
-        }
 
-        sb.append(Utils.toH3Red(getTituloHora().toUpperCase()));
-        sb.append(Utils.fromHtmlToSmallRed(getMetaInfo()));
-        sb.append(LS2);
+            sb.append(getSaludoOficio());
+            sb.append(LS2);
+            sb.append(invitatorio.getAll(hasInvitatorio));
+            sb.append(LS2);
 
-        sb.append(getSaludoOficio());
-        sb.append(LS2);
-        sb.append(invitatorio.getAll(hasInvitatorio));
-        sb.append(LS2);
+            sb.append(himno.getAll());
+            sb.append(LS2);
 
-        sb.append(himno.getAll());
-        sb.append(LS2);
+            sb.append(salmodia.getAll());
+            sb.append(LS2);
 
-        sb.append(salmodia.getAll());
-        sb.append(LS2);
+            sb.append(oficioLecturas.getAll());
+            //sb.append(LS2);
 
-        sb.append(oficioLecturas.getAll());
-        sb.append(LS2);
+            if (teDeum.status) {
+                sb.append(teDeum.getAll());
+            }
 
-        sb.append(teDeum.getAll());
-        sb.append(LS2);
-
-        sb.append(oracion.getAll());
-        sb.append(LS2);
-        sb.append(getConclusionHorasMayores());
-        }catch (Exception e){
+            sb.append(oracion.getAll());
+            sb.append(LS2);
+            sb.append(getConclusionHorasMayores());
+        } catch (Exception e) {
             sb.append(e.getMessage());
         }
         return sb;
@@ -106,24 +107,26 @@ public class Oficio extends BreviarioHora {
     public StringBuilder getForRead(boolean hasInvitatorio) {
         StringBuilder sb = new StringBuilder();
         try {
-        sb.append(metaLiturgia.getAllForRead());
-        if (metaLiturgia.getHasSaint()) {
-            sb.append(santo.getVida());
+            sb.append(metaLiturgia.getAllForRead());
+            if (metaLiturgia.getHasSaint()) {
+                sb.append(santo.getVida());
+            }
+            sb.append(getTituloHoraForRead());
+            sb.append(getSaludoOficioForRead());
+            sb.append(invitatorio.getAllForRead(hasInvitatorio));
+            sb.append(himno.getAllForRead());
+            sb.append(salmodia.getAllForRead());
+            sb.append(oficioLecturas.getAllForRead());
+
+            if (teDeum.status) {
+                sb.append(teDeum.getAllForRead());
+            }
+            sb.append(oracion.getAllForRead());
+            sb.append(getConclusionHorasMayoresForRead());
+        } catch (Exception e) {
+            sb.append(e.getMessage());
+
         }
-        sb.append(getTituloHoraForRead());
-        sb.append(getSaludoOficioForRead());
-        sb.append(invitatorio.getAllForRead(hasInvitatorio));
-        sb.append(himno.getAllForRead());
-        sb.append(salmodia.getAllForRead());
-        sb.append(oficioLecturas.getAllForRead());
-
-        sb.append(teDeum.getAllForRead());
-        sb.append(oracion.getAllForRead());
-        sb.append(getConclusionHorasMayoresForRead());
-    }catch (Exception e){
-        sb.append(e.getMessage());
-
-    }
         return sb;
     }
 }
