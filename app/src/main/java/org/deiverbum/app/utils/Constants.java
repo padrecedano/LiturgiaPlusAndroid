@@ -10,7 +10,8 @@ public class Constants {
     public static final String ERR_LANG = "Lenguaje no soportado.";
     public static final String ERR_INITIALIZATION = "Falló la inicialización.";
     public static final String ERR_BIBLIA = "Todavía no hay introducción a este libro. <br>Proyecto abierto a la colaboración. <br><a href=\"http://bit.ly/2FInp4n\">Ver los detalles aquí</a>.";
-    public static final int VERSION_CODE = 202201000;
+    /*Cambiar tambien en build.gradle del módulo app y en new_YN.json*/
+    public static final int VERSION_CODE = 202201001;
 
     public static final String CSS_RED_A = "<font color=\"#A52A2A\">";
 
@@ -63,8 +64,8 @@ public class Constants {
     public static final String FIREBASE_SANTOS = "/liturgia/santos/";
     public static final String DOC_NOTFOUND = "Documento no encontrado";
 
-    public static final String FILE_PRIVACY = "res/raw/privacy_20220127.json";
-    public static final String FILE_TERMS = "res/raw/terms_20220127.json";
+    public static final String FILE_PRIVACY = "res/raw/privacy_202201.json";
+    public static final String FILE_TERMS = "res/raw/terms_202201.json";
     public static final String PREF_ACCEPT = "accept_terms";
     public static final String PREF_ANALYTICS = "enable_analytics";
     public static final String PREF_CRASHLYTICS = "enable_crashlytics";

@@ -26,11 +26,9 @@ public class TeDeum {
 
     public final Spanned getAll() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
-        if (status) {
             sb.append(getHeader());
             sb.append(Utils.LS2);
             sb.append(Utils.fromHtml(getTexto()));
-        }
         return sb;
     }
 

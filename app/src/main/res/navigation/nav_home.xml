@@ -92,7 +92,7 @@
     <argument
         android:name="rawPath"
         app:argType="string"
-        android:defaultValue="res/raw/privacy_20220127.json" />
+        android:defaultValue="res/raw/privacy_202201.json" />
     </fragment>
 
     <fragment
@@ -103,7 +103,7 @@
         <argument
             android:name="rawPath"
             app:argType="string"
-            android:defaultValue="res/raw/terms_20220127.json" />
+            android:defaultValue="res/raw/terms_202201.json" />
     </fragment>
 
     <fragment
@@ -174,13 +174,13 @@
 
     <fragment
         android:id="@+id/nav_patristica"
-        android:name="org.deiverbum.app.ui.fragments.ToDoFragment"
+        android:name="org.deiverbum.app.ui.fragments.FileFragment"
         android:label="@string/title_fragment_patristica"
         tools:layout="@layout/fragment_text" />
 
     <fragment
         android:id="@+id/nav_sacramentos"
-        android:name="org.deiverbum.app.ui.fragments.ToDoFragment"
+        android:name="org.deiverbum.app.ui.fragments.FileFragment"
         android:label="@string/title_fragment_sacramentos"
         tools:layout="@layout/fragment_file" />
 
@@ -274,7 +274,7 @@
 
     <fragment
         android:id="@+id/nav_breviario_mas"
-        android:name="org.deiverbum.app.ui.fragments.ToDoFragment"
+        android:name="org.deiverbum.app.ui.fragments.FileFragment"
         android:label="@string/title_fragment_breviario_mas"
         tools:layout="@layout/fragment_text" />
 

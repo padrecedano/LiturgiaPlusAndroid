@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import org.deiverbum.app.R;
 
 import java.util.List;
@@ -83,7 +85,18 @@ public class BreviarioAdapter extends RecyclerView.Adapter<BreviarioAdapter.View
 
         public ViewHolder(View v) {
             super(v);
-            v.setOnClickListener(v1 -> Navigation.findNavController(v1).navigate(mItem.navId));
+            v.setOnClickListener(v1 -> {
+                String itemText=mItem.text;
+                if(itemText.equals("Más...")){
+                    Snackbar snackbar = Snackbar
+                            .make(v1, "Este módulo está pendiente de " +
+                                            "programación...",
+                                    Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }else {
+                    Navigation.findNavController(v1).navigate(mItem.navId);
+                } });
+
             viewIcon = v.findViewById(R.id.tv_Material);
             viewText = v.findViewById(R.id.tv_Elemento);
             relativeLayout = v.findViewById(R.id.relativeLayout);

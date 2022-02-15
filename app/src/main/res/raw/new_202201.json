@@ -1,7 +1,7 @@
 {
   "author": "A. Cedano",
   "title": "Novedades",
-  "date": "",
+  "date": "20220215",
   "bookType": 10,
   "chapters": [
     {
@@ -12,7 +12,7 @@
           "type": 10,
           "item": "Fecha de publicación:",
           "text": [
-            "<i>12 de Febrero de 2022</i>"
+            "<i>15 de Febrero de 2022</i>"
           ]
         },
         {
@@ -33,7 +33,7 @@
         "type": 10,
           "item": "Codigo de versión:",
         "text": [
-          "202201000"
+          "202201001"
         ]
       }
     ]
@@ -47,11 +47,12 @@
           "type": 13,
           "text":
             [
-              "Se implementa posibilidad de pausa, continuar, parar para la lectura de texto en audio.",
-              "Modificación profunda del código para un próximo funcionamiento sin conexión (se está migrando todo el contenido de la Aplicación a una base de datos que vendrá incorporada en una futura actualización)",
+              "Se implementa posibilidad de pausar, continuar, detener el audio",
+              "Modificación profunda del código, implementando el patrón MVVM, para un próximo funcionamiento sin conexión (se está migrando todo el contenido de la Aplicación a una base de datos que vendrá incorporada en una futura actualización)",
               "Cambio de Volley por Retrofit+RXJava para las peticiones web",
               "Mejoras en el aspecto legal (Política de Privacidad y Términos y Condiciones de Uso) para adaptarlas a las nuevas leyes",
-              "Incorporación de Crashlytics para facilitar la detección y corrección de errores"
+              "Incorporación de Crashlytics para facilitar la detección y corrección de errores",
+              "Se agrega una opción \"Reportar error\" que se puede usar desde el menú inicial para reportar por email errores detectados en la aplicación"
             ]
         }
       ]
@@ -67,7 +68,8 @@
             "El error de repetición Primera Lectura (en la Segunda Lectura)",
             "Error en las lecturas de la Hora Intermedia (en todas las horas presentaba la lectura de la Hora Tercia)",
             "Error en el saludo de las Completas y pequeño error en la conclusión",
-            "Pequeño error ortográfico en el Rosario"
+            "Pequeño error ortográfico en el Rosario",
+            "Otros errores detectados en el código"
           ]
         }
       ]
