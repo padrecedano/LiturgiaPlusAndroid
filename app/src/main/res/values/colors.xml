@@ -5,6 +5,7 @@
     <color name="colorAccent">#ff4340</color>
     <color name="colorPrimaryVariant">#1e88e5</color>
     <color name="colorOnPrimary">#1e88e5</color>
+    <color name="colorLink">#ff4340</color>
 
     <color name="colorSecondary">#D32F2F</color>
     <color name="colorSecondaryDark">#1565c0</color>
@@ -46,6 +47,9 @@
     <color name="colorCalendario">#524c00</color>
     <color name="colorOraciones">#4d2c91</color>
     <color name="colorMain_img_mas">#c96f53</color>
+
+    <color name="color_rv_oraciones">#c8a600</color>
+    <color name="color_rv_subtitle">#c8a600</color>
 
     <color name="color_mainrecycler_bg">#E0F7FA</color>
     <color name="colorMainIcon">#fafafa</color>

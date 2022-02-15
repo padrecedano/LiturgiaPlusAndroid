@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:textColor="@color/colorPadres"
+            android:textColor="@color/color_rv_oraciones"
             android:textSize="30sp" />
 
         <TextView
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_title"
-            android:textColor="@color/txt_salterio"
+            android:textColor="@color/color_rv_subtitle"
             android:textSize="20sp"
 
             />

@@ -19,7 +19,7 @@ public class ResourcesProvider {
 
 
     public String getText() {
-        int rawId = R.raw.privacy_201902;
+        int rawId = R.raw.privacy_202201;
         try {
             InputStream in_s = mContext.getResources().openRawResource(rawId);
             byte[] b = new byte[in_s.available()];

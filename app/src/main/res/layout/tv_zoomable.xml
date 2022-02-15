@@ -22,14 +22,14 @@
 
 
 
-        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <org.deiverbum.app.utils.ZoomTextView
                 android:id="@+id/tv_Zoomable"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingTop="0dp"
                 android:paddingBottom="50dp"
                 style="@style/TextAppearance.AppTheme.DisplayBody"

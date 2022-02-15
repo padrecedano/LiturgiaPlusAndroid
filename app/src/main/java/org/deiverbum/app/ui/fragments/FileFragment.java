@@ -45,15 +45,9 @@ public class FileFragment extends Fragment {
         binding = FragmentFileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-
         mTextView = binding.includeTv.tvClickable;
         mTextView.setMovementMethod(LinkMovementMethod.getInstance());
         mTextView.setClickable(true);
-        if (getArguments() != null) {
-            mViewModel.getText(getArguments().getString("rawPath")).observe(getViewLifecycleOwner(), s -> {
-                //textView.setText(Utils.fromHtml(s), TextView.BufferType.SPANNABLE);
-            });
-        }
         observeBook();
         return root;
     }

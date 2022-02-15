@@ -3,7 +3,7 @@
     <!-- Customize your Primary color here. -->
     <color name="colorPrimary">#1D2430</color>
     <color name="colorPrimaryDark">#1D2530</color>
-    <color name="colorAccent">#2962FD</color>
+    <color name="colorLink">@color/amber_50</color>
 
     <color name="colorOnSurface">#FFD600</color>
     <color name="colorOnSurfaceVariant">#FFD600</color>
@@ -30,6 +30,10 @@
     <color name="color_mainrecycler_bg">#BDBDBD</color>
     <color name="colorMainIcon">#BDBDBD</color>
     <color name="colorMainItem">@color/amber_200</color>
+    <color name="color_fondo_grupo2">#373737</color>
+    <color name="color_rv_subtitle">@color/amber_200</color>
+    <color name="color_rv_oraciones">@color/amber_50</color>
+    <color name="txt_salterio">@color/color_fondo_rv</color>
 
 
 

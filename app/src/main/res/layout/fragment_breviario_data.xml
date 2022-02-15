@@ -29,14 +29,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 -->
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <RelativeLayout
             android:layout_width="match_parent" android:layout_height="match_parent">
                 <ProgressBar
                     android:id="@+id/progressBar"
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="100dp"
+                    android:layout_marginStart="100dp"
                     android:layout_marginTop="200dp"
                     android:minHeight="70dp"
                     android:minWidth="200dp"
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#272626"
                     android:textSize="@dimen/default_font"
-                    android:layout_alignLeft="@+id/progressBar"
+                    android:layout_alignStart="@+id/progressBar"
                     android:layout_below="@+id/progressBar" />
 
         </RelativeLayout>
