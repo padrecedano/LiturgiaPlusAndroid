@@ -1,0 +1,242 @@
+{
+  "subTitulo": "Presidido por el Papa Juan Pablo II",
+  "fecha": "18 de abril del 2003",
+  "autor": "Meditaciones de Juan Pablo II",
+  "introViaCrucis": {
+    "saludo": "En el nombre del Padre y del Hijo y del Espíritu Santo.|Amén.",
+    "intro": "Vía Crucis, camino de fe:_en Jesús condenado a muerte_reconoceremos al Juez universal;_en Él, cargado con la Cruz, al Salvador del mundo;_en Él, crucificado, al Señor de la historia,_al Hijo mismo de Dios.§Estamos reunidos en el nombre del Señor._Él está aquí con nosotros, según su promesa (cf. Mt 18,20).§_Con nosotros está también Santa María._Ella estuvo sobre la cumbre del Gólgota_como Madre del hijo moribundo,_Discípula del Maestro de la verdad,_nueva Eva junto al árbol de la vida._Mujer del dolor,_asociada al «Varón de dolores y sabedor de dolencias» (Is 53, 3),_Hija de Adán, Hermana nuestra, Reina de la paz.§_Madre de misericordia,_ella se inclina sobre sus hijos,_aún expuestos a peligros y afanes,_para ver los sufrimientos,_oír los gemidos que surge de sus miserias,_para confortarles y reavivar la esperanza de la paz.§Oremos.",
+    "oracion": "Mira, Padre santo,_la sangre que brota del costado traspasado del Salvador,_mira la sangre derramada por tantas víctimas_del odio, de la guerra, del terrorismo,_y concede, benigno, que el curso de los acontecimientos del mundo_se desarrolle según tu voluntad en la justicia y la paz,_y que tu Iglesia se dedique con serena confianza_a tu servicio y a la liberación del hombre._Por Jesucristo nuestro Señor."
+  },
+  "adoramus": "Te adoramos, oh Cristo, y te bendecimos.|Porque por tu santa cruz redimiste al mundo.",
+  "respuestas": [
+    "Kyrie, eleison",
+    "Christe, eleison"
+  ],
+  "estaciones": [
+    {
+      "titulo": "Primera estación",
+      "subtitulo": "Jesús es condenado a muerte",
+      "textoBiblico": {
+        "libro": "Del Evangelio según San Marcos",
+        "ref": "14, 14-15",
+        "texto": "Pero ellos gritaron con más fuerza: _«!Crucifícale!»_Pilatos, entonces, queriendo complacer a la gente,_les soltó a Barrabás y entregó a Jesús,_después de azotarle,_para que fuera crucificado."
+      },
+      "meditacion": {
+        "tipo": 1,
+        "texto": "La sentencia de Pilato fue dictada bajo la presión de los sacerdotes y de la multitud. La condena a muerte por crucifixión debería haber satisfecho sus pasiones y ser la respuesta al grito: «¡Crucifícale! ¡Crucifícale!» (Mc 15,13-14, etc. ). El pretor romano pensó que podría eludir el dictar sentencia lavándose las manos, como se había desentendido antes de las palabras de Cristo cuando éste identificó su reino con la verdad, con el testimonio de la verdad (Jn 18,38). En uno y otro caso Pilato buscaba conservar la independencia, mantenerse en cierto modo «al margen». Pero eran sólo apariencias. La cruz a la que fue condenado Jesús de Nazaret (Jn 19,16), así como su verdad del reino (Jn 18,36-37), debía de afectar profundamente al alma del pretor romano. Esta fue y es una Realeza, frente a la cual no se puede permanecer indiferente o mantenerse al margen.§El hecho de que a Jesús, Hijo de Dios, se le pregunte por su reino, y que por esto sea juzgado por el hombre y condenado a muerte, constituye el principio del testimonio final de Dios que tanto amó al mundo (cf. Jn 3,16).§También nosotros nos encontramos ante este testimonio, y sabemos que no nos es lícito lavarnos las manos.",
+        "textoPost": "Jesús de Nazaret, condenado a muerte en la cruz_testigo fiel del amor del Padre.|Jesús, Hijo de Dios, obediente a la voluntad del Padre_hasta la muerte de Cruz",
+        "r": 0
+      },
+      "canto": "Stabat mater dolorosa_iuxta crucem lacrimosa,_dum pendebat Filius."
+    },
+    {
+      "titulo": "Segunda estación",
+      "subtitulo": "Jesús carga con la Cruz",
+      "textoBiblico": {
+        "libro": "Del Evangelio según San Marcos",
+        "ref": "14, 20",
+        "texto": "Cuando se hubieron burlado de él,_le quitaron la púrpura,_le pusieron sus ropas_y le sacan fuera_para crucificarle."
+      },
+      "meditacion": {
+        "tipo": 1,
+        "texto": "Empieza la ejecución, es decir, el cumplimiento de la sentencia. Cristo, condenado a muerte, debe cargar con la cruz como los otros dos condenados que van a sufrir la misma pena: «Fue contado entre los pecadores» (Is 53,12). Cristo se acerca a la cruz con el cuerpo entero terriblemente magullado y desgarrado, con la sangre que le baña el rostro, cayéndole de la cabeza coronada de espinas. Ecce Homo! (Jn 19, 5 ). En Él se encierra toda la verdad del Hijo del hombre predicha por los profetas, la verdad sobre el siervo de Yavé anunciada por Isaías: «Fue traspasado por nuestras iniquidades... y en sus llagas hemos sido curados» (Is 53,5).§Está también presente en Él una cierta consecuencia, que nos deja asombrados, de lo que el hombre ha hecho con su Dios. Dice Pilato: «Ecce Homo» (Jn 19,5): «¡Mirad lo que habéis hecho de este hombre!» En esta afirmación parece oírse otra voz, como queriendo decir: « ¡Mirad lo que habéis hecho en este hombre con vuestro Dios!»§Resulta conmovedora la semejanza, la interferencia de esta voz que escuchamos a través de la historia con lo que nos llega mediante el conocimiento de la fe. Ecce Homo! Jesús, «el llamado Mesías» (Mt 27,17), carga la cruz sobre sus espaldas (Jn 19,17). Ha empezado la ejecución.",
+        "textoPost": "Cristo, Hijo de Dios,_que revelas al hombre el misterio del hombre.|Jesús, Siervo del Señor,_por tus llagas hemos sido curados.",
+        "r": 0
+      },
+      "canto": "Cuius animam gementem,_contristatam et dolentem_pertransivit gladius."
+    },
+    {
+      "titulo": "Tercera estación",
+      "subtitulo": "Jesús cae por primera vez",
+      "textoBiblico": {
+        "libro": "Del libro del Profeta Isaías",
+        "ref": "53, 4-6",
+        "texto": "Y con todo eran nuestras dolencias las que él llevaba_y nuestros dolores los que soportaba!_Nosotros le tuvimos por azotado,_herido de Dios y humillado._El ha sido herido por nuestras rebeldías,_molido por nuestras culpas._El soportó el castigo que nos trae la paz,_y con sus cardenales hemos sido curados._Todos nosotros como ovejas erramos,_cada uno marchó por su camino,_y Yahveh descargó sobre él_la culpa de todos nosotros."
+      },
+      "meditacion": {
+        "tipo": 1,
+        "texto": "Jesús cae bajo la cruz. Cae al suelo. No recurre a sus fuerzas sobrehumanas, no recurre al poder de los ángeles. «¿Crees que no puedo rogar a mi Padre, quien pondría a mi disposición al punto más de doce legiones de ángeles?» (Mt 26,53). No lo pide. Habiendo aceptado el cáliz de manos del Padre (Mc 14, 3 6, etc. ), quiere beberlo hasta las heces. Esto es lo que quiere. Y por esto no piensa en ninguna fuerza sobrehumana, aunque al instante podría disponer de ellas. Pueden sentirse dolorosamente sorprendidos los que le habían visto cuando dominaba a las humanas dolencias, a las mutilaciones, a las enfermedades, a la muerte misma. ¿Y ahora? .¿Está negando todo eso? Y, Sin embargo, «nosotros esperábamos», dirán unos días después los discípulos de Emaús (Lc 24,21). «Si eres el Hijo de Dios...» (Mt 27,40), le provocarán los miembros del Sanedrín. «A otros salvó, a sí mismo no puede salvarse» (Mc 15,31; Mt 27,42), gritará la gente.§Y él acepta estas frases de provoca ación, que parecen anular todo el sentido de sumisión, de los sermones pronunciados, de los milagros realiza dos. Acepta todas estas palabras, decide no oponerse. Quiere ser ultrajado. Quiere vacilar. Quiere caer bajo la cruz. Quiere. Es fiel hasta el final, hasta los mínimos detalles, a esta afirmación: «No se haga lo que yo quiero, sino lo que quieres tú» (cf. Mc 14,36, etc.).§Dios salvará a la humanidad con las caídas de Cristo bajo la cruz.",
+        "textoPost": "Jesús, manso cordero redentor,_que llevas sobre ti el pecado del mundo.|Jesús, compañero nuestro en el tiempo de angustia,_solidario con la debilidad humana.",
+        "r": 0
+      },
+      "canto": "O quam tristis et afflicta_fuit illa benedicta_mater Unigeniti!"
+    },
+    {
+      "titulo": "Cuarta estación",
+      "subtitulo": "Jesús encuentra a su Madre",
+      "textoBiblico": {
+        "libro": "Del Evangelio según San Lucas",
+        "ref": "2, 34-35. 51",
+        "texto": "Simeón les bendijo y dijo a María, su madre:_«Éste está puesto para caída_y elevación de muchos en Israel,_y para ser señal de contradicción_¡y a ti misma una espada te atravesará el alma!, _a fin de que queden al descubierto las intenciones de muchos corazones.»..._Su madre conservaba cuidadosamente todas las cosas en su corazón."
+      },
+      "meditacion": {
+        "tipo": 1,
+        "texto": "La Madre. María se encuentra con su Hijo en el camino de la cruz. La cruz de El es su cruz, la humillación de El es la suya, suyo el oprobio público de Jesús. Es el orden humano de las cosas. Así deben sentirlo los que la rodean y así lo capta su corazón: «...y una espada atravesará tu alma» (Lc 2,3 5 ). Las palabras pronunciadas cuando Jesús tenía cuarenta días se cumplen en este momento. Alcanzan ahora su plenitud total. Y María avanza, traspasada por esta invisible espada, hacia el Calvario de su Hijo, hacia su propio Calvario. La devoción cristiana la ve con esta espada clavada en su corazón, y así la representa en pinturas y esculturas. ¡Madre Dolorosa!§«¡Oh tú, que has padecido junto con El! », repiten los fieles, íntimamente convencidos de que así justamente debe expresarse el misterio de este sufrimiento. Aunque este dolor le pertenezca y le afecte en lo más profundo de su maternidad, sin embargo, la verdad plena de este sufrimiento se expresa con la palabra «com-pasión». También ella pertenece al mismo misterio: expresa en cierto modo la unidad con el sufrimiento del Hijo.",
+        "textoPost": "Santa María, madre y hermana nuestra en el camino de fe,_contigo invocamos a tu Hijo Jesús.|Santa María, intrépida en la vía del Calvario,_suplicamos contigo a tu Hijo Jesús.",
+        "r": 0
+      },
+      "canto": "Quæ mærebat et dolebat_pia mater, cum videbat_Nati pœnas incliti."
+    },
+    {
+      "titulo": "Quinta estación",
+      "subtitulo": "Simón Cireneo ayuda a Jesús",
+      "textoBiblico": {
+        "libro": "Del Evangelio según San Marcos",
+        "ref": "15, 21-22",
+        "texto": "Y obligaron a uno que pasaba,_a Simón de Cirene, que volvía del campo,_el padre de Alejandro y de Rufo,_a que llevara su cruz._Le conducen al lugar del Gólgota,_que quiere decir: Calvario."
+      },
+      "meditacion": {
+        "tipo": 1,
+        "texto": "Simón de Cirene, llamado a cargar con la cruz (cf. Mc 15,21; Lc 23,26), no la quería llevar ciertamente. Hubo que obligarle. Caminaba junto a Cristo bajo el mismo peso. Le prestaba sus hombros cuando los del condenado parecían no poder aguantar más. Estaba cerca de él: más cerca que María o que Juan, a quien, a pesar de ser varón, no se le pide que le ayude. Le han llamado a él, a Simón de Cirene, padre de Alejandro y de Rufo, como refiere el evangelio de Marcos (Mc 15,21). Le han llamado, le han obligado.§¿Cuánto duró esta coacción? ¿Cuánto tiempo caminó a su lado, dando muestras de que no tenía nada que ver con el condenado, con su culpa, con su condena? ¿Cuánto tiempo anduvo así, dividido interiormente, con una barrera de indiferencia entre él y ese Hombre que sufría? «Estaba desnudo, tuve sed, estaba preso» (cf. Mt 25,35.36), llevaba la cruz... ¿La llevaste conmigo?... ¿La has llevado conmigo verdaderamente hasta el final?§No se sabe. San Marcos refiere solamente el nombre de los hijos del Cireneo y la tradición sostiene que pertenecían a la comunidad de cristianos allegada a San Pedro (cf. Rm 16,13).",
+        "textoPost": "Cristo, buen samaritano,_te has hecho cercano al prójimo, al pobre, al enfermo, al último.|Cristo, siervo del Eterno, consideras que se te hace a ti_todo gesto de amor al desterrado, al marginado y al extranjero.",
+        "r": 1
+      },
+      "canto": "Quis est homo qui non fleret,_matrem Christi si videret_in tanto supplicio?"
+    },
+    {
+      "titulo": "Sexta estación",
+      "subtitulo": "La Verónica limpia el rostro de Jesús",
+      "textoBiblico": {
+        "libro": "Lectura del Libro del profeta Isaías",
+        "ref": "53, 2-3",
+        "texto": "No tenía apariencia ni presencia;_(le vimos) y no tenía aspecto_que pudiésemos estimar._Despreciable y desecho de hombres,_varón de dolores y sabedor de dolencias,_como uno ante quien se oculta el rostro."
+      },
+      "meditacion": {
+        "tipo": 1,
+        "texto": "La tradición nos habla de la Verónica. Quizá ella completa la historia del Cireneo. Porque lo cierto es que - aunque, como mujer, no cargara físicamente con la cruz y no se la obligara a ello - llevó sin duda esta cruz con Jesús: la llevó como podía, como en aquel momento era posible hacerlo y como le dictaba su corazón: limpiándole el rostro.§Este detalle, referido por la tradición, parece fácil de explicar: en el lienzo con el que secó su rostro han quedado impresos los rasgos de Cristo. Puesto que estaba todo él cubierto de sudor y sangre, muy bien podía dejar señales y perfiles.§Pero el sentido de este hecho puede ser interpretado también de otro modo, si se considera a la luz del sermón escatológico de Cristo. Son muchos indudablemente los que preguntarán: «Señor, ¿cuándo hemos hecho todo esto?» Y Jesús responderá: «Cuantas veces hicisteis eso a uno de estos mis hermanos menores, a mí me lo hicisteis» (Mt 25,40). El Salvador, en efecto, imprime su imagen sobre todo acto de caridad, como sobre el lienzo de la Verónica.",
+        "textoPost": "¡Oh rostro de Cristo,_desfigurado por el dolor, esplendor de la gloria divina!|¡Oh rostro santo,_impreso como un sello en cada gesto de amor!",
+        "r": 0
+      },
+      "canto": "Quis non posset contristari,_Christi Matrem contemplari_dolentem cum Filio?"
+    },
+    {
+      "titulo": "Séptima estación",
+      "subtitulo": "Jesús cae por segunda vez",
+      "textoBiblico": {
+        "libro": "Del Libro de las Lamentaciones",
+        "ref": "3, 1-2. 9. 16",
+        "texto": "El hombre que ha visto la miseria_bajo el látigo de su furor._Él me ha llevado y me ha hecho caminar_en tinieblas y sin luz..._Ha cercado mis caminos con piedras sillares,_ha torcido mis senderos..._Ha quebrado mis dientes con guijarro,_me ha revolcado en la ceniza."
+      },
+      "meditacion": {
+        "tipo": 1,
+        "texto": "«Yo soy un gusano, no un hombre; el oprobio de los hombres y el desecho del pueblo» (Sal 22 [21],7): las palabras del Salmista-profeta encuentran su plena realización en estas estrechas, arduas callejuelas de Jerusalén, durante las últimas horas que preceden a la Pascua. Ya se sabe que estas horas, antes de la fiesta, son extenuantes y las calles están llenas de gente. En este contexto se verifican las palabras del Salmista, aunque nadie piense en ellas. No paran mientes en ellas ciertamente todos cuantos dan pruebas de desprecio, para los cuales este Jesús de Nazaret que cae por segunda vez bajo la cruz se ha hecho objeto de escarnio.§Y Él lo quiere, quiere que se cumpla la profecía. Cae, pues, exhausto por el esfuerzo. Cae por voluntad del Padre, voluntad expresada asimismo en las palabras del Profeta. Cae por propia voluntad, porque «¿cómo se cumplirían, si no, las Escrituras?» (Mt 26,54): «Soy un gusano y no un hombre» (Sal 22[21],7); por tanto, ni siquiera «Ecce Homo» (Jn 19,5); menos aún, peor todavía.§El gusano se arrastra pegado a tierra; el hombre, en cambio, como rey de las criaturas, camina sobre ella. El gusano carcome la madera: como el gusano, el remordimiento del pecado roe la conciencia del hombre. Remordimiento por esta segunda caída.",
+        "textoPost": "Jesús de Nazaret, convertido en infamia de los hombres,_para ennoblecer todas las criaturas.|Jesús, servidor de la vida,_abatido por los hombres, enaltecido por Dios.",
+        "r": 0
+      },
+      "canto": "Pro peccatis suæ gentis_vidit Iesum in tormentis_et flagellis subditum."
+    },
+    {
+      "titulo": "Octava estación",
+      "subtitulo": "Jesús encuentra a las mujeres de Jerusalén",
+      "textoBiblico": {
+        "libro": "Del Evangelio según San Lucas",
+        "ref": "23, 28-31",
+        "texto": "Jesús, volviéndose a ellas, dijo:_«Hijas de Jerusalén, no lloréis por mí;_llorad más bien por vosotras y por vuestros hijos._Porque llegarán días en que se dirá:_¡Dichosas las estériles, las entrañas que no engendraron_y los pechos que no criaron!_Entonces se pondrán a decir a los montes:_¡Caed sobre nosotros! Y a las colinas: ¡Cubridnos!_Porque si en el leño verde hacen esto,_en el seco ¿qué se hará?»"
+      },
+      "meditacion": {
+        "tipo": 1,
+        "texto": "Es la llamada al arrepentimiento, al verdadero arrepentimiento, al pesar, en la verdad del mal cometido. Jesús dice a las hijas de Jerusalén que lloran a su vista: «No lloréis por mí; llorad más bien por vosotras mismas y por vuestros hijos» (Lc 23,28). No podemos quedarnos en la superficie del mal, hay que llegar a su raíz, a las causas, a la más honda verdad de la conciencia.§Esto es justamente lo que quiere darnos a entender Jesús cargado con la cruz, que desde siempre «conocía lo que en el hombre había» (Jn 2,25) y siempre lo conoce. Por esto Él debe ser en todo momento el más cercano testigo de nuestros actos y de los juicios, que sobre ellos hacemos en nuestra conciencia. Quizá nos haga comprender incluso que estos juicios deben ser ponderados, razonables, objetivos - dice: «No lloréis» -; pero, al mismo tiempo, ligados a todo cuanto esta verdad contiene: nos lo advierte porque es Él el que lleva la cruz.§Señor, ¡dame saber vivir y andar en la verdad!",
+        "textoPost": "Señor Jesús, sabio y misericordioso,_Verdad que guía a la vida.|Señor Jesús, compasivo,_tu presencia alivia las lágrimas en la hora de la prueba.",
+        "r": 0
+      },
+      "canto": "Tui Nati vulnerati,_tam dignati pro me pati_pœnas mecum divide."
+    },
+    {
+      "titulo": "Novena estación",
+      "subtitulo": "Jesús cae por tercera vez",
+      "textoBiblico": {
+        "libro": "Del Libro de las Lamentaciones",
+        "ref": "3, 27-32",
+        "texto": "Bueno es para el hombre soportar_el yugo desde su juventud._Que se siente solitario y silencioso,_cuando el Señor se lo impone;_que ponga su boca en el polvo:_quizá haya esperanza;_que tienda la mejilla a quien lo hiere,_que se harte de oprobios._Porque no desecha para siempre..._si llega a afligir, se apiada luego_según su inmenso amor."
+      },
+      "meditacion": {
+        "tipo": 1,
+        "texto": "«Se humilló, hecho obediente hasta la muerte, y muerte de cruz» (Fl 2,8 ). Cada estación de esta Vía es una piedra miliar de esa obediencia y ese anonadamiento.§Captamos el grado de este anonadamiento cuando leemos las palabras del Profeta: «Todos nosotros andábamos errantes como ovejas, siguiendo cada uno su camino, y Yavé cargó sobre él la iniquidad de todos nosotros» (Is 53,6).§Comprendemos el grado de este anonadamiento cuando vemos que Jesús cae una vez más, la tercera, bajo la cruz. Cuando pensamos en quién es el que cae, quién yace entre el polvo del camino bajo la cruz, a los pies de gente hostil que no le ahorra humillaciones y ultrajes...§¿Quién es el que cae?¿Quién es Jesucristo? «Quien, existiendo en forma de Dios, no reputó como botín codiciable ser igual a Dios, antes se anonadó, tomando la forma de siervo y haciéndose semejante a los hombres; y en la condición de hombre se humilló, hecho obediente hasta la muerte, y muerte de cruz» (Fl 2, 6-8 ).",
+        "textoPost": "Cristo Jesús,_tú has gustado la amargura de la tierra_para cambiar el gemido del dolor en canto de júbilo.|Cristo Jesús,_que te has humillado en la carne_para ennoblecer toda la creación.",
+        "r": 1
+      },
+      "canto": "Eia, Mater, fons amoris,_me sentire vim doloris_fac, ut tecum lugeam."
+    },
+    {
+      "titulo": "Décima estación",
+      "subtitulo": "Jesús es despojado de sus vestiduras",
+      "textoBiblico": {
+        "libro": "Del Evangelio según San Marcos",
+        "ref": "15, 24",
+        "texto": "Le crucifican y se reparten sus vestidos,_echando a suertes a ver qué se llevaba cada uno."
+      },
+      "meditacion": {
+        "tipo": 1,
+        "texto": "Cuando Jesús, despojado de sus vestidos, se encuentra ya en el Gólgota (cf. Mc 15,24, etc.), nuestros pensamientos se dirigen hacia su Madre: vuelven hacia atrás, al origen de este cuerpo que ya ahora, antes de la crucifixión, es todo él una llaga (cf. Is 52,14). El misterio de la Encarnación: el Hijo de Dios toma cuerpo en el seno de la Virgen (cf. Mt 1,23; Lc 1,26-38). El Hijo de Dios habla al Padre con las palabras del Salmista: «No te complaces tú en el sacrificio y la ofrenda..., pero me has preparado un cuerpo» (Sal 40 [39],8.7; Hb 10,6.5). El cuerpo del hombre expresa su alma. El cuerpo de Cristo expresa el amor al Padre: «Entonces dije: '¡Heme aquí que vengo!'... para hacer, ¡oh Dios!, tu voluntad» (Sal 40[39], 9; Hb 10,7). «Yo hago siempre lo que es de su agrado» (Jn 8,29). §Este cuerpo desnudo cumple la voluntad del Hijo y la del Padre en cada llaga, en cada estremecimiento de dolor, en cada músculo desgarrado, en cada reguero de sangre que corre, en todo el cansancio de sus brazos, en los cardenales de cuello y espaldas, en el terrible dolor de las sienes. Este cuerpo cumple la voluntad del Padre cuando es despojado de sus vestidos y tratado como objeto de suplicio, cuando encierra en sí el inmenso dolor de la humanidad profanada.§El cuerpo del hombre es profanado de varias maneras.§En esta estación debemos pensar en la Madre de Cristo, porque bajo su corazón, en sus ojos, entre sus manos el cuerpo del Hijo de Dios ha recibido una adoración plena.",
+        "textoPost": "Jesús, cuerpo santo,_profanado una vez más, vive.|Jesús, cuerpo ofrecido por amor,_aún dividido en tus miembros.",
+        "r": 0
+      },
+      "canto": "Fac ut ardeat cor meum_in amando Christum Deum,_ut sibi complaceam."
+    },
+    {
+      "titulo": "Undécima estación",
+      "subtitulo": "Jesús es clavado en la cruz",
+      "textoBiblico": {
+        "libro": "Del Evangelio según San Marcos",
+        "ref": "15, 25-27",
+        "texto": "Era la hora tercia cuando le crucificaron._Y estaba puesta la inscripción de la causa de su condena:_«El Rey de los judíos»._Con él crucificaron a dos salteadores,_uno a su derecha y otro a su izquierda."
+      },
+      "meditacion": {
+        "tipo": 1,
+        "texto": "«Han taladrado mis manos y mis pies y puedo contar todos mis huesos» (Sal 22[21],17-18). «Puedo contar...»: ¡qué palabras proféticas! Sabemos que este cuerpo es un rescate. Un gran rescate es todo este cuerpo: las manos, los pies y cada hueso. Todo el Hombre en máxima tensión: esqueleto, músculos sistema nervioso, cada órgano, cada célula; todo en máxima tensión. «Yo, si fuere levantado de la tierra, atraeré a todos a mí» (Jn 12,32). Palabras que expresan la plena realidad de la crucifixión. Forma parte de ésta también la terrible tensión que penetra las manos, los pies y todos los huesos: terrible tensión del cuerpo entero que, clavado como un objeto a los maderos de la cruz, va a ser aniquilado, hasta el fin, en las convulsiones de la muerte. Y en la misma realidad de la crucifixión entra todo el mundo que Jesús quiere atraer a Sí (cf. Jn 12,32). El mundo está sometido a la gravitación del cuerpo, que tiende por inercia hacia lo bajo.§Precisamente en esta gravitación estriba la pasión del Crucificado. «Vosotros sois de abajo, yo soy de arriba» (Jn 8,23). Sus palabras desde la cruz son: «Padre, perdónalos, porque no saben lo que hacen» (Lc 23,34).",
+        "textoPost": "Cristo, crucificado por el odio,_hecho por el amor signo de contradicción y de paz.|Cristo, con su sangre derramada en la Cruz,_ha rescatado al hombre, el mundo y el cosmos.",
+        "r": 1
+      },
+      "canto": "Sancta mater, istud agas,_Crucifixi fige plagas_cordi meo valide."
+    },
+    {
+      "titulo": "Duodécima estación",
+      "subtitulo": "Jesús muere en la Cruz",
+      "textoBiblico": {
+        "libro": "Del Evangelio según San Marcos",
+        "ref": "15, 33-34. 37. 39",
+        "texto": "Llegada la hora sexta,_hubo oscuridad sobre toda la tierra_hasta la hora nona._A la hora nona gritó Jesús con fuerte voz:_«Eloí, Eloí, ¿lema sabactaní?»,_que quiere decir -_«¡Dios mío, Dios mío! ¿por qué me has abandonado?»..._Pero Jesús lanzando un fuerte grito, expiró..._Al ver el centurión, que estaba frente a él,_que había expirado de esa manera, dijo:_«Verdaderamente este hombre era Hijo de Dios»."
+      },
+      "meditacion": {
+        "tipo": 1,
+        "texto": "Jesús clavado en la cruz, inmovilizado en esta terrible posición, invoca, al Padre (cf. Mc 15,34; Mt 27,46; Lc 23,46). Todas las invocaciones atestiguan que El es uno con el Padre. «Yo y el Padre somos una sola cosa» (Jn 10,30); «El que me ha visto a mí ha visto al Padre» (Jn 14,9); «Mi Padre sigue obrando todavía, y por eso obro yo también » (Jn 5,17).§He aquí el más alto, el más sublime obrar del Hijo en unión con el Padre. Sí: en unión, en la más profunda unión, justamente cuando grita: Eloí, Eloí, lama sabachtani?: «Dios mío, Dios mío, ¿por qué me has abandonado?» (Mc 15,34; Mt 27,46). Este obrar se expresa con la verticalidad del cuerpo que pende del madero perpendicular de la cruz, con la horizontalidad de los brazos extendidos a lo largo del madero transversal. El hombre que mira estos brazos puede pensar que con el esfuerzo abrazan al hombre y al mundo.§Abrazan.§He aquí el hombre. He aquí a Dios mismo. «En Él... vivimos y nos movemos y existimos» (Hch 17,28). En Él: en estos brazos extendidos a lo largo del madero transversal de la cruz.§El misterio de la Redención.",
+        "textoPost": "Hijo de Dios, acuérdate de nosotros_en la hora suprema de la muerte.|Hijo del Padre, acuérdate de nosotros_y renueva con tu Espíritu la faz de la tierra.",
+        "r": 0
+      },
+      "canto": "Vidit suum dulcem Natum_morientem desolatum,_cum emisit spiritum."
+    },
+    {
+      "titulo": "Décimotercera estación",
+      "subtitulo": "Jesús es bajado de la Cruz",
+      "textoBiblico": {
+        "libro": "Del Evangelio según San Marcos",
+        "ref": "15, 42-43. 46",
+        "texto": "Y ya al atardecer..._vino José de Arimatea, miembro respetable del Consejo,_que esperaba también el Reino de Dios,..._quien, comprando una sábana,_lo descolgó de la cruz."
+      },
+      "meditacion": {
+        "tipo": 1,
+        "texto": "En el momento en que el cuerpo de Jesús es bajado de la cruz y puesto en brazos de la Madre, vuelve a nuestra mente el momento en que María acogió el saludo del ángel Gabriel: «Concebirás en tu seno y darás a luz un hijo, a quien pondrás por nombre Jesús... Y le dará el Señor Dios el trono de David, su padre... y su reino no tendrá fin» (Lc 1,31-33). María sólo dijo: «Hágase en mí según tu palabra» (Lc 1,38), como si desde el principio hubiera querido expresar cuanto estaba viviendo en este momento.§En el misterio de la Redención se entrelazan la gracia, esto es, el don de Dios mismo, y «el pago» del corazón humano. En este misterio somos enriquecidos con un Don de lo alto (St 1,17) y al mismo tiempo somos comprados con el rescate del Hijo de Dios (cf. 1 Co 6,20; 7,23; Hch 20,28). Y María, que fue más enriquecida que nadie con estos dones, es también la que paga más. Con su corazón.§A este misterio está unida la maravillosa promesa formulada por Simeón cuando la presentación de Jesús en el templo: «Una espada atravesará tu alma para que se descubran los pensamientos de muchos corazones» (Lc 2,35).§También esto se cumple. ¡Cuántos corazones humanos se abren ante el corazón de esta Madre que tanto ha pagado!§Y Jesús está de nuevo todo él en sus brazos, como lo estaba en el portal de Belén (cf. Lc 2,16), durante la huida a Egipto (cf. Mt 2,14), en Nazaret (cf. Lc 2,39-40). La Piedad.",
+        "textoPost": "Santa María, Madre de la inmensa piedad,_contigo abrimos los brazos a la Vida_y suplicantes imploramos.|Santa María, Madre y asociada al del Redentor,_en comunión contigo acogemos a Cristo_y llenos de esperanza invocamos.",
+        "r": 0
+      },
+      "canto": "Fac me vere tecum flere,_Crucifixo condolere,_donec ego vixero."
+    },
+    {
+      "titulo": "Décimocuarta estación",
+      "subtitulo": "Jesús es puesto en el sepulcro",
+      "textoBiblico": {
+        "libro": "Del Evangelio según San Marcos",
+        "ref": "15, 46-47",
+        "texto": "José de Arimatea,..._lo envolvió en la sábana_y lo puso en un sepulcro_que estaba excavado en roca;_luego, hizo rodar una piedra sobre la entrada del sepulcro._María Magdalena_y María la de Joset_se fijaban dónde era puesto."
+      },
+      "meditacion": {
+        "tipo": 1,
+        "texto": "Desde el momento en que el hombre, a causa del pecado, se alejó del árbol de la vida (cf. Gn 3), la tierra se convirtió en un cementerio. Tantos sepulcros como hombres. Un gran planeta de tumbas.§En las cercanías del Calvario había una tumba que pertenecía a José de Arimatea (cf. Mt 27,60). En este sepulcro, con el consentimiento de José, depositaron el cuerpo de Jesús una vez bajado de la cruz (cf. Mc 15,42-46, etc. ). Lo depositaron apresuradamente, para que la ceremonia acabara antes de la fiesta de Pascua (cf. Jn 19,31), que empezaba en el crepúsculo.§Entre todas las tumbas esparcidas por los continentes de nuestro planeta, hay una en la que el Hijo de Dios, el hombre Jesucristo, ha vencido a la muerte con la muerte. O mors! ero mors tua!: «Muerte, ¡yo seré tu muerte!» (1ª antif. Laudes del Sábado Santo). El árbol de la Vida, del que el hombre fue alejado por su pecado, se ha revelado nuevamente a los hombres en el cuerpo de Cristo. «Si alguno come de este pan, vivirá para siempre, y el pan que yo le daré es mi carne, vida del mundo» (Jn 6,51).§Aunque se multipliquen siempre las tumbas en nuestro planeta, aunque crezca el cementerio en el que el hombre surgido del polvo retorna al polvo (cf. Gn 3,19), todos los hombres que contemplan el sepulcro de Jesucristo viven en la esperanza de la Resurrección.",
+        "textoPost": "Señor Jesús, resurrección nuestra,_en el sepulcro nuevo destruyes la muerte y das la vida.|Jesús, Señor, esperanza nuestra,_tu cuerpo crucificado y resucitado_es el nuevo árbol de la vida.",
+        "r": 0
+      },
+      "canto": "Quando corpus morietur,_fac ut animæ donetur_paradisi gloria. Amen."
+    }
+  ],
+  "oracion": "Señor Jesucristo, _tú nos has concedido acompañarte, con María tu Madre, _en los misterios de tu pasión, muerte y sepultura, _para que te acompañemos también en tu resurrección; _concédenos caminar contigo _por los nuevos caminos del amor y de la paz _que nos has enseñado. _Tú que vives y reinas por los siglos de los siglos. Amén."
+}
