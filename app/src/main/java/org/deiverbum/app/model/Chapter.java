@@ -70,4 +70,24 @@ public class Chapter {
         }
             return sb;
         }
+
+
+    public SpannableStringBuilder getAllForHtml(int bookType) {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+        if(bookType==10) {
+            String chapter = String.format("%s. %s", id, title);
+            sb.append(Utils.toH2RedNew(chapter));
+            sb.append(LS2);
+        }
+
+        if(bookType==21) {
+            sb.append("\t\t");
+            sb.append(Utils.toH4Red(String.valueOf(id)));
+            sb.append(Utils.toRed(".- "));
+        }
+        for (Content c : content) {
+            sb.append(c.getHtmlByType());
+        }
+        return sb;
+    }
 }

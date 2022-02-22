@@ -134,4 +134,54 @@ public class Content {
         return sb;
     }
 
+    public SpannableStringBuilder getHtmlByType(){
+        SpannableStringBuilder sb=new SpannableStringBuilder();
+        if(type==10) {
+            String txt = String.format("%s<b>%s</b> %s",
+                    NBSP_4,item,
+                    getTextHtml());
+            sb.append(txt);
+            sb.append(LS2);
+        }else if(type==2) {
+            sb.append(Utils.toH3(title));
+            sb.append(LS2);
+
+            sb.append(getTextForView());
+        }else if(type==3) {
+            sb.append(Utils.toH4(title));
+            sb.append(LS2);
+            sb.append(getTextHtml());
+        }else if(type==11) {
+            sb.append(getTextHtml());
+        }else if(type==12) {
+            sb.append(getTextHtml());
+        }else if(type==13) {
+            sb.append(getNumberedList());
+        } else {
+            sb.append(getTextHtml());
+        }
+        return sb;
+    }
+
+    private SpannableStringBuilder getTextHtml() {
+        SpannableStringBuilder sb=new SpannableStringBuilder();
+        for (String s : text) {
+            if(type==11) {
+                sb.append("\t\t\t\t");
+                sb.append("- ");
+            }
+            if(type<4) {
+                sb.append("\t\t");
+            }
+
+            if(type==20) {
+                sb.append(toH3Red(getTitle()));
+                sb.append(LS2);
+            }
+            sb.append(s);
+            sb.append(LS2);
+        }
+        return sb;
+    }
+
 }

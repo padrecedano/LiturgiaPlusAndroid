@@ -106,26 +106,66 @@ public class FirebaseDataSource {
         });
     }
 
-
-    public Single<DataWrapper<Lecturas, CustomException>> getLecturas(final String date) {
+    public Single<DataWrapper<Lecturas, CustomException>> getLecturas(String dateString) {
         return Single.create(emitter -> {
-            DocumentReference calRef = firebaseFirestore.collection(CALENDAR_PATH).document(date);
+            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
+            docRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        DocumentReference dataRef =
+                                document.getDocumentReference("lecturas");
+                        MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
+                        try {
+
+                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
+                                if (mSnapshot.exists()) {
+                                    Lecturas theHour =
+                                            mSnapshot.toObject(Lecturas.class);
+                                    Objects.requireNonNull(theHour).setMetaLiturgia(meta);
+                                    emitter.onSuccess(new DataWrapper<>(theHour));
+                                } else {
+                                    emitter.onError(new Exception(DATA_NOTFOUND));
+                                }
+                            });
+                        } catch (Exception e) {
+                            emitter.onError(new Exception(e));
+                        }
+                    } else {
+                        emitter.onError(new Exception(DOC_NOTFOUND));
+
+                    }
+                } else {
+                    emitter.onError(task.getException());
+                }
+            });
+        });
+    }
+
+    public Single<DataWrapper<Lecturas, CustomException>> getLecturass(final String dateString) {
+        return Single.create(emitter -> {
+            DocumentReference calRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
             calRef.addSnapshotListener((calSnapshot, e) -> {
                 if ((calSnapshot != null) && calSnapshot.exists()) {
                     DocumentReference dataRef = calSnapshot.getDocumentReference("lecturas");
+                    MetaLiturgia meta = calSnapshot.get("metaliturgia",
+                            MetaLiturgia.class);
+
                     if (e != null || dataRef == null) {
                         emitter.onError(new Exception(DATA_NOTFOUND));
                         return;
                     }
-                    dataRef.get().addOnSuccessListener((DocumentSnapshot data) ->
-                            emitter.onSuccess(new DataWrapper<>(data.toObject(Lecturas.class))));
+                    dataRef.get().addOnSuccessListener((DocumentSnapshot data) -> {
+
+                        emitter.onSuccess(new DataWrapper<>(data.toObject(Lecturas.class)));
+                    });
                 } else emitter.onError(new Exception(DATA_NOTFOUND));
             });
         });
     }
 
 
-    public Single<DataWrapper<Mixto, CustomException>> getMixto(final String dateString) {
+    public Single<DataWrapper<Mixto, CustomException>> getMixtos(final String dateString) {
         return Single.create(emitter -> {
             DocumentReference calRef = firebaseFirestore.collection(CALENDAR_PATH).document(dateString);
             try {
@@ -159,16 +199,51 @@ public class FirebaseDataSource {
 
     }
 
-
-
-    public Single<DataWrapper<Oficio, CustomException>> getOficio(String dateString) {
+    public Single<DataWrapper<Mixto, CustomException>> getMixto(String dateString) {
         return Single.create(emitter -> {
-            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(dateString);
+            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
             docRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        DocumentReference dataRef = document.getDocumentReference("lh.1");
+                        DocumentReference dataRef =
+                                document.getDocumentReference("lh.0");
+                        MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
+                        try {
+
+                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
+                                if (mSnapshot.exists()) {
+                                    Mixto theHour =
+                                            mSnapshot.toObject(Mixto.class);
+                                    Objects.requireNonNull(theHour).setMetaLiturgia(meta);
+                                    emitter.onSuccess(new DataWrapper<>(theHour));
+                                } else {
+                                    emitter.onError(new Exception(DATA_NOTFOUND));
+                                }
+                            });
+                        } catch (Exception e) {
+                            emitter.onError(new Exception(e));
+                        }
+                    } else {
+                        emitter.onError(new Exception(DOC_NOTFOUND));
+
+                    }
+                } else {
+                    emitter.onError(task.getException());
+                }
+            });
+        });
+    }
+
+    public Single<DataWrapper<Oficio, CustomException>> getOficio(String dateString) {
+        return Single.create(emitter -> {
+            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
+            docRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        DocumentReference dataRef =
+                                document.getDocumentReference("lh.1");
                         MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
                         try {
 
@@ -198,7 +273,8 @@ public class FirebaseDataSource {
     public Single<DataWrapper<Laudes, CustomException>> getLaudes(String dateString) {
         return Single.create(emitter -> {
             DataWrapper<Laudes, CustomException> data = new DataWrapper<>();
-            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(dateString);
+            DocumentReference docRef =
+                    firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
             docRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
@@ -235,7 +311,7 @@ public class FirebaseDataSource {
     public Single<DataWrapper<Intermedia, CustomException>> getIntermedia(String dateString, int hourId) {
         return Single.create(emitter -> {
             DataWrapper<Intermedia, CustomException> data = new DataWrapper<>();
-            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(dateString);
+            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
             docRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
@@ -273,7 +349,7 @@ public class FirebaseDataSource {
     public Single<DataWrapper<Visperas, CustomException>> getVisperas(String dateString) {
         return Single.create(emitter -> {
             DataWrapper<Visperas, CustomException> data = new DataWrapper<>();
-            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(dateString);
+            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
             docRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
@@ -310,7 +386,7 @@ public class FirebaseDataSource {
     public Single<DataWrapper<MetaLiturgia, CustomException>> getMetaLiturgia(String dateString) {
         return Single.create(emitter -> {
             DataWrapper<MetaLiturgia, CustomException> data = new DataWrapper<>();
-            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(dateString);
+            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
             docRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
@@ -332,7 +408,7 @@ public class FirebaseDataSource {
     public Single<DataWrapper<Comentarios, CustomException>> getComentarios(String dateString) {
         return Single.create(emitter -> {
             DataWrapper<Comentarios, CustomException> finalData = new DataWrapper<>();
-            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(dateString);
+            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
             docRef.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();

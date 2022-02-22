@@ -81,7 +81,7 @@
         <argument
             android:name="rawPath"
             app:argType="string"
-            android:defaultValue="res/raw/new_202201.json" />
+            android:defaultValue="res/raw/new_20220101.json" />
     </fragment>
 
     <fragment

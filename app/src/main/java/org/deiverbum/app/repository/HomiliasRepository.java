@@ -1,5 +1,7 @@
 package org.deiverbum.app.repository;
 
+import static org.deiverbum.app.utils.Constants.NOTFOUND_OR_NOTCONNECTION;
+
 import androidx.lifecycle.MediatorLiveData;
 
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
@@ -81,7 +83,7 @@ public class HomiliasRepository {
 
                     @Override
                     public void onError(Throwable e) {
-                        mData.setValue(new DataWrapper<>(new CustomException(e.getMessage())));
+                        mData.setValue(new DataWrapper<>(new CustomException(NOTFOUND_OR_NOTCONNECTION)));
                     }
                 });
 

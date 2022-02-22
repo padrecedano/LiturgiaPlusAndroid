@@ -12,33 +12,9 @@
         layout="@layout/tv_zoomable"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
-    <!--
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                app:layout_constraintBottom_toTopOf="@+id/include"
-                app:layout_constraintEnd_toStartOf="@+id/include"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-    -->
-    <RelativeLayout
-        android:layout_width="match_parent" android:layout_height="match_parent">
+    <include
+        android:id="@+id/pb"
+        layout="@layout/progressbar" />
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="70dp"
-            android:minWidth="200dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="200dp"
-            android:indeterminate="true" />
-    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -333,7 +333,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialicons/next_plan/baseline_next_plan_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Android/Sdk/icons/material/materialicons/check_circle/baseline_check_circle_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -344,7 +344,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="f7f4f4" />
-                            <entry key="outputName" value="ic_baseline_next_plan_24" />
+                            <entry key="outputName" value="ic_baseline_check_circle_24" />
                           </map>
                         </option>
                       </PersistentState>

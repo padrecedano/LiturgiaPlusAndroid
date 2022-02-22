@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="AppThemeOld" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="fontFamily">@font/roboto_regular</item>
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -39,6 +39,18 @@
         <item name="textAppearanceHeadline6">@style/TextAppearance.App.Headline6</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
 
+        <item name="linearProgressIndicatorStyle">@style/Widget.App.LinearProgressIndicator</item>
+
+    </style>
+
+    <style name="Widget.App.LinearProgressIndicator"
+        parent="Widget.MaterialComponents.LinearProgressIndicator">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.LinearProgressIndicator</item>
+        <item name="trackThickness">20dp</item>
+    </style>
+
+    <style name="ThemeOverlay.App.LinearProgressIndicator" parent="">
+        <item name="colorPrimary">@color/colorLink</item>
     </style>
 
     <style name="ThemeOverlay.App.NavigationView" parent="">
@@ -85,7 +97,7 @@
 
 
 
-    <style name="Widget.App.TextView" parent="@android:style/Widget.Material.TextView">
+    <style name="Widget.App.TextView" parent="@android:style/Widget.Material.TextView" tools:ignore="NewApi">
         <item name="android:textAppearance">@style/TextAppearance.AppTheme.Body2</item>
         <item name="android:textColorLink">@color/colorLink</item>
 
@@ -199,7 +211,7 @@
 
     </style>
 
-    <style name="Widget.AppThemeOld.ButtonBar.Fullscreen" parent="">
+    <style name="Widget.AppTheme.ButtonBar.Fullscreen" parent="">
         <item name="android:background">@color/black_overlay</item>
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>

@@ -19,6 +19,15 @@ import java.util.List;
 public class Lecturas {
     private int tipo;
     private List<Lectura> lecturas;
+
+    public MetaLiturgia getMetaLiturgia() {
+        return metaliturgia;
+    }
+
+    public void setMetaLiturgia(MetaLiturgia metaliturgia) {
+        this.metaliturgia = metaliturgia;
+    }
+
     @SuppressWarnings("unused")
     private MetaLiturgia metaliturgia;
 

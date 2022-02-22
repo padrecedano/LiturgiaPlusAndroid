@@ -20,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -35,6 +37,8 @@ import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
 import org.deiverbum.app.viewmodel.BreviarioViewModel;
 
+import java.util.Objects;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -43,11 +47,12 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
     private FragmentBreviarioDataBinding binding;
     private ZoomTextView mTextView;
     private ProgressBar progressBar;
-    private boolean isVoiceOn;
-    private StringBuilder sbReader;
     private String mDate;
     private SeekBar seekBar;
+
     private boolean isReading = false;
+    private boolean isVoiceOn;
+    private StringBuilder sbReader;
 
     private boolean hasInvitatorio;
 
@@ -80,7 +85,7 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
                 new ViewModelProvider(this).get(BreviarioViewModel.class);
         mTextView = binding.include.tvZoomable;
 
-        progressBar = binding.progressBar;
+        progressBar = binding.pb.progressBar;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
@@ -214,7 +219,14 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
 
     private void pickOutDate() {
         Bundle bundle = getArguments();
-        mDate = (bundle != null && bundle.containsKey("FECHA")) ? bundle.getString("FECHA") : Utils.getHoy();
+        if (bundle != null) {
+            mDate = bundle.getString("FECHA") == null ? Utils.getHoy() :
+                    bundle.getString("FECHA");
+        }else{
+            mDate=Utils.getHoy();
+        }
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        Objects.requireNonNull(actionBar).setSubtitle(Utils.getTitleDate(mDate));
     }
 
     @Override

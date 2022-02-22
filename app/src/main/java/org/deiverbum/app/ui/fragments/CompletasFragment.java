@@ -20,6 +20,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -33,6 +35,8 @@ import org.deiverbum.app.utils.TextToSpeechCallback;
 import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.viewmodel.CompletasViewModel;
+
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -111,7 +115,14 @@ observeData();
 
     private void pickOutDate() {
         Bundle bundle = getArguments();
-        mDate= (bundle != null && bundle.containsKey("FECHA")) ? bundle.getString("FECHA") : Utils.getHoy();
+        if (bundle != null) {
+            mDate = bundle.getString("FECHA") == null ? Utils.getHoy() :
+                    bundle.getString("FECHA");
+        }else{
+            mDate=Utils.getHoy();
+        }
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        Objects.requireNonNull(actionBar).setSubtitle(Utils.getTitleDate(mDate));
     }
 
 

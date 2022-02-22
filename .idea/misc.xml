@@ -74,6 +74,7 @@
         <entry key="app/src/main/res/layout/list_item_xml.xml" value="0.22864583333333333" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.2635416666666667" />
         <entry key="app/src/main/res/layout/oraciones_activity.xml" value="0.20260416666666667" />
+        <entry key="app/src/main/res/layout/progressbar.xml" value="0.42844202898550726" />
         <entry key="app/src/main/res/layout/recycler_view_item.xml" value="0.2015625" />
         <entry key="app/src/main/res/layout/recyclerview_activity.xml" value="0.25625" />
         <entry key="app/src/main/res/layout/rv_breviario_items.xml" value="0.2015625" />
@@ -87,11 +88,12 @@
         <entry key="app/src/main/res/layout/tv_zoomable.xml" value="0.24547101449275363" />
         <entry key="app/src/main/res/layout/tv_zoomable_binding.xml" value="0.22291666666666668" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.2015625" />
+        <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.19427083333333334" />
         <entry key="app/src/main/res/menu/calendario_menu.xml" value="0.46979166666666666" />
         <entry key="app/src/main/res/menu/contextual_action_bar.xml" value="0.20260416666666667" />
         <entry key="app/src/main/res/menu/contextual_actionbar.xml" value="0.2635416666666667" />
         <entry key="app/src/main/res/menu/player_menu.xml" value="0.2635416666666667" />
-        <entry key="app/src/main/res/menu/toolbar_menu.xml" value="0.20208333333333334" />
+        <entry key="app/src/main/res/menu/toolbar_menu.xml" value="0.5" />
         <entry key="app/src/main/res/xml/pref_general.xml" value="0.4466666666666667" />
         <entry key="app/src/main/res/xml/root_preferences.xml" value="0.2635416666666667" />
       </map>

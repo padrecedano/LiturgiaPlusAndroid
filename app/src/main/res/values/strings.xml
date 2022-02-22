@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Liturgia+</string>
-    <string name="app_version_name">v. 2022.1 [Deuteronomium]</string>
-    <string name="app_version_name_and_mail">v. 2022.1
-        [Deuteronomium]\npadre.cedano@gmail.com</string>
+    <string name="app_version_name">v. 2022.1.1 [Deuteronomium]</string>
+    <string name="app_version_name_and_mail">v. 2022.1.1
+        [Deuteronomium]\na.cedano@deiverbum.org</string>
 
     <!-- Activity and Fragment titles -->
     <string name="title_fragment_breviario">Breviario</string>
@@ -169,6 +169,7 @@
     <string name="enviar_email">Enviar eMail</string>
     <string name="error_description">descripción del error</string>
     <string name="otro">Otro</string>
+    <string name="accept">Acepto</string>
 
 
 </resources>

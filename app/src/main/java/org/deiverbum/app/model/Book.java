@@ -1,13 +1,15 @@
 package org.deiverbum.app.model;
+
 import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.deiverbum.app.utils.Utils;
+
+import java.util.List;
 
 /**
  * @author A. Cedano
@@ -140,7 +142,41 @@ public class Book {
             }
 
         }
+        //saveHtmlFile(sb.toString());
         return sb;
     }
 
+
+    public SpannableStringBuilder getForHtml(){
+        SpannableStringBuilder sb=new SpannableStringBuilder();
+
+        if(bookType==2){
+            for (Chapter c : chapters) {
+                sb.append(c.getAllForHtml(bookType));
+            }
+
+        }else {
+            sb.append(Utils.toH2(title));
+            sb.append(LS2);
+            sb.append("Fecha efectiva: ");
+            String dateString = String.format("<b>%s</b>", Utils.getTitleDate(date));
+            sb.append(dateString);
+            //sb.append(_abstract.getAllForView());
+            sb.append(LS2);
+            if (intro != null) {
+                for (Content ci : intro.getContent()) {
+                    sb.append(ci.getHtmlByType());
+                }
+                sb.append(LS2);
+
+            }
+
+            for (Chapter c : chapters) {
+                sb.append(c.getAllForHtml(bookType));
+            }
+        }
+        return sb;
+    }
 }
+
+

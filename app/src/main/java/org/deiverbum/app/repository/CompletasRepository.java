@@ -1,5 +1,7 @@
 package org.deiverbum.app.repository;
 
+import static org.deiverbum.app.utils.Constants.CONTENT_NOTFOUND;
+
 import android.content.Context;
 
 import androidx.lifecycle.MediatorLiveData;
@@ -39,7 +41,7 @@ public class CompletasRepository {
     public CompletasRepository(@ApplicationContext Context context, ApiService apiService, FirebaseDataSource firebaseDataSource) {
         this.apiService = apiService;
         this.firebaseDataSource = firebaseDataSource;
-        mChecker=new ConnectionChecker(context);
+        mChecker = new ConnectionChecker(context);
     }
 
     /**
@@ -47,10 +49,11 @@ public class CompletasRepository {
      * Primero buscará en Firestore mediante {@link FirebaseDataSource#getMetaLiturgia(String)}
      * y si no encuentra, buscará en la Api mediante {@link ApiService#getMetaLiturgia(String)}
      * La llamada a la Api se hará desde el onError
+     *
      * @param param El parámetro a buscar, en principio la fecha, quizá también un Id
      */
     public void getData(String param) {
-        if(mChecker.isConnected()) {
+        if (mChecker.isConnected()) {
             firebaseDataSource.getMetaLiturgia(param)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -59,7 +62,6 @@ public class CompletasRepository {
                         @Override
                         public void onSuccess(DataWrapper<MetaLiturgia, CustomException> data) {
                             readJson(data);
-                            //mData.postValue(data);
                         }
 
                         @Override
@@ -69,21 +71,19 @@ public class CompletasRepository {
                     });
         } else {
 
-loadFromApi(param);
-            //mData.postValue(data);
+            loadFromApi(param);
         }
-        //return mData;
     }
-
 
 
     /**
      * Obtiene los datos desde la Api
+     *
      * @param param La fecha del dato que se necesita
      */
 
     public void loadFromApi(String param) {
-        DataWrapper<MetaLiturgia,CustomException> dataWrapper =
+        DataWrapper<MetaLiturgia, CustomException> dataWrapper =
                 new DataWrapper<>();
 
         apiService.getMetaLiturgia(param)
@@ -91,51 +91,41 @@ loadFromApi(param);
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<MetaLiturgia>() {
 
-                    @Override public void onStart() {
+                    @Override
+                    public void onStart() {
                     }
+
                     @Override
                     public void onSuccess(MetaLiturgia r) {
                         dataWrapper.postValue(r);
-                        //mData.setValue(dataWrapper);
                         readJson(dataWrapper);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        dataWrapper.setValue(new CustomException(e));
-                        //mData.setValue(dataWrapper);
-                        readJson(dataWrapper);
-
+                        mData.setValue(new DataWrapper<>(new CustomException(CONTENT_NOTFOUND)));
                     }
-
                 });
-        //return mData;
     }
 
-    public void readJson(DataWrapper<MetaLiturgia,CustomException> metaWrapper){
-        //DataWrapper dataWrapper = new DataWrapper();
-
-        MetaLiturgia meta=metaWrapper.getData();
-        if(meta.getWeekDay() == 7) {
-            meta.setWeekDay(0);
+    public void readJson(DataWrapper<MetaLiturgia, CustomException> metaWrapper) {
+        if (metaWrapper.status == DataWrapper.Status.SUCCESS) {
+            MetaLiturgia meta = metaWrapper.getData();
+            if (meta.getWeekDay() == 7) {
+                meta.setWeekDay(0);
+            }
+            String filePath = "res/raw/completas.json";
+            InputStream raw = Objects.requireNonNull(getClass().getClassLoader()).getResourceAsStream(filePath);
+            Gson gson = new Gson();
+            Completas hora = gson.fromJson(new InputStreamReader(raw), Completas.class);
+            hora.setMetaLiturgia(meta);
+            mData.setValue(new DataWrapper<>(hora));
         }
-        String filePath = "res/raw/completas.json";
-        InputStream raw = Objects.requireNonNull(getClass().getClassLoader()).getResourceAsStream(filePath);
-        Gson gson = new Gson();
-        Completas hora = gson.fromJson(new InputStreamReader(raw), Completas.class);
-        hora.setMetaLiturgia(meta);
-        //dataWrapper.postValue(hora);
-        mData.setValue(new DataWrapper<>(hora));
-        //return mData;
-
-
     }
 
-    public MediatorLiveData<DataWrapper<Completas,CustomException>> getLiveData(){
+    public MediatorLiveData<DataWrapper<Completas, CustomException>> getLiveData() {
         return mData;
     }
-
-
 
 }
 

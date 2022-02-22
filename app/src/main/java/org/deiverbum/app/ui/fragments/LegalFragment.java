@@ -11,7 +11,9 @@ import static org.deiverbum.app.utils.Constants.PREF_ACCEPT;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.format.DateFormat;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,10 @@ import org.deiverbum.app.databinding.FragmentLegalBinding;
 import org.deiverbum.app.model.Book;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.viewmodel.FileViewModel;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -55,6 +61,8 @@ public class LegalFragment extends Fragment {
     private TextView textContacto;
     private boolean acceptLegal;
     private LinearLayout bottomLayout;
+    private LinearLayout footLayout;
+
     private String agreeYes;
     private String agreeNot;
     private ProgressBar progressBar;
@@ -91,6 +99,8 @@ public class LegalFragment extends Fragment {
         textAgree = binding.textAgree;
         textContacto = binding.textContacto;
         bottomLayout = binding.bottomLayout;
+        //footLayout = binding.footLayout;
+
         bottomLayout.setVisibility(View.GONE);
     }
 
@@ -105,8 +115,11 @@ public class LegalFragment extends Fragment {
                         if (data.status == DataWrapper.Status.SUCCESS) {
                             Book book = data.getData();
                             mTextView.setText(book.getForView(), TextView.BufferType.SPANNABLE);
+                            //saveHtmlFile(book.getForHtml().toString());
                             agreeYes = book.getAgreeYes();
                             agreeNot = book.getAgreeNot();
+                            //footLayout.setVisibility(View.VISIBLE);
+
                         } else {
                             mTextView.setText(Utils.fromHtml(data.getError()));
                         }
@@ -119,6 +132,22 @@ public class LegalFragment extends Fragment {
 
     }
 
+    private void saveHtmlFile(String html) {
+        String path = getActivity().getExternalFilesDir(null).getAbsolutePath();
+        String fileName = DateFormat.format("dd_MM_yyyy_hh_mm_ss", System.currentTimeMillis()).toString();
+        fileName = fileName + ".html";
+        File file = new File(path, fileName);
+
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            byte[] data = html.getBytes();
+            out.write(data);
+            out.close();
+            Log.d("TAG", "File Save : " + file.getPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void setAcceptText() {
         String acceptText = (acceptLegal) ? agreeYes : agreeNot;
         textAgree.setText(acceptText);
@@ -140,6 +169,7 @@ public class LegalFragment extends Fragment {
     }
 
     private void closeApp() {
+
         requireActivity().finishAndRemoveTask();
     }
 
@@ -152,4 +182,7 @@ public class LegalFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+
+
 }

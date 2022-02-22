@@ -1,5 +1,7 @@
 package org.deiverbum.app.repository;
 
+import static org.deiverbum.app.utils.Constants.NOTFOUND_OR_NOTCONNECTION;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MediatorLiveData;
 
@@ -128,10 +130,9 @@ public class BreviarioRepository {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        liveDataMixto.setValue(new DataWrapper<>(new CustomException(e.getMessage())));
+                        liveDataMixto.setValue(new DataWrapper<>(new CustomException(NOTFOUND_OR_NOTCONNECTION)));
                     }
                 });
-        //return liveData;
     }
 
     /**
@@ -152,7 +153,7 @@ public class BreviarioRepository {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        liveData.setValue(new DataWrapper<>(new CustomException(e.getMessage())));
+                        liveData.setValue(new DataWrapper<>(new CustomException(NOTFOUND_OR_NOTCONNECTION)));
                     }
                 });
         //return liveData;
@@ -204,7 +205,7 @@ public class BreviarioRepository {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        liveDataLaudes.setValue(new DataWrapper<>(new CustomException(e.getMessage())));
+                        liveDataLaudes.setValue(new DataWrapper<>(new CustomException(NOTFOUND_OR_NOTCONNECTION)));
                     }
                 });
         //return liveDataLaudes;
@@ -256,7 +257,7 @@ public class BreviarioRepository {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        liveDataIntermedia.postValue(new DataWrapper<>(new CustomException(e.getMessage())));
+                        liveDataIntermedia.postValue(new DataWrapper<>(new CustomException(NOTFOUND_OR_NOTCONNECTION)));
                     }
                 });
     }
@@ -309,7 +310,7 @@ public class BreviarioRepository {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        liveDataVisperas.setValue(new DataWrapper<>(new CustomException(e.getMessage())));
+                        liveDataVisperas.setValue(new DataWrapper<>(new CustomException(NOTFOUND_OR_NOTCONNECTION)));
                     }
                 });
     }

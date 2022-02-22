@@ -6,7 +6,7 @@
     tools:context=".ui.fragments.FileFragment">
 
     <include
-        android:id="@+id/include_tv"
+        android:id="@+id/include"
         layout="@layout/tv_clickable_with_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
