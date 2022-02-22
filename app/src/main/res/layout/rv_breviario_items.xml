@@ -17,7 +17,7 @@
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="top"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
 
@@ -27,18 +27,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginTop="-50dp"
-                android:fontFamily="sans-serif-medium"
                 android:gravity="top|center_horizontal"
-                android:paddingTop="-50dp"
-                android:scaleType="fitStart"
                 android:textColor="@color/transparent"
-                android:textSize="85sp" />
+                android:textSize="70sp"
+
+
+                />
 
             <TextView
                 android:id="@+id/tv_Elemento"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_Material"
                 android:layout_alignParentBottom="true"
                 android:gravity="bottom|center_horizontal"

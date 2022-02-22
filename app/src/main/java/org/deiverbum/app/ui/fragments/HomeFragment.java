@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -15,9 +17,11 @@ import org.deiverbum.app.R;
 import org.deiverbum.app.data.adapters.HomeAdapter;
 import org.deiverbum.app.databinding.FragmentHomeBinding;
 import org.deiverbum.app.model.HomeItem;
+import org.deiverbum.app.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -53,6 +57,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 3));
         recyclerView.setAdapter(mAdapter);
         prepareItems();
+        pickOutDate();
         return root;
     }
 
@@ -90,5 +95,17 @@ public class HomeFragment extends Fragment {
         mList.add(new HomeItem("Sacramentos", 11, R.drawable.ic_sacramentos, colorSacramentos, R.id.nav_sacramentos));
         mList.add(new HomeItem("Más...", 12, R.drawable.ic_mas, colorPadres, R.id.nav_mas));
         //mAdapter.notifyDataSetChanged();
+    }
+
+    private void pickOutDate() {
+        Bundle bundle = getArguments();
+        String dateString;
+        if (bundle != null) {
+            dateString = bundle.getString("FECHA") == null ? Utils.getHoy() : bundle.getString("FECHA");
+        }else{
+            dateString=Utils.getHoy();
+        }
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        Objects.requireNonNull(actionBar).setSubtitle(Utils.getTitleDate(dateString));
     }
 }

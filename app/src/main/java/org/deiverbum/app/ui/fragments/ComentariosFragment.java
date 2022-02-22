@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +21,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -34,6 +37,8 @@ import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
 import org.deiverbum.app.viewmodel.ComentariosViewModel;
+
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -77,6 +82,8 @@ public class ComentariosFragment extends Fragment implements TextToSpeechCallbac
         mTextView = binding.include.tvZoomable;
         progressBar = binding.progressBar;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         isVoiceOn = prefs.getBoolean("voice", true);
         if (isVoiceOn) {
             sbReader=new StringBuilder(VOICE_INI);
@@ -86,7 +93,14 @@ public class ComentariosFragment extends Fragment implements TextToSpeechCallbac
 
     private void pickOutDate() {
         Bundle bundle = getArguments();
-        mDate = (bundle != null) ? bundle.getString("FECHA") : Utils.getHoy();
+        if (bundle != null) {
+            mDate = bundle.getString("FECHA") == null ? Utils.getHoy() :
+                    bundle.getString("FECHA");
+        }else{
+            mDate=Utils.getHoy();
+        }
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        Objects.requireNonNull(actionBar).setSubtitle(Utils.getTitleDate(mDate));
     }
 
     void observeData() {

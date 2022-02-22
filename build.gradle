@@ -8,34 +8,12 @@ buildscript {
         maven { url 'https://jitpack.io' }
     }
 
-    ext.versions = [
-            'appcompact' : '1.2.0',
-            'activity' : '1.1.0',
-            'constrainlayout' : '2.0.1',
-            'hilt' : '2.28-alpha',
-            'multidex' : '2.0.1',
-            'fragment' : '1.3.0-alpha08',
-            'rxJava' : '3.0.0',
-            'retrofit' : '2.9.0',
-            'okhttp' : '4.9.0',
-            'ohhttpInterceptor' : '4.9.0',
-            'rxJavaRetrofitAdapter' : '2.9.0',
-            'gson' : '2.8.6',
-            'gsonConvertor' : '2.9.0',
-            'ssp' : '1.0.6',
-            'sdp' : '1.0.6',
-            'chuck' : '1.1.0',
-            'lifecycle_version' : '2.2.0',
-            'nav_version' : '2.3.0',
-            'calendarview' : '2.0.1',
-            'material' : '1.6.0-alpha01'
 
-    ]
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.3'
+        classpath 'com.android.tools.build:gradle:7.1.1'
         classpath 'com.google.gms:google-services:4.3.10'
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.40'
-        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.4.0-beta02'
+        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.5.0-alpha02'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
 
 

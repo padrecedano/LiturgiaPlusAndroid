@@ -134,7 +134,7 @@ public Mixto(){
         StringBuilder sb = new StringBuilder();
 
         try {
-        Santo santo=laudes.getSanto();
+        //Santo santo=laudes.getSanto();
         Himno himno = laudes.getHimno();
         Salmodia salmodia = laudes.getSalmodia();
         OficioLecturas oficioLecturas=oficio.getOficioLecturas();

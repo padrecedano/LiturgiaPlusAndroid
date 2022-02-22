@@ -1,5 +1,7 @@
 package org.deiverbum.app.repository;
 
+import static org.deiverbum.app.utils.Constants.NOTFOUND_OR_NOTCONNECTION;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -88,7 +90,7 @@ public class LecturasRepository {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        mData.setValue(new DataWrapper<>(new CustomException(e.getMessage())));
+                        mData.setValue(new DataWrapper<>(new CustomException(NOTFOUND_OR_NOTCONNECTION)));
                     }
                 });
     }

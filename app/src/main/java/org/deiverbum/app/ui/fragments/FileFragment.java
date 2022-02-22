@@ -2,8 +2,11 @@ package org.deiverbum.app.ui.fragments;
 
 import static org.deiverbum.app.utils.Constants.PACIENCIA;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.method.LinkMovementMethod;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +48,12 @@ public class FileFragment extends Fragment {
         binding = FragmentFileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        mTextView = binding.includeTv.tvClickable;
+        SharedPreferences prefs =
+                PreferenceManager.getDefaultSharedPreferences(getActivity());
+        float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+
+        mTextView = binding.include.tvClickable;
         mTextView.setMovementMethod(LinkMovementMethod.getInstance());
         mTextView.setClickable(true);
         observeBook();

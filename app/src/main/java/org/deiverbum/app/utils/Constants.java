@@ -11,7 +11,7 @@ public class Constants {
     public static final String ERR_INITIALIZATION = "Falló la inicialización.";
     public static final String ERR_BIBLIA = "Todavía no hay introducción a este libro. <br>Proyecto abierto a la colaboración. <br><a href=\"http://bit.ly/2FInp4n\">Ver los detalles aquí</a>.";
     /*Cambiar tambien en build.gradle del módulo app y en new_YN.json*/
-    public static final int VERSION_CODE = 202201001;
+    public static final int VERSION_CODE = 202201011;
 
     public static final String CSS_RED_A = "<font color=\"#A52A2A\">";
 
@@ -63,6 +63,20 @@ public class Constants {
     public static final String DATA_NOTFOUND = "No se encontraron datos";
     public static final String FIREBASE_SANTOS = "/liturgia/santos/";
     public static final String DOC_NOTFOUND = "Documento no encontrado";
+    public static final String CONTENT_NOTFOUND = "Este contenido no está " +
+            "disponible todavía. Puede que estés intentando acceder a un " +
+            "contenido fuera de fecha. Si no es el caso, ponte en contacto " +
+            "con el desarrollador para informarle de que hay un problema en " +
+            "este módulo.";
+
+    public static final String NOTFOUND_OR_NOTCONNECTION = "Este contenido no" +
+            " está " +
+            "disponible. Puede que estés intentando acceder a un " +
+            "contenido fuera de fecha o que en este momento no estés " +
+            "conectado a internet. " +
+            "Si no es el caso, ponte en contacto " +
+            "con el desarrollador para informarle de que hay un problema en " +
+            "este módulo.";
 
     public static final String FILE_PRIVACY = "res/raw/privacy_202201.json";
     public static final String FILE_TERMS = "res/raw/terms_202201.json";

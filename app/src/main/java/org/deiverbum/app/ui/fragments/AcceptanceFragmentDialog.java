@@ -114,16 +114,22 @@ public class AcceptanceFragmentDialog extends DialogFragment {
 
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(Utils.toH2Red("Aceptación"));
-        sb.append("\n\nSi aceptas tanto la Política de Privacidad, como los Términos y Condiciones de Uso, activa el botón de más abajo. El estado de tu aceptación se guardará en el dispositivo y será revocado si desinstalas la Aplicación.");
+        sb.append("\n\nSi aceptas tanto la Política de Privacidad, como los " +
+                "Términos y Condiciones de Uso, pulsa en el botón Aceptar. " +
+                "Accederás a la " +
+                "pantalla inicial de la aplicación y el " +
+                "estado de tu aceptación se guardará en el dispositivo. " +
+                "Será revocado si desinstalas la Aplicación o si desmarcas el" +
+                " botón de aceptación en algún momento.");
         textFinal.setText(sb, TextView.BufferType.SPANNABLE);
 
-        sb.clear();
-        sb.append(Utils.toH2Red("Contacto"));
+        //sb.clear();
+        //sb.append(Utils.toH2Red("Contacto"));
         //sb.append("\n\nSi tienes alguna duda sobre la Política de
         // Privacidad o los Términos y Condiciones de Uso, ponte en contacto con nosotros pulsando en el botón \"Enviar eMail\" que aparece a continación.");
-       sb.append(LS2);
-        sb.append(MSG_LEGAL);
-        textContacto.setText(sb, TextView.BufferType.SPANNABLE);
+       //sb.append(LS2);
+        //sb.append(MSG_LEGAL);
+        //textContacto.setText(sb, TextView.BufferType.SPANNABLE);
 
         SwitchMaterial switchAccept = binding.switchAccept;
         switchAccept.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -137,10 +143,10 @@ public class AcceptanceFragmentDialog extends DialogFragment {
         });
 
         button.setOnClickListener(v -> {
-            String subject = String.format(Locale.getDefault(),"Dudas " +
-                    "Política Privacidad y/o " +
-                    "Términos y Condiciones Liturgia+ v. %d", Constants.VERSION_CODE);
-            composeEmail(new String[]{Configuration.MY_EMAIL}, subject);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putBoolean(PREF_ACCEPT, true);
+            editor.apply();
+            dismiss();
         });
     }
 

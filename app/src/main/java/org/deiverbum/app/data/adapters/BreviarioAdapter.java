@@ -19,8 +19,6 @@ import java.util.List;
  * <p>
  * Esta clase maneja el adaptador de la pantalla <code>Breviario</code>,
  * presentada desde <code>BreviarioFragment</code>.
- * Es una versión mejorada de la clase <code>BreviarioRecyclerAdapter</code>,
- * la cual será eliminada desde la versión 2021.1
  * </p>
  *
  * @author A. Cedano

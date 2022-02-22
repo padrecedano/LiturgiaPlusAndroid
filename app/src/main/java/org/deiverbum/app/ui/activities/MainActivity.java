@@ -52,8 +52,9 @@ public class MainActivity extends AppCompatActivity {
     //202001030;
     private AppBarConfiguration mAppBarConfiguration;
     private boolean acceptTerms;
-
-
+    private NavController.OnDestinationChangedListener onDestinationChangedListener;
+    NavController navController;
+    private FirebaseAnalytics mFirebaseAnalytics;
     private AppUpdateManager appUpdateManager;
     private final InstallStateUpdatedListener installStateUpdatedListener = installState -> {
         if (installState.installStatus() == InstallStatus.DOWNLOADED) {
@@ -78,6 +79,23 @@ public class MainActivity extends AppCompatActivity {
         strFechaHoy = Utils.getFecha();
         setPrivacy();
         showMain();
+
+        onDestinationChangedListener = (controller, destination, arguments) -> {
+            Bundle bundle = new Bundle();
+            String screenName=destination.getLabel().toString();
+            String screenClass=String.format("Fragment%s",screenName);
+
+            bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName);
+            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS,screenClass);
+            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+
+        };
+
+        navController.addOnDestinationChangedListener(onDestinationChangedListener);
+
+
+
+
     }
 
     private void showMain() {
@@ -92,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
         //app:navGraph="@navigation/nav_home"
-        NavController navController = navHostFragment.getNavController();
+         navController = navHostFragment.getNavController();
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home)
@@ -118,7 +136,8 @@ public class MainActivity extends AppCompatActivity {
         acceptTerms = prefs.getBoolean(PREF_ACCEPT, false);
         boolean collectData = prefs.getBoolean(PREF_ANALYTICS, true);
         boolean collectCrash = prefs.getBoolean(PREF_CRASHLYTICS, true);
-        FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(collectData);
+        mFirebaseAnalytics=FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.setAnalyticsCollectionEnabled(collectData);
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(collectCrash);
     }
 
@@ -161,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         unregisterListener();
+        navController.removeOnDestinationChangedListener(onDestinationChangedListener);
         super.onDestroy();
     }
 

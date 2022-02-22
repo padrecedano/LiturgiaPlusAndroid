@@ -1,0 +1,98 @@
+{
+  "author": "A. Cedano",
+  "title": "Novedades",
+  "date": "20220215",
+  "bookType": 10,
+  "chapters": [
+    {
+      "id": 1,
+      "title": "Datos de la versión",
+      "content": [
+        {
+          "type": 10,
+          "item": "Fecha de publicación:",
+          "text": [
+            "<i>15 de Febrero de 2022</i>"
+          ]
+        },
+        {
+          "type": 10,
+          "item": "Número de versión:",
+          "text": [
+            "2022.1.1"
+          ]
+        },
+        {
+          "type": 10,
+          "item": "Nombre de la versión:",
+          "text": [
+            "<i>Deuteronomium</i>"
+          ]
+        },
+        {
+        "type": 10,
+          "item": "Codigo de versión:",
+        "text": [
+          "202201011"
+        ]
+      }
+    ]
+    },
+
+    {
+      "id": 2,
+      "title": "Novedades de la versión mayor",
+      "content": [
+        {
+          "type": 13,
+          "text":
+            [
+              "Se implementa posibilidad de pausar, continuar, detener el audio",
+              "Modificación profunda del código, implementando el patrón MVVM, para un próximo funcionamiento sin conexión (se está migrando todo el contenido de la Aplicación a una base de datos que vendrá incorporada en una futura actualización)",
+              "Cambio de Volley por Retrofit+RXJava para las peticiones web",
+              "Mejoras en el aspecto legal (Política de Privacidad y Términos y Condiciones de Uso) para adaptarlas a las nuevas leyes",
+              "Incorporación de Crashlytics para facilitar la detección y corrección de errores",
+              "Se agrega una opción \"Reportar error\" que se puede usar desde el menú inicial para reportar por email errores detectados en la aplicación"
+            ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Errores corregidos en la versión mayor (2022.1)",
+      "content": [
+        {
+          "type": 13,
+          "text": [
+            "El error de no conexión, cuando había conexión, en algunos dispositivos, ha sido corregido",
+            "El error de repetición Primera Lectura (en la Segunda Lectura)",
+            "Error en las lecturas de la Hora Intermedia (en todas las horas presentaba la lectura de la Hora Tercia)",
+            "Error en el saludo de las Completas y pequeño error en la conclusión",
+            "Pequeño error ortográfico en el Rosario",
+            "Otros errores detectados en el código"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Errores corregidos en la versión menor (2022.1.1)",
+      "content": [
+        {
+          "type": 13,
+          "text": [
+            "Agregamos compatibilidad hasta nivel de API 21 (compatibilidad desde Android 5 en adelante)",
+            "Corrección de error en In-App Update (actualización dentro de la Aplicación)",
+            "El tamaño de letra elegido en la configuración no se aplicaba en algunos módulos",
+            "Error de posible puntero nulo en el módulo Completas",
+            "Error en la lectura de voz en el módulo Mixto cuando hay un santo",
+            "Actualización de la fecha en la barra superior según la fecha actual o la fecha que se escoja en el Calendario",
+            "Errores menores"
+
+          ]
+        }
+      ]
+    }
+
+  ]
+  }
