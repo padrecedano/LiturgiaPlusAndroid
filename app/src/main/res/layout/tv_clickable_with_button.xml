@@ -10,11 +10,9 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <TextView
             android:id="@+id/tv_Clickable"
@@ -26,22 +24,9 @@
             android:paddingTop="0dp"
             android:paddingBottom="40dp"
             android:textIsSelectable="true"
-
-        android:textSize="@dimen/default_font" />
-
-
-<!--
-        <TextView
-            android:id="@+id/tv_Clickable"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:linksClickable="true"
-            android:text=""
-            android:textColor="#272626"
-            android:textIsSelectable="true"
             android:textSize="@dimen/default_font" />
-            -->
     </ScrollView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,20 +39,6 @@
             android:checked="false"
             android:layout_marginStart="30dp"
             android:text="@string/label_accept"/>
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/add_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/colorBreviario"
-            android:textColor="@color/colorOnSurface"
-            app:icon="@android:drawable/ic_dialog_email"
-            app:iconTint="@color/colorOnSurface"
-             />
-
     </LinearLayout>
 </LinearLayout>
 

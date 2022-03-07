@@ -73,14 +73,11 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
                 new ViewModelProvider(this).get(BibliaViewModel.class);
         mTextView = binding.include.tvZoomable;
         mTextView.setMovementMethod(LinkMovementMethod.getInstance());
-        //mTextView.setClickable(true);
         progressBar = binding.progressBar;
-        //actionBar.setSubtitle("");
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         isVoiceOn = prefs.getBoolean("voice", true);
-        //pickOutDate();
     }
 
 

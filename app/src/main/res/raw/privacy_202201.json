@@ -11,9 +11,9 @@
       {
         "type": 1,
         "text": [
-          "Alfertson Cedano Guerrero, en adelante («el Desarrollador», «nosotros», «a nosotros», «nuestro») ha desarrollado y mantiene la aplicación móvil Liturgia+ (en adelante, «el Servicio», «la Aplicación»).",
-          "Este documento le informa de nuestras políticas en materia de recopilación, uso y divulgación de datos personales cuando utiliza nuestro Servicio y de las opciones de las que dispone en relación con esos datos.",
-          "Utilizamos sus datos para prestarle el <i>Servicio</i> y mejorarlo. Al utilizar el <i>Servicio</i>, usted acepta la recopilación y el uso de información de conformidad con esta política. A menos que esta Política de privacidad defina lo contrario, los términos utilizados en ella tienen los mismos significados que nuestros Términos y Condiciones de Uso."
+          "Alfertson Cedano Guerrero, en adelante («el Desarrollador», «Nosotros», «a nosotros», «nuestro») ha desarrollado y mantiene la aplicación móvil Liturgia+ (en adelante, «el Servicio», «la Aplicación»).",
+          "Este documento te informa de nuestras políticas en materia de recopilación, uso y divulgación de Datos personales cuando utilizas nuestro Servicio y de las opciones de las que dispones en relación con esos datos.",
+          "Utilizamos tus datos para prestarte el <i>Servicio</i> y mejorarlo. Al utilizar el <i>Servicio</i>, aceptas la recopilación y el uso de información de conformidad con esta política. A menos que esta Política de privacidad defina lo contrario, los términos utilizados en ella tienen los mismos significados que nuestros Términos y Condiciones de Uso."
         ]
       }
     ]
@@ -34,14 +34,14 @@
           "type": 10,
           "item": "Datos de uso:",
           "text": [
-            "Son los datos recopilados automáticamente, generados por el uso del Servicio o por la propia infraestructura del Servicio (por ejemplo, datos sobre errores ocurridos durante el uso de la aplicación)."
+            "Son los datos recopilados automáticamente, generados por el uso del <i>Servicio</i> o por la propia infraestructura del <i>Servicio</i> (por ejemplo, datos sobre errores ocurridos durante el uso de la <i>Aplicación</i>)."
           ]
         },
         {
           "type": 10,
           "item": "Cookies:",
           "text": [
-            "Las cookies son pequeños archivos almacenados en su dispositivo (ordenador o dispositivo móvil)."
+            "Las cookies son pequeños archivos almacenados en tu dispositivo (ordenador o dispositivo móvil)."
           ]
         }
       ]
@@ -53,7 +53,7 @@
         {
           "type": 1,
           "text": [
-            "Recopilamos diferentes tipos de información con la única finalidad de prestarle el Servicio y mejorarlo."
+            "Recopilamos diferentes tipos de información con la única finalidad de prestarte el <i>Servicio</i> y mejorarlo."
           ]
         },
         {
@@ -67,24 +67,24 @@
           "type": 3,
           "title": "Datos de uso",
           "text": [
-            "Cuando accede al Servicio con un dispositivo móvil, podemos recopilar determinada información automáticamente, incluyendo, entre otros, el tipo de dispositivo móvil que utiliza, el identificador exclusivo de su dispositivo móvil, la dirección de IP de su dispositivo móvil, el sistema operativo de su dispositivo móvil, identificadores exclusivos de dispositivos y otros datos de diagnóstico."
+            "Cuando accedes al <i>Servicio</i> con un dispositivo móvil, podemos recopilar determinada información automáticamente, incluyendo, entre otros, el tipo de dispositivo móvil que utilizas, el identificador exclusivo de tu dispositivo móvil, la dirección de IP de tu dispositivo móvil, el sistema operativo de tu dispositivo móvil, identificadores exclusivos de dispositivos y otros datos de diagnóstico."
           ]
         },
         {
           "type": 3,
           "title": "Cookies y seguimiento",
           "text": [
-            "En algunos casos, podríamos utilizar cookies y tecnologías de seguimiento similares para rastrear la actividad de nuestro Servicio y mantener determinada información.",
-            "Las cookies son archivos con una pequeña cantidad de datos que pueden incluir un identificador exclusivo anónimo. Las cookies son enviadas a su navegador desde un sitio web y se almacenan en su dispositivo. Otras tecnologías de seguimiento también utilizadas son balizas, etiquetas y scripts para recopilar y rastrear la información, así como para mejorar y analizar nuestro Servicio."
+            "En algunos casos, podríamos utilizar cookies y tecnologías de seguimiento similares para rastrear la actividad de nuestro <i>Servicio</i> y mantener determinada información.",
+            "Las cookies son archivos con una pequeña cantidad de datos que pueden incluir un identificador exclusivo anónimo. Las cookies son enviadas a tu navegador desde un sitio web y se almacenan en tu dispositivo. Otras tecnologías de seguimiento también utilizadas son balizas, etiquetas y scripts para recopilar y rastrear la información, así como para mejorar y analizar nuestro <i>Servicio</i>."
           ]
         },
         {
           "type": 3,
           "title": "Datos personales",
           "text": [
-            "El Servicio no recopila datos personales como tu nombre, dirección o número de teléfono. En caso de que decidas ponerte en contacto con nosotros vía correo electrónico, recibiremos en nuestro correo aquellos datos que tengas definidos en tu cliente de correo electrónico y los que suministres libremente en la redacción del mensaje.",
-            "Esos datos serán usados únicamente para resolver el problema planteado por ti. El mensaje será borrado de nuestro correo electrónico en un plazo no mayor de 30 días después de la resolución del error reportado o la duda planteada.",
-            "Nosotros borraremos inmediatamente cualquier dato personal tuyo en cualquier momento que lo solicites."
+            "El <i>Servicio</i> no recopila de forma indirecta o automática Datos personales como tu nombre, dirección o número de teléfono.",
+            "Si te pones en contacto con <i>Nosotros</i> por alguno de los medios indicados en diversas partes de la <i>Aplicación</i>, <i>Nosotros</i> recibiremos por ese medio los Datos personales que tengas configurados en esos programas (por ejemplo el correo electrónico) así como aquellos datos que suministres libremente en la redacción del mensaje. Esos datos no serán almacenados, ni compartidos con terceros y serán usados únicamente para responder a eventuales dudas o para resolver errores relativos al funcionamiento del <i>Servicio</i> y serán borrados en un plazo no mayor de 30 días después de que el problema planteado haya sido resuelto o la duda planteada haya sido respondida",            
+            "<i>Nosotros</i> borraremos inmediatamente cualquier dato personal tuyo en cualquier momento que lo solicites."
           ]
         }
       ]
@@ -96,15 +96,15 @@
         {
           "type": 1,
           "text": [
-            "El Servicio utiliza los datos recopilados con diversas finalidades:"
+            "El <i>Servicio</i> utiliza los datos recopilados con diversas finalidades:"
           ]
         },
         {
           "type": 11,
           "text": [
-            "Suministrar y mantener la Aplicación",
-            "Recopilar análisis o información valiosa que nos permitan mejorar la Aplicación",
-            "Controlar el uso de nuestro Servicio",
+            "Suministrar y mantener la <i>Aplicación</i>",
+            "Recopilar análisis o información valiosa que nos permitan mejorar la <i>Aplicación</i>",
+            "Controlar el uso de nuestro <i>Servicio</i>",
             "Detectar, evitar y resolver problemas técnicos"
           ]
         }
@@ -118,9 +118,8 @@
           "type": 1,
           "text": [
             "La información recopilada puede ser transferida a —y mantenida en— ordenadores localizados fuera de tu estado, provincia, país u otra jurisdicción gubernamental donde las leyes de protección de datos pueden diferir de las de tu jurisdicción.",
-            "Al aceptar esta Política de Privacidad manifiestas que estás de acuerdo con dicha transferencia de datos, los cuales, en ningún caso, serán datos personales.",
-            "Nosotros emprenderemos todas las medidas razonables necesarias para garantizar que tus datos sean tratados de forma segura y de conformidad con esta Política de Privacidad y no se realizará ninguna transferencia de tus Datos personales a una organización o país, salvo que existan unos controles adecuados establecidos incluyendo la seguridad de tus datos y otra información personal.",
-            "Si te pones en contacto con nosotros por alguno de los medios indicados en diversas partes de la Aplicación, nosotros recibiremos por ese medio los datos personales que tengas configurados en esos programas (por ejemplo el correo electrónico). Esos datos no serán almacenados, ni compartidos con terceros y serán usados únicamente para responder a eventuales dudas o para resolver errores relativos al funcionamiento del Servicio."
+            "Al aceptar esta Política de Privacidad manifiestas que estás de acuerdo con dicha transferencia de datos, los cuales, en ningún caso, serán Datos personales.",
+            "<i>Nosotros</i> emprenderemos todas las medidas razonables necesarias para garantizar que tus datos sean tratados de forma segura y de conformidad con esta Política de Privacidad y no se realizará ninguna transferencia de tus Datos personales a una organización o país, salvo que existan unos controles adecuados establecidos incluyendo la seguridad de tus datos y otra información personal."
           ]
         }
       ]
@@ -139,9 +138,9 @@
           "type": 11,
           "text": [
             "Cumplir una obligación legal",
-            "Proteger y defender los derechos o bienes del Desarrollador o del Servicio",
-            "Prevenir o investigar posibles infracciones en relación con el Servicio",
-            "Proteger la seguridad personal de usuarios del Servicio o del público",
+            "Proteger y defender los derechos o bienes del <i>Desarrollador</i> o del <i>Servicio</i>",
+            "Prevenir o investigar posibles infracciones en relación con el <i>Servicio</i>",
+            "Proteger la seguridad personal de usuarios del <i>Servicio</i> o del público",
             "Protegerse frente a consecuencias legales"
           ]
         }
@@ -154,7 +153,7 @@
         {
           "type": 1,
           "text": [
-            "La seguridad de tus datos es importante para nosotros, pero recuerda que ningún método de transmisión por Internet o método de almacenamiento electrónico resulta 100% seguro. A pesar de que nos esforzamos por utilizar medios comercialmente aceptables para proteger tus Datos personales, no podemos garantizar su seguridad absoluta."
+            "La seguridad de tus datos es importante para <i>Nosotros</i>, pero recuerda que ningún método de transmisión por Internet o método de almacenamiento electrónico resulta 100% seguro. A pesar de que nos esforzamos por utilizar medios comercialmente aceptables para proteger tus Datos personales, no podemos garantizar su seguridad absoluta."
           ]
         }
       ]
@@ -166,7 +165,7 @@
         {
           "type": 1,
           "text": [
-            "La Aplicación utiliza proveedores de servicios terceros para servir parte de su contenido o para resolver de forma eficaz eventuales fallos en el Servicio. Estos terceros tienen acceso a tus Datos de uso únicamente para realizar estas tareas en nuestro nombre y están obligados a no divulgarlos ni utilizarlos con ningún otro fin.",
+            "La <i>Aplicación</i> utiliza proveedores de servicios terceros para servir parte de su contenido o para resolver de forma eficaz eventuales fallos en el <i>Servicio</i>. Estos terceros tienen acceso a tus datos de uso únicamente para realizar estas tareas en nuestro nombre y están obligados a no divulgarlos ni utilizarlos con ningún otro fin.",
             "Estos son los enlaces a la política de privacidad de los proveedores de servicios de terceros utilizados:"
           ]
         },
@@ -175,6 +174,7 @@
           "text": [
             "<a href=\"https://policies.google.com/privacy?hl=es&gl=es\">Google Play Services</a>",
             "<a href=\"https://firebase.google.com/policies/analytics\">Firebase Analytics</a>",
+            "<a href=\"https://firebase.google.com/terms/crashlytics-app-distribution-data-processing-terms/?hl=es-419\">Firebase Crashlytics</a>",
             "<a href=\"https://www.google.com/policies/privacy/?hl=es\">Google Analytics</a>"
           ]
         }
@@ -187,8 +187,8 @@
         {
           "type": 1,
           "text": [
-            "Nuestro Servicio puede contener enlaces a otros sitios no operados por nosotros. Si haces clic en el enlace de un tercero, serás dirigido al sitio de ese tercero. Te recomendamos encarecidamente que revises la Política de Privacidad de todos los sitios que visites.",
-            "No tenemos ningún control ni asumimos responsabilidad alguna con respecto al contenido, las políticas o prácticas de privacidad de sitios o servicios de terceros a los cuales puedas acceder desde la Aplicación."
+            "Nuestro <i>Servicio</i> puede contener enlaces a otros sitios no operados por <i>Nosotros</i>. Si haces clic en el enlace de un tercero, serás dirigido al sitio de ese tercero. Te recomendamos encarecidamente que revises la Política de Privacidad de todos los sitios que visites.",
+            "No tenemos ningún control ni asumimos responsabilidad alguna con respecto al contenido, las políticas o prácticas de privacidad de sitios o servicios de terceros a los cuales puedas acceder desde la <i>Aplicación</i>."
           ]
         }
       ]
@@ -200,8 +200,8 @@
         {
           "type": 1,
           "text": [
-            "Nuestro servicio no está dirigido a ningún menor de 18 años (en adelante, «Menor»).",
-            "No recopilamos de forma consciente información personalmente identificable de menores de 18 años. Si es usted un padre/madre o tutor y tiene conocimiento de que su hijo nos ha facilitado Datos personales, contacte con nosotros. Si tenemos conocimiento de que hemos recopilado Datos personales de menores sin verificación del consentimiento parental, tomamos medidas para eliminar esa información de nuestros servidores."
+            "Nuestro <i>Servicio</i> no está dirigido a ningún menor de 18 años (en adelante, «Menor»).",
+            "No recopilamos de forma consciente información personalmente identificable de menores de 18 años. Si eres un padre/madre o tutor y tienes conocimiento de que tu hijo nos ha facilitado Datos personales, contacta con <i>Nosotros</i>. Si tenemos conocimiento de que hemos recopilado Datos personales de menores sin verificación del consentimiento parental, tomaremos medidas para eliminar esa información de nuestros servidores."
           ]
         }
       ]
@@ -213,9 +213,9 @@
         {
           "type": 1,
           "text": [
-            "Podemos actualizar nuestra Política de privacidad periódicamente. Le notificaremos cualquier cambio publicando la nueva Política de privacidad en esta página.",
-            "Le informaremos a través de un aviso destacado sobre nuestro Servicio antes de que el cambio entre en vigor y actualizaremos la «fecha efectiva» en la parte superior de esta Política de privacidad.",
-            "Le recomendamos que revise esta Política de privacidad periódicamente para comprobar si se ha introducido algún cambio. Los cambios en esta Política de privacidad entran en vigor cuando se publican en esta página.",
+            "Podemos actualizar nuestra Política de privacidad periódicamente. Te notificaremos cualquier cambio publicando la nueva Política de privacidad en esta página.",
+            "Te informaremos a través de un aviso destacado sobre nuestro <i>Servicio</i> antes de que el cambio entre en vigor y actualizaremos la «fecha efectiva» en la parte superior de esta Política de privacidad.",
+            "Te recomendamos que revises esta Política de privacidad periódicamente para comprobar si se ha introducido algún cambio. Los cambios en esta Política de privacidad entran en vigor cuando se publican en esta página.",
             "Existe <a href=\"https://www.liturgiaplus.app/privacy\">una versión en línea de esta Política de Privacidad</a> actualizada con la última fecha."
           ]
         }
@@ -223,13 +223,13 @@
     },
     {
       "id": 11,
-      "title": "Contacte con nosotros",
+      "title": "Contacta con <i>Nosotros</i>",
       "content": [
         {
           "type": 1,
           "text": [
-            "Si tiene alguna pregunta sobre esta Política de privacidad, contacte con nosotros a través de los canales indicados en la Aplicación: menú de la pantalla principal o en la página <b>Autor</b>. En ambas partes aparece de forma visible la dirección de correo electrónico.",
-            "Si ve el icono de correo en la parte inferior de esta pantalla, puede usarlo también para ponerse en contacto con el Desarrollador."
+            "Si tienes alguna pregunta sobre esta Política de privacidad, contacta con <i>Nosotros</i> a través de los canales indicados en la Aplicación: menú de la pantalla principal o en la página <b>Autor</b>. En ambas partes aparece de forma visible la dirección de correo electrónico.",
+            "Si ves el icono de correo en la parte inferior de esta pantalla, puedes usarlo también para ponerte en contacto con <i>Nosotros</i>."
           ]
         }
       ]

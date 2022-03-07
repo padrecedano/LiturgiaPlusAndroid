@@ -93,7 +93,9 @@ public class HomeFragment extends Fragment {
         mList.add(new HomeItem("Biblia", 9, R.drawable.ic_biblia, colorBiblia, R.id.nav_biblia));
         mList.add(new HomeItem("Patrística", 10, R.drawable.ic_patristica, colorMas, R.id.nav_patristica));
         mList.add(new HomeItem("Sacramentos", 11, R.drawable.ic_sacramentos, colorSacramentos, R.id.nav_sacramentos));
-        mList.add(new HomeItem("Más...", 12, R.drawable.ic_mas, colorPadres, R.id.nav_mas));
+        mList.add(new HomeItem("Más...", 12, R.drawable.ic_mas, colorPadres,
+                R.id.nav_mas));
+
         //mAdapter.notifyDataSetChanged();
     }
 

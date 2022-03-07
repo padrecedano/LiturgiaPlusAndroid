@@ -50,32 +50,7 @@ public class FirebaseDataSource {
     }
 
 
-    /**
-     * <p>Obtiene un observable con la Homilía según las parámetros dados.</p>
-     *
-     * @param date La fecha a buscar
-     * @return Objeto con la homilía o error
-     */
-    public Single<DataWrapper<Homilias, CustomException>> getHomilias(final String date) {
-        return Single.create(emitter -> {
-            DocumentReference calRef = firebaseFirestore.collection(CALENDAR_PATH).document(date);
-            calRef.addSnapshotListener((calSnapshot, e) -> {
-                if ((calSnapshot != null) && calSnapshot.exists()) {
-                    DocumentReference dataRef = calSnapshot.getDocumentReference("homilias");
-                    if (e != null || dataRef == null) {
-                        emitter.onError(new Exception(DATA_NOTFOUND));
-                        return;
-                    }
-                    dataRef.get().addOnSuccessListener((DocumentSnapshot data) -> {
-                        //data.postValue(data.toObject(Homilias.class));
-                        emitter.onSuccess(new DataWrapper<>(data.toObject(Homilias.class)));
-                    });
-                } else {
-                    emitter.onError(new Exception(DATA_NOTFOUND));
-                }
-            });
-        });
-    }
+
 
     /**
      * <p>Obtiene un observable con un objeto Santo o error.</p>
@@ -142,62 +117,85 @@ public class FirebaseDataSource {
         });
     }
 
-    public Single<DataWrapper<Lecturas, CustomException>> getLecturass(final String dateString) {
+    public Single<DataWrapper<Comentarios, CustomException>> getComentarios(String dateString) {
         return Single.create(emitter -> {
-            DocumentReference calRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
-            calRef.addSnapshotListener((calSnapshot, e) -> {
-                if ((calSnapshot != null) && calSnapshot.exists()) {
-                    DocumentReference dataRef = calSnapshot.getDocumentReference("lecturas");
-                    MetaLiturgia meta = calSnapshot.get("metaliturgia",
-                            MetaLiturgia.class);
+            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
+            docRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        DocumentReference dataRef =
+                                document.getDocumentReference("comentarios");
+                        MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
+                        try {
 
-                    if (e != null || dataRef == null) {
-                        emitter.onError(new Exception(DATA_NOTFOUND));
-                        return;
+                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
+                                if (mSnapshot.exists()) {
+                                    Comentarios theData =
+                                            mSnapshot.toObject(Comentarios.class);
+                                    Objects.requireNonNull(theData).setMetaLiturgia(meta);
+                                    emitter.onSuccess(new DataWrapper<>(theData));
+                                } else {
+                                    emitter.onError(new Exception(DATA_NOTFOUND));
+                                }
+                            });
+                        } catch (Exception e) {
+                            emitter.onError(new Exception(e));
+                        }
+                    } else {
+                        emitter.onError(new Exception(DOC_NOTFOUND));
+
                     }
-                    dataRef.get().addOnSuccessListener((DocumentSnapshot data) -> {
-
-                        emitter.onSuccess(new DataWrapper<>(data.toObject(Lecturas.class)));
-                    });
-                } else emitter.onError(new Exception(DATA_NOTFOUND));
+                } else {
+                    emitter.onError(task.getException());
+                }
             });
         });
     }
 
+    /**
+     * <p>Obtiene un observable con la Homilía según las parámetros dados.</p>
+     *
+     * @param dateString La fecha a buscar
+     * @return Objeto con la homilía o error
+     */
 
-    public Single<DataWrapper<Mixto, CustomException>> getMixtos(final String dateString) {
+    public Single<DataWrapper<Homilias, CustomException>> getHomilias(String dateString) {
         return Single.create(emitter -> {
-            DocumentReference calRef = firebaseFirestore.collection(CALENDAR_PATH).document(dateString);
-            try {
-                calRef.addSnapshotListener((calSnapshot, e) -> {
-                    if ((calSnapshot != null) && calSnapshot.exists()) {
-                        DocumentReference dataRef = calSnapshot.getDocumentReference("lh.0");
-                        if (e != null || dataRef == null) {
-                            emitter.onError(new Exception(DATA_NOTFOUND));
-                            return;
+            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
+            docRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        DocumentReference dataRef =
+                                document.getDocumentReference("homilias");
+                        MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
+                        try {
+
+                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
+                                if (mSnapshot.exists()) {
+                                    Homilias theData =
+                                            mSnapshot.toObject(Homilias.class);
+                                    Objects.requireNonNull(theData).setMetaLiturgia(meta);
+                                    emitter.onSuccess(new DataWrapper<>(theData));
+                                } else {
+                                    emitter.onError(new Exception(DATA_NOTFOUND));
+                                }
+                            });
+                        } catch (Exception e) {
+                            emitter.onError(new Exception(e));
                         }
-                        MetaLiturgia meta = calSnapshot.get("metaliturgia", MetaLiturgia.class);
-
-                        dataRef.get().addOnSuccessListener((DocumentSnapshot data) -> {
-                            Mixto hora=data.toObject(Mixto.class);
-                            if (hora == null) {
-                                //hora.setMetaLiturgia(meta);
-                                emitter.onError(new RuntimeException());
-                                //return;
-                            }
-                            Objects.requireNonNull(hora).setMetaLiturgia(meta);
-                            emitter.onSuccess(new DataWrapper<>(hora));
-                        });
                     } else {
-                        emitter.onError(new Exception(DATA_NOTFOUND));
-                    }
-                });
-            } catch (Exception e) {
-                emitter.onError(e);
-            }
-        });
+                        emitter.onError(new Exception(DOC_NOTFOUND));
 
+                    }
+                } else {
+                    emitter.onError(task.getException());
+                }
+            });
+        });
     }
+
 
     public Single<DataWrapper<Mixto, CustomException>> getMixto(String dateString) {
         return Single.create(emitter -> {
@@ -396,42 +394,6 @@ public class FirebaseDataSource {
                         emitter.onSuccess(data);
                     } else {
                         emitter.onError(new Exception(DOC_NOTFOUND));
-                    }
-                } else {
-                    emitter.onError(task.getException());
-                }
-            });
-        });
-    }
-
-
-    public Single<DataWrapper<Comentarios, CustomException>> getComentarios(String dateString) {
-        return Single.create(emitter -> {
-            DataWrapper<Comentarios, CustomException> finalData = new DataWrapper<>();
-            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
-            docRef.get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        DocumentReference dataRef = document.getDocumentReference("comentarios");
-                        MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
-                        try {
-                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
-                                if (mSnapshot.exists()) {
-                                    Comentarios theData = mSnapshot.toObject(Comentarios.class);
-                                    Objects.requireNonNull(theData).setMetaLiturgia(meta);
-                                    finalData.postValue(theData);
-                                    emitter.onSuccess(finalData);
-                                } else {
-                                    emitter.onError(new Exception(DATA_NOTFOUND));
-                                }
-                            });
-                        } catch (Exception e) {
-                            emitter.onError(new Exception(e));
-                        }
-                    } else {
-                        emitter.onError(new Exception(DOC_NOTFOUND));
-
                     }
                 } else {
                     emitter.onError(task.getException());

@@ -53,9 +53,9 @@
 
     <fragment
         android:id="@+id/nav_author"
-        android:name="org.deiverbum.app.ui.fragments.FileFragment"
+        android:name="org.deiverbum.app.ui.fragments.AuthorFragment"
         android:label="@string/title_fragment_author"
-        tools:layout="@layout/fragment_file">
+        tools:layout="@layout/fragment_author">
         <argument
             android:name="rawPath"
             app:argType="string"

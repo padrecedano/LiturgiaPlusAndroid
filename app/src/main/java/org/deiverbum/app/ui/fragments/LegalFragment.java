@@ -8,7 +8,9 @@ import static org.deiverbum.app.utils.Constants.MSG_LEGAL;
 import static org.deiverbum.app.utils.Constants.PACIENCIA;
 import static org.deiverbum.app.utils.Constants.PREF_ACCEPT;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
@@ -17,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,12 +34,15 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentLegalBinding;
 import org.deiverbum.app.model.Book;
+import org.deiverbum.app.utils.Configuration;
+import org.deiverbum.app.utils.Constants;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.viewmodel.FileViewModel;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -61,7 +67,6 @@ public class LegalFragment extends Fragment {
     private TextView textContacto;
     private boolean acceptLegal;
     private LinearLayout bottomLayout;
-    private LinearLayout footLayout;
 
     private String agreeYes;
     private String agreeNot;
@@ -102,7 +107,15 @@ public class LegalFragment extends Fragment {
         //footLayout = binding.footLayout;
 
         bottomLayout.setVisibility(View.GONE);
+        Button button = binding.btnEmail;
+        button.setOnClickListener(v -> {
+            String subject = String.format(Locale.getDefault(), "Dudas " +
+                    "Política Privacidad y/o " +
+                    "Términos y Condiciones Liturgia+ v. %d", Constants.VERSION_CODE);
+            composeEmail(new String[]{Configuration.MY_EMAIL}, subject);
+        });
     }
+
 
     private void observeBook() {
         progressBar.setVisibility(View.VISIBLE);
@@ -129,11 +142,12 @@ public class LegalFragment extends Fragment {
 
                     });
         }
-
     }
 
+
+    @SuppressWarnings("unused")
     private void saveHtmlFile(String html) {
-        String path = getActivity().getExternalFilesDir(null).getAbsolutePath();
+        String path = requireActivity().getExternalFilesDir(null).getAbsolutePath();
         String fileName = DateFormat.format("dd_MM_yyyy_hh_mm_ss", System.currentTimeMillis()).toString();
         fileName = fileName + ".html";
         File file = new File(path, fileName);
@@ -148,6 +162,7 @@ public class LegalFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
     private void setAcceptText() {
         String acceptText = (acceptLegal) ? agreeYes : agreeNot;
         textAgree.setText(acceptText);
@@ -177,12 +192,23 @@ public class LegalFragment extends Fragment {
         switchAccept.setChecked(true);
     }
 
+    private void composeEmail(String[] addresses, String subject) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, "Plantea a continuación tu duda: \n\n");
+        if (intent.resolveActivity(requireActivity().getPackageManager()) != null) {
+            startActivity(intent);
+        }
+        requireActivity().onBackPressed();
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-
 
 
 }

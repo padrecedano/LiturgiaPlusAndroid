@@ -92,8 +92,8 @@ public class Lecturas {
             sb.append(LS2);
             sb.append(Utils.toRed(l.getTema()));
             sb.append(LS2);
-            String txtLectura = Utils.getFormato(l.getTexto());
-            sb.append(Utils.fromHtml(txtLectura));
+            //String txtLectura = Utils.getFormato(l.getTexto());
+            sb.append(Utils.fromHtml(l.getTexto()));
             sb.append(LS2);
         }
 

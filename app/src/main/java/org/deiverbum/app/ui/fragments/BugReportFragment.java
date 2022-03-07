@@ -1,8 +1,11 @@
 package org.deiverbum.app.ui.fragments;
 
+import static org.deiverbum.app.utils.Constants.ERR_SUBJECT;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +18,9 @@ import androidx.fragment.app.Fragment;
 
 import org.deiverbum.app.databinding.FragmentBugreportBinding;
 import org.deiverbum.app.utils.Configuration;
-import org.deiverbum.app.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -58,12 +59,10 @@ public class BugReportFragment extends Fragment {
                 }
             }
 
-            String textSelected=String.join(", ", selected);
+            String textSelected= TextUtils.join(", ", selected);
             String msg=String.format("Mensaje: \n\n%s\n\nEn:\n\n%s", Objects.requireNonNull(binding.message.getText()),textSelected);
-            String subject= String.format(Locale.getDefault(),"Reporte de " +
-                            "error Liturgia+ v. %d"
-                    ,Constants.VERSION_CODE);
-            composeEmail(new String[]{Configuration.MY_EMAIL},  subject, msg);
+
+            composeEmail(new String[]{Configuration.MY_EMAIL},  ERR_SUBJECT, msg);
 
         });
 

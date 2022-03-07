@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,8 +21,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -36,8 +35,6 @@ import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
 import org.deiverbum.app.viewmodel.SantosViewModel;
-
-import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -78,6 +75,8 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
         mTextView = binding.include.tvZoomable;
         progressBar = binding.progressBar;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         isVoiceOn = prefs.getBoolean("voice", true);
         if (isVoiceOn) {
             sbReader = new StringBuilder(VOICE_INI);
@@ -86,23 +85,6 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
     }
 
     private void pickOutDate() {
-        Bundle bundle = getArguments();
-        String mDate;
-        if (bundle != null) {
-             mDate = bundle.getString("FECHA") == null ? Utils.getHoy() :
-                    bundle.getString("FECHA");
-        }else{
-             mDate=Utils.getHoy();
-        }
-        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-        Objects.requireNonNull(actionBar).setSubtitle(Utils.getTitleDate(mDate));
-        String month = Utils.getMonth(mDate);
-        String day = Utils.getDay(mDate);
-        observeData(month,day);
-    }
-
-
-    private void pickOutDates() {
         Bundle bundle = getArguments();
         String mDate = (bundle != null) ? bundle.getString("FECHA") : Utils.getHoy();
         String month = Utils.getMonth(mDate);
@@ -131,18 +113,11 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
     public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         mainMenu = menu;
         inflater.inflate(R.menu.toolbar_menu, menu);
-        MenuItem item = menu.findItem(R.id.item_voz);
-        if (isReading) {
-            item.setVisible(false);
-        }
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == 0) {
-            return true;
-        }
         if (item.getItemId() == R.id.item_voz) {
             if (mActionMode == null) {
                 mActionMode = requireActivity().startActionMode(mActionModeCallback);
@@ -152,7 +127,7 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
             requireActivity().invalidateOptionsMenu();
             return true;
         }
-         super.onOptionsItemSelected(item);
+
         NavController navController = NavHostFragment.findNavController(this);
         return NavigationUI.onNavDestinationSelected(item, navController)
                 || super.onOptionsItemSelected(item);
@@ -167,7 +142,6 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
-
         MenuItem item = menu.findItem(R.id.item_voz);
         if (isReading) {
             item.setVisible(false);
@@ -246,7 +220,7 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
     };
 
     private void setPlayerButton() {
-        //mainMenu.findItem(R.id.item_voz).setVisible(isVoiceOn);
+        mainMenu.findItem(R.id.item_voz).setVisible(isVoiceOn);
     }
 
     private void readText() {
