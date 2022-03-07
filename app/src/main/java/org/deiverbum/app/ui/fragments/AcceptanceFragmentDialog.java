@@ -2,14 +2,10 @@ package org.deiverbum.app.ui.fragments;
 
 import static org.deiverbum.app.utils.Constants.FILE_PRIVACY;
 import static org.deiverbum.app.utils.Constants.FILE_TERMS;
-import static org.deiverbum.app.utils.Constants.MSG_LEGAL;
 import static org.deiverbum.app.utils.Constants.PREF_ACCEPT;
-import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.SpannableStringBuilder;
@@ -25,17 +21,11 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.switchmaterial.SwitchMaterial;
-
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentAcceptanceBinding;
 import org.deiverbum.app.model.Book;
-import org.deiverbum.app.utils.Configuration;
-import org.deiverbum.app.utils.Constants;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.viewmodel.FileViewModel;
-
-import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -53,7 +43,6 @@ public class AcceptanceFragmentDialog extends DialogFragment {
     public static final String TAG = "AcceptanceFragmentDialog";
     private FragmentAcceptanceBinding binding;
 
-    private boolean checkStatus;
     private FileViewModel mViewModel;
     private TextView textPrivacy;
     private TextView textTerms;
@@ -104,12 +93,12 @@ public class AcceptanceFragmentDialog extends DialogFragment {
         textPrivacy = binding.textPrivacy;
         textTerms = binding.textTerms;
         TextView textFinal = binding.textFinal;
-        TextView textContacto = binding.textContacto;
+        //TextView textContacto = binding.textContacto;
         textInitial.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         textPrivacy.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         textTerms.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         textFinal.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        textContacto.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        //textContacto.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         Button button = binding.btnEmail;
 
         SpannableStringBuilder sb = new SpannableStringBuilder();
@@ -122,25 +111,6 @@ public class AcceptanceFragmentDialog extends DialogFragment {
                 "Será revocado si desinstalas la Aplicación o si desmarcas el" +
                 " botón de aceptación en algún momento.");
         textFinal.setText(sb, TextView.BufferType.SPANNABLE);
-
-        //sb.clear();
-        //sb.append(Utils.toH2Red("Contacto"));
-        //sb.append("\n\nSi tienes alguna duda sobre la Política de
-        // Privacidad o los Términos y Condiciones de Uso, ponte en contacto con nosotros pulsando en el botón \"Enviar eMail\" que aparece a continación.");
-       //sb.append(LS2);
-        //sb.append(MSG_LEGAL);
-        //textContacto.setText(sb, TextView.BufferType.SPANNABLE);
-
-        SwitchMaterial switchAccept = binding.switchAccept;
-        switchAccept.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            SharedPreferences.Editor editor = sp.edit();
-            checkStatus = isChecked;
-            editor.putBoolean(PREF_ACCEPT, isChecked);
-            editor.apply();
-            if (isChecked) {
-                dismiss();
-            }
-        });
 
         button.setOnClickListener(v -> {
             SharedPreferences.Editor editor = sp.edit();
@@ -172,19 +142,4 @@ public class AcceptanceFragmentDialog extends DialogFragment {
                     }
                 });
     }
-
-    private void composeEmail(String[] addresses, String subject) {
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:"));
-        intent.putExtra(Intent.EXTRA_EMAIL, addresses);
-        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        intent.putExtra(Intent.EXTRA_TEXT, "Plantea a continuación tu duda: \n\n");
-        if (intent.resolveActivity(requireActivity().getPackageManager()) != null) {
-            startActivity(intent);
-        }
-        if (checkStatus) {
-            dismiss();
-        }
-    }
-
 }

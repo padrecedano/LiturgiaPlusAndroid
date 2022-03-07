@@ -4,6 +4,8 @@ import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
 
+import com.google.firebase.firestore.PropertyName;
+
 import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
@@ -13,6 +15,8 @@ public class Comentarios {
     public int id_homilia;
     public String pericopa;
     public MetaLiturgia metaLiturgia;
+
+    @PropertyName("comentarios")
     public List<ComentarioBiblico> comentarios;
 
     public Comentarios(){}
@@ -25,10 +29,12 @@ public class Comentarios {
         this.metaLiturgia = metaLiturgia;
     }
 
+    @PropertyName("comentarios")
     public void setComentarios(List<ComentarioBiblico> comentarios) {
         this.comentarios=comentarios;
     }
 
+    @PropertyName("comentarios")
     public List<ComentarioBiblico> getComentarios(){
         return this.comentarios;
     }

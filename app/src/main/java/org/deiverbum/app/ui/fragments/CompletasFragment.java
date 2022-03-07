@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -86,8 +87,9 @@ observeData();
                 new ViewModelProvider(this).get(CompletasViewModel.class);
         mTextView = binding.include.tvZoomable;
         progressBar = binding.progressBar;
-
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         isVoiceOn = prefs.getBoolean("voice", true);
         if (isVoiceOn) {
             sbReader = new StringBuilder(VOICE_INI);
@@ -155,7 +157,6 @@ observeData();
         return String.valueOf(Utils.fromHtml(notQuotes));
     }
 
-
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
@@ -164,22 +165,19 @@ observeData();
             item.setVisible(false);
         }
     }
+
     @Override
     public void onCompleted() {
     }
 
     @Override
     public void onError() {
-
     }
 
     private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
-
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-
             int menuItem = item.getItemId();
-
             if (menuItem == R.id.audio_play) {
                 readText();
                 audioMenu.findItem(R.id.audio_pause).setVisible(true);

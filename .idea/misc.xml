@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.5130208333333334" />
+        <entry key="app/src/main/res/drawable-anydpi/oficio_laudes.xml" value="0.2585" />
         <entry key="app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.28854166666666664" />
         <entry key="app/src/main/res/drawable/ic_baseline_next_plan_24.xml" value="0.22760416666666666" />
         <entry key="app/src/main/res/layout/activity_about.xml" value="0.830398517145505" />
@@ -87,6 +88,7 @@
         <entry key="app/src/main/res/layout/tv_clickable_with_button.xml" value="0.5" />
         <entry key="app/src/main/res/layout/tv_zoomable.xml" value="0.24547101449275363" />
         <entry key="app/src/main/res/layout/tv_zoomable_binding.xml" value="0.22291666666666668" />
+        <entry key="app/src/main/res/layout/tv_zoomable_with_button.xml" value="0.24427083333333333" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.2015625" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.19427083333333334" />
         <entry key="app/src/main/res/menu/calendario_menu.xml" value="0.46979166666666666" />

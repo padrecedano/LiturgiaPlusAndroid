@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -81,6 +82,8 @@ public class LecturasFragment extends Fragment implements TextToSpeechCallback {
         mTextView = binding.include.tvZoomable;
         progressBar = binding.pb.progressBar;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         isVoiceOn = prefs.getBoolean("voice", true);
         if (isVoiceOn) {
             sbReader=new StringBuilder(VOICE_INI);
@@ -232,7 +235,7 @@ public class LecturasFragment extends Fragment implements TextToSpeechCallback {
     };
 
     private void setPlayerButton() {
-            mainMenu.findItem(R.id.item_voz).setVisible(isVoiceOn);
+        mainMenu.findItem(R.id.item_voz).setVisible(isVoiceOn);
     }
 
     private void readText(){

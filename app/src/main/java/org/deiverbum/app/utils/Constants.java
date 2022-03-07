@@ -20,8 +20,6 @@ public class Constants {
     public static final String CSS_RED_Z = "</font>";
     public static final String BRS = "<br /><br />";
     public static final String BR = "<br />";
-    public static final String CSS_B_A = "<b>";
-    public static final String CSS_B_Z = "</b>";
     public static final String PRE_ANT = CSS_RED_A + "Ant. " + CSS_RED_Z;
     public static final String NBSP_4 = " &nbsp;&nbsp;&nbsp;&nbsp;";
     public static final String RESP_V = CSS_RED_A + "V. " + CSS_RED_Z;
@@ -39,18 +37,8 @@ public class Constants {
     public static final String ERR_REPORT = "\n\nA fin de corregir cuanto antes este error, " +
             "por favor comunícalo al desarrollador a la dirección siguiente: " + "padre.cedano@gmail.com";
 
-    public static final String ERR_CUSTOM = "Ha ocurrido un error:\n\n%s\n\nA fin de corregir cuanto antes este error, " +
-            "por favor comunícalo al desarrollador pulsando en el botón que aparece en la parte inferior derecha de la pantalla";
 
-    public static final String ERR_SUBJECT = String.format("*Reporte de error Liturgia+ v. %d", Constants.VERSION_CODE);
-    public static final String ERR_CONEXION = CSS_RED_A + "¡ERROR! " + CSS_RED_Z + BR + "No estás conectado a internet." + BR +
-            "En esta primera etapa de desarrollo la conexión a internet es necesaria para utilizar la aplicación. " +
-            "En un futuro, D.M., implementaremos la posiblidad de utilizar la aplicación sin conexión.";
-    public static final String ERR_GENERAL = CSS_RED_A + "¡ERROR! " + CSS_RED_Z + BR + "Lamentablemente ha ocurrido un error... " +
-            "«El que esté sin pecado que tire la primera piedra.» " + BRS + "Es posible que " +
-            "la liturgia de hoy aún no haya sido introducida. Intenta más tarde. Si el error persiste te ruego que me lo " +
-            "comuniques a la dirección siguiente: " + CSS_RED_A + CSS_B_A + "padre.cedano@gmail.com " + CSS_RED_Z + CSS_B_Z + BRS +
-            "Gracias por la paciencia y espero resolverlo pronto.";
+    public static final String ERR_SUBJECT = String.format("Reporte de error Liturgia+ v. %d", Constants.VERSION_CODE);
 
     //Otros mensajes
     public static final String PACIENCIA = "\n\nLa paciencia todo lo alcanza. Por favor espere ...";

@@ -68,41 +68,8 @@
                 android:layout_margin="10dp"
                 />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_height="wrap_content">
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switchAccept"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:checked="false"
-                />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/label_accept" />
-        </LinearLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:dividerInsetStart="16dp"
-                app:dividerInsetEnd="16dp"/>
-
-            <TextView
-                android:id="@+id/textContacto"
-                style="@style/TextAppearance.AppTheme.DisplayBody"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                />
 
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

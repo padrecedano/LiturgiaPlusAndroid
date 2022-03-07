@@ -24,19 +24,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="/tmp/baseline_bug_report_24.xml" />
+                                                <entry key="imagePath" value="/tmp/ic_android_black_24dp.xml" />
                                                 <entry key="opacityPercent" value="60" />
-                                              </map>
-                                            </option>
-                                          </PersistentState>
-                                        </value>
-                                      </entry>
-                                      <entry key="clipartAsset">
-                                        <value>
-                                          <PersistentState>
-                                            <option name="values">
-                                              <map>
-                                                <entry key="url" value="jar:file:/snap/android-studio/115/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/bug_report/baseline_bug_report_24.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -48,6 +37,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="imagePath" value="$USER_HOME$/Descargas/oficio_laudes.png" />
                                                 <entry key="opacityPercent" value="60" />
                                               </map>
                                             </option>
@@ -60,6 +50,9 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="fontFamily" value="EB Garamond 08" />
+                                                <entry key="opacityPercent" value="60" />
+                                                <entry key="text" value="M" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -71,6 +64,9 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="fontFamily" value="EB Garamond 08" />
+                                                <entry key="opacityPercent" value="60" />
+                                                <entry key="text" value="M" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -80,7 +76,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_bug_report" />
+                                      <entry key="assetType" value="TEXT" />
+                                      <entry key="imageAsset" value="$USER_HOME$/Descargas/oficio_laudes.png" />
+                                      <entry key="outputName" value="oficio_laudes" />
                                     </map>
                                   </option>
                                 </PersistentState>

@@ -13,6 +13,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
@@ -41,6 +42,8 @@ import org.deiverbum.app.R;
 import org.deiverbum.app.databinding.ActivityMainBinding;
 import org.deiverbum.app.ui.fragments.AcceptanceFragmentDialog;
 import org.deiverbum.app.utils.Utils;
+
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -82,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         onDestinationChangedListener = (controller, destination, arguments) -> {
             Bundle bundle = new Bundle();
-            String screenName=destination.getLabel().toString();
+            String screenName= Objects.requireNonNull(destination.getLabel()).toString();
             String screenClass=String.format("Fragment%s",screenName);
 
             bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName);
@@ -110,14 +113,13 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
         //app:navGraph="@navigation/nav_home"
-         navController = navHostFragment.getNavController();
+         navController = Objects.requireNonNull(navHostFragment).getNavController();
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home)
                 .setOpenableLayout(drawer)
                 .build();
-        //NavController navController = Navigation.findNavController(this,
-        //        R.id.nav_host_fragment_activity_main);
+
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         if (!acceptTerms) {
@@ -142,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         return true;
     }
 

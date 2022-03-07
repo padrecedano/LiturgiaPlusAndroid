@@ -515,8 +515,10 @@ public final class Utils {
                 .replace("ⱴ", CSS_RED_A + "R/." + CSS_RED_Z)
                 .replace("Ʀ", CSS_RED_A + " R/. " + CSS_RED_Z + BRS)
 //NEW
-                .replace("℟", CSS_RED_A + " ℟. " + CSS_RED_Z)
-                .replace("℣", CSS_RED_A + " ℣. " + CSS_RED_Z)
+                .replace("℟", CSS_RED_A + "℟." + CSS_RED_Z)
+                //.replace("℟",  toRed("℟") )
+
+                .replace("℣", CSS_RED_A + "℣." + CSS_RED_Z)
                 .replace("≀", BR + NBSP_4 + NBSP_4)
                 .replace("~", BR)
                 .replace("§", BRS)
@@ -553,7 +555,6 @@ public final class Utils {
     }
 
     //Ojo solución a fromHTML deprecated... ver: http://stackoverflow.com/questions/37904739/html-fromhtml-deprecated-in-android-n
-    @SuppressWarnings("deprecation")
     public static Spanned fromHtml(String html) {
         String s = getFormato(html);
         Spanned result;
