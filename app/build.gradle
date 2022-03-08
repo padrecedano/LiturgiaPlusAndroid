@@ -12,7 +12,7 @@ android {
         applicationId "org.deiverbum.app"
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 202201011
+        versionCode 202201002
         versionName "@string/app_version_name"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true

@@ -87,6 +87,14 @@ public class Content {
             sb.append(Utils.toH4(title));
             sb.append(LS2);
             sb.append(getTextForView());
+
+        }else if(type==4) {
+            sb.append(Utils.toH3Red(title));
+            sb.append(LS2);
+            //sb.append(getTextForView());
+        }else if(type==5) {
+            sb.append(Utils.toH4Red(title));
+            sb.append(LS2);
         }else if(type==11) {
             sb.append(getTextForView());
         }else if(type==12) {
@@ -104,8 +112,9 @@ public class Content {
         SpannableStringBuilder sb=new SpannableStringBuilder();
         int i=1;
         for (String s : text) {
-            String tmp=String.format(Locale.getDefault(),"\t\t%d. %s",i,s);
-            sb.append(tmp);
+            String tmp=String.format(Locale.getDefault(),"\t\t%d. %s",i,
+                    s);
+            sb.append(Utils.fromHtml(tmp));
             sb.append(LS2);
             i++;
         }
