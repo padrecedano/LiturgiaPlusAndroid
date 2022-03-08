@@ -5,13 +5,19 @@ import android.text.style.ForegroundColorSpan;
 
 public class Constants {
 
+    /*Cambiar tambien en
+      build.gradle del módulo app
+      strings.xml: app_version_name_and_mail
+      strings.xml: accept_info
+      */
+    public static final int VERSION_CODE = 202201002;
+                                         //202201001
     public static ForegroundColorSpan RED_COLOR = new ForegroundColorSpan(Color.parseColor("#A52A2A"));
     public static final String VOICE_INI = "Iniciando lectura.";
     public static final String ERR_LANG = "Lenguaje no soportado.";
     public static final String ERR_INITIALIZATION = "Falló la inicialización.";
     public static final String ERR_BIBLIA = "Todavía no hay introducción a este libro. <br>Proyecto abierto a la colaboración. <br><a href=\"http://bit.ly/2FInp4n\">Ver los detalles aquí</a>.";
-    /*Cambiar tambien en build.gradle del módulo app y en new_YN.json*/
-    public static final int VERSION_CODE = 202201011;
+
 
     public static final String CSS_RED_A = "<font color=\"#A52A2A\">";
 

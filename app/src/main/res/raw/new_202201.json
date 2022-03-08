@@ -17,7 +17,7 @@
         },
         {
           "type": 10,
-          "item": "Número de versión:",
+          "item": "Número de versión mayor:",
           "text": [
             "2022.1"
           ]
@@ -30,36 +30,34 @@
           ]
         },
         {
-        "type": 10,
+          "type": 10,
           "item": "Codigo de versión:",
-        "text": [
-          "202201001"
-        ]
-      }
-    ]
+          "text": [
+            "202201011"
+          ]
+        }
+      ]
     },
-
     {
       "id": 2,
-      "title": "Novedades",
+      "title": "Novedades de la versión mayor",
       "content": [
         {
           "type": 13,
-          "text":
-            [
-              "Se implementa posibilidad de pausar, continuar, detener el audio",
-              "Modificación profunda del código, implementando el patrón MVVM, para un próximo funcionamiento sin conexión (se está migrando todo el contenido de la Aplicación a una base de datos que vendrá incorporada en una futura actualización)",
-              "Cambio de Volley por Retrofit+RXJava para las peticiones web",
-              "Mejoras en el aspecto legal (Política de Privacidad y Términos y Condiciones de Uso) para adaptarlas a las nuevas leyes",
-              "Incorporación de Crashlytics para facilitar la detección y corrección de errores",
-              "Se agrega una opción \"Reportar error\" que se puede usar desde el menú inicial para reportar por email errores detectados en la aplicación"
-            ]
+          "text": [
+            "Se implementa posibilidad de pausar, continuar, detener el audio",
+            "Modificación profunda del código, implementando el patrón MVVM, para un próximo funcionamiento sin conexión (se está migrando todo el contenido de la Aplicación a una base de datos que vendrá incorporada en una futura actualización)",
+            "Cambio de Volley por Retrofit+RXJava para las peticiones web",
+            "Mejoras en el aspecto legal (Política de Privacidad y Términos y Condiciones de Uso) para adaptarlas a las nuevas leyes",
+            "Incorporación de Crashlytics para facilitar la detección y corrección de errores",
+            "Se agrega una opción \"Reportar error\" que se puede usar desde el menú inicial para reportar por email errores detectados en la aplicación"
+          ]
         }
       ]
     },
     {
       "id": 3,
-      "title": "Errores corregidos",
+      "title": "Errores corregidos en la versión mayor (2022.1)",
       "content": [
         {
           "type": 13,
@@ -73,6 +71,49 @@
           ]
         }
       ]
+    },
+    {
+      "id": 4,
+      "title": "Versiones menores",
+      "content": [
+        {
+          "type": 4,
+          "title": "Versión 2022.1.1"
+        },
+        {
+          "type": 10,
+          "item": "Fecha de publicación:",
+          "text": [
+            "<i>8 de Marzo de 2022</i>"
+          ]
+        },
+        {
+          "type": 5,
+          "title": "Novedades"
+        },
+        {
+          "type": 13,
+          "text": [
+            "Desde esta versión, los módulos <b>Homilías</b>, <b>Comentarios</b> y <b>Lecturas</b> podrían funcionar con Firebase, es el camino intermedio para un futuro funcionamiento sin internet, cuando terminamos de migrar todo el contenido a una base de datos. Ya el módulo <b>Breviario</b> funciona hace tiempo con Firebase."
+          ]
+        },
+        {
+          "type": 5,
+          "title": "Errores corregidos"
+        },
+        {
+          "type": 13,
+          "text": [
+            "Agregamos compatibilidad hasta nivel de API 21 (la Aplicación funcionará en todos los dispositivos con versiones desde Android 5 en adelante)",
+            "Corrección de error en In-App Update (actualización dentro de la Aplicación)",
+            "El tamaño de letra elegido en la configuración no se aplicaba en algunos módulos",
+            "Error de posible puntero nulo en el módulo Completas",
+            "Error en la lectura de voz en el módulo Mixto cuando hay un santo",
+            "Actualización de la fecha en la barra superior según la fecha actual o la fecha que se escoja en el Calendario",
+            "Varios errores menores corregidos"
+          ]
+        }
+      ]
     }
   ]
-  }
+}
