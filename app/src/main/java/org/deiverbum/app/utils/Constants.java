@@ -10,7 +10,7 @@ public class Constants {
       strings.xml: app_version_name_and_mail
       strings.xml: accept_info
       */
-    public static final int VERSION_CODE = 202201002;
+    public static final int VERSION_CODE = 202201003;
                                          //202201001
     public static ForegroundColorSpan RED_COLOR = new ForegroundColorSpan(Color.parseColor("#A52A2A"));
     public static final String VOICE_INI = "Iniciando lectura.";
