@@ -40,21 +40,34 @@ public class Homilias {
 
     public SpannableStringBuilder getForView(){
         SpannableStringBuilder sb=new SpannableStringBuilder();
+
+        try {
+
         sb.append(metaLiturgia.getAll());
         sb.append(LS2);
         for (Homilia h : homilias) {
             sb.append(h.getAllForView());
+        }
+        }catch (Exception e){
+            sb.append(e.getMessage());
+
         }
         return sb;
     }
 
     public StringBuilder getAllForRead(){
         StringBuilder sb=new StringBuilder();
+
+        try {
         for (Homilia s : homilias) {
             sb.append(s.getPadre());
             sb.append(LS2);
             sb.append(s.getHomilia());
             sb.append(LS2);
+        }
+        }catch (Exception e){
+            sb.append(e.getMessage());
+
         }
         return sb;
     }

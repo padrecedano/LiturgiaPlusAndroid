@@ -17,7 +17,6 @@ public class HomiliasViewModel extends ViewModel {
 
     private final HomiliasRepository mRepository;
 
-
     @Inject
     public HomiliasViewModel(HomiliasRepository repository) {
         mRepository = repository;
@@ -26,5 +25,4 @@ public class HomiliasViewModel extends ViewModel {
     public MediatorLiveData<DataWrapper <Homilias, CustomException>> getObservable(String date) {
         return mRepository.getData(date);
     }
-
 }

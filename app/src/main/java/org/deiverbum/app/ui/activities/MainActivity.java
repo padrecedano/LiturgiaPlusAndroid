@@ -38,6 +38,7 @@ import com.google.android.play.core.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
+import org.deiverbum.app.BuildConfig;
 import org.deiverbum.app.R;
 import org.deiverbum.app.databinding.ActivityMainBinding;
 import org.deiverbum.app.ui.fragments.AcceptanceFragmentDialog;
@@ -139,8 +140,13 @@ public class MainActivity extends AppCompatActivity {
         boolean collectData = prefs.getBoolean(PREF_ANALYTICS, true);
         boolean collectCrash = prefs.getBoolean(PREF_CRASHLYTICS, true);
         mFirebaseAnalytics=FirebaseAnalytics.getInstance(this);
-        mFirebaseAnalytics.setAnalyticsCollectionEnabled(collectData);
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(collectCrash);
+        if(!BuildConfig.DEBUG) {
+            mFirebaseAnalytics.setAnalyticsCollectionEnabled(collectData);
+            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(collectCrash);
+        }else{
+            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(false);
+        }
+
     }
 
     @Override

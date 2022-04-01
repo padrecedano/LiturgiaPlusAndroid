@@ -57,12 +57,14 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 
 @AndroidEntryPoint
-public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
+public class TodayFragment extends Fragment implements TextToSpeechCallback {
     private HomiliasViewModel mViewModel;
+    private TodayViewModel todayViewModel;
 
     private FragmentHomiliasBinding binding;
     private ZoomTextView mTextView;
     private String mDate;
+    private WorkManager mWorkManager;
 
     private ProgressBar progressBar;
 
@@ -91,6 +93,9 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
     private void setConfiguration() {
         mViewModel =
                 new ViewModelProvider(this).get(HomiliasViewModel.class);
+
+        todayViewModel =
+                new ViewModelProvider(this).get(TodayViewModel.class);
         mTextView = binding.include.tvZoomable;
         progressBar = binding.progressBar;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -101,7 +106,54 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
             sbReader = new StringBuilder(VOICE_INI);
         }
         pickOutDate();
-        observeData();
+        //observeData();
+        //observeDatas();
+        //mViewModel.fetchData(mDate);
+        //mViewModel.getVMSalmodia(mDate);
+        observeSalmodia();
+
+        //observeLast();
+
+    }
+
+    public void fetchData(Integer theDate) {
+        this.mWorkManager= WorkManager.getInstance(getActivity());
+
+        // Create Network constraint
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        Data inputData = new Data.Builder()
+                .putInt("THE_DATE", theDate)
+                .build();
+
+
+
+        PeriodicWorkRequest periodicSyncDataWork =
+                new PeriodicWorkRequest.Builder(ExampleWorker.class, 15,
+                        TimeUnit.MINUTES)
+                        .addTag("TAG_SYNC_DATA")
+                        .setConstraints(constraints)
+                        .setInputData(inputData)
+                        // setting a backoff on case the work needs to retry
+                        .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
+                        .build();
+        mWorkManager.enqueueUniquePeriodicWork(
+                "SYNC_DATA_WORK_NAME",
+                ExistingPeriodicWorkPolicy.REPLACE, //Existing Periodic Work
+                // policy
+                periodicSyncDataWork //work request
+        );
+        mWorkManager.getWorkInfoByIdLiveData(periodicSyncDataWork.getId()).observe(this,
+                new Observer<WorkInfo>() {
+            @Override
+            public void onChanged(WorkInfo workInfo) {
+                mWorkManager.cancelWorkById(workInfo.getId());
+            }
+        });
+
+
+
     }
 
     private void pickOutDate() {
@@ -132,6 +184,27 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
                     }
                 });
     }
+
+
+
+    void observeSalmodia() {
+        mTextView.setText(PACIENCIA);
+        todayViewModel.getTodayWithOficio(mDate).observe(getViewLifecycleOwner(),
+                data -> {
+                    progressBar.setVisibility(View.GONE);
+                    if(data!=null) {
+                        Log.d("XYZa",
+                                String.valueOf(data.toString()));
+                        mTextView.setText(data.getHimno().getAll());
+
+                    }
+                    //Log.d("XYZb",String.valueOf(data.get(1).salmodia.getSalmoId()));
+
+                    //mTextView.setText(data.getAllForView());
+                });
+    }
+
+
 
     public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         mainMenu = menu;

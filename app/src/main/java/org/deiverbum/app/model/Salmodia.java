@@ -7,12 +7,17 @@ import static org.deiverbum.app.utils.Utils.LS2;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
+import androidx.room.ColumnInfo;
+
 import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
 
 public class Salmodia {
     private int tipo;
+
+    @ColumnInfo(name = "salmos")
+
     private List<Salmo> salmos;
 
     public Salmodia() {
@@ -72,8 +77,8 @@ public class Salmodia {
                 tema.append(LS2);
             }
 
-            if (!s.getIntro().equals("")) {
-                intro.append(Utils.fromHtmlSmall(s.getIntro()));
+            if (!s.getEpigrafe().equals("")) {
+                intro.append(Utils.fromHtmlSmall(s.getEpigrafe()));
                 intro.append(LS2);
             }
             if (!s.getParte().equals("")) {

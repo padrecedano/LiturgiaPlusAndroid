@@ -13,7 +13,7 @@ public class Salmo {
     protected String antifona;
     private String ref;
     private String tema;
-    private String intro;
+    private String epigrafe;
     private String parte;
     private String salmo;
 
@@ -52,23 +52,23 @@ public class Salmo {
     }
 
     public String getTema() {
-        return (tema != null ) ? tema : null;
+        return (tema != null ) ? tema : "";
     }
 
     public void setTema(String tema) {
         this.tema = tema;
     }
 
-    public String getIntro() {
-        return (intro != null ) ? intro:null;
+    public String getEpigrafe() {
+        return (epigrafe != null ) ? epigrafe:"";
     }
 
-    public void setIntro(String intro) {
-        this.intro = intro;
+    public void setEpigrafe(String epigrafe) {
+        this.epigrafe = epigrafe;
     }
 
     public String getParte() {
-        return (parte != null) ? parte: null;
+        return (parte != null) ? parte: "";
     }
 
     public void setParte(String parte) {
@@ -85,7 +85,7 @@ public class Salmo {
 
     public Spanned getTextos() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
-        Spanned str = Utils.fromHtml(Utils.getFormato(intro));
+        Spanned str = Utils.fromHtml(Utils.getFormato(epigrafe));
         ssb.append(str);
         return Utils.ssbSmallSize(ssb);
     }
@@ -107,5 +107,6 @@ public class Salmo {
                 "Como era en el principio ahora y siempre, "
                 + "por los siglos de los siglos. Amén.";
     }
+
 
 }

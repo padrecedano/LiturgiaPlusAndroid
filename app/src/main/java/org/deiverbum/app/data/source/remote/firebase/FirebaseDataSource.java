@@ -207,6 +207,8 @@ public class FirebaseDataSource {
                         DocumentReference dataRef =
                                 document.getDocumentReference("lh.0");
                         MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
+                        meta.setIdHour(0);
+
                         try {
 
                             Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
@@ -243,6 +245,8 @@ public class FirebaseDataSource {
                         DocumentReference dataRef =
                                 document.getDocumentReference("lh.1");
                         MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
+                        meta.setIdHour(1);
+
                         try {
 
                             Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
@@ -279,6 +283,7 @@ public class FirebaseDataSource {
                     if (document.exists()) {
                         DocumentReference dataRef = document.getDocumentReference("lh.2");
                         MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
+                        meta.setIdHour(2);
                         try {
 
                             Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
@@ -318,6 +323,8 @@ public class FirebaseDataSource {
                         String mField = String.format("lh.%s", hourId);
                         DocumentReference dataRef = document.getDocumentReference(mField);
                         MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
+                        meta.setIdHour(hourId);
+
                         try {
 
                             Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
@@ -354,6 +361,8 @@ public class FirebaseDataSource {
                     if (document.exists()) {
                         DocumentReference dataRef = document.getDocumentReference("lh.6");
                         MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
+                        meta.setIdHour(6);
+
                         try {
 
                             Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
