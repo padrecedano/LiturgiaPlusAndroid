@@ -14,6 +14,10 @@ public class Himno {
     public Himno() {
     }
 
+    public Himno(String himno) {
+        this.texto=himno;
+    }
+
     public Spanned getTextoSpan() {
         return Utils.fromHtml(Utils.getFormato(texto));
     }

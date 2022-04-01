@@ -34,8 +34,11 @@ public class HomiliasRepository {
     private final FirebaseDataSource firebaseDataSource;
     private final MediatorLiveData<DataWrapper<Homilias, CustomException>> mData = new MediatorLiveData<>();
 
+
     @Inject
-    public HomiliasRepository(FirebaseDataSource firebaseDataSource, ApiService apiService) {
+    public HomiliasRepository(FirebaseDataSource firebaseDataSource,
+                              ApiService apiService
+                              ) {
         this.firebaseDataSource = firebaseDataSource;
         this.apiService = apiService;
     }
@@ -67,7 +70,6 @@ public class HomiliasRepository {
         return mData;
     }
 
-
     public void loadFromApi(String param) {
         apiService.getHomilias(param)
                 .subscribeOn(Schedulers.io())
@@ -86,8 +88,6 @@ public class HomiliasRepository {
                         mData.setValue(new DataWrapper<>(new CustomException(NOTFOUND_OR_NOTCONNECTION)));
                     }
                 });
-
-        //return mData;
     }
 }
 

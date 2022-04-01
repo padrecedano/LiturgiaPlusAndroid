@@ -11,6 +11,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.HashMap;
 import java.util.List;
 
+
 public class Liturgia {
     private MetaLiturgia meta;
     private MetaLiturgia metaLiturgia;

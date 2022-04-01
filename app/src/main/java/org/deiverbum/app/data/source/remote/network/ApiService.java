@@ -9,7 +9,10 @@ import org.deiverbum.app.model.Lecturas;
 import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.Mixto;
 import org.deiverbum.app.model.Oficio;
+import org.deiverbum.app.model.Today;
 import org.deiverbum.app.model.Visperas;
+
+import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
@@ -55,4 +58,7 @@ public interface ApiService {
 
     @GET("metaliturgia/{theDate}")
     Single<MetaLiturgia> getMetaLiturgia(@Path("theDate") String cleanDate);
+
+    @GET("test/{theDate}")
+    Single<List<Today>> getToday(@Path("theDate") String cleanDate);
 }

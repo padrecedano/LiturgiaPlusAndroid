@@ -63,12 +63,12 @@ public class MetaLiturgia {
         return idHour==6 ? getTituloVisperas() : titulo;
     }
     public void setTitulo(String titulo) {
-        this.titulo = titulo;
+        this.titulo = (titulo!=null) ? titulo : "";
     }
 
 
     public String getFecha() {
-        return Utils.getLongDate(fecha);
+        return (fecha!=null) ? Utils.getLongDate(fecha) : "";
     }
 
     public void setFecha(String fecha) {
@@ -335,12 +335,13 @@ public class MetaLiturgia {
 
     public SpannableStringBuilder getAll() {
         SpannableStringBuilder sb=new SpannableStringBuilder();
-        sb.append(getFecha());
-        sb.append(Utils.LS2);
-        sb.append(Utils.toH2(getTiempoNombre()));
-        sb.append(Utils.LS2);
-        sb.append(Utils.toH3(getTitulo()));
-
+        if(this!=null) {
+            sb.append(getFecha());
+            sb.append(Utils.LS2);
+            sb.append(Utils.toH2(getTiempoNombre()));
+            sb.append(Utils.LS2);
+            sb.append(Utils.toH3(getTitulo()));
+        }
         return sb;
     }
 
