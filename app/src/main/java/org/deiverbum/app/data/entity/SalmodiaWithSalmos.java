@@ -12,12 +12,12 @@ public class SalmodiaWithSalmos {
     @Embedded
     public SalmodiaEntity salmodia;
     @Relation(
-            parentColumn = "salmoFK",
-            entityColumn = "salmoId",
-            entity = SalmoEntity.class/*,
+            parentColumn = "pericopaFK",
+            entityColumn = "pericopaId",
+            entity = BibliaLecturaEntity.class/*,
             associateBy = @Junction(SalmodiaSalmoCrossRef.class)*/
     )
-    public SalmoEntity salmo;
+    public BibliaLecturaEntity salmoEntity;
 
     @Relation(
             parentColumn = "antifonaFK",
@@ -42,6 +42,34 @@ public class SalmodiaWithSalmos {
             associateBy = @Junction(SalmodiaSalmoCrossRef.class)*/
     )
     public EpigrafeEntity epigrafe;
+
+    public String getEpigrafe(){
+        if(epigrafe!=null) {
+            return epigrafe.getEpigrafe();
+        }else{
+            return "*";
+        }
+    }
+
+    public String getSalmoText(){
+            return (salmoEntity!=null) ? salmoEntity.getTexto() : "";
+    }
+
+    public String getRef(){
+            return (salmoEntity!=null) ? salmoEntity.getCita() : "";
+    }
+
+    public String getAntifona(){
+            return (antifonaEntity!=null) ? antifonaEntity.getAntifona() : "";
+    }
+
+    public String getTema(){
+        return (tema!=null) ? tema.getTema() : "";
+    }
+
+    public String getParte(){
+            return (salmodia!=null) ? salmodia.getParte() : "";
+    }
 
 
 }

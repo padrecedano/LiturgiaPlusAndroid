@@ -7,12 +7,11 @@ import androidx.work.WorkManager;
 
 import org.deiverbum.app.data.entity.SalmoEntity;
 import org.deiverbum.app.data.entity.SalmodiaWithSalmos;
-import org.deiverbum.app.data.entity.TeamWithMembers;
-import org.deiverbum.app.data.entity.TodayWithOficio;
 import org.deiverbum.app.data.entity.UserWithPlaylistsAndSongs;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.model.Homilias;
+import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.Oficio;
 import org.deiverbum.app.model.Salmodia;
 import org.deiverbum.app.model.Today;
@@ -67,6 +66,14 @@ public class TodayViewModel extends ViewModel {
 
     public LiveData<Oficio> getTodayWithOficio(String theDate) {
         return mRepository.transformedOficio("20220325");
+    }
+
+    public LiveData<Laudes> getLaudes(String theDate) {
+        return mRepository.mappedLaudes("20220325");
+    }
+
+    public LiveData<Oficio> getTodayWithOficioB(String theDate) {
+        return mRepository.transformedOficioB("20220325");
     }
 /*
     public LiveData<List<SalmodiaWithSalmos>> getSalmodiaWithSalmos(String date) {

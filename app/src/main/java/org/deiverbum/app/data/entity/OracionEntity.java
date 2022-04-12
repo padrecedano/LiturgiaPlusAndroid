@@ -3,6 +3,7 @@ package org.deiverbum.app.data.entity;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -12,21 +13,18 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_tema",
-         indices = {@Index(value = {"tema"},unique = true)}
+@Entity(tableName = "oracion",
+         indices = {@Index(value = {"oracion"},unique = true)}
 )
-public class TemaEntity {
+public class OracionEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "temaId")
-    public Integer temaId;
+    @ColumnInfo(name = "oracionId")
+    public Integer oracionId;
 
     @NonNull
-    @ColumnInfo(name = "tema")
-    public String tema;
+    @ColumnInfo(name = "oracion")
+    public String texto;
 
-    public String getTema(){
-        return tema!=null ? tema:"";
-    }
 }
 

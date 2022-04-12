@@ -22,12 +22,12 @@ import org.deiverbum.app.utils.Utils;
 @IgnoreExtraProperties
 public class Today {
     private Integer hoy;
-    private Integer feriaId;
-    private Integer otroId;
+    private Integer feriaFK;
+    private Integer mLecturasFK;
     private Integer previoId;
     private Integer tiempoId;
     private Integer version;
-    private Integer olSalmos;
+//    private Integer olSalmos;
 
     //private HashMap<String,String> lh;
 
@@ -42,20 +42,20 @@ public class Today {
         this.hoy = hoy;
     }
 
-    public Integer getFeriaId() {
-        return feriaId;
+    public Integer getFeriaFK() {
+        return feriaFK;
     }
 
-    public void setFeriaId(Integer feriaId) {
-        this.feriaId = feriaId;
+    public void setFeriaFK(Integer feriaFK) {
+        this.feriaFK = feriaFK;
     }
 
-    public Integer getOtroId() {
-        return otroId;
+    public Integer getMLecturasFK() {
+        return mLecturasFK;
     }
 
-    public void setOtroId(Integer otro_id) {
-        this.otroId = otro_id;
+    public void setMLecturasFK(Integer mLecturasFK) {
+        this.mLecturasFK = mLecturasFK;
     }
 
     public Integer getPrevioId() {
@@ -82,6 +82,7 @@ public class Today {
         this.version = version;
     }
 
+ /*
     public Integer getOlSalmos() {
         return olSalmos;
     }
@@ -89,14 +90,14 @@ public class Today {
     public void setOlSalmos(Integer olSalmos) {
         this.olSalmos = olSalmos;
     }
-
+*/
     public SpannableStringBuilder getAllForView(){
         SpannableStringBuilder sb=new SpannableStringBuilder();
         sb.append("getTitulo()");
         sb.append(LS2);
         sb.append(hoy.toString());
         sb.append(LS2);
-        sb.append(feriaId.toString());
+        sb.append(feriaFK.toString());
         return sb;
     }
 }

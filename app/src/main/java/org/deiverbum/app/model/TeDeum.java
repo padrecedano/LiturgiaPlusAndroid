@@ -11,6 +11,11 @@ public class TeDeum {
 
     public TeDeum() {
     }
+
+    public TeDeum(int i) {
+        this.status=i==0 ? false:true;
+    }
+
     public boolean isStatus() {
         return status;
     }

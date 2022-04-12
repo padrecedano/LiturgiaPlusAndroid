@@ -7,10 +7,10 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import org.deiverbum.app.data.entity.LaudesOfToday;
+import org.deiverbum.app.data.entity.OficioOfToday;
 import org.deiverbum.app.data.entity.SalmoEntity;
 import org.deiverbum.app.data.entity.SalmodiaWithSalmos;
-import org.deiverbum.app.data.entity.TeamWithMembers;
-import org.deiverbum.app.data.entity.TodayWithOficio;
 import org.deiverbum.app.data.entity.UserWithPlaylistsAndSongs;
 import org.deiverbum.app.model.Today;
 
@@ -68,8 +68,8 @@ public interface TodayDao {
 */
 
     @Transaction
-    @Query("SELECT * FROM lh_oficio AS o JOIN today AS t ON o.oficioId=t.oficioFK WHERE t.hoy =:theDate")
-    public TodayWithOficio getTodayWithOficio(Integer theDate);
+    @Query("SELECT * FROM today AS t WHERE t.hoy =:theDate")
+    public OficioOfToday getOficioOfToday(Integer theDate);
 
     @Transaction
     @Query("SELECT * FROM lh_salmodia")
@@ -77,25 +77,28 @@ public interface TodayDao {
 
     @Transaction
     @Query("SELECT * FROM Today t INNER JOIN lh_salmodia a ON " +
-            "t.olSalmos=a.liturgiaId INNER JOIN lh_salmo s ON a.salmoFK=s.salmoId " +
+            "t.oficioFK=a.liturgiaId INNER JOIN lh_salmo s ON a.pericopaFK=s.salmoId " +
 
             "WHERE " +
             "t.hoy=20220325 ORDER BY a.orden")
     public LiveData<UserWithPlaylistsAndSongs> getUsersWithPlaylistsAndSongs();
 
-    @Transaction
-    @Query("SELECT * FROM lh_salmodia ORDER BY orden")
-    public LiveData<TeamWithMembers> getTeamWithMembers();
+
 
     @Transaction
     @Query("SELECT * FROM Today t INNER JOIN lh_salmodia a ON " +
-            "t.olSalmos=a.liturgiaId INNER JOIN lh_salmo s ON a.salmoFK=s.salmoId " +
+            "t.oficioFK=a.liturgiaId INNER JOIN lh_salmo s ON a.pericopaFK=s.salmoId " +
             "WHERE " +
             "t.hoy=20220325 ORDER BY a.orden")
     public UserWithPlaylistsAndSongs getSalmod();
 
     @Query("SELECT * FROM lh_salmo LIMIT 1")
     public LiveData<SalmoEntity> getSalmo();
+
+    @Transaction
+    @Query("SELECT * FROM today AS t WHERE t.hoy =:theDate")
+    public LaudesOfToday getLaudesOfToday(Integer theDate);
+
 /*
     @Query(
             "SELECT b.salmo FROM lh_salmodia AS a " +

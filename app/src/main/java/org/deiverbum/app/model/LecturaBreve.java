@@ -6,7 +6,7 @@ import org.deiverbum.app.utils.Utils;
 
 import static org.deiverbum.app.utils.Utils.LS2;
 
-public class LecturaBreve {
+public class LecturaBreve{
     public String ref;
     public String texto;
     public String responsorio;

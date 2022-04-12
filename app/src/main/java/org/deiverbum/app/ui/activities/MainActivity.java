@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             String screenClass=String.format("Fragment%s",screenName);
 
             bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName);
-            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS,screenClass);
+            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS,screenName);
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
 
         };
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             openDialog();
         } else {
             checkAppUpdate();
-            navController.navigate(R.id.nav_home);
+            navController.navigate(R.id.nav_today);
 
         }
 

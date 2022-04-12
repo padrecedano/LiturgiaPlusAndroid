@@ -16,7 +16,7 @@ public class UserWithPlaylistsAndSongs {
     public Today user;
     @Relation(
             entity = SalmodiaEntity.class,
-            parentColumn = "olSalmos",
+            parentColumn = "oficioFK",
             entityColumn = "liturgiaId"
     )
     public List<SalmodiaWithSalmos> salmos;

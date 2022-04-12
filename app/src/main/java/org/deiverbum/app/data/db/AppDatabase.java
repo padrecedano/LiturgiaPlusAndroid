@@ -5,10 +5,22 @@ import androidx.room.RoomDatabase;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.data.entity.AntifonaEntity;
+import org.deiverbum.app.data.entity.BibliaLecturaEntity;
 import org.deiverbum.app.data.entity.EpigrafeEntity;
 import org.deiverbum.app.data.entity.HimnoEntity;
-import org.deiverbum.app.data.entity.MemberTeamMap;
-import org.deiverbum.app.data.entity.OficioEntity;
+import org.deiverbum.app.data.entity.HomiliaEntity;
+import org.deiverbum.app.data.entity.InvitatorioEntity;
+import org.deiverbum.app.data.entity.LHBiblicaEntity;
+import org.deiverbum.app.data.entity.LHOficioResponsorioEntity;
+import org.deiverbum.app.data.entity.LHOracionEntity;
+import org.deiverbum.app.data.entity.LHPatristicaEntity;
+import org.deiverbum.app.data.entity.LHResponsorioEntity;
+import org.deiverbum.app.data.entity.LiturgiaEntity;
+import org.deiverbum.app.data.entity.LiturgiaTiempoEntity;
+import org.deiverbum.app.data.entity.MisaLecturaEntity;
+import org.deiverbum.app.data.entity.ObraEntity;
+import org.deiverbum.app.data.entity.OracionEntity;
+import org.deiverbum.app.data.entity.PadreEntity;
 import org.deiverbum.app.data.entity.SalmoEntity;
 import org.deiverbum.app.data.entity.SalmodiaEntity;
 import org.deiverbum.app.data.entity.SalmodiaSalmoCrossRef;
@@ -24,17 +36,33 @@ import org.deiverbum.app.data.entity.Today;
 @Database(entities =
         {
                 Today.class,
+                LiturgiaEntity.class,
+                LiturgiaTiempoEntity.class,
                 SantoEntity.class,
+                InvitatorioEntity.class,
                 HimnoEntity.class,
                 SalmodiaEntity.class,
                 SalmoEntity.class,
                 SalmodiaSalmoCrossRef.class,
+                //LHSalmodiaJoinEntity.class,
                 AntifonaEntity.class,
                 TemaEntity.class,
                 EpigrafeEntity.class,
-                OficioEntity.class,
+                //OficioEntity.class,
+                LHOficioResponsorioEntity.class,
+                LHBiblicaEntity.class,
+                LHPatristicaEntity.class,
+                HomiliaEntity.class,
+                PadreEntity.class,
+                ObraEntity.class,
+                LHResponsorioEntity.class,
+                BibliaLecturaEntity.class,
+                OracionEntity.class,
+                LHOracionEntity.class,
+                MisaLecturaEntity.class,
 
-                MemberTeamMap.class},
+
+                },
         version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract TodayDao todayDao();

@@ -27,7 +27,7 @@ public class AntifonaEntity {
         this.antifona = antifona;
     }
     public String getAntifona() {
-        return antifona;
+        return antifona!=null ? antifona:"";
     }
 
 

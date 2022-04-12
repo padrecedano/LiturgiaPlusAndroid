@@ -23,22 +23,98 @@ import java.util.List;
         foreignKeys =
         {
                 @ForeignKey(
-                        entity = OficioEntity.class,
-                        parentColumns = "oficioId",
-                        childColumns = "oficioFK",
-                        onDelete = ForeignKey.SET_NULL,
-                        onUpdate = ForeignKey.CASCADE)})
+                        entity = LiturgiaEntity.class,
+                        parentColumns = "liturgiaId",
+                        childColumns = "feriaFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+/*
+                @ForeignKey(
+                        entity = MisaLecturaEntity.class,
+                        parentColumns = "liturgiaId",
+                        childColumns = "mLecturasFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),*/
+
+                @ForeignKey(
+                        entity = InvitatorioEntity.class,
+                        parentColumns = "invitatorioId",
+                        childColumns = "invitatorioFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+                @ForeignKey(
+                        entity = HimnoEntity.class,
+                        parentColumns = "himnoId",
+                        childColumns = "oHimnoFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+                /*@ForeignKey(
+                        entity = SalmodiaEntity.class,
+                        parentColumns = "liturgiaId",
+                        childColumns = "oSalmodiaFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),*/
+                @ForeignKey(
+                        entity = LHOficioResponsorioEntity.class,
+                        parentColumns = "responsorioId",
+                        childColumns = "oResponsorioFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+                @ForeignKey(
+                        entity = LHBiblicaEntity.class,
+                        parentColumns = "biblicaId",
+                        childColumns = "oBiblicaFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+                @ForeignKey(
+                        entity = LHPatristicaEntity.class,
+                        parentColumns = "patristicaId",
+                        childColumns = "oPatristicaFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+                @ForeignKey(
+                        entity = SantoEntity.class,
+                        parentColumns = "santoId",
+                        childColumns = "santoFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+                @ForeignKey(
+                        entity = LHOracionEntity.class,
+                        parentColumns = "liturgiaId",
+                        childColumns = "oOracionFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+                @ForeignKey(
+                        entity = HimnoEntity.class,
+                        parentColumns = "himnoId",
+                        childColumns = "lHimnoFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+                @ForeignKey(
+                        entity = LHBiblicaEntity.class,
+                        parentColumns = "biblicaId",
+                        childColumns = "lBiblicaFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+                @ForeignKey(
+                        entity = LHOracionEntity.class,
+                        parentColumns = "liturgiaId",
+                        childColumns = "lOracionFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+        })
 public class Today {
+    @NonNull
     @PrimaryKey
     @ColumnInfo(name = "hoy")
     public Integer hoy;
 
     @NonNull
-    @ColumnInfo(name = "feriaId")
+    @ColumnInfo(name = "feriaFK", defaultValue= "0")
     public Integer feriaId;
 
-    @ColumnInfo(name = "otroId")
-    public Integer otroId;
+    @ColumnInfo(name = "mLecturasFK", defaultValue= "0")
+    public Integer mLecturasFK;
 
     @ColumnInfo(name = "previoId")
     public Integer previoId;
@@ -47,16 +123,49 @@ public class Today {
     @ColumnInfo(name = "tiempoId")
     public Integer tiempoId;
 
-    @ColumnInfo(name = "version")
+    @ColumnInfo(name = "version", defaultValue= "0")
     public Integer version;
 
     @NonNull
-    @ColumnInfo(name = "olSalmos")
-    public Integer olSalmos;
+    @ColumnInfo(name = "invitatorioFK", defaultValue= "0")
+    public Integer invitatorioFK;
 
-    //@NonNull
-    @ColumnInfo(name = "oficioFK")
+    @NonNull
+    @ColumnInfo(name = "oHimnoFK", defaultValue= "0")
+    public Integer oHimnoFK;
+
+    @NonNull
+    @ColumnInfo(name = "oSalmodiaFK", defaultValue= "0")
+    public Integer oSalmodiaFK;
+
+    @NonNull
+    @ColumnInfo(name = "oficioFK", defaultValue= "0")
     public Integer oficioFK;
+
+    @NonNull
+    @ColumnInfo(name = "oResponsorioFK", defaultValue= "0")
+    public Integer oResponsorioFK;
+
+    @NonNull
+    @ColumnInfo(name = "oBiblicaFK", defaultValue= "0")
+    public Integer oBiblicaFK;
+
+    @NonNull
+    @ColumnInfo(name = "oPatristicaFK", defaultValue= "0")
+    public Integer oPatristicaFK;
+
+    @ColumnInfo(name = "santoFK", defaultValue= "0")
+    public Integer santoFK;
+
+    @NonNull
+    @ColumnInfo(name = "oOracionFK", defaultValue= "0")
+    public Integer oOracionFK;
+
+    @NonNull
+    @ColumnInfo(name = "oTeDeum", defaultValue= "0")
+    public Integer oTeDeum;
+
+/*
 
 
     public void setOlSalmos(Integer olSalmos) {
@@ -65,6 +174,27 @@ public class Today {
     public Integer getOlSalmos() {
         return olSalmos;
     }
+    	`lHimnoFK` INTEGER NOT NULL DEFAULT 0,
+	`lSalmodiaFK` INTEGER NOT NULL DEFAULT 0,
+	`lBiblicaFK` INTEGER NOT NULL DEFAULT 0,
+	`lOracionFK` INTEGER NOT NULL DEFAULT 0,
+*/
+
+    @NonNull
+    @ColumnInfo(name = "lHimnoFK", defaultValue= "0")
+    public Integer lHimnoFK;
+
+    @NonNull
+    @ColumnInfo(name = "lSalmodiaFK", defaultValue= "0")
+    public Integer lSalmodiaFK;
+
+    @NonNull
+    @ColumnInfo(name = "lBiblicaFK", defaultValue= "0")
+    public Integer lBiblicaFK;
+
+    @NonNull
+    @ColumnInfo(name = "lOracionFK", defaultValue= "0")
+    public Integer lOracionFK;
 
     public void setVersion(Integer version) {
         this.version = version;
@@ -74,7 +204,7 @@ public class Today {
     }
 
     public Integer getHoy() {
-        return hoy;
+        return hoy!=null ? hoy : 0;
     }
     public void setHoy(Integer hoy) {
         this.hoy = hoy;
@@ -88,12 +218,12 @@ public class Today {
         this.feriaId = feriaId;
     }
 
-    public Integer getOtroId() {
-        return otroId;
+    public Integer getMLecturasFK() {
+        return mLecturasFK;
     }
 
     public void setOtroId(Integer otroId) {
-        this.otroId = otroId;
+        this.mLecturasFK = otroId;
     }
 
     public Integer getPrevioId() {

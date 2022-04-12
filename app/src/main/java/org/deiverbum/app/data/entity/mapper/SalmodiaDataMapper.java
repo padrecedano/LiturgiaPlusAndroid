@@ -9,7 +9,6 @@ package org.deiverbum.app.data.entity.mapper;
 import androidx.lifecycle.MutableLiveData;
 
 import org.deiverbum.app.data.entity.SalmodiaWithSalmos;
-import org.deiverbum.app.data.entity.TodayWithOficio;
 import org.deiverbum.app.model.Oficio;
 import org.deiverbum.app.model.Salmo;
 import org.deiverbum.app.model.Salmodia;
@@ -30,26 +29,23 @@ public class SalmodiaDataMapper {
     SalmodiaDataMapper() {
 
     }
+    public Salmodia transformSalmodia(List<SalmodiaWithSalmos> salmos) {
+        Salmodia salmodia=new Salmodia();
+        salmodia.setSalmos(transformSalmos(salmos));
+        return salmodia;
+    }
 
 
     public List<Salmo> transformSalmos(List<SalmodiaWithSalmos> salmos) {
         final List<Salmo> salmosList = new ArrayList<>();
-        for (SalmodiaWithSalmos salmoEntity : salmos) {
+        for (SalmodiaWithSalmos salmo : salmos) {
             final Salmo s = new Salmo();
-            s.setSalmo(salmoEntity.salmo.getSalmo());
-            s.setRef(salmoEntity.salmo.getSalmoRef());
-            s.setAntifona(salmoEntity.antifonaEntity.getAntifona());
-            if(salmoEntity.tema!=null){
-                s.setTema(salmoEntity.tema.getTema());
-            }
-
-            if(salmoEntity.epigrafe!=null){
-                s.setEpigrafe(salmoEntity.epigrafe.getEpigrafe());
-            }
-
-                s.setParte(salmoEntity.salmodia.getParte());
-
-
+            s.setSalmo(salmo.getSalmoText());
+            s.setRef(salmo.getRef());
+            s.setAntifona(salmo.getAntifona());
+                s.setTema(salmo.getTema());
+                s.setEpigrafe(salmo.getEpigrafe());
+                s.setParte(salmo.getParte());
             salmosList.add(s);
         }
 return salmosList;
