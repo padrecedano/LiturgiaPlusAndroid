@@ -14,12 +14,13 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = "lh_salmodia",
+        primaryKeys = {"liturgiaId", "pericopaFK", "antifonaFK"},
         foreignKeys =
         {
             @ForeignKey(
-                    entity = SalmoEntity.class,
-                    parentColumns = "salmoId",
-                    childColumns = "salmoFK",
+                    entity = BibliaLecturaEntity.class,
+                    parentColumns = "pericopaId",
+                    childColumns = "pericopaFK",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE),
             @ForeignKey(
@@ -40,23 +41,22 @@ import androidx.room.PrimaryKey;
                         childColumns = "epigrafeFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE)
-        },
-        indices={
-                @Index(value={"liturgiaId","salmoFK", "antifonaFK"},unique =
-                        true)}
+        }/*,
+        indices={@Index(value={"liturgiaId","salmoFK", "antifonaFK"},unique =
+         true)}*/
 )
 public class SalmodiaEntity {
-    @NonNull
+/*    @NonNull
     @PrimaryKey
     @ColumnInfo(name = "salmodiaId")
     public Integer salmodiaId;
-
+*/
     @NonNull
     @ColumnInfo(name = "liturgiaId")
     public Integer liturgiaId;
 
     @NonNull
-    @ColumnInfo(name = "salmoFK")
+    @ColumnInfo(name = "pericopaFK")
     public Integer salmoFK;
 
     @NonNull
@@ -89,14 +89,14 @@ public class SalmodiaEntity {
         this.salmos = salmos;
     }
 */
-
+/*
     public void setSalmodiaId(Integer salmodiaId) {
         this.salmodiaId = salmodiaId;
     }
     public Integer getSalmodiaId() {
         return salmodiaId;
     }
-
+*/
     public void setLiturgiaId(Integer liturgiaId) {
         this.liturgiaId = liturgiaId;
     }

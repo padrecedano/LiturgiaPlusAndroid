@@ -58,19 +58,19 @@ public class SalmodiaEntityDataMapper {
         final List<Salmo> salmosList = new ArrayList<>();
         for (SalmodiaWithSalmos salmoEntity : salmos) {
             final Salmo s = new Salmo();
-            s.setSalmo(salmoEntity.salmo.getSalmo());
-            s.setRef(salmoEntity.salmo.getSalmoRef());
+            s.setSalmo(salmoEntity.getSalmoText());
+            s.setRef(salmoEntity.getRef());
             //Log.d("a",s.)
-            s.setAntifona(salmoEntity.antifonaEntity.getAntifona());
+            s.setAntifona(salmoEntity.getAntifona());
             if(salmoEntity.tema!=null){
-                s.setTema(salmoEntity.tema.getTema());
+                s.setTema(salmoEntity.getTema());
             }
 
             if(salmoEntity.epigrafe!=null){
-                s.setEpigrafe(salmoEntity.epigrafe.getEpigrafe());
+                s.setEpigrafe(salmoEntity.getEpigrafe());
             }
 
-                s.setParte(salmoEntity.salmodia.getParte());
+                s.setParte(salmoEntity.getParte());
 
 
             salmosList.add(s);

@@ -48,7 +48,11 @@ public class BreviarioHora {
     //TODO checkthis
     public String getMetaInfo() {
 
-        return !metaInfo.equals("") ? "<br><br>" + metaInfo : "";
+        if(metaInfo!=null) {
+            return !metaInfo.equals("") ? "<br><br>" + metaInfo : "";
+        }else{
+            return "";
+        }
     }
 
     public Santo getSanto() {

@@ -13,6 +13,35 @@ import java.util.List;
 
 
 public class Liturgia {
+
+    private Integer liturgiaId;
+    private Integer colorId;
+    private String nombre;
+
+    public Integer getLiturgiaId() {
+        return liturgiaId;
+    }
+
+    public void setLiturgiaId(Integer liturgiaId) {
+        this.liturgiaId = liturgiaId;
+    }
+
+    public Integer getColorId() {
+        return colorId;
+    }
+
+    public void setColorId(Integer colorId) {
+        this.colorId = colorId;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     private MetaLiturgia meta;
     private MetaLiturgia metaLiturgia;
 

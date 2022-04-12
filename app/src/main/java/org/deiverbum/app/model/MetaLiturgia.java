@@ -49,6 +49,9 @@ public class MetaLiturgia {
     protected boolean hasSaint;
     protected int weekDay;
 
+    private Liturgia liturgiaFeria;
+    private Liturgia liturgiaPrevio;
+
     public MetaLiturgia() {
     }
 
@@ -60,12 +63,28 @@ public class MetaLiturgia {
         }
     }
     public String getTitulo() {
-        return idHour==6 ? getTituloVisperas() : titulo;
+        return idHour==6 && liturgiaPrevio!=null ?
+                liturgiaPrevio.getNombre() : liturgiaFeria.getNombre();
     }
     public void setTitulo(String titulo) {
         this.titulo = (titulo!=null) ? titulo : "";
     }
 
+    public Liturgia getLiturgiaFeria() {
+        return liturgiaFeria;
+    }
+
+    public void setLiturgiaFeria(Liturgia liturgiaFeria) {
+        this.liturgiaFeria = liturgiaFeria;
+    }
+
+    public Liturgia getLiturgiaPrevio() {
+        return liturgiaPrevio;
+    }
+
+    public void setLiturgiaPrevio(Liturgia liturgiaPrevio) {
+        this.liturgiaPrevio = liturgiaPrevio;
+    }
 
     public String getFecha() {
         return (fecha!=null) ? Utils.getLongDate(fecha) : "";

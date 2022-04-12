@@ -22,7 +22,7 @@
     <string name="title_fragment_patristica">Patrística</string>
     <string name="title_fragment_main_mas">+Más ...</string>
 
-    <string name="title_fragment_biblia_libros">BibliaLibrosActivity</string>
+    <string name="title_fragment_biblia_libros">Biblia: Libros</string>
     <string name="title_fragment_rosario">Rosario</string>
 
     <string name="title_fragment_mixto">Oficio+Laudes</string>
@@ -171,6 +171,8 @@
     <string name="error_description">descripción del error</string>
     <string name="otro">Otro</string>
     <string name="accept">Acepto</string>
+    <string name="title_fragment_acceptance">Aceptación inicial</string>
+    <string name="title_fragment_oraciones_main">Oraciones Main</string>
 
 
 </resources>

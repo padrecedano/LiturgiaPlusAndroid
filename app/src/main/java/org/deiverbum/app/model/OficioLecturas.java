@@ -17,6 +17,11 @@ public class OficioLecturas {
     public OficioLecturas() {
     }
 
+    public OficioLecturas(Biblica biblica, Patristica patristica) {
+        this.biblica=biblica;
+        this.patristica=patristica;
+    }
+
     public String getResponsorio() {
         return responsorio;
     }
@@ -123,6 +128,10 @@ public class OficioLecturas {
         sb.append(biblica.getAllForRead());
         sb.append(patristica.getAllForRead());
         return sb.toString();
+    }
+
+    public void setResponsorio(String responsorio) {
+        this.responsorio=responsorio;
     }
 }
 

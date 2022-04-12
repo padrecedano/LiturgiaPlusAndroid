@@ -16,9 +16,9 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
+import org.deiverbum.app.data.entity.OficioOfToday;
 import org.deiverbum.app.data.entity.SalmoEntity;
 import org.deiverbum.app.data.entity.SalmodiaWithSalmos;
-import org.deiverbum.app.data.entity.TodayWithOficio;
 import org.deiverbum.app.data.entity.UserWithPlaylistsAndSongs;
 import org.deiverbum.app.data.entity.mapper.OficioDataMapper;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
@@ -26,6 +26,7 @@ import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.model.Homilias;
+import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.Oficio;
 import org.deiverbum.app.model.Salmodia;
 import org.deiverbum.app.model.Today;
@@ -194,10 +195,32 @@ public class TodayRepository {
 */
     public LiveData<Oficio> transformedOficio(String s) {
         MutableLiveData<Oficio> ss=
-                mMapper.transform(mTodayDao.getTodayWithOficio(Integer.valueOf(s)));
+                mMapper.transform(mTodayDao.getOficioOfToday(Integer.valueOf(s)));
         return ss;//mMapper.transform(mTodayDao.getUsersWithPlaylistsAndSongs
         // ());
     }
+
+    public LiveData<Oficio> transformedOficioB(String s) {
+        MutableLiveData<Oficio> ss=
+                mMapper.transformB(mTodayDao.getOficioOfToday(Integer.valueOf(s)));
+        return ss;//mMapper.transform(mTodayDao.getUsersWithPlaylistsAndSongs
+        // ());
+    }
+
+    public LiveData<Laudes> mappedLaudes(String s) {
+        MutableLiveData<Laudes> ss=
+                mMapper.transformLaudes(mTodayDao.getLaudesOfToday(Integer.valueOf(s)));
+        return ss;//mMapper.transform(mTodayDao.getUsersWithPlaylistsAndSongs
+        // ());
+    }
+
+    public LiveData<Oficio> transformedLaudes(String s) {
+        MutableLiveData<Oficio> ss=
+                mMapper.transformB(mTodayDao.getOficioOfToday(Integer.valueOf(s)));
+        return ss;//mMapper.transform(mTodayDao.getUsersWithPlaylistsAndSongs
+        // ());
+    }
+
 /*
     public LiveData<Salmodia> getS(String s) {
         MutableLiveData<Salmodia> ss=

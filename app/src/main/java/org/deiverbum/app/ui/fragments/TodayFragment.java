@@ -110,7 +110,8 @@ public class TodayFragment extends Fragment implements TextToSpeechCallback {
         //observeDatas();
         //mViewModel.fetchData(mDate);
         //mViewModel.getVMSalmodia(mDate);
-        observeSalmodia();
+        //observeSalmodia();
+        observeLaudes();
 
         //observeLast();
 
@@ -186,16 +187,35 @@ public class TodayFragment extends Fragment implements TextToSpeechCallback {
     }
 
 
-
-    void observeSalmodia() {
+    void observeLaudes() {
         mTextView.setText(PACIENCIA);
-        todayViewModel.getTodayWithOficio(mDate).observe(getViewLifecycleOwner(),
+        todayViewModel.getLaudes(mDate).observe(getViewLifecycleOwner(),
                 data -> {
                     progressBar.setVisibility(View.GONE);
                     if(data!=null) {
                         Log.d("XYZa",
                                 String.valueOf(data.toString()));
-                        mTextView.setText(data.getHimno().getAll());
+                        //mTextView.setText(data.getInvitatorio().getAll(true));
+                        mTextView.setText(data.getForView(false));
+
+
+                    }
+                    //Log.d("XYZb",String.valueOf(data.get(1).salmodia.getSalmoId()));
+
+                    //mTextView.setText(data.getAllForView());
+                });
+    }
+    void observeSalmodia() {
+        mTextView.setText(PACIENCIA);
+        todayViewModel.getTodayWithOficioB(mDate).observe(getViewLifecycleOwner(),
+                data -> {
+                    progressBar.setVisibility(View.GONE);
+                    if(data!=null) {
+                        Log.d("XYZa",
+                                String.valueOf(data.toString()));
+                        //mTextView.setText(data.getInvitatorio().getAll(true));
+                        mTextView.setText(data.getForView(false));
+
 
                     }
                     //Log.d("XYZb",String.valueOf(data.get(1).salmodia.getSalmoId()));

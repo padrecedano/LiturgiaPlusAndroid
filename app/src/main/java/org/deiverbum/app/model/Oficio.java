@@ -6,6 +6,9 @@ import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 public class Oficio extends BreviarioHora {
 
     private Invitatorio invitatorio;
@@ -98,7 +101,12 @@ public class Oficio extends BreviarioHora {
             sb.append(LS2);
             sb.append(getConclusionHorasMayores());
         } catch (Exception e) {
-            sb.append(e.getMessage());
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            sb.append(sw.toString());
+
+            //sb.append(e.getMessage());
         }
         return sb;
     }

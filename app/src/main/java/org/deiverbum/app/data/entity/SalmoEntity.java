@@ -32,8 +32,9 @@ public class SalmoEntity {
     public void setSalmo(String salmo) {
         this.salmo = salmo;
     }
+
     public String getSalmo() {
-        return salmo;
+        return (salmo != null) ? salmo : "";
     }
 
     public void setSalmoRef(String salmoRef) {
@@ -41,12 +42,13 @@ public class SalmoEntity {
     }
 
     public String getSalmoRef() {
-        return salmoRef;
+        return (salmoRef != null) ? salmoRef : "";
     }
 
     public Integer getSalmoId() {
         return salmoId;
     }
+
     public void setSalmoId(Integer salmoId) {
         this.salmoId = salmoId;
     }
