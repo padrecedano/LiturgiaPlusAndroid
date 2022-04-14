@@ -44,10 +44,10 @@ public class LHPatristica {
     public LHResponsorioEntity lhResponsorio;
 
 
-    public Patristica getDomainModel() {
+    public Patristica getDomainModel(Integer timeId) {
         Patristica theModel= homiliaAll.getPatristicaDomainModel();
         theModel.setTema(lhPatristica.tema);
-        theModel.setResponsorio(lhResponsorio.getDomainModel());
+        theModel.setResponsorio(lhResponsorio.getDomainModel(timeId));
         return theModel;
     }
 }

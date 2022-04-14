@@ -5,7 +5,6 @@ import androidx.room.Relation;
 
 import org.deiverbum.app.model.Biblica;
 import org.deiverbum.app.model.LecturaBreve;
-import org.deiverbum.app.model.Responsorio;
 
 /**
  *  <p>Obtiene los valores para una lectura bíblica de
@@ -16,9 +15,9 @@ import org.deiverbum.app.model.Responsorio;
  * @version 1.0
  * @since 2022.2
  */
-public class LHBiblica {
+public class LHBiblicaBreve {
     @Embedded
-    public LHBiblicaEntity lhBiblica;
+    public LHBiblicaBreveEntity lhBiblica;
 
     @Relation(
             parentColumn = "pericopaFK",
@@ -35,18 +34,7 @@ public class LHBiblica {
     )
     public LHResponsorioEntity lhResponsorioEntity;
 
-    public Biblica getDomainModel(Integer timeId){
-        Biblica theModel= bibliaLectura.getDomainModel();
-        /*theModel.setLibro(String.valueOf(bibliaLectura.libroId));
-        theModel.setCapitulo(String.valueOf(bibliaLectura.capitulo));
-        theModel.setRef(String.valueOf(bibliaLectura.capitulo));
-        theModel.setVersoInicial(String.valueOf(bibliaLectura.desde));
-        theModel.setVersoFinal(String.valueOf(bibliaLectura.hasta));*/
-        theModel.setTema(lhBiblica.tema);
-        //theModel.setTexto(bibliaLectura.texto);
-        theModel.setResponsorio(lhResponsorioEntity.getDomainModel(timeId));
-        return theModel;
-    }
+
 
     public LecturaBreve getDomainModelBreve(Integer timeId){
         LecturaBreve theModel= bibliaLectura.getDomainModelBreve();

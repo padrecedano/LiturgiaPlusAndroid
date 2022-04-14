@@ -9,7 +9,7 @@ import org.deiverbum.app.utils.Utils;
 public class Laudes extends BreviarioHora{
     private Invitatorio invitatorio;
     private Biblica lecturaBreve;
-    private Benedictus benedictus;
+    private CanticoEvangelico benedictus;
     private Preces preces;
     private final PadreNuestro padreNuestro;
 
@@ -40,12 +40,12 @@ public class Laudes extends BreviarioHora{
         this.lecturaBreve = lecturaBreve;
     }
 
-    public Benedictus getBenedictus() {
+    public CanticoEvangelico getBenedictus() {
         return benedictus;
     }
 
     @SuppressWarnings("unused")
-    public void setBenedictus(Benedictus benedictus) {
+    public void setBenedictus(CanticoEvangelico benedictus) {
         this.benedictus = benedictus;
     }
 
@@ -62,7 +62,8 @@ public class Laudes extends BreviarioHora{
         SpannableStringBuilder sb = new SpannableStringBuilder();
         //PadreNuestro padreNuestro=new PadreNuestro();
         try {
-            //TODO hacer esto en la clase Responsorio
+            //TODO hacer esto en la clase Responsorio, revisar Completas y
+            // demás horas
             //lecturaBreve.normalizeByTime(metaLiturgia.calendarTime);
             sb.append(metaLiturgia.getAll());
             sb.append(LS2);

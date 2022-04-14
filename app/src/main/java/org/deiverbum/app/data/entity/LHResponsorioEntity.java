@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey;
 
 import org.deiverbum.app.R;
 import org.deiverbum.app.model.Responsorio;
+import org.deiverbum.app.utils.Utils;
 
 /**
  * @author A. Cedano
@@ -52,9 +53,9 @@ public class LHResponsorioEntity {
     @ColumnInfo(name = "tipo")
     public Integer tipo;
 
-    public Responsorio getDomainModel(){
+    public Responsorio getDomainModel(Integer timeId){
         Responsorio theModel=new Responsorio();
-        theModel.setTexto(getTexto());
+        theModel.setTexto(Utils.replaceByTime(getTexto(),timeId));
         theModel.setForma(getTipo());
         theModel.setRef(getFuente());
         return theModel;

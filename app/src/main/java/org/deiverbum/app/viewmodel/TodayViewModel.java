@@ -11,6 +11,7 @@ import org.deiverbum.app.data.entity.UserWithPlaylistsAndSongs;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.model.Homilias;
+import org.deiverbum.app.model.Intermedia;
 import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.Oficio;
 import org.deiverbum.app.model.Salmodia;
@@ -70,6 +71,10 @@ public class TodayViewModel extends ViewModel {
 
     public LiveData<Laudes> getLaudes(String theDate) {
         return mRepository.mappedLaudes("20220325");
+    }
+
+    public LiveData<Intermedia> getTercia(String theDate) {
+        return mRepository.getTercia("20220325");
     }
 
     public LiveData<Oficio> getTodayWithOficioB(String theDate) {

@@ -6,7 +6,7 @@ import org.deiverbum.app.utils.Utils;
 
 import static org.deiverbum.app.utils.Utils.LS2;
 
-public class LecturaBreve{
+public class LecturaBreve extends Biblica{
     public String ref;
     public String texto;
     public String responsorio;
@@ -31,12 +31,12 @@ public class LecturaBreve{
         this.texto = texto;
     }
 
-    public String getResponsorio() {
-        return responsorio;
+    public String getResponsorios() {
+        return "responsorio";
     }
 
-    public void setResponsorio(String responsorio) {
-        this.responsorio = responsorio;
+    public void setResponsorios(String responsorio) {
+        //this.responsorio = responsorio;
     }
 
     public SpannableStringBuilder getResponsorioSpan() {
@@ -127,7 +127,7 @@ public class LecturaBreve{
         sb.append(LS2);
         sb.append(getTexto());
         sb.append(LS2);
-        sb.append(getResponsorioSpan());
+        sb.append(getResponsorio().getAll());
         return sb;
     }
 
@@ -139,8 +139,9 @@ public class LecturaBreve{
         return sb;
     }
 
+    //TODO hacer esto en la clase Responsorio
     public void normalizeByTime(int timeID){
-        this.responsorio=Utils.replaceByTime(this.responsorio,timeID);
+        //this.responsorio=Utils.replaceByTime(this.responsorio,timeID);
     }
 
 }

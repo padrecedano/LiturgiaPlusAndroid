@@ -10,11 +10,17 @@ import org.deiverbum.app.data.entity.EpigrafeEntity;
 import org.deiverbum.app.data.entity.HimnoEntity;
 import org.deiverbum.app.data.entity.HomiliaEntity;
 import org.deiverbum.app.data.entity.InvitatorioEntity;
+import org.deiverbum.app.data.entity.LHBiblicaBreveEntity;
 import org.deiverbum.app.data.entity.LHBiblicaEntity;
+import org.deiverbum.app.data.entity.LHCanticoEvangelicoEntity;
 import org.deiverbum.app.data.entity.LHOficioResponsorioEntity;
 import org.deiverbum.app.data.entity.LHOracionEntity;
 import org.deiverbum.app.data.entity.LHPatristicaEntity;
+import org.deiverbum.app.data.entity.LHPrecesEntity;
+import org.deiverbum.app.data.entity.LHPrecesJoinEntity;
 import org.deiverbum.app.data.entity.LHResponsorioEntity;
+import org.deiverbum.app.data.entity.LHSalmodiaJoinEntity;
+import org.deiverbum.app.data.entity.LHSantoEntity;
 import org.deiverbum.app.data.entity.LiturgiaEntity;
 import org.deiverbum.app.data.entity.LiturgiaTiempoEntity;
 import org.deiverbum.app.data.entity.MisaLecturaEntity;
@@ -42,6 +48,7 @@ import org.deiverbum.app.data.entity.Today;
                 InvitatorioEntity.class,
                 HimnoEntity.class,
                 SalmodiaEntity.class,
+                LHSalmodiaJoinEntity.class,
                 SalmoEntity.class,
                 SalmodiaSalmoCrossRef.class,
                 //LHSalmodiaJoinEntity.class,
@@ -57,9 +64,14 @@ import org.deiverbum.app.data.entity.Today;
                 ObraEntity.class,
                 LHResponsorioEntity.class,
                 BibliaLecturaEntity.class,
+                LHBiblicaBreveEntity.class,
+                LHCanticoEvangelicoEntity.class,
+                LHPrecesEntity.class,
+                LHPrecesJoinEntity.class,
                 OracionEntity.class,
                 LHOracionEntity.class,
                 MisaLecturaEntity.class,
+                LHSantoEntity.class
 
 
                 },

@@ -91,9 +91,21 @@ import java.util.List;
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
+                        entity = LHCanticoEvangelicoEntity.class,
+                        parentColumns = "grupoId",
+                        childColumns = "lBenedictusFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+                @ForeignKey(
                         entity = LHBiblicaEntity.class,
                         parentColumns = "biblicaId",
                         childColumns = "lBiblicaFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+                @ForeignKey(
+                        entity = LHPrecesJoinEntity.class,
+                        parentColumns = "grupoId",
+                        childColumns = "lPrecesFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
@@ -102,6 +114,29 @@ import java.util.List;
                         childColumns = "lOracionFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
+
+
+                @ForeignKey(
+                        entity = HimnoEntity.class,
+                        parentColumns = "himnoId",
+                        childColumns = "tHimnoFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+
+                @ForeignKey(
+                        entity = LHBiblicaEntity.class,
+                        parentColumns = "biblicaId",
+                        childColumns = "tBiblicaFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+
+                @ForeignKey(
+                        entity = LHOracionEntity.class,
+                        parentColumns = "liturgiaId",
+                        childColumns = "tOracionFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+
         })
 public class Today {
     @NonNull
@@ -193,8 +228,33 @@ public class Today {
     public Integer lBiblicaFK;
 
     @NonNull
+    @ColumnInfo(name = "lBenedictusFK", defaultValue= "0")
+    public Integer lBenedictusFK;
+
+    @NonNull
+    @ColumnInfo(name = "lPrecesFK", defaultValue= "0")
+    public Integer lPrecesFK;
+
+    @NonNull
     @ColumnInfo(name = "lOracionFK", defaultValue= "0")
     public Integer lOracionFK;
+
+
+    @NonNull
+    @ColumnInfo(name = "tHimnoFK", defaultValue= "0")
+    public Integer tHimnoFK;
+
+    @NonNull
+    @ColumnInfo(name = "tSalmodiaFK", defaultValue= "0")
+    public Integer tSalmodiaFK;
+
+    @NonNull
+    @ColumnInfo(name = "tBiblicaFK", defaultValue= "0")
+    public Integer tBiblicaFK;
+
+    @NonNull
+    @ColumnInfo(name = "tOracionFK", defaultValue= "0")
+    public Integer tOracionFK;
 
     public void setVersion(Integer version) {
         this.version = version;
