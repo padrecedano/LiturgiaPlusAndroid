@@ -26,6 +26,7 @@ import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.model.Homilias;
+import org.deiverbum.app.model.Intermedia;
 import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.Oficio;
 import org.deiverbum.app.model.Salmodia;
@@ -210,6 +211,13 @@ public class TodayRepository {
     public LiveData<Laudes> mappedLaudes(String s) {
         MutableLiveData<Laudes> ss=
                 mMapper.transformLaudes(mTodayDao.getLaudesOfToday(Integer.valueOf(s)));
+        return ss;//mMapper.transform(mTodayDao.getUsersWithPlaylistsAndSongs
+        // ());
+    }
+
+    public LiveData<Intermedia> getTercia(String s) {
+        MutableLiveData<Intermedia> ss=
+                mMapper.transformTercia(mTodayDao.geTerciaOfToday(Integer.valueOf(s)));
         return ss;//mMapper.transform(mTodayDao.getUsersWithPlaylistsAndSongs
         // ());
     }

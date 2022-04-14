@@ -10,6 +10,7 @@ import org.deiverbum.app.model.Liturgia;
 import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.Patristica;
 import org.deiverbum.app.model.Responsorio;
+import org.deiverbum.app.model.Salmodia;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class OficioOfToday {
     @Relation(
             entity = SantoEntity.class,
             parentColumn = "santoFK",
-            entityColumn = "santoId" //liturgiaId
+            entityColumn = "santoId"
     )
     public SantoEntity santo;
 
@@ -59,11 +60,17 @@ public class OficioOfToday {
     public LHPatristica patristica;
 
     @Relation(
+            entity = LHSalmodiaJoinEntity.class,
+            parentColumn = "oSalmodiaFK",
+            entityColumn = "grupoId"
+    )
+    public LHSalmodia salmodia;
+
+    @Relation(
             entity = SalmodiaEntity.class,
             parentColumn = "oSalmodiaFK",
-            entityColumn = "liturgiaId"
+            entityColumn = "grupoFK"
     )
-    //public LHSalmodiaJoinEntity salmodia;
     public List<SalmodiaWithSalmos> salmos;
 
     @Relation(
@@ -115,10 +122,6 @@ public class OficioOfToday {
         theModel.setIdTiempo(1);
         theModel.setIdTiempoPrevio(1);
         theModel.setTitulo(feria.nombre);
-
-
-
-
         return theModel;
     }
     public Himno getHimno(){
@@ -132,11 +135,14 @@ public class OficioOfToday {
     }
 
     public Biblica getBiblica(){
-        return biblica.getDomainModel();
+        return biblica.getDomainModel(today.getTiempoId());
     }
 
     public Patristica getPatristica(){
-        return patristica.getDomainModel();
+        return patristica.getDomainModel(today.getTiempoId());
     }
 
+    public Salmodia getSalmodia() {
+        return salmodia.getDomainModel();
+    }
 }

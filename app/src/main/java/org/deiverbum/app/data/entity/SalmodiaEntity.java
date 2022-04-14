@@ -14,9 +14,15 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = "lh_salmodia",
-        primaryKeys = {"liturgiaId", "pericopaFK", "antifonaFK"},
+        primaryKeys = {"grupoFK", "pericopaFK", "antifonaFK"},
         foreignKeys =
         {
+        @ForeignKey(
+                   entity = LHSalmodiaJoinEntity.class,
+                   parentColumns = "grupoId",
+                   childColumns = "grupoFK",
+                   onDelete = ForeignKey.CASCADE,
+                   onUpdate = ForeignKey.CASCADE),
             @ForeignKey(
                     entity = BibliaLecturaEntity.class,
                     parentColumns = "pericopaId",
@@ -52,8 +58,8 @@ public class SalmodiaEntity {
     public Integer salmodiaId;
 */
     @NonNull
-    @ColumnInfo(name = "liturgiaId")
-    public Integer liturgiaId;
+    @ColumnInfo(name = "grupoFK")
+    public Integer grupoFK;
 
     @NonNull
     @ColumnInfo(name = "pericopaFK")
@@ -97,11 +103,11 @@ public class SalmodiaEntity {
         return salmodiaId;
     }
 */
-    public void setLiturgiaId(Integer liturgiaId) {
-        this.liturgiaId = liturgiaId;
+    public void setGrupoFK(Integer grupoFK) {
+        this.grupoFK = grupoFK;
     }
-    public Integer getLiturgiaId() {
-        return liturgiaId;
+    public Integer getGrupoFK() {
+        return grupoFK;
     }
 
     public Integer getSalmoFK() {

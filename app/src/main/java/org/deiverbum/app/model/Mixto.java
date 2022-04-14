@@ -74,7 +74,7 @@ public Mixto(){
             Salmodia salmodia = laudes.getSalmodia();
             OficioLecturas oficioLecturas = oficio.getOficioLecturas();
             Biblica lecturaBreve = laudes.getLecturaBreve();
-            Benedictus ce = laudes.getBenedictus();
+            CanticoEvangelico ce = laudes.getBenedictus();
             Preces preces = laudes.getPreces();
             Evangelio misaEvangelio = misa.getMisaLecturas().getEvangelio();
 
@@ -139,7 +139,7 @@ public Mixto(){
         Salmodia salmodia = laudes.getSalmodia();
         OficioLecturas oficioLecturas=oficio.getOficioLecturas();
         Biblica lecturaBreve = laudes.getLecturaBreve();
-        Benedictus ce = laudes.getBenedictus();
+            CanticoEvangelico ce = laudes.getBenedictus();
         Preces preces = laudes.getPreces();
         MisaLecturas misaLecturas = misa.getMisaLecturas();
         Evangelio misaEvangelio = misaLecturas.getEvangelio();

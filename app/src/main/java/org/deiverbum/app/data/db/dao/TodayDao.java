@@ -11,6 +11,7 @@ import org.deiverbum.app.data.entity.LaudesOfToday;
 import org.deiverbum.app.data.entity.OficioOfToday;
 import org.deiverbum.app.data.entity.SalmoEntity;
 import org.deiverbum.app.data.entity.SalmodiaWithSalmos;
+import org.deiverbum.app.data.entity.TerciaOfToday;
 import org.deiverbum.app.data.entity.UserWithPlaylistsAndSongs;
 import org.deiverbum.app.model.Today;
 
@@ -77,7 +78,7 @@ public interface TodayDao {
 
     @Transaction
     @Query("SELECT * FROM Today t INNER JOIN lh_salmodia a ON " +
-            "t.oficioFK=a.liturgiaId INNER JOIN lh_salmo s ON a.pericopaFK=s.salmoId " +
+            "t.oficioFK=a.grupoFK INNER JOIN lh_salmo s ON a.pericopaFK=s.salmoId " +
 
             "WHERE " +
             "t.hoy=20220325 ORDER BY a.orden")
@@ -87,7 +88,7 @@ public interface TodayDao {
 
     @Transaction
     @Query("SELECT * FROM Today t INNER JOIN lh_salmodia a ON " +
-            "t.oficioFK=a.liturgiaId INNER JOIN lh_salmo s ON a.pericopaFK=s.salmoId " +
+            "t.oficioFK=a.grupoFK INNER JOIN lh_salmo s ON a.pericopaFK=s.salmoId " +
             "WHERE " +
             "t.hoy=20220325 ORDER BY a.orden")
     public UserWithPlaylistsAndSongs getSalmod();
@@ -98,6 +99,9 @@ public interface TodayDao {
     @Transaction
     @Query("SELECT * FROM today AS t WHERE t.hoy =:theDate")
     public LaudesOfToday getLaudesOfToday(Integer theDate);
+
+    @Query("SELECT * FROM today AS t WHERE t.hoy =:theDate")
+    public TerciaOfToday geTerciaOfToday(Integer theDate);
 
 /*
     @Query(

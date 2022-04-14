@@ -105,7 +105,18 @@ public Biblica getDomainModel(){
     //theModel.setResponsorio(lhResponsorioEntity.getDomainModel());
     return theModel;
 }
-
+    public LecturaBreve getDomainModelBreve(){
+        LecturaBreve theModel=new LecturaBreve();
+        theModel.setLibro(String.valueOf(getLibroId()));
+        theModel.setCapitulo(String.valueOf(getCapitulo()));
+        theModel.setRef(String.valueOf(getHasta()));
+        theModel.setVersoInicial(String.valueOf(getDesde()));
+        theModel.setVersoFinal(String.valueOf(getHasta()));
+        //theModel.setTema(lhBiblica.tema);
+        theModel.setTexto(getTexto());
+        //theModel.setResponsorio(lhResponsorioEntity.getDomainModel());
+        return theModel;
+    }
 
 }
 
