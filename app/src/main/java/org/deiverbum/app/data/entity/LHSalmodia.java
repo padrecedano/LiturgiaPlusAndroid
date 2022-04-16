@@ -7,6 +7,9 @@ import org.deiverbum.app.model.Salmo;
 import org.deiverbum.app.model.Salmodia;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -41,6 +44,9 @@ public class LHSalmodia {
             salmosList.add(s);
         }
 
+
+        //salmosList.sort(Comparator.comparing(Classname::getName));
+        //Collections.sort(list, comparing(ClassName::getName).reversed());
         theModel.setSalmos(salmosList);
         return theModel;
 

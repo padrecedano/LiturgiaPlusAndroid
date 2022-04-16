@@ -7,8 +7,8 @@ import android.text.Spanned;
 
 import org.deiverbum.app.utils.Utils;
 
-public class Biblica {
-    protected BibliaLibro libro;
+public class BiblicaBreviario extends Biblica{
+    private BibliaLibro libro;
     private String capitulo;
     private String versoInicial;
     private String versoFinal;

@@ -6,6 +6,7 @@ import androidx.room.RoomDatabase;
 import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.data.entity.AntifonaEntity;
 import org.deiverbum.app.data.entity.BibliaLecturaEntity;
+import org.deiverbum.app.data.entity.BibliaLibroEntity;
 import org.deiverbum.app.data.entity.EpigrafeEntity;
 import org.deiverbum.app.data.entity.HimnoEntity;
 import org.deiverbum.app.data.entity.HomiliaEntity;
@@ -63,6 +64,7 @@ import org.deiverbum.app.data.entity.Today;
                 PadreEntity.class,
                 ObraEntity.class,
                 LHResponsorioEntity.class,
+                BibliaLibroEntity.class,
                 BibliaLecturaEntity.class,
                 LHBiblicaBreveEntity.class,
                 LHCanticoEvangelicoEntity.class,

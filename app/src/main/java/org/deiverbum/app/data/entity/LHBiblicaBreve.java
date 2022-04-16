@@ -18,14 +18,27 @@ import org.deiverbum.app.model.LecturaBreve;
 public class LHBiblicaBreve {
     @Embedded
     public LHBiblicaBreveEntity lhBiblica;
-
     @Relation(
             parentColumn = "pericopaFK",
             entityColumn = "pericopaId",
             entity = BibliaLecturaEntity.class/*,
             associateBy = @Junction(MemberTeamMap.class)*/
     )
-    public BibliaLecturaEntity bibliaLectura;
+    public LecturaWithLibro bibliaLectura;
+    @Relation(
+            parentColumn = "pericopaFK",
+            entityColumn = "pericopaId",
+            entity = BibliaLecturaEntity.class/*,
+            associateBy = @Junction(MemberTeamMap.class)*/
+    )
+    public BibliaLecturaEntity bibliaLecturaSSS;
+/*
+    @Relation(
+            parentColumn = "libroId",
+            entityColumn = "libroId",
+            entity = BibliaLibroEntity.class
+    )
+    public BibliaLibroEntity bibliaLibro;*/
 
     @Relation(
             parentColumn = "responsorioFK",
@@ -38,6 +51,7 @@ public class LHBiblicaBreve {
 
     public LecturaBreve getDomainModelBreve(Integer timeId){
         LecturaBreve theModel= bibliaLectura.getDomainModelBreve();
+        //theModel.setLibro(bibliaLibro.getDomainModel());
         /*theModel.setLibro(String.valueOf(bibliaLectura.libroId));
         theModel.setCapitulo(String.valueOf(bibliaLectura.capitulo));
         theModel.setRef(String.valueOf(bibliaLectura.capitulo));

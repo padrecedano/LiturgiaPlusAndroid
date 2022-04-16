@@ -111,7 +111,8 @@ public class TodayFragment extends Fragment implements TextToSpeechCallback {
         //mViewModel.fetchData(mDate);
         //mViewModel.getVMSalmodia(mDate);
         //observeSalmodia();
-        observeLaudes();
+        observeMixto();
+        //observeLaudes();
         //observeTercia();
 
         //observeLast();
@@ -191,6 +192,25 @@ public class TodayFragment extends Fragment implements TextToSpeechCallback {
     void observeLaudes() {
         mTextView.setText(PACIENCIA);
         todayViewModel.getLaudes(mDate).observe(getViewLifecycleOwner(),
+                data -> {
+                    progressBar.setVisibility(View.GONE);
+                    if(data!=null) {
+                        Log.d("XYZa",
+                                String.valueOf(data.toString()));
+                        //mTextView.setText(data.getInvitatorio().getAll(true));
+                        mTextView.setText(data.getForView(false));
+
+
+                    }
+                    //Log.d("XYZb",String.valueOf(data.get(1).salmodia.getSalmoId()));
+
+                    //mTextView.setText(data.getAllForView());
+                });
+    }
+
+    void observeMixto() {
+        mTextView.setText(PACIENCIA);
+        todayViewModel.getMixto(mDate).observe(getViewLifecycleOwner(),
                 data -> {
                     progressBar.setVisibility(View.GONE);
                     if(data!=null) {

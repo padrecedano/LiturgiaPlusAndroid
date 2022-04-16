@@ -49,7 +49,7 @@ public class LHBiblica {
     }
 
     public LecturaBreve getDomainModelBreve(Integer timeId){
-        LecturaBreve theModel= bibliaLectura.getDomainModelBreve();
+        //LecturaBreve theModel= bibliaLectura.getDomainModelBreve();
         /*theModel.setLibro(String.valueOf(bibliaLectura.libroId));
         theModel.setCapitulo(String.valueOf(bibliaLectura.capitulo));
         theModel.setRef(String.valueOf(bibliaLectura.capitulo));
@@ -57,8 +57,8 @@ public class LHBiblica {
         theModel.setVersoFinal(String.valueOf(bibliaLectura.hasta));*/
         //theModel.setTema(lhBiblica.tema);
         //theModel.setTexto(bibliaLectura.texto);
-        theModel.setResponsorio(lhResponsorioEntity.getDomainModel(timeId));
-        return theModel;
+        //theModel.setResponsorio(lhResponsorioEntity.getDomainModel(timeId));
+        return null;//theModel;
     }
 
 }

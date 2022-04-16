@@ -1,6 +1,6 @@
 package org.deiverbum.app.model;
 
-class Lectura {
+public class Lectura {
     private int orden;
     private String libro;
     private String abreviatura;
