@@ -88,6 +88,8 @@ public class BibliaLecturaEntity {
     @NonNull
     @ColumnInfo(name = "texto")
     public String texto;
+
+
 /*
     public String getLibro() {
     }
@@ -95,7 +97,7 @@ public class BibliaLecturaEntity {
  */
 public Biblica getDomainModel(){
     Biblica theModel=new Biblica();
-    theModel.setLibro(String.valueOf(getLibroId()));
+    //theModel.setLibro(String.valueOf(getLibroId()));
     theModel.setCapitulo(String.valueOf(getCapitulo()));
     theModel.setRef(String.valueOf(getHasta()));
     theModel.setVersoInicial(String.valueOf(getDesde()));
@@ -105,9 +107,9 @@ public Biblica getDomainModel(){
     //theModel.setResponsorio(lhResponsorioEntity.getDomainModel());
     return theModel;
 }
-    public LecturaBreve getDomainModelBreve(){
+    public LecturaBreve getDomainModelBreveSSS(){
         LecturaBreve theModel=new LecturaBreve();
-        theModel.setLibro(String.valueOf(getLibroId()));
+        //theModel.setLibro();
         theModel.setCapitulo(String.valueOf(getCapitulo()));
         theModel.setRef(String.valueOf(getHasta()));
         theModel.setVersoInicial(String.valueOf(getDesde()));

@@ -7,11 +7,12 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import org.deiverbum.app.data.entity.LaudesOfToday;
-import org.deiverbum.app.data.entity.OficioOfToday;
+import org.deiverbum.app.data.entity.TodayLaudes;
+import org.deiverbum.app.data.entity.TodayMixto;
+import org.deiverbum.app.data.entity.TodayOficio;
 import org.deiverbum.app.data.entity.SalmoEntity;
 import org.deiverbum.app.data.entity.SalmodiaWithSalmos;
-import org.deiverbum.app.data.entity.TerciaOfToday;
+import org.deiverbum.app.data.entity.TodayTercia;
 import org.deiverbum.app.data.entity.UserWithPlaylistsAndSongs;
 import org.deiverbum.app.model.Today;
 
@@ -70,7 +71,7 @@ public interface TodayDao {
 
     @Transaction
     @Query("SELECT * FROM today AS t WHERE t.hoy =:theDate")
-    public OficioOfToday getOficioOfToday(Integer theDate);
+    public TodayOficio getOficioOfToday(Integer theDate);
 
     @Transaction
     @Query("SELECT * FROM lh_salmodia")
@@ -98,10 +99,15 @@ public interface TodayDao {
 
     @Transaction
     @Query("SELECT * FROM today AS t WHERE t.hoy =:theDate")
-    public LaudesOfToday getLaudesOfToday(Integer theDate);
+    public TodayLaudes getLaudesOfToday(Integer theDate);
 
     @Query("SELECT * FROM today AS t WHERE t.hoy =:theDate")
-    public TerciaOfToday geTerciaOfToday(Integer theDate);
+    public TodayTercia geTerciaOfToday(Integer theDate);
+
+    @Query("SELECT * FROM today AS t " +
+            "JOIN misa_lectura m ON t.mLecturasFK=m.liturgiaFK "+
+            "WHERE t.hoy =:theDate AND m.orden=40")
+    public TodayMixto getTodayMixto(Integer theDate);
 
 /*
     @Query(

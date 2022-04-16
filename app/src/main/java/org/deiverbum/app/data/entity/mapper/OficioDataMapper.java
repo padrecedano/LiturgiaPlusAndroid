@@ -6,34 +6,32 @@ package org.deiverbum.app.data.entity.mapper;
  * @since 2022.2
  */
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
-import org.deiverbum.app.data.entity.LaudesOfToday;
-import org.deiverbum.app.data.entity.OficioOfToday;
-import org.deiverbum.app.data.entity.SalmodiaWithSalmos;
-import org.deiverbum.app.data.entity.TerciaOfToday;
-import org.deiverbum.app.data.entity.UserWithPlaylistsAndSongs;
-import org.deiverbum.app.model.Biblica;
-import org.deiverbum.app.model.Himno;
+import org.deiverbum.app.data.entity.TodayLaudes;
+import org.deiverbum.app.data.entity.TodayMixto;
+import org.deiverbum.app.data.entity.TodayOficio;
+import org.deiverbum.app.data.entity.TodayTercia;
+import org.deiverbum.app.model.BiblicaMisa;
 import org.deiverbum.app.model.Intermedia;
-import org.deiverbum.app.model.Invitatorio;
 import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.MetaLiturgia;
+import org.deiverbum.app.model.Misa;
+import org.deiverbum.app.model.MisaLecturas;
+import org.deiverbum.app.model.Mixto;
 import org.deiverbum.app.model.Oficio;
 import org.deiverbum.app.model.OficioLecturas;
 import org.deiverbum.app.model.Patristica;
-import org.deiverbum.app.model.Salmo;
 import org.deiverbum.app.model.Salmodia;
 import org.deiverbum.app.model.TeDeum;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Transforma entidades  {@link OficioOfToday} (capa de datos)
+ * Transforma entidades  {@link TodayOficio} (capa de datos)
  * en objetos {@link Oficio} (capa de dominio).
  */
 @Singleton
@@ -50,9 +48,9 @@ public class OficioDataMapper {
      *
      * @param theEntity Entidad a transformar.
      * @return {@link MutableLiveData<Oficio>} si hay un objeto
-     * {@link OficioOfToday} válido.
+     * {@link TodayOficio} válido.
      */
-    public MutableLiveData<Oficio> transform(OficioOfToday theEntity) {
+    public MutableLiveData<Oficio> transform(TodayOficio theEntity) {
 
         if (theEntity != null) {
             MetaLiturgia meta=new MetaLiturgia();
@@ -77,14 +75,16 @@ public class OficioDataMapper {
         return mData;
     }
 
-    public MutableLiveData<Laudes> transformLaudes(LaudesOfToday theEntity) {
+    public MutableLiveData<Laudes> transformLaudes(TodayLaudes theEntity) {
         MutableLiveData<Laudes> liveData = new MutableLiveData<>();;
         Laudes laudes=new Laudes();
         laudes.setInvitatorio(theEntity.getInvitatorio());
         laudes.setMetaLiturgia(theEntity.getMetaLiturgia());
         laudes.setSanto(theEntity.getSanto());
         laudes.setHimno(theEntity.getHimno());
-        SalmodiaDataMapper dmSalmodia = new SalmodiaDataMapper();
+        MisaLecturas bm=theEntity.getMisaLecturas();
+        Log.d("LecturasABC", theEntity.getMisaLecturas().getAllForView().toString());
+
         laudes.setSalmodia(theEntity.getSalmodia());
         laudes.setLecturaBreve(theEntity.getBiblica());
         laudes.setBenedictus(theEntity.getBenedictus());
@@ -97,23 +97,63 @@ public class OficioDataMapper {
         return  liveData;
     }
 
-    public MutableLiveData<Intermedia> transformTercia(TerciaOfToday theEntity) {
+    public MutableLiveData<Mixto> transformMixto(TodayMixto theEntity) {
+        MutableLiveData<Mixto> liveData = new MutableLiveData<>();;
+        Mixto mixto=new Mixto();
+        Oficio oficio = new Oficio();
+        OficioLecturas ol=
+                new OficioLecturas(theEntity.getOficioBiblica(),
+                        theEntity.getOficioPatristica());
+        ol.setResponsorio(theEntity.getOficioResponsorio());
+        oficio.setOficioLecturas(ol);
+        TeDeum teDeum=new TeDeum(theEntity.today.oTeDeum);
+        oficio.setTeDeum(teDeum);
+
+        Laudes laudes=new Laudes();
+        mixto.setMetaLiturgia(theEntity.getMetaLiturgia());
+        mixto.setSanto(theEntity.getSanto());
+
+        mixto.setInvitatorio(theEntity.getInvitatorio());
+
+        laudes.setHimno(theEntity.getHimno());
+        laudes.setInvitatorio(theEntity.getInvitatorio());
+        laudes.setHimno(theEntity.getHimno());
+        SalmodiaDataMapper dmSalmodia = new SalmodiaDataMapper();
+        MisaLecturas bm=theEntity.getMisaLecturas();
+        //Log.d("LecturasABC",theEntity.getMisaLecturas().getAllForView().toString());
+Misa misa=new Misa();
+misa.setMisaLecturas(bm);
+
+        laudes.setSalmodia(theEntity.getSalmodia());
+        laudes.setLecturaBreve(theEntity.getBiblica());
+        laudes.setBenedictus(theEntity.getBenedictus());
+        laudes.setPreces(theEntity.getPreces());
+        LHOracionDataMapper dmOracion=new LHOracionDataMapper();
+        laudes.setOracion(dmOracion.transform(theEntity.lhOracion));
+        mixto.setLaudes(laudes);
+        mixto.setOficio(oficio);
+        mixto.setMisa(misa);
+        //oficio.
+        liveData.setValue(mixto);
+        return  liveData;
+    }
+
+    public MutableLiveData<Intermedia> transformTercia(TodayTercia theEntity) {
         MutableLiveData<Intermedia> liveData = new MutableLiveData<>();;
         Intermedia laudes=new Intermedia();
         laudes.setMetaLiturgia(theEntity.getMetaLiturgia());
         laudes.setSanto(theEntity.getSanto());
         laudes.setHimno(theEntity.getHimno());
         SalmodiaDataMapper dmSalmodia = new SalmodiaDataMapper();
-        laudes.setSalmodia(dmSalmodia.transformSalmodia(theEntity.salmos));
+        laudes.setSalmodia(theEntity.getSalmodia());
         laudes.setLecturaBreve(theEntity.getBiblica());
         LHOracionDataMapper dmOracion=new LHOracionDataMapper();
         laudes.setOracion(dmOracion.transform(theEntity.lhOracion));
-
         //oficio.
         liveData.setValue(laudes);
         return  liveData;
     }
-    public MutableLiveData<Oficio> transformB(OficioOfToday theEntity) {
+    public MutableLiveData<Oficio> transformB(TodayOficio theEntity) {
         MetaLiturgia meta=new MetaLiturgia();
         meta.setFecha("20220325");
         Oficio oficio = new Oficio();
@@ -122,14 +162,16 @@ public class OficioDataMapper {
         oficio.setInvitatorio(dmInvitatorio.transform(theEntity.invitatorio));
         oficio.setHimno(theEntity.getHimno());
         oficio.setSalmodia(theEntity.getSalmodia());
-        TeDeum teDeum=new TeDeum(theEntity.today.oTeDeum);
-        oficio.setTeDeum(teDeum);
-        LHOracionDataMapper dmOracion=new LHOracionDataMapper();
-        oficio.setOracion(dmOracion.transform(theEntity.lhOracion));
+
         OficioLecturas ol=
                 new OficioLecturas(theEntity.getBiblica(),theEntity.getPatristica());
         ol.setResponsorio(theEntity.getOficioResponsorio());
         oficio.setOficioLecturas(ol);
+        TeDeum teDeum=new TeDeum(theEntity.today.oTeDeum);
+        oficio.setTeDeum(teDeum);
+        LHOracionDataMapper dmOracion=new LHOracionDataMapper();
+        oficio.setOracion(dmOracion.transform(theEntity.lhOracion));
+
         //oficio.
         mData.setValue(oficio);
         return  mData;

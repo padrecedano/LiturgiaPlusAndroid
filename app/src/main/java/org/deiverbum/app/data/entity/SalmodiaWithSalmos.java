@@ -19,6 +19,13 @@ public class SalmodiaWithSalmos {
     public LHSalmodiaJoinEntity salmodiaEntity;
 
     @Relation(
+            parentColumn = "pericopaFK",
+            entityColumn = "pericopaId",
+            entity = BibliaLecturaEntity.class
+    )
+    public BibliaLecturaEntity salmoEntity;
+
+    @Relation(
             parentColumn = "antifonaFK",
             entityColumn = "antifonaId",
             entity = AntifonaEntity.class
@@ -44,23 +51,23 @@ public class SalmodiaWithSalmos {
     }
 
     public String getSalmoText(){
-            return "";//(salmoEntity!=null) ? salmoEntity.getTexto() : "";
+            return (salmoEntity!=null) ? salmoEntity.getTexto() : "";
     }
 
     public String getRef(){
-            return "";//(salmoEntity!=null) ? salmoEntity.getCita() : "";
+            return (salmoEntity!=null) ? salmoEntity.getCita() : "";
     }
 
     public String getAntifona(){
-            return "";//(antifonaEntity!=null) ? antifonaEntity.getAntifona() : "";
+            return (antifonaEntity!=null) ? antifonaEntity.getAntifona() : "";
     }
 
     public String getTema(){
-        return "";//(tema!=null) ? tema.getTema() : "";
+        return (tema!=null) ? tema.getTema() : "";
     }
 
     public String getParte(){
-            return "";//(salmodia!=null) ? salmodia.getParte() : "";
+            return (salmodia!=null) ? salmodia.getParte() : "";
     }
 
 

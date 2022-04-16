@@ -76,7 +76,7 @@ public Mixto(){
             Biblica lecturaBreve = laudes.getLecturaBreve();
             CanticoEvangelico ce = laudes.getBenedictus();
             Preces preces = laudes.getPreces();
-            Evangelio misaEvangelio = misa.getMisaLecturas().getEvangelio();
+            //Evangelio misaEvangelio = misa.getMisaLecturas().getEvangelio();
 
             sb.append(metaLiturgia.getAll());
             sb.append(Utils.LS2);
@@ -108,7 +108,7 @@ public Mixto(){
             sb.append(oficioLecturas.getAll());
             sb.append(Utils.LS2);
 
-            sb.append(misaEvangelio.getAll());
+            sb.append(misa.getAllEvangelio());
             sb.append(Utils.LS2);
 
             sb.append(ce.getAll());
@@ -142,7 +142,7 @@ public Mixto(){
             CanticoEvangelico ce = laudes.getBenedictus();
         Preces preces = laudes.getPreces();
         MisaLecturas misaLecturas = misa.getMisaLecturas();
-        Evangelio misaEvangelio = misaLecturas.getEvangelio();
+        //Evangelio misaEvangelio = misaLecturas.getEvangelio();
 
         sb.append(metaLiturgia.getAllForRead());
 
@@ -163,7 +163,7 @@ public Mixto(){
 
         sb.append(oficioLecturas.getAllForRead());
 
-        sb.append(misaEvangelio.getAllForRead());
+        sb.append(misa.getAllEvangelioForRead());
 
         sb.append(ce.getAllForRead());
 

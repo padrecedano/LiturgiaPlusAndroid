@@ -13,6 +13,7 @@ import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.model.Homilias;
 import org.deiverbum.app.model.Intermedia;
 import org.deiverbum.app.model.Laudes;
+import org.deiverbum.app.model.Mixto;
 import org.deiverbum.app.model.Oficio;
 import org.deiverbum.app.model.Salmodia;
 import org.deiverbum.app.model.Today;
@@ -75,6 +76,10 @@ public class TodayViewModel extends ViewModel {
 
     public LiveData<Intermedia> getTercia(String theDate) {
         return mRepository.getTercia("20220325");
+    }
+
+    public LiveData<Mixto> getMixto(String theDate) {
+        return mRepository.getMixto("20220325");
     }
 
     public LiveData<Oficio> getTodayWithOficioB(String theDate) {

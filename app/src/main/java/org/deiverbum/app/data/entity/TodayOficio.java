@@ -1,19 +1,16 @@
 package org.deiverbum.app.data.entity;
 
 import androidx.room.Embedded;
-import androidx.room.Junction;
 import androidx.room.Relation;
 
+import org.deiverbum.app.R;
 import org.deiverbum.app.model.Biblica;
-import org.deiverbum.app.model.CanticoEvangelico;
 import org.deiverbum.app.model.Himno;
-import org.deiverbum.app.model.Invitatorio;
-import org.deiverbum.app.model.LecturaBreve;
+import org.deiverbum.app.model.Liturgia;
 import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.Patristica;
-import org.deiverbum.app.model.Preces;
+import org.deiverbum.app.model.Responsorio;
 import org.deiverbum.app.model.Salmodia;
-import org.deiverbum.app.model.Santo;
 
 import java.util.List;
 
@@ -22,7 +19,7 @@ import java.util.List;
  * @version 1.0
  * @since 2022.2
  */
-public class LaudesOfToday {
+public class TodayOficio {
 
     @Embedded
     public Today today;
@@ -30,7 +27,7 @@ public class LaudesOfToday {
     @Relation(
             entity = SantoEntity.class,
             parentColumn = "santoFK",
-            entityColumn = "santoId" //liturgiaId
+            entityColumn = "santoId"
     )
     public SantoEntity santo;
 
@@ -43,49 +40,52 @@ public class LaudesOfToday {
 
     @Relation(
             entity = HimnoEntity.class,
-            parentColumn = "lHimnoFK",
+            parentColumn = "oHimnoFK",
             entityColumn = "himnoId"
     )
     public HimnoEntity himno;
 
     @Relation(
-            entity = LHBiblicaBreveEntity.class,
-            parentColumn = "lBiblicaFK",
-            entityColumn = "grupoId"
+            entity = LHBiblicaEntity.class,
+            parentColumn = "oBiblicaFK",
+            entityColumn = "biblicaId"
     )
-    public LHBiblicaBreve biblica;
+    public LHBiblica biblica;
 
+    @Relation(
+            entity = LHPatristicaEntity.class,
+            parentColumn = "oPatristicaFK",
+            entityColumn = "patristicaId"
+    )
+    public LHPatristica patristica;
 
     @Relation(
             entity = LHSalmodiaJoinEntity.class,
-            parentColumn = "lSalmodiaFK",
+            parentColumn = "oSalmodiaFK",
             entityColumn = "grupoId"
     )
     public LHSalmodia salmodia;
 
     @Relation(
             entity = SalmodiaEntity.class,
-            parentColumn = "lSalmodiaFK",
+            parentColumn = "oSalmodiaFK",
             entityColumn = "grupoFK"
     )
     public List<SalmodiaWithSalmos> salmos;
 
     @Relation(
-            entity = LHPrecesJoinEntity.class,
-            parentColumn = "lPrecesFK",
-            entityColumn = "grupoId"
-
-    )
-    public LHPreces lhPreces;
-
-    @Relation(
             entity = LHOracionEntity.class,
-            parentColumn = "lOracionFK",
+            parentColumn = "oOracionFK",
             entityColumn = "liturgiaId"
     )
     public LHOracion lhOracion;
 
-
+    @Relation(
+            entity = LHOficioResponsorioEntity.class,
+            parentColumn = "oResponsorioFK",
+            entityColumn = "responsorioId"
+    )
+    public LHOficioResponsorioEntity lhOficioResponsorio;
 
     @Relation(
             entity = LiturgiaEntity.class,
@@ -101,12 +101,7 @@ public class LaudesOfToday {
     )
     public LiturgiaEntity previo;
 
-    @Relation(
-            entity = LHCanticoEvangelicoEntity.class,
-            parentColumn = "lBenedictusFK",
-            entityColumn = "grupoId"
-    )
-    public CanticoEvangelicoWithAntifona benedictus;
+    //@Embedded public LHOracion address;
 
     public MetaLiturgia getMetaLiturgia(){
         MetaLiturgia theModel = new MetaLiturgia();
@@ -116,15 +111,15 @@ public class LaudesOfToday {
         }
         theModel.setFecha(String.valueOf(today.hoy));
         theModel.setColor(feria.colorFK);
-        theModel.setIdHour(2);
+        theModel.setIdHour(6);
         theModel.setCalendarTime(feria.colorFK);
-        theModel.setHasSaint(true);
+        theModel.setHasSaint(false);
         theModel.setIdBreviario(feria.colorFK);
         theModel.setIdDia(feria.colorFK);
         theModel.setIdLecturas(today.mLecturasFK);
         theModel.setIdPrevio(1);
         theModel.setIdSemana(1);
-        theModel.setIdTiempo(9);
+        theModel.setIdTiempo(1);
         theModel.setIdTiempoPrevio(1);
         theModel.setTitulo(feria.nombre);
         return theModel;
@@ -135,29 +130,16 @@ public class LaudesOfToday {
         return modelHimno;
     }
 
-//TODO incluir algo como hasPriority en Today
-    public LecturaBreve getBiblica(){
-        return  biblica.getDomainModelBreve(today.getTiempoId());
+    public String getOficioResponsorio(){
+        return lhOficioResponsorio.getResponsorio();
     }
 
-    public CanticoEvangelico getBenedictus(){
-        return  benedictus.getDomainModel(2);
+    public Biblica getBiblica(){
+        return biblica.getDomainModel(today.getTiempoId());
     }
 
-    public Preces getPreces(){
-        return  lhPreces.getDomainModel();
-    }
-
-    public Santo getSanto(){
-        return  santo.getDomainModel(false);
-    }
-
-
-    public Invitatorio getInvitatorio() {
-        Invitatorio theModel=new Invitatorio();
-        theModel.setId(invitatorio.getId());
-        theModel.setAntifona(invitatorio.getAntifona());
-        return theModel;
+    public Patristica getPatristica(){
+        return patristica.getDomainModel(today.getTiempoId());
     }
 
     public Salmodia getSalmodia() {

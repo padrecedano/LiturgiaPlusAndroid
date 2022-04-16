@@ -9,6 +9,7 @@ import org.deiverbum.app.model.Invitatorio;
 import org.deiverbum.app.model.LecturaBreve;
 import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.Preces;
+import org.deiverbum.app.model.Salmodia;
 import org.deiverbum.app.model.Santo;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
  * @version 1.0
  * @since 2022.2
  */
-public class TerciaOfToday {
+public class TodayTercia {
 
     @Embedded
     public Today today;
@@ -45,6 +46,12 @@ public class TerciaOfToday {
     )
     public LHBiblicaBreve biblica;
 
+    @Relation(
+            entity = LHSalmodiaJoinEntity.class,
+            parentColumn = "tSalmodiaFK",
+            entityColumn = "grupoId"
+    )
+    public LHSalmodia salmodia;
 
     @Relation(
             entity = SalmodiaEntity.class,
@@ -116,4 +123,7 @@ public class TerciaOfToday {
     }
 
 
+    public Salmodia getSalmodia() {
+        return salmodia.getDomainModel();
+    }
 }

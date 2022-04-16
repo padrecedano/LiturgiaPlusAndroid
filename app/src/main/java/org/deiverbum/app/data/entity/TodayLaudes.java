@@ -1,17 +1,24 @@
 package org.deiverbum.app.data.entity;
 
 import androidx.room.Embedded;
+import androidx.room.Junction;
 import androidx.room.Relation;
 
-import org.deiverbum.app.R;
 import org.deiverbum.app.model.Biblica;
+import org.deiverbum.app.model.BiblicaMisa;
+import org.deiverbum.app.model.CanticoEvangelico;
 import org.deiverbum.app.model.Himno;
-import org.deiverbum.app.model.Liturgia;
+import org.deiverbum.app.model.Invitatorio;
+import org.deiverbum.app.model.LecturaBreve;
 import org.deiverbum.app.model.MetaLiturgia;
+import org.deiverbum.app.model.MisaLecturas;
 import org.deiverbum.app.model.Patristica;
-import org.deiverbum.app.model.Responsorio;
+import org.deiverbum.app.model.Preces;
+import org.deiverbum.app.model.Salmo;
 import org.deiverbum.app.model.Salmodia;
+import org.deiverbum.app.model.Santo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +26,7 @@ import java.util.List;
  * @version 1.0
  * @since 2022.2
  */
-public class OficioOfToday {
+public class TodayLaudes {
 
     @Embedded
     public Today today;
@@ -27,7 +34,7 @@ public class OficioOfToday {
     @Relation(
             entity = SantoEntity.class,
             parentColumn = "santoFK",
-            entityColumn = "santoId"
+            entityColumn = "santoId" //liturgiaId
     )
     public SantoEntity santo;
 
@@ -40,52 +47,49 @@ public class OficioOfToday {
 
     @Relation(
             entity = HimnoEntity.class,
-            parentColumn = "oHimnoFK",
+            parentColumn = "lHimnoFK",
             entityColumn = "himnoId"
     )
     public HimnoEntity himno;
 
     @Relation(
-            entity = LHBiblicaEntity.class,
-            parentColumn = "oBiblicaFK",
-            entityColumn = "biblicaId"
+            entity = LHBiblicaBreveEntity.class,
+            parentColumn = "lBiblicaFK",
+            entityColumn = "grupoId"
     )
-    public LHBiblica biblica;
+    public LHBiblicaBreve biblica;
 
-    @Relation(
-            entity = LHPatristicaEntity.class,
-            parentColumn = "oPatristicaFK",
-            entityColumn = "patristicaId"
-    )
-    public LHPatristica patristica;
 
     @Relation(
             entity = LHSalmodiaJoinEntity.class,
-            parentColumn = "oSalmodiaFK",
+            parentColumn = "lSalmodiaFK",
             entityColumn = "grupoId"
     )
     public LHSalmodia salmodia;
 
     @Relation(
             entity = SalmodiaEntity.class,
-            parentColumn = "oSalmodiaFK",
+            parentColumn = "lSalmodiaFK",
             entityColumn = "grupoFK"
     )
     public List<SalmodiaWithSalmos> salmos;
 
     @Relation(
+            entity = LHPrecesJoinEntity.class,
+            parentColumn = "lPrecesFK",
+            entityColumn = "grupoId"
+
+    )
+    public LHPreces lhPreces;
+
+    @Relation(
             entity = LHOracionEntity.class,
-            parentColumn = "oOracionFK",
+            parentColumn = "lOracionFK",
             entityColumn = "liturgiaId"
     )
     public LHOracion lhOracion;
 
-    @Relation(
-            entity = LHOficioResponsorioEntity.class,
-            parentColumn = "oResponsorioFK",
-            entityColumn = "responsorioId"
-    )
-    public LHOficioResponsorioEntity lhOficioResponsorio;
+
 
     @Relation(
             entity = LiturgiaEntity.class,
@@ -101,7 +105,31 @@ public class OficioOfToday {
     )
     public LiturgiaEntity previo;
 
-    //@Embedded public LHOracion address;
+    @Relation(
+            entity = LHCanticoEvangelicoEntity.class,
+            parentColumn = "lBenedictusFK",
+            entityColumn = "grupoId"
+    )
+    public CanticoEvangelicoWithAntifona benedictus;
+
+    @Relation(
+            entity = MisaLecturaEntity.class,
+            parentColumn = "mLecturasFK",
+            entityColumn = "liturgiaFK"
+    )
+    public List<MisaWithLecturas> lecturas;
+
+    public MisaLecturas getMisaLecturas(){
+        MisaLecturas theModel=new MisaLecturas();
+        List<BiblicaMisa> listModel = new ArrayList<>();
+
+        for (MisaWithLecturas item : lecturas) {
+            listModel.add(item.getDomainModel());
+        }
+            theModel.setLecturas(listModel);
+        return theModel;
+    }
+
 
     public MetaLiturgia getMetaLiturgia(){
         MetaLiturgia theModel = new MetaLiturgia();
@@ -111,15 +139,15 @@ public class OficioOfToday {
         }
         theModel.setFecha(String.valueOf(today.hoy));
         theModel.setColor(feria.colorFK);
-        theModel.setIdHour(6);
+        theModel.setIdHour(2);
         theModel.setCalendarTime(feria.colorFK);
-        theModel.setHasSaint(false);
+        theModel.setHasSaint(true);
         theModel.setIdBreviario(feria.colorFK);
         theModel.setIdDia(feria.colorFK);
         theModel.setIdLecturas(today.mLecturasFK);
         theModel.setIdPrevio(1);
         theModel.setIdSemana(1);
-        theModel.setIdTiempo(1);
+        theModel.setIdTiempo(9);
         theModel.setIdTiempoPrevio(1);
         theModel.setTitulo(feria.nombre);
         return theModel;
@@ -130,16 +158,29 @@ public class OficioOfToday {
         return modelHimno;
     }
 
-    public String getOficioResponsorio(){
-        return lhOficioResponsorio.getResponsorio();
+//TODO incluir algo como hasPriority en Today
+    public LecturaBreve getBiblica(){
+        return  biblica.getDomainModelBreve(today.getTiempoId());
     }
 
-    public Biblica getBiblica(){
-        return biblica.getDomainModel(today.getTiempoId());
+    public CanticoEvangelico getBenedictus(){
+        return  benedictus.getDomainModel(2);
     }
 
-    public Patristica getPatristica(){
-        return patristica.getDomainModel(today.getTiempoId());
+    public Preces getPreces(){
+        return  lhPreces.getDomainModel();
+    }
+
+    public Santo getSanto(){
+        return  santo.getDomainModel(false);
+    }
+
+
+    public Invitatorio getInvitatorio() {
+        Invitatorio theModel=new Invitatorio();
+        theModel.setId(invitatorio.getId());
+        theModel.setAntifona(invitatorio.getAntifona());
+        return theModel;
     }
 
     public Salmodia getSalmodia() {
