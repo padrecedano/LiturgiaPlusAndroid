@@ -131,7 +131,7 @@ public class Completas extends  BreviarioHora{
 
         int mIndex = (metaLiturgia.idTiempo == 6) ? 1 : 0;
         Responsorio mResponsorio = responsorio.get(mIndex);
-        LecturaBreve mLectura = completasDias.get(metaLiturgia.weekDay).getLecturaBreve();
+        BiblicaBreve mLectura = completasDias.get(metaLiturgia.weekDay).getLecturaBreve();
         mLectura.setResponsorio(mResponsorio);
         mLectura.setForma(String.valueOf(mResponsorio.getForma()));
         ssb.append(mLectura.getAll());
@@ -143,7 +143,7 @@ public class Completas extends  BreviarioHora{
 
         int mIndex = (metaLiturgia.idTiempo == 6) ? 1 : 0;
         Responsorio mResponsorio = responsorio.get(mIndex);
-        LecturaBreve mLectura = completasDias.get(metaLiturgia.weekDay).getLecturaBreve();
+        BiblicaBreve mLectura = completasDias.get(metaLiturgia.weekDay).getLecturaBreve();
         mLectura.setResponsorio(mResponsorio);
         mLectura.setForma(String.valueOf(mResponsorio.getForma()));
         ssb.append(mLectura.getAllForRead());

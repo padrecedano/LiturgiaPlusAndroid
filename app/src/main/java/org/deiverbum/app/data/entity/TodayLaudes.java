@@ -1,20 +1,17 @@
 package org.deiverbum.app.data.entity;
 
 import androidx.room.Embedded;
-import androidx.room.Junction;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Biblica;
+import org.deiverbum.app.model.BiblicaBreve;
 import org.deiverbum.app.model.BiblicaMisa;
 import org.deiverbum.app.model.CanticoEvangelico;
 import org.deiverbum.app.model.Himno;
 import org.deiverbum.app.model.Invitatorio;
-import org.deiverbum.app.model.LecturaBreve;
 import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.MisaLecturas;
-import org.deiverbum.app.model.Patristica;
+import org.deiverbum.app.model.Oracion;
 import org.deiverbum.app.model.Preces;
-import org.deiverbum.app.model.Salmo;
 import org.deiverbum.app.model.Salmodia;
 import org.deiverbum.app.model.Santo;
 
@@ -57,7 +54,7 @@ public class TodayLaudes {
             parentColumn = "lBiblicaFK",
             entityColumn = "grupoId"
     )
-    public LHBiblicaBreve biblica;
+    public BiblicaBreveWithResponsorio biblica;
 
 
     @Relation(
@@ -159,7 +156,7 @@ public class TodayLaudes {
     }
 
 //TODO incluir algo como hasPriority en Today
-    public LecturaBreve getBiblica(){
+    public BiblicaBreve getBiblica(){
         return  biblica.getDomainModelBreve(today.getTiempoId());
     }
 
@@ -185,5 +182,9 @@ public class TodayLaudes {
 
     public Salmodia getSalmodia() {
         return salmodia.getDomainModel();
+    }
+
+    public Oracion getOracion() {
+        return lhOracion.getDomainModel();
     }
 }

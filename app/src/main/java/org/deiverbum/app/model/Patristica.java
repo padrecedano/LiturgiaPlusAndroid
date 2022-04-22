@@ -14,6 +14,8 @@ public class Patristica {
     public String tema;
     public String texto;
     public String ref;
+    private Integer orden;
+
     public Responsorio responsorio;
 
     public Patristica() {
@@ -95,9 +97,15 @@ public class Patristica {
         this.responsorio = responsorio;
     }
 
-    public SpannableStringBuilder getHeader() {
+    public SpannableStringBuilder getHeaderDelete() {
 
         return Utils.formatTitle("SEGUNDA LECTURA");
+    }
+
+
+    public SpannableStringBuilder getHeader() {
+        String s=String.format("%s lectura",Utils.getOrdinal(orden)).toUpperCase();
+        return Utils.formatTitle(s);
     }
 
     public String getHeaderForRead() {
@@ -138,5 +146,13 @@ public class Patristica {
         sb.append(Utils.LS);
         sb.append(responsorio.getAll());
         return sb;
+    }
+
+    public void setOrden(Integer orden) {
+        this.orden=orden;
+    }
+
+    public Integer getOrden() {
+        return this.orden;
     }
 }

@@ -6,9 +6,7 @@ package org.deiverbum.app.data.entity.mapper;
  * @since 2022.2
  */
 
-import org.deiverbum.app.data.entity.LHBiblica;
 import org.deiverbum.app.data.entity.LHOracion;
-import org.deiverbum.app.model.Biblica;
 import org.deiverbum.app.model.Oracion;
 
 /**

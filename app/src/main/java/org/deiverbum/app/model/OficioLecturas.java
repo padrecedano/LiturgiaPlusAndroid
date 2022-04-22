@@ -4,24 +4,28 @@ import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
 
+import org.deiverbum.app.data.entity.BiblicaOficioWithResponsorio;
 import org.deiverbum.app.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OficioLecturas {
     @SuppressWarnings("unused")
     private String responsorio;
-    private Biblica biblica;
-    private Patristica patristica;
+    private List<BiblicaOficio> biblica;
+    private List<Patristica> patristica;
     private TeDeum teDeum;
 
 
     public OficioLecturas() {
     }
 
-    public OficioLecturas(Biblica biblica, Patristica patristica) {
-        this.biblica=biblica;
+    /*public OficioLecturas(BiblicaOficio biblica, Patristica patristica) {
+        this.biblica.add(biblica);
         this.patristica=patristica;
     }
-
+*/
     public String getResponsorio() {
         return responsorio;
     }
@@ -64,22 +68,22 @@ public class OficioLecturas {
 
 
     @SuppressWarnings("unused")
-    public Patristica getPatristica() {
+    public List<Patristica> getPatristica() {
         return patristica;
     }
 
     @SuppressWarnings("unused")
-    public void setPatristica(Patristica patristica) {
+    public void setPatristica(List<Patristica> patristica) {
         this.patristica = patristica;
     }
 
     @SuppressWarnings("unused")
-    public Biblica getBiblica() {
+    public List<BiblicaOficio> getBiblica() {
         return biblica;
     }
 
     @SuppressWarnings("unused")
-    public void setBiblica(Biblica biblica) {
+    public void setBiblica(List<BiblicaOficio> biblica) {
         this.biblica = biblica;
     }
 
@@ -116,8 +120,24 @@ public class OficioLecturas {
         sb.append(LS2);
         sb.append(getResponsorioSpan());
         sb.append(LS2);
-        sb.append(biblica.getAll());
-        sb.append(patristica.getAll());
+        sb.append(getAllBiblica());
+        sb.append(getAllPatristica());
+        return sb;
+    }
+
+    public SpannableStringBuilder getAllBiblica() {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+        for (BiblicaOficio oneBiblica : this.biblica) {
+            sb.append(oneBiblica.getAll());
+        }
+        return sb;
+    }
+
+    public SpannableStringBuilder getAllPatristica() {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+        for (Patristica theModel : this.patristica) {
+            sb.append(theModel.getAll());
+        }
         return sb;
     }
 
@@ -125,8 +145,8 @@ public class OficioLecturas {
         StringBuilder sb=new StringBuilder();
         sb.append(getHeaderForRead());
         sb.append(getResponsorioForRead());
-        sb.append(biblica.getAllForRead());
-        sb.append(patristica.getAllForRead());
+        //sb.append(biblica.getAllForRead());
+        //sb.append(patristica.getAllForRead());
         return sb.toString();
     }
 

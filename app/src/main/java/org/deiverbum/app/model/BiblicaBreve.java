@@ -6,13 +6,13 @@ import org.deiverbum.app.utils.Utils;
 
 import static org.deiverbum.app.utils.Utils.LS2;
 
-public class LecturaBreve extends Biblica{
+public class BiblicaBreve extends Biblica{
     public String ref;
     public String texto;
     public String responsorio;
     public String forma;
 
-    public LecturaBreve() {
+    public BiblicaBreve() {
     }
 
     public String getRef() {

@@ -6,7 +6,7 @@ package org.deiverbum.app.data.entity.mapper;
  * @since 2022.2
  */
 
-import org.deiverbum.app.data.entity.LHBiblica;
+import org.deiverbum.app.data.entity.BiblicaOficioWithResponsorio;
 import org.deiverbum.app.model.Biblica;
 
 /**
@@ -25,14 +25,15 @@ public class BiblicaDataMapper {
      *
      * @param theEntity Entidad a transformar.
      * @return {@link org.deiverbum.app.model.Biblica} si hay un objeto
-     * {@link org.deiverbum.app.data.entity.LHBiblica} válido.
+     * {@link BiblicaOficioWithResponsorio} válido.
      */
-    public Biblica transform(LHBiblica theEntity) {
+    public Biblica transform(BiblicaOficioWithResponsorio theEntity) {
         Biblica theModel = new Biblica();
-        theModel.setTema(theEntity.lhBiblica.tema);
-        theModel.setTexto(theEntity.bibliaLectura.texto);
-        LHResponsorioMapper lhResponsorioMapper=new LHResponsorioMapper();
-        theModel.setResponsorio(lhResponsorioMapper.transform(theEntity.lhResponsorioEntity));
+        //theModel.setTema(theEntity.biblicaOficioWithResponsorio.tema);
+        //theModel.setTexto(theEntity.bibliaLectura.texto);
+        //LHResponsorioMapper lhResponsorioMapper=new LHResponsorioMapper();
+        //theModel.setResponsorio(lhResponsorioMapper.transform(theEntity
+        // .lhResponsorioEntity));
         //invitatorio.setAntifona(theEntity.antifona.getAntifona());
         //invitatorio.setId(theEntity.invitatorio.invitatorioId);
         return theModel;

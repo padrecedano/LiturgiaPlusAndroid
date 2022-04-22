@@ -7,7 +7,7 @@ import android.text.SpannableStringBuilder;
 import org.deiverbum.app.utils.Utils;
 
 public class Visperas extends BreviarioHora {
-    private LecturaBreve lecturaBreve;
+    private BiblicaBreve biblicaBreve;
     private Magnificat magnificat;
     private Preces preces;
     private final PadreNuestro padreNuestro;
@@ -17,13 +17,13 @@ public class Visperas extends BreviarioHora {
     }
 
     @SuppressWarnings("unused")
-    public LecturaBreve getLecturaBreve() {
-        return lecturaBreve;
+    public BiblicaBreve getLecturaBreve() {
+        return biblicaBreve;
     }
 
     @SuppressWarnings("unused")
-    public void setLecturaBreve(LecturaBreve lecturaBreve) {
-        this.lecturaBreve = lecturaBreve;
+    public void setLecturaBreve(BiblicaBreve biblicaBreve) {
+        this.biblicaBreve = biblicaBreve;
     }
 
     public Preces getPreces() {
@@ -48,7 +48,7 @@ public class Visperas extends BreviarioHora {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
 
-            lecturaBreve.normalizeByTime(metaLiturgia.calendarTime);
+            biblicaBreve.normalizeByTime(metaLiturgia.calendarTime);
             sb.append(metaLiturgia.getAll());
             sb.append(Utils.LS2);
 
@@ -67,7 +67,7 @@ public class Visperas extends BreviarioHora {
             sb.append(salmodia.getAll());
             sb.append(Utils.LS2);
 
-            sb.append(lecturaBreve.getAll());
+            sb.append(biblicaBreve.getAll());
             sb.append(Utils.LS2);
 
             sb.append(magnificat.getAll());
@@ -98,7 +98,7 @@ public class Visperas extends BreviarioHora {
             sb.append(getSaludoDiosMioForRead());
             sb.append(himno.getAllForRead());
             sb.append(salmodia.getAllForRead());
-            sb.append(lecturaBreve.getAllForRead());
+            sb.append(biblicaBreve.getAllForRead());
             sb.append(magnificat.getAllForRead());
             sb.append(preces.getAllForRead());
             sb.append(padreNuestro.getAllForRead());

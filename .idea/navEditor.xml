@@ -426,18 +426,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="nav_t">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="nav_tercia">
                     <value>
                       <LayoutPositions>
@@ -468,6 +456,18 @@
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="1908" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="nav_today">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
                             <option name="y" value="12" />
                           </Point>
                         </option>

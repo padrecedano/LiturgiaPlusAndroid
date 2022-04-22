@@ -310,7 +310,8 @@ public class Today {
         this.oficioFK = oficioFK;
     }
 
-
-
+    public boolean getTeDeum() {
+        return oTeDeum == 1;
+    }
 }
 

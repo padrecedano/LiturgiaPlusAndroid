@@ -983,4 +983,33 @@ public final class Utils {
         return date.substring(6, 8);
     }
 
+    public static String getOrdinal(int i) {
+            switch (i) {
+                case 1:
+                    return "Primera";
+
+                case 2:
+                    return "Segunda";
+
+                case 3:
+                    return "Tercera";
+                case 4:
+                    return "Cuarta";
+                case 5:
+                    return "Quinta";
+                case 6:
+                    return "Sexta";
+                case 7:
+                    return "Séptima";
+                case 8:
+                    return "Octava";
+                case 9:
+                    return "Novena";
+                default:
+                    return "";
+
+
+            }
+        }
+
 }

@@ -57,18 +57,7 @@ public class TodayViewModel extends ViewModel {
     public LiveData<SalmoEntity> getSalmo() {
         return mRepository.getSalmo();
     }
-/*
-    public LiveData<Map<Salmodia, List<Salmo>>> loadUserAndBookNames() {
-        return mRepository.loadUserAndBookNames();
-    }
-*/
-    public LiveData<UserWithPlaylistsAndSongs> getUsersWithPlaylistsAndSongs(String date) {
-        return mRepository.getUsersWithPlaylistsAndSongs("");
-    }
 
-    public LiveData<Oficio> getTodayWithOficio(String theDate) {
-        return mRepository.transformedOficio("20220325");
-    }
 
     public LiveData<Laudes> getLaudes(String theDate) {
         return mRepository.mappedLaudes("20220325");
@@ -83,7 +72,7 @@ public class TodayViewModel extends ViewModel {
     }
 
     public LiveData<Oficio> getTodayWithOficioB(String theDate) {
-        return mRepository.transformedOficioB("20220325");
+        return mRepository.getOficio("20220325");
     }
 /*
     public LiveData<List<SalmodiaWithSalmos>> getSalmodiaWithSalmos(String date) {

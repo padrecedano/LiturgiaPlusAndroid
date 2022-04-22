@@ -3,13 +3,10 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.R;
 import org.deiverbum.app.model.Biblica;
 import org.deiverbum.app.model.Himno;
-import org.deiverbum.app.model.Liturgia;
 import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.Patristica;
-import org.deiverbum.app.model.Responsorio;
 import org.deiverbum.app.model.Salmodia;
 
 import java.util.List;
@@ -46,11 +43,11 @@ public class TodayOficio {
     public HimnoEntity himno;
 
     @Relation(
-            entity = LHBiblicaEntity.class,
+            entity = LHBiblicaOficioEntity.class,
             parentColumn = "oBiblicaFK",
-            entityColumn = "biblicaId"
+            entityColumn = "grupoFK"
     )
-    public LHBiblica biblica;
+    public LHBiblicaOficioEntity biblicaOficio;
 
     @Relation(
             entity = LHPatristicaEntity.class,
@@ -134,8 +131,8 @@ public class TodayOficio {
         return lhOficioResponsorio.getResponsorio();
     }
 
-    public Biblica getBiblica(){
-        return biblica.getDomainModel(today.getTiempoId());
+    public Biblica getBiblicaOficio(){
+        return null;//biblicaOficio.getDomainModelOficio(today.getTiempoId());
     }
 
     public Patristica getPatristica(){

@@ -3,6 +3,8 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
+import org.deiverbum.app.model.Oracion;
+
 /**
  * @author A. Cedano
  * @version 1.0
@@ -19,4 +21,9 @@ public class LHOracion {
     )
     public OracionEntity oracionEntity;
 
+    public Oracion getDomainModel() {
+        Oracion theModel=new Oracion();
+        theModel.setTexto(oracionEntity.getTexto());
+        return theModel;
+    }
 }
