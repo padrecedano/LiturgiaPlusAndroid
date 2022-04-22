@@ -4,9 +4,10 @@ import androidx.room.Embedded;
 import androidx.room.Relation;
 
 import org.deiverbum.app.model.Biblica;
+import org.deiverbum.app.model.BiblicaBreve;
 import org.deiverbum.app.model.BiblicaMisa;
+import org.deiverbum.app.model.BiblicaOficio;
 import org.deiverbum.app.model.Evangelio;
-import org.deiverbum.app.model.LecturaBreve;
 
 /**
  * @author A. Cedano
@@ -63,17 +64,27 @@ public class LecturaWithLibro {
         return theModel;
     }
 
-    public LecturaBreve getDomainModelBreve(){
-        LecturaBreve theModel=new LecturaBreve();
+    public BiblicaBreve getDomainModelBreve(){
+        BiblicaBreve theModel=new BiblicaBreve();
         theModel.setLibro(libro.getDomainModel());
         theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
         theModel.setRef(lectura.getCita());
         //theModel.setVersoInicial(String.valueOf(getDesde()));
         //theModel.setVersoFinal(String.valueOf(getHasta()));
-        //theModel.setTema(lhBiblica.tema);
+        //theModel.setTema(biblicaOficioWithResponsorio.tema);
         theModel.setTexto(lectura.getTexto());
         //theModel.setResponsorio(lhResponsorioEntity.getDomainModel());
         return theModel;
     }
 
+    public BiblicaOficio getDomainModelOficio() {
+        BiblicaOficio theModel=new BiblicaOficio();
+        theModel.setLibro(libro.getDomainModel());
+        theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
+        theModel.setVersoInicial(String.valueOf(lectura.getDesde()));
+        theModel.setVersoFinal(String.valueOf(lectura.getHasta()));
+        theModel.setRef(lectura.getCita());
+        theModel.setTexto(lectura.getTexto());
+        return theModel;
+    }
 }

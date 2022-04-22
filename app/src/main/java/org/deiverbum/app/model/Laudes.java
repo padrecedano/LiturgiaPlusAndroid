@@ -64,7 +64,7 @@ public class Laudes extends BreviarioHora{
         try {
             //TODO hacer esto en la clase Responsorio, revisar Completas y
             // demás horas
-            //lecturaBreve.normalizeByTime(metaLiturgia.calendarTime);
+            //biblicaBreve.normalizeByTime(metaLiturgia.calendarTime);
             sb.append(metaLiturgia.getAll());
             sb.append(LS2);
 

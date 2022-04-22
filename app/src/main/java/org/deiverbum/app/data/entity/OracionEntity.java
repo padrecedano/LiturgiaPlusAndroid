@@ -26,5 +26,8 @@ public class OracionEntity {
     @ColumnInfo(name = "oracion")
     public String texto;
 
+    public String getTexto() {
+        return texto!=null?texto:"";
+    }
 }
 

@@ -26,6 +26,7 @@ public class BibliaLibro {
     }
 
     public String getName() {
+
         return name;
     }
 

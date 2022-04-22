@@ -120,7 +120,7 @@
 
     <fragment
         android:id="@+id/nav_homilias"
-        android:name="org.deiverbum.app.ui.fragments.HomiliasFragment"
+        android:name="org.deiverbum.app.ui.fragments.TodayFragment"
         android:label="@string/title_fragment_homilias"
         tools:layout="@layout/fragment_homilias" />
 

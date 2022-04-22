@@ -194,25 +194,14 @@ public class TodayRepository {
         return mTodayDao.getTodayWithOficio(Integer.valueOf(s));
     }
 */
-    public LiveData<Oficio> transformedOficio(String s) {
-        MutableLiveData<Oficio> ss=
-                mMapper.transform(mTodayDao.getOficioOfToday(Integer.valueOf(s)));
-        return ss;//mMapper.transform(mTodayDao.getUsersWithPlaylistsAndSongs
-        // ());
-    }
 
-    public LiveData<Oficio> transformedOficioB(String s) {
-        MutableLiveData<Oficio> ss=
-                mMapper.transformB(mTodayDao.getOficioOfToday(Integer.valueOf(s)));
-        return ss;//mMapper.transform(mTodayDao.getUsersWithPlaylistsAndSongs
-        // ());
+
+    public LiveData<Oficio> getOficio(String s) {
+        return mMapper.transformOficio(mTodayDao.getOficioOfToday(Integer.valueOf(s)));
     }
 
     public LiveData<Laudes> mappedLaudes(String s) {
-        MutableLiveData<Laudes> ss=
-                mMapper.transformLaudes(mTodayDao.getLaudesOfToday(Integer.valueOf(s)));
-        return ss;//mMapper.transform(mTodayDao.getUsersWithPlaylistsAndSongs
-        // ());
+        return mMapper.transformLaudes(mTodayDao.getLaudesOfToday(Integer.valueOf(s)));
     }
 
     public LiveData<Intermedia> getTercia(String s) {
@@ -222,12 +211,7 @@ public class TodayRepository {
         // ());
     }
 
-    public LiveData<Oficio> transformedLaudes(String s) {
-        MutableLiveData<Oficio> ss=
-                mMapper.transformB(mTodayDao.getOficioOfToday(Integer.valueOf(s)));
-        return ss;//mMapper.transform(mTodayDao.getUsersWithPlaylistsAndSongs
-        // ());
-    }
+
 
     public LiveData<Mixto> getMixto(String s) {
         MutableLiveData<Mixto> ss=

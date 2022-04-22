@@ -4,18 +4,21 @@ import androidx.room.Embedded;
 import androidx.room.Relation;
 
 import org.deiverbum.app.model.Biblica;
-import org.deiverbum.app.model.BiblicaMisa;
+import org.deiverbum.app.model.BiblicaBreve;
+import org.deiverbum.app.model.BiblicaOficio;
 import org.deiverbum.app.model.CanticoEvangelico;
 import org.deiverbum.app.model.Evangelio;
 import org.deiverbum.app.model.Himno;
 import org.deiverbum.app.model.Invitatorio;
-import org.deiverbum.app.model.LecturaBreve;
 import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.MisaLecturas;
+import org.deiverbum.app.model.Oracion;
 import org.deiverbum.app.model.Patristica;
 import org.deiverbum.app.model.Preces;
+import org.deiverbum.app.model.Salmo;
 import org.deiverbum.app.model.Salmodia;
 import org.deiverbum.app.model.Santo;
+import org.deiverbum.app.model.TeDeum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +59,7 @@ public class TodayMixto {
             parentColumn = "lBiblicaFK",
             entityColumn = "grupoId"
     )
-    public LHBiblicaBreve biblica;
+    public BiblicaBreveWithResponsorio biblica;
 
 
     @Relation(
@@ -81,19 +84,27 @@ public class TodayMixto {
     public LHOficioResponsorioEntity lhOficioResponsorio;
 
     @Relation(
-            entity = LHBiblicaEntity.class,
+            entity = LHBiblicaOficioEntity.class,
             parentColumn = "oBiblicaFK",
-            entityColumn = "biblicaId"
+            entityColumn = "grupoFK"
     )
-    public LHBiblica lhBiblica;
+    public List<BiblicaOficioWithResponsorio> biblicaOficioWithResponsorio;
 
+
+    @Relation(
+            entity = LHPatristicaOficioEntity.class,
+            parentColumn = "oPatristicaFK",
+            entityColumn = "grupoFK"
+    )
+    public List<PatristicaOficioWithResponsorio> patristicaOficioWithResponsorio;
+/*
     @Relation(
             entity = LHPatristicaEntity.class,
             parentColumn = "oPatristicaFK",
             entityColumn = "patristicaId"
     )
     public LHPatristica lhPatristica;
-
+*/
     @Relation(
             entity = LHPrecesJoinEntity.class,
             parentColumn = "lPrecesFK",
@@ -184,16 +195,37 @@ public class TodayMixto {
         return lhOficioResponsorio.getResponsorio();
     }
 
+    public List<BiblicaOficio> getBiblicas() {
+        final List<BiblicaOficio> theList = new ArrayList<>();
+        for (BiblicaOficioWithResponsorio bi : biblicaOficioWithResponsorio) {
+            final BiblicaOficio s = new BiblicaOficio();
+            theList.add(bi.getDomainModelOficio(today.getTiempoId()));
+            //bi.getDomainModelOficio()
+        }
+        return theList;
+    }
+
+    public List<Patristica> getPatristicas() {
+        List<Patristica> theList = new ArrayList<>();
+        for (PatristicaOficioWithResponsorio bi :
+                patristicaOficioWithResponsorio) {
+            //final BiblicaOficio s = new BiblicaOficio();
+            theList.add(bi.getDomainModelOficio(today.getTiempoId()));
+            //bi.getDomainModelOficio()
+        }
+        return theList;
+    }
     public Biblica getOficioBiblica(){
-        return lhBiblica.getDomainModel(today.getTiempoId());
+        return null;//biblicaOficioWithResponsorio.getDomainModelOficio(today
+        // .getTiempoId());
     }
 
     public Patristica getOficioPatristica(){
-        return lhPatristica.getDomainModel(today.getTiempoId());
+        return null;//lhPatristica.getDomainModel(today.getTiempoId());
     }
 
 //TODO incluir algo como hasPriority en Today
-    public LecturaBreve getBiblica(){
+    public BiblicaBreve getBiblicaBreve(){
         return  biblica.getDomainModelBreve(today.getTiempoId());
     }
 
@@ -219,5 +251,15 @@ public class TodayMixto {
 
     public Salmodia getSalmodia() {
         return salmodia.getDomainModel();
+    }
+
+    public Oracion getOracion() {
+        return lhOracion.getDomainModel();
+    }
+
+    public TeDeum getTeDeum() {
+        TeDeum theModel=new TeDeum();
+        theModel.setStatus(today.getTeDeum());
+        return theModel;
     }
 }

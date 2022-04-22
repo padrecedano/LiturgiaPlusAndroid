@@ -3,7 +3,7 @@ package org.deiverbum.app.model;
 public class CompletasDia {
     Salmodia salmodia;
     Oracion oracion;
-    LecturaBreve lecturaBreve;
+    BiblicaBreve biblicaBreve;
 
     public Salmodia getSalmodia() {
         return this.salmodia;
@@ -14,12 +14,12 @@ public class CompletasDia {
     }
 
 
-    public LecturaBreve getLecturaBreve() {
-        return this.lecturaBreve;
+    public BiblicaBreve getLecturaBreve() {
+        return this.biblicaBreve;
     }
 
-    public void setLecturaBreve(LecturaBreve lecturaBreve) {
-        this.lecturaBreve = lecturaBreve;
+    public void setLecturaBreve(BiblicaBreve biblicaBreve) {
+        this.biblicaBreve = biblicaBreve;
     }
 
     public Oracion getOracion() {

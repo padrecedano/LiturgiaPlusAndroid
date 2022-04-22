@@ -3,12 +3,9 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.CanticoEvangelico;
+import org.deiverbum.app.model.BiblicaBreve;
 import org.deiverbum.app.model.Himno;
-import org.deiverbum.app.model.Invitatorio;
-import org.deiverbum.app.model.LecturaBreve;
 import org.deiverbum.app.model.MetaLiturgia;
-import org.deiverbum.app.model.Preces;
 import org.deiverbum.app.model.Salmodia;
 import org.deiverbum.app.model.Santo;
 
@@ -44,7 +41,7 @@ public class TodayTercia {
             parentColumn = "tBiblicaFK",
             entityColumn = "grupoId"
     )
-    public LHBiblicaBreve biblica;
+    public BiblicaBreveWithResponsorio biblica;
 
     @Relation(
             entity = LHSalmodiaJoinEntity.class,
@@ -113,7 +110,7 @@ public class TodayTercia {
     }
 
 
-    public LecturaBreve getBiblica(){
+    public BiblicaBreve getBiblica(){
         return  biblica.getDomainModelBreve(today.getTiempoId());
     }
 

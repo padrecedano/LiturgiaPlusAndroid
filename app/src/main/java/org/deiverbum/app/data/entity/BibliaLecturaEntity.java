@@ -3,12 +3,11 @@ package org.deiverbum.app.data.entity;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import org.deiverbum.app.model.Biblica;
-import org.deiverbum.app.model.LecturaBreve;
+import org.deiverbum.app.model.BiblicaBreve;
 
 /**
  * @author A. Cedano
@@ -102,19 +101,19 @@ public Biblica getDomainModel(){
     theModel.setRef(String.valueOf(getHasta()));
     theModel.setVersoInicial(String.valueOf(getDesde()));
     theModel.setVersoFinal(String.valueOf(getHasta()));
-    //theModel.setTema(lhBiblica.tema);
+    //theModel.setTema(biblicaOficioWithResponsorio.tema);
     theModel.setTexto(getTexto());
     //theModel.setResponsorio(lhResponsorioEntity.getDomainModel());
     return theModel;
 }
-    public LecturaBreve getDomainModelBreveSSS(){
-        LecturaBreve theModel=new LecturaBreve();
+    public BiblicaBreve getDomainModelBreveSSS(){
+        BiblicaBreve theModel=new BiblicaBreve();
         //theModel.setLibro();
         theModel.setCapitulo(String.valueOf(getCapitulo()));
         theModel.setRef(String.valueOf(getHasta()));
         theModel.setVersoInicial(String.valueOf(getDesde()));
         theModel.setVersoFinal(String.valueOf(getHasta()));
-        //theModel.setTema(lhBiblica.tema);
+        //theModel.setTema(biblicaOficioWithResponsorio.tema);
         theModel.setTexto(getTexto());
         //theModel.setResponsorio(lhResponsorioEntity.getDomainModel());
         return theModel;
