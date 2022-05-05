@@ -10,9 +10,9 @@ import java.util.Arrays;
 public class Breviario extends Liturgia {
 
 
-    private MetaLiturgia metaLiturgia;
+    //private MetaLiturgia metaLiturgia;
 
-    private Santo santo;
+    private Santo santos;
     private Oficio oficio;
     private Laudes laudes;
     private Intermedia intermedia;
@@ -34,9 +34,12 @@ public class Breviario extends Liturgia {
         //super();
     }
 
+    /*
     public MetaLiturgia getMetaLiturgia() {
         return metaLiturgia;
     }
+
+     */
     public void setMetaInfo(String metaInfo){
         this.metaInfo=metaInfo;
     }
@@ -50,17 +53,17 @@ public class Breviario extends Liturgia {
             return "";
         }
     }
-
+/*
     public void setMetaLiturgia(MetaLiturgia metaLiturgia) {
         this.metaLiturgia = metaLiturgia;
     }
-    
+*/
     public Santo getSanto() {
-        return santo;
+        return santos;
     }
 
     public void setSanto(Santo santo) {
-        this.santo = santo;
+        this.santos = santo;
     }
 
     public void setVisperas(Visperas visperas) {
@@ -158,8 +161,8 @@ public class Breviario extends Liturgia {
      */
     public SpannableStringBuilder getVida() {
         SpannableStringBuilder ssb = new SpannableStringBuilder("");
-        if (metaLiturgia.getHasSaint()) {
-            ssb.append(santo.getVidaSmall());
+        if (getMetaLiturgia().getHasSaint()) {
+            ssb.append(santos.getVidaSmall());
         }
         return ssb;
     }
@@ -167,9 +170,9 @@ public class Breviario extends Liturgia {
     public String getTitulo() {
 
         if (hasSaint) {
-            return santo.getNombre() + LS2;
+            return santos.getNombre() + LS2;
         } else {
-            return metaLiturgia.getTitulo() + LS2;
+            return getMetaLiturgia().getTitulo() + LS2;
         }
     }
     

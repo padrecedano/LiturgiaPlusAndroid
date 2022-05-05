@@ -9,7 +9,8 @@ import org.deiverbum.app.utils.Utils;
 
 public class BiblicaMisa extends Biblica{
     private String tema;
-    private Integer orden;
+    //private Integer orden;
+
     public String getTema() {
         return tema;
     }
@@ -60,9 +61,10 @@ public class BiblicaMisa extends Biblica{
         sb.append(getTexto());
         sb.append(getConclusionForRead());
         sb.append(getResponsorioHeaderForRead());
-        sb.append(getResponsorio().getAllForRead());
+        //sb.append(getResponsorio().getAllForRead());
         return sb;
     }
+
 
     public Integer getOrden() {
         return this.orden;

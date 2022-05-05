@@ -38,8 +38,8 @@ public class BiblicaOficioWithResponsorio {
 
     public Biblica getDomainModel(Integer timeId){
         Biblica theModel= bibliaLectura.getDomainModel();
-        theModel.setTema(lhBiblica.tema);
-        theModel.setResponsorio(lhResponsorio.getDomainModel(timeId));
+        //theModel.setTema(lhBiblica.tema);
+        //theModel.setResponsorio(lhResponsorio.getDomainModel(timeId));
         return theModel;
     }
 

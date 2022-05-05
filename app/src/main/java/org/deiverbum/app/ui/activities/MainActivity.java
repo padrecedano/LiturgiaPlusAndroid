@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             openDialog();
         } else {
             checkAppUpdate();
-            navController.navigate(R.id.nav_today);
+            //navController.navigate(R.id.nav_today);
 
         }
 

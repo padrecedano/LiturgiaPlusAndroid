@@ -35,7 +35,8 @@ public class Liturgia {
     }
 
     public String getNombre() {
-        return nombre;
+
+        return nombre!=null ? nombre : "***";
     }
 
     public void setNombre(String nombre) {
@@ -43,10 +44,10 @@ public class Liturgia {
     }
 
     private MetaLiturgia meta;
-    private MetaLiturgia metaLiturgia;
+    protected MetaLiturgia metaLiturgia;
 
-    private Santo santo;
-    private Misa misa;
+    protected Santo santo;
+    protected Misa misa;
 
     @SerializedName("lh")
     @Expose

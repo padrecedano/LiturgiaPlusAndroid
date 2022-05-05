@@ -8,13 +8,15 @@ import org.deiverbum.app.utils.Utils;
 
 public class Laudes extends BreviarioHora{
     private Invitatorio invitatorio;
-    private Biblica lecturaBreve;
+    private BiblicaBreve lecturaBreve;
     private CanticoEvangelico benedictus;
     private Preces preces;
     private final PadreNuestro padreNuestro;
 
     public Laudes(){
+
         this.padreNuestro=new PadreNuestro();
+
     }
 
     public String getTituloHora() {
@@ -31,12 +33,12 @@ public class Laudes extends BreviarioHora{
         this.invitatorio = invitatorio;
     }
 
-    public Biblica getLecturaBreve() {
+    public BiblicaBreve getLecturaBreve() {
         return lecturaBreve;
     }
 
     @SuppressWarnings("unused")
-    public void setLecturaBreve(Biblica lecturaBreve) {
+    public void setLecturaBreve(BiblicaBreve lecturaBreve) {
         this.lecturaBreve = lecturaBreve;
     }
 
@@ -47,6 +49,8 @@ public class Laudes extends BreviarioHora{
     @SuppressWarnings("unused")
     public void setBenedictus(CanticoEvangelico benedictus) {
         this.benedictus = benedictus;
+        //this.benedictus.setTipo(2);
+
     }
 
     public Preces getPreces() {

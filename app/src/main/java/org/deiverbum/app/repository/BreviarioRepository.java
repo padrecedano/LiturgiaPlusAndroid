@@ -3,8 +3,11 @@ package org.deiverbum.app.repository;
 import static org.deiverbum.app.utils.Constants.NOTFOUND_OR_NOTCONNECTION;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 
+import org.deiverbum.app.data.db.dao.TodayDao;
+import org.deiverbum.app.data.entity.mapper.OficioDataMapper;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.CustomException;
@@ -42,13 +45,21 @@ public class BreviarioRepository {
     private final MediatorLiveData<DataWrapper<Laudes,CustomException>> liveDataLaudes = new MediatorLiveData<>();
     private final MediatorLiveData<DataWrapper<Intermedia,CustomException>> liveDataIntermedia = new MediatorLiveData<>();
     private final MediatorLiveData<DataWrapper<Visperas,CustomException>> liveDataVisperas = new MediatorLiveData<>();
+    private TodayDao mTodayDao;
+    private OficioDataMapper mMapper;
+
 
     @Inject
     public BreviarioRepository(
                                FirebaseDataSource firebaseDataSource,
-                               ApiService apiService
-                                ) {
+                               ApiService apiService,
+                               TodayDao todayDao,
+                               OficioDataMapper mapper
+
+                               ) {
         this.firebaseDataSource = firebaseDataSource;
+        this.mTodayDao = todayDao;
+        this.mMapper=mapper;
         this.apiService = apiService;
     }
 
@@ -62,7 +73,7 @@ public class BreviarioRepository {
      * @param dateString La fecha
      * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
      */
-    public MediatorLiveData<DataWrapper<Oficio, CustomException>> getOficio(String dateString) {
+    public MediatorLiveData<DataWrapper<Oficio, CustomException>> getOficioo(String dateString) {
         firebaseDataSource.getOficio(dateString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -79,6 +90,20 @@ public class BreviarioRepository {
                     }
                 });
         return liveData;
+    }
+
+    public MediatorLiveData<DataWrapper<Oficio, CustomException>> getOficio(String s) {
+        //String s="20220325";
+        Oficio theModel=
+                mMapper.transformOficioDB(mTodayDao.getOficioOfToday(Integer.valueOf(s)));
+        if(theModel!=null) {
+            liveData.postValue(new DataWrapper<>(mMapper.transformOficioDB(mTodayDao.getOficioOfToday(Integer.valueOf(s)))));
+        }else{
+            getOficioo(s);
+        }
+return liveData;
+        //return mMapper.transformOficioDB(mTodayDao.getOficioOfToday(Integer
+        // .valueOf(s)));
     }
 
 

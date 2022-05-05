@@ -70,6 +70,8 @@ public class BibliaLibro {
     public StringBuilder getForRead() {
         StringBuilder sb=new StringBuilder();
         //sb.append(Utils.fromHtml(Utils.stripQuotation(getIntro())));
+        sb.append(getLiturgyName());
+        sb.append(".");
         return sb;
     }
 }

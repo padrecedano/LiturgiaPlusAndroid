@@ -19,6 +19,7 @@ public class Completas extends  BreviarioHora{
     private List<CompletasDia> completasDias;
     private List<Responsorio> responsorio;
 
+
     public List<Responsorio> getResponsorio() {
         return responsorio;
     }
@@ -144,11 +145,23 @@ public class Completas extends  BreviarioHora{
         int mIndex = (metaLiturgia.idTiempo == 6) ? 1 : 0;
         Responsorio mResponsorio = responsorio.get(mIndex);
         BiblicaBreve mLectura = completasDias.get(metaLiturgia.weekDay).getLecturaBreve();
-        mLectura.setResponsorio(mResponsorio);
+        //mLectura.setResponsorio(mResponsorio);
         mLectura.setForma(String.valueOf(mResponsorio.getForma()));
         ssb.append(mLectura.getAllForRead());
         return ssb;
     }
+/*
+    @SuppressWarnings("unused")
+    public BiblicaBreve getLecturaBreve() {
+        return lecturaBreve;
+    }
+
+    @SuppressWarnings("unused")
+    public void setLecturaBreve(BiblicaBreve lecturaBreve) {
+        this.lecturaBreve = lecturaBreve;
+    }
+
+ */
 
     public SpannableStringBuilder getForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder();

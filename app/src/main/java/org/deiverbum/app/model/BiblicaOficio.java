@@ -8,11 +8,11 @@ import android.text.Spanned;
 import org.deiverbum.app.utils.Utils;
 
 public class BiblicaOficio extends Biblica {
-    protected BibliaLibro libro;
+    //protected BibliaLibro libro;
     private String tema;
     private Responsorio responsorio;
-    private Integer orden;
-
+    //private Integer orden;
+/*
     public BibliaLibro getLibro() {
         return libro;
     }
@@ -25,7 +25,7 @@ public class BiblicaOficio extends Biblica {
     public void setLibro(BibliaLibro libro) {
         this.libro = libro;
     }
-
+*/
     public String getTema() {
         return tema;
     }
@@ -96,7 +96,7 @@ public class BiblicaOficio extends Biblica {
     public SpannableStringBuilder getAllForRead(){
         SpannableStringBuilder sb=new SpannableStringBuilder();
         sb.append(getHeaderForRead());
-        sb.append(getLibroForRead());
+        sb.append(libro.getForRead());
         sb.append(getTemaForRead());
         sb.append(getTexto());
         sb.append(getConclusionForRead());

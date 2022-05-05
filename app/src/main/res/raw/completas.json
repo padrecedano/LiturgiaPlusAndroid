@@ -76,6 +76,10 @@
             ]
           },
           "lecturaBreve":{
+            "libro": {
+              "id": 1,
+              "shortName": "Dt"
+            },
             "ref":"Dt 6, 4-7",
             "texto":"Escucha, Israel: El Señor, nuestro Dios, es solamente uno. Amarás al Señor, tu Dios, con todo el corazón, con toda el alma, con todas las fuerzas. Las palabras que hoy te digo quedarán en tu memoria; se las repetirás a tus hijos y hablarás de ellas estando en casa y yendo de camino, acostado y levantado."
           },
@@ -97,6 +101,10 @@
             ]
           },
           "lecturaBreve":{
+            "libro": {
+              "id": 1,
+              "shortName": "Dt"
+            },
             "ref":"Ap 22, 4-5",
             "texto":"Verán el rostro del Señor, y tendrán su nombre en la frente. Y no habrá más noche, y no necesitarán luz de lámpara ni de sol, porque el Señor Dios alumbrará sobre ellos, y reinarán por los siglos de los siglos."
           },
@@ -118,6 +126,10 @@
             ]
           },
           "lecturaBreve":{
+            "libro": {
+              "id": 1,
+              "shortName": "Dt"
+            },
             "ref":"1Ts 5, 9-10",
             "texto":"Dios nos ha puesto para obtener la salvación por nuestro Señor Jesucristo, que murió por nosotros, para que, velando o durmiendo, vivamos junto con él."
           },
@@ -139,6 +151,10 @@
             ]
           },
           "lecturaBreve":{
+            "libro": {
+              "id": 1,
+              "shortName": "Dt"
+            },
             "ref":"1Pe 5, 8-9",
             "texto":"Sed sobrios, estad despiertos: vuestro enemigo, el diablo, como león rugiente, ronda buscando a quien devorar; resistidle, firmes en la fe."
           },
@@ -169,6 +185,10 @@
             ]
           },
           "lecturaBreve":{
+            "libro": {
+              "id": 1,
+              "shortName": "Dt"
+            },
             "ref":"Ef 4, 26-27",
             "texto":"No lleguéis a pecar; que la puesta del sol no os sorprenda en vuestro enojo. No dejéis lugar al diablo."
           },
@@ -193,6 +213,10 @@
             ]
           },
           "lecturaBreve":{
+            "libro": {
+              "id": 1,
+              "shortName": "Dt"
+            },
             "ref":"1Ts 5, 23",
             "texto":"Que el mismo Dios de la paz os consagre totalmente y que todo vuestro ser, alma y cuerpo, sea custodiado sin reproche hasta la Parusía de nuestro Señor Jesucristo."
           },
@@ -214,6 +238,10 @@
             ]
           },
           "lecturaBreve":{
+            "libro": {
+              "id": 1,
+              "shortName": "Dt"
+            },
             "ref":"Jr 14, 9",
             "texto":"Tú estás en medio de nosotros, Señor, tu nombre ha sido invocado sobre nosotros: no nos abandones, Señor Dios nuestro."
           },

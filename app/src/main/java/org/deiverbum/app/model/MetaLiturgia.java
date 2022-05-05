@@ -63,8 +63,10 @@ public class MetaLiturgia {
         }
     }
     public String getTitulo() {
+        return idHour==6 ? getTituloVisperas() : titulo;
+        /*
         return idHour==6 && liturgiaPrevio!=null ?
-                liturgiaPrevio.getNombre() : liturgiaFeria.getNombre();
+                liturgiaPrevio.getNombre() : liturgiaFeria.getNombre();*/
     }
     public void setTitulo(String titulo) {
         this.titulo = (titulo!=null) ? titulo : "";
@@ -111,7 +113,7 @@ public class MetaLiturgia {
 
     @SuppressWarnings("unused")
     public int getCalendarTime() {
-        return calendarTime;
+        return calendarTime != 0 ? calendarTime : idTiempo;
     }
 
     @SuppressWarnings("unused")

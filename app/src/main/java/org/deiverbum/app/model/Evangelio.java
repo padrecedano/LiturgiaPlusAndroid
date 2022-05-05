@@ -6,7 +6,7 @@ import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
-public class Evangelio extends Biblica{
+public class Evangelio extends BiblicaMisa{
 
     public String antifona;
 
@@ -55,7 +55,7 @@ public class Evangelio extends Biblica{
         sb.append(Utils.toRed(getVersoInicial()));
         sb.append(Utils.toRed(getVersoFinal()));
         sb.append(LS2);
-        sb.append(Utils.toRed(getTema()));
+        //sb.append(Utils.toRed(getTema()));
         sb.append(LS2);
         sb.append(getTextoSpan());
         return sb;
