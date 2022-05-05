@@ -1,5 +1,6 @@
 package org.deiverbum.app.viewmodel;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -36,6 +37,10 @@ public class BreviarioViewModel extends ViewModel {
 
     public MutableLiveData<DataWrapper<Oficio, CustomException>> getOficio(String dateString) {
         return mRepository.getOficio(dateString);
+    }
+
+    public MutableLiveData<DataWrapper<Oficio, CustomException>> getOficioDB(String theDate) {
+        return null;//mRepository.getOficioDB("20220325");
     }
 
     public MediatorLiveData<DataWrapper<Laudes, CustomException>> getLaudes(String dateString) {

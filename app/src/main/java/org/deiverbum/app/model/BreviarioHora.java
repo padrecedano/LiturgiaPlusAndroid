@@ -22,9 +22,9 @@ import org.deiverbum.app.utils.Utils;
  * @version 1.0
  * @since 2022.1
  */
-public class BreviarioHora {
-    protected MetaLiturgia metaLiturgia;
-    protected Santo santo;
+public class BreviarioHora extends Liturgia{
+    //protected MetaLiturgia metaLiturgia;
+    //protected Santo santo;
     protected String metaInfo;
     protected Himno himno;
     protected Salmodia salmodia;
@@ -33,14 +33,14 @@ public class BreviarioHora {
     public BreviarioHora() {
     }
 
-    public MetaLiturgia getMetaLiturgia() {
+    /*public MetaLiturgia getMetaLiturgia() {
         return metaLiturgia;
     }
 
     public void setMetaLiturgia(MetaLiturgia metaLiturgia) {
         this.metaLiturgia = metaLiturgia;
     }
-
+*/
     public void setMetaInfo(String metaInfo) {
         this.metaInfo = metaInfo;
     }
@@ -54,7 +54,7 @@ public class BreviarioHora {
             return "";
         }
     }
-
+/*
     public Santo getSanto() {
         return santo;
     }
@@ -62,7 +62,7 @@ public class BreviarioHora {
     public void setSanto(Santo santo) {
         this.santo = santo;
     }
-
+*/
 
     public SpannableStringBuilder getSaludoOficio() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
@@ -146,17 +146,17 @@ public class BreviarioHora {
      */
     public SpannableStringBuilder getVida() {
         SpannableStringBuilder ssb = new SpannableStringBuilder("");
-        if (metaLiturgia.getHasSaint()) {
-            ssb.append(santo.getVidaSmall());
+        if (getMetaLiturgia().getHasSaint()) {
+            ssb.append(getSanto().getVidaSmall());
         }
         return ssb;
     }
 
     public String getTitulo() {
-        if (metaLiturgia.getHasSaint()) {
-            return santo.getNombre() + LS2;
+        if (getMetaLiturgia().getHasSaint()) {
+            return getSanto().getNombre() + LS2;
         } else {
-            return metaLiturgia.getTitulo() + LS2;
+            return getMetaLiturgia().getTitulo() + LS2;
         }
     }
 

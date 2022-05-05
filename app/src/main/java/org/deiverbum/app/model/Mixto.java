@@ -10,7 +10,7 @@ public class Mixto extends BreviarioHora{
     //private MetaLiturgia metaLiturgia;
     private Laudes laudes;
     private Oficio oficio;
-    private Misa misa;
+    //private Misa misa;
     private Invitatorio invitatorio;
     private final PadreNuestro padreNuestro;
 

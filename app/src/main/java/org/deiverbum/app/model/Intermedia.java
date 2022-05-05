@@ -9,7 +9,7 @@ import org.deiverbum.app.utils.Utils;
 
 public class Intermedia extends BreviarioHora {
     private int hourId;
-    private BiblicaBreve biblicaBreve;
+    private BiblicaBreve lecturaBreve;
 
     public Intermedia() {
     }
@@ -34,7 +34,7 @@ public class Intermedia extends BreviarioHora {
 
     @SuppressWarnings("unused")
     public BiblicaBreve getLecturaBreve() {
-        return biblicaBreve;
+        return lecturaBreve;
     }
 
 
@@ -78,9 +78,9 @@ public class Intermedia extends BreviarioHora {
 
     public SpannableStringBuilder getForView() {
 
-        biblicaBreve.normalizeByTime(metaLiturgia.calendarTime);
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
+            lecturaBreve.normalizeByTime(metaLiturgia.getCalendarTime());
             sb.append(metaLiturgia.getAll());
             sb.append(Utils.LS2);
 
@@ -97,7 +97,7 @@ public class Intermedia extends BreviarioHora {
             sb.append(salmodia.getAll(getHourIndex()));
             sb.append(LS);
 
-            sb.append(biblicaBreve.getAll());
+            sb.append(lecturaBreve.getAll());
             sb.append(LS2);
 
             sb.append(oracion.getAll());
@@ -121,7 +121,7 @@ public class Intermedia extends BreviarioHora {
             sb.append(getSaludoDiosMioForRead());
             sb.append(himno.getAllForRead());
             sb.append(salmodia.getAllForRead(getHourIndex()));
-            sb.append(biblicaBreve.getAllForRead());
+            sb.append(lecturaBreve.getAllForRead());
             sb.append(oracion.getAllForRead());
             sb.append(getConclusionHoraForRead());
         } catch (Exception e) {
@@ -132,8 +132,8 @@ public class Intermedia extends BreviarioHora {
     }
 
     @SuppressWarnings("unused")
-    public void setLecturaBreve(BiblicaBreve biblicaBreve) {
-        this.biblicaBreve = biblicaBreve;
+    public void setLecturaBreve(BiblicaBreve lecturaBreve) {
+        this.lecturaBreve = lecturaBreve;
     }
 
     /**

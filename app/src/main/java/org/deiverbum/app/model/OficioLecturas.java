@@ -133,6 +133,14 @@ public class OficioLecturas {
         return sb;
     }
 
+    public SpannableStringBuilder getAllBiblicaForRead() {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+        for (BiblicaOficio oneBiblica : this.biblica) {
+            sb.append(oneBiblica.getAllForRead());
+        }
+        return sb;
+    }
+
     public SpannableStringBuilder getAllPatristica() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         for (Patristica theModel : this.patristica) {
@@ -141,12 +149,20 @@ public class OficioLecturas {
         return sb;
     }
 
+    public SpannableStringBuilder getAllPatristicaForRead() {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+        for (Patristica theModel : this.patristica) {
+            sb.append(theModel.getAllForRead());
+        }
+        return sb;
+    }
+
     public String getAllForRead() {
         StringBuilder sb=new StringBuilder();
         sb.append(getHeaderForRead());
         sb.append(getResponsorioForRead());
-        //sb.append(biblica.getAllForRead());
-        //sb.append(patristica.getAllForRead());
+        sb.append(getAllBiblicaForRead());
+        sb.append(getAllPatristicaForRead());
         return sb.toString();
     }
 

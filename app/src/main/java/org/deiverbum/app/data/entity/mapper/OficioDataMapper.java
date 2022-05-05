@@ -116,6 +116,31 @@ public class OficioDataMapper {
         liveData.setValue(theHour);
         return  liveData;
     }
+
+    public Oficio transformOficioDB(TodayOficio theEntity) {
+        if(theEntity==null) return null;
+        Oficio oficio = new Oficio();
+        oficio.setSanto(theEntity.getSanto());
+
+        oficio.setMetaLiturgia(theEntity.getMetaLiturgia());
+        InvitatorioDataMapper dmInvitatorio = new InvitatorioDataMapper();
+        oficio.setInvitatorio(dmInvitatorio.transform(theEntity.invitatorio));
+        oficio.setHimno(theEntity.getHimno());
+        oficio.setSalmodia(theEntity.getSalmodia());
+
+        OficioLecturas ol=
+                new OficioLecturas();
+        ol.setBiblica(theEntity.getBiblicas());
+        ol.setPatristica(theEntity.getPatristicas());
+        ol.setResponsorio(theEntity.getOficioResponsorio());
+        oficio.setOficioLecturas(ol);
+        TeDeum teDeum=new TeDeum(theEntity.today.oTeDeum);
+        oficio.setTeDeum(teDeum);
+        LHOracionDataMapper dmOracion=new LHOracionDataMapper();
+        oficio.setOracion(dmOracion.transform(theEntity.lhOracion));
+        //mData.setValue(oficio);
+        return  oficio;
+    }
     public MutableLiveData<Oficio> transformOficio(TodayOficio theEntity) {
         MetaLiturgia meta=new MetaLiturgia();
         meta.setFecha("20220325");

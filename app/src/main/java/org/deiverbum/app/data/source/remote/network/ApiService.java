@@ -16,6 +16,7 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Path;
 
 
@@ -47,9 +48,11 @@ public interface ApiService {
     @GET("oficio/{theDate}")
     Single<Oficio> getOficio(@Path("theDate") String cleanDate);
 
+    //@Headers("Cache-Control: no-cache")
     @GET("laudes/{theDate}")
     Single<Laudes> getLaudes(@Path("theDate") String cleanDate);
 
+    //@Headers("Cache-Control: no-cache")
     @GET("{endPoint}/{dateString}")
     Single<Intermedia> getIntermedia(@Path("endPoint") String endPoint, @Path("dateString") String dateString);
 

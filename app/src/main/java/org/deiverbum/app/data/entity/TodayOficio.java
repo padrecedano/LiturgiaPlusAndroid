@@ -4,11 +4,14 @@ import androidx.room.Embedded;
 import androidx.room.Relation;
 
 import org.deiverbum.app.model.Biblica;
+import org.deiverbum.app.model.BiblicaOficio;
 import org.deiverbum.app.model.Himno;
 import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.Patristica;
 import org.deiverbum.app.model.Salmodia;
+import org.deiverbum.app.model.Santo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -98,6 +101,21 @@ public class TodayOficio {
     )
     public LiturgiaEntity previo;
 
+    @Relation(
+            entity = LHBiblicaOficioEntity.class,
+            parentColumn = "oBiblicaFK",
+            entityColumn = "grupoFK"
+    )
+    public List<BiblicaOficioWithResponsorio> biblicaOficioWithResponsorio;
+
+
+    @Relation(
+            entity = LHPatristicaOficioEntity.class,
+            parentColumn = "oPatristicaFK",
+            entityColumn = "grupoFK"
+    )
+    public List<PatristicaOficioWithResponsorio> patristicaOficioWithResponsorio;
+
     //@Embedded public LHOracion address;
 
     public MetaLiturgia getMetaLiturgia(){
@@ -108,9 +126,9 @@ public class TodayOficio {
         }
         theModel.setFecha(String.valueOf(today.hoy));
         theModel.setColor(feria.colorFK);
-        theModel.setIdHour(6);
+        theModel.setHasSaint(true);
+        theModel.setIdHour(1);
         theModel.setCalendarTime(feria.colorFK);
-        theModel.setHasSaint(false);
         theModel.setIdBreviario(feria.colorFK);
         theModel.setIdDia(feria.colorFK);
         theModel.setIdLecturas(today.mLecturasFK);
@@ -142,4 +160,31 @@ public class TodayOficio {
     public Salmodia getSalmodia() {
         return salmodia.getDomainModel();
     }
+
+    public List<BiblicaOficio> getBiblicas() {
+        final List<BiblicaOficio> theList = new ArrayList<>();
+        for (BiblicaOficioWithResponsorio bi : biblicaOficioWithResponsorio) {
+            final BiblicaOficio s = new BiblicaOficio();
+            theList.add(bi.getDomainModelOficio(today.getTiempoId()));
+            //bi.getDomainModelOficio()
+        }
+        return theList;
+    }
+
+    public List<Patristica> getPatristicas() {
+        List<Patristica> theList = new ArrayList<>();
+        for (PatristicaOficioWithResponsorio bi :
+                patristicaOficioWithResponsorio) {
+            //final BiblicaOficio s = new BiblicaOficio();
+            theList.add(bi.getDomainModelOficio(today.getTiempoId()));
+            //bi.getDomainModelOficio()
+        }
+        return theList;
+    }
+
+    public Santo getSanto(){
+        return  santo.getDomainModel(false);
+    }
+
+
 }

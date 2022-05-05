@@ -12,11 +12,11 @@ public class Biblica {
     private String capitulo;
     private String versoInicial;
     private String versoFinal;
-    private String tema;
+    //private String tema;
     private String texto;
     private String ref;
-    private Responsorio responsorio;
-    private Integer orden;
+    //private Responsorio responsorio;
+    protected Integer orden;
 
     public BibliaLibro getLibro() {
         return libro;
@@ -57,6 +57,7 @@ public class Biblica {
         this.versoFinal = versoFinal;
     }
 
+    /*
     public String getTema() {
         return tema;
     }
@@ -67,7 +68,7 @@ public class Biblica {
     public void setTema(String tema) {
         this.tema = tema;
     }
-
+*/
     public Spanned getTextoSpan() {
         return Utils.fromHtml(Utils.getFormato(texto));
     }
@@ -91,7 +92,7 @@ public class Biblica {
     public void setRef(String ref) {
         this.ref = ref;
     }
-
+/*
     public Responsorio getResponsorio() {
         return responsorio;
     }
@@ -99,7 +100,7 @@ public class Biblica {
     public void setResponsorio(Responsorio responsorio) {
         this.responsorio=responsorio;
     }
-
+*/
     public SpannableStringBuilder getHeader() {
         return Utils.formatTitle("PRIMERA LECTURA");
     }
@@ -140,11 +141,11 @@ public class Biblica {
         sb.append(Utils.toRed(getVersoInicial()));
         sb.append(Utils.toRed(getVersoFinal()));
         sb.append(LS2);
-        sb.append(Utils.toRed(getTema()));
+        //sb.append(Utils.toRed(getTema()));
         sb.append(LS2);
         sb.append(getTextoSpan());
         sb.append(Utils.LS);
-        sb.append(responsorio.getAll());
+        //sb.append(responsorio.getAll());
         return sb;
     }
 
@@ -157,11 +158,11 @@ public class Biblica {
         SpannableStringBuilder sb=new SpannableStringBuilder();
         sb.append(getHeaderForRead());
         sb.append(getLibroForRead());
-        sb.append(getTemaForRead());
+        //sb.append(getTemaForRead());
         sb.append(getTexto());
         sb.append(getConclusionForRead());
         sb.append(getResponsorioHeaderForRead());
-        sb.append(getResponsorio().getAllForRead());
+        //sb.append(getResponsorio().getAllForRead());
         return sb;
     }
 
