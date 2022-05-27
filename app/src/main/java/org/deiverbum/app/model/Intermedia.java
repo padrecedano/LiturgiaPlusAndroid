@@ -97,7 +97,7 @@ public class Intermedia extends BreviarioHora {
             sb.append(salmodia.getAll(getHourIndex()));
             sb.append(LS);
 
-            sb.append(lecturaBreve.getAll());
+            sb.append(lecturaBreve.getAllWithHourCheck(hourId));
             sb.append(LS2);
 
             sb.append(oracion.getAll());

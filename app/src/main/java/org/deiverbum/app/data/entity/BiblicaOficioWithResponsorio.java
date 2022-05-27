@@ -32,9 +32,9 @@ public class BiblicaOficioWithResponsorio {
     @Relation(
             parentColumn = "responsorioFK",
             entityColumn = "responsorioId",
-            entity = LHResponsorioEntity.class
+            entity = LHResponsorioLargoEntity.class
     )
-    public LHResponsorioEntity lhResponsorio;
+    public LHResponsorioLargoEntity lhResponsorio;
 
     public Biblica getDomainModel(Integer timeId){
         Biblica theModel= bibliaLectura.getDomainModel();
@@ -47,7 +47,7 @@ public class BiblicaOficioWithResponsorio {
         BiblicaOficio theModel= bibliaLectura.getDomainModelOficio();
         theModel.setTema(lhBiblica.tema);
         theModel.setOrden(lhBiblica.orden);
-        theModel.setResponsorio(lhResponsorio.getDomainModel(tiempoId));
+        theModel.setResponsorioLargo(lhResponsorio.getDomainModel(tiempoId));
         return theModel;
     }
 }

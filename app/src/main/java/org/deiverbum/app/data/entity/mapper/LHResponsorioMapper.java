@@ -31,7 +31,7 @@ public class LHResponsorioMapper {
     public Responsorio transform(LHResponsorioEntity theEntity) {
         Responsorio theModel = new Responsorio();
         theModel.setTexto(theEntity.texto);
-        theModel.setRef(theEntity.fuente);
+        //theModel.setRef(theEntity.fuente);
         theModel.setForma(theEntity.tipo);
 
         //invitatorio.setAntifona(theEntity.antifona.getAntifona());

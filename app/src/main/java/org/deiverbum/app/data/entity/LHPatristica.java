@@ -39,15 +39,15 @@ public class LHPatristica {
     @Relation(
             parentColumn = "responsorioFK",
             entityColumn = "responsorioId",
-            entity = LHResponsorioEntity.class
+            entity = LHResponsorioLargoEntity.class
     )
-    public LHResponsorioEntity lhResponsorio;
+    public LHResponsorioLargoEntity lhResponsorio;
 
 
     public Patristica getDomainModel(Integer timeId) {
         Patristica theModel= homiliaAll.getPatristicaDomainModel();
         theModel.setTema(lhPatristica.tema);
-        theModel.setResponsorio(lhResponsorio.getDomainModel(timeId));
+        theModel.setResponsorioLargo(lhResponsorio.getDomainModel(timeId));
         return theModel;
     }
 }

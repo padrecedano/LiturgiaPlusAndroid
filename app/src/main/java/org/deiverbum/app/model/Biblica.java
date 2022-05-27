@@ -70,6 +70,7 @@ public class Biblica {
     }
 */
     public Spanned getTextoSpan() {
+        String s=texto;
         return Utils.fromHtml(Utils.getFormato(texto));
     }
 
@@ -92,7 +93,12 @@ public class Biblica {
     public void setRef(String ref) {
         this.ref = ref;
     }
-/*
+
+    public String getReferencia() {
+        return String.format("%s, %s%s",getCapitulo(),getVersoInicial(),getVersoFinal());
+    }
+
+    /*
     public Responsorio getResponsorio() {
         return responsorio;
     }

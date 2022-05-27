@@ -1,5 +1,6 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Utils.LS;
 import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
@@ -31,19 +32,21 @@ public class BiblicaMisa extends Biblica{
      */
     public SpannableStringBuilder getAll() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
+        sb.append(LS);
+
         sb.append(getHeader());
         sb.append(LS2);
         sb.append(libro.getLiturgyName());
         sb.append("    ");
         //sb.append(Utils.toRed(getCapitulo()));
         //sb.append(", ");
-        sb.append(Utils.toRed(getRef()));
+        sb.append(Utils.toRed(getReferencia()));
         //sb.append(Utils.toRed(getVersoFinal()));
         sb.append(LS2);
         sb.append(Utils.toRed(getTema()));
         sb.append(LS2);
         sb.append(getTextoSpan());
-        sb.append(Utils.LS);
+        sb.append(Utils.LS2);
         //sb.append(responsorio.getAll());
         return sb;
     }
@@ -63,6 +66,27 @@ public class BiblicaMisa extends Biblica{
         sb.append(getResponsorioHeaderForRead());
         //sb.append(getResponsorio().getAllForRead());
         return sb;
+    }
+    @Override
+    public SpannableStringBuilder getHeader() {
+
+        String header="";
+        if (this.orden >= 1 && this.orden <= 19) {
+            header="PRIMERA LECTURA";
+        }
+
+        if (this.orden >= 20 && this.orden <= 29) {
+            header="SALMO RESPONSORIAL";
+        }
+
+        if (this.orden >= 30 && this.orden <= 39) {
+            header="SEGUNDA LECTURA";
+        }
+        if (this.orden >= 40 ) {
+            header="EVANGELIO";
+        }
+
+        return Utils.formatTitle(header);
     }
 
 

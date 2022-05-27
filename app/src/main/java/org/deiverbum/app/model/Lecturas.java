@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class Lecturas {
     private int tipo;
-    private List<Lectura> lecturas;
+    private List<BiblicaMisa> lecturas;
 
     public MetaLiturgia getMetaLiturgia() {
         return metaliturgia;
@@ -47,17 +47,17 @@ public class Lecturas {
         return "tipo";
     }
 
-    public List<Lectura> getLecturas() {
+    public List<BiblicaMisa> getLecturas() {
         return lecturas;
     }
 
-    public void setLecturas(List<Lectura> lecturas) {
+    public void setLecturas(List<BiblicaMisa> lecturas) {
         this.lecturas = lecturas;
     }
 
     public SpannableStringBuilder getEvangelio() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
-        for (Lectura l : lecturas) {
+        for (BiblicaMisa l : lecturas) {
             if (l.getOrden() == 40) {
                 sb.append(Utils.toH4Red(l.getLibro() + "       " + l.getRef()));
                 sb.append(LS2);
@@ -82,9 +82,11 @@ public class Lecturas {
         sb.append(LS2);
 
         sb.append(getTitulo());
-        sb.append(LS);
+        sb.append(LS2);
 
-        for (Lectura l : lecturas) {
+        for (BiblicaMisa l : lecturas) {
+            sb.append(l.getAll());
+            /*
             sb.append(LS2);
             sb.append(Utils.toH3Red(findOrden(l.getOrden())));
             sb.append(LS2);
@@ -94,7 +96,7 @@ public class Lecturas {
             sb.append(LS2);
             //String txtLectura = Utils.getFormato(l.getTexto());
             sb.append(Utils.fromHtml(l.getTexto()));
-            sb.append(LS2);
+            sb.append(LS2);*/
         }
 
         return sb;
@@ -123,9 +125,9 @@ public class Lecturas {
 
     public SpannableStringBuilder getAllForRead() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
-        for (Lectura l : lecturas) {
+        for (BiblicaMisa l : lecturas) {
             sb.append(Utils.normalizeEnd(findOrden(l.getOrden())));
-            sb.append(Utils.normalizeEnd(l.getLibro()));
+            //sb.append(Utils.normalizeEnd(l.getLibro()));
             sb.append(Utils.normalizeEnd(l.getTema()));
             sb.append(Utils.fromHtml(l.getTexto()));
         }

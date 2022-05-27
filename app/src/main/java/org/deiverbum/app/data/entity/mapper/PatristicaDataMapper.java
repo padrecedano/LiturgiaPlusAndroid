@@ -36,7 +36,7 @@ public class PatristicaDataMapper {
         theModel.setObra(theEntity.homiliaAll.obraWithPadre.obra.obra);
         theModel.setFuente(String.valueOf(theEntity.homiliaAll.homilia.numero));
         LHResponsorioMapper lhResponsorioMapper=new LHResponsorioMapper();
-        theModel.setResponsorio(lhResponsorioMapper.transform(theEntity.lhResponsorio));
+        //theModel.setResponsorio(lhResponsorioMapper.transform(theEntity.lhResponsorio));
         //invitatorio.setAntifona(theEntity.antifona.getAntifona());
         //invitatorio.setId(theEntity.invitatorio.invitatorioId);
         return theModel;

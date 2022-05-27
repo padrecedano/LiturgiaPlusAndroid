@@ -79,11 +79,11 @@ public class BiblicaBreve extends Biblica{
      * @return Una cadena formateada con el responsorio
      */
 
-    public SpannableStringBuilder getResponsorioForRead() {
+    public String getResponsorioForRead() {
         int nForma = Integer.parseInt(forma);
         SpannableStringBuilder ssb = new SpannableStringBuilder();
         ssb.append(getHeaderResponsorioForRead());
-        return ssb;
+        return responsorio.getAllForRead();
         /*
         if (nForma == 0) {
             ssb.append(responsorio);
@@ -135,13 +135,26 @@ public class BiblicaBreve extends Biblica{
         return "RESPONSORIO BREVE.";
     }
 
-    @Override
+    //@Override
     public SpannableStringBuilder getAll() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeaderLectura());
         sb.append(LS2);
         sb.append(getTexto());
         sb.append(LS2);
+        sb.append(responsorio.getAll());
+        //sb.append(getResponsorio().getAll());
+        return sb;
+    }
+
+
+    public SpannableStringBuilder getAllWithHourCheck(int hourId) {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+        sb.append(getHeaderLectura());
+        sb.append(LS2);
+        sb.append(getTexto());
+        sb.append(LS2);
+        sb.append(responsorio.getAll(hourId));
         //sb.append(getResponsorio().getAll());
         return sb;
     }
@@ -150,6 +163,7 @@ public class BiblicaBreve extends Biblica{
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeaderForRead());
         sb.append(getTexto());
+        sb.append(responsorio.getAllForRead());
         //sb.append(getResponsorioForRead());
         return sb;
     }

@@ -33,7 +33,7 @@ public class PatristicaOficioWithResponsorio {
             entityColumn = "responsorioId",
             entity = LHResponsorioEntity.class
     )
-    public LHResponsorioEntity lhResponsorio;
+    public LHResponsorioLargoEntity lhResponsorio;
 
 
 
@@ -41,7 +41,7 @@ public class PatristicaOficioWithResponsorio {
         Patristica theModel= homiliaWithAll.getPatristicaDomainModel();
         theModel.setTema(lhPatristica.tema);
         theModel.setOrden(lhPatristica.orden);
-        theModel.setResponsorio(lhResponsorio.getDomainModel(tiempoId));
+        theModel.setResponsorioLargo(lhResponsorio.getDomainModel(tiempoId));
         return theModel;
     }
 }

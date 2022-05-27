@@ -92,7 +92,7 @@ public class Laudes extends BreviarioHora{
             sb.append(salmodia.getAll());
             sb.append(Utils.LS2);
 
-            sb.append(lecturaBreve.getAll());
+            sb.append(lecturaBreve.getAllWithHourCheck(2));
             sb.append(Utils.LS2);
 
             sb.append(benedictus.getAll());

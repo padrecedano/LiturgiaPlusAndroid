@@ -10,7 +10,7 @@ import org.deiverbum.app.utils.Utils;
 public class BiblicaOficio extends Biblica {
     //protected BibliaLibro libro;
     private String tema;
-    private Responsorio responsorio;
+    private ResponsorioLargo responsorioLargo;
     //private Integer orden;
 /*
     public BibliaLibro getLibro() {
@@ -37,12 +37,13 @@ public class BiblicaOficio extends Biblica {
         this.tema = tema;
     }
 
-    public Responsorio getResponsorio() {
-        return responsorio;
+    public ResponsorioLargo getResponsorioLargo() {
+        return responsorioLargo;
     }
 
-    public void setResponsorio(Responsorio responsorio) {
-        this.responsorio=responsorio;
+    public void setResponsorioLargo(ResponsorioLargo responsorioLargo) {
+
+        this.responsorioLargo=responsorioLargo;
     }
 
     @Override
@@ -83,7 +84,7 @@ public class BiblicaOficio extends Biblica {
         sb.append(LS2);
         sb.append(getTextoSpan());
         sb.append(Utils.LS);
-        sb.append(responsorio.getAll());
+        sb.append(responsorioLargo.getAll());
         return sb;
     }
 
@@ -101,7 +102,7 @@ public class BiblicaOficio extends Biblica {
         sb.append(getTexto());
         sb.append(getConclusionForRead());
         sb.append(getResponsorioHeaderForRead());
-        sb.append(getResponsorio().getAllForRead());
+        sb.append(getResponsorioLargo().getAllForRead());
         return sb;
     }
 
