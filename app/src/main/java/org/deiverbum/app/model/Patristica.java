@@ -16,7 +16,7 @@ public class Patristica {
     public String ref;
     private Integer orden;
 
-    public Responsorio responsorio;
+    public ResponsorioLargo responsorioLargo;
 
     public Patristica() {
     }
@@ -88,13 +88,13 @@ public class Patristica {
         this.ref = ref;
     }
 
-    public Responsorio getResponsorio() {
-        return responsorio;
+    public ResponsorioLargo getResponsorioLargo() {
+        return responsorioLargo;
     }
 
 
-    public void setResponsorio(Responsorio responsorio) {
-        this.responsorio = responsorio;
+    public void setResponsorioLargo(ResponsorioLargo responsorioLargo) {
+        this.responsorioLargo = responsorioLargo;
     }
 
     public SpannableStringBuilder getHeaderDelete() {
@@ -126,7 +126,7 @@ public class Patristica {
         sb.append(getTemaForRead());
         sb.append(getTexto());
         sb.append(getPadreForRead());
-        sb.append(responsorio.getAllForRead());
+        sb.append(responsorioLargo.getAllForRead());
         return sb;
     }
 
@@ -144,7 +144,7 @@ public class Patristica {
         sb.append(LS2);
         sb.append(getTextoSpan());
         sb.append(Utils.LS);
-        sb.append(responsorio.getAll());
+        sb.append(responsorioLargo.getAll());
         return sb;
     }
 

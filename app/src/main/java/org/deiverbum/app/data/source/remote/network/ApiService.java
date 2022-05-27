@@ -39,12 +39,15 @@ public interface ApiService {
     @GET("homilias/{theDate}")
     Single<Homilias> getHomilias(@Path("theDate") String theDate);
 
+    @Headers("Cache-Control: no-cache")
     @GET("lecturas/{theDate}")
     Single<Lecturas> getLecturas(@Path("theDate") String theDate);
 
+    @Headers("Cache-Control: no-cache")
     @GET("mixto/{theDate}")
     Single<Mixto> getMixto(@Path("theDate") String cleanDate);
 
+    @Headers("Cache-Control: no-cache")
     @GET("oficio/{theDate}")
     Single<Oficio> getOficio(@Path("theDate") String cleanDate);
 

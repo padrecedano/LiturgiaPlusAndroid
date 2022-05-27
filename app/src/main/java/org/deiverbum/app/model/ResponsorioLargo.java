@@ -12,63 +12,32 @@ import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
-public class Responsorio {
-    protected String texto;
-    protected int forma;
-    //private String ref;
+public class ResponsorioLargo extends Responsorio{
+    private String ref;
 
 
-    public String getTexto() {
-        return this.texto;
-    }
-
-    public void setTexto(String texto) {
-        this.texto = texto;
-    }
-
-    public int getForma() {
-        return this.forma;
-    }
-
-    public void setForma(int forma) {
-        this.forma = forma;
-    }
-
-    /*
     public String getRef() {
         return ref;
     }
 
     public void setRef(String ref) {
         this.ref = ref;
-    }*/
+    }
 
-    public SpannableStringBuilder getHeader(int hourId) {
+
+    public SpannableStringBuilder getHeader() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        String head=hourId<3 || hourId > 5 ?  "RESPONSORIO BREVE" : "";
-        //String fuente=ref!=null ?  "RESPONSORIO BREVE" : "";
-
-        if(hourId<3 || hourId > 5){
-            sb.append(Utils.toRed(String.format("%s%s", "RESPONSORIO BREVE     ","getRef()")));
-
-            //sb.append("RESPONSORIO BREVE")
-        }
-/*
         if(ref!=null){
-            sb.append(Utils.toRed(String.format("%s%s%s", head,"     ",getRef())));
+            sb.append(Utils.toRed(String.format("%s%s", "Responsorio     ",getRef())));
 
         }else{
             sb.append(Utils.toRed("Responsorio"));
 
         }
-        sb.append(LS2);*/
+        sb.append(LS2);
         return sb;
     }
 
-
-    public SpannableStringBuilder getHeader() {
-        return Utils.toRed("RESPONSORIO BREVE");
-    }
 
     /**
      * <p>Método que crea la cadena completa de un responsorio dado.</p>
@@ -82,165 +51,7 @@ public class Responsorio {
         String[] respArray = texto.split("\\|");
         StringBuilder s = new StringBuilder();
 
-        //sb.append(getHeader());
-        switch (forma) {
-            case 1:
-                if (respArray.length == 3) {
-                    s.append(RESP_R);
-                    s.append(respArray[0]);
-                    s.append(RESP_A);
-                    s.append(respArray[1]);
-                    s.append(BRS);
-                    s.append(RESP_V);
-                    s.append(respArray[2]);
-                    s.append(BRS);
-                    s.append(RESP_R);
-                    s.append(Character.toUpperCase(respArray[1].charAt(0)));
-                    s.append(respArray[1].substring(1));
-                    s.append(BRS);
-                    sb.append(Utils.fromHtml(s.toString()));
-                }
-                break;
-
-            case 2:
-                s.append(RESP_R);
-                s.append(respArray[0]);
-                s.append(RESP_A);
-                s.append(respArray[1]);
-                s.append(BRS);
-                s.append(RESP_V);
-                s.append(respArray[2]);
-                s.append(BRS);
-                s.append(RESP_R);
-                s.append(Character.toUpperCase(respArray[1].charAt(0)));
-                s.append(respArray[1].substring(1));
-                s.append(BRS);
-                sb.append(Utils.fromHtml(s.toString()));
-                break;
-
-            /*
-             *6 partes distribuidas así: 0-0-1-2-3-0, de ahí el código 6001230...
-             *Suele ser el modelo de responsorio para Laudes
-             */
-            case 6001230:
-                if (respArray.length == 4) {
-                    s.append(RESP_V);
-                    s.append(respArray[0]);
-                    s.append(BR);
-                    s.append(RESP_R);
-                    s.append(respArray[0]);
-                    s.append(BRS);
-                    s.append(RESP_V);
-                    s.append(respArray[1]);
-                    s.append(BR);
-                    s.append(RESP_R);
-                    s.append(respArray[2]);
-                    s.append(BRS);
-                    s.append(RESP_V);
-                    s.append(respArray[3]);
-                    s.append(BR);
-                    s.append(RESP_R);
-                    s.append(respArray[0]);
-                    s.append(BRS);
-                    sb.append(Utils.fromHtml(s.toString()));
-
-                }
-                break;
-
-
-            case 6001020:
-                if (respArray.length == 3) {
-                    s.append(RESP_V);
-                    s.append(respArray[0]);
-                    s.append(BR);
-                    s.append(RESP_R);
-                    s.append(respArray[0]);
-                    s.append(BRS);
-                    s.append(RESP_V);
-                    s.append(respArray[1]);
-                    s.append(BR);
-                    s.append(RESP_R);
-                    s.append(respArray[0]);
-                    s.append(BRS);
-                    s.append(RESP_V);
-                    s.append(respArray[2]);
-                    s.append(BR);
-                    s.append(RESP_R);
-                    s.append(respArray[0]);
-                    s.append(BRS);
-                    sb.append(Utils.fromHtml(s.toString()));
-
-                }
-                break;
-
-
-            case 4:
-                s.append(RESP_V);
-                s.append(respArray[0]);
-                s.append(BR);
-                s.append(RESP_R);
-                s.append(respArray[0]);
-                s.append(BRS);
-                s.append(RESP_V);
-                s.append(respArray[1]);
-                s.append(BR);
-                s.append(RESP_R);
-                s.append(respArray[0]);
-                s.append(BRS);
-                s.append(RESP_V);
-                s.append(respArray[2]);
-                s.append(BR);
-                s.append(RESP_R);
-                s.append(respArray[0]);
-                s.append(BRS);
-                sb.append(Utils.fromHtml(s.toString()));
-                break;
-
-            case 201:
-                s.append(RESP_V);
-                s.append(respArray[0]);
-                s.append(BR);
-                s.append(RESP_R);
-                s.append(respArray[1]);
-                s.append(BRS);
-                sb.append(Utils.fromHtml(s.toString()));
-
-                break;
-
-
-            default:
-                sb.append(ERR_RESPONSORIO);
-                sb.append(BR);
-                sb.append("Tamaño del responsorio: ");
-                sb.append(String.valueOf(respArray.length));
-                sb.append(" Código forma: ");
-                sb.append(String.valueOf(forma));
-                sb.append(BR);
-                break;
-        }
-        return sb;
-
-    }
-
-    /**
-     * <p>Método que crea la cadena completa de un responsorio dado.</p>
-     *
-     * @return Una cadena con el responsorio completo, con sus respectivos V. y R.
-     * @since 2022.01
-     */
-
-    public SpannableStringBuilder getAll(int hourId) {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        String[] respArray = texto.split("\\|");
-        StringBuilder s = new StringBuilder();
-        if(hourId<3 || hourId > 5){
-            sb.append(getHeader());
-            s.append(BRS);
-
-            //sb.append("RESPONSORIO BREVE")
-        }
-
-        //sb.append(getHeader(hourId));
+        sb.append(getHeader());
         switch (forma) {
             case 1:
                 if (respArray.length == 3) {

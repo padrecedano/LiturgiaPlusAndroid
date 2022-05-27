@@ -32,6 +32,15 @@ public class MisaLecturas {
         return sb;
     }
 
+    public SpannableStringBuilder getAllEvangelioForView() {
+        SpannableStringBuilder sb = new SpannableStringBuilder("");
+        for (BiblicaMisa b : lecturas) {
+            if (b.getOrden() >= 40){
+                sb.append(b.getAll());
+            }
+        }
+        return sb;
+    }
 
 
         }

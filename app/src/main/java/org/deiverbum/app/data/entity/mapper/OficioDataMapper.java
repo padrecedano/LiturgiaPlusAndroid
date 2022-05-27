@@ -89,7 +89,7 @@ public class OficioDataMapper {
         laudes.setHimno(theEntity.getHimno());
         MisaLecturas bm=theEntity.getMisaLecturas();
         Misa misa=new Misa();
-        misa.setMisaLecturas(bm);
+        //misa.setMisaLecturas(bm);
 
         laudes.setSalmodia(theEntity.getSalmodia());
         laudes.setLecturaBreve(theEntity.getBiblicaBreve());

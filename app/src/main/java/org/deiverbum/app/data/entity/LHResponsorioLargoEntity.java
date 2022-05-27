@@ -6,8 +6,8 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import org.deiverbum.app.R;
 import org.deiverbum.app.model.Responsorio;
+import org.deiverbum.app.model.ResponsorioLargo;
 import org.deiverbum.app.utils.Utils;
 
 /**
@@ -20,7 +20,7 @@ import org.deiverbum.app.utils.Utils;
         indices={
                 @Index(value={"texto","fuente", "tipo"},unique = true)}
 )
-public class LHResponsorioEntity {
+public class LHResponsorioLargoEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "responsorioId")
@@ -53,11 +53,11 @@ public class LHResponsorioEntity {
     @ColumnInfo(name = "tipo")
     public Integer tipo;
 
-    public Responsorio getDomainModel(Integer timeId){
-        Responsorio theModel=new Responsorio();
+    public ResponsorioLargo getDomainModel(Integer timeId){
+        ResponsorioLargo theModel=new ResponsorioLargo();
         theModel.setTexto(Utils.replaceByTime(getTexto(),timeId));
         theModel.setForma(getTipo());
-        //theModel.setRef(getFuente());
+        theModel.setRef(getFuente());
         return theModel;
     }
 

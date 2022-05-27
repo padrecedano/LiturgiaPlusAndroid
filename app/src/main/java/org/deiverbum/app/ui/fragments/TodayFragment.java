@@ -111,8 +111,8 @@ public class TodayFragment extends Fragment implements TextToSpeechCallback {
         //mViewModel.fetchData(mDate);
         //mViewModel.getVMSalmodia(mDate);
         //observeSalmodia();
-        observeMixto();
-        //observeLaudes();
+        //observeMixto();
+        observeLaudes();
         //observeTercia();
 
         //observeLast();
