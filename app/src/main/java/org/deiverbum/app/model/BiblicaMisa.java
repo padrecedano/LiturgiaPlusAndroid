@@ -2,6 +2,7 @@ package org.deiverbum.app.model;
 
 import static org.deiverbum.app.utils.Utils.LS;
 import static org.deiverbum.app.utils.Utils.LS2;
+import static org.deiverbum.app.utils.Utils.normalizeEnd;
 
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -10,20 +11,18 @@ import org.deiverbum.app.utils.Utils;
 
 public class BiblicaMisa extends Biblica{
     private String tema;
-    //private Integer orden;
 
     public String getTema() {
         return tema;
     }
+
     public String getTemaForRead() {
-        return tema+".";
+        return normalizeEnd(tema);
     }
 
     public void setTema(String tema) {
         this.tema = tema;
     }
-
-
 
     /**
      * <p>Obtiene la lectura bíblica completa, incluyendo el responsorio, formateada para la vista.</p>
@@ -33,21 +32,16 @@ public class BiblicaMisa extends Biblica{
     public SpannableStringBuilder getAll() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(LS);
-
         sb.append(getHeader());
         sb.append(LS2);
         sb.append(libro.getLiturgyName());
         sb.append("    ");
-        //sb.append(Utils.toRed(getCapitulo()));
-        //sb.append(", ");
         sb.append(Utils.toRed(getReferencia()));
-        //sb.append(Utils.toRed(getVersoFinal()));
         sb.append(LS2);
         sb.append(Utils.toRed(getTema()));
         sb.append(LS2);
         sb.append(getTextoSpan());
         sb.append(Utils.LS2);
-        //sb.append(responsorio.getAll());
         return sb;
     }
 
@@ -56,15 +50,13 @@ public class BiblicaMisa extends Biblica{
      * @since 2022.01
      * @return Un objeto {@link SpannableStringBuilder con el contenido.}
      */
+    @Override
     public SpannableStringBuilder getAllForRead(){
         SpannableStringBuilder sb=new SpannableStringBuilder();
-        sb.append(getHeaderForRead());
+        sb.append(Utils.normalizeEnd(findOrden(getOrden())));
         sb.append(getLibroForRead());
         sb.append(getTemaForRead());
-        sb.append(getTexto());
-        sb.append(getConclusionForRead());
-        sb.append(getResponsorioHeaderForRead());
-        //sb.append(getResponsorio().getAllForRead());
+        sb.append(getTextoForRead());
         return sb;
     }
     @Override
@@ -89,12 +81,18 @@ public class BiblicaMisa extends Biblica{
         return Utils.formatTitle(header);
     }
 
-
-    public Integer getOrden() {
-        return this.orden;
+    public String findOrden(int orden) {
+        String orderText;
+        if (orden <= 19) {
+            orderText = "Primera Lectura";
+        } else if (orden <= 29) {
+            orderText = "Salmo Responsorial";
+        } else if (orden <= 39) {
+            orderText = "Segunda Lectura";
+        } else {
+            orderText = "Evangelio";
+        }
+        return orderText;
     }
 
-    public void setOrden(Integer orden) {
-        this.orden=orden;
-    }
 }

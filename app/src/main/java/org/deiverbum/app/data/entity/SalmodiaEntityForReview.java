@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
 
 /**
  * @author A. Cedano
@@ -24,8 +22,8 @@ import androidx.room.PrimaryKey;
                    onDelete = ForeignKey.CASCADE,
                    onUpdate = ForeignKey.CASCADE),
             @ForeignKey(
-                    entity = SalmoEntity.class,
-                    parentColumns = "salmoId",
+                    entity = BibliaLecturaEntity.class,
+                    parentColumns = "pericopaId",
                     childColumns = "pericopaFK",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE),
@@ -51,7 +49,7 @@ import androidx.room.PrimaryKey;
         indices={@Index(value={"liturgiaId","salmoFK", "antifonaFK"},unique =
          true)}*/
 )
-public class SalmodiaEntity {
+public class SalmodiaEntityForReview {
 /*    @NonNull
     @PrimaryKey
     @ColumnInfo(name = "salmodiaId")

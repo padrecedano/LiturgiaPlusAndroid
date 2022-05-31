@@ -93,7 +93,6 @@ public class BreviarioRepository {
     }
 
     public MediatorLiveData<DataWrapper<Oficio, CustomException>> getOficio(String s) {
-        //String s="20220325";
         Oficio theModel=
                 mMapper.transformOficioDB(mTodayDao.getOficioOfToday(Integer.valueOf(s)));
         if(theModel!=null) {
@@ -106,6 +105,19 @@ return liveData;
         // .valueOf(s)));
     }
 
+    public MediatorLiveData<DataWrapper<Laudes, CustomException>> getLaudesDB(String s) {
+        Laudes theModel=
+                mMapper.transformLaudesDB(mTodayDao.getLaudesOfToday(Integer.valueOf(s)));
+        if(theModel!=null) {
+            //liveData.postValue(new DataWrapper<>(theModel));
+            liveDataLaudes.postValue(new DataWrapper<>(theModel));
+        }else{
+            getLaudes(s);
+        }
+        return liveDataLaudes;
+        //return mMapper.transformOficioDB(mTodayDao.getOficioOfToday(Integer
+        // .valueOf(s)));
+    }
 
     /**
      * Este método inicia la llamada al DataSource.

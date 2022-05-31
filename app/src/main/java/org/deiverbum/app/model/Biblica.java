@@ -5,6 +5,7 @@ import static org.deiverbum.app.utils.Utils.LS2;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
+import org.deiverbum.app.utils.Numerals;
 import org.deiverbum.app.utils.Utils;
 
 public class Biblica {
@@ -23,9 +24,8 @@ public class Biblica {
     }
 
     public String getLibroForRead() {
-        return libro+".";
+        return libro.getForRead();
     }
-
 
     public void setLibro(BibliaLibro libro) {
         this.libro = libro;
@@ -75,13 +75,16 @@ public class Biblica {
     }
 
 
+    public Spanned getTextoForRead() {
+        return Utils.fromHtml(Utils.getFormato(texto));
+    }
+
+
     public void setTexto(String texto) {
         this.texto = texto;
     }
 
     public String getTexto() {
-
-
         return texto;
     }
 
@@ -140,7 +143,7 @@ public class Biblica {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeader());
         sb.append(LS2);
-        sb.append(libro.getName());
+        sb.append(libro.getLiturgyName());
         sb.append("    ");
         sb.append(Utils.toRed(getCapitulo()));
         sb.append(", ");
@@ -164,11 +167,9 @@ public class Biblica {
         SpannableStringBuilder sb=new SpannableStringBuilder();
         sb.append(getHeaderForRead());
         sb.append(getLibroForRead());
-        //sb.append(getTemaForRead());
         sb.append(getTexto());
         sb.append(getConclusionForRead());
         sb.append(getResponsorioHeaderForRead());
-        //sb.append(getResponsorio().getAllForRead());
         return sb;
     }
 
@@ -179,4 +180,6 @@ public class Biblica {
     public void setOrden(Integer orden) {
         this.orden=orden;
     }
+
+
 }

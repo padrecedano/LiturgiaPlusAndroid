@@ -32,6 +32,7 @@ import org.deiverbum.app.model.BreviarioHora;
 import org.deiverbum.app.model.Intermedia;
 
 import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -1011,5 +1012,16 @@ public final class Utils {
 
             }
         }
+
+    public static String getDayName(int day) {
+        if (day > 0 && day <= 7) {
+
+            Locale locale = new Locale("es", "ES");
+            DateFormatSymbols symbols = new DateFormatSymbols(locale);
+            String[] dayNames = symbols.getWeekdays();
+            return dayNames[day];
+        }
+        return "";
+    }
 
 }

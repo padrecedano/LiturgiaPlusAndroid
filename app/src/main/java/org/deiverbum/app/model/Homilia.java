@@ -87,6 +87,20 @@ public class Homilia {
         sb.append(LS2);
         return sb;
     }
+
+    public StringBuilder getAllForRead(){
+        StringBuilder sb=new StringBuilder();
+        sb.append(Utils.normalizeEnd(getPadre()));
+        sb.append(Utils.normalizeEnd(getObra()));
+        if(!tema.isEmpty()) {
+            sb.append(Utils.normalizeEnd(tema));
+        }
+        if(!fecha.isEmpty() && !fecha.equals("0000-00-00")) {
+            sb.append(Utils.normalizeEnd(fecha));
+        }
+        sb.append(Utils.fromHtml(getHomilia()));
+        return sb;
+    }
     @SuppressWarnings("unused")
     public SpannableStringBuilder getTemaForView(){
         SpannableStringBuilder sb=new SpannableStringBuilder();
