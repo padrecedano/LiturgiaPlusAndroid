@@ -43,7 +43,7 @@ public class TodayMixto {
     @Relation(
             entity = InvitatorioEntity.class,
             parentColumn = "invitatorioFK",
-            entityColumn = "invitatorioId"
+            entityColumn = "grupoId"
     )
     public InvitatorioWithAntifona invitatorio;
 
@@ -244,7 +244,7 @@ public class TodayMixto {
 
     public Invitatorio getInvitatorio() {
         Invitatorio theModel=new Invitatorio();
-        theModel.setId(invitatorio.getId());
+        //theModel.setId(invitatorio.getId());
         theModel.setAntifona(invitatorio.getAntifona());
         return theModel;
     }

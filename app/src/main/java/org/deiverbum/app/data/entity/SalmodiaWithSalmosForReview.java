@@ -8,7 +8,7 @@ import androidx.room.Relation;
  * @version 1.0
  * @since 2022.2
  */
-public class SalmodiaWithSalmos {
+public class SalmodiaWithSalmosForReview {
     @Embedded
     public SalmodiaEntity salmodia;
     @Relation(
@@ -20,10 +20,10 @@ public class SalmodiaWithSalmos {
 
     @Relation(
             parentColumn = "pericopaFK",
-            entityColumn = "salmoId",
-            entity = SalmoEntity.class
+            entityColumn = "pericopaId",
+            entity = BibliaLecturaEntity.class
     )
-    public SalmoEntity salmoEntity;
+    public BibliaLecturaEntity salmoEntity;
 
     @Relation(
             parentColumn = "antifonaFK",
@@ -51,11 +51,11 @@ public class SalmodiaWithSalmos {
     }
 
     public String getSalmoText(){
-            return (salmoEntity!=null) ? salmoEntity.getSalmo() : "";
+            return (salmoEntity!=null) ? salmoEntity.getTexto() : "";
     }
 
     public String getRef(){
-            return (salmoEntity!=null) ? salmoEntity.getSalmoRef() : "";
+            return (salmoEntity!=null) ? salmoEntity.getCita() : "";
     }
 
     public String getAntifona(){

@@ -1,5 +1,7 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Utils.normalizeEnd;
+
 import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
@@ -46,6 +48,7 @@ public class BibliaLibro {
         return liturgyName;
     }
 
+
     public void setLiturgyName(String liturgyName) {
         this.liturgyName = liturgyName;
     }
@@ -59,19 +62,7 @@ public class BibliaLibro {
     }
 
 
-
-
-    public SpannableStringBuilder getForView() {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
-        //sb.append(Utils.fromHtml(getIntro()));
-        return sb;
-    }
-
-    public StringBuilder getForRead() {
-        StringBuilder sb=new StringBuilder();
-        //sb.append(Utils.fromHtml(Utils.stripQuotation(getIntro())));
-        sb.append(getLiturgyName());
-        sb.append(".");
-        return sb;
+    public String getForRead() {
+        return normalizeEnd(getLiturgyName());
     }
 }

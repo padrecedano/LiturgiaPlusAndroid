@@ -3,6 +3,7 @@ package org.deiverbum.app.data.entity;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
@@ -11,7 +12,8 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_antifona")
+@Entity(tableName = "lh_antifona",
+        indices = {@Index(value = {"antifona"},unique = true)})
 public class AntifonaEntity {
     @NonNull
     @PrimaryKey

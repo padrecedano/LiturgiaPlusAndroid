@@ -44,9 +44,6 @@ public class LHSalmodia {
             salmosList.add(s);
         }
 
-
-        //salmosList.sort(Comparator.comparing(Classname::getName));
-        //Collections.sort(list, comparing(ClassName::getName).reversed());
         theModel.setSalmos(salmosList);
         return theModel;
 

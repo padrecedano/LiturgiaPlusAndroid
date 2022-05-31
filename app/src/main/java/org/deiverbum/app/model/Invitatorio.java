@@ -79,7 +79,9 @@ public class Invitatorio extends Salmo {
         sb.append(Utils.fromHtml(PRE_ANT));
         sb.append(getAntifona());
         sb.append(Utils.LS2);
-        sb.append(getTextoSpan(hasInvitatorio));
+        //sb.append(getTextoSpan(hasInvitatorio));
+        sb.append(getSalmo());
+
         sb.append(Utils.LS);
         sb.append(getFinSalmo());
         sb.append(Utils.LS2);

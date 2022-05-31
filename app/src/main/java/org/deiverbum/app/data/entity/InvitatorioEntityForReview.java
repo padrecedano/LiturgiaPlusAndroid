@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
@@ -14,7 +13,6 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = "lh_invitatorio",
-
         foreignKeys =
         {
                 @ForeignKey(
@@ -25,42 +23,34 @@ import androidx.room.PrimaryKey;
                         onUpdate = ForeignKey.CASCADE)
         }
 )
-public class InvitatorioEntity {
+public class InvitatorioEntityForReview {
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "grupoId")
-    public Integer grupoId;
+    @ColumnInfo(name = "invitatorioId")
+    public Integer invitatorioId;
 
-    /*
     @NonNull
     @ColumnInfo(name = "tipoId")
     public Integer tipoId;
-*/
+
     @NonNull
     @ColumnInfo(name = "antifonaFK")
     public Integer antifonaFK;
 
-/*
+
     public void setTipoId(Integer tipoId) {
         this.tipoId = tipoId;
     }
     public Integer getTipoId() {
         return tipoId;
     }
-*/
+
 
     public Integer getAntifonaFK() {
         return antifonaFK;
     }
     public void setAntifonaFK(Integer antifonaFK) {
         this.antifonaFK = antifonaFK;
-    }
-
-    public Integer getGrupoId() {
-        return grupoId;
-    }
-    public void setGrupoId(Integer grupoId) {
-        this.grupoId = grupoId;
     }
 
 }

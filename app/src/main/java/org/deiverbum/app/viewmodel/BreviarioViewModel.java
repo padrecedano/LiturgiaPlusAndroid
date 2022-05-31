@@ -44,7 +44,7 @@ public class BreviarioViewModel extends ViewModel {
     }
 
     public MediatorLiveData<DataWrapper<Laudes, CustomException>> getLaudes(String dateString) {
-        return mRepository.getLaudes(dateString);
+        return mRepository.getLaudesDB(dateString);
     }
 
 

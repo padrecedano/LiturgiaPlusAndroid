@@ -52,7 +52,7 @@ public class OficioDataMapper {
      */
 
     public MutableLiveData<Laudes> transformLaudes(TodayLaudes theEntity) {
-        MutableLiveData<Laudes> liveData = new MutableLiveData<>();;
+        MutableLiveData<Laudes> liveData = new MutableLiveData<>();
         Laudes laudes=new Laudes();
         laudes.setMetaLiturgia(theEntity.getMetaLiturgia());
         laudes.setSanto(theEntity.getSanto());
@@ -140,6 +140,11 @@ public class OficioDataMapper {
         oficio.setOracion(dmOracion.transform(theEntity.lhOracion));
         //mData.setValue(oficio);
         return  oficio;
+    }
+
+    public Laudes transformLaudesDB(TodayLaudes theEntity) {
+        if(theEntity==null) return null;
+        return  theEntity.getDomainModel();
     }
     public MutableLiveData<Oficio> transformOficio(TodayOficio theEntity) {
         MetaLiturgia meta=new MetaLiturgia();

@@ -3,6 +3,7 @@ package org.deiverbum.app.model;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
+import org.deiverbum.app.utils.Numerals;
 import org.deiverbum.app.utils.Utils;
 
 import java.util.HashMap;
@@ -36,7 +37,7 @@ public class MetaLiturgia {
     protected int idColor;
     protected int idBreviario;
     protected int idLecturas;
-    protected int idHour=0;
+    protected int idHour = 0;
 
 
     protected String mensaje;
@@ -56,20 +57,22 @@ public class MetaLiturgia {
     }
 
     public String getTituloVisperas() {
-        if (idPrevio==0) {
+        if (idPrevio == 0) {
             return titulo;
         } else {
             return tituloPrevio;
         }
     }
+
     public String getTitulo() {
-        return idHour==6 ? getTituloVisperas() : titulo;
+        return idHour == 6 ? getTituloVisperas() : titulo;
         /*
         return idHour==6 && liturgiaPrevio!=null ?
                 liturgiaPrevio.getNombre() : liturgiaFeria.getNombre();*/
     }
+
     public void setTitulo(String titulo) {
-        this.titulo = (titulo!=null) ? titulo : "";
+        this.titulo = (titulo != null) ? titulo : "";
     }
 
     public Liturgia getLiturgiaFeria() {
@@ -89,13 +92,12 @@ public class MetaLiturgia {
     }
 
     public String getFecha() {
-        return (fecha!=null) ? Utils.getLongDate(fecha) : "";
+        return (fecha != null) ? Utils.getLongDate(fecha) : "";
     }
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
-
 
 
     public void setTiempo(int idTiempo) {
@@ -147,7 +149,29 @@ public class MetaLiturgia {
         }
     }
 
+    public String getTimeWithWeek() {
+        Numerals ns = new Numerals(false, false, false);
+        return String.format("%s. %s semana.", getTiempoNombre(), ns.toWords(idSemana, true));
+    }
+
+    public String getWeek() {
+        Numerals ns = new Numerals(false, false, false);
+        return String.format("%s semana.", ns.toWords(idSemana, true));
+    }
+
+
+    public String getTimeWithWeekAndDay() {
+        return String.format("%s. %s de la %s", getTiempoNombre(), Utils.getDayName(this.idDia), getWeek());
+    }
+
+    public String getTimeWithTitleForRead() {
+        return String.format("%s. %s", getTiempoNombre(), getTituloForRead());
+    }
+
     public String getTiempoNombre() {
+        return getTiempoNombre(false);
+
+        /*
         if (idTiempo < 15) {
             HashMap<Integer, String> mapTiempos = new HashMap<>();
             mapTiempos.put(0, "***");
@@ -173,8 +197,9 @@ public class MetaLiturgia {
             return mapTiempos.get(idTiempo);
         } else {
             return "***";
-        }
+        }*/
     }
+
     public void setWeekDay(int weekDay) {
         this.weekDay = weekDay;
     }
@@ -212,7 +237,6 @@ public class MetaLiturgia {
     }
 
 
-
     public int getColor() {
         return idColor;
     }
@@ -233,10 +257,11 @@ public class MetaLiturgia {
 
     /**
      * <p>Obtiene la información Meta completa para presentar en pantalla.</p>
+     *
      * @since 2021.01
      */
     public SpannableStringBuilder getForViewMisa() {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getFecha());
         sb.append(Utils.LS2);
         sb.append(Utils.toH2(getTiempoNombre()));
@@ -252,7 +277,7 @@ public class MetaLiturgia {
     }
 
     public String getTituloForRead() {
-        return String.format("%s%s",getTitulo(), ".");
+        return String.format("%s%s", getTitulo(), ".");
     }
 
     @SuppressWarnings("unused")
@@ -354,9 +379,31 @@ public class MetaLiturgia {
         this.tituloPrevio = tituloPrevio;
     }
 
+    public String getTimeForRead() {
+        if (
+                this.idTiempo >= 8
+                        || (this.idTiempo == 1 && this.idDia >16)
+                        || this.idTiempo == 2
+                        || (this.idTiempo == 3 && this.idSemana == 0)
+
+                        || this.idTiempo == 4
+                        || this.idTiempo == 5
+                        || this.idSemana >= 35
+                        || (this.idTiempo == 6 && this.idSemana == 6 && this.idTipo < 4)
+                        || (this.idTiempo == 6 && this.idSemana == 1)
+                        || (this.idDia == 0)
+                        || (this.idTiempo >= 1 && this.idTiempo <= 7 && this.idDia == 1)
+
+        ) {
+            return getTimeWithTitleForRead();
+        }
+        return getTimeWithWeekAndDay();
+
+    }
+
     public SpannableStringBuilder getAll() {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
-        if(this!=null) {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+        if (this != null) {
             sb.append(getFecha());
             sb.append(Utils.LS2);
             sb.append(Utils.toH2(getTiempoNombre()));
@@ -367,12 +414,13 @@ public class MetaLiturgia {
     }
 
     public String getAllForRead() {
-        StringBuilder sb=new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         sb.append(getFecha());
         sb.append(".");
-        sb.append(getTiempoNombre());
+        /*sb.append(getTiempoNombre());
         sb.append(".");
-        sb.append(getTituloForRead());
+        sb.append(getTituloForRead());*/
+        sb.append(getTimeForRead());
         return sb.toString();
     }
 }

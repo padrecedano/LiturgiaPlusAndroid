@@ -34,7 +34,7 @@ public class TodayOficio {
     @Relation(
             entity = InvitatorioEntity.class,
             parentColumn = "invitatorioFK",
-            entityColumn = "invitatorioId"
+            entityColumn = "grupoId"
     )
     public InvitatorioWithAntifona invitatorio;
 

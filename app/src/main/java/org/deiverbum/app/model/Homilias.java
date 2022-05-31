@@ -36,6 +36,9 @@ public class Homilias {
     private SpannableStringBuilder getTitulo() {
         return Utils.toH3Red("HOMILÍAS");
     }
+    private String getTituloForRead() {
+        return "Homilías.";
+    }
 
 
     public SpannableStringBuilder getForView(){
@@ -57,13 +60,15 @@ public class Homilias {
 
     public StringBuilder getAllForRead(){
         StringBuilder sb=new StringBuilder();
-
+        sb.append(metaLiturgia.getAllForRead());
+        sb.append(getTituloForRead());
         try {
         for (Homilia s : homilias) {
-            sb.append(s.getPadre());
+            sb.append(s.getAllForRead());
+            /*sb.append(s.getPadre());
             sb.append(LS2);
             sb.append(s.getHomilia());
-            sb.append(LS2);
+            sb.append(LS2);*/
         }
         }catch (Exception e){
             sb.append(e.getMessage());

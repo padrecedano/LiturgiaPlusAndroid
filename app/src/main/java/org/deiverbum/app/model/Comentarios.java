@@ -44,11 +44,13 @@ public class Comentarios {
     }
 
     private String getTituloForRead() {
-        return "COMENTARIOS DEL EVANGELIO DEL DÍA.";
+        return "Comentarios del Evangelio del día.";
     }
 
     public SpannableStringBuilder getAllForView(){
         SpannableStringBuilder sb=new SpannableStringBuilder();
+        sb.append(metaLiturgia.getAll());
+        sb.append(LS2);
         sb.append(getTitulo());
         sb.append(LS2);
         sb.append(Utils.formatSubTitle(getPericopa()));
@@ -61,6 +63,7 @@ public class Comentarios {
 
     public StringBuilder getAllForRead(){
         StringBuilder sb=new StringBuilder();
+        sb.append(metaLiturgia.getAllForRead());
         sb.append(getTituloForRead());
         sb.append(getPericopa());
         sb.append(".");
@@ -70,6 +73,7 @@ public class Comentarios {
         return sb;
     }
 
+    @SuppressWarnings("unused")
     public void setPericopa(String pericopa) {
          this.pericopa=pericopa;
     }

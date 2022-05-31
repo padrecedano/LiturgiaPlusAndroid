@@ -24,7 +24,7 @@ import java.util.List;
  * @version 1.0
  * @since 2022.2
  */
-public class TodayLaudes {
+public class TodayLaudesForReview {
 
     @Embedded
     public Today today;
@@ -37,11 +37,11 @@ public class TodayLaudes {
     public SantoEntity santo;
 
     @Relation(
-            entity = LHInvitatorioJoinEntity.class,
+            entity = InvitatorioEntity.class,
             parentColumn = "invitatorioFK",
-            entityColumn = "grupoFK"
+            entityColumn = "grupoId"
     )
-    public InvitatorioAll invitatorio;
+    public InvitatorioWithAntifona invitatorio;
 
     @Relation(
             entity = HimnoEntity.class,
@@ -57,12 +57,6 @@ public class TodayLaudes {
     )
     public BiblicaBreveWithResponsorio biblica;
 
-    @Relation(
-            entity = LHBiblicaBreveEntity.class,
-            parentColumn = "lBiblicaFK",
-            entityColumn = "grupoId"
-    )
-    public LHBiblicaBreveEntity biblicaa;
 
     @Relation(
             entity = LHSalmodiaJoinEntity.class,
@@ -164,7 +158,6 @@ public class TodayLaudes {
 
 //TODO incluir algo como hasPriority en Today
     public BiblicaBreve getBiblica(){
-
         return  biblica.getDomainModelBreve(today.getTiempoId());
     }
 
@@ -182,10 +175,10 @@ public class TodayLaudes {
 
 
     public Invitatorio getInvitatorio() {
-        //Invitatorio theModel=new Invitatorio();
+        Invitatorio theModel=new Invitatorio();
         //theModel.setId(invitatorio.getId());
-        //theModel.setAntifona(invitatorio.getAntifona());
-        return invitatorio.getDomainModel();
+        theModel.setAntifona(invitatorio.getAntifona());
+        return theModel;
     }
 
     public Salmodia getSalmodia() {

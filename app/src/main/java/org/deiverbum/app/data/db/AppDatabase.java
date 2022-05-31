@@ -15,6 +15,7 @@ import org.deiverbum.app.data.entity.LHBiblicaBreveEntity;
 import org.deiverbum.app.data.entity.LHBiblicaEntity;
 import org.deiverbum.app.data.entity.LHBiblicaOficioEntity;
 import org.deiverbum.app.data.entity.LHCanticoEvangelicoEntity;
+import org.deiverbum.app.data.entity.LHInvitatorioJoinEntity;
 import org.deiverbum.app.data.entity.LHOficioResponsorioEntity;
 import org.deiverbum.app.data.entity.LHOracionEntity;
 import org.deiverbum.app.data.entity.LHPatristicaEntity;
@@ -49,6 +50,7 @@ import org.deiverbum.app.data.entity.Today;
                 LiturgiaTiempoEntity.class,
                 SantoEntity.class,
                 InvitatorioEntity.class,
+                LHInvitatorioJoinEntity.class,
                 HimnoEntity.class,
                 SalmodiaEntity.class,
                 LHSalmodiaJoinEntity.class,

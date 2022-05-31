@@ -3,49 +3,49 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
+import org.deiverbum.app.model.Invitatorio;
+
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2022.2
  */
-public class SalmodiaWithSalmos {
+public class InvitatorioAll {
     @Embedded
-    public SalmodiaEntity salmodia;
+    public LHInvitatorioJoinEntity salmodia;
     @Relation(
             parentColumn = "grupoFK",
             entityColumn = "grupoId",
-            entity = LHSalmodiaJoinEntity.class
+            entity = InvitatorioEntity.class
     )
-    public LHSalmodiaJoinEntity salmodiaEntity;
+    public InvitatorioWithAntifona joinEntity;
 
     @Relation(
-            parentColumn = "pericopaFK",
+            parentColumn = "salmoFK",
             entityColumn = "salmoId",
             entity = SalmoEntity.class
     )
     public SalmoEntity salmoEntity;
 
+    public Invitatorio getDomainModel(){
+        Invitatorio dm=new Invitatorio();
+        dm.setAntifona(joinEntity.getAntifona());
+        dm.setTexto(salmoEntity.getSalmo());
+        dm.setSalmo(salmoEntity.getSalmo());
+
+        return dm;
+
+    }
+/*
     @Relation(
             parentColumn = "antifonaFK",
             entityColumn = "antifonaId",
             entity = AntifonaEntity.class
     )
     public AntifonaEntity antifonaEntity;
+*/
 
-    @Relation(
-            parentColumn = "temaFK",
-            entityColumn = "temaId",
-            entity = TemaEntity.class
-    )
-    public TemaEntity tema;
-
-    @Relation(
-            parentColumn = "epigrafeFK",
-            entityColumn = "epigrafeId",
-            entity = EpigrafeEntity.class
-    )
-    public EpigrafeEntity epigrafe;
-
+/*
     public String getEpigrafe(){
             return epigrafe.getEpigrafe();
     }
@@ -69,6 +69,6 @@ public class SalmodiaWithSalmos {
     public String getParte(){
             return (salmodia!=null) ? salmodia.getParte() : "";
     }
-
+*/
 
 }
