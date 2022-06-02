@@ -97,6 +97,9 @@ public interface TodayDao {
     @Query("SELECT * FROM lh_salmo LIMIT 1")
     public LiveData<SalmoEntity> getSalmo();
 
+    @Query("SELECT * FROM lh_salmo WHERE salmoId=:salmoId LIMIT 1")
+    public SalmoEntity getSalmoById(Integer salmoId);
+
     @Transaction
     @Query("SELECT * FROM today AS t WHERE t.hoy =:theDate")
     public TodayLaudes getLaudesOfToday(Integer theDate);

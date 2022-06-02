@@ -14,24 +14,32 @@ public class InvitatorioAll {
     @Embedded
     public LHInvitatorioJoinEntity salmodia;
     @Relation(
-            parentColumn = "grupoFK",
-            entityColumn = "grupoId",
+            parentColumn = "casoFK",
+            entityColumn = "casoId",
             entity = InvitatorioEntity.class
     )
-    public InvitatorioWithAntifona joinEntity;
+    public InvitatorioWithSalmo salmo;
 
+    @Relation(
+            parentColumn = "antifonaFK",
+            entityColumn = "antifonaId",
+            entity = AntifonaEntity.class/*,
+            associateBy = @Junction(SalmodiaSalmoCrossRef.class)*/
+    )
+    public AntifonaEntity antifona;
+/*
     @Relation(
             parentColumn = "salmoFK",
             entityColumn = "salmoId",
             entity = SalmoEntity.class
     )
     public SalmoEntity salmoEntity;
-
+*/
     public Invitatorio getDomainModel(){
         Invitatorio dm=new Invitatorio();
-        dm.setAntifona(joinEntity.getAntifona());
-        dm.setTexto(salmoEntity.getSalmo());
-        dm.setSalmo(salmoEntity.getSalmo());
+        dm.setAntifona(antifona.getAntifona());
+        //dm.setTexto(salmo.getSalmo());
+        dm.setSalmo(salmo.getSalmo());
 
         return dm;
 

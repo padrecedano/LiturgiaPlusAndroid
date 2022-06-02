@@ -8,7 +8,7 @@ import androidx.room.Relation;
  * @version 1.0
  * @since 2022.2
  */
-public class InvitatorioWithAntifona {
+public class InvitatorioWithSalmo {
     @Embedded
     public InvitatorioEntity invitatorio;
 
@@ -18,14 +18,6 @@ public class InvitatorioWithAntifona {
             entity = LHInvitatorioJoinEntity.class
     )
     public LHInvitatorioJoinEntity invitatorioEntity;
-/*
-    @Relation(
-            parentColumn = "antifonaFK",
-            entityColumn = "antifonaId",
-            entity = AntifonaEntity.class
-    )
-    public AntifonaEntity antifona;
-*/
 
     @Relation(
             parentColumn = "salmoFK",
@@ -39,7 +31,8 @@ public class InvitatorioWithAntifona {
         return invitatorio.getTipoId();
     }
 */
-    public String getAntifona() {
-        return "antifona.getAntifona();";
+    public String getSalmo() {
+
+        return salmo.getSalmo();
     }
 }

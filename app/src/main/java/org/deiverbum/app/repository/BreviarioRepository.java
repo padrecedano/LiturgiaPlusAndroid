@@ -5,6 +5,7 @@ import static org.deiverbum.app.utils.Constants.NOTFOUND_OR_NOTCONNECTION;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.room.Query;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.data.entity.mapper.OficioDataMapper;
@@ -95,7 +96,18 @@ public class BreviarioRepository {
     public MediatorLiveData<DataWrapper<Oficio, CustomException>> getOficio(String s) {
         Oficio theModel=
                 mMapper.transformOficioDB(mTodayDao.getOficioOfToday(Integer.valueOf(s)));
+        boolean isVariable=false;
+        /**
+         * Determina si el usuario tiene configurado un invitatorio variable
+         * y devuelve el texto que corresponda.
+         *
+         * @param isVariable booleano true o false desde preferencias
+         * @return El texto obtenido del archivo correspondiente o el texto por defecto
+         * @since 2022.1
+         */
+
         if(theModel!=null) {
+
             liveData.postValue(new DataWrapper<>(mMapper.transformOficioDB(mTodayDao.getOficioOfToday(Integer.valueOf(s)))));
         }else{
             getOficioo(s);
@@ -106,10 +118,13 @@ return liveData;
     }
 
     public MediatorLiveData<DataWrapper<Laudes, CustomException>> getLaudesDB(String s) {
+        Integer i=mTodayDao.findLastDate();
+        String ss="a";
+        //liveDataLaudes.postValue(new DataWrapper<>(new Laudes()));
+
         Laudes theModel=
                 mMapper.transformLaudesDB(mTodayDao.getLaudesOfToday(Integer.valueOf(s)));
         if(theModel!=null) {
-            //liveData.postValue(new DataWrapper<>(theModel));
             liveDataLaudes.postValue(new DataWrapper<>(theModel));
         }else{
             getLaudes(s);

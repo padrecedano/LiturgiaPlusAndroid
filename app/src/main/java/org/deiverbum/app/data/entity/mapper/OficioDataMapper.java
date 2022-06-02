@@ -124,7 +124,7 @@ public class OficioDataMapper {
 
         oficio.setMetaLiturgia(theEntity.getMetaLiturgia());
         InvitatorioDataMapper dmInvitatorio = new InvitatorioDataMapper();
-        oficio.setInvitatorio(dmInvitatorio.transform(theEntity.invitatorio));
+        //oficio.setInvitatorio(dmInvitatorio.transform(theEntity.invitatorio));
         oficio.setHimno(theEntity.getHimno());
         oficio.setSalmodia(theEntity.getSalmodia());
 
@@ -152,7 +152,7 @@ public class OficioDataMapper {
         Oficio oficio = new Oficio();
         oficio.setMetaLiturgia(theEntity.getMetaLiturgia());
         InvitatorioDataMapper dmInvitatorio = new InvitatorioDataMapper();
-        oficio.setInvitatorio(dmInvitatorio.transform(theEntity.invitatorio));
+        //oficio.setInvitatorio(dmInvitatorio.transform(theEntity.invitatorio));
         oficio.setHimno(theEntity.getHimno());
         oficio.setSalmodia(theEntity.getSalmodia());
 
