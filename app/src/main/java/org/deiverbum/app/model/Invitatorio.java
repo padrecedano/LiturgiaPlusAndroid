@@ -15,6 +15,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
+/*
+    IDs de los salmos invitatorios:
+        Salmo 94: ID 315, insertado recientemente
+        Salmo 99: ID 86
+        Salmo 66: ID 62
+        Salmo 23: ID 101
+ */
 public class Invitatorio extends Salmo {
     public String texto;
     private int id = 1;
@@ -49,10 +56,11 @@ public class Invitatorio extends Salmo {
     public Spanned getTextoSpan(boolean isVariable) {
         if (!isVariable) {
             id = 1;
+            String filePath = files.get(id - 1);
+            texto = readFromFile(filePath);
+            return Utils.fromHtml(texto);
         }
-        String filePath = files.get(id - 1);
-        texto = readFromFile(filePath);
-        return Utils.fromHtml(texto);
+        return Utils.fromHtml(getSalmo());
     }
 
 
@@ -79,9 +87,7 @@ public class Invitatorio extends Salmo {
         sb.append(Utils.fromHtml(PRE_ANT));
         sb.append(getAntifona());
         sb.append(Utils.LS2);
-        //sb.append(getTextoSpan(hasInvitatorio));
-        sb.append(getSalmo());
-
+        sb.append(getTextoSpan(hasInvitatorio));
         sb.append(Utils.LS);
         sb.append(getFinSalmo());
         sb.append(Utils.LS2);

@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.deiverbum.app.model.Salmo;
+
 /**
  * @author A. Cedano
  * @version 1.0
@@ -59,6 +61,13 @@ public class SalmoEntity {
 
     public void setPericopaId(Integer pericopaId) {
         this.pericopaId = pericopaId;
+    }
+
+    public Salmo getDomainModel(){
+        Salmo dm=new Salmo();
+        dm.setSalmo(getSalmo());
+        dm.setRef(getSalmoRef());
+        return dm;
     }
 }
 

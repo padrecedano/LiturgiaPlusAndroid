@@ -37,7 +37,7 @@ import java.util.List;
                         onUpdate = ForeignKey.CASCADE),*/
 
                 @ForeignKey(
-                        entity = InvitatorioEntity.class,
+                        entity = LHInvitatorioJoinEntity.class,
                         parentColumns = "grupoId",
                         childColumns = "invitatorioFK",
                         onDelete = ForeignKey.SET_DEFAULT,
@@ -85,8 +85,8 @@ import java.util.List;
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
-                        entity = HimnoEntity.class,
-                        parentColumns = "himnoId",
+                        entity = LHHimnoJoinEntity.class,
+                        parentColumns = "grupoId",
                         childColumns = "lHimnoFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),

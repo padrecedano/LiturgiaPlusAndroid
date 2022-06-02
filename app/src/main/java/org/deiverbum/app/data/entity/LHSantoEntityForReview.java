@@ -13,31 +13,30 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(
-        tableName = "lh_santo"/*,
-        indices = {@Index(value = {"nombre"},unique = true)}*/
+        tableName = "lh_santo",
+        indices = {@Index(value = {"nombre"},unique = true)}
 )
-public class LHSantoEntity {
+public class LHSantoEntityForReview {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "santoId")
     public Integer santoId;
 
-    /*
     @NonNull
     @ColumnInfo(name = "nombre")
     public String nombre;
-*/
+
     @NonNull
     @ColumnInfo(name = "vida")
     public String vida;
-/*
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
     public String getNombre() {
         return nombre;
     }
-*/
+
     public void setVida(String vida) {
         this.vida = vida;
     }

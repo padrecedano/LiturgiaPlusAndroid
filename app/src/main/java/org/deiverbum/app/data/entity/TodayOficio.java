@@ -32,11 +32,11 @@ public class TodayOficio {
     public SantoEntity santo;
 
     @Relation(
-            entity = InvitatorioEntity.class,
+            entity = LHInvitatorioJoinEntity.class,
             parentColumn = "invitatorioFK",
             entityColumn = "grupoId"
     )
-    public InvitatorioWithAntifona invitatorio;
+    public InvitatorioAll invitatorio;
 
     @Relation(
             entity = HimnoEntity.class,

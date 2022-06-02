@@ -38,7 +38,7 @@ public class InvitatorioDataMapper {
      */
     public Invitatorio transform(InvitatorioWithAntifona theEntity) {
         Invitatorio invitatorio = new Invitatorio();
-        invitatorio.setAntifona(theEntity.antifona.getAntifona());
+        //invitatorio.setAntifona(theEntity.antifona.getAntifona());
         //invitatorio.setId(theEntity.invitatorio.invitatorioId);
         return invitatorio;
     }

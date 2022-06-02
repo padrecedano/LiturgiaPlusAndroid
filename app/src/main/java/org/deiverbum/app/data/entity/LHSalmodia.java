@@ -24,8 +24,7 @@ public class LHSalmodia {
     @Relation(
             parentColumn = "grupoId",
             entityColumn = "grupoFK",
-            entity = SalmodiaEntity.class/*,
-            associateBy = @Junction(SalmodiaSalmoCrossRef.class)*/
+            entity = SalmodiaEntity.class
     )
     public List<SalmodiaWithSalmos> salmos;
 

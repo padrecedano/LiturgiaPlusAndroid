@@ -18,9 +18,9 @@ import androidx.room.PrimaryKey;
         foreignKeys =
         {
                 @ForeignKey(
-                        entity = AntifonaEntity.class,
-                        parentColumns = "antifonaId",
-                        childColumns = "antifonaFK",
+                        entity = SalmoEntity.class,
+                        parentColumns = "salmoId",
+                        childColumns = "salmoFK",
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE)
         }
@@ -28,8 +28,8 @@ import androidx.room.PrimaryKey;
 public class InvitatorioEntity {
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "grupoId")
-    public Integer grupoId;
+    @ColumnInfo(name = "casoId")
+    public Integer casoId;
 
     /*
     @NonNull
@@ -37,8 +37,8 @@ public class InvitatorioEntity {
     public Integer tipoId;
 */
     @NonNull
-    @ColumnInfo(name = "antifonaFK")
-    public Integer antifonaFK;
+    @ColumnInfo(name = "salmoFK")
+    public Integer salmoFK;
 
 /*
     public void setTipoId(Integer tipoId) {
@@ -49,18 +49,18 @@ public class InvitatorioEntity {
     }
 */
 
-    public Integer getAntifonaFK() {
-        return antifonaFK;
+    public Integer getSalmoFK() {
+        return salmoFK;
     }
-    public void setAntifonaFK(Integer antifonaFK) {
-        this.antifonaFK = antifonaFK;
+    public void setSalmoFK(Integer salmoFK) {
+        this.salmoFK = salmoFK;
     }
 
-    public Integer getGrupoId() {
-        return grupoId;
+    public Integer getCasoId() {
+        return casoId;
     }
-    public void setGrupoId(Integer grupoId) {
-        this.grupoId = grupoId;
+    public void setCasoId(Integer casoId) {
+        this.casoId = casoId;
     }
 
 }

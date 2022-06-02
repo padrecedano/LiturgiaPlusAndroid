@@ -15,19 +15,19 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "lh_invitatorio_join",
         //indices = {@Index(value = {"grupoFK","salmoFK"}, unique = true)}
-        primaryKeys = {"grupoFK","salmoFK"},
+        //primaryKeys = {"grupoFK","salmoFK"},
         foreignKeys =
         {
                 @ForeignKey(
                         entity = InvitatorioEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "grupoFK",
+                        parentColumns = "casoId",
+                        childColumns = "casoFK",
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
-                        entity = SalmoEntity.class,
-                        parentColumns = "salmoId",
-                        childColumns = "salmoFK",
+                        entity = AntifonaEntity.class,
+                        parentColumns = "antifonaId",
+                        childColumns = "antifonaFK",
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE)
         }
@@ -35,19 +35,23 @@ import androidx.room.PrimaryKey;
 public class LHInvitatorioJoinEntity {
 
     @NonNull
-    //@PrimaryKey
-    @ColumnInfo(name = "grupoFK")
-    public Integer grupoFK;
+    @PrimaryKey
+    @ColumnInfo(name = "grupoId")
+    public Integer grupoId;
 
     @NonNull
-    @ColumnInfo(name = "salmoFK")
-    public Integer salmoFK;
+    @ColumnInfo(name = "antifonaFK")
+    public Integer antifonaFK;
+
+    @NonNull
+    @ColumnInfo(name = "casoFK")
+    public Integer casoFK;
 
     public int getSalmoFK() {
-        return this.salmoFK!=null ? salmoFK:0;
+        return this.antifonaFK!=null ? antifonaFK:0;
     }
-    public int getGrupoFK() {
-        return this.grupoFK!=null ? grupoFK:0;
+    public int getGrupoId() {
+        return this.grupoId!=null ? grupoId:0;
     }
 
 }

@@ -7,6 +7,8 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import org.deiverbum.app.model.Salmo;
+
 /**
  * @author A. Cedano
  * @version 1.0
@@ -70,7 +72,7 @@ public class SalmodiaEntity {
     public Integer orden;
 
     @NonNull
-    @ColumnInfo(name = "antifonaFK")
+    @ColumnInfo(name = "antifonaFK", defaultValue = "0")
     public Integer antifonaId;
 
     @ColumnInfo(name = "temaFK")
@@ -135,5 +137,7 @@ public class SalmodiaEntity {
     public String getParte() {
         return parte!=null ? String.valueOf(parte) : "";
     }
+
+
 }
 
