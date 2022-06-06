@@ -26,6 +26,10 @@ public class OracionEntity {
     @ColumnInfo(name = "oracion")
     public String texto;
 
+    @NonNull
+    @ColumnInfo(name = "orden", defaultValue ="0" )
+    public Integer orden;
+
     public String getTexto() {
         return texto!=null?texto:"";
     }

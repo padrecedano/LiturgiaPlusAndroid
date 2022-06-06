@@ -13,6 +13,9 @@ utils/Configuration.java
 Configuration.java
 /release
 !app/src/main/res/raw/*.json
+# /assets/database/
+assets/*/
+
 
 
 

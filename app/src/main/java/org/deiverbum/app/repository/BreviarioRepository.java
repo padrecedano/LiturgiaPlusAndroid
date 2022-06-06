@@ -8,6 +8,7 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.room.Query;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
+import org.deiverbum.app.data.entity.TodayOficio;
 import org.deiverbum.app.data.entity.mapper.OficioDataMapper;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.source.remote.network.ApiService;
@@ -94,9 +95,7 @@ public class BreviarioRepository {
     }
 
     public MediatorLiveData<DataWrapper<Oficio, CustomException>> getOficio(String s) {
-        Oficio theModel=
-                mMapper.transformOficioDB(mTodayDao.getOficioOfToday(Integer.valueOf(s)));
-        boolean isVariable=false;
+
         /**
          * Determina si el usuario tiene configurado un invitatorio variable
          * y devuelve el texto que corresponda.
@@ -106,9 +105,12 @@ public class BreviarioRepository {
          * @since 2022.1
          */
 
-        if(theModel!=null) {
+            TodayOficio theEntity=mTodayDao.getOficioOfToday(Integer.valueOf(s));
+        if(theEntity!=null) {
 
-            liveData.postValue(new DataWrapper<>(mMapper.transformOficioDB(mTodayDao.getOficioOfToday(Integer.valueOf(s)))));
+            liveData.postValue(new DataWrapper<>(theEntity.getDomainModel()));
+
+            //liveData.postValue(new DataWrapper<>(mMapper.transformOficioDB(mTodayDao.getOficioOfToday(Integer.valueOf(s)))));
         }else{
             getOficioo(s);
         }

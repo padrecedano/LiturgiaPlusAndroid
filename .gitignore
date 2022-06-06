@@ -10,5 +10,6 @@
 .externalNativeBuild
 *.json
 !app/src/main/res/raw/*.json
+assets/*/
 
 

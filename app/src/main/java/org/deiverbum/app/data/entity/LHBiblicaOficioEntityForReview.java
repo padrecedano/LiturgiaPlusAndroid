@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
 
 /**
  * @author A. Cedano
@@ -20,12 +18,6 @@ import androidx.room.PrimaryKey;
 
         foreignKeys =
         {
-                @ForeignKey(
-                        entity = LHBiblicaOficioJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "grupoFK",
-                        onDelete = ForeignKey.CASCADE,
-                        onUpdate = ForeignKey.CASCADE),
             @ForeignKey(
                     entity = BibliaLecturaEntity.class,
                     parentColumns = "pericopaId",
@@ -40,7 +32,7 @@ import androidx.room.PrimaryKey;
                     onUpdate = ForeignKey.CASCADE)
         }
 )
-public class LHBiblicaOficioEntity {
+public class LHBiblicaOficioEntityForReview {
     @NonNull
     //@PrimaryKey
     @ColumnInfo(name = "grupoFK")

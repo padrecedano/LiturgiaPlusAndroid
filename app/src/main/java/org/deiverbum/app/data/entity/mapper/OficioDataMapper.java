@@ -119,6 +119,8 @@ public class OficioDataMapper {
 
     public Oficio transformOficioDB(TodayOficio theEntity) {
         if(theEntity==null) return null;
+        return  theEntity.getDomainModel();
+        /*
         Oficio oficio = new Oficio();
         oficio.setSanto(theEntity.getSanto());
 
@@ -139,7 +141,7 @@ public class OficioDataMapper {
         LHOracionDataMapper dmOracion=new LHOracionDataMapper();
         oficio.setOracion(dmOracion.transform(theEntity.lhOracion));
         //mData.setValue(oficio);
-        return  oficio;
+        return  oficio;*/
     }
 
     public Laudes transformLaudesDB(TodayLaudes theEntity) {

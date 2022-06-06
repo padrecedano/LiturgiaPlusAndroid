@@ -116,7 +116,7 @@ public class TodayMixto {
     @Relation(
             entity = LHOracionEntity.class,
             parentColumn = "lOracionFK",
-            entityColumn = "liturgiaId"
+            entityColumn = "grupoId"
     )
     public LHOracion lhOracion;
 

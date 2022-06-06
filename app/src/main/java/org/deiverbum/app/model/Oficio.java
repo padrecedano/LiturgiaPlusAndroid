@@ -66,7 +66,7 @@ public class Oficio extends BreviarioHora {
 
     public SpannableStringBuilder getForView(boolean hasInvitatorio) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        try {
+ //       try {
 
             sb.append(metaLiturgia.getAll());
             sb.append(LS2);
@@ -100,7 +100,7 @@ public class Oficio extends BreviarioHora {
             sb.append(oracion.getAll());
             sb.append(LS2);
             sb.append(getConclusionHorasMayores());
-        } catch (Exception e) {
+/*        } catch (Exception e) {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             e.printStackTrace(pw);
@@ -108,6 +108,7 @@ public class Oficio extends BreviarioHora {
 
             //sb.append(e.getMessage());
         }
+        */
         return sb;
     }
 
