@@ -21,7 +21,7 @@ public class SantoWithAll {
 
     public LHSantoEntity lhSanto;
 
-    public Santo getDomainModel(){
+    public Santo getDomainModelLH(){
         Santo dm=new Santo();
         dm.setNombre(santo.nombre);
         dm.setVida(lhSanto.getVida());

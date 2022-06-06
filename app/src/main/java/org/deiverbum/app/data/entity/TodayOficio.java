@@ -6,10 +6,15 @@ import androidx.room.Relation;
 import org.deiverbum.app.model.Biblica;
 import org.deiverbum.app.model.BiblicaOficio;
 import org.deiverbum.app.model.Himno;
+import org.deiverbum.app.model.Invitatorio;
+import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.MetaLiturgia;
+import org.deiverbum.app.model.Oficio;
+import org.deiverbum.app.model.OficioLecturas;
 import org.deiverbum.app.model.Patristica;
 import org.deiverbum.app.model.Salmodia;
 import org.deiverbum.app.model.Santo;
+import org.deiverbum.app.model.TeDeum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +32,9 @@ public class TodayOficio {
     @Relation(
             entity = SantoEntity.class,
             parentColumn = "santoFK",
-            entityColumn = "santoId"
+            entityColumn = "santoId" //liturgiaId
     )
-    public SantoEntity santo;
+    public SantoWithAll santo;
 
     @Relation(
             entity = LHInvitatorioJoinEntity.class,
@@ -76,7 +81,7 @@ public class TodayOficio {
     @Relation(
             entity = LHOracionEntity.class,
             parentColumn = "oOracionFK",
-            entityColumn = "liturgiaId"
+            entityColumn = "grupoId"
     )
     public LHOracion lhOracion;
 
@@ -107,7 +112,14 @@ public class TodayOficio {
             entityColumn = "grupoFK"
     )
     public List<BiblicaOficioWithResponsorio> biblicaOficioWithResponsorio;
-
+/*
+    @Relation(
+            entity = LHBiblicaOficioJoinEntity.class,
+            parentColumn = "oBiblicaFK",
+            entityColumn = "grupoId"
+    )
+    public LHBiblicaOficioJoinEntity bo;
+*/
 
     @Relation(
             entity = LHPatristicaOficioEntity.class,
@@ -183,8 +195,37 @@ public class TodayOficio {
     }
 
     public Santo getSanto(){
-        return  santo.getDomainModel(false);
+
+        return  santo.getDomainModelLH();
     }
 
+    public Invitatorio getInvitatorio() {
+        return invitatorio.getDomainModel();
+    }
+    public Oficio getDomainModel(){
+        Oficio dm=new Oficio();
+        dm.setMetaLiturgia(getMetaLiturgia());
+        dm.setSanto(getSanto());
+
+        dm.setInvitatorio(getInvitatorio());
+        dm.setHimno(getHimno());
+
+        OficioLecturas ol=new OficioLecturas();
+        ol.setBiblica(getBiblicas());
+        ol.setPatristica(getPatristicas());
+        ol.setResponsorio(getOficioResponsorio());
+        dm.setOficioLecturas(ol);
+        //TeDeum teDeum=new TeDeum(theEntity.today.oTeDeum);
+        dm.setSalmodia(getSalmodia());
+
+        dm.setTeDeum(new TeDeum(today.oTeDeum));
+        dm.setOracion((lhOracion.getDomainModel()));
+
+        //dm.setLecturaBreve(getBiblica());
+        //dm.setBenedictus(getBenedictus());
+        //dm.setPreces(getPreces());
+        //dm.setOracion("abc");
+        return dm;
+    }
 
 }

@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = "lh_oracion",
-        indices = {@Index(value = {"liturgiaId","oracionFK"}, unique = true)},
+        indices = {@Index(value = {"grupoId","oracionFK"}, unique = true)},
 
         foreignKeys =
         {
@@ -36,8 +36,8 @@ public class LHOracionEntity {
 
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "liturgiaId")
-    public Integer liturgiaId;
+    @ColumnInfo(name = "grupoId")
+    public Integer grupoId;
 
 
     @NonNull

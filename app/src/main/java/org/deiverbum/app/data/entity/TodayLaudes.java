@@ -89,7 +89,7 @@ public class TodayLaudes {
     @Relation(
             entity = LHOracionEntity.class,
             parentColumn = "lOracionFK",
-            entityColumn = "liturgiaId"
+            entityColumn = "grupoId"
     )
     public LHOracion lhOracion;
 
@@ -177,7 +177,7 @@ public class TodayLaudes {
     }
 
     public Santo getSanto(){
-        return  santo.getDomainModel();
+        return  santo.getDomainModelLH();
     }
 
 
@@ -196,10 +196,11 @@ public class TodayLaudes {
         return lhOracion.getDomainModel();
     }
 
+
     public Laudes getDomainModel(){
         Laudes dm=new Laudes();
         dm.setMetaLiturgia(getMetaLiturgia());
-        dm.setSanto(santo.getDomainModel());
+        dm.setSanto(santo.getDomainModelLH());
 
         dm.setInvitatorio(getInvitatorio());
         dm.setHimno(getHimno());
@@ -210,6 +211,5 @@ public class TodayLaudes {
         dm.setPreces(getPreces());
         dm.setOracion(getOracion());
         return dm;
-
     }
 }

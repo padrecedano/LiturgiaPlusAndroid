@@ -61,8 +61,8 @@ import java.util.List;
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
-                        entity = LHBiblicaEntity.class,
-                        parentColumns = "biblicaId",
+                        entity = LHBiblicaOficioJoinEntity.class,
+                        parentColumns = "grupoId",
                         childColumns = "oBiblicaFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
@@ -80,7 +80,7 @@ import java.util.List;
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHOracionEntity.class,
-                        parentColumns = "liturgiaId",
+                        parentColumns = "grupoId",
                         childColumns = "oOracionFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
@@ -110,7 +110,7 @@ import java.util.List;
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHOracionEntity.class,
-                        parentColumns = "liturgiaId",
+                        parentColumns = "grupoId",
                         childColumns = "lOracionFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
@@ -132,7 +132,7 @@ import java.util.List;
 
                 @ForeignKey(
                         entity = LHOracionEntity.class,
-                        parentColumns = "liturgiaId",
+                        parentColumns = "grupoId",
                         childColumns = "tOracionFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
