@@ -39,7 +39,7 @@ public class TodayTercia {
     @Relation(
             entity = LHBiblicaBreveEntity.class,
             parentColumn = "tBiblicaFK",
-            entityColumn = "grupoId"
+            entityColumn = "lecturaId"
     )
     public BiblicaBreveWithResponsorio biblica;
 

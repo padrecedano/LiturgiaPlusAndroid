@@ -44,18 +44,18 @@ public class TodayOficio {
     public InvitatorioAll invitatorio;
 
     @Relation(
-            entity = HimnoEntity.class,
+            entity = LHHimnoJoinEntity.class,
             parentColumn = "oHimnoFK",
-            entityColumn = "himnoId"
+            entityColumn = "grupoId"
     )
-    public HimnoEntity himno;
+    public HimnoWithAll himno;
 
     @Relation(
-            entity = LHBiblicaOficioEntity.class,
+            entity = LHBiblicaOficioJoinEntity.class,
             parentColumn = "oBiblicaFK",
-            entityColumn = "grupoFK"
+            entityColumn = "grupoId"
     )
-    public LHBiblicaOficioEntity biblicaOficio;
+    public BiblicaOficioAll biblicaOficio;
 
     @Relation(
             entity = LHPatristicaEntity.class,
@@ -78,6 +78,9 @@ public class TodayOficio {
     )
     public List<SalmodiaWithSalmos> salmos;
 
+
+
+
     @Relation(
             entity = LHOracionEntity.class,
             parentColumn = "oOracionFK",
@@ -86,11 +89,11 @@ public class TodayOficio {
     public LHOracion lhOracion;
 
     @Relation(
-            entity = LHOficioResponsorioEntity.class,
-            parentColumn = "oResponsorioFK",
-            entityColumn = "responsorioId"
+            entity = LHOficioVersoEntity.class,
+            parentColumn = "oVersoFK",
+            entityColumn = "versoId"
     )
-    public LHOficioResponsorioEntity lhOficioResponsorio;
+    public LHOficioVersoEntity lhOficioResponsorio;
 
     @Relation(
             entity = LiturgiaEntity.class,
@@ -107,12 +110,14 @@ public class TodayOficio {
     public LiturgiaEntity previo;
 
     @Relation(
-            entity = LHBiblicaOficioEntity.class,
+            entity = LHBiblicaOficioJoinEntity.class,
             parentColumn = "oBiblicaFK",
-            entityColumn = "grupoFK"
+            entityColumn = "grupoId"
     )
-    public List<BiblicaOficioWithResponsorio> biblicaOficioWithResponsorio;
-/*
+    //public List<BiblicaOficioAll> biblicaOficioWithResponsorio;
+    public BiblicaOficioAll biblicas;
+
+    /*
     @Relation(
             entity = LHBiblicaOficioJoinEntity.class,
             parentColumn = "oBiblicaFK",
@@ -152,18 +157,14 @@ public class TodayOficio {
         return theModel;
     }
     public Himno getHimno(){
-        Himno modelHimno = new Himno();
-        modelHimno.setTexto(himno.getHimno());
-        return modelHimno;
+        return himno.getDomainModel();
     }
 
     public String getOficioResponsorio(){
+
         return lhOficioResponsorio.getResponsorio();
     }
 
-    public Biblica getBiblicaOficio(){
-        return null;//biblicaOficio.getDomainModelOficio(today.getTiempoId());
-    }
 
     public Patristica getPatristica(){
         return patristica.getDomainModel(today.getTiempoId());
@@ -174,22 +175,14 @@ public class TodayOficio {
     }
 
     public List<BiblicaOficio> getBiblicas() {
-        final List<BiblicaOficio> theList = new ArrayList<>();
-        for (BiblicaOficioWithResponsorio bi : biblicaOficioWithResponsorio) {
-            final BiblicaOficio s = new BiblicaOficio();
-            theList.add(bi.getDomainModelOficio(today.getTiempoId()));
-            //bi.getDomainModelOficio()
-        }
-        return theList;
+        return biblicas.getDomainModel(today.getTiempoId());
     }
 
     public List<Patristica> getPatristicas() {
         List<Patristica> theList = new ArrayList<>();
-        for (PatristicaOficioWithResponsorio bi :
+        for (PatristicaOficioWithResponsorio item :
                 patristicaOficioWithResponsorio) {
-            //final BiblicaOficio s = new BiblicaOficio();
-            theList.add(bi.getDomainModelOficio(today.getTiempoId()));
-            //bi.getDomainModelOficio()
+            theList.add(item.getDomainModelOficio(today.getTiempoId()));
         }
         return theList;
     }

@@ -11,6 +11,23 @@ import androidx.room.PrimaryKey;
  * @author A. Cedano
  * @version 1.0
  * @since 2022.2
+ *
+ * CREATE TABLE `obra` (
+ * 	`obraId` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+ * 	`obra` TEXT NOT NULL,
+ * 	`liturgyName` TEXT NOT NULL DEFAULT '',
+ * 	`subTitulo` TEXT DEFAULT NULL,
+ * 	`fecha` INTEGER DEFAULT NULL,
+ * 	`volumen` INTEGER DEFAULT NULL,
+ * 	`editorial` TEXT DEFAULT NULL,
+ * 	`ciudad` TEXT DEFAULT NULL,
+ * 	`year` INTEGER DEFAULT NULL,
+ * 	`padreFK` INTEGER NOT NULL DEFAULT 0,
+ * 	`tipoFK` INTEGER NOT NULL DEFAULT 0,
+ * 	`coleccionFK` INTEGER NOT NULL DEFAULT 0,
+ * 	FOREIGN KEY(`padreFK`) REFERENCES `padre`(`padreId`) ON DELETE CASCADE ON UPDATE CASCADE,
+ * 	UNIQUE (`obra`, `padreFK`, `volumen`)
+ *  );
  */
 
 @Entity(tableName = "obra",
@@ -22,7 +39,7 @@ import androidx.room.PrimaryKey;
                                 childColumns = "padreFK",
                                 onDelete = ForeignKey.CASCADE,
                                 onUpdate = ForeignKey.CASCADE)},
-         indices = {@Index(value = {"padreFK","obra"},unique = true)}
+         indices = {@Index(value = {"obra","padreFK","volumen"},unique = true)}
 )
 public class ObraEntity {
     @NonNull
@@ -31,12 +48,50 @@ public class ObraEntity {
     public Integer obraId;
 
     @NonNull
-    @ColumnInfo(name = "padreFK")
+    @ColumnInfo(name = "obra")
+    public String obra;
+
+    @NonNull
+    @ColumnInfo(name = "liturgyName", defaultValue = "")
+    public String liturgyName;
+
+    //@NonNull
+    @ColumnInfo(name = "subTitulo", defaultValue = "NULL")
+    public String subTitulo;
+
+    //@NonNull
+    @ColumnInfo(name = "volumen", defaultValue = "NULL")
+    public Integer volumen;
+
+    @ColumnInfo(name = "fecha", defaultValue = "NULL")
+    public Integer fecha;
+
+    //@NonNull
+    @ColumnInfo(name = "editorial", defaultValue = "NULL")
+    public String editorial;
+
+    //@NonNull
+    @ColumnInfo(name = "ciudad", defaultValue = "NULL")
+    public String ciudad;
+
+    //@NonNull
+    @ColumnInfo(name = "year", defaultValue = "NULL")
+    public Integer year;
+
+    @NonNull
+    @ColumnInfo(name = "padreFK", defaultValue = "0")
     public Integer padreFK;
 
     @NonNull
-    @ColumnInfo(name = "obra")
-    public String obra;
+    @ColumnInfo(name = "tipoFK", defaultValue = "0")
+    public Integer tipoFK;
+
+    @NonNull
+    @ColumnInfo(name = "coleccionFK", defaultValue = "0")
+    public Integer coleccionFK;
+
+
+
 
     public String getObra() {
         return obra!=null ? obra : "";

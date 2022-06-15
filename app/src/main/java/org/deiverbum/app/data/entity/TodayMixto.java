@@ -57,7 +57,7 @@ public class TodayMixto {
     @Relation(
             entity = LHBiblicaBreveEntity.class,
             parentColumn = "lBiblicaFK",
-            entityColumn = "grupoId"
+            entityColumn = "lecturaId"
     )
     public BiblicaBreveWithResponsorio biblica;
 
@@ -77,11 +77,11 @@ public class TodayMixto {
     public List<SalmodiaWithSalmos> salmos;
 
     @Relation(
-            entity = LHOficioResponsorioEntity.class,
-            parentColumn = "oResponsorioFK",
-            entityColumn = "responsorioId"
+            entity = LHOficioVersoEntity.class,
+            parentColumn = "oVersoFK",
+            entityColumn = "versoId"
     )
-    public LHOficioResponsorioEntity lhOficioResponsorio;
+    public LHOficioVersoEntity lhOficioResponsorio;
 
     @Relation(
             entity = LHBiblicaOficioEntity.class,
@@ -197,9 +197,9 @@ public class TodayMixto {
 
     public List<BiblicaOficio> getBiblicas() {
         final List<BiblicaOficio> theList = new ArrayList<>();
-        for (BiblicaOficioWithResponsorio bi : biblicaOficioWithResponsorio) {
+        for (BiblicaOficioWithResponsorio item : biblicaOficioWithResponsorio) {
             final BiblicaOficio s = new BiblicaOficio();
-            theList.add(bi.getDomainModelOficio(today.getTiempoId()));
+            theList.add(item.getDomainModel(today.getTiempoId()));
             //bi.getDomainModelOficio()
         }
         return theList;

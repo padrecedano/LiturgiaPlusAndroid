@@ -12,7 +12,6 @@ import org.deiverbum.app.data.entity.HimnoEntity;
 import org.deiverbum.app.data.entity.HomiliaEntity;
 import org.deiverbum.app.data.entity.InvitatorioEntity;
 import org.deiverbum.app.data.entity.LHBiblicaBreveEntity;
-import org.deiverbum.app.data.entity.LHBiblicaEntity;
 import org.deiverbum.app.data.entity.LHBiblicaOficioEntity;
 import org.deiverbum.app.data.entity.LHBiblicaOficioJoinEntity;
 import org.deiverbum.app.data.entity.LHCanticoEvangelicoEntity;
@@ -20,11 +19,15 @@ import org.deiverbum.app.data.entity.LHHimnoJoinEntity;
 import org.deiverbum.app.data.entity.LHInvitatorioJoinEntity;
 import org.deiverbum.app.data.entity.LHOficioResponsorioEntity;
 import org.deiverbum.app.data.entity.LHOficioResponsorioJoinEntity;
+import org.deiverbum.app.data.entity.LHOficioVersoEntity;
+import org.deiverbum.app.data.entity.LHOficioVersoJoinEntity;
 import org.deiverbum.app.data.entity.LHOracionEntity;
 import org.deiverbum.app.data.entity.LHPatristicaEntity;
 import org.deiverbum.app.data.entity.LHPatristicaOficioEntity;
+import org.deiverbum.app.data.entity.LHPatristicaOficioJoinEntity;
 import org.deiverbum.app.data.entity.LHPrecesEntity;
 import org.deiverbum.app.data.entity.LHPrecesJoinEntity;
+import org.deiverbum.app.data.entity.LHResponsorioBreveEntity;
 import org.deiverbum.app.data.entity.LHResponsorioEntity;
 import org.deiverbum.app.data.entity.LHSalmodiaJoinEntity;
 import org.deiverbum.app.data.entity.LHSantoEntity;
@@ -64,19 +67,21 @@ import org.deiverbum.app.data.entity.Today;
                 TemaEntity.class,
                 EpigrafeEntity.class,
                 //OficioEntity.class,
-                LHOficioResponsorioEntity.class,
-                LHOficioResponsorioJoinEntity.class,
+                LHOficioVersoEntity.class,
+                LHOficioVersoJoinEntity.class,
 
-                LHBiblicaEntity.class,
+                //LHBiblicaEntity.class,
                 LHBiblicaOficioJoinEntity.class,
 
                 LHPatristicaEntity.class,
                 LHPatristicaOficioEntity.class,
+                LHPatristicaOficioJoinEntity.class,
 
                 HomiliaEntity.class,
                 PadreEntity.class,
                 ObraEntity.class,
                 LHResponsorioEntity.class,
+                LHResponsorioBreveEntity.class,
                 BibliaLibroEntity.class,
                 BibliaLecturaEntity.class,
                 LHBiblicaBreveEntity.class,

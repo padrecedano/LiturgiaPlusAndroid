@@ -43,8 +43,8 @@ import java.util.List;
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
-                        entity = HimnoEntity.class,
-                        parentColumns = "himnoId",
+                        entity = LHHimnoJoinEntity.class,
+                        parentColumns = "grupoId",
                         childColumns = "oHimnoFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
@@ -55,9 +55,9 @@ import java.util.List;
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),*/
                 @ForeignKey(
-                        entity = LHOficioResponsorioEntity.class,
-                        parentColumns = "responsorioId",
-                        childColumns = "oResponsorioFK",
+                        entity = LHOficioVersoJoinEntity.class,
+                        parentColumns = "grupoId",
+                        childColumns = "oVersoFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
@@ -67,8 +67,8 @@ import java.util.List;
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
-                        entity = LHPatristicaEntity.class,
-                        parentColumns = "patristicaId",
+                        entity = LHPatristicaOficioJoinEntity.class,
+                        parentColumns = "grupoId",
                         childColumns = "oPatristicaFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
@@ -96,12 +96,12 @@ import java.util.List;
                         childColumns = "lBenedictusFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
-                @ForeignKey(
+                /*@ForeignKey(
                         entity = LHBiblicaEntity.class,
                         parentColumns = "biblicaId",
                         childColumns = "lBiblicaFK",
                         onDelete = ForeignKey.SET_DEFAULT,
-                        onUpdate = ForeignKey.CASCADE),
+                        onUpdate = ForeignKey.CASCADE),*/
                 @ForeignKey(
                         entity = LHPrecesJoinEntity.class,
                         parentColumns = "grupoId",
@@ -123,12 +123,12 @@ import java.util.List;
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
 
-                @ForeignKey(
+                /*@ForeignKey(
                         entity = LHBiblicaEntity.class,
                         parentColumns = "biblicaId",
                         childColumns = "tBiblicaFK",
                         onDelete = ForeignKey.SET_DEFAULT,
-                        onUpdate = ForeignKey.CASCADE),
+                        onUpdate = ForeignKey.CASCADE),*/
 
                 @ForeignKey(
                         entity = LHOracionEntity.class,
@@ -178,7 +178,7 @@ public class Today {
     public Integer oficioFK;
 
     @NonNull
-    @ColumnInfo(name = "oResponsorioFK", defaultValue= "0")
+    @ColumnInfo(name = "oVersoFK", defaultValue= "0")
     public Integer oResponsorioFK;
 
     @NonNull

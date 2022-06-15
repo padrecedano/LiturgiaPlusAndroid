@@ -25,7 +25,6 @@ public class HimnoWithAll {
         Himno dm=new Himno();
         dm.setTexto(himno.getHimno());
         return dm;
-
     }
 /*
     @Relation(

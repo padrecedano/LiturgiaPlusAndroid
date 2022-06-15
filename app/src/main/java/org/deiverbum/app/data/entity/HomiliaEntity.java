@@ -22,9 +22,10 @@ import org.deiverbum.app.model.Patristica;
                                 entity = ObraEntity.class,
                                 parentColumns = "obraId",
                                 childColumns = "obraFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)},
-         indices = {@Index(value = {"obraFK","fecha","numero"},unique = true)}
+                                onDelete = ForeignKey.SET_DEFAULT,
+                                onUpdate = ForeignKey.SET_DEFAULT)},
+         indices = {@Index(value = {"obraFK", "fecha", "libro", "capitulo", "numero", "parrafo", "coleccionFK", "colDoc", "colParrafo"},unique = true)}
+
 )
 public class HomiliaEntity {
     @NonNull
@@ -33,21 +34,44 @@ public class HomiliaEntity {
     public Integer homiliaId;
 
     @NonNull
-    @ColumnInfo(name = "obraFK")
+    @ColumnInfo(name = "obraFK", defaultValue = "0")
     public Integer obraFK;
 
     @NonNull
-    @ColumnInfo(name = "fecha")
+    @ColumnInfo(name = "fecha", defaultValue = "0")
     public Integer fecha;
 
     @NonNull
-    @ColumnInfo(name = "numero")
+    @ColumnInfo(name = "libro", defaultValue = "0")
+    public Integer libro;
+
+    @NonNull
+    @ColumnInfo(name = "capitulo", defaultValue = "0")
+    public Integer capitulo;
+
+    @NonNull
+    @ColumnInfo(name = "numero", defaultValue = "0")
     public Integer numero;
+
+    @NonNull
+    @ColumnInfo(name = "parrafo", defaultValue = "0")
+    public Integer parrafo;
+
+    @NonNull
+    @ColumnInfo(name = "coleccionFK", defaultValue = "0")
+    public Integer coleccionFK;
+
+    @NonNull
+    @ColumnInfo(name = "colDoc", defaultValue = "0")
+    public Integer colDoc;
+
+    @NonNull
+    @ColumnInfo(name = "colParrafo", defaultValue = "0")
+    public Integer colParrafo;
 
     @NonNull
     @ColumnInfo(name = "homilia")
     public String texto;
-
 
     public Integer getNumero() {
         return numero !=null ? numero : 0;

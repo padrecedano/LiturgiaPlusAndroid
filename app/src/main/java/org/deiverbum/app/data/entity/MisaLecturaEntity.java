@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = "misa_lectura",
-        primaryKeys = {"liturgiaFK","pericopaFK","orden"},
+        primaryKeys = {"liturgiaFK","lecturaFK","orden"},
         foreignKeys =
                 {
                         @ForeignKey(
@@ -25,8 +25,8 @@ import androidx.room.PrimaryKey;
                                 onUpdate = ForeignKey.CASCADE),
                        @ForeignKey(
                                 entity = BibliaLecturaEntity.class,
-                                parentColumns = "pericopaId",
-                                childColumns = "pericopaFK",
+                                parentColumns = "lecturaId",
+                                childColumns = "lecturaFK",
                                 onDelete = ForeignKey.CASCADE,
                                 onUpdate = ForeignKey.CASCADE)}/*,
          indices = {@Index(value = {"liturgiaId","pericopaFK","orden"},unique
@@ -38,8 +38,8 @@ public class MisaLecturaEntity {
     public Integer homiliaId;
 
     @NonNull
-    @ColumnInfo(name = "pericopaFK")
-    public Integer pericopaFK;
+    @ColumnInfo(name = "lecturaFK")
+    public Integer lecturaFK;
 
 
     @NonNull

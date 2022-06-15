@@ -18,14 +18,14 @@ public class BiblicaBreveWithResponsorio {
     @Embedded
     public LHBiblicaBreveEntity lhBiblica;
     @Relation(
-            parentColumn = "pericopaFK",
-            entityColumn = "pericopaId",
+            parentColumn = "lecturaId",
+            entityColumn = "lecturaId",
             entity = BibliaLecturaEntity.class
     )
     public LecturaWithLibro bibliaLectura;
 
     @Relation(
-            parentColumn = "responsorioFK",
+            parentColumn = "lecturaId",
             entityColumn = "responsorioId",
             entity = LHResponsorioEntity.class
     )

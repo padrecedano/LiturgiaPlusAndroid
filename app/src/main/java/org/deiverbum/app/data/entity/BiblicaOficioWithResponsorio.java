@@ -23,8 +23,8 @@ public class BiblicaOficioWithResponsorio {
     public LHBiblicaOficioEntity lhBiblica;
 
     @Relation(
-            parentColumn = "pericopaFK",
-            entityColumn = "pericopaId",
+            parentColumn = "lecturaFK",
+            entityColumn = "lecturaId",
             entity = BibliaLecturaEntity.class
     )
     public LecturaWithLibro bibliaLectura;
@@ -36,14 +36,7 @@ public class BiblicaOficioWithResponsorio {
     )
     public LHResponsorioLargoEntity lhResponsorio;
 
-    public Biblica getDomainModel(Integer timeId){
-        Biblica theModel= bibliaLectura.getDomainModel();
-        //theModel.setTema(lhBiblica.tema);
-        //theModel.setResponsorio(lhResponsorio.getDomainModel(timeId));
-        return theModel;
-    }
-
-    public BiblicaOficio getDomainModelOficio(Integer tiempoId) {
+    public BiblicaOficio getDomainModel(Integer tiempoId) {
         BiblicaOficio theModel= bibliaLectura.getDomainModelOficio();
         theModel.setTema(lhBiblica.tema);
         theModel.setOrden(lhBiblica.orden);

@@ -7,7 +7,6 @@ import androidx.work.WorkManager;
 
 import org.deiverbum.app.data.entity.SalmoEntity;
 import org.deiverbum.app.data.entity.SalmodiaWithSalmos;
-import org.deiverbum.app.data.entity.UserWithPlaylistsAndSongs;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.model.Homilias;

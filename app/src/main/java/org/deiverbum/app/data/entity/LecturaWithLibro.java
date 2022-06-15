@@ -20,7 +20,7 @@ public class LecturaWithLibro {
 
 
     @Relation(
-            parentColumn = "libroId",
+            parentColumn = "libroFK",
             entityColumn = "libroId",
             entity = BibliaLibroEntity.class/*,
             associateBy = @Junction(SalmodiaSalmoCrossRef.class)*/
