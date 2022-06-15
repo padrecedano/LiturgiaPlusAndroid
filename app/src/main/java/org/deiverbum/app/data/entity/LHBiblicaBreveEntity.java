@@ -14,14 +14,14 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = "lh_biblica_breve",
-        //indices = {@Index(value = {"pericopaFK"}, unique = true)},
-
+        indices = {@Index(value = {"texto"}, unique = true)}
+/*
         foreignKeys =
         {
             @ForeignKey(
                     entity = BibliaLecturaEntity.class,
-                    parentColumns = "pericopaId",
-                    childColumns = "pericopaFK",
+                    parentColumns = "lecturaId",
+                    childColumns = "lecturaFK",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE),
             @ForeignKey(
@@ -30,21 +30,27 @@ import androidx.room.PrimaryKey;
                     childColumns = "responsorioFK",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE)
-        }
+        }*/
 )
 public class LHBiblicaBreveEntity {
-    @NonNull
+ /*   @NonNull
     @PrimaryKey
     @ColumnInfo(name = "grupoId")
     public Integer grupoId;
+*/
+    @NonNull
+    @PrimaryKey
+    @ColumnInfo(name = "lecturaId")
+    public Integer lecturaId;
 
     @NonNull
-    @ColumnInfo(name = "pericopaFK")
-    public Integer pericopaFK;
+    @ColumnInfo(name = "texto")
+    public String texto;
 
     @NonNull
-    @ColumnInfo(name = "responsorioFK")
-    public Integer responsorioFK;
+    @ColumnInfo(name = "cita")
+    public String cita;
+
 
 }
 

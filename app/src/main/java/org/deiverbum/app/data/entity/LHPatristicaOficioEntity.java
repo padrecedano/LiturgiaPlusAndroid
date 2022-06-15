@@ -18,6 +18,12 @@ import androidx.room.ForeignKey;
 
         foreignKeys =
         {
+          @ForeignKey(
+                    entity = LHPatristicaOficioJoinEntity.class,
+                    parentColumns = "grupoId",
+                    childColumns = "grupoFK",
+                    onDelete = ForeignKey.CASCADE,
+                    onUpdate = ForeignKey.CASCADE),
             @ForeignKey(
                     entity = HomiliaEntity.class,
                     parentColumns = "homiliaId",
@@ -49,6 +55,10 @@ public class LHPatristicaOficioEntity {
     @NonNull
     @ColumnInfo(name = "tema")
     public String tema;
+
+    @NonNull
+    @ColumnInfo(name = "fuente", defaultValue = "")
+    public String fuente;
 
     @NonNull
     @ColumnInfo(name = "orden", defaultValue= "1")

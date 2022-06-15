@@ -9,7 +9,6 @@ package org.deiverbum.app.data.entity.mapper;
 import androidx.lifecycle.MutableLiveData;
 
 import org.deiverbum.app.data.entity.SalmodiaWithSalmos;
-import org.deiverbum.app.data.entity.UserWithPlaylistsAndSongs;
 import org.deiverbum.app.model.Salmo;
 import org.deiverbum.app.model.Salmodia;
 
@@ -33,26 +32,6 @@ public class SalmodiaEntityDataMapper {
         mData=new MutableLiveData<>();
     }
 
-    /**
-     * Transform a {@link org.deiverbum.app.data.entity.SalmodiaEntity} into an
-     * {@link org.deiverbum.app.model.Salmodia}.
-     *
-     * @param userEntity Object to be transformed.
-     * @return {@link org.deiverbum.app.model.Salmodia} if valid
-     * {@link org.deiverbum.app.data.entity.SalmodiaEntity}
-     * otherwise null.
-     */
-    public MutableLiveData<Salmodia> transform(UserWithPlaylistsAndSongs userEntity) {
-
-        if (userEntity != null) {
-
-            Salmodia salmodia = new org.deiverbum.app.model.Salmodia();
-            salmodia.setSalmos(transformSalmos(userEntity.salmos));
-            mData.setValue(salmodia);
-
-        }
-        return mData;
-    }
 
     private List<Salmo> transformSalmos(List<SalmodiaWithSalmos> salmos) {
         final List<Salmo> salmosList = new ArrayList<>();

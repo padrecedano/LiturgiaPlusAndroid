@@ -40,6 +40,7 @@ public class PatristicaOficioWithResponsorio {
     public Patristica getDomainModelOficio(Integer tiempoId) {
         Patristica theModel= homiliaWithAll.getPatristicaDomainModel();
         theModel.setTema(lhPatristica.tema);
+        theModel.setFuente(lhPatristica.fuente);
         theModel.setOrden(lhPatristica.orden);
         theModel.setResponsorioLargo(lhResponsorio.getDomainModel(tiempoId));
         return theModel;

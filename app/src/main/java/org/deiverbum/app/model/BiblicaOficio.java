@@ -46,10 +46,14 @@ public class BiblicaOficio extends Biblica {
         this.responsorioLargo=responsorioLargo;
     }
 
-    @Override
-    public SpannableStringBuilder getHeader() {
+    //@Override
+    public SpannableStringBuilder getHeaderForReview() {
         String s=String.format("%s lectura",Utils.getOrdinal(orden)).toUpperCase();
         return Utils.formatTitle(s);
+    }
+
+    public SpannableStringBuilder getHeader() {
+        return Utils.formatTitle("PRIMERA LECTURA");
     }
 
     public SpannableStringBuilder getResponsorioHeader() {
@@ -75,10 +79,9 @@ public class BiblicaOficio extends Biblica {
         sb.append(LS2);
         sb.append(libro.getName());
         sb.append("    ");
-        sb.append(Utils.toRed(getCapitulo()));
-        sb.append(", ");
-        sb.append(Utils.toRed(getVersoInicial()));
-        sb.append(Utils.toRed(getVersoFinal()));
+        sb.append(Utils.toRed(getRef()));
+        //sb.append(", ");
+        ////sb.append(Utils.toRed(getVersoFinal()));
         sb.append(LS2);
         sb.append(Utils.toRed(getTema()));
         sb.append(LS2);

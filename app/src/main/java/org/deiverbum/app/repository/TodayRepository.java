@@ -18,7 +18,6 @@ import androidx.work.WorkManager;
 import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.data.entity.SalmoEntity;
 import org.deiverbum.app.data.entity.SalmodiaWithSalmos;
-import org.deiverbum.app.data.entity.UserWithPlaylistsAndSongs;
 import org.deiverbum.app.data.entity.mapper.OficioDataMapper;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.source.remote.network.ApiService;
@@ -186,9 +185,7 @@ public class TodayRepository {
         //return mData;
     }
 
-    public LiveData<UserWithPlaylistsAndSongs> getUsersWithPlaylistsAndSongs(String s) {
-        return mTodayDao.getUsersWithPlaylistsAndSongs();
-    }
+
 /*
     public LiveData<TodayWithOficio> getTodayWithOficio(String s) {
         return mTodayDao.getTodayWithOficio(Integer.valueOf(s));

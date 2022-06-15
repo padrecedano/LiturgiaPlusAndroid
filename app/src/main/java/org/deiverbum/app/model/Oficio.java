@@ -134,7 +134,6 @@ public class Oficio extends BreviarioHora {
             sb.append(getConclusionHorasMayoresForRead());
         } catch (Exception e) {
             sb.append(e.getMessage());
-
         }
         return sb;
     }

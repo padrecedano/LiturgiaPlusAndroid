@@ -3,6 +3,7 @@ package org.deiverbum.app.data.entity;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -16,22 +17,22 @@ import org.deiverbum.app.model.BiblicaBreve;
  */
 
 @Entity(tableName = "biblia_lectura",
-        /*foreignKeys =
+        foreignKeys =
         {
             @ForeignKey(
-                    entity = BibliaPericopaEntity.class,
-                    parentColumns = "pericopaId",
-                    childColumns = "pericopaFK",
+                    entity = BibliaLibroEntity.class,
+                    parentColumns = "libroId",
+                    childColumns = "libroFK",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE)
-        },*/
+        },
         indices={
-                @Index(value={"libroId", "capitulo", "desde", "hasta"},unique = true)}
+                @Index(value={"libroFK", "capitulo", "desde", "hasta"},unique = true)}
 )
 public class BibliaLecturaEntity {
     @NonNull
-    public Integer getLibroId() {
-        return libroId;
+    public Integer getLibroFK() {
+        return libroFK;
     }
 
     @NonNull
@@ -60,13 +61,13 @@ public class BibliaLecturaEntity {
     }
 
     @NonNull
-    @PrimaryKey
-    @ColumnInfo(name = "pericopaId")
-    public Integer pericopaId;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "lecturaId")
+    public Integer lecturaId;
 
     @NonNull
-    @ColumnInfo(name = "libroId")
-    public Integer libroId;
+    @ColumnInfo(name = "libroFK")
+    public Integer libroFK;
 
     @NonNull
     @ColumnInfo(name = "capitulo")

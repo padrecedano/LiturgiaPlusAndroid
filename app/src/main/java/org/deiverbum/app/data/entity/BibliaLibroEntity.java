@@ -35,6 +35,10 @@ public class BibliaLibroEntity {
     public Integer libroId;
 
     @NonNull
+    @ColumnInfo(name = "bookType")
+    public Integer bookType;
+
+    @NonNull
     @ColumnInfo(name = "shortName")
     public String shortName;
 
@@ -47,8 +51,8 @@ public class BibliaLibroEntity {
     public String liturgyName;
 
     @NonNull
-    @ColumnInfo(name = "order")
-    public Integer order;
+    @ColumnInfo(name = "orderName")
+    public String orderName;
 
 
     @NonNull

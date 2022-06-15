@@ -22,8 +22,8 @@ public class MisaWithLecturas {
     public MisaLecturaEntity misaLectura;
 
     @Relation(
-            parentColumn = "pericopaFK",
-            entityColumn = "pericopaId",
+            parentColumn = "lecturaFK",
+            entityColumn = "lecturaId",
             entity = BibliaLecturaEntity.class/*,
             associateBy = @Junction(SalmodiaSalmoCrossRef.class)*/
     )

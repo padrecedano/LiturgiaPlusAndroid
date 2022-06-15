@@ -97,16 +97,17 @@ public class Patristica {
         this.responsorioLargo = responsorioLargo;
     }
 
-    public SpannableStringBuilder getHeaderDelete() {
-
+    public SpannableStringBuilder getHeader() {
         return Utils.formatTitle("SEGUNDA LECTURA");
     }
 
 
-    public SpannableStringBuilder getHeader() {
+    public SpannableStringBuilder getHeaderForReview() {
         String s=String.format("%s lectura",Utils.getOrdinal(orden)).toUpperCase();
         return Utils.formatTitle(s);
     }
+
+
 
     public String getHeaderForRead() {
         return "Segunda lectura.";
