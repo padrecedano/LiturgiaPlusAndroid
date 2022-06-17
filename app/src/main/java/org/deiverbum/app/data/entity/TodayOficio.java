@@ -89,11 +89,11 @@ public class TodayOficio {
     public LHOracion lhOracion;
 
     @Relation(
-            entity = LHOficioVersoEntity.class,
+            entity = LHOficioVersoJoinEntity.class,
             parentColumn = "oVersoFK",
-            entityColumn = "versoId"
+            entityColumn = "grupoId"
     )
-    public LHOficioVersoEntity lhOficioResponsorio;
+    public OficioVersoAll oficioVerso;
 
     @Relation(
             entity = LiturgiaEntity.class,
@@ -161,8 +161,7 @@ public class TodayOficio {
     }
 
     public String getOficioResponsorio(){
-
-        return lhOficioResponsorio.getResponsorio();
+        return oficioVerso.getDomainModel();
     }
 
 

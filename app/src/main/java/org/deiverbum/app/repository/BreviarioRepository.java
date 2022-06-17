@@ -3,13 +3,15 @@ package org.deiverbum.app.repository;
 import static org.deiverbum.app.utils.Constants.NOTFOUND_OR_NOTCONNECTION;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.room.Query;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
+import org.deiverbum.app.data.entity.TodayLaudes;
+import org.deiverbum.app.data.entity.TodayNona;
 import org.deiverbum.app.data.entity.TodayOficio;
-import org.deiverbum.app.data.entity.mapper.OficioDataMapper;
+import org.deiverbum.app.data.entity.TodaySexta;
+import org.deiverbum.app.data.entity.TodayTercia;
+import org.deiverbum.app.data.entity.TodayVisperas;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.CustomException;
@@ -42,29 +44,25 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class BreviarioRepository {
     private final ApiService apiService;
     private final FirebaseDataSource firebaseDataSource;
-    private final MediatorLiveData<DataWrapper<Oficio,CustomException>> liveData = new MediatorLiveData<>();
-    private final MediatorLiveData<DataWrapper<Mixto,CustomException>> liveDataMixto = new MediatorLiveData<>();
-    private final MediatorLiveData<DataWrapper<Laudes,CustomException>> liveDataLaudes = new MediatorLiveData<>();
-    private final MediatorLiveData<DataWrapper<Intermedia,CustomException>> liveDataIntermedia = new MediatorLiveData<>();
-    private final MediatorLiveData<DataWrapper<Visperas,CustomException>> liveDataVisperas = new MediatorLiveData<>();
-    private TodayDao mTodayDao;
-    private OficioDataMapper mMapper;
+    private final MediatorLiveData<DataWrapper<Oficio, CustomException>> liveData = new MediatorLiveData<>();
+    private final MediatorLiveData<DataWrapper<Mixto, CustomException>> liveDataMixto = new MediatorLiveData<>();
+    private final MediatorLiveData<DataWrapper<Laudes, CustomException>> liveDataLaudes = new MediatorLiveData<>();
+    private final MediatorLiveData<DataWrapper<Intermedia, CustomException>> liveDataIntermedia = new MediatorLiveData<>();
+    private final MediatorLiveData<DataWrapper<Visperas, CustomException>> liveDataVisperas = new MediatorLiveData<>();
+    private final TodayDao mTodayDao;
 
 
     @Inject
     public BreviarioRepository(
-                               FirebaseDataSource firebaseDataSource,
-                               ApiService apiService,
-                               TodayDao todayDao,
-                               OficioDataMapper mapper
+            FirebaseDataSource firebaseDataSource,
+            ApiService apiService,
+            TodayDao todayDao
 
-                               ) {
+    ) {
         this.firebaseDataSource = firebaseDataSource;
         this.mTodayDao = todayDao;
-        this.mMapper=mapper;
         this.apiService = apiService;
     }
-
 
 
     /**
@@ -72,17 +70,17 @@ public class BreviarioRepository {
      * Primero buscará en Firestore mediante {@link FirebaseDataSource#getOficio(String)}
      * y si no encuentra, buscará en la Api mediante {@link ApiService#getBreviario(String, String)}
      * La llamada a la Api se hará desde el onError
+     *
      * @param dateString La fecha
-     * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
      */
-    public MediatorLiveData<DataWrapper<Oficio, CustomException>> getOficioo(String dateString) {
+    public void getOficio(String dateString) {
         firebaseDataSource.getOficio(dateString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<Oficio,CustomException>>() {
+                .subscribe(new DisposableSingleObserver<DataWrapper<Oficio, CustomException>>() {
 
                     @Override
-                    public void onSuccess(@NonNull DataWrapper<Oficio,CustomException> data) {
+                    public void onSuccess(@NonNull DataWrapper<Oficio, CustomException> data) {
                         liveData.postValue(data);
                     }
 
@@ -91,59 +89,74 @@ public class BreviarioRepository {
                         oficioFromApi(dateString);
                     }
                 });
+    }
+
+    public MediatorLiveData<DataWrapper<Oficio, CustomException>> getOficioDB(String s) {
+        TodayOficio theEntity = mTodayDao.getOficioOfToday(Integer.valueOf(s));
+        if (theEntity != null) {
+            liveData.postValue(new DataWrapper<>(theEntity.getDomainModel()));
+        } else {
+            getOficio(s);
+        }
         return liveData;
     }
 
-    public MediatorLiveData<DataWrapper<Oficio, CustomException>> getOficio(String s) {
-
-        /**
-         * Determina si el usuario tiene configurado un invitatorio variable
-         * y devuelve el texto que corresponda.
-         *
-         * @param isVariable booleano true o false desde preferencias
-         * @return El texto obtenido del archivo correspondiente o el texto por defecto
-         * @since 2022.1
-         */
-
-            TodayOficio theEntity=mTodayDao.getOficioOfToday(Integer.valueOf(s));
-        if(theEntity!=null) {
-
-            liveData.postValue(new DataWrapper<>(theEntity.getDomainModel()));
-
-            //liveData.postValue(new DataWrapper<>(mMapper.transformOficioDB(mTodayDao.getOficioOfToday(Integer.valueOf(s)))));
-        }else{
-            getOficioo(s);
-        }
-return liveData;
-        //return mMapper.transformOficioDB(mTodayDao.getOficioOfToday(Integer
-        // .valueOf(s)));
-    }
-
     public MediatorLiveData<DataWrapper<Laudes, CustomException>> getLaudesDB(String s) {
-        Integer i=mTodayDao.findLastDate();
-        String ss="a";
-        //liveDataLaudes.postValue(new DataWrapper<>(new Laudes()));
-
-        Laudes theModel=
-                mMapper.transformLaudesDB(mTodayDao.getLaudesOfToday(Integer.valueOf(s)));
-        if(theModel!=null) {
+        TodayLaudes theEntity = mTodayDao.getLaudesOfToday(Integer.valueOf(s));
+        if (theEntity != null) {
+            Laudes theModel = theEntity.getDomainModel();
             liveDataLaudes.postValue(new DataWrapper<>(theModel));
-        }else{
+        } else {
             getLaudes(s);
         }
         return liveDataLaudes;
-        //return mMapper.transformOficioDB(mTodayDao.getOficioOfToday(Integer
-        // .valueOf(s)));
     }
 
-    /**
-     * Este método inicia la llamada al DataSource.
-     * Primero buscará en Firestore mediante {@link FirebaseDataSource#getOficio(String)}
-     * y si no encuentra, buscará en la Api mediante {@link ApiService#getBreviario(String, String)}
-     * La llamada a la Api se hará desde el onError
-     * @param dateString La fecha
-     * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
-     */
+    public MediatorLiveData<DataWrapper<Intermedia, CustomException>> getIntermediaDB(String s, int hourId, String endPoint) {
+        Intermedia theModel = null;
+        if (hourId == 3) {
+            TodayTercia theEntity = mTodayDao.geTerciaOfToday(Integer.valueOf(s));
+            if (theEntity != null) {
+                theModel = theEntity.getDomainModel();
+                liveDataIntermedia.postValue(new DataWrapper<>(theModel));
+            } else {
+                getIntermedia(s, hourId, endPoint);
+            }
+            //return liveDataIntermedia;
+        }else if(hourId==4){
+            TodaySexta theEntity = mTodayDao.geSextaOfToday(Integer.valueOf(s));
+            if (theEntity != null) {
+                theModel = theEntity.getDomainModel();
+                liveDataIntermedia.postValue(new DataWrapper<>(theModel));
+            } else {
+                getIntermedia(s, hourId, endPoint);
+            }
+
+        }else{
+            TodayNona theEntity = mTodayDao.geNonaOfToday(Integer.valueOf(s));
+            if (theEntity != null) {
+                theModel = theEntity.getDomainModel();
+                liveDataIntermedia.postValue(new DataWrapper<>(theModel));
+            } else {
+                getIntermedia(s, hourId, endPoint);
+            }
+        }
+        return liveDataIntermedia;
+    }
+
+
+
+
+
+        /**
+         * Este método inicia la llamada al DataSource.
+         * Primero buscará en Firestore mediante {@link FirebaseDataSource#getOficio(String)}
+         * y si no encuentra, buscará en la Api mediante {@link ApiService#getBreviario(String, String)}
+         * La llamada a la Api se hará desde el onError
+         *
+         * @param dateString La fecha
+         * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
+         */
     public MediatorLiveData<DataWrapper<Mixto, CustomException>> getMixto(String dateString) {
         firebaseDataSource.getMixto(dateString)
                 .subscribeOn(Schedulers.io())
@@ -159,8 +172,7 @@ return liveData;
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-
-                       mixtoFromApi(dateString);
+                        mixtoFromApi(dateString);
                     }
                 });
         return liveDataMixto;
@@ -168,6 +180,7 @@ return liveData;
 
     /**
      * Este método buscará los datos en el servidor remoto, si no los encuentra en Firebase.
+     *
      * @param dateString La fecha
      */
 
@@ -176,12 +189,15 @@ return liveData;
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Mixto>() {
-                    @Override public void onStart() {
+                    @Override
+                    public void onStart() {
                     }
+
                     @Override
                     public void onSuccess(@NonNull Mixto r) {
                         liveDataMixto.postValue(new DataWrapper<>(r));
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
                         liveDataMixto.setValue(new DataWrapper<>(new CustomException(NOTFOUND_OR_NOTCONNECTION)));
@@ -191,6 +207,7 @@ return liveData;
 
     /**
      * Este método buscará los datos en el servidor remoto, si no los encuentra en Firebase.
+     *
      * @param dateString La fecha
      */
 
@@ -199,12 +216,15 @@ return liveData;
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Oficio>() {
-                    @Override public void onStart() {
+                    @Override
+                    public void onStart() {
                     }
+
                     @Override
                     public void onSuccess(@NonNull Oficio r) {
                         liveData.postValue(new DataWrapper<>(r));
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
                         liveData.setValue(new DataWrapper<>(new CustomException(NOTFOUND_OR_NOTCONNECTION)));
@@ -218,6 +238,7 @@ return liveData;
      * Primero buscará en Firestore mediante {@link FirebaseDataSource#getLaudes(String)}
      * y si no encuentra, buscará en la Api mediante {@link ApiService#getBreviario(String, String)}
      * La llamada a la Api se hará desde el onError
+     *
      * @param dateString La fecha
      * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
      */
@@ -225,10 +246,10 @@ return liveData;
         firebaseDataSource.getLaudes(dateString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<Laudes,CustomException>>() {
+                .subscribe(new DisposableSingleObserver<DataWrapper<Laudes, CustomException>>() {
 
                     @Override
-                    public void onSuccess(@NonNull DataWrapper<Laudes,CustomException> data) {
+                    public void onSuccess(@NonNull DataWrapper<Laudes, CustomException> data) {
                         liveDataLaudes.postValue(data);
                     }
 
@@ -243,6 +264,7 @@ return liveData;
 
     /**
      * Este método buscará los datos en el servidor remoto, si no los encuentra en Firebase.
+     *
      * @param dateString La fecha
      */
 
@@ -251,64 +273,68 @@ return liveData;
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Laudes>() {
-                    @Override public void onStart() {
+                    @Override
+                    public void onStart() {
                     }
+
                     @Override
                     public void onSuccess(@NonNull Laudes r) {
                         liveDataLaudes.postValue(new DataWrapper<>(r));
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
                         liveDataLaudes.setValue(new DataWrapper<>(new CustomException(NOTFOUND_OR_NOTCONNECTION)));
                     }
                 });
-        //return liveDataLaudes;
     }
 
     /**
      * Este método inicia la llamada al DataSource.
-     * Primero buscará en Firestore mediante {@link FirebaseDataSource#getIntermedia(String, int)} 
+     * Primero buscará en Firestore mediante {@link FirebaseDataSource#getIntermedia(String, int)}
      * y si no encuentra, buscará en la Api mediante {@link ApiService#getBreviario(String, String)}
      * La llamada a la Api se hará desde el onError
+     *
      * @param dateString La fecha
-     * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
      */
-    public MediatorLiveData<DataWrapper<Intermedia, CustomException>> getIntermedia(String dateString, int hourId, String endPoint) {
+    public void getIntermedia(String dateString, int hourId, String endPoint) {
         firebaseDataSource.getIntermedia(dateString, hourId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<Intermedia,CustomException>>() {
+                .subscribe(new DisposableSingleObserver<DataWrapper<Intermedia, CustomException>>() {
 
                     @Override
-                    public void onSuccess(@NonNull DataWrapper<Intermedia,CustomException> data) {
+                    public void onSuccess(@NonNull DataWrapper<Intermedia, CustomException> data) {
                         liveDataIntermedia.postValue(data);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        intermediaFromApi(endPoint,dateString);
+                        intermediaFromApi(endPoint, dateString);
                     }
                 });
-        return liveDataIntermedia;
     }
 
     /**
      * Este método buscará los datos en el servidor remoto, si no los encuentra en Firebase.
+     *
      * @param dateString La fecha
      */
 
     public void intermediaFromApi(String endPoint, String dateString) {
-
-        apiService.getIntermedia(endPoint,Utils.cleanDate(dateString))
+        apiService.getIntermedia(endPoint, Utils.cleanDate(dateString))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Intermedia>() {
-                    @Override public void onStart() {
+                    @Override
+                    public void onStart() {
                     }
+
                     @Override
                     public void onSuccess(@NonNull Intermedia r) {
                         liveDataIntermedia.postValue(new DataWrapper<>(r));
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
                         liveDataIntermedia.postValue(new DataWrapper<>(new CustomException(NOTFOUND_OR_NOTCONNECTION)));
@@ -317,23 +343,22 @@ return liveData;
     }
 
 
-
     /**
      * Este método inicia la llamada al DataSource.
      * Primero buscará en Firestore mediante {@link FirebaseDataSource#getVisperas(String)}
      * y si no encuentra, buscará en la Api mediante {@link ApiService#getBreviario(String, String)}
      * La llamada a la Api se hará desde el onError
+     *
      * @param dateString La fecha
-     * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
      */
-    public MediatorLiveData<DataWrapper<Visperas, CustomException>> getVisperas(String dateString) {
+    public void getVisperas(String dateString) {
         firebaseDataSource.getVisperas(dateString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<Visperas,CustomException>>() {
+                .subscribe(new DisposableSingleObserver<DataWrapper<Visperas, CustomException>>() {
 
                     @Override
-                    public void onSuccess(@NonNull DataWrapper<Visperas,CustomException> data) {
+                    public void onSuccess(@NonNull DataWrapper<Visperas, CustomException> data) {
                         liveDataVisperas.postValue(data);
                     }
 
@@ -342,11 +367,11 @@ return liveData;
                         visperasFromApi(dateString);
                     }
                 });
-        return liveDataVisperas;
     }
 
     /**
      * Este método buscará los datos en el servidor remoto, si no los encuentra en Firebase.
+     *
      * @param dateString La fecha
      */
 
@@ -356,12 +381,15 @@ return liveData;
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Visperas>() {
-                    @Override public void onStart() {
+                    @Override
+                    public void onStart() {
                     }
+
                     @Override
                     public void onSuccess(@NonNull Visperas r) {
                         liveDataVisperas.postValue(new DataWrapper<>(r));
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
                         liveDataVisperas.setValue(new DataWrapper<>(new CustomException(NOTFOUND_OR_NOTCONNECTION)));
@@ -370,8 +398,15 @@ return liveData;
     }
 
 
-
-
-
+    public MediatorLiveData<DataWrapper<Visperas, CustomException>> getVisperasDB(String s) {
+        TodayVisperas theEntity = mTodayDao.geVisperasOfToday(Integer.valueOf(s));
+        if (theEntity != null) {
+            Visperas theModel = theEntity.getDomainModel();
+            liveDataVisperas.postValue(new DataWrapper<>(theModel));
+        } else {
+            getVisperas(s);
+        }
+        return liveDataVisperas;
+    }
 }
 

@@ -11,6 +11,7 @@ import androidx.room.ColumnInfo;
 
 import org.deiverbum.app.utils.Utils;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Salmodia {
@@ -31,6 +32,9 @@ public class Salmodia {
         this.tipo = tipo;
     }
 
+    public void sort(){
+        Collections.sort(this.salmos);
+    }
 
     public SpannableStringBuilder getSalmosForRead() {
         return getSalmosForRead(-1);
@@ -138,17 +142,17 @@ public class Salmodia {
         String antUnica = "";
 
         if (tipo == 1) {
-            antUnica = getAntifonaLimpia(salmos.get(hourIndex).getAntifona());
+            antUnica = getAntifonaLimpia(salmos.get(hourIndex).getAntifonaForRead());
             sb.append(antUnica);
         }
         if (tipo == 2) {
-            antUnica = getAntifonaLimpia(salmos.get(0).getAntifona());
+            antUnica = getAntifonaLimpia(salmos.get(0).getAntifonaForRead());
             //antUnica = salmoCompleto.get(0).getAntifona();
             sb.append(antUnica);
         }
         for (Salmo s : salmos) {
             if (tipo == 0) {
-                sb.append(Utils.fromHtml(s.getAntifona()));
+                sb.append(Utils.fromHtml(s.getAntifonaForRead()));
             }
 
             sb.append(LS2);
@@ -162,7 +166,7 @@ public class Salmodia {
             sb.append(LS2);
 
             if (tipo == 0) {
-                sb.append(getAntifonaLimpia(s.getAntifona()));
+                sb.append(getAntifonaLimpia(s.getAntifonaForRead()));
                 sb.append(LS2);
             }
         }
@@ -216,6 +220,8 @@ public class Salmodia {
         sb.append(getSalmos(hourIndex));
         return sb;
     }
+
+
 
     /**
      * <p>Obtiene el contenido de la salmodia formateado, para la vista.</p>
@@ -289,8 +295,6 @@ public class Salmodia {
         for (Salmo s : salmos) {
             s.setAntifona(Utils.replaceByTime(s.getAntifona(),calendarTime));
         }
-
-
     }
 
 

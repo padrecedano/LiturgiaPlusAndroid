@@ -77,7 +77,7 @@ public class BiblicaOficio extends Biblica {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeader());
         sb.append(LS2);
-        sb.append(libro.getName());
+        sb.append(libro.getLiturgyName());
         sb.append("    ");
         sb.append(Utils.toRed(getRef()));
         //sb.append(", ");

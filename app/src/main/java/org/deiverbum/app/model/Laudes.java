@@ -88,6 +88,7 @@ public class Laudes extends BreviarioHora{
 
             sb.append(himno.getAll());
             sb.append(LS2);
+            salmodia.normalizeByTime(metaLiturgia.idTiempo);
 
             sb.append(salmodia.getAll());
             sb.append(Utils.LS2);

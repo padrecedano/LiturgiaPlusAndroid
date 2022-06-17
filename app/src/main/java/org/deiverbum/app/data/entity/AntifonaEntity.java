@@ -16,7 +16,7 @@ import androidx.room.PrimaryKey;
         indices = {@Index(value = {"antifona"},unique = true)})
 public class AntifonaEntity {
     @NonNull
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "antifonaId")
     public Integer antifonaId;
 

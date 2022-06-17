@@ -59,7 +59,7 @@ public class TodayMixto {
             parentColumn = "lBiblicaFK",
             entityColumn = "lecturaId"
     )
-    public BiblicaBreveWithResponsorio biblica;
+    public LHBiblicaBreveEntity biblica;
 
 
     @Relation(
@@ -226,7 +226,7 @@ public class TodayMixto {
 
 //TODO incluir algo como hasPriority en Today
     public BiblicaBreve getBiblicaBreve(){
-        return  biblica.getDomainModelBreve(today.getTiempoId());
+        return  null;//biblica.getDomainModelBreve(today.getTiempoId());
     }
 
     public CanticoEvangelico getBenedictus(){

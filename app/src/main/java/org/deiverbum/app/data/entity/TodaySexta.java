@@ -6,7 +6,6 @@ import androidx.room.Relation;
 import org.deiverbum.app.model.BiblicaBreve;
 import org.deiverbum.app.model.Himno;
 import org.deiverbum.app.model.Intermedia;
-import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.Oracion;
 import org.deiverbum.app.model.Salmodia;
@@ -19,7 +18,7 @@ import java.util.List;
  * @version 1.0
  * @since 2022.2
  */
-public class TodayTercia {
+public class TodaySexta {
 
     @Embedded
     public Today today;
@@ -27,42 +26,42 @@ public class TodayTercia {
     @Relation(
             entity = SantoEntity.class,
             parentColumn = "santoFK",
-            entityColumn = "santoId" //liturgiaId
+            entityColumn = "santoId"
     )
     public SantoEntity santo;
 
 
     @Relation(
             entity = LHHimnoJoinEntity.class,
-            parentColumn = "tHimnoFK",
+            parentColumn = "sHimnoFK",
             entityColumn = "grupoId"
     )
     public HimnoWithAll himno;
 
     @Relation(
             entity = LHBiblicaBreveJoinEntity.class,
-            parentColumn = "tBiblicaFK",
+            parentColumn = "sBiblicaFK",
             entityColumn = "grupoId"
     )
     public BiblicaBreveAll biblica;
 
     @Relation(
             entity = LHSalmodiaJoinEntity.class,
-            parentColumn = "tSalmodiaFK",
+            parentColumn = "sSalmodiaFK",
             entityColumn = "grupoId"
     )
     public LHSalmodia salmodia;
 
     @Relation(
             entity = SalmodiaEntity.class,
-            parentColumn = "tSalmodiaFK",
+            parentColumn = "sSalmodiaFK",
             entityColumn = "grupoFK"
     )
     public List<SalmodiaWithSalmos> salmos;
 
     @Relation(
             entity = LHOracionEntity.class,
-            parentColumn = "tOracionFK",
+            parentColumn = "sOracionFK",
             entityColumn = "grupoId"
     )
     public LHOracion lhOracion;

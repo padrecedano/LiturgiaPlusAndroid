@@ -3,51 +3,38 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
+import org.deiverbum.app.model.Himno;
+
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2022.2
  */
-public class SalmodiaWithSalmos {
+public class OficioVersoAll {
     @Embedded
-    public SalmodiaEntity salmodia;
+    public LHOficioVersoJoinEntity theJoin;
     @Relation(
-            parentColumn = "grupoFK",
-            entityColumn = "grupoId",
-            entity = LHSalmodiaJoinEntity.class
+            parentColumn = "versoFK",
+            entityColumn = "versoId",
+            entity = LHOficioVersoEntity.class
     )
-    public LHSalmodiaJoinEntity salmodiaEntity;
+    public LHOficioVersoEntity theEntity;
 
-    @Relation(
-            parentColumn = "pericopaFK",
-            entityColumn = "salmoId",
-            entity = SalmoEntity.class
-    )
-    public SalmoEntity salmoEntity;
-
+    public String getDomainModel(){
+        return theEntity.getResponsorio();
+    }
+/*
     @Relation(
             parentColumn = "antifonaFK",
             entityColumn = "antifonaId",
             entity = AntifonaEntity.class
     )
     public AntifonaEntity antifonaEntity;
+*/
 
-    @Relation(
-            parentColumn = "temaFK",
-            entityColumn = "temaId",
-            entity = TemaEntity.class
-    )
-    public TemaEntity tema;
-
-    @Relation(
-            parentColumn = "epigrafeFK",
-            entityColumn = "epigrafeId",
-            entity = EpigrafeEntity.class
-    )
-    public EpigrafeEntity epigrafe;
-
+/*
     public String getEpigrafe(){
-        return epigrafe!=null ? epigrafe.getEpigrafe() : "";
+            return epigrafe.getEpigrafe();
     }
 
     public String getSalmoText(){
@@ -69,9 +56,6 @@ public class SalmodiaWithSalmos {
     public String getParte(){
             return (salmodia!=null) ? salmodia.getParte() : "";
     }
-
-    public String getOrden(){
-        return (salmodia!=null) ? String.valueOf(salmodia.getOrden()) : "0";
-    }
+*/
 
 }

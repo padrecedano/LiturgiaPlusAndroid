@@ -14,13 +14,12 @@ public class ObraWithPadre {
     @Relation(
             parentColumn = "padreFK",
             entityColumn = "padreId",
-            entity = PadreEntity.class/*,
-            associateBy = @Junction(SalmodiaSalmoCrossRef.class)*/
+            entity = PadreEntity.class
     )
     public PadreEntity padre;
 
     public String getPadre(){
-        return padre.getPadre();
+        return padre.getLiturgyName();
     }
 
 

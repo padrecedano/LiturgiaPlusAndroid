@@ -70,5 +70,10 @@ public class PadreEntity {
     public String getPadre() {
         return padre!=null ? padre : "";
     }
+
+    public String getLiturgyName() {
+        return liturgyName!=null ? liturgyName : getPadre();
+    }
+
 }
 

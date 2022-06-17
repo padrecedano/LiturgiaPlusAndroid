@@ -73,7 +73,10 @@ public Mixto(){
         try {
             //Santo santo = laudes.getSanto();
             Himno himno = laudes.getHimno();
+
             Salmodia salmodia = laudes.getSalmodia();
+            salmodia.normalizeByTime(metaLiturgia.idTiempo);
+
             OficioLecturas oficioLecturas = oficio.getOficioLecturas();
             Biblica lecturaBreve = laudes.getLecturaBreve();
             CanticoEvangelico ce = laudes.getBenedictus();
@@ -107,7 +110,7 @@ public Mixto(){
             sb.append(lecturaBreve.getAll());
             sb.append(Utils.LS2);
 
-            sb.append(oficioLecturas.getAll());
+            sb.append(oficioLecturas.getAll(metaLiturgia.idTiempo));
             sb.append(Utils.LS2);
 
             sb.append(Utils.formatSubTitle("evangelio del día"));

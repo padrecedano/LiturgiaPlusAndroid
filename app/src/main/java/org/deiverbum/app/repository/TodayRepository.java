@@ -148,7 +148,7 @@ public class TodayRepository {
     }
 */
     public LiveData<List<SalmodiaWithSalmos>> getSalmos(String theDate){
-        return mTodayDao.getSalmos();
+        return null;//mTodayDao.getSalmos();
     }
 /*
     public LiveData<List<SalmosWithSalmodia>> getSalmodia(String theDate){
@@ -157,7 +157,7 @@ public class TodayRepository {
 */
 
     public LiveData<Integer> getLastLive(){
-        return mTodayDao.findLastLive();
+        return null;//mTodayDao.findLastLive();
     }
 
     LiveData<Today> getAllWords() {
@@ -232,7 +232,7 @@ public class TodayRepository {
 
  */
     public LiveData<SalmoEntity> getSalmo() {
-        return mTodayDao.getSalmo();
+        return null;//mTodayDao.getSalmo();
     }
 }
 

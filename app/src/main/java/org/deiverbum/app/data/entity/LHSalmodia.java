@@ -40,10 +40,12 @@ public class LHSalmodia {
             s.setTema(salmo.getTema());
             s.setEpigrafe(salmo.getEpigrafe());
             s.setParte(salmo.getParte());
+            s.setOrden(salmo.getOrden());
             salmosList.add(s);
         }
 
         theModel.setSalmos(salmosList);
+        theModel.sort();
         return theModel;
 
     }
