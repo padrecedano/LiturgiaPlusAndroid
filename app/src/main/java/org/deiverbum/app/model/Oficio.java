@@ -83,14 +83,15 @@ public class Oficio extends BreviarioHora {
             sb.append(LS2);
             sb.append(invitatorio.getAll(hasInvitatorio));
             sb.append(LS2);
+            invitatorio.normalizeByTime(metaLiturgia.idTiempo);
 
             sb.append(himno.getAll());
             sb.append(LS2);
-
-            sb.append(salmodia.getAll());
+            salmodia.normalizeByTime(metaLiturgia.idTiempo);
+            sb.append(salmodia.getAll(1));
             sb.append(LS2);
-
-            sb.append(oficioLecturas.getAll());
+oficioLecturas.normalizeByTime(metaLiturgia.idTiempo);
+            sb.append(oficioLecturas.getAll(metaLiturgia.idTiempo));
             //sb.append(LS2);
 
             if (teDeum.status) {

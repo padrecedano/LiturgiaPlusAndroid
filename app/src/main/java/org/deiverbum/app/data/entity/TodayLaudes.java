@@ -32,7 +32,7 @@ public class TodayLaudes {
     @Relation(
             entity = SantoEntity.class,
             parentColumn = "santoFK",
-            entityColumn = "santoId" //liturgiaId
+            entityColumn = "santoId"
     )
     public SantoWithAll santo;
 
@@ -51,18 +51,11 @@ public class TodayLaudes {
     public HimnoWithAll himno;
 
     @Relation(
-            entity = LHBiblicaBreveEntity.class,
+            entity = LHBiblicaBreveJoinEntity.class,
             parentColumn = "lBiblicaFK",
-            entityColumn = "lecturaId"
+            entityColumn = "grupoId"
     )
-    public BiblicaBreveWithResponsorio biblica;
-
-    @Relation(
-            entity = LHBiblicaBreveEntity.class,
-            parentColumn = "lBiblicaFK",
-            entityColumn = "lecturaId"
-    )
-    public LHBiblicaBreveEntity biblicaa;
+    public BiblicaBreveAll biblica;
 
     @Relation(
             entity = LHSalmodiaJoinEntity.class,
@@ -92,8 +85,6 @@ public class TodayLaudes {
             entityColumn = "grupoId"
     )
     public LHOracion lhOracion;
-
-
 
     @Relation(
             entity = LiturgiaEntity.class,
@@ -157,15 +148,12 @@ public class TodayLaudes {
         return theModel;
     }
     public Himno getHimno(){
-        //Himno modelHimno = new Himno();
-        //modelHimno.setTexto(himno.getDomainModel());
         return himno.getDomainModel();
     }
 
 //TODO incluir algo como hasPriority en Today
     public BiblicaBreve getBiblica(){
-
-        return  biblica.getDomainModelBreve(today.getTiempoId());
+        return  biblica.getDomainModel(today.getTiempoId());
     }
 
     public CanticoEvangelico getBenedictus(){
@@ -182,9 +170,6 @@ public class TodayLaudes {
 
 
     public Invitatorio getInvitatorio() {
-        //Invitatorio theModel=new Invitatorio();
-        //theModel.setId(invitatorio.getId());
-        //theModel.setAntifona(invitatorio.getAntifona());
         return invitatorio.getDomainModel();
     }
 

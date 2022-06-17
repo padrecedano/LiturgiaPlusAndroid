@@ -17,12 +17,12 @@ import androidx.room.PrimaryKey;
                 {
                    @ForeignKey(
                            entity = LHBiblicaBreveEntity.class,
-                           parentColumns = "lecturaFK",
-                           childColumns = "lecturaId",
+                           parentColumns = "lecturaId",
+                           childColumns = "lecturaFK",
                            onDelete = ForeignKey.CASCADE,
                            onUpdate = ForeignKey.CASCADE),
                    @ForeignKey(
-                           entity = LHOficioResponsorioEntity.class,
+                           entity = LHResponsorioBreveEntity.class,
                            parentColumns = "responsorioId",
                            childColumns = "responsorioFK",
                            onDelete = ForeignKey.CASCADE,

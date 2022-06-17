@@ -114,20 +114,21 @@ public class OficioLecturas {
         return "Lecturas del oficio.";
     }
 
-    public SpannableStringBuilder getAll() {
+    public SpannableStringBuilder getAll(int calendarTime) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeader());
         sb.append(LS2);
         sb.append(getResponsorioSpan());
         sb.append(LS2);
-        sb.append(getAllBiblica());
-        sb.append(getAllPatristica());
+        sb.append(getAllBiblica(calendarTime));
+        sb.append(getAllPatristica(calendarTime));
         return sb;
     }
 
-    public SpannableStringBuilder getAllBiblica() {
+    public SpannableStringBuilder getAllBiblica(int calendarTime) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         for (BiblicaOficio oneBiblica : this.biblica) {
+            oneBiblica.getResponsorioLargo().normalizeByTime(calendarTime);
             sb.append(oneBiblica.getAll());
         }
         return sb;
@@ -141,9 +142,10 @@ public class OficioLecturas {
         return sb;
     }
 
-    public SpannableStringBuilder getAllPatristica() {
+    public SpannableStringBuilder getAllPatristica(int calendarTime) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         for (Patristica theModel : this.patristica) {
+            theModel.getResponsorioLargo().normalizeByTime(calendarTime);
             sb.append(theModel.getAll());
         }
         return sb;
@@ -168,6 +170,18 @@ public class OficioLecturas {
 
     public void setResponsorio(String responsorio) {
         this.responsorio=responsorio;
+    }
+
+    /**
+     * Método que normaliza el contenido de las antífonas según el tiempo litúrgico del calendario
+     * @param calendarTime Un entero con el Id del tiempo del calendario
+     */
+
+    public void normalizeByTime(int calendarTime) {
+        for (BiblicaOficio oneBiblica : this.biblica) {
+            oneBiblica.getResponsorioLargo().normalizeByTime(calendarTime);
+        }
+        //this.texto=Utils.replaceByTime(texto,calendarTime);
     }
 }
 

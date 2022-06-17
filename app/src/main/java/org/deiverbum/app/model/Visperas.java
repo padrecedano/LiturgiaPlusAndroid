@@ -8,7 +8,7 @@ import org.deiverbum.app.utils.Utils;
 
 public class Visperas extends BreviarioHora {
     private BiblicaBreve lecturaBreve;
-    private Magnificat magnificat;
+    private CanticoEvangelico magnificat;
     private Preces preces;
     private final PadreNuestro padreNuestro;
 
@@ -35,12 +35,12 @@ public class Visperas extends BreviarioHora {
     }
 
     @SuppressWarnings("unused")
-    public void setMagnificat(Magnificat magnificat) {
+    public void setMagnificat(CanticoEvangelico magnificat) {
         this.magnificat = magnificat;
     }
 
     @SuppressWarnings("unused")
-    public Magnificat getMagnificat() {
+    public CanticoEvangelico getMagnificat() {
         return magnificat;
     }
 

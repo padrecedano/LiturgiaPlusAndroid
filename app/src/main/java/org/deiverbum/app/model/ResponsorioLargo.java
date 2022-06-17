@@ -14,16 +14,12 @@ import org.deiverbum.app.utils.Utils;
 
 public class ResponsorioLargo extends Responsorio{
     private String ref;
-
-
     public String getRef() {
         return ref;
     }
-
     public void setRef(String ref) {
         this.ref = ref;
     }
-
 
     public SpannableStringBuilder getHeader() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
@@ -267,5 +263,7 @@ public class ResponsorioLargo extends Responsorio{
         }
         return s.toString();
     }
+
+
 
 }

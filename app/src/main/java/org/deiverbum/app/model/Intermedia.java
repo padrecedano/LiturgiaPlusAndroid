@@ -93,6 +93,7 @@ public class Intermedia extends BreviarioHora {
 
             sb.append(himno.getAll());
             sb.append(LS2);
+            salmodia.normalizeByTime(metaLiturgia.idTiempo);
 
             sb.append(salmodia.getAll(getHourIndex()));
             sb.append(LS);

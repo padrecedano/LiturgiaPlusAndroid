@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = "lh_preces",
-        indices = {@Index(value = {"preces"}, unique = true)}
+        indices = {@Index(value = {"intro","preces"}, unique = true)}
 )
 public class LHPrecesEntity {
 

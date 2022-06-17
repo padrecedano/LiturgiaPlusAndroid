@@ -15,6 +15,7 @@ import org.deiverbum.app.model.Oracion;
 import org.deiverbum.app.model.Preces;
 import org.deiverbum.app.model.Salmodia;
 import org.deiverbum.app.model.Santo;
+import org.deiverbum.app.model.Visperas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.List;
  * @version 1.0
  * @since 2022.2
  */
-public class TodayLaudesForReview {
+public class TodayVisperas {
 
     @Embedded
     public Today today;
@@ -32,49 +33,48 @@ public class TodayLaudesForReview {
     @Relation(
             entity = SantoEntity.class,
             parentColumn = "santoFK",
-            entityColumn = "santoId" //liturgiaId
+            entityColumn = "santoId"
     )
-    public SantoEntity santo;
+    public SantoWithAll santo;
 
     @Relation(
-            entity = InvitatorioEntity.class,
+            entity = LHInvitatorioJoinEntity.class,
             parentColumn = "invitatorioFK",
             entityColumn = "grupoId"
     )
-    public InvitatorioWithAntifona invitatorio;
+    public InvitatorioAll invitatorio;
 
     @Relation(
-            entity = HimnoEntity.class,
-            parentColumn = "lHimnoFK",
-            entityColumn = "himnoId"
-    )
-    public HimnoEntity himno;
-
-    @Relation(
-            entity = LHBiblicaBreveEntity.class,
-            parentColumn = "lBiblicaFK",
+            entity = LHHimnoJoinEntity.class,
+            parentColumn = "vHimnoFK",
             entityColumn = "grupoId"
     )
-    public BiblicaBreveWithResponsorio biblica;
+    public HimnoWithAll himno;
 
+    @Relation(
+            entity = LHBiblicaBreveJoinEntity.class,
+            parentColumn = "vBiblicaFK",
+            entityColumn = "grupoId"
+    )
+    public BiblicaBreveAll biblica;
 
     @Relation(
             entity = LHSalmodiaJoinEntity.class,
-            parentColumn = "lSalmodiaFK",
+            parentColumn = "vSalmodiaFK",
             entityColumn = "grupoId"
     )
     public LHSalmodia salmodia;
 
     @Relation(
             entity = SalmodiaEntity.class,
-            parentColumn = "lSalmodiaFK",
+            parentColumn = "vSalmodiaFK",
             entityColumn = "grupoFK"
     )
     public List<SalmodiaWithSalmos> salmos;
 
     @Relation(
             entity = LHPrecesJoinEntity.class,
-            parentColumn = "lPrecesFK",
+            parentColumn = "vPrecesFK",
             entityColumn = "grupoId"
 
     )
@@ -82,12 +82,10 @@ public class TodayLaudesForReview {
 
     @Relation(
             entity = LHOracionEntity.class,
-            parentColumn = "lOracionFK",
-            entityColumn = "liturgiaId"
+            parentColumn = "vOracionFK",
+            entityColumn = "grupoId"
     )
     public LHOracion lhOracion;
-
-
 
     @Relation(
             entity = LiturgiaEntity.class,
@@ -105,10 +103,10 @@ public class TodayLaudesForReview {
 
     @Relation(
             entity = LHCanticoEvangelicoEntity.class,
-            parentColumn = "lBenedictusFK",
+            parentColumn = "vMagnificatFK",
             entityColumn = "grupoId"
     )
-    public CanticoEvangelicoWithAntifona benedictus;
+    public CanticoEvangelicoWithAntifona magnificat;
 
     @Relation(
             entity = MisaLecturaEntity.class,
@@ -151,18 +149,16 @@ public class TodayLaudesForReview {
         return theModel;
     }
     public Himno getHimno(){
-        Himno modelHimno = new Himno();
-        modelHimno.setTexto(himno.getHimno());
-        return modelHimno;
+        return himno.getDomainModel();
     }
 
 //TODO incluir algo como hasPriority en Today
     public BiblicaBreve getBiblica(){
-        return  biblica.getDomainModelBreve(today.getTiempoId());
+        return  biblica.getDomainModel(today.getTiempoId());
     }
 
-    public CanticoEvangelico getBenedictus(){
-        return  benedictus.getDomainModel(2);
+    public CanticoEvangelico getMagnificat(){
+        return  magnificat.getDomainModel(2);
     }
 
     public Preces getPreces(){
@@ -170,15 +166,12 @@ public class TodayLaudesForReview {
     }
 
     public Santo getSanto(){
-        return  santo.getDomainModel(false);
+        return  santo.getDomainModelLH();
     }
 
 
     public Invitatorio getInvitatorio() {
-        Invitatorio theModel=new Invitatorio();
-        //theModel.setId(invitatorio.getId());
-        theModel.setAntifona(invitatorio.getAntifona());
-        return theModel;
+        return invitatorio.getDomainModel();
     }
 
     public Salmodia getSalmodia() {
@@ -189,20 +182,17 @@ public class TodayLaudesForReview {
         return lhOracion.getDomainModel();
     }
 
-    public Laudes getDomainModel(){
-        Laudes dm=new Laudes();
+
+    public Visperas getDomainModel(){
+        Visperas dm=new Visperas();
         dm.setMetaLiturgia(getMetaLiturgia());
-        dm.setSanto(getSanto());
-
-        dm.setInvitatorio(getInvitatorio());
+        dm.setSanto(santo.getDomainModelLH());
         dm.setHimno(getHimno());
-
         dm.setSalmodia(getSalmodia());
         dm.setLecturaBreve(getBiblica());
-        dm.setBenedictus(getBenedictus());
+        dm.setMagnificat(getMagnificat());
         dm.setPreces(getPreces());
         dm.setOracion(getOracion());
         return dm;
-
     }
 }

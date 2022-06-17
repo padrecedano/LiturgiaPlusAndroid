@@ -8,7 +8,7 @@ import android.text.Spanned;
 
 import org.deiverbum.app.utils.Utils;
 
-public class Salmo {
+public class Salmo implements Comparable<Salmo>{
     private String orden;
     protected String antifona;
     private String ref;
@@ -29,8 +29,9 @@ public class Salmo {
         return (antifona != null ) ?  antifona : "";
     }
 
+
     public String getAntifonaForRead() {
-        return (antifona != null ) ?  antifona : "";
+        return (antifona != null ) ?  Utils.normalizeEnd(antifona)  : "";
     }
 
 
@@ -109,5 +110,18 @@ public class Salmo {
                 + "por los siglos de los siglos. Amén.";
     }
 
+    @Override
+    public int compareTo(Salmo e) {
+        return this.getOrden().compareTo(e.getOrden());
+    }
+
+    /**
+     * Método que normaliza el contenido de las antífonas según el tiempo litúrgico del calendario
+     * @param calendarTime Un entero con el Id del tiempo del calendario
+     */
+
+    public void normalizeByTime(int calendarTime) {
+            this.antifona=Utils.replaceByTime(getAntifona(),calendarTime);
+    }
 
 }

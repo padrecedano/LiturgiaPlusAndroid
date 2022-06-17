@@ -457,4 +457,13 @@ public class Responsorio {
         return s.toString();
     }
 
+    /**
+     * Método que normaliza el contenido de las antífonas según el tiempo litúrgico del calendario
+     * @param calendarTime Un entero con el Id del tiempo del calendario
+     */
+
+    public void normalizeByTime(int calendarTime) {
+        this.texto=Utils.replaceByTime(texto,calendarTime);
+    }
+
 }

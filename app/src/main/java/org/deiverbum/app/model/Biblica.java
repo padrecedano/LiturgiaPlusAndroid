@@ -90,7 +90,7 @@ public class Biblica {
 
 
     public String getRef() {
-        return ref;
+        return getReferencia();
     }
 
     public void setRef(String ref) {

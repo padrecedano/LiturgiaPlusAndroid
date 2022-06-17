@@ -546,6 +546,8 @@ public final class Utils {
         } else {
             sFormateado = mText
                     .replace("Ƥ.", "")
+                    .replace("Ƥ", "")
+
                     .replace("α.", "")
                     .replace("αα", "")
                     .replace("α", "");

@@ -14,22 +14,16 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = "lh_preces_join",
-
-        foreignKeys =
-        {
-            @ForeignKey(
+    foreignKeys =
+    {
+        @ForeignKey(
                     entity = LHPrecesEntity.class,
                     parentColumns = "precesId",
                     childColumns = "precesFK",
                     onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE)/*,
-            @ForeignKey(
-                    entity = LHResponsorioEntity.class,
-                    parentColumns = "responsorioId",
-                    childColumns = "responsorioFK",
-                    onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE)*/
-        }
+                    onUpdate = ForeignKey.CASCADE
+                    )
+    }
 )
 public class LHPrecesJoinEntity {
 
@@ -38,10 +32,8 @@ public class LHPrecesJoinEntity {
     @ColumnInfo(name = "grupoId")
     public Integer grupoId;
 
-
     @NonNull
     @ColumnInfo(name = "precesFK")
     public Integer precesFK;
-
 }
 
