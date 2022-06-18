@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
 
 /**
  * @author A. Cedano
@@ -44,22 +42,22 @@ public class LHBiblicaOficioEntity {
     @NonNull
     //@PrimaryKey
     @ColumnInfo(name = "grupoFK")
-    public Integer grupoFK;
+    public Integer grupoFK=0;
 
     @NonNull
     @ColumnInfo(name = "lecturaFK")
-    public Integer lecturaFK;
+    public Integer lecturaFK=0;
 
     @NonNull
     @ColumnInfo(name = "responsorioFK")
-    public Integer responsorioFK;
+    public Integer responsorioFK=0;
 
     @NonNull
     @ColumnInfo(name = "tema")
-    public String tema;
+    public String tema="";
 
     @NonNull
     @ColumnInfo(name = "orden", defaultValue= "1")
-    public Integer orden;
+    public Integer orden=0;
 }
 

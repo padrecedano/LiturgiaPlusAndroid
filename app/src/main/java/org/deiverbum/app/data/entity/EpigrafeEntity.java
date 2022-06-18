@@ -18,15 +18,15 @@ public class EpigrafeEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "epigrafeId")
-    public Integer epigrafeId;
+    public Integer epigrafeId=0;
 
     @NonNull
     @ColumnInfo(name = "epigrafe")
-    public String epigrafe;
+    public String epigrafe="";
 
+    @NonNull
     public String getEpigrafe() {
-        String a="A";
-        return (epigrafe!=null) ? epigrafe : "";
+        return epigrafe;
     }
 }
 

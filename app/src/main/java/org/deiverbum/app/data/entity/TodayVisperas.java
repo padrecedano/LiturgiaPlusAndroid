@@ -4,20 +4,16 @@ import androidx.room.Embedded;
 import androidx.room.Relation;
 
 import org.deiverbum.app.model.BiblicaBreve;
-import org.deiverbum.app.model.BiblicaMisa;
 import org.deiverbum.app.model.CanticoEvangelico;
 import org.deiverbum.app.model.Himno;
 import org.deiverbum.app.model.Invitatorio;
-import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.MetaLiturgia;
-import org.deiverbum.app.model.MisaLecturas;
 import org.deiverbum.app.model.Oracion;
 import org.deiverbum.app.model.Preces;
 import org.deiverbum.app.model.Salmodia;
 import org.deiverbum.app.model.Santo;
 import org.deiverbum.app.model.Visperas;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -115,24 +111,10 @@ public class TodayVisperas {
     )
     public List<MisaWithLecturas> lecturas;
 
-    public MisaLecturas getMisaLecturas(){
-        MisaLecturas theModel=new MisaLecturas();
-        List<BiblicaMisa> listModel = new ArrayList<>();
-
-        for (MisaWithLecturas item : lecturas) {
-            listModel.add(item.getDomainModel());
-        }
-            theModel.setLecturas(listModel);
-        return theModel;
-    }
-
 
     public MetaLiturgia getMetaLiturgia(){
         MetaLiturgia theModel = new MetaLiturgia();
         theModel.setLiturgiaFeria(feria.getDomainModel());
-        if(today.previoId!=null){
-            //theModel.setLiturgiaPrevio(previo.getDomainModel());
-        }
         theModel.setFecha(String.valueOf(today.hoy));
         theModel.setColor(feria.colorFK);
         theModel.setIdHour(2);

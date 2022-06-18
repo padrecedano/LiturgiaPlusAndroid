@@ -3,11 +3,7 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Biblica;
-import org.deiverbum.app.model.BiblicaBreve;
 import org.deiverbum.app.model.BiblicaOficio;
-
-import java.util.List;
 
 /**
  *  <p>Obtiene los valores para una lectura bíblica de

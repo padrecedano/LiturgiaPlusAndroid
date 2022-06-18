@@ -34,37 +34,38 @@ public class SantoEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "santoId")
-    public Integer santoId;
+    public Integer santoId=0;
 
     @NonNull
     @ColumnInfo(name = "liturgiaId")
-    public Integer liturgiaId;
+    public Integer liturgiaId=0;
 
     @NonNull
     @ColumnInfo(name = "nombre")
-    public String nombre;
+    public String nombre="";
 
     @NonNull
     @ColumnInfo(name = "mes")
-    public Integer mes;
+    public Integer mes=0;
 
     @NonNull
     @ColumnInfo(name = "dia")
-    public Integer dia;
+    public Integer dia=0;
 
     @NonNull
     @ColumnInfo(name = "tipoId")
-    public Integer tipoId;
+    public Integer tipoId=0;
 
     @ColumnInfo(name = "momentoId", defaultValue="0")
-    public Integer momentoId;
+    public Integer momentoId=0;
 
     @ColumnInfo(name = "status", defaultValue="0")
-    public Integer status;
+    public Integer status=0;
 
     @ColumnInfo(name = "comunId", defaultValue="0")
-    public Integer comunId;
+    public Integer comunId=0;
 
+    @SuppressWarnings("unused")
     @NonNull
     public Integer getTipoId() {
         return tipoId;
@@ -87,18 +88,11 @@ public class SantoEntity {
         return nombre;
     }
 
-
-
     public Santo getDomainModel(boolean isLongLife){
         Santo theModel=new Santo();
         theModel.setDia(String.valueOf(getDia()));
         theModel.setMes(String.valueOf(getMes()));
         theModel.setNombre(getNombre());
-        if(isLongLife) {
-            //theModel.setVida(getVida());
-        }else{
-            //theModel.setVida(getLhVida());
-        }
         return theModel;
     }
 

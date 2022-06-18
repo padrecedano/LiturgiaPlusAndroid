@@ -5,7 +5,6 @@ import static org.deiverbum.app.utils.Utils.LS2;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
-import org.deiverbum.app.utils.Numerals;
 import org.deiverbum.app.utils.Utils;
 
 public class Biblica {
@@ -13,10 +12,8 @@ public class Biblica {
     private String capitulo;
     private String versoInicial;
     private String versoFinal;
-    //private String tema;
     private String texto;
     private String ref;
-    //private Responsorio responsorio;
     protected Integer orden;
 
     public BibliaLibro getLibro() {
@@ -42,7 +39,6 @@ public class Biblica {
     public String getVersoInicial() {
         return versoInicial;
     }
-    //@PropertyName("v_Inicial")
 
     public void setVersoInicial(String versoInicial) {
         this.versoInicial = versoInicial;
@@ -51,26 +47,13 @@ public class Biblica {
     public String getVersoFinal() {
         return versoFinal;
     }
-    //@PropertyName("v_Final")
 
     public void setVersoFinal(String versoFinal) {
         this.versoFinal = versoFinal;
     }
 
-    /*
-    public String getTema() {
-        return tema;
-    }
-    public String getTemaForRead() {
-        return tema+".";
-    }
 
-    public void setTema(String tema) {
-        this.tema = tema;
-    }
-*/
     public Spanned getTextoSpan() {
-        String s=texto;
         return Utils.fromHtml(Utils.getFormato(texto));
     }
 
@@ -92,6 +75,9 @@ public class Biblica {
     public String getRef() {
         return getReferencia();
     }
+    public String getRefBreve() {
+        return (this.ref!=null) ? this.ref : "";
+    }
 
     public void setRef(String ref) {
         this.ref = ref;
@@ -101,15 +87,6 @@ public class Biblica {
         return String.format("%s, %s%s",getCapitulo(),getVersoInicial(),getVersoFinal());
     }
 
-    /*
-    public Responsorio getResponsorio() {
-        return responsorio;
-    }
-
-    public void setResponsorio(Responsorio responsorio) {
-        this.responsorio=responsorio;
-    }
-*/
     public SpannableStringBuilder getHeader() {
         return Utils.formatTitle("PRIMERA LECTURA");
     }
@@ -120,14 +97,6 @@ public class Biblica {
 
     public String getConclusionForRead() {
         return "Palabra de Dios.";
-    }
-
-    public SpannableStringBuilder getResponsorioHeader() {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
-        sb.append(Utils.toRed(String.format("%-15s", "Responsorio")));
-        sb.append(Utils.toRed(getRef()));
-        return sb;
-
     }
 
     public String getResponsorioHeaderForRead() {
@@ -180,6 +149,5 @@ public class Biblica {
     public void setOrden(Integer orden) {
         this.orden=orden;
     }
-
 
 }

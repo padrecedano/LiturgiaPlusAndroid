@@ -380,11 +380,15 @@ public class Responsorio {
 
     }
 
+
     /**
-     * Método que crea la cadena completa de un responsorio dado destinado a la lectura de voz
+     * Devuelve el texto del Responsorio Breve con formato
+     * y adaptación adecuada para la lectura de voz
      *
-     * @return Una cadena con el responsorio completo, con sus respectivos V. y R.
+     * @return Una cadena formateada con el responsorio
      */
+
+
 
     public String getAllForRead() {
         String[] respArray = texto.split("\\|");

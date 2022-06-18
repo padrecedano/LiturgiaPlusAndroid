@@ -114,6 +114,7 @@ public class TodayLaudes {
     )
     public List<MisaWithLecturas> lecturas;
 
+    @SuppressWarnings("unused")
     public MisaLecturas getMisaLecturas(){
         MisaLecturas theModel=new MisaLecturas();
         List<BiblicaMisa> listModel = new ArrayList<>();
@@ -129,9 +130,6 @@ public class TodayLaudes {
     public MetaLiturgia getMetaLiturgia(){
         MetaLiturgia theModel = new MetaLiturgia();
         theModel.setLiturgiaFeria(feria.getDomainModel());
-        if(today.previoId!=null){
-            //theModel.setLiturgiaPrevio(previo.getDomainModel());
-        }
         theModel.setFecha(String.valueOf(today.hoy));
         theModel.setColor(feria.colorFK);
         theModel.setIdHour(2);

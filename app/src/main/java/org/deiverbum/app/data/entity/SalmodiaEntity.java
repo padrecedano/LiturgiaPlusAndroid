@@ -4,10 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
-
-import org.deiverbum.app.model.Salmo;
 
 /**
  * @author A. Cedano
@@ -54,88 +50,70 @@ import org.deiverbum.app.model.Salmo;
          true)}*/
 )
 public class SalmodiaEntity {
-/*    @NonNull
-    @PrimaryKey
-    @ColumnInfo(name = "salmodiaId")
-    public Integer salmodiaId;
-*/
+
     @NonNull
     @ColumnInfo(name = "grupoFK")
-    public Integer grupoFK;
+    public Integer grupoFK=0;
 
     @NonNull
     @ColumnInfo(name = "pericopaFK")
-    public Integer salmoFK;
+    public Integer salmoFK=0;
 
     @NonNull
     @ColumnInfo(name = "orden")
-    public Integer orden;
+    public Integer orden=0;
 
     @NonNull
     @ColumnInfo(name = "antifonaFK", defaultValue = "0")
-    public Integer antifonaId;
+    public Integer antifonaId=0;
 
     @ColumnInfo(name = "temaFK")
-    public Integer temaFK;
+    public Integer temaFK=0;
 
     @ColumnInfo(name = "epigrafeFK")
-    public Integer epigrafeFK;
+    public Integer epigrafeFK=0;
 
     @ColumnInfo(name = "parte")
-    public Integer parte;
-/*
-    @Embedded
-    public List<Salmo> salmos;
+    public Integer parte=0;
 
-    public Salmodia() {
-    }
-
-        public List<Salmo> getSalmos() {
-        return salmos;
-    }
-    public void setSalmo(List<Salmo> salmos) {
-        this.salmos = salmos;
-    }
-*/
-/*
-    public void setSalmodiaId(Integer salmodiaId) {
-        this.salmodiaId = salmodiaId;
-    }
-    public Integer getSalmodiaId() {
-        return salmodiaId;
-    }
-*/
-    public void setGrupoFK(Integer grupoFK) {
+    public void setGrupoFK(@NonNull Integer grupoFK) {
         this.grupoFK = grupoFK;
     }
+    @NonNull
     public Integer getGrupoFK() {
         return grupoFK;
     }
 
+    @NonNull
     public Integer getSalmoFK() {
         return salmoFK;
     }
-    public void setSalmoFK(Integer salmoFK) {
+    public void setSalmoFK(@NonNull Integer salmoFK) {
         this.salmoFK = salmoFK;
     }
 
+    @NonNull
     public Integer getOrden() {
         return orden;
     }
 
-    public void setOrden(Integer orden) {
+    public void setOrden(@NonNull Integer orden) {
         this.orden = orden;
     }
 
-    public void setAntifonaId(Integer antifonaId) {
+    @SuppressWarnings("unused")
+    public void setAntifonaId(@NonNull Integer antifonaId) {
         this.antifonaId = antifonaId;
     }
+
+    @SuppressWarnings("unused")
+    @NonNull
     public Integer getAntifonaId() {
         return antifonaId;
     }
 
     public String getParte() {
-        return parte!=null ? String.valueOf(parte) : "";
+        return  String.valueOf(parte);
     }
 
 

@@ -4,11 +4,15 @@ import static org.deiverbum.app.utils.Constants.NOTFOUND_OR_NOTCONNECTION;
 
 import androidx.lifecycle.MediatorLiveData;
 
+import org.deiverbum.app.data.db.dao.TodayDao;
+import org.deiverbum.app.data.entity.TodayHomilias;
+import org.deiverbum.app.data.entity.TodayMixto;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.model.Homilias;
+import org.deiverbum.app.model.Mixto;
 import org.deiverbum.app.utils.Utils;
 
 import javax.inject.Inject;
@@ -33,14 +37,18 @@ public class HomiliasRepository {
     ApiService apiService;
     private final FirebaseDataSource firebaseDataSource;
     private final MediatorLiveData<DataWrapper<Homilias, CustomException>> mData = new MediatorLiveData<>();
+    private final TodayDao mTodayDao;
 
 
     @Inject
     public HomiliasRepository(FirebaseDataSource firebaseDataSource,
-                              ApiService apiService
-                              ) {
+                              ApiService apiService,
+                              TodayDao todayDao
+    ) {
         this.firebaseDataSource = firebaseDataSource;
         this.apiService = apiService;
+        this.mTodayDao = todayDao;
+
     }
 
     /**
@@ -88,6 +96,18 @@ public class HomiliasRepository {
                         mData.setValue(new DataWrapper<>(new CustomException(NOTFOUND_OR_NOTCONNECTION)));
                     }
                 });
+    }
+
+
+    public MediatorLiveData<DataWrapper<Homilias, CustomException>> getFromDB(String s) {
+        TodayHomilias theEntity = mTodayDao.getHomilias(Integer.valueOf(s));
+        if (theEntity != null) {
+            Homilias theModel = theEntity.getDomainModel();
+            mData.postValue(new DataWrapper<>(theModel));
+        } else {
+            getData(s);
+        }
+        return mData;
     }
 }
 

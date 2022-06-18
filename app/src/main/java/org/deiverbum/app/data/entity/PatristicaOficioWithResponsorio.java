@@ -3,9 +3,6 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Biblica;
-import org.deiverbum.app.model.BiblicaOficio;
-import org.deiverbum.app.model.Homilia;
 import org.deiverbum.app.model.Patristica;
 
 /**

@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import org.deiverbum.app.data.entity.TodayHomilias;
 import org.deiverbum.app.data.entity.TodayLaudes;
 import org.deiverbum.app.data.entity.TodayMixto;
 import org.deiverbum.app.data.entity.TodayNona;
@@ -53,22 +54,33 @@ public interface TodayDao {
     @Query(todayByDate)
     TodayLaudes getLaudesOfToday(Integer theDate);
 
+    @Transaction
     @Query(todayByDate)
     TodayTercia geTerciaOfToday(Integer theDate);
 
+    @Transaction
     @Query(todayByDate)
     TodaySexta geSextaOfToday(Integer theDate);
 
+    @Transaction
     @Query(todayByDate)
     TodayNona geNonaOfToday(Integer theDate);
 
+    @Transaction
     @Query("SELECT * FROM today AS t " +
             "JOIN misa_lectura m ON t.mLecturasFK=m.liturgiaFK " +
             "WHERE t.hoy =:theDate AND m.orden=40")
-    TodayMixto getTodayMixto(Integer theDate);
+    TodayMixto getMixtoOfToday(Integer theDate);
 
+    @Transaction
     @Query(todayByDate)
     TodayVisperas geVisperasOfToday(Integer theDate);
+
+    @Transaction
+    @Query("SELECT * FROM today AS t " +
+            "JOIN homilia h ON t.feriaFK=h.homiliaId " +
+            "WHERE t.hoy =:theDate")
+    TodayHomilias getHomilias(Integer theDate);
 
 
 

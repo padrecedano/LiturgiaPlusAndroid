@@ -6,7 +6,6 @@ import androidx.room.Relation;
 import org.deiverbum.app.model.BiblicaBreve;
 import org.deiverbum.app.model.Himno;
 import org.deiverbum.app.model.Intermedia;
-import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.Oracion;
 import org.deiverbum.app.model.Salmodia;
@@ -87,9 +86,6 @@ public class TodayTercia {
     public MetaLiturgia getMetaLiturgia(){
         MetaLiturgia theModel = new MetaLiturgia();
         theModel.setLiturgiaFeria(feria.getDomainModel());
-        if(today.getPrevioId()!=null){
-            //theModel.setLiturgiaPrevio(previo.getDomainModel());
-        }
         theModel.setFecha(String.valueOf(today.getHoy()));
         theModel.setColor(feria.getColorFK());
         theModel.setIdHour(3);

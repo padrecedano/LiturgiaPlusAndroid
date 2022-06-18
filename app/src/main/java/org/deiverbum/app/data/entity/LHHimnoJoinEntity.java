@@ -32,17 +32,17 @@ public class LHHimnoJoinEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "grupoId")
-    public Integer grupoId;
+    public Integer grupoId=0;
 
     @NonNull
     @ColumnInfo(name = "himnoFK", defaultValue = "0")
-    public Integer himnoFK;
+    public Integer himnoFK=0;
 
     public int getHimnoFK() {
-        return this.himnoFK!=null ? himnoFK:0;
+        return himnoFK;
     }
     public int getGrupoId() {
-        return this.grupoId!=null ? grupoId:0;
+        return grupoId;
     }
 
 }

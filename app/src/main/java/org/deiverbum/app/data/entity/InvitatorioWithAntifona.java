@@ -18,14 +18,6 @@ public class InvitatorioWithAntifona {
             entity = LHInvitatorioJoinEntity.class
     )
     public LHInvitatorioJoinEntity invitatorioEntity;
-/*
-    @Relation(
-            parentColumn = "antifonaFK",
-            entityColumn = "antifonaId",
-            entity = AntifonaEntity.class
-    )
-    public AntifonaEntity antifona;
-*/
 
     @Relation(
             parentColumn = "salmoFK",
@@ -34,11 +26,6 @@ public class InvitatorioWithAntifona {
     )
     public SalmoEntity salmo;
 
-/*
-    public Integer getId() {
-        return invitatorio.getTipoId();
-    }
-*/
     public String getAntifona() {
         return "antifona.getAntifona();";
     }

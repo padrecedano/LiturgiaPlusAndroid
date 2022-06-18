@@ -33,6 +33,7 @@ import org.deiverbum.app.data.entity.LHResponsorioEntity;
 import org.deiverbum.app.data.entity.LHSalmodiaJoinEntity;
 import org.deiverbum.app.data.entity.LHSantoEntity;
 import org.deiverbum.app.data.entity.LiturgiaEntity;
+import org.deiverbum.app.data.entity.LiturgiaHomiliaJoinEntity;
 import org.deiverbum.app.data.entity.LiturgiaTiempoEntity;
 import org.deiverbum.app.data.entity.MisaLecturaEntity;
 import org.deiverbum.app.data.entity.ObraEntity;
@@ -89,7 +90,8 @@ import org.deiverbum.app.data.entity.Today;
                 OracionEntity.class,
                 LHOracionEntity.class,
                 MisaLecturaEntity.class,
-                LHSantoEntity.class
+                LHSantoEntity.class,
+                LiturgiaHomiliaJoinEntity.class
 
 
                 },

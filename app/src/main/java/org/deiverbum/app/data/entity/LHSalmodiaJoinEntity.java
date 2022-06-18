@@ -20,14 +20,14 @@ public class LHSalmodiaJoinEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "grupoId")
-    public Integer grupoId;
+    public Integer grupoId=0;
 
     @NonNull
     @ColumnInfo(name = "tipo")
-    public Integer tipo;
+    public Integer tipo=0;
 
     public int getTipo() {
-        return this.tipo!=null ? tipo:0;
+        return tipo;
     }
 }
 

@@ -3,38 +3,23 @@ package org.deiverbum.app.model;
 import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 
 import org.deiverbum.app.utils.Utils;
 
 public class BiblicaOficio extends Biblica {
-    //protected BibliaLibro libro;
     private String tema;
     private ResponsorioLargo responsorioLargo;
-    //private Integer orden;
-/*
-    public BibliaLibro getLibro() {
-        return libro;
-    }
 
-    public String getLibroForRead() {
-        return libro+".";
-    }
-
-
-    public void setLibro(BibliaLibro libro) {
-        this.libro = libro;
-    }
-*/
     public String getTema() {
         return tema;
-    }
-    public String getTemaForRead() {
-        return tema+".";
     }
 
     public void setTema(String tema) {
         this.tema = tema;
+    }
+
+    public String getTemaForRead() {
+        return tema+".";
     }
 
     public ResponsorioLargo getResponsorioLargo() {
@@ -42,7 +27,6 @@ public class BiblicaOficio extends Biblica {
     }
 
     public void setResponsorioLargo(ResponsorioLargo responsorioLargo) {
-
         this.responsorioLargo=responsorioLargo;
     }
 

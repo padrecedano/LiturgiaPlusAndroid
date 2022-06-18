@@ -15,6 +15,7 @@ public class Mixto extends BreviarioHora{
     //private Misa misa;
     private Invitatorio invitatorio;
     private final PadreNuestro padreNuestro;
+    private MisaLecturas misaLecturas;
 
 /*
     public MetaLiturgia getMetaLiturgia() {
@@ -53,11 +54,11 @@ public Mixto(){
         this.oficio = oficio;
     }
 
-    public Misa getMisa() {
-        return misa;
+    public MisaLecturas getMisaLecturas() {
+        return misaLecturas;
     }
-    public void setMisa(Misa misa) {
-        this.misa = misa;
+    public void setMisaLecturas(MisaLecturas misaLecturas) {
+        this.misaLecturas = misaLecturas;
     }
 
     public String getTituloHora() {
@@ -116,7 +117,7 @@ public Mixto(){
             sb.append(Utils.formatSubTitle("evangelio del día"));
             sb.append(Utils.LS2);
 
-            sb.append(misa.getAllEvangelioForView());
+            sb.append(misaLecturas.getAllEvangelioForView());
             sb.append(Utils.LS2);
 
             sb.append(ce.getAll());
@@ -149,8 +150,6 @@ public Mixto(){
         Biblica lecturaBreve = laudes.getLecturaBreve();
             CanticoEvangelico ce = laudes.getBenedictus();
         Preces preces = laudes.getPreces();
-            List<BiblicaMisa> misaLecturas = misa.getMisaLecturas();
-        //Evangelio misaEvangelio = misaLecturas.getEvangelio();
 
         sb.append(metaLiturgia.getAllForRead());
 
@@ -173,7 +172,7 @@ public Mixto(){
 
         sb.append(Utils.formatSubTitle("Evangelio del día."));
 
-        sb.append(misa.getAllEvangelioForRead());
+        sb.append(misaLecturas.getAllEvangelioForRead());
 
         sb.append(ce.getAllForRead());
 

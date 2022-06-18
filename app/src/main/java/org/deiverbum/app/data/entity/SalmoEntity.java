@@ -18,27 +18,29 @@ public class SalmoEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "salmoId")
-    public Integer salmoId;
+    public Integer salmoId=0;
 
     @NonNull
     @ColumnInfo(name = "salmo")
-    public String salmo;
+    public String salmo="";
 
     @NonNull
     @ColumnInfo(name = "pericopaId")
-    public Integer pericopaId;
+    public Integer pericopaId=0;
 
     @ColumnInfo(name = "salmoRef")
     public String salmoRef;
 
-    public void setSalmo(String salmo) {
+    public void setSalmo(@NonNull String salmo) {
         this.salmo = salmo;
     }
 
+    @NonNull
     public String getSalmo() {
-        return (salmo != null) ? salmo : "";
+        return salmo;
     }
 
+    @SuppressWarnings("unused")
     public void setSalmoRef(String salmoRef) {
         this.salmoRef = salmoRef;
     }
@@ -47,19 +49,25 @@ public class SalmoEntity {
         return (salmoRef != null) ? salmoRef : "";
     }
 
+    @SuppressWarnings("unused")
+    @NonNull
     public Integer getSalmoId() {
         return salmoId;
     }
 
-    public void setSalmoId(Integer salmoId) {
+    @SuppressWarnings("unused")
+    public void setSalmoId(@NonNull Integer salmoId) {
         this.salmoId = salmoId;
     }
 
+    @NonNull
+    @SuppressWarnings("unused")
     public Integer getPericopaId() {
         return pericopaId;
     }
 
-    public void setPericopaId(Integer pericopaId) {
+    @SuppressWarnings("unused")
+    public void setPericopaId(@NonNull Integer pericopaId) {
         this.pericopaId = pericopaId;
     }
 

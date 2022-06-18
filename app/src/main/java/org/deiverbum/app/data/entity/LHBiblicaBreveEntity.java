@@ -3,7 +3,6 @@ package org.deiverbum.app.data.entity;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -33,23 +32,19 @@ import androidx.room.PrimaryKey;
         }*/
 )
 public class LHBiblicaBreveEntity {
- /*   @NonNull
-    @PrimaryKey
-    @ColumnInfo(name = "grupoId")
-    public Integer grupoId;
-*/
+
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "lecturaId")
-    public Integer lecturaId;
+    public Integer lecturaId=0;
 
     @NonNull
     @ColumnInfo(name = "texto")
-    public String texto;
+    public String texto="";
 
     @NonNull
     @ColumnInfo(name = "cita")
-    public String cita;
+    public String cita="";
 
 
 }

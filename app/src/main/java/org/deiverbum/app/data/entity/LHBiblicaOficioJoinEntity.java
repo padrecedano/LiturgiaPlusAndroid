@@ -3,7 +3,6 @@ package org.deiverbum.app.data.entity;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 /**
@@ -17,26 +16,9 @@ import androidx.room.PrimaryKey;
         //primaryKeys = {"grupoFK","salmoFK"},
 )
 public class LHBiblicaOficioJoinEntity {
-
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "grupoId")
-    public Integer grupoId;
-/*
-    @NonNull
-    @ColumnInfo(name = "antifonaFK")
-    public Integer antifonaFK;
-
-    @NonNull
-    @ColumnInfo(name = "casoFK")
-    public Integer casoFK;
-
-    public int getSalmoFK() {
-        return this.antifonaFK!=null ? antifonaFK:0;
-    }
-    public int getGrupoId() {
-        return this.grupoId!=null ? grupoId:0;
-    }
-*/
+    public Integer grupoId=0;
 }
 

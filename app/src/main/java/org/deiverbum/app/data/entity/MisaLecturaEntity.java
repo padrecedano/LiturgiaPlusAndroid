@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
 
 /**
  * @author A. Cedano
@@ -35,28 +33,26 @@ import androidx.room.PrimaryKey;
 public class MisaLecturaEntity {
     @NonNull
     @ColumnInfo(name = "liturgiaFK")
-    public Integer homiliaId;
+    public Integer homiliaId=0;
 
     @NonNull
     @ColumnInfo(name = "lecturaFK")
-    public Integer lecturaFK;
-
+    public Integer lecturaFK=0;
 
     @NonNull
     @ColumnInfo(name = "orden")
-    public Integer orden;
+    public Integer orden=0;
 
     @NonNull
     @ColumnInfo(name = "tema")
-    public String tema;
-
+    public String tema="";
 
     public Integer getOrden() {
-        return orden !=null ? orden : 0;
+        return orden;
     }
 
     public String getTema() {
-        return tema!=null ? tema : "";
+        return tema;
     }
 }
 

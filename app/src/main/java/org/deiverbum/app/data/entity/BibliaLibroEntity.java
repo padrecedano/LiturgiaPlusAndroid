@@ -32,27 +32,27 @@ public class BibliaLibroEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "libroId")
-    public Integer libroId;
+    public Integer libroId=0;
 
     @NonNull
     @ColumnInfo(name = "bookType")
-    public Integer bookType;
+    public Integer bookType=0;
 
     @NonNull
     @ColumnInfo(name = "shortName")
-    public String shortName;
+    public String shortName="";
 
     @NonNull
     @ColumnInfo(name = "longName")
-    public String longName;
+    public String longName="";
 
     @NonNull
     @ColumnInfo(name = "liturgyName")
-    public String liturgyName;
+    public String liturgyName="";
 
     @NonNull
     @ColumnInfo(name = "orderName")
-    public String orderName;
+    public String orderName="";
 
 
     @NonNull
@@ -75,9 +75,6 @@ public class BibliaLibroEntity {
     theModel.setName(getLongName());
     theModel.setLiturgyName(getLiturgyName());
     theModel.setShortName(getShortName());
-    //theModel.setLibro(String.valueOf(getLibroId()));
-
-    //theModel.setResponsorio(lhResponsorioEntity.getDomainModel());
     return theModel;
 }
 

@@ -45,30 +45,30 @@ public class ObraEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "obraId")
-    public Integer obraId;
+    public Integer obraId=0;
 
     @NonNull
     @ColumnInfo(name = "obra")
-    public String obra;
+    public String obra="";
 
     @NonNull
     @ColumnInfo(name = "liturgyName", defaultValue = "")
-    public String liturgyName;
+    public String liturgyName="";
 
     //@NonNull
     @ColumnInfo(name = "subTitulo", defaultValue = "NULL")
-    public String subTitulo;
+    public String subTitulo="";
 
     //@NonNull
     @ColumnInfo(name = "volumen", defaultValue = "NULL")
-    public Integer volumen;
+    public Integer volumen=0;
 
     @ColumnInfo(name = "fecha", defaultValue = "NULL")
-    public Integer fecha;
+    public Integer fecha=0;
 
     //@NonNull
     @ColumnInfo(name = "editorial", defaultValue = "NULL")
-    public String editorial;
+    public String editorial="";
 
     //@NonNull
     @ColumnInfo(name = "ciudad", defaultValue = "NULL")
@@ -80,21 +80,18 @@ public class ObraEntity {
 
     @NonNull
     @ColumnInfo(name = "padreFK", defaultValue = "0")
-    public Integer padreFK;
+    public Integer padreFK=0;
 
     @NonNull
     @ColumnInfo(name = "tipoFK", defaultValue = "0")
-    public Integer tipoFK;
+    public Integer tipoFK=0;
 
     @NonNull
     @ColumnInfo(name = "coleccionFK", defaultValue = "0")
-    public Integer coleccionFK;
-
-
-
+    public Integer coleccionFK=0;
 
     public String getObra() {
-        return obra!=null ? obra : "";
+        return obra;
     }
 }
 

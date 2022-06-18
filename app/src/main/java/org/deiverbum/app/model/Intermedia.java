@@ -80,7 +80,7 @@ public class Intermedia extends BreviarioHora {
 
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
-            lecturaBreve.normalizeByTime(metaLiturgia.getCalendarTime());
+            //lecturaBreve.normalizeByTime(metaLiturgia.getCalendarTime());
             sb.append(metaLiturgia.getAll());
             sb.append(Utils.LS2);
 

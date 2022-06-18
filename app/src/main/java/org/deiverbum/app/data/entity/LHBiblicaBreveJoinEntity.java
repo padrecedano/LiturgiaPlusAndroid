@@ -36,19 +36,19 @@ public class LHBiblicaBreveJoinEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "grupoId")
-    public Integer grupoId;
+    public Integer grupoId=0;
 
     @NonNull
     @ColumnInfo(name = "lecturaFK")
-    public Integer lecturaFK;
+    public Integer lecturaFK=0;
 
     @NonNull
     @ColumnInfo(name = "responsorioFK")
-    public Integer responsorioFK;
+    public Integer responsorioFK=0;
 
 
     public int getGrupoId() {
-        return this.grupoId!=null ? grupoId:0;
+        return  grupoId;
     }
 
 }

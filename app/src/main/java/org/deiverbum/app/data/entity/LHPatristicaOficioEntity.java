@@ -40,28 +40,27 @@ import androidx.room.ForeignKey;
 )
 public class LHPatristicaOficioEntity {
     @NonNull
-    //@PrimaryKey
     @ColumnInfo(name = "grupoFK")
-    public Integer grupoFK;
+    public Integer grupoFK=0;
 
     @NonNull
     @ColumnInfo(name = "homiliaFK")
-    public Integer homiliaFK;
+    public Integer homiliaFK=0;
 
     @NonNull
     @ColumnInfo(name = "responsorioFK")
-    public Integer responsorioFK;
+    public Integer responsorioFK=0;
 
     @NonNull
     @ColumnInfo(name = "tema")
-    public String tema;
+    public String tema="";
 
     @NonNull
     @ColumnInfo(name = "fuente", defaultValue = "")
-    public String fuente;
+    public String fuente="";
 
     @NonNull
     @ColumnInfo(name = "orden", defaultValue= "1")
-    public Integer orden;
+    public Integer orden=0;
 }
 

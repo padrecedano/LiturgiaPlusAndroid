@@ -3,7 +3,6 @@ package org.deiverbum.app.data.entity;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -18,15 +17,20 @@ import androidx.room.PrimaryKey;
 )
 public class LiturgiaTiempoEntity {
 
+
     @NonNull
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "tiempoId")
-    public Integer tiempoId;
+    public Integer tiempoId=0;
 
 
     @NonNull
     @ColumnInfo(name = "tiempo")
-    public String tiempo;
+    public String tiempo="";
+
+    @NonNull
+    @ColumnInfo(name = "liturgyName")
+    public String liturgyName="";
 
 }
 

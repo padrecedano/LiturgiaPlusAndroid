@@ -18,14 +18,14 @@ public class HimnoEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "himnoId")
-    public Integer himnoId;
+    public Integer himnoId=0;
 
     @NonNull
     @ColumnInfo(name = "himno")
-    public String himno;
+    public String himno="";
 
     public String getHimno() {
-        return himno!=null ? himno : "";
+        return himno;
     }
 }
 

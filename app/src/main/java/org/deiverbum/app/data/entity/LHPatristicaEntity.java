@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
@@ -37,19 +36,19 @@ public class LHPatristicaEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "patristicaId")
-    public Integer patristicaId;
+    public Integer patristicaId=0;
 
 
     @NonNull
     @ColumnInfo(name = "homiliaFK")
-    public Integer homiliaFK;
+    public Integer homiliaFK=0;
 
     @NonNull
     @ColumnInfo(name = "responsorioFK")
-    public Integer responsorioFK;
+    public Integer responsorioFK=0;
 
     @NonNull
     @ColumnInfo(name = "tema")
-    public String tema;
+    public String tema="";
 }
 

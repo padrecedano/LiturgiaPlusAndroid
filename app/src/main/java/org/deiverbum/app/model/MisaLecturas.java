@@ -10,6 +10,7 @@ public class MisaLecturas {
     public List<Evangelio> getEvangelio() {
         return evangelios;
     }
+
     List<BiblicaMisa> lecturas;
 
     public List<BiblicaMisa> getLecturas() {
@@ -35,12 +36,21 @@ public class MisaLecturas {
     public SpannableStringBuilder getAllEvangelioForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         for (BiblicaMisa b : lecturas) {
-            if (b.getOrden() >= 40){
+            if (b.getOrden() >= 40) {
                 sb.append(b.getAll());
             }
         }
         return sb;
     }
 
-
+    public SpannableStringBuilder getAllEvangelioForRead() {
+        SpannableStringBuilder sb = new SpannableStringBuilder("");
+        for (BiblicaMisa b : lecturas) {
+            if (b.getOrden() >= 40) {
+                sb.append(b.getAllForRead());
+            }
         }
+        return sb;
+    }
+
+}

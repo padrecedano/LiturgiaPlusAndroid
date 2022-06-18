@@ -28,7 +28,7 @@ public class BreviarioViewModel extends ViewModel {
 
 
     public MutableLiveData<DataWrapper<Mixto, CustomException>> getMixto(String dateString) {
-        return mRepository.getMixto(dateString);
+        return mRepository.getMixtoDB(dateString);
     }
 
 

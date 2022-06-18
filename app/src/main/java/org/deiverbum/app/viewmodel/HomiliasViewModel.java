@@ -23,6 +23,6 @@ public class HomiliasViewModel extends ViewModel {
     }
 
     public MediatorLiveData<DataWrapper <Homilias, CustomException>> getObservable(String date) {
-        return mRepository.getData(date);
+        return mRepository.getFromDB(date);
     }
 }

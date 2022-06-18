@@ -7,6 +7,7 @@ import androidx.lifecycle.MediatorLiveData;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.data.entity.TodayLaudes;
+import org.deiverbum.app.data.entity.TodayMixto;
 import org.deiverbum.app.data.entity.TodayNona;
 import org.deiverbum.app.data.entity.TodayOficio;
 import org.deiverbum.app.data.entity.TodaySexta;
@@ -113,7 +114,7 @@ public class BreviarioRepository {
     }
 
     public MediatorLiveData<DataWrapper<Intermedia, CustomException>> getIntermediaDB(String s, int hourId, String endPoint) {
-        Intermedia theModel = null;
+        Intermedia theModel;
         if (hourId == 3) {
             TodayTercia theEntity = mTodayDao.geTerciaOfToday(Integer.valueOf(s));
             if (theEntity != null) {
@@ -397,7 +398,6 @@ public class BreviarioRepository {
                 });
     }
 
-
     public MediatorLiveData<DataWrapper<Visperas, CustomException>> getVisperasDB(String s) {
         TodayVisperas theEntity = mTodayDao.geVisperasOfToday(Integer.valueOf(s));
         if (theEntity != null) {
@@ -407,6 +407,17 @@ public class BreviarioRepository {
             getVisperas(s);
         }
         return liveDataVisperas;
+    }
+
+    public MediatorLiveData<DataWrapper<Mixto, CustomException>> getMixtoDB(String s) {
+        TodayMixto theEntity = mTodayDao.getMixtoOfToday(Integer.valueOf(s));
+        if (theEntity != null) {
+            Mixto theModel = theEntity.getDomainModel();
+            liveDataMixto.postValue(new DataWrapper<>(theModel));
+        } else {
+            getMixto(s);
+        }
+        return liveDataMixto;
     }
 }
 
