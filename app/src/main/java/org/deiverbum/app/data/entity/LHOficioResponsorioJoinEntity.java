@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
@@ -32,17 +31,17 @@ public class LHOficioResponsorioJoinEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "grupoId")
-    public Integer grupoId;
+    public Integer grupoId=0;
 
     @NonNull
     @ColumnInfo(name = "responsorioFK")
-    public Integer responsorioFK;
+    public Integer responsorioFK=0;
 
     public int getResponsorioFK() {
-        return this.responsorioFK!=null ? responsorioFK:0;
+        return responsorioFK;
     }
     public int getGrupoId() {
-        return this.grupoId!=null ? grupoId:0;
+        return grupoId;
     }
 
 }

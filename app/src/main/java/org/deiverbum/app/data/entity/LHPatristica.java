@@ -4,7 +4,6 @@ import androidx.room.Embedded;
 import androidx.room.Relation;
 
 import org.deiverbum.app.model.Patristica;
-import org.deiverbum.app.model.Responsorio;
 
 /**
  * @author A. Cedano
@@ -21,21 +20,7 @@ public class LHPatristica {
             entity = HomiliaEntity.class
     )
     public HomiliaWithAll homiliaAll;
-/*
-    @Relation(
-            parentColumn = "obraFK",
-            entityColumn = "obraId",
-            entity = ObraEntity.class
-    )
-    public ObraEntity obra;
 
-    @Relation(
-            parentColumn = "padreFK",
-            entityColumn = "padreId",
-            entity = PadreEntity.class
-    )
-    public PadreEntity padre;
-*/
     @Relation(
             parentColumn = "responsorioFK",
             entityColumn = "responsorioId",

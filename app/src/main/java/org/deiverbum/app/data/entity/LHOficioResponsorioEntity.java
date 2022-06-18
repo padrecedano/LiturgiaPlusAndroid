@@ -3,7 +3,6 @@ package org.deiverbum.app.data.entity;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -20,15 +19,15 @@ public class LHOficioResponsorioEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "responsorioId")
-    public Integer responsorioId;
+    public Integer responsorioId=0;
 
 
     @NonNull
     @ColumnInfo(name = "responsorio")
-    public String responsorio;
+    public String responsorio="";
 
     public String getResponsorio() {
-        return (responsorio!=null) ? responsorio : "";
+        return responsorio;
     }
 }
 

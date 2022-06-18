@@ -16,12 +16,9 @@ public class CanticoEvangelicoWithAntifona {
     @Relation(
             parentColumn = "antifonaFK",
             entityColumn = "antifonaId",
-            entity = AntifonaEntity.class/*,
-            associateBy = @Junction(SalmodiaSalmoCrossRef.class)*/
+            entity = AntifonaEntity.class
     )
     public AntifonaEntity antifona;
-
-
 
     public String getAntifona() {
         return antifona.getAntifona();

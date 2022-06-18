@@ -3,7 +3,6 @@ package org.deiverbum.app.data.entity;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -21,16 +20,16 @@ public class LHPrecesEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "precesId")
-    public Integer precesId;
+    public Integer precesId=0;
 
 
     @NonNull
     @ColumnInfo(name = "intro")
-    public String intro;
+    public String intro="";
 
     @NonNull
     @ColumnInfo(name = "preces")
-    public String preces;
+    public String preces="";
 
 }
 

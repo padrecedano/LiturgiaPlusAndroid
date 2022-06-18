@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
@@ -36,12 +35,11 @@ public class LHCanticoEvangelicoEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "grupoId")
-    public Integer grupoId;
-
+    public Integer grupoId=0;
 
     @NonNull
     @ColumnInfo(name = "antifonaFK")
-    public Integer antifonaFK;
+    public Integer antifonaFK=0;
 
 }
 

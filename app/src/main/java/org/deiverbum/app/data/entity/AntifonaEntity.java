@@ -18,25 +18,26 @@ public class AntifonaEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "antifonaId")
-    public Integer antifonaId;
+    public Integer antifonaId=0;
 
     @NonNull
     @ColumnInfo(name = "antifona")
-    public String antifona;
+    public String antifona="";
 
 
-    public void setAntifona(String antifona) {
+    public void setAntifona(@NonNull String antifona) {
         this.antifona = antifona;
     }
     public String getAntifona() {
-        return antifona!=null ? antifona:"";
+        return antifona;
     }
 
 
+    @NonNull
     public Integer getAntifonaId() {
         return antifonaId;
     }
-    public void setAntifonaId(Integer antifonaId) {
+    public void setAntifonaId(@NonNull Integer antifonaId) {
         this.antifonaId = antifonaId;
     }
 

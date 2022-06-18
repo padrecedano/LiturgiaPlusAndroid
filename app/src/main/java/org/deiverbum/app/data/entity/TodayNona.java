@@ -86,9 +86,6 @@ public class TodayNona {
     public MetaLiturgia getMetaLiturgia(){
         MetaLiturgia theModel = new MetaLiturgia();
         theModel.setLiturgiaFeria(feria.getDomainModel());
-        if(today.getPrevioId()!=null){
-            //theModel.setLiturgiaPrevio(previo.getDomainModel());
-        }
         theModel.setFecha(String.valueOf(today.getHoy()));
         theModel.setColor(feria.getColorFK());
         theModel.setIdHour(3);
@@ -132,6 +129,7 @@ public class TodayNona {
 
     public Intermedia getDomainModel(){
         Intermedia dm=new Intermedia();
+        dm.setHourId(5);
         dm.setMetaLiturgia(getMetaLiturgia());
         //dm.setSanto(santo.getDomainModelLH());
         dm.setHimno(getHimno());

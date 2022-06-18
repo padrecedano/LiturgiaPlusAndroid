@@ -390,6 +390,7 @@ public class Today {
     }
 
 
+    @SuppressWarnings("unused")
     public boolean getTeDeum() {
         return oTeDeum == 1;
     }

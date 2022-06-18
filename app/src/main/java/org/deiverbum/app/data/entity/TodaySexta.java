@@ -86,9 +86,6 @@ public class TodaySexta {
     public MetaLiturgia getMetaLiturgia(){
         MetaLiturgia theModel = new MetaLiturgia();
         theModel.setLiturgiaFeria(feria.getDomainModel());
-        if(today.getPrevioId()!=null){
-            //theModel.setLiturgiaPrevio(previo.getDomainModel());
-        }
         theModel.setFecha(String.valueOf(today.getHoy()));
         theModel.setColor(feria.getColorFK());
         theModel.setIdHour(3);

@@ -3,7 +3,6 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Patristica;
 import org.deiverbum.app.model.Preces;
 
 /**
@@ -21,23 +20,6 @@ public class LHPreces {
             entity = LHPrecesEntity.class
     )
     public LHPrecesEntity preces;
-/*
-    @Relation(
-            parentColumn = "obraFK",
-            entityColumn = "obraId",
-            entity = ObraEntity.class
-    )
-    public ObraEntity obra;
-
-    @Relation(
-            parentColumn = "padreFK",
-            entityColumn = "padreId",
-            entity = PadreEntity.class
-    )
-    public PadreEntity padre;
-*/
-
-
 
     public Preces getDomainModel() {
         Preces theModel=new Preces();

@@ -76,13 +76,13 @@ public class OficioDataMapper {
         Laudes laudes=new Laudes();
 
         OficioLecturas ol=new OficioLecturas();
-        ol.setBiblica(theEntity.getBiblicas());
+        /*ol.setBiblica(theEntity.getBiblicas());
         ol.setPatristica(theEntity.getPatristicas());
         ol.setResponsorio(theEntity.getOficioResponsorio());
         oficio.setOficioLecturas(ol);
         TeDeum teDeum=theEntity.getTeDeum();
         oficio.setTeDeum(teDeum);
-
+*/
         mixto.setMetaLiturgia(theEntity.getMetaLiturgia());
         mixto.setSanto(theEntity.getSanto());
         mixto.setInvitatorio(theEntity.getInvitatorio());
@@ -92,7 +92,7 @@ public class OficioDataMapper {
         //misa.setMisaLecturas(bm);
 
         laudes.setSalmodia(theEntity.getSalmodia());
-        laudes.setLecturaBreve(theEntity.getBiblicaBreve());
+        //laudes.setLecturaBreve(theEntity.getBiblicaBreve());
         laudes.setBenedictus(theEntity.getBenedictus());
         laudes.setPreces(theEntity.getPreces());
         laudes.setOracion(theEntity.getOracion());
@@ -160,7 +160,7 @@ public class OficioDataMapper {
 
         OficioLecturas ol=
                 new OficioLecturas();
-        ol.setResponsorio(theEntity.getOficioResponsorio());
+        //ol.setResponsorio(theEntity.getOficioResponsorio());
         oficio.setOficioLecturas(ol);
         TeDeum teDeum=new TeDeum(theEntity.today.oTeDeum);
         oficio.setTeDeum(teDeum);

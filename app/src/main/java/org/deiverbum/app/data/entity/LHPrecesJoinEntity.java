@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
@@ -30,10 +29,10 @@ public class LHPrecesJoinEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "grupoId")
-    public Integer grupoId;
+    public Integer grupoId=0;
 
     @NonNull
     @ColumnInfo(name = "precesFK")
-    public Integer precesFK;
+    public Integer precesFK=0;
 }
 

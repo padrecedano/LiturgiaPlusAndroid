@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
@@ -29,37 +28,27 @@ public class InvitatorioEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "casoId")
-    public Integer casoId;
+    public Integer casoId=0;
 
-    /*
-    @NonNull
-    @ColumnInfo(name = "tipoId")
-    public Integer tipoId;
-*/
     @NonNull
     @ColumnInfo(name = "salmoFK")
-    public Integer salmoFK;
+    public Integer salmoFK=0;
 
-/*
-    public void setTipoId(Integer tipoId) {
-        this.tipoId = tipoId;
-    }
-    public Integer getTipoId() {
-        return tipoId;
-    }
-*/
-
+    @NonNull
     public Integer getSalmoFK() {
         return salmoFK;
     }
-    public void setSalmoFK(Integer salmoFK) {
+    public void setSalmoFK(@NonNull Integer salmoFK) {
         this.salmoFK = salmoFK;
     }
 
+    @SuppressWarnings("unused")
+    @NonNull
     public Integer getCasoId() {
         return casoId;
     }
-    public void setCasoId(Integer casoId) {
+    @SuppressWarnings("unused")
+    public void setCasoId(@NonNull Integer casoId) {
         this.casoId = casoId;
     }
 

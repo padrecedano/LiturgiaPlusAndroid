@@ -19,15 +19,14 @@ public class LHOficioVersoEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "versoId")
-    public Integer versoId;
-
+    public Integer versoId=0;
 
     @NonNull
     @ColumnInfo(name = "verso")
-    public String verso;
+    public String verso="";
 
     public String getResponsorio() {
-        return (verso!=null) ? verso : "";
+        return verso;
     }
 }
 

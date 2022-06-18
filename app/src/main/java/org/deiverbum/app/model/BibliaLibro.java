@@ -2,10 +2,6 @@ package org.deiverbum.app.model;
 
 import static org.deiverbum.app.utils.Utils.normalizeEnd;
 
-import android.text.SpannableStringBuilder;
-
-import org.deiverbum.app.utils.Utils;
-
 /**
  * <p>Nueva clase para manejar libros de la Biblia en el contexto litúrgico.</p>
  * @author A. Cedano

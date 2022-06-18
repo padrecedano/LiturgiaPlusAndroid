@@ -7,12 +7,12 @@ import android.text.SpannableStringBuilder;
 import org.deiverbum.app.utils.Utils;
 
 public class Homilia {
-    public String padre;
+    public String padre="";
     public int id;
-    public String texto;
-    public String tema;
-    public String obra;
-    public String fecha;
+    public String texto="";
+    public String tema="";
+    public String obra="";
+    public String fecha="";
 
     @SuppressWarnings("unused")
     public Homilia(String padre, int id, String texto, String tema, String obra, String fecha) {

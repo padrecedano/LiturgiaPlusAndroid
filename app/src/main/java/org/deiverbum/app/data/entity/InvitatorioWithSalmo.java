@@ -26,11 +26,6 @@ public class InvitatorioWithSalmo {
     )
     public SalmoEntity salmo;
 
-/*
-    public Integer getId() {
-        return invitatorio.getTipoId();
-    }
-*/
     public String getSalmo() {
 
         return salmo.getSalmo();

@@ -23,24 +23,24 @@ public class LHResponsorioBreveEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "responsorioId")
-    public Integer responsorioId;
+    public Integer responsorioId=0;
 
     @NonNull
     @ColumnInfo(name = "texto")
-    public String texto;
+    public String texto="";
 
     @NonNull
     @ColumnInfo(name = "tipo")
-    public Integer tipo;
+    public Integer tipo=0;
 
     @NonNull
     public String getTexto() {
-        return texto!=null ? texto:"";
+        return texto;
     }
 
     @NonNull
     public Integer getTipo() {
-        return tipo!=null ? tipo:0;
+        return tipo;
     }
 
 

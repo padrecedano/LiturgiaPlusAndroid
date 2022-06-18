@@ -3,7 +3,6 @@ package org.deiverbum.app.data.entity;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -20,18 +19,18 @@ public class OracionEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "oracionId")
-    public Integer oracionId;
+    public Integer oracionId=0;
 
     @NonNull
     @ColumnInfo(name = "oracion")
-    public String texto;
+    public String texto="";
 
     @NonNull
     @ColumnInfo(name = "orden", defaultValue ="0" )
-    public Integer orden;
+    public Integer orden=0;
 
     public String getTexto() {
-        return texto!=null?texto:"";
+        return texto;
     }
 }
 

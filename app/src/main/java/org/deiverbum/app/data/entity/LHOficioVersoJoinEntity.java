@@ -31,17 +31,18 @@ public class LHOficioVersoJoinEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "grupoId")
-    public Integer grupoId;
+    public Integer grupoId=0;
 
     @NonNull
     @ColumnInfo(name = "versoFK")
-    public Integer versoFK;
+    public Integer versoFK=0;
 
     public int getResponsorioFK() {
-        return this.versoFK!=null ? versoFK:0;
+        return versoFK;
     }
+
     public int getGrupoId() {
-        return this.grupoId!=null ? grupoId:0;
+        return grupoId;
     }
 
 }

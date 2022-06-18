@@ -212,7 +212,7 @@ public class TodayRepository {
 
     public LiveData<Mixto> getMixto(String s) {
         MutableLiveData<Mixto> ss=
-                mMapper.transformMixto(mTodayDao.getTodayMixto(Integer.valueOf(s)));
+                mMapper.transformMixto(mTodayDao.getMixtoOfToday(Integer.valueOf(s)));
         return ss;//mMapper.transform(mTodayDao.getUsersWithPlaylistsAndSongs
         // ());
     }

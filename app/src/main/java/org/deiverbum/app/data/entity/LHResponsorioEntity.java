@@ -6,7 +6,6 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import org.deiverbum.app.R;
 import org.deiverbum.app.model.Responsorio;
 import org.deiverbum.app.utils.Utils;
 
@@ -24,34 +23,34 @@ public class LHResponsorioEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "responsorioId")
-    public Integer responsorioId;
+    public Integer responsorioId=0;
 
     @NonNull
     public String getTexto() {
-        return texto!=null ? texto:"";
+        return texto;
     }
 
     @NonNull
     public String getFuente() {
-        return fuente!=null ? fuente:"";
+        return fuente;
     }
 
     @NonNull
     public Integer getTipo() {
-        return tipo!=null ? tipo:0;
+        return tipo;
     }
 
     @NonNull
     @ColumnInfo(name = "texto")
-    public String texto;
+    public String texto="";
 
     @NonNull
     @ColumnInfo(name = "fuente")
-    public String fuente;
+    public String fuente="";
 
     @NonNull
     @ColumnInfo(name = "tipo")
-    public Integer tipo;
+    public Integer tipo=0;
 
     public Responsorio getDomainModel(Integer timeId){
         Responsorio theModel=new Responsorio();

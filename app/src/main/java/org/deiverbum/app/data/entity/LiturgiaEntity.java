@@ -39,18 +39,20 @@ public class LiturgiaEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "liturgiaId")
-    public Integer liturgiaId;
+    public Integer liturgiaId=0;
 
     @NonNull
     public Integer getLiturgiaId() {
         return liturgiaId;
     }
 
+    @SuppressWarnings("unused")
     @NonNull
     public Integer getTiempoFK() {
         return tiempoFK;
     }
 
+    @SuppressWarnings("unused")
     @NonNull
     public Integer getTipoFK() {
         return tipoFK;
@@ -78,27 +80,27 @@ public class LiturgiaEntity {
 
     @NonNull
     @ColumnInfo(name = "tiempoFK")
-    public Integer tiempoFK;
+    public Integer tiempoFK=0;
 
     @NonNull
     @ColumnInfo(name = "tipoFK")
-    public Integer tipoFK;
+    public Integer tipoFK=0;
 
     @NonNull
     @ColumnInfo(name = "semana")
-    public Integer semana;
+    public Integer semana=0;
 
     @NonNull
     @ColumnInfo(name = "dia")
-    public Integer dia;
+    public Integer dia=0;
 
     @NonNull
     @ColumnInfo(name = "colorFK")
-    public Integer colorFK;
+    public Integer colorFK=0;
 
     @NonNull
     @ColumnInfo(name = "nombre")
-    public String nombre;
+    public String nombre="";
 
     public Liturgia getDomainModel() {
         Liturgia theModel=new Liturgia();

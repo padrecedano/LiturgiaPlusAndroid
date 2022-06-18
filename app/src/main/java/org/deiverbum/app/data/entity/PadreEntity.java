@@ -32,47 +32,47 @@ public class PadreEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "padreId")
-    public Integer padreId;
+    public Integer padreId=0;
 
     @NonNull
     @ColumnInfo(name = "padre")
-    public String padre;
+    public String padre="";
 
     @NonNull
     @ColumnInfo(name = "liturgyName")
-    public String liturgyName;
+    public String liturgyName="";
 
     @NonNull
     @ColumnInfo(name = "lugarFK", defaultValue = "0")
-    public Integer lugarFK;
+    public Integer lugarFK=0;
 
     @NonNull
     @ColumnInfo(name = "tipoFK", defaultValue = "0")
-    public Integer tipoFK;
+    public Integer tipoFK=0;
 
     @NonNull
     @ColumnInfo(name = "tituloFK", defaultValue = "0")
-    public Integer tituloFK;
+    public Integer tituloFK=0;
 
     @NonNull
     @ColumnInfo(name = "misionFK", defaultValue = "0")
-    public Integer misionFK;
+    public Integer misionFK=0;
 
     @NonNull
     @ColumnInfo(name = "sexoFK", defaultValue = "0")
-    public Integer sexoFK;
+    public Integer sexoFK=0;
 
     @NonNull
     @ColumnInfo(name = "grupoFK", defaultValue = "0")
-    public Integer grupoFK;
+    public Integer grupoFK=0;
 
 
     public String getPadre() {
-        return padre!=null ? padre : "";
+        return padre;
     }
 
     public String getLiturgyName() {
-        return liturgyName!=null ? liturgyName : getPadre();
+        return ( liturgyName.equals("") ) ?  getPadre() : liturgyName;
     }
 
 }

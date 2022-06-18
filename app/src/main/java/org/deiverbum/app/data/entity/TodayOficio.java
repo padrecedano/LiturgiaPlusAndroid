@@ -30,9 +30,23 @@ public class TodayOficio {
     public Today today;
 
     @Relation(
+            entity = LiturgiaEntity.class,
+            parentColumn = "feriaFK",
+            entityColumn = "liturgiaId"
+    )
+    public LiturgiaEntity feria;
+
+    @Relation(
+            entity = LiturgiaEntity.class,
+            parentColumn = "previoId",
+            entityColumn = "liturgiaId"
+    )
+    public LiturgiaEntity previo;
+
+    @Relation(
             entity = SantoEntity.class,
             parentColumn = "santoFK",
-            entityColumn = "santoId" //liturgiaId
+            entityColumn = "santoId"
     )
     public SantoWithAll santo;
 
@@ -51,20 +65,6 @@ public class TodayOficio {
     public HimnoWithAll himno;
 
     @Relation(
-            entity = LHBiblicaOficioJoinEntity.class,
-            parentColumn = "oBiblicaFK",
-            entityColumn = "grupoId"
-    )
-    public BiblicaOficioAll biblicaOficio;
-
-    @Relation(
-            entity = LHPatristicaEntity.class,
-            parentColumn = "oPatristicaFK",
-            entityColumn = "patristicaId"
-    )
-    public LHPatristica patristica;
-
-    @Relation(
             entity = LHSalmodiaJoinEntity.class,
             parentColumn = "oSalmodiaFK",
             entityColumn = "grupoId"
@@ -78,16 +78,6 @@ public class TodayOficio {
     )
     public List<SalmodiaWithSalmos> salmos;
 
-
-
-
-    @Relation(
-            entity = LHOracionEntity.class,
-            parentColumn = "oOracionFK",
-            entityColumn = "grupoId"
-    )
-    public LHOracion lhOracion;
-
     @Relation(
             entity = LHOficioVersoJoinEntity.class,
             parentColumn = "oVersoFK",
@@ -95,36 +85,21 @@ public class TodayOficio {
     )
     public OficioVersoAll oficioVerso;
 
-    @Relation(
-            entity = LiturgiaEntity.class,
-            parentColumn = "feriaFK",
-            entityColumn = "liturgiaId"
-    )
-    public LiturgiaEntity feria;
-
-    @Relation(
-            entity = LiturgiaEntity.class,
-            parentColumn = "previoId",
-            entityColumn = "liturgiaId"
-    )
-    public LiturgiaEntity previo;
 
     @Relation(
             entity = LHBiblicaOficioJoinEntity.class,
             parentColumn = "oBiblicaFK",
             entityColumn = "grupoId"
     )
-    //public List<BiblicaOficioAll> biblicaOficioWithResponsorio;
     public BiblicaOficioAll biblicas;
 
-    /*
     @Relation(
-            entity = LHBiblicaOficioJoinEntity.class,
-            parentColumn = "oBiblicaFK",
-            entityColumn = "grupoId"
+            entity = LHPatristicaEntity.class,
+            parentColumn = "oPatristicaFK",
+            entityColumn = "patristicaId"
     )
-    public LHBiblicaOficioJoinEntity bo;
-*/
+    public LHPatristica patristica;
+
 
     @Relation(
             entity = LHPatristicaOficioEntity.class,
@@ -133,7 +108,12 @@ public class TodayOficio {
     )
     public List<PatristicaOficioWithResponsorio> patristicaOficioWithResponsorio;
 
-    //@Embedded public LHOracion address;
+    @Relation(
+            entity = LHOracionEntity.class,
+            parentColumn = "oOracionFK",
+            entityColumn = "grupoId"
+    )
+    public LHOracion lhOracion;
 
     public MetaLiturgia getMetaLiturgia(){
         MetaLiturgia theModel = new MetaLiturgia();
@@ -156,25 +136,32 @@ public class TodayOficio {
         theModel.setTitulo(feria.nombre);
         return theModel;
     }
+
+    public Santo getSanto(){
+        return  santo.getDomainModelLH();
+    }
+
+    public Invitatorio getInvitatorio() {
+        return invitatorio.getDomainModel();
+    }
+
     public Himno getHimno(){
         return himno.getDomainModel();
-    }
-
-    public String getOficioResponsorio(){
-        return oficioVerso.getDomainModel();
-    }
-
-
-    public Patristica getPatristica(){
-        return patristica.getDomainModel(today.getTiempoId());
     }
 
     public Salmodia getSalmodia() {
         return salmodia.getDomainModel();
     }
 
+    public String getOficioVerso(){
+        return oficioVerso.getDomainModel();
+    }
+
     public List<BiblicaOficio> getBiblicas() {
         return biblicas.getDomainModel(today.getTiempoId());
+    }
+    public Patristica getPatristica(){
+        return patristica.getDomainModel(today.getTiempoId());
     }
 
     public List<Patristica> getPatristicas() {
@@ -186,14 +173,7 @@ public class TodayOficio {
         return theList;
     }
 
-    public Santo getSanto(){
 
-        return  santo.getDomainModelLH();
-    }
-
-    public Invitatorio getInvitatorio() {
-        return invitatorio.getDomainModel();
-    }
     public Oficio getDomainModel(){
         Oficio dm=new Oficio();
         dm.setMetaLiturgia(getMetaLiturgia());
@@ -205,7 +185,7 @@ public class TodayOficio {
         OficioLecturas ol=new OficioLecturas();
         ol.setBiblica(getBiblicas());
         ol.setPatristica(getPatristicas());
-        ol.setResponsorio(getOficioResponsorio());
+        ol.setResponsorio(getOficioVerso());
         dm.setOficioLecturas(ol);
         //TeDeum teDeum=new TeDeum(theEntity.today.oTeDeum);
         dm.setSalmodia(getSalmodia());

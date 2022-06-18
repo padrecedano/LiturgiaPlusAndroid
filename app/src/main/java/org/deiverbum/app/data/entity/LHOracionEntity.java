@@ -37,12 +37,11 @@ public class LHOracionEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "grupoId")
-    public Integer grupoId;
-
+    public Integer grupoId=0;
 
     @NonNull
     @ColumnInfo(name = "oracionFK")
-    public Integer oracionFK;
+    public Integer oracionFK=0;
 
 }
 

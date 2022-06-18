@@ -19,14 +19,14 @@ public class TemaEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "temaId")
-    public Integer temaId;
+    public Integer temaId=0;
 
     @NonNull
     @ColumnInfo(name = "tema")
-    public String tema;
+    public String tema="";
 
     public String getTema(){
-        return tema!=null ? tema:"";
+        return tema;
     }
 }
 

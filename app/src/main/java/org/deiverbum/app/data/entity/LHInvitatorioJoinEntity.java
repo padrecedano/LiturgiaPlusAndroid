@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
@@ -37,21 +36,21 @@ public class LHInvitatorioJoinEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "grupoId")
-    public Integer grupoId;
+    public Integer grupoId=0;
 
     @NonNull
     @ColumnInfo(name = "antifonaFK")
-    public Integer antifonaFK;
+    public Integer antifonaFK=0;
 
     @NonNull
     @ColumnInfo(name = "casoFK")
-    public Integer casoFK;
+    public Integer casoFK=0;
 
     public int getSalmoFK() {
-        return this.antifonaFK!=null ? antifonaFK:0;
+        return  antifonaFK;
     }
     public int getGrupoId() {
-        return this.grupoId!=null ? grupoId:0;
+        return grupoId;
     }
 
 }

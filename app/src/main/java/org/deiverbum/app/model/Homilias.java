@@ -60,9 +60,10 @@ public class Homilias {
 
     public StringBuilder getAllForRead(){
         StringBuilder sb=new StringBuilder();
-        sb.append(metaLiturgia.getAllForRead());
-        sb.append(getTituloForRead());
+
         try {
+            sb.append(metaLiturgia.getAllForRead());
+            sb.append(getTituloForRead());
         for (Homilia s : homilias) {
             sb.append(s.getAllForRead());
             /*sb.append(s.getPadre());

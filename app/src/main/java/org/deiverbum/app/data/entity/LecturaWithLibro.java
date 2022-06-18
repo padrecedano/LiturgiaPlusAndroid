@@ -4,7 +4,6 @@ import androidx.room.Embedded;
 import androidx.room.Relation;
 
 import org.deiverbum.app.model.Biblica;
-import org.deiverbum.app.model.BiblicaBreve;
 import org.deiverbum.app.model.BiblicaMisa;
 import org.deiverbum.app.model.BiblicaOficio;
 import org.deiverbum.app.model.Evangelio;
@@ -63,18 +62,6 @@ public class LecturaWithLibro {
         return theModel;
     }
 
-    public BiblicaBreve getDomainModelBreve(){
-        BiblicaBreve theModel=new BiblicaBreve();
-        theModel.setLibro(libro.getDomainModel());
-        theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
-        theModel.setRef(lectura.getCita());
-        //theModel.setVersoInicial(String.valueOf(getDesde()));
-        //theModel.setVersoFinal(String.valueOf(getHasta()));
-        //theModel.setTema(biblicaOficioWithResponsorio.tema);
-        theModel.setTexto(lectura.getTexto());
-        //theModel.setResponsorio(lhResponsorioEntity.getDomainModel());
-        return theModel;
-    }
 
     public BiblicaOficio getDomainModelOficio() {
         BiblicaOficio theModel=new BiblicaOficio();
