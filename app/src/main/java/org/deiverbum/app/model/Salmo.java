@@ -77,7 +77,6 @@ public class Salmo implements Comparable<Salmo>{
     }
 
     public String getSalmo() {
-
         return salmo;
     }
 

@@ -27,6 +27,8 @@ public class Today {
     private Integer previoId;
     private Integer tiempoId;
     private Integer version;
+
+
 //    private Integer olSalmos;
 
     //private HashMap<String,String> lh;

@@ -21,13 +21,13 @@ import androidx.room.PrimaryKey;
                         childColumns = "feriaFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
-/*
+
                 @ForeignKey(
                         entity = MisaLecturaEntity.class,
-                        parentColumns = "liturgiaId",
+                        parentColumns = "liturgiaFK",
                         childColumns = "mLecturasFK",
                         onDelete = ForeignKey.SET_DEFAULT,
-                        onUpdate = ForeignKey.CASCADE),*/
+                        onUpdate = ForeignKey.CASCADE),
 
                 @ForeignKey(
                         entity = LHInvitatorioJoinEntity.class,
@@ -84,6 +84,12 @@ import androidx.room.PrimaryKey;
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
+                        entity = LHSalmodiaJoinEntity.class,
+                        parentColumns = "grupoId",
+                        childColumns = "lSalmodiaFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+                @ForeignKey(
                         entity = LHCanticoEvangelicoEntity.class,
                         parentColumns = "grupoId",
                         childColumns = "lBenedictusFK",
@@ -116,6 +122,12 @@ import androidx.room.PrimaryKey;
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
+                        entity = LHSalmodiaJoinEntity.class,
+                        parentColumns = "grupoId",
+                        childColumns = "tSalmodiaFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+                @ForeignKey(
                         entity = LHBiblicaBreveJoinEntity.class,
                         parentColumns = "grupoId",
                         childColumns = "tBiblicaFK",
@@ -132,6 +144,12 @@ import androidx.room.PrimaryKey;
                         entity = LHHimnoJoinEntity.class,
                         parentColumns = "grupoId",
                         childColumns = "sHimnoFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+                @ForeignKey(
+                        entity = LHSalmodiaJoinEntity.class,
+                        parentColumns = "grupoId",
+                        childColumns = "sSalmodiaFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
@@ -155,6 +173,12 @@ import androidx.room.PrimaryKey;
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
+                        entity = LHSalmodiaJoinEntity.class,
+                        parentColumns = "grupoId",
+                        childColumns = "nSalmodiaFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+                @ForeignKey(
                         entity = LHBiblicaBreveJoinEntity.class,
                         parentColumns = "grupoId",
                         childColumns = "nBiblicaFK",
@@ -171,6 +195,12 @@ import androidx.room.PrimaryKey;
                         entity = LHHimnoJoinEntity.class,
                         parentColumns = "grupoId",
                         childColumns = "vHimnoFK",
+                        onDelete = ForeignKey.SET_DEFAULT,
+                        onUpdate = ForeignKey.CASCADE),
+                @ForeignKey(
+                        entity = LHSalmodiaJoinEntity.class,
+                        parentColumns = "grupoId",
+                        childColumns = "vSalmodiaFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(

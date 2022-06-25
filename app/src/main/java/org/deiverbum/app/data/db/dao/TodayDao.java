@@ -7,14 +7,17 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import org.deiverbum.app.data.entity.HimnoEntity;
 import org.deiverbum.app.data.entity.TodayHomilias;
 import org.deiverbum.app.data.entity.TodayLaudes;
+import org.deiverbum.app.data.entity.TodayMisaLecturas;
 import org.deiverbum.app.data.entity.TodayMixto;
 import org.deiverbum.app.data.entity.TodayNona;
 import org.deiverbum.app.data.entity.TodayOficio;
 import org.deiverbum.app.data.entity.TodaySexta;
 import org.deiverbum.app.data.entity.TodayTercia;
 import org.deiverbum.app.data.entity.TodayVisperas;
+import org.deiverbum.app.model.Himno;
 import org.deiverbum.app.model.Today;
 
 import java.util.List;
@@ -38,12 +41,15 @@ public interface TodayDao {
 
 
     @Insert(entity = org.deiverbum.app.data.entity.Today.class,
-            onConflict = OnConflictStrategy.REPLACE)
-    void insertTodays(List<Today> todays);
+            onConflict = OnConflictStrategy.IGNORE)
+    void insertAllTodays(List<Today> today);
 
+    @Insert(entity = org.deiverbum.app.data.entity.HimnoEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void insertAllHimnos(List<Himno> today);
 
     @Insert(entity = org.deiverbum.app.data.entity.Today.class)
-    void insertToday(Today today);
+    void insertTodayX(Today today);
 
 
     @Transaction
@@ -74,7 +80,11 @@ public interface TodayDao {
 
     @Transaction
     @Query(todayByDate)
-    TodayVisperas geVisperasOfToday(Integer theDate);
+    TodayVisperas getVisperasOfToday(Integer theDate);
+
+    @Transaction
+    @Query(todayByDate)
+    TodayMisaLecturas getMisaLecturas(Integer theDate);
 
     @Transaction
     @Query("SELECT * FROM today AS t " +

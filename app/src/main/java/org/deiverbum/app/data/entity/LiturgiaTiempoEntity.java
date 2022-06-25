@@ -23,7 +23,6 @@ public class LiturgiaTiempoEntity {
     @ColumnInfo(name = "tiempoId")
     public Integer tiempoId=0;
 
-
     @NonNull
     @ColumnInfo(name = "tiempo")
     public String tiempo="";
@@ -32,5 +31,31 @@ public class LiturgiaTiempoEntity {
     @ColumnInfo(name = "liturgyName")
     public String liturgyName="";
 
+    @NonNull
+    public Integer getTiempoId() {
+        return tiempoId;
+    }
+
+    public void setTiempoId(@NonNull Integer tiempoId) {
+        this.tiempoId = tiempoId;
+    }
+
+    @NonNull
+    public String getTiempo() {
+        return tiempo;
+    }
+
+    public void setTiempo(@NonNull String tiempo) {
+        this.tiempo = tiempo;
+    }
+
+    @NonNull
+    public String getLiturgyName() {
+        return liturgyName;
+    }
+
+    public void setLiturgyName(@NonNull String liturgyName) {
+        this.liturgyName = liturgyName;
+    }
 }
 

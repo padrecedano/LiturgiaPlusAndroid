@@ -3,6 +3,7 @@ package org.deiverbum.app.data.entity;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -28,7 +29,17 @@ import org.deiverbum.app.model.Santo;
 
 @Entity(
         tableName = "santo",
-        indices = {@Index(value = {"nombre","mes","dia"},unique = true)}
+        indices = {@Index(value = {"liturgiaFK","nombre","mes","dia"},unique = true)},
+        foreignKeys =
+                {
+
+                        @ForeignKey(
+                                entity = LiturgiaEntity.class,
+                                parentColumns = "liturgiaId",
+                                childColumns = "liturgiaFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE)
+                }
 )
 public class SantoEntity {
     @NonNull
@@ -37,8 +48,8 @@ public class SantoEntity {
     public Integer santoId=0;
 
     @NonNull
-    @ColumnInfo(name = "liturgiaId")
-    public Integer liturgiaId=0;
+    @ColumnInfo(name = "liturgiaFK")
+    public Integer liturgiaFK=0;
 
     @NonNull
     @ColumnInfo(name = "nombre")
@@ -55,12 +66,6 @@ public class SantoEntity {
     @NonNull
     @ColumnInfo(name = "tipoId")
     public Integer tipoId=0;
-
-    @ColumnInfo(name = "momentoId", defaultValue="0")
-    public Integer momentoId=0;
-
-    @ColumnInfo(name = "status", defaultValue="0")
-    public Integer status=0;
 
     @ColumnInfo(name = "comunId", defaultValue="0")
     public Integer comunId=0;

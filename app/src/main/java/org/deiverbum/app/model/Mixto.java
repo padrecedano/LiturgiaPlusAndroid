@@ -73,10 +73,12 @@ public Mixto(){
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
             //Santo santo = laudes.getSanto();
+            sb.append(hoy.getAll());
+            laudes.salmodia.normalizeByTime(hoy.idTiempo);
+
             Himno himno = laudes.getHimno();
 
             Salmodia salmodia = laudes.getSalmodia();
-            salmodia.normalizeByTime(metaLiturgia.idTiempo);
 
             OficioLecturas oficioLecturas = oficio.getOficioLecturas();
             Biblica lecturaBreve = laudes.getLecturaBreve();
@@ -84,10 +86,11 @@ public Mixto(){
             Preces preces = laudes.getPreces();
             //Evangelio misaEvangelio = misa.getMisaLecturas().getEvangelio();
 
-            sb.append(metaLiturgia.getAll());
+            //sb.append(metaLiturgia.getAll());
             sb.append(Utils.LS2);
 
-            if (metaLiturgia.getHasSaint()) {
+
+            if (hoy.getHasSaint()) {
                 sb.append(santo.getVida());
                 sb.append(LS2);
             }
@@ -111,7 +114,7 @@ public Mixto(){
             sb.append(lecturaBreve.getAll());
             sb.append(Utils.LS2);
 
-            sb.append(oficioLecturas.getAll(metaLiturgia.idTiempo));
+            sb.append(oficioLecturas.getAll(hoy.idTiempo));
             sb.append(Utils.LS2);
 
             sb.append(Utils.formatSubTitle("evangelio del día"));
@@ -151,9 +154,9 @@ public Mixto(){
             CanticoEvangelico ce = laudes.getBenedictus();
         Preces preces = laudes.getPreces();
 
-        sb.append(metaLiturgia.getAllForRead());
+        sb.append(hoy.getAllForRead());
 
-        if(metaLiturgia.getHasSaint()) {
+        if(hoy.getHasSaint()) {
             sb.append(santo.getVida());
         }
 

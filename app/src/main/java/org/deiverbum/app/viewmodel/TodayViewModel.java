@@ -85,6 +85,8 @@ public class TodayViewModel extends ViewModel {
     public void fetchData(String theDate) {
         mRepository.fetchData(theDate);
     }
+
+
 /*
     public LiveData<Salmodia> getS(String mDate) {
         return mRepository.getS("");

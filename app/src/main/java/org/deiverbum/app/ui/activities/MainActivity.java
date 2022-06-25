@@ -18,11 +18,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.work.BackoffPolicy;
+import androidx.work.Constraints;
+import androidx.work.Data;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
@@ -43,8 +53,11 @@ import org.deiverbum.app.R;
 import org.deiverbum.app.databinding.ActivityMainBinding;
 import org.deiverbum.app.ui.fragments.AcceptanceFragmentDialog;
 import org.deiverbum.app.utils.Utils;
+import org.deiverbum.app.viewmodel.TodayViewModel;
+import org.deiverbum.app.workers.ExampleWorker;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -60,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
     NavController navController;
     private FirebaseAnalytics mFirebaseAnalytics;
     private AppUpdateManager appUpdateManager;
+    private TodayViewModel todayViewModel;
+    private WorkManager mWorkManager;
+
     private final InstallStateUpdatedListener installStateUpdatedListener = installState -> {
         if (installState.installStatus() == InstallStatus.DOWNLOADED) {
             popupAlerter();
@@ -92,6 +108,10 @@ public class MainActivity extends AppCompatActivity {
             bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName);
             bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS,screenName);
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+
+            //todayViewModel = new ViewModelProvider(this).get(TodayViewModel.class);
+//todayViewModel.fetchData("");
+            fetchData(0);
 
         };
 
@@ -239,6 +259,46 @@ public class MainActivity extends AppCompatActivity {
     private void unregisterListener() {
         if (appUpdateManager != null && installStateUpdatedListener != null)
             appUpdateManager.unregisterListener(installStateUpdatedListener);
+    }
+
+    public void fetchData(Integer theDate) {
+        this.mWorkManager= WorkManager.getInstance(getApplicationContext());
+
+        // Create Network constraint
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        Data inputData = new Data.Builder()
+                .putInt("THE_DATE", theDate)
+                .build();
+
+
+
+        PeriodicWorkRequest periodicSyncDataWork =
+                new PeriodicWorkRequest.Builder(ExampleWorker.class, 15,
+                        TimeUnit.MINUTES)
+                        .addTag("TAG_SYNC_DATA")
+                        .setConstraints(constraints)
+                        .setInputData(inputData)
+                        // setting a backoff on case the work needs to retry
+                        .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
+                        .build();
+        mWorkManager.enqueueUniquePeriodicWork(
+                "SYNC_DATA_WORK_NAME",
+                ExistingPeriodicWorkPolicy.REPLACE, //Existing Periodic Work
+                // policy
+                periodicSyncDataWork //work request
+        );
+        mWorkManager.getWorkInfoByIdLiveData(periodicSyncDataWork.getId()).observe(this,
+                new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(WorkInfo workInfo) {
+                        mWorkManager.cancelWorkById(workInfo.getId());
+                    }
+                });
+
+
+
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.Objects;
  * @version 1.0
  * @since 2022.1
  */
-public class Lecturas {
+public class Lecturas extends Liturgia{
     private int tipo;
     private List<BiblicaMisa> lecturas;
 
@@ -75,7 +75,9 @@ public class Lecturas {
 
     public SpannableStringBuilder getForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
-        sb.append(metaliturgia.getForViewMisa());
+        try {
+
+            sb.append(hoy.getForViewMisa());
         sb.append(LS2);
 
         sb.append(getTitulo());
@@ -84,7 +86,9 @@ public class Lecturas {
         for (BiblicaMisa l : lecturas) {
             sb.append(l.getAll());
         }
-
+        } catch (Exception e){
+            sb.append(Utils.createErrorMessage(e.getMessage()));
+        }
         return sb;
     }
 
@@ -96,12 +100,14 @@ public class Lecturas {
 
     public SpannableStringBuilder getAllForRead() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
-        sb.append(metaliturgia.getAllForRead());
+        sb.append(hoy.getAllForRead());
         sb.append(getTituloForRead());
         for (BiblicaMisa l : lecturas) {
             sb.append(l.getAllForRead());
         }
         return sb;
     }
+
+
 }
 

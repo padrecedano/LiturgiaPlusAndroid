@@ -1,22 +1,29 @@
 package org.deiverbum.app.model;
 
-import android.text.SpannableStringBuilder;
-
 import androidx.annotation.NonNull;
-
-import com.google.firebase.firestore.PropertyName;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-import java.util.HashMap;
-import java.util.List;
 
 
 public class Liturgia {
 
     private Integer liturgiaId;
-    private Integer colorId;
+    private Integer tipoFK;
+    private LiturgiaTiempo tiempoFK;
+    private Integer semana;
+    private Integer dia;
+    private Integer colorFK;
+
     private String nombre;
+    protected Santo santo;
+
+    protected Hoy hoy;
+    protected MetaLiturgia metaLiturgia;
+
+    public boolean hasSaint = false;
+
+
+    public Liturgia() {
+    }
+
 
     public Integer getLiturgiaId() {
         return liturgiaId;
@@ -27,11 +34,11 @@ public class Liturgia {
     }
 
     public Integer getColorId() {
-        return colorId;
+        return colorFK;
     }
 
-    public void setColorId(Integer colorId) {
-        this.colorId = colorId;
+    public void setColorId(Integer colorFK) {
+        this.colorFK = colorFK;
     }
 
     public String getNombre() {
@@ -43,61 +50,44 @@ public class Liturgia {
         this.nombre = nombre;
     }
 
-    private MetaLiturgia meta;
-    protected MetaLiturgia metaLiturgia;
-
-    protected Santo santo;
-    protected Misa misa;
-
-    @SerializedName("lh")
-    @Expose
-    private Breviario breviario;
-    private HashMap<String, Object> lhFirebase;
-
-    private List<HomiliaCompleta> homiliaCompleta;
-    @SuppressWarnings("unused")
-    private List<ComentarioBiblico> comentarioCompleto;
-    private Comentario comentario;
-
-    public boolean hasSaint = false;
-
-
-    public Liturgia() {
+    public MetaLiturgia getMetaLiturgia() {
+        return this.metaLiturgia;
     }
 
-    @SuppressWarnings("unused")
-    public List<HomiliaCompleta> getHomiliaCompleta() {
-        return homiliaCompleta;
+    public Hoy getHoy() {
+        return hoy;
     }
 
-    @SuppressWarnings("unused")
-    public List<ComentarioBiblico> getComentarioCompleta() {
-        return comentarioCompleto;
-    }
-
-    public Comentario getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(Comentario comentario) {
-        this.comentario = comentario;
+    public void setHoy(Hoy hoy) {
+        this.hoy = hoy;
     }
     @SuppressWarnings("unused")
-    public void setHomiliaCompleta(List<HomiliaCompleta> homiliaCompleta) {
-        this.homiliaCompleta = homiliaCompleta;
+    public void setMetaLiturgia(MetaLiturgia metaLiturgia) {
+        this.metaLiturgia = metaLiturgia;
     }
 
 
-
-    public SpannableStringBuilder getVida() {
-        SpannableStringBuilder ssb = new SpannableStringBuilder("");
-        if (meta.getHasSaint()) {
-            //ssb.append(santo.getVidaSmall());
-            ssb.append("Método en <code>Liturgia</code> que será eleminado");
-        }
-        return ssb;
+    public void setDia(Integer dia) {
+        this.dia=dia;
     }
 
+    public void setSemana(Integer semana) {
+        this.semana=semana;
+    }
+
+    public int getDia() {
+        return this.dia;
+    }
+    public int getSemana() {
+        return this.semana;
+    }
+
+    public void setTiempoFK(LiturgiaTiempo tiempoFK) {
+        this.tiempoFK=tiempoFK;
+    }
+    public LiturgiaTiempo getTiempoFK() {
+        return tiempoFK;
+    }
 
 
     public Santo getSanto() {
@@ -109,60 +99,10 @@ public class Liturgia {
     }
 
 
-    public Breviario getBreviario() {
-        return this.breviario;
-    }
-
-    public void setBreviario(Breviario breviario) {
-        //Log.d("-aaa",meta.getFecha());
-
-        this.breviario = breviario;
-
-        this.breviario.setMetaLiturgia(metaLiturgia);
-
-
-    }
-
-    @SuppressWarnings("unused")
-    public HashMap<String, Object> getLh() {
-        return lhFirebase;
-    }
-
-    @PropertyName("meta")
-    public void setMetaLiturgia(MetaLiturgia meta) {
-        this.metaLiturgia = meta;
-        }
-
-    @SuppressWarnings("unused")
-    public void setLh(HashMap<String, Object> lh) {
-        this.lhFirebase = lh;
-    }
-
     @NonNull
     public String toString() {
         return "This is the data*: " + getMetaLiturgia().getFecha();
     }
-
-    public MetaLiturgia getMetaLiturgia() {
-        return this.metaLiturgia;
-    }
-
-    public MetaLiturgia getMeta() {
-        return meta;
-    }
-
-    @SuppressWarnings("unused")
-    public void setMetaLiturgias(MetaLiturgia meta) {
-        this.meta = meta;
-    }
-
-    public Misa getMisa() {
-        return misa;
-    }
-    public void setMisa(Misa misa) {
-        this.misa = misa;
-    }
-
 
 
 }

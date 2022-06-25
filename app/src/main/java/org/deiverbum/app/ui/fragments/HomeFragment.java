@@ -10,6 +10,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +19,7 @@ import org.deiverbum.app.data.adapters.HomeAdapter;
 import org.deiverbum.app.databinding.FragmentHomeBinding;
 import org.deiverbum.app.model.HomeItem;
 import org.deiverbum.app.utils.Utils;
+import org.deiverbum.app.viewmodel.TodayViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +49,8 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -100,6 +104,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void pickOutDate() {
+
         Bundle bundle = getArguments();
         String dateString;
         if (bundle != null) {

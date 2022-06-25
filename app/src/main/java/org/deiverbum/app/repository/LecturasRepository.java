@@ -3,14 +3,20 @@ package org.deiverbum.app.repository;
 import static org.deiverbum.app.utils.Constants.NOTFOUND_OR_NOTCONNECTION;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import org.deiverbum.app.data.db.dao.TodayDao;
+import org.deiverbum.app.data.entity.TodayHomilias;
+import org.deiverbum.app.data.entity.TodayMisaLecturas;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
+import org.deiverbum.app.model.Homilias;
 import org.deiverbum.app.model.Lecturas;
+import org.deiverbum.app.model.MisaLecturas;
 import org.deiverbum.app.utils.Utils;
 
 import javax.inject.Inject;
@@ -34,11 +40,13 @@ public class LecturasRepository {
     ApiService apiService;
     private final FirebaseDataSource firebaseDataSource;
     private final MutableLiveData<DataWrapper<Lecturas, CustomException>> mData = new MediatorLiveData<>();
+    private final TodayDao mTodayDao;
 
     @Inject
-    public LecturasRepository(ApiService apiService, FirebaseDataSource firebaseDataSource) {
+    public LecturasRepository(ApiService apiService, FirebaseDataSource firebaseDataSource,TodayDao mTodayDao) {
         this.apiService = apiService;
         this.firebaseDataSource = firebaseDataSource;
+        this.mTodayDao=mTodayDao;
     }
 
     /**
@@ -51,7 +59,7 @@ public class LecturasRepository {
      * @param dateString La fecha
      * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
      */
-    public MutableLiveData<DataWrapper<Lecturas, CustomException>> getLecturas(String dateString) {
+    public MutableLiveData<DataWrapper<Lecturas, CustomException>> getData(String dateString) {
         firebaseDataSource.getLecturas(dateString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -95,5 +103,17 @@ public class LecturasRepository {
                 });
     }
 
+
+
+        public MutableLiveData<DataWrapper<Lecturas, CustomException>> getFromDB(String s) {
+        TodayMisaLecturas theEntity = mTodayDao.getMisaLecturas(Integer.valueOf(s));
+        if (theEntity != null) {
+            Lecturas theModel = theEntity.getDomainModel();
+            mData.postValue(new DataWrapper<>(theModel));
+        } else {
+            getData(s);
+        }
+        return mData;
+    }
 }
 
