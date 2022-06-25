@@ -54,7 +54,7 @@ public class OficioDataMapper {
     public MutableLiveData<Laudes> transformLaudes(TodayLaudes theEntity) {
         MutableLiveData<Laudes> liveData = new MutableLiveData<>();
         Laudes laudes=new Laudes();
-        laudes.setMetaLiturgia(theEntity.getMetaLiturgia());
+        //laudes.setMetaLiturgia(theEntity.getMetaLiturgia());
         laudes.setSanto(theEntity.getSanto());
 
         laudes.setInvitatorio(theEntity.getInvitatorio());
@@ -83,7 +83,7 @@ public class OficioDataMapper {
         TeDeum teDeum=theEntity.getTeDeum();
         oficio.setTeDeum(teDeum);
 */
-        mixto.setMetaLiturgia(theEntity.getMetaLiturgia());
+        //mixto.setMetaLiturgia(theEntity.getMetaLiturgia());
         mixto.setSanto(theEntity.getSanto());
         mixto.setInvitatorio(theEntity.getInvitatorio());
         laudes.setHimno(theEntity.getHimno());
@@ -98,7 +98,7 @@ public class OficioDataMapper {
         laudes.setOracion(theEntity.getOracion());
         mixto.setLaudes(laudes);
         mixto.setOficio(oficio);
-        mixto.setMisa(misa);
+        //mixto.setMisa(misa);
         liveData.setValue(mixto);
         return  liveData;
     }
@@ -106,7 +106,7 @@ public class OficioDataMapper {
     public MutableLiveData<Intermedia> transformTercia(TodayTercia theEntity) {
         MutableLiveData<Intermedia> liveData = new MutableLiveData<>();;
         Intermedia theHour=new Intermedia();
-        theHour.setMetaLiturgia(theEntity.getMetaLiturgia());
+        //theHour.setMetaLiturgia(theEntity.getMetaLiturgia());
         theHour.setSanto(theEntity.getSanto());
         theHour.setHimno(theEntity.getHimno());
         theHour.setSalmodia(theEntity.getSalmodia());

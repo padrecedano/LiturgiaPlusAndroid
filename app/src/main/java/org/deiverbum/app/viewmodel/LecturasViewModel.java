@@ -24,7 +24,7 @@ public class LecturasViewModel extends ViewModel {
     }
 
     public LiveData<DataWrapper<Lecturas, CustomException>> getObservable(String date) {
-        return mRepository.getLecturas(date);
+        return mRepository.getFromDB(date);
     }
 
 }

@@ -48,8 +48,8 @@ public class Visperas extends BreviarioHora {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
 
-            lecturaBreve.normalizeByTime(metaLiturgia.calendarTime);
-            sb.append(metaLiturgia.getAll());
+            lecturaBreve.normalizeByTime(hoy.calendarTime);
+            sb.append(hoy.getAll());
             sb.append(Utils.LS2);
 
             sb.append(Utils.toH3Red(getTituloHora().toUpperCase()));
@@ -62,7 +62,7 @@ public class Visperas extends BreviarioHora {
             sb.append(himno.getAll());
             sb.append(Utils.LS2);
 
-            salmodia.normalizeByTime(metaLiturgia.calendarTime);
+            salmodia.normalizeByTime(hoy.calendarTime);
 
             sb.append(salmodia.getAll());
             sb.append(Utils.LS2);
@@ -93,7 +93,7 @@ public class Visperas extends BreviarioHora {
     public StringBuilder getForRead() {
         StringBuilder sb = new StringBuilder();
         try {
-            sb.append(metaLiturgia.getAllForRead());
+            sb.append(hoy.getAllForRead());
             sb.append(getTituloHoraForRead());
             sb.append(getSaludoDiosMioForRead());
             sb.append(himno.getAllForRead());
@@ -111,11 +111,11 @@ public class Visperas extends BreviarioHora {
     }
 
     private String getTituloHora() {
-        return (metaLiturgia.getIdPrevio() == 0) ? "VÍSPERAS" : "I VÍSPERAS";
+        return (hoy.getIdPrevio() == 0) ? "VÍSPERAS" : "I VÍSPERAS";
     }
 
     private String getTituloHoraForRead() {
-        return (metaLiturgia.getIdPrevio() == 0) ? "Vísperas." : "Primeras Vísperas.";
+        return (hoy.getIdPrevio() == 0) ? "Vísperas." : "Primeras Vísperas.";
     }
 
 }

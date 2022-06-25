@@ -54,12 +54,13 @@ public class Invitatorio extends Salmo {
      * @since 2022.1
      */
     public Spanned getTextoSpan(boolean isVariable) {
+        /*
         if (!isVariable) {
             id = 1;
             String filePath = files.get(id - 1);
             texto = readFromFile(filePath);
             return Utils.fromHtml(texto);
-        }
+        }*/
         return Utils.fromHtml(getSalmo());
     }
 

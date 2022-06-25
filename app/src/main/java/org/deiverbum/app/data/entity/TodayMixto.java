@@ -8,6 +8,7 @@ import org.deiverbum.app.model.BiblicaMisa;
 import org.deiverbum.app.model.BiblicaOficio;
 import org.deiverbum.app.model.CanticoEvangelico;
 import org.deiverbum.app.model.Himno;
+import org.deiverbum.app.model.Hoy;
 import org.deiverbum.app.model.Invitatorio;
 import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.MetaLiturgia;
@@ -40,14 +41,14 @@ public class TodayMixto {
             parentColumn = "feriaFK",
             entityColumn = "liturgiaId"
     )
-    public LiturgiaEntity feria;
+    public LiturgiaWithTiempo feria;
 
     @Relation(
             entity = LiturgiaEntity.class,
             parentColumn = "previoId",
             entityColumn = "liturgiaId"
     )
-    public LiturgiaEntity previo;
+    public LiturgiaWithTiempo previo;
 
     @Relation(
             entity = SantoEntity.class,
@@ -171,28 +172,27 @@ public class TodayMixto {
         return theModel;
     }
 
-
-    public MetaLiturgia getMetaLiturgia(){
-        MetaLiturgia theModel = new MetaLiturgia();
-        theModel.setLiturgiaFeria(feria.getDomainModel());
-        if(today.previoId!=null){
-            theModel.setLiturgiaPrevio(previo.getDomainModel());
-        }
-        theModel.setFecha(String.valueOf(today.hoy));
-        theModel.setColor(feria.colorFK);
-        theModel.setIdHour(2);
-        theModel.setCalendarTime(feria.colorFK);
-        theModel.setHasSaint(false);
-        theModel.setIdBreviario(feria.colorFK);
-        theModel.setIdDia(feria.colorFK);
-        theModel.setIdLecturas(today.mLecturasFK);
-        theModel.setIdPrevio(1);
-        theModel.setIdSemana(1);
-        theModel.setIdTiempo(today.getTiempoId());
-        theModel.setIdTiempoPrevio(1);
-        theModel.setTitulo(feria.nombre);
-        return theModel;
+    public Hoy getToday(){
+        Hoy dm = new Hoy();
+        dm.setFeria(feria.getDomainModel());
+        dm.setFecha(String.valueOf(today.getHoy()));
+        //theModel.setColor(feria.getColorFK());
+        dm.setIdHour(0);
+        dm.setCalendarTime(today.tiempoId);
+        dm.setHasSaint(true);
+        //theModel.setIdBreviario(feria.colorFK);
+        //theModel.setIdDia(feria.colorFK);
+        dm.setMLecturasFK(today.mLecturasFK);
+        dm.setPrevio(previo.getDomainModel());//.setIdPrevio(1);
+        //theModel.setIdSemana(1);
+        //theModel.setIdTiempo(9);
+        //theModel.setIdTiempoPrevio(1);
+        dm.setTitulo(feria.getDomainModel().getNombre());
+        //theModel.setLiturgiaFeria(feria.getDomainModel());
+        return dm;
     }
+
+
     public Himno getHimno(){
         return himno.getDomainModel();
     }
@@ -248,7 +248,8 @@ public class TodayMixto {
         Mixto dm=new Mixto();
         Laudes laudes=new Laudes();
         Oficio oficio=new Oficio();
-        dm.setMetaLiturgia(getMetaLiturgia());
+        dm.setHoy(getToday());
+
         if(santo!=null) {
             dm.setSanto(santo.getDomainModelLH());
         }
@@ -259,7 +260,6 @@ public class TodayMixto {
         laudes.setBenedictus(getBenedictus());
         laudes.setPreces(getPreces());
         laudes.setOracion(getOracion());
-
         OficioLecturas ol=new OficioLecturas();
         ol.setBiblica(getBiblicas());
         ol.setPatristica(getPatristicas());
@@ -273,7 +273,6 @@ public class TodayMixto {
         dm.setOficio(oficio);
         dm.setLaudes(laudes);
         dm.setMisaLecturas(getMisaLecturas());
-
         return dm;
     }
 

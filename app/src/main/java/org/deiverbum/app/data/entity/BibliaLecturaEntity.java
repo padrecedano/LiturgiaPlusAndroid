@@ -38,27 +38,27 @@ public class BibliaLecturaEntity {
 
     @NonNull
     public Integer getCapitulo() {
-        return capitulo=0;
+        return capitulo;
     }
 
     @NonNull
     public Integer getDesde() {
-        return desde=0;
+        return desde;
     }
 
     @NonNull
     public Integer getHasta() {
-        return hasta=0;
+        return hasta;
     }
 
     @NonNull
     public String getCita() {
-        return cita="";
+        return cita;
     }
 
     @NonNull
     public String getTexto() {
-        return texto="";
+        return texto;
     }
 
     @NonNull

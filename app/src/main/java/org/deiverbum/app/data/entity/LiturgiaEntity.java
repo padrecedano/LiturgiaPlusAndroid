@@ -8,6 +8,7 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import org.deiverbum.app.model.Liturgia;
+import org.deiverbum.app.model.LiturgiaTiempo;
 
 /**
  * @author A. Cedano
@@ -102,12 +103,5 @@ public class LiturgiaEntity {
     @ColumnInfo(name = "nombre")
     public String nombre="";
 
-    public Liturgia getDomainModel() {
-        Liturgia theModel=new Liturgia();
-        theModel.setLiturgiaId(getLiturgiaId());
-        theModel.setColorId(getColorFK());
-        theModel.setNombre(getNombre());
-        return theModel;
-    }
 }
 

@@ -94,8 +94,7 @@ public class TodayFragment extends Fragment implements TextToSpeechCallback {
         mViewModel =
                 new ViewModelProvider(this).get(HomiliasViewModel.class);
 
-        todayViewModel =
-                new ViewModelProvider(this).get(TodayViewModel.class);
+        todayViewModel = new ViewModelProvider(this).get(TodayViewModel.class);
         mTextView = binding.include.tvZoomable;
         progressBar = binding.progressBar;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());

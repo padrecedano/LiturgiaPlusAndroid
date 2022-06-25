@@ -14,6 +14,7 @@ import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
+import org.deiverbum.app.model.Himno;
 import org.deiverbum.app.model.Homilias;
 import org.deiverbum.app.model.Today;
 
@@ -99,19 +100,23 @@ public class ExampleWorker extends Worker {
     public void loadFromApi(Integer param) {
         String theDate=String.valueOf(param);
         Log.d("AXY-API",theDate);
-        workerDependency.getToday("20220302")
+        workerDependency.getToday("2022")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<List<Today>>() {
+                .subscribe(new DisposableSingleObserver<List<Himno>>() {
 
                     @Override public void onStart() {
                     }
                     @Override
-                    public void onSuccess(List<Today> r) {
+                    public void onSuccess(List<Himno> r) {
                         //mData.postValue(new DataWrapper<>(r));
-                        Log.d("AXY-r",r.get(0).getHoy().toString());
+                        //Log.d("AXY-r",r.get(0).getHoy().toString());
+                        Log.d("AXY-r",r.get(0).getTexto());
+
                         //mTodayDao.insertToday(r.get(0));
-                        mTodayDao.insertTodays(r);
+                        //mTodayDao.insertAllTodays(r);
+                        mTodayDao.insertAllHimnos(r);
+
 
 
                     }

@@ -48,10 +48,10 @@ public class Intermedia extends BreviarioHora {
 
     public String getTitulo() {
 
-        if (metaLiturgia.getHasSaint()) {
+        if (hoy.getHasSaint()) {
             return santo.getNombre() + LS2;
         } else {
-            return metaLiturgia.getTitulo() + LS2;
+            return hoy.getTitulo() + LS2;
         }
     }
 
@@ -79,9 +79,11 @@ public class Intermedia extends BreviarioHora {
     public SpannableStringBuilder getForView() {
 
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        try {
+        //try {
             //lecturaBreve.normalizeByTime(metaLiturgia.getCalendarTime());
-            sb.append(metaLiturgia.getAll());
+            //sb.append(metaLiturgia.getAll());
+            sb.append(hoy.getAll());
+
             sb.append(Utils.LS2);
 
             sb.append(Utils.toH3Red(getTituloHora().toUpperCase()));
@@ -93,7 +95,7 @@ public class Intermedia extends BreviarioHora {
 
             sb.append(himno.getAll());
             sb.append(LS2);
-            salmodia.normalizeByTime(metaLiturgia.idTiempo);
+            salmodia.normalizeByTime(hoy.getCalendarTime());
 
             sb.append(salmodia.getAll(getHourIndex()));
             sb.append(LS);
@@ -106,9 +108,9 @@ public class Intermedia extends BreviarioHora {
 
             sb.append(getConclusionHora());
 
-        } catch (Exception e) {
-            sb.append(e.getMessage());
-        }
+        //} catch (Exception e) {
+            //sb.append(e.getMessage());
+        //}
         return sb;
 
     }
@@ -116,7 +118,7 @@ public class Intermedia extends BreviarioHora {
     public StringBuilder getForRead() {
         StringBuilder sb = new StringBuilder();
         try {
-            sb.append(metaLiturgia.getAllForRead());
+            sb.append(hoy.getAllForRead());
             sb.append(getTituloHora());
             sb.append(".");
             sb.append(getSaludoDiosMioForRead());

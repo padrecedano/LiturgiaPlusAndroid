@@ -54,9 +54,9 @@ public class TodayHomilias {
 
     public MetaLiturgia getMetaLiturgia(){
         MetaLiturgia theModel = new MetaLiturgia();
-        theModel.setLiturgiaFeria(feria.getDomainModel());
+        //theModel.setLiturgiaFeria(feria.getDomainModel());
         if(today.previoId!=null){
-            theModel.setLiturgiaPrevio(previo.getDomainModel());
+            //theModel.setLiturgiaPrevio(previo.getDomainModel());
         }
         theModel.setFecha(String.valueOf(today.hoy));
         theModel.setColor(feria.colorFK);

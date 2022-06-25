@@ -73,7 +73,8 @@ public class Biblica {
 
 
     public String getRef() {
-        return getReferencia();
+        return ref;
+        //getReferencia();
     }
     public String getRefBreve() {
         return (this.ref!=null) ? this.ref : "";

@@ -399,7 +399,7 @@ public class BreviarioRepository {
     }
 
     public MediatorLiveData<DataWrapper<Visperas, CustomException>> getVisperasDB(String s) {
-        TodayVisperas theEntity = mTodayDao.geVisperasOfToday(Integer.valueOf(s));
+        TodayVisperas theEntity = mTodayDao.getVisperasOfToday(Integer.valueOf(s));
         if (theEntity != null) {
             Visperas theModel = theEntity.getDomainModel();
             liveDataVisperas.postValue(new DataWrapper<>(theModel));

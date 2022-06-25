@@ -26,7 +26,7 @@ import java.util.HashMap;
 }
 
  */
-public class MetaLiturgia {
+public class Hoy {
     protected String fecha;
     protected int idTiempo;
     protected int calendarTime;
@@ -51,7 +51,7 @@ public class MetaLiturgia {
     private Liturgia liturgiaFeria;
     private Liturgia liturgiaPrevio;
 
-    public MetaLiturgia() {
+    public Hoy() {
     }
 
     public String getTituloVisperas() {
@@ -97,13 +97,12 @@ public class MetaLiturgia {
         this.fecha = fecha;
     }
 
-
     public void setTiempo(int idTiempo) {
         this.idTiempo = idTiempo;
     }
 
-    public int getTiempo() {
-        return idTiempo;
+    public String getTiempo() {
+        return liturgiaFeria.getTiempoFK().getLiturgyName();
     }
 
     @SuppressWarnings("unused")
@@ -118,7 +117,7 @@ public class MetaLiturgia {
 
     @SuppressWarnings("unused")
     public String getTiempoNombre(boolean isVisperas) {
-        int theTime = this.getTiempo();
+        int theTime = this.idTiempo;
         if (theTime < 15) {
             HashMap<Integer, String> mapTiempos = new HashMap<>();
             mapTiempos.put(0, "***");
@@ -377,6 +376,18 @@ public class MetaLiturgia {
         this.tituloPrevio = tituloPrevio;
     }
 
+    public void setFeria(Liturgia feria) {
+        this.liturgiaFeria=feria;
+
+    }
+
+    public void setMLecturasFK(Integer mLecturasFK) {
+    }
+
+    public void setPrevio(Liturgia previo) {
+        this.liturgiaPrevio=previo;
+    }
+
     public String getTimeForRead() {
         this.idDia=liturgiaFeria.getDia();
         this.idSemana=liturgiaFeria.getSemana();
@@ -399,18 +410,15 @@ public class MetaLiturgia {
             return getTimeWithTitleForRead();
         }
         return getTimeWithWeekAndDay();
-
     }
 
     public SpannableStringBuilder getAll() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        if (this != null) {
-            sb.append(getFecha());
-            sb.append(Utils.LS2);
-            sb.append(Utils.toH2(getTiempoNombre()));
-            sb.append(Utils.LS2);
-            sb.append(Utils.toH3(getTitulo()));
-        }
+        sb.append(getFecha());
+        sb.append(Utils.LS2);
+        sb.append(Utils.toH2(getTiempo()));
+        sb.append(Utils.LS2);
+        sb.append(Utils.toH3(getTitulo()));
         return sb;
     }
 
@@ -425,7 +433,7 @@ public class MetaLiturgia {
         return sb.toString();
     }
 
-}
+ }
 
 
 

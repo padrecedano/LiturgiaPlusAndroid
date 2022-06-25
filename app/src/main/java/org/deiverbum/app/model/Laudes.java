@@ -69,10 +69,10 @@ public class Laudes extends BreviarioHora{
             //TODO hacer esto en la clase Responsorio, revisar Completas y
             // demás horas
             //biblicaBreve.normalizeByTime(metaLiturgia.calendarTime);
-            sb.append(metaLiturgia.getAll());
+            sb.append(hoy.getAll());
             sb.append(LS2);
 
-            if (metaLiturgia.getHasSaint()) {
+            if (hoy.getHasSaint()) {
                 sb.append(santo.getVida());
                 sb.append(LS2);
             }
@@ -88,7 +88,7 @@ public class Laudes extends BreviarioHora{
 
             sb.append(himno.getAll());
             sb.append(LS2);
-            salmodia.normalizeByTime(metaLiturgia.idTiempo);
+            salmodia.normalizeByTime(hoy.idTiempo);
 
             sb.append(salmodia.getAll());
             sb.append(Utils.LS2);
@@ -119,8 +119,8 @@ public class Laudes extends BreviarioHora{
 public StringBuilder getForRead(boolean hasInvitatorio){
     StringBuilder sb = new StringBuilder();
     try {
-    sb.append(metaLiturgia.getAllForRead());
-    if(metaLiturgia.getHasSaint()) {
+    sb.append(hoy.getAllForRead());
+    if(hoy.getHasSaint()) {
         sb.append(santo.getVida());
     }
     sb.append(getTituloHoraForRead());

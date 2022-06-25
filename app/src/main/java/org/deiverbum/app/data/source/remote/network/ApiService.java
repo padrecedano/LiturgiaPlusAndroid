@@ -2,6 +2,7 @@ package org.deiverbum.app.data.source.remote.network;
 
 import org.deiverbum.app.model.BreviarioHora;
 import org.deiverbum.app.model.Comentarios;
+import org.deiverbum.app.model.Himno;
 import org.deiverbum.app.model.Homilias;
 import org.deiverbum.app.model.Intermedia;
 import org.deiverbum.app.model.Laudes;
@@ -39,19 +40,15 @@ public interface ApiService {
     @GET("homilias/{theDate}")
     Single<Homilias> getHomilias(@Path("theDate") String theDate);
 
-    @Headers("Cache-Control: no-cache")
     @GET("lecturas/{theDate}")
     Single<Lecturas> getLecturas(@Path("theDate") String theDate);
 
-    @Headers("Cache-Control: no-cache")
     @GET("mixto/{theDate}")
     Single<Mixto> getMixto(@Path("theDate") String cleanDate);
 
-    @Headers("Cache-Control: no-cache")
     @GET("oficio/{theDate}")
     Single<Oficio> getOficio(@Path("theDate") String cleanDate);
 
-    //@Headers("Cache-Control: no-cache")
     @GET("laudes/{theDate}")
     Single<Laudes> getLaudes(@Path("theDate") String cleanDate);
 
@@ -65,6 +62,7 @@ public interface ApiService {
     @GET("metaliturgia/{theDate}")
     Single<MetaLiturgia> getMetaLiturgia(@Path("theDate") String cleanDate);
 
+    @Headers("Cache-Control: no-cache")
     @GET("test/{theDate}")
-    Single<List<Today>> getToday(@Path("theDate") String cleanDate);
+    Single<List<Himno>> getToday(@Path("theDate") String cleanDate);
 }

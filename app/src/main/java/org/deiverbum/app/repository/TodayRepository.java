@@ -79,7 +79,7 @@ public class TodayRepository {
     }
 
     public void fetchData(String theDate) {
-//        Integer ld=mTodayDao.findLastDate();
+        Integer lastDate=mTodayDao.findLastDate();
 //        Log.d("AXY-BD",ld.toString());
         this.mWorkManager=WorkManager.getInstance(mContext);
 

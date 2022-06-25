@@ -7,6 +7,7 @@ import org.deiverbum.app.model.BiblicaBreve;
 import org.deiverbum.app.model.BiblicaMisa;
 import org.deiverbum.app.model.CanticoEvangelico;
 import org.deiverbum.app.model.Himno;
+import org.deiverbum.app.model.Hoy;
 import org.deiverbum.app.model.Invitatorio;
 import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.MetaLiturgia;
@@ -91,14 +92,14 @@ public class TodayLaudes {
             parentColumn = "feriaFK",
             entityColumn = "liturgiaId"
     )
-    public LiturgiaEntity feria;
+    public LiturgiaWithTiempo feria;
 
     @Relation(
             entity = LiturgiaEntity.class,
             parentColumn = "previoId",
             entityColumn = "liturgiaId"
     )
-    public LiturgiaEntity previo;
+    public LiturgiaWithTiempo previo;
 
     @Relation(
             entity = LHCanticoEvangelicoEntity.class,
@@ -127,24 +128,7 @@ public class TodayLaudes {
     }
 
 
-    public MetaLiturgia getMetaLiturgia(){
-        MetaLiturgia theModel = new MetaLiturgia();
-        theModel.setLiturgiaFeria(feria.getDomainModel());
-        theModel.setFecha(String.valueOf(today.hoy));
-        theModel.setColor(feria.colorFK);
-        theModel.setIdHour(2);
-        theModel.setCalendarTime(feria.colorFK);
-        theModel.setHasSaint(true);
-        theModel.setIdBreviario(feria.colorFK);
-        theModel.setIdDia(feria.colorFK);
-        theModel.setIdLecturas(today.mLecturasFK);
-        theModel.setIdPrevio(1);
-        theModel.setIdSemana(1);
-        theModel.setIdTiempo(9);
-        theModel.setIdTiempoPrevio(1);
-        theModel.setTitulo(feria.nombre);
-        return theModel;
-    }
+
     public Himno getHimno(){
         return himno.getDomainModel();
     }
@@ -179,15 +163,25 @@ public class TodayLaudes {
         return lhOracion.getDomainModel();
     }
 
+    public Hoy getToday(){
+        Hoy dm = new Hoy();
+        dm.setFeria(feria.getDomainModel());
+        dm.setFecha(String.valueOf(today.getHoy()));
+        dm.setCalendarTime(today.tiempoId);
+        dm.setHasSaint(true);
+        dm.setMLecturasFK(today.mLecturasFK);
+        dm.setPrevio(previo.getDomainModel());
+        dm.setTitulo(feria.getDomainModel().getNombre());
+        return dm;
+    }
 
     public Laudes getDomainModel(){
         Laudes dm=new Laudes();
-        dm.setMetaLiturgia(getMetaLiturgia());
-        dm.setSanto(santo.getDomainModelLH());
-
+        dm.setHoy(getToday());
         dm.setInvitatorio(getInvitatorio());
-        dm.setHimno(getHimno());
+        dm.setSanto(getSanto());
 
+        dm.setHimno(getHimno());
         dm.setSalmodia(getSalmodia());
         dm.setLecturaBreve(getBiblica());
         dm.setBenedictus(getBenedictus());

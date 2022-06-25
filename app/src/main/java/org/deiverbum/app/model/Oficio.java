@@ -67,10 +67,10 @@ public class Oficio extends BreviarioHora {
     public SpannableStringBuilder getForView(boolean hasInvitatorio) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
-
-            sb.append(metaLiturgia.getAll());
+            sb.append(hoy.getAll());
+            //sb.append(metaLiturgia.getAll());
             sb.append(LS2);
-            if (metaLiturgia.getHasSaint()) {
+            if (hoy.getHasSaint()) {
                 sb.append(santo.getVida());
                 sb.append(LS2);
             }
@@ -83,15 +83,15 @@ public class Oficio extends BreviarioHora {
             sb.append(LS2);
             sb.append(invitatorio.getAll(hasInvitatorio));
             sb.append(LS2);
-            invitatorio.normalizeByTime(metaLiturgia.idTiempo);
+            invitatorio.normalizeByTime(hoy.idTiempo);
 
             sb.append(himno.getAll());
             sb.append(LS2);
-            salmodia.normalizeByTime(metaLiturgia.idTiempo);
+            salmodia.normalizeByTime(hoy.idTiempo);
             sb.append(salmodia.getAll(1));
             sb.append(LS2);
-oficioLecturas.normalizeByTime(metaLiturgia.idTiempo);
-            sb.append(oficioLecturas.getAll(metaLiturgia.idTiempo));
+oficioLecturas.normalizeByTime(hoy.idTiempo);
+            sb.append(oficioLecturas.getAll(hoy.idTiempo));
             //sb.append(LS2);
 
             if (teDeum.status) {
@@ -117,8 +117,8 @@ oficioLecturas.normalizeByTime(metaLiturgia.idTiempo);
     public StringBuilder getForRead(boolean hasInvitatorio) {
         StringBuilder sb = new StringBuilder();
         try {
-            sb.append(metaLiturgia.getAllForRead());
-            if (metaLiturgia.getHasSaint()) {
+            sb.append(hoy.getAllForRead());
+            if (hoy.getHasSaint()) {
                 sb.append(santo.getVida());
             }
             sb.append(getTituloHoraForRead());

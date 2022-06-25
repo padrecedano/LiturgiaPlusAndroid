@@ -113,7 +113,7 @@ public class SalmodiaEntity {
     }
 
     public String getParte() {
-        return  String.valueOf(parte);
+        return  parte==null || parte==0 ? "":String.valueOf(parte);
     }
 
 
