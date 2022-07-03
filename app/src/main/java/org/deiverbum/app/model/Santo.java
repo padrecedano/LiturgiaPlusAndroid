@@ -52,21 +52,21 @@ public class Santo {
     }
 
     @SuppressWarnings("unused")
-    public void setCrg(boolean crg){
-        this.crg=crg;
+    public void setCrg(boolean crg) {
+        this.crg = crg;
     }
 
     @SuppressWarnings("unused")
-    public boolean getCrg(){
+    public boolean getCrg() {
         return this.crg;
     }
 
-    public void setDia(String dia){
-        this.dia=dia;
+    public void setDia(String dia) {
+        this.dia = dia;
     }
 
-    public void setMes(String mes){
-        this.mes=mes;
+    public void setMes(String mes) {
+        this.mes = mes;
     }
 
     public SpannableStringBuilder getMartirologioSpan() {
@@ -99,31 +99,39 @@ public class Santo {
 
     public SpannableStringBuilder getForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(Utils.toH3Red(getMonthName()));
-        sb.append(LS2);
-        sb.append(Utils.toH2Red(nombre));
-        sb.append(LS2);
-        sb.append(getMartirologioSpan());
-        sb.append(LS);
-        sb.append(getMartirologioTitleSpan());
-        sb.append(LS2);
-        sb.append(getVidaSpan());
+        try {
+            sb.append(Utils.toH3Red(getMonthName()));
+            sb.append(LS2);
+            sb.append(Utils.toH2Red(nombre));
+            sb.append(LS2);
+            sb.append(getMartirologioSpan());
+            sb.append(LS);
+            sb.append(getMartirologioTitleSpan());
+            sb.append(LS2);
+            sb.append(getVidaSpan());
+        } catch (Exception e) {
+            sb.append(e.getMessage());
+        }
         return sb;
     }
 
     public StringBuilder getForRead() {
         StringBuilder sb = new StringBuilder();
-        sb.append(getMonthName());
-        sb.append(".");
-        sb.append(nombre);
-        sb.append(".");
-        sb.append(getMartirologio());
-        sb.append(getMartirologioTitleForRead());
-        sb.append(getVidaForRead());
+        try {
+            sb.append(getMonthName());
+            sb.append(".");
+            sb.append(nombre);
+            sb.append(".");
+            sb.append(getMartirologio());
+            sb.append(getMartirologioTitleForRead());
+            sb.append(getVidaForRead());
+        } catch (Exception e) {
+            sb.append(e.getMessage());
+        }
         return sb;
     }
 
-    public String getMonthName(){
+    public String getMonthName() {
         HashMap<String, String> monthNames = new HashMap<>();
         monthNames.put("01", "Enero");
         monthNames.put("02", "Febrero");
@@ -137,7 +145,7 @@ public class Santo {
         monthNames.put("10", "Octubre");
         monthNames.put("11", "Noviembre");
         monthNames.put("12", "Diciembre");
-        return String.format("%s de %s",dia,monthNames.get(mes));
+        return String.format("%s de %s", dia, monthNames.get(mes));
 
     }
 

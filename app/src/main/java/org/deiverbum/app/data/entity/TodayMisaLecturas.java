@@ -7,6 +7,8 @@ import org.deiverbum.app.model.BiblicaMisa;
 import org.deiverbum.app.model.Hoy;
 import org.deiverbum.app.model.Lecturas;
 import org.deiverbum.app.model.MetaLiturgia;
+import org.deiverbum.app.model.MisaLecturas;
+import org.deiverbum.app.model.Salmodia;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ public class TodayMisaLecturas {
 
     @Relation(
             entity = LiturgiaEntity.class,
-            parentColumn = "feriaFK",
+            parentColumn = "mLecturasFK",
             entityColumn = "liturgiaId"
     )
     public LiturgiaWithTiempo feria;
@@ -60,22 +62,21 @@ public class TodayMisaLecturas {
         dm.setCalendarTime(today.tiempoId);
         dm.setHasSaint(true);
         dm.setMLecturasFK(today.mLecturasFK);
-        dm.setPrevio(previo.getDomainModel());
         dm.setTitulo(feria.getDomainModel().getNombre());
         return dm;
     }
 
 //TODO Ordenar las lecturas con comparator (cf. Salmodia)
-    public Lecturas getDomainModel(){
-        Lecturas theModel=new Lecturas();
-        //theModel.setMetaLiturgia(getMetaLiturgia());
-        theModel.setHoy(getToday());
+    public MisaLecturas getDomainModel(){
+        MisaLecturas dm=new MisaLecturas();
+        dm.setHoy(getToday());
         List<BiblicaMisa> listModel = new ArrayList<>();
         for (MisaWithLecturas item : lecturas) {
                 listModel.add(item.getDomainModel());
         }
-        theModel.setLecturas(listModel);
-        return theModel;
+        dm.setLecturas(listModel);
+        dm.sort();
+        return dm;
     }
 
 

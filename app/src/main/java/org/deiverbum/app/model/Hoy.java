@@ -55,10 +55,10 @@ public class Hoy {
     }
 
     public String getTituloVisperas() {
-        if (idPrevio == 0) {
-            return titulo;
+        if (liturgiaPrevio != null) {
+            return liturgiaPrevio.getNombre().replaceAll(" I Vísperas.| I Vísperas","");
         } else {
-            return tituloPrevio;
+            return liturgiaFeria.getNombre();
         }
     }
 
@@ -102,7 +102,7 @@ public class Hoy {
     }
 
     public String getTiempo() {
-        return liturgiaFeria.getTiempoFK().getLiturgyName();
+        return liturgiaFeria.getLiturgiaTiempo().getLiturgyName();
     }
 
     @SuppressWarnings("unused")
@@ -117,7 +117,8 @@ public class Hoy {
 
     @SuppressWarnings("unused")
     public String getTiempoNombre(boolean isVisperas) {
-        int theTime = this.idTiempo;
+        return liturgiaFeria.getLiturgiaTiempo().getLiturgyName();
+        /*int theTime = this.idTiempo;
         if (theTime < 15) {
             HashMap<Integer, String> mapTiempos = new HashMap<>();
             mapTiempos.put(0, "***");
@@ -143,7 +144,7 @@ public class Hoy {
             return mapTiempos.get(theTime);
         } else {
             return "***";
-        }
+        }*/
     }
 
     public String getTimeWithWeek() {

@@ -25,6 +25,8 @@ import org.deiverbum.app.utils.Utils;
 public class BreviarioHora extends Liturgia{
     //protected MetaLiturgia metaLiturgia;
     //protected Santo santo;
+    protected int hourId;
+
     protected String metaInfo;
     protected Himno himno;
     protected Salmodia salmodia;
@@ -181,6 +183,14 @@ public class BreviarioHora extends Liturgia{
         ssb.append(Utils.fromHtml("<p>El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna.</p>"));
         ssb.append(Utils.fromHtml("<p>Amén.</p>"));
         return ssb;
+    }
+
+    public void setHourId(int hourId) {
+        this.hourId = hourId;
+    }
+
+    public int getHourId() {
+        return hourId;
     }
 
 }

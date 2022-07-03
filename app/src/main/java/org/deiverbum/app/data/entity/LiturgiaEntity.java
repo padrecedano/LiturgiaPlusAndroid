@@ -2,6 +2,7 @@ package org.deiverbum.app.data.entity;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
@@ -102,6 +103,10 @@ public class LiturgiaEntity {
     @NonNull
     @ColumnInfo(name = "nombre")
     public String nombre="";
+
+    //@Embedded
+    //public LiturgiaTiempo liturgiaTiempo;
+
 
 }
 

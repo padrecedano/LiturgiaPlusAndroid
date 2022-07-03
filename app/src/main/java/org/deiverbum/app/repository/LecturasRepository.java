@@ -39,7 +39,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class LecturasRepository {
     ApiService apiService;
     private final FirebaseDataSource firebaseDataSource;
-    private final MutableLiveData<DataWrapper<Lecturas, CustomException>> mData = new MediatorLiveData<>();
+    private final MutableLiveData<DataWrapper<MisaLecturas, CustomException>> mData = new MediatorLiveData<>();
     private final TodayDao mTodayDao;
 
     @Inject
@@ -59,15 +59,15 @@ public class LecturasRepository {
      * @param dateString La fecha
      * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
      */
-    public MutableLiveData<DataWrapper<Lecturas, CustomException>> getData(String dateString) {
+    public MutableLiveData<DataWrapper<MisaLecturas, CustomException>> getData(String dateString) {
         firebaseDataSource.getLecturas(dateString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<Lecturas,
+                .subscribe(new DisposableSingleObserver<DataWrapper<MisaLecturas,
                         CustomException>>() {
 
                     @Override
-                    public void onSuccess(@NonNull DataWrapper<Lecturas,
+                    public void onSuccess(@NonNull DataWrapper<MisaLecturas,
                             CustomException> data) {
                         mData.postValue(data);
                     }
@@ -89,11 +89,11 @@ public class LecturasRepository {
         apiService.getLecturas(Utils.cleanDate(dateString))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Lecturas>() {
+                .subscribe(new DisposableSingleObserver<MisaLecturas>() {
                     @Override public void onStart() {
                     }
                     @Override
-                    public void onSuccess(@NonNull Lecturas r) {
+                    public void onSuccess(@NonNull MisaLecturas r) {
                         mData.postValue(new DataWrapper<>(r));
                     }
                     @Override
@@ -105,10 +105,10 @@ public class LecturasRepository {
 
 
 
-        public MutableLiveData<DataWrapper<Lecturas, CustomException>> getFromDB(String s) {
+        public MutableLiveData<DataWrapper<MisaLecturas, CustomException>> getFromDB(String s) {
         TodayMisaLecturas theEntity = mTodayDao.getMisaLecturas(Integer.valueOf(s));
         if (theEntity != null) {
-            Lecturas theModel = theEntity.getDomainModel();
+            MisaLecturas theModel = theEntity.getDomainModel();
             mData.postValue(new DataWrapper<>(theModel));
         } else {
             getData(s);

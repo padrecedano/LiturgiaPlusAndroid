@@ -1,22 +1,70 @@
 package org.deiverbum.app.model;
 
 import androidx.annotation.NonNull;
+import androidx.room.Embedded;
+import androidx.room.Ignore;
 
 
 public class Liturgia {
 
     private Integer liturgiaId;
     private Integer tipoFK;
-    private LiturgiaTiempo tiempoFK;
+
+    public Integer getTiempoFK() {
+        return tiempoFK;
+    }
+
+    public Integer getTipoFK() {
+        return tipoFK;
+    }
+
+    public void setTipoFK(Integer tipoFK) {
+        this.tipoFK = tipoFK;
+    }
+
+    public void setTiempoFK(Integer tiempoFK) {
+        this.tiempoFK = tiempoFK;
+    }
+
+    public Integer getColorFK() {
+        return colorFK;
+    }
+
+    public void setColorFK(Integer colorFK) {
+        this.colorFK = colorFK;
+    }
+
+    //@Embedded
+    private Integer tiempoFK;
+    @Ignore
+    private LiturgiaTiempo liturgiaTiempo;
+
+    public LiturgiaTiempo getLiturgiaTiempo() {
+        return liturgiaTiempo;
+    }
+
+    public void setLiturgiaTiempo(LiturgiaTiempo liturgiaTiempo) {
+        this.liturgiaTiempo = liturgiaTiempo;
+    }
+
     private Integer semana;
     private Integer dia;
     private Integer colorFK;
 
     private String nombre;
+    //@Embedded
+
+    @Ignore
     protected Santo santo;
 
+    //@Embedded
+@Ignore
     protected Hoy hoy;
+    //@Embedded
+    @Ignore
+
     protected MetaLiturgia metaLiturgia;
+    @Ignore
 
     public boolean hasSaint = false;
 
@@ -82,11 +130,11 @@ public class Liturgia {
         return this.semana;
     }
 
-    public void setTiempoFK(LiturgiaTiempo tiempoFK) {
-        this.tiempoFK=tiempoFK;
+    public void setTiempoFKK(LiturgiaTiempo tiempoFK) {
+        //this.tiempoFK=tiempoFK;
     }
-    public LiturgiaTiempo getTiempoFK() {
-        return tiempoFK;
+    public LiturgiaTiempo getTiempoFKK() {
+        return null;
     }
 
 
@@ -95,13 +143,15 @@ public class Liturgia {
     }
 
     public void setSanto(Santo santo) {
+
         this.santo = santo;
     }
 
 
     @NonNull
     public String toString() {
-        return "This is the data*: " + getMetaLiturgia().getFecha();
+        return
+                String.format("Liturgia:%n%d\t%d\t%s", liturgiaId,tiempoFK,nombre);
     }
 
 

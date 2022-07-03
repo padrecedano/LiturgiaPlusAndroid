@@ -90,7 +90,7 @@ public class Oficio extends BreviarioHora {
             salmodia.normalizeByTime(hoy.idTiempo);
             sb.append(salmodia.getAll(1));
             sb.append(LS2);
-oficioLecturas.normalizeByTime(hoy.idTiempo);
+            oficioLecturas.normalizeByTime(hoy.idTiempo);
             sb.append(oficioLecturas.getAll(hoy.idTiempo));
             //sb.append(LS2);
 

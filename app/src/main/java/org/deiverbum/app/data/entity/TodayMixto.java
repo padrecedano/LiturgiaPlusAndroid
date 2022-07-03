@@ -183,7 +183,7 @@ public class TodayMixto {
         //theModel.setIdBreviario(feria.colorFK);
         //theModel.setIdDia(feria.colorFK);
         dm.setMLecturasFK(today.mLecturasFK);
-        dm.setPrevio(previo.getDomainModel());//.setIdPrevio(1);
+        //dm.setPrevio(previo.getDomainModel());//.setIdPrevio(1);
         //theModel.setIdSemana(1);
         //theModel.setIdTiempo(9);
         //theModel.setIdTiempoPrevio(1);

@@ -23,6 +23,7 @@ import okhttp3.Dispatcher;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -66,6 +67,10 @@ public abstract class NetworkModule {
     @Singleton
     static OkHttpClient provideHttpClient(Application application) {
         Dispatcher dispatcher = new Dispatcher();
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+// set your desired log level
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         OkHttpClient.Builder client = new OkHttpClient.Builder().connectTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
@@ -80,6 +85,7 @@ public abstract class NetworkModule {
             return chain.proceed(request);
         };
         client.addInterceptor(interceptor);
+        client.interceptors().add(logging);
         return client.build();
     }
 

@@ -6,16 +6,16 @@ import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
-public class Laudes extends BreviarioHora{
+public class Laudes extends BreviarioHora {
     private Invitatorio invitatorio;
     private BiblicaBreve lecturaBreve;
     private CanticoEvangelico benedictus;
     private Preces preces;
     private final PadreNuestro padreNuestro;
 
-    public Laudes(){
+    public Laudes() {
 
-        this.padreNuestro=new PadreNuestro();
+        this.padreNuestro = new PadreNuestro();
 
     }
 
@@ -61,7 +61,7 @@ public class Laudes extends BreviarioHora{
         this.preces = preces;
     }
 
-    
+
     public SpannableStringBuilder getForView(boolean hasInvitatorio) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         //PadreNuestro padreNuestro=new PadreNuestro();
@@ -109,43 +109,42 @@ public class Laudes extends BreviarioHora{
             sb.append(LS2);
 
             sb.append(getConclusionHorasMayores());
-        }catch (Exception e){
+        } catch (Exception e) {
             sb.append(e.getMessage());
 
         }
         return sb;
     }
-    
-public StringBuilder getForRead(boolean hasInvitatorio){
-    StringBuilder sb = new StringBuilder();
-    try {
-    sb.append(hoy.getAllForRead());
-    if(hoy.getHasSaint()) {
-        sb.append(santo.getVida());
+
+    public StringBuilder getForRead(boolean hasInvitatorio) {
+        StringBuilder sb = new StringBuilder();
+        try {
+            sb.append(hoy.getAllForRead());
+            if (hoy.getHasSaint()) {
+                sb.append(santo.getVida());
+            }
+            sb.append(getTituloHoraForRead());
+            sb.append(getSaludoOficioForRead());
+            sb.append(invitatorio.getAllForRead(hasInvitatorio));
+
+            sb.append(himno.getAllForRead());
+            sb.append(salmodia.getAllForRead());
+
+            sb.append(lecturaBreve.getAllForRead());
+
+            sb.append(benedictus.getAllForRead());
+
+            sb.append(preces.getAllForRead());
+
+            PadreNuestro padreNuestro = new PadreNuestro();
+            sb.append(padreNuestro.getAllForRead());
+            sb.append(oracion.getAllForRead());
+            sb.append(getConclusionHorasMayoresForRead());
+        } catch (Exception e) {
+            sb.append(e.getMessage());
+        }
+        return sb;
     }
-    sb.append(getTituloHoraForRead());
-    sb.append(getSaludoOficioForRead());
-    sb.append(invitatorio.getAllForRead(hasInvitatorio));
-
-    sb.append(himno.getAllForRead());
-    sb.append(salmodia.getAllForRead());
-
-    sb.append(lecturaBreve.getAllForRead());
-
-    sb.append(benedictus.getAllForRead());
-
-    sb.append(preces.getAllForRead());
-
-    PadreNuestro padreNuestro=new PadreNuestro();
-    sb.append(padreNuestro.getAllForRead());
-    sb.append(oracion.getAllForRead());
-    sb.append(getConclusionHorasMayoresForRead());
-    }catch (Exception e){
-        sb.append(e.getMessage());
-    }
-    return sb;
-}
-
 
 
     private String getTituloHoraForRead() {

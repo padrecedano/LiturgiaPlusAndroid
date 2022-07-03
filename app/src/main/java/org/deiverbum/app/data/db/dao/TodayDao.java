@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 
 import org.deiverbum.app.data.entity.HimnoEntity;
+import org.deiverbum.app.data.entity.LHCanticoEvangelicoEntity;
 import org.deiverbum.app.data.entity.TodayHomilias;
 import org.deiverbum.app.data.entity.TodayLaudes;
 import org.deiverbum.app.data.entity.TodayMisaLecturas;
@@ -18,6 +19,11 @@ import org.deiverbum.app.data.entity.TodaySexta;
 import org.deiverbum.app.data.entity.TodayTercia;
 import org.deiverbum.app.data.entity.TodayVisperas;
 import org.deiverbum.app.model.Himno;
+import org.deiverbum.app.model.Homilia;
+import org.deiverbum.app.model.LHBiblicaBreveJoin;
+import org.deiverbum.app.model.LHCanticoEvangelico;
+import org.deiverbum.app.model.Liturgia;
+import org.deiverbum.app.model.LiturgiaHomiliaJoin;
 import org.deiverbum.app.model.Today;
 
 import java.util.List;
@@ -39,10 +45,27 @@ public interface TodayDao {
     @Query("SELECT hoy FROM today ORDER BY hoy DESC LIMIT 1")
     Integer findLastDate();
 
+    @Query("SELECT liturgiaId FROM liturgia ORDER BY liturgiaId DESC LIMIT 1")
+    Integer findLastLiturgia();
+
+    @Query("SELECT homiliaId FROM homilia ORDER BY homiliaId DESC LIMIT 1")
+    Integer findLastHomilia();
 
     @Insert(entity = org.deiverbum.app.data.entity.Today.class,
-            onConflict = OnConflictStrategy.IGNORE)
+            onConflict = OnConflictStrategy.REPLACE)
     void insertAllTodays(List<Today> today);
+
+    @Insert(entity = org.deiverbum.app.data.entity.LiturgiaEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void liturgiaInsertAll(List<Liturgia> today);
+
+    @Insert(entity = org.deiverbum.app.data.entity.HomiliaEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void homiliaInsertAll(List<Homilia> list);
+
+    @Insert(entity = org.deiverbum.app.data.entity.TodayTest.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void insertAllTodaysTest(List<Today> today);
 
     @Insert(entity = org.deiverbum.app.data.entity.HimnoEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
@@ -92,6 +115,18 @@ public interface TodayDao {
             "WHERE t.hoy =:theDate")
     TodayHomilias getHomilias(Integer theDate);
 
+
+    @Insert(entity = org.deiverbum.app.data.entity.LiturgiaHomiliaJoinEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void homiliaJoinInsertAll(List<LiturgiaHomiliaJoin> list);
+
+    @Insert(entity = org.deiverbum.app.data.entity.LHCanticoEvangelicoEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void canticoEvangelicoInsertAll(List<LHCanticoEvangelico> list);
+
+    @Insert(entity = org.deiverbum.app.data.entity.LHBiblicaBreveJoinEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void biblicaBreveJoinInsertAll(List<LHBiblicaBreveJoin> list);
 
 
     /*

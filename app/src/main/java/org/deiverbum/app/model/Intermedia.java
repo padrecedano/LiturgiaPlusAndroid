@@ -8,7 +8,6 @@ import android.text.SpannableStringBuilder;
 import org.deiverbum.app.utils.Utils;
 
 public class Intermedia extends BreviarioHora {
-    private int hourId;
     private BiblicaBreve lecturaBreve;
 
     public Intermedia() {
@@ -37,14 +36,6 @@ public class Intermedia extends BreviarioHora {
         return lecturaBreve;
     }
 
-
-    public void setHourId(int hourId) {
-        this.hourId = hourId;
-    }
-
-    public int getHourId() {
-        return hourId;
-    }
 
     public String getTitulo() {
 
@@ -79,7 +70,7 @@ public class Intermedia extends BreviarioHora {
     public SpannableStringBuilder getForView() {
 
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        //try {
+        try {
             //lecturaBreve.normalizeByTime(metaLiturgia.getCalendarTime());
             //sb.append(metaLiturgia.getAll());
             sb.append(hoy.getAll());
@@ -108,9 +99,9 @@ public class Intermedia extends BreviarioHora {
 
             sb.append(getConclusionHora());
 
-        //} catch (Exception e) {
-            //sb.append(e.getMessage());
-        //}
+        } catch (Exception e) {
+            sb.append(e.getMessage());
+        }
         return sb;
 
     }

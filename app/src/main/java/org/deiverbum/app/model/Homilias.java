@@ -14,7 +14,8 @@ public class Homilias {
     public MetaLiturgia metaLiturgia;
     public List<Homilia> homilias;
 
-    public Homilias(){}
+    public Homilias() {
+    }
 
     public MetaLiturgia getMetaLiturgia() {
         return metaLiturgia;
@@ -25,10 +26,10 @@ public class Homilias {
     }
 
     public void setHomilias(List<Homilia> homilias) {
-        this.homilias=homilias;
+        this.homilias = homilias;
     }
 
-    public List<Homilia> getHomilias(){
+    public List<Homilia> getHomilias() {
         return this.homilias;
     }
 
@@ -36,44 +37,37 @@ public class Homilias {
     private SpannableStringBuilder getTitulo() {
         return Utils.toH3Red("HOMILÍAS");
     }
+
     private String getTituloForRead() {
         return "Homilías.";
     }
 
 
-    public SpannableStringBuilder getForView(){
-        SpannableStringBuilder sb=new SpannableStringBuilder();
-
+    public SpannableStringBuilder getForView() {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
-
-        sb.append(metaLiturgia.getAll());
-        sb.append(LS2);
-        for (Homilia h : homilias) {
-            sb.append(h.getAllForView());
-        }
-        }catch (Exception e){
+            sb.append(metaLiturgia.getAll());
+            sb.append(LS2);
+            for (Homilia h : homilias) {
+                sb.append(h.getAllForView());
+            }
+        } catch (Exception e) {
             sb.append(e.getMessage());
 
         }
         return sb;
     }
 
-    public StringBuilder getAllForRead(){
-        StringBuilder sb=new StringBuilder();
-
+    public StringBuilder getAllForRead() {
+        StringBuilder sb = new StringBuilder();
         try {
             sb.append(metaLiturgia.getAllForRead());
             sb.append(getTituloForRead());
-        for (Homilia s : homilias) {
-            sb.append(s.getAllForRead());
-            /*sb.append(s.getPadre());
-            sb.append(LS2);
-            sb.append(s.getHomilia());
-            sb.append(LS2);*/
-        }
-        }catch (Exception e){
+            for (Homilia s : homilias) {
+                sb.append(s.getAllForRead());
+            }
+        } catch (Exception e) {
             sb.append(e.getMessage());
-
         }
         return sb;
     }

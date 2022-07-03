@@ -13,7 +13,7 @@ public class Visperas extends BreviarioHora {
     private final PadreNuestro padreNuestro;
 
     public Visperas() {
-        this.padreNuestro=new PadreNuestro();
+        this.padreNuestro = new PadreNuestro();
     }
 
     @SuppressWarnings("unused")
@@ -111,11 +111,11 @@ public class Visperas extends BreviarioHora {
     }
 
     private String getTituloHora() {
-        return (hoy.getIdPrevio() == 0) ? "VÍSPERAS" : "I VÍSPERAS";
+        return (hoy.getLiturgiaPrevio() == null) ? "VÍSPERAS" : "I VÍSPERAS";
     }
 
     private String getTituloHoraForRead() {
-        return (hoy.getIdPrevio() == 0) ? "Vísperas." : "Primeras Vísperas.";
+        return (hoy.getLiturgiaPrevio() == null) ? "Vísperas." : "Primeras Vísperas.";
     }
 
 }

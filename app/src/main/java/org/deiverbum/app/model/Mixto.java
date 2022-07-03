@@ -8,7 +8,7 @@ import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
 
-public class Mixto extends BreviarioHora{
+public class Mixto extends BreviarioHora {
     //private MetaLiturgia metaLiturgia;
     private Laudes laudes;
     private Oficio oficio;
@@ -26,9 +26,9 @@ public class Mixto extends BreviarioHora{
     }
 */
 
-public Mixto(){
-    this.padreNuestro=new PadreNuestro();
-}
+    public Mixto() {
+        this.padreNuestro = new PadreNuestro();
+    }
 
     @SuppressWarnings("unused")
     public Invitatorio getInvitatorio() {
@@ -43,6 +43,7 @@ public Mixto(){
     public Laudes getLaudes() {
         return laudes;
     }
+
     public void setLaudes(Laudes laudes) {
         this.laudes = laudes;
     }
@@ -50,6 +51,7 @@ public Mixto(){
     public Oficio getOficio() {
         return oficio;
     }
+
     public void setOficio(Oficio oficio) {
         this.oficio = oficio;
     }
@@ -57,6 +59,7 @@ public Mixto(){
     public MisaLecturas getMisaLecturas() {
         return misaLecturas;
     }
+
     public void setMisaLecturas(MisaLecturas misaLecturas) {
         this.misaLecturas = misaLecturas;
     }
@@ -136,56 +139,56 @@ public Mixto(){
             sb.append(LS2);
 
             sb.append(getConclusionHorasMayores());
-        } catch (Exception e){
+        } catch (Exception e) {
             sb.append(Utils.createErrorMessage(e.getMessage()));
         }
         return sb;
     }
-    
-    public StringBuilder getForRead(boolean isVariable){
+
+    public StringBuilder getForRead(boolean isVariable) {
         StringBuilder sb = new StringBuilder();
 
         try {
-        //Santo santo=laudes.getSanto();
-        Himno himno = laudes.getHimno();
-        Salmodia salmodia = laudes.getSalmodia();
-        OficioLecturas oficioLecturas=oficio.getOficioLecturas();
-        Biblica lecturaBreve = laudes.getLecturaBreve();
+            //Santo santo=laudes.getSanto();
+            Himno himno = laudes.getHimno();
+            Salmodia salmodia = laudes.getSalmodia();
+            OficioLecturas oficioLecturas = oficio.getOficioLecturas();
+            Biblica lecturaBreve = laudes.getLecturaBreve();
             CanticoEvangelico ce = laudes.getBenedictus();
-        Preces preces = laudes.getPreces();
+            Preces preces = laudes.getPreces();
 
-        sb.append(hoy.getAllForRead());
+            sb.append(hoy.getAllForRead());
 
-        if(hoy.getHasSaint()) {
-            sb.append(santo.getVida());
-        }
+            if (hoy.getHasSaint()) {
+                sb.append(santo.getVida());
+            }
 
-        sb.append(getTituloHoraForRead());
-        sb.append(laudes.getSaludoOficioForRead());
+            sb.append(getTituloHoraForRead());
+            sb.append(laudes.getSaludoOficioForRead());
 
-        sb.append(invitatorio.getAllForRead(isVariable));
+            sb.append(invitatorio.getAllForRead(isVariable));
 
-        sb.append(himno.getAllForRead());
+            sb.append(himno.getAllForRead());
 
-        sb.append(salmodia.getAllForRead());
+            sb.append(salmodia.getAllForRead());
 
-        sb.append(lecturaBreve.getAllForRead());
+            sb.append(lecturaBreve.getAllForRead());
 
-        sb.append(oficioLecturas.getAllForRead());
+            sb.append(oficioLecturas.getAllForRead());
 
-        sb.append(Utils.formatSubTitle("Evangelio del día."));
+            sb.append(Utils.formatSubTitle("Evangelio del día."));
 
-        sb.append(misaLecturas.getAllEvangelioForRead());
+            sb.append(misaLecturas.getAllEvangelioForRead());
 
-        sb.append(ce.getAllForRead());
+            sb.append(ce.getAllForRead());
 
-        sb.append(preces.getAllForRead());
+            sb.append(preces.getAllForRead());
 
-        sb.append(padreNuestro.getAllForRead());
+            sb.append(padreNuestro.getAllForRead());
 
-        sb.append(laudes.getOracion().getAllForRead());
-        sb.append(getConclusionHorasMayoresForRead());
-        } catch (Exception e){
+            sb.append(laudes.getOracion().getAllForRead());
+            sb.append(getConclusionHorasMayoresForRead());
+        } catch (Exception e) {
             sb.append(Utils.createErrorMessage(e.getMessage()));
         }
         return sb;

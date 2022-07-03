@@ -34,7 +34,7 @@ public class LiturgiaWithTiempo {
         t.setTiempoId(tiempo.getTiempoId());
         t.setTiempo(tiempo.getTiempo());
         t.setLiturgyName(tiempo.getLiturgyName());
-        dm.setTiempoFK(t);
+        dm.setLiturgiaTiempo(t);
         return dm;
     }
 

@@ -48,7 +48,7 @@ import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
 import org.deiverbum.app.viewmodel.HomiliasViewModel;
 import org.deiverbum.app.viewmodel.TodayViewModel;
-import org.deiverbum.app.workers.ExampleWorker;
+import org.deiverbum.app.workers.TodayWorker;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -132,7 +132,7 @@ public class TodayFragment extends Fragment implements TextToSpeechCallback {
 
 
         PeriodicWorkRequest periodicSyncDataWork =
-                new PeriodicWorkRequest.Builder(ExampleWorker.class, 15,
+                new PeriodicWorkRequest.Builder(TodayWorker.class, 15,
                         TimeUnit.MINUTES)
                         .addTag("TAG_SYNC_DATA")
                         .setConstraints(constraints)
