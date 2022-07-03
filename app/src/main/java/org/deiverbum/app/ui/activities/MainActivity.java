@@ -54,7 +54,7 @@ import org.deiverbum.app.databinding.ActivityMainBinding;
 import org.deiverbum.app.ui.fragments.AcceptanceFragmentDialog;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.viewmodel.TodayViewModel;
-import org.deiverbum.app.workers.ExampleWorker;
+import org.deiverbum.app.workers.TodayWorker;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -275,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         PeriodicWorkRequest periodicSyncDataWork =
-                new PeriodicWorkRequest.Builder(ExampleWorker.class, 15,
+                new PeriodicWorkRequest.Builder(TodayWorker.class, 15,
                         TimeUnit.MINUTES)
                         .addTag("TAG_SYNC_DATA")
                         .setConstraints(constraints)
@@ -293,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
                 new Observer<WorkInfo>() {
                     @Override
                     public void onChanged(WorkInfo workInfo) {
-                        mWorkManager.cancelWorkById(workInfo.getId());
+                        //mWorkManager.cancelWorkById(workInfo.getId());
                     }
                 });
 

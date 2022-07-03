@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import android.util.Log;
+
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
@@ -150,19 +152,28 @@ public class TodayVisperas {
 
 
     public Hoy getToday(){
-        Hoy dm = new Hoy();
-        dm.setFeria(feria.getDomainModel());
-        dm.setFecha(String.valueOf(today.getHoy()));
-        dm.setCalendarTime(today.tiempoId);
-        dm.setHasSaint(true);
-        dm.setMLecturasFK(today.mLecturasFK);
-        dm.setPrevio(previo.getDomainModel());
-        dm.setTitulo(feria.getDomainModel().getNombre());
-        return dm;
+        try {
+            Hoy dm = new Hoy();
+            dm.setIdHour(6);
+            dm.setFeria(feria.getDomainModel());
+            dm.setFecha(String.valueOf(today.getHoy()));
+            dm.setCalendarTime(today.tiempoId);
+            dm.setHasSaint(true);
+            dm.setMLecturasFK(today.mLecturasFK);
+            if (today.previoId != 0) {
+                dm.setPrevio(previo.getDomainModel());
+            }
+            dm.setTitulo(feria.getDomainModel().getNombre());
+            return dm;
+        }catch (Exception e){
+            Log.d("ERR",e.getMessage());
+            return null;
+        }
     }
 
     public Visperas getDomainModel(){
         Visperas dm=new Visperas();
+        dm.setHourId(6);
         dm.setHoy(getToday());
         //dm.setSanto(santo.getDomainModelLH());
         dm.setHimno(getHimno());

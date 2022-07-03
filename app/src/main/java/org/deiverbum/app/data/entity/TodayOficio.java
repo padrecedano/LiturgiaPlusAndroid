@@ -181,7 +181,7 @@ public class TodayOficio {
         dm.setCalendarTime(today.tiempoId);
         dm.setHasSaint(true);
         dm.setMLecturasFK(today.mLecturasFK);
-        dm.setPrevio(previo.getDomainModel());
+        //dm.setPrevio(previo.getDomainModel());
         dm.setTitulo(feria.getDomainModel().getNombre());
         return dm;
     }

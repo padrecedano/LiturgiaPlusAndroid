@@ -9,7 +9,7 @@ import android.text.Spanned;
 
 import org.deiverbum.app.utils.Utils;
 
-public class BiblicaMisa extends Biblica{
+public class BiblicaMisa extends Biblica implements Comparable<BiblicaMisa>{
     private String tema;
 
     public String getTema() {
@@ -36,7 +36,7 @@ public class BiblicaMisa extends Biblica{
         sb.append(LS2);
         sb.append(libro.getLiturgyName());
         sb.append("    ");
-        sb.append(Utils.toRed(getReferencia()));
+        sb.append(Utils.toRed(getRef()));
         sb.append(LS2);
         sb.append(Utils.toRed(getTema()));
         sb.append(LS2);
@@ -93,6 +93,11 @@ public class BiblicaMisa extends Biblica{
             orderText = "Evangelio";
         }
         return orderText;
+    }
+
+    @Override
+    public int compareTo(BiblicaMisa e) {
+        return this.getOrden().compareTo(e.getOrden());
     }
 
 }

@@ -44,6 +44,7 @@ import org.deiverbum.app.data.entity.SalmodiaEntity;
 import org.deiverbum.app.data.entity.SantoEntity;
 import org.deiverbum.app.data.entity.TemaEntity;
 import org.deiverbum.app.data.entity.Today;
+import org.deiverbum.app.data.entity.TodayTest;
 
 /**
  * @author A. Cedano
@@ -53,6 +54,7 @@ import org.deiverbum.app.data.entity.Today;
 @Database(entities =
         {
                 Today.class,
+                TodayTest.class,
                 LiturgiaEntity.class,
                 LiturgiaTiempoEntity.class,
                 SantoEntity.class,

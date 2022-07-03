@@ -20,6 +20,7 @@ import org.deiverbum.app.model.Intermedia;
 import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.Lecturas;
 import org.deiverbum.app.model.MetaLiturgia;
+import org.deiverbum.app.model.MisaLecturas;
 import org.deiverbum.app.model.Mixto;
 import org.deiverbum.app.model.Oficio;
 import org.deiverbum.app.model.Santo;
@@ -81,7 +82,7 @@ public class FirebaseDataSource {
         });
     }
 
-    public Single<DataWrapper<Lecturas, CustomException>> getLecturas(String dateString) {
+    public Single<DataWrapper<MisaLecturas, CustomException>> getLecturas(String dateString) {
         return Single.create(emitter -> {
             DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
             docRef.get().addOnCompleteListener(task -> {
@@ -95,8 +96,8 @@ public class FirebaseDataSource {
 
                             Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
                                 if (mSnapshot.exists()) {
-                                    Lecturas theHour =
-                                            mSnapshot.toObject(Lecturas.class);
+                                    MisaLecturas theHour =
+                                            mSnapshot.toObject(MisaLecturas.class);
                                     Objects.requireNonNull(theHour).setMetaLiturgia(meta);
                                     emitter.onSuccess(new DataWrapper<>(theHour));
                                 } else {

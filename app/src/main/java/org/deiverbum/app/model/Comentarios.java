@@ -19,7 +19,8 @@ public class Comentarios {
     @PropertyName("comentarios")
     public List<ComentarioBiblico> comentarios;
 
-    public Comentarios(){}
+    public Comentarios() {
+    }
 
     public MetaLiturgia getMetaLiturgia() {
         return metaLiturgia;
@@ -31,11 +32,11 @@ public class Comentarios {
 
     @PropertyName("comentarios")
     public void setComentarios(List<ComentarioBiblico> comentarios) {
-        this.comentarios=comentarios;
+        this.comentarios = comentarios;
     }
 
     @PropertyName("comentarios")
-    public List<ComentarioBiblico> getComentarios(){
+    public List<ComentarioBiblico> getComentarios() {
         return this.comentarios;
     }
 
@@ -47,42 +48,50 @@ public class Comentarios {
         return "Comentarios del Evangelio del día.";
     }
 
-    public SpannableStringBuilder getAllForView(){
-        SpannableStringBuilder sb=new SpannableStringBuilder();
-        sb.append(metaLiturgia.getAll());
-        sb.append(LS2);
-        sb.append(getTitulo());
-        sb.append(LS2);
-        sb.append(Utils.formatSubTitle(getPericopa()));
-        sb.append(LS2);
-        for (ComentarioBiblico item : comentarios) {
-            sb.append(item.getAllForView());
+    public SpannableStringBuilder getAllForView() {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+
+        try {
+            sb.append(metaLiturgia.getAll());
+            sb.append(LS2);
+            sb.append(getTitulo());
+            sb.append(LS2);
+            sb.append(Utils.formatSubTitle(getPericopa()));
+            sb.append(LS2);
+            for (ComentarioBiblico item : comentarios) {
+                sb.append(item.getAllForView());
+            }
+        } catch (Exception e) {
+            sb.append(e.getMessage());
         }
         return sb;
     }
 
-    public StringBuilder getAllForRead(){
-        StringBuilder sb=new StringBuilder();
-        sb.append(metaLiturgia.getAllForRead());
-        sb.append(getTituloForRead());
-        sb.append(getPericopa());
-        sb.append(".");
-        for (ComentarioBiblico item : comentarios) {
-            sb.append(item.getAllForRead());
+    public StringBuilder getAllForRead() {
+        StringBuilder sb = new StringBuilder();
+        try {
+
+            sb.append(metaLiturgia.getAllForRead());
+            sb.append(getTituloForRead());
+            sb.append(getPericopa());
+            sb.append(".");
+            for (ComentarioBiblico item : comentarios) {
+                sb.append(item.getAllForRead());
+            }
+        } catch (Exception e) {
+            sb.append(e.getMessage());
         }
         return sb;
     }
 
     @SuppressWarnings("unused")
     public void setPericopa(String pericopa) {
-         this.pericopa=pericopa;
+        this.pericopa = pericopa;
     }
+
     public String getPericopa() {
         return this.pericopa;
     }
-
-
-
 
 
 }

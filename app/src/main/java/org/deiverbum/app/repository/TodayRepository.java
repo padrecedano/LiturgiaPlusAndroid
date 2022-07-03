@@ -31,7 +31,7 @@ import org.deiverbum.app.model.Oficio;
 import org.deiverbum.app.model.Salmodia;
 import org.deiverbum.app.model.Today;
 import org.deiverbum.app.utils.Utils;
-import org.deiverbum.app.workers.ExampleWorker;
+import org.deiverbum.app.workers.TodayWorker;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -92,7 +92,7 @@ public class TodayRepository {
                 .build();
 
         PeriodicWorkRequest periodicSyncDataWork =
-                new PeriodicWorkRequest.Builder(ExampleWorker.class, 15,
+                new PeriodicWorkRequest.Builder(TodayWorker.class, 15,
                         TimeUnit.MINUTES)
                         .addTag("TAG_SYNC_DATA")
                         .setConstraints(constraints)

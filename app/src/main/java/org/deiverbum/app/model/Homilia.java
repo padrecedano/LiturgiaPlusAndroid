@@ -4,23 +4,29 @@ import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
 
+import androidx.room.Ignore;
+
 import org.deiverbum.app.utils.Utils;
 
 public class Homilia {
+    @Ignore
     public String padre="";
-    public int id;
-    public String texto="";
+    public int homiliaId;
+    public String homilia="";
+    @Ignore
     public String tema="";
-    public String obra="";
+    public Integer obraFK=0;
     public String fecha="";
+    @Ignore
+    public String obra="";
 
     @SuppressWarnings("unused")
-    public Homilia(String padre, int id, String texto, String tema, String obra, String fecha) {
+    public Homilia(String padre, int id, String texto, String tema, Integer obra, String fecha) {
         this.padre = padre;
-        this.id = id;
-        this.texto = texto;
+        this.homiliaId = id;
+        this.homilia = texto;
         this.tema = tema;
-        this.obra = obra;
+        this.obraFK = obra;
         this.fecha = fecha;
 
     }
@@ -30,17 +36,23 @@ public class Homilia {
     public String getTema() {
         return tema;
     }
+    public String getObra() {
+        return obra;
+    }
+    public void setObra(String obra) {
+        this.obra = obra;
+    }
 
     public void setTema(String tema) {
         this.tema = tema;
     }
 
-    public String getObra() {
-        return obra;
+    public Integer getObraFK() {
+        return obraFK;
     }
 
-    public void setObra(String obra) {
-        this.obra = obra;
+    public void setObraFK(Integer obra) {
+        this.obraFK = obra;
     }
     public String getPadre() {
         return padre;
@@ -51,29 +63,29 @@ public class Homilia {
     }
 
     @SuppressWarnings("unused")
-    public int getId_homilia() {
-        return id;
+    public int getHomiliaId() {
+        return homiliaId;
     }
 
     @SuppressWarnings("unused")
-    public void setId_homilia(int id) {
-        this.id = id;
+    public void setHomiliaId(int id) {
+        this.homiliaId = id;
     }
 
     public String getHomilia() {
-        return texto;
+        return homilia;
     }
 
     @SuppressWarnings("unused")
     public void setHomilia(String texto) {
-        this.texto = texto;
+        this.homilia = texto;
     }
 
     public SpannableStringBuilder getAllForView(){
         SpannableStringBuilder sb=new SpannableStringBuilder();
         sb.append(Utils.toH3Red(getPadre()));
         sb.append(LS2);
-        sb.append(Utils.toH4Red(getObra()));
+        //sb.append(Utils.toH4Red(getObra()));
         sb.append(LS2);
         if(!tema.isEmpty()) {
             sb.append(Utils.toRed(tema));
@@ -91,7 +103,7 @@ public class Homilia {
     public StringBuilder getAllForRead(){
         StringBuilder sb=new StringBuilder();
         sb.append(Utils.normalizeEnd(getPadre()));
-        sb.append(Utils.normalizeEnd(getObra()));
+        //sb.append(Utils.normalizeEnd(getObra()));
         if(!tema.isEmpty()) {
             sb.append(Utils.normalizeEnd(tema));
         }

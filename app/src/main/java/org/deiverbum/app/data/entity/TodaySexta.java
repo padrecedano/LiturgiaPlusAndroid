@@ -86,13 +86,13 @@ public class TodaySexta {
         dm.setFeria(feria.getDomainModel());
         dm.setFecha(String.valueOf(today.getHoy()));
         //theModel.setColor(feria.getColorFK());
-        dm.setIdHour(3);
+        dm.setIdHour(4);
         dm.setCalendarTime(today.tiempoId);
         dm.setHasSaint(true);
         //theModel.setIdBreviario(feria.colorFK);
         //theModel.setIdDia(feria.colorFK);
-        dm.setMLecturasFK(today.mLecturasFK);
-        dm.setPrevio(previo.getDomainModel());//.setIdPrevio(1);
+        //dm.setMLecturasFK(today.mLecturasFK);
+        //dm.setPrevio(previo.getDomainModel());//.setIdPrevio(1);
         //theModel.setIdSemana(1);
         //theModel.setIdTiempo(9);
         //theModel.setIdTiempoPrevio(1);

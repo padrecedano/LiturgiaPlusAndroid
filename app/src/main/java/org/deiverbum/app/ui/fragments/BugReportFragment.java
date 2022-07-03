@@ -34,16 +34,12 @@ public class BugReportFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-
         binding = FragmentBugreportBinding.inflate(inflater, container, false);
         Button button = binding.btnSend;
         View root = binding.getRoot();
-
-
         button.setOnClickListener(v -> {
             LinearLayout left=binding.leftSide;
             LinearLayout right=binding.rightSide;
-
             List<CharSequence> selected=new ArrayList<>();
             for(int i = 0; i < left.getChildCount(); i++) {
                 CheckBox checkBox= (CheckBox) left.getChildAt(i);
@@ -61,9 +57,7 @@ public class BugReportFragment extends Fragment {
 
             String textSelected= TextUtils.join(", ", selected);
             String msg=String.format("Mensaje: \n\n%s\n\nEn:\n\n%s", Objects.requireNonNull(binding.message.getText()),textSelected);
-
             composeEmail(new String[]{Configuration.MY_EMAIL},  ERR_SUBJECT, msg);
-
         });
 
         return root;

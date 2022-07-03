@@ -48,7 +48,7 @@ import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
 import org.deiverbum.app.viewmodel.HomiliasViewModel;
 import org.deiverbum.app.viewmodel.TodayViewModel;
-import org.deiverbum.app.workers.ExampleWorker;
+import org.deiverbum.app.workers.TodayWorker;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;

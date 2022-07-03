@@ -1,8 +1,13 @@
 package org.deiverbum.app.model;
+
 import static org.deiverbum.app.utils.Utils.LS2;
+
 import android.text.SpannableStringBuilder;
+
 import androidx.annotation.NonNull;
+
 import org.deiverbum.app.utils.Utils;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -11,7 +16,7 @@ import java.util.Objects;
  * @version 1.0
  * @since 2022.1
  */
-public class Lecturas extends Liturgia{
+public class Lecturas extends Liturgia {
     private int tipo;
     private List<BiblicaMisa> lecturas;
 
@@ -26,7 +31,8 @@ public class Lecturas extends Liturgia{
     @SuppressWarnings("unused")
     private MetaLiturgia metaliturgia;
 
-    public Lecturas(){}
+    public Lecturas() {
+    }
 
     public int getTipo() {
         return tipo;
@@ -69,6 +75,7 @@ public class Lecturas extends Liturgia{
     private SpannableStringBuilder getTitulo() {
         return Utils.toH3Red("LECTURAS DE LA MISA");
     }
+
     private String getTituloForRead() {
         return "Lecturas de la Misa.";
     }
@@ -76,17 +83,14 @@ public class Lecturas extends Liturgia{
     public SpannableStringBuilder getForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         try {
-
             sb.append(hoy.getForViewMisa());
-        sb.append(LS2);
-
-        sb.append(getTitulo());
-        sb.append(LS2);
-
-        for (BiblicaMisa l : lecturas) {
-            sb.append(l.getAll());
-        }
-        } catch (Exception e){
+            sb.append(LS2);
+            sb.append(getTitulo());
+            sb.append(LS2);
+            for (BiblicaMisa l : lecturas) {
+                sb.append(l.getAll());
+            }
+        } catch (Exception e) {
             sb.append(Utils.createErrorMessage(e.getMessage()));
         }
         return sb;
@@ -94,20 +98,23 @@ public class Lecturas extends Liturgia{
 
 
     @NonNull
-    public String toString(){
+    public String toString() {
         return Objects.requireNonNull(this.getClass().getCanonicalName());
     }
 
     public SpannableStringBuilder getAllForRead() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
-        sb.append(hoy.getAllForRead());
-        sb.append(getTituloForRead());
-        for (BiblicaMisa l : lecturas) {
-            sb.append(l.getAllForRead());
+        try {
+            sb.append(hoy.getAllForRead());
+            sb.append(getTituloForRead());
+            for (BiblicaMisa l : lecturas) {
+                sb.append(l.getAllForRead());
+            }
+        } catch (Exception e){
+            sb.append(e.getMessage());
         }
         return sb;
     }
-
 
 }
 
