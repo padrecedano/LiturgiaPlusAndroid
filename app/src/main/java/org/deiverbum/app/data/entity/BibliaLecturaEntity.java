@@ -7,6 +7,8 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.deiverbum.app.model.Biblica;
 
 /**
@@ -76,6 +78,7 @@ public class BibliaLecturaEntity {
 
     @NonNull
     @ColumnInfo(name = "desde")
+    @SerializedName("versoInicial")
     public Integer desde=0;
 
     @NonNull
@@ -95,7 +98,7 @@ public Biblica getDomainModel(){
     Biblica theModel=new Biblica();
     //theModel.setLibro(String.valueOf(getLibroId()));
     theModel.setCapitulo(String.valueOf(getCapitulo()));
-    theModel.setRef(String.valueOf(getHasta()));
+    theModel.setCita(String.valueOf(getHasta()));
     theModel.setVersoInicial(String.valueOf(getDesde()));
     theModel.setVersoFinal(String.valueOf(getHasta()));
     //theModel.setTema(biblicaOficioWithResponsorio.tema);

@@ -43,7 +43,7 @@ public class BiblicaOficio extends Biblica {
     public SpannableStringBuilder getResponsorioHeader() {
         SpannableStringBuilder sb=new SpannableStringBuilder();
         sb.append(Utils.toRed(String.format("%-15s", "Responsorio")));
-        sb.append(Utils.toRed(getRef()));
+        sb.append(Utils.toRed(getCita()));
         return sb;
     }
 
@@ -63,7 +63,7 @@ public class BiblicaOficio extends Biblica {
         sb.append(LS2);
         sb.append(libro.getLiturgyName());
         sb.append("    ");
-        sb.append(Utils.toRed(getRef()));
+        sb.append(Utils.toRed(getCita()));
         //sb.append(", ");
         ////sb.append(Utils.toRed(getVersoFinal()));
         sb.append(LS2);

@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import org.deiverbum.app.data.entity.HimnoEntity;
 import org.deiverbum.app.data.entity.LHCanticoEvangelicoEntity;
@@ -18,12 +19,17 @@ import org.deiverbum.app.data.entity.TodayOficio;
 import org.deiverbum.app.data.entity.TodaySexta;
 import org.deiverbum.app.data.entity.TodayTercia;
 import org.deiverbum.app.data.entity.TodayVisperas;
+import org.deiverbum.app.model.Biblica;
+import org.deiverbum.app.model.BiblicaMisa;
 import org.deiverbum.app.model.Himno;
 import org.deiverbum.app.model.Homilia;
+import org.deiverbum.app.model.LHAntifona;
 import org.deiverbum.app.model.LHBiblicaBreveJoin;
 import org.deiverbum.app.model.LHCanticoEvangelico;
 import org.deiverbum.app.model.Liturgia;
 import org.deiverbum.app.model.LiturgiaHomiliaJoin;
+import org.deiverbum.app.model.MisaLectura;
+import org.deiverbum.app.model.MisaLecturas;
 import org.deiverbum.app.model.Today;
 
 import java.util.List;
@@ -127,6 +133,31 @@ public interface TodayDao {
     @Insert(entity = org.deiverbum.app.data.entity.LHBiblicaBreveJoinEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
     void biblicaBreveJoinInsertAll(List<LHBiblicaBreveJoin> list);
+
+    @Update(entity = org.deiverbum.app.data.entity.BibliaLecturaEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void bibleReadingUpdateAll(List<Biblica> list);
+
+    @Update(entity = org.deiverbum.app.data.entity.AntifonaEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhAntifonaUpdateAll(List<LHAntifona> list);
+
+    @Update(entity = org.deiverbum.app.data.entity.Today.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void todayUpdateAll(List<Today> list);
+
+    @Update(entity = org.deiverbum.app.data.entity.MisaLecturaEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void misaLecturaUpdateAll(List<MisaLectura> misaLectura);
+
+    @Insert(entity = org.deiverbum.app.data.entity.MisaLecturaEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void misaLecturaInsertAll(List<MisaLectura> misaLectura);
+
+    @Insert(entity = org.deiverbum.app.data.entity.BibliaLecturaEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void bibleReadingInsertAll(List<Biblica> bibleReading);
+
 
 
     /*

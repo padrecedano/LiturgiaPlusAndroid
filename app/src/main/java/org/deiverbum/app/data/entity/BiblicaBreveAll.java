@@ -35,7 +35,7 @@ public class BiblicaBreveAll {
     public BiblicaBreve getDomainModel(Integer tiempoId) {
         BiblicaBreve dm=new BiblicaBreve();
         dm.setTexto(biblica.texto);
-        dm.setRef(biblica.cita);
+        dm.setCita(biblica.cita);
         dm.setResponsorio(responsorio.getDomainModel(tiempoId));
         return dm;
     }

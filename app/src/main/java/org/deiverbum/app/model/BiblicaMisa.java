@@ -36,7 +36,7 @@ public class BiblicaMisa extends Biblica implements Comparable<BiblicaMisa>{
         sb.append(LS2);
         sb.append(libro.getLiturgyName());
         sb.append("    ");
-        sb.append(Utils.toRed(getRef()));
+        sb.append(Utils.toRed(getCita()));
         sb.append(LS2);
         sb.append(Utils.toRed(getTema()));
         sb.append(LS2);

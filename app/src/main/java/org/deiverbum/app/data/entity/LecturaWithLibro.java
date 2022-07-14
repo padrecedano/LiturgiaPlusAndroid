@@ -31,7 +31,7 @@ public class LecturaWithLibro {
         theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
         theModel.setVersoInicial(String.valueOf(lectura.getDesde()));
         theModel.setVersoFinal(String.valueOf(lectura.getHasta()));
-        theModel.setRef(lectura.getCita());
+        theModel.setCita(lectura.getCita());
         //theModel.setTema(lectura.getTema());
         theModel.setTexto(lectura.getTexto());
         return theModel;
@@ -43,7 +43,7 @@ public class LecturaWithLibro {
         theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
         theModel.setVersoInicial(String.valueOf(lectura.getDesde()));
         theModel.setVersoFinal(String.valueOf(lectura.getHasta()));
-        theModel.setRef(lectura.getCita());
+        theModel.setCita(lectura.getCita());
         //theModel.setTema(lectura.getTema());
         theModel.setTexto(lectura.getTexto());
 
@@ -56,7 +56,7 @@ public class LecturaWithLibro {
         theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
         theModel.setVersoInicial(String.valueOf(lectura.getDesde()));
         theModel.setVersoFinal(String.valueOf(lectura.getHasta()));
-        theModel.setRef(lectura.getCita());
+        theModel.setCita(lectura.getCita());
         //theModel.setTema(lectura.getTema());
         theModel.setTexto(lectura.getTexto());
         return theModel;
@@ -69,7 +69,7 @@ public class LecturaWithLibro {
         theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
         theModel.setVersoInicial(String.valueOf(lectura.getDesde()));
         theModel.setVersoFinal(String.valueOf(lectura.getHasta()));
-        theModel.setRef(lectura.getCita());
+        theModel.setCita(lectura.getCita());
         theModel.setTexto(lectura.getTexto());
         return theModel;
     }

@@ -13,6 +13,7 @@ public class Homilias {
     public String texto;
     public MetaLiturgia metaLiturgia;
     public List<Homilia> homilias;
+    private Hoy today;
 
     public Homilias() {
     }
@@ -46,7 +47,9 @@ public class Homilias {
     public SpannableStringBuilder getForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
-            sb.append(metaLiturgia.getAll());
+            sb.append(today.getAll());
+            sb.append(LS2);
+            sb.append(getTitulo());
             sb.append(LS2);
             for (Homilia h : homilias) {
                 sb.append(h.getAllForView());
@@ -61,7 +64,7 @@ public class Homilias {
     public StringBuilder getAllForRead() {
         StringBuilder sb = new StringBuilder();
         try {
-            sb.append(metaLiturgia.getAllForRead());
+            sb.append(today.getAllForRead());
             sb.append(getTituloForRead());
             for (Homilia s : homilias) {
                 sb.append(s.getAllForRead());
@@ -72,4 +75,7 @@ public class Homilias {
         return sb;
     }
 
+    public void setHoy(Hoy today) {
+        this.today=today;
+    }
 }

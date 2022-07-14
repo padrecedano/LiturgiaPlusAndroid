@@ -92,4 +92,9 @@ public interface ApiService {
     //@FormUrlEncoded
     @GET("crud/")
     Single<Crud> getCrud(@QueryMap Map<String,Integer> map);
+
+    @Headers("Cache-Control: no-cache")
+    //@FormUrlEncoded
+    @GET("update/")
+    Single<Crud> callUpdate(@QueryMap Map<String,Integer> map);
 }
