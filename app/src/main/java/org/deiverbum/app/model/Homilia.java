@@ -85,7 +85,7 @@ public class Homilia {
         SpannableStringBuilder sb=new SpannableStringBuilder();
         sb.append(Utils.toH3Red(getPadre()));
         sb.append(LS2);
-        //sb.append(Utils.toH4Red(getObra()));
+        sb.append(Utils.toH4Red(getObra()));
         sb.append(LS2);
         if(!tema.isEmpty()) {
             sb.append(Utils.toRed(tema));
@@ -103,7 +103,7 @@ public class Homilia {
     public StringBuilder getAllForRead(){
         StringBuilder sb=new StringBuilder();
         sb.append(Utils.normalizeEnd(getPadre()));
-        //sb.append(Utils.normalizeEnd(getObra()));
+        sb.append(Utils.normalizeEnd(getObra()));
         if(!tema.isEmpty()) {
             sb.append(Utils.normalizeEnd(tema));
         }

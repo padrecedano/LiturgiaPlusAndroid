@@ -5,16 +5,25 @@ import static org.deiverbum.app.utils.Utils.LS2;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
+import androidx.room.Ignore;
+
+import com.google.gson.annotations.SerializedName;
+
 import org.deiverbum.app.utils.Utils;
 
 public class Biblica {
+    @Ignore
     protected BibliaLibro libro;
     private String capitulo;
-    private String versoInicial;
-    private String versoFinal;
+    private String desde;
+    private String hasta;
     private String texto;
-    private String ref;
+    private String cita;
+    @Ignore
     protected Integer orden;
+
+    protected Integer lecturaId;
+    public Integer libroFK=0;
 
     public BibliaLibro getLibro() {
         return libro;
@@ -37,21 +46,36 @@ public class Biblica {
     }
 
     public String getVersoInicial() {
-        return versoInicial;
+        return desde;
     }
 
     public void setVersoInicial(String versoInicial) {
-        this.versoInicial = versoInicial;
+        this.desde = versoInicial;
+    }
+
+    public String getDesde() {
+        return desde;
+    }
+
+    public void setDesde(String versoInicial) {
+        this.desde = versoInicial;
     }
 
     public String getVersoFinal() {
-        return versoFinal;
+        return hasta;
     }
 
     public void setVersoFinal(String versoFinal) {
-        this.versoFinal = versoFinal;
+        this.hasta = hasta;
     }
 
+    public String getHasta() {
+        return hasta;
+    }
+
+    public void setHasta(String versoFinal) {
+        this.hasta = hasta;
+    }
 
     public Spanned getTextoSpan() {
         return Utils.fromHtml(Utils.getFormato(texto));
@@ -72,16 +96,16 @@ public class Biblica {
     }
 
 
-    public String getRef() {
-        return ref;
+    public String getCita() {
+        return cita;
         //getReferencia();
     }
     public String getRefBreve() {
-        return (this.ref!=null) ? this.ref : "";
+        return (this.cita!=null) ? this.cita : "";
     }
 
-    public void setRef(String ref) {
-        this.ref = ref;
+    public void setCita(String ref) {
+        this.cita = ref;
     }
 
     public String getReferencia() {
@@ -145,6 +169,9 @@ public class Biblica {
 
     public Integer getOrden() {
         return this.orden;
+    }
+    public Integer getLecturaId() {
+        return this.lecturaId;
     }
 
     public void setOrden(Integer orden) {

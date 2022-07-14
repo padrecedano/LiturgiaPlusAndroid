@@ -59,7 +59,7 @@ public class Lecturas extends Liturgia {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         for (BiblicaMisa l : lecturas) {
             if (l.getOrden() == 40) {
-                sb.append(Utils.toH4Red(l.getLibro() + "       " + l.getRef()));
+                sb.append(Utils.toH4Red(l.getLibro() + "       " + l.getCita()));
                 sb.append(LS2);
                 sb.append(Utils.toRed(l.getTema()));
                 sb.append(LS2);

@@ -27,7 +27,7 @@ public class Evangelio extends BiblicaMisa{
         sb.append(Utils.LS2);
         sb.append(libro.getLiturgyName());
         sb.append("    ");
-        sb.append(Utils.toRed(getRef()));
+        sb.append(Utils.toRed(getCita()));
         sb.append(Utils.LS2);
         sb.append(Utils.fromHtml(Utils.getFormato(getTexto())));
         return sb;

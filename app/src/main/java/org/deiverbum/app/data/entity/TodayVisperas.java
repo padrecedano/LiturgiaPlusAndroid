@@ -126,7 +126,7 @@ public class TodayVisperas {
     }
 
     public CanticoEvangelico getMagnificat(){
-        return  magnificat.getDomainModel(2);
+        return  magnificat.getDomainModel(6);
     }
 
     public Preces getPreces(){
@@ -136,7 +136,6 @@ public class TodayVisperas {
     public Santo getSanto(){
         return  santo.getDomainModelLH();
     }
-
 
     public Invitatorio getInvitatorio() {
         return invitatorio.getDomainModel();

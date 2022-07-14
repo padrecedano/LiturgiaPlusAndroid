@@ -2,11 +2,17 @@ package org.deiverbum.app.data.wrappers;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.deiverbum.app.model.Biblica;
+import org.deiverbum.app.model.BiblicaMisa;
 import org.deiverbum.app.model.Homilia;
+import org.deiverbum.app.model.LHAntifona;
 import org.deiverbum.app.model.LHBiblicaBreveJoin;
 import org.deiverbum.app.model.LHCanticoEvangelico;
 import org.deiverbum.app.model.Liturgia;
 import org.deiverbum.app.model.LiturgiaHomiliaJoin;
+import org.deiverbum.app.model.MisaLectura;
+import org.deiverbum.app.model.MisaLecturas;
+import org.deiverbum.app.model.Today;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -24,11 +30,22 @@ public class Crud  {
     public List<Homilia> homilia;
     public List<LiturgiaHomiliaJoin> liturgiaHomiliaJoin;
     public List<Liturgia> liturgia;
+    public List<Today> today;
+
+    @SerializedName("misaLectura")
+    public List<MisaLectura> misaLectura;
+
     @SerializedName("lhCanticoEvangelico")
 
     public List<LHCanticoEvangelico> ce;
     @SerializedName("lhBiblicaBreveJoin")
     public List<LHBiblicaBreveJoin> bvJoin;
+
+    @SerializedName("lhAntifona")
+    public List<LHAntifona> lhAntifona;
+
+    @SerializedName("bibleReading")
+    public List<Biblica> bibleReading;
 
     public Crud() {
     }

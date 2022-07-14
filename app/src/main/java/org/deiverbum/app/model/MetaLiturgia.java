@@ -90,6 +90,7 @@ public class MetaLiturgia {
     }
 
     public String getFecha() {
+
         return (fecha != null) ? Utils.getLongDate(fecha) : "";
     }
 
@@ -378,8 +379,8 @@ public class MetaLiturgia {
     }
 
     public String getTimeForRead() {
-        this.idDia=liturgiaFeria.getDia();
-        this.idSemana=liturgiaFeria.getSemana();
+        //this.idDia=liturgiaFeria.getDia();
+        //this.idSemana=liturgiaFeria.getSemana();
         //this.idTiempo=liturgiaFeria.getTiempoId();
         if (
                 this.idTiempo >= 8

@@ -12,6 +12,8 @@ public class Constants {
       */
     public static final int VERSION_CODE = 202201003;
                                          //202201001
+    public static final int DB_VERSION = 1;
+
     public static ForegroundColorSpan RED_COLOR = new ForegroundColorSpan(Color.parseColor("#A52A2A"));
     public static final String VOICE_INI = "Iniciando lectura.";
     public static final String ERR_LANG = "Lenguaje no soportado.";
