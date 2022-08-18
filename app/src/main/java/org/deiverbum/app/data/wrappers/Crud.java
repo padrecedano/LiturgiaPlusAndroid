@@ -12,6 +12,7 @@ import org.deiverbum.app.model.Liturgia;
 import org.deiverbum.app.model.LiturgiaHomiliaJoin;
 import org.deiverbum.app.model.MisaLectura;
 import org.deiverbum.app.model.MisaLecturas;
+import org.deiverbum.app.model.SaintLife;
 import org.deiverbum.app.model.Today;
 
 import java.io.PrintWriter;
@@ -36,7 +37,6 @@ public class Crud  {
     public List<MisaLectura> misaLectura;
 
     @SerializedName("lhCanticoEvangelico")
-
     public List<LHCanticoEvangelico> ce;
     @SerializedName("lhBiblicaBreveJoin")
     public List<LHBiblicaBreveJoin> bvJoin;
@@ -46,6 +46,9 @@ public class Crud  {
 
     @SerializedName("bibleReading")
     public List<Biblica> bibleReading;
+
+    @SerializedName("saintLife")
+    public List<SaintLife> saintLife;
 
     public Crud() {
     }

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
+import org.deiverbum.app.model.SaintLife;
 import org.deiverbum.app.model.Santo;
 import org.deiverbum.app.repository.SantosRepository;
 
@@ -23,8 +24,11 @@ public class SantosViewModel extends ViewModel {
 
     public LiveData<DataWrapper<Santo, CustomException>> getObservable(String month,
                                                                        String day) {
-        return mRepository.getData(month, day);
+        return null;//mRepository.getData(month, day);
     }
 
+    public LiveData<DataWrapper<SaintLife, CustomException>> getSaintLife(String theDate) {
+        return mRepository.getSaintDB(theDate);
+    }
 
 }

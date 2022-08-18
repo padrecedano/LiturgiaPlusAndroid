@@ -4,10 +4,16 @@ import static org.deiverbum.app.utils.Constants.ERR_REPORT;
 
 import androidx.lifecycle.MediatorLiveData;
 
+import org.deiverbum.app.data.db.dao.TodayDao;
+import org.deiverbum.app.data.entity.TodayLaudes;
+import org.deiverbum.app.data.entity.TodaySanto;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
+import org.deiverbum.app.model.Laudes;
+import org.deiverbum.app.model.SaintLife;
 import org.deiverbum.app.model.Santo;
+import org.deiverbum.app.utils.Utils;
 
 import javax.inject.Inject;
 
@@ -20,13 +26,16 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
  */
 public class SantosRepository {
     private final FirebaseDataSource firebaseDataSource;
-    private final MediatorLiveData<DataWrapper<Santo, CustomException>> mData =
+    private final MediatorLiveData<DataWrapper<SaintLife, CustomException>> mData =
             new MediatorLiveData<>();
+    private final TodayDao mTodayDao;
 
 
     @Inject
-    public SantosRepository(FirebaseDataSource firebaseDataSource) {
+    public SantosRepository(FirebaseDataSource firebaseDataSource,TodayDao todayDao) {
         this.firebaseDataSource = firebaseDataSource;
+        this.mTodayDao = todayDao;
+
     }
 
     /**
@@ -38,15 +47,15 @@ public class SantosRepository {
      * @param day El día a buscar
      * @return En MediatorLiveData con los datos obtenidos
      */
-    public MediatorLiveData<DataWrapper<Santo,CustomException>> getData(String month, String day) {
+    public MediatorLiveData<DataWrapper<SaintLife,CustomException>> getData(String month, String day) {
         firebaseDataSource.getSantos(month, day)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<Santo,
+                .subscribe(new DisposableSingleObserver<DataWrapper<SaintLife,
                         CustomException>>() {
 
                     @Override
-                    public void onSuccess(DataWrapper<Santo,CustomException> data) {
+                    public void onSuccess(DataWrapper<SaintLife,CustomException> data) {
                         mData.postValue(data);
                     }
 
@@ -61,7 +70,19 @@ public class SantosRepository {
         return mData;
     }
 
-
+    public MediatorLiveData<DataWrapper<SaintLife, CustomException>> getSaintDB(String s) {
+        TodaySanto theEntity = mTodayDao.getSantoOfToday(Integer.valueOf(s));
+        SaintLife theModel=mTodayDao.getSantoOfToday(Integer.valueOf(s)).getDomainModel();
+        if (theModel != null) {
+            //SaintLife theModel = theEntity.getDomainModel();
+                mData.postValue(new DataWrapper<>(theModel));
+        } else {
+            String month = Utils.getMonth(s);
+            String day = Utils.getDay(s);
+            getData(month,day);
+        }
+        return mData;
+    }
 
 }
 

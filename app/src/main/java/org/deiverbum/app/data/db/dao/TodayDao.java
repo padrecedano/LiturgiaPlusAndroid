@@ -10,12 +10,14 @@ import androidx.room.Update;
 
 import org.deiverbum.app.data.entity.HimnoEntity;
 import org.deiverbum.app.data.entity.LHCanticoEvangelicoEntity;
+import org.deiverbum.app.data.entity.TodayComentarios;
 import org.deiverbum.app.data.entity.TodayHomilias;
 import org.deiverbum.app.data.entity.TodayLaudes;
 import org.deiverbum.app.data.entity.TodayMisaLecturas;
 import org.deiverbum.app.data.entity.TodayMixto;
 import org.deiverbum.app.data.entity.TodayNona;
 import org.deiverbum.app.data.entity.TodayOficio;
+import org.deiverbum.app.data.entity.TodaySanto;
 import org.deiverbum.app.data.entity.TodaySexta;
 import org.deiverbum.app.data.entity.TodayTercia;
 import org.deiverbum.app.data.entity.TodayVisperas;
@@ -30,6 +32,7 @@ import org.deiverbum.app.model.Liturgia;
 import org.deiverbum.app.model.LiturgiaHomiliaJoin;
 import org.deiverbum.app.model.MisaLectura;
 import org.deiverbum.app.model.MisaLecturas;
+import org.deiverbum.app.model.SaintLife;
 import org.deiverbum.app.model.Today;
 
 import java.util.List;
@@ -116,11 +119,20 @@ public interface TodayDao {
     TodayMisaLecturas getMisaLecturas(Integer theDate);
 
     @Transaction
+    @Query(todayByDate)
+    TodaySanto getSantoOfToday(Integer theDate);
+
+    @Transaction
     @Query("SELECT * FROM today AS t " +
             "JOIN homilia h ON t.feriaFK=h.homiliaId " +
             "WHERE t.hoy =:theDate")
     TodayHomilias getHomilias(Integer theDate);
 
+    @Transaction
+    @Query("SELECT * FROM today AS t " +
+            "JOIN homilia h ON t.feriaFK=h.homiliaId JOIN misa_lectura ml ON t.mLecturasFK=ml.liturgiaFK " +
+            "WHERE t.hoy =:theDate AND ml.orden >= 40")
+    TodayComentarios getComentarios(Integer theDate);
 
     @Insert(entity = org.deiverbum.app.data.entity.LiturgiaHomiliaJoinEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
@@ -158,7 +170,9 @@ public interface TodayDao {
             onConflict = OnConflictStrategy.IGNORE)
     void bibleReadingInsertAll(List<Biblica> bibleReading);
 
-
+    @Insert(entity = org.deiverbum.app.data.entity.SaintLifeEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void saintLifeInsertAll(List<SaintLife> saintLife);
 
     /*
     @Insert

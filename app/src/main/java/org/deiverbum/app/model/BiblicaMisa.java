@@ -38,8 +38,10 @@ public class BiblicaMisa extends Biblica implements Comparable<BiblicaMisa>{
         sb.append("    ");
         sb.append(Utils.toRed(getCita()));
         sb.append(LS2);
-        sb.append(Utils.toRed(getTema()));
-        sb.append(LS2);
+        if(tema!=null) {
+            sb.append(Utils.toRed(getTema()));
+            sb.append(LS2);
+        }
         sb.append(getTextoSpan());
         sb.append(Utils.LS2);
         return sb;
