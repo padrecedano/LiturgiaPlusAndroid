@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.deiverbum.app.utils.Utils.LS2;
 
-public class Comentario {
+public class Comentario extends Homilia{
     private String pericopa;
     private List<ComentarioBiblico> comentarioCompleto;
     private String texto;

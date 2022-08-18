@@ -89,13 +89,13 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
         String mDate = (bundle != null) ? bundle.getString("FECHA") : Utils.getHoy();
         String month = Utils.getMonth(mDate);
         String day = Utils.getDay(mDate);
-        observeData(month,day);
+        observeData(mDate);
 
     }
 
-    void observeData(String month, String day) {
+    void observeData(String mDate) {
         mTextView.setText(PACIENCIA);
-        mViewModel.getObservable(month,day).observe(getViewLifecycleOwner(),
+        mViewModel.getSaintLife(mDate).observe(getViewLifecycleOwner(),
                 data -> {
                     progressBar.setVisibility(View.GONE);
                     if (data.status == DataWrapper.Status.SUCCESS) {

@@ -24,7 +24,7 @@ public class ComentariosViewModel extends ViewModel {
     }
 
     public MutableLiveData<DataWrapper<Comentarios, CustomException>> getObservable(String date) {
-        return mRepository.getComentarios(date);
+        return mRepository.getFromDB(date);
     }
 
 }

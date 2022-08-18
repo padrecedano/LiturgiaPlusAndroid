@@ -66,7 +66,7 @@ public class Biblica {
     }
 
     public void setVersoFinal(String versoFinal) {
-        this.hasta = hasta;
+        this.hasta = versoFinal;
     }
 
     public String getHasta() {

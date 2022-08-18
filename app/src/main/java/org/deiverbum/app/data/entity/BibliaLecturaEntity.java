@@ -10,6 +10,7 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 import org.deiverbum.app.model.Biblica;
+import org.deiverbum.app.model.BiblicaMisa;
 
 /**
  * @author A. Cedano
@@ -106,6 +107,19 @@ public Biblica getDomainModel(){
     //theModel.setResponsorio(lhResponsorioEntity.getDomainModel());
     return theModel;
 }
+
+    public BiblicaMisa getDomainModelMisa(){
+        BiblicaMisa theModel=new BiblicaMisa();
+        //theModel.setLibro(String.valueOf(getLibroId()));
+        theModel.setCapitulo(String.valueOf(getCapitulo()));
+        theModel.setCita(String.valueOf(getHasta()));
+        theModel.setVersoInicial(String.valueOf(getDesde()));
+        theModel.setVersoFinal(String.valueOf(getHasta()));
+        //theModel.setTema(biblicaOficioWithResponsorio.tema);
+        theModel.setTexto(getTexto());
+        //theModel.setResponsorio(lhResponsorioEntity.getDomainModel());
+        return theModel;
+    }
 
 }
 

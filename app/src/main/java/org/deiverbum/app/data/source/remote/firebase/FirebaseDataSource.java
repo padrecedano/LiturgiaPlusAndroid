@@ -23,6 +23,7 @@ import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.MisaLecturas;
 import org.deiverbum.app.model.Mixto;
 import org.deiverbum.app.model.Oficio;
+import org.deiverbum.app.model.SaintLife;
 import org.deiverbum.app.model.Santo;
 import org.deiverbum.app.model.Visperas;
 import org.deiverbum.app.utils.Utils;
@@ -60,13 +61,13 @@ public class FirebaseDataSource {
      * @param day   El día
      * @return Datos del Santo o error
      */
-    public Single<DataWrapper<Santo, CustomException>> getSantos(String month, String day) {
+    public Single<DataWrapper<SaintLife, CustomException>> getSantos(String month, String day) {
         return Single.create(emitter -> {
             DocumentReference dataRef = firebaseFirestore.document(FIREBASE_SANTOS).collection(month).document(day);
             dataRef.get().addOnSuccessListener((DocumentSnapshot data) -> {
                 if (data.exists()) {
                     try {
-                        Santo santo = data.toObject(Santo.class);
+                        SaintLife santo = data.toObject(SaintLife.class);
                         if (santo != null) {
                             santo.setMes(month);
                             santo.setDia(day);

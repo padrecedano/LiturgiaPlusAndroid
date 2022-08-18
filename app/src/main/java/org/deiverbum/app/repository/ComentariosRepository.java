@@ -6,11 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import org.deiverbum.app.data.db.dao.TodayDao;
+import org.deiverbum.app.data.entity.TodayComentarios;
+import org.deiverbum.app.data.entity.TodayHomilias;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.model.Comentarios;
+import org.deiverbum.app.model.Homilias;
 import org.deiverbum.app.utils.Utils;
 
 import javax.inject.Inject;
@@ -33,12 +37,14 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class ComentariosRepository {
     ApiService apiService;
     private final FirebaseDataSource firebaseDataSource;
+    private final TodayDao mTodayDao;
     private final MediatorLiveData<DataWrapper<Comentarios, CustomException>> mData = new MediatorLiveData<>();
 
     @Inject
-    public ComentariosRepository(ApiService apiService, FirebaseDataSource firebaseDataSource) {
+    public ComentariosRepository(ApiService apiService, FirebaseDataSource firebaseDataSource, TodayDao todayDao) {
         this.apiService = apiService;
         this.firebaseDataSource = firebaseDataSource;
+        this.mTodayDao = todayDao;
     }
 
     /**
@@ -93,6 +99,17 @@ public class ComentariosRepository {
                         mData.setValue(new DataWrapper<>(new CustomException(NOTFOUND_OR_NOTCONNECTION)));
                     }
                 });
+    }
+
+    public MediatorLiveData<DataWrapper<Comentarios, CustomException>> getFromDB(String s) {
+        TodayComentarios theEntity = mTodayDao.getComentarios(Integer.valueOf(s));
+        if (theEntity != null) {
+            Comentarios theModel = theEntity.getDomainModel();
+            mData.postValue(new DataWrapper<>(theModel));
+        } else {
+            getComentarios(s);
+        }
+        return mData;
     }
 
 }

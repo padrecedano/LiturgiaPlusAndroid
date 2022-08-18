@@ -28,7 +28,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 /**
  * @author A. Cedano
  * @version 1.0
- * @date 15/3/22
  * @since 2022.2
  */
 
@@ -38,7 +37,6 @@ public class TodayWorker extends Worker {
     private final ApiService workerDependency;
     private final TodayDao mTodayDao;
     private final Context context;
-
 
     @AssistedInject
     public TodayWorker(
@@ -67,7 +65,6 @@ public class TodayWorker extends Worker {
             //loadCrud(map);
             loadFromApi(theDate);
             loadInsert();
-
             loadUpdate();
             return Result.success();
         } catch (Throwable e) {
@@ -99,7 +96,6 @@ public class TodayWorker extends Worker {
 
                     @Override
                     public void onSuccess(Crud r) {
-                        //Log.d("CRUDX", String.valueOf(r.ce.get(0).grupoId));
                         try {
                             if (r.getAction().equals("c")) {
                                 if (r.liturgia != null) {
@@ -115,28 +111,21 @@ public class TodayWorker extends Worker {
                                     mTodayDao.canticoEvangelicoInsertAll(r.ce);
                                 }
                                 if (r.bvJoin != null) {
-                                    //Log.d("a", String.valueOf(r.bvJoin.get(0).responsorioFK));
                                     mTodayDao.biblicaBreveJoinInsertAll(r.bvJoin);
                                 }
                                 if (r.bibleReading != null) {
-                                    Log.d("a", String.valueOf(r.bibleReading.get(0).getAllForRead()));
                                     //mTodayDao.bibleReadingInsertAll(r.bibleReading);
                                 }
 
                             }
                         }catch (Exception e){
-                            Log.e("ERR",e.getMessage());
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("ERR",e.getMessage());
-
                     }
                 });
-
-        //return mData;
     }
 
 
@@ -157,7 +146,6 @@ public class TodayWorker extends Worker {
 
                     @Override
                     public void onSuccess(Crud r) {
-                        //Log.d("CRUDX", String.valueOf(r.ce.get(0).grupoId));
                         try {
                             if (r.getAction().equals("c")) {
                                 if (r.liturgia != null) {
@@ -173,7 +161,6 @@ public class TodayWorker extends Worker {
                                     mTodayDao.canticoEvangelicoInsertAll(r.ce);
                                 }
                                 if (r.bvJoin != null) {
-                                    //Log.d("a", String.valueOf(r.bvJoin.get(0).responsorioFK));
                                     mTodayDao.biblicaBreveJoinInsertAll(r.bvJoin);
                                 }
                                 if (r.bibleReading != null) {
@@ -188,7 +175,9 @@ public class TodayWorker extends Worker {
                                 if (r.misaLectura != null) {
                                     mTodayDao.misaLecturaUpdateAll(r.misaLectura);
                                 }
-
+                                if (r.saintLife != null) {
+                                    mTodayDao.saintLifeInsertAll(r.saintLife);
+                                }
                             }
                         }catch (Exception e){
                             Log.e("ERR",e.getMessage());
@@ -209,7 +198,7 @@ public class TodayWorker extends Worker {
         map.put("liturgia", lastLiturgia);
         map.put("homilia", mTodayDao.findLastHomilia());
         map.put("dbVersion",DB_VERSION);
-        workerDependency.callUpdate(map)
+        workerDependency.callInsert(map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Crud>() {
@@ -220,7 +209,6 @@ public class TodayWorker extends Worker {
 
                     @Override
                     public void onSuccess(Crud r) {
-                        //Log.d("CRUDX", String.valueOf(r.ce.get(0).grupoId));
                         try {
                             if (r.getAction().equals("c")) {
                                 if (r.liturgia != null) {
@@ -236,7 +224,6 @@ public class TodayWorker extends Worker {
                                     mTodayDao.canticoEvangelicoInsertAll(r.ce);
                                 }
                                 if (r.bvJoin != null) {
-                                    //Log.d("a", String.valueOf(r.bvJoin.get(0).responsorioFK));
                                     mTodayDao.biblicaBreveJoinInsertAll(r.bvJoin);
                                 }
                                 if (r.bibleReading != null) {
@@ -254,23 +241,23 @@ public class TodayWorker extends Worker {
                                 if (r.misaLectura != null) {
                                     mTodayDao.misaLecturaInsertAll(r.misaLectura);
                                 }
+
+                                if (r.saintLife != null) {
+                                    mTodayDao.saintLifeInsertAll(r.saintLife);
+                                }
                             }
                         }catch (Exception e){
-                            Log.e("ERR",e.getMessage());
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("ERR",e.getMessage());
-
                     }
                 });
     }
 
     public void loadFromApi(Integer param) {
         String theDate = String.valueOf(param);
-        Log.d("AXY-API", theDate);
         workerDependency.getToday(theDate)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -287,13 +274,13 @@ public class TodayWorker extends Worker {
                                 mTodayDao.insertAllTodays(r);
                             }
                         }catch (Exception e){
-                            Log.e("ERR",e.getMessage());
                             loadCrud();
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
+
                         Log.e("ERR",e.getMessage());
                     }
                 });
@@ -319,8 +306,6 @@ public class TodayWorker extends Worker {
                     public void onError(Throwable e) {
                     }
                 });
-
     }
-
 }
 

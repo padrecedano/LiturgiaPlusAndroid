@@ -97,4 +97,9 @@ public interface ApiService {
     //@FormUrlEncoded
     @GET("update/")
     Single<Crud> callUpdate(@QueryMap Map<String,Integer> map);
+
+    @Headers("Cache-Control: no-cache")
+    //@FormUrlEncoded
+    @GET("insert/")
+    Single<Crud> callInsert(@QueryMap Map<String,Integer> map);
 }

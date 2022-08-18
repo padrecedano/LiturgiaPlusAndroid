@@ -21,14 +21,14 @@ import androidx.room.PrimaryKey;
                         childColumns = "feriaFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
-/*
+
                 @ForeignKey(
-                        entity = MisaLecturaEntity.class,
-                        parentColumns = "liturgiaFK",
+                        entity = LiturgyGroupEntity.class,
+                        parentColumns = "groupID",
                         childColumns = "mLecturasFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
-*/
+
                 @ForeignKey(
                         entity = LHInvitatorioJoinEntity.class,
                         parentColumns = "grupoId",

@@ -8,15 +8,16 @@ import org.deiverbum.app.utils.Utils;
 
 public class ComentarioBiblico {
     private Obra obras;
-    private String tema;
-    private String refBiblia;
-    private String refFuente;
+    private String tema = "";
+    private String refBiblia = "";
+    private String refFuente = "";
     private String texto;
     private String padre;
     private String obra;
-    private String cita;
-    private String ref;
+    private String cita = "";
+    private String ref = "";
     private String fecha;
+    private BiblicaMisa biblica;
 
     public ComentarioBiblico() {
     }
@@ -93,8 +94,20 @@ public class ComentarioBiblico {
         this.fecha = fecha;
     }
 
+    public BiblicaMisa getBiblica() {
+        return biblica;
+    }
+
+    public void setBiblica(BiblicaMisa biblica) {
+        this.biblica = biblica;
+    }
+
     public SpannableStringBuilder getAllForView() {
-        SpannableStringBuilder sb = new SpannableStringBuilder("");
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+
+        //sb.append(biblica.getAll());
+        //sb.append("COMENTARIOS.*");
+        //sb.append(Utils.LS2);
 
         sb.append(Utils.toH2Red(getPadre()));
         sb.append(Utils.LS);

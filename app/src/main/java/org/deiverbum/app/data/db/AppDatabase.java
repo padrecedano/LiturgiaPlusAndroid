@@ -5,6 +5,8 @@ import androidx.room.RoomDatabase;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.data.entity.AntifonaEntity;
+import org.deiverbum.app.data.entity.BibleHomilyJoinEntity;
+import org.deiverbum.app.data.entity.BibleHomilyThemeEntity;
 import org.deiverbum.app.data.entity.BibliaLecturaEntity;
 import org.deiverbum.app.data.entity.BibliaLibroEntity;
 import org.deiverbum.app.data.entity.EpigrafeEntity;
@@ -35,16 +37,20 @@ import org.deiverbum.app.data.entity.LHSantoEntity;
 import org.deiverbum.app.data.entity.LiturgiaEntity;
 import org.deiverbum.app.data.entity.LiturgiaHomiliaJoinEntity;
 import org.deiverbum.app.data.entity.LiturgiaTiempoEntity;
+import org.deiverbum.app.data.entity.LiturgyGroupEntity;
+import org.deiverbum.app.data.entity.MassReadingEntity;
 import org.deiverbum.app.data.entity.MisaLecturaEntity;
 import org.deiverbum.app.data.entity.ObraEntity;
 import org.deiverbum.app.data.entity.OracionEntity;
 import org.deiverbum.app.data.entity.PadreEntity;
+import org.deiverbum.app.data.entity.SaintLifeEntity;
 import org.deiverbum.app.data.entity.SalmoEntity;
 import org.deiverbum.app.data.entity.SalmodiaEntity;
 import org.deiverbum.app.data.entity.SantoEntity;
 import org.deiverbum.app.data.entity.TemaEntity;
 import org.deiverbum.app.data.entity.Today;
 import org.deiverbum.app.data.entity.TodayTest;
+import org.deiverbum.app.model.SaintLife;
 
 /**
  * @author A. Cedano
@@ -58,6 +64,7 @@ import org.deiverbum.app.data.entity.TodayTest;
                 LiturgiaEntity.class,
                 LiturgiaTiempoEntity.class,
                 SantoEntity.class,
+                SaintLifeEntity.class,
                 InvitatorioEntity.class,
                 LHInvitatorioJoinEntity.class,
                 HimnoEntity.class,
@@ -93,8 +100,11 @@ import org.deiverbum.app.data.entity.TodayTest;
                 LHOracionEntity.class,
                 MisaLecturaEntity.class,
                 LHSantoEntity.class,
-                LiturgiaHomiliaJoinEntity.class
-
+                LiturgiaHomiliaJoinEntity.class,
+                BibleHomilyJoinEntity.class,
+                BibleHomilyThemeEntity.class,
+                LiturgyGroupEntity.class,
+                MassReadingEntity.class
 
                 },
         version = 1)

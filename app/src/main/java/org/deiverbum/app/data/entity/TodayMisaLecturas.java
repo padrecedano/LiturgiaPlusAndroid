@@ -25,7 +25,7 @@ public class TodayMisaLecturas {
 
     @Relation(
             entity = LiturgiaEntity.class,
-            parentColumn = "mLecturasFK",
+            parentColumn = "feriaFK",
             entityColumn = "liturgiaId"
     )
     public LiturgiaWithTiempo feria;
@@ -53,11 +53,18 @@ public class TodayMisaLecturas {
     )
     public List<MisaWithLecturas> lecturas;
 
-
+    @Relation(
+            entity = LiturgyGroupEntity.class,
+            parentColumn = "mLecturasFK",
+            entityColumn = "groupID"
+    )
+    public MisaWithLecturasBis lecturass;
 
     public Hoy getToday(){
         Hoy dm = new Hoy();
-        dm.setFeria(feria.getDomainModel());
+        //dm.setFeria(feria.getDomainModel());
+        dm.setFeria(lecturass.getLiturgia());
+
         dm.setFecha(String.valueOf(today.getHoy()));
         dm.setCalendarTime(today.tiempoId);
         dm.setHasSaint(true);
@@ -71,7 +78,7 @@ public class TodayMisaLecturas {
         MisaLecturas dm=new MisaLecturas();
         dm.setHoy(getToday());
         List<BiblicaMisa> listModel = new ArrayList<>();
-        for (MisaWithLecturas item : lecturas) {
+        for (MassReadingWithAll item : lecturass.lectura) {
                 listModel.add(item.getDomainModel());
         }
         dm.setLecturas(listModel);

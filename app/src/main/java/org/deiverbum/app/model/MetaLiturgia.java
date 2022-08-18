@@ -63,7 +63,7 @@ public class MetaLiturgia {
     }
 
     public String getTitulo() {
-        return idHour == 6 ? getTituloVisperas() : titulo;
+        return titulo;
         /*
         return idHour==6 && liturgiaPrevio!=null ?
                 liturgiaPrevio.getNombre() : liturgiaFeria.getNombre();*/

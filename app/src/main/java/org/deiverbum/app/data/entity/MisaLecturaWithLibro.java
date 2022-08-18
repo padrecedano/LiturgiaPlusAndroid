@@ -13,7 +13,7 @@ import org.deiverbum.app.model.Evangelio;
  * @version 1.0
  * @since 2022.2
  */
-public class LecturaWithLibro {
+public class MisaLecturaWithLibro {
     @Embedded
     public BibliaLecturaEntity lectura;
 
@@ -25,8 +25,8 @@ public class LecturaWithLibro {
     )
     public BibliaLibroEntity libro;
 
-    public Biblica getDomainModel() {
-        Biblica theModel=new Biblica();
+    public BiblicaMisa getDomainModel() {
+        BiblicaMisa theModel=new BiblicaMisa();
         theModel.setLibro(libro.getDomainModel());
         theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
         theModel.setVersoInicial(String.valueOf(lectura.getDesde()));
@@ -46,7 +46,7 @@ public class LecturaWithLibro {
         theModel.setCita(lectura.getCita());
         //theModel.setTema(lectura.getTema());
         theModel.setTexto(lectura.getTexto());
-theModel.setLibro(libro.getDomainModel());
+
         return theModel;
     }
 

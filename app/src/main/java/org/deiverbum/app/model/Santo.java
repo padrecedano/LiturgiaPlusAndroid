@@ -7,17 +7,28 @@ import static org.deiverbum.app.utils.Utils.LS2;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
+import androidx.room.Ignore;
+
 import org.deiverbum.app.utils.Utils;
 
 import java.util.HashMap;
 
 public class Santo {
-    private String nombre;
+    @Ignore
+    protected String nombre;
+    @Ignore
+
     private String vida;
     @SuppressWarnings("unused")
-    private String martirologio;
+    //private String martirologio;
+    @Ignore
+
     private boolean crg;
+    @Ignore
+
     private String dia;
+    @Ignore
+
     private String mes;
 
     public String getNombre() {
@@ -48,7 +59,7 @@ public class Santo {
     }
 
     public String getMartirologio() {
-        return martirologio;
+        return "";//martirologio;
     }
 
     @SuppressWarnings("unused")
@@ -70,7 +81,7 @@ public class Santo {
     }
 
     public SpannableStringBuilder getMartirologioSpan() {
-        return Utils.toSmallSize(martirologio);
+        return Utils.toSmallSize("martirologio");
     }
 
     public SpannableStringBuilder getMartirologioTitleSpan() {
@@ -146,7 +157,24 @@ public class Santo {
         monthNames.put("11", "Noviembre");
         monthNames.put("12", "Diciembre");
         return String.format("%s de %s", dia, monthNames.get(mes));
+    }
 
+    public String getMonthName(String mes) {
+        HashMap<Integer, String> monthNames = new HashMap<>();
+        monthNames.put(1, "Enero");
+        monthNames.put(2, "Febrero");
+        monthNames.put(3, "Marzo");
+        monthNames.put(4, "Abril");
+        monthNames.put(5, "Mayo");
+        monthNames.put(6, "Junio");
+        monthNames.put(7, "Julio");
+        monthNames.put(8, "Agosto");
+        monthNames.put(9, "Septiembre");
+        monthNames.put(10, "Octubre");
+        monthNames.put(11, "Noviembre");
+        monthNames.put(12, "Diciembre");
+        Integer theMonth=Integer.valueOf(mes);
+        return String.format("%s de %s", dia, monthNames.get(theMonth));
     }
 
 
