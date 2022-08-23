@@ -249,6 +249,7 @@ public class TodayMixto {
         Laudes laudes=new Laudes();
         Oficio oficio=new Oficio();
         dm.setHoy(getToday());
+        laudes.setHoy(getToday());
 
         if(santo!=null) {
             dm.setSanto(santo.getDomainModelLH());

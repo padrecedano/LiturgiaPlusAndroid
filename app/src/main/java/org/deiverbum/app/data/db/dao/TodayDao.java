@@ -105,9 +105,7 @@ public interface TodayDao {
     TodayNona geNonaOfToday(Integer theDate);
 
     @Transaction
-    @Query("SELECT * FROM today AS t " +
-            "JOIN misa_lectura m ON t.mLecturasFK=m.liturgiaFK " +
-            "WHERE t.hoy =:theDate AND m.orden=40")
+    @Query(todayByDate)
     TodayMixto getMixtoOfToday(Integer theDate);
 
     @Transaction
@@ -129,9 +127,15 @@ public interface TodayDao {
     TodayHomilias getHomilias(Integer theDate);
 
     @Transaction
-    @Query("SELECT * FROM today AS t " +
+    /*@Query("SELECT * FROM today AS t " +
             "JOIN homilia h ON t.feriaFK=h.homiliaId JOIN misa_lectura ml ON t.mLecturasFK=ml.liturgiaFK " +
-            "WHERE t.hoy =:theDate AND ml.orden >= 40")
+            "WHERE t.hoy =:theDate AND ml.orden >= 40")*/
+    @Query("SELECT * FROM today AS t " +
+            "JOIN liturgy_group lg ON t.mLecturasFK=lg.groupID "+
+            "JOIN mass_reading mr ON lg.groupID=mr.groupFK "+
+            "JOIN bible_homily_join bhj ON bhj.readingFK=mr.readingFK "+
+            "JOIN homilia h ON bhj.homilyFK=h.homiliaId "+
+            "WHERE t.hoy =:theDate AND mr.`order` >= 40")
     TodayComentarios getComentarios(Integer theDate);
 
     @Insert(entity = org.deiverbum.app.data.entity.LiturgiaHomiliaJoinEntity.class,
