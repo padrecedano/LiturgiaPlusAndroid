@@ -43,16 +43,14 @@ public class TodayMisaLecturas {
             entityColumn = "santoId"
     )
     public SantoWithAll santo;
-
-
-
+/*
     @Relation(
             entity = MisaLecturaEntity.class,
             parentColumn = "mLecturasFK",
             entityColumn = "liturgiaFK"
     )
     public List<MisaWithLecturas> lecturas;
-
+*/
     @Relation(
             entity = LiturgyGroupEntity.class,
             parentColumn = "mLecturasFK",

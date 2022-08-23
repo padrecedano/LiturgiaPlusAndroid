@@ -5,6 +5,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
+import org.deiverbum.app.model.BiblicaMisa;
+import org.deiverbum.app.model.Oracion;
+
 /**
  * @author A. Cedano
  * @version 1.0
@@ -53,6 +56,13 @@ public class MassReadingEntity {
 
     public String getTema() {
         return theme;
+    }
+
+    public BiblicaMisa getDomainModel() {
+        BiblicaMisa theModel=new BiblicaMisa();
+        theModel.setTema(getTema());
+        theModel.setOrden(getOrden());
+        return theModel;
     }
 }
 

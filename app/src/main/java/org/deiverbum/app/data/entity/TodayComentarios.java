@@ -42,13 +42,21 @@ public class TodayComentarios {
             entityColumn = "santoId"
     )
     public SantoWithAll santo;
-
+/*
     @Relation(
             entity = MisaLecturaEntity.class,
             parentColumn = "mLecturasFK",
             entityColumn = "liturgiaFK"
     )
     public List<MisaWithComentarios> misaLecturas;
+*/
+    @Relation(
+            entity = MassReadingEntity.class,
+            parentColumn = "mLecturasFK",
+            entityColumn = "groupFK"
+    )
+    public MisaWithComentariosBis lecturass;
+
 
     public MetaLiturgia getMetaLiturgia(){
         MetaLiturgia theModel = new MetaLiturgia();
@@ -93,9 +101,12 @@ public class TodayComentarios {
         dm.setHoy(getToday());
         List<List<ComentarioBiblico>> listModel = new ArrayList<>();
         dm.setMetaLiturgia(getMetaLiturgia());
-        for (MisaWithComentarios item : misaLecturas) {
+        dm.setBiblica(lecturass.getBiblicaMisa());
+listModel.add(lecturass.getDomainModel());
+        //lecturass.
+        /*for (MisaWithComentariosBis item : lecturass) {
             listModel.add(item.getDomainModel());
-        }
+        }*/
         dm.setAllComentarios(listModel);
         return dm;
     }

@@ -13,8 +13,24 @@ import org.deiverbum.app.model.Patristica;
  */
 public class ComentarioWithAll {
     @Embedded
-    public BibleHomilyJoinEntity joinEntity;
+    public LiturgyGroupEntity groupEntity;
 
+    @Relation(
+            parentColumn = "groupID",
+            entityColumn = "groupFK",
+            entity = MassReadingEntity.class
+    )
+
+    public MassReadingEntity joinEntity;
+
+/*
+    @Relation(
+            parentColumn = "homilyFK",
+            entityColumn = "homilyFK",
+            entity = BibleHomilyJoinEntity.class
+    )
+    public BibleHomilyJoinEntity themeEntity1;
+*/
     @Relation(
             parentColumn = "homilyFK",
             entityColumn = "homilyFK",
