@@ -17,15 +17,15 @@ import org.deiverbum.app.model.LiturgiaTiempo;
  * @since 2022.2
  */
 
-@Entity(tableName = "liturgia",
-        indices = {@Index(value = {"tiempoFK","tipoFK", "semana", "dia"}, unique = true)},
+@Entity(tableName = "liturgy",
+        indices = {@Index(value = {"timeFK","typeFK", "week", "day"}, unique = true)},
 
         foreignKeys =
         {
             @ForeignKey(
                     entity = LiturgiaTiempoEntity.class,
-                    parentColumns = "tiempoId",
-                    childColumns = "tiempoFK",
+                    parentColumns = "timeID",
+                    childColumns = "timeFK",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE)/*,
             @ForeignKey(
@@ -40,7 +40,7 @@ public class LiturgiaEntity {
 
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "liturgiaId")
+    @ColumnInfo(name = "liturgyID")
     public Integer liturgiaId=0;
 
     @NonNull
@@ -81,19 +81,19 @@ public class LiturgiaEntity {
     }
 
     @NonNull
-    @ColumnInfo(name = "tiempoFK")
+    @ColumnInfo(name = "timeFK")
     public Integer tiempoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "tipoFK")
+    @ColumnInfo(name = "typeFK")
     public Integer tipoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "semana")
+    @ColumnInfo(name = "week")
     public Integer semana=0;
 
     @NonNull
-    @ColumnInfo(name = "dia")
+    @ColumnInfo(name = "day")
     public Integer dia=0;
 
     @NonNull
@@ -101,7 +101,7 @@ public class LiturgiaEntity {
     public Integer colorFK=0;
 
     @NonNull
-    @ColumnInfo(name = "nombre")
+    @ColumnInfo(name = "name")
     public String nombre="";
 
     //@Embedded

@@ -12,18 +12,18 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_salmodia_join",
-        indices = {@Index(value = {"grupoId","tipo"}, unique = true)}
+@Entity(tableName = "lh_psalmody_join",
+        indices = {@Index(value = {"groupID","type"}, unique = true)}
 )
 public class LHSalmodiaJoinEntity {
 
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "grupoId")
+    @ColumnInfo(name = "groupID")
     public Integer grupoId=0;
 
     @NonNull
-    @ColumnInfo(name = "tipo")
+    @ColumnInfo(name = "type")
     public Integer tipo=0;
 
     public int getTipo() {

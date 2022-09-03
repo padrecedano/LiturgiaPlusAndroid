@@ -1,25 +1,25 @@
 package org.deiverbum.app.model;
 
 public class LHCanticoEvangelico {
-    public Integer grupoId=0;
-    public Integer antifonaFK=0;
+    public Integer groupID=0;
+    public Integer antiphonFK=0;
 
     @SuppressWarnings("unused")
     public LHCanticoEvangelico() {}
 
     public Integer getGrupoId() {
-        return grupoId;
+        return groupID;
     }
 
     public void setGrupoId(Integer grupoId) {
-        this.grupoId = grupoId;
+        this.groupID = grupoId;
     }
 
     public Integer getAntifonaFK() {
-        return antifonaFK;
+        return antiphonFK;
     }
 
     public void setAntifonaFK(Integer antifonaFK) {
-        this.antifonaFK = antifonaFK;
+        this.antiphonFK = antifonaFK;
     }
 }

@@ -30,25 +30,25 @@ import androidx.room.PrimaryKey;
  *  );
  */
 
-@Entity(tableName = "obra",
+@Entity(tableName = "pater_opus",
         foreignKeys =
                 {
                         @ForeignKey(
                                 entity = PadreEntity.class,
-                                parentColumns = "padreId",
-                                childColumns = "padreFK",
+                                parentColumns = "paterID",
+                                childColumns = "paterFK",
                                 onDelete = ForeignKey.CASCADE,
                                 onUpdate = ForeignKey.CASCADE)},
-         indices = {@Index(value = {"obra","padreFK","volumen"},unique = true)}
+         indices = {@Index(value = {"opus","paterFK","volume"},unique = true)}
 )
 public class ObraEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "obraId")
+    @ColumnInfo(name = "opusID")
     public Integer obraId=0;
 
     @NonNull
-    @ColumnInfo(name = "obra")
+    @ColumnInfo(name = "opus")
     public String obra="";
 
     @NonNull
@@ -56,14 +56,14 @@ public class ObraEntity {
     public String liturgyName="";
 
     //@NonNull
-    @ColumnInfo(name = "subTitulo", defaultValue = "NULL")
+    @ColumnInfo(name = "subTitle", defaultValue = "NULL")
     public String subTitulo="";
 
     //@NonNull
-    @ColumnInfo(name = "volumen", defaultValue = "NULL")
+    @ColumnInfo(name = "volume", defaultValue = "NULL")
     public Integer volumen=0;
 
-    @ColumnInfo(name = "fecha", defaultValue = "NULL")
+    @ColumnInfo(name = "date", defaultValue = "NULL")
     public Integer fecha=0;
 
     //@NonNull
@@ -71,7 +71,7 @@ public class ObraEntity {
     public String editorial="";
 
     //@NonNull
-    @ColumnInfo(name = "ciudad", defaultValue = "NULL")
+    @ColumnInfo(name = "city", defaultValue = "NULL")
     public String ciudad;
 
     //@NonNull
@@ -79,15 +79,15 @@ public class ObraEntity {
     public Integer year;
 
     @NonNull
-    @ColumnInfo(name = "padreFK", defaultValue = "0")
+    @ColumnInfo(name = "paterFK", defaultValue = "0")
     public Integer padreFK=0;
 
     @NonNull
-    @ColumnInfo(name = "tipoFK", defaultValue = "0")
+    @ColumnInfo(name = "typeFK", defaultValue = "0")
     public Integer tipoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "coleccionFK", defaultValue = "0")
+    @ColumnInfo(name = "collectionFK", defaultValue = "0")
     public Integer coleccionFK=0;
 
     public String getObra() {

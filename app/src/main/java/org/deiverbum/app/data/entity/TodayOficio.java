@@ -32,87 +32,87 @@ public class TodayOficio {
 
     @Relation(
             entity = LiturgiaEntity.class,
-            parentColumn = "feriaFK",
-            entityColumn = "liturgiaId"
+            parentColumn = "weekDayFK",
+            entityColumn = "liturgyID"
     )
     public LiturgiaWithTiempo feria;
 
     @Relation(
             entity = LiturgiaEntity.class,
-            parentColumn = "previoId",
-            entityColumn = "liturgiaId"
+            parentColumn = "previousFK",
+            entityColumn = "liturgyID"
     )
     public LiturgiaWithTiempo previo;
 
     @Relation(
             entity = SantoEntity.class,
-            parentColumn = "santoFK",
-            entityColumn = "santoId"
+            parentColumn = "saintFK",
+            entityColumn = "saintID"
     )
     public SantoWithAll santo;
 
     @Relation(
             entity = LHInvitatorioJoinEntity.class,
-            parentColumn = "invitatorioFK",
-            entityColumn = "grupoId"
+            parentColumn = "invitatoryFK",
+            entityColumn = "groupID"
     )
     public InvitatorioAll invitatorio;
 
     @Relation(
             entity = LHHimnoJoinEntity.class,
-            parentColumn = "oHimnoFK",
-            entityColumn = "grupoId"
+            parentColumn = "oHymnFK",
+            entityColumn = "groupID"
     )
     public HimnoWithAll himno;
 
     @Relation(
             entity = LHSalmodiaJoinEntity.class,
-            parentColumn = "oSalmodiaFK",
-            entityColumn = "grupoId"
+            parentColumn = "oPsalmodyFK",
+            entityColumn = "groupID"
     )
     public LHSalmodia salmodia;
 
     @Relation(
             entity = SalmodiaEntity.class,
-            parentColumn = "oSalmodiaFK",
-            entityColumn = "grupoFK"
+            parentColumn = "oPsalmodyFK",
+            entityColumn = "groupFK"
     )
     public List<SalmodiaWithSalmos> salmos;
 
     @Relation(
             entity = LHOficioVersoJoinEntity.class,
-            parentColumn = "oVersoFK",
-            entityColumn = "grupoId"
+            parentColumn = "oVerseFK",
+            entityColumn = "groupID"
     )
     public OficioVersoAll oficioVerso;
 
 
     @Relation(
             entity = LHBiblicaOficioJoinEntity.class,
-            parentColumn = "oBiblicaFK",
-            entityColumn = "grupoId"
+            parentColumn = "oBiblicalFK",
+            entityColumn = "groupID"
     )
     public BiblicaOficioAll biblicas;
-
-    @Relation(
-            entity = LHPatristicaEntity.class,
-            parentColumn = "oPatristicaFK",
-            entityColumn = "patristicaId"
-    )
-    public LHPatristica patristica;
-
-
+/*
     @Relation(
             entity = LHPatristicaOficioEntity.class,
-            parentColumn = "oPatristicaFK",
-            entityColumn = "grupoFK"
+            parentColumn = "oPatristicFK",
+            entityColumn = "groupFK"
+    )
+    public LHPatristica patristica;
+*/
+/*
+    @Relation(
+            entity = LHPatristicaOficioJoinEntity.class,
+            parentColumn = "oPatristicFK",
+            entityColumn = "groupID"
     )
     public List<PatristicaOficioWithResponsorio> patristicaOficioWithResponsorio;
-
+*/
     @Relation(
             entity = LHOracionEntity.class,
-            parentColumn = "oOracionFK",
-            entityColumn = "grupoId"
+            parentColumn = "oPrayerFK",
+            entityColumn = "groupID"
     )
     public LHOracion lhOracion;
 
@@ -162,15 +162,16 @@ public class TodayOficio {
         return biblicas.getDomainModel(today.getTiempoId());
     }
     public Patristica getPatristica(){
-        return patristica.getDomainModel(today.getTiempoId());
+        return null;//patristica.getDomainModel(today.getTiempoId());
     }
 
     public List<Patristica> getPatristicas() {
         List<Patristica> theList = new ArrayList<>();
+        /*
         for (PatristicaOficioWithResponsorio item :
                 patristicaOficioWithResponsorio) {
             theList.add(item.getDomainModelOficio(today.getTiempoId()));
-        }
+        }*/
         return theList;
     }
 

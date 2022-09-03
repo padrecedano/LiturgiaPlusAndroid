@@ -23,7 +23,7 @@ import org.deiverbum.app.model.Santo;
 
                         @ForeignKey(
                                 entity = SantoEntity.class,
-                                parentColumns = "santoId",
+                                parentColumns = "saintID",
                                 childColumns = "saintFK",
                                 onDelete = ForeignKey.CASCADE,
                                 onUpdate = ForeignKey.CASCADE)

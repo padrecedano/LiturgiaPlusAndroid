@@ -12,17 +12,17 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_oficio_verso",
-        indices = {@Index(value = {"verso"}, unique = true)})
+@Entity(tableName = "lh_office_verse",
+        indices = {@Index(value = {"verse"}, unique = true)})
 public class LHOficioVersoEntity {
 
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "versoId")
+    @ColumnInfo(name = "verseID")
     public Integer versoId=0;
 
     @NonNull
-    @ColumnInfo(name = "verso")
+    @ColumnInfo(name = "verse")
     public String verso="";
 
     public String getResponsorio() {

@@ -13,99 +13,171 @@ import org.deiverbum.app.utils.Utils;
 
 public class Biblica {
     @Ignore
-    protected BibliaLibro libro;
-    private String capitulo;
-    private String desde;
-    private String hasta;
-    private String texto;
-    private String cita;
+    protected BibliaLibro book;
+    private String verseChapter;
+    private String verseFrom;
+    private String verseTo;
+    private String text;
+    private String quote;
     @Ignore
-    protected Integer orden;
+    protected Integer order;
 
-    protected Integer lecturaId;
-    public Integer libroFK=0;
+    protected Integer readingID;
+    public Integer bookFK=0;
 
     public BibliaLibro getLibro() {
-        return libro;
+        return book;
     }
 
     public String getLibroForRead() {
-        return libro.getForRead();
+        return book.getForRead();
     }
 
     public void setLibro(BibliaLibro libro) {
-        this.libro = libro;
+        this.book = libro;
     }
 
     public String getCapitulo() {
-        return capitulo;
+        return verseChapter;
     }
 
     public void setCapitulo(String capitulo) {
-        this.capitulo = capitulo;
+        this.verseChapter = capitulo;
     }
 
     public String getVersoInicial() {
-        return desde;
+        return verseFrom;
     }
 
     public void setVersoInicial(String versoInicial) {
-        this.desde = versoInicial;
+        this.verseFrom = versoInicial;
     }
 
     public String getDesde() {
-        return desde;
+        return verseFrom;
     }
 
     public void setDesde(String versoInicial) {
-        this.desde = versoInicial;
+        this.verseFrom = versoInicial;
     }
 
     public String getVersoFinal() {
-        return hasta;
+        return verseTo;
     }
 
     public void setVersoFinal(String versoFinal) {
-        this.hasta = versoFinal;
+        this.verseTo = versoFinal;
     }
 
     public String getHasta() {
-        return hasta;
+        return verseTo;
     }
 
     public void setHasta(String versoFinal) {
-        this.hasta = hasta;
+        this.verseTo = verseTo;
+    }
+
+    public BibliaLibro getBook() {
+        return book;
+    }
+
+    public void setBook(BibliaLibro book) {
+        this.book = book;
+    }
+
+    public String getVerseChapter() {
+        return verseChapter;
+    }
+
+    public void setVerseChapter(String chapter) {
+        this.verseChapter = chapter;
+    }
+
+    public String getVerseFrom() {
+        return verseFrom;
+    }
+
+    public void setVerseFrom(String verseFrom) {
+        this.verseFrom = verseFrom;
+    }
+
+    public String getVerseTo() {
+        return verseTo;
+    }
+
+    public void setVerseTo(String verseTo) {
+        this.verseTo = verseTo;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getQuote() {
+        return quote;
+    }
+
+    public void setQuote(String quote) {
+        this.quote = quote;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
+    public Integer getReadingID() {
+        return readingID;
+    }
+
+    public void setReadingID(Integer readingID) {
+        this.readingID = readingID;
+    }
+
+    public Integer getBookFK() {
+        return bookFK;
+    }
+
+    public void setBookFK(Integer bookFK) {
+        this.bookFK = bookFK;
     }
 
     public Spanned getTextoSpan() {
-        return Utils.fromHtml(Utils.getFormato(texto));
+        return Utils.fromHtml(text);
     }
 
 
     public Spanned getTextoForRead() {
-        return Utils.fromHtml(Utils.getFormato(texto));
+        return Utils.fromHtml(Utils.getFormato(text));
     }
 
 
     public void setTexto(String texto) {
-        this.texto = texto;
+        this.text = texto;
     }
 
     public String getTexto() {
-        return texto;
+        return text;
     }
 
 
     public String getCita() {
-        return cita;
+        return quote;
         //getReferencia();
     }
     public String getRefBreve() {
-        return (this.cita!=null) ? this.cita : "";
+        return (this.quote!=null) ? this.quote : "";
     }
 
     public void setCita(String ref) {
-        this.cita = ref;
+        this.quote = ref;
     }
 
     public String getReferencia() {
@@ -137,7 +209,7 @@ public class Biblica {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeader());
         sb.append(LS2);
-        sb.append(libro.getLiturgyName());
+        sb.append(book.getLiturgyName());
         sb.append("    ");
         sb.append(Utils.toRed(getCapitulo()));
         sb.append(", ");
@@ -168,14 +240,14 @@ public class Biblica {
     }
 
     public Integer getOrden() {
-        return this.orden;
+        return this.order;
     }
     public Integer getLecturaId() {
-        return this.lecturaId;
+        return this.readingID;
     }
 
     public void setOrden(Integer orden) {
-        this.orden=orden;
+        this.order=orden;
     }
 
 }

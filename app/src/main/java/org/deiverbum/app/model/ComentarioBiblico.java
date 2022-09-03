@@ -127,7 +127,7 @@ public class ComentarioBiblico {
             sb.append(LS2);
             sb.append(Utils.toRed(getCita()));
         }
-        if (!fecha.isEmpty() && !fecha.equals("0000-00-00")) {
+        if (!fecha.isEmpty() && !fecha.equals("0000-00-00") && !fecha.equals("0")) {
             sb.append(LS2);
             sb.append(Utils.toRed(fecha));
         }

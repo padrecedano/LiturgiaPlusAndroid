@@ -17,8 +17,8 @@ public class LiturgiaWithTiempo {
     public LiturgiaEntity joinEntity;
 
     @Relation(
-            parentColumn = "tiempoFK",
-            entityColumn = "tiempoId",
+            parentColumn = "timeFK",
+            entityColumn = "timeID",
             entity = LiturgiaTiempoEntity.class
     )
     public LiturgiaTiempoEntity tiempo;

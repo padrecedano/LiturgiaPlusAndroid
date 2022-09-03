@@ -15,8 +15,8 @@ public class LHOracion {
     public LHOracionEntity lhOracionEntity;
 
     @Relation(
-            parentColumn = "oracionFK",
-            entityColumn = "oracionId",
+            parentColumn = "prayerFK",
+            entityColumn = "prayerID",
             entity = OracionEntity.class
     )
     public OracionEntity oracionEntity;

@@ -19,8 +19,8 @@ public class LHSalmodia {
     public LHSalmodiaJoinEntity salmodia;
 
     @Relation(
-            parentColumn = "grupoId",
-            entityColumn = "grupoFK",
+            parentColumn = "groupID",
+            entityColumn = "groupFK",
             entity = SalmodiaEntity.class
     )
     public List<SalmodiaWithSalmos> salmos;

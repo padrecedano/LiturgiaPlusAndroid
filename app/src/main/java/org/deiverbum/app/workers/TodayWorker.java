@@ -61,14 +61,13 @@ public class TodayWorker extends Worker {
             HashMap<String, Integer> map = new HashMap<>();
             map.put("liturgia", mTodayDao.findLastLiturgia());
             map.put("homilia", mTodayDao.findLastHomilia());
-
             //loadCrud(map);
             loadFromApi(theDate);
             loadInsert();
             loadUpdate();
             return Result.success();
         } catch (Throwable e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return Result.failure();
         }
     }
@@ -180,14 +179,13 @@ public class TodayWorker extends Worker {
                                 }
                             }
                         }catch (Exception e){
-                            Log.e("ERR",e.getMessage());
+                            //Log.e("ERR",e.getMessage());
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("ERR",e.getMessage());
-
+                        //Log.e("ERR",e.getMessage());
                     }
                 });
     }
@@ -280,8 +278,7 @@ public class TodayWorker extends Worker {
 
                     @Override
                     public void onError(Throwable e) {
-
-                        Log.e("ERR",e.getMessage());
+                        //Log.e("ERR",e.getMessage());
                     }
                 });
 

@@ -12,19 +12,19 @@ import androidx.room.ForeignKey;
  */
 
 @Entity(tableName = "misa_lectura",
-        primaryKeys = {"liturgiaFK","lecturaFK","orden"},
+        primaryKeys = {"liturgyFK","readingFK","order"},
         foreignKeys =
                 {
                         @ForeignKey(
                                 entity = LiturgiaEntity.class,
-                                parentColumns = "liturgiaId",
-                                childColumns = "liturgiaFK",
+                                parentColumns = "liturgyID",
+                                childColumns = "liturgyFK",
                                 onDelete = ForeignKey.CASCADE,
                                 onUpdate = ForeignKey.CASCADE),
                        @ForeignKey(
                                 entity = BibliaLecturaEntity.class,
-                                parentColumns = "lecturaId",
-                                childColumns = "lecturaFK",
+                                parentColumns = "readingID",
+                                childColumns = "readingFK",
                                 onDelete = ForeignKey.CASCADE,
                                 onUpdate = ForeignKey.CASCADE)}/*,
          indices = {@Index(value = {"liturgiaId","pericopaFK","orden"},unique
@@ -32,19 +32,19 @@ import androidx.room.ForeignKey;
 )
 public class MisaLecturaEntity {
     @NonNull
-    @ColumnInfo(name = "liturgiaFK")
+    @ColumnInfo(name = "liturgyFK")
     public Integer homiliaId=0;
 
     @NonNull
-    @ColumnInfo(name = "lecturaFK")
+    @ColumnInfo(name = "readingFK")
     public Integer lecturaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "orden")
+    @ColumnInfo(name = "order")
     public Integer orden=0;
 
     @NonNull
-    @ColumnInfo(name = "tema")
+    @ColumnInfo(name = "theme")
     public String tema="";
 
     public Integer getOrden() {

@@ -12,17 +12,17 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_tema",
-         indices = {@Index(value = {"tema"},unique = true)}
+@Entity(tableName = "lh_theme",
+         indices = {@Index(value = {"theme"},unique = true)}
 )
 public class TemaEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "temaId")
+    @ColumnInfo(name = "themeID")
     public Integer temaId=0;
 
     @NonNull
-    @ColumnInfo(name = "tema")
+    @ColumnInfo(name = "theme")
     public String tema="";
 
     public String getTema(){

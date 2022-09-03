@@ -28,15 +28,15 @@ import org.deiverbum.app.model.Santo;
  */
 
 @Entity(
-        tableName = "santo",
-        indices = {@Index(value = {"liturgiaFK","nombre","mes","dia"},unique = true)},
+        tableName = "saint",
+        indices = {@Index(value = {"liturgyFK","name","month","day"},unique = true)},
         foreignKeys =
                 {
 
                         @ForeignKey(
                                 entity = LiturgiaEntity.class,
-                                parentColumns = "liturgiaId",
-                                childColumns = "liturgiaFK",
+                                parentColumns = "liturgyID",
+                                childColumns = "liturgyFK",
                                 onDelete = ForeignKey.CASCADE,
                                 onUpdate = ForeignKey.CASCADE)
                 }
@@ -44,30 +44,30 @@ import org.deiverbum.app.model.Santo;
 public class SantoEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "santoId")
+    @ColumnInfo(name = "saintID")
     public Integer santoId=0;
 
     @NonNull
-    @ColumnInfo(name = "liturgiaFK")
+    @ColumnInfo(name = "liturgyFK")
     public Integer liturgiaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "nombre")
+    @ColumnInfo(name = "name")
     public String nombre="";
 
     @NonNull
-    @ColumnInfo(name = "mes")
+    @ColumnInfo(name = "month")
     public Integer mes=0;
 
     @NonNull
-    @ColumnInfo(name = "dia")
+    @ColumnInfo(name = "day")
     public Integer dia=0;
 
     @NonNull
-    @ColumnInfo(name = "tipoId")
+    @ColumnInfo(name = "typeFK")
     public Integer tipoId=0;
 
-    @ColumnInfo(name = "comunId", defaultValue="0")
+    @ColumnInfo(name = "commonFK", defaultValue="0")
     public Integer comunId=0;
 
     @SuppressWarnings("unused")

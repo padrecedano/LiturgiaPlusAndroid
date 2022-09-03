@@ -9,34 +9,34 @@ import androidx.room.Ignore;
 import org.deiverbum.app.utils.Utils;
 
 public class LiturgiaHomiliaJoin {
-    public Integer liturgiaFK=0;
-    public Integer homiliaFK=0;
-    public String tema="";
+    public Integer liturgyFK=0;
+    public Integer homilyFK=0;
+    public String theme="";
 
     @SuppressWarnings("unused")
     public LiturgiaHomiliaJoin() {}
     public Integer getLiturgiaFK() {
-        return liturgiaFK;
+        return liturgyFK;
     }
 
     public void setLiturgiaFK(Integer liturgiaFK) {
-        this.liturgiaFK = liturgiaFK;
+        this.liturgyFK = liturgiaFK;
     }
 
     public Integer getHomiliaFK() {
-        return homiliaFK;
+        return homilyFK;
     }
 
     public void setHomiliaFK(Integer homiliaFK) {
-        this.homiliaFK = homiliaFK;
+        this.homilyFK = homiliaFK;
     }
 
     public String getTema() {
-        return tema;
+        return theme;
     }
 
     public void setTema(String tema) {
-        this.tema = tema;
+        this.theme = tema;
     }
 
 }

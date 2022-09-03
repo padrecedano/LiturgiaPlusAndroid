@@ -22,8 +22,8 @@ public class BiblicaOficioAll {
     public LHBiblicaOficioJoinEntity lhBiblica;
 
     @Relation(
-            parentColumn = "grupoId",
-            entityColumn = "grupoFK",
+            parentColumn = "groupID",
+            entityColumn = "groupFK",
             entity = LHBiblicaOficioEntity.class
     )
     public List<BiblicaOficioWithResponsorio> biblica;

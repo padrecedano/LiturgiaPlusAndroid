@@ -25,17 +25,17 @@ import androidx.room.PrimaryKey;
  *  );
  */
 
-@Entity(tableName = "padre",
-        indices={@Index(value={"padre","lugarFK","tipoFK","tituloFK","misionFK","sexoFK","grupoFK"},unique = true)}
+@Entity(tableName = "pater",
+        indices={@Index(value={"pater","placeFK","typeFK","titleFK","missionFK","sexFK","groupFK"},unique = true)}
 )
 public class PadreEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "padreId")
+    @ColumnInfo(name = "paterID")
     public Integer padreId=0;
 
     @NonNull
-    @ColumnInfo(name = "padre")
+    @ColumnInfo(name = "pater")
     public String padre="";
 
     @NonNull
@@ -43,27 +43,27 @@ public class PadreEntity {
     public String liturgyName="";
 
     @NonNull
-    @ColumnInfo(name = "lugarFK", defaultValue = "0")
+    @ColumnInfo(name = "placeFK", defaultValue = "0")
     public Integer lugarFK=0;
 
     @NonNull
-    @ColumnInfo(name = "tipoFK", defaultValue = "0")
+    @ColumnInfo(name = "typeFK", defaultValue = "0")
     public Integer tipoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "tituloFK", defaultValue = "0")
+    @ColumnInfo(name = "titleFK", defaultValue = "0")
     public Integer tituloFK=0;
 
     @NonNull
-    @ColumnInfo(name = "misionFK", defaultValue = "0")
+    @ColumnInfo(name = "missionFK", defaultValue = "0")
     public Integer misionFK=0;
 
     @NonNull
-    @ColumnInfo(name = "sexoFK", defaultValue = "0")
+    @ColumnInfo(name = "sexFK", defaultValue = "0")
     public Integer sexoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "grupoFK", defaultValue = "0")
+    @ColumnInfo(name = "groupFK", defaultValue = "0")
     public Integer grupoFK=0;
 
 

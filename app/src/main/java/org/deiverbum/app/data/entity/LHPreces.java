@@ -15,8 +15,8 @@ public class LHPreces {
     public LHPrecesJoinEntity lhPatristica;
 
     @Relation(
-            parentColumn = "precesFK",
-            entityColumn = "precesId",
+            parentColumn = "intercessionFK",
+            entityColumn = "intercessionID",
             entity = LHPrecesEntity.class
     )
     public LHPrecesEntity preces;

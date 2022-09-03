@@ -6,24 +6,93 @@ import androidx.room.Ignore;
 
 
 public class Liturgia {
+    public Integer getLiturgyID() {
+        return liturgyID;
+    }
 
-    private Integer liturgiaId;
-    private Integer tipoFK;
+    public void setLiturgyID(Integer liturgyID) {
+        this.liturgyID = liturgyID;
+    }
 
+    public Integer getTypeFK() {
+        return typeFK;
+    }
+
+    public void setTypeFK(Integer typeFK) {
+        this.typeFK = typeFK;
+    }
+
+    public Integer getTimeFK() {
+        return timeFK;
+    }
+
+    public void setTimeFK(Integer timeFK) {
+        this.timeFK = timeFK;
+    }
+
+    public Integer getWeek() {
+        return week;
+    }
+
+    public void setWeek(Integer week) {
+        this.week = week;
+    }
+
+    public Integer getDay() {
+        return day;
+    }
+
+    public void setDay(Integer day) {
+        this.day = day;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private Integer liturgyID;
+    private Integer typeFK;
+    private Integer timeFK;
+    @Ignore
+    private LiturgiaTiempo liturgiaTiempo;
+    private Integer week;
+    private Integer day;
+    private Integer colorFK;
+
+    private String name;
+    //@Embedded
+
+    @Ignore
+    protected Santo santo;
+
+    //@Embedded
+    @Ignore
+    protected Hoy hoy;
+    //@Embedded
+    @Ignore
+
+    protected MetaLiturgia metaLiturgia;
+    @Ignore
+
+    public boolean hasSaint = false;
     public Integer getTiempoFK() {
-        return tiempoFK;
+        return timeFK;
     }
 
     public Integer getTipoFK() {
-        return tipoFK;
+        return typeFK;
     }
 
     public void setTipoFK(Integer tipoFK) {
-        this.tipoFK = tipoFK;
+        this.typeFK = tipoFK;
     }
 
     public void setTiempoFK(Integer tiempoFK) {
-        this.tiempoFK = tiempoFK;
+        this.timeFK = tiempoFK;
     }
 
     public Integer getColorFK() {
@@ -35,9 +104,7 @@ public class Liturgia {
     }
 
     //@Embedded
-    private Integer tiempoFK;
-    @Ignore
-    private LiturgiaTiempo liturgiaTiempo;
+
 
     public LiturgiaTiempo getLiturgiaTiempo() {
         return liturgiaTiempo;
@@ -47,26 +114,6 @@ public class Liturgia {
         this.liturgiaTiempo = liturgiaTiempo;
     }
 
-    private Integer semana;
-    private Integer dia;
-    private Integer colorFK;
-
-    private String nombre;
-    //@Embedded
-
-    @Ignore
-    protected Santo santo;
-
-    //@Embedded
-@Ignore
-    protected Hoy hoy;
-    //@Embedded
-    @Ignore
-
-    protected MetaLiturgia metaLiturgia;
-    @Ignore
-
-    public boolean hasSaint = false;
 
 
     public Liturgia() {
@@ -74,11 +121,11 @@ public class Liturgia {
 
 
     public Integer getLiturgiaId() {
-        return liturgiaId;
+        return liturgyID;
     }
 
     public void setLiturgiaId(Integer liturgiaId) {
-        this.liturgiaId = liturgiaId;
+        this.liturgyID = liturgiaId;
     }
 
     public Integer getColorId() {
@@ -91,11 +138,11 @@ public class Liturgia {
 
     public String getNombre() {
 
-        return nombre!=null ? nombre : "***";
+        return name!=null ? name : "***";
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.name = nombre;
     }
 
     public MetaLiturgia getMetaLiturgia() {
@@ -116,18 +163,18 @@ public class Liturgia {
 
 
     public void setDia(Integer dia) {
-        this.dia=dia;
+        this.day=dia;
     }
 
     public void setSemana(Integer semana) {
-        this.semana=semana;
+        this.week=semana;
     }
 
     public int getDia() {
-        return this.dia;
+        return this.day;
     }
     public int getSemana() {
-        return this.semana;
+        return this.week;
     }
 
     public void setTiempoFKK(LiturgiaTiempo tiempoFK) {
@@ -151,7 +198,7 @@ public class Liturgia {
     @NonNull
     public String toString() {
         return
-                String.format("Liturgia:%n%d\t%d\t%s", liturgiaId,tiempoFK,nombre);
+                String.format("Liturgia:%n%d\t%d\t%s", liturgyID,timeFK,name);
     }
 
 

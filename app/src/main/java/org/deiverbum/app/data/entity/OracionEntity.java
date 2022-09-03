@@ -12,21 +12,21 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "oracion",
-         indices = {@Index(value = {"oracion"},unique = true)}
+@Entity(tableName = "prayer",
+         indices = {@Index(value = {"prayer"},unique = true)}
 )
 public class OracionEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "oracionId")
+    @ColumnInfo(name = "prayerID")
     public Integer oracionId=0;
 
     @NonNull
-    @ColumnInfo(name = "oracion")
+    @ColumnInfo(name = "prayer")
     public String texto="";
 
     @NonNull
-    @ColumnInfo(name = "orden", defaultValue ="0" )
+    @ColumnInfo(name = "order", defaultValue ="0" )
     public Integer orden=0;
 
     public String getTexto() {

@@ -32,98 +32,109 @@ public class TodayLaudes {
 
     @Relation(
             entity = SantoEntity.class,
-            parentColumn = "santoFK",
-            entityColumn = "santoId"
+            parentColumn = "saintFK",
+            entityColumn = "saintID"
     )
     public SantoWithAll santo;
 
     @Relation(
             entity = LHInvitatorioJoinEntity.class,
-            parentColumn = "invitatorioFK",
-            entityColumn = "grupoId"
+            parentColumn = "invitatoryFK",
+            entityColumn = "groupID"
     )
     public InvitatorioAll invitatorio;
 
     @Relation(
             entity = LHHimnoJoinEntity.class,
-            parentColumn = "lHimnoFK",
-            entityColumn = "grupoId"
+            parentColumn = "lHymnFK",
+            entityColumn = "groupID"
     )
     public HimnoWithAll himno;
 
     @Relation(
             entity = LHBiblicaBreveJoinEntity.class,
-            parentColumn = "lBiblicaFK",
-            entityColumn = "grupoId"
+            parentColumn = "lBiblicalFK",
+            entityColumn = "groupID"
     )
     public BiblicaBreveAll biblica;
 
     @Relation(
             entity = LHSalmodiaJoinEntity.class,
-            parentColumn = "lSalmodiaFK",
-            entityColumn = "grupoId"
+            parentColumn = "lPsalmodyFK",
+            entityColumn = "groupID"
     )
     public LHSalmodia salmodia;
 
     @Relation(
             entity = SalmodiaEntity.class,
-            parentColumn = "lSalmodiaFK",
-            entityColumn = "grupoFK"
+            parentColumn = "lPsalmodyFK",
+            entityColumn = "groupFK"
     )
     public List<SalmodiaWithSalmos> salmos;
 
     @Relation(
             entity = LHPrecesJoinEntity.class,
-            parentColumn = "lPrecesFK",
-            entityColumn = "grupoId"
+            parentColumn = "lIntercessionsFK",
+            entityColumn = "groupID"
 
     )
     public LHPreces lhPreces;
 
     @Relation(
             entity = LHOracionEntity.class,
-            parentColumn = "lOracionFK",
-            entityColumn = "grupoId"
+            parentColumn = "lPrayerFK",
+            entityColumn = "groupID"
     )
     public LHOracion lhOracion;
 
     @Relation(
             entity = LiturgiaEntity.class,
-            parentColumn = "feriaFK",
-            entityColumn = "liturgiaId"
+            parentColumn = "weekDayFK",
+            entityColumn = "liturgyID"
     )
     public LiturgiaWithTiempo feria;
 
     @Relation(
             entity = LiturgiaEntity.class,
-            parentColumn = "previoId",
-            entityColumn = "liturgiaId"
+            parentColumn = "previousFK",
+            entityColumn = "liturgyID"
     )
     public LiturgiaWithTiempo previo;
 
     @Relation(
             entity = LHCanticoEvangelicoEntity.class,
             parentColumn = "lBenedictusFK",
-            entityColumn = "grupoId"
+            entityColumn = "groupID"
     )
     public CanticoEvangelicoWithAntifona benedictus;
 
     @Relation(
             entity = MisaLecturaEntity.class,
-            parentColumn = "mLecturasFK",
-            entityColumn = "liturgiaFK"
+            parentColumn = "massReadingFK",
+            entityColumn = "liturgyFK"
     )
     public List<MisaWithLecturas> lecturas;
 
-    @SuppressWarnings("unused")
-    public MisaLecturas getMisaLecturas(){
-        MisaLecturas theModel=new MisaLecturas();
-        List<BiblicaMisa> listModel = new ArrayList<>();
+    @Relation(
+            entity = MassReadingEntity.class,
+            parentColumn = "massReadingFK",
+            entityColumn = "groupFK"
+    )
+    //public List<MisaWithComentariosRename> comentarios;
+    public MisaWithComentariosRename comentarios;
 
-        for (MisaWithLecturas item : lecturas) {
-            listModel.add(item.getDomainModel());
-        }
-            theModel.setLecturas(listModel);
+    @SuppressWarnings("unused")
+    public List<MisaLecturas> getMisaLecturas(){
+        //MisaLecturas theModel=new MisaLecturas();
+        List<MisaLecturas> theModel=new ArrayList<>();
+
+        List<BiblicaMisa> listModel = comentarios.getBiblicaMisas();
+        BiblicaMisa listModell = comentarios.getBiblicaMisa();
+
+        /*for (MisaWithComentariosRename item : comentarios) {
+            //listModel.add(item.getBiblicaMisa());
+        }*/
+            //theModel.setLecturas(listModel);
         return theModel;
     }
 
@@ -179,7 +190,7 @@ public class TodayLaudes {
         dm.setHoy(getToday());
         dm.setInvitatorio(getInvitatorio());
         dm.setSanto(getSanto());
-
+getMisaLecturas();
         dm.setHimno(getHimno());
         dm.setSalmodia(getSalmodia());
         dm.setLecturaBreve(getBiblica());

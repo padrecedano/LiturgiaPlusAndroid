@@ -12,18 +12,18 @@ import org.deiverbum.app.model.Patristica;
  */
 public class LHPatristica {
     @Embedded
-    public LHPatristicaEntity lhPatristica;
+    public LHPatristicaOficioEntity lhPatristica;
 
     @Relation(
-            parentColumn = "homiliaFK",
-            entityColumn = "homiliaId",
+            parentColumn = "homilyFK",
+            entityColumn = "homilyID",
             entity = HomiliaEntity.class
     )
     public HomiliaWithAll homiliaAll;
 
     @Relation(
-            parentColumn = "responsorioFK",
-            entityColumn = "responsorioId",
+            parentColumn = "responsoryFK",
+            entityColumn = "responsoryID",
             entity = LHResponsorioLargoEntity.class
     )
     public LHResponsorioLargoEntity lhResponsorio;

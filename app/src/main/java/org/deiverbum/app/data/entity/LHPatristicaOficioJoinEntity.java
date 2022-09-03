@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_patristica_oficio_join"
+@Entity(tableName = "lh_office_patristic_join"
         //indices = {@Index(value = {"grupoFK","salmoFK"}, unique = true)}
         //primaryKeys = {"grupoFK","salmoFK"},
 )
@@ -19,7 +19,7 @@ public class LHPatristicaOficioJoinEntity {
 
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "grupoId")
+    @ColumnInfo(name = "groupID")
     public Integer grupoId=0;
 }
 

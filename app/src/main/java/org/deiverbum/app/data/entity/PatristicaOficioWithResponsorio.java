@@ -19,15 +19,15 @@ public class PatristicaOficioWithResponsorio {
     public LHPatristicaOficioEntity lhPatristica;
 
     @Relation(
-            parentColumn = "homiliaFK",
-            entityColumn = "homiliaId",
+            parentColumn = "homilyFK",
+            entityColumn = "homilyID",
             entity = HomiliaEntity.class
     )
     public HomiliaWithAll homiliaWithAll;
 
     @Relation(
-            parentColumn = "responsorioFK",
-            entityColumn = "responsorioId",
+            parentColumn = "responsoryFK",
+            entityColumn = "responsoryID",
             entity = LHResponsorioEntity.class
     )
     public LHResponsorioLargoEntity lhResponsorio;

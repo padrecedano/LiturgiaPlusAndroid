@@ -14,8 +14,8 @@ public class HimnoWithAll {
     @Embedded
     public LHHimnoJoinEntity himnoJoin;
     @Relation(
-            parentColumn = "himnoFK",
-            entityColumn = "himnoId",
+            parentColumn = "hymnFK",
+            entityColumn = "hymnID",
             entity = HimnoEntity.class
     )
     public HimnoEntity himno;

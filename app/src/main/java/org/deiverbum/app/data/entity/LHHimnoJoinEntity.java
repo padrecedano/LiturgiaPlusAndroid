@@ -13,16 +13,16 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_himno_join",
-        indices = {@Index(value = {"grupoId","himnoFK"}, unique = true)},
+@Entity(tableName = "lh_hymn_join",
+        indices = {@Index(value = {"groupID","hymnFK"}, unique = true)},
         //primaryKeys = {"grupoId","himnoFK"},
         foreignKeys =
         {
 
                 @ForeignKey(
                         entity = HimnoEntity.class,
-                        parentColumns = "himnoId",
-                        childColumns = "himnoFK",
+                        parentColumns = "hymnID",
+                        childColumns = "hymnFK",
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE)
         }
@@ -31,11 +31,11 @@ public class LHHimnoJoinEntity {
 
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "grupoId")
+    @ColumnInfo(name = "groupID")
     public Integer grupoId=0;
 
     @NonNull
-    @ColumnInfo(name = "himnoFK", defaultValue = "0")
+    @ColumnInfo(name = "hymnFK", defaultValue = "0")
     public Integer himnoFK=0;
 
     public int getHimnoFK() {

@@ -13,62 +13,63 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "homilia",
+@Entity(tableName = "homily",
         foreignKeys =
                 {
                         @ForeignKey(
                                 entity = ObraEntity.class,
-                                parentColumns = "obraId",
-                                childColumns = "obraFK",
+                                parentColumns = "opusID",
+                                childColumns = "opusFK",
                                 onDelete = ForeignKey.SET_DEFAULT,
                                 onUpdate = ForeignKey.SET_DEFAULT)},
-         indices = {@Index(value = {"obraFK", "fecha", "libro", "capitulo", "numero", "parrafo", "coleccionFK", "colDoc", "colParrafo"},unique = true)}
+         indices = {@Index(value = {"opusFK", "date", "book", "chapter", "number", "paragraph", "collectionFK", "colNumber", "colParagraph"},unique = true)}
 
 )
+
 public class HomiliaEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "homiliaId")
+    @ColumnInfo(name = "homilyID")
     public Integer homiliaId=0;
 
     @NonNull
-    @ColumnInfo(name = "obraFK", defaultValue = "0")
+    @ColumnInfo(name = "opusFK", defaultValue = "0")
     public Integer obraFK=0;
 
     @NonNull
-    @ColumnInfo(name = "fecha", defaultValue = "0")
+    @ColumnInfo(name = "date", defaultValue = "0")
     public Integer fecha=0;
 
     @NonNull
-    @ColumnInfo(name = "libro", defaultValue = "0")
+    @ColumnInfo(name = "book", defaultValue = "0")
     public Integer libro=0;
 
     @NonNull
-    @ColumnInfo(name = "capitulo", defaultValue = "0")
+    @ColumnInfo(name = "chapter", defaultValue = "0")
     public Integer capitulo=0;
 
     @NonNull
-    @ColumnInfo(name = "numero", defaultValue = "0")
+    @ColumnInfo(name = "number", defaultValue = "0")
     public Integer numero=0;
 
     @NonNull
-    @ColumnInfo(name = "parrafo", defaultValue = "0")
+    @ColumnInfo(name = "paragraph", defaultValue = "0")
     public Integer parrafo=0;
 
     @NonNull
-    @ColumnInfo(name = "coleccionFK", defaultValue = "0")
+    @ColumnInfo(name = "collectionFK", defaultValue = "0")
     public Integer coleccionFK=0;
 
     @NonNull
-    @ColumnInfo(name = "colDoc", defaultValue = "0")
+    @ColumnInfo(name = "colNumber", defaultValue = "0")
     public Integer colDoc=0;
 
     @NonNull
-    @ColumnInfo(name = "colParrafo", defaultValue = "0")
+    @ColumnInfo(name = "colParagraph", defaultValue = "0")
     public Integer colParrafo=0;
 
     @NonNull
-    @ColumnInfo(name = "homilia")
+    @ColumnInfo(name = "homily")
     public String texto="";
 
     @NonNull

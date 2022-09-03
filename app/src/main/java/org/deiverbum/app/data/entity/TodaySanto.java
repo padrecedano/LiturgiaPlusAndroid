@@ -26,8 +26,8 @@ public class TodaySanto {
 
     @Relation(
             entity = SantoEntity.class,
-            parentColumn = "santoFK",
-            entityColumn = "santoId" //liturgiaId
+            parentColumn = "saintFK",
+            entityColumn = "saintID" //liturgiaId
     )
     public SaintLifeWithAll santo;
 

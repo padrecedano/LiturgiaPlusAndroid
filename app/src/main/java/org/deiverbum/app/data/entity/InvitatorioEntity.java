@@ -12,14 +12,14 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_invitatorio",
+@Entity(tableName = "lh_invitatory",
 
         foreignKeys =
         {
                 @ForeignKey(
                         entity = SalmoEntity.class,
-                        parentColumns = "salmoId",
-                        childColumns = "salmoFK",
+                        parentColumns = "psalmID",
+                        childColumns = "psalmFK",
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE)
         }
@@ -27,11 +27,11 @@ import androidx.room.PrimaryKey;
 public class InvitatorioEntity {
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "casoId")
+    @ColumnInfo(name = "caseID")
     public Integer casoId=0;
 
     @NonNull
-    @ColumnInfo(name = "salmoFK")
+    @ColumnInfo(name = "psalmFK")
     public Integer salmoFK=0;
 
     @NonNull

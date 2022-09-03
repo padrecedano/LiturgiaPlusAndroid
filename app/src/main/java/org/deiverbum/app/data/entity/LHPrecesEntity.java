@@ -12,14 +12,14 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_preces",
-        indices = {@Index(value = {"intro","preces"}, unique = true)}
+@Entity(tableName = "lh_intercessions",
+        indices = {@Index(value = {"intro","intercession"}, unique = true)}
 )
 public class LHPrecesEntity {
 
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "precesId")
+    @ColumnInfo(name = "intercessionID")
     public Integer precesId=0;
 
 
@@ -28,7 +28,7 @@ public class LHPrecesEntity {
     public String intro="";
 
     @NonNull
-    @ColumnInfo(name = "preces")
+    @ColumnInfo(name = "intercession")
     public String preces="";
 
 }

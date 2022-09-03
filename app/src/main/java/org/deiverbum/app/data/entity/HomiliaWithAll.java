@@ -17,8 +17,8 @@ public class HomiliaWithAll {
     public HomiliaEntity homilia;
 
     @Relation(
-            parentColumn = "obraFK",
-            entityColumn = "obraId",
+            parentColumn = "opusFK",
+            entityColumn = "opusID",
             entity = ObraEntity.class
     )
     public ObraWithPadre obraWithPadre;

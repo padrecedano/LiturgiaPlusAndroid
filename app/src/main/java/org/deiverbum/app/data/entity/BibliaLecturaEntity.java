@@ -18,18 +18,18 @@ import org.deiverbum.app.model.BiblicaMisa;
  * @since 2022.2
  */
 
-@Entity(tableName = "biblia_lectura",
+@Entity(tableName = "bible_reading",
         foreignKeys =
         {
             @ForeignKey(
                     entity = BibliaLibroEntity.class,
-                    parentColumns = "libroId",
-                    childColumns = "libroFK",
+                    parentColumns = "bookID",
+                    childColumns = "bookFK",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE)
         },
         indices={
-                @Index(value={"libroFK", "capitulo", "desde", "hasta"},unique = true)}
+                @Index(value={"bookFK", "verseChapter", "verseFrom", "verseTo"},unique = true)}
 )
 public class BibliaLecturaEntity {
 
@@ -66,32 +66,32 @@ public class BibliaLecturaEntity {
 
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "lecturaId")
+    @ColumnInfo(name = "readingID")
     public Integer lecturaId=0;
 
     @NonNull
-    @ColumnInfo(name = "libroFK")
+    @ColumnInfo(name = "bookFK")
     public Integer libroFK=0;
 
     @NonNull
-    @ColumnInfo(name = "capitulo")
+    @ColumnInfo(name = "verseChapter")
     public Integer capitulo=0;
 
     @NonNull
-    @ColumnInfo(name = "desde")
+    @ColumnInfo(name = "verseFrom")
     @SerializedName("versoInicial")
     public Integer desde=0;
 
     @NonNull
-    @ColumnInfo(name = "hasta")
+    @ColumnInfo(name = "verseTo")
     public Integer hasta=0;
 
     @NonNull
-    @ColumnInfo(name = "cita")
+    @ColumnInfo(name = "quote")
     public String cita="";
 
     @NonNull
-    @ColumnInfo(name = "texto")
+    @ColumnInfo(name = "text")
     public String texto="";
 
 
@@ -111,6 +111,7 @@ public Biblica getDomainModel(){
     public BiblicaMisa getDomainModelMisa(){
         BiblicaMisa theModel=new BiblicaMisa();
         //theModel.setLibro(String.valueOf(getLibroId()));
+        //theModel.setLibro()
         theModel.setCapitulo(String.valueOf(getCapitulo()));
         theModel.setCita(String.valueOf(getHasta()));
         theModel.setVersoInicial(String.valueOf(getDesde()));

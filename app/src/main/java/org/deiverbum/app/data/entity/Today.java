@@ -17,214 +17,214 @@ import androidx.room.PrimaryKey;
         {
                 @ForeignKey(
                         entity = LiturgiaEntity.class,
-                        parentColumns = "liturgiaId",
-                        childColumns = "feriaFK",
+                        parentColumns = "liturgyID",
+                        childColumns = "weekDayFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
 
                 @ForeignKey(
                         entity = LiturgyGroupEntity.class,
                         parentColumns = "groupID",
-                        childColumns = "mLecturasFK",
+                        childColumns = "massReadingFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
 
                 @ForeignKey(
                         entity = LHInvitatorioJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "invitatorioFK",
+                        parentColumns = "groupID",
+                        childColumns = "invitatoryFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHHimnoJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "oHimnoFK",
+                        parentColumns = "groupID",
+                        childColumns = "oHymnFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHSalmodiaJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "oSalmodiaFK",
+                        parentColumns = "groupID",
+                        childColumns = "oPsalmodyFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHOficioVersoJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "oVersoFK",
+                        parentColumns = "groupID",
+                        childColumns = "oVerseFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHBiblicaOficioJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "oBiblicaFK",
+                        parentColumns = "groupID",
+                        childColumns = "oBiblicalFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHPatristicaOficioJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "oPatristicaFK",
+                        parentColumns = "groupID",
+                        childColumns = "oPatristicFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = SantoEntity.class,
-                        parentColumns = "santoId",
-                        childColumns = "santoFK",
+                        parentColumns = "saintID",
+                        childColumns = "saintFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHOracionEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "oOracionFK",
+                        parentColumns = "groupID",
+                        childColumns = "oPrayerFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHHimnoJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "lHimnoFK",
+                        parentColumns = "groupID",
+                        childColumns = "lHymnFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHSalmodiaJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "lSalmodiaFK",
+                        parentColumns = "groupID",
+                        childColumns = "lPsalmodyFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHCanticoEvangelicoEntity.class,
-                        parentColumns = "grupoId",
+                        parentColumns = "groupID",
                         childColumns = "lBenedictusFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHBiblicaBreveJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "lBiblicaFK",
+                        parentColumns = "groupID",
+                        childColumns = "lBiblicalFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHPrecesJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "lPrecesFK",
+                        parentColumns = "groupID",
+                        childColumns = "lIntercessionsFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHOracionEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "lOracionFK",
+                        parentColumns = "groupID",
+                        childColumns = "lPrayerFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
 
 
                 @ForeignKey(
                         entity = LHHimnoJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "tHimnoFK",
+                        parentColumns = "groupID",
+                        childColumns = "tHymnFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHSalmodiaJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "tSalmodiaFK",
+                        parentColumns = "groupID",
+                        childColumns = "tPsalmodyFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHBiblicaBreveJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "tBiblicaFK",
+                        parentColumns = "groupID",
+                        childColumns = "tBiblicalFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHOracionEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "tOracionFK",
+                        parentColumns = "groupID",
+                        childColumns = "tPrayerFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
 
                 @ForeignKey(
                         entity = LHHimnoJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "sHimnoFK",
+                        parentColumns = "groupID",
+                        childColumns = "sHymnFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHSalmodiaJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "sSalmodiaFK",
+                        parentColumns = "groupID",
+                        childColumns = "sPsalmodyFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHBiblicaBreveJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "sBiblicaFK",
+                        parentColumns = "groupID",
+                        childColumns = "sBiblicalFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHOracionEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "sOracionFK",
+                        parentColumns = "groupID",
+                        childColumns = "sPrayerFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
 
 
                 @ForeignKey(
                         entity = LHHimnoJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "nHimnoFK",
+                        parentColumns = "groupID",
+                        childColumns = "nHymnFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHSalmodiaJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "nSalmodiaFK",
+                        parentColumns = "groupID",
+                        childColumns = "nPsalmodyFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHBiblicaBreveJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "nBiblicaFK",
+                        parentColumns = "groupID",
+                        childColumns = "nBiblicalFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHOracionEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "nOracionFK",
+                        parentColumns = "groupID",
+                        childColumns = "nPrayerFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
 
                 @ForeignKey(
                         entity = LHHimnoJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "vHimnoFK",
+                        parentColumns = "groupID",
+                        childColumns = "vHymnFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHSalmodiaJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "vSalmodiaFK",
+                        parentColumns = "groupID",
+                        childColumns = "vPsalmodyFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHCanticoEvangelicoEntity.class,
-                        parentColumns = "grupoId",
+                        parentColumns = "groupID",
                         childColumns = "vMagnificatFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHBiblicaBreveJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "vBiblicaFK",
+                        parentColumns = "groupID",
+                        childColumns = "vBiblicalFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHPrecesJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "vPrecesFK",
+                        parentColumns = "groupID",
+                        childColumns = "vIntercessionsFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = LHOracionEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "vOracionFK",
+                        parentColumns = "groupID",
+                        childColumns = "vPrayerFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE)
 
@@ -233,36 +233,36 @@ import androidx.room.PrimaryKey;
 public class Today {
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "hoy")
+    @ColumnInfo(name = "todayDate")
     public Integer hoy=0;
 
     @NonNull
-    @ColumnInfo(name = "feriaFK", defaultValue= "0")
+    @ColumnInfo(name = "weekDayFK", defaultValue= "0")
     public Integer feriaId=0;
 
-    @ColumnInfo(name = "mLecturasFK", defaultValue= "0")
+    @ColumnInfo(name = "massReadingFK", defaultValue= "0")
     public Integer mLecturasFK;
 
-    @ColumnInfo(name = "previoId")
+    @ColumnInfo(name = "previousFK")
     public Integer previoId;
 
     @NonNull
-    @ColumnInfo(name = "tiempoId")
+    @ColumnInfo(name = "timeID")
     public Integer tiempoId=0;
 
     @ColumnInfo(name = "version", defaultValue= "0")
     public Integer version;
 
     @NonNull
-    @ColumnInfo(name = "invitatorioFK", defaultValue= "0")
+    @ColumnInfo(name = "invitatoryFK", defaultValue= "0")
     public Integer invitatorioFK=0;
 
     @NonNull
-    @ColumnInfo(name = "oHimnoFK", defaultValue= "0")
+    @ColumnInfo(name = "oHymnFK", defaultValue= "0")
     public Integer oHimnoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "oSalmodiaFK", defaultValue= "0")
+    @ColumnInfo(name = "oPsalmodyFK", defaultValue= "0")
     public Integer oSalmodiaFK=0;
 
     @NonNull
@@ -270,22 +270,22 @@ public class Today {
     public Integer oficioFK=0;
 
     @NonNull
-    @ColumnInfo(name = "oVersoFK", defaultValue= "0")
+    @ColumnInfo(name = "oVerseFK", defaultValue= "0")
     public Integer oVersoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "oBiblicaFK", defaultValue= "0")
+    @ColumnInfo(name = "oBiblicalFK", defaultValue= "0")
     public Integer oBiblicaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "oPatristicaFK", defaultValue= "0")
+    @ColumnInfo(name = "oPatristicFK", defaultValue= "0")
     public Integer oPatristicaFK=0;
 
-    @ColumnInfo(name = "santoFK", defaultValue= "0")
+    @ColumnInfo(name = "saintFK", defaultValue= "0")
     public Integer santoFK;
 
     @NonNull
-    @ColumnInfo(name = "oOracionFK", defaultValue= "0")
+    @ColumnInfo(name = "oPrayerFK", defaultValue= "0")
     public Integer oOracionFK=0;
 
     @NonNull
@@ -293,15 +293,15 @@ public class Today {
     public Integer oTeDeum=0;
 
     @NonNull
-    @ColumnInfo(name = "lHimnoFK", defaultValue= "0")
+    @ColumnInfo(name = "lHymnFK", defaultValue= "0")
     public Integer lHimnoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "lSalmodiaFK", defaultValue= "0")
+    @ColumnInfo(name = "lPsalmodyFK", defaultValue= "0")
     public Integer lSalmodiaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "lBiblicaFK", defaultValue= "0")
+    @ColumnInfo(name = "lBiblicalFK", defaultValue= "0")
     public Integer lBiblicaFK=0;
 
     @NonNull
@@ -309,73 +309,73 @@ public class Today {
     public Integer lBenedictusFK=0;
 
     @NonNull
-    @ColumnInfo(name = "lPrecesFK", defaultValue= "0")
+    @ColumnInfo(name = "lIntercessionsFK", defaultValue= "0")
     public Integer lPrecesFK=0;
 
     @NonNull
-    @ColumnInfo(name = "lOracionFK", defaultValue= "0")
+    @ColumnInfo(name = "lPrayerFK", defaultValue= "0")
     public Integer lOracionFK=0;
 
 
     @NonNull
-    @ColumnInfo(name = "tHimnoFK", defaultValue= "0")
+    @ColumnInfo(name = "tHymnFK", defaultValue= "0")
     public Integer tHimnoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "tSalmodiaFK", defaultValue= "0")
+    @ColumnInfo(name = "tPsalmodyFK", defaultValue= "0")
     public Integer tSalmodiaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "tBiblicaFK", defaultValue= "0")
+    @ColumnInfo(name = "tBiblicalFK", defaultValue= "0")
     public Integer tBiblicaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "tOracionFK", defaultValue= "0")
+    @ColumnInfo(name = "tPrayerFK", defaultValue= "0")
     public Integer tOracionFK=0;
 
     @NonNull
-    @ColumnInfo(name = "sHimnoFK", defaultValue= "0")
+    @ColumnInfo(name = "sHymnFK", defaultValue= "0")
     public Integer sHimnoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "sSalmodiaFK", defaultValue= "0")
+    @ColumnInfo(name = "sPsalmodyFK", defaultValue= "0")
     public Integer sSalmodiaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "sBiblicaFK", defaultValue= "0")
+    @ColumnInfo(name = "sBiblicalFK", defaultValue= "0")
     public Integer sBiblicaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "sOracionFK", defaultValue= "0")
+    @ColumnInfo(name = "sPrayerFK", defaultValue= "0")
     public Integer sOracionFK=0;
 
     @NonNull
-    @ColumnInfo(name = "nHimnoFK", defaultValue= "0")
+    @ColumnInfo(name = "nHymnFK", defaultValue= "0")
     public Integer nHimnoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "nSalmodiaFK", defaultValue= "0")
+    @ColumnInfo(name = "nPsalmodyFK", defaultValue= "0")
     public Integer nSalmodiaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "nBiblicaFK", defaultValue= "0")
+    @ColumnInfo(name = "nBiblicalFK", defaultValue= "0")
     public Integer nBiblicaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "nOracionFK", defaultValue= "0")
+    @ColumnInfo(name = "nPrayerFK", defaultValue= "0")
     public Integer nOracionFK=0;
 
 
     @NonNull
-    @ColumnInfo(name = "vHimnoFK", defaultValue= "0")
+    @ColumnInfo(name = "vHymnFK", defaultValue= "0")
     public Integer vHimnoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "vSalmodiaFK", defaultValue= "0")
+    @ColumnInfo(name = "vPsalmodyFK", defaultValue= "0")
     public Integer vSalmodiaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "vBiblicaFK", defaultValue= "0")
+    @ColumnInfo(name = "vBiblicalFK", defaultValue= "0")
     public Integer vBiblicaFK=0;
 
     @NonNull
@@ -383,11 +383,11 @@ public class Today {
     public Integer vMagnificatFK=0;
 
     @NonNull
-    @ColumnInfo(name = "vPrecesFK", defaultValue= "0")
+    @ColumnInfo(name = "vIntercessionsFK", defaultValue= "0")
     public Integer vPrecesFK=0;
 
     @NonNull
-    @ColumnInfo(name = "vOracionFK", defaultValue= "0")
+    @ColumnInfo(name = "vPrayerFK", defaultValue= "0")
     public Integer vOracionFK=0;
 
     public void setVersion(Integer version) {

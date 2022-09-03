@@ -12,13 +12,13 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_preces_join",
+@Entity(tableName = "lh_intercessions_join",
     foreignKeys =
     {
         @ForeignKey(
                     entity = LHPrecesEntity.class,
-                    parentColumns = "precesId",
-                    childColumns = "precesFK",
+                    parentColumns = "intercessionID",
+                    childColumns = "intercessionFK",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE
                     )
@@ -28,11 +28,11 @@ public class LHPrecesJoinEntity {
 
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "grupoId")
+    @ColumnInfo(name = "groupID")
     public Integer grupoId=0;
 
     @NonNull
-    @ColumnInfo(name = "precesFK")
+    @ColumnInfo(name = "intercessionFK")
     public Integer precesFK=0;
 }
 

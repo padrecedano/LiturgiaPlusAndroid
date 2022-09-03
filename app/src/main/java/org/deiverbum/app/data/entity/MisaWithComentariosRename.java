@@ -15,7 +15,7 @@ import java.util.List;
  * @version 1.0
  * @since 2022.2
  */
-public class MisaWithComentariosBis {
+public class MisaWithComentariosRename {
     @Embedded
     /*public LiturgyGroupEntity misaLectura;
 
@@ -37,11 +37,17 @@ public class MisaWithComentariosBis {
 
     @Relation(
             parentColumn = "readingFK",
-            entityColumn = "lecturaId",
+            entityColumn = "readingID",
             entity = BibliaLecturaEntity.class
     )
-    public BibliaLecturaEntity lecturaEntity;
+    public List<LecturaWithLibro> lecturaList;
 
+    @Relation(
+            parentColumn = "readingFK",
+            entityColumn = "readingID",
+            entity = BibliaLecturaEntity.class
+    )
+    public LecturaWithLibro lecturaOne;
 /*
     @Relation(
             parentColumn = "liturgyFK",
@@ -50,12 +56,30 @@ public class MisaWithComentariosBis {
     )
     public LiturgiaWithTiempo liturgia;
 */
+    public List<BiblicaMisa> getBiblicaMisas() {
+        List<BiblicaMisa> theModel=new ArrayList<>();
+        for (LecturaWithLibro item : lecturaList) {
+            BiblicaMisa bm=item.getDomainModelMisa();
+            bm.setOrden(misaLectura.getOrden());
+            theModel.add(bm);
+        }
+return theModel;
+        /*BiblicaMisa theModel = lecturaEntity.getDomainModelMisa();
+        theModel.setTema(misaLectura.getTema());
+        theModel.setOrden(misaLectura.getOrden());
+        return theModel;*/
+    }
+
     public BiblicaMisa getBiblicaMisa() {
-        BiblicaMisa theModel = lecturaEntity.getDomainModelMisa();
+
+        BiblicaMisa theModel = lecturaOne.getDomainModelMisa();
         theModel.setTema(misaLectura.getTema());
         theModel.setOrden(misaLectura.getOrden());
         return theModel;
     }
+
+
+
 
     public Liturgia getLiturgia() {
         return null;//liturgia.getDomainModel();

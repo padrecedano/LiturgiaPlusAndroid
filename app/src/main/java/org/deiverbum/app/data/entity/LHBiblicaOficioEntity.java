@@ -11,8 +11,8 @@ import androidx.room.ForeignKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_biblica_oficio",
-        primaryKeys = {"grupoFK","lecturaFK","responsorioFK"},
+@Entity(tableName = "lh_office_biblical",
+        primaryKeys = {"groupFK","readingFK","responsoryFK"},
         /*indices = {@Index(value = {"grupoFK","pericopaFK","responsorioFK"},
                 unique = true)},*/
 
@@ -20,20 +20,20 @@ import androidx.room.ForeignKey;
         {
                 @ForeignKey(
                         entity = LHBiblicaOficioJoinEntity.class,
-                        parentColumns = "grupoId",
-                        childColumns = "grupoFK",
+                        parentColumns = "groupID",
+                        childColumns = "groupFK",
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE),
             @ForeignKey(
                     entity = BibliaLecturaEntity.class,
-                    parentColumns = "lecturaId",
-                    childColumns = "lecturaFK",
+                    parentColumns = "readingID",
+                    childColumns = "readingFK",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE),
             @ForeignKey(
                     entity = LHResponsorioEntity.class,
-                    parentColumns = "responsorioId",
-                    childColumns = "responsorioFK",
+                    parentColumns = "responsoryID",
+                    childColumns = "responsoryFK",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE)
         }
@@ -41,23 +41,23 @@ import androidx.room.ForeignKey;
 public class LHBiblicaOficioEntity {
     @NonNull
     //@PrimaryKey
-    @ColumnInfo(name = "grupoFK")
+    @ColumnInfo(name = "groupFK")
     public Integer grupoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "lecturaFK")
+    @ColumnInfo(name = "readingFK")
     public Integer lecturaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "responsorioFK")
+    @ColumnInfo(name = "responsoryFK")
     public Integer responsorioFK=0;
 
     @NonNull
-    @ColumnInfo(name = "tema")
+    @ColumnInfo(name = "theme")
     public String tema="";
 
     @NonNull
-    @ColumnInfo(name = "orden", defaultValue= "1")
+    @ColumnInfo(name = "order", defaultValue= "1")
     public Integer orden=0;
 }
 

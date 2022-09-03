@@ -11,8 +11,8 @@ import androidx.room.ForeignKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_patristica_oficio",
-        primaryKeys = {"grupoFK","homiliaFK","responsorioFK"},
+@Entity(tableName = "lh_office_patristic",
+        primaryKeys = {"groupFK","homilyFK","responsoryFK"},
         /*indices = {@Index(value = {"grupoFK","pericopaFK","responsorioFK"},
                 unique = true)},*/
 
@@ -20,47 +20,47 @@ import androidx.room.ForeignKey;
         {
           @ForeignKey(
                     entity = LHPatristicaOficioJoinEntity.class,
-                    parentColumns = "grupoId",
-                    childColumns = "grupoFK",
+                    parentColumns = "groupID",
+                    childColumns = "groupFK",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE),
             @ForeignKey(
                     entity = HomiliaEntity.class,
-                    parentColumns = "homiliaId",
-                    childColumns = "homiliaFK",
+                    parentColumns = "homilyID",
+                    childColumns = "homilyFK",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE),
             @ForeignKey(
                     entity = LHResponsorioEntity.class,
-                    parentColumns = "responsorioId",
-                    childColumns = "responsorioFK",
+                    parentColumns = "responsoryID",
+                    childColumns = "responsoryFK",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE)
         }
 )
 public class LHPatristicaOficioEntity {
     @NonNull
-    @ColumnInfo(name = "grupoFK")
+    @ColumnInfo(name = "groupFK")
     public Integer grupoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "homiliaFK")
+    @ColumnInfo(name = "homilyFK")
     public Integer homiliaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "responsorioFK")
+    @ColumnInfo(name = "responsoryFK")
     public Integer responsorioFK=0;
 
     @NonNull
-    @ColumnInfo(name = "tema")
+    @ColumnInfo(name = "theme")
     public String tema="";
 
     @NonNull
-    @ColumnInfo(name = "fuente", defaultValue = "")
+    @ColumnInfo(name = "source", defaultValue = "")
     public String fuente="";
 
     @NonNull
-    @ColumnInfo(name = "orden", defaultValue= "1")
+    @ColumnInfo(name = "order", defaultValue= "1")
     public Integer orden=0;
 }
 

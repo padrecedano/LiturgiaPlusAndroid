@@ -14,17 +14,18 @@ public class SantoWithAll {
     @Embedded
     public SantoEntity santo;
     @Relation(
-            parentColumn = "santoId",
-            entityColumn = "santoId",
-            entity = LHSantoEntity.class
+            parentColumn = "saintID",
+            entityColumn = "saintID",
+            entity = SantoEntity.class
     )
 
-    public LHSantoEntity lhSanto;
+    public SantoEntity lhSanto;
 
+    //TODO método getVida ¿?
     public Santo getDomainModelLH(){
         Santo dm=new Santo();
         dm.setNombre(santo.nombre);
-        dm.setVida(lhSanto.getVida());
+        dm.setVida("lhSanto.getVida()");
         return dm;
     }
 

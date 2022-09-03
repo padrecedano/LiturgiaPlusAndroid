@@ -26,58 +26,58 @@ public class TodaySexta {
 
     @Relation(
             entity = SantoEntity.class,
-            parentColumn = "santoFK",
-            entityColumn = "santoId"
+            parentColumn = "saintFK",
+            entityColumn = "saintID"
     )
     public SantoEntity santo;
 
 
     @Relation(
             entity = LHHimnoJoinEntity.class,
-            parentColumn = "sHimnoFK",
-            entityColumn = "grupoId"
+            parentColumn = "sHymnFK",
+            entityColumn = "groupID"
     )
     public HimnoWithAll himno;
 
     @Relation(
             entity = LHBiblicaBreveJoinEntity.class,
-            parentColumn = "sBiblicaFK",
-            entityColumn = "grupoId"
+            parentColumn = "sBiblicalFK",
+            entityColumn = "groupID"
     )
     public BiblicaBreveAll biblica;
 
     @Relation(
             entity = LHSalmodiaJoinEntity.class,
-            parentColumn = "sSalmodiaFK",
-            entityColumn = "grupoId"
+            parentColumn = "sPsalmodyFK",
+            entityColumn = "groupID"
     )
     public LHSalmodia salmodia;
 
     @Relation(
             entity = SalmodiaEntity.class,
-            parentColumn = "sSalmodiaFK",
-            entityColumn = "grupoFK"
+            parentColumn = "sPsalmodyFK",
+            entityColumn = "groupFK"
     )
     public List<SalmodiaWithSalmos> salmos;
 
     @Relation(
             entity = LHOracionEntity.class,
-            parentColumn = "sOracionFK",
-            entityColumn = "grupoId"
+            parentColumn = "sPrayerFK",
+            entityColumn = "groupID"
     )
     public LHOracion lhOracion;
 
     @Relation(
             entity = LiturgiaEntity.class,
-            parentColumn = "feriaFK",
-            entityColumn = "liturgiaId"
+            parentColumn = "weekDayFK",
+            entityColumn = "liturgyID"
     )
     public LiturgiaWithTiempo feria;
 
     @Relation(
             entity = LiturgiaEntity.class,
-            parentColumn = "previoId",
-            entityColumn = "liturgiaId"
+            parentColumn = "previousFK",
+            entityColumn = "liturgyID"
     )
     public LiturgiaWithTiempo previo;
 

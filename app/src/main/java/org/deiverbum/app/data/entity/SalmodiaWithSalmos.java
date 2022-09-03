@@ -12,36 +12,36 @@ public class SalmodiaWithSalmos {
     @Embedded
     public SalmodiaEntity salmodia;
     @Relation(
-            parentColumn = "grupoFK",
-            entityColumn = "grupoId",
+            parentColumn = "groupFK",
+            entityColumn = "groupID",
             entity = LHSalmodiaJoinEntity.class
     )
     public LHSalmodiaJoinEntity salmodiaEntity;
 
     @Relation(
-            parentColumn = "pericopaFK",
-            entityColumn = "salmoId",
+            parentColumn = "readingFK",
+            entityColumn = "psalmID",
             entity = SalmoEntity.class
     )
     public SalmoEntity salmoEntity;
 
     @Relation(
-            parentColumn = "antifonaFK",
-            entityColumn = "antifonaId",
+            parentColumn = "antiphonFK",
+            entityColumn = "antiphonID",
             entity = AntifonaEntity.class
     )
     public AntifonaEntity antifonaEntity;
 
     @Relation(
-            parentColumn = "temaFK",
-            entityColumn = "temaId",
+            parentColumn = "themeFK",
+            entityColumn = "themeID",
             entity = TemaEntity.class
     )
     public TemaEntity tema;
 
     @Relation(
-            parentColumn = "epigrafeFK",
-            entityColumn = "epigrafeId",
+            parentColumn = "epigraphFK",
+            entityColumn = "epigraphID",
             entity = EpigrafeEntity.class
     )
     public EpigrafeEntity epigrafe;

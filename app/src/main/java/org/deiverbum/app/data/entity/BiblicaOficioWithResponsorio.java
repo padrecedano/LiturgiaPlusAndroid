@@ -19,15 +19,15 @@ public class BiblicaOficioWithResponsorio {
     public LHBiblicaOficioEntity lhBiblica;
 
     @Relation(
-            parentColumn = "lecturaFK",
-            entityColumn = "lecturaId",
+            parentColumn = "readingFK",
+            entityColumn = "readingID",
             entity = BibliaLecturaEntity.class
     )
     public LecturaWithLibro bibliaLectura;
 
     @Relation(
-            parentColumn = "responsorioFK",
-            entityColumn = "responsorioId",
+            parentColumn = "responsoryFK",
+            entityColumn = "responsoryID",
             entity = LHResponsorioLargoEntity.class
     )
     public LHResponsorioLargoEntity lhResponsorio;

@@ -25,22 +25,22 @@ public class TodayMisaLecturas {
 
     @Relation(
             entity = LiturgiaEntity.class,
-            parentColumn = "feriaFK",
-            entityColumn = "liturgiaId"
+            parentColumn = "weekDayFK",
+            entityColumn = "liturgyID"
     )
     public LiturgiaWithTiempo feria;
 
     @Relation(
             entity = LiturgiaEntity.class,
-            parentColumn = "previoId",
-            entityColumn = "liturgiaId"
+            parentColumn = "previousFK",
+            entityColumn = "liturgyID"
     )
     public LiturgiaWithTiempo previo;
 
     @Relation(
             entity = SantoEntity.class,
-            parentColumn = "santoFK",
-            entityColumn = "santoId"
+            parentColumn = "saintFK",
+            entityColumn = "saintID"
     )
     public SantoWithAll santo;
 /*
@@ -53,7 +53,7 @@ public class TodayMisaLecturas {
 */
     @Relation(
             entity = LiturgyGroupEntity.class,
-            parentColumn = "mLecturasFK",
+            parentColumn = "massReadingFK",
             entityColumn = "groupID"
     )
     public MisaWithLecturasBis lecturass;
