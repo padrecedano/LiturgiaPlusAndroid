@@ -21,13 +21,13 @@ import androidx.room.PrimaryKey;
 
                 @ForeignKey(
                         entity = BibliaLecturaEntity.class,
-                        parentColumns = "lecturaId",
+                        parentColumns = "readingID",
                         childColumns = "readingFK",
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = HomiliaEntity.class,
-                        parentColumns = "homiliaId",
+                        parentColumns = "homilyID",
                         childColumns = "homilyFK",
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE)

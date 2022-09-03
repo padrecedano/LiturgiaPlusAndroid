@@ -13,7 +13,7 @@ import org.deiverbum.app.model.BibliaLibro;
  * @since 2022.2
  */
 
-@Entity(tableName = "biblia_libro"/*,
+@Entity(tableName = "bible_book"/*,
         foreignKeys =
         {
             @ForeignKey(
@@ -31,7 +31,7 @@ import org.deiverbum.app.model.BibliaLibro;
 public class BibliaLibroEntity {
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "libroId")
+    @ColumnInfo(name = "bookID")
     public Integer libroId=0;
 
     @NonNull

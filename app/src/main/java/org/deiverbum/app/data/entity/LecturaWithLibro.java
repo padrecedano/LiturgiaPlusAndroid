@@ -19,8 +19,8 @@ public class LecturaWithLibro {
 
 
     @Relation(
-            parentColumn = "libroFK",
-            entityColumn = "libroId",
+            parentColumn = "bookFK",
+            entityColumn = "bookID",
             entity = BibliaLibroEntity.class
     )
     public BibliaLibroEntity libro;

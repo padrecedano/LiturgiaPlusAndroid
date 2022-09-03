@@ -12,14 +12,14 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_cantico_evangelico",
+@Entity(tableName = "lh_gospel_canticle",
 
         foreignKeys =
         {
             @ForeignKey(
                     entity = AntifonaEntity.class,
-                    parentColumns = "antifonaId",
-                    childColumns = "antifonaFK",
+                    parentColumns = "antiphonID",
+                    childColumns = "antiphonFK",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE)/*,
             @ForeignKey(
@@ -34,11 +34,11 @@ public class LHCanticoEvangelicoEntity {
 
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "grupoId")
+    @ColumnInfo(name = "groupID")
     public Integer grupoId=0;
 
     @NonNull
-    @ColumnInfo(name = "antifonaFK")
+    @ColumnInfo(name = "antiphonFK")
     public Integer antifonaFK=0;
 
 }

@@ -13,15 +13,15 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_oracion",
-        indices = {@Index(value = {"grupoId","oracionFK"}, unique = true)},
+@Entity(tableName = "lh_prayer",
+        indices = {@Index(value = {"groupID","prayerFK"}, unique = true)},
 
         foreignKeys =
         {
             @ForeignKey(
                     entity = OracionEntity.class,
-                    parentColumns = "oracionId",
-                    childColumns = "oracionFK",
+                    parentColumns = "prayerID",
+                    childColumns = "prayerFK",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE)/*,
             @ForeignKey(
@@ -36,11 +36,11 @@ public class LHOracionEntity {
 
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "grupoId")
+    @ColumnInfo(name = "groupID")
     public Integer grupoId=0;
 
     @NonNull
-    @ColumnInfo(name = "oracionFK")
+    @ColumnInfo(name = "prayerFK")
     public Integer oracionFK=0;
 
 }

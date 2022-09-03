@@ -11,48 +11,48 @@ import org.deiverbum.app.utils.Utils;
 public class Homilia {
     @Ignore
     public String padre="";
-    public int homiliaId;
-    public String homilia="";
+    public int homilyID;
+    public String homily="";
     @Ignore
-    public String tema="";
-    public Integer obraFK=0;
-    public String fecha="";
+    public String theme="";
+    public Integer opusFK=0;
+    public String date="";
     @Ignore
-    public String obra="";
+    public String opus="";
 
     @SuppressWarnings("unused")
     public Homilia(String padre, int id, String texto, String tema, Integer obra, String fecha) {
         this.padre = padre;
-        this.homiliaId = id;
-        this.homilia = texto;
-        this.tema = tema;
-        this.obraFK = obra;
-        this.fecha = fecha;
+        this.homilyID = id;
+        this.homily = texto;
+        this.theme = tema;
+        this.opusFK = obra;
+        this.date = fecha;
 
     }
     @SuppressWarnings("unused")
     public Homilia() {}
 
     public String getTema() {
-        return tema;
+        return theme;
     }
     public String getObra() {
-        return obra;
+        return opus;
     }
     public void setObra(String obra) {
-        this.obra = obra;
+        this.opus = obra;
     }
 
     public void setTema(String tema) {
-        this.tema = tema;
+        this.theme = tema;
     }
 
     public Integer getObraFK() {
-        return obraFK;
+        return opusFK;
     }
 
     public void setObraFK(Integer obra) {
-        this.obraFK = obra;
+        this.opusFK = obra;
     }
     public String getPadre() {
         return padre;
@@ -64,21 +64,21 @@ public class Homilia {
 
     @SuppressWarnings("unused")
     public int getHomiliaId() {
-        return homiliaId;
+        return homilyID;
     }
 
     @SuppressWarnings("unused")
     public void setHomiliaId(int id) {
-        this.homiliaId = id;
+        this.homilyID = id;
     }
 
     public String getHomilia() {
-        return homilia;
+        return homily;
     }
 
     @SuppressWarnings("unused")
     public void setHomilia(String texto) {
-        this.homilia = texto;
+        this.homily = texto;
     }
 
     public SpannableStringBuilder getAllForView(){
@@ -87,12 +87,12 @@ public class Homilia {
         sb.append(LS2);
         sb.append(Utils.toH4Red(getObra()));
         sb.append(LS2);
-        if(!tema.isEmpty()) {
-            sb.append(Utils.toRed(tema));
+        if(!theme.isEmpty()) {
+            sb.append(Utils.toRed(theme));
             sb.append(LS2);
         }
-        if(!fecha.isEmpty() && !fecha.equals("0000-00-00")) {
-            sb.append(Utils.toRed(fecha));
+        if(!date.isEmpty() && !date.equals("0000-00-00")) {
+            sb.append(Utils.toRed(date));
             sb.append(LS2);
         }
         sb.append(Utils.fromHtml(getHomilia()));
@@ -104,11 +104,11 @@ public class Homilia {
         StringBuilder sb=new StringBuilder();
         sb.append(Utils.normalizeEnd(getPadre()));
         sb.append(Utils.normalizeEnd(getObra()));
-        if(!tema.isEmpty()) {
-            sb.append(Utils.normalizeEnd(tema));
+        if(!theme.isEmpty()) {
+            sb.append(Utils.normalizeEnd(theme));
         }
-        if(!fecha.isEmpty() && !fecha.equals("0000-00-00")) {
-            sb.append(Utils.normalizeEnd(fecha));
+        if(!date.isEmpty() && !date.equals("0000-00-00")) {
+            sb.append(Utils.normalizeEnd(date));
         }
         sb.append(Utils.fromHtml(getHomilia()));
         return sb;
@@ -116,8 +116,8 @@ public class Homilia {
     @SuppressWarnings("unused")
     public SpannableStringBuilder getTemaForView(){
         SpannableStringBuilder sb=new SpannableStringBuilder();
-        if(!tema.isEmpty()) {
-            sb.append(Utils.toH4Red(tema));
+        if(!theme.isEmpty()) {
+            sb.append(Utils.toH4Red(theme));
             sb.append(LS2);
         }
         return sb;

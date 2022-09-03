@@ -26,7 +26,7 @@ import org.deiverbum.app.model.Oracion;
                                 onUpdate = ForeignKey.CASCADE),
                        @ForeignKey(
                                 entity = BibliaLecturaEntity.class,
-                                parentColumns = "lecturaId",
+                                parentColumns = "readingID",
                                 childColumns = "readingFK",
                                 onDelete = ForeignKey.CASCADE,
                                 onUpdate = ForeignKey.CASCADE)}/*,

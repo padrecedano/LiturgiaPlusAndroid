@@ -32,7 +32,7 @@ public class BiblicaOficio extends Biblica {
 
     //@Override
     public SpannableStringBuilder getHeaderForReview() {
-        String s=String.format("%s lectura",Utils.getOrdinal(orden)).toUpperCase();
+        String s=String.format("%s lectura",Utils.getOrdinal(order)).toUpperCase();
         return Utils.formatTitle(s);
     }
 
@@ -61,7 +61,7 @@ public class BiblicaOficio extends Biblica {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeader());
         sb.append(LS2);
-        sb.append(libro.getLiturgyName());
+        sb.append(book.getLiturgyName());
         sb.append("    ");
         sb.append(Utils.toRed(getCita()));
         //sb.append(", ");
@@ -84,7 +84,7 @@ public class BiblicaOficio extends Biblica {
     public SpannableStringBuilder getAllForRead(){
         SpannableStringBuilder sb=new SpannableStringBuilder();
         sb.append(getHeaderForRead());
-        sb.append(libro.getForRead());
+        sb.append(book.getForRead());
         sb.append(getTemaForRead());
         sb.append(getTexto());
         sb.append(getConclusionForRead());
@@ -94,10 +94,10 @@ public class BiblicaOficio extends Biblica {
     }
 
     public Integer getOrden() {
-        return this.orden;
+        return this.order;
     }
 
     public void setOrden(Integer orden) {
-        this.orden=orden;
+        this.order=orden;
     }
 }

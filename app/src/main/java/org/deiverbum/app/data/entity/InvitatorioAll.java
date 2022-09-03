@@ -14,15 +14,15 @@ public class InvitatorioAll {
     @Embedded
     public LHInvitatorioJoinEntity salmodia;
     @Relation(
-            parentColumn = "casoFK",
-            entityColumn = "casoId",
+            parentColumn = "caseFK",
+            entityColumn = "caseID",
             entity = InvitatorioEntity.class
     )
     public InvitatorioWithSalmo salmo;
 
     @Relation(
-            parentColumn = "antifonaFK",
-            entityColumn = "antifonaId",
+            parentColumn = "antiphonFK",
+            entityColumn = "antiphonID",
             entity = AntifonaEntity.class/*,
             associateBy = @Junction(SalmodiaSalmoCrossRef.class)*/
     )

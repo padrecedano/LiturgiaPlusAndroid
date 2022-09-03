@@ -15,8 +15,8 @@ public class LiturgiaWithHomilias {
     public LiturgiaHomiliaJoinEntity joinEntity;
 
     @Relation(
-            parentColumn = "homiliaFK",
-            entityColumn = "homiliaId",
+            parentColumn = "homilyFK",
+            entityColumn = "homilyID",
             entity = HomiliaEntity.class
     )
     public HomiliaWithAll homilia;

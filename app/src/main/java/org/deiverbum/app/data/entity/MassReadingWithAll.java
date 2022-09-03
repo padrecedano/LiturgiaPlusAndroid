@@ -28,7 +28,7 @@ public class MassReadingWithAll {
 
     @Relation(
             parentColumn = "readingFK",
-            entityColumn = "lecturaId",
+            entityColumn = "readingID",
             entity = BibliaLecturaEntity.class
     )
     public LecturaWithLibro lectura;

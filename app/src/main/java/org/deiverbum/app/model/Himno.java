@@ -9,34 +9,42 @@ import org.deiverbum.app.utils.Utils;
 
 
 public class Himno {
-    private String himno;
+    private String hymn;
 
     public Himno() {
     }
 
     public Himno(String himno) {
-        this.himno=himno;
+        this.hymn=himno;
     }
 
     public Spanned getTextoSpan() {
-        return Utils.fromHtml(Utils.getFormato(himno));
+        return Utils.fromHtml(Utils.getFormato(hymn));
     }
 
     //@PropertyName("himno.texto")
     public String getTexto() {
-        return himno;
+        return hymn;
     }
 
     public String getHimno() {
-        return himno;
+        return hymn;
     }
 
     public void setHimno(String himno) {
-        this.himno = himno;
+        this.hymn = himno;
     }
 
     public void setTexto(String texto) {
-        this.himno = texto;
+        this.hymn = texto;
+    }
+
+    public String getHymn() {
+        return hymn;
+    }
+
+    public void setHymn(String hymn) {
+        this.hymn = hymn;
     }
 
     public SpannableStringBuilder getHeader() {

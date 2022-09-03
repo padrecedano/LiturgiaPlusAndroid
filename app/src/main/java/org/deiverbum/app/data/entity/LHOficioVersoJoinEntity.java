@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_oficio_verso_join",
+@Entity(tableName = "lh_office_verse_join",
         //indices = {@Index(value = {"grupoId","himnoFK"}, unique = true)},
         //primaryKeys = {"grupoId","himnoFK"},
         foreignKeys =
@@ -20,8 +20,8 @@ import androidx.room.PrimaryKey;
 
                 @ForeignKey(
                         entity = LHOficioVersoEntity.class,
-                        parentColumns = "versoId",
-                        childColumns = "versoFK",
+                        parentColumns = "verseID",
+                        childColumns = "verseFK",
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE)
         }
@@ -30,11 +30,11 @@ public class LHOficioVersoJoinEntity {
 
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "grupoId")
+    @ColumnInfo(name = "groupID")
     public Integer grupoId=0;
 
     @NonNull
-    @ColumnInfo(name = "versoFK")
+    @ColumnInfo(name = "verseFK")
     public Integer versoFK=0;
 
     public int getResponsorioFK() {

@@ -12,8 +12,8 @@ public class ObraWithPadre {
     @Embedded
     public ObraEntity obra;
     @Relation(
-            parentColumn = "padreFK",
-            entityColumn = "padreId",
+            parentColumn = "paterFK",
+            entityColumn = "paterID",
             entity = PadreEntity.class
     )
     public PadreEntity padre;

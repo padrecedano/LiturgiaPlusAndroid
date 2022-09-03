@@ -31,86 +31,86 @@ public class TodayVisperas {
 
     @Relation(
             entity = SantoEntity.class,
-            parentColumn = "santoFK",
-            entityColumn = "santoId"
+            parentColumn = "saintFK",
+            entityColumn = "saintID"
     )
     public SantoWithAll santo;
 
     @Relation(
             entity = LHInvitatorioJoinEntity.class,
-            parentColumn = "invitatorioFK",
-            entityColumn = "grupoId"
+            parentColumn = "invitatoryFK",
+            entityColumn = "groupID"
     )
     public InvitatorioAll invitatorio;
 
     @Relation(
             entity = LHHimnoJoinEntity.class,
-            parentColumn = "vHimnoFK",
-            entityColumn = "grupoId"
+            parentColumn = "vHymnFK",
+            entityColumn = "groupID"
     )
     public HimnoWithAll himno;
 
     @Relation(
             entity = LHBiblicaBreveJoinEntity.class,
-            parentColumn = "vBiblicaFK",
-            entityColumn = "grupoId"
+            parentColumn = "vBiblicalFK",
+            entityColumn = "groupID"
     )
     public BiblicaBreveAll biblica;
 
     @Relation(
             entity = LHSalmodiaJoinEntity.class,
-            parentColumn = "vSalmodiaFK",
-            entityColumn = "grupoId"
+            parentColumn = "vPsalmodyFK",
+            entityColumn = "groupID"
     )
     public LHSalmodia salmodia;
 
     @Relation(
             entity = SalmodiaEntity.class,
-            parentColumn = "vSalmodiaFK",
-            entityColumn = "grupoFK"
+            parentColumn = "vPsalmodyFK",
+            entityColumn = "groupFK"
     )
     public List<SalmodiaWithSalmos> salmos;
 
     @Relation(
             entity = LHPrecesJoinEntity.class,
-            parentColumn = "vPrecesFK",
-            entityColumn = "grupoId"
+            parentColumn = "vIntercessionsFK",
+            entityColumn = "groupID"
 
     )
     public LHPreces lhPreces;
 
     @Relation(
             entity = LHOracionEntity.class,
-            parentColumn = "vOracionFK",
-            entityColumn = "grupoId"
+            parentColumn = "vPrayerFK",
+            entityColumn = "groupID"
     )
     public LHOracion lhOracion;
 
     @Relation(
             entity = LiturgiaEntity.class,
-            parentColumn = "feriaFK",
-            entityColumn = "liturgiaId"
+            parentColumn = "weekDayFK",
+            entityColumn = "liturgyID"
     )
     public LiturgiaWithTiempo feria;
 
     @Relation(
             entity = LiturgiaEntity.class,
-            parentColumn = "previoId",
-            entityColumn = "liturgiaId"
+            parentColumn = "previousFK",
+            entityColumn = "liturgyID"
     )
     public LiturgiaWithTiempo previo;
 
     @Relation(
             entity = LHCanticoEvangelicoEntity.class,
             parentColumn = "vMagnificatFK",
-            entityColumn = "grupoId"
+            entityColumn = "groupID"
     )
     public CanticoEvangelicoWithAntifona magnificat;
 
     @Relation(
             entity = MisaLecturaEntity.class,
-            parentColumn = "mLecturasFK",
-            entityColumn = "liturgiaFK"
+            parentColumn = "massReadingFK",
+            entityColumn = "liturgyFK"
     )
     public List<MisaWithLecturas> lecturas;
 

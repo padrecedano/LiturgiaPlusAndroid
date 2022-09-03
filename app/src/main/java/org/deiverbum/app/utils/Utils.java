@@ -524,7 +524,6 @@ public final class Utils {
                 .replace("~", BR)
                 .replace("§", BRS)
                 .replace("∸", BRS)
-                .replace("¦", NBSP_4)
                 .replace("⊞", CSS_RED_A + "✚. " + CSS_RED_Z)
                 .replace("⊝", CSS_RED_A + "C. " + CSS_RED_Z)
                 .replace("⊟", CSS_RED_A + "S. " + CSS_RED_Z)

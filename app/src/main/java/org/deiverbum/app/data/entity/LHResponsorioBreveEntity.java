@@ -15,22 +15,22 @@ import org.deiverbum.app.utils.Utils;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_responsorio_breve",
+@Entity(tableName = "lh_responsory_short",
         indices={
-                @Index(value={"texto"},unique = true)}
+                @Index(value={"text"},unique = true)}
 )
 public class LHResponsorioBreveEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "responsorioId")
+    @ColumnInfo(name = "responsoryID")
     public Integer responsorioId=0;
 
     @NonNull
-    @ColumnInfo(name = "texto")
+    @ColumnInfo(name = "text")
     public String texto="";
 
     @NonNull
-    @ColumnInfo(name = "tipo")
+    @ColumnInfo(name = "type")
     public Integer tipo=0;
 
     @NonNull

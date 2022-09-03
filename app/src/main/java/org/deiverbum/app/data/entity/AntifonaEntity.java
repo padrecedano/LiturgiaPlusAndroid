@@ -12,16 +12,16 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_antifona",
-        indices = {@Index(value = {"antifona"},unique = true)})
+@Entity(tableName = "lh_antiphon",
+        indices = {@Index(value = {"antiphon"},unique = true)})
 public class AntifonaEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "antifonaId")
+    @ColumnInfo(name = "antiphonID")
     public Integer antifonaId=0;
 
     @NonNull
-    @ColumnInfo(name = "antifona")
+    @ColumnInfo(name = "antiphon")
     public String antifona="";
 
 

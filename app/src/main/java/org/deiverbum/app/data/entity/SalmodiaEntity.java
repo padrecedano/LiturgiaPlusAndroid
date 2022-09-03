@@ -11,38 +11,38 @@ import androidx.room.ForeignKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_salmodia",
-        primaryKeys = {"grupoFK", "pericopaFK", "antifonaFK"},
+@Entity(tableName = "lh_psalmody",
+        primaryKeys = {"groupFK", "readingFK", "antiphonFK"},
         foreignKeys =
         {
         @ForeignKey(
                    entity = LHSalmodiaJoinEntity.class,
-                   parentColumns = "grupoId",
-                   childColumns = "grupoFK",
+                   parentColumns = "groupID",
+                   childColumns = "groupFK",
                    onDelete = ForeignKey.CASCADE,
                    onUpdate = ForeignKey.CASCADE),
             @ForeignKey(
                     entity = SalmoEntity.class,
-                    parentColumns = "salmoId",
-                    childColumns = "pericopaFK",
+                    parentColumns = "psalmID",
+                    childColumns = "readingFK",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE),
             @ForeignKey(
                     entity = AntifonaEntity.class,
-                    parentColumns = "antifonaId",
-                    childColumns = "antifonaFK",
+                    parentColumns = "antiphonID",
+                    childColumns = "antiphonFK",
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE),
             @ForeignKey(
                         entity = TemaEntity.class,
-                        parentColumns = "temaId",
-                        childColumns = "temaFK",
+                        parentColumns = "themeID",
+                        childColumns = "themeFK",
                         onDelete = ForeignKey.SET_NULL,
                         onUpdate = ForeignKey.CASCADE),
             @ForeignKey(
                         entity = EpigrafeEntity.class,
-                        parentColumns = "epigrafeId",
-                        childColumns = "epigrafeFK",
+                        parentColumns = "epigraphID",
+                        childColumns = "epigraphFK",
                         onDelete = ForeignKey.SET_DEFAULT,
                         onUpdate = ForeignKey.CASCADE)
         }/*,
@@ -52,28 +52,28 @@ import androidx.room.ForeignKey;
 public class SalmodiaEntity {
 
     @NonNull
-    @ColumnInfo(name = "grupoFK")
+    @ColumnInfo(name = "groupFK")
     public Integer grupoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "pericopaFK")
+    @ColumnInfo(name = "readingFK")
     public Integer salmoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "orden")
+    @ColumnInfo(name = "order")
     public Integer orden=0;
 
     @NonNull
-    @ColumnInfo(name = "antifonaFK", defaultValue = "0")
+    @ColumnInfo(name = "antiphonFK", defaultValue = "0")
     public Integer antifonaId=0;
 
-    @ColumnInfo(name = "temaFK")
+    @ColumnInfo(name = "themeFK")
     public Integer temaFK=0;
 
-    @ColumnInfo(name = "epigrafeFK")
+    @ColumnInfo(name = "epigraphFK")
     public Integer epigrafeFK=0;
 
-    @ColumnInfo(name = "parte")
+    @ColumnInfo(name = "part")
     public Integer parte=0;
 
     public void setGrupoFK(@NonNull Integer grupoFK) {

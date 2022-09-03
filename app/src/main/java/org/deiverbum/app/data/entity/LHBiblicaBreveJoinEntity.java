@@ -12,19 +12,19 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_biblica_breve_join",
+@Entity(tableName = "lh_reading_short_join",
         foreignKeys =
                 {
                    @ForeignKey(
                            entity = LHBiblicaBreveEntity.class,
-                           parentColumns = "lecturaId",
-                           childColumns = "lecturaFK",
+                           parentColumns = "readingID",
+                           childColumns = "readingFK",
                            onDelete = ForeignKey.CASCADE,
                            onUpdate = ForeignKey.CASCADE),
                    @ForeignKey(
                            entity = LHResponsorioBreveEntity.class,
-                           parentColumns = "responsorioId",
-                           childColumns = "responsorioFK",
+                           parentColumns = "responsoryID",
+                           childColumns = "responsoryFK",
                            onDelete = ForeignKey.CASCADE,
                            onUpdate = ForeignKey.CASCADE)
                 }
@@ -35,15 +35,15 @@ public class LHBiblicaBreveJoinEntity {
 
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "grupoId")
+    @ColumnInfo(name = "groupID")
     public Integer grupoId=0;
 
     @NonNull
-    @ColumnInfo(name = "lecturaFK")
+    @ColumnInfo(name = "readingFK")
     public Integer lecturaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "responsorioFK")
+    @ColumnInfo(name = "responsoryFK")
     public Integer responsorioFK=0;
 
 

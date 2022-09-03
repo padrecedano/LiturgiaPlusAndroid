@@ -19,14 +19,14 @@ import androidx.room.PrimaryKey;
         {
                 @ForeignKey(
                         entity = InvitatorioEntity.class,
-                        parentColumns = "casoId",
-                        childColumns = "casoFK",
+                        parentColumns = "caseID",
+                        childColumns = "caseFK",
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = AntifonaEntity.class,
-                        parentColumns = "antifonaId",
-                        childColumns = "antifonaFK",
+                        parentColumns = "antiphonID",
+                        childColumns = "antiphonFK",
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE)
         }
@@ -35,15 +35,15 @@ public class LHInvitatorioJoinEntity {
 
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "grupoId")
+    @ColumnInfo(name = "groupID")
     public Integer grupoId=0;
 
     @NonNull
-    @ColumnInfo(name = "antifonaFK")
+    @ColumnInfo(name = "antiphonFK")
     public Integer antifonaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "casoFK")
+    @ColumnInfo(name = "caseFK")
     public Integer casoFK=0;
 
     public int getSalmoFK() {

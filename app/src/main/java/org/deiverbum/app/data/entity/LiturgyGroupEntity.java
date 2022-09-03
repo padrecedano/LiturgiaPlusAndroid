@@ -19,7 +19,7 @@ import androidx.room.PrimaryKey;
                 {
         @ForeignKey(
                 entity = LiturgiaEntity.class,
-                parentColumns = "liturgiaId",
+                parentColumns = "liturgyID",
                 childColumns = "liturgyFK",
                 onDelete = ForeignKey.CASCADE,
                 onUpdate = ForeignKey.CASCADE)})

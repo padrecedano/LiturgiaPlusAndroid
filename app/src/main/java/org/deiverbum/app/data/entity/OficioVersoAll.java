@@ -12,8 +12,8 @@ public class OficioVersoAll {
     @Embedded
     public LHOficioVersoJoinEntity theJoin;
     @Relation(
-            parentColumn = "versoFK",
-            entityColumn = "versoId",
+            parentColumn = "verseFK",
+            entityColumn = "verseID",
             entity = LHOficioVersoEntity.class
     )
     public LHOficioVersoEntity theEntity;

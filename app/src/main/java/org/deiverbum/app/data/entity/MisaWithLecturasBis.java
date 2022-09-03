@@ -26,7 +26,7 @@ public class MisaWithLecturasBis {
 
     @Relation(
             parentColumn = "liturgyFK",
-            entityColumn = "liturgiaId",
+            entityColumn = "liturgyID",
             entity = LiturgiaEntity.class
     )
     public LiturgiaWithTiempo liturgia;

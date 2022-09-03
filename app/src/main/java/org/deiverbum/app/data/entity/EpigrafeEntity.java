@@ -12,16 +12,16 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_epigrafe",
-        indices = {@Index(value = {"epigrafe"}, unique = true)})
+@Entity(tableName = "lh_epigraph",
+        indices = {@Index(value = {"epigraph"}, unique = true)})
 public class EpigrafeEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "epigrafeId")
+    @ColumnInfo(name = "epigraphID")
     public Integer epigrafeId=0;
 
     @NonNull
-    @ColumnInfo(name = "epigrafe")
+    @ColumnInfo(name = "epigraph")
     public String epigrafe="";
 
     @NonNull

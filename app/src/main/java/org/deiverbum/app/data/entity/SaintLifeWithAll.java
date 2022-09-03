@@ -15,7 +15,7 @@ public class SaintLifeWithAll {
     @Embedded
     public SantoEntity santo;
     @Relation(
-            parentColumn = "santoId",
+            parentColumn = "saintID",
             entityColumn = "saintFK",
             entity = SaintLifeEntity.class
     )

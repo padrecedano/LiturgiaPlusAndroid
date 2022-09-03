@@ -13,22 +13,22 @@ import org.deiverbum.app.model.Salmo;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_salmo")
+@Entity(tableName = "lh_psalm")
 public class SalmoEntity {
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "salmoId")
+    @ColumnInfo(name = "psalmID")
     public Integer salmoId=0;
 
     @NonNull
-    @ColumnInfo(name = "salmo")
+    @ColumnInfo(name = "psalm")
     public String salmo="";
 
     @NonNull
-    @ColumnInfo(name = "pericopaId")
+    @ColumnInfo(name = "readingID")
     public Integer pericopaId=0;
 
-    @ColumnInfo(name = "salmoRef")
+    @ColumnInfo(name = "quote")
     public String salmoRef;
 
     public void setSalmo(@NonNull String salmo) {

@@ -11,21 +11,21 @@ import androidx.room.ForeignKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "liturgia_homilia_join",
+@Entity(tableName = "liturgy_homily_join",
         //indices = {@Index(value = {"grupoFK","salmoFK"}, unique = true)}
-        primaryKeys = {"liturgiaFK","homiliaFK"},
+        primaryKeys = {"liturgyFK","homilyFK"},
         foreignKeys =
         {
                 @ForeignKey(
                         entity = LiturgiaEntity.class,
-                        parentColumns = "liturgiaId",
-                        childColumns = "liturgiaFK",
+                        parentColumns = "liturgyID",
+                        childColumns = "liturgyFK",
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
                         entity = HomiliaEntity.class,
-                        parentColumns = "homiliaId",
-                        childColumns = "homiliaFK",
+                        parentColumns = "homilyID",
+                        childColumns = "homilyFK",
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE)
         }
@@ -33,15 +33,15 @@ import androidx.room.ForeignKey;
 public class LiturgiaHomiliaJoinEntity {
 
     @NonNull
-    @ColumnInfo(name = "liturgiaFK")
+    @ColumnInfo(name = "liturgyFK")
     public Integer liturgiaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "homiliaFK")
+    @ColumnInfo(name = "homilyFK")
     public Integer homiliaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "tema")
+    @ColumnInfo(name = "theme")
     public String tema="";
 
     @SuppressWarnings("unused")

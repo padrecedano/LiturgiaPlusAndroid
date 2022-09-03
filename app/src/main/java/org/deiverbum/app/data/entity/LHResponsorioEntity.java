@@ -15,14 +15,14 @@ import org.deiverbum.app.utils.Utils;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_responsorio",
+@Entity(tableName = "lh_responsory"/*,
         indices={
-                @Index(value={"texto","fuente", "tipo"},unique = true)}
+                @Index(value={"texto","fuente", "tipo"},unique = true)}*/
 )
 public class LHResponsorioEntity {
     @NonNull
-    @PrimaryKey
-    @ColumnInfo(name = "responsorioId")
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "responsoryID")
     public Integer responsorioId=0;
 
     @NonNull
@@ -41,15 +41,15 @@ public class LHResponsorioEntity {
     }
 
     @NonNull
-    @ColumnInfo(name = "texto")
+    @ColumnInfo(name = "text")
     public String texto="";
 
     @NonNull
-    @ColumnInfo(name = "fuente")
+    @ColumnInfo(name = "source")
     public String fuente="";
 
     @NonNull
-    @ColumnInfo(name = "tipo")
+    @ColumnInfo(name = "type")
     public Integer tipo=0;
 
     public Responsorio getDomainModel(Integer timeId){

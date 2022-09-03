@@ -4,6 +4,7 @@ import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
 
+import org.deiverbum.app.data.entity.LecturaWithLibro;
 import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class Mixto extends BreviarioHora {
     private Invitatorio invitatorio;
     private final PadreNuestro padreNuestro;
     private MisaLecturas misaLecturas;
+    private List<BiblicaMisa> evangelios;
 
 /*
     public MetaLiturgia getMetaLiturgia() {
@@ -123,7 +125,10 @@ public class Mixto extends BreviarioHora {
             sb.append(Utils.formatSubTitle("evangelio del día"));
             sb.append(Utils.LS2);
 
-            sb.append(misaLecturas.getAllEvangelioForView());
+            //sb.append(misaLecturas.getAllEvangelioForView());
+            for (BiblicaMisa item : evangelios) {
+                sb.append(item.getAll());
+            }
             sb.append(Utils.LS2);
 
             sb.append(ce.getAll());
@@ -194,4 +199,8 @@ public class Mixto extends BreviarioHora {
         return sb;
     }
 
+    public void setEvangelios(List<BiblicaMisa> evangelios) {
+        this.evangelios=evangelios;
+
+    }
 }

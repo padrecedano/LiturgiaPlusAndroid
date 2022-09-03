@@ -20,12 +20,9 @@ import org.deiverbum.app.data.entity.LHBiblicaOficioJoinEntity;
 import org.deiverbum.app.data.entity.LHCanticoEvangelicoEntity;
 import org.deiverbum.app.data.entity.LHHimnoJoinEntity;
 import org.deiverbum.app.data.entity.LHInvitatorioJoinEntity;
-import org.deiverbum.app.data.entity.LHOficioResponsorioEntity;
-import org.deiverbum.app.data.entity.LHOficioResponsorioJoinEntity;
 import org.deiverbum.app.data.entity.LHOficioVersoEntity;
 import org.deiverbum.app.data.entity.LHOficioVersoJoinEntity;
 import org.deiverbum.app.data.entity.LHOracionEntity;
-import org.deiverbum.app.data.entity.LHPatristicaEntity;
 import org.deiverbum.app.data.entity.LHPatristicaOficioEntity;
 import org.deiverbum.app.data.entity.LHPatristicaOficioJoinEntity;
 import org.deiverbum.app.data.entity.LHPrecesEntity;
@@ -33,7 +30,6 @@ import org.deiverbum.app.data.entity.LHPrecesJoinEntity;
 import org.deiverbum.app.data.entity.LHResponsorioBreveEntity;
 import org.deiverbum.app.data.entity.LHResponsorioEntity;
 import org.deiverbum.app.data.entity.LHSalmodiaJoinEntity;
-import org.deiverbum.app.data.entity.LHSantoEntity;
 import org.deiverbum.app.data.entity.LiturgiaEntity;
 import org.deiverbum.app.data.entity.LiturgiaHomiliaJoinEntity;
 import org.deiverbum.app.data.entity.LiturgiaTiempoEntity;
@@ -49,8 +45,6 @@ import org.deiverbum.app.data.entity.SalmodiaEntity;
 import org.deiverbum.app.data.entity.SantoEntity;
 import org.deiverbum.app.data.entity.TemaEntity;
 import org.deiverbum.app.data.entity.Today;
-import org.deiverbum.app.data.entity.TodayTest;
-import org.deiverbum.app.model.SaintLife;
 
 /**
  * @author A. Cedano
@@ -60,7 +54,7 @@ import org.deiverbum.app.model.SaintLife;
 @Database(entities =
         {
                 Today.class,
-                TodayTest.class,
+                //TodayTest.class,
                 LiturgiaEntity.class,
                 LiturgiaTiempoEntity.class,
                 SantoEntity.class,
@@ -79,7 +73,7 @@ import org.deiverbum.app.model.SaintLife;
                 LHOficioVersoJoinEntity.class,
                 LHBiblicaOficioJoinEntity.class,
 
-                LHPatristicaEntity.class,
+                //LHPatristicaEntity.class,
                 LHPatristicaOficioEntity.class,
                 LHPatristicaOficioJoinEntity.class,
 
@@ -99,7 +93,7 @@ import org.deiverbum.app.model.SaintLife;
                 OracionEntity.class,
                 LHOracionEntity.class,
                 MisaLecturaEntity.class,
-                LHSantoEntity.class,
+                //LHSantoEntity.class,
                 LiturgiaHomiliaJoinEntity.class,
                 BibleHomilyJoinEntity.class,
                 BibleHomilyThemeEntity.class,

@@ -45,19 +45,19 @@ import java.util.List;
 @Dao
 public interface TodayDao {
 
-    String todayByDate = "SELECT * FROM today AS t WHERE t.hoy =:theDate";
+    String todayByDate = "SELECT * FROM today AS t WHERE t.todayDate =:theDate";
 
-    @Query("SELECT * FROM today WHERE hoy =  :hoy LIMIT 1")
-    LiveData<Today> findByDate(Integer hoy);
+    @Query("SELECT * FROM today WHERE todayDate =  :todayDate LIMIT 1")
+    LiveData<Today> findByDate(Integer todayDate);
 
 
-    @Query("SELECT hoy FROM today ORDER BY hoy DESC LIMIT 1")
+    @Query("SELECT todayDate FROM today ORDER BY todayDate DESC LIMIT 1")
     Integer findLastDate();
 
-    @Query("SELECT liturgiaId FROM liturgia ORDER BY liturgiaId DESC LIMIT 1")
+    @Query("SELECT liturgyID FROM liturgy ORDER BY liturgyID DESC LIMIT 1")
     Integer findLastLiturgia();
 
-    @Query("SELECT homiliaId FROM homilia ORDER BY homiliaId DESC LIMIT 1")
+    @Query("SELECT homilyID FROM homily ORDER BY homilyID DESC LIMIT 1")
     Integer findLastHomilia();
 
     @Insert(entity = org.deiverbum.app.data.entity.Today.class,
@@ -72,9 +72,6 @@ public interface TodayDao {
             onConflict = OnConflictStrategy.REPLACE)
     void homiliaInsertAll(List<Homilia> list);
 
-    @Insert(entity = org.deiverbum.app.data.entity.TodayTest.class,
-            onConflict = OnConflictStrategy.REPLACE)
-    void insertAllTodaysTest(List<Today> today);
 
     @Insert(entity = org.deiverbum.app.data.entity.HimnoEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
@@ -122,8 +119,8 @@ public interface TodayDao {
 
     @Transaction
     @Query("SELECT * FROM today AS t " +
-            "JOIN homilia h ON t.feriaFK=h.homiliaId " +
-            "WHERE t.hoy =:theDate")
+            "JOIN homily h ON t.weekDayFK=h.homilyID " +
+            "WHERE t.todayDate =:theDate")
     TodayHomilias getHomilias(Integer theDate);
 
     @Transaction
@@ -131,11 +128,11 @@ public interface TodayDao {
             "JOIN homilia h ON t.feriaFK=h.homiliaId JOIN misa_lectura ml ON t.mLecturasFK=ml.liturgiaFK " +
             "WHERE t.hoy =:theDate AND ml.orden >= 40")*/
     @Query("SELECT * FROM today AS t " +
-            "JOIN liturgy_group lg ON t.mLecturasFK=lg.groupID "+
+            "JOIN liturgy_group lg ON t.massReadingFK=lg.groupID "+
             "JOIN mass_reading mr ON lg.groupID=mr.groupFK "+
             "JOIN bible_homily_join bhj ON bhj.readingFK=mr.readingFK "+
-            "JOIN homilia h ON bhj.homilyFK=h.homiliaId "+
-            "WHERE t.hoy =:theDate AND mr.`order` >= 40")
+            "JOIN homily h ON bhj.homilyFK=h.homilyID "+
+            "WHERE t.todayDate =:theDate AND mr.`order` >= 40")
     TodayComentarios getComentarios(Integer theDate);
 
     @Insert(entity = org.deiverbum.app.data.entity.LiturgiaHomiliaJoinEntity.class,

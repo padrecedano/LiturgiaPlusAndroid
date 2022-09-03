@@ -19,7 +19,15 @@ public class BibleHomilyWithAll {
 
     @Relation(
             parentColumn = "homilyFK",
-            entityColumn = "homiliaId",
+            entityColumn = "homilyFK",
+            entity = BibleHomilyThemeEntity.class
+    )
+
+    public BibleHomilyThemeEntity themeEntity;
+
+    @Relation(
+            parentColumn = "homilyFK",
+            entityColumn = "homilyID",
             entity = HomiliaEntity.class
     )
 
@@ -34,23 +42,13 @@ public class BibleHomilyWithAll {
 */
 
 
-    public Homilia getDomainModelsk() {
-        Homilia theModel=new Homilia();
-        //theModel.setTema(lhPatristica.getTema());
-        //theModel.setHomilia(homilia.getTexto());
-        //theModel.setPadre(obraWithPadre.padre.getPadre());
-        //theModel.setObra(obraWithPadre.obra.getObra());
-        //theModel.setTema(homilia.g);
-        //theModel.setFuente(String.valueOf(homilia.getNumero()));
-        return theModel;
-    }
     public ComentarioBiblico getDomainModel() {
         ComentarioBiblico theModel=new ComentarioBiblico();
-        /*if(themeEntity!=null) {
+        if(themeEntity!=null) {
             theModel.setCita(themeEntity.getBiblical());
             theModel.setTema(themeEntity.getTheological());
             theModel.setRef(themeEntity.getReference());
-        }*/
+        }
         theModel.setPadre(homilia.obraWithPadre.getPadre());
         theModel.setObra(homilia.obraWithPadre.obra.getObra());
         theModel.setTexto(homilia.homilia.getTexto());
@@ -59,19 +57,5 @@ public class BibleHomilyWithAll {
         return theModel;
     }
 
-    public Comentario getDomainModels() {
-        Comentario theModel=new Comentario();
-        /*if(themeEntity!=null) {
-            theModel.setCita(themeEntity.getBiblical());
-            theModel.setTema(themeEntity.getTheological());
-            theModel.setRef(themeEntity.getReference());
-        }*/
-        theModel.setPadre(homilia.obraWithPadre.getPadre());
-        theModel.setObra(homilia.obraWithPadre.obra.getObra());
-        theModel.setTexto(homilia.homilia.getTexto());
-        //theModel.setFecha(String.valueOf(homilia.homilia.fecha));
-
-        return theModel;
-    }
 
 }

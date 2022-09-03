@@ -14,8 +14,8 @@ public class CanticoEvangelicoWithAntifona {
     @Embedded
     public LHCanticoEvangelicoEntity ce;
     @Relation(
-            parentColumn = "antifonaFK",
-            entityColumn = "antifonaId",
+            parentColumn = "antiphonFK",
+            entityColumn = "antiphonID",
             entity = AntifonaEntity.class
     )
     public AntifonaEntity antifona;

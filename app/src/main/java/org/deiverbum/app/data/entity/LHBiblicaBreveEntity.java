@@ -12,8 +12,8 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_biblica_breve",
-        indices = {@Index(value = {"texto"}, unique = true)}
+@Entity(tableName = "lh_reading_short",
+        indices = {@Index(value = {"text"}, unique = true)}
 /*
         foreignKeys =
         {
@@ -35,15 +35,15 @@ public class LHBiblicaBreveEntity {
 
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "lecturaId")
+    @ColumnInfo(name = "readingID")
     public Integer lecturaId=0;
 
     @NonNull
-    @ColumnInfo(name = "texto")
+    @ColumnInfo(name = "text")
     public String texto="";
 
     @NonNull
-    @ColumnInfo(name = "cita")
+    @ColumnInfo(name = "quote")
     public String cita="";
 
 

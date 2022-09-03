@@ -19,15 +19,15 @@ public class BiblicaBreveAll {
     public LHBiblicaBreveJoinEntity lhBiblica;
 
     @Relation(
-            parentColumn = "lecturaFK",
-            entityColumn = "lecturaId",
+            parentColumn = "readingFK",
+            entityColumn = "readingID",
             entity = LHBiblicaBreveEntity.class
     )
     public LHBiblicaBreveEntity biblica;
 
     @Relation(
-            parentColumn = "responsorioFK",
-            entityColumn = "responsorioId",
+            parentColumn = "responsoryFK",
+            entityColumn = "responsoryID",
             entity = LHResponsorioBreveEntity.class
     )
     public LHResponsorioBreveEntity responsorio;

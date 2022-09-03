@@ -1,34 +1,34 @@
 package org.deiverbum.app.model;
 
 public class LHBiblicaBreveJoin {
-    public Integer grupoId=0;
-    public Integer lecturaFK=0;
-    public Integer responsorioFK=0;
+    public Integer groupID=0;
+    public Integer readingFK=0;
+    public Integer responsoryFK=0;
 
     @SuppressWarnings("unused")
     public LHBiblicaBreveJoin() {}
 
     public Integer getGrupoId() {
-        return grupoId;
+        return groupID;
     }
 
     public void setGrupoId(Integer grupoId) {
-        this.grupoId = grupoId;
+        this.groupID = grupoId;
     }
 
     public Integer getLecturaFK() {
-        return lecturaFK;
+        return readingFK;
     }
 
     public void setLecturaFK(Integer lecturaFK) {
-        this.lecturaFK = lecturaFK;
+        this.readingFK = lecturaFK;
     }
 
     public Integer getResponsorioFK() {
-        return responsorioFK;
+        return responsoryFK;
     }
 
     public void setResponsorioFK(Integer responsorioFK) {
-        this.responsorioFK = responsorioFK;
+        this.responsoryFK = responsorioFK;
     }
 }

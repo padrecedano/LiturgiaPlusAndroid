@@ -34,7 +34,7 @@ public class BiblicaMisa extends Biblica implements Comparable<BiblicaMisa>{
         sb.append(LS);
         sb.append(getHeader());
         sb.append(LS2);
-        sb.append(libro.getLiturgyName());
+        sb.append(book.getLiturgyName());
         sb.append("    ");
         sb.append(Utils.toRed(getCita()));
         sb.append(LS2);
@@ -65,18 +65,18 @@ public class BiblicaMisa extends Biblica implements Comparable<BiblicaMisa>{
     public SpannableStringBuilder getHeader() {
 
         String header="";
-        if (this.orden >= 1 && this.orden <= 19) {
+        if (this.order >= 1 && this.order <= 19) {
             header="PRIMERA LECTURA";
         }
 
-        if (this.orden >= 20 && this.orden <= 29) {
+        if (this.order >= 20 && this.order <= 29) {
             header="SALMO RESPONSORIAL";
         }
 
-        if (this.orden >= 30 && this.orden <= 39) {
+        if (this.order >= 30 && this.order <= 39) {
             header="SEGUNDA LECTURA";
         }
-        if (this.orden >= 40 ) {
+        if (this.order >= 40 ) {
             header="EVANGELIO";
         }
 

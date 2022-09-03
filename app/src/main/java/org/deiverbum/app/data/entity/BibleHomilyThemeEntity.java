@@ -19,7 +19,7 @@ import androidx.room.ForeignKey;
 
                 @ForeignKey(
                         entity = HomiliaEntity.class,
-                        parentColumns = "homiliaId",
+                        parentColumns = "homilyID",
                         childColumns = "homilyFK",
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE)

@@ -13,15 +13,15 @@ public class InvitatorioWithSalmo {
     public InvitatorioEntity invitatorio;
 
     @Relation(
-            parentColumn = "casoId",
-            entityColumn = "casoFK",
+            parentColumn = "caseID",
+            entityColumn = "caseFK",
             entity = LHInvitatorioJoinEntity.class
     )
     public LHInvitatorioJoinEntity invitatorioEntity;
 
     @Relation(
-            parentColumn = "salmoFK",
-            entityColumn = "salmoId",
+            parentColumn = "psalmFK",
+            entityColumn = "psalmID",
             entity = SalmoEntity.class
     )
     public SalmoEntity salmo;
