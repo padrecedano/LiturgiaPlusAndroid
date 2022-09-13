@@ -26,7 +26,7 @@ public class MassReadingWithComment {
     @Relation(
             parentColumn = "readingFK",
             entityColumn = "lecturaId",
-            entity = BibliaLecturaEntity.class
+            entity = BibleReadingEntity.class
     )
     public BibleHomilyJoinEntity lectura;
 

@@ -4,11 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import org.deiverbum.app.model.SaintLife;
-import org.deiverbum.app.model.Santo;
 
 /**
  * @author A. Cedano
@@ -22,7 +20,7 @@ import org.deiverbum.app.model.Santo;
                 {
 
                         @ForeignKey(
-                                entity = SantoEntity.class,
+                                entity = SaintEntity.class,
                                 parentColumns = "saintID",
                                 childColumns = "saintFK",
                                 onDelete = ForeignKey.CASCADE,
@@ -36,8 +34,12 @@ public class SaintLifeEntity {
     public Integer saintFK=0;
 
     @NonNull
-    @ColumnInfo(name = "life")
-    public String life="";
+    @ColumnInfo(name = "longLife")
+    public String longLife="";
+
+    @NonNull
+    @ColumnInfo(name = "shortLife")
+    public String shortLife="";
 
     @NonNull
     @ColumnInfo(name = "martyrology")
@@ -57,12 +59,22 @@ public class SaintLifeEntity {
     }
 
     @NonNull
-    public String getLife() {
-        return life;
+    public String getLongLife() {
+        return longLife;
     }
 
-    public void setLife(@NonNull String life) {
-        this.life = life;
+    public void setLongLife(@NonNull String longLife) {
+        this.longLife = longLife;
+    }
+
+
+    @NonNull
+    public String getShortLife() {
+        return shortLife;
+    }
+
+    public void setShortLife(@NonNull String shortLife) {
+        this.shortLife = shortLife;
     }
 
     @NonNull
@@ -85,7 +97,7 @@ public class SaintLifeEntity {
 
     public SaintLife getDomainModel(){
         SaintLife theModel=new SaintLife();
-        theModel.setLife(getLife());
+        theModel.setShortLife(getShortLife());
         theModel.setSaintFK(getSaintFK());
         theModel.setMartyrology(getMartyrology());
         theModel.setSource(getSource());

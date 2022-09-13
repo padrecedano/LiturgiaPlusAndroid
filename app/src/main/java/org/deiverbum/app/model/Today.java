@@ -6,6 +6,7 @@ import android.text.SpannableStringBuilder;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
@@ -23,12 +24,16 @@ import org.deiverbum.app.utils.Utils;
 public class Today {
     private Integer todayDate;
     private Integer weekDayFK;
+    public Integer liturgyFK;
+
     private Integer massReadingFK;
     private Integer previousFK;
     private Integer timeID;
+    @Ignore
     private Integer version;
     public Integer invitatoryFK;
     public Integer saintFK;
+    @Ignore
     public Integer oficioFK;
     public Integer oHymnFK;
     public Integer oPsalmodyFK;

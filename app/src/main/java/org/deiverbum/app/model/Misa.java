@@ -3,8 +3,6 @@ package org.deiverbum.app.model;
 
 import android.text.SpannableStringBuilder;
 
-import org.deiverbum.app.data.entity.SalmodiaWithSalmos;
-
 import java.util.List;
 
 public class Misa {

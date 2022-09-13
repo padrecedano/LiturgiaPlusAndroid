@@ -38,17 +38,17 @@ public class MisaWithComentarios {
     @Relation(
             parentColumn = "readingFK",
             entityColumn = "readingID",
-            entity = BibliaLecturaEntity.class
+            entity = BibleReadingEntity.class
     )
-    public BibliaLecturaEntity lecturaEntity;
+    public BibleReadingEntity lecturaEntity;
 
 /*
     @Relation(
             parentColumn = "liturgyFK",
             entityColumn = "liturgiaId",
-            entity = LiturgiaEntity.class
+            entity = LiturgyEntity.class
     )
-    public LiturgiaWithTiempo liturgia;
+    public LiturgyWithTime liturgia;
 */
     public BiblicaMisa getBiblicaMisa() {
         BiblicaMisa theModel = lecturaEntity.getDomainModelMisa();

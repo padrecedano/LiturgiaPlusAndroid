@@ -8,8 +8,14 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
-import org.deiverbum.app.data.entity.HimnoEntity;
-import org.deiverbum.app.data.entity.LHCanticoEvangelicoEntity;
+import org.deiverbum.app.data.entity.AntiphonEntity;
+import org.deiverbum.app.data.entity.BibleReadingEntity;
+import org.deiverbum.app.data.entity.HomilyEntity;
+import org.deiverbum.app.data.entity.LHGospelCanticleEntity;
+import org.deiverbum.app.data.entity.LHHymnEntity;
+import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
+import org.deiverbum.app.data.entity.LiturgyEntity;
+import org.deiverbum.app.data.entity.LiturgyHomilyJoinEntity;
 import org.deiverbum.app.data.entity.TodayComentarios;
 import org.deiverbum.app.data.entity.TodayHomilias;
 import org.deiverbum.app.data.entity.TodayLaudes;
@@ -22,7 +28,6 @@ import org.deiverbum.app.data.entity.TodaySexta;
 import org.deiverbum.app.data.entity.TodayTercia;
 import org.deiverbum.app.data.entity.TodayVisperas;
 import org.deiverbum.app.model.Biblica;
-import org.deiverbum.app.model.BiblicaMisa;
 import org.deiverbum.app.model.Himno;
 import org.deiverbum.app.model.Homilia;
 import org.deiverbum.app.model.LHAntifona;
@@ -31,7 +36,6 @@ import org.deiverbum.app.model.LHCanticoEvangelico;
 import org.deiverbum.app.model.Liturgia;
 import org.deiverbum.app.model.LiturgiaHomiliaJoin;
 import org.deiverbum.app.model.MisaLectura;
-import org.deiverbum.app.model.MisaLecturas;
 import org.deiverbum.app.model.SaintLife;
 import org.deiverbum.app.model.Today;
 
@@ -64,16 +68,16 @@ public interface TodayDao {
             onConflict = OnConflictStrategy.REPLACE)
     void insertAllTodays(List<Today> today);
 
-    @Insert(entity = org.deiverbum.app.data.entity.LiturgiaEntity.class,
+    @Insert(entity = LiturgyEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
     void liturgiaInsertAll(List<Liturgia> today);
 
-    @Insert(entity = org.deiverbum.app.data.entity.HomiliaEntity.class,
+    @Insert(entity = HomilyEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
     void homiliaInsertAll(List<Homilia> list);
 
 
-    @Insert(entity = org.deiverbum.app.data.entity.HimnoEntity.class,
+    @Insert(entity = LHHymnEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
     void insertAllHimnos(List<Himno> today);
 
@@ -128,30 +132,29 @@ public interface TodayDao {
             "JOIN homilia h ON t.feriaFK=h.homiliaId JOIN misa_lectura ml ON t.mLecturasFK=ml.liturgiaFK " +
             "WHERE t.hoy =:theDate AND ml.orden >= 40")*/
     @Query("SELECT * FROM today AS t " +
-            "JOIN liturgy_group lg ON t.massReadingFK=lg.groupID "+
-            "JOIN mass_reading mr ON lg.groupID=mr.groupFK "+
+            "JOIN mass_reading mr ON t.massReadingFK=mr.liturgyFK "+
             "JOIN bible_homily_join bhj ON bhj.readingFK=mr.readingFK "+
             "JOIN homily h ON bhj.homilyFK=h.homilyID "+
-            "WHERE t.todayDate =:theDate AND mr.`order` >= 40")
+            "WHERE t.todayDate =:theDate AND mr.`theOrder` >= 40")
     TodayComentarios getComentarios(Integer theDate);
 
-    @Insert(entity = org.deiverbum.app.data.entity.LiturgiaHomiliaJoinEntity.class,
+    @Insert(entity = LiturgyHomilyJoinEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
     void homiliaJoinInsertAll(List<LiturgiaHomiliaJoin> list);
 
-    @Insert(entity = org.deiverbum.app.data.entity.LHCanticoEvangelicoEntity.class,
+    @Insert(entity = LHGospelCanticleEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
     void canticoEvangelicoInsertAll(List<LHCanticoEvangelico> list);
 
-    @Insert(entity = org.deiverbum.app.data.entity.LHBiblicaBreveJoinEntity.class,
+    @Insert(entity = LHReadingShortJoinEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
     void biblicaBreveJoinInsertAll(List<LHBiblicaBreveJoin> list);
 
-    @Update(entity = org.deiverbum.app.data.entity.BibliaLecturaEntity.class,
+    @Update(entity = BibleReadingEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
     void bibleReadingUpdateAll(List<Biblica> list);
 
-    @Update(entity = org.deiverbum.app.data.entity.AntifonaEntity.class,
+    @Update(entity = AntiphonEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
     void lhAntifonaUpdateAll(List<LHAntifona> list);
 
@@ -159,15 +162,15 @@ public interface TodayDao {
             onConflict = OnConflictStrategy.REPLACE)
     void todayUpdateAll(List<Today> list);
 
-    @Update(entity = org.deiverbum.app.data.entity.MisaLecturaEntity.class,
+    @Update(entity = org.deiverbum.app.data.entity.MassReadingEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
     void misaLecturaUpdateAll(List<MisaLectura> misaLectura);
 
-    @Insert(entity = org.deiverbum.app.data.entity.MisaLecturaEntity.class,
+    @Insert(entity = org.deiverbum.app.data.entity.MassReadingEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
     void misaLecturaInsertAll(List<MisaLectura> misaLectura);
 
-    @Insert(entity = org.deiverbum.app.data.entity.BibliaLecturaEntity.class,
+    @Insert(entity = BibleReadingEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
     void bibleReadingInsertAll(List<Biblica> bibleReading);
 

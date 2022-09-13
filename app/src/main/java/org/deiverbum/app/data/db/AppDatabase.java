@@ -4,46 +4,46 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
-import org.deiverbum.app.data.entity.AntifonaEntity;
+import org.deiverbum.app.data.entity.AntiphonEntity;
 import org.deiverbum.app.data.entity.BibleHomilyJoinEntity;
 import org.deiverbum.app.data.entity.BibleHomilyThemeEntity;
-import org.deiverbum.app.data.entity.BibliaLecturaEntity;
-import org.deiverbum.app.data.entity.BibliaLibroEntity;
-import org.deiverbum.app.data.entity.EpigrafeEntity;
-import org.deiverbum.app.data.entity.HimnoEntity;
-import org.deiverbum.app.data.entity.HomiliaEntity;
-import org.deiverbum.app.data.entity.InvitatorioEntity;
-import org.deiverbum.app.data.entity.LHBiblicaBreveEntity;
-import org.deiverbum.app.data.entity.LHBiblicaBreveJoinEntity;
-import org.deiverbum.app.data.entity.LHBiblicaOficioEntity;
-import org.deiverbum.app.data.entity.LHBiblicaOficioJoinEntity;
-import org.deiverbum.app.data.entity.LHCanticoEvangelicoEntity;
-import org.deiverbum.app.data.entity.LHHimnoJoinEntity;
-import org.deiverbum.app.data.entity.LHInvitatorioJoinEntity;
-import org.deiverbum.app.data.entity.LHOficioVersoEntity;
-import org.deiverbum.app.data.entity.LHOficioVersoJoinEntity;
-import org.deiverbum.app.data.entity.LHOracionEntity;
-import org.deiverbum.app.data.entity.LHPatristicaOficioEntity;
-import org.deiverbum.app.data.entity.LHPatristicaOficioJoinEntity;
-import org.deiverbum.app.data.entity.LHPrecesEntity;
-import org.deiverbum.app.data.entity.LHPrecesJoinEntity;
-import org.deiverbum.app.data.entity.LHResponsorioBreveEntity;
-import org.deiverbum.app.data.entity.LHResponsorioEntity;
-import org.deiverbum.app.data.entity.LHSalmodiaJoinEntity;
-import org.deiverbum.app.data.entity.LiturgiaEntity;
-import org.deiverbum.app.data.entity.LiturgiaHomiliaJoinEntity;
+import org.deiverbum.app.data.entity.BibleReadingEntity;
+import org.deiverbum.app.data.entity.BiblieBookEntity;
+import org.deiverbum.app.data.entity.EpigraphEntity;
+import org.deiverbum.app.data.entity.HomilyEntity;
+import org.deiverbum.app.data.entity.LHHymnEntity;
+import org.deiverbum.app.data.entity.LHInvitatoryEntity;
+import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity;
+import org.deiverbum.app.data.entity.LHOficceVerseJoinEntity;
+import org.deiverbum.app.data.entity.LHPrayerEntity;
+import org.deiverbum.app.data.entity.LHReadingShortEntity;
+import org.deiverbum.app.data.entity.LHOficceVerseEntity;
+import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
+import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
+import org.deiverbum.app.data.entity.LHOfficeBiblicalEntity;
+import org.deiverbum.app.data.entity.LHOfficeBiblicalJoinEntity;
+import org.deiverbum.app.data.entity.LHGospelCanticleEntity;
+import org.deiverbum.app.data.entity.LHHymnJoinEntity;
+import org.deiverbum.app.data.entity.LHOfficePatristicEntity;
+import org.deiverbum.app.data.entity.LHOfficePatristicJoinEntity;
+import org.deiverbum.app.data.entity.LHIntercessionsEntity;
+import org.deiverbum.app.data.entity.LHIntercessionsJoinEntity;
+import org.deiverbum.app.data.entity.LHResponsoryShortEntity;
+import org.deiverbum.app.data.entity.LHResponsoryEntity;
+import org.deiverbum.app.data.entity.LHThemeEntity;
+import org.deiverbum.app.data.entity.LiturgyEntity;
+import org.deiverbum.app.data.entity.LiturgyHomilyJoinEntity;
 import org.deiverbum.app.data.entity.LiturgiaTiempoEntity;
+import org.deiverbum.app.data.entity.LiturgyColorEntity;
 import org.deiverbum.app.data.entity.LiturgyGroupEntity;
 import org.deiverbum.app.data.entity.MassReadingEntity;
-import org.deiverbum.app.data.entity.MisaLecturaEntity;
-import org.deiverbum.app.data.entity.ObraEntity;
-import org.deiverbum.app.data.entity.OracionEntity;
-import org.deiverbum.app.data.entity.PadreEntity;
+import org.deiverbum.app.data.entity.PaterEntity;
+import org.deiverbum.app.data.entity.PaterOpusEntity;
+import org.deiverbum.app.data.entity.PrayerEntity;
+import org.deiverbum.app.data.entity.PsalmEntity;
+import org.deiverbum.app.data.entity.PsalmodyEntity;
 import org.deiverbum.app.data.entity.SaintLifeEntity;
-import org.deiverbum.app.data.entity.SalmoEntity;
-import org.deiverbum.app.data.entity.SalmodiaEntity;
-import org.deiverbum.app.data.entity.SantoEntity;
-import org.deiverbum.app.data.entity.TemaEntity;
+import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.Today;
 
 /**
@@ -55,49 +55,50 @@ import org.deiverbum.app.data.entity.Today;
         {
                 Today.class,
                 //TodayTest.class,
-                LiturgiaEntity.class,
+                LiturgyEntity.class,
                 LiturgiaTiempoEntity.class,
-                SantoEntity.class,
+                SaintEntity.class,
                 SaintLifeEntity.class,
-                InvitatorioEntity.class,
-                LHInvitatorioJoinEntity.class,
-                HimnoEntity.class,
-                LHHimnoJoinEntity.class,
-                SalmodiaEntity.class,
-                LHSalmodiaJoinEntity.class,
-                SalmoEntity.class,
-                AntifonaEntity.class,
-                TemaEntity.class,
-                EpigrafeEntity.class,
-                LHOficioVersoEntity.class,
-                LHOficioVersoJoinEntity.class,
-                LHBiblicaOficioJoinEntity.class,
+                LHInvitatoryEntity.class,
+                LHInvitatoryJoinEntity.class,
+                LHHymnEntity.class,
+                LHHymnJoinEntity.class,
+                PsalmodyEntity.class,
+                LHPsalmodyJoinEntity.class,
+                PsalmEntity.class,
+                AntiphonEntity.class,
+                LHThemeEntity.class,
+                EpigraphEntity.class,
+                LHOficceVerseEntity.class,
+                LHOficceVerseJoinEntity.class,
+                LHOfficeBiblicalJoinEntity.class,
 
                 //LHPatristicaEntity.class,
-                LHPatristicaOficioEntity.class,
-                LHPatristicaOficioJoinEntity.class,
+                LHOfficePatristicEntity.class,
+                LHOfficePatristicJoinEntity.class,
 
-                HomiliaEntity.class,
-                PadreEntity.class,
-                ObraEntity.class,
-                LHResponsorioEntity.class,
-                LHResponsorioBreveEntity.class,
-                BibliaLibroEntity.class,
-                BibliaLecturaEntity.class,
-                LHBiblicaBreveEntity.class,
-                LHBiblicaBreveJoinEntity.class,
-                LHBiblicaOficioEntity.class,
-                LHCanticoEvangelicoEntity.class,
-                LHPrecesEntity.class,
-                LHPrecesJoinEntity.class,
-                OracionEntity.class,
-                LHOracionEntity.class,
-                MisaLecturaEntity.class,
+                HomilyEntity.class,
+                PaterEntity.class,
+                PaterOpusEntity.class,
+                LHResponsoryEntity.class,
+                LHResponsoryShortEntity.class,
+                BiblieBookEntity.class,
+                BibleReadingEntity.class,
+                LHReadingShortEntity.class,
+                LHReadingShortJoinEntity.class,
+                LHOfficeBiblicalEntity.class,
+                LHGospelCanticleEntity.class,
+                LHIntercessionsEntity.class,
+                LHIntercessionsJoinEntity.class,
+                PrayerEntity.class,
+                LHPrayerEntity.class,
+                //MisaLecturaEntity.class,
                 //LHSantoEntity.class,
-                LiturgiaHomiliaJoinEntity.class,
+                LiturgyHomilyJoinEntity.class,
                 BibleHomilyJoinEntity.class,
                 BibleHomilyThemeEntity.class,
                 LiturgyGroupEntity.class,
+                LiturgyColorEntity.class,
                 MassReadingEntity.class
 
                 },

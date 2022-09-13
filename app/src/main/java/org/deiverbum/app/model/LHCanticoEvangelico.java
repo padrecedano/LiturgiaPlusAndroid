@@ -7,19 +7,19 @@ public class LHCanticoEvangelico {
     @SuppressWarnings("unused")
     public LHCanticoEvangelico() {}
 
-    public Integer getGrupoId() {
+    public Integer getGroupID() {
         return groupID;
     }
 
-    public void setGrupoId(Integer grupoId) {
+    public void setGroupID(Integer grupoId) {
         this.groupID = grupoId;
     }
 
-    public Integer getAntifonaFK() {
+    public Integer getAntiphonFK() {
         return antiphonFK;
     }
 
-    public void setAntifonaFK(Integer antifonaFK) {
+    public void setAntiphonFK(Integer antifonaFK) {
         this.antiphonFK = antifonaFK;
     }
 }

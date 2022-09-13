@@ -7,7 +7,6 @@ import org.deiverbum.app.model.BiblicaBreve;
 import org.deiverbum.app.model.Himno;
 import org.deiverbum.app.model.Hoy;
 import org.deiverbum.app.model.Intermedia;
-import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.Oracion;
 import org.deiverbum.app.model.Salmodia;
 import org.deiverbum.app.model.Santo;
@@ -25,63 +24,63 @@ public class TodayNona {
     public Today today;
 
     @Relation(
-            entity = SantoEntity.class,
+            entity = SaintEntity.class,
             parentColumn = "saintFK",
             entityColumn = "saintID"
     )
-    public SantoEntity santo;
+    public SaintEntity santo;
 
 
     @Relation(
-            entity = LHHimnoJoinEntity.class,
+            entity = LHHymnJoinEntity.class,
             parentColumn = "nHymnFK",
             entityColumn = "groupID"
     )
-    public HimnoWithAll himno;
+    public LHHymnWithAll himno;
 
     @Relation(
-            entity = LHBiblicaBreveJoinEntity.class,
+            entity = LHReadingShortJoinEntity.class,
             parentColumn = "nBiblicalFK",
             entityColumn = "groupID"
     )
-    public BiblicaBreveAll biblica;
+    public LHReadingShortAll biblica;
 
     @Relation(
-            entity = LHSalmodiaJoinEntity.class,
+            entity = LHPsalmodyJoinEntity.class,
             parentColumn = "nPsalmodyFK",
             entityColumn = "groupID"
     )
-    public LHSalmodia salmodia;
+    public LHPsalmody salmodia;
 
     @Relation(
-            entity = SalmodiaEntity.class,
+            entity = PsalmodyEntity.class,
             parentColumn = "nPsalmodyFK",
             entityColumn = "groupFK"
     )
-    public List<SalmodiaWithSalmos> salmos;
+    public List<PsalmodyWithPsalms> salmos;
 
     @Relation(
-            entity = LHOracionEntity.class,
+            entity = LHPrayerEntity.class,
             parentColumn = "nPrayerFK",
             entityColumn = "groupID"
     )
-    public LHOracion lhOracion;
+    public LHPrayerAll lhPrayerAll;
 
 
 
     @Relation(
-            entity = LiturgiaEntity.class,
-            parentColumn = "weekDayFK",
+            entity = LiturgyEntity.class,
+            parentColumn = "liturgyFK",
             entityColumn = "liturgyID"
     )
-    public LiturgiaWithTiempo feria;
+    public LiturgyWithTime feria;
 
     @Relation(
-            entity = LiturgiaEntity.class,
+            entity = LiturgyEntity.class,
             parentColumn = "previousFK",
             entityColumn = "liturgyID"
     )
-    public LiturgiaWithTiempo previo;
+    public LiturgyWithTime previo;
 
     public Hoy getToday(){
         Hoy dm = new Hoy();
@@ -129,7 +128,7 @@ public class TodayNona {
     }
 
     public Oracion getOracion() {
-        return lhOracion.getDomainModel();
+        return lhPrayerAll.getDomainModel();
     }
 
 

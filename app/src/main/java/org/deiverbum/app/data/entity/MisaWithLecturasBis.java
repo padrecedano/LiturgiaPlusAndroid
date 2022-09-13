@@ -19,7 +19,7 @@ public class MisaWithLecturasBis {
 
     @Relation(
             parentColumn = "groupID",
-            entityColumn = "groupFK",
+            entityColumn = "liturgyFK",
             entity = MassReadingEntity.class
     )
     public List<MassReadingWithAll> lectura;
@@ -27,9 +27,9 @@ public class MisaWithLecturasBis {
     @Relation(
             parentColumn = "liturgyFK",
             entityColumn = "liturgyID",
-            entity = LiturgiaEntity.class
+            entity = LiturgyEntity.class
     )
-    public LiturgiaWithTiempo liturgia;
+    public LiturgyWithTime liturgia;
 
     public BiblicaMisa getDomainModel() {
         BiblicaMisa theModel = null;//lectura.getDomainModelMisa();

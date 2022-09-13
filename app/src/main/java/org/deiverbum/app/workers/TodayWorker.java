@@ -245,11 +245,15 @@ public class TodayWorker extends Worker {
                                 }
                             }
                         }catch (Exception e){
+                            Log.e("ERR",e.getMessage());
+
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        Log.e("ERR",e.getMessage());
+
                     }
                 });
     }
@@ -278,7 +282,8 @@ public class TodayWorker extends Worker {
 
                     @Override
                     public void onError(Throwable e) {
-                        //Log.e("ERR",e.getMessage());
+
+                        Log.e("ERR",e.getMessage());
                     }
                 });
 

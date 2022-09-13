@@ -3,10 +3,9 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Biblica;
 import org.deiverbum.app.model.BiblicaMisa;
-import org.deiverbum.app.model.BiblicaOficio;
-import org.deiverbum.app.model.Evangelio;
+
+import java.util.List;
 
 /**
  * @author A. Cedano
@@ -29,9 +28,32 @@ public class MassReadingWithAll {
     @Relation(
             parentColumn = "readingFK",
             entityColumn = "readingID",
-            entity = BibliaLecturaEntity.class
+            entity = BibleReadingEntity.class
     )
-    public LecturaWithLibro lectura;
+    public BibleReadingWithBook lectura;
+
+    @Relation(
+            parentColumn = "readingFK",
+            entityColumn = "readingID",
+            entity = BibleReadingEntity.class
+    )
+    public List<BibleReadingEntity> lecturass;
+
+
+    @Relation(
+            parentColumn = "readingFK",
+            entityColumn = "readingID",
+            entity = BibleReadingEntity.class
+    )
+    public List<MassReadingWithBook> lecturas;
+
+
+    @Relation(
+            parentColumn = "liturgyFK",
+            entityColumn = "liturgyID",
+            entity = LiturgyEntity.class
+    )
+    public LiturgyWithTime liturgia;
 
     public BiblicaMisa getDomainModel() {
         //BiblicaMisa theModel=new BiblicaMisa();

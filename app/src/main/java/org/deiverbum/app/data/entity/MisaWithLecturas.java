@@ -12,14 +12,14 @@ import org.deiverbum.app.model.BiblicaMisa;
  */
 public class MisaWithLecturas {
     @Embedded
-    public MisaLecturaEntity misaLectura;
+    public MassReadingEntity misaLectura;
 
     @Relation(
             parentColumn = "readingFK",
             entityColumn = "readingID",
-            entity = BibliaLecturaEntity.class
+            entity = BibleReadingEntity.class
     )
-    public LecturaWithLibro lectura;
+    public MassReadingWithBook lectura;
 
     public BiblicaMisa getDomainModel() {
         BiblicaMisa theModel = lectura.getDomainModelMisa();

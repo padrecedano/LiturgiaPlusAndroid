@@ -38,27 +38,27 @@ public class MisaWithComentariosRename {
     @Relation(
             parentColumn = "readingFK",
             entityColumn = "readingID",
-            entity = BibliaLecturaEntity.class
+            entity = BibleReadingEntity.class
     )
-    public List<LecturaWithLibro> lecturaList;
+    public List<BibleReadingWithBook> lecturaList;
 
     @Relation(
             parentColumn = "readingFK",
             entityColumn = "readingID",
-            entity = BibliaLecturaEntity.class
+            entity = BibleReadingEntity.class
     )
-    public LecturaWithLibro lecturaOne;
+    public BibleReadingWithBook lecturaOne;
 /*
     @Relation(
             parentColumn = "liturgyFK",
             entityColumn = "liturgiaId",
-            entity = LiturgiaEntity.class
+            entity = LiturgyEntity.class
     )
-    public LiturgiaWithTiempo liturgia;
+    public LiturgyWithTime liturgia;
 */
     public List<BiblicaMisa> getBiblicaMisas() {
         List<BiblicaMisa> theModel=new ArrayList<>();
-        for (LecturaWithLibro item : lecturaList) {
+        for (BibleReadingWithBook item : lecturaList) {
             BiblicaMisa bm=item.getDomainModelMisa();
             bm.setOrden(misaLectura.getOrden());
             theModel.add(bm);

@@ -12,8 +12,8 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "liturgy_time",
-        indices = {@Index(value = {"time"}, unique = true)}
+@Entity(tableName = "liturgy_time"/*,
+        indices = {@Index(value = {"time"}, unique = true)}*/
 )
 public class LiturgiaTiempoEntity {
 
@@ -24,7 +24,7 @@ public class LiturgiaTiempoEntity {
     public Integer tiempoId=0;
 
     @NonNull
-    @ColumnInfo(name = "time")
+    @ColumnInfo(name = "timeName")
     public String tiempo="";
 
     @NonNull

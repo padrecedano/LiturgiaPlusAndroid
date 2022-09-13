@@ -6,7 +6,6 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
 import org.deiverbum.app.model.BiblicaMisa;
-import org.deiverbum.app.model.Oracion;
 
 /**
  * @author A. Cedano
@@ -15,17 +14,17 @@ import org.deiverbum.app.model.Oracion;
  */
 
 @Entity(tableName = "mass_reading",
-        primaryKeys = {"groupFK","readingFK","order"},
+        primaryKeys = {"liturgyFK","readingFK","theOrder"},
         foreignKeys =
                 {
                         @ForeignKey(
-                                entity = LiturgyGroupEntity.class,
-                                parentColumns = "groupID",
-                                childColumns = "groupFK",
+                                entity = LiturgyEntity.class,
+                                parentColumns = "liturgyID",
+                                childColumns = "liturgyFK",
                                 onDelete = ForeignKey.CASCADE,
                                 onUpdate = ForeignKey.CASCADE),
                        @ForeignKey(
-                                entity = BibliaLecturaEntity.class,
+                                entity = BibleReadingEntity.class,
                                 parentColumns = "readingID",
                                 childColumns = "readingFK",
                                 onDelete = ForeignKey.CASCADE,
@@ -35,7 +34,7 @@ import org.deiverbum.app.model.Oracion;
 )
 public class MassReadingEntity {
     @NonNull
-    @ColumnInfo(name = "groupFK")
+    @ColumnInfo(name = "liturgyFK")
     public Integer groupFK=0;
 
     @NonNull
@@ -43,7 +42,7 @@ public class MassReadingEntity {
     public Integer readingFK=0;
 
     @NonNull
-    @ColumnInfo(name = "order")
+    @ColumnInfo(name = "theOrder")
     public Integer order=0;
 
     @NonNull
