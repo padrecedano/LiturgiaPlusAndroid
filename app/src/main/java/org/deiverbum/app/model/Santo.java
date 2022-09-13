@@ -50,8 +50,8 @@ public class Santo {
         }
     }
 
-    public String getVida() {
-        return vida;
+    public Spanned getVida() {
+        return Utils.fromHtml(vida);
     }
 
     public void setVida(String vida) {

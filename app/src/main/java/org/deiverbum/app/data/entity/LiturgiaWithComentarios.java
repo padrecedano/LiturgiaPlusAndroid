@@ -3,11 +3,7 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Comentario;
 import org.deiverbum.app.model.ComentarioBiblico;
-import org.deiverbum.app.model.Homilia;
-
-import java.util.List;
 
 /**
  * @author A. Cedano
@@ -34,7 +30,7 @@ public class LiturgiaWithComentarios {
             entityColumn = "homilyFK",
             entity = BibleHomilyJoinEntity.class
     )
-    public ComentarioWithAll homilia;
+    public BiblicalCommentaryAll homilia;
 
     public ComentarioBiblico getDomainModel() {
         ComentarioBiblico dm=null;//homilia.getDomainModel();

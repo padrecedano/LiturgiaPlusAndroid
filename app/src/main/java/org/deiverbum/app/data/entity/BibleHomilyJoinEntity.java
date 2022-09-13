@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
 
 /**
  * @author A. Cedano
@@ -20,13 +18,13 @@ import androidx.room.PrimaryKey;
         {
 
                 @ForeignKey(
-                        entity = BibliaLecturaEntity.class,
+                        entity = BibleReadingEntity.class,
                         parentColumns = "readingID",
                         childColumns = "readingFK",
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE),
                 @ForeignKey(
-                        entity = HomiliaEntity.class,
+                        entity = HomilyEntity.class,
                         parentColumns = "homilyID",
                         childColumns = "homilyFK",
                         onDelete = ForeignKey.CASCADE,

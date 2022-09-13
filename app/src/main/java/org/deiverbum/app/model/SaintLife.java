@@ -18,7 +18,7 @@ import java.util.HashMap;
 public class SaintLife {
     private Integer saintFK;
     @PropertyName("vida")
-    private String life;
+    private String longLife;
     @PropertyName("martirologio")
     private String martyrology;
     private String source="";
@@ -32,6 +32,9 @@ public class SaintLife {
     @Ignore
 
     private String mes;
+
+    private String shortLife;
+
     public Integer getSaintFK() {
         return saintFK;
     }
@@ -41,15 +44,24 @@ public class SaintLife {
     }
 
     @PropertyName("vida")
-    public String getLife() {
-        return life;
+    public String getLongLife() {
+        return longLife;
     }
 
     @PropertyName("vida")
-    public void setLife(String life) {
-        this.life = life;
+    public void setLongLife(String longLife) {
+        this.longLife = longLife;
     }
 
+    //@PropertyName("vida")
+    public String getShortLife() {
+        return shortLife;
+    }
+
+    //@PropertyName("vida")
+    public void setShortLife(String shortLife) {
+        this.shortLife = shortLife;
+    }
 
     @PropertyName("martirologio")
     public String getMartyrology() {
@@ -77,7 +89,7 @@ public class SaintLife {
         sb.append(Utils.fromHtml("<hr>"));
         sb.append(Utils.toH3Red("Vida"));
         sb.append(LS2);
-        sb.append(Utils.fromHtml(life.replaceAll(OLD_SEPARATOR, "")));
+        sb.append(Utils.fromHtml(shortLife.replaceAll(OLD_SEPARATOR, "")));
         return sb;
     }
 
@@ -85,7 +97,7 @@ public class SaintLife {
     public StringBuilder getLifeForRead() {
         StringBuilder sb = new StringBuilder();
         sb.append("VIDA.");
-        sb.append(Utils.fromHtml(life.replaceAll(OLD_SEPARATOR, "")));
+        sb.append(Utils.fromHtml(shortLife.replaceAll(OLD_SEPARATOR, "")));
         return sb;
     }
 
@@ -179,6 +191,7 @@ public class SaintLife {
         Integer theMonth=Integer.valueOf(mes);
         return String.format("%s de %s", dia, monthNames.get(theMonth));
     }
+
 
 }
 

@@ -12,14 +12,14 @@ import org.deiverbum.app.model.Homilia;
  */
 public class LiturgiaWithHomilias {
     @Embedded
-    public LiturgiaHomiliaJoinEntity joinEntity;
+    public LiturgyHomilyJoinEntity joinEntity;
 
     @Relation(
             parentColumn = "homilyFK",
             entityColumn = "homilyID",
-            entity = HomiliaEntity.class
+            entity = HomilyEntity.class
     )
-    public HomiliaWithAll homilia;
+    public HomilyAll homilia;
 
     public Homilia getDomainModel() {
         Homilia dm=homilia.getDomainModel();

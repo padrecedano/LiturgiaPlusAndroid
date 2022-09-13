@@ -6,7 +6,7 @@ import org.deiverbum.app.utils.Utils;
 
 public class NuncDimitis extends Salmo{
 
-    //private String antifonaEntity;
+    //private String antiphonEntity;
     private String texto;
 
     public NuncDimitis() {

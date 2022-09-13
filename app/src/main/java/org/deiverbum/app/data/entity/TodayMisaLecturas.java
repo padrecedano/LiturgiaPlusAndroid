@@ -5,10 +5,7 @@ import androidx.room.Relation;
 
 import org.deiverbum.app.model.BiblicaMisa;
 import org.deiverbum.app.model.Hoy;
-import org.deiverbum.app.model.Lecturas;
-import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.MisaLecturas;
-import org.deiverbum.app.model.Salmodia;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,25 +21,28 @@ public class TodayMisaLecturas {
     public Today today;
 
     @Relation(
-            entity = LiturgiaEntity.class,
-            parentColumn = "weekDayFK",
+            entity = LiturgyEntity.class,
+            parentColumn = "massReadingFK",
             entityColumn = "liturgyID"
     )
-    public LiturgiaWithTiempo feria;
+    public LiturgyWithTime feria;
+
+
+
 
     @Relation(
-            entity = LiturgiaEntity.class,
+            entity = LiturgyEntity.class,
             parentColumn = "previousFK",
             entityColumn = "liturgyID"
     )
-    public LiturgiaWithTiempo previo;
+    public LiturgyWithTime previo;
 
     @Relation(
-            entity = SantoEntity.class,
+            entity = SaintEntity.class,
             parentColumn = "saintFK",
             entityColumn = "saintID"
     )
-    public SantoWithAll santo;
+    public SaintWithAll santo;
 /*
     @Relation(
             entity = MisaLecturaEntity.class,
@@ -58,10 +58,29 @@ public class TodayMisaLecturas {
     )
     public MisaWithLecturasBis lecturass;
 
+    @Relation(
+            entity = MassReadingEntity.class,
+            parentColumn = "massReadingFK",
+            entityColumn = "liturgyFK")
+    public List<MassReadingWithAll> lecturax;
+
+    @Relation(
+            entity = MassReadingEntity.class,
+            parentColumn = "massReadingFK",
+            entityColumn = "liturgyFK")
+    public List<MassReadingWithAll> lecturay;
+
+
+    @Relation(
+            entity = MassReadingEntity.class,
+            parentColumn = "massReadingFK",
+            entityColumn = "liturgyFK")
+    public MassReadingWithAll lecturayy;
+
     public Hoy getToday(){
         Hoy dm = new Hoy();
         //dm.setFeria(feria.getDomainModel());
-        dm.setFeria(lecturass.getLiturgia());
+        dm.setFeria(feria.getDomainModel());
 
         dm.setFecha(String.valueOf(today.getHoy()));
         dm.setCalendarTime(today.tiempoId);
@@ -76,9 +95,14 @@ public class TodayMisaLecturas {
         MisaLecturas dm=new MisaLecturas();
         dm.setHoy(getToday());
         List<BiblicaMisa> listModel = new ArrayList<>();
-        for (MassReadingWithAll item : lecturass.lectura) {
+        for (MassReadingWithAll item : lecturay) {
                 listModel.add(item.getDomainModel());
         }
+
+        for (MassReadingWithAll item : lecturax) {
+            //listModel.add(item.getDomainModel());
+        }
+
         dm.setLecturas(listModel);
         dm.sort();
         return dm;

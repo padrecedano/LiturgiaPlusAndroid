@@ -16,26 +16,26 @@ import org.deiverbum.app.model.Patristica;
  */
 public class PatristicaOficioWithResponsorio {
     @Embedded
-    public LHPatristicaOficioEntity lhPatristica;
+    public LHOfficePatristicEntity lhPatristica;
 
     @Relation(
             parentColumn = "homilyFK",
             entityColumn = "homilyID",
-            entity = HomiliaEntity.class
+            entity = HomilyEntity.class
     )
-    public HomiliaWithAll homiliaWithAll;
+    public HomilyAll homilyAll;
 
     @Relation(
             parentColumn = "responsoryFK",
             entityColumn = "responsoryID",
-            entity = LHResponsorioEntity.class
+            entity = LHResponsoryEntity.class
     )
     public LHResponsorioLargoEntity lhResponsorio;
 
 
 
     public Patristica getDomainModelOficio(Integer tiempoId) {
-        Patristica theModel= homiliaWithAll.getPatristicaDomainModel();
+        Patristica theModel= homilyAll.getPatristicaDomainModel();
         theModel.setTema(lhPatristica.tema);
         theModel.setFuente(lhPatristica.fuente);
         theModel.setOrden(lhPatristica.orden);

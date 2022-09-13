@@ -71,7 +71,7 @@ public class Oficio extends BreviarioHora {
             //sb.append(metaLiturgia.getAll());
             sb.append(LS2);
             if (hoy.getHasSaint()) {
-                sb.append(santo.getVida());
+                sb.append(santo.getVidaSmall());
                 sb.append(LS2);
             }
 

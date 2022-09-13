@@ -23,30 +23,30 @@ public class TodayHomilias {
     public Today today;
 
     @Relation(
-            entity = LiturgiaEntity.class,
-            parentColumn = "weekDayFK",
+            entity = LiturgyEntity.class,
+            parentColumn = "liturgyFK",
             entityColumn = "liturgyID"
     )
-    public LiturgiaWithTiempo feria;
+    public LiturgyWithTime feria;
 
     @Relation(
-            entity = LiturgiaEntity.class,
+            entity = LiturgyEntity.class,
             parentColumn = "previousFK",
             entityColumn = "liturgyID"
     )
-    public LiturgiaWithTiempo previo;
+    public LiturgyWithTime previo;
 
     @Relation(
-            entity = SantoEntity.class,
+            entity = SaintEntity.class,
             parentColumn = "saintFK",
             entityColumn = "saintID"
     )
-    public SantoWithAll santo;
+    public SaintWithAll santo;
 
 
 
     @Relation(
-            entity = LiturgiaHomiliaJoinEntity.class,
+            entity = LiturgyHomilyJoinEntity.class,
             parentColumn = "weekDayFK",
             entityColumn = "liturgyFK"
     )

@@ -3,10 +3,7 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Comentario;
 import org.deiverbum.app.model.ComentarioBiblico;
-import org.deiverbum.app.model.Homilia;
-import org.deiverbum.app.model.Patristica;
 
 /**
  * @author A. Cedano
@@ -28,17 +25,17 @@ public class BibleHomilyWithAll {
     @Relation(
             parentColumn = "homilyFK",
             entityColumn = "homilyID",
-            entity = HomiliaEntity.class
+            entity = HomilyEntity.class
     )
 
-    public HomiliaWithAll homilia;
+    public HomilyAll homilia;
 /*
     @Relation(
             parentColumn = "obraFK",
             entityColumn = "obraId",
-            entity = ObraEntity.class
+            entity = PaterOpusEntity.class
     )
-    public ObraWithPadre obraWithPadre;
+    public PaterOpusAll paterOpusAll;
 */
 
 
@@ -49,8 +46,8 @@ public class BibleHomilyWithAll {
             theModel.setTema(themeEntity.getTheological());
             theModel.setRef(themeEntity.getReference());
         }
-        theModel.setPadre(homilia.obraWithPadre.getPadre());
-        theModel.setObra(homilia.obraWithPadre.obra.getObra());
+        theModel.setPadre(homilia.paterOpusAll.getPadre());
+        theModel.setObra(homilia.paterOpusAll.obra.getObra());
         theModel.setTexto(homilia.homilia.getTexto());
         theModel.setFecha(String.valueOf(homilia.homilia.fecha));
 

@@ -4,7 +4,6 @@ import androidx.room.Embedded;
 import androidx.room.Relation;
 
 import org.deiverbum.app.model.SaintLife;
-import org.deiverbum.app.model.Santo;
 
 /**
  * @author A. Cedano
@@ -13,7 +12,7 @@ import org.deiverbum.app.model.Santo;
  */
 public class SaintLifeWithAll {
     @Embedded
-    public SantoEntity santo;
+    public SaintEntity santo;
     @Relation(
             parentColumn = "saintID",
             entityColumn = "saintFK",
@@ -26,7 +25,7 @@ public class SaintLifeWithAll {
         if(saintLife!=null){
         SaintLife dm=new SaintLife();
         //dm.setSaintFK(saintLife.getSaintFK());
-        dm.setLife(saintLife.getLife());
+        dm.setShortLife(saintLife.getShortLife());
         dm.setMartyrology(saintLife.getMartyrology());
         dm.setSource(saintLife.getSource());
         dm.setDia(String.valueOf(santo.dia));

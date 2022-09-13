@@ -4,10 +4,8 @@ import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
 
-import org.deiverbum.app.data.entity.BiblicaOficioWithResponsorio;
 import org.deiverbum.app.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OficioLecturas {

@@ -4,7 +4,6 @@ import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
 
-import org.deiverbum.app.data.entity.LecturaWithLibro;
 import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
