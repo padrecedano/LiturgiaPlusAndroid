@@ -9,6 +9,7 @@ import org.deiverbum.app.data.entity.BibleHomilyJoinEntity;
 import org.deiverbum.app.data.entity.BibleHomilyThemeEntity;
 import org.deiverbum.app.data.entity.BibleReadingEntity;
 import org.deiverbum.app.data.entity.BiblieBookEntity;
+import org.deiverbum.app.data.entity.DBTableEntity;
 import org.deiverbum.app.data.entity.EpigraphEntity;
 import org.deiverbum.app.data.entity.HomilyEntity;
 import org.deiverbum.app.data.entity.LHHymnEntity;
@@ -44,6 +45,7 @@ import org.deiverbum.app.data.entity.PsalmEntity;
 import org.deiverbum.app.data.entity.PsalmodyEntity;
 import org.deiverbum.app.data.entity.SaintLifeEntity;
 import org.deiverbum.app.data.entity.SaintEntity;
+import org.deiverbum.app.data.entity.SyncStatusEntity;
 import org.deiverbum.app.data.entity.Today;
 
 /**
@@ -92,16 +94,18 @@ import org.deiverbum.app.data.entity.Today;
                 LHIntercessionsJoinEntity.class,
                 PrayerEntity.class,
                 LHPrayerEntity.class,
-                //MisaLecturaEntity.class,
-                //LHSantoEntity.class,
                 LiturgyHomilyJoinEntity.class,
                 BibleHomilyJoinEntity.class,
                 BibleHomilyThemeEntity.class,
                 LiturgyGroupEntity.class,
                 LiturgyColorEntity.class,
-                MassReadingEntity.class
+                MassReadingEntity.class,
+                SyncStatusEntity.class,
+                DBTableEntity.class
 
-                },
+
+
+        },
         version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract TodayDao todayDao();

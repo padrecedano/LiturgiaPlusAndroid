@@ -3,23 +3,17 @@ package org.deiverbum.app.data.wrappers;
 import com.google.gson.annotations.SerializedName;
 
 import org.deiverbum.app.model.Biblica;
-import org.deiverbum.app.model.BiblicaMisa;
 import org.deiverbum.app.model.Homilia;
 import org.deiverbum.app.model.LHAntifona;
 import org.deiverbum.app.model.LHBiblicaBreveJoin;
 import org.deiverbum.app.model.LHCanticoEvangelico;
-import org.deiverbum.app.model.LHGospelCanticleCrud;
 import org.deiverbum.app.model.Liturgia;
 import org.deiverbum.app.model.LiturgiaHomiliaJoin;
-import org.deiverbum.app.model.LiturgiaHomiliaJoinCrud;
 import org.deiverbum.app.model.MisaLectura;
-import org.deiverbum.app.model.MisaLecturas;
 import org.deiverbum.app.model.SaintLife;
 import org.deiverbum.app.model.SyncStatus;
 import org.deiverbum.app.model.Today;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.List;
 
 /**
@@ -27,31 +21,26 @@ import java.util.List;
  * @version 1.0
  * @since 2022.2
  */
-public class Crud  {
+public class SyncRequest {
 
     private String table;
     private String action;
-    public List<Homilia> homily;
-
-    @SerializedName("sync_status")
+    public List<Homilia> homilia;
     public List<SyncStatus> syncStatus;
 
-    @SerializedName("toUpdate")
-    public List<SyncStatus> updateList;
-
-    public String lastVersionLHJ;
-    public boolean haveData;
+    public Integer liturgia;
+    public Integer massReading;
 
     public List<LiturgiaHomiliaJoin> liturgiaHomiliaJoin;
-    public List<Liturgia> liturgia;
+    public List<Liturgia> liturgiaa;
     public List<Today> today;
+    public String lastUpdate;
 
-    //@SerializedName("mass_reading")
-    public List<MisaLectura> mass_reading;
+    @SerializedName("mass_reading")
+    public List<MisaLectura> misaLectura;
 
-    @SerializedName("lh_gospel_canticle")
-    public LHGospelCanticleCrud ce;
-
+    @SerializedName("lhCanticoEvangelico")
+    public List<LHCanticoEvangelico> ce;
     @SerializedName("lhBiblicaBreveJoin")
     public List<LHBiblicaBreveJoin> bvJoin;
 
@@ -64,16 +53,10 @@ public class Crud  {
     @SerializedName("saintLife")
     public List<SaintLife> saintLife;
 
-    @SerializedName("sync_liturgy_homily_join")
-    public LiturgiaHomiliaJoinCrud homilyJoin;
-
-    //@SerializedName("c")
-    //public List<LiturgiaHomiliaJoin> c;
-
-    public Crud() {
+    public SyncRequest() {
     }
 
-    public Crud(String table, String action) {
+    public SyncRequest(String table, String action) {
         this.table=table;
         this.action=action;
     }

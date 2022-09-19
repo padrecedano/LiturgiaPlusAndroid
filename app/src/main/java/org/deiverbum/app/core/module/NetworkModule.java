@@ -51,6 +51,7 @@ public abstract class NetworkModule {
         return new Retrofit.Builder().baseUrl(URL_API)
                 .addConverterFactory(gsonConverterFactory)
                 .addCallAdapterFactory(rxJava3CallAdapterFactory)
+
                 .client(okHttpClient)
                 .build();
     }
@@ -71,7 +72,8 @@ public abstract class NetworkModule {
 // set your desired log level
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        OkHttpClient.Builder client = new OkHttpClient.Builder().connectTimeout(60, TimeUnit.SECONDS)
+        OkHttpClient.Builder client = new OkHttpClient.Builder()
+                .connectTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
                 .dispatcher(dispatcher);
