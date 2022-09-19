@@ -1,7 +1,10 @@
 package org.deiverbum.app.data.db.dao;
 
+import static org.deiverbum.app.utils.Constants.TODAY_TABLE;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -16,6 +19,7 @@ import org.deiverbum.app.data.entity.LHHymnEntity;
 import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
 import org.deiverbum.app.data.entity.LiturgyEntity;
 import org.deiverbum.app.data.entity.LiturgyHomilyJoinEntity;
+import org.deiverbum.app.data.entity.SyncStatusEntity;
 import org.deiverbum.app.data.entity.TodayComentarios;
 import org.deiverbum.app.data.entity.TodayHomilias;
 import org.deiverbum.app.data.entity.TodayLaudes;
@@ -37,6 +41,7 @@ import org.deiverbum.app.model.Liturgia;
 import org.deiverbum.app.model.LiturgiaHomiliaJoin;
 import org.deiverbum.app.model.MisaLectura;
 import org.deiverbum.app.model.SaintLife;
+import org.deiverbum.app.model.SyncStatus;
 import org.deiverbum.app.model.Today;
 
 import java.util.List;
@@ -50,10 +55,13 @@ import java.util.List;
 public interface TodayDao {
 
     String todayByDate = "SELECT * FROM today AS t WHERE t.todayDate =:theDate";
+String t=TODAY_TABLE;
 
     @Query("SELECT * FROM today WHERE todayDate =  :todayDate LIMIT 1")
     LiveData<Today> findByDate(Integer todayDate);
 
+    @Query("SELECT * FROM sync_status")
+    List<SyncStatus> getAllSyncStatus();
 
     @Query("SELECT todayDate FROM today ORDER BY todayDate DESC LIMIT 1")
     Integer findLastDate();
@@ -83,8 +91,10 @@ public interface TodayDao {
 
     @Insert(entity = org.deiverbum.app.data.entity.Today.class)
     void insertTodayX(Today today);
-
-
+/*
+    @Query("SELECT lastUpdate FROM sync_status WHERE tableName =  :tableName LIMIT 1")
+    Integer getLastVersion(String tableName);
+*/
     @Transaction
     @Query(todayByDate)
     TodayOficio getOficioOfToday(Integer theDate);
@@ -123,7 +133,7 @@ public interface TodayDao {
 
     @Transaction
     @Query("SELECT * FROM today AS t " +
-            "JOIN homily h ON t.weekDayFK=h.homilyID " +
+            "JOIN HOMILY h ON t.weekDayFK=h.homilyID " +
             "WHERE t.todayDate =:theDate")
     TodayHomilias getHomilias(Integer theDate);
 
@@ -138,9 +148,7 @@ public interface TodayDao {
             "WHERE t.todayDate =:theDate AND mr.`theOrder` >= 40")
     TodayComentarios getComentarios(Integer theDate);
 
-    @Insert(entity = LiturgyHomilyJoinEntity.class,
-            onConflict = OnConflictStrategy.REPLACE)
-    void homiliaJoinInsertAll(List<LiturgiaHomiliaJoin> list);
+
 
     @Insert(entity = LHGospelCanticleEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
@@ -170,6 +178,9 @@ public interface TodayDao {
             onConflict = OnConflictStrategy.IGNORE)
     void misaLecturaInsertAll(List<MisaLectura> misaLectura);
 
+    @Delete(entity = org.deiverbum.app.data.entity.MassReadingEntity.class)
+    void massReadingDeleteAll(List<MisaLectura> misaLectura);
+
     @Insert(entity = BibleReadingEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
     void bibleReadingInsertAll(List<Biblica> bibleReading);
@@ -177,6 +188,28 @@ public interface TodayDao {
     @Insert(entity = org.deiverbum.app.data.entity.SaintLifeEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
     void saintLifeInsertAll(List<SaintLife> saintLife);
+/*
+    @Query("UPDATE sync_status SET version=version+1 WHERE tableName=:tableName")
+    void syncUpdate(String tableName);
+*/
+
+    @Query("SELECT lastUpdate FROM sync_status WHERE tableName=:tableName LIMIT 1")
+    String syncLastVersion(String tableName);
+
+    @Update(entity = SyncStatusEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void syncUpdateAll(List<SyncStatus> list);
+
+    @Insert(entity = LiturgyHomilyJoinEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void homiliaJoinInsertAll(List<LiturgiaHomiliaJoin> list);
+
+    @Update(entity = LiturgyHomilyJoinEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void homiliaJoinUpdateAll(List<LiturgiaHomiliaJoin> list);
+
+    @Delete(entity = org.deiverbum.app.data.entity.LiturgyHomilyJoinEntity.class)
+    Integer homiliaJoinDeleteAll(List<LiturgiaHomiliaJoin> homilyJoin);
 
     /*
     @Insert

@@ -3,6 +3,7 @@ package org.deiverbum.app.data.source.remote.network;
 
 import org.deiverbum.app.data.wrappers.Crud;
 import org.deiverbum.app.data.wrappers.CrudWrapper;
+import org.deiverbum.app.data.wrappers.SyncRequest;
 import org.deiverbum.app.model.BreviarioHora;
 import org.deiverbum.app.model.Comentarios;
 import org.deiverbum.app.model.Himno;
@@ -15,6 +16,7 @@ import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.MisaLecturas;
 import org.deiverbum.app.model.Mixto;
 import org.deiverbum.app.model.Oficio;
+import org.deiverbum.app.model.SyncStatus;
 import org.deiverbum.app.model.Today;
 import org.deiverbum.app.model.Visperas;
 
@@ -26,6 +28,7 @@ import io.reactivex.Completable;
 import io.reactivex.rxjava3.core.Single;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -100,6 +103,21 @@ public interface ApiService {
 
     @Headers("Cache-Control: no-cache")
     //@FormUrlEncoded
-    @GET("insert/")
+    @GET("insertt/")
     Single<Crud> callInsert(@QueryMap Map<String,Integer> map);
+
+
+    @Headers("Cache-Control: no-cache")
+    //@FormUrlEncoded
+    @GET("delete/")
+    Single<Crud> callDelete(@QueryMap Map<String,Integer> map);
+
+    @Headers("Cache-Control: no-cache")
+    @POST("delete/")
+    Single<Crud> callDelete(@Body SyncRequest syncRequest);
+
+    @Headers("Cache-Control: no-cache")
+    @POST("insert/")
+    Single<Crud> callInsertB(@Body SyncRequest syncRequest);
+    //Completable callInsertB(List<SyncStatus> syncStatus);
 }

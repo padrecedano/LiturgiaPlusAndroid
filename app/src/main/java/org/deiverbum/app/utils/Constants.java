@@ -95,6 +95,38 @@ public class Constants {
     public static final String DIALOG_LEGAL_OK = "CONFIRMAR";
     public static final String DIALOG_LEGAL_CANCEL = "CANCELAR";
 
+    /*
+        Room table names
+     */
+    public static final String TODAY_TABLE = "today";
+    public static final String BIBLE_BOOK = "bible_book";
+    public static final String BIBLE_HOMILY_JOIN = "bible_homily_join";
+    public static final String BIBLE_HOMILY_THEME = "bible_homily_theme";
+    public static final String BIBLE_READING = "bible_reading";
+    public static final String HOMILY = "homily";
+    public static final String LH_ANTIPHON = "lh_antiphon";
+    public static final String LITURGY = "liturgy";
+    public static final String LITURGY_COLOR = "liturgy_color";
+    public static final String LITURGY_TIME = "liturgy_time";
+    public static final String LITURGY_GROUP = "liturgy_group";
+    public static final String LITURGY_HOMILY_JOIN = "liturgy_homily_join";
+
+    public static final String LH_GOSPEL_CANTICLE = "lh_gospel_canticle";
+    public static final String LH_HYMN = "lh_hymn";
+
+    public static final String LH_HYMN_JOIN = "lh_hymn_join";
+    public static final String LH_INTERCESSIONS = "lh_intercessions";
+    public static final String LH_INTERCESSIONS_JOIN = "lh_intercessions_join";
+    public static final String LH_PSALM = "lh_psalm";
+    public static final String LH_PSALMODY_JOIN = "lh_psalmody_join";
+    public static final String LH_EPIGRAPH = "lh_epigraph";
+    public static final String LH_THEME = "lh_theme";
+    public static final String MASS_READING = "mass_reading";
+    public static final String SAINT = "saint";
+    public static final String SAINT_LIFE = "saint_life";
+    public static final String PATER = "pater";
+    public static final String PATER_OPUS = "pater_opus";
+
 
     private Constants() {
     }

@@ -47,7 +47,7 @@ public class TodayHomilias {
 
     @Relation(
             entity = LiturgyHomilyJoinEntity.class,
-            parentColumn = "weekDayFK",
+            parentColumn = "liturgyFK",
             entityColumn = "liturgyFK"
     )
     public List<LiturgiaWithHomilias> homilias;
