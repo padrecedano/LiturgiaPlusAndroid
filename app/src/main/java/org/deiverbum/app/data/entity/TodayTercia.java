@@ -3,13 +3,15 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.BiblicaBreve;
-import org.deiverbum.app.model.Himno;
-import org.deiverbum.app.model.Hoy;
+import org.deiverbum.app.model.BiblicalShort;
+import org.deiverbum.app.model.BreviaryHour;
+import org.deiverbum.app.model.LHHymn;
 import org.deiverbum.app.model.Intermedia;
-import org.deiverbum.app.model.Oracion;
-import org.deiverbum.app.model.Salmodia;
-import org.deiverbum.app.model.Santo;
+import org.deiverbum.app.model.Liturgy;
+import org.deiverbum.app.model.Prayer;
+import org.deiverbum.app.model.LHPsalmody;
+import org.deiverbum.app.model.Saint;
+import org.deiverbum.app.model.Today;
 
 import java.util.List;
 
@@ -21,7 +23,7 @@ import java.util.List;
 public class TodayTercia {
 
     @Embedded
-    public Today today;
+    public TodayEntity today;
 
     @Relation(
             entity = SaintEntity.class,
@@ -50,7 +52,7 @@ public class TodayTercia {
             parentColumn = "tPsalmodyFK",
             entityColumn = "groupID"
     )
-    public LHPsalmody salmodia;
+    public org.deiverbum.app.data.entity.LHPsalmody salmodia;
 
     @Relation(
             entity = PsalmodyEntity.class,
@@ -83,52 +85,53 @@ public class TodayTercia {
     public LiturgyWithTime previo;
 
 
-    public Hoy getToday(){
-        Hoy dm = new Hoy();
-        dm.setFeria(feria.getDomainModel());
-        dm.setFecha(String.valueOf(today.getHoy()));
-        dm.setCalendarTime(today.tiempoId);
-        dm.setHasSaint(true);
-        //dm.setMLecturasFK(today.mLecturasFK);
-        //dm.setPrevio(previo.getDomainModel());
-        dm.setTitulo(feria.getDomainModel().getNombre());
+    public Today getToday(){
+        Today dm = new Today();
+        dm.liturgyDay=feria.getDomainModel();
+        dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
+        dm.setTodayDate(today.getHoy());
         return dm;
     }
 
-    public Intermedia getDomainModel(){
-        Intermedia dm=new Intermedia();
-        dm.setHoy(getToday());
-        dm.setHourId(3);
-        dm.setHimno(getHimno());
-        dm.setSalmodia(getSalmodia());
-        dm.setLecturaBreve(getBiblica());
-        dm.setOracion(getOracion());
+    public Liturgy getDomainModel(){
+        Liturgy dm= feria.getDomainModel();
+        BreviaryHour bh=new BreviaryHour();
+        Intermedia hi=new Intermedia();
+        dm.typeID=3;
+        hi.setHourId(3);
+        hi.setHoy(getToday());
+        hi.setHimno(getHimno());
+        hi.setSalmodia(getSalmodia());
+        hi.setLecturaBreve(getBiblica());
+        hi.setOracion(getOracion());
+        bh.setIntermedia(hi);
+        dm.setBreviaryHour(bh);
         return dm;
     }
 
-    public Himno getHimno(){
+    public LHHymn getHimno(){
         return himno.getDomainModel();
     }
 
 
 
-    public BiblicaBreve getBiblica(){
+    public BiblicalShort getBiblica(){
         return  biblica.getDomainModel(today.getTiempoId());
     }
 
 
 
-    public Santo getSanto(){
+    public Saint getSanto(){
         return  santo.getDomainModel(false);
     }
 
 
-    public Salmodia getSalmodia() {
+    public LHPsalmody getSalmodia() {
 
         return salmodia.getDomainModel();
     }
 
-    public Oracion getOracion() {
+    public Prayer getOracion() {
         return lhPrayerAll.getDomainModel();
     }
 

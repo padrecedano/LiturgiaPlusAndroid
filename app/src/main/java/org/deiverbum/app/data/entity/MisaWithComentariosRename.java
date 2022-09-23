@@ -3,9 +3,10 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.BiblicaMisa;
-import org.deiverbum.app.model.ComentarioBiblico;
-import org.deiverbum.app.model.Liturgia;
+import org.deiverbum.app.model.BibleCommentList;
+import org.deiverbum.app.model.MassReading;
+import org.deiverbum.app.model.BibleComment;
+import org.deiverbum.app.model.Liturgy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,23 +57,24 @@ public class MisaWithComentariosRename {
     )
     public LiturgyWithTime liturgia;
 */
-    public List<BiblicaMisa> getBiblicaMisas() {
-        List<BiblicaMisa> theModel=new ArrayList<>();
+    public List<MassReading> getBiblicaMisas() {
+        List<MassReading> theModel=new ArrayList<>();
         for (BibleReadingWithBook item : lecturaList) {
-            BiblicaMisa bm=item.getDomainModelMisa();
+            MassReading bm=item.getDomainModelMisa();
             bm.setOrden(misaLectura.getOrden());
             theModel.add(bm);
         }
 return theModel;
-        /*BiblicaMisa theModel = lecturaEntity.getDomainModelMisa();
+        /*MassReading theModel = lecturaEntity.getDomainModelMisa();
         theModel.setTema(misaLectura.getTema());
         theModel.setOrden(misaLectura.getOrden());
         return theModel;*/
     }
 
-    public BiblicaMisa getBiblicaMisa() {
+    public MassReading getBiblicaMisa() {
 
-        BiblicaMisa theModel = lecturaOne.getDomainModelMisa();
+        MassReading theModel = lecturaOne.getDomainModelMisa();
+        //theModel.bookFK=l
         theModel.setTema(misaLectura.getTema());
         theModel.setOrden(misaLectura.getOrden());
         return theModel;
@@ -81,19 +83,43 @@ return theModel;
 
 
 
-    public Liturgia getLiturgia() {
+    public Liturgy getLiturgia() {
         return null;//liturgia.getDomainModel();
     }
 
-    public List<ComentarioBiblico> getDomainModel() {
-        List<ComentarioBiblico> listModel = new ArrayList<>();
+    public BibleCommentList getDomainModelN() {
+        BibleCommentList dm=new BibleCommentList();
+        List<List<BibleComment>> group = new ArrayList<>();
+        List<BibleComment> listModel = new ArrayList<>();
+
         //lectura.
         if (lectura.size() > 0) {
             for (BibleHomilyWithAll item : lectura) {
                 //if(homilias.)
                 //item.getDomainModel().getOrden();
-                ComentarioBiblico theModel = item.getDomainModel();
-                BiblicaMisa biblica = getBiblicaMisa();//misaLectura.getDomainModel();
+                BibleComment theModel = item.getDomainModel();
+                MassReading biblica = getBiblicaMisa();//misaLectura.getDomainModel();
+                biblica.setOrden(misaLectura.getOrden());
+                theModel.setBiblica(biblica);
+                if (item != null) {
+                    listModel.add(theModel);
+                }
+            }
+            group.add(listModel);
+        }
+        dm.allComentarios=group;
+        return dm;
+    }
+    public List<BibleComment> getDomainModel() {
+        List<BibleComment> listModel = new ArrayList<>();
+        //lectura.
+        if (lectura.size() > 0) {
+            for (BibleHomilyWithAll item : lectura) {
+                //if(homilias.)
+                //item.getDomainModel().getOrden();
+                BibleComment theModel = item.getDomainModel();
+                MassReading biblica = getBiblicaMisa();//misaLectura.getDomainModel();
+                //biblica.bookFK=
                 biblica.setOrden(misaLectura.getOrden());
                 theModel.setBiblica(biblica);
                 if (item != null) {

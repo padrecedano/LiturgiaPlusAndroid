@@ -109,7 +109,7 @@ public class ComentariosFragment extends Fragment implements TextToSpeechCallbac
                 data -> {
                     progressBar.setVisibility(View.GONE);
                     if (data.status == DataWrapper.Status.SUCCESS) {
-                        mTextView.setText(data.getData().getAllForViewNew(), TextView.BufferType.SPANNABLE);
+                        mTextView.setText(data.getData().getAllForView(), TextView.BufferType.SPANNABLE);
                         if(isVoiceOn){
                             sbReader.append(data.getData().getAllForRead());
                             setPlayerButton();

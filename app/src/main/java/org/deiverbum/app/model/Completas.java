@@ -9,7 +9,7 @@ import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
 
-public class Completas extends  BreviarioHora{
+public class Completas extends BreviaryHour {
 
     private RitosIniciales ritosIniciales;
 
@@ -17,10 +17,10 @@ public class Completas extends  BreviarioHora{
     private Conclusion conclusion;
     List<CompletasHimno> completasHimno;
     private List<CompletasDia> completasDias;
-    private List<Responsorio> responsorio;
+    private List<LHResponsoryShort> responsorio;
 
 
-    public List<Responsorio> getResponsorio() {
+    public List<LHResponsoryShort> getResponsorio() {
         return responsorio;
     }
 
@@ -32,7 +32,7 @@ public class Completas extends  BreviarioHora{
     }
 
 
-        public Oracion getOracionByDay() {
+        public Prayer getOracionByDay() {
         return completasDias.get(metaLiturgia.weekDay).getOracion();
     }
 
@@ -42,7 +42,7 @@ public class Completas extends  BreviarioHora{
 
 
 
-    public void setResponsorio(List<Responsorio> responsorio) {
+    public void setResponsorio(List<LHResponsoryShort> responsorio) {
         this.responsorio = responsorio;
     }
 
@@ -58,7 +58,7 @@ public class Completas extends  BreviarioHora{
 
 
 
-    public Himno getHimno() {
+    public LHHymn getHimno() {
         SparseIntArray mMap = new SparseIntArray();
 
         switch (metaLiturgia.idTiempo) {
@@ -122,17 +122,17 @@ public class Completas extends  BreviarioHora{
 
 
     /**
-     * Devuelve Lectura Breve y Responsorio formateados para vista
+     * Devuelve BibleReading Breve y LHResponsoryShort formateados para vista
      * Para el responsorio, determina el que corresponda, según sea o no
      * tiempo de Pascua (timeID=6)
-     * @return una cadena formateada con Lectura y Responsorio
+     * @return una cadena formateada con BibleReading y LHResponsoryShort
      */
     public SpannableStringBuilder getLecturaSpan() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
 
         int mIndex = (metaLiturgia.idTiempo == 6) ? 1 : 0;
-        Responsorio mResponsorio = responsorio.get(mIndex);
-        BiblicaBreve mLectura = completasDias.get(metaLiturgia.weekDay).getLecturaBreve();
+        LHResponsoryShort mResponsorio = responsorio.get(mIndex);
+        BiblicalShort mLectura = completasDias.get(metaLiturgia.weekDay).getLecturaBreve();
         mLectura.setResponsorio(mResponsorio);
         mLectura.setForma(String.valueOf(mResponsorio.getForma()));
         ssb.append(mLectura.getAll());
@@ -143,8 +143,8 @@ public class Completas extends  BreviarioHora{
         SpannableStringBuilder ssb = new SpannableStringBuilder();
 
         int mIndex = (metaLiturgia.idTiempo == 6) ? 1 : 0;
-        Responsorio mResponsorio = responsorio.get(mIndex);
-        BiblicaBreve mLectura = completasDias.get(metaLiturgia.weekDay).getLecturaBreve();
+        LHResponsoryShort mResponsorio = responsorio.get(mIndex);
+        BiblicalShort mLectura = completasDias.get(metaLiturgia.weekDay).getLecturaBreve();
         //mLectura.setResponsorio(mResponsorio);
         mLectura.setForma(String.valueOf(mResponsorio.getForma()));
         ssb.append(mLectura.getAllForRead());
@@ -152,12 +152,12 @@ public class Completas extends  BreviarioHora{
     }
 /*
     @SuppressWarnings("unused")
-    public BiblicaBreve getLecturaBreve() {
+    public BiblicalShort getLecturaBreve() {
         return lecturaBreve;
     }
 
     @SuppressWarnings("unused")
-    public void setLecturaBreve(BiblicaBreve lecturaBreve) {
+    public void setLecturaBreve(BiblicalShort lecturaBreve) {
         this.lecturaBreve = lecturaBreve;
     }
 
@@ -211,8 +211,8 @@ public class Completas extends  BreviarioHora{
         return Utils.toH3Red("COMPLETAS");
     }
 
-    public SpannableStringBuilder getForRead() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
+    public StringBuilder getForRead() {
+        StringBuilder sb = new StringBuilder();
         RitosIniciales ri = getRitosIniciales();
         Kyrie kyrie = ri.getKyrie();
         this.himno = getHimno();

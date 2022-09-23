@@ -1,5 +1,6 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Constants.TITLE_CONCLUSION;
 import static org.deiverbum.app.utils.Utils.LS;
 import static org.deiverbum.app.utils.Utils.LS2;
 
@@ -7,8 +8,8 @@ import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
-public class Intermedia extends BreviarioHora {
-    private BiblicaBreve lecturaBreve;
+public class Intermedia extends BreviaryHour {
+    private BiblicalShort lecturaBreve;
 
     public Intermedia() {
     }
@@ -21,7 +22,7 @@ public class Intermedia extends BreviarioHora {
      */
     public static SpannableStringBuilder getConclusionHora() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
-        sb.append(Utils.formatTitle("CONCLUSIÓN"));
+        sb.append(Utils.formatTitle(TITLE_CONCLUSION));
         sb.append(LS2);
         sb.append(Utils.toRed("V. "));
         sb.append("Bendigamos al Señor.");
@@ -32,7 +33,7 @@ public class Intermedia extends BreviarioHora {
     }
 
     @SuppressWarnings("unused")
-    public BiblicaBreve getLecturaBreve() {
+    public BiblicalShort getLecturaBreve() {
         return lecturaBreve;
     }
 
@@ -67,13 +68,15 @@ public class Intermedia extends BreviarioHora {
         return titulo;
     }
 
+    //@Override
     public SpannableStringBuilder getForView() {
 
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
             //lecturaBreve.normalizeByTime(metaLiturgia.getCalendarTime());
             //sb.append(metaLiturgia.getAll());
-            sb.append(hoy.getAll());
+            sb.append(hoy.getAllForView());
+            //sb.append(getTituloHora());
 
             sb.append(Utils.LS2);
 
@@ -126,12 +129,12 @@ public class Intermedia extends BreviarioHora {
     }
 
     @SuppressWarnings("unused")
-    public void setLecturaBreve(BiblicaBreve lecturaBreve) {
+    public void setLecturaBreve(BiblicalShort lecturaBreve) {
         this.lecturaBreve = lecturaBreve;
     }
 
     /**
-     * Devuelve el índice de la hora para fines de Salmodia
+     * Devuelve el índice de la hora para fines de LHPsalmody
      * por ejemplo, para determinar la antífona única en los
      * tiempos litúrgicos en que ésta aplica
      *

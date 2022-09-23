@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import org.deiverbum.app.model.Responsorio;
+import org.deiverbum.app.model.LHResponsoryShort;
 import org.deiverbum.app.utils.Utils;
 
 /**
@@ -44,8 +44,8 @@ public class LHResponsoryShortEntity {
     }
 
 
-    public Responsorio getDomainModel(Integer timeId){
-        Responsorio theModel=new Responsorio();
+    public LHResponsoryShort getDomainModel(Integer timeId){
+        LHResponsoryShort theModel=new LHResponsoryShort();
         theModel.setTexto(Utils.replaceByTime(getTexto(),timeId));
         theModel.setForma(getTipo());
         //theModel.setRef(getFuente());

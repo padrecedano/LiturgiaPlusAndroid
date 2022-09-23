@@ -10,8 +10,7 @@ import androidx.work.WorkerParameters;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.data.source.remote.network.ApiService;
-import org.deiverbum.app.model.Liturgia;
-import org.deiverbum.app.model.Today;
+import org.deiverbum.app.model.Liturgy;
 
 import java.util.List;
 
@@ -78,20 +77,20 @@ public class SyncWorker extends Worker {
         workerDependency.getLiturgia(param)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<List<Liturgia>>() {
+                .subscribe(new DisposableSingleObserver<List<Liturgy>>() {
 
                     @Override public void onStart() {
                     }
                     @Override
-                    public void onSuccess(List<Liturgia> r) {
-                            for (Liturgia item : r) {
+                    public void onSuccess(List<Liturgy> r) {
+                            for (Liturgy item : r) {
                             Log.d("AXY-r", String.valueOf(item.getHoy()));
                             //}
                         }
 
                             //Log.d("AXY-r",r.get(0).getHoy().toString());
                         //Log.d("AXY-r",r.get(0).getTexto());
-                        //DataWrapper<Homilias, CustomException>
+                        //DataWrapper<Homily, CustomException>
 
                         //mTodayDao.insertToday(r.get(0));
                         //mTodayDao.insertAllTodays(r);

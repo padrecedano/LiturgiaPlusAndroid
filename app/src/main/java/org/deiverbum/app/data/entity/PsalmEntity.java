@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import org.deiverbum.app.model.Salmo;
+import org.deiverbum.app.model.LHPsalm;
 
 /**
  * @author A. Cedano
@@ -71,8 +71,8 @@ public class PsalmEntity {
         this.pericopaId = pericopaId;
     }
 
-    public Salmo getDomainModel(){
-        Salmo dm=new Salmo();
+    public LHPsalm getDomainModel(){
+        LHPsalm dm=new LHPsalm();
         dm.setSalmo(getSalmo());
         dm.setRef(getSalmoRef());
         return dm;

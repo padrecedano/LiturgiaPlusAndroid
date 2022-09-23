@@ -3,9 +3,9 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.BiblicaMisa;
-import org.deiverbum.app.model.ComentarioBiblico;
-import org.deiverbum.app.model.Liturgia;
+import org.deiverbum.app.model.MassReading;
+import org.deiverbum.app.model.BibleComment;
+import org.deiverbum.app.model.Liturgy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,26 +50,26 @@ public class MisaWithComentarios {
     )
     public LiturgyWithTime liturgia;
 */
-    public BiblicaMisa getBiblicaMisa() {
-        BiblicaMisa theModel = lecturaEntity.getDomainModelMisa();
+    public MassReading getBiblicaMisa() {
+        MassReading theModel = lecturaEntity.getDomainModelMisa();
         theModel.setTema(misaLectura.getTema());
         theModel.setOrden(misaLectura.getOrden());
         return theModel;
     }
 
-    public Liturgia getLiturgia() {
+    public Liturgy getLiturgia() {
         return null;//liturgia.getDomainModel();
     }
 
-    public List<ComentarioBiblico> getDomainModel() {
-        List<ComentarioBiblico> listModel = new ArrayList<>();
+    public List<BibleComment> getDomainModel() {
+        List<BibleComment> listModel = new ArrayList<>();
         //lectura.
         if (lectura.size() > 0) {
             for (BibleHomilyWithAll item : lectura) {
                 //if(homilias.)
                 //item.getDomainModel().getOrden();
-                ComentarioBiblico theModel = item.getDomainModel();
-                BiblicaMisa biblica = getBiblicaMisa();//misaLectura.getDomainModel();
+                BibleComment theModel = item.getDomainModel();
+                MassReading biblica = getBiblicaMisa();//misaLectura.getDomainModel();
                 biblica.setOrden(misaLectura.getOrden());
                 theModel.setBiblica(biblica);
                 if (item != null) {

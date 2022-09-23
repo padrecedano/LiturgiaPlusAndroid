@@ -3,11 +3,11 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.ComentarioBiblico;
-import org.deiverbum.app.model.Comentarios;
-import org.deiverbum.app.model.Hoy;
+import org.deiverbum.app.model.BibleCommentList;
+import org.deiverbum.app.model.BibleComment;
 import org.deiverbum.app.model.MetaLiturgia;
-import org.deiverbum.app.model.Santo;
+import org.deiverbum.app.model.Saint;
+import org.deiverbum.app.model.Today;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
 public class TodayComentarios {
 
     @Embedded
-    public Today today;
+    public TodayEntity today;
 
     @Relation(
             entity = LiturgyEntity.class,
@@ -51,6 +51,20 @@ public class TodayComentarios {
     public MisaWithComentarios comentarios;
 
 
+    @Relation(
+            entity = MassReadingEntity.class,
+            parentColumn = "massReadingFK",
+            entityColumn = "liturgyFK"
+    )
+    public List<MisaWithComentariosRename> comentariosA;
+
+    @Relation(
+            entity = MassReadingEntity.class,
+            parentColumn = "massReadingFK",
+            entityColumn = "liturgyFK"
+    )
+    public MisaWithComentariosRename comentariosB;
+
     public MetaLiturgia getMetaLiturgia(){
         MetaLiturgia theModel = new MetaLiturgia();
         //theModel.setLiturgiaFeria(feria.getDomainModel());
@@ -74,28 +88,30 @@ public class TodayComentarios {
     }
 
 
-    public Santo getSanto(){
+    public Saint getSanto(){
         return  santo.getDomainModelLH();
     }
 
-    public Hoy getToday(){
-        Hoy dm = new Hoy();
-        dm.setFeria(feria.getDomainModel());
-        dm.setFecha(String.valueOf(today.getHoy()));
-        dm.setCalendarTime(today.tiempoId);
-        dm.setHasSaint(true);
-        dm.setMLecturasFK(today.mLecturasFK);
-        dm.setTitulo(feria.getDomainModel().getNombre());
+    public Today getToday(){
+        Today dm = new Today();
+        dm.liturgyDay=feria.getDomainModel();
+        dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
+        dm.setTodayDate(today.getHoy());
+        dm.setHasSaint(false);
         return dm;
     }
 
-    public Comentarios getDomainModel(){
-        Comentarios dm=new Comentarios();
+    public BibleCommentList getDomainModel(){
+        BibleCommentList dm=new BibleCommentList();
         dm.setHoy(getToday());
-        List<List<ComentarioBiblico>> listModel = new ArrayList<>();
+        List<List<BibleComment>> listModel = new ArrayList<>();
         dm.setMetaLiturgia(getMetaLiturgia());
         dm.setBiblica(comentarios.getBiblicaMisa());
-        listModel.add(comentarios.getDomainModel());
+        //listModel.add(comentarios.getDomainModel());
+        for(MisaWithComentariosRename item : comentariosA){
+            listModel.add(item.getDomainModel());
+        }
+
         dm.setAllComentarios(listModel);
         return dm;
     }

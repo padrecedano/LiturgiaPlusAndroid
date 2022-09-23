@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import org.deiverbum.app.model.ResponsorioLargo;
+import org.deiverbum.app.model.LHResponsory;
 import org.deiverbum.app.utils.Utils;
 
 /**
@@ -52,8 +52,8 @@ public class LHResponsorioLargoEntity {
     @ColumnInfo(name = "type")
     public Integer tipo=0;
 
-    public ResponsorioLargo getDomainModel(Integer timeId){
-        ResponsorioLargo theModel=new ResponsorioLargo();
+    public LHResponsory getDomainModel(Integer timeId){
+        LHResponsory theModel=new LHResponsory();
         theModel.setTexto(Utils.replaceByTime(getTexto(),timeId));
         theModel.setForma(getTipo());
         theModel.setRef(getFuente());

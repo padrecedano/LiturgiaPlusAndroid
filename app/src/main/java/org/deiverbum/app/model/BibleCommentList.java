@@ -1,0 +1,134 @@
+package org.deiverbum.app.model;
+
+import static org.deiverbum.app.utils.Constants.TITLE_BIBLE_COMMENTS;
+import static org.deiverbum.app.utils.Utils.LS2;
+
+import android.text.SpannableStringBuilder;
+
+import com.google.firebase.firestore.PropertyName;
+
+import org.deiverbum.app.utils.Utils;
+
+import java.util.List;
+
+public class BibleCommentList {
+    public String padre;
+    public int id_homilia;
+    public String pericopa;
+    public MetaLiturgia metaLiturgia;
+    private Today today;
+    public List<List<BibleComment>> allComentarios;
+    private MassReading biblica;
+
+    @PropertyName("comentarios")
+    public List<BibleComment> comentarios;
+
+    public BibleCommentList() {
+    }
+
+    public MetaLiturgia getMetaLiturgia() {
+        return metaLiturgia;
+    }
+
+    public void setMetaLiturgia(MetaLiturgia metaLiturgia) {
+        this.metaLiturgia = metaLiturgia;
+    }
+
+    @PropertyName("comentarios")
+    public void setComentarios(List<BibleComment> comentarios) {
+        this.comentarios = comentarios;
+    }
+
+    public void setAllComentarios(List<List<BibleComment>> comentarios) {
+        this.allComentarios = comentarios;
+    }
+
+    @PropertyName("comentarios")
+    public List<BibleComment> getComentarios() {
+        return this.comentarios;
+    }
+
+    private SpannableStringBuilder getTitulo() {
+        return Utils.toH3Red("COMENTARIOS EVANGELIO");
+    }
+
+    private String getTituloForRead() {
+        return "Comentarios del Evangelio del día.";
+    }
+
+
+    public SpannableStringBuilder getAllForView() {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+        try {
+            sb.append(today.getAllForView());
+            sb.append(LS2);
+            sb.append(getTitulo());
+            sb.append(LS2);
+            int i = 0;
+            for (List<BibleComment> subList : allComentarios) {
+                if (subList.size() > 0) {
+                    int x = 1;
+                    for (BibleComment item : subList) {
+                        if (x++ == 1) {
+                            sb.append(item.getBiblica().getAll());
+                            sb.append(LS2);
+                            sb.append(Utils.formatTitle(TITLE_BIBLE_COMMENTS));
+                            sb.append(LS2);
+                        }
+                        sb.append(item.getAllForView());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            sb.append(e.getMessage());
+        }
+        return sb;
+    }
+
+    public StringBuilder getAllForRead() {
+        StringBuilder sb = new StringBuilder();
+        try {
+            sb.append(today.getAllForRead());
+            sb.append(getTituloForRead());
+            int i = 0;
+            for (List<BibleComment> subList : allComentarios) {
+                if (subList.size() > 0) {
+                    int x = 1;
+                    for (BibleComment item : subList) {
+                        if (x++ == 1) {
+                            sb.append(item.getBiblica().getAllForRead());
+                            sb.append(Utils.pointAtEnd(TITLE_BIBLE_COMMENTS));
+                        }
+                        sb.append(item.getAllForRead());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            sb.append(e.getMessage());
+        }
+        return sb;
+    }
+
+
+    @SuppressWarnings("unused")
+    public void setPericopa(String pericopa) {
+        this.pericopa = pericopa;
+    }
+
+    public String getPericopa() {
+        return this.pericopa;
+    }
+
+    public void setHoy(Today today) {
+        this.today = today;
+    }
+
+    public MassReading getBiblica() {
+        return biblica;
+    }
+
+    public void setBiblica(MassReading biblica) {
+        this.biblica = biblica;
+    }
+
+}

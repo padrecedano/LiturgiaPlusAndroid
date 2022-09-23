@@ -5,14 +5,11 @@ import static org.deiverbum.app.utils.Constants.ERR_REPORT;
 import androidx.lifecycle.MediatorLiveData;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
-import org.deiverbum.app.data.entity.TodayLaudes;
 import org.deiverbum.app.data.entity.TodaySanto;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
-import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.SaintLife;
-import org.deiverbum.app.model.Santo;
 import org.deiverbum.app.utils.Utils;
 
 import javax.inject.Inject;

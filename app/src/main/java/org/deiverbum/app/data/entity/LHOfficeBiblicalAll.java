@@ -3,14 +3,14 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.BiblicaOficio;
+import org.deiverbum.app.model.LHOfficeBiblical;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *  <p>Obtiene los valores para una lectura bíblica de
- *  la Liturgia de las Horas,
+ *  la Liturgy de las Horas,
  *  desde las distintas tablas relacionadas.</p>
  *
  * @author A. Cedano
@@ -28,8 +28,8 @@ public class LHOfficeBiblicalAll {
     )
     public List<LHOfficeBiblicalWithResponsory> biblica;
 
-    public List<BiblicaOficio> getDomainModel(Integer tiempoId) {
-        final List<BiblicaOficio> theList = new ArrayList<>();
+    public List<LHOfficeBiblical> getDomainModel(Integer tiempoId) {
+        final List<LHOfficeBiblical> theList = new ArrayList<>();
 
         for (LHOfficeBiblicalWithResponsory item : biblica) {
             theList.add(item.getDomainModel(tiempoId));

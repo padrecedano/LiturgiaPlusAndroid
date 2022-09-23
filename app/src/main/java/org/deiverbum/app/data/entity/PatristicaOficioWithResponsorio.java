@@ -3,11 +3,11 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Patristica;
+import org.deiverbum.app.model.LHOfficePatristic;
 
 /**
  *  <p>Obtiene los valores para una lectura bíblica de
- *  la Liturgia de las Horas,
+ *  la Liturgy de las Horas,
  *  desde las distintas tablas relacionadas.</p>
  *
  * @author A. Cedano
@@ -34,8 +34,8 @@ public class PatristicaOficioWithResponsorio {
 
 
 
-    public Patristica getDomainModelOficio(Integer tiempoId) {
-        Patristica theModel= homilyAll.getPatristicaDomainModel();
+    public LHOfficePatristic getDomainModelOficio(Integer tiempoId) {
+        LHOfficePatristic theModel= homilyAll.getPatristicaDomainModel();
         theModel.setTema(lhPatristica.tema);
         theModel.setFuente(lhPatristica.fuente);
         theModel.setOrden(lhPatristica.orden);

@@ -5,15 +5,17 @@ import android.util.Log;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.BiblicaBreve;
-import org.deiverbum.app.model.CanticoEvangelico;
-import org.deiverbum.app.model.Himno;
-import org.deiverbum.app.model.Hoy;
-import org.deiverbum.app.model.Invitatorio;
-import org.deiverbum.app.model.Oracion;
-import org.deiverbum.app.model.Preces;
-import org.deiverbum.app.model.Salmodia;
-import org.deiverbum.app.model.Santo;
+import org.deiverbum.app.model.BiblicalShort;
+import org.deiverbum.app.model.BreviaryHour;
+import org.deiverbum.app.model.LHGospelCanticle_;
+import org.deiverbum.app.model.LHHymn;
+import org.deiverbum.app.model.Laudes;
+import org.deiverbum.app.model.Liturgy;
+import org.deiverbum.app.model.Saint;
+import org.deiverbum.app.model.LHInvitatory;
+import org.deiverbum.app.model.Prayer;
+import org.deiverbum.app.model.LHIntercession;
+import org.deiverbum.app.model.Today;
 import org.deiverbum.app.model.Visperas;
 
 import java.util.List;
@@ -26,7 +28,7 @@ import java.util.List;
 public class TodayVisperas {
 
     @Embedded
-    public Today today;
+    public TodayEntity today;
 
     @Relation(
             entity = SaintEntity.class,
@@ -61,7 +63,7 @@ public class TodayVisperas {
             parentColumn = "vPsalmodyFK",
             entityColumn = "groupID"
     )
-    public LHPsalmody salmodia;
+    public org.deiverbum.app.data.entity.LHPsalmody salmodia;
 
     @Relation(
             entity = PsalmodyEntity.class,
@@ -115,58 +117,82 @@ public class TodayVisperas {
 
 
 
-    public Himno getHimno(){
+    public LHHymn getHimno(){
         return himno.getDomainModel();
     }
 
-//TODO incluir algo como hasPriority en Today
-    public BiblicaBreve getBiblica(){
+//TODO incluir algo como hasPriority en TodayEntity
+    public BiblicalShort getBiblica(){
         return  biblica.getDomainModel(today.getTiempoId());
     }
 
-    public CanticoEvangelico getMagnificat(){
+    public LHGospelCanticle_ getMagnificat(){
         return  magnificat.getDomainModel(6);
     }
 
-    public Preces getPreces(){
+    public LHIntercession getPreces(){
         return  lhIntercessionsDM.getDomainModel();
     }
 
-    public Santo getSanto(){
+    public Saint getSanto(){
         return  santo.getDomainModelLH();
     }
 
-    public Invitatorio getInvitatorio() {
+    public LHInvitatory getInvitatorio() {
         return invitatorio.getDomainModel();
     }
 
-    public Salmodia getSalmodia() {
+    public org.deiverbum.app.model.LHPsalmody getSalmodia() {
         return salmodia.getDomainModel();
     }
 
-    public Oracion getOracion() {
+    public Prayer getOracion() {
         return lhPrayerAll.getDomainModel();
     }
 
+    public Today getToday(){
+        Today dm = new Today();
+        dm.hourID=6;
+        dm.liturgyDay=feria.getDomainModel();
+        dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
+        dm.setTodayDate(today.getHoy());
+        dm.setHasSaint(false);
+        return dm;
+    }
 
-    public Hoy getToday(){
-        try {
-            Hoy dm = new Hoy();
-            dm.setIdHour(6);
-            dm.setFeria(feria.getDomainModel());
-            dm.setFecha(String.valueOf(today.getHoy()));
-            dm.setCalendarTime(today.tiempoId);
-            dm.setHasSaint(true);
-            dm.setMLecturasFK(today.mLecturasFK);
-            if (today.previoId != 0) {
-                dm.setPrevio(previo.getDomainModel());
-            }
-            dm.setTitulo(feria.getDomainModel().getNombre());
-            return dm;
-        }catch (Exception e){
-            Log.d("ERR",e.getMessage());
-            return null;
-        }
+    public Liturgy getDomainModel(){
+        Liturgy dm= feria.getDomainModel();
+        dm.typeID=6;
+        dm.setHoy(getToday());
+        BreviaryHour bh=new BreviaryHour();
+        Visperas visperas=new Visperas();
+        visperas.setHoy(getToday());
+        visperas.setInvitatorio(getInvitatorio());
+        visperas.setSanto(getSanto());
+        visperas.setHimno(getHimno());
+        visperas.setSalmodia(getSalmodia());
+        visperas.setLecturaBreve(getBiblica());
+        visperas.setMagnificat(getMagnificat());
+        visperas.setPreces(getPreces());
+        visperas.setOracion(getOracion());
+        bh.setVisperas(visperas);
+        dm.setBreviaryHour(bh);
+        return dm;
+    }
+
+/*
+    public Today getToday(){
+        Today dm = new Today();
+        dm.liturgyDay=feria.getDomainModel();
+        dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
+dm.hourID=6;
+        dm.setTodayDate(today.getHoy());
+        dm.setCalendarTime(today.tiempoId);
+        dm.setHasSaint(true);
+        dm.setMLecturasFK(today.mLecturasFK);
+        //dm.setPrevio(previo.getDomainModel());
+        dm.setTitulo(feria.getDomainModel().getNombre());
+        return dm;
     }
 
     public Visperas getDomainModel(){
@@ -182,4 +208,5 @@ public class TodayVisperas {
         dm.setOracion(getOracion());
         return dm;
     }
+    */
 }

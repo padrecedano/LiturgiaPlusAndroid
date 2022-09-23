@@ -17,8 +17,8 @@ import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
-import org.deiverbum.app.model.Homilias;
-import org.deiverbum.app.model.Salmodia;
+import org.deiverbum.app.model.Homily;
+import org.deiverbum.app.model.LHPsalmody;
 import org.deiverbum.app.model.Today;
 import org.deiverbum.app.workers.TodayWorker;
 
@@ -43,12 +43,12 @@ import dagger.hilt.android.qualifiers.ApplicationContext;
 public class TodayRepository {
     ApiService apiService;
     private final FirebaseDataSource firebaseDataSource;
-    private final MediatorLiveData<DataWrapper<Homilias, CustomException>> mData = new MediatorLiveData<>();
+    private final MediatorLiveData<DataWrapper<Homily, CustomException>> mData = new MediatorLiveData<>();
     private LiveData<Today> mAllWords;
     private TodayDao mTodayDao;
     private Context mContext;
     private WorkManager mWorkManager;
-    private LiveData<Salmodia> salmodiaLiveData;
+    private LiveData<LHPsalmody> salmodiaLiveData;
 
     @Inject
     public TodayRepository(FirebaseDataSource firebaseDataSource,

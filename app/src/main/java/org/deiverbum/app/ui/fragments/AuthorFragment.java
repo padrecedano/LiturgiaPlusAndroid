@@ -72,7 +72,7 @@ public class AuthorFragment extends Fragment {
         Button button = binding.include.btnEmail;
         button.setOnClickListener(v -> {
             String subject = String.format(Locale.getDefault(), "Mensaje " +
-                    "desde Liturgia+ v. %d", Constants.VERSION_CODE);
+                    "desde Liturgy+ v. %d", Constants.VERSION_CODE);
             composeEmail(new String[]{Configuration.MY_EMAIL}, subject);
         });
 

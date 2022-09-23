@@ -2,14 +2,10 @@ package org.deiverbum.app.data.entity;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
-import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
-
-import org.deiverbum.app.model.Liturgia;
-import org.deiverbum.app.model.LiturgiaTiempo;
 
 /**
  * @author A. Cedano
@@ -107,7 +103,7 @@ public class LiturgyEntity {
 
 
     //@Embedded
-    //public LiturgiaTiempo liturgiaTiempo;
+    //public LiturgyTime liturgiaTiempo;
 
 
 }

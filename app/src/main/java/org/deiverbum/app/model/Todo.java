@@ -17,6 +17,6 @@ public class Todo {
     public String padre;
     public int id_homilia;
     public String texto;
-    public List<Homilia> homilias;
+    public List<HomilyList> homilias;
 }
 

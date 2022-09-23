@@ -3,8 +3,6 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Patristica;
-
 /**
  * @author A. Cedano
  * @version 1.0
@@ -29,8 +27,8 @@ public class LHOfficePatristic {
     public LHResponsorioLargoEntity lhResponsorio;
 
 
-    public Patristica getDomainModel(Integer timeId) {
-        Patristica theModel= homiliaAll.getPatristicaDomainModel();
+    public org.deiverbum.app.model.LHOfficePatristic getDomainModel(Integer timeId) {
+        org.deiverbum.app.model.LHOfficePatristic theModel= homiliaAll.getPatristicaDomainModel();
         theModel.setTema(lhPatristica.tema);
         theModel.setResponsorioLargo(lhResponsorio.getDomainModel(timeId));
         return theModel;

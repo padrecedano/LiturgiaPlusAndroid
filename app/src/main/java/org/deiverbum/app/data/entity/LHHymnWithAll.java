@@ -3,7 +3,7 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Himno;
+import org.deiverbum.app.model.LHHymn;
 
 /**
  * @author A. Cedano
@@ -20,8 +20,8 @@ public class LHHymnWithAll {
     )
     public LHHymnEntity himno;
 
-    public Himno getDomainModel(){
-        Himno dm=new Himno();
+    public LHHymn getDomainModel(){
+        LHHymn dm=new LHHymn();
         dm.setTexto(himno.getHimno());
         return dm;
     }

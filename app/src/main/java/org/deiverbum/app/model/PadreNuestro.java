@@ -1,5 +1,6 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Constants.TITLE_PATER_NOSTER;
 import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
@@ -23,7 +24,7 @@ public class PadreNuestro {
 
     public SpannableStringBuilder getAll() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
-        sb.append(Utils.formatTitle("PADRE NUESTRO"));
+        sb.append(Utils.formatTitle(TITLE_PATER_NOSTER));
         sb.append(LS2);
         sb.append(Utils.fromHtml(getTexto()));
         return sb;

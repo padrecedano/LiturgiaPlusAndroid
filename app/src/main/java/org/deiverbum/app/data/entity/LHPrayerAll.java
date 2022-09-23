@@ -3,7 +3,7 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Oracion;
+import org.deiverbum.app.model.Prayer;
 
 /**
  * @author A. Cedano
@@ -21,8 +21,8 @@ public class LHPrayerAll {
     )
     public PrayerEntity prayerEntity;
 
-    public Oracion getDomainModel() {
-        Oracion theModel=new Oracion();
+    public Prayer getDomainModel() {
+        Prayer theModel=new Prayer();
         theModel.setTexto(prayerEntity.getTexto());
         return theModel;
     }

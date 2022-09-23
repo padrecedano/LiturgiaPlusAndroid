@@ -28,8 +28,11 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 
-import org.deiverbum.app.model.BreviarioHora;
+import org.deiverbum.app.model.BreviaryHour;
 import org.deiverbum.app.model.Intermedia;
+import org.deiverbum.app.model.LHIntercession;
+import org.deiverbum.app.model.LHPsalmody;
+import org.deiverbum.app.model.LHResponsoryShort;
 
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
@@ -55,7 +58,7 @@ public final class Utils {
     private static final ForegroundColorSpan liturgicalRed = new ForegroundColorSpan(Color.parseColor("#A52A2A"));
 
     public static SpannableStringBuilder formatTitle(String sOrigen) {
-        SpannableStringBuilder ssb = new SpannableStringBuilder(sOrigen);
+        SpannableStringBuilder ssb = new SpannableStringBuilder(toUpper(sOrigen));
         ssb.setSpan(CharacterStyle.wrap(liturgicalRed), 0, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.setSpan(CharacterStyle.wrap(new StyleSpan(BOLD)), 0, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return ssb;
@@ -230,7 +233,7 @@ public final class Utils {
     /**
      * Este método es @deprecated a partir de la versión 2022.01,
      * porque conviene migrar algunos métodos a clases más propias.
-     * Usar en su lugar {@link BreviarioHora#getSaludoOficio()}
+     * Usar en su lugar {@link BreviaryHour#getSaludoOficio()}
      */
     @Deprecated
 
@@ -251,7 +254,7 @@ public final class Utils {
 
         public static SpannableStringBuilder getSaludoEnElNombre() {
         SpannableStringBuilder ssb = new SpannableStringBuilder("");
-        SpannableStringBuilder ssbPartial = new SpannableStringBuilder("V/. En el nombre del Padre, y del Hijo, y del Espíritu Santo.");
+        SpannableStringBuilder ssbPartial = new SpannableStringBuilder("V/. En el nombre del Pater, y del Hijo, y del Espíritu Saint.");
         ssbPartial.append(LS);
         ssbPartial.append("R/. Amén.");
         ssbPartial.setSpan(CharacterStyle.wrap(liturgicalRed), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -264,14 +267,14 @@ public final class Utils {
     /**
      * Este método es @deprecated a partir de la versión 2022.01,
      * porque conviene migrar algunos métodos a clases más propias.
-     * Usar en su lugar {@link BreviarioHora#getSaludoOficioForRead()}
+     * Usar en su lugar {@link BreviaryHour#getSaludoOficioForRead()}
      */
     @Deprecated
     public static SpannableStringBuilder getSaludoOficioForReader() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
         ssb.append("<p>Señor abre mis labios.</p>");
         ssb.append("<p>Y mi boca proclamará tu alabanza.</p>");
-        ssb.append("<p>Gloria al Padre, y al Hijo, y al Espíritu Santo.</p>");
+        ssb.append("<p>Gloria al Pater, y al Hijo, y al Espíritu Saint.</p>");
         ssb.append("<p>Como era en el principio ahora y siempre, por los siglos de los siglos. Amén.</p>");
         return (SpannableStringBuilder) fromHtml(ssb.toString());
     }
@@ -279,7 +282,7 @@ public final class Utils {
     /**
      * Este método es @deprecated a partir de la versión 2022.01,
      * porque conviene migrar algunos métodos a clases más propias.
-     * Usar en su lugar {@link BreviarioHora#getSaludoDiosMio()}
+     * Usar en su lugar {@link BreviaryHour#getSaludoDiosMio()}
      */
     @Deprecated
 
@@ -300,7 +303,7 @@ public final class Utils {
     /**
      * Este método es @deprecated a partir de la versión 2022.01,
      * porque conviene migrar algunos métodos a clases más propias.
-     * Usar en su lugar {@link BreviarioHora#getSaludoDiosMioForRead()}
+     * Usar en su lugar {@link BreviaryHour#getSaludoDiosMioForRead()}
      */
     @Deprecated
 
@@ -308,13 +311,13 @@ public final class Utils {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
         ssb.append("<p>Dios mío, ven en mi auxilio.</p>");
         ssb.append("<p>Señor, date prisa en socorrerme.</p>");
-        ssb.append("<p>Gloria al Padre, y al Hijo, y al Espíritu Santo.</p>");
+        ssb.append("<p>Gloria al Pater, y al Hijo, y al Espíritu Saint.</p>");
         ssb.append("<p>Como era en el principio ahora y siempre, por los siglos de los siglos. Amén.</p>");
         return (SpannableStringBuilder) fromHtml(ssb.toString());
     }
 
     /**
-     * @deprecated desde v. 2022.01 - Usar en su lugar {@link BreviarioHora#getConclusionHorasMayores()}
+     * @deprecated desde v. 2022.01 - Usar en su lugar {@link BreviaryHour#getConclusionHorasMayores()}
      * @return Conclusión formateada
      */
     @Deprecated
@@ -333,7 +336,7 @@ public final class Utils {
 
     /**
      * @deprecated
-     * Reemplazar por {@link BreviarioHora#getConclusionHorasMayoresForRead()}
+     * Reemplazar por {@link BreviaryHour#getConclusionHorasMayoresForRead()}
      * @return Texto de la conclusión
      */
     @Deprecated
@@ -418,7 +421,7 @@ public final class Utils {
                 ssb.append("R. Cristo, ten piedad.");
                 ssb.append(LS2);
 
-                ssb.append("V. Tú que estás sentado a la derecha del Padre para interceder por nosotros: Señor, ten piedad.");
+                ssb.append("V. Tú que estás sentado a la derecha del Pater para interceder por nosotros: Señor, ten piedad.");
                 ssb.append(LS);
 
                 ssb.append("R. Señor, ten piedad.");
@@ -443,7 +446,7 @@ public final class Utils {
 
     /**
      * Método que crea las preces *** terminar descripción luego
-     * @deprecated  migrar a {@link org.deiverbum.app.model.Preces}
+     * @deprecated  migrar a {@link LHIntercession}
      *
      * @param precesIntro Una matriz con las diferentes partes del responsorio. Antes de pasar el parámetro evauluar que la matriz no sea nula
      * @param precesTexto    Un valor numérico para indicar de que forma es el responsorio y actuar en consecuencia
@@ -487,7 +490,7 @@ public final class Utils {
         u2280: ⊀ ⊁ ⊂ ⊃ ⊄ ⊅ ⊆ ⊇ ⊈ ⊉ ⊊ ⊋ ⊌ ⊍ ⊎ ⊏ ⊐ ⊑ ⊒ ⊓ ⊔ ⊕ ⊖ ⊗ ⊘ ⊙ ⊚ ⊛ ⊜ ⊝ ⊞ ⊟
 
         u22A0: ⊠ ⊡ ⊢ ⊣ ⊤ ⊥ ⊦ ⊧ ⊨ ⊩ ⊪ ⊫ ⊬ ⊭ ⊮ ⊯ ⊰ ⊱ ⊲ ⊳ ⊴ ⊵ ⊶ ⊷ ⊸ ⊹ ⊺ ⊻ ⊼ ⊽ ⊾ ⊿
-        Lectura de la Pasión: τ : Jesús  ν : Cronista ς : S
+        BibleReading de la Pasión: τ : Jesús  ν : Cronista ς : S
 
         Nuevos valores desde v. 2022.01.01:
             ⊞ en lugar de τ ... ✚.
@@ -539,7 +542,11 @@ public final class Utils {
         String sFormateado;
         if (timeID == 6) {
             sFormateado = mText
-                    .replace("Ƥ", "Aleluya")
+                    .replace(" Ƥ.", " Aleluya.")
+                    .replace("Ƥ.", " Aleluya.")
+
+                    .replace("Ƥ", " Aleluya.")
+
                     .replace("α", " Aleluya.")
                     .replace("αα", " Aleluya, aleluya.");
         } else {
@@ -634,7 +641,7 @@ public final class Utils {
 
     /**
      * Método que limpia la segunda parte de la antífona, en el caso del símblo †
-     * @deprecated Desde 2022.01 - Usar {@link org.deiverbum.app.model.Salmodia#getAntifonaLimpia(String)}
+     * @deprecated Desde 2022.01 - Usar {@link LHPsalmody#getAntifonaLimpia(String)}
      * @param sAntifona Una cadena con el texto de la antífona
      * @return La misma cadena, pero sin el referido símbolo
      */
@@ -645,7 +652,7 @@ public final class Utils {
     }
 
     /**
-     * @deprecated Desde la versión 2022.01. Usar en su lugar {@link org.deiverbum.app.model.Responsorio#getAll()}
+     * @deprecated Desde la versión 2022.01. Usar en su lugar {@link LHResponsoryShort#getAll()}
      * <p>Método que crea la cadena completa de un responsorio dado.</p>
      *
      * @param respArray Una matriz con las diferentes partes del responsorio. Antes de pasar el parámetro evauluar que la matriz no sea nula
@@ -734,7 +741,7 @@ public final class Utils {
 
 
     /**
-     * @deprecated desde la versión 2022.01. Usar en su lugar {@link org.deiverbum.app.model.Responsorio#getAllForRead()}
+     * @deprecated desde la versión 2022.01. Usar en su lugar {@link LHResponsoryShort#getAllForRead()}
      * <p>Método que crea la cadena completa de un responsorio dado destinado a la lectura de voz.</p>
      *
      * @param respArray Una matriz con las diferentes partes del responsorio. Antes de pasar el parámetro evauluar que la matriz no sea nula
@@ -823,13 +830,13 @@ public final class Utils {
      */
     @Deprecated
     public static Spanned getTeDeum() {
-        String teDeum = "<p>Señor, Dios eterno, alegres te cantamos, <br />a ti nuestra alabanza, <br />a ti, Padre del cielo, te aclama la creación. <br /><br />Postrados ante ti, los ángeles te adoran <br />y cantan sin cesar: <br /><br />Santo, santo, santo es el Señor, <br />Dios del universo; <br />llenos están el cielo y la tierra de tu gloria. <br /><br />A ti, Señor, te alaba el coro celestial de los apóstoles, <br />la multitud de los profetas te enaltece, <br />y el ejército glorioso de los mártires te aclama. <br /><br />A ti la Iglesia santa, <br />por todos los confines extendida, <br />con júbilo te adora y canta tu grandeza: <br /><br />Padre, infinitamente santo, <br />Hijo eterno, unigénito de Dios, <br />Santo Espíritu de amor y de consuelo. <br /><br />Oh Cristo, tú eres el Rey de la gloria, <br />tú el Hijo y Palabra del Padre, <br />tú el Rey de toda la creación. <br /><br />Tú, para salvar al hombre, <br />tomaste la condición de esclavo <br />en el seno de una virgen. <br /><br />Tú destruiste la muerte <br />y abriste a los creyentes las puertas de la gloria. <br /><br />Tú vives ahora, <br />inmortal y glorioso, en el reino del Padre. <br /><br />Tú vendrás algún día, <br />como juez universal. <br /><br />Muéstrate, pues, amigo y defensor <br />de los hombres que salvaste. <br /><br />Y recíbelos por siempre allá en tu reino, <br />con tus santos y elegidos. <br /><br />Salva a tu pueblo, Señor, <br />y bendice a tu heredad. <br /><br />Sé su pastor, <br />y guíalos por siempre. <br /><br />Día tras día te bendeciremos <br />y alabaremos tu nombre por siempre jamás. <br /><br />Dígnate, Señor, <br />guardarnos de pecado en este día. <br /><br />Ten piedad de nosotros, Señor, <br />ten piedad de nosotros. <br /><br />Que tu misericordia, Señor, venga sobre nosotros, <br />como lo esperamos de ti. <br /><br />A ti, Señor, me acojo, <br />no quede yo nunca defraudado.</p>";
+        String teDeum = "<p>Señor, Dios eterno, alegres te cantamos, <br />a ti nuestra alabanza, <br />a ti, Pater del cielo, te aclama la creación. <br /><br />Postrados ante ti, los ángeles te adoran <br />y cantan sin cesar: <br /><br />Saint, santo, santo es el Señor, <br />Dios del universo; <br />llenos están el cielo y la tierra de tu gloria. <br /><br />A ti, Señor, te alaba el coro celestial de los apóstoles, <br />la multitud de los profetas te enaltece, <br />y el ejército glorioso de los mártires te aclama. <br /><br />A ti la Iglesia santa, <br />por todos los confines extendida, <br />con júbilo te adora y canta tu grandeza: <br /><br />Pater, infinitamente santo, <br />Hijo eterno, unigénito de Dios, <br />Saint Espíritu de amor y de consuelo. <br /><br />Oh Cristo, tú eres el Rey de la gloria, <br />tú el Hijo y Palabra del Pater, <br />tú el Rey de toda la creación. <br /><br />Tú, para salvar al hombre, <br />tomaste la condición de esclavo <br />en el seno de una virgen. <br /><br />Tú destruiste la muerte <br />y abriste a los creyentes las puertas de la gloria. <br /><br />Tú vives ahora, <br />inmortal y glorioso, en el reino del Pater. <br /><br />Tú vendrás algún día, <br />como juez universal. <br /><br />Muéstrate, pues, amigo y defensor <br />de los hombres que salvaste. <br /><br />Y recíbelos por siempre allá en tu reino, <br />con tus santos y elegidos. <br /><br />Salva a tu pueblo, Señor, <br />y bendice a tu heredad. <br /><br />Sé su pastor, <br />y guíalos por siempre. <br /><br />Día tras día te bendeciremos <br />y alabaremos tu nombre por siempre jamás. <br /><br />Dígnate, Señor, <br />guardarnos de pecado en este día. <br /><br />Ten piedad de nosotros, Señor, <br />ten piedad de nosotros. <br /><br />Que tu misericordia, Señor, venga sobre nosotros, <br />como lo esperamos de ti. <br /><br />A ti, Señor, me acojo, <br />no quede yo nunca defraudado.</p>";
         return fromHtml(teDeum);
     }
 
 
     /**
-     * @deprecated Usar en su lugar {@link org.deiverbum.app.model.Salmodia#getNoGloria()}
+     * @deprecated Usar en su lugar {@link LHPsalmody#getNoGloria()}
      * @return Texto del "No se dice Gloria..."
      */
     @Deprecated
@@ -839,24 +846,24 @@ public final class Utils {
     }
 
     /**
-     * @deprecated Usar en su lugar {@link org.deiverbum.app.model.Salmodia#getFinSalmo()}
+     * @deprecated Usar en su lugar {@link LHPsalmody#getFinSalmo()}
      * @return Fin del salmo para la vista
      */
     @Deprecated
     public static Spanned getFinSalmo() {
-        String fin = "Gloria al Padre, y al Hijo, y al Espíritu Santo." + BR
+        String fin = "Gloria al Pater, y al Hijo, y al Espíritu Saint." + BR
                 + NBSP_SALMOS + "Como era en el principio ahora y siempre, "
                 + NBSP_SALMOS + "por los siglos de los siglos. Amén.";
         return fromHtml(fin);
     }
 
     /**
-     * @deprecated Usar en su lugar {@link org.deiverbum.app.model.Salmodia#getFinSalmoForRead()}
+     * @deprecated Usar en su lugar {@link LHPsalmody#getFinSalmoForRead()}
      * @return Fin del salmo para lectura
      */
     @Deprecated
     public static  Spanned getFinSalmoForRead() {
-        String fin = "<p>Gloria al Padre, y al Hijo, y al Espíritu Santo.<br />" +
+        String fin = "<p>Gloria al Pater, y al Hijo, y al Espíritu Saint.<br />" +
                 "Como era en el principio ahora y siempre, "
                 + "por los siglos de los siglos. Amén.</p>";
         return fromHtml(fin);
@@ -1024,5 +1031,16 @@ public final class Utils {
         }
         return "";
     }
+
+    public static String pointAtEnd(String s) {
+        return String.format("%s.",s);
+    }
+    public static String toUpper(String s) {
+        return s.toUpperCase();
+    }
+    public static String toLower(String s) {
+        return s.toLowerCase();
+    }
+
 
 }

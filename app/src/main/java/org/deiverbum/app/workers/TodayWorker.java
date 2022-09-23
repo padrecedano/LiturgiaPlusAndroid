@@ -1,9 +1,9 @@
 package org.deiverbum.app.workers;
 
 import static org.deiverbum.app.utils.Constants.DB_VERSION;
-import static org.deiverbum.app.utils.Constants.HOMILY;
 import static org.deiverbum.app.utils.Constants.LH_GOSPEL_CANTICLE;
-import static org.deiverbum.app.utils.Constants.LITURGY_HOMILY_JOIN;
+import static org.deiverbum.app.utils.Constants.SYNC_LITURGY_HOMILY_JOIN;
+import static org.deiverbum.app.utils.Constants.SYNC_MASS_READING;
 
 import android.content.Context;
 import android.util.Log;
@@ -17,13 +17,16 @@ import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.Crud;
 import org.deiverbum.app.data.wrappers.SyncRequest;
-import org.deiverbum.app.model.LHCanticoEvangelico;
-import org.deiverbum.app.model.Liturgia;
-import org.deiverbum.app.model.LiturgiaHomiliaJoin;
+import org.deiverbum.app.model.BibleHomilyJoin;
+import org.deiverbum.app.model.Biblical;
+import org.deiverbum.app.model.Homily;
+import org.deiverbum.app.model.LHGospelCanticle;
+import org.deiverbum.app.model.Liturgy;
+import org.deiverbum.app.model.LiturgyHomilyJoin;
+import org.deiverbum.app.model.MassReadingOLD;
 import org.deiverbum.app.model.SyncStatus;
 import org.deiverbum.app.model.Today;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -73,7 +76,7 @@ public class TodayWorker<lhGospelCanticle> extends Worker {
             //map.put("homilia", mTodayDao.findLastHomilia());
             //loadCrud(map);
 
-            //loadToday(theDate);
+            loadToday(theDate);
             loadInsert();
             //loadUpdate();
             //loadDelete();
@@ -91,9 +94,11 @@ public class TodayWorker<lhGospelCanticle> extends Worker {
         super.onStopped();
     }
 
-    private void setSyncRequest(){
+    private void setSyncRequest() {
         List<SyncStatus> syncStatus = mTodayDao.getAllSyncStatus();
         syncStatus.add(new SyncStatus(LH_GOSPEL_CANTICLE));
+        syncStatus.add(new SyncStatus(SYNC_LITURGY_HOMILY_JOIN));
+        syncStatus.add(new SyncStatus(SYNC_MASS_READING));
 
         //syncStatus.add(new SyncStatus(HOMILY,mTodayDao.getLastVersion(HOMILY)));
 
@@ -103,13 +108,15 @@ public class TodayWorker<lhGospelCanticle> extends Worker {
         syncStatus.add(new SyncStatus(LH_GOSPEL_CANTICLE,mTodayDao.getLastVersion(LH_GOSPEL_CANTICLE)));
         syncStatus.add(new SyncStatus(LITURGY_HOMILY_JOIN,mTodayDao.getLastVersion(LITURGY_HOMILY_JOIN)));
 */
-        syncRequest=new SyncRequest();
-        syncRequest.syncStatus=syncStatus;
+        syncRequest = new SyncRequest();
+        syncRequest.syncStatus = syncStatus;
+        syncRequest.lastUpdate = mTodayDao.getLastUpdate();
 
         Integer lastLiturgia = mTodayDao.findLastLiturgia();
-        syncRequest.liturgia=lastLiturgia;
-        syncRequest.massReading=1;
+        syncRequest.liturgia = lastLiturgia;
+        syncRequest.massReading = 1;
     }
+
     public void loadCrud() {
         Integer lastLiturgia = mTodayDao.findLastLiturgia();
         HashMap<String, Integer> map = new HashMap<>();
@@ -148,87 +155,17 @@ public class TodayWorker<lhGospelCanticle> extends Worker {
                                 }
 
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                    }
-                });
-    }
-
-
-    public void loadUpdate() {
-        Integer lastLiturgia = mTodayDao.findLastLiturgia();
-        HashMap<String, Integer> map = new HashMap<>();
-        map.put("liturgia", lastLiturgia);
-        map.put("homilia", mTodayDao.findLastHomilia());
-        map.put("dbVersion",DB_VERSION);
-        workerDependency.callUpdate(map)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Crud>() {
-
-                    @Override
-                    public void onStart() {
-                    }
-
-                    @Override
-                    public void onSuccess(Crud r) {
-                        try {
-                            if (r.getAction().equals("c")) {
-                                if (r.liturgia != null) {
-                                    mTodayDao.liturgiaInsertAll(r.liturgia);
-                                }
-                                if (r.homily != null) {
-                                    mTodayDao.homiliaInsertAll(r.homily);
-                                }
-                                if (r.liturgiaHomiliaJoin != null) {
-                                    mTodayDao.homiliaJoinInsertAll(r.liturgiaHomiliaJoin);
-                                }
-                                if (r.ce != null) {
-                                    //mTodayDao.canticoEvangelicoInsertAll(r.ce);
-                                }
-                                if (r.bvJoin != null) {
-                                    mTodayDao.biblicaBreveJoinInsertAll(r.bvJoin);
-                                }
-                                if (r.bibleReading != null) {
-                                    mTodayDao.bibleReadingUpdateAll(r.bibleReading);
-                                }
-                                if (r.lhAntifona != null) {
-                                    mTodayDao.lhAntifonaUpdateAll(r.lhAntifona);
-                                }
-                                if (r.today != null) {
-                                    mTodayDao.todayUpdateAll(r.today);
-                                }
-                                if (r.mass_reading != null) {
-                                    mTodayDao.misaLecturaUpdateAll(r.mass_reading);
-                                }
-                                if (r.saintLife != null) {
-                                    mTodayDao.saintLifeInsertAll(r.saintLife);
-                                }
-                            }
-                        }catch (Exception e){
-                            Log.e("ERR",e.getMessage());
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e("ERR",e.getMessage());
                     }
                 });
     }
 
     public void loadInsert() {
-
-
-        //Integer lastLiturgia = mTodayDao.findLastLiturgia();
-        //HashMap<String, Integer> map = new HashMap<>();
-        //map.put("liturgia", lastLiturgia);
-        //map.put("homilia", mTodayDao.findLastHomilia());
-        //map.put("dbVersion",DB_VERSION);
         workerDependency.callInsertB(syncRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -241,38 +178,89 @@ public class TodayWorker<lhGospelCanticle> extends Worker {
                     @Override
                     public void onSuccess(Crud r) {
                         try {
-                            if(r.haveData) {
+                            if (r.haveData) {
                                 //mTodayDao.syncUpdateAll(r.syncStatus);
-                                if (r.liturgia != null) {
-                                    mTodayDao.liturgiaInsertAll(r.liturgia);
-                                }
-                                if (r.homily != null && !r.homily.isEmpty()) {
-                                    mTodayDao.homiliaInsertAll(r.homily);
-                                    //mTodayDao.syncUpdate(HOMILY);
-                                }
-                                if (r.homilyJoin != null) {
-                                    List<LiturgiaHomiliaJoin> c=r.homilyJoin.c;
-                                    List<LiturgiaHomiliaJoin> u=r.homilyJoin.u;
-                                    List<LiturgiaHomiliaJoin> d=r.homilyJoin.d;
+                                mTodayDao.syncUpdate(r.lastUpdate);
+                                if (r.crudToday != null) {
+                                    List<Today> c = r.crudToday.c;
+                                    List<Today> u = r.crudToday.u;
+                                    List<Today> d = r.crudToday.d;
 
                                     if (c != null && !c.isEmpty()) {
-                                        mTodayDao.homiliaJoinInsertAll(c);
+                                        mTodayDao.todayInsertAll(c);
+                                    }
+                                    if (u != null && !u.isEmpty()) {
+                                        mTodayDao.todayUpdateAll(u);
                                     }
 
                                     if (d != null && !d.isEmpty()) {
-                                        Integer i=mTodayDao.homiliaJoinDeleteAll(d);
-                                        Log.d("ACGDELETE", String.valueOf(i));
+                                        mTodayDao.todayDeleteAll(d);
+                                    }
+                                }
+                                if (r.crudBibleReading != null) {
+                                    List<Biblical> c = r.crudBibleReading.c;
+                                    List<Biblical> u = r.crudBibleReading.u;
+                                    List<Biblical> d = r.crudBibleReading.d;
+
+                                    if (c != null && !c.isEmpty()) {
+                                        mTodayDao.bibleReadingInsertAll(c);
+                                    }
+                                    if (u != null && !u.isEmpty()) {
+                                        mTodayDao.bibleReadingUpdateAll(u);
+                                    }
+
+                                    if (d != null && !d.isEmpty()) {
+                                        mTodayDao.bibleReadingDeleteAll(d);
+                                    }
+                                }
+                                if (r.homilyJoin != null) {
+                                    List<LiturgyHomilyJoin> c = r.homilyJoin.c;
+                                    List<LiturgyHomilyJoin> u = r.homilyJoin.u;
+                                    List<LiturgyHomilyJoin> d = r.homilyJoin.d;
+                                    if (c != null && !c.isEmpty()) {
+                                        mTodayDao.homiliaJoinInsertAll(c);
+                                    }
+                                    if (d != null && !d.isEmpty()) {
+                                        Integer i = mTodayDao.homiliaJoinDeleteAll(d);
                                     }
                                     if (u != null && !u.isEmpty()) {
                                         mTodayDao.homiliaJoinUpdateAll(u);
-                                        //Log.d("ACGDELETE", String.valueOf(i));
                                     }
-                                    //mTodayDao.syncUpdate(LITURGY_HOMILY_JOIN);
+                                }
+
+                                if (r.crudMassReading != null) {
+                                    List<MassReadingOLD> c = r.crudMassReading.c;
+                                    List<MassReadingOLD> u = r.crudMassReading.u;
+                                    List<MassReadingOLD> d = r.crudMassReading.d;
+                                    if (c != null && !c.isEmpty()) {
+                                        mTodayDao.massReadingInsertAll(c);
+                                    }
+                                    if (d != null && !d.isEmpty()) {
+                                        mTodayDao.massReadingDeleteAll(d);
+                                    }
+                                    if (u != null && !u.isEmpty()) {
+                                        mTodayDao.massReadingUpdateAll(u);
+                                    }
+                                }
+
+                                if (r.crudBibleHomilyJoin != null) {
+                                    List<BibleHomilyJoin> c = r.crudBibleHomilyJoin.c;
+                                    List<BibleHomilyJoin> u = r.crudBibleHomilyJoin.u;
+                                    List<BibleHomilyJoin> d = r.crudBibleHomilyJoin.d;
+                                    if (c != null && !c.isEmpty()) {
+                                        mTodayDao.bibleHomilyJoinInsertAll(c);
+                                    }
+                                    if (d != null && !d.isEmpty()) {
+                                        mTodayDao.bibleHomilyJoinDeleteAll(d);
+                                    }
+                                    if (u != null && !u.isEmpty()) {
+                                        mTodayDao.bibleHomilyJoinUpdateAll(u);
+                                    }
                                 }
                                 if (r.ce != null) {
-                                    List<LHCanticoEvangelico> c=r.ce.c;
-                                    List<LHCanticoEvangelico> u=r.ce.u;
-                                    List<LHCanticoEvangelico> d=r.ce.d;
+                                    List<LHGospelCanticle> c = r.ce.c;
+                                    List<LHGospelCanticle> u = r.ce.u;
+                                    List<LHGospelCanticle> d = r.ce.d;
 
                                     if (c != null && !c.isEmpty()) {
                                         mTodayDao.canticoEvangelicoInsertAll(c);
@@ -288,114 +276,52 @@ public class TodayWorker<lhGospelCanticle> extends Worker {
                                     //mTodayDao.canticoEvangelicoInsertAll(r.ce);
                                     //mTodayDao.syncUpdate(LH_GOSPEL_CANTICLE);
                                 }
-                                if (r.bvJoin != null) {
-                                    mTodayDao.biblicaBreveJoinInsertAll(r.bvJoin);
-                                }
-                                if (r.bibleReading != null) {
-                                    mTodayDao.bibleReadingUpdateAll(r.bibleReading);
-                                }
-                                if (r.lhAntifona != null) {
-                                    mTodayDao.lhAntifonaUpdateAll(r.lhAntifona);
-                                }
-                                if (r.today != null) {
-                                    mTodayDao.todayUpdateAll(r.today);
-                                }
-                                if (r.bibleReading != null) {
-                                    mTodayDao.bibleReadingInsertAll(r.bibleReading);
-                                }
-                                if ((r.mass_reading != null) && !r.mass_reading.isEmpty()) {
-                                    mTodayDao.misaLecturaInsertAll(r.mass_reading);
+
+                                if (r.crudHomily != null) {
+                                    List<Homily> c = r.crudHomily.c;
+                                    List<Homily> u = r.crudHomily.u;
+                                    List<Homily> d = r.crudHomily.d;
+                                    if (c != null && !c.isEmpty()) {
+                                        mTodayDao.homilyInsertAll(c);
+                                    }
+                                    if (d != null && !d.isEmpty()) {
+                                        mTodayDao.homilyDeleteAll(d);
+                                    }
+                                    if (u != null && !u.isEmpty()) {
+                                        mTodayDao.homilyUpdateAll(u);
+                                    }
                                 }
 
-                                if (r.saintLife != null) {
-                                    mTodayDao.saintLifeInsertAll(r.saintLife);
-                                }
-
-                                if (r.updateList != null && !r.updateList.isEmpty()) {
-                                    mTodayDao.syncUpdateAll(r.updateList);
-                                    //mTodayDao.syncUpdate(LH_GOSPEL_CANTICLE);
+                                if (r.crudBibleHomilyJoin != null) {
+                                    List<BibleHomilyJoin> c = r.crudBibleHomilyJoin.c;
+                                    List<BibleHomilyJoin> u = r.crudBibleHomilyJoin.u;
+                                    List<BibleHomilyJoin> d = r.crudBibleHomilyJoin.d;
+                                    if (c != null && !c.isEmpty()) {
+                                        mTodayDao.bibleHomilyJoinInsertAll(c);
+                                    }
+                                    if (d != null && !d.isEmpty()) {
+                                        mTodayDao.bibleHomilyJoinDeleteAll(d);
+                                    }
+                                    if (u != null && !u.isEmpty()) {
+                                        mTodayDao.bibleHomilyJoinUpdateAll(u);
+                                    }
                                 }
                             }
-                        }catch (Exception e){
-                            Log.e("ERR",e.getMessage());
+                        } catch (Exception e) {
+                            Log.e("ERR", e.getMessage());
 
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("ERR",e.getMessage());
+                        Log.e("ERR", e.getMessage());
 
                     }
                 });
     }
 
-    public void loadDelete() {
-        workerDependency.callDelete(syncRequest)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Crud>() {
 
-                    @Override
-                    public void onStart() {
-                    }
-
-                    @Override
-                    public void onSuccess(Crud r) {
-                        try {
-                            if(r.haveData) {
-                                mTodayDao.syncUpdateAll(r.syncStatus);
-                                if (r.liturgia != null) {
-                                    mTodayDao.liturgiaInsertAll(r.liturgia);
-                                }
-                                if (r.homily != null && !r.homily.isEmpty()) {
-                                    mTodayDao.homiliaInsertAll(r.homily);
-                                    //mTodayDao.syncUpdate(HOMILY);
-                                }
-                                /*if (r.homilyJoin != null && !r.homilyJoin.isEmpty()) {
-                                    mTodayDao.homiliaJoinDeleteAll(r.homilyJoin);
-                                    //mTodayDao.syncUpdate(LITURGY_HOMILY_JOIN);
-                                }*/
-                                if (r.ce != null ) {
-                                    //mTodayDao.canticoEvangelicoInsertAll(r.ce);
-                                    //mTodayDao.syncUpdate(LH_GOSPEL_CANTICLE);
-                                }
-                                if (r.bvJoin != null) {
-                                    mTodayDao.biblicaBreveJoinInsertAll(r.bvJoin);
-                                }
-                                if (r.bibleReading != null) {
-                                    mTodayDao.bibleReadingUpdateAll(r.bibleReading);
-                                }
-                                if (r.lhAntifona != null) {
-                                    mTodayDao.lhAntifonaUpdateAll(r.lhAntifona);
-                                }
-                                if (r.today != null) {
-                                    mTodayDao.todayUpdateAll(r.today);
-                                }
-                                if (r.bibleReading != null) {
-                                    mTodayDao.bibleReadingInsertAll(r.bibleReading);
-                                }
-                                if ((r.mass_reading != null) && !r.mass_reading.isEmpty()) {
-                                    mTodayDao.misaLecturaInsertAll(r.mass_reading);
-                                }
-
-                                if (r.saintLife != null) {
-                                    mTodayDao.saintLifeInsertAll(r.saintLife);
-                                }
-                            }
-                        }catch (Exception e){
-                            Log.e("ERR",e.getMessage());
-
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e("ERR",e.getMessage());
-
-                    }
-                });
-    }
     public void loadToday(Integer param) {
         String theDate = String.valueOf(param);
         workerDependency.getToday(theDate)
@@ -410,10 +336,12 @@ public class TodayWorker<lhGospelCanticle> extends Worker {
                     @Override
                     public void onSuccess(List<Today> r) {
                         try {
-                            if(r!=null && !r.isEmpty()) {
-                                mTodayDao.insertAllTodays(r);
+                            if (r != null && !r.isEmpty()) {
+                                mTodayDao.todayInsertAll(r);
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
+                            Log.e("ERR", e.getMessage());
+                            loadInsert();
                             //loadCrud();
                         }
                     }
@@ -421,7 +349,7 @@ public class TodayWorker<lhGospelCanticle> extends Worker {
                     @Override
                     public void onError(Throwable e) {
 
-                        Log.e("ERR",e.getMessage());
+                        Log.e("ERR", e.getMessage());
                     }
                 });
 
@@ -431,14 +359,14 @@ public class TodayWorker<lhGospelCanticle> extends Worker {
         workerDependency.getLiturgia(lastId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<List<Liturgia>>() {
+                .subscribe(new DisposableSingleObserver<List<Liturgy>>() {
 
                     @Override
                     public void onStart() {
                     }
 
                     @Override
-                    public void onSuccess(List<Liturgia> r) {
+                    public void onSuccess(List<Liturgy> r) {
                         mTodayDao.liturgiaInsertAll(r);
                     }
 

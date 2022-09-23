@@ -46,7 +46,7 @@ import org.deiverbum.app.data.entity.PsalmodyEntity;
 import org.deiverbum.app.data.entity.SaintLifeEntity;
 import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.SyncStatusEntity;
-import org.deiverbum.app.data.entity.Today;
+import org.deiverbum.app.data.entity.TodayEntity;
 
 /**
  * @author A. Cedano
@@ -55,7 +55,7 @@ import org.deiverbum.app.data.entity.Today;
  */
 @Database(entities =
         {
-                Today.class,
+                TodayEntity.class,
                 //TodayTest.class,
                 LiturgyEntity.class,
                 LiturgiaTiempoEntity.class,

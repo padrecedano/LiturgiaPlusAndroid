@@ -2,14 +2,14 @@ package org.deiverbum.app.data.wrappers;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.deiverbum.app.model.Biblica;
-import org.deiverbum.app.model.Homilia;
-import org.deiverbum.app.model.LHAntifona;
-import org.deiverbum.app.model.LHBiblicaBreveJoin;
-import org.deiverbum.app.model.LHCanticoEvangelico;
-import org.deiverbum.app.model.Liturgia;
-import org.deiverbum.app.model.LiturgiaHomiliaJoin;
-import org.deiverbum.app.model.MisaLectura;
+import org.deiverbum.app.model.Biblical;
+import org.deiverbum.app.model.HomilyList;
+import org.deiverbum.app.model.LHAntiphon;
+import org.deiverbum.app.model.LHReadingShortJoin;
+import org.deiverbum.app.model.LHGospelCanticle;
+import org.deiverbum.app.model.Liturgy;
+import org.deiverbum.app.model.LiturgyHomilyJoin;
+import org.deiverbum.app.model.MassReadingOLD;
 import org.deiverbum.app.model.SaintLife;
 import org.deiverbum.app.model.SyncStatus;
 import org.deiverbum.app.model.Today;
@@ -25,30 +25,30 @@ public class SyncRequest {
 
     private String table;
     private String action;
-    public List<Homilia> homilia;
+    public List<HomilyList> homilia;
     public List<SyncStatus> syncStatus;
 
     public Integer liturgia;
     public Integer massReading;
 
-    public List<LiturgiaHomiliaJoin> liturgiaHomiliaJoin;
-    public List<Liturgia> liturgiaa;
+    public List<LiturgyHomilyJoin> liturgiaHomiliaJoin;
+    public List<Liturgy> liturgiaa;
     public List<Today> today;
     public String lastUpdate;
 
     @SerializedName("mass_reading")
-    public List<MisaLectura> misaLectura;
+    public List<MassReadingOLD> misaLectura;
 
     @SerializedName("lhCanticoEvangelico")
-    public List<LHCanticoEvangelico> ce;
+    public List<LHGospelCanticle> ce;
     @SerializedName("lhBiblicaBreveJoin")
-    public List<LHBiblicaBreveJoin> bvJoin;
+    public List<LHReadingShortJoin> bvJoin;
 
     @SerializedName("lhAntifona")
-    public List<LHAntifona> lhAntifona;
+    public List<LHAntiphon> lhAntifona;
 
     @SerializedName("bibleReading")
-    public List<Biblica> bibleReading;
+    public List<Biblical> bibleReading;
 
     @SerializedName("saintLife")
     public List<SaintLife> saintLife;

@@ -8,6 +8,11 @@
             android:title="Ayuda" />
 
         <item
+            android:id="@+id/nav_sync"
+            android:icon="@drawable/ic_refresh_black_24dp"
+            android:title="Sincronización" />
+
+        <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_configuration"
             android:title="Configuración" />

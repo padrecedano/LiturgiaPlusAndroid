@@ -7,7 +7,7 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import org.deiverbum.app.model.Santo;
+import org.deiverbum.app.model.Saint;
 
 /**
  * @author A. Cedano
@@ -21,7 +21,7 @@ import org.deiverbum.app.model.Santo;
  * 	`dia` INTEGER NOT NULL,
  * 	`tipoId` INTEGER NOT NULL,
  * 	`momentoId` INTEGER DEFAULT 0, -- '1:Vigilia 2:Dia',
- * 	`status` INTEGER DEFAULT 0,   -- '0:Homilia No, 1:Homilia Yes',
+ * 	`status` INTEGER DEFAULT 0,   -- '0:HomilyList No, 1:HomilyList Yes',
  * 	`comunId` INTEGER DEFAULT 0,
  * 	UNIQUE(`nombre`,`mes`,`dia`)
  *  );
@@ -93,8 +93,8 @@ public class SaintEntity {
         return nombre;
     }
 
-    public Santo getDomainModel(boolean isLongLife){
-        Santo theModel=new Santo();
+    public Saint getDomainModel(boolean isLongLife){
+        Saint theModel=new Saint();
         theModel.setDia(String.valueOf(getDia()));
         theModel.setMes(String.valueOf(getMes()));
         theModel.setNombre(getNombre());

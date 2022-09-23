@@ -4,9 +4,9 @@ import java.util.List;
 
 public class LHGospelCanticleCrud {
 
-    public List<LHCanticoEvangelico> c;
-    public List<LHCanticoEvangelico> u;
-    public List<LHCanticoEvangelico> d;
+    public List<LHGospelCanticle> c;
+    public List<LHGospelCanticle> u;
+    public List<LHGospelCanticle> d;
 
     @SuppressWarnings("unused")
     public LHGospelCanticleCrud() {}

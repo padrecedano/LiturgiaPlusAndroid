@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
-import org.deiverbum.app.model.Homilias;
+import org.deiverbum.app.model.Homily;
 import org.deiverbum.app.repository.HomiliasRepository;
 
 import javax.inject.Inject;
@@ -22,7 +22,7 @@ public class HomiliasViewModel extends ViewModel {
         mRepository = repository;
     }
 
-    public MediatorLiveData<DataWrapper <Homilias, CustomException>> getObservable(String date) {
+    public MediatorLiveData<DataWrapper <Homily, CustomException>> getObservable(String date) {
         return mRepository.getFromDB(date);
     }
 }

@@ -3,9 +3,9 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.BiblicaMisa;
-import org.deiverbum.app.model.Hoy;
-import org.deiverbum.app.model.MisaLecturas;
+import org.deiverbum.app.model.MassReadingList;
+import org.deiverbum.app.model.MassReading;
+import org.deiverbum.app.model.Today;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 public class TodayMisaLecturas {
 
     @Embedded
-    public Today today;
+    public TodayEntity today;
 
     @Relation(
             entity = LiturgyEntity.class,
@@ -77,8 +77,21 @@ public class TodayMisaLecturas {
             entityColumn = "liturgyFK")
     public MassReadingWithAll lecturayy;
 
-    public Hoy getToday(){
-        Hoy dm = new Hoy();
+    public Today getToday(){
+        Today dm = new Today();
+        dm.liturgyDay=feria.getDomainModel();
+        dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
+
+        dm.setTodayDate(today.getHoy());
+        dm.setCalendarTime(today.tiempoId);
+        dm.setHasSaint(true);
+        dm.setMLecturasFK(today.mLecturasFK);
+        //dm.setPrevio(previo.getDomainModel());
+        dm.setTitulo(feria.getDomainModel().getNombre());
+        return dm;
+    }
+    public Today getTodayy(){
+        Today dm = new Today();
         //dm.setFeria(feria.getDomainModel());
         dm.setFeria(feria.getDomainModel());
 
@@ -90,11 +103,11 @@ public class TodayMisaLecturas {
         return dm;
     }
 
-//TODO Ordenar las lecturas con comparator (cf. Salmodia)
-    public MisaLecturas getDomainModel(){
-        MisaLecturas dm=new MisaLecturas();
+//TODO Ordenar las lecturas con comparator (cf. LHPsalmody)
+    public MassReadingList getDomainModel(){
+        MassReadingList dm=new MassReadingList();
         dm.setHoy(getToday());
-        List<BiblicaMisa> listModel = new ArrayList<>();
+        List<MassReading> listModel = new ArrayList<>();
         for (MassReadingWithAll item : lecturay) {
                 listModel.add(item.getDomainModel());
         }

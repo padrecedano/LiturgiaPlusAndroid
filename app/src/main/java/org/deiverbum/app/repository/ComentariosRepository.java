@@ -8,13 +8,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.data.entity.TodayComentarios;
-import org.deiverbum.app.data.entity.TodayHomilias;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
-import org.deiverbum.app.model.Comentarios;
-import org.deiverbum.app.model.Homilias;
+import org.deiverbum.app.model.BibleCommentList;
 import org.deiverbum.app.utils.Utils;
 
 import javax.inject.Inject;
@@ -24,7 +22,7 @@ import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 /**
- * <p>Repositorio de datos para el módulo Lecturas.</p>
+ * <p>Repositorio de datos para el módulo BibleReading_.</p>
  * <p>Orden de búsqueda: </p>
  * <ul>
  *     <li>Firebase</li>
@@ -38,7 +36,7 @@ public class ComentariosRepository {
     ApiService apiService;
     private final FirebaseDataSource firebaseDataSource;
     private final TodayDao mTodayDao;
-    private final MediatorLiveData<DataWrapper<Comentarios, CustomException>> mData = new MediatorLiveData<>();
+    private final MediatorLiveData<DataWrapper<BibleCommentList, CustomException>> mData = new MediatorLiveData<>();
 
     @Inject
     public ComentariosRepository(ApiService apiService, FirebaseDataSource firebaseDataSource, TodayDao todayDao) {
@@ -57,15 +55,15 @@ public class ComentariosRepository {
      * @param dateString La fecha
      * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
      */
-    public MutableLiveData<DataWrapper<Comentarios, CustomException>> getComentarios(String dateString) {
+    public MutableLiveData<DataWrapper<BibleCommentList, CustomException>> getComentarios(String dateString) {
         firebaseDataSource.getComentarios(dateString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<Comentarios,
+                .subscribe(new DisposableSingleObserver<DataWrapper<BibleCommentList,
                         CustomException>>() {
 
                     @Override
-                    public void onSuccess(@NonNull DataWrapper<Comentarios,
+                    public void onSuccess(@NonNull DataWrapper<BibleCommentList,
                             CustomException> data) {
                         mData.postValue(data);
                     }
@@ -87,11 +85,11 @@ public class ComentariosRepository {
         apiService.getComentarios(Utils.cleanDate(dateString))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Comentarios>() {
+                .subscribe(new DisposableSingleObserver<BibleCommentList>() {
                     @Override public void onStart() {
                     }
                     @Override
-                    public void onSuccess(@NonNull Comentarios r) {
+                    public void onSuccess(@NonNull BibleCommentList r) {
                         mData.postValue(new DataWrapper<>(r));
                     }
                     @Override
@@ -101,10 +99,10 @@ public class ComentariosRepository {
                 });
     }
 
-    public MediatorLiveData<DataWrapper<Comentarios, CustomException>> getFromDB(String s) {
+    public MediatorLiveData<DataWrapper<BibleCommentList, CustomException>> getFromDB(String s) {
         TodayComentarios theEntity = mTodayDao.getComentarios(Integer.valueOf(s));
         if (theEntity != null) {
-            Comentarios theModel = theEntity.getDomainModel();
+            BibleCommentList theModel = theEntity.getDomainModel();
             mData.postValue(new DataWrapper<>(theModel));
         } else {
             getComentarios(s);

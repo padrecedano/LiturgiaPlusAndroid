@@ -3,11 +3,11 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.BiblicaBreve;
+import org.deiverbum.app.model.BiblicalShort;
 
 /**
  *  <p>Obtiene los valores para una lectura bíblica de
- *  la Liturgia de las Horas,
+ *  la Liturgy de las Horas,
  *  desde las distintas tablas relacionadas.</p>
  *
  * @author A. Cedano
@@ -32,8 +32,8 @@ public class LHReadingShortAll {
     )
     public LHResponsoryShortEntity responsorio;
 
-    public BiblicaBreve getDomainModel(Integer tiempoId) {
-        BiblicaBreve dm=new BiblicaBreve();
+    public BiblicalShort getDomainModel(Integer tiempoId) {
+        BiblicalShort dm=new BiblicalShort();
         dm.setTexto(biblica.texto);
         dm.setCita(biblica.cita);
         dm.setResponsorio(responsorio.getDomainModel(tiempoId));

@@ -3,8 +3,7 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Salmo;
-import org.deiverbum.app.model.Salmodia;
+import org.deiverbum.app.model.LHPsalm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +24,12 @@ public class LHPsalmody {
     )
     public List<PsalmodyWithPsalms> salmos;
 
-    public Salmodia getDomainModel(){
-        Salmodia theModel=new Salmodia();
+    public org.deiverbum.app.model.LHPsalmody getDomainModel(){
+        org.deiverbum.app.model.LHPsalmody theModel=new org.deiverbum.app.model.LHPsalmody();
         theModel.setTipo(salmodia.getTipo());
-        List<Salmo> salmosList = new ArrayList<>();
+        List<LHPsalm> salmosList = new ArrayList<>();
         for (PsalmodyWithPsalms salmo : salmos) {
-            Salmo s = new Salmo();
+            LHPsalm s = new LHPsalm();
             s.setSalmo(salmo.getSalmoText());
             s.setRef(salmo.getRef());
             s.setAntifona(salmo.getAntifona());
