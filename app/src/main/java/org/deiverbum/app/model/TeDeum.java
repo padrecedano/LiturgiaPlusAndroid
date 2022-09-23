@@ -1,5 +1,7 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Constants.TITLE_TEDEUM;
+
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
@@ -59,7 +61,7 @@ public class TeDeum {
 
 
     public SpannableStringBuilder getHeader() {
-        return Utils.formatTitle("TE DEUM");
+        return Utils.formatTitle(TITLE_TEDEUM);
     }
 
     public String getAllForRead() {

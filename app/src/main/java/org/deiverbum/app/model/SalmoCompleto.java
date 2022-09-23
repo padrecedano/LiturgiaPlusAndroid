@@ -6,7 +6,7 @@ import android.text.Spanned;
 import org.deiverbum.app.utils.Utils;
 
 /**
- * @deprecated  A partir de la v. 2022.01 - Reemplazar por {@link Salmo}
+ * @deprecated  A partir de la v. 2022.01 - Reemplazar por {@link LHPsalm}
  */
 @Deprecated
 public class SalmoCompleto {

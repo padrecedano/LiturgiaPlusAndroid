@@ -6,43 +6,40 @@ import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
+public class Oficio extends BreviaryHour {
 
-public class Oficio extends BreviarioHora {
-
-    private Invitatorio invitatorio;
-    private OficioLecturas oficioLecturas;
-    private Preces preces;
-    private TeDeum teDeum;
+    private LHInvitatory invitatorio;
+    //private LHOfficeOfReading oficioLecturas;
+    private LHIntercession preces;
+    //private TeDeum teDeum;
 
     public Oficio() {
     }
 
-    public Preces getPreces() {
+    public LHIntercession getPreces() {
         return preces;
     }
 
-    public void setPreces(Preces preces) {
+    public void setPreces(LHIntercession preces) {
         this.preces = preces;
     }
 
     @SuppressWarnings("unused")
-    public Invitatorio getInvitatorio() {
+    public LHInvitatory getInvitatorio() {
         return invitatorio;
     }
 
     @SuppressWarnings("unused")
-    public void setInvitatorio(Invitatorio invitatorio) {
+    public void setInvitatorio(LHInvitatory invitatorio) {
         this.invitatorio = invitatorio;
     }
 
-    public OficioLecturas getOficioLecturas() {
+    public LHOfficeOfReading getOficioLecturas() {
         return oficioLecturas;
     }
 
     @SuppressWarnings("unused")
-    public void setOficioLecturas(OficioLecturas oficioLecturas) {
+    public void setOficioLecturas(LHOfficeOfReading oficioLecturas) {
         this.oficioLecturas = oficioLecturas;
     }
 
@@ -64,10 +61,14 @@ public class Oficio extends BreviarioHora {
         return "OFICIO DE LECTURA.";
     }
 
-    public SpannableStringBuilder getForView(boolean hasInvitatorio) {
+    public SpannableStringBuilder getForView(LiturgyTime liturgyTime, boolean hasInvitatorio) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
-            sb.append(hoy.getAll());
+            invitatorio.normalizeByTime(liturgyTime.getTiempoId());
+            salmodia.normalizeByTime(liturgyTime.getTiempoId());
+            oficioLecturas.normalizeByTime(liturgyTime.getTiempoId());
+
+            sb.append(hoy.getAllForView());
             //sb.append(metaLiturgia.getAll());
             sb.append(LS2);
             if (hoy.getHasSaint()) {
@@ -81,17 +82,18 @@ public class Oficio extends BreviarioHora {
 
             sb.append(getSaludoOficio());
             sb.append(LS2);
+            //LiturgyTime liturgyTime=getLiturgyTime();
+
+
             sb.append(invitatorio.getAll(hasInvitatorio));
             sb.append(LS2);
-            invitatorio.normalizeByTime(hoy.idTiempo);
 
             sb.append(himno.getAll());
             sb.append(LS2);
-            salmodia.normalizeByTime(hoy.idTiempo);
             sb.append(salmodia.getAll(1));
             sb.append(LS2);
-            oficioLecturas.normalizeByTime(hoy.idTiempo);
-            sb.append(oficioLecturas.getAll(hoy.idTiempo));
+
+            sb.append(oficioLecturas.getAll(liturgyTime.getTiempoId()));
             //sb.append(LS2);
 
             if (teDeum.status) {
@@ -107,7 +109,7 @@ public class Oficio extends BreviarioHora {
             e.printStackTrace(pw);
             sb.append(sw.toString());
 */
-            sb.append(e.getMessage());
+            //sb.append(e.getMessage());
         }
 
         return sb;

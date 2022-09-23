@@ -3,18 +3,19 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.BiblicaBreve;
-import org.deiverbum.app.model.BiblicaMisa;
-import org.deiverbum.app.model.CanticoEvangelico;
-import org.deiverbum.app.model.Himno;
-import org.deiverbum.app.model.Hoy;
-import org.deiverbum.app.model.Invitatorio;
+import org.deiverbum.app.model.BiblicalShort;
+import org.deiverbum.app.model.BreviaryHour;
+import org.deiverbum.app.model.LHHymn;
+import org.deiverbum.app.model.Liturgy;
+import org.deiverbum.app.model.MassReading;
+import org.deiverbum.app.model.MassReadingList;
+import org.deiverbum.app.model.LHGospelCanticle_;
+import org.deiverbum.app.model.LHInvitatory;
 import org.deiverbum.app.model.Laudes;
-import org.deiverbum.app.model.MisaLecturas;
-import org.deiverbum.app.model.Oracion;
-import org.deiverbum.app.model.Preces;
-import org.deiverbum.app.model.Salmodia;
-import org.deiverbum.app.model.Santo;
+import org.deiverbum.app.model.Prayer;
+import org.deiverbum.app.model.LHIntercession;
+import org.deiverbum.app.model.Saint;
+import org.deiverbum.app.model.Today;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.List;
 public class TodayLaudes {
 
     @Embedded
-    public Today today;
+    public TodayEntity today;
 
     @Relation(
             entity = SaintEntity.class,
@@ -62,7 +63,7 @@ public class TodayLaudes {
             parentColumn = "lPsalmodyFK",
             entityColumn = "groupID"
     )
-    public LHPsalmody salmodia;
+    public org.deiverbum.app.data.entity.LHPsalmody salmodia;
 
     @Relation(
             entity = PsalmodyEntity.class,
@@ -123,12 +124,12 @@ public class TodayLaudes {
     public MisaWithComentariosRename comentarios;
 
     @SuppressWarnings("unused")
-    public List<MisaLecturas> getMisaLecturas(){
-        //MisaLecturas theModel=new MisaLecturas();
-        List<MisaLecturas> theModel=new ArrayList<>();
+    public List<MassReadingList> getMisaLecturas(){
+        //MassReadingList theModel=new MassReadingList();
+        List<MassReadingList> theModel=new ArrayList<>();
 
-        List<BiblicaMisa> listModel = comentarios.getBiblicaMisas();
-        BiblicaMisa listModell = comentarios.getBiblicaMisa();
+        List<MassReading> listModel = comentarios.getBiblicaMisas();
+        MassReading listModell = comentarios.getBiblicaMisa();
 
         /*for (MisaWithComentariosRename item : comentarios) {
             //listModel.add(item.getBiblicaMisa());
@@ -139,63 +140,67 @@ public class TodayLaudes {
 
 
 
-    public Himno getHimno(){
+    public LHHymn getHimno(){
         return himno.getDomainModel();
     }
 
-//TODO incluir algo como hasPriority en Today
-    public BiblicaBreve getBiblica(){
+//TODO incluir algo como hasPriority en TodayEntity
+    public BiblicalShort getBiblica(){
         return  biblica.getDomainModel(today.getTiempoId());
     }
 
-    public CanticoEvangelico getBenedictus(){
+    public LHGospelCanticle_ getBenedictus(){
         return  benedictus.getDomainModel(2);
     }
 
-    public Preces getPreces(){
+    public LHIntercession getPreces(){
         return  lhIntercessionsDM.getDomainModel();
     }
 
-    public Santo getSanto(){
+    public Saint getSanto(){
         return  santo.getDomainModelLH();
     }
 
 
-    public Invitatorio getInvitatorio() {
+    public LHInvitatory getInvitatorio() {
         return invitatorio.getDomainModel();
     }
 
-    public Salmodia getSalmodia() {
+    public org.deiverbum.app.model.LHPsalmody getSalmodia() {
         return salmodia.getDomainModel();
     }
 
-    public Oracion getOracion() {
+    public Prayer getOracion() {
         return lhPrayerAll.getDomainModel();
     }
 
-    public Hoy getToday(){
-        Hoy dm = new Hoy();
-        dm.setFeria(feria.getDomainModel());
-        dm.setFecha(String.valueOf(today.getHoy()));
-        dm.setCalendarTime(today.tiempoId);
-        dm.setHasSaint(true);
-        dm.setMLecturasFK(today.mLecturasFK);
-        dm.setTitulo(feria.getDomainModel().getNombre());
+    public Today getToday(){
+        Today dm = new Today();
+        dm.liturgyDay=feria.getDomainModel();
+        dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
+        dm.setTodayDate(today.getHoy());
+        dm.setHasSaint(false);
         return dm;
     }
 
-    public Laudes getDomainModel(){
-        Laudes dm=new Laudes();
+    public Liturgy getDomainModel(){
+        Liturgy dm= feria.getDomainModel();
+        dm.typeID=2;
         dm.setHoy(getToday());
-        dm.setInvitatorio(getInvitatorio());
-        dm.setSanto(getSanto());
-getMisaLecturas();
-        dm.setHimno(getHimno());
-        dm.setSalmodia(getSalmodia());
-        dm.setLecturaBreve(getBiblica());
-        dm.setBenedictus(getBenedictus());
-        dm.setPreces(getPreces());
-        dm.setOracion(getOracion());
+        BreviaryHour bh=new BreviaryHour();
+        Laudes laudes=new Laudes();
+        laudes.setHoy(getToday());
+        laudes.setInvitatorio(getInvitatorio());
+        laudes.setSanto(getSanto());
+        //getMisaLecturas();
+        laudes.setHimno(getHimno());
+        laudes.setSalmodia(getSalmodia());
+        laudes.setLecturaBreve(getBiblica());
+        laudes.setBenedictus(getBenedictus());
+        laudes.setPreces(getPreces());
+        laudes.setOracion(getOracion());
+        bh.setLaudes(laudes);
+        dm.setBreviaryHour(bh);
         return dm;
     }
 }

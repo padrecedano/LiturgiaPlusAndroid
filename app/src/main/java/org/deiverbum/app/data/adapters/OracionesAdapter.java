@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * <p>
- * Esta clase maneja el adaptador de la pantalla <code>Breviario</code>,
+ * Esta clase maneja el adaptador de la pantalla <code>Breviary</code>,
  * presentada desde <code>OracionesFragment</code>.
  * </p>
  *

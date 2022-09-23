@@ -3,11 +3,11 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Homilia;
-import org.deiverbum.app.model.Homilias;
-import org.deiverbum.app.model.Hoy;
+import org.deiverbum.app.model.HomilyList;
+import org.deiverbum.app.model.Homily;
 import org.deiverbum.app.model.MetaLiturgia;
-import org.deiverbum.app.model.Santo;
+import org.deiverbum.app.model.Saint;
+import org.deiverbum.app.model.Today;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
 public class TodayHomilias {
 
     @Embedded
-    public Today today;
+    public TodayEntity today;
 
     @Relation(
             entity = LiturgyEntity.class,
@@ -43,15 +43,12 @@ public class TodayHomilias {
     )
     public SaintWithAll santo;
 
-
-
     @Relation(
             entity = LiturgyHomilyJoinEntity.class,
             parentColumn = "liturgyFK",
             entityColumn = "liturgyFK"
     )
     public List<LiturgiaWithHomilias> homilias;
-
 
     public MetaLiturgia getMetaLiturgia(){
         MetaLiturgia theModel = new MetaLiturgia();
@@ -76,14 +73,14 @@ public class TodayHomilias {
     }
 
 
-    public Santo getSanto(){
+    public Saint getSanto(){
         return  santo.getDomainModelLH();
     }
 
 
-
-    public Hoy getToday(){
-        Hoy dm = new Hoy();
+/*
+    public org.deiverbum.app.model.Today getToday(){
+        org.deiverbum.app.model.Today dm = new org.deiverbum.app.model.Today();
         dm.setFeria(feria.getDomainModel());
         dm.setFecha(String.valueOf(today.getHoy()));
         dm.setCalendarTime(today.tiempoId);
@@ -92,14 +89,22 @@ public class TodayHomilias {
         dm.setTitulo(feria.getDomainModel().getNombre());
         return dm;
     }
+*/
+public Today getToday(){
+    Today dm = new Today();
+    dm.liturgyDay=feria.getDomainModel();
+    dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
+    dm.setTodayDate(today.getHoy());
+    dm.setHasSaint(false);
+    return dm;
+}
 
 
-
-    public Homilias getDomainModel(){
-        Homilias dm=new Homilias();
+    public Homily getDomainModel(){
+        Homily dm=new Homily();
         dm.setHoy(getToday());
 
-        List<Homilia> listModel = new ArrayList<>();
+        List<HomilyList> listModel = new ArrayList<>();
 
         dm.setMetaLiturgia(getMetaLiturgia());
         for (LiturgiaWithHomilias item : homilias) {

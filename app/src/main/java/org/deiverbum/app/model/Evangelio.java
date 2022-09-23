@@ -6,7 +6,7 @@ import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
-public class Evangelio extends BiblicaMisa{
+public class Evangelio extends MassReading {
 
     public String antifona;
 

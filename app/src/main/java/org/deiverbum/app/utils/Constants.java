@@ -28,11 +28,14 @@ public class Constants {
     public static final String CSS_RED_Z = "</font>";
     public static final String BRS = "<br /><br />";
     public static final String BR = "<br />";
+    public static final String SMALL_A = "<small>";
+    public static final String SMALL_Z = "</small>";
+
     public static final String PRE_ANT = CSS_RED_A + "Ant. " + CSS_RED_Z;
     public static final String NBSP_4 = " &nbsp;&nbsp;&nbsp;&nbsp;";
     public static final String RESP_V = CSS_RED_A + "V. " + CSS_RED_Z;
     public static final String RESP_R = CSS_RED_A + "R. " + CSS_RED_Z;
-    public static final String PADRENUESTRO = "Padre nuestro,~¦que estás en el cielo,~¦santificado sea tu Nombre;~¦" +
+    public static final String PADRENUESTRO = "Pater nuestro,~¦que estás en el cielo,~¦santificado sea tu Nombre;~¦" +
             "venga a nosotros tu reino;~¦hágase tu voluntad~¦en la tierra como en el cielo.~¦" +
             "Danos hoy nuestro pan de cada día;~¦perdona nuestras ofensas,~¦" +
             "como también nosotros perdonamos a los que nos ofenden;~¦" +
@@ -46,7 +49,7 @@ public class Constants {
             "por favor comunícalo al desarrollador a la dirección siguiente: " + "padre.cedano@gmail.com";
 
 
-    public static final String ERR_SUBJECT = String.format("Reporte de error Liturgia+ v. %d", Constants.VERSION_CODE);
+    public static final String ERR_SUBJECT = String.format("Reporte de error Liturgy+ v. %d", Constants.VERSION_CODE);
 
     //Otros mensajes
     public static final String PACIENCIA = "\n\nLa paciencia todo lo alcanza. Por favor espere ...";
@@ -90,7 +93,7 @@ public class Constants {
             "lo indicado en la Política de Privacidad.\n\n";
 
     public static final String DIALOG_LEGAL_TITLE = "Aviso";
-    public static final String DIALOG_LEGAL_BODY = "Retirarás tu consentimiento y Liturgia+ se cerrará al pulsar CONFIRMAR.";
+    public static final String DIALOG_LEGAL_BODY = "Retirarás tu consentimiento y Liturgy+ se cerrará al pulsar CONFIRMAR.";
 
     public static final String DIALOG_LEGAL_OK = "CONFIRMAR";
     public static final String DIALOG_LEGAL_CANCEL = "CANCELAR";
@@ -126,6 +129,33 @@ public class Constants {
     public static final String SAINT_LIFE = "saint_life";
     public static final String PATER = "pater";
     public static final String PATER_OPUS = "pater_opus";
+    public static final String SYNC_LITURGY_HOMILY_JOIN = "sync_liturgy_homily_join";
+    public static final String SYNC_MASS_READING = "sync_mass_reading";
+
+    public static final String TITLE_HYMN = "Himno";
+    public static final String TITLE_MASS_READING = "Lecturas de la Misa";
+    public static final String TITLE_INVITATORY = "Invitatorio";
+    public static final String TITLE_INTERCESSIONS = "Preces";
+    public static final String TITLE_OFFICE_OF_READING = "Lecturas del Oficio";
+    public static final String TITLE_RESPONSORY = "Responsorio";
+    public static final String TITLE_RESPONSORY_SHORT = "Responsorio Breve";
+
+    public static final String TITLE_PSALMODY = "Salmodia";
+    public static final String TITLE_TEDEUM = "Te Deum";
+    public static final String TITLE_CONCLUSION = "Conclusión";
+    public static final String TITLE_GOSPEL_CANTICLE ="Cántico Evangélico";
+    public static final String TITLE_SHORT_READING ="Lectura Breve";
+    public static final String TITLE_INITIAL_INVOCATION ="Invocación Inicial";
+    public static final String TITLE_VIRGIN_ANTIHPON ="Antífona Final de la Santísima Virgen";
+    public static final String TITLE_SOUL_SEARCHING ="Exámen de Conciencia";
+    public static final String TITLE_PATER_NOSTER ="Padre Nuestro";
+    public static final String TITLE_PRAYER ="Oración";
+    public static final String TITLE_BIBLE_COMMENTS ="Comentarios";
+
+
+
+
+
 
 
     private Constants() {

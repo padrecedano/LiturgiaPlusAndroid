@@ -3,7 +3,7 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Preces;
+import org.deiverbum.app.model.LHIntercession;
 
 /**
  * @author A. Cedano
@@ -21,8 +21,8 @@ public class LHIntercessionsDM {
     )
     public LHIntercessionsEntity preces;
 
-    public Preces getDomainModel() {
-        Preces theModel=new Preces();
+    public LHIntercession getDomainModel() {
+        LHIntercession theModel=new LHIntercession();
         theModel.setIntro(preces.intro);
         theModel.setTexto(preces.preces);
         return theModel;

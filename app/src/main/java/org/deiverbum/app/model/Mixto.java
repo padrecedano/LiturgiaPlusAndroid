@@ -8,15 +8,16 @@ import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
 
-public class Mixto extends BreviarioHora {
+public class Mixto extends BreviaryHour {
     //private MetaLiturgia metaLiturgia;
-    private Laudes laudes;
-    private Oficio oficio;
-    //private Misa misa;
-    private Invitatorio invitatorio;
+    //private Laudes laudes;
+    //private Oficio oficio;
+    //private Mass misa;
+    private LHInvitatory invitatorio;
     private final PadreNuestro padreNuestro;
-    private MisaLecturas misaLecturas;
-    private List<BiblicaMisa> evangelios;
+    private MassReadingList misaLecturas;
+    //private List<MassReading> evangelios;
+    //private LHOfficeOfReading oficioLecturas;
 
 /*
     public MetaLiturgia getMetaLiturgia() {
@@ -32,12 +33,12 @@ public class Mixto extends BreviarioHora {
     }
 
     @SuppressWarnings("unused")
-    public Invitatorio getInvitatorio() {
+    public LHInvitatory getInvitatorio() {
         return invitatorio;
     }
 
     @SuppressWarnings("unused")
-    public void setInvitatorio(Invitatorio invitatorio) {
+    public void setInvitatorio(LHInvitatory invitatorio) {
         this.invitatorio = invitatorio;
     }
 
@@ -57,11 +58,11 @@ public class Mixto extends BreviarioHora {
         this.oficio = oficio;
     }
 
-    public MisaLecturas getMisaLecturas() {
+    public MassReadingList getMisaLecturas() {
         return misaLecturas;
     }
 
-    public void setMisaLecturas(MisaLecturas misaLecturas) {
+    public void setMisaLecturas(MassReadingList misaLecturas) {
         this.misaLecturas = misaLecturas;
     }
 
@@ -73,21 +74,24 @@ public class Mixto extends BreviarioHora {
         return "LAUDES y OFICIO.";
     }
 
-    public SpannableStringBuilder getForView(boolean isVariable) {
+    public SpannableStringBuilder getForView(LiturgyTime liturgyTime, boolean isVariable) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
-            //Santo santo = laudes.getSanto();
-            sb.append(hoy.getAll());
-            laudes.salmodia.normalizeByTime(hoy.idTiempo);
+            //Saint santo = laudes.getSanto();
+            invitatorio.normalizeByTime(liturgyTime.getTiempoId());
+            laudes.salmodia.normalizeByTime(liturgyTime.getTiempoId());
+            oficio.getOficioLecturas().normalizeByTime(liturgyTime.getTiempoId());
 
-            Himno himno = laudes.getHimno();
+            sb.append(hoy.getAllForView());
 
-            Salmodia salmodia = laudes.getSalmodia();
+            LHHymn himno = laudes.getHimno();
 
-            OficioLecturas oficioLecturas = oficio.getOficioLecturas();
-            Biblica lecturaBreve = laudes.getLecturaBreve();
-            CanticoEvangelico ce = laudes.getBenedictus();
-            Preces preces = laudes.getPreces();
+            LHPsalmody salmodia = laudes.getSalmodia();
+
+            LHOfficeOfReading oficioLecturas = oficio.getOficioLecturas();
+            Biblical lecturaBreve = laudes.getLecturaBreve();
+            LHGospelCanticle_ ce = laudes.getBenedictus();
+            LHIntercession preces = laudes.getPreces();
             //Evangelio misaEvangelio = misa.getMisaLecturas().getEvangelio();
 
             //sb.append(metaLiturgia.getAll());
@@ -117,15 +121,14 @@ public class Mixto extends BreviarioHora {
 
             sb.append(lecturaBreve.getAll());
             sb.append(Utils.LS2);
-
-            sb.append(oficioLecturas.getAll(hoy.idTiempo));
+            sb.append(oficioLecturas.getAll(liturgyTime.getTiempoId()));
             sb.append(Utils.LS2);
 
             sb.append(Utils.formatSubTitle("evangelio del día"));
             sb.append(Utils.LS2);
 
             //sb.append(misaLecturas.getAllEvangelioForView());
-            for (BiblicaMisa item : evangelios) {
+            for (MassReading item : evangelios) {
                 sb.append(item.getAll());
             }
             sb.append(Utils.LS2);
@@ -153,14 +156,13 @@ public class Mixto extends BreviarioHora {
         StringBuilder sb = new StringBuilder();
 
         try {
-            //Santo santo=laudes.getSanto();
-            Himno himno = laudes.getHimno();
-            Salmodia salmodia = laudes.getSalmodia();
-            OficioLecturas oficioLecturas = oficio.getOficioLecturas();
-            Biblica lecturaBreve = laudes.getLecturaBreve();
-            CanticoEvangelico ce = laudes.getBenedictus();
-            Preces preces = laudes.getPreces();
-
+            //Saint santo=laudes.getSanto();
+            LHHymn himno = laudes.getHimno();
+            LHPsalmody salmodia = laudes.getSalmodia();
+            LHOfficeOfReading oficioLecturas = oficio.getOficioLecturas();
+            Biblical lecturaBreve = laudes.getLecturaBreve();
+            LHGospelCanticle_ ce = laudes.getBenedictus();
+            LHIntercession preces = laudes.getPreces();
             sb.append(hoy.getAllForRead());
 
             if (hoy.getHasSaint()) {
@@ -198,8 +200,7 @@ public class Mixto extends BreviarioHora {
         return sb;
     }
 
-    public void setEvangelios(List<BiblicaMisa> evangelios) {
+    public void setEvangelios(List<MassReading> evangelios) {
         this.evangelios=evangelios;
-
     }
 }

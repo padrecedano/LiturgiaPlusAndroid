@@ -37,6 +37,7 @@
 
     <!-- Drawer -->
     <string name="title_fragment_settings">Configuración</string>
+    <string name="title_fragment_sync">Sincronización</string>
     <string name="title_fragment_about">Sobre Liturgia+</string>
     <string name="title_fragment_thanks">Agradecimientos</string>
     <string name="title_fragment_help">Ayuda</string>

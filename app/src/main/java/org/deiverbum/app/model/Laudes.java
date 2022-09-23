@@ -6,11 +6,11 @@ import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
-public class Laudes extends BreviarioHora {
-    private Invitatorio invitatorio;
-    private BiblicaBreve lecturaBreve;
-    private CanticoEvangelico benedictus;
-    private Preces preces;
+public class Laudes extends BreviaryHour {
+    private LHInvitatory invitatorio;
+    private BiblicalShort lecturaBreve;
+    private LHGospelCanticle_ benedictus;
+    private LHIntercession preces;
     private final PadreNuestro padreNuestro;
 
     public Laudes() {
@@ -24,52 +24,56 @@ public class Laudes extends BreviarioHora {
     }
 
     @SuppressWarnings("unused")
-    public Invitatorio getInvitatorio() {
+    public LHInvitatory getInvitatorio() {
         return invitatorio;
     }
 
     @SuppressWarnings("unused")
-    public void setInvitatorio(Invitatorio invitatorio) {
+    public void setInvitatorio(LHInvitatory invitatorio) {
         this.invitatorio = invitatorio;
     }
 
-    public BiblicaBreve getLecturaBreve() {
+    public BiblicalShort getLecturaBreve() {
         return lecturaBreve;
     }
 
     @SuppressWarnings("unused")
-    public void setLecturaBreve(BiblicaBreve lecturaBreve) {
+    public void setLecturaBreve(BiblicalShort lecturaBreve) {
         this.lecturaBreve = lecturaBreve;
     }
 
-    public CanticoEvangelico getBenedictus() {
+    public LHGospelCanticle_ getBenedictus() {
         return benedictus;
     }
 
     @SuppressWarnings("unused")
-    public void setBenedictus(CanticoEvangelico benedictus) {
+    public void setBenedictus(LHGospelCanticle_ benedictus) {
         this.benedictus = benedictus;
         //this.benedictus.setTipo(2);
 
     }
 
-    public Preces getPreces() {
+    public LHIntercession getPreces() {
         return preces;
     }
 
-    public void setPreces(Preces preces) {
+    public void setPreces(LHIntercession preces) {
         this.preces = preces;
     }
 
 
-    public SpannableStringBuilder getForView(boolean hasInvitatorio) {
+    public SpannableStringBuilder getForView(LiturgyTime liturgyTime, boolean hasInvitatorio) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         //PadreNuestro padreNuestro=new PadreNuestro();
-        try {
-            //TODO hacer esto en la clase Responsorio, revisar Completas y
+        //try {
+            //TODO hacer esto en la clase LHResponsoryShort, revisar Completas y
             // demás horas
             //biblicaBreve.normalizeByTime(metaLiturgia.calendarTime);
-            sb.append(hoy.getAll());
+
+            invitatorio.normalizeByTime(liturgyTime.getTiempoId());
+            salmodia.normalizeByTime(liturgyTime.getTiempoId());
+
+            sb.append(hoy.getAllForView());
             sb.append(LS2);
 
             if (hoy.getHasSaint()) {
@@ -88,7 +92,6 @@ public class Laudes extends BreviarioHora {
 
             sb.append(himno.getAll());
             sb.append(LS2);
-            salmodia.normalizeByTime(hoy.idTiempo);
 
             sb.append(salmodia.getAll());
             sb.append(Utils.LS2);
@@ -109,10 +112,10 @@ public class Laudes extends BreviarioHora {
             sb.append(LS2);
 
             sb.append(getConclusionHorasMayores());
-        } catch (Exception e) {
-            sb.append(e.getMessage());
+        //} catch (Exception e) {
+        //    sb.append(e.getMessage());
 
-        }
+        //}
         return sb;
     }
 

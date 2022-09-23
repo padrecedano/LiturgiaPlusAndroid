@@ -1,10 +1,12 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Constants.TITLE_GOSPEL_CANTICLE;
+
 import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
-public class NuncDimitis extends Salmo{
+public class NuncDimitis extends LHPsalm {
 
     //private String antiphonEntity;
     private String texto;
@@ -34,11 +36,11 @@ public class NuncDimitis extends Salmo{
 
 
     public SpannableStringBuilder getHeader() {
-        return Utils.formatTitle("CÁNTICO EVANGÉLICO");
+        return Utils.formatTitle(TITLE_GOSPEL_CANTICLE);
     }
 
     public String getHeaderForRead() {
-        return "CÁNTICO EVANGÉLICO";
+        return Utils.pointAtEnd(TITLE_GOSPEL_CANTICLE);
     }
 
     public SpannableStringBuilder getAll(int idTiempo) {

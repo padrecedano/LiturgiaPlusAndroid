@@ -21,9 +21,9 @@ import java.util.List;
 
 /**
  * <p>
- *     Este Fragmento maneja lo relativo al módulo <b>Breviario</b>.
+ *     Este Fragmento maneja lo relativo al módulo <b>Breviary</b>.
  *     Muestra un <code>RecyclerView</code> con las diferentes oraciones
- *     de la Liturgia de las Horas.
+ *     de la Liturgy de las Horas.
  * </p>
  * @author A. Cedano
  * @version 1.0

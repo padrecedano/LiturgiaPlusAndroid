@@ -30,7 +30,7 @@ import androidx.navigation.ui.NavigationUI;
 import org.deiverbum.app.R;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentTextBinding;
-import org.deiverbum.app.model.BibliaLibros;
+import org.deiverbum.app.model.BibleBooks;
 import org.deiverbum.app.utils.TextToSpeechCallback;
 import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
@@ -88,7 +88,7 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
         mViewModel.getLibro(param).observe(getViewLifecycleOwner(), data -> {
             progressBar.setVisibility(View.GONE);
             if (data.status == DataWrapper.Status.SUCCESS) {
-                BibliaLibros libro=data.getData();
+                BibleBooks libro=data.getData();
                 mTextView.setText(libro.getForView());
                 if (isVoiceOn) {
                     sbReader = new StringBuilder(VOICE_INI);

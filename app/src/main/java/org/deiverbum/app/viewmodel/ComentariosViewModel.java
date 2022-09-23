@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
-import org.deiverbum.app.model.Comentarios;
+import org.deiverbum.app.model.BibleCommentList;
 import org.deiverbum.app.repository.ComentariosRepository;
 
 import javax.inject.Inject;
@@ -23,7 +23,7 @@ public class ComentariosViewModel extends ViewModel {
         mRepository = repository;
     }
 
-    public MutableLiveData<DataWrapper<Comentarios, CustomException>> getObservable(String date) {
+    public MutableLiveData<DataWrapper<BibleCommentList, CustomException>> getObservable(String date) {
         return mRepository.getFromDB(date);
     }
 

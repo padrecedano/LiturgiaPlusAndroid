@@ -6,10 +6,10 @@ import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
-public class Visperas extends BreviarioHora {
-    private BiblicaBreve lecturaBreve;
-    private CanticoEvangelico magnificat;
-    private Preces preces;
+public class Visperas extends BreviaryHour {
+    private BiblicalShort lecturaBreve;
+    private LHGospelCanticle_ magnificat;
+    private LHIntercession preces;
     private final PadreNuestro padreNuestro;
 
     public Visperas() {
@@ -17,30 +17,30 @@ public class Visperas extends BreviarioHora {
     }
 
     @SuppressWarnings("unused")
-    public BiblicaBreve getLecturaBreve() {
+    public BiblicalShort getLecturaBreve() {
         return lecturaBreve;
     }
 
     @SuppressWarnings("unused")
-    public void setLecturaBreve(BiblicaBreve lecturaBreve) {
+    public void setLecturaBreve(BiblicalShort lecturaBreve) {
         this.lecturaBreve = lecturaBreve;
     }
 
-    public Preces getPreces() {
+    public LHIntercession getPreces() {
         return preces;
     }
 
-    public void setPreces(Preces preces) {
+    public void setPreces(LHIntercession preces) {
         this.preces = preces;
     }
 
     @SuppressWarnings("unused")
-    public void setMagnificat(CanticoEvangelico magnificat) {
+    public void setMagnificat(LHGospelCanticle_ magnificat) {
         this.magnificat = magnificat;
     }
 
     @SuppressWarnings("unused")
-    public CanticoEvangelico getMagnificat() {
+    public LHGospelCanticle_ getMagnificat() {
         return magnificat;
     }
 
@@ -48,8 +48,8 @@ public class Visperas extends BreviarioHora {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
 
-            lecturaBreve.normalizeByTime(hoy.calendarTime);
-            sb.append(hoy.getAll());
+            lecturaBreve.normalizeByTime(hoy.getCalendarTime());
+            sb.append(hoy.getAllForView());
             sb.append(Utils.LS2);
 
             sb.append(Utils.toH3Red(getTituloHora().toUpperCase()));
@@ -62,7 +62,7 @@ public class Visperas extends BreviarioHora {
             sb.append(himno.getAll());
             sb.append(Utils.LS2);
 
-            salmodia.normalizeByTime(hoy.calendarTime);
+            salmodia.normalizeByTime(hoy.getCalendarTime());
 
             sb.append(salmodia.getAll());
             sb.append(Utils.LS2);

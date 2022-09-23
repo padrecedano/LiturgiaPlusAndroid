@@ -4,9 +4,9 @@ import java.util.List;
 
 public class LiturgiaHomiliaJoinCrud {
 
-    public List<LiturgiaHomiliaJoin> c;
-    public List<LiturgiaHomiliaJoin> u;
-    public List<LiturgiaHomiliaJoin> d;
+    public List<LiturgyHomilyJoin> c;
+    public List<LiturgyHomilyJoin> u;
+    public List<LiturgyHomilyJoin> d;
 
     @SuppressWarnings("unused")
     public LiturgiaHomiliaJoinCrud() {}

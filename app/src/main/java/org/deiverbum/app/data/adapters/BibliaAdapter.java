@@ -11,13 +11,13 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.deiverbum.app.R;
-import org.deiverbum.app.model.BibliaLibros;
+import org.deiverbum.app.model.BibleBooks;
 
 import java.util.List;
 
 /**
  * <p>
- * Esta clase maneja el adaptador de la pantalla <code>Breviario</code>,
+ * Esta clase maneja el adaptador de la pantalla <code>Breviary</code>,
  * presentada desde <code>BreviarioFragment</code>.
  * </p>
  *
@@ -27,7 +27,7 @@ import java.util.List;
  */
 
 public class BibliaAdapter extends RecyclerView.Adapter<BibliaAdapter.ViewHolder> {
-    private final List<BibliaLibros> mDataSet;
+    private final List<BibleBooks> mDataSet;
 
     /**
      * Inicializa el dataset del adaptador.
@@ -35,7 +35,7 @@ public class BibliaAdapter extends RecyclerView.Adapter<BibliaAdapter.ViewHolder
      * @param dataSet List<BreviarioItem> con los datos con que
      *                se llenarán las vistas del {@link RecyclerView}.
      */
-    public BibliaAdapter(List<BibliaLibros> dataSet) {
+    public BibliaAdapter(List<BibleBooks> dataSet) {
         mDataSet = dataSet;
     }
 
@@ -54,7 +54,7 @@ public class BibliaAdapter extends RecyclerView.Adapter<BibliaAdapter.ViewHolder
     /**
      * Reemplaza los contenidos de la vista
      * y guarda una referencia invocando al método
-     * {@link ViewHolder#setData(BibliaLibros)}
+     * {@link ViewHolder#setData(BibleBooks)}
      * con el propósito de obtener el id de navegación
      * al hacer clic en cada elemento
      *
@@ -78,7 +78,7 @@ public class BibliaAdapter extends RecyclerView.Adapter<BibliaAdapter.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView txtTitle;
         private final TextView txtDescription;
-        BibliaLibros mItem;
+        BibleBooks mItem;
 
         public ViewHolder(View v) {
             super(v);
@@ -97,9 +97,9 @@ public class BibliaAdapter extends RecyclerView.Adapter<BibliaAdapter.ViewHolder
          * y guarda una referencia del objeto
          * para poder obtener el id de navegación al hacer click
          *
-         * @param item Un objeto {@link BibliaLibros}
+         * @param item Un objeto {@link BibleBooks}
          */
-        public void setData(BibliaLibros item) {
+        public void setData(BibleBooks item) {
             mItem = item;
             txtTitle.setText(item.getName());
             txtDescription.setText(item.getDescription());

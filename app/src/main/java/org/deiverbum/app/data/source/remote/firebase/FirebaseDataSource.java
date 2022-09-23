@@ -13,18 +13,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
-import org.deiverbum.app.model.BibliaLibros;
-import org.deiverbum.app.model.Comentarios;
-import org.deiverbum.app.model.Homilias;
+import org.deiverbum.app.model.BibleCommentList;
+import org.deiverbum.app.model.BibleBooks;
+import org.deiverbum.app.model.Homily;
 import org.deiverbum.app.model.Intermedia;
 import org.deiverbum.app.model.Laudes;
-import org.deiverbum.app.model.Lecturas;
+import org.deiverbum.app.model.Liturgy;
+import org.deiverbum.app.model.MassReadingList;
 import org.deiverbum.app.model.MetaLiturgia;
-import org.deiverbum.app.model.MisaLecturas;
-import org.deiverbum.app.model.Mixto;
-import org.deiverbum.app.model.Oficio;
 import org.deiverbum.app.model.SaintLife;
-import org.deiverbum.app.model.Santo;
 import org.deiverbum.app.model.Visperas;
 import org.deiverbum.app.utils.Utils;
 
@@ -55,11 +52,11 @@ public class FirebaseDataSource {
 
 
     /**
-     * <p>Obtiene un observable con un objeto Santo o error.</p>
+     * <p>Obtiene un observable con un objeto Saint o error.</p>
      *
      * @param month El mes
      * @param day   El día
-     * @return Datos del Santo o error
+     * @return Datos del Saint o error
      */
     public Single<DataWrapper<SaintLife, CustomException>> getSantos(String month, String day) {
         return Single.create(emitter -> {
@@ -83,7 +80,7 @@ public class FirebaseDataSource {
         });
     }
 
-    public Single<DataWrapper<MisaLecturas, CustomException>> getLecturas(String dateString) {
+    public Single<DataWrapper<MassReadingList, CustomException>> getLecturas(String dateString) {
         return Single.create(emitter -> {
             DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
             docRef.get().addOnCompleteListener(task -> {
@@ -97,8 +94,8 @@ public class FirebaseDataSource {
 
                             Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
                                 if (mSnapshot.exists()) {
-                                    MisaLecturas theHour =
-                                            mSnapshot.toObject(MisaLecturas.class);
+                                    MassReadingList theHour =
+                                            mSnapshot.toObject(MassReadingList.class);
                                     Objects.requireNonNull(theHour).setMetaLiturgia(meta);
                                     emitter.onSuccess(new DataWrapper<>(theHour));
                                 } else {
@@ -119,7 +116,7 @@ public class FirebaseDataSource {
         });
     }
 
-    public Single<DataWrapper<Comentarios, CustomException>> getComentarios(String dateString) {
+    public Single<DataWrapper<BibleCommentList, CustomException>> getComentarios(String dateString) {
         return Single.create(emitter -> {
             DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
             docRef.get().addOnCompleteListener(task -> {
@@ -133,8 +130,8 @@ public class FirebaseDataSource {
 
                             Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
                                 if (mSnapshot.exists()) {
-                                    Comentarios theData =
-                                            mSnapshot.toObject(Comentarios.class);
+                                    BibleCommentList theData =
+                                            mSnapshot.toObject(BibleCommentList.class);
                                     Objects.requireNonNull(theData).setMetaLiturgia(meta);
                                     emitter.onSuccess(new DataWrapper<>(theData));
                                 } else {
@@ -162,7 +159,7 @@ public class FirebaseDataSource {
      * @return Objeto con la homilía o error
      */
 
-    public Single<DataWrapper<Homilias, CustomException>> getHomilias(String dateString) {
+    public Single<DataWrapper<Homily, CustomException>> getHomilias(String dateString) {
         return Single.create(emitter -> {
             DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
             docRef.get().addOnCompleteListener(task -> {
@@ -176,8 +173,8 @@ public class FirebaseDataSource {
 
                             Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
                                 if (mSnapshot.exists()) {
-                                    Homilias theData =
-                                            mSnapshot.toObject(Homilias.class);
+                                    Homily theData =
+                                            mSnapshot.toObject(Homily.class);
                                     Objects.requireNonNull(theData).setMetaLiturgia(meta);
                                     emitter.onSuccess(new DataWrapper<>(theData));
                                 } else {
@@ -199,7 +196,7 @@ public class FirebaseDataSource {
     }
 
 
-    public Single<DataWrapper<Mixto, CustomException>> getMixto(String dateString) {
+    public Single<DataWrapper<Liturgy, CustomException>> getMixto(String dateString) {
         return Single.create(emitter -> {
             DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
             docRef.get().addOnCompleteListener(task -> {
@@ -215,8 +212,8 @@ public class FirebaseDataSource {
 
                             Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
                                 if (mSnapshot.exists()) {
-                                    Mixto theHour =
-                                            mSnapshot.toObject(Mixto.class);
+                                    Liturgy theHour =
+                                            mSnapshot.toObject(Liturgy.class);
                                     Objects.requireNonNull(theHour).setMetaLiturgia(meta);
                                     emitter.onSuccess(new DataWrapper<>(theHour));
                                 } else {
@@ -237,7 +234,7 @@ public class FirebaseDataSource {
         });
     }
 
-    public Single<DataWrapper<Oficio, CustomException>> getOficio(String dateString) {
+    public Single<DataWrapper<Liturgy, CustomException>> getOficio(String dateString) {
         return Single.create(emitter -> {
             DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
             docRef.get().addOnCompleteListener(task -> {
@@ -253,7 +250,7 @@ public class FirebaseDataSource {
 
                             Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
                                 if (mSnapshot.exists()) {
-                                    Oficio theHour = mSnapshot.toObject(Oficio.class);
+                                    Liturgy theHour = mSnapshot.toObject(Liturgy.class);
                                     Objects.requireNonNull(theHour).setMetaLiturgia(meta);
                                     emitter.onSuccess(new DataWrapper<>(theHour));
                                 } else {
@@ -419,16 +416,53 @@ public class FirebaseDataSource {
      * @param bookId El ID del libro a buscar
      * @return Objeto con el libro o error
      */
-    public Single<DataWrapper<BibliaLibros, CustomException>> getBiblia(final int bookId) {
+    public Single<DataWrapper<BibleBooks, CustomException>> getBiblia(final int bookId) {
         return Single.create(emitter -> {
             DocumentReference calRef = firebaseFirestore.collection(BIBLIA_PATH).document(String.valueOf(bookId));
             calRef.addSnapshotListener((calSnapshot, e) -> {
                 if ((calSnapshot != null) && calSnapshot.exists()) {
-                    emitter.onSuccess(new DataWrapper<>(calSnapshot.toObject(BibliaLibros.class)));
+                    emitter.onSuccess(new DataWrapper<>(calSnapshot.toObject(BibleBooks.class)));
                 } else {
                     emitter.onError(new Exception(ERR_BIBLIA));
                 }
             });
         });
     }
+    public Single<DataWrapper<Liturgy, CustomException>> getBreviary(String dateString, int hourId) {
+        return Single.create(emitter -> {
+            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
+            docRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        DocumentReference dataRef =
+                                document.getDocumentReference(String.format("lh.%d",hourId));
+                        MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
+                        meta.setIdHour(hourId);
+
+                        try {
+
+                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
+                                if (mSnapshot.exists()) {
+                                    Liturgy theHour = mSnapshot.toObject(Liturgy.class);
+                                    Objects.requireNonNull(theHour).setMetaLiturgia(meta);
+                                    emitter.onSuccess(new DataWrapper<>(theHour));
+                                } else {
+                                    emitter.onError(new Exception(DATA_NOTFOUND));
+                                }
+                            });
+                        } catch (Exception e) {
+                            emitter.onError(new Exception(e));
+                        }
+                    } else {
+                        emitter.onError(new Exception(DOC_NOTFOUND));
+
+                    }
+                } else {
+                    emitter.onError(task.getException());
+                }
+            });
+        });
+    }
+
 }

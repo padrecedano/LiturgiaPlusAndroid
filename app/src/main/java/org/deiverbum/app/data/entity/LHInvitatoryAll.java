@@ -3,7 +3,7 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Invitatorio;
+import org.deiverbum.app.model.LHInvitatory;
 
 /**
  * @author A. Cedano
@@ -28,8 +28,8 @@ public class LHInvitatoryAll {
     )
     public AntiphonEntity antifona;
 
-    public Invitatorio getDomainModel(){
-        Invitatorio dm=new Invitatorio();
+    public LHInvitatory getDomainModel(){
+        LHInvitatory dm=new LHInvitatory();
         dm.setAntifona(antifona.getAntifona());
         dm.setSalmo(salmo.getSalmo());
         return dm;

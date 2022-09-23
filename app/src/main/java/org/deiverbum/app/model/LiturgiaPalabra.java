@@ -7,13 +7,13 @@ import org.deiverbum.app.utils.Utils;
 import java.util.List;
 
 /*
-Sustituida por {@link Lecturas}
+Sustituida por {@link BibleReading_}
  */
 @Deprecated
 public class LiturgiaPalabra {
 
     private int tipo;
-    private List<Lectura> lecturas;
+    private List<BibleReading> lecturas;
 
     public int getTipo() {
         return tipo;
@@ -28,18 +28,18 @@ public class LiturgiaPalabra {
         return "tipo";
     }
 
-    public List<Lectura> getLecturas() {
+    public List<BibleReading> getLecturas() {
         return lecturas;
     }
 
-    public void setLecturas(List<Lectura> lecturas) {
+    public void setLecturas(List<BibleReading> lecturas) {
         this.lecturas = lecturas;
     }
 
     public SpannableStringBuilder getEvangelio() {
         String txtLectura;
         SpannableStringBuilder sb = new SpannableStringBuilder("");
-        for (Lectura l : lecturas) {
+        for (BibleReading l : lecturas) {
             if (l.getOrden() == 40) {
                 sb.append(Utils.toH4Red(l.getLibro() + "       " + l.getRef()));
                 sb.append(Utils.LS2);
@@ -59,7 +59,7 @@ public class LiturgiaPalabra {
     public SpannableStringBuilder getLiturgiaPalabra() {
         String txtLectura;
         SpannableStringBuilder sb = new SpannableStringBuilder("");
-        for (Lectura l : lecturas) {
+        for (BibleReading l : lecturas) {
             sb.append(Utils.LS2);
             sb.append(Utils.toH3Red(findOrden(l.getOrden())));
             sb.append(Utils.LS2);
@@ -80,7 +80,7 @@ public class LiturgiaPalabra {
     public SpannableStringBuilder getLiturgiaPalabraforRead() {
         String txtLectura;
         SpannableStringBuilder sb = new SpannableStringBuilder("");
-        for (Lectura l : lecturas) {
+        for (BibleReading l : lecturas) {
             sb.append(findOrden(l.getOrden()));
             sb.append(Utils.LS2);
             sb.append(l.getLibro());

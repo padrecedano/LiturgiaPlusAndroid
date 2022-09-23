@@ -3,11 +3,11 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.BiblicaOficio;
+import org.deiverbum.app.model.LHOfficeBiblical;
 
 /**
  *  <p>Obtiene los valores para una lectura bíblica de
- *  la Liturgia de las Horas,
+ *  la Liturgy de las Horas,
  *  desde las distintas tablas relacionadas.</p>
  *
  * @author A. Cedano
@@ -32,8 +32,8 @@ public class LHOfficeBiblicalWithResponsory {
     )
     public LHResponsorioLargoEntity lhResponsorio;
 
-    public BiblicaOficio getDomainModel(Integer tiempoId) {
-        BiblicaOficio theModel= bibliaLectura.getDomainModelOficio();
+    public LHOfficeBiblical getDomainModel(Integer tiempoId) {
+        LHOfficeBiblical theModel= bibliaLectura.getDomainModelOficio();
         theModel.setTema(lhBiblica.tema);
         theModel.setOrden(lhBiblica.orden);
         theModel.setResponsorioLargo(lhResponsorio.getDomainModel(tiempoId));

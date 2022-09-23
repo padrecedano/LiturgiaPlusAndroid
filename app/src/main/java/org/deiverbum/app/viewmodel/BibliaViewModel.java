@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
-import org.deiverbum.app.model.BibliaLibros;
+import org.deiverbum.app.model.BibleBooks;
 import org.deiverbum.app.repository.BibliaRepository;
 
 import javax.inject.Inject;
@@ -26,7 +26,7 @@ public class BibliaViewModel extends ViewModel {
         mRepository = repository;
     }
 
-    public LiveData<DataWrapper<BibliaLibros, CustomException>> getLibro(int param) {
+    public LiveData<DataWrapper<BibleBooks, CustomException>> getLibro(int param) {
         return mRepository.getLibro(param);
     }
 }

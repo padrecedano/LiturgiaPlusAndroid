@@ -1,5 +1,8 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Constants.TITLE_CONCLUSION;
+import static org.deiverbum.app.utils.Constants.TITLE_VIRGIN_ANTIHPON;
+
 import android.text.SpannableStringBuilder;
 
 import com.google.gson.annotations.Expose;
@@ -24,11 +27,11 @@ public class Conclusion {
 
     public SpannableStringBuilder getHeader() {
 
-        return Utils.formatTitle("CONCLUSIÓN");
+        return Utils.formatTitle(TITLE_CONCLUSION);
     }
 
     public String getHeaderForRead() {
-        return "CONCLUSIÓN.";
+        return Utils.pointAtEnd(TITLE_CONCLUSION);
     }
 
 
@@ -60,7 +63,7 @@ public class Conclusion {
         sb.append(Utils.LS2);
         sb.append(getBendicion());
         sb.append(Utils.LS2);
-        sb.append(Utils.formatTitle("ANTÍFONA FINAL DE LA SANTÍSIMA VIRGEN"));
+        sb.append(Utils.formatTitle(TITLE_VIRGIN_ANTIHPON));
         sb.append(Utils.LS2);
         sb.append(Utils.fromHtml(getAntifonaVirgen(idTiempo)));
         return sb;

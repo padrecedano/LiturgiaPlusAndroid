@@ -3,8 +3,8 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.BiblicaMisa;
-import org.deiverbum.app.model.Liturgia;
+import org.deiverbum.app.model.Liturgy;
+import org.deiverbum.app.model.MassReading;
 
 import java.util.List;
 
@@ -31,14 +31,14 @@ public class MisaWithLecturasBis {
     )
     public LiturgyWithTime liturgia;
 
-    public BiblicaMisa getDomainModel() {
-        BiblicaMisa theModel = null;//lectura.getDomainModelMisa();
+    public MassReading getDomainModel() {
+        MassReading theModel = null;//lectura.getDomainModelMisa();
         //theModel.setTema(misaLectura.getTema());
         //theModel.setOrden(misaLectura.getOrden());
         return theModel;
     }
 
-    public Liturgia getLiturgia() {
+    public Liturgy getLiturgia() {
         return liturgia.getDomainModel();
     }
 

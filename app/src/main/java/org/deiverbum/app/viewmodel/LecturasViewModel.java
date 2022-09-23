@@ -5,8 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
-import org.deiverbum.app.model.Lecturas;
-import org.deiverbum.app.model.MisaLecturas;
+import org.deiverbum.app.model.MassReadingList;
 import org.deiverbum.app.repository.LecturasRepository;
 
 import javax.inject.Inject;
@@ -24,7 +23,7 @@ public class LecturasViewModel extends ViewModel {
         mRepository = repository;
     }
 
-    public LiveData<DataWrapper<MisaLecturas, CustomException>> getObservable(String date) {
+    public LiveData<DataWrapper<MassReadingList, CustomException>> getObservable(String date) {
         return mRepository.getFromDB(date);
     }
 

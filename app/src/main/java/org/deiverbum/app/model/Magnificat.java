@@ -1,5 +1,6 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Constants.TITLE_GOSPEL_CANTICLE;
 import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
@@ -12,16 +13,16 @@ import org.deiverbum.app.utils.Utils;
  * @version 1.0
  * @since 2022.1
  */
-public class Magnificat extends Salmo{
+public class Magnificat extends LHPsalm {
 
     public Magnificat() {
     }
 
     public SpannableStringBuilder getHeader() {
-        return Utils.formatTitle("CÁNTICO EVANGÉLICO");
+        return Utils.formatTitle(TITLE_GOSPEL_CANTICLE);
     }
     public String getHeaderForRead() {
-        return "CÁNTICO EVANGÉLICO.";
+        return Utils.pointAtEnd(TITLE_GOSPEL_CANTICLE);
     }
     public Spanned getTexto() {
         String magnificat ="Proclama mi alma la grandeza del Señor,_se alegra mi espíritu en Dios, mi salvador;_porque ha mirado la humillación de su esclava.§Desde ahora me felicitarán todas las generaciones,_porque el Poderoso ha hecho obras grandes por mí:_su nombre es santo,_y su misericordia llega a sus fieles_de generación en generación.§Él hace proezas con su brazo:_dispersa a los soberbios de corazón,_derriba del trono a los poderosos y enaltece a los humildes,_a los hambrientos los colma de bienes_y a los ricos los despide vacíos.§Auxilia a Israel, su siervo,_acordándose de la misericordia_—como lo había prometido a nuestros padres—_en favor de Abrahán y su descendencia por siempre.";

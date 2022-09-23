@@ -3,7 +3,7 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Homilia;
+import org.deiverbum.app.model.HomilyList;
 
 /**
  * @author A. Cedano
@@ -21,8 +21,8 @@ public class LiturgiaWithHomilias {
     )
     public HomilyAll homilia;
 
-    public Homilia getDomainModel() {
-        Homilia dm=homilia.getDomainModel();
+    public HomilyList getDomainModel() {
+        HomilyList dm=homilia.getDomainModel();
         dm.setTema(joinEntity.getTema());
         return dm;
     }

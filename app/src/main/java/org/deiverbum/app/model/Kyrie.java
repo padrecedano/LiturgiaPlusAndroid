@@ -1,5 +1,7 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Constants.TITLE_SOUL_SEARCHING;
+
 import android.text.SpannableStringBuilder;
 
 import com.google.gson.annotations.Expose;
@@ -44,7 +46,7 @@ public class Kyrie {
 
     public SpannableStringBuilder getIntroduccion() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
-        ssb.append(Utils.formatTitle("EXAMEN DE CONCIENCIA."));
+        ssb.append(Utils.formatTitle(TITLE_SOUL_SEARCHING));
         ssb.append(Utils.LS2);
 
         String[] introArray = introduccion.split("\\|");

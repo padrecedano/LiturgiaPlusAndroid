@@ -3,7 +3,7 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.BiblicaMisa;
+import org.deiverbum.app.model.MassReading;
 
 /**
  * @author A. Cedano
@@ -21,8 +21,8 @@ public class MisaWithLecturas {
     )
     public MassReadingWithBook lectura;
 
-    public BiblicaMisa getDomainModel() {
-        BiblicaMisa theModel = lectura.getDomainModelMisa();
+    public MassReading getDomainModel() {
+        MassReading theModel = lectura.getDomainModelMisa();
         theModel.setTema(misaLectura.getTema());
         theModel.setOrden(misaLectura.getOrden());
         return theModel;

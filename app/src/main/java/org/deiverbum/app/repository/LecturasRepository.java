@@ -3,20 +3,16 @@ package org.deiverbum.app.repository;
 import static org.deiverbum.app.utils.Constants.NOTFOUND_OR_NOTCONNECTION;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
-import org.deiverbum.app.data.entity.TodayHomilias;
 import org.deiverbum.app.data.entity.TodayMisaLecturas;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
-import org.deiverbum.app.model.Homilias;
-import org.deiverbum.app.model.Lecturas;
-import org.deiverbum.app.model.MisaLecturas;
+import org.deiverbum.app.model.MassReadingList;
 import org.deiverbum.app.utils.Utils;
 
 import javax.inject.Inject;
@@ -26,7 +22,7 @@ import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 /**
- * <p>Repositorio de datos para el módulo Lecturas.</p>
+ * <p>Repositorio de datos para el módulo BibleReading_.</p>
  * <p>Orden de búsqueda: </p>
  * <ul>
  *     <li>Firebase</li>
@@ -39,7 +35,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class LecturasRepository {
     ApiService apiService;
     private final FirebaseDataSource firebaseDataSource;
-    private final MutableLiveData<DataWrapper<MisaLecturas, CustomException>> mData = new MediatorLiveData<>();
+    private final MutableLiveData<DataWrapper<MassReadingList, CustomException>> mData = new MediatorLiveData<>();
     private final TodayDao mTodayDao;
 
     @Inject
@@ -59,15 +55,15 @@ public class LecturasRepository {
      * @param dateString La fecha
      * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
      */
-    public MutableLiveData<DataWrapper<MisaLecturas, CustomException>> getData(String dateString) {
+    public MutableLiveData<DataWrapper<MassReadingList, CustomException>> getData(String dateString) {
         firebaseDataSource.getLecturas(dateString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<MisaLecturas,
+                .subscribe(new DisposableSingleObserver<DataWrapper<MassReadingList,
                         CustomException>>() {
 
                     @Override
-                    public void onSuccess(@NonNull DataWrapper<MisaLecturas,
+                    public void onSuccess(@NonNull DataWrapper<MassReadingList,
                             CustomException> data) {
                         mData.postValue(data);
                     }
@@ -89,11 +85,11 @@ public class LecturasRepository {
         apiService.getLecturas(Utils.cleanDate(dateString))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<MisaLecturas>() {
+                .subscribe(new DisposableSingleObserver<MassReadingList>() {
                     @Override public void onStart() {
                     }
                     @Override
-                    public void onSuccess(@NonNull MisaLecturas r) {
+                    public void onSuccess(@NonNull MassReadingList r) {
                         mData.postValue(new DataWrapper<>(r));
                     }
                     @Override
@@ -105,10 +101,10 @@ public class LecturasRepository {
 
 
 
-        public MutableLiveData<DataWrapper<MisaLecturas, CustomException>> getFromDB(String s) {
+        public MutableLiveData<DataWrapper<MassReadingList, CustomException>> getFromDB(String s) {
         TodayMisaLecturas theEntity = mTodayDao.getMisaLecturas(Integer.valueOf(s));
         if (theEntity != null) {
-            MisaLecturas theModel = theEntity.getDomainModel();
+            MassReadingList theModel = theEntity.getDomainModel();
             mData.postValue(new DataWrapper<>(theModel));
         } else {
             getData(s);

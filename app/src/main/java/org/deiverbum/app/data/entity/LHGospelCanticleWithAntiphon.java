@@ -3,7 +3,7 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.CanticoEvangelico;
+import org.deiverbum.app.model.LHGospelCanticle_;
 
 /**
  * @author A. Cedano
@@ -24,8 +24,8 @@ public class LHGospelCanticleWithAntiphon {
         return antifona.getAntifona();
     }
 
-    public CanticoEvangelico getDomainModel(Integer tipo) {
-        CanticoEvangelico ce=new CanticoEvangelico();
+    public LHGospelCanticle_ getDomainModel(Integer tipo) {
+        LHGospelCanticle_ ce=new LHGospelCanticle_();
         ce.setTipo(tipo);
         ce.setAntifona(getAntifona());
         return ce;

@@ -3,7 +3,7 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.ComentarioBiblico;
+import org.deiverbum.app.model.BibleComment;
 
 /**
  * @author A. Cedano
@@ -44,8 +44,8 @@ public class BiblicalCommentaryAll {
     )
     public HomilyAll homilia;
 
-    public ComentarioBiblico getDomainModel() {
-        ComentarioBiblico theModel=new ComentarioBiblico();
+    public BibleComment getDomainModel() {
+        BibleComment theModel=new BibleComment();
         if(themeEntity!=null) {
             theModel.setCita(themeEntity.getBiblical());
             theModel.setTema(themeEntity.getTheological());

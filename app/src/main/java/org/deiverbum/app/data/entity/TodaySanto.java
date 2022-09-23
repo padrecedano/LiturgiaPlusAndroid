@@ -13,7 +13,7 @@ import org.deiverbum.app.model.SaintLife;
 public class TodaySanto {
 
     @Embedded
-    public Today today;
+    public TodayEntity today;
 
     @Relation(
             entity = SaintEntity.class,

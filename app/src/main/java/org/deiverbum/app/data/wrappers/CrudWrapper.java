@@ -1,6 +1,6 @@
 package org.deiverbum.app.data.wrappers;
 
-import org.deiverbum.app.model.Homilia;
+import org.deiverbum.app.model.HomilyList;
 
 import java.util.List;
 
@@ -16,7 +16,11 @@ import java.util.List;
 public class CrudWrapper<T> {
     private T datas;
     public Crud crud;
-    public List<Homilia> data;
+    public List<HomilyList> data;
+    private List<T> create;
+    private List<T> read;
+    private List<T> update;
+    private List<T> delete;
 
 
     public CrudWrapper.Status status;
@@ -38,7 +42,11 @@ public class CrudWrapper<T> {
     public void postValue(T data) {
         this.datas = data;
         this.status = Status.SUCCESS;
+    }
 
+    public void setCreate(List<T> data) {
+        this.create = data;
+        this.status = Status.SUCCESS;
     }
 
     public void setValue(T data) {

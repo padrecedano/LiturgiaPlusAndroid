@@ -3,8 +3,8 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Homilia;
-import org.deiverbum.app.model.Patristica;
+import org.deiverbum.app.model.HomilyList;
+import org.deiverbum.app.model.LHOfficePatristic;
 
 /**
  * @author A. Cedano
@@ -22,8 +22,8 @@ public class HomilyAll {
     )
     public PaterOpusAll paterOpusAll;
 
-    public Patristica getPatristicaDomainModel() {
-        Patristica theModel=new Patristica();
+    public LHOfficePatristic getPatristicaDomainModel() {
+        LHOfficePatristic theModel=new LHOfficePatristic();
         //theModel.setTema(lhPatristica.getTema());
         theModel.setTexto(homilia.getTexto());
         theModel.setPadre(paterOpusAll.padre.getPadre());
@@ -32,8 +32,8 @@ public class HomilyAll {
         return theModel;
     }
 
-    public Homilia getDomainModel() {
-        Homilia theModel=new Homilia();
+    public HomilyList getDomainModel() {
+        HomilyList theModel=new HomilyList();
         //theModel.setTema(lhPatristica.getTema());
         theModel.setHomilia(homilia.getTexto());
         theModel.setPadre(paterOpusAll.padre.getPadre());

@@ -63,25 +63,23 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
-    String strFechaHoy;
     private static final String TAG = "MainActivity";
     private static final int UPDATE_REQUEST_CODE = VERSION_CODE;
+    String strFechaHoy;
+    NavController navController;
     //202001030;
     private AppBarConfiguration mAppBarConfiguration;
     private boolean acceptTerms;
     private NavController.OnDestinationChangedListener onDestinationChangedListener;
-    NavController navController;
     private FirebaseAnalytics mFirebaseAnalytics;
     private AppUpdateManager appUpdateManager;
-    private TodayViewModel todayViewModel;
-    private WorkManager mWorkManager;
-
     private final InstallStateUpdatedListener installStateUpdatedListener = installState -> {
         if (installState.installStatus() == InstallStatus.DOWNLOADED) {
             popupAlerter();
         }
     };
-
+    private TodayViewModel todayViewModel;
+    private WorkManager mWorkManager;
 
     @Override
     public void onBackPressed() {
@@ -102,22 +100,20 @@ public class MainActivity extends AppCompatActivity {
 
         onDestinationChangedListener = (controller, destination, arguments) -> {
             Bundle bundle = new Bundle();
-            String screenName= Objects.requireNonNull(destination.getLabel()).toString();
-            String screenClass=String.format("Fragment%s",screenName);
+            String screenName = Objects.requireNonNull(destination.getLabel()).toString();
+            String screenClass = String.format("Fragment%s", screenName);
 
             bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName);
-            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS,screenName);
+            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, screenName);
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
 
             //todayViewModel = new ViewModelProvider(this).get(TodayViewModel.class);
 //todayViewModel.fetchData("");
-            fetchData(0);
+            fetchData();
 
         };
 
         navController.addOnDestinationChangedListener(onDestinationChangedListener);
-
-
 
 
     }
@@ -134,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
         //app:navGraph="@navigation/nav_home"
-         navController = Objects.requireNonNull(navHostFragment).getNavController();
+        navController = Objects.requireNonNull(navHostFragment).getNavController();
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home)
@@ -159,11 +155,11 @@ public class MainActivity extends AppCompatActivity {
         acceptTerms = prefs.getBoolean(PREF_ACCEPT, false);
         boolean collectData = prefs.getBoolean(PREF_ANALYTICS, true);
         boolean collectCrash = prefs.getBoolean(PREF_CRASHLYTICS, true);
-        mFirebaseAnalytics=FirebaseAnalytics.getInstance(this);
-        if(!BuildConfig.DEBUG) {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        if (!BuildConfig.DEBUG) {
             mFirebaseAnalytics.setAnalyticsCollectionEnabled(collectData);
             FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(collectCrash);
-        }else{
+        } else {
             FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(false);
         }
 
@@ -261,42 +257,35 @@ public class MainActivity extends AppCompatActivity {
             appUpdateManager.unregisterListener(installStateUpdatedListener);
     }
 
-    public void fetchData(Integer theDate) {
-        this.mWorkManager= WorkManager.getInstance(getApplicationContext());
+    public void fetchData() {
+        this.mWorkManager = WorkManager.getInstance(getApplicationContext());
 
         // Create Network constraint
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
-        Data inputData = new Data.Builder()
+        /*Data inputData = new Data.Builder()
                 .putInt("THE_DATE", theDate)
-                .build();
-
-
+                .build();*/
 
         PeriodicWorkRequest periodicSyncDataWork =
-                new PeriodicWorkRequest.Builder(TodayWorker.class, 15,
-                        TimeUnit.MINUTES)
+                new PeriodicWorkRequest.Builder(TodayWorker.class, 15, TimeUnit.MINUTES)
                         .addTag("TAG_SYNC_DATA")
                         .setConstraints(constraints)
-                        .setInputData(inputData)
+                        //.setInputData(inputData)
                         // setting a backoff on case the work needs to retry
                         .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
                         .build();
         mWorkManager.enqueueUniquePeriodicWork(
-                "SYNC_DATA_WORK_NAME",
+                "SYNC_TODAY",
                 ExistingPeriodicWorkPolicy.REPLACE, //Existing Periodic Work
                 // policy
                 periodicSyncDataWork //work request
         );
         mWorkManager.getWorkInfoByIdLiveData(periodicSyncDataWork.getId()).observe(this,
-                new Observer<WorkInfo>() {
-                    @Override
-                    public void onChanged(WorkInfo workInfo) {
-                        //mWorkManager.cancelWorkById(workInfo.getId());
-                    }
+                workInfo -> {
+                    //mWorkManager.cancelWorkById(workInfo.getId());
                 });
-
 
 
     }

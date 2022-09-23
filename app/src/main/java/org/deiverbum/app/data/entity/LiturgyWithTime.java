@@ -3,8 +3,8 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Liturgia;
-import org.deiverbum.app.model.LiturgiaTiempo;
+import org.deiverbum.app.model.Liturgy;
+import org.deiverbum.app.model.LiturgyTime;
 
 /**
  * @author A. Cedano
@@ -13,7 +13,7 @@ import org.deiverbum.app.model.LiturgiaTiempo;
  */
 public class LiturgyWithTime {
     @Embedded
-    public LiturgyEntity joinEntity;
+    public LiturgyEntity liturgyEntity;
 
     @Relation(
             parentColumn = "timeFK",
@@ -22,19 +22,21 @@ public class LiturgyWithTime {
     )
     public LiturgiaTiempoEntity tiempo;
 
-    public Liturgia getDomainModel() {
-        Liturgia dm=new Liturgia();
-        dm.setLiturgiaId(joinEntity.getLiturgiaId());
-        dm.setSemana(joinEntity.getSemana());
-        dm.setDia(joinEntity.getDia());
-        dm.setColorId(joinEntity.getColorFK());
-        dm.setNombre(joinEntity.getNombre());
-        LiturgiaTiempo t=new LiturgiaTiempo();
+    public Liturgy getDomainModel() {
+        Liturgy dm=new Liturgy();
+        dm.setLiturgyID(liturgyEntity.liturgiaId);
+        dm.setLiturgiaId(liturgyEntity.getLiturgiaId());
+        dm.setSemana(liturgyEntity.getSemana());
+        dm.setDia(liturgyEntity.getDia());
+        dm.setColorId(liturgyEntity.getColorFK());
+        dm.setNombre(liturgyEntity.getNombre());
+        LiturgyTime t=new LiturgyTime();
         t.setTiempoId(tiempo.getTiempoId());
         t.setTiempo(tiempo.getTiempo());
         t.setLiturgyName(tiempo.getLiturgyName());
         dm.setLiturgiaTiempo(t);
         return dm;
     }
+
 
 }

@@ -48,8 +48,8 @@ public class MetaLiturgia {
     protected boolean hasSaint;
     protected int weekDay;
 
-    private Liturgia liturgiaFeria;
-    private Liturgia liturgiaPrevio;
+    private Liturgy liturgiaFeria;
+    private Liturgy liturgiaPrevio;
 
     public MetaLiturgia() {
     }
@@ -73,19 +73,19 @@ public class MetaLiturgia {
         this.titulo = (titulo != null) ? titulo : "";
     }
 
-    public Liturgia getLiturgiaFeria() {
+    public Liturgy getLiturgiaFeria() {
         return liturgiaFeria;
     }
 
-    public void setLiturgiaFeria(Liturgia liturgiaFeria) {
+    public void setLiturgiaFeria(Liturgy liturgiaFeria) {
         this.liturgiaFeria = liturgiaFeria;
     }
 
-    public Liturgia getLiturgiaPrevio() {
+    public Liturgy getLiturgiaPrevio() {
         return liturgiaPrevio;
     }
 
-    public void setLiturgiaPrevio(Liturgia liturgiaPrevio) {
+    public void setLiturgiaPrevio(Liturgy liturgiaPrevio) {
         this.liturgiaPrevio = liturgiaPrevio;
     }
 

@@ -9,8 +9,8 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.deiverbum.app.model.Biblica;
-import org.deiverbum.app.model.BiblicaMisa;
+import org.deiverbum.app.model.Biblical;
+import org.deiverbum.app.model.MassReading;
 
 /**
  * @author A. Cedano
@@ -95,8 +95,8 @@ public class BibleReadingEntity {
     }
 
 
-    public Biblica getDomainModel(){
-    Biblica theModel=new Biblica();
+    public Biblical getDomainModel(){
+    Biblical theModel=new Biblical();
     //theModel.setLibro(String.valueOf(getLibroId()));
     theModel.setCapitulo(String.valueOf(getCapitulo()));
     theModel.setCita(String.valueOf(getHasta()));
@@ -108,8 +108,8 @@ public class BibleReadingEntity {
     return theModel;
 }
 
-    public BiblicaMisa getDomainModelMisa(){
-        BiblicaMisa theModel=new BiblicaMisa();
+    public MassReading getDomainModelMisa(){
+        MassReading theModel=new MassReading();
         //theModel.setLibro(String.valueOf(getLibroId()));
         //theModel.setLibro()
         theModel.setCapitulo(String.valueOf(getCapitulo()));

@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import org.deiverbum.app.model.BibliaLibro;
+import org.deiverbum.app.model.BibleBook;
 
 /**
  * @author A. Cedano
@@ -70,8 +70,8 @@ public class BiblieBookEntity {
         return liturgyName;
     }
 
-    public BibliaLibro getDomainModel(){
-    BibliaLibro theModel=new BibliaLibro();
+    public BibleBook getDomainModel(){
+    BibleBook theModel=new BibleBook();
     theModel.setName(getLongName());
     theModel.setLiturgyName(getLiturgyName());
     theModel.setShortName(getShortName());

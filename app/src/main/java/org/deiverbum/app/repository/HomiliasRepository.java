@@ -6,13 +6,11 @@ import androidx.lifecycle.MediatorLiveData;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.data.entity.TodayHomilias;
-import org.deiverbum.app.data.entity.TodayMixto;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
-import org.deiverbum.app.model.Homilias;
-import org.deiverbum.app.model.Mixto;
+import org.deiverbum.app.model.Homily;
 import org.deiverbum.app.utils.Utils;
 
 import javax.inject.Inject;
@@ -36,7 +34,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class HomiliasRepository {
     ApiService apiService;
     private final FirebaseDataSource firebaseDataSource;
-    private final MediatorLiveData<DataWrapper<Homilias, CustomException>> mData = new MediatorLiveData<>();
+    private final MediatorLiveData<DataWrapper<Homily, CustomException>> mData = new MediatorLiveData<>();
     private final TodayDao mTodayDao;
 
 
@@ -59,14 +57,14 @@ public class HomiliasRepository {
      * @param param El parámetro a buscar, en principio la fecha, quizá también un Id
      * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
      */
-    public MediatorLiveData<DataWrapper<Homilias,CustomException>> getData(String param) {
+    public MediatorLiveData<DataWrapper<Homily,CustomException>> getData(String param) {
         firebaseDataSource.getHomilias(param)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<Homilias,CustomException>>() {
+                .subscribe(new DisposableSingleObserver<DataWrapper<Homily,CustomException>>() {
 
                     @Override
-                    public void onSuccess(DataWrapper<Homilias,CustomException> data) {
+                    public void onSuccess(DataWrapper<Homily,CustomException> data) {
                         mData.postValue(data);
                     }
 
@@ -82,12 +80,12 @@ public class HomiliasRepository {
         apiService.getHomilias(param)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Homilias>() {
+                .subscribe(new DisposableSingleObserver<Homily>() {
 
                     @Override public void onStart() {
                     }
                     @Override
-                    public void onSuccess(Homilias r) {
+                    public void onSuccess(Homily r) {
                         mData.postValue(new DataWrapper<>(r));
                     }
 
@@ -99,10 +97,10 @@ public class HomiliasRepository {
     }
 
 
-    public MediatorLiveData<DataWrapper<Homilias, CustomException>> getFromDB(String s) {
+    public MediatorLiveData<DataWrapper<Homily, CustomException>> getFromDB(String s) {
         TodayHomilias theEntity = mTodayDao.getHomilias(Integer.valueOf(s));
         if (theEntity != null) {
-            Homilias theModel = theEntity.getDomainModel();
+            Homily theModel = theEntity.getDomainModel();
             mData.postValue(new DataWrapper<>(theModel));
         } else {
             getData(s);

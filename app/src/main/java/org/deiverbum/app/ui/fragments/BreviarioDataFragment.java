@@ -101,121 +101,24 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
         int hourId = 0;
         if (getArguments() != null) {
             hourId = getArguments().getInt("hourId");
-        }
-        switch (hourId) {
-            case 0:
-                observeMixto();
-                break;
+            mTextView.setText(PACIENCIA);
+            mViewModel.getBreviary(mDate,hourId).observe(getViewLifecycleOwner(), data -> {
+                progressBar.setVisibility(View.GONE);
+                if (data.status == DataWrapper.Status.SUCCESS) {
+                    mTextView.setText(data.getData().getForView());
+                    if (isVoiceOn) {
+                        sbReader.append(data.getData().getForRead());
+                        setPlayerButton();
+                    }
+                } else {
+                    mTextView.setText(Utils.fromHtml(data.getError()));
+                }
+            });
 
-            case 1:
-                observeOficio();
-                break;
-
-            case 2:
-                observeLaudes();
-                break;
-
-            case 3:
-                observeIntermedia(hourId, "tercia");
-                break;
-
-            case 4:
-                observeIntermedia(hourId, "sexta");
-                break;
-
-            case 5:
-                observeIntermedia(hourId, "nona");
-                break;
-
-            case 6:
-                observeVisperas();
-                break;
-
-            default:
-                break;
         }
     }
 
-    private void observeMixto() {
-        mTextView.setText(PACIENCIA);
-        mViewModel.getMixto(mDate).observe(getViewLifecycleOwner(), data -> {
-            progressBar.setVisibility(View.GONE);
-            if (data.status == DataWrapper.Status.SUCCESS) {
-                mTextView.setText(data.getData().getForView(hasInvitatorio));
-                if (isVoiceOn) {
-                    sbReader.append(data.getData().getForRead(hasInvitatorio));
-                    setPlayerButton();
-                }
-            } else {
-                mTextView.setText(Utils.fromHtml(data.getError()));
-            }
-        });
-    }
 
-
-    private void observeOficio() {
-        mTextView.setText(PACIENCIA);
-        mViewModel.getOficio(mDate).observe(getViewLifecycleOwner(), data -> {
-            progressBar.setVisibility(View.GONE);
-            if (data.status == DataWrapper.Status.SUCCESS) {
-                mTextView.setText(data.getData().getForView(hasInvitatorio));
-                if (isVoiceOn) {
-                    sbReader.append(data.getData().getForRead(hasInvitatorio));
-                    setPlayerButton();
-                }
-            } else {
-                mTextView.setText(Utils.fromHtml(data.getError()));
-            }
-        });
-    }
-
-    private void observeLaudes() {
-        mTextView.setText(PACIENCIA);
-        mViewModel.getLaudes(mDate).observe(getViewLifecycleOwner(), data -> {
-            progressBar.setVisibility(View.GONE);
-            if (data.status == DataWrapper.Status.SUCCESS) {
-                mTextView.setText(data.getData().getForView(hasInvitatorio));
-                if (isVoiceOn) {
-                    sbReader.append(data.getData().getForRead(hasInvitatorio));
-                    setPlayerButton();
-                }
-            } else {
-                mTextView.setText(Utils.fromHtml(data.getError()));
-            }
-        });
-    }
-
-    private void observeIntermedia(int hourId, String endPoint) {
-        mTextView.setText(PACIENCIA);
-        mViewModel.getIntermedia(mDate, hourId, endPoint).observe(getViewLifecycleOwner(), data -> {
-            progressBar.setVisibility(View.GONE);
-            if (data.status == DataWrapper.Status.SUCCESS) {
-                mTextView.setText(data.getData().getForView());
-                if (isVoiceOn) {
-                    sbReader.append(data.getData().getForRead());
-                    setPlayerButton();
-                }
-            } else {
-                mTextView.setText(Utils.fromHtml(data.getError()));
-            }
-        });
-    }
-
-    private void observeVisperas() {
-        mTextView.setText(PACIENCIA);
-        mViewModel.getVisperas(mDate).observe(getViewLifecycleOwner(), data -> {
-            progressBar.setVisibility(View.GONE);
-            if (data.status == DataWrapper.Status.SUCCESS) {
-                mTextView.setText(data.getData().getForView());
-                if (isVoiceOn) {
-                    sbReader.append(data.getData().getForRead());
-                    setPlayerButton();
-                }
-            } else {
-                mTextView.setText(Utils.fromHtml(data.getError()));
-            }
-        });
-    }
 
     private void pickOutDate() {
         Bundle bundle = getArguments();

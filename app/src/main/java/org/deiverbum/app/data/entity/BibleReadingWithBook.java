@@ -3,9 +3,9 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Biblica;
-import org.deiverbum.app.model.BiblicaMisa;
-import org.deiverbum.app.model.BiblicaOficio;
+import org.deiverbum.app.model.Biblical;
+import org.deiverbum.app.model.LHOfficeBiblical;
+import org.deiverbum.app.model.MassReading;
 import org.deiverbum.app.model.Evangelio;
 
 /**
@@ -25,8 +25,8 @@ public class BibleReadingWithBook {
     )
     public BiblieBookEntity libro;
 
-    public Biblica getDomainModel() {
-        Biblica theModel=new Biblica();
+    public Biblical getDomainModel() {
+        Biblical theModel=new Biblical();
         theModel.setLibro(libro.getDomainModel());
         theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
         theModel.setVersoInicial(String.valueOf(lectura.getDesde()));
@@ -37,8 +37,8 @@ public class BibleReadingWithBook {
         return theModel;
     }
 
-    public BiblicaMisa getDomainModelMisa() {
-        BiblicaMisa theModel=new BiblicaMisa();
+    public MassReading getDomainModelMisa() {
+        MassReading theModel=new MassReading();
         theModel.setLibro(libro.getDomainModel());
         theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
         theModel.setVersoInicial(String.valueOf(lectura.getDesde()));
@@ -63,8 +63,8 @@ theModel.setLibro(libro.getDomainModel());
     }
 
 
-    public BiblicaOficio getDomainModelOficio() {
-        BiblicaOficio theModel=new BiblicaOficio();
+    public LHOfficeBiblical getDomainModelOficio() {
+        LHOfficeBiblical theModel=new LHOfficeBiblical();
         theModel.setLibro(libro.getDomainModel());
         theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
         theModel.setVersoInicial(String.valueOf(lectura.getDesde()));

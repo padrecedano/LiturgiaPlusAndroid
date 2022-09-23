@@ -3,10 +3,7 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.model.Biblica;
-import org.deiverbum.app.model.BiblicaMisa;
-import org.deiverbum.app.model.BiblicaOficio;
-import org.deiverbum.app.model.Evangelio;
+import org.deiverbum.app.model.Biblical;
 
 /**
  * @author A. Cedano
@@ -25,8 +22,8 @@ public class MassReadingAll {
     )
     public MassReadingWithAll libro;
 
-    public Biblica getDomainModel() {
-        Biblica theModel=new Biblica();
+    public Biblical getDomainModel() {
+        Biblical theModel=new Biblical();
         /*theModel.setLibro(libro.getDomainModel());
         theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
         theModel.setVersoInicial(String.valueOf(lectura.getDesde()));

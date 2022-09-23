@@ -1,33 +1,33 @@
 package org.deiverbum.app.model;
 
 public class CompletasDia {
-    Salmodia salmodia;
-    Oracion oracion;
-    //BiblicaBreve biblicaBreve;
-    private BiblicaBreve lecturaBreve;
+    LHPsalmody salmodia;
+    Prayer oracion;
+    //BiblicalShort biblicaBreve;
+    private BiblicalShort lecturaBreve;
 
-    public Salmodia getSalmodia() {
+    public LHPsalmody getSalmodia() {
         return this.salmodia;
     }
 
-    public void setSalmodia(Salmodia salmodia) {
+    public void setSalmodia(LHPsalmody salmodia) {
         this.salmodia = salmodia;
     }
 
 
-    public BiblicaBreve getLecturaBreve() {
+    public BiblicalShort getLecturaBreve() {
         return this.lecturaBreve;
     }
 
-    public void setLecturaBreve(BiblicaBreve lecturaBreve) {
+    public void setLecturaBreve(BiblicalShort lecturaBreve) {
         this.lecturaBreve = lecturaBreve;
     }
 
-    public Oracion getOracion() {
+    public Prayer getOracion() {
         return this.oracion;
     }
 
-    public void setOracion(Oracion oracion) {
+    public void setOracion(Prayer oracion) {
         this.oracion = oracion;
     }
 

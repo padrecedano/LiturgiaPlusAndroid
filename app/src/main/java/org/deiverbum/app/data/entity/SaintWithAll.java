@@ -3,8 +3,8 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
+import org.deiverbum.app.model.Saint;
 import org.deiverbum.app.model.SaintLife;
-import org.deiverbum.app.model.Santo;
 
 /**
  * @author A. Cedano
@@ -23,8 +23,8 @@ public class SaintWithAll {
     public SaintLife lhSanto;
 
     //TODO método getVida ¿?
-    public Santo getDomainModelLH(){
-        Santo dm=new Santo();
+    public Saint getDomainModelLH(){
+        Saint dm=new Saint();
         dm.setNombre(santo.nombre);
         dm.setVida(lhSanto.getShortLife());
         return dm;
