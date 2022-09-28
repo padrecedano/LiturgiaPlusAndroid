@@ -19,7 +19,6 @@ public class LHPsalmody {
     private int tipo;
 
     @ColumnInfo(name = "salmos")
-
     private List<LHPsalm> salmos;
 
     public LHPsalmody() {

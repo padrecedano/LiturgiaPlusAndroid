@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Liturgia+</string>
-    <string name="app_version_name">v. 2022.1.1 [Deuteronomium]</string>
-    <string name="app_version_name_and_mail">v. 2022.1.1
-        [Deuteronomium]\na.cedano@deiverbum.org</string>
+    <string name="app_version_name">v. 2022.2 [Iosue]</string>
+    <string name="app_version_name_and_mail">v. 2022.2
+        [Iosue]\na.cedano@deiverbum.org</string>
 
     <!-- Activity and Fragment titles -->
     <string name="title_fragment_breviario">Breviario</string>
@@ -75,24 +75,46 @@
     <string name="pref_description_himno">Activar para usar los himnos de Liturgia Horarum, traducidos al castellano por Félix Arocena.</string>
     <string name="pref_title_voice">Activar lectura de voz</string>
     <string name="pref_description_voice">Al desactivar esta opción no aparecerá el botón de lectura de voz.</string>
+
+    <string name="pref_title_font">Tipo de letra por defecto</string>
+    <string-array name="pref_font_list_titles">
+        <item>Roboto</item>
+        <item>Noto Serif</item>
+        <item>Roboto Slab</item>
+    </string-array>
+    <string-array name="pref_font_list_values">
+        <item>roboto_regular.ttf</item>
+        <item>notoserif_regular.ttf</item>
+        <item>robotoslab_regular.ttf</item>
+    </string-array>
+
     <string name="pref_title_font_size">Tamaño de letra por defecto</string>
     <string-array name="pref_font_size_list_titles">
-        <item>Pequeño</item>
-        <item>Normal</item>
-        <item>Mediano</item>
-        <item>Grande</item>
-        <item>Extra Grande</item>
-        <item>Enorme</item>
-        <item>Gigante</item>
-    </string-array>
-    <string-array name="pref_font_size_list_values">
         <item>14</item>
+        <item>16</item>
         <item>18</item>
+        <item>20</item>
         <item>22</item>
         <item>26</item>
         <item>32</item>
         <item>40</item>
         <item>50</item>
+        <item>60</item>
+        <item>80</item>
+
+    </string-array>
+    <string-array name="pref_font_size_list_values">
+        <item>14</item>
+        <item>16</item>
+        <item>18</item>
+        <item>20</item>
+        <item>22</item>
+        <item>26</item>
+        <item>32</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>80</item>
     </string-array>
 
     <!-- Large content -->
@@ -145,7 +167,7 @@
     <string name="pref_description_accept_terms">Activando esta opción, declaras haber leído y aceptado tanto la Política de Privacidad como los Términos y Condiciones. Sin esta aceptación no podrás hacer uso de la Aplicación.</string>
     <string name="label_accept">He leído y acepto la Política de Privacidad y los Términos y Condiciones de Uso.</string>
     <string name="label_not_accept">No acepto</string>
-    <string name="accept_info">Liturgia+ v. 2022.1.1\n\n<font color="#A52A2A"
+    <string name="accept_info">Liturgia+ v. 2022.2\n\n<font color="#A52A2A"
         size="30">¡La Paz contigo!</font>\n\nSi estás viendo esta
         pantalla es porque estás instalando por primera vez una nueva versión
         de la aplicación

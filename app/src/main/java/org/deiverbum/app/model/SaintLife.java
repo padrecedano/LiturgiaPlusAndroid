@@ -18,7 +18,7 @@ import java.util.HashMap;
 public class SaintLife {
     private Integer saintFK;
     @PropertyName("vida")
-    private String longLife;
+    public String longLife;
     @PropertyName("martirologio")
     private String martyrology;
     private String source="";
@@ -89,7 +89,7 @@ public class SaintLife {
         sb.append(Utils.fromHtml("<hr>"));
         sb.append(Utils.toH3Red("Vida"));
         sb.append(LS2);
-        sb.append(Utils.fromHtml(shortLife.replaceAll(OLD_SEPARATOR, "")));
+        sb.append(Utils.fromHtml(longLife.replaceAll(OLD_SEPARATOR, "")));
         return sb;
     }
 
@@ -97,13 +97,13 @@ public class SaintLife {
     public StringBuilder getLifeForRead() {
         StringBuilder sb = new StringBuilder();
         sb.append("VIDA.");
-        sb.append(Utils.fromHtml(shortLife.replaceAll(OLD_SEPARATOR, "")));
+        sb.append(Utils.fromHtml(longLife.replaceAll(OLD_SEPARATOR, "")));
         return sb;
     }
 
     public SpannableStringBuilder getForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        //try {
+        try {
             sb.append(Utils.toH3Red(getMonthName(mes)));
             sb.append(LS2);
             sb.append(Utils.toH2Red(name));
@@ -115,9 +115,9 @@ public class SaintLife {
             sb.append(getVidaSpan());
             sb.append(LS2);
             sb.append(Utils.fromHtmlSmall((getSource())));
-        //} catch (Exception e) {
+        } catch (Exception e) {
             //sb.append(e.getMessage());
-        //}
+        }
         return sb;
     }
 

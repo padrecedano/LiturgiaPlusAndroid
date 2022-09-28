@@ -10,7 +10,7 @@ import org.deiverbum.app.model.LHInvitatory;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.MassReading;
 import org.deiverbum.app.model.LHOfficeBiblical;
-import org.deiverbum.app.model.LHGospelCanticle_;
+import org.deiverbum.app.model.LHGospelCanticle;
 import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.Mixto;
 import org.deiverbum.app.model.Oficio;
@@ -124,7 +124,7 @@ public class TodayMixto {
     public List<PatristicaOficioWithResponsorio> patristicaOficioWithResponsorio;
 
     @Relation(
-            entity = LHGospelCanticleEntity.class,
+            entity = LHGospelCanticleJoinEntity.class,
             parentColumn = "lBenedictusFK",
             entityColumn = "groupID"
     )
@@ -177,7 +177,7 @@ public class TodayMixto {
         dm.liturgyDay=feria.getDomainModel();
         dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
         dm.setTodayDate(today.getHoy());
-        dm.setHasSaint(true);
+        dm.setHasSaint(today.hasSaint);
         return dm;
     }
     public Today getTodayy(){
@@ -188,7 +188,7 @@ public class TodayMixto {
         //theModel.setColor(feria.getColorFK());
         dm.setIdHour(0);
         dm.setCalendarTime(today.tiempoId);
-        dm.setHasSaint(true);
+        dm.setHasSaint(today.hasSaint);
         //theModel.setIdBreviario(feria.colorFK);
         //theModel.setIdDia(feria.colorFK);
         dm.setMLecturasFK(today.mLecturasFK);
@@ -211,7 +211,7 @@ public class TodayMixto {
         return  biblica.getDomainModel(today.getTiempoId());
     }
 
-    public LHGospelCanticle_ getBenedictus(){
+    public LHGospelCanticle getBenedictus(){
         return  benedictus.getDomainModel(2);
     }
 

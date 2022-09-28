@@ -1,8 +1,12 @@
 package org.deiverbum.app.model;
 
 import static org.deiverbum.app.utils.Constants.CONTENT_NOTFOUND;
+import static org.deiverbum.app.utils.Utils.LS;
+import static org.deiverbum.app.utils.Utils.LS2;
 
+import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.style.CharacterStyle;
 
 import androidx.annotation.NonNull;
 import androidx.room.Ignore;
@@ -287,6 +291,9 @@ public class Liturgy {
             if (typeID == 6) {
                 return breviaryHour.getVisperas().getForView();
             }
+            if (typeID == 7) {
+                return breviaryHour.getCompletas().getForView();
+            }
             return new SpannableStringBuilder(CONTENT_NOTFOUND);
         } catch (Exception e) {
             return new SpannableStringBuilder(e.getMessage());
@@ -314,11 +321,30 @@ public class Liturgy {
             if (typeID == 6) {
                 return breviaryHour.getVisperas().getForRead();
             }
+            if (typeID == 7) {
+                return breviaryHour.getCompletas().getForRead();
+            }
             return new StringBuilder(CONTENT_NOTFOUND);
 
         } catch (Exception e) {
             return new StringBuilder(e.getMessage());
         }
+    }
+
+    /**
+        * Devuelve el saludo inicial de la liturgia
+        *
+        * @since 2022.2
+     */
+    public SpannableStringBuilder getSaludoInicial() {
+        SpannableStringBuilder ssb = new SpannableStringBuilder("");
+        ssb.append(Utils.toRed("V/. "));
+        ssb.append("En el nombre del Padre, y del Hijo, y del Espíritu Santo.");
+        ssb.append(LS);
+        ssb.append(Utils.toRed("R/. "));
+        ssb.append("Amén.");
+        ssb.append(LS2);
+        return ssb;
     }
 }
 

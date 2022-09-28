@@ -9,7 +9,7 @@ import org.deiverbum.app.model.LHHymn;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.MassReading;
 import org.deiverbum.app.model.MassReadingList;
-import org.deiverbum.app.model.LHGospelCanticle_;
+import org.deiverbum.app.model.LHGospelCanticle;
 import org.deiverbum.app.model.LHInvitatory;
 import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.Prayer;
@@ -102,7 +102,7 @@ public class TodayLaudes {
     public LiturgyWithTime previo;
 
     @Relation(
-            entity = LHGospelCanticleEntity.class,
+            entity = LHGospelCanticleJoinEntity.class,
             parentColumn = "lBenedictusFK",
             entityColumn = "groupID"
     )
@@ -149,7 +149,7 @@ public class TodayLaudes {
         return  biblica.getDomainModel(today.getTiempoId());
     }
 
-    public LHGospelCanticle_ getBenedictus(){
+    public LHGospelCanticle getBenedictus(){
         return  benedictus.getDomainModel(2);
     }
 
@@ -179,7 +179,7 @@ public class TodayLaudes {
         dm.liturgyDay=feria.getDomainModel();
         dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
         dm.setTodayDate(today.getHoy());
-        dm.setHasSaint(false);
+        dm.setHasSaint(today.hasSaint);
         return dm;
     }
 

@@ -95,7 +95,7 @@ public Today getToday(){
     dm.liturgyDay=feria.getDomainModel();
     dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
     dm.setTodayDate(today.getHoy());
-    dm.setHasSaint(false);
+    dm.setHasSaint(today.hasSaint);
     return dm;
 }
 

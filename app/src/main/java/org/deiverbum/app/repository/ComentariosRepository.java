@@ -22,7 +22,7 @@ import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 /**
- * <p>Repositorio de datos para el módulo BibleReading_.</p>
+ * <p>Repositorio de datos para el módulo Comentarios.</p>
  * <p>Orden de búsqueda: </p>
  * <ul>
  *     <li>Firebase</li>

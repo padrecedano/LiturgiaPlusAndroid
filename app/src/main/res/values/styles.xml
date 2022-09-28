@@ -152,11 +152,11 @@
     <!-- Textos Body -->
 
     <style name="TextAppearance.AppTheme.DisplayBody" parent="TextAppearance.Material3.BodyLarge">
-        <item name="fontFamily">@font/roboto_regular</item>
-        <item name="android:textStyle">normal</item>
+        <item name="fontFamily">@font/robotoslab_regular</item>
+        <!--<item name="android:textStyle"></item>-->
         <item name="android:textAllCaps">false</item>
         <item name="android:letterSpacing">0</item>
-        <item name="android:textSize">@dimen/default_font</item>
+        <item name="android:textSize">@dimen/default_font_body</item>
         <item name="android:textColor">@color/text_color</item>
         <item name="android:textColorLink">@color/colorLink</item>
     </style>

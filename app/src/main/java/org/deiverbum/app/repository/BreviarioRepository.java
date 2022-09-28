@@ -1,13 +1,18 @@
 package org.deiverbum.app.repository;
 
+import static org.deiverbum.app.utils.Constants.ERR_REPORT;
 import static org.deiverbum.app.utils.Constants.NOTFOUND_OR_NOTCONNECTION;
 
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
+
+import com.google.gson.Gson;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
+import org.deiverbum.app.data.entity.TodayCompletas;
 import org.deiverbum.app.data.entity.TodayLaudes;
 import org.deiverbum.app.data.entity.TodayMixto;
 import org.deiverbum.app.data.entity.TodayNona;
@@ -15,19 +20,21 @@ import org.deiverbum.app.data.entity.TodayOficio;
 import org.deiverbum.app.data.entity.TodaySexta;
 import org.deiverbum.app.data.entity.TodayTercia;
 import org.deiverbum.app.data.entity.TodayVisperas;
+import org.deiverbum.app.data.source.local.FileDataSource;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.model.BreviaryHour;
-import org.deiverbum.app.model.Intermedia;
-import org.deiverbum.app.model.Laudes;
+import org.deiverbum.app.model.Completas;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.LiturgyHelper;
-import org.deiverbum.app.model.Mixto;
-import org.deiverbum.app.model.Oficio;
-import org.deiverbum.app.model.Visperas;
+import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.utils.Utils;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -55,26 +62,30 @@ public class BreviarioRepository {
     private final FirebaseDataSource firebaseDataSource;
     private final MediatorLiveData<DataWrapper<Liturgy, CustomException>> liveData = new MediatorLiveData<>();
     private final TodayDao mTodayDao;
+    private final FileDataSource fileDataSource;
 
     @Inject
     public BreviarioRepository(
             FirebaseDataSource firebaseDataSource,
             ApiService apiService,
-            TodayDao todayDao
+            TodayDao todayDao,
+            FileDataSource fileDataSource
     ) {
         this.firebaseDataSource = firebaseDataSource;
         this.mTodayDao = todayDao;
         this.apiService = apiService;
+        this.fileDataSource = fileDataSource;
     }
+
     /**
      * Este método inicia la llamada al DataSource.
      * Primero buscará en la base de datos
-     * si no encuentra, buscará en Firestore mediante {@link #getFromFirebase(String,int)}
+     * si no encuentra, buscará en Firestore mediante {@link #getFromFirebase(String, int)}
      * y si no encuentra, buscará en la Api mediante {@link #getFromApi(String, int)}
      * La llamada a la Api se hará desde el onError
      *
      * @param theDate La fecha
-     * @param hourId Un valor numérico que identifica la hora
+     * @param hourId  Un valor numérico que identifica la hora
      * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
      */
     public MediatorLiveData<DataWrapper<Liturgy, CustomException>> getFromLocal(String theDate, int hourId) {
@@ -85,16 +96,44 @@ public class BreviarioRepository {
                     Liturgy theModel = mixtoEntity.getDomainModel();
                     liveData.postValue(new DataWrapper<>(theModel));
                 } else {
-                    getFromFirebase(theDate,hourId);
+                    getFromFirebase(theDate, hourId);
                 }
                 break;
 
             case 1:
-                TodayOficio theEntity = mTodayDao.getOficioOfToday(Integer.valueOf(theDate));
-                if (theEntity != null) {
-                    liveData.postValue(new DataWrapper<>(theEntity.getDomainModel()));
+                TodayOficio oficioEntity = mTodayDao.getOficioOfToday(Integer.valueOf(theDate));
+
+                if (oficioEntity != null) {
+                    Liturgy theModel = oficioEntity.getDomainModel();
+                    liveData.postValue(new DataWrapper<>(theModel));
                 } else {
-                    getFromFirebase(theDate,hourId);
+                    getFromFirebase(theDate, hourId);
+                }
+                break;
+
+            case 7:
+                //TodayOficio theEntity = mTodayDao.getOficioOfToday(Integer.valueOf(theDate));
+                TodayCompletas completasEntity = mTodayDao.getCompletasOfToday(Integer.valueOf(theDate));
+
+                if (completasEntity != null) {
+                    Liturgy l = completasEntity.getDomainModel();
+                    MetaLiturgia meta = new MetaLiturgia();
+                    InputStream raw = Objects.requireNonNull(getClass().getClassLoader()).getResourceAsStream("res/raw/completas.json");
+                    Gson gson = new Gson();
+                    Completas hora = gson.fromJson(new InputStreamReader(raw), Completas.class);
+                    //String s = gson.fromJson(new InputStreamReader(raw), String.class);
+                    String json = gson.toJson(hora);
+
+                    Log.d("AAA", json);
+                    hora.setMetaLiturgia(meta);
+                    hora.setHoy(l.getHoy());
+                    BreviaryHour bh = new BreviaryHour();
+                    bh.setCompletas(hora);
+                    l.setBreviaryHour(bh);
+                    getBook(l);
+                    //liveData.postValue(getBook(l));
+                } else {
+                    getFromFirebase(theDate, hourId);
                 }
                 break;
 
@@ -104,7 +143,7 @@ public class BreviarioRepository {
                     Liturgy theModel = laudesEntity.getDomainModel();
                     liveData.postValue(new DataWrapper<>(theModel));
                 } else {
-                    getFromFirebase(theDate,hourId);
+                    getFromFirebase(theDate, hourId);
                 }
                 break;
 
@@ -114,7 +153,7 @@ public class BreviarioRepository {
                     Liturgy theModel = todayTercia.getDomainModel();
                     liveData.postValue(new DataWrapper<>(theModel));
                 } else {
-                    getFromFirebase(theDate,hourId);
+                    getFromFirebase(theDate, hourId);
                 }
                 break;
 
@@ -124,7 +163,7 @@ public class BreviarioRepository {
                     Liturgy theModel = todaySexta.getDomainModel();
                     liveData.postValue(new DataWrapper<>(theModel));
                 } else {
-                    getFromFirebase(theDate,hourId);
+                    getFromFirebase(theDate, hourId);
                 }
                 break;
 
@@ -134,7 +173,7 @@ public class BreviarioRepository {
                     Liturgy theModel = todayNona.getDomainModel();
                     liveData.postValue(new DataWrapper<>(theModel));
                 } else {
-                    getFromFirebase(theDate,hourId);
+                    getFromFirebase(theDate, hourId);
                 }
                 break;
 
@@ -144,13 +183,38 @@ public class BreviarioRepository {
                     Liturgy theModel = todayVisperas.getDomainModel();
                     liveData.postValue(new DataWrapper<>(theModel));
                 } else {
-                    getFromFirebase(theDate,hourId);
+                    getFromFirebase(theDate, hourId);
                 }
                 break;
             default:
                 break;
         }
         return liveData;
+    }
+
+    public void getBook(Liturgy l) {
+        MutableLiveData<DataWrapper<Liturgy, CustomException>> finalData =
+                new MediatorLiveData<>();
+        fileDataSource.getCompletas(l)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<DataWrapper<Liturgy,
+                        CustomException>>() {
+                    @Override
+                    public void onSuccess(@NonNull DataWrapper<Liturgy,
+                            CustomException> data) {
+                        liveData.postValue(data);
+                        dispose();
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        liveData.postValue(new DataWrapper<>(new CustomException(String.format("Error:\n%s%s", e.getMessage(), ERR_REPORT))));
+                        dispose();
+                    }
+                });
+
+        //return finalData;
     }
 
 
@@ -175,7 +239,7 @@ public class BreviarioRepository {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        getFromApi(theDate,hourId);
+                        getFromApi(theDate, hourId);
                     }
                 });
     }
@@ -185,13 +249,12 @@ public class BreviarioRepository {
      * mediante una llamada a {@link ApiService#getBreviario(String, String)}
      *
      * @param theDate La fecha
-     * @param hourId Un identificador numérico para la hora
-     *
+     * @param hourId  Un identificador numérico para la hora
      */
 
     public void getFromApi(String theDate, int hourId) {
-        String endPoint=LiturgyHelper.myMap.get(hourId);
-        apiService.getBreviary(endPoint,Utils.cleanDate(theDate))
+        String endPoint = LiturgyHelper.myMap.get(hourId);
+        apiService.getBreviary(endPoint, Utils.cleanDate(theDate))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Liturgy>() {

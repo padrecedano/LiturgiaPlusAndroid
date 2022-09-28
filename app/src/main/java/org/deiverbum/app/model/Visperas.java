@@ -1,5 +1,8 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Constants.TITLE_I_VISPERAS;
+import static org.deiverbum.app.utils.Constants.TITLE_I_VISPERAS_READ;
+import static org.deiverbum.app.utils.Constants.TITLE_VISPERAS;
 import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
@@ -8,7 +11,7 @@ import org.deiverbum.app.utils.Utils;
 
 public class Visperas extends BreviaryHour {
     private BiblicalShort lecturaBreve;
-    private LHGospelCanticle_ magnificat;
+    private LHGospelCanticle magnificat;
     private LHIntercession preces;
     private final PadreNuestro padreNuestro;
 
@@ -35,12 +38,12 @@ public class Visperas extends BreviaryHour {
     }
 
     @SuppressWarnings("unused")
-    public void setMagnificat(LHGospelCanticle_ magnificat) {
+    public void setMagnificat(LHGospelCanticle magnificat) {
         this.magnificat = magnificat;
     }
 
     @SuppressWarnings("unused")
-    public LHGospelCanticle_ getMagnificat() {
+    public LHGospelCanticle getMagnificat() {
         return magnificat;
     }
 
@@ -52,7 +55,7 @@ public class Visperas extends BreviaryHour {
             sb.append(hoy.getAllForView());
             sb.append(Utils.LS2);
 
-            sb.append(Utils.toH3Red(getTituloHora().toUpperCase()));
+            sb.append(getTituloHora());
             sb.append(Utils.fromHtmlToSmallRed(getMetaInfo()));
             sb.append(Utils.LS2);
 
@@ -110,12 +113,14 @@ public class Visperas extends BreviaryHour {
         return sb;
     }
 
-    private String getTituloHora() {
-        return (hoy.getLiturgiaPrevio() == null) ? "VÍSPERAS" : "I VÍSPERAS";
+    private SpannableStringBuilder getTituloHora() {
+        String s = (hoy.getLiturgiaPrevio() == null) ? TITLE_VISPERAS : TITLE_I_VISPERAS;
+        return Utils.toH1Red(s);
     }
 
     private String getTituloHoraForRead() {
-        return (hoy.getLiturgiaPrevio() == null) ? "Vísperas." : "Primeras Vísperas.";
+        String s = (hoy.getLiturgiaPrevio() == null) ? TITLE_VISPERAS : TITLE_I_VISPERAS_READ;
+        return Utils.pointAtEnd(s);
     }
 
 }

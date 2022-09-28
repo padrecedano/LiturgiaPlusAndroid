@@ -1,5 +1,6 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Constants.BRS;
 import static org.deiverbum.app.utils.Constants.TITLE_INTERCESSIONS;
 import static org.deiverbum.app.utils.Utils.LS2;
 
@@ -76,4 +77,6 @@ public class LHIntercession {
         }
         return sb;
     }
+
+
 }

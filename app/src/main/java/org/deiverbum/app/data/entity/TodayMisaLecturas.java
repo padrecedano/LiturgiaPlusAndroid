@@ -84,7 +84,7 @@ public class TodayMisaLecturas {
 
         dm.setTodayDate(today.getHoy());
         dm.setCalendarTime(today.tiempoId);
-        dm.setHasSaint(true);
+        dm.setHasSaint(today.hasSaint);
         dm.setMLecturasFK(today.mLecturasFK);
         //dm.setPrevio(previo.getDomainModel());
         dm.setTitulo(feria.getDomainModel().getNombre());
@@ -97,7 +97,7 @@ public class TodayMisaLecturas {
 
         dm.setFecha(String.valueOf(today.getHoy()));
         dm.setCalendarTime(today.tiempoId);
-        dm.setHasSaint(true);
+        dm.setHasSaint(today.hasSaint);
         dm.setMLecturasFK(today.mLecturasFK);
         dm.setTitulo(feria.getDomainModel().getNombre());
         return dm;

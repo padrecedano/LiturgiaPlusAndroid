@@ -41,7 +41,7 @@ public class LiturgyHomilyJoinEntity {
     public Integer homiliaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "theme")
+    @ColumnInfo(name = "theme", defaultValue = "")
     public String tema="";
 
     @SuppressWarnings("unused")

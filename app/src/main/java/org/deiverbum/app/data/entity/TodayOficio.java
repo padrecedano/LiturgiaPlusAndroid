@@ -162,7 +162,8 @@ public class TodayOficio {
 
         dm.setTodayDate(today.getHoy());
         dm.setCalendarTime(today.tiempoId);
-        dm.setHasSaint(true);
+        dm.setHasSaint(today.hasSaint);
+
         dm.setMLecturasFK(today.mLecturasFK);
         //dm.setPrevio(previo.getDomainModel());
         dm.setTitulo(feria.getDomainModel().getNombre());
@@ -185,7 +186,9 @@ public class TodayOficio {
     public Liturgy getDomainModel(){
         Liturgy dm= feria.getDomainModel();
         dm.typeID=1;
-        dm.setHoy(getToday());
+        Today dmToday=getToday();
+        dm.setHoy(dmToday);
+
         BreviaryHour bh=new BreviaryHour();
         Oficio oficio=new Oficio();
 /*        bh.setHimno(getHimno());
@@ -202,8 +205,12 @@ public class TodayOficio {
         ol.setBiblica(getBiblicas());
         ol.setPatristica(getPatristicas());
         ol.setResponsorio(getOficioVerso());
-        dm.setSanto(getSanto());
+        //dm.setSanto(getSanto());
         oficio.setHoy(getToday());
+
+        if(dmToday.getHasSaint()==1){
+            oficio.setSanto(santo.getDomainModelLH());
+        }
         oficio.setInvitatorio(getInvitatorio());
         oficio.setHimno(getHimno());
         oficio.setOficioLecturas(ol);

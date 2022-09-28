@@ -1,5 +1,6 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Constants.TITLE_RESPONSORY;
 import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
@@ -107,6 +108,9 @@ public class LHOfficePatristic {
         return Utils.formatTitle(s);
     }
 
+    public String getResponsorioHeaderForRead() {
+        return Utils.pointAtEnd(TITLE_RESPONSORY);
+    }
 
 
     public String getHeaderForRead() {
@@ -127,6 +131,8 @@ public class LHOfficePatristic {
         sb.append(getTemaForRead());
         sb.append(getTexto());
         sb.append(getPadreForRead());
+        sb.append(getResponsorioHeaderForRead());
+
         sb.append(responsorioLargo.getAllForRead());
         return sb;
     }

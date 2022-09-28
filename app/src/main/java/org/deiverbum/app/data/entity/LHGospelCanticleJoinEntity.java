@@ -30,7 +30,7 @@ import androidx.room.PrimaryKey;
                     onUpdate = ForeignKey.CASCADE)*/
         }
 )
-public class LHGospelCanticleEntity {
+public class LHGospelCanticleJoinEntity {
 
     @NonNull
     @PrimaryKey

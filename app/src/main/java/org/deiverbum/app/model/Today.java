@@ -1,15 +1,11 @@
 package org.deiverbum.app.model;
 
-import static org.deiverbum.app.utils.Utils.LS2;
-
 import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 
 import androidx.room.Ignore;
 
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
-import org.deiverbum.app.utils.Numerals;
 import org.deiverbum.app.utils.Utils;
 
 /**
@@ -24,14 +20,14 @@ import org.deiverbum.app.utils.Utils;
 public class Today {
     private Integer todayDate;
     //@Ignore
-    private Integer weekDayFK;
+    //private Integer weekDayFK;
     public Integer liturgyFK;
 
     private Integer massReadingFK;
     private Integer previousFK;
     private Integer timeID;
-    @Ignore
-    private Integer version;
+    //@Ignore
+    private int hasSaint;
 
     @Ignore
     public int hourID;
@@ -43,8 +39,8 @@ public class Today {
     public Liturgy liturgyPrevious;
     public Integer invitatoryFK;
     public Integer saintFK;
-    @Ignore
-    public Integer oficioFK;
+
+    public Integer weekDay;
     public Integer oHymnFK;
     public Integer oPsalmodyFK;
     public Integer oVerseFK;
@@ -85,13 +81,8 @@ public class Today {
         this.todayDate = todayDate;
     }
 
-    public Integer getWeekDayFK() {
-        return weekDayFK;
-    }
 
-    public void setWeekDayFK(Integer weekDayFK) {
-        this.weekDayFK = weekDayFK;
-    }
+
     public Integer getMassReadingFK() {
         return massReadingFK;
     }
@@ -127,13 +118,10 @@ public class Today {
         this.todayDate = hoy;
     }
 
-    public Liturgy getFeriaFK() {
-        return null;//weekDayFK;
+    public LiturgyTime getFinalTime(){
+        return liturgyPrevious==null ? liturgyDay.getLiturgyTime() : liturgyPrevious.getLiturgyTime();
     }
 
-    public void setFeriaFK(Integer feriaFK) {
-        //this.weekDayFK = feriaFK;
-    }
 
     public Integer getMLecturasFK() {
         return massReadingFK;
@@ -157,14 +145,6 @@ public class Today {
 
     public void setTiempoId(Integer tiempo_id) {
         this.timeID = tiempo_id;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
 
@@ -222,6 +202,10 @@ public class Today {
         return (liturgyPrevious!=null) ?
                 liturgyPrevious.getLiturgiaTiempo().getLiturgyName(): liturgyDay.getLiturgiaTiempo().getLiturgyName();
     }
+    public String getTiempoForRead() {
+        return Utils.pointAtEnd(getTiempo());
+    }
+
 
     @SuppressWarnings("unused")
     public void setCalendarTime(int calendarTime) {
@@ -234,11 +218,11 @@ public class Today {
     }
 
     public void setWeekDay(int weekDay) {
-        //this.weekDay = weekDay;
+        this.weekDay = weekDay;
     }
 
     public int getWeekDay() {
-        return 0;//this.weekDay;
+        return (this.weekDay!=null) ? weekDay : 0;
     }
 
     @SuppressWarnings("unused")
@@ -279,13 +263,13 @@ public class Today {
     }
 
 
-    public boolean getHasSaint() {
-        return false;//hasSaint;
+    public Integer getHasSaint() {
+        return this.hasSaint;
     }
 
     @SuppressWarnings("unused")
-    public void setHasSaint(boolean hasSaint) {
-        //this.hasSaint = hasSaint;
+    public void setHasSaint(Integer hasSaint) {
+        this.hasSaint = hasSaint;
     }
 
 
@@ -425,7 +409,10 @@ public class Today {
     public String getAllForRead() {
         StringBuilder sb = new StringBuilder();
         sb.append(Utils.pointAtEnd(getFecha()));
-        sb.append(liturgyDay.getAllForRead());
+        sb.append(getTiempoForRead());
+        sb.append(getTituloForRead());
+
+        //sb.append(liturgyDay.getAllForRead());
         return sb.toString();
     }
 

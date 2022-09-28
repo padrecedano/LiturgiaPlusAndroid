@@ -29,7 +29,7 @@ import org.deiverbum.app.model.Saint;
 
 @Entity(
         tableName = "saint",
-        indices = {@Index(value = {"liturgyFK","name","month","day"},unique = true)},
+        indices = {@Index(value = {"liturgyFK","theName","theMonth","theDay"},unique = true)},
         foreignKeys =
                 {
 
@@ -52,15 +52,15 @@ public class SaintEntity {
     public Integer liturgiaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "theName")
     public String nombre="";
 
     @NonNull
-    @ColumnInfo(name = "month")
+    @ColumnInfo(name = "theMonth")
     public Integer mes=0;
 
     @NonNull
-    @ColumnInfo(name = "day")
+    @ColumnInfo(name = "theDay")
     public Integer dia=0;
 
     @NonNull
@@ -77,27 +77,27 @@ public class SaintEntity {
     }
 
     @NonNull
-    public Integer getMes() {
+    public Integer getTheMonth() {
         return mes;
     }
 
     @NonNull
-    public Integer getDia() {
+    public Integer getTheDay() {
         return dia;
     }
 
-    public void setNombre(String nombre) {
+    public void setTheName(String nombre) {
         this.nombre = nombre;
     }
-    public String getNombre() {
+    public String getTheName() {
         return nombre;
     }
 
     public Saint getDomainModel(boolean isLongLife){
         Saint theModel=new Saint();
-        theModel.setDia(String.valueOf(getDia()));
-        theModel.setMes(String.valueOf(getMes()));
-        theModel.setNombre(getNombre());
+        theModel.setDay(String.valueOf(getTheDay()));
+        theModel.setMonth(String.valueOf(getTheMonth()));
+        theModel.setTheName(getTheName());
         return theModel;
     }
 

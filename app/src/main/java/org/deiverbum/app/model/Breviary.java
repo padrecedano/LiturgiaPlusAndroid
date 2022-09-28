@@ -170,7 +170,7 @@ public class Breviary extends Liturgy {
     public String getTitulo() {
 
         if (hasSaint) {
-            return santos.getNombre() + LS2;
+            return santos.getTheName() + LS2;
         } else {
             return getMetaLiturgia().getTitulo() + LS2;
         }

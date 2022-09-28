@@ -12,11 +12,11 @@ import org.deiverbum.app.utils.Utils;
 public class Biblical {
     @Ignore
     protected BibleBook book;
-    private String verseChapter;
+    protected String verseChapter;
     private String verseFrom;
     private String verseTo;
-    private String text;
-    private String quote;
+    protected String text;
+    protected String quote;
     @Ignore
     protected Integer order;
 

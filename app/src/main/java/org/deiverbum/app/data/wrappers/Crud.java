@@ -6,16 +6,19 @@ import org.deiverbum.app.model.Biblical;
 import org.deiverbum.app.model.CrudBibleHomilyJoin;
 import org.deiverbum.app.model.CrudBibleReading;
 import org.deiverbum.app.model.CrudHomily;
+import org.deiverbum.app.model.CrudLHHymnJoin;
+import org.deiverbum.app.model.CrudLHInvitatoryJoin;
 import org.deiverbum.app.model.CrudMassReading;
+import org.deiverbum.app.model.CrudSaint;
 import org.deiverbum.app.model.CrudToday;
 import org.deiverbum.app.model.HomilyList;
 import org.deiverbum.app.model.LHAntiphon;
 import org.deiverbum.app.model.LHReadingShortJoin;
-import org.deiverbum.app.model.LHGospelCanticleCrud;
+import org.deiverbum.app.model.CrudLHGospelCanticle;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.LiturgyHomilyJoin;
-import org.deiverbum.app.model.LiturgiaHomiliaJoinCrud;
-import org.deiverbum.app.model.MassReadingOLD;
+import org.deiverbum.app.model.CrudLiturgiaHomiliaJoin;
+import org.deiverbum.app.model.MassReading;
 import org.deiverbum.app.model.SaintLife;
 import org.deiverbum.app.model.SyncStatus;
 import org.deiverbum.app.model.Today;
@@ -50,10 +53,19 @@ public class Crud  {
     public List<Today> today;
 
     //@SerializedName("mass_reading")
-    public List<MassReadingOLD> mass_reading;
+    public List<MassReading> mass_reading;
 
     @SerializedName("crudToday")
     public CrudToday crudToday;
+
+    @SerializedName("crudSaint")
+    public CrudSaint crudSaint;
+
+    @SerializedName("crudLHInvitatoryJoin")
+    public CrudLHInvitatoryJoin crudLHInvitatoryJoin;
+
+    @SerializedName("crudLHHymnJoin")
+    public CrudLHHymnJoin crudLHHymnJoin;
 
     @SerializedName("crudBibleHomilyJoin")
     public CrudBibleHomilyJoin crudBibleHomilyJoin;
@@ -62,7 +74,7 @@ public class Crud  {
     public CrudHomily crudHomily;
 
     @SerializedName("crudLHGospelCanticle")
-    public LHGospelCanticleCrud ce;
+    public CrudLHGospelCanticle ce;
 
     @SerializedName("crud")
     public CrudWrapper crudWrapper;
@@ -83,7 +95,7 @@ public class Crud  {
     public List<SaintLife> saintLife;
 
     @SerializedName("sync_liturgy_homily_join")
-    public LiturgiaHomiliaJoinCrud homilyJoin;
+    public CrudLiturgiaHomiliaJoin homilyJoin;
 
     @SerializedName("sync_mass_reading")
     public CrudMassReading crudMassReading;

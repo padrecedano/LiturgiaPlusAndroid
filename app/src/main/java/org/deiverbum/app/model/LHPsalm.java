@@ -11,7 +11,7 @@ import org.deiverbum.app.utils.Utils;
 public class LHPsalm implements Comparable<LHPsalm>{
     private String orden;
     protected String antifona;
-    private String ref;
+    public String quote;
     private String tema;
     private String epigrafe;
     private String parte;
@@ -40,16 +40,16 @@ public class LHPsalm implements Comparable<LHPsalm>{
     }
 
     public SpannableStringBuilder getRef() {
-        if (ref != null) {
-            return new SpannableStringBuilder(Utils.toRedHtml(Utils.getFormato(ref)));//Utils.ssbRed((SpannableStringBuilder) Utils.fromHtml(ref));
+        if (quote != null) {
+            return new SpannableStringBuilder(Utils.toRedHtml(Utils.getFormato(quote)));//Utils.ssbRed((SpannableStringBuilder) Utils.fromHtml(ref));
         } else {
-            return null;
+            return  new SpannableStringBuilder("");
         }
     }
 
 
     public void setRef(String ref) {
-        this.ref = ref;
+        this.quote = ref;
     }
 
     public String getTema() {
@@ -61,6 +61,7 @@ public class LHPsalm implements Comparable<LHPsalm>{
     }
 
     public String getEpigrafe() {
+
         return (epigrafe != null ) ? epigrafe:"";
     }
 

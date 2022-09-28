@@ -9,12 +9,12 @@ import static org.deiverbum.app.utils.Constants.TITLE_SHORT_READING;
 import static org.deiverbum.app.utils.Utils.LS2;
 
 public class BiblicalShort extends Biblical {
-    public String forma;
+    //public String forma;
     private LHResponsoryShort responsorio;
 
     public BiblicalShort() {
     }
-
+/*
     public String getForma() {
         return forma;
     }
@@ -22,10 +22,13 @@ public class BiblicalShort extends Biblical {
     public void setForma(String forma) {
         this.forma = forma;
     }
-
+*/
     public SpannableStringBuilder getHeaderLectura() {
-        String s=String.format("%s    %s",TITLE_SHORT_READING,getRefBreve());
-        return Utils.formatTitle(s);
+        //String s=String.format("%s    %s",TITLE_SHORT_READING,getRefBreve());
+        SpannableStringBuilder ssb=new SpannableStringBuilder(Utils.formatTitle(TITLE_SHORT_READING));
+        ssb.append("    ");
+        ssb.append(Utils.toRed(getRefBreve()));
+        return ssb;
     }
 
     public String getHeaderForRead() {

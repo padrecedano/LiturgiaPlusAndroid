@@ -25,7 +25,7 @@ public class SaintWithAll {
     //TODO método getVida ¿?
     public Saint getDomainModelLH(){
         Saint dm=new Saint();
-        dm.setNombre(santo.nombre);
+        dm.setTheName(santo.nombre);
         dm.setVida(lhSanto.getShortLife());
         return dm;
     }

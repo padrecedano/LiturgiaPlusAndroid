@@ -6,6 +6,7 @@ import static org.deiverbum.app.utils.Constants.VOICE_INI;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.TypedValue;
@@ -88,6 +89,10 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
         progressBar = binding.pb.progressBar;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
+        String fontFamily = String.format("fonts/%s",prefs.getString("font_name", "robotoslab_regular.ttf"));
+        Typeface tf= Typeface.createFromAsset(getActivity().getAssets(),fontFamily);
+        mTextView .setTypeface(tf);
+
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         hasInvitatorio=prefs.getBoolean("invitatorio",false);
         isVoiceOn = prefs.getBoolean("voice", true);
