@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName;
 import org.deiverbum.app.model.Biblical;
 import org.deiverbum.app.model.HomilyList;
 import org.deiverbum.app.model.LHAntiphon;
-import org.deiverbum.app.model.LHReadingShortJoin;
 import org.deiverbum.app.model.LHGospelCanticle;
+import org.deiverbum.app.model.LHReadingShortJoin;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.LiturgyHomilyJoin;
-import org.deiverbum.app.model.MassReadingOLD;
+import org.deiverbum.app.model.MassReading;
 import org.deiverbum.app.model.SaintLife;
 import org.deiverbum.app.model.SyncStatus;
 import org.deiverbum.app.model.Today;
@@ -37,7 +37,7 @@ public class SyncRequest {
     public String lastUpdate;
 
     @SerializedName("mass_reading")
-    public List<MassReadingOLD> misaLectura;
+    public List<MassReading> misaLectura;
 
     @SerializedName("lhCanticoEvangelico")
     public List<LHGospelCanticle> ce;

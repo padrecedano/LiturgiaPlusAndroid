@@ -12,6 +12,7 @@ import org.deiverbum.app.data.entity.BiblieBookEntity;
 import org.deiverbum.app.data.entity.DBTableEntity;
 import org.deiverbum.app.data.entity.EpigraphEntity;
 import org.deiverbum.app.data.entity.HomilyEntity;
+import org.deiverbum.app.data.entity.LHGospelCanticleJoinEntity;
 import org.deiverbum.app.data.entity.LHHymnEntity;
 import org.deiverbum.app.data.entity.LHInvitatoryEntity;
 import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity;
@@ -23,7 +24,6 @@ import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
 import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
 import org.deiverbum.app.data.entity.LHOfficeBiblicalEntity;
 import org.deiverbum.app.data.entity.LHOfficeBiblicalJoinEntity;
-import org.deiverbum.app.data.entity.LHGospelCanticleEntity;
 import org.deiverbum.app.data.entity.LHHymnJoinEntity;
 import org.deiverbum.app.data.entity.LHOfficePatristicEntity;
 import org.deiverbum.app.data.entity.LHOfficePatristicJoinEntity;
@@ -38,6 +38,7 @@ import org.deiverbum.app.data.entity.LiturgiaTiempoEntity;
 import org.deiverbum.app.data.entity.LiturgyColorEntity;
 import org.deiverbum.app.data.entity.LiturgyGroupEntity;
 import org.deiverbum.app.data.entity.MassReadingEntity;
+import org.deiverbum.app.data.entity.MassReadingJoinEntity;
 import org.deiverbum.app.data.entity.PaterEntity;
 import org.deiverbum.app.data.entity.PaterOpusEntity;
 import org.deiverbum.app.data.entity.PrayerEntity;
@@ -89,7 +90,7 @@ import org.deiverbum.app.data.entity.TodayEntity;
                 LHReadingShortEntity.class,
                 LHReadingShortJoinEntity.class,
                 LHOfficeBiblicalEntity.class,
-                LHGospelCanticleEntity.class,
+                LHGospelCanticleJoinEntity.class,
                 LHIntercessionsEntity.class,
                 LHIntercessionsJoinEntity.class,
                 PrayerEntity.class,
@@ -100,6 +101,7 @@ import org.deiverbum.app.data.entity.TodayEntity;
                 LiturgyGroupEntity.class,
                 LiturgyColorEntity.class,
                 MassReadingEntity.class,
+                MassReadingJoinEntity.class,
                 SyncStatusEntity.class,
                 DBTableEntity.class
 

@@ -12,9 +12,7 @@ import android.text.style.CharacterStyle;
 
 import org.deiverbum.app.utils.Utils;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -44,6 +42,16 @@ public class BreviaryHour extends Liturgy {
     private Mixto mixto;
     private Intermedia intermedia;
     private Visperas visperas;
+
+    public Completas getCompletas() {
+        return completas;
+    }
+
+    public void setCompletas(Completas completas) {
+        this.completas = completas;
+    }
+
+    private Completas completas;
 
 
     public Oficio getOficio() {
@@ -178,7 +186,7 @@ public class BreviaryHour extends Liturgy {
 
     public String getTitulo() {
         if (getMetaLiturgia().getHasSaint()) {
-            return getSanto().getNombre() + LS2;
+            return getSanto().getTheName() + LS2;
         } else {
             return getMetaLiturgia().getTitulo() + LS2;
         }
@@ -205,6 +213,34 @@ public class BreviaryHour extends Liturgy {
         ssb.append(Utils.fromHtml("<p>El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna.</p>"));
         ssb.append(Utils.fromHtml("<p>Amén.</p>"));
         return ssb;
+    }
+
+    /**
+     * Método que obtiene la conclusión de la hora
+     *
+     * @since 2022.2
+     * @return Texto con la conclusión de la hora, formateado para vista
+     */
+    public static SpannableStringBuilder getConclusionHoraMenor() {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+        sb.append(Utils.formatTitle(TITLE_CONCLUSION));
+        sb.append(LS2);
+        sb.append(Utils.toRed("V. "));
+        sb.append("Bendigamos al Señor.");
+        sb.append(LS);
+        sb.append(Utils.toRed("R. "));
+        sb.append("Demos gracias a Dios.");
+        return sb;
+    }
+
+    /**
+     * Método que obtiene la conclusión de la hora
+     *
+     * @since 2022.2
+     * @return Texto con la conclusión de la hora, formateado para lectura
+     */
+    public static String getConclusionHoraMenorForRead() {
+        return "Bendigamos al Señor. Demos gracias a Dios.";
     }
 
     public void setHourId(int hourId) {
@@ -234,6 +270,7 @@ public class BreviaryHour extends Liturgy {
        this.mixto=mixto;
     }
     public Mixto getMixto() {
+
         return this.mixto;
     }
 

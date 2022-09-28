@@ -21,7 +21,6 @@ public class ViaCrucis {
     private List<Estacion> estaciones;
     private String oracion;
 
-
     public String getTitulo() {
         return "Vía Crucis";
     }
@@ -100,7 +99,7 @@ public class ViaCrucis {
                 sb.append(LS2);
                 sb.append(e.getMeditacionSpan(respuestas));
                 sb.append(LS);
-                sb.append(Utils.getPadreNuestro());
+                sb.append(PadreNuestro.getTexto());
                 sb.append(LS2);
                 sb.append(Utils.toH4Red("Estrofa del Stabat Mater"));
                 sb.append(LS2);
@@ -124,7 +123,7 @@ public class ViaCrucis {
                 sb.append(e.getTextoBiblico());
                 sb.append(".");
                 sb.append(e.getMeditacionSpan(respuestas));
-                sb.append(Utils.getPadreNuestro());
+                sb.append(PadreNuestro.getTexto());
                 sb.append("Estrofa del Stabat Mater.");
                 sb.append(Utils.fromHtml(Utils.getFormato(e.getCanto())));
 

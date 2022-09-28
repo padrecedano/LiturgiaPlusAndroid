@@ -25,7 +25,7 @@
     <argument
         android:name="rawPath"
         app:argType="string"
-        android:defaultValue="res/raw/help_202201.json"/>
+        android:defaultValue="raw/help_202201.json"/>
     </fragment>
 
     <fragment
@@ -54,7 +54,7 @@
         <argument
             android:name="rawPath"
             app:argType="string"
-            android:defaultValue="res/raw/about_202201.json" />
+            android:defaultValue="raw/about_202201.json" />
     </fragment>
 
     <fragment
@@ -65,7 +65,7 @@
         <argument
             android:name="rawPath"
             app:argType="string"
-            android:defaultValue="res/raw/author_202201.json" />
+            android:defaultValue="raw/author_202201.json" />
     </fragment>
 
     <fragment
@@ -76,7 +76,7 @@
         <argument
             android:name="rawPath"
             app:argType="string"
-            android:defaultValue="res/raw/thanks_202201.json" />
+            android:defaultValue="raw/thanks_202201.json" />
     </fragment>
 
     <fragment
@@ -87,7 +87,7 @@
         <argument
             android:name="rawPath"
             app:argType="string"
-            android:defaultValue="res/raw/new_202201.json" />
+            android:defaultValue="raw/new_202201.json" />
     </fragment>
 
     <fragment
@@ -98,7 +98,7 @@
     <argument
         android:name="rawPath"
         app:argType="string"
-        android:defaultValue="res/raw/privacy_202201.json" />
+        android:defaultValue="raw/privacy_202201.json" />
     </fragment>
 
     <fragment
@@ -109,7 +109,7 @@
         <argument
             android:name="rawPath"
             app:argType="string"
-            android:defaultValue="res/raw/terms_202201.json" />
+            android:defaultValue="raw/terms_202201.json" />
     </fragment>
 
     <fragment
@@ -210,7 +210,7 @@
         android:id="@+id/nav_oficio"
         android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
         android:label="@string/title_fragment_oficio"
-        tools:layout="@layout/fragment_completas" >
+        tools:layout="@layout/fragment_breviario_data" >
         <argument
             android:name="hourId"
             app:argType="integer"
@@ -274,13 +274,13 @@
 
     <fragment
         android:id="@+id/nav_completas"
-        android:name="org.deiverbum.app.ui.fragments.CompletasFragment"
+        android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
         android:label="@string/title_fragment_completas"
-        tools:layout="@layout/fragment_completas" >
+        tools:layout="@layout/fragment_breviario_data" >
         <argument
-            android:name="rawPath"
-            app:argType="string"
-            android:defaultValue="res/raw/completas.json" />
+            android:name="hourId"
+            app:argType="integer"
+            android:defaultValue="7" />
     </fragment>
 
     <fragment

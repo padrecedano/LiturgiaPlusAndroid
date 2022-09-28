@@ -1,15 +1,12 @@
 package org.deiverbum.app.data.entity;
 
-import android.util.Log;
-
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
 import org.deiverbum.app.model.BiblicalShort;
 import org.deiverbum.app.model.BreviaryHour;
-import org.deiverbum.app.model.LHGospelCanticle_;
+import org.deiverbum.app.model.LHGospelCanticle;
 import org.deiverbum.app.model.LHHymn;
-import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.Saint;
 import org.deiverbum.app.model.LHInvitatory;
@@ -102,7 +99,7 @@ public class TodayVisperas {
     public LiturgyWithTime previo;
 
     @Relation(
-            entity = LHGospelCanticleEntity.class,
+            entity = LHGospelCanticleJoinEntity.class,
             parentColumn = "vMagnificatFK",
             entityColumn = "groupID"
     )
@@ -126,7 +123,7 @@ public class TodayVisperas {
         return  biblica.getDomainModel(today.getTiempoId());
     }
 
-    public LHGospelCanticle_ getMagnificat(){
+    public LHGospelCanticle getMagnificat(){
         return  magnificat.getDomainModel(6);
     }
 
@@ -156,7 +153,7 @@ public class TodayVisperas {
         dm.liturgyDay=feria.getDomainModel();
         dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
         dm.setTodayDate(today.getHoy());
-        dm.setHasSaint(false);
+        dm.setHasSaint(today.hasSaint);
         return dm;
     }
 

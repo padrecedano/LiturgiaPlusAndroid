@@ -26,11 +26,12 @@ public class SaintLifeWithAll {
         SaintLife dm=new SaintLife();
         //dm.setSaintFK(saintLife.getSaintFK());
         dm.setShortLife(saintLife.getShortLife());
+        dm.longLife=saintLife.getLongLife();
         dm.setMartyrology(saintLife.getMartyrology());
         dm.setSource(saintLife.getSource());
         dm.setDia(String.valueOf(santo.dia));
         dm.setMes(String.valueOf(santo.mes));
-        dm.setName(santo.getNombre());
+        dm.setName(santo.getTheName());
         return dm;}else{
             return null;
         }

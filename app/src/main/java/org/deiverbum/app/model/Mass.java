@@ -7,8 +7,6 @@ import java.util.List;
 
 public class Mass {
     private List<MassReading> misaLecturas;
-    @SuppressWarnings("unused")
-    private LiturgiaPalabra liturgiaPalabra;
 
     public Mass() {
     }

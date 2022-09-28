@@ -9,12 +9,8 @@ import org.deiverbum.app.model.SyncStatus;
 import javax.inject.Inject;
 
 /**
- * <p>Repositorio de datos para el módulo Homilías.</p>
- * <p>Orden de búsqueda: </p>
- * <ul>
- *     <li>Firebase</li>
- *     <li>Api</li>
- * </ul>
+ * <p>Repositorio para el módulo de Sincronización.</p>
+ * <p>Busca en la base de datos la última fecha disponible en el calendario y la fecha de la última sincronización.</p>
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
@@ -24,7 +20,6 @@ public class SyncRepository {
     ApiService apiService;
     private  LiveData<SyncStatus> mData;
     private final TodayDao mTodayDao;
-
 
     @Inject
     public SyncRepository(
@@ -39,14 +34,6 @@ public class SyncRepository {
 
 
     public LiveData<SyncStatus> getFromDB() {
-        //Integer n = mTodayDao.findLastToday();
-
-        //mData.addSource(mTodayDao.getSyncInfo(), value -> mData.setValue(value));
-        //mData.addSource(mTodayDao.liveLastSync(), value -> mData.setValue(value));
-
-        //String s=String.format("Última fecha: %d",n);
-        //LiveData<String> st=mTodayDao.syncLastVersionLD();
-        //mData.postValue(mTodayDao.getSyncInfo());
         return mData;
     }
 }

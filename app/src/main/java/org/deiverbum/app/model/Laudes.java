@@ -1,5 +1,7 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Constants.TITLE_LAUDES;
+import static org.deiverbum.app.utils.Constants.TITLE_OFICIO;
 import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
@@ -9,7 +11,7 @@ import org.deiverbum.app.utils.Utils;
 public class Laudes extends BreviaryHour {
     private LHInvitatory invitatorio;
     private BiblicalShort lecturaBreve;
-    private LHGospelCanticle_ benedictus;
+    private LHGospelCanticle benedictus;
     private LHIntercession preces;
     private final PadreNuestro padreNuestro;
 
@@ -19,9 +21,13 @@ public class Laudes extends BreviaryHour {
 
     }
 
-    public String getTituloHora() {
-        return "LAUDES";
+    public SpannableStringBuilder getTituloHora() {
+        return Utils.toH1Red(TITLE_LAUDES);
     }
+    public String getTituloHoraForRead() {
+        return Utils.pointAtEnd(TITLE_LAUDES);
+    }
+
 
     @SuppressWarnings("unused")
     public LHInvitatory getInvitatorio() {
@@ -42,12 +48,12 @@ public class Laudes extends BreviaryHour {
         this.lecturaBreve = lecturaBreve;
     }
 
-    public LHGospelCanticle_ getBenedictus() {
+    public LHGospelCanticle getBenedictus() {
         return benedictus;
     }
 
     @SuppressWarnings("unused")
-    public void setBenedictus(LHGospelCanticle_ benedictus) {
+    public void setBenedictus(LHGospelCanticle benedictus) {
         this.benedictus = benedictus;
         //this.benedictus.setTipo(2);
 
@@ -76,12 +82,12 @@ public class Laudes extends BreviaryHour {
             sb.append(hoy.getAllForView());
             sb.append(LS2);
 
-            if (hoy.getHasSaint()) {
+            if (hoy.getHasSaint()==1) {
                 sb.append(santo.getVida());
                 sb.append(LS2);
             }
 
-            sb.append(Utils.toH3Red(getTituloHora().toUpperCase()));
+            sb.append(getTituloHora());
             sb.append(Utils.fromHtmlToSmallRed(getMetaInfo()));
             sb.append(LS2);
 
@@ -123,7 +129,7 @@ public class Laudes extends BreviaryHour {
         StringBuilder sb = new StringBuilder();
         try {
             sb.append(hoy.getAllForRead());
-            if (hoy.getHasSaint()) {
+            if (hoy.getHasSaint()==1) {
                 sb.append(santo.getVida());
             }
             sb.append(getTituloHoraForRead());
@@ -150,8 +156,5 @@ public class Laudes extends BreviaryHour {
     }
 
 
-    private String getTituloHoraForRead() {
-        return "LAUDES.";
-    }
 
 }

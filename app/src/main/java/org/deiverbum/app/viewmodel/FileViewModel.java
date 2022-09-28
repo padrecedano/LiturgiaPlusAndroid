@@ -22,7 +22,7 @@ public class FileViewModel extends ViewModel {
     }
 
     public LiveData<String> getText(String rawPath) {
-        return mRepository.getText(rawPath);
+        return null;//mRepository.getText(rawPath);
     }
 
     public LiveData<DataWrapper<Book, CustomException>> getBook(String rawPath) {

@@ -31,7 +31,7 @@ public class LHOfficeOfReading {
 
     public SpannableStringBuilder getResponsorioForRead() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
-
+        ssb.append("Responsorio.");
         String r;
         if (responsorio.contains("|")) {
             r = responsorio.replaceAll("\\|", "<br>");

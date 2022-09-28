@@ -197,6 +197,7 @@ public class LHResponsory extends LHResponsoryShort {
     public String getAllForRead() {
         String[] respArray = texto.split("\\|");
         StringBuilder s = new StringBuilder();
+        //s.append("Responsorio.");
         switch (forma) {
             case 1:
 

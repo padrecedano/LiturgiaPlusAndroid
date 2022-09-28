@@ -1,5 +1,10 @@
 package org.deiverbum.app.ui.fragments;
 
+import static org.deiverbum.app.utils.Constants.FILE_ANGELUS;
+import static org.deiverbum.app.utils.Constants.FILE_LITANIES;
+import static org.deiverbum.app.utils.Constants.FILE_REGINA;
+import static org.deiverbum.app.utils.Constants.FILE_VIA_CRUCIS_2003;
+import static org.deiverbum.app.utils.Constants.FILE_VIA_CRUCIS_2005;
 import static org.deiverbum.app.utils.Constants.PACIENCIA;
 import static org.deiverbum.app.utils.Constants.SEPARADOR;
 import static org.deiverbum.app.utils.Constants.VOICE_INI;
@@ -104,23 +109,23 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
                 break;
 
             case 5:
-                observeSingle("res/raw/letanias.json");
+                observeSingle(FILE_LITANIES);
                 break;
 
             case 6:
-                observeSingle("res/raw/angelus.json");
+                observeSingle(FILE_ANGELUS);
                 break;
 
             case 7:
-                observeSingle("res/raw/regina.json");
+                observeSingle(FILE_REGINA);
                 break;
 
             case 8:
-                observeViaCrucis("res/raw/viacrucis2003.json");
+                observeViaCrucis(FILE_VIA_CRUCIS_2003);
                 break;
 
             case 9:
-                observeViaCrucis("res/raw/viacrucis2005.json");
+                observeViaCrucis(FILE_VIA_CRUCIS_2005);
                 break;
 
             default:

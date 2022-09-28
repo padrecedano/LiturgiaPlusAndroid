@@ -1,6 +1,8 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Constants.TITLE_OFICIO;
 import static org.deiverbum.app.utils.Utils.LS2;
+import static org.deiverbum.app.utils.Utils.toH3Red;
 
 import android.text.SpannableStringBuilder;
 
@@ -53,12 +55,13 @@ public class Oficio extends BreviaryHour {
         this.teDeum = teDeum;
     }
 
-    public String getTituloHora() {
-        return "OFICIO DE LECTURA";
+    public SpannableStringBuilder getTituloHora() {
+
+        return Utils.toH1Red(TITLE_OFICIO);
     }
 
     public String getTituloHoraForRead() {
-        return "OFICIO DE LECTURA.";
+        return Utils.pointAtEnd(TITLE_OFICIO);
     }
 
     public SpannableStringBuilder getForView(LiturgyTime liturgyTime, boolean hasInvitatorio) {
@@ -71,12 +74,12 @@ public class Oficio extends BreviaryHour {
             sb.append(hoy.getAllForView());
             //sb.append(metaLiturgia.getAll());
             sb.append(LS2);
-            if (hoy.getHasSaint()) {
+            if (hoy.getHasSaint()==1) {
                 sb.append(santo.getVidaSmall());
                 sb.append(LS2);
             }
 
-            sb.append(Utils.toH3Red(getTituloHora().toUpperCase()));
+            sb.append(getTituloHora());
             sb.append(Utils.fromHtmlToSmallRed(getMetaInfo()));
             sb.append(LS2);
 
@@ -120,7 +123,7 @@ public class Oficio extends BreviaryHour {
         StringBuilder sb = new StringBuilder();
         try {
             sb.append(hoy.getAllForRead());
-            if (hoy.getHasSaint()) {
+            if (hoy.getHasSaint()==1) {
                 sb.append(santo.getVida());
             }
             sb.append(getTituloHoraForRead());

@@ -77,8 +77,21 @@ public class Constants {
             "con el desarrollador para informarle de que hay un problema en " +
             "este módulo.";
 
-    public static final String FILE_PRIVACY = "res/raw/privacy_202201.json";
-    public static final String FILE_TERMS = "res/raw/terms_202201.json";
+    /*
+        File paths
+     */
+    public static final String FILE_PRIVACY = "raw/privacy_202201.json";
+    public static final String FILE_TERMS = "raw/terms_202201.json";
+    public static final String FILE_VIA_CRUCIS_2003 = "raw/viacrucis2003.json";
+    public static final String FILE_VIA_CRUCIS_2005 = "raw/viacrucis2005.json";
+    public static final String FILE_REGINA = "raw/regina.json";
+    public static final String FILE_ANGELUS = "raw/angelus.json";
+    public static final String FILE_LITANIES = "raw/letanias.json";
+    public static final String FILE_ROSARY = "raw/rosario.json";
+    public static final String FILE_NIGHT_PRAYER = "raw/completas.json";
+
+
+
     public static final String PREF_ACCEPT = "accept_terms";
     public static final String PREF_ANALYTICS = "enable_analytics";
     public static final String PREF_CRASHLYTICS = "enable_crashlytics";
@@ -131,6 +144,17 @@ public class Constants {
     public static final String PATER_OPUS = "pater_opus";
     public static final String SYNC_LITURGY_HOMILY_JOIN = "sync_liturgy_homily_join";
     public static final String SYNC_MASS_READING = "sync_mass_reading";
+
+    public static final String TITLE_MIXTO = "Laudes y Oficio";
+    public static final String TITLE_OFICIO = "Oficio";
+    public static final String TITLE_LAUDES = "Laudes";
+    public static final String TITLE_TERCIA = "Tercia";
+    public static final String TITLE_SEXTA = "Sexta";
+    public static final String TITLE_NONA = "Nona";
+    public static final String TITLE_VISPERAS = "Vísperas";
+    public static final String TITLE_I_VISPERAS = "I Vísperas";
+    public static final String TITLE_I_VISPERAS_READ = "Primeras Vísperas";
+    public static final String TITLE_COMPLETAS = "Completas";
 
     public static final String TITLE_HYMN = "Himno";
     public static final String TITLE_MASS_READING = "Lecturas de la Misa";

@@ -14,31 +14,32 @@ import org.deiverbum.app.utils.Utils;
 import java.util.HashMap;
 
 public class Saint {
-    @Ignore
-    protected String nombre;
-    @Ignore
 
+    public Integer saintID;
+    public Integer liturgyFK;
+    public Integer typeFK;
+
+    //@Ignore
+    protected  String theName;
+    @Ignore
     private String vida;
     @SuppressWarnings("unused")
     //private String martirologio;
     @Ignore
-
     private boolean crg;
-    @Ignore
 
-    private String dia;
-    @Ignore
+    public String theDay;
 
-    private String mes;
+    public String theMonth;
 
-    public String getNombre() {
+    public String getTheName() {
 
-        return nombre;
+        return theName;
     }
 
-    public void setNombre(String nombre) {
+    public void setTheName(String nombre) {
 
-        this.nombre = nombre;
+        this.theName = nombre;
     }
 
     public Spanned getVidaSmall() {
@@ -72,12 +73,12 @@ public class Saint {
         return this.crg;
     }
 
-    public void setDia(String dia) {
-        this.dia = dia;
+    public void setDay(String dia) {
+        this.theDay = dia;
     }
 
-    public void setMes(String mes) {
-        this.mes = mes;
+    public void setMonth(String mes) {
+        this.theMonth = mes;
     }
 
     public SpannableStringBuilder getMartirologioSpan() {
@@ -113,7 +114,7 @@ public class Saint {
         try {
             sb.append(Utils.toH3Red(getMonthName()));
             sb.append(LS2);
-            sb.append(Utils.toH2Red(nombre));
+            sb.append(Utils.toH2Red(theName));
             sb.append(LS2);
             sb.append(getMartirologioSpan());
             sb.append(LS);
@@ -131,7 +132,7 @@ public class Saint {
         try {
             sb.append(getMonthName());
             sb.append(".");
-            sb.append(nombre);
+            sb.append(theName);
             sb.append(".");
             sb.append(getMartirologio());
             sb.append(getMartirologioTitleForRead());
@@ -156,7 +157,7 @@ public class Saint {
         monthNames.put("10", "Octubre");
         monthNames.put("11", "Noviembre");
         monthNames.put("12", "Diciembre");
-        return String.format("%s de %s", dia, monthNames.get(mes));
+        return String.format("%s de %s", theDay, monthNames.get(theMonth));
     }
 
     public String getMonthName(String mes) {
@@ -174,7 +175,7 @@ public class Saint {
         monthNames.put(11, "Noviembre");
         monthNames.put(12, "Diciembre");
         Integer theMonth=Integer.valueOf(mes);
-        return String.format("%s de %s", dia, monthNames.get(theMonth));
+        return String.format("%s de %s", theDay, monthNames.get(theMonth));
     }
 
 

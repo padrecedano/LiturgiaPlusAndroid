@@ -22,6 +22,16 @@
         android:summary="@string/pref_description_brevis"
         android:title="@string/pref_title_brevis" />
 
+        <ListPreference
+            android:defaultValue="robotoslab"
+            android:entries="@array/pref_font_list_titles"
+            android:entryValues="@array/pref_font_list_values"
+            android:key="font_name"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:summary="Selecciona el tipo de letra por defecto"
+            android:title="@string/pref_title_font" />
+
     <ListPreference
         android:defaultValue="18"
         android:entries="@array/pref_font_size_list_titles"

@@ -48,9 +48,6 @@ public class FirebaseDataSource {
     public FirebaseDataSource() {
     }
 
-
-
-
     /**
      * <p>Obtiene un observable con un objeto Saint o error.</p>
      *

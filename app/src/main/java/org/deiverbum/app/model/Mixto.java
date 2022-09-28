@@ -1,5 +1,7 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Constants.TITLE_LAUDES;
+import static org.deiverbum.app.utils.Constants.TITLE_MIXTO;
 import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
@@ -66,13 +68,13 @@ public class Mixto extends BreviaryHour {
         this.misaLecturas = misaLecturas;
     }
 
-    public String getTituloHora() {
-        return "LAUDES y OFICIO";
+    public SpannableStringBuilder getTituloHora() {
+        return Utils.toH1Red(TITLE_MIXTO);
+    }
+    public String getTituloHoraForRead() {
+        return Utils.pointAtEnd(TITLE_MIXTO);
     }
 
-    public String getTituloHoraForRead() {
-        return "LAUDES y OFICIO.";
-    }
 
     public SpannableStringBuilder getForView(LiturgyTime liturgyTime, boolean isVariable) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
@@ -90,7 +92,7 @@ public class Mixto extends BreviaryHour {
 
             LHOfficeOfReading oficioLecturas = oficio.getOficioLecturas();
             Biblical lecturaBreve = laudes.getLecturaBreve();
-            LHGospelCanticle_ ce = laudes.getBenedictus();
+            LHGospelCanticle ce = laudes.getBenedictus();
             LHIntercession preces = laudes.getPreces();
             //Evangelio misaEvangelio = misa.getMisaLecturas().getEvangelio();
 
@@ -98,12 +100,12 @@ public class Mixto extends BreviaryHour {
             sb.append(Utils.LS2);
 
 
-            if (hoy.getHasSaint()) {
+            if (hoy.getHasSaint()==1) {
                 sb.append(santo.getVida());
                 sb.append(LS2);
             }
 
-            sb.append(Utils.toH3Red(getTituloHora().toUpperCase()));
+            sb.append(getTituloHora());
             sb.append(Utils.fromHtmlToSmallRed(getMetaInfo()));
             sb.append(LS2);
 
@@ -161,11 +163,11 @@ public class Mixto extends BreviaryHour {
             LHPsalmody salmodia = laudes.getSalmodia();
             LHOfficeOfReading oficioLecturas = oficio.getOficioLecturas();
             Biblical lecturaBreve = laudes.getLecturaBreve();
-            LHGospelCanticle_ ce = laudes.getBenedictus();
+            LHGospelCanticle ce = laudes.getBenedictus();
             LHIntercession preces = laudes.getPreces();
             sb.append(hoy.getAllForRead());
 
-            if (hoy.getHasSaint()) {
+            if (hoy.getHasSaint()==1) {
                 sb.append(santo.getVida());
             }
 

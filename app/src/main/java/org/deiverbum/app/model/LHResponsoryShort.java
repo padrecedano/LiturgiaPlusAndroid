@@ -394,6 +394,7 @@ public class LHResponsoryShort {
     public String getAllForRead() {
         String[] respArray = texto.split("\\|");
         StringBuilder s = new StringBuilder();
+        s.append(Utils.pointAtEnd(TITLE_RESPONSORY_SHORT));
         switch (forma) {
             case 1:
 

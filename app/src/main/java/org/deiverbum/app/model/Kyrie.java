@@ -1,8 +1,14 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Constants.RESP_R;
+import static org.deiverbum.app.utils.Constants.RESP_V;
 import static org.deiverbum.app.utils.Constants.TITLE_SOUL_SEARCHING;
+import static org.deiverbum.app.utils.Utils.LS;
+import static org.deiverbum.app.utils.Utils.LS2;
 
+import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.style.CharacterStyle;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -47,14 +53,14 @@ public class Kyrie {
     public SpannableStringBuilder getIntroduccion() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
         ssb.append(Utils.formatTitle(TITLE_SOUL_SEARCHING));
-        ssb.append(Utils.LS2);
+        ssb.append(LS2);
 
         String[] introArray = introduccion.split("\\|");
         if (introArray.length == 3) {
             ssb.append(Utils.toSmallSizeRed(introArray[0]));
-            ssb.append(Utils.LS2);
+            ssb.append(LS2);
             ssb.append(introArray[1]);
-            ssb.append(Utils.LS2);
+            ssb.append(LS2);
             ssb.append(Utils.toSmallSizeRed(introArray[2]));
 
         } else {
@@ -71,7 +77,7 @@ public class Kyrie {
 
     public SpannableStringBuilder getTexto() {
         kyrieType = new Random().nextInt(3);
-        return Utils.getKyrie(kyrieType);
+        return getKyrie(kyrieType);
     }
 
     public void setTexto(String texto) {
@@ -87,13 +93,13 @@ public class Kyrie {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
 
         ssb.append(Utils.toSmallSizeRed("Pueden usarse otras invocaciones penitenciales."));
-        ssb.append(Utils.LS);
+        ssb.append(LS);
         ssb.append(Utils.toSmallSizeRed("Si preside la celebración un ministro, él solo dice la absolución siguiente; en caso de lo contrario la dicen todos:"));
-        ssb.append(Utils.LS2);
+        ssb.append(LS2);
 
         ssb.append(Utils.toRed("V. "));
         ssb.append("El Señor todopoderoso tenga misericordia de nosotros, perdone nuestros pecados y nos lleve a la vida eterna.");
-        ssb.append(Utils.LS2);
+        ssb.append(LS2);
                 ssb.append(Utils.toRed("R. "));
         ssb.append("Amén.");
 
@@ -156,9 +162,9 @@ public class Kyrie {
     public SpannableStringBuilder getAll() {
         SpannableStringBuilder sb=new SpannableStringBuilder();
         sb.append(getIntroduccion());
-        sb.append(Utils.LS2);
+        sb.append(LS2);
         sb.append(getTexto());
-        sb.append(Utils.LS2);
+        sb.append(LS2);
         sb.append(getConclusion());
         return sb;
     }
@@ -169,5 +175,74 @@ public class Kyrie {
         sb.append(getTextoForRead());
         sb.append(getConclusionForRead());
         return sb;
+    }
+
+
+    /**
+     * Este método obtiene el texto del Kyrie
+     *
+     * @since 2022.2
+     */
+
+    public static SpannableStringBuilder getKyrie(int type) {
+        SpannableStringBuilder ssb = new SpannableStringBuilder();
+
+        switch (type) {
+            case 0:
+                String text = "Yo confieso ante Dios todopoderoso " + LS +
+                        "y ante vosotros, hermanos " + LS +
+                        "que he pecado mucho" + LS +
+                        "de pensamiento, palabra, obra y omisión:" + LS +
+                        "por mi culpa, por mi culpa, por mi gran culpa." + LS2 +
+                        "Por eso ruego a santa María, siempre Virgen," + LS +
+                        "a los ángeles, a los santos y a vosotros, hermanos," + LS +
+                        "que intercedáis por mí ante Dios, nuestro Señor.";
+
+                ssb.append(text);
+
+                break;
+            case 1:
+                ssb.append(Utils.toRed("V."));
+                ssb.append("Señor, ten misericordia de nosotros.");
+                ssb.append(LS);
+                ssb.append(Utils.toRed("R. "));
+                ssb.append("Porque hemos pecado contra ti.");
+                ssb.append(LS2);
+                ssb.append(Utils.toRed("V."));
+                ssb.append("Muéstranos, Señor, tu misericordia.");
+                ssb.append(LS);
+                ssb.append(Utils.toRed("R. "));
+                ssb.append("Y danos tu salvación.");
+                break;
+            case 2:
+
+                ssb.append(Utils.toRed("V. "));
+                ssb.append("Tú que has sido enviado a sanar los corazones afligidos: Señor, ten piedad.");
+                ssb.append(LS);
+                ssb.append(Utils.toRed("R. "));
+                ssb.append("Señor, ten piedad.");
+                ssb.append(LS2);
+
+                ssb.append(Utils.toRed("V. "));
+                ssb.append("Tú que has venido a llamar a los pecadores: Cristo, ten piedad.");
+                ssb.append(LS);
+                ssb.append(Utils.toRed("R. "));
+                ssb.append("Cristo, ten piedad.");
+                ssb.append(LS2);
+
+                ssb.append(Utils.toRed("V. "));
+                ssb.append("Tú que estás sentado a la derecha del Pater para interceder por nosotros: Señor, ten piedad.");
+                ssb.append(LS);
+                ssb.append(Utils.toRed("R. "));
+                ssb.append("Señor, ten piedad.");
+
+            default:
+                ssb.append("");
+                break;
+        }
+
+
+        return ssb;
+
     }
 }

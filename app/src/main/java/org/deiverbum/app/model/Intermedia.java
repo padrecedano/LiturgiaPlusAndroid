@@ -1,6 +1,10 @@
 package org.deiverbum.app.model;
 
 import static org.deiverbum.app.utils.Constants.TITLE_CONCLUSION;
+import static org.deiverbum.app.utils.Constants.TITLE_LAUDES;
+import static org.deiverbum.app.utils.Constants.TITLE_NONA;
+import static org.deiverbum.app.utils.Constants.TITLE_SEXTA;
+import static org.deiverbum.app.utils.Constants.TITLE_TERCIA;
 import static org.deiverbum.app.utils.Utils.LS;
 import static org.deiverbum.app.utils.Utils.LS2;
 
@@ -14,73 +18,36 @@ public class Intermedia extends BreviaryHour {
     public Intermedia() {
     }
 
-    /**
-     * Método que obtiene la conclusión de la hora
-     *
-     * @return Texto formateado con la conclusión de la hora
-     * @since 2022.1
-     */
-    public static SpannableStringBuilder getConclusionHora() {
-        SpannableStringBuilder sb = new SpannableStringBuilder("");
-        sb.append(Utils.formatTitle(TITLE_CONCLUSION));
-        sb.append(LS2);
-        sb.append(Utils.toRed("V. "));
-        sb.append("Bendigamos al Señor.");
-        sb.append(LS);
-        sb.append(Utils.toRed("R. "));
-        sb.append("Demos gracias a Dios.");
-        return sb;
-    }
-
-    @SuppressWarnings("unused")
-    public BiblicalShort getLecturaBreve() {
-        return lecturaBreve;
-    }
-
-
-    public String getTitulo() {
-
-        if (hoy.getHasSaint()) {
-            return santo.getNombre() + LS2;
-        } else {
-            return hoy.getTitulo() + LS2;
-        }
-    }
-
-    //TODO Obtener el título de la hora: Agregar el id en la respuesta de la API
     public String getTituloHora() {
-        String titulo = "";
         switch (hourId) {
             case 3:
-                titulo = "Hora Intermedia: Tercia";
-                break;
+                return TITLE_TERCIA;
             case 4:
-                titulo = "Hora Intermedia: Sexta";
-                break;
+                return TITLE_SEXTA;
             case 5:
-                titulo = "Hora Intermedia: Nona";
-                break;
-
+                return TITLE_NONA;
             default:
-                break;
-
+                return "";
         }
-        return titulo;
+    }
+    public String getTituloHoraForRead() {
+        return Utils.pointAtEnd(getTituloHora());
     }
 
-    //@Override
-    public SpannableStringBuilder getForView() {
+    public SpannableStringBuilder getTituloHoraForView() {
+        return Utils.toH1Red(getTituloHora());
+    }
 
+
+    public SpannableStringBuilder getForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
-            //lecturaBreve.normalizeByTime(metaLiturgia.getCalendarTime());
-            //sb.append(metaLiturgia.getAll());
-            sb.append(hoy.getAllForView());
-            //sb.append(getTituloHora());
+            salmodia.normalizeByTime(hoy.getCalendarTime());
 
+            sb.append(hoy.getAllForView());
             sb.append(Utils.LS2);
 
-            sb.append(Utils.toH3Red(getTituloHora().toUpperCase()));
+            sb.append(getTituloHoraForView());
             sb.append(Utils.fromHtmlToSmallRed(getMetaInfo()));
             sb.append(LS2);
 
@@ -89,7 +56,6 @@ public class Intermedia extends BreviaryHour {
 
             sb.append(himno.getAll());
             sb.append(LS2);
-            salmodia.normalizeByTime(hoy.getCalendarTime());
 
             sb.append(salmodia.getAll(getHourIndex()));
             sb.append(LS);
@@ -100,7 +66,7 @@ public class Intermedia extends BreviaryHour {
             sb.append(oracion.getAll());
             sb.append(LS2);
 
-            sb.append(getConclusionHora());
+            sb.append(getConclusionHoraMenor());
 
         } catch (Exception e) {
             sb.append(e.getMessage());
@@ -113,24 +79,17 @@ public class Intermedia extends BreviaryHour {
         StringBuilder sb = new StringBuilder();
         try {
             sb.append(hoy.getAllForRead());
-            sb.append(getTituloHora());
-            sb.append(".");
+            sb.append(getTituloHoraForRead());
             sb.append(getSaludoDiosMioForRead());
             sb.append(himno.getAllForRead());
             sb.append(salmodia.getAllForRead(getHourIndex()));
             sb.append(lecturaBreve.getAllForRead());
             sb.append(oracion.getAllForRead());
-            sb.append(getConclusionHoraForRead());
+            sb.append(getConclusionHoraMenorForRead());
         } catch (Exception e) {
             sb.append(e.getMessage());
         }
-
         return sb;
-    }
-
-    @SuppressWarnings("unused")
-    public void setLecturaBreve(BiblicalShort lecturaBreve) {
-        this.lecturaBreve = lecturaBreve;
     }
 
     /**
@@ -153,12 +112,13 @@ public class Intermedia extends BreviaryHour {
         }
     }
 
-    public static SpannableStringBuilder getConclusionHoraForRead() {
-        SpannableStringBuilder ssb = new SpannableStringBuilder();
-        ssb.append("<p>Bendigamos al Señor.</p>");
-        ssb.append("<p>Demos gracias a Dios.</p>");
-        return (SpannableStringBuilder) Utils.fromHtml(ssb.toString());
+    @SuppressWarnings("unused")
+    public BiblicalShort getLecturaBreve() {
+        return lecturaBreve;
     }
 
+    public void setLecturaBreve(BiblicalShort lecturaBreve) {
+        this.lecturaBreve = lecturaBreve;
+    }
 
 }
