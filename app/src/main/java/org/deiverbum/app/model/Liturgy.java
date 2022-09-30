@@ -4,9 +4,7 @@ import static org.deiverbum.app.utils.Constants.CONTENT_NOTFOUND;
 import static org.deiverbum.app.utils.Utils.LS;
 import static org.deiverbum.app.utils.Utils.LS2;
 
-import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.style.CharacterStyle;
 
 import androidx.annotation.NonNull;
 import androidx.room.Ignore;
@@ -14,47 +12,41 @@ import androidx.room.Ignore;
 import org.deiverbum.app.utils.Numerals;
 import org.deiverbum.app.utils.Utils;
 
+import java.util.Locale;
+import java.util.Objects;
+
 
 public class Liturgy {
+    @Ignore
+    public boolean hasInvitatory;
     @Ignore
     protected LiturgyTime liturgyTime;
     private Integer week;
     private Integer day;
     private Integer colorFK;
-
     private String name;
-
     @Ignore
     public LHInvitatory lhInvitatory;
-
     @Ignore
     public int typeID;
-
     @Ignore
     public LHPsalmody lhPsalmody;
     @Ignore
     private BreviaryHour breviaryHour;
-
-
     private Integer liturgyID;
     private Integer typeFK;
     private Integer timeFK;
-
-    //@Embedded
-
     @Ignore
     protected Saint santo;
-
-    //@Embedded
     @Ignore
     protected Today hoy;
-    //@Embedded
     @Ignore
-
     protected MetaLiturgia metaLiturgia;
     @Ignore
+    public final boolean hasSaint = false;
 
-    public boolean hasSaint = false;
+    public Liturgy() {
+    }
 
     public Integer getLiturgyID() {
         return liturgyID;
@@ -128,9 +120,6 @@ public class Liturgy {
         this.colorFK = colorFK;
     }
 
-    //@Embedded
-
-
     public LiturgyTime getLiturgiaTiempo() {
         return liturgyTime;
     }
@@ -138,11 +127,6 @@ public class Liturgy {
     public void setLiturgiaTiempo(LiturgyTime liturgiaTiempo) {
         this.liturgyTime = liturgiaTiempo;
     }
-
-
-    public Liturgy() {
-    }
-
 
     public Integer getLiturgiaId() {
         return liturgyID;
@@ -161,7 +145,6 @@ public class Liturgy {
     }
 
     public String getNombre() {
-
         return name != null ? name : "***";
     }
 
@@ -186,7 +169,6 @@ public class Liturgy {
         this.metaLiturgia = metaLiturgia;
     }
 
-
     public void setDia(Integer dia) {
         this.day = dia;
     }
@@ -203,14 +185,9 @@ public class Liturgy {
         return this.week;
     }
 
-    public void setTiempoFKK(LiturgyTime tiempoFK) {
-        //this.tiempoFK=tiempoFK;
-    }
-
     public LiturgyTime getLiturgyTime() {
         return liturgyTime;
     }
-
 
     public Saint getSanto() {
         return santo;
@@ -221,24 +198,10 @@ public class Liturgy {
     }
 
     public SpannableStringBuilder getAllForRead() {
-        //this.idDia=liturgiaFeria.getDia();
-        //this.idSemana=liturgiaFeria.getSemana();
-        //this.idTiempo=liturgiaFeria.getTiempoId();
         SpannableStringBuilder ssb = new SpannableStringBuilder();
         this.timeFK = liturgyTime.getTiempoId();
         if (
-                this.timeFK >= 8
-                        || (this.timeFK == 1 && this.day > 16)
-                        || this.timeFK == 2
-                        || (this.timeFK == 3 && this.week == 0)
-
-                        || this.timeFK == 4
-                        || this.timeFK == 5
-                        || this.week >= 35
-                        || (this.timeFK == 6 && this.week == 6 && this.typeFK < 4)
-                        || (this.timeFK == 6 && this.week == 1)
-                        || (this.day == 0)
-                        || (this.timeFK >= 1 && this.timeFK <= 7 && this.day == 1)
+                this.timeFK >= 8 || this.timeFK == 1 && this.day > 16 || this.timeFK == 2 || this.timeFK == 3 && this.week == 0 || this.timeFK == 4 || this.timeFK == 5 || this.week >= 35 || this.timeFK == 6 && this.week == 6 && this.typeFK < 4 || this.timeFK == 6 && this.week == 1 || this.day == 0 || this.timeFK >= 1 && this.day == 1
 
         ) {
             ssb.append(getTimeWithTitleForRead());
@@ -248,51 +211,48 @@ public class Liturgy {
         return ssb;
     }
 
-
     @NonNull
     public String toString() {
         return
-                String.format("Liturgy:%n%d\t%s", liturgyID, getName());
+                String.format(new Locale("es"), "Liturgy:%n%d\t%s", liturgyID, getName());
     }
 
     public String getTituloForRead() {
-        return String.format("%s%s", getName(), ".");
+        return String.format(new Locale("es"), "%s%s", getName(), ".");
     }
-
 
     public String getTimeWithWeekAndDay() {
         Numerals ns = new Numerals(false, false, false);
-        return String.format("%s. %s de la %s semana.", liturgyTime.getLiturgyName(), Utils.getDayName(this.day), ns.toWords(week, true));
+        return String.format(new Locale("es"), "%s. %s de la %s semana.", liturgyTime.getLiturgyName(), Utils.getDayName(this.day), ns.toWords(week, true));
     }
 
     public String getTimeWithTitleForRead() {
-        return String.format("%s. %s", liturgyTime.getLiturgyName(), getTituloForRead());
+        return String.format(new Locale("es"), "%s. %s", liturgyTime.getLiturgyName(), getTituloForRead());
     }
 
     public void setInvitatorio(LHInvitatory invitatorio) {
         this.lhInvitatory = invitatorio;
     }
 
-    public SpannableStringBuilder getForView() {
+    public SpannableStringBuilder getForView(boolean hasInvitatory) {
         try {
-
             if (typeID == 0) {
-                return breviaryHour.getMixto().getForView(liturgyTime, false);
+                return breviaryHour.getMixto(hasInvitatory).getForView(liturgyTime);
             }
             if (typeID == 1) {
-                return breviaryHour.getOficio().getForView(liturgyTime, false);
+                return breviaryHour.getOficio(hasInvitatory).getForView(liturgyTime);
             }
             if (typeID == 2) {
-                return breviaryHour.getLaudes().getForView(liturgyTime, false);
+                return breviaryHour.getLaudes(hasInvitatory).getForView(liturgyTime);
             }
             if (typeID == 3 || typeID == 4 || typeID == 5) {
-                return breviaryHour.getIntermedia().getForView();
+                return breviaryHour.getIntermedia().getForView(liturgyTime);
             }
             if (typeID == 6) {
-                return breviaryHour.getVisperas().getForView();
+                return breviaryHour.getVisperas().getForView(liturgyTime);
             }
             if (typeID == 7) {
-                return breviaryHour.getCompletas().getForView();
+                return breviaryHour.getCompletas().getForView(liturgyTime);
             }
             return new SpannableStringBuilder(CONTENT_NOTFOUND);
         } catch (Exception e) {
@@ -307,13 +267,13 @@ public class Liturgy {
     public StringBuilder getForRead() {
         try {
             if (typeID == 0) {
-                return breviaryHour.getMixto().getForRead(false);
+                return breviaryHour.getMixto(hasInvitatory).getForRead();
             }
             if (typeID == 1) {
-                return breviaryHour.getOficio().getForRead(false);
+                return breviaryHour.getOficio().getForRead();
             }
             if (typeID == 2) {
-                return breviaryHour.getLaudes().getForRead(false);
+                return breviaryHour.getLaudes().getForRead();
             }
             if (typeID == 3 || typeID == 4 || typeID == 5) {
                 return breviaryHour.getIntermedia().getForRead();
@@ -327,14 +287,14 @@ public class Liturgy {
             return new StringBuilder(CONTENT_NOTFOUND);
 
         } catch (Exception e) {
-            return new StringBuilder(e.getMessage());
+            return new StringBuilder(Objects.requireNonNull(e.getMessage()));
         }
     }
 
     /**
-        * Devuelve el saludo inicial de la liturgia
-        *
-        * @since 2022.2
+     * Devuelve el saludo inicial de la liturgia
+     *
+     * @since 2022.2
      */
     public SpannableStringBuilder getSaludoInicial() {
         SpannableStringBuilder ssb = new SpannableStringBuilder("");
@@ -347,4 +307,3 @@ public class Liturgy {
         return ssb;
     }
 }
-

@@ -23,7 +23,9 @@ import android.widget.SeekBar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -32,12 +34,14 @@ import androidx.navigation.ui.NavigationUI;
 import org.deiverbum.app.R;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentBreviarioDataBinding;
+import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.utils.TextToSpeechCallback;
 import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
 import org.deiverbum.app.viewmodel.BreviarioViewModel;
 
+import java.util.Locale;
 import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -53,12 +57,12 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
 
     private boolean isReading = false;
     private boolean isVoiceOn;
+    private boolean hasInvitatory;
+
     private StringBuilder sbReader;
 
-    private boolean hasInvitatorio;
-
     private Menu audioMenu;
-    private Menu mainMenu;
+    private MenuItem voiceItem;
 
     public static ActionMode mActionMode;
     private TtsManager mTtsManager;
@@ -66,13 +70,48 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        setHasOptionsMenu(true);
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.toolbar_menu, menu);
+                voiceItem=menu.findItem(R.id.item_voz);
+                voiceItem.setVisible(isVoiceOn);
+                if (isReading) {
+                    voiceItem.setVisible(false);
+                }
+                // Add option Menu Here
+
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.item_voz) {
+                    if (mActionMode == null) {
+                        mActionMode =
+                                requireActivity().startActionMode(mActionModeCallback);
+                    }
+                    readText();
+                    isReading = true;
+                    voiceItem.setVisible(false);
+                    //item.setVisible(!isReading);
+                    requireActivity().invalidateOptionsMenu();
+                    return true;
+                }
+                NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                return NavigationUI.onNavDestinationSelected(item, navController);
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+
+
+
+
+        //setHasOptionsMenu(true);
         binding = FragmentBreviarioDataBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         setConfiguration();
@@ -89,12 +128,12 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
         progressBar = binding.pb.progressBar;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
-        String fontFamily = String.format("fonts/%s",prefs.getString("font_name", "robotoslab_regular.ttf"));
-        Typeface tf= Typeface.createFromAsset(getActivity().getAssets(),fontFamily);
+        String fontFamily = String.format(new Locale("es"),"fonts/%s",prefs.getString("font_name", "robotoslab_regular.ttf"));
+        Typeface tf= Typeface.createFromAsset(requireActivity().getAssets(),fontFamily);
         mTextView .setTypeface(tf);
 
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        hasInvitatorio=prefs.getBoolean("invitatorio",false);
+        hasInvitatory = prefs.getBoolean("invitatorio", false);
         isVoiceOn = prefs.getBoolean("voice", true);
         if (isVoiceOn) {
             sbReader = new StringBuilder(VOICE_INI);
@@ -103,27 +142,26 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
     }
 
     private void observeHour() {
-        int hourId = 0;
+        int hourId;
         if (getArguments() != null) {
             hourId = getArguments().getInt("hourId");
             mTextView.setText(PACIENCIA);
             mViewModel.getBreviary(mDate,hourId).observe(getViewLifecycleOwner(), data -> {
                 progressBar.setVisibility(View.GONE);
                 if (data.status == DataWrapper.Status.SUCCESS) {
-                    mTextView.setText(data.getData().getForView());
+                    Liturgy liturgy =data.getData();
+                    //liturgy.lhInvitatory.isUnique=this.hasInvitatory;
+                    mTextView.setText(liturgy.getForView(hasInvitatory));
                     if (isVoiceOn) {
                         sbReader.append(data.getData().getForRead());
-                        setPlayerButton();
+                        //setPlayerButton();
                     }
                 } else {
                     mTextView.setText(Utils.fromHtml(data.getError()));
                 }
             });
-
         }
     }
-
-
 
     private void pickOutDate() {
         Bundle bundle = getArguments();
@@ -137,51 +175,37 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
         Objects.requireNonNull(actionBar).setSubtitle(Utils.getTitleDate(mDate));
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        mainMenu = menu;
-        inflater.inflate(R.menu.toolbar_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.item_voz) {
-            if (mActionMode == null) {
-                mActionMode =
-                        requireActivity().startActionMode(mActionModeCallback);
-            }
-            readText();
-            isReading = true;
-            requireActivity().invalidateOptionsMenu();
-            return true;
-        }
-
-        NavController navController = NavHostFragment.findNavController(this);
-        return NavigationUI.onNavDestinationSelected(item, navController)
-                || super.onOptionsItemSelected(item);
-    }
-
     private String prepareForRead() {
         String notQuotes = Utils.stripQuotation(sbReader.toString());
         return String.valueOf(Utils.fromHtml(notQuotes));
     }
 
-
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        MenuItem item = menu.findItem(R.id.item_voz);
-        if (isReading) {
-            item.setVisible(false);
-        }
-    }
-    @Override
-    public void onCompleted() {
+    private void setPlayerButton() {
+        voiceItem.setVisible(isVoiceOn);
     }
 
-    @Override
-    public void onError() {
+    private void readText() {
+        mTtsManager = new TtsManager(getContext(), prepareForRead(), SEPARADOR, (current, max) -> {
+            seekBar.setProgress(current);
+            seekBar.setMax(max);
+        });
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (mTtsManager == null) return;
+                mTtsManager.changeProgress(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+        mTtsManager.start();
     }
 
     private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
@@ -247,32 +271,18 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
         }
     };
 
-    private void setPlayerButton() {
-        mainMenu.findItem(R.id.item_voz).setVisible(isVoiceOn);
+    @Override
+    public void onCompleted() {
     }
 
-    private void readText() {
-        mTtsManager = new TtsManager(getContext(), prepareForRead(), SEPARADOR, (current, max) -> {
-            seekBar.setProgress(current);
-            seekBar.setMax(max);
-        });
+    @Override
+    public void onError() {
+    }
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (mTtsManager == null) return;
-                mTtsManager.changeProgress(progress);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-        mTtsManager.start();
+    private void cleanTTS() {
+        if (mTtsManager != null) {
+            mTtsManager.close();
+        }
     }
 
     @Override
@@ -285,9 +295,4 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
         binding = null;
     }
 
-    private void cleanTTS() {
-        if (mTtsManager != null) {
-            mTtsManager.close();
-        }
-    }
 }

@@ -14,29 +14,29 @@ import org.deiverbum.app.data.entity.EpigraphEntity;
 import org.deiverbum.app.data.entity.HomilyEntity;
 import org.deiverbum.app.data.entity.LHGospelCanticleJoinEntity;
 import org.deiverbum.app.data.entity.LHHymnEntity;
-import org.deiverbum.app.data.entity.LHInvitatoryEntity;
-import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity;
-import org.deiverbum.app.data.entity.LHOficceVerseJoinEntity;
-import org.deiverbum.app.data.entity.LHPrayerEntity;
-import org.deiverbum.app.data.entity.LHReadingShortEntity;
-import org.deiverbum.app.data.entity.LHOficceVerseEntity;
-import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
-import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
-import org.deiverbum.app.data.entity.LHOfficeBiblicalEntity;
-import org.deiverbum.app.data.entity.LHOfficeBiblicalJoinEntity;
 import org.deiverbum.app.data.entity.LHHymnJoinEntity;
-import org.deiverbum.app.data.entity.LHOfficePatristicEntity;
-import org.deiverbum.app.data.entity.LHOfficePatristicJoinEntity;
 import org.deiverbum.app.data.entity.LHIntercessionsEntity;
 import org.deiverbum.app.data.entity.LHIntercessionsJoinEntity;
-import org.deiverbum.app.data.entity.LHResponsoryShortEntity;
+import org.deiverbum.app.data.entity.LHInvitatoryEntity;
+import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity;
+import org.deiverbum.app.data.entity.LHOfficeBiblicalEntity;
+import org.deiverbum.app.data.entity.LHOfficeBiblicalJoinEntity;
+import org.deiverbum.app.data.entity.LHOfficePatristicEntity;
+import org.deiverbum.app.data.entity.LHOfficePatristicJoinEntity;
+import org.deiverbum.app.data.entity.LHOficceVerseEntity;
+import org.deiverbum.app.data.entity.LHOficceVerseJoinEntity;
+import org.deiverbum.app.data.entity.LHPrayerEntity;
+import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
+import org.deiverbum.app.data.entity.LHReadingShortEntity;
+import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
 import org.deiverbum.app.data.entity.LHResponsoryEntity;
+import org.deiverbum.app.data.entity.LHResponsoryShortEntity;
 import org.deiverbum.app.data.entity.LHThemeEntity;
-import org.deiverbum.app.data.entity.LiturgyEntity;
-import org.deiverbum.app.data.entity.LiturgyHomilyJoinEntity;
-import org.deiverbum.app.data.entity.LiturgiaTiempoEntity;
 import org.deiverbum.app.data.entity.LiturgyColorEntity;
+import org.deiverbum.app.data.entity.LiturgyEntity;
 import org.deiverbum.app.data.entity.LiturgyGroupEntity;
+import org.deiverbum.app.data.entity.LiturgyHomilyJoinEntity;
+import org.deiverbum.app.data.entity.LiturgyTimeEntity;
 import org.deiverbum.app.data.entity.MassReadingEntity;
 import org.deiverbum.app.data.entity.MassReadingJoinEntity;
 import org.deiverbum.app.data.entity.PaterEntity;
@@ -44,8 +44,8 @@ import org.deiverbum.app.data.entity.PaterOpusEntity;
 import org.deiverbum.app.data.entity.PrayerEntity;
 import org.deiverbum.app.data.entity.PsalmEntity;
 import org.deiverbum.app.data.entity.PsalmodyEntity;
-import org.deiverbum.app.data.entity.SaintLifeEntity;
 import org.deiverbum.app.data.entity.SaintEntity;
+import org.deiverbum.app.data.entity.SaintLifeEntity;
 import org.deiverbum.app.data.entity.SyncStatusEntity;
 import org.deiverbum.app.data.entity.TodayEntity;
 
@@ -59,7 +59,7 @@ import org.deiverbum.app.data.entity.TodayEntity;
                 TodayEntity.class,
                 //TodayTest.class,
                 LiturgyEntity.class,
-                LiturgiaTiempoEntity.class,
+                LiturgyTimeEntity.class,
                 SaintEntity.class,
                 SaintLifeEntity.class,
                 LHInvitatoryEntity.class,

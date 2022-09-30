@@ -22,7 +22,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentAuthorBinding;
-import org.deiverbum.app.databinding.FragmentFileBinding;
 import org.deiverbum.app.model.Book;
 import org.deiverbum.app.utils.Configuration;
 import org.deiverbum.app.utils.Constants;

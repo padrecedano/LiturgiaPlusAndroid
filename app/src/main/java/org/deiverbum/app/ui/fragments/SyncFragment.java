@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -30,14 +29,10 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import org.deiverbum.app.R;
-import org.deiverbum.app.data.wrappers.DataWrapper;
-import org.deiverbum.app.databinding.FragmentHomiliasBinding;
 import org.deiverbum.app.databinding.FragmentSyncBinding;
-import org.deiverbum.app.utils.TextToSpeechCallback;
 import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
-import org.deiverbum.app.viewmodel.HomiliasViewModel;
 import org.deiverbum.app.viewmodel.SyncViewModel;
 
 import java.util.Objects;
@@ -51,7 +46,6 @@ public class SyncFragment extends Fragment {
 
     private FragmentSyncBinding binding;
     private ZoomTextView mTextView;
-    private String mDate;
 
     private ProgressBar progressBar;
 
@@ -95,11 +89,12 @@ public class SyncFragment extends Fragment {
 
     private void pickOutDate() {
         Bundle bundle = getArguments();
+        String mDate;
         if (bundle != null) {
             mDate = bundle.getString("FECHA") == null ? Utils.getHoy() :
                     bundle.getString("FECHA");
         }else{
-            mDate=Utils.getHoy();
+            mDate =Utils.getHoy();
         }
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         Objects.requireNonNull(actionBar).setSubtitle(Utils.getTitleDate(mDate));

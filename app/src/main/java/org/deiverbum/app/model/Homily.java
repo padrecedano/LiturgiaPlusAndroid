@@ -10,10 +10,10 @@ import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
 
+@SuppressWarnings("SameReturnValue")
 public class Homily {
 
     public Integer homilyID;
-
     public Integer opusFK;
     public String date;
     public Integer book;
@@ -23,11 +23,6 @@ public class Homily {
     public Integer collectionFK;
     public Integer colNumber;
     public Integer colParagraph;
-
-
-
-
-
     @Ignore
     public String padre;
     public String homily;
@@ -35,7 +30,6 @@ public class Homily {
     public MetaLiturgia metaLiturgia;
     @Ignore
     public List<HomilyList> homilias;
-
     @Ignore
     private Today today;
 
@@ -67,7 +61,6 @@ public class Homily {
         return "Homilías.";
     }
 
-
     public SpannableStringBuilder getForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
@@ -79,8 +72,7 @@ public class Homily {
                 sb.append(h.getAllForView());
             }
         } catch (Exception e) {
-            sb.append(e.getMessage());
-
+            sb.append(Utils.createErrorMessage(e.getMessage()));
         }
         return sb;
     }
@@ -94,7 +86,7 @@ public class Homily {
                 sb.append(s.getAllForRead());
             }
         } catch (Exception e) {
-            sb.append(e.getMessage());
+            sb.append(Utils.createErrorMessage(e.getMessage()));
         }
         return sb;
     }

@@ -1,20 +1,20 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Utils.LS;
+import static org.deiverbum.app.utils.Utils.LS2;
+
 import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
 
-import static org.deiverbum.app.utils.Utils.LS;
-import static org.deiverbum.app.utils.Utils.LS2;
-
+@SuppressWarnings("SameReturnValue")
 public class ViaCrucis {
 
     private String subTitulo;
     private String fecha;
     private String autor;
-
     private IntroViaCrucis introViaCrucis;
     private String adoramus;
     private List<String> respuestas;
@@ -126,11 +126,7 @@ public class ViaCrucis {
                 sb.append(PadreNuestro.getTexto());
                 sb.append("Estrofa del Stabat Mater.");
                 sb.append(Utils.fromHtml(Utils.getFormato(e.getCanto())));
-
-
-
         }
-
         return sb;
     }
 

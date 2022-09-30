@@ -13,28 +13,30 @@ import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
+import java.util.Locale;
+
 public class LHResponsory extends LHResponsoryShort {
     private String ref;
+
     public String getRef() {
         return ref;
     }
+
     public void setRef(String ref) {
         this.ref = ref;
     }
 
     public SpannableStringBuilder getHeader() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        if(ref!=null){
-            sb.append(Utils.toRed(String.format("%s%s%s", TITLE_RESPONSORY,"     ",getRef())));
+        if (ref != null) {
+            sb.append(Utils.toRed(String.format(new Locale("es"), "%s%s%s", TITLE_RESPONSORY, "     ", getRef())));
 
-        }else{
+        } else {
             sb.append(Utils.toRed(TITLE_RESPONSORY));
-
         }
         sb.append(LS2);
         return sb;
     }
-
 
     /**
      * <p>Método que crea la cadena completa de un responsorio dado.</p>
@@ -173,7 +175,6 @@ public class LHResponsory extends LHResponsoryShort {
 
                 break;
 
-
             default:
                 sb.append(ERR_RESPONSORIO);
                 sb.append(BR);
@@ -185,7 +186,6 @@ public class LHResponsory extends LHResponsoryShort {
                 break;
         }
         return sb;
-
     }
 
     /**
@@ -197,7 +197,6 @@ public class LHResponsory extends LHResponsoryShort {
     public String getAllForRead() {
         String[] respArray = texto.split("\\|");
         StringBuilder s = new StringBuilder();
-        //s.append("Responsorio.");
         switch (forma) {
             case 1:
 
@@ -231,7 +230,6 @@ public class LHResponsory extends LHResponsoryShort {
                 }
                 break;
 
-
             case 6001020:
 
                 if (respArray.length == 3) {
@@ -243,7 +241,6 @@ public class LHResponsory extends LHResponsoryShort {
                     s.append(respArray[0]);
                 }
                 break;
-
 
             case 4:
                 s.append(respArray[0]);
@@ -265,7 +262,4 @@ public class LHResponsory extends LHResponsoryShort {
         }
         return s.toString();
     }
-
-
-
 }

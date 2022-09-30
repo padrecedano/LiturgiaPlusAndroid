@@ -2,11 +2,7 @@ package org.deiverbum.app.model;
 
 public class RitosIniciales {
 
-    //    @SerializedName("invocacion")
-//    @Expose
     private String invocacion;
-    //    @SerializedName("kyrie")
-//    @Expose
     private Kyrie kyrie;
 
     public RitosIniciales() {
@@ -30,5 +26,4 @@ public class RitosIniciales {
     public void setKyrie(Kyrie kyrie) {
         this.kyrie = kyrie;
     }
-
 }

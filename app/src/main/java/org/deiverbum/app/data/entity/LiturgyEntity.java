@@ -19,7 +19,7 @@ import androidx.room.PrimaryKey;
         foreignKeys =
         {
             @ForeignKey(
-                    entity = LiturgiaTiempoEntity.class,
+                    entity = LiturgyTimeEntity.class,
                     parentColumns = "timeID",
                     childColumns = "timeFK",
                     onDelete = ForeignKey.CASCADE,
@@ -99,11 +99,6 @@ public class LiturgyEntity {
     public String getNombre() {
         return nombre;
     }
-
-
-
-    //@Embedded
-    //public LiturgyTime liturgiaTiempo;
 
 
 }

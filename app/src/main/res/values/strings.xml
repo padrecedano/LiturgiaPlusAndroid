@@ -78,14 +78,14 @@
 
     <string name="pref_title_font">Tipo de letra por defecto</string>
     <string-array name="pref_font_list_titles">
-        <item>Roboto</item>
-        <item>Noto Serif</item>
         <item>Roboto Slab</item>
+        <item>Noto Serif</item>
+        <item>Roboto</item>
     </string-array>
     <string-array name="pref_font_list_values">
-        <item>roboto_regular.ttf</item>
-        <item>notoserif_regular.ttf</item>
         <item>robotoslab_regular.ttf</item>
+        <item>notoserif_regular.ttf</item>
+        <item>roboto_regular.ttf</item>
     </string-array>
 
     <string name="pref_title_font_size">Tamaño de letra por defecto</string>

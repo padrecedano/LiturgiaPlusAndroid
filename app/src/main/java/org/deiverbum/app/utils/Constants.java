@@ -3,6 +3,8 @@ package org.deiverbum.app.utils;
 import android.graphics.Color;
 import android.text.style.ForegroundColorSpan;
 
+import java.util.Locale;
+
 public class Constants {
 
     /*Cambiar tambien en
@@ -10,16 +12,15 @@ public class Constants {
       strings.xml: app_version_name_and_mail
       strings.xml: accept_info
       */
-    public static final int VERSION_CODE = 202201003;
+    public static final int VERSION_CODE = 202201004;
                                          //202201001
     public static final int DB_VERSION = 1;
 
-    public static ForegroundColorSpan RED_COLOR = new ForegroundColorSpan(Color.parseColor("#A52A2A"));
-    public static final String VOICE_INI = "Iniciando lectura.";
-    public static final String ERR_LANG = "Lenguaje no soportado.";
-    public static final String ERR_INITIALIZATION = "Falló la inicialización.";
-    public static final String ERR_BIBLIA = "Todavía no hay introducción a este libro. <br>Proyecto abierto a la colaboración. <br><a href=\"http://bit.ly/2FInp4n\">Ver los detalles aquí</a>.";
+    public static final String LS = System.getProperty("line.separator");
+    public static final String LS2 = LS + LS;
 
+    public static final ForegroundColorSpan RED_COLOR = new ForegroundColorSpan(Color.parseColor("#A52A2A"));
+    public static final String VOICE_INI = "Iniciando lectura.";
 
     public static final String CSS_RED_A = "<font color=\"#A52A2A\">";
 
@@ -28,18 +29,11 @@ public class Constants {
     public static final String CSS_RED_Z = "</font>";
     public static final String BRS = "<br /><br />";
     public static final String BR = "<br />";
-    public static final String SMALL_A = "<small>";
-    public static final String SMALL_Z = "</small>";
 
     public static final String PRE_ANT = CSS_RED_A + "Ant. " + CSS_RED_Z;
     public static final String NBSP_4 = " &nbsp;&nbsp;&nbsp;&nbsp;";
     public static final String RESP_V = CSS_RED_A + "V. " + CSS_RED_Z;
     public static final String RESP_R = CSS_RED_A + "R. " + CSS_RED_Z;
-    public static final String PADRENUESTRO = "Pater nuestro,~¦que estás en el cielo,~¦santificado sea tu Nombre;~¦" +
-            "venga a nosotros tu reino;~¦hágase tu voluntad~¦en la tierra como en el cielo.~¦" +
-            "Danos hoy nuestro pan de cada día;~¦perdona nuestras ofensas,~¦" +
-            "como también nosotros perdonamos a los que nos ofenden;~¦" +
-            "no nos dejes caer en la tentación,~¦y líbranos del mal. Amén.";
 
     //Mensajes de error
     public static final String ERR_RESPONSORIO = CSS_RED_A + "¡ERROR! " + CSS_RED_Z + BR + "Hay un error en el responsorio de este día, " +
@@ -49,7 +43,12 @@ public class Constants {
             "por favor comunícalo al desarrollador a la dirección siguiente: " + "padre.cedano@gmail.com";
 
 
-    public static final String ERR_SUBJECT = String.format("Reporte de error Liturgy+ v. %d", Constants.VERSION_CODE);
+    public static final String ERR_SUBJECT = String.format(new Locale("es", "ES"),"Reporte de error Liturgy+ v. %d", Constants.VERSION_CODE);
+    public static final String ERR_LANG = "Lenguaje no soportado.";
+    public static final String ERR_INITIALIZATION = "Falló la inicialización.";
+    public static final String ERR_BIBLIA = "Todavía no hay introducción a este libro. <br>Proyecto abierto a la colaboración. <br><a href=\"http://bit.ly/2FInp4n\">Ver los detalles aquí</a>.";
+    public static final String ERR_FILE_NOT_FOUND = String.format("%s\n\n%s", "Error: Archivo no encontrado.",ERR_REPORT);
+    public static final String ERR_WITH_VERSION = String.format(new Locale("es", "ES"),"Ha ocurrido un error.%n %s %n%n Versión: %d %n%n", ERR_REPORT,Constants.VERSION_CODE);
 
     //Otros mensajes
     public static final String PACIENCIA = "\n\nLa paciencia todo lo alcanza. Por favor espere ...";
@@ -115,6 +114,7 @@ public class Constants {
         Room table names
      */
     public static final String TODAY_TABLE = "today";
+    public static final String DB_TABLE = "db_table";
     public static final String BIBLE_BOOK = "bible_book";
     public static final String BIBLE_HOMILY_JOIN = "bible_homily_join";
     public static final String BIBLE_HOMILY_THEME = "bible_homily_theme";
@@ -127,6 +127,8 @@ public class Constants {
     public static final String LITURGY_GROUP = "liturgy_group";
     public static final String LITURGY_HOMILY_JOIN = "liturgy_homily_join";
 
+    public static final String LH_INVITATORY = "lh_invitatory";
+    public static final String LH_INVITATORY_JOIN = "lh_invitatory_join";
     public static final String LH_GOSPEL_CANTICLE = "lh_gospel_canticle";
     public static final String LH_HYMN = "lh_hymn";
 
@@ -134,12 +136,29 @@ public class Constants {
     public static final String LH_INTERCESSIONS = "lh_intercessions";
     public static final String LH_INTERCESSIONS_JOIN = "lh_intercessions_join";
     public static final String LH_PSALM = "lh_psalm";
+    public static final String LH_PSALMODY = "lh_psalmody";
+
     public static final String LH_PSALMODY_JOIN = "lh_psalmody_join";
     public static final String LH_EPIGRAPH = "lh_epigraph";
     public static final String LH_THEME = "lh_theme";
     public static final String MASS_READING = "mass_reading";
+    public static final String MASS_READING_JOIN = "mass_reading_join";
+    public static final String PRAYER = "prayer";
+
     public static final String SAINT = "saint";
     public static final String SAINT_LIFE = "saint_life";
+    public static final String LH_OFFICE_BIBLICAL = "lh_office_biblical";
+    public static final String LH_OFFICE_BIBLICAL_JOIN = "lh_office_biblical_join";
+    public static final String LH_OFFICE_PATRISTIC = "lh_office_patristic";
+    public static final String LH_OFFICE_PATRISTIC_JOIN = "lh_office_patristic_join";
+    public static final String LH_OFFICE_VERSE = "lh_office_verse";
+    public static final String LH_OFFICE_VERSE_JOIN = "lh_office_verse_join";
+    public static final String LH_PRAYER = "lh_prayer";
+    public static final String LH_READING_SHORT = "lh_reading_short";
+    public static final String LH_READING_SHORT_JOIN = "lh_reading_short_join";
+    public static final String LH_RESPONSORY_SHORT = "lh_responsory_short";
+    public static final String SYNC_STATUS = "sync_status";
+
     public static final String PATER = "pater";
     public static final String PATER_OPUS = "pater_opus";
     public static final String SYNC_LITURGY_HOMILY_JOIN = "sync_liturgy_homily_join";

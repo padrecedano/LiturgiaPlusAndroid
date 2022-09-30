@@ -13,9 +13,10 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
+@SuppressWarnings("SameReturnValue")
 @HiltViewModel
 public class SantosViewModel extends ViewModel {
-    SantosRepository mRepository;
+    final SantosRepository mRepository;
 
     @Inject
     public SantosViewModel(SantosRepository repository) {

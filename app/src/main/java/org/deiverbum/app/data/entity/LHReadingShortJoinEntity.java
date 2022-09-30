@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LH_READING_SHORT_JOIN;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -12,7 +14,7 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_reading_short_join",
+@Entity(tableName = LH_READING_SHORT_JOIN,
         foreignKeys =
                 {
                    @ForeignKey(
@@ -28,8 +30,6 @@ import androidx.room.PrimaryKey;
                            onDelete = ForeignKey.CASCADE,
                            onUpdate = ForeignKey.CASCADE)
                 }
-        //indices = {@Index(value = {"grupoFK","salmoFK"}, unique = true)}
-        //primaryKeys = {"grupoFK","salmoFK"},
 )
 public class LHReadingShortJoinEntity {
 
@@ -45,7 +45,6 @@ public class LHReadingShortJoinEntity {
     @NonNull
     @ColumnInfo(name = "responsoryFK")
     public Integer responsorioFK=0;
-
 
     public int getGrupoId() {
         return  grupoId;

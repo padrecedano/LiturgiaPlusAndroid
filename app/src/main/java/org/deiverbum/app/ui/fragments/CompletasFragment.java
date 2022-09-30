@@ -103,7 +103,7 @@ observeData();
         mViewModel.getObservable().observe(getViewLifecycleOwner(), data -> {
             progressBar.setVisibility(View.GONE);
             if (data.status == DataWrapper.Status.SUCCESS) {
-                    mTextView.setText(data.getData().getForView());
+                    mTextView.setText(data.getData().getForView(false));
                 if (isVoiceOn) {
                     sbReader.append(data.getData().getForRead());
                     setPlayerButton();

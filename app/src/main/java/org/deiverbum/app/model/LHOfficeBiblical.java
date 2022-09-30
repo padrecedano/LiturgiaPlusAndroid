@@ -7,6 +7,8 @@ import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
+import java.util.Locale;
+
 public class LHOfficeBiblical extends Biblical {
     private String tema;
     private LHResponsory responsorioLargo;
@@ -33,7 +35,7 @@ public class LHOfficeBiblical extends Biblical {
 
     //@Override
     public SpannableStringBuilder getHeaderForReview() {
-        String s=String.format("%s lectura",Utils.getOrdinal(order)).toUpperCase();
+        String s=String.format(new Locale("es"),"%s lectura",Utils.getOrdinal(order)).toUpperCase();
         return Utils.formatTitle(s);
     }
 
@@ -43,7 +45,7 @@ public class LHOfficeBiblical extends Biblical {
 
     public SpannableStringBuilder getResponsorioHeader() {
         SpannableStringBuilder sb=new SpannableStringBuilder();
-        sb.append(Utils.toRed(String.format("%-15s", TITLE_RESPONSORY)));
+        sb.append(Utils.toRed(String.format(new Locale("es"),"%-15s", TITLE_RESPONSORY)));
         sb.append(Utils.toRed(getCita()));
         return sb;
     }
@@ -65,8 +67,6 @@ public class LHOfficeBiblical extends Biblical {
         sb.append(book.getLiturgyName());
         sb.append("    ");
         sb.append(Utils.toRed(getCita()));
-        //sb.append(", ");
-        ////sb.append(Utils.toRed(getVersoFinal()));
         sb.append(LS2);
         sb.append(Utils.toRed(getTema()));
         sb.append(LS2);

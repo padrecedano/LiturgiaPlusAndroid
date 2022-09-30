@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LH_PSALMODY_JOIN;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -12,7 +14,7 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_psalmody_join",
+@Entity(tableName = LH_PSALMODY_JOIN,
         indices = {@Index(value = {"groupID","type"}, unique = true)}
 )
 public class LHPsalmodyJoinEntity {

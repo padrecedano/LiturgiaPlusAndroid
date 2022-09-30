@@ -24,4 +24,3 @@ import java.util.List;
         this.content = content;
     }
 }
-

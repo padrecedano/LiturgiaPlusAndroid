@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LH_HYMN_JOIN;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -13,12 +15,10 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_hymn_join",
+@Entity(tableName = LH_HYMN_JOIN,
         indices = {@Index(value = {"groupID","hymnFK"}, unique = true)},
-        //primaryKeys = {"grupoId","himnoFK"},
         foreignKeys =
         {
-
                 @ForeignKey(
                         entity = LHHymnEntity.class,
                         parentColumns = "hymnID",
@@ -27,6 +27,7 @@ import androidx.room.PrimaryKey;
                         onUpdate = ForeignKey.CASCADE)
         }
 )
+
 public class LHHymnJoinEntity {
 
     @NonNull

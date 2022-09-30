@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LH_RESPONSORY_SHORT;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -15,7 +17,7 @@ import org.deiverbum.app.utils.Utils;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_responsory_short",
+@Entity(tableName = LH_RESPONSORY_SHORT,
         indices={
                 @Index(value={"text"},unique = true)}
 )
@@ -48,7 +50,6 @@ public class LHResponsoryShortEntity {
         LHResponsoryShort theModel=new LHResponsoryShort();
         theModel.setTexto(Utils.replaceByTime(getTexto(),timeId));
         theModel.setForma(getTipo());
-        //theModel.setRef(getFuente());
         return theModel;
     }
 

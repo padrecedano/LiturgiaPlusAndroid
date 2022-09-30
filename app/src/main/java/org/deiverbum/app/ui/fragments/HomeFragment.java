@@ -10,7 +10,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +18,6 @@ import org.deiverbum.app.data.adapters.HomeAdapter;
 import org.deiverbum.app.databinding.FragmentHomeBinding;
 import org.deiverbum.app.model.HomeItem;
 import org.deiverbum.app.utils.Utils;
-import org.deiverbum.app.viewmodel.TodayViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

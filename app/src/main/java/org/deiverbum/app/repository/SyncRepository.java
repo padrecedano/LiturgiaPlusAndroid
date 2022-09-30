@@ -17,9 +17,8 @@ import javax.inject.Inject;
  */
 
 public class SyncRepository {
-    ApiService apiService;
-    private  LiveData<SyncStatus> mData;
-    private final TodayDao mTodayDao;
+    final ApiService apiService;
+    private final LiveData<SyncStatus> mData;
 
     @Inject
     public SyncRepository(
@@ -27,14 +26,11 @@ public class SyncRepository {
                           TodayDao todayDao
     ) {
         this.apiService = apiService;
-        this.mTodayDao = todayDao;
-        this.mData=mTodayDao.getSyncInfo();
+        this.mData= todayDao.getSyncInfo();
 
     }
-
 
     public LiveData<SyncStatus> getFromDB() {
         return mData;
     }
 }
-

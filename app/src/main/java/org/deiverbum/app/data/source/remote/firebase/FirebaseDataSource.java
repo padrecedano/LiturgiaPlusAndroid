@@ -13,18 +13,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
-import org.deiverbum.app.model.BibleCommentList;
 import org.deiverbum.app.model.BibleBooks;
+import org.deiverbum.app.model.BibleCommentList;
 import org.deiverbum.app.model.Homily;
-import org.deiverbum.app.model.Intermedia;
-import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.MassReadingList;
 import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.SaintLife;
-import org.deiverbum.app.model.Visperas;
 import org.deiverbum.app.utils.Utils;
 
+import java.util.Locale;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -193,197 +191,9 @@ public class FirebaseDataSource {
     }
 
 
-    public Single<DataWrapper<Liturgy, CustomException>> getMixto(String dateString) {
-        return Single.create(emitter -> {
-            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
-            docRef.get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        DocumentReference dataRef =
-                                document.getDocumentReference("lh.0");
-                        MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
-                        meta.setIdHour(0);
-
-                        try {
-
-                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
-                                if (mSnapshot.exists()) {
-                                    Liturgy theHour =
-                                            mSnapshot.toObject(Liturgy.class);
-                                    Objects.requireNonNull(theHour).setMetaLiturgia(meta);
-                                    emitter.onSuccess(new DataWrapper<>(theHour));
-                                } else {
-                                    emitter.onError(new Exception(DATA_NOTFOUND));
-                                }
-                            });
-                        } catch (Exception e) {
-                            emitter.onError(new Exception(e));
-                        }
-                    } else {
-                        emitter.onError(new Exception(DOC_NOTFOUND));
-
-                    }
-                } else {
-                    emitter.onError(task.getException());
-                }
-            });
-        });
-    }
-
-    public Single<DataWrapper<Liturgy, CustomException>> getOficio(String dateString) {
-        return Single.create(emitter -> {
-            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
-            docRef.get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        DocumentReference dataRef =
-                                document.getDocumentReference("lh.1");
-                        MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
-                        meta.setIdHour(1);
-
-                        try {
-
-                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
-                                if (mSnapshot.exists()) {
-                                    Liturgy theHour = mSnapshot.toObject(Liturgy.class);
-                                    Objects.requireNonNull(theHour).setMetaLiturgia(meta);
-                                    emitter.onSuccess(new DataWrapper<>(theHour));
-                                } else {
-                                    emitter.onError(new Exception(DATA_NOTFOUND));
-                                }
-                            });
-                        } catch (Exception e) {
-                            emitter.onError(new Exception(e));
-                        }
-                    } else {
-                        emitter.onError(new Exception(DOC_NOTFOUND));
-
-                    }
-                } else {
-                    emitter.onError(task.getException());
-                }
-            });
-        });
-    }
-
-    public Single<DataWrapper<Laudes, CustomException>> getLaudes(String dateString) {
-        return Single.create(emitter -> {
-            DataWrapper<Laudes, CustomException> data = new DataWrapper<>();
-            DocumentReference docRef =
-                    firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
-            docRef.get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        DocumentReference dataRef = document.getDocumentReference("lh.2");
-                        MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
-                        meta.setIdHour(2);
-                        try {
-
-                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
-                                if (mSnapshot.exists()) {
-                                    Laudes theHour = mSnapshot.toObject(Laudes.class);
-                                    Objects.requireNonNull(theHour).setMetaLiturgia(meta);
-                                    data.postValue(theHour);
-                                    emitter.onSuccess(data);
-                                } else {
-                                    emitter.onError(new Exception(DATA_NOTFOUND));
-                                }
-                            });
-                        } catch (Exception e) {
-                            emitter.onError(new Exception(e));
-                        }
-                    } else {
-                        emitter.onError(new Exception(DOC_NOTFOUND));
-
-                    }
-                } else {
-                    emitter.onError(task.getException());
-                }
-            });
-        });
-    }
 
 
-    public Single<DataWrapper<Intermedia, CustomException>> getIntermedia(String dateString, int hourId) {
-        return Single.create(emitter -> {
-            DataWrapper<Intermedia, CustomException> data = new DataWrapper<>();
-            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
-            docRef.get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
 
-                        String mField = String.format("lh.%s", hourId);
-                        DocumentReference dataRef = document.getDocumentReference(mField);
-                        MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
-                        meta.setIdHour(hourId);
-
-                        try {
-
-                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
-                                if (mSnapshot.exists()) {
-                                    Intermedia theHour = mSnapshot.toObject(Intermedia.class);
-                                    Objects.requireNonNull(theHour).setMetaLiturgia(meta);
-                                    data.postValue(theHour);
-                                    emitter.onSuccess(data);
-                                } else {
-                                    emitter.onError(new Exception(DATA_NOTFOUND));
-                                }
-                            });
-                        } catch (Exception e) {
-                            emitter.onError(new Exception(e));
-                        }
-                    } else {
-                        emitter.onError(new Exception(DOC_NOTFOUND));
-
-                    }
-                } else {
-                    emitter.onError(task.getException());
-                }
-            });
-        });
-    }
-
-    public Single<DataWrapper<Visperas, CustomException>> getVisperas(String dateString) {
-        return Single.create(emitter -> {
-            DataWrapper<Visperas, CustomException> data = new DataWrapper<>();
-            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
-            docRef.get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        DocumentReference dataRef = document.getDocumentReference("lh.6");
-                        MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
-                        meta.setIdHour(6);
-
-                        try {
-
-                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
-                                if (mSnapshot.exists()) {
-                                    Visperas theHour = mSnapshot.toObject(Visperas.class);
-                                    Objects.requireNonNull(theHour).setMetaLiturgia(meta);
-                                    data.postValue(theHour);
-                                    emitter.onSuccess(data);
-                                } else {
-                                    emitter.onError(new Exception(DATA_NOTFOUND));
-                                }
-                            });
-                        } catch (Exception e) {
-                            emitter.onError(new Exception(e));
-                        }
-                    } else {
-                        emitter.onError(new Exception(DOC_NOTFOUND));
-
-                    }
-                } else {
-                    emitter.onError(task.getException());
-                }
-            });
-        });
-    }
 
 
     public Single<DataWrapper<MetaLiturgia, CustomException>> getMetaLiturgia(String dateString) {
@@ -433,9 +243,9 @@ public class FirebaseDataSource {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         DocumentReference dataRef =
-                                document.getDocumentReference(String.format("lh.%d",hourId));
+                                document.getDocumentReference(String.format(new Locale("es"),"lh.%d",hourId));
                         MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
-                        meta.setIdHour(hourId);
+                        Objects.requireNonNull(meta).setIdHour(hourId);
 
                         try {
 

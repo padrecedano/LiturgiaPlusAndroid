@@ -20,7 +20,6 @@ import java.util.Locale;
 /**
  * @author A. Cedano
  * @version 1.0
- * @date 8/12/21
  * @since 2021.01
  */
 public class TtsManager implements TextToSpeech.OnInitListener {

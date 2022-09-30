@@ -13,10 +13,8 @@ public class Visperas extends BreviaryHour {
     private BiblicalShort lecturaBreve;
     private LHGospelCanticle magnificat;
     private LHIntercession preces;
-    private final PadreNuestro padreNuestro;
 
     public Visperas() {
-        this.padreNuestro = new PadreNuestro();
     }
 
     @SuppressWarnings("unused")
@@ -47,11 +45,12 @@ public class Visperas extends BreviaryHour {
         return magnificat;
     }
 
-    public SpannableStringBuilder getForView() {
+    public SpannableStringBuilder getForView(LiturgyTime liturgyTime) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
+            //¿?lecturaBreve.normalizeByTime(hoy.getCalendarTime());
+            salmodia.normalizeByTime(liturgyTime.getTiempoId());
 
-            lecturaBreve.normalizeByTime(hoy.getCalendarTime());
             sb.append(hoy.getAllForView());
             sb.append(Utils.LS2);
 
@@ -65,12 +64,10 @@ public class Visperas extends BreviaryHour {
             sb.append(himno.getAll());
             sb.append(Utils.LS2);
 
-            salmodia.normalizeByTime(hoy.getCalendarTime());
-
             sb.append(salmodia.getAll());
             sb.append(Utils.LS2);
 
-            sb.append(lecturaBreve.getAll());
+            sb.append(lecturaBreve.getAllWithHourCheck(6));
             sb.append(Utils.LS2);
 
             sb.append(magnificat.getAll());
@@ -79,7 +76,7 @@ public class Visperas extends BreviaryHour {
             sb.append(preces.getAll());
             sb.append(LS2);
 
-            sb.append(padreNuestro.getAll());
+            sb.append(PadreNuestro.getAll());
             sb.append(LS2);
 
             sb.append(oracion.getAll());
@@ -88,7 +85,7 @@ public class Visperas extends BreviaryHour {
             sb.append(getConclusionHorasMayores());
 
         } catch (Exception e) {
-            sb.append(e.getMessage());
+            sb.append(Utils.createErrorMessage(e.getMessage()));
         }
         return sb;
     }
@@ -104,11 +101,11 @@ public class Visperas extends BreviaryHour {
             sb.append(lecturaBreve.getAllForRead());
             sb.append(magnificat.getAllForRead());
             sb.append(preces.getAllForRead());
-            sb.append(padreNuestro.getAllForRead());
+            sb.append(PadreNuestro.getAll());
             sb.append(oracion.getAllForRead());
             sb.append(getConclusionHorasMayoresForRead());
         } catch (Exception e) {
-            sb.append(e.getMessage());
+            sb.append(Utils.createErrorMessage(e.getMessage()));
         }
         return sb;
     }

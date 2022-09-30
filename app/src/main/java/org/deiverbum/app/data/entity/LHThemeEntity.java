@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LH_THEME;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -12,7 +14,7 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_theme",
+@Entity(tableName = LH_THEME,
          indices = {@Index(value = {"theme"},unique = true)}
 )
 public class LHThemeEntity {
@@ -25,6 +27,7 @@ public class LHThemeEntity {
     @ColumnInfo(name = "theme")
     public String tema="";
 
+    @NonNull
     public String getTema(){
         return tema;
     }

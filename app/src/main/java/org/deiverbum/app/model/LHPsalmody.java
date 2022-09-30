@@ -48,7 +48,6 @@ public class LHPsalmody {
         this.salmos = salmos;
     }
 
-
     public SpannableStringBuilder getSalmos(int hourIndex) {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         String salmo;
@@ -89,7 +88,7 @@ public class LHPsalmody {
                 parte.append(Utils.toRed(s.getParte()));
                 parte.append(LS2);
             }
-            if (preRef != null && !preRef.isEmpty()) {
+            if (!preRef.isEmpty()) {
                 ref.append(Utils.LS);
                 ref.append(s.getRef());
                 ref.append(LS2);
@@ -158,10 +157,9 @@ public class LHPsalmody {
             sb.append(LS2);
             salmo = Utils.getFormato(s.getSalmo());
             sb.append(Utils.fromHtml(salmo));
-            //sb.append(SEPARADOR);
 
             if (!(s.getSalmo().endsWith("∸"))) {
-                sb.append(getFinSalmo());
+                sb.append(getFinSalmoForRead());
             }
             sb.append(LS2);
 
@@ -178,19 +176,16 @@ public class LHPsalmody {
             sb.append(getAntifonaLimpia(antUnica));
             sb.append(LS2);
         }
-
         return sb;
     }
 
     public SpannableStringBuilder getHeader() {
-
         return Utils.formatTitle(TITLE_PSALMODY);
     }
 
     public String getHeaderForRead() {
         return Utils.pointAtEnd(TITLE_PSALMODY);
     }
-
 
     /**
      * <p>Obtiene el contenido de la salmodia formateado, para la vista.</p>
@@ -221,18 +216,14 @@ public class LHPsalmody {
         return sb;
     }
 
-
-
     /**
      * <p>Obtiene el contenido de la salmodia formateado, para la vista.</p>
      * @since 2022.01
      * @return Un {@link SpannableStringBuilder con el contenido.}
      */
     public String getAllForRead() {
-        StringBuilder sb=new StringBuilder();
-        sb.append(getHeaderForRead());
-        sb.append(getSalmosForRead());
-        return sb.toString();
+        return getHeaderForRead() +
+                getSalmosForRead();
     }
 
     /**
@@ -242,10 +233,8 @@ public class LHPsalmody {
      * @return Un {@link SpannableStringBuilder con el contenido.}
      */
     public String getAllForRead(int hourIndex) {
-        StringBuilder sb=new StringBuilder();
-        sb.append(getHeaderForRead());
-        sb.append(getSalmosForRead(hourIndex));
-        return sb.toString();
+        return getHeaderForRead() +
+                getSalmosForRead(hourIndex);
     }
     /**
      *
@@ -285,7 +274,6 @@ public class LHPsalmody {
         return sAntifona.replace("†", "");
     }
 
-
     /**
      * Método que normaliza el contenido de las antífonas según el tiempo litúrgico del calendario
      * @param calendarTime Un entero con el Id del tiempo del calendario
@@ -296,7 +284,4 @@ public class LHPsalmody {
             s.setAntifona(Utils.replaceByTime(s.getAntifona(),calendarTime));
         }
     }
-
-
-
-    }
+}

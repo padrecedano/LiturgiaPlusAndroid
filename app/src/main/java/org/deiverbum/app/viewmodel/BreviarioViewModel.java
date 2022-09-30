@@ -14,7 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
 public class BreviarioViewModel extends ViewModel {
-    BreviarioRepository mRepository;
+    final BreviarioRepository mRepository;
 
     @Inject
     public BreviarioViewModel(BreviarioRepository repository) {

@@ -5,7 +5,6 @@ import static org.deiverbum.app.utils.Utils.LS;
 import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 
 import androidx.room.Ignore;
 
@@ -15,6 +14,7 @@ import org.deiverbum.app.utils.Utils;
 
 import java.util.HashMap;
 
+@SuppressWarnings("SameReturnValue")
 public class SaintLife {
     private Integer saintFK;
     @PropertyName("vida")
@@ -26,13 +26,10 @@ public class SaintLife {
     @PropertyName("nombre")
     public String name;
     @Ignore
-
     @PropertyName("dia")
     private String dia;
     @Ignore
-
     private String mes;
-
     private String shortLife;
 
     public Integer getSaintFK() {
@@ -93,7 +90,6 @@ public class SaintLife {
         return sb;
     }
 
-
     public StringBuilder getLifeForRead() {
         StringBuilder sb = new StringBuilder();
         sb.append("VIDA.");
@@ -116,7 +112,7 @@ public class SaintLife {
             sb.append(LS2);
             sb.append(Utils.fromHtmlSmall((getSource())));
         } catch (Exception e) {
-            //sb.append(e.getMessage());
+            sb.append(Utils.createErrorMessage(e.getMessage()));
         }
         return sb;
     }
@@ -136,7 +132,7 @@ public class SaintLife {
             sb.append(getLifeForRead());
             sb.append(getSourceForRead());
         } catch (Exception e) {
-            sb.append(e.getMessage());
+            sb.append(Utils.createErrorMessage(e.getMessage()));
         }
         return sb;
     }
@@ -173,7 +169,6 @@ public class SaintLife {
         return "Martirologio Romano.";
     }
 
-
     public String getMonthName(String mes) {
         HashMap<Integer, String> monthNames = new HashMap<>();
         monthNames.put(1, "Enero");
@@ -191,7 +186,4 @@ public class SaintLife {
         Integer theMonth=Integer.valueOf(mes);
         return String.format("%s de %s", dia, monthNames.get(theMonth));
     }
-
-
 }
-

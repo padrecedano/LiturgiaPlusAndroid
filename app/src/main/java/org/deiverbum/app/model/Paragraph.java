@@ -13,7 +13,6 @@ import org.deiverbum.app.utils.Utils;
  * @since 2022.1
  */
 public class Paragraph {
-
     @SerializedName("text")
     @Expose
     private String text;
@@ -43,5 +42,4 @@ public class Paragraph {
     public void setText(String text) {
         this.text = text;
     }
-
 }

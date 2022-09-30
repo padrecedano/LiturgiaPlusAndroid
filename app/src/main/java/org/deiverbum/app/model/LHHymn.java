@@ -8,8 +8,8 @@ import android.text.Spanned;
 
 import org.deiverbum.app.utils.Utils;
 
-
 public class LHHymn {
+    public Integer hymnID;
     private String hymn;
 
     public LHHymn() {
@@ -64,12 +64,8 @@ public class LHHymn {
         return sb;
     }
 
-
     public String getAllForRead() {
-        StringBuilder sb=new StringBuilder();
-        sb.append(getHeaderForRead());
-        sb.append(getTextoSpan());
-        return sb.toString();
+        return getHeaderForRead() +
+                getTextoSpan();
     }
-
 }

@@ -1,14 +1,10 @@
 package org.deiverbum.app.model;
 
-import static org.deiverbum.app.utils.Constants.RESP_R;
-import static org.deiverbum.app.utils.Constants.RESP_V;
 import static org.deiverbum.app.utils.Constants.TITLE_SOUL_SEARCHING;
 import static org.deiverbum.app.utils.Utils.LS;
 import static org.deiverbum.app.utils.Utils.LS2;
 
-import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.style.CharacterStyle;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -17,6 +13,7 @@ import org.deiverbum.app.utils.Utils;
 
 import java.util.Random;
 
+@SuppressWarnings("SameReturnValue")
 public class Kyrie {
 
     @SerializedName("introduccion")
@@ -38,14 +35,9 @@ public class Kyrie {
         ssb.append(Utils.fromHtml("<p>EXAMEN DE CONCIENCIA.</p>"));
         String[] introArray = introduccion.split("\\|");
         if (introArray.length == 3) {
-
             ssb.append(Utils.fromHtml("<p>" + introArray[1] + "</p>"));
-
-
         } else {
-            //ssb.append(String.valueOf(introArray.length));
             ssb.append(introduccion);
-
         }
         return ssb;
     }
@@ -54,7 +46,6 @@ public class Kyrie {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
         ssb.append(Utils.formatTitle(TITLE_SOUL_SEARCHING));
         ssb.append(LS2);
-
         String[] introArray = introduccion.split("\\|");
         if (introArray.length == 3) {
             ssb.append(Utils.toSmallSizeRed(introArray[0]));
@@ -62,10 +53,8 @@ public class Kyrie {
             ssb.append(introArray[1]);
             ssb.append(LS2);
             ssb.append(Utils.toSmallSizeRed(introArray[2]));
-
         } else {
             ssb.append(introduccion);
-
         }
         return ssb;
     }
@@ -86,26 +75,19 @@ public class Kyrie {
 
     public String getConclusionForRead() {
         return "El Señor todopoderoso tenga misericordia de nosotros, perdone nuestros pecados y nos lleve a la vida eterna. Amén.";
-
-
     }
     public SpannableStringBuilder getConclusion() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
-
         ssb.append(Utils.toSmallSizeRed("Pueden usarse otras invocaciones penitenciales."));
         ssb.append(LS);
         ssb.append(Utils.toSmallSizeRed("Si preside la celebración un ministro, él solo dice la absolución siguiente; en caso de lo contrario la dicen todos:"));
         ssb.append(LS2);
-
         ssb.append(Utils.toRed("V. "));
         ssb.append("El Señor todopoderoso tenga misericordia de nosotros, perdone nuestros pecados y nos lleve a la vida eterna.");
         ssb.append(LS2);
-                ssb.append(Utils.toRed("R. "));
+        ssb.append(Utils.toRed("R. "));
         ssb.append("Amén.");
-
-
         return ssb;
-        //        return conclusion;
     }
 
     public void setConclusion(String conclusion) {
@@ -147,17 +129,12 @@ public class Kyrie {
                 ssb.append(Utils.fromHtml("<p>Tú que estás sentado a la derecha del Padre para interceder por nosotros: Señor, ten piedad.</p>"));
                 ssb.append(Utils.fromHtml("<p>Señor, ten piedad.</p>"));
 
-
             default:
                 ssb.append("");
                 break;
         }
-
-
         return ssb;
-
     }
-
 
     public SpannableStringBuilder getAll() {
         SpannableStringBuilder sb=new SpannableStringBuilder();
@@ -176,7 +153,6 @@ public class Kyrie {
         sb.append(getConclusionForRead());
         return sb;
     }
-
 
     /**
      * Este método obtiene el texto del Kyrie
@@ -240,9 +216,6 @@ public class Kyrie {
                 ssb.append("");
                 break;
         }
-
-
         return ssb;
-
     }
 }

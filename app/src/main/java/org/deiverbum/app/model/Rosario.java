@@ -11,6 +11,7 @@ import org.deiverbum.app.utils.Utils;
 import java.util.List;
 import java.util.Locale;
 
+@SuppressWarnings("SameReturnValue")
 public class Rosario {
     public String saludo;
     public String padrenuestro;
@@ -21,8 +22,6 @@ public class Rosario {
     public String salve;
     private List<Misterio> misterios;
     private int day;
-
-
 
     /*
       @TODO
@@ -42,7 +41,6 @@ public class Rosario {
                 return "*";
         }
     }
-
 
     @SuppressWarnings("unused")
     public void setMisterios(List<Misterio> misterios) {
@@ -75,7 +73,6 @@ public class Rosario {
         for (int i = 0; i < 10; i++) {
             sb.append(Utils.fromHtml(getAvemaria()));
             sb.append(LS2);
-
         }
         sb.append(Utils.fromHtml(gloria));
         sb.append(LS2);
@@ -264,5 +261,4 @@ public class Rosario {
     public String getSubTitle() {
         return getByDay();
     }
-
 }

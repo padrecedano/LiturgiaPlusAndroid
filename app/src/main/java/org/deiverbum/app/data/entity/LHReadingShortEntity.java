@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LH_READING_SHORT;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -12,24 +14,8 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_reading_short",
+@Entity(tableName = LH_READING_SHORT,
         indices = {@Index(value = {"text"}, unique = true)}
-/*
-        foreignKeys =
-        {
-            @ForeignKey(
-                    entity = BibleReadingEntity.class,
-                    parentColumns = "lecturaId",
-                    childColumns = "lecturaFK",
-                    onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE),
-            @ForeignKey(
-                    entity = LHResponsoryEntity.class,
-                    parentColumns = "responsorioId",
-                    childColumns = "responsorioFK",
-                    onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE)
-        }*/
 )
 public class LHReadingShortEntity {
 

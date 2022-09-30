@@ -31,7 +31,6 @@ public class MassReadingList extends Liturgy {
         this.evangelios = evangelios;
     }
 
-
     public MetaLiturgia getMetaLiturgia() {
         return metaliturgia;
     }
@@ -39,7 +38,6 @@ public class MassReadingList extends Liturgy {
     public void setMetaLiturgia(MetaLiturgia metaliturgia) {
         this.metaliturgia = metaliturgia;
     }
-
 
     private SpannableStringBuilder getTitulo() {
         return Utils.toH3Red(Utils.toUpper(TITLE_MASS_READING));
@@ -51,6 +49,7 @@ public class MassReadingList extends Liturgy {
 
     @SuppressWarnings("unused")
     private MetaLiturgia metaliturgia;
+
     public SpannableStringBuilder getAllForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         for (MassReading b : lecturas) {
@@ -59,6 +58,7 @@ public class MassReadingList extends Liturgy {
         return sb;
     }
 
+    @SuppressWarnings("unused")
     public SpannableStringBuilder getAllEvangelioForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         for (MassReading b : lecturas) {
@@ -79,10 +79,9 @@ public class MassReadingList extends Liturgy {
         return sb;
     }
 
-    public void sort(){
+    public void sort() {
         Collections.sort(this.lecturas);
     }
-
 
     public SpannableStringBuilder getForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
@@ -106,15 +105,14 @@ public class MassReadingList extends Liturgy {
 
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         try {
-        sb.append(hoy.getAllForRead());
-        sb.append(getTituloForRead());
-        for (MassReading l : lecturas) {
-            sb.append(l.getAllForRead());
+            sb.append(hoy.getAllForRead());
+            sb.append(getTituloForRead());
+            for (MassReading l : lecturas) {
+                sb.append(l.getAllForRead());
+            }
+        } catch (Exception e) {
+            sb.append(Utils.createErrorMessage(e.getMessage()));
         }
-    } catch (Exception e){
-        sb.append(e.getMessage());
-    }
         return sb;
-}
-
+    }
 }

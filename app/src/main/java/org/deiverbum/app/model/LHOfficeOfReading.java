@@ -16,31 +16,21 @@ public class LHOfficeOfReading {
     private List<LHOfficePatristic> patristica;
     private TeDeum teDeum;
 
-
     public LHOfficeOfReading() {
     }
 
-    /*public LHOfficeOfReading(LHOfficeBiblical biblica, LHOfficePatristic patristica) {
-        this.biblica.add(biblica);
-        this.patristica=patristica;
-    }
-*/
     public String getResponsorio() {
         return responsorio;
     }
 
-    public SpannableStringBuilder getResponsorioForRead() {
-        SpannableStringBuilder ssb = new SpannableStringBuilder();
-        ssb.append("Responsorio.");
+    public String getResponsorioForRead() {
         String r;
         if (responsorio.contains("|")) {
-            r = responsorio.replaceAll("\\|", "<br>");
+            r = responsorio.replaceAll("\\|", "");
         } else {
             r = responsorio;
         }
-        ssb.append(Utils.fromHtml("<p>" + r + "</p>"));
-
-        return ssb;
+        return Utils.pointAtEnd(r);
     }
 
     public SpannableStringBuilder getResponsorioSpan() {
@@ -56,15 +46,12 @@ public class LHOfficeOfReading {
                 ssb.append(textParts[1]);
             } else {
                 ssb.append(responsorio);
-
             }
         } else {
             ssb.append(responsorio);
         }
-
-        return ssb;//responsorio;
+        return ssb;
     }
-
 
     @SuppressWarnings("unused")
     public List<LHOfficePatristic> getPatristica() {
@@ -150,12 +137,10 @@ public class LHOfficeOfReading {
     }
 
     public String getAllForRead() {
-        StringBuilder sb=new StringBuilder();
-        sb.append(getHeaderForRead());
-        sb.append(getResponsorioForRead());
-        sb.append(getAllBiblicaForRead());
-        sb.append(getAllPatristicaForRead());
-        return sb.toString();
+        return getHeaderForRead() +
+                getResponsorioForRead() +
+                getAllBiblicaForRead() +
+                getAllPatristicaForRead();
     }
 
     public void setResponsorio(String responsorio) {
@@ -172,7 +157,5 @@ public class LHOfficeOfReading {
             oneBiblica.getResponsorioLargo().normalizeByTime(calendarTime);
         }
         responsorio=Utils.replaceByTime(responsorio,calendarTime);
-
     }
 }
-

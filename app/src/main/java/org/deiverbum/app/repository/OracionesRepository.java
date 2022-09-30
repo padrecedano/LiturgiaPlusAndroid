@@ -3,14 +3,12 @@ package org.deiverbum.app.repository;
 import static org.deiverbum.app.utils.Constants.ERR_REPORT;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import org.deiverbum.app.data.source.local.FileDataSource;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
-import org.deiverbum.app.model.Book;
 import org.deiverbum.app.model.OracionSimple;
 import org.deiverbum.app.model.Rosario;
 import org.deiverbum.app.model.ViaCrucis;
@@ -28,7 +26,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
  */
 public class OracionesRepository {
     private final FileDataSource fileDataSource;
-
 
     @Inject
     public OracionesRepository(FileDataSource fileDataSource) {
@@ -72,7 +69,7 @@ public class OracionesRepository {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        finalData.postValue(new DataWrapper<>(new CustomException(String.format("Error:\n%s%s",e.getMessage(),ERR_REPORT))));
+                        finalData.postValue(new DataWrapper<>(new CustomException(e.getMessage())));
                         dispose();
                     }
                 });
@@ -99,29 +96,4 @@ public class OracionesRepository {
 
         return finalData;
     }
-
-    public LiveData<DataWrapper<Book, CustomException>> getBook(String rawPath) {
-        MutableLiveData<DataWrapper<Book, CustomException>> finalData =
-                new MediatorLiveData<>();
-        fileDataSource.getBook(rawPath)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<Book,
-                        CustomException>>() {
-                    @Override
-                    public void onSuccess(@NonNull DataWrapper<Book,
-                            CustomException> data) {
-                        finalData.postValue(data);
-                        dispose();
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        finalData.postValue(new DataWrapper<>(new CustomException(String.format("Error:\n%s%s", e.getMessage(), ERR_REPORT))));
-                        dispose();
-                    }});
-
-        return finalData;
-    }
 }
-

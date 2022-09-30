@@ -33,8 +33,6 @@ public class NuncDimitis extends LHPsalm {
         return antifona;
     }
 
-
-
     public SpannableStringBuilder getHeader() {
         return Utils.formatTitle(TITLE_GOSPEL_CANTICLE);
     }
@@ -68,4 +66,3 @@ public class NuncDimitis extends LHPsalm {
         return sb;
     }
 }
-

@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LITURGY_HOMILY_JOIN;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -11,8 +13,7 @@ import androidx.room.ForeignKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "liturgy_homily_join",
-        //indices = {@Index(value = {"grupoFK","salmoFK"}, unique = true)}
+@Entity(tableName = LITURGY_HOMILY_JOIN,
         primaryKeys = {"liturgyFK","homilyFK"},
         foreignKeys =
         {

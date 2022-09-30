@@ -5,7 +5,6 @@ import static org.deiverbum.app.utils.Constants.ERR_REPORT;
 import androidx.lifecycle.MediatorLiveData;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
-import org.deiverbum.app.data.entity.TodaySanto;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
@@ -42,9 +41,8 @@ public class SantosRepository {
      * y si no encuentra, devolverá un objeto {@link DataWrapper} con error.
      * @param month El mes a buscar
      * @param day El día a buscar
-     * @return En MediatorLiveData con los datos obtenidos
      */
-    public MediatorLiveData<DataWrapper<SaintLife,CustomException>> getData(String month, String day) {
+    public void getData(String month, String day) {
         firebaseDataSource.getSantos(month, day)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -64,14 +62,11 @@ public class SantosRepository {
                         //loadFromApi(Utils.cleanDate(param));
                     }
                 });
-        return mData;
     }
 
     public MediatorLiveData<DataWrapper<SaintLife, CustomException>> getSaintDB(String s) {
-        TodaySanto theEntity = mTodayDao.getSantoOfToday(Integer.valueOf(s));
         SaintLife theModel=mTodayDao.getSantoOfToday(Integer.valueOf(s)).getDomainModel();
         if (theModel != null) {
-            //SaintLife theModel = theEntity.getDomainModel();
                 mData.postValue(new DataWrapper<>(theModel));
         } else {
             String month = Utils.getMonth(s);
@@ -80,6 +75,4 @@ public class SantosRepository {
         }
         return mData;
     }
-
 }
-

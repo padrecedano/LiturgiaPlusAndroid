@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import org.deiverbum.app.model.LHResponsoryShort;
+import org.deiverbum.app.model.LHResponsory;
 import org.deiverbum.app.utils.Utils;
 
 /**
@@ -51,11 +51,11 @@ public class LHResponsoryEntity {
     @ColumnInfo(name = "type")
     public Integer tipo=0;
 
-    public LHResponsoryShort getDomainModel(Integer timeId){
-        LHResponsoryShort theModel=new LHResponsoryShort();
+    public LHResponsory getDomainModel(Integer timeId){
+        LHResponsory theModel=new LHResponsory();
         theModel.setTexto(Utils.replaceByTime(getTexto(),timeId));
         theModel.setForma(getTipo());
-        //theModel.setRef(getFuente());
+        theModel.setRef(getFuente());
         return theModel;
     }
 

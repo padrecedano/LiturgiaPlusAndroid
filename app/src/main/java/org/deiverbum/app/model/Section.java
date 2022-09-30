@@ -85,5 +85,4 @@ public class Section {
     public void setSubsections(List<SubSection> subsections) {
         this.subsections = subsections;
     }
-
 }

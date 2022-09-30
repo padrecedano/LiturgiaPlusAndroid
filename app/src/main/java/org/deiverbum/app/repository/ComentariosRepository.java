@@ -4,10 +4,9 @@ import static org.deiverbum.app.utils.Constants.NOTFOUND_OR_NOTCONNECTION;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
-import org.deiverbum.app.data.entity.TodayComentarios;
+import org.deiverbum.app.data.entity.relation.TodayComentarios;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.CustomException;
@@ -33,7 +32,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
  * @since 2022.1
  */
 public class ComentariosRepository {
-    ApiService apiService;
+    final ApiService apiService;
     private final FirebaseDataSource firebaseDataSource;
     private final TodayDao mTodayDao;
     private final MediatorLiveData<DataWrapper<BibleCommentList, CustomException>> mData = new MediatorLiveData<>();
@@ -53,9 +52,8 @@ public class ComentariosRepository {
      * {@link ApiService#getLecturas(String)}
      * La llamada a la Api se hará desde el onError
      * @param dateString La fecha
-     * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
      */
-    public MutableLiveData<DataWrapper<BibleCommentList, CustomException>> getComentarios(String dateString) {
+    public void getComentarios(String dateString) {
         firebaseDataSource.getComentarios(dateString)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -73,7 +71,6 @@ public class ComentariosRepository {
                         comentariosFromApi(dateString);
                     }
                 });
-        return mData;
     }
 
     /**
@@ -109,6 +106,4 @@ public class ComentariosRepository {
         }
         return mData;
     }
-
 }
-

@@ -17,12 +17,10 @@ public class SyncStatus {
         this.tableName=tableName;
         this.versionDB=versionDb;
         this.lastUpdate=lastUpdate;
-
     }
 
     public SyncStatus(String tableName) {
         this.tableName=tableName;
-
     }
 
     public String getAll() {
@@ -38,13 +36,4 @@ public class SyncStatus {
                 CSS_RED_A,lastUpdate,CSS_RED_Z,
                 BRS,BR,BR);
     }
-
-    /*public String getTableName() {
-        return tableName;
-    }
-
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }*/
-
 }

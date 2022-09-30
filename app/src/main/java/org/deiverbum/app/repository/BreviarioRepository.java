@@ -3,38 +3,26 @@ package org.deiverbum.app.repository;
 import static org.deiverbum.app.utils.Constants.ERR_REPORT;
 import static org.deiverbum.app.utils.Constants.NOTFOUND_OR_NOTCONNECTION;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
-
-import com.google.gson.Gson;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
-import org.deiverbum.app.data.entity.TodayCompletas;
-import org.deiverbum.app.data.entity.TodayLaudes;
-import org.deiverbum.app.data.entity.TodayMixto;
-import org.deiverbum.app.data.entity.TodayNona;
-import org.deiverbum.app.data.entity.TodayOficio;
-import org.deiverbum.app.data.entity.TodaySexta;
-import org.deiverbum.app.data.entity.TodayTercia;
-import org.deiverbum.app.data.entity.TodayVisperas;
+import org.deiverbum.app.data.entity.relation.TodayCompletas;
+import org.deiverbum.app.data.entity.relation.TodayLaudes;
+import org.deiverbum.app.data.entity.relation.TodayMixto;
+import org.deiverbum.app.data.entity.relation.TodayNona;
+import org.deiverbum.app.data.entity.relation.TodayOficio;
+import org.deiverbum.app.data.entity.relation.TodaySexta;
+import org.deiverbum.app.data.entity.relation.TodayTercia;
+import org.deiverbum.app.data.entity.relation.TodayVisperas;
 import org.deiverbum.app.data.source.local.FileDataSource;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
-import org.deiverbum.app.model.BreviaryHour;
-import org.deiverbum.app.model.Completas;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.LiturgyHelper;
-import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.utils.Utils;
-
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -111,32 +99,6 @@ public class BreviarioRepository {
                 }
                 break;
 
-            case 7:
-                //TodayOficio theEntity = mTodayDao.getOficioOfToday(Integer.valueOf(theDate));
-                TodayCompletas completasEntity = mTodayDao.getCompletasOfToday(Integer.valueOf(theDate));
-
-                if (completasEntity != null) {
-                    Liturgy l = completasEntity.getDomainModel();
-                    MetaLiturgia meta = new MetaLiturgia();
-                    InputStream raw = Objects.requireNonNull(getClass().getClassLoader()).getResourceAsStream("res/raw/completas.json");
-                    Gson gson = new Gson();
-                    Completas hora = gson.fromJson(new InputStreamReader(raw), Completas.class);
-                    //String s = gson.fromJson(new InputStreamReader(raw), String.class);
-                    String json = gson.toJson(hora);
-
-                    Log.d("AAA", json);
-                    hora.setMetaLiturgia(meta);
-                    hora.setHoy(l.getHoy());
-                    BreviaryHour bh = new BreviaryHour();
-                    bh.setCompletas(hora);
-                    l.setBreviaryHour(bh);
-                    getBook(l);
-                    //liveData.postValue(getBook(l));
-                } else {
-                    getFromFirebase(theDate, hourId);
-                }
-                break;
-
             case 2:
                 TodayLaudes laudesEntity = mTodayDao.getLaudesOfToday(Integer.valueOf(theDate));
                 if (laudesEntity != null) {
@@ -186,16 +148,25 @@ public class BreviarioRepository {
                     getFromFirebase(theDate, hourId);
                 }
                 break;
+
+            case 7:
+                TodayCompletas completasEntity = mTodayDao.getCompletasOfToday(Integer.valueOf(theDate));
+                if (completasEntity != null) {
+                    Liturgy liturgy = completasEntity.getDomainModel();
+                    getFromFile(liturgy);
+                } else {
+                    getFromFirebase(theDate, hourId);
+                }
+                break;
+
             default:
                 break;
         }
         return liveData;
     }
 
-    public void getBook(Liturgy l) {
-        MutableLiveData<DataWrapper<Liturgy, CustomException>> finalData =
-                new MediatorLiveData<>();
-        fileDataSource.getCompletas(l)
+    public void getFromFile(Liturgy liturgy) {
+        fileDataSource.getCompletas(liturgy)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<DataWrapper<Liturgy,
@@ -213,8 +184,6 @@ public class BreviarioRepository {
                         dispose();
                     }
                 });
-
-        //return finalData;
     }
 
 
@@ -273,6 +242,4 @@ public class BreviarioRepository {
                     }
                 });
     }
-
 }
-

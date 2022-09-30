@@ -13,6 +13,7 @@ import org.deiverbum.app.utils.Utils;
 import java.util.List;
 import java.util.Random;
 
+@SuppressWarnings("SameReturnValue")
 public class Conclusion {
 
     @SerializedName("bendicion")

@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LH_OFFICE_PATRISTIC;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -11,10 +13,8 @@ import androidx.room.ForeignKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_office_patristic",
+@Entity(tableName = LH_OFFICE_PATRISTIC,
         primaryKeys = {"groupFK","homilyFK","responsoryFK"},
-        /*indices = {@Index(value = {"grupoFK","pericopaFK","responsorioFK"},
-                unique = true)},*/
 
         foreignKeys =
         {

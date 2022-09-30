@@ -23,7 +23,7 @@
         android:title="@string/pref_title_brevis" />
 
         <ListPreference
-            android:defaultValue="robotoslab"
+            android:defaultValue="robotoslab_regular.ttf"
             android:entries="@array/pref_font_list_titles"
             android:entryValues="@array/pref_font_list_values"
             android:key="font_name"

@@ -5,7 +5,7 @@ import static org.deiverbum.app.utils.Constants.NOTFOUND_OR_NOTCONNECTION;
 import androidx.lifecycle.MediatorLiveData;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
-import org.deiverbum.app.data.entity.TodayHomilias;
+import org.deiverbum.app.data.entity.relation.TodayHomilias;
 import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.source.remote.network.ApiService;
 import org.deiverbum.app.data.wrappers.CustomException;
@@ -32,11 +32,10 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
  */
 
 public class HomiliasRepository {
-    ApiService apiService;
+    final ApiService apiService;
     private final FirebaseDataSource firebaseDataSource;
     private final MediatorLiveData<DataWrapper<Homily, CustomException>> mData = new MediatorLiveData<>();
     private final TodayDao mTodayDao;
-
 
     @Inject
     public HomiliasRepository(FirebaseDataSource firebaseDataSource,
@@ -55,9 +54,8 @@ public class HomiliasRepository {
      * y si no encuentra, buscará en la Api mediante {@link ApiService#getHomilias(String)}
      * La llamada a la Api se hará desde el onError
      * @param param El parámetro a buscar, en principio la fecha, quizá también un Id
-     * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
      */
-    public MediatorLiveData<DataWrapper<Homily,CustomException>> getData(String param) {
+    public void getData(String param) {
         firebaseDataSource.getHomilias(param)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -73,7 +71,6 @@ public class HomiliasRepository {
                         loadFromApi(Utils.cleanDate(param));
                     }
                 });
-        return mData;
     }
 
     public void loadFromApi(String param) {
@@ -108,4 +105,3 @@ public class HomiliasRepository {
         return mData;
     }
 }
-

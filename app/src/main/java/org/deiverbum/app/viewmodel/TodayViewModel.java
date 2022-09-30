@@ -12,11 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class TodayViewModel extends ViewModel {
 
-    private final TodayRepository mRepository;
-    private WorkManager mWorkManager;
-
     @Inject
-    public TodayViewModel(TodayRepository repository) {
-        mRepository = repository;
+    public TodayViewModel() {
     }
 }

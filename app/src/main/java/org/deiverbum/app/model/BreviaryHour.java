@@ -25,9 +25,8 @@ import java.util.List;
  * @version 1.0
  * @since 2022.1
  */
+@SuppressWarnings("SameReturnValue")
 public class BreviaryHour extends Liturgy {
-    //protected MetaLiturgia metaLiturgia;
-    //protected Saint santo;
     protected int hourId;
 
     protected String metaInfo;
@@ -54,25 +53,12 @@ public class BreviaryHour extends Liturgy {
     private Completas completas;
 
 
-    public Oficio getOficio() {
-        return oficio;
-    }
 
-    public void setOficio(Oficio oficio) {
-        this.oficio = oficio;
-    }
 
     public BreviaryHour() {
     }
 
-    /*public MetaLiturgia getMetaLiturgia() {
-        return metaLiturgia;
-    }
-
-    public void setMetaLiturgia(MetaLiturgia metaLiturgia) {
-        this.metaLiturgia = metaLiturgia;
-    }
-*/
+    @SuppressWarnings("unused")
     public void setMetaInfo(String metaInfo) {
         this.metaInfo = metaInfo;
     }
@@ -86,15 +72,6 @@ public class BreviaryHour extends Liturgy {
             return "";
         }
     }
-/*
-    public Saint getSanto() {
-        return santo;
-    }
-
-    public void setSanto(Saint santo) {
-        this.santo = santo;
-    }
-*/
 
     public SpannableStringBuilder getSaludoOficio() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
@@ -138,12 +115,10 @@ public class BreviaryHour extends Liturgy {
      * @return El saludo listo para el lector de voz.
      */
     public static String getSaludoDiosMioForRead() {
-        StringBuilder ssb = new StringBuilder();
-        ssb.append("Dios mío, ven en mi auxilio.");
-        ssb.append("Señor, date prisa en socorrerme.");
-        ssb.append("Gloria al Padre, y al Hijo, y al Espíritu Santo.");
-        ssb.append("Como era en el principio ahora y siempre, por los siglos de los siglos. Amén.");
-        return ssb.toString();
+        return "Dios mío, ven en mi auxilio." +
+                "Señor, date prisa en socorrerme." +
+                "Gloria al Padre, y al Hijo, y al Espíritu Santo." +
+                "Como era en el principio ahora y siempre, por los siglos de los siglos. Amén.";
     }
 
     public LHHymn getHimno() {
@@ -251,6 +226,7 @@ public class BreviaryHour extends Liturgy {
         return hourId;
     }
 
+    @SuppressWarnings("unused")
     public void setOfficeOfReading(LHOfficeOfReading oficioLecturas) {
         this.oficioLecturas = oficioLecturas;
     }
@@ -269,13 +245,35 @@ public class BreviaryHour extends Liturgy {
     public void setMixto(Mixto mixto) {
        this.mixto=mixto;
     }
-    public Mixto getMixto() {
 
+    public Mixto getMixto(boolean hasInvitatory) {
+        mixto.getInvitatorio().isMultiple=hasInvitatory;
         return this.mixto;
+    }
+
+    @SuppressWarnings("unused")
+    public Mixto getMixto() {
+        return this.mixto;
+    }
+
+    public void setOficio(Oficio oficio) {
+        this.oficio = oficio;
+    }
+    public Oficio getOficio() {
+        return oficio;
+    }
+
+    public Oficio getOficio(boolean hasInvitatory) {
+        oficio.getInvitatorio().isMultiple=hasInvitatory;
+        return oficio;
     }
 
     public Laudes getLaudes() {
         return this.laudes;
+    }
+    public Laudes getLaudes(boolean hasInvitatory) {
+        laudes.getInvitatorio().isMultiple=hasInvitatory;
+        return laudes;
     }
 
     public Intermedia getIntermedia() {

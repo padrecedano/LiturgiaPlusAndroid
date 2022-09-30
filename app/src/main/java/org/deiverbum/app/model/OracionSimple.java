@@ -11,10 +11,7 @@ public class OracionSimple {
     private String texto;
     private String info;
 
-
-
     public OracionSimple() {
-
     }
 
     public String getTitulo() {

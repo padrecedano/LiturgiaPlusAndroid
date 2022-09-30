@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LH_ANTIPHON;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -12,7 +14,7 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_antiphon",
+@Entity(tableName = LH_ANTIPHON,
         indices = {@Index(value = {"antiphon"},unique = true)})
 public class AntiphonEntity {
     @NonNull
@@ -24,10 +26,11 @@ public class AntiphonEntity {
     @ColumnInfo(name = "antiphon")
     public String antifona="";
 
-
     public void setAntifona(@NonNull String antifona) {
         this.antifona = antifona;
     }
+
+    @NonNull
     public String getAntifona() {
         return antifona;
     }
@@ -37,6 +40,7 @@ public class AntiphonEntity {
     public Integer getAntifonaId() {
         return antifonaId;
     }
+
     public void setAntifonaId(@NonNull Integer antifonaId) {
         this.antifonaId = antifonaId;
     }

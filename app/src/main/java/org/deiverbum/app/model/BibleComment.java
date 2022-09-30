@@ -105,10 +105,6 @@ public class BibleComment {
     public SpannableStringBuilder getAllForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
 
-        //sb.append(biblica.getAll());
-        //sb.append("COMENTARIOS.*");
-        //sb.append(Utils.LS2);
-
         sb.append(Utils.toH2Red(getPadre()));
         sb.append(Utils.LS);
         sb.append(Utils.toH3Red(getObra()));

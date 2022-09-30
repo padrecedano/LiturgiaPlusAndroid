@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.SAINT;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -28,7 +30,7 @@ import org.deiverbum.app.model.Saint;
  */
 
 @Entity(
-        tableName = "saint",
+        tableName = SAINT,
         indices = {@Index(value = {"liturgyFK","theName","theMonth","theDay"},unique = true)},
         foreignKeys =
                 {
@@ -93,7 +95,7 @@ public class SaintEntity {
         return nombre;
     }
 
-    public Saint getDomainModel(boolean isLongLife){
+    public Saint getDomainModel(){
         Saint theModel=new Saint();
         theModel.setDay(String.valueOf(getTheDay()));
         theModel.setMonth(String.valueOf(getTheMonth()));

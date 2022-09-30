@@ -3,10 +3,9 @@ package org.deiverbum.app;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
 import androidx.hilt.work.HiltWorkerFactory;
 import androidx.work.Configuration;
-
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import javax.inject.Inject;
 
@@ -21,6 +20,7 @@ public class BaseApplication extends Application implements Configuration.Provid
     @Inject
     HiltWorkerFactory workerFactory;
 
+    @NonNull
     @Override
     public Configuration getWorkManagerConfiguration() {
         return new Configuration.Builder()

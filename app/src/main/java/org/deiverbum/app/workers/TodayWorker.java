@@ -20,8 +20,10 @@ import org.deiverbum.app.model.BibleHomilyJoin;
 import org.deiverbum.app.model.Biblical;
 import org.deiverbum.app.model.Homily;
 import org.deiverbum.app.model.LHGospelCanticleJoin;
+import org.deiverbum.app.model.LHHymn;
 import org.deiverbum.app.model.LHHymnJoin;
 import org.deiverbum.app.model.LHInvitatoryJoin;
+import org.deiverbum.app.model.LHOfficeVerseJoin;
 import org.deiverbum.app.model.LiturgyHomilyJoin;
 import org.deiverbum.app.model.MassReadingOLD;
 import org.deiverbum.app.model.Saint;
@@ -80,11 +82,6 @@ public class TodayWorker extends Worker {
     }
 
 
-    @Override
-    public void onStopped() {
-        super.onStopped();
-    }
-
     private void setSyncRequest() {
         List<SyncStatus> syncStatus = mTodayDao.getAllSyncStatus();
         syncStatus.add(new SyncStatus(LH_GOSPEL_CANTICLE));
@@ -95,8 +92,7 @@ public class TodayWorker extends Worker {
         syncRequest.syncStatus = syncStatus;
         syncRequest.lastUpdate = mTodayDao.getLastUpdate();
 
-        Integer lastLiturgia = mTodayDao.findLastLiturgia();
-        syncRequest.liturgia = lastLiturgia;
+        syncRequest.liturgia = mTodayDao.findLastLiturgia();
         syncRequest.massReading = 1;
     }
 
@@ -161,6 +157,22 @@ public class TodayWorker extends Worker {
                                     }
                                 }
 
+                                if (r.crudLHHymn != null) {
+                                    List<LHHymn> c = r.crudLHHymn.c;
+                                    List<LHHymn> u = r.crudLHHymn.u;
+                                    List<LHHymn> d = r.crudLHHymn.d;
+
+                                    if (c != null && !c.isEmpty()) {
+                                        mTodayDao.lhHymnInsertAll(c);
+                                    }
+                                    if (u != null && !u.isEmpty()) {
+                                        mTodayDao.lhHymnUpdateAll(u);
+                                    }
+                                    if (d != null && !d.isEmpty()) {
+                                        mTodayDao.lhHymnDeleteAll(d);
+                                    }
+                                }
+
                                 if (r.crudLHHymnJoin != null) {
                                     List<LHHymnJoin> c = r.crudLHHymnJoin.c;
                                     List<LHHymnJoin> u = r.crudLHHymnJoin.u;
@@ -174,6 +186,22 @@ public class TodayWorker extends Worker {
                                     }
                                     if (d != null && !d.isEmpty()) {
                                         mTodayDao.lhHymnJoinDeleteAll(d);
+                                    }
+                                }
+
+                                if (r.crudLHOfficeVerseJoin != null) {
+                                    List<LHOfficeVerseJoin> c = r.crudLHOfficeVerseJoin.c;
+                                    List<LHOfficeVerseJoin> u = r.crudLHOfficeVerseJoin.u;
+                                    List<LHOfficeVerseJoin> d = r.crudLHOfficeVerseJoin.d;
+
+                                    if (c != null && !c.isEmpty()) {
+                                        mTodayDao.lhOfficeVerseJoinInsertAll(c);
+                                    }
+                                    if (u != null && !u.isEmpty()) {
+                                        mTodayDao.lhOfficeVerseJoinUpdateAll(u);
+                                    }
+                                    if (d != null && !d.isEmpty()) {
+                                        mTodayDao.lhOfficeVerseJoinDeleteAll(d);
                                     }
                                 }
 

@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.BIBLE_HOMILY_JOIN;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -11,8 +13,7 @@ import androidx.room.ForeignKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "bible_homily_join",
-        //indices = {@Index(value = {"readingFK","homilyFK"}, unique = true)},
+@Entity(tableName = BIBLE_HOMILY_JOIN,
         primaryKeys = {"readingFK","homilyFK"},
         foreignKeys =
         {
@@ -29,14 +30,11 @@ import androidx.room.ForeignKey;
                         childColumns = "homilyFK",
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE)
-
         }
-
 )
 public class BibleHomilyJoinEntity {
 
     @NonNull
-    //@PrimaryKey
     @ColumnInfo(name = "readingFK")
     public Integer readingFK=0;
 
