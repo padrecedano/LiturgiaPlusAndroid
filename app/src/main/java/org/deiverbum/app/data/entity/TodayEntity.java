@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.TODAY_TABLE;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -13,7 +15,7 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "today",
+@Entity(tableName = TODAY_TABLE,
         indices = {@Index(value = {"todayDate","timeID","liturgyFK","previousFK","massReadingFK","invitatoryFK","saintFK","oHymnFK","oPsalmodyFK","oVerseFK","oBiblicalFK","oPatristicFK","oPrayerFK","oTeDeum","lHymnFK","lPsalmodyFK","lBiblicalFK","lBenedictusFK","lIntercessionsFK","lPrayerFK","tHymnFK","tPsalmodyFK","tBiblicalFK","tPrayerFK","sHymnFK","sPsalmodyFK","sBiblicalFK","sPrayerFK","nHymnFK","nPsalmodyFK","nBiblicalFK","nPrayerFK","vHymnFK","vPsalmodyFK","vBiblicalFK","vMagnificatFK","vIntercessionsFK","vPrayerFK"},unique = true)},
 
         foreignKeys =
@@ -31,12 +33,6 @@ import androidx.room.PrimaryKey;
                         childColumns = "previousFK",
                         onDelete = ForeignKey.RESTRICT,
                         onUpdate = ForeignKey.RESTRICT),
-                /*@ForeignKey(
-                        entity = MassReadingEntity.class,
-                        parentColumns = "liturgyFK",
-                        childColumns = "massReadingFK",
-                        onDelete = ForeignKey.RESTRICT,
-                        onUpdate = ForeignKey.RESTRICT),*/
                 @ForeignKey(
                         entity = MassReadingJoinEntity.class,
                         parentColumns = "liturgyFK",
@@ -127,8 +123,6 @@ import androidx.room.PrimaryKey;
                         childColumns = "lPrayerFK",
                         onDelete = ForeignKey.RESTRICT,
                         onUpdate = ForeignKey.RESTRICT),
-
-
                 @ForeignKey(
                         entity = LHHymnJoinEntity.class,
                         parentColumns = "groupID",
@@ -153,7 +147,6 @@ import androidx.room.PrimaryKey;
                         childColumns = "tPrayerFK",
                         onDelete = ForeignKey.RESTRICT,
                         onUpdate = ForeignKey.RESTRICT),
-
                 @ForeignKey(
                         entity = LHHymnJoinEntity.class,
                         parentColumns = "groupID",
@@ -178,8 +171,6 @@ import androidx.room.PrimaryKey;
                         childColumns = "sPrayerFK",
                         onDelete = ForeignKey.RESTRICT,
                         onUpdate = ForeignKey.RESTRICT),
-
-
                 @ForeignKey(
                         entity = LHHymnJoinEntity.class,
                         parentColumns = "groupID",
@@ -204,7 +195,6 @@ import androidx.room.PrimaryKey;
                         childColumns = "nPrayerFK",
                         onDelete = ForeignKey.RESTRICT,
                         onUpdate = ForeignKey.RESTRICT),
-
                 @ForeignKey(
                         entity = LHHymnJoinEntity.class,
                         parentColumns = "groupID",
@@ -241,7 +231,6 @@ import androidx.room.PrimaryKey;
                         childColumns = "vPrayerFK",
                         onDelete = ForeignKey.RESTRICT,
                         onUpdate = ForeignKey.RESTRICT)
-
         })
 public class TodayEntity {
     @NonNull
@@ -279,7 +268,7 @@ public class TodayEntity {
 
     @NonNull
     @ColumnInfo(name = "saintFK")
-    public Integer santoFK;
+    public Integer santoFK=1;
 
     @NonNull
     @ColumnInfo(name = "oHymnFK")
@@ -406,14 +395,7 @@ public class TodayEntity {
     @NonNull
     @ColumnInfo(name = "vPrayerFK")
     public Integer vOracionFK=0;
-/*
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
-    public Integer getVersion() {
-        return version;
-    }
-*/
+
     @NonNull
     public Integer getHoy() {
         return hoy;
@@ -422,12 +404,12 @@ public class TodayEntity {
         this.hoy = hoy;
     }
 
-
+    @NonNull
     public Integer getPrevioId() {
         return previoId;
     }
 
-    public void setPrevioId(Integer previoId) {
+    public void setPrevioId(@NonNull Integer previoId) {
         this.previoId = previoId;
     }
 
@@ -435,7 +417,6 @@ public class TodayEntity {
     public Integer getTiempoId() {
         return tiempoId;
     }
-
 
     @SuppressWarnings("unused")
     public boolean getTeDeum() {

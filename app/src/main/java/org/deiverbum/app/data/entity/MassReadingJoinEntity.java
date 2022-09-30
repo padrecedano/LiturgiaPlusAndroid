@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.MASS_READING_JOIN;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -13,7 +15,7 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "mass_reading_join",
+@Entity(tableName = MASS_READING_JOIN,
         indices = {@Index(value = {"liturgyFK","type"}, unique = true)},
         foreignKeys =
                 {
@@ -25,6 +27,7 @@ import androidx.room.PrimaryKey;
                                 onUpdate = ForeignKey.CASCADE)
                 }
 )
+
 public class MassReadingJoinEntity {
 
     @NonNull
@@ -34,7 +37,7 @@ public class MassReadingJoinEntity {
 
     @NonNull
     @ColumnInfo(name = "type")
-    public Integer type=0;
+    public final Integer type=0;
 
     public int getType() {
         return type;

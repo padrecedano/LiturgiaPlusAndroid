@@ -1,9 +1,10 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.PRAYER;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
@@ -12,9 +13,7 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "prayer"/*,
-         indices = {@Index(value = {"prayer"},unique = true)}*/
-)
+@Entity(tableName = PRAYER)
 public class PrayerEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
@@ -29,6 +28,7 @@ public class PrayerEntity {
     @ColumnInfo(name = "order")
     public Integer orden=0;
 
+    @NonNull
     public String getTexto() {
         return texto;
     }

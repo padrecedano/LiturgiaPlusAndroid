@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LH_OFFICE_VERSE_JOIN;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -12,12 +14,10 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_office_verse_join",
-        //indices = {@Index(value = {"grupoId","himnoFK"}, unique = true)},
-        //primaryKeys = {"grupoId","himnoFK"},
+@Entity(tableName = LH_OFFICE_VERSE_JOIN,
+
         foreignKeys =
         {
-
                 @ForeignKey(
                         entity = LHOficceVerseEntity.class,
                         parentColumns = "verseID",

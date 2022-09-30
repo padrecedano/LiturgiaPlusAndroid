@@ -29,11 +29,9 @@ public class LHPsalm implements Comparable<LHPsalm>{
         return (antifona != null ) ?  antifona : "";
     }
 
-
     public String getAntifonaForRead() {
         return (antifona != null ) ?  Utils.normalizeEnd(antifona)  : "";
     }
-
 
     public void setAntifona(String antifona) {
         this.antifona = antifona;
@@ -46,7 +44,6 @@ public class LHPsalm implements Comparable<LHPsalm>{
             return  new SpannableStringBuilder("");
         }
     }
-
 
     public void setRef(String ref) {
         this.quote = ref;
@@ -61,7 +58,6 @@ public class LHPsalm implements Comparable<LHPsalm>{
     }
 
     public String getEpigrafe() {
-
         return (epigrafe != null ) ? epigrafe:"";
     }
 
@@ -123,5 +119,4 @@ public class LHPsalm implements Comparable<LHPsalm>{
     public void normalizeByTime(int calendarTime) {
             this.antifona=Utils.replaceByTime(getAntifona(),calendarTime);
     }
-
 }

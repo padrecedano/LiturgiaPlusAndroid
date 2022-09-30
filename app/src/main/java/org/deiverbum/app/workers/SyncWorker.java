@@ -23,7 +23,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 /**
  * @author A. Cedano
  * @version 1.0
- * @date 15/3/22
  * @since 2022.2
  */
 
@@ -32,7 +31,6 @@ public class SyncWorker extends Worker {
 
     private final ApiService workerDependency;
     private final TodayDao mTodayDao;
-    private final Context context;
 
 
     @AssistedInject
@@ -45,7 +43,6 @@ public class SyncWorker extends Worker {
         super(context, params);
         this.workerDependency = workerDependency;
         this.mTodayDao=mTodayDao;
-        this.context = context;
     }
 
 
@@ -92,19 +89,11 @@ public class SyncWorker extends Worker {
                         //Log.d("AXY-r",r.get(0).getTexto());
                         //DataWrapper<Homily, CustomException>
 
-                        //mTodayDao.insertToday(r.get(0));
-                        //mTodayDao.insertAllTodays(r);
-                        //mTodayDao.insertAllHimnos(r);
-                        //mTodayDao.insertAllTodaysTest(r);
-                        //SharedPreferences sp =context.getSharedPreferences("preference_key", Context.MODE_PRIVATE);
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Log.d("AXY-error"+theDate,e.toString());
-                        //mData.setValue(new DataWrapper<>(new
-                        // CustomException(NOTFOUND_OR_NOTCONNECTION)));
                     }
                 });
 

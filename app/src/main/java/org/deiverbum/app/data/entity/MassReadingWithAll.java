@@ -3,6 +3,9 @@ package org.deiverbum.app.data.entity;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
+import org.deiverbum.app.data.entity.relation.BibleReadingWithBook;
+import org.deiverbum.app.data.entity.relation.LiturgyWithTime;
+import org.deiverbum.app.data.entity.relation.MassReadingWithBook;
 import org.deiverbum.app.model.MassReading;
 
 import java.util.List;
@@ -61,14 +64,6 @@ public class MassReadingWithAll {
         theModel.setReadingID(massReadingEntity.readingFK);
         theModel.setTema(massReadingEntity.getTema());
         theModel.setOrden(massReadingEntity.getOrden());
-        //theModel.setLibro(lectura.getDomainModel().getLibro());
-        //theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
-        //theModel.setVersoInicial(String.valueOf(lectura.getDesde()));
-        //theModel.setVersoFinal(String.valueOf(lectura.getHasta()));
-        //theModel.setCita(lectura.getCita());
-        //theModel.setTema(misaLectura.getTema());
-        //theModel.setOrden(misaLectura.getOrden());
-        //theModel.setTexto(lectura.getTexto());
         return theModel;
     }
 

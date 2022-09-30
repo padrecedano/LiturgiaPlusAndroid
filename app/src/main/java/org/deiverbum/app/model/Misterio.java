@@ -7,7 +7,7 @@ public class Misterio {
     public int id;
     public String titulo;
     public List<String> contenido;
-    public List<String> ordinalName= Arrays.asList(
+    public final List<String> ordinalName= Arrays.asList(
             "Primer Misterio",
             "Segundo Misterio",
             "Tercer Misterio",

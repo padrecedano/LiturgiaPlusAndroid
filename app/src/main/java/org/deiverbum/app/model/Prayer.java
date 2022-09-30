@@ -32,9 +32,7 @@ public class Prayer {
     }
 
     public String getAllForRead() {
-        StringBuilder sb=new StringBuilder();
-        sb.append(Utils.pointAtEnd(TITLE_PRAYER));
-        sb.append(Utils.fromHtml(texto));
-        return sb.toString();
+        return Utils.pointAtEnd(TITLE_PRAYER) +
+                Utils.fromHtml(texto);
     }
 }

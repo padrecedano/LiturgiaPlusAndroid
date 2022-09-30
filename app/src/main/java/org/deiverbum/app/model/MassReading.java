@@ -100,5 +100,4 @@ public class MassReading extends Biblical implements Comparable<MassReading>{
     public int compareTo(MassReading e) {
         return this.getOrden().compareTo(e.getOrden());
     }
-
 }

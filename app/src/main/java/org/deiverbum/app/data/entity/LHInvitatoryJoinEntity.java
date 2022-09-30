@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LH_INVITATORY_JOIN;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -12,9 +14,7 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_invitatory_join",
-        //indices = {@Index(value = {"grupoFK","salmoFK"}, unique = true)}
-        //primaryKeys = {"grupoFK","salmoFK"},
+@Entity(tableName = LH_INVITATORY_JOIN,
         foreignKeys =
         {
                 @ForeignKey(

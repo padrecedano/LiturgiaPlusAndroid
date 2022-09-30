@@ -35,8 +35,9 @@ public class LiturgyTime {
     public void setLiturgyName(String liturgyName) {
         this.liturgyName = liturgyName;
     }
+
     public String getAllForRead() {
         return getLiturgyName();
     }
 
-    }
+}

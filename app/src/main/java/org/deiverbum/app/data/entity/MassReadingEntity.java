@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.MASS_READING;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -13,11 +15,11 @@ import org.deiverbum.app.model.MassReading;
  * @since 2022.2
  */
 
-@Entity(tableName = "mass_reading",
+@Entity(tableName = MASS_READING,
         primaryKeys = {"liturgyFK","readingFK","theOrder"},
         foreignKeys =
                 {
-                        @ForeignKey(
+                       @ForeignKey(
                                 entity = LiturgyEntity.class,
                                 parentColumns = "liturgyID",
                                 childColumns = "liturgyFK",
@@ -28,10 +30,9 @@ import org.deiverbum.app.model.MassReading;
                                 parentColumns = "readingID",
                                 childColumns = "readingFK",
                                 onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)}/*,
-         indices = {@Index(value = {"liturgiaId","pericopaFK","orden"},unique
-          = true)}*/
+                                onUpdate = ForeignKey.CASCADE)}
 )
+
 public class MassReadingEntity {
     @NonNull
     @ColumnInfo(name = "liturgyFK")

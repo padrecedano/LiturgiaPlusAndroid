@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LH_PRAYER;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -13,7 +15,7 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_prayer",
+@Entity(tableName = LH_PRAYER,
         indices = {@Index(value = {"groupID","prayerFK"}, unique = true)},
 
         foreignKeys =
@@ -23,15 +25,10 @@ import androidx.room.PrimaryKey;
                     parentColumns = "prayerID",
                     childColumns = "prayerFK",
                     onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE)/*,
-            @ForeignKey(
-                    entity = LHResponsoryEntity.class,
-                    parentColumns = "responsorioId",
-                    childColumns = "responsorioFK",
-                    onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE)*/
+                    onUpdate = ForeignKey.CASCADE)
         }
 )
+
 public class LHPrayerEntity {
 
     @NonNull

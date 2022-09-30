@@ -14,16 +14,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
 public class FileViewModel extends ViewModel {
-    FileRepository mRepository;
+    final FileRepository mRepository;
 
     @Inject
     public FileViewModel(FileRepository repository) {
         mRepository = repository;
     }
 
-    public LiveData<String> getText(String rawPath) {
-        return null;//mRepository.getText(rawPath);
-    }
 
     public LiveData<DataWrapper<Book, CustomException>> getBook(String rawPath) {
         return mRepository.getBook(rawPath);

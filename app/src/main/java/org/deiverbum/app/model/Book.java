@@ -10,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
 import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author A. Cedano
@@ -98,19 +99,21 @@ public class Book {
     }
 
     public String getAgreeYes() {
-        return agreeYes;
-    }
-
-    public void setAgreeYes(String agreeYes) {
-        this.agreeYes = agreeYes;
+        return this.agreeYes;
     }
 
     public String getAgreeNot() {
-        return agreeNot;
+        return this.agreeNot;
     }
 
+    @SuppressWarnings("unused")
+    public void setAgreeYes(String agreeYes) {
+         this.agreeYes=agreeYes;
+    }
+
+    @SuppressWarnings("unused")
     public void setAgreeNot(String agreeNot) {
-        this.agreeNot = agreeNot;
+         this.agreeNot=agreeNot;
     }
 
     public SpannableStringBuilder getForView(){
@@ -125,7 +128,7 @@ public class Book {
             sb.append(Utils.toH2(title));
             sb.append(LS2);
             sb.append("Fecha efectiva: ");
-            String dateString = String.format("<b>%s</b>", Utils.getTitleDate(date));
+            String dateString = String.format(new Locale("es"),"<b>%s</b>", Utils.getTitleDate(date));
             sb.append(Utils.fromHtml(dateString));
             //sb.append(_abstract.getAllForView());
             sb.append(LS2);
@@ -147,6 +150,7 @@ public class Book {
     }
 
 
+    @SuppressWarnings("unused")
     public SpannableStringBuilder getForHtml(){
         SpannableStringBuilder sb=new SpannableStringBuilder();
 
@@ -159,7 +163,7 @@ public class Book {
             sb.append(Utils.toH2(title));
             sb.append(LS2);
             sb.append("Fecha efectiva: ");
-            String dateString = String.format("<b>%s</b>", Utils.getTitleDate(date));
+            String dateString = String.format(new Locale("es"),"<b>%s</b>", Utils.getTitleDate(date));
             sb.append(dateString);
             //sb.append(_abstract.getAllForView());
             sb.append(LS2);

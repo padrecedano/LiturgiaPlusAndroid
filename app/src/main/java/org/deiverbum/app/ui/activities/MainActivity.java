@@ -18,8 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -27,11 +25,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.work.BackoffPolicy;
 import androidx.work.Constraints;
-import androidx.work.Data;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -53,7 +49,6 @@ import org.deiverbum.app.R;
 import org.deiverbum.app.databinding.ActivityMainBinding;
 import org.deiverbum.app.ui.fragments.AcceptanceFragmentDialog;
 import org.deiverbum.app.utils.Utils;
-import org.deiverbum.app.viewmodel.TodayViewModel;
 import org.deiverbum.app.workers.TodayWorker;
 
 import java.util.Objects;
@@ -78,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
             popupAlerter();
         }
     };
-    private TodayViewModel todayViewModel;
-    private WorkManager mWorkManager;
 
     @Override
     public void onBackPressed() {
@@ -101,14 +94,10 @@ public class MainActivity extends AppCompatActivity {
         onDestinationChangedListener = (controller, destination, arguments) -> {
             Bundle bundle = new Bundle();
             String screenName = Objects.requireNonNull(destination.getLabel()).toString();
-            String screenClass = String.format("Fragment%s", screenName);
 
             bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName);
             bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, screenName);
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
-
-            //todayViewModel = new ViewModelProvider(this).get(TodayViewModel.class);
-//todayViewModel.fetchData("");
             fetchData();
 
         };
@@ -144,10 +133,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             checkAppUpdate();
             //navController.navigate(R.id.nav_today);
-
         }
-
-
     }
 
     private void setPrivacy() {
@@ -162,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(false);
         }
-
     }
 
     @Override
@@ -258,15 +243,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void fetchData() {
-        this.mWorkManager = WorkManager.getInstance(getApplicationContext());
+        WorkManager mWorkManager = WorkManager.getInstance(getApplicationContext());
 
         // Create Network constraint
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
-        /*Data inputData = new Data.Builder()
-                .putInt("THE_DATE", theDate)
-                .build();*/
 
         PeriodicWorkRequest periodicSyncDataWork =
                 new PeriodicWorkRequest.Builder(TodayWorker.class, 15, TimeUnit.MINUTES)
@@ -286,8 +268,5 @@ public class MainActivity extends AppCompatActivity {
                 workInfo -> {
                     //mWorkManager.cancelWorkById(workInfo.getId());
                 });
-
-
     }
-
 }

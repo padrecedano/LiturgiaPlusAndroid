@@ -26,7 +26,6 @@ public class IntroViaCrucis {
     }
 
     public String getOracion() {
-
         return Utils.getFormato(oracion);
     }
 

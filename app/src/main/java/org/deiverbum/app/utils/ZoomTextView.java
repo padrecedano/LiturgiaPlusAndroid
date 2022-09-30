@@ -17,7 +17,6 @@ public class ZoomTextView extends androidx.appcompat.widget.AppCompatTextView im
     float mRatio = 13.0f;
     int mBaseDist;
     float mBaseRatio;
-    private float zoomLimit = 7.0f;
 
 
     public ZoomTextView(Context context) {
@@ -35,15 +34,6 @@ public class ZoomTextView extends androidx.appcompat.widget.AppCompatTextView im
         this.setTextIsSelectable(true);
     }
 
-
-    /***
-     * @param zoomLimit
-     * Default value is 3, 3 means text can zoom 3 times the default size
-     */
-
-    public void setZoomLimit(float zoomLimit) {
-        this.zoomLimit = zoomLimit;
-    }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -87,11 +77,6 @@ public class ZoomTextView extends androidx.appcompat.widget.AppCompatTextView im
     @Override
     public void setTextIsSelectable(boolean selectable) {
         super.setTextIsSelectable(selectable);
-    }
-
-    @Override
-    public boolean isTextSelectable() {
-        return super.isTextSelectable();
     }
 
 }

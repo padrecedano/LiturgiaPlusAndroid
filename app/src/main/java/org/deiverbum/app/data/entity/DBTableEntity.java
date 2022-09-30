@@ -1,9 +1,10 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.DB_TABLE;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
@@ -12,8 +13,7 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "db_table"/*,
-        indices = {@Index(value = {"antiphon"},unique = true)}*/)
+@Entity(tableName = DB_TABLE)
 public class DBTableEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)

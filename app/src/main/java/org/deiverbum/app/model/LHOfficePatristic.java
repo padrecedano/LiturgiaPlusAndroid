@@ -8,6 +8,7 @@ import android.text.Spanned;
 
 import org.deiverbum.app.utils.Utils;
 
+@SuppressWarnings("SameReturnValue")
 public class LHOfficePatristic {
     public String padre;
     public String obra;
@@ -26,9 +27,8 @@ public class LHOfficePatristic {
     }
 
     public String getPadreForRead() {
-        return String.format("%s.",padre);
+        return Utils.pointAtEnd(padre);
     }
-
 
     public void setPadre(String padre) {
         this.padre = padre;
@@ -39,9 +39,8 @@ public class LHOfficePatristic {
     }
 
     public String getObraForRead() {
-        return String.format("%s.",obra);
+        return Utils.pointAtEnd(obra);
     }
-
 
     public void setObra(String obra) {
         this.obra = obra;
@@ -62,7 +61,7 @@ public class LHOfficePatristic {
     }
 
     public String getTemaForRead() {
-        return String.format("%s.",tema);
+        return Utils.pointAtEnd(tema);
     }
 
     public void setTema(String tema) {
@@ -93,7 +92,6 @@ public class LHOfficePatristic {
         return responsorioLargo;
     }
 
-
     public void setResponsorioLargo(LHResponsory responsorioLargo) {
         this.responsorioLargo = responsorioLargo;
     }
@@ -102,21 +100,13 @@ public class LHOfficePatristic {
         return Utils.formatTitle("SEGUNDA LECTURA");
     }
 
-
-    public SpannableStringBuilder getHeaderForReview() {
-        String s=String.format("%s lectura",Utils.getOrdinal(orden)).toUpperCase();
-        return Utils.formatTitle(s);
-    }
-
     public String getResponsorioHeaderForRead() {
         return Utils.pointAtEnd(TITLE_RESPONSORY);
     }
 
-
     public String getHeaderForRead() {
         return "Segunda lectura.";
     }
-
 
         /**
          * <p>Obtiene la lectura patrística completa, incluyendo el responsorio, formateada para la vista.</p>
@@ -132,7 +122,6 @@ public class LHOfficePatristic {
         sb.append(getTexto());
         sb.append(getPadreForRead());
         sb.append(getResponsorioHeaderForRead());
-
         sb.append(responsorioLargo.getAllForRead());
         return sb;
     }

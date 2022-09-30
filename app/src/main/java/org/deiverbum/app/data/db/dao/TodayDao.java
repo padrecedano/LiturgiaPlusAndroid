@@ -19,6 +19,7 @@ import org.deiverbum.app.data.entity.LHGospelCanticleJoinEntity;
 import org.deiverbum.app.data.entity.LHHymnEntity;
 import org.deiverbum.app.data.entity.LHHymnJoinEntity;
 import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity;
+import org.deiverbum.app.data.entity.LHOficceVerseJoinEntity;
 import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
 import org.deiverbum.app.data.entity.LiturgyEntity;
 import org.deiverbum.app.data.entity.LiturgyHomilyJoinEntity;
@@ -26,29 +27,29 @@ import org.deiverbum.app.data.entity.MassReadingEntity;
 import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.SaintLifeEntity;
 import org.deiverbum.app.data.entity.SyncStatusEntity;
-import org.deiverbum.app.data.entity.TodayComentarios;
-import org.deiverbum.app.data.entity.TodayCompletas;
 import org.deiverbum.app.data.entity.TodayEntity;
-import org.deiverbum.app.data.entity.TodayHomilias;
-import org.deiverbum.app.data.entity.TodayLaudes;
-import org.deiverbum.app.data.entity.TodayMisaLecturas;
-import org.deiverbum.app.data.entity.TodayMixto;
-import org.deiverbum.app.data.entity.TodayNona;
-import org.deiverbum.app.data.entity.TodayOficio;
-import org.deiverbum.app.data.entity.TodaySanto;
-import org.deiverbum.app.data.entity.TodaySexta;
-import org.deiverbum.app.data.entity.TodayTercia;
-import org.deiverbum.app.data.entity.TodayVisperas;
+import org.deiverbum.app.data.entity.relation.TodayComentarios;
+import org.deiverbum.app.data.entity.relation.TodayCompletas;
+import org.deiverbum.app.data.entity.relation.TodayHomilias;
+import org.deiverbum.app.data.entity.relation.TodayLaudes;
+import org.deiverbum.app.data.entity.relation.TodayMisaLecturas;
+import org.deiverbum.app.data.entity.relation.TodayMixto;
+import org.deiverbum.app.data.entity.relation.TodayNona;
+import org.deiverbum.app.data.entity.relation.TodayOficio;
+import org.deiverbum.app.data.entity.relation.TodaySanto;
+import org.deiverbum.app.data.entity.relation.TodaySexta;
+import org.deiverbum.app.data.entity.relation.TodayTercia;
+import org.deiverbum.app.data.entity.relation.TodayVisperas;
 import org.deiverbum.app.model.BibleHomilyJoin;
 import org.deiverbum.app.model.Biblical;
 import org.deiverbum.app.model.Homily;
-import org.deiverbum.app.model.LHGospelCanticle;
-import org.deiverbum.app.model.LHGospelCanticleJoin;
-import org.deiverbum.app.model.LHHymn;
 import org.deiverbum.app.model.HomilyList;
 import org.deiverbum.app.model.LHAntiphon;
+import org.deiverbum.app.model.LHGospelCanticleJoin;
+import org.deiverbum.app.model.LHHymn;
 import org.deiverbum.app.model.LHHymnJoin;
 import org.deiverbum.app.model.LHInvitatoryJoin;
+import org.deiverbum.app.model.LHOfficeVerseJoin;
 import org.deiverbum.app.model.LHReadingShortJoin;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.LiturgyHomilyJoin;
@@ -113,11 +114,7 @@ String t=TODAY_TABLE;
 
     @Insert(entity = TodayEntity.class)
     void insertTodayX(Today today);
-/*
-    @Query("SELECT lastUpdate FROM sync_status WHERE tableName =  :tableName LIMIT 1")
-    Integer getLastVersion(String tableName);
-*/
-    @Transaction
+@Transaction
     @Query(todayByDate)
     TodayOficio getOficioOfToday(Integer theDate);
 
@@ -224,11 +221,6 @@ String t=TODAY_TABLE;
     void bibleReadingDeleteAll(List<Biblical> homilyJoin);
 
 
-/*
-    @Query("UPDATE sync_status SET version=version+1 WHERE tableName=:tableName")
-    void syncUpdate(String tableName);
-*/
-
     @Query("SELECT lastUpdate FROM sync_status WHERE tableName=:tableName LIMIT 1")
     String syncLastVersion(String tableName);
 
@@ -254,7 +246,7 @@ String t=TODAY_TABLE;
     void homilyJoinUpdateAll(List<LiturgyHomilyJoin> list);
 
     @Delete(entity = LiturgyHomilyJoinEntity.class)
-    Integer homilyJoinDeleteAll(List<LiturgyHomilyJoin> homilyJoin);
+    void homilyJoinDeleteAll(List<LiturgyHomilyJoin> homilyJoin);
 
     @Query("UPDATE sync_status SET lastUpdate=:lastUpdate")
     void syncUpdate(String lastUpdate);
@@ -268,7 +260,7 @@ String t=TODAY_TABLE;
     void bibleHomilyJoinUpdateAll(List<BibleHomilyJoin> list);
 
     @Delete(entity = BibleHomilyJoinEntity.class)
-    Integer bibleHomilyJoinDeleteAll(List<BibleHomilyJoin> homilyJoin);
+    void bibleHomilyJoinDeleteAll(List<BibleHomilyJoin> homilyJoin);
 
     @Insert(entity = HomilyEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
@@ -282,7 +274,7 @@ String t=TODAY_TABLE;
     void homilyDeleteAll(List<Homily> homilyJoin);
 
     @Insert(entity = LHGospelCanticleJoinEntity.class,
-            onConflict = OnConflictStrategy.REPLACE)
+            onConflict = OnConflictStrategy.IGNORE)
     void gospelCanticleInsertAll(List<LHGospelCanticleJoin> list);
 
     @Update(entity = LHGospelCanticleJoinEntity.class,
@@ -336,15 +328,27 @@ String t=TODAY_TABLE;
     @Delete(entity = LHHymnJoinEntity.class)
     void lhHymnJoinDeleteAll(List<LHHymnJoin> d);
 
+    @Insert(entity = LHOficceVerseJoinEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhOfficeVerseJoinInsertAll(List<LHOfficeVerseJoin> c);
 
+    @Update(entity = LHOficceVerseJoinEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhOfficeVerseJoinUpdateAll(List<LHOfficeVerseJoin> u);
 
-    /*
-    @Insert
-    void insertAll(TodayEntity... todays);
+    @Delete(entity = LHOficceVerseJoinEntity.class)
+    void lhOfficeVerseJoinDeleteAll(List<LHOfficeVerseJoin> d);
 
-    @Delete
-    void delete(TodayEntity today);
+    @Insert(entity = LHHymnEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhHymnInsertAll(List<LHHymn> c);
 
-     */
+    @Update(entity = LHHymnEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhHymnUpdateAll(List<LHHymn> u);
+
+    @Delete(entity = LHHymnEntity.class)
+    void lhHymnDeleteAll(List<LHHymn> d);
+
 }
 

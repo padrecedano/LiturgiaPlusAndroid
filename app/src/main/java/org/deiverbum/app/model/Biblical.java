@@ -9,6 +9,9 @@ import androidx.room.Ignore;
 
 import org.deiverbum.app.utils.Utils;
 
+import java.util.Locale;
+
+@SuppressWarnings("SameReturnValue")
 public class Biblical {
     @Ignore
     protected BibleBook book;
@@ -71,7 +74,7 @@ public class Biblical {
         return verseTo;
     }
 
-    public void setHasta(String versoFinal) {
+    public void setHasta(String verseTo) {
         this.verseTo = verseTo;
     }
 
@@ -179,7 +182,7 @@ public class Biblical {
     }
 
     public String getReferencia() {
-        return String.format("%s, %s%s",getCapitulo(),getVersoInicial(),getVersoFinal());
+        return String.format(new Locale("es"),"%s, %s%s",getCapitulo(),getVersoInicial(),getVersoFinal());
     }
 
     public SpannableStringBuilder getHeader() {

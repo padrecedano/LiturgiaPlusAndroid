@@ -1,10 +1,10 @@
 package org.deiverbum.app.data.adapters;
 
 public class BreviarioItem {
-    public String text;
-    public String letra;
-    public int color;
-    public int navId;
+    public final String text;
+    public final String letra;
+    public final int color;
+    public final int navId;
 
     public BreviarioItem(String t, int c, String l, int navId) {
         text = t;

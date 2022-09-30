@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.PATER_OPUS;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -30,7 +32,7 @@ import androidx.room.PrimaryKey;
  *  );
  */
 
-@Entity(tableName = "pater_opus",
+@Entity(tableName = PATER_OPUS,
         foreignKeys =
                 {
                         @ForeignKey(
@@ -90,6 +92,7 @@ public class PaterOpusEntity {
     @ColumnInfo(name = "collectionFK", defaultValue = "0")
     public Integer coleccionFK=0;
 
+    @NonNull
     public String getObra() {
         return obra;
     }

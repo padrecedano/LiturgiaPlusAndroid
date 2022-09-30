@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LH_PSALMODY;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -11,7 +13,7 @@ import androidx.room.ForeignKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_psalmody",
+@Entity(tableName = LH_PSALMODY,
         primaryKeys = {"groupFK", "readingFK", "antiphonFK"},
         foreignKeys =
         {
@@ -45,9 +47,7 @@ import androidx.room.ForeignKey;
                         childColumns = "epigraphFK",
                         onDelete = ForeignKey.SET_NULL,
                         onUpdate = ForeignKey.CASCADE)
-        }/*,
-        indices={@Index(value={"liturgiaId","salmoFK", "antifonaFK"},unique =
-         true)}*/
+        }
 )
 public class PsalmodyEntity {
 

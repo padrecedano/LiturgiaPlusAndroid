@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.PATER;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -25,7 +27,7 @@ import androidx.room.PrimaryKey;
  *  );
  */
 
-@Entity(tableName = "pater",
+@Entity(tableName = PATER,
         indices={@Index(value={"pater","placeFK","typeFK","titleFK","missionFK","sexFK","groupFK"},unique = true)}
 )
 public class PaterEntity {
@@ -66,7 +68,7 @@ public class PaterEntity {
     @ColumnInfo(name = "groupFK", defaultValue = "0")
     public Integer grupoFK=0;
 
-
+    @NonNull
     public String getPadre() {
         return padre;
     }

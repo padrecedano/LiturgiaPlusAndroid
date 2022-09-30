@@ -28,7 +28,6 @@ public class HomilyList {
         this.theme = tema;
         this.opusFK = obra;
         this.date = fecha;
-
     }
     @SuppressWarnings("unused")
     public HomilyList() {}

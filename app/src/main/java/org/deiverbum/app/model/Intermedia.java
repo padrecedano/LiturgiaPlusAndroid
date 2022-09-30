@@ -1,7 +1,5 @@
 package org.deiverbum.app.model;
 
-import static org.deiverbum.app.utils.Constants.TITLE_CONCLUSION;
-import static org.deiverbum.app.utils.Constants.TITLE_LAUDES;
 import static org.deiverbum.app.utils.Constants.TITLE_NONA;
 import static org.deiverbum.app.utils.Constants.TITLE_SEXTA;
 import static org.deiverbum.app.utils.Constants.TITLE_TERCIA;
@@ -38,12 +36,10 @@ public class Intermedia extends BreviaryHour {
         return Utils.toH1Red(getTituloHora());
     }
 
-
-    public SpannableStringBuilder getForView() {
+    public SpannableStringBuilder getForView(LiturgyTime liturgyTime) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
-            salmodia.normalizeByTime(hoy.getCalendarTime());
-
+            salmodia.normalizeByTime(liturgyTime.getTiempoId());
             sb.append(hoy.getAllForView());
             sb.append(Utils.LS2);
 
@@ -69,10 +65,9 @@ public class Intermedia extends BreviaryHour {
             sb.append(getConclusionHoraMenor());
 
         } catch (Exception e) {
-            sb.append(e.getMessage());
+            sb.append(Utils.createErrorMessage(e.getMessage()));
         }
         return sb;
-
     }
 
     public StringBuilder getForRead() {
@@ -87,7 +82,7 @@ public class Intermedia extends BreviaryHour {
             sb.append(oracion.getAllForRead());
             sb.append(getConclusionHoraMenorForRead());
         } catch (Exception e) {
-            sb.append(e.getMessage());
+            sb.append(Utils.createErrorMessage(e.getMessage()));
         }
         return sb;
     }

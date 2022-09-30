@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LH_OFFICE_BIBLICAL;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -11,19 +13,17 @@ import androidx.room.ForeignKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_office_biblical",
+@Entity(tableName = LH_OFFICE_BIBLICAL,
         primaryKeys = {"groupFK","readingFK","responsoryFK"},
-        /*indices = {@Index(value = {"grupoFK","pericopaFK","responsorioFK"},
-                unique = true)},*/
 
         foreignKeys =
         {
-                @ForeignKey(
-                        entity = LHOfficeBiblicalJoinEntity.class,
-                        parentColumns = "groupID",
-                        childColumns = "groupFK",
-                        onDelete = ForeignKey.CASCADE,
-                        onUpdate = ForeignKey.CASCADE),
+           @ForeignKey(
+                   entity = LHOfficeBiblicalJoinEntity.class,
+                   parentColumns = "groupID",
+                   childColumns = "groupFK",
+                   onDelete = ForeignKey.CASCADE,
+                   onUpdate = ForeignKey.CASCADE),
             @ForeignKey(
                     entity = BibleReadingEntity.class,
                     parentColumns = "readingID",
@@ -38,9 +38,9 @@ import androidx.room.ForeignKey;
                     onUpdate = ForeignKey.CASCADE)
         }
 )
+
 public class LHOfficeBiblicalEntity {
     @NonNull
-    //@PrimaryKey
     @ColumnInfo(name = "groupFK")
     public Integer grupoFK=0;
 

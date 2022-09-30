@@ -1,6 +1,5 @@
 package org.deiverbum.app.model;
 
-import static org.deiverbum.app.utils.Constants.BRS;
 import static org.deiverbum.app.utils.Constants.TITLE_INTERCESSIONS;
 import static org.deiverbum.app.utils.Utils.LS2;
 
@@ -8,6 +7,8 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
 import org.deiverbum.app.utils.Utils;
+
+import java.util.Locale;
 
 public class LHIntercession {
     public String intro;
@@ -30,7 +31,7 @@ public class LHIntercession {
         if (introArray.length == 3) {
             sb.append(introArray[0]);
             sb.append(LS2);
-            sb.append(Utils.fromHtml(String.format("<i>%s</i>",introArray[1])));
+            sb.append(Utils.fromHtml(String.format(new Locale("es"),"<i>%s</i>",introArray[1])));
             sb.append(LS2);
             sb.append(getTexto());
             sb.append(LS2);
@@ -47,7 +48,6 @@ public class LHIntercession {
     public Spanned getTexto() {
         return Utils.fromHtml(Utils.getFormato(texto));
     }
-
 
     public void setTexto(String texto) {
         this.texto = texto;
@@ -77,6 +77,4 @@ public class LHIntercession {
         }
         return sb;
     }
-
-
 }

@@ -13,6 +13,7 @@ import org.deiverbum.app.utils.Utils;
 
 import java.util.HashMap;
 
+@SuppressWarnings("SameReturnValue")
 public class Saint {
 
     public Integer saintID;
@@ -27,18 +28,14 @@ public class Saint {
     //private String martirologio;
     @Ignore
     private boolean crg;
-
     public String theDay;
-
     public String theMonth;
 
     public String getTheName() {
-
         return theName;
     }
 
     public void setTheName(String nombre) {
-
         this.theName = nombre;
     }
 
@@ -46,7 +43,6 @@ public class Saint {
         if (!vida.equals("")) {
             return Utils.fromHtml("<p><small>" + vida + "</small></p>");
         } else {
-
             return Utils.fromHtml("");
         }
     }
@@ -122,7 +118,7 @@ public class Saint {
             sb.append(LS2);
             sb.append(getVidaSpan());
         } catch (Exception e) {
-            sb.append(e.getMessage());
+            sb.append(Utils.createErrorMessage(e.getMessage()));
         }
         return sb;
     }
@@ -138,7 +134,7 @@ public class Saint {
             sb.append(getMartirologioTitleForRead());
             sb.append(getVidaForRead());
         } catch (Exception e) {
-            sb.append(e.getMessage());
+            sb.append(Utils.createErrorMessage(e.getMessage()));
         }
         return sb;
     }
@@ -160,6 +156,7 @@ public class Saint {
         return String.format("%s de %s", theDay, monthNames.get(theMonth));
     }
 
+    @SuppressWarnings("unused")
     public String getMonthName(String mes) {
         HashMap<Integer, String> monthNames = new HashMap<>();
         monthNames.put(1, "Enero");
@@ -177,7 +174,4 @@ public class Saint {
         Integer theMonth=Integer.valueOf(mes);
         return String.format("%s de %s", theDay, monthNames.get(theMonth));
     }
-
-
 }
-

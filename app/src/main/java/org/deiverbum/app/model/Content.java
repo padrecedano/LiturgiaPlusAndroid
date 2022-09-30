@@ -73,7 +73,7 @@ public class Content {
     public SpannableStringBuilder getByType(){
         SpannableStringBuilder sb=new SpannableStringBuilder();
         if(type==10) {
-            Spanned txt = Utils.fromHtml(String.format("%s<b>%s</b> %s",
+            Spanned txt = Utils.fromHtml(String.format(new Locale("es"),"%s<b>%s</b> %s",
                     NBSP_4,item,
                     getTextForView()));
             sb.append(txt);
@@ -112,7 +112,7 @@ public class Content {
         SpannableStringBuilder sb=new SpannableStringBuilder();
         int i=1;
         for (String s : text) {
-            String tmp=String.format(Locale.getDefault(),"\t\t%d. %s",i,
+            String tmp=String.format(new Locale("es"),"\t\t%d. %s",i,
                     s);
             sb.append(Utils.fromHtml(tmp));
             sb.append(LS2);
@@ -146,7 +146,7 @@ public class Content {
     public SpannableStringBuilder getHtmlByType(){
         SpannableStringBuilder sb=new SpannableStringBuilder();
         if(type==10) {
-            String txt = String.format("%s<b>%s</b> %s",
+            String txt = String.format(new Locale("es"),"%s<b>%s</b> %s",
                     NBSP_4,item,
                     getTextHtml());
             sb.append(txt);

@@ -7,17 +7,16 @@ import static org.deiverbum.app.utils.Constants.RESP_A;
 import static org.deiverbum.app.utils.Constants.RESP_R;
 import static org.deiverbum.app.utils.Constants.RESP_V;
 import static org.deiverbum.app.utils.Constants.TITLE_RESPONSORY_SHORT;
-import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
+import java.util.Locale;
+
 public class LHResponsoryShort {
     protected String texto;
     protected int forma;
-    //private String ref;
-
 
     public String getTexto() {
         return this.texto;
@@ -35,37 +34,13 @@ public class LHResponsoryShort {
         this.forma = forma;
     }
 
-    /*
-    public String getRef() {
-        return ref;
-    }
-
-    public void setRef(String ref) {
-        this.ref = ref;
-    }*/
-
     public SpannableStringBuilder getHeader(int hourId) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        String head=hourId<3 || hourId > 5 ?  Utils.toUpper(TITLE_RESPONSORY_SHORT) : "";
-        //String fuente=ref!=null ?  "RESPONSORIO BREVE" : "";
-
         if(hourId<3 || hourId > 5){
-            sb.append(Utils.toRed(String.format("%s%s%s", Utils.toUpper(TITLE_RESPONSORY_SHORT),"     ","getRef()")));
-
-            //sb.append("RESPONSORIO BREVE")
+            sb.append(Utils.toRed(String.format(new Locale("es"),"%s%s%s", Utils.toUpper(TITLE_RESPONSORY_SHORT),"     ","getRef()")));
         }
-/*
-        if(ref!=null){
-            sb.append(Utils.toRed(String.format("%s%s%s", head,"     ",getRef())));
-
-        }else{
-            sb.append(Utils.toRed("LHResponsoryShort"));
-
-        }
-        sb.append(LS2);*/
         return sb;
     }
-
 
     public SpannableStringBuilder getHeader() {
         return Utils.formatTitle(TITLE_RESPONSORY_SHORT);
@@ -82,8 +57,6 @@ public class LHResponsoryShort {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         String[] respArray = texto.split("\\|");
         StringBuilder s = new StringBuilder();
-
-        //sb.append(getHeader());
         switch (forma) {
             case 1:
                 if (respArray.length == 3) {
@@ -144,10 +117,8 @@ public class LHResponsoryShort {
                     s.append(respArray[0]);
                     s.append(BRS);
                     sb.append(Utils.fromHtml(s.toString()));
-
                 }
                 break;
-
 
             case 6001020:
                 if (respArray.length == 3) {
@@ -170,10 +141,8 @@ public class LHResponsoryShort {
                     s.append(respArray[0]);
                     s.append(BRS);
                     sb.append(Utils.fromHtml(s.toString()));
-
                 }
                 break;
-
 
             case 4:
                 s.append(RESP_V);
@@ -208,7 +177,6 @@ public class LHResponsoryShort {
 
                 break;
 
-
             default:
                 sb.append(ERR_RESPONSORIO);
                 sb.append(BR);
@@ -220,7 +188,6 @@ public class LHResponsoryShort {
                 break;
         }
         return sb;
-
     }
 
     /**
@@ -237,11 +204,8 @@ public class LHResponsoryShort {
         if(hourId<3 || hourId > 5){
             sb.append(getHeader());
             s.append(BRS);
-
-            //sb.append("RESPONSORIO BREVE")
         }
 
-        //sb.append(getHeader(hourId));
         switch (forma) {
             case 1:
                 if (respArray.length == 3) {
@@ -306,7 +270,6 @@ public class LHResponsoryShort {
                 }
                 break;
 
-
             case 6001020:
                 if (respArray.length == 3) {
                     s.append(RESP_V);
@@ -328,10 +291,8 @@ public class LHResponsoryShort {
                     s.append(respArray[0]);
                     s.append(BRS);
                     sb.append(Utils.fromHtml(s.toString()));
-
                 }
                 break;
-
 
             case 4:
                 s.append(RESP_V);
@@ -366,7 +327,6 @@ public class LHResponsoryShort {
 
                 break;
 
-
             default:
                 sb.append(ERR_RESPONSORIO);
                 sb.append(BR);
@@ -378,9 +338,7 @@ public class LHResponsoryShort {
                 break;
         }
         return sb;
-
     }
-
 
     /**
      * Devuelve el texto del LHResponsoryShort Breve con formato
@@ -388,9 +346,6 @@ public class LHResponsoryShort {
      *
      * @return Una cadena formateada con el responsorio
      */
-
-
-
     public String getAllForRead() {
         String[] respArray = texto.split("\\|");
         StringBuilder s = new StringBuilder();
@@ -415,7 +370,6 @@ public class LHResponsoryShort {
                 s.append(respArray[1]);
                 break;
 
-
             case 6001230:
 
                 if (respArray.length == 4) {
@@ -428,7 +382,6 @@ public class LHResponsoryShort {
                 }
                 break;
 
-
             case 6001020:
 
                 if (respArray.length == 3) {
@@ -440,7 +393,6 @@ public class LHResponsoryShort {
                     s.append(respArray[0]);
                 }
                 break;
-
 
             case 4:
                 s.append(respArray[0]);
@@ -471,5 +423,4 @@ public class LHResponsoryShort {
     public void normalizeByTime(int calendarTime) {
         this.texto=Utils.replaceByTime(texto,calendarTime);
     }
-
 }

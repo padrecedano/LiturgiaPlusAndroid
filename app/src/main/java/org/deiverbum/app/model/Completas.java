@@ -17,7 +17,6 @@ public class Completas extends BreviaryHour {
     List<CompletasHimno> completasHimno;
     private List<CompletasDia> completasDias;
     private List<LHResponsoryShort> responsorio;
-    private LiturgyTime finalTime;
 
     public List<LHResponsoryShort> getResponsorio() {
         return responsorio;
@@ -30,6 +29,7 @@ public class Completas extends BreviaryHour {
         return ritosIniciales;
     }
 
+    @SuppressWarnings("unused")
     public void setRitosIniciales(RitosIniciales ritosIniciales) {
         this.ritosIniciales = ritosIniciales;
     }
@@ -40,6 +40,15 @@ public class Completas extends BreviaryHour {
 
     public NuncDimitis getNuncDimitis() {
         return nuncDimitis;
+    }
+
+    @SuppressWarnings("unused")
+    public void setNuncDimitis(NuncDimitis nuncDimitis) {
+        this.nuncDimitis=nuncDimitis;
+    }
+    @SuppressWarnings("unused")
+    public void setCompletasDia(List<CompletasDia> completasDias) {
+        this.completasDias = completasDias;
     }
 
     public void setResponsorio(List<LHResponsoryShort> responsorio) {
@@ -56,7 +65,7 @@ public class Completas extends BreviaryHour {
 
     public LHHymn getHimno() {
         SparseIntArray mMap = new SparseIntArray();
-        switch (finalTime.getTiempoId()) {
+        switch (hoy.getTimeID()) {
             case 1:
             case 2:
                 mMap.put(0, 0);
@@ -118,7 +127,7 @@ public class Completas extends BreviaryHour {
     public SpannableStringBuilder getLecturaSpan() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
 
-        int mIndex = (hoy.getFinalTime().getTiempoId() == 6) ? 1 : 0;
+        int mIndex = (hoy.getTimeID() == 6) ? 1 : 0;
         LHResponsoryShort mResponsorio = responsorio.get(mIndex);
         BiblicalShort mLectura = completasDias.get(hoy.weekDay).getLecturaBreve();
         mLectura.setResponsorio(mResponsorio);
@@ -128,16 +137,14 @@ public class Completas extends BreviaryHour {
 
     public SpannableStringBuilder getLecturaForRead() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
-        int mIndex = (finalTime.getTiempoId() == 6) ? 1 : 0;
-        LHResponsoryShort mResponsorio = responsorio.get(mIndex);
         BiblicalShort mLectura = completasDias.get(hoy.weekDay).getLecturaBreve();
         ssb.append(mLectura.getAllForRead());
         return ssb;
     }
 
-    public SpannableStringBuilder getForView() {
-       // try {
-            this.finalTime = hoy.getFinalTime();
+    public SpannableStringBuilder getForView(LiturgyTime liturgyTime) {
+        //try {
+            //this.finalTime =  hoy.getFinalTime();
             SpannableStringBuilder sb = new SpannableStringBuilder();
             RitosIniciales ri = getRitosIniciales();
             Kyrie kyrie = ri.getKyrie();
@@ -159,16 +166,16 @@ public class Completas extends BreviaryHour {
             sb.append(Utils.LS2);
             sb.append(getLecturaSpan());
             sb.append(Utils.LS2);
-            sb.append(nuncDimitis.getAll(finalTime.getTiempoId()));
+            sb.append(nuncDimitis.getAll(hoy.getTimeID()));
             sb.append(Utils.LS2);
             sb.append(getOracionByDay().getAll());
             sb.append(Utils.LS2);
-            sb.append(conclusion.getAll(finalTime.getTiempoId()));
+            sb.append(conclusion.getAll(hoy.getTimeID()));
             sb.append(Utils.LS2);
             return sb;
-       /* } catch (Exception e) {
-            return new SpannableStringBuilder(e.toString());
-        }*/
+        //} catch (Exception e) {
+        //    return new SpannableStringBuilder(e.toString());
+        //}
     }
 
     public SpannableStringBuilder getTituloHora() {
@@ -197,7 +204,7 @@ public class Completas extends BreviaryHour {
             sb.append(getLecturaForRead());
             sb.append(nuncDimitis.getAllForRead());
             sb.append(getOracionByDay().getAllForRead());
-            sb.append(conclusion.getAllForRead(finalTime.getTiempoId()));
+            sb.append(conclusion.getAllForRead(hoy.getTimeID()));
             return sb;
         } catch (Exception e) {
             return new StringBuilder(e.toString());

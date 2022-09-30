@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.SAINT_LIFE;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -15,10 +17,9 @@ import org.deiverbum.app.model.SaintLife;
  */
 
 @Entity(
-        tableName = "saint_life",
+        tableName = SAINT_LIFE,
         foreignKeys =
                 {
-
                         @ForeignKey(
                                 entity = SaintEntity.class,
                                 parentColumns = "saintID",
@@ -27,6 +28,7 @@ import org.deiverbum.app.model.SaintLife;
                                 onUpdate = ForeignKey.CASCADE)
                 }
 )
+
 public class SaintLifeEntity {
     @NonNull
     @PrimaryKey
@@ -66,7 +68,6 @@ public class SaintLifeEntity {
     public void setLongLife(@NonNull String longLife) {
         this.longLife = longLife;
     }
-
 
     @NonNull
     public String getShortLife() {

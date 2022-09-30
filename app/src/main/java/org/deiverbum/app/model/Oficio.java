@@ -2,7 +2,6 @@ package org.deiverbum.app.model;
 
 import static org.deiverbum.app.utils.Constants.TITLE_OFICIO;
 import static org.deiverbum.app.utils.Utils.LS2;
-import static org.deiverbum.app.utils.Utils.toH3Red;
 
 import android.text.SpannableStringBuilder;
 
@@ -11,9 +10,7 @@ import org.deiverbum.app.utils.Utils;
 public class Oficio extends BreviaryHour {
 
     private LHInvitatory invitatorio;
-    //private LHOfficeOfReading oficioLecturas;
     private LHIntercession preces;
-    //private TeDeum teDeum;
 
     public Oficio() {
     }
@@ -64,15 +61,13 @@ public class Oficio extends BreviaryHour {
         return Utils.pointAtEnd(TITLE_OFICIO);
     }
 
-    public SpannableStringBuilder getForView(LiturgyTime liturgyTime, boolean hasInvitatorio) {
+    public SpannableStringBuilder getForView(LiturgyTime liturgyTime) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
             invitatorio.normalizeByTime(liturgyTime.getTiempoId());
             salmodia.normalizeByTime(liturgyTime.getTiempoId());
             oficioLecturas.normalizeByTime(liturgyTime.getTiempoId());
-
             sb.append(hoy.getAllForView());
-            //sb.append(metaLiturgia.getAll());
             sb.append(LS2);
             if (hoy.getHasSaint()==1) {
                 sb.append(santo.getVidaSmall());
@@ -85,10 +80,8 @@ public class Oficio extends BreviaryHour {
 
             sb.append(getSaludoOficio());
             sb.append(LS2);
-            //LiturgyTime liturgyTime=getLiturgyTime();
 
-
-            sb.append(invitatorio.getAll(hasInvitatorio));
+            sb.append(invitatorio.getAll());
             sb.append(LS2);
 
             sb.append(himno.getAll());
@@ -97,7 +90,6 @@ public class Oficio extends BreviaryHour {
             sb.append(LS2);
 
             sb.append(oficioLecturas.getAll(liturgyTime.getTiempoId()));
-            //sb.append(LS2);
 
             if (teDeum.status) {
                 sb.append(teDeum.getAll());
@@ -107,19 +99,12 @@ public class Oficio extends BreviaryHour {
             sb.append(LS2);
             sb.append(getConclusionHorasMayores());
         } catch (Exception e) {
-/*            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            sb.append(sw.toString());
-*/
-            //sb.append(e.getMessage());
+            sb.append(Utils.createErrorMessage(e.getMessage()));
         }
-
         return sb;
     }
 
-
-    public StringBuilder getForRead(boolean hasInvitatorio) {
+    public StringBuilder getForRead() {
         StringBuilder sb = new StringBuilder();
         try {
             sb.append(hoy.getAllForRead());
@@ -128,7 +113,7 @@ public class Oficio extends BreviaryHour {
             }
             sb.append(getTituloHoraForRead());
             sb.append(getSaludoOficioForRead());
-            sb.append(invitatorio.getAllForRead(hasInvitatorio));
+            sb.append(invitatorio.getAllForRead());
             sb.append(himno.getAllForRead());
             sb.append(salmodia.getAllForRead());
             sb.append(oficioLecturas.getAllForRead());
@@ -139,7 +124,7 @@ public class Oficio extends BreviaryHour {
             sb.append(oracion.getAllForRead());
             sb.append(getConclusionHorasMayoresForRead());
         } catch (Exception e) {
-            sb.append(e.getMessage());
+            sb.append(Utils.createErrorMessage(e.getMessage()));
         }
         return sb;
     }

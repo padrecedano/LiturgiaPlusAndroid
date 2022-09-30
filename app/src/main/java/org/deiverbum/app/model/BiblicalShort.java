@@ -1,12 +1,11 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Constants.TITLE_SHORT_READING;
+import static org.deiverbum.app.utils.Utils.LS2;
+
 import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
-
-import static org.deiverbum.app.utils.Constants.TITLE_GOSPEL_CANTICLE;
-import static org.deiverbum.app.utils.Constants.TITLE_SHORT_READING;
-import static org.deiverbum.app.utils.Utils.LS2;
 
 public class BiblicalShort extends Biblical {
     //public String forma;
@@ -14,17 +13,8 @@ public class BiblicalShort extends Biblical {
 
     public BiblicalShort() {
     }
-/*
-    public String getForma() {
-        return forma;
-    }
-
-    public void setForma(String forma) {
-        this.forma = forma;
-    }
-*/
-    public SpannableStringBuilder getHeaderLectura() {
-        //String s=String.format("%s    %s",TITLE_SHORT_READING,getRefBreve());
+public SpannableStringBuilder getHeaderLectura() {
+        //String s=String.format(new Locale("es"),"%s    %s",TITLE_SHORT_READING,getRefBreve());
         SpannableStringBuilder ssb=new SpannableStringBuilder(Utils.formatTitle(TITLE_SHORT_READING));
         ssb.append("    ");
         ssb.append(Utils.toRed(getRefBreve()));
@@ -70,9 +60,5 @@ public class BiblicalShort extends Biblical {
         //sb.append(getResponsorioForRead());
         return sb;
     }
-    public void normalizeByTime(int timeID){
-        //this.responsorio=Utils.replaceByTime(this.responsorio,timeID);
-    }
-
 
 }

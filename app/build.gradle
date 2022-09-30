@@ -7,11 +7,11 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     defaultConfig {
         applicationId "org.deiverbum.app"
         minSdkVersion 21
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode 202201004
         versionName "@string/app_version_name"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -43,6 +43,7 @@ android {
         viewBinding true
         dataBinding true
     }
+    namespace 'org.deiverbum.app'
 }
 
 dependencies {
@@ -77,6 +78,7 @@ dependencies {
     implementation "androidx.annotation:annotation:1.5.0"
 
     implementation "androidx.fragment:fragment:1.5.3"
+    implementation 'androidx.activity:activity-compose:1.6.0'
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -139,6 +141,21 @@ dependencies {
 
     //Material
     implementation "com.google.android.material:material:1.6.1"
-
-
 }
+
+android.applicationVariants.all { variant ->
+    task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+        description "Generates Javadoc for $variant.name."
+
+        source = variant.javaCompile.source
+        destinationDir = file("$rootDir/javadoc/")
+        failOnError false
+
+        doFirst {
+            ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+            classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
+
+            options.addStringOption "-show-members", "package"
+        }
+    }}
+

@@ -11,6 +11,7 @@ import static org.deiverbum.app.utils.Constants.NBSP_SALMOS;
 import static org.deiverbum.app.utils.Constants.OBIEN;
 import static org.deiverbum.app.utils.Constants.PRECES_IL;
 import static org.deiverbum.app.utils.Constants.PRECES_R;
+import static org.deiverbum.app.utils.Constants.VERSION_CODE;
 
 import android.graphics.Color;
 import android.text.Html;
@@ -490,7 +491,7 @@ public final class Utils {
             try {
                 Date date = sdf.parse(dateString);
                 c.setFirstDayOfWeek(Calendar.SUNDAY);
-                c.setTime(date);
+                c.setTime(Objects.requireNonNull(date));
                 return c.get(Calendar.DAY_OF_WEEK);
             } catch (ParseException e) {
                 c = Calendar.getInstance();
@@ -539,7 +540,7 @@ public final class Utils {
     }
 
     public static String createErrorMessage(String msg) {
-        return String.format("Ha ocurrido el siguiente error:%s\n%s", msg, ERR_REPORT);
+        return String.format(new Locale("es"),"Ha ocurrido el siguiente error:%s%s %s%s %sVersión de la aplicación: %s", LS2,msg, LS2,ERR_REPORT, LS2,VERSION_CODE);
     }
 
     /**

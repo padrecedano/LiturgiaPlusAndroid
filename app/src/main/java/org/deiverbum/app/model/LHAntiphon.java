@@ -22,5 +22,4 @@ public class LHAntiphon {
     public void setAntifona(String antifona) {
         this.antiphon = antifona;
     }
-
 }

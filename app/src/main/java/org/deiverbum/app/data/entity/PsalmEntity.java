@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LH_PSALM;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -13,7 +15,8 @@ import org.deiverbum.app.model.LHPsalm;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_psalm")
+@Entity(tableName = LH_PSALM)
+
 public class PsalmEntity {
     @NonNull
     @PrimaryKey

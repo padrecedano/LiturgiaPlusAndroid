@@ -11,11 +11,8 @@ public class TeDeum {
     public boolean status;
     public String texto;
 
-    public TeDeum() {
-    }
-
     public TeDeum(int i) {
-        this.status=i==0 ? false:true;
+        this.status= i != 0;
     }
 
     public boolean isStatus() {
@@ -59,7 +56,6 @@ public class TeDeum {
         this.texto = texto;
     }
 
-
     public SpannableStringBuilder getHeader() {
         return Utils.formatTitle(TITLE_TEDEUM);
     }
@@ -74,4 +70,3 @@ public class TeDeum {
         return sb.toString();
     }
 }
-

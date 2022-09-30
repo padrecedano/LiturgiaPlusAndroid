@@ -14,11 +14,9 @@ public final class PadreNuestro {
             "como también nosotros perdonamos a los que nos ofenden;~¦" +
             "no nos dejes caer en la tentación,~¦y líbranos del mal. Amén.";
 
-
     public PadreNuestro() {
 
     }
-
 
     public static SpannableStringBuilder getAll() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
@@ -27,7 +25,6 @@ public final class PadreNuestro {
         sb.append(Utils.fromHtml(texto));
         return sb;
     }
-
 
     public SpannableStringBuilder getAllForRead() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");

@@ -8,7 +8,6 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -25,19 +24,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
-import androidx.work.BackoffPolicy;
-import androidx.work.Constraints;
-import androidx.work.Data;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.NetworkType;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkInfo;
-import androidx.work.WorkManager;
 
 import org.deiverbum.app.R;
 import org.deiverbum.app.data.wrappers.DataWrapper;
@@ -47,11 +37,8 @@ import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
 import org.deiverbum.app.viewmodel.HomiliasViewModel;
-import org.deiverbum.app.viewmodel.TodayViewModel;
-import org.deiverbum.app.workers.TodayWorker;
 
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -59,12 +46,10 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class TodayFragment extends Fragment implements TextToSpeechCallback {
     private HomiliasViewModel mViewModel;
-    private TodayViewModel todayViewModel;
 
     private FragmentHomiliasBinding binding;
     private ZoomTextView mTextView;
     private String mDate;
-    private WorkManager mWorkManager;
 
     private ProgressBar progressBar;
 
@@ -94,7 +79,6 @@ public class TodayFragment extends Fragment implements TextToSpeechCallback {
         mViewModel =
                 new ViewModelProvider(this).get(HomiliasViewModel.class);
 
-        todayViewModel = new ViewModelProvider(this).get(TodayViewModel.class);
         mTextView = binding.include.tvZoomable;
         progressBar = binding.progressBar;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -105,56 +89,6 @@ public class TodayFragment extends Fragment implements TextToSpeechCallback {
             sbReader = new StringBuilder(VOICE_INI);
         }
         pickOutDate();
-        //observeData();
-        //observeDatas();
-        //mViewModel.fetchData(mDate);
-        //mViewModel.getVMSalmodia(mDate);
-        //observeSalmodia();
-        //observeMixto();
-        //observeLaudes();
-        //observeTercia();
-
-        //observeLast();
-
-    }
-
-    public void fetchData(Integer theDate) {
-        this.mWorkManager= WorkManager.getInstance(getActivity());
-
-        // Create Network constraint
-        Constraints constraints = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build();
-        Data inputData = new Data.Builder()
-                .putInt("THE_DATE", theDate)
-                .build();
-
-
-
-        PeriodicWorkRequest periodicSyncDataWork =
-                new PeriodicWorkRequest.Builder(TodayWorker.class, 15,
-                        TimeUnit.MINUTES)
-                        .addTag("TAG_SYNC_DATA")
-                        .setConstraints(constraints)
-                        .setInputData(inputData)
-                        // setting a backoff on case the work needs to retry
-                        .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
-                        .build();
-        mWorkManager.enqueueUniquePeriodicWork(
-                "SYNC_DATA_WORK_NAME",
-                ExistingPeriodicWorkPolicy.REPLACE, //Existing Periodic Work
-                // policy
-                periodicSyncDataWork //work request
-        );
-        mWorkManager.getWorkInfoByIdLiveData(periodicSyncDataWork.getId()).observe(this,
-                new Observer<WorkInfo>() {
-            @Override
-            public void onChanged(WorkInfo workInfo) {
-                mWorkManager.cancelWorkById(workInfo.getId());
-            }
-        });
-
-
 
     }
 

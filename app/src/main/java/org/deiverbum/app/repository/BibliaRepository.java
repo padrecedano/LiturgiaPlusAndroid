@@ -48,7 +48,5 @@ public class BibliaRepository {
 
         return finalData;
     }
-
-
 }
 

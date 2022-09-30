@@ -13,6 +13,7 @@ import java.util.List;
 
 public class BibleCommentList {
     public String padre;
+    @SuppressWarnings("unused")
     public int id_homilia;
     public String pericopa;
     public MetaLiturgia metaLiturgia;
@@ -49,11 +50,11 @@ public class BibleCommentList {
     }
 
     private SpannableStringBuilder getTitulo() {
-        return Utils.toH3Red("COMENTARIOS EVANGELIO");
+        return Utils.toH3Red(TITLE_BIBLE_COMMENTS);
     }
 
     private String getTituloForRead() {
-        return "Comentarios del Evangelio del día.";
+        return Utils.pointAtEnd(TITLE_BIBLE_COMMENTS);
     }
 
 
@@ -64,7 +65,6 @@ public class BibleCommentList {
             sb.append(LS2);
             sb.append(getTitulo());
             sb.append(LS2);
-            int i = 0;
             for (List<BibleComment> subList : allComentarios) {
                 if (subList.size() > 0) {
                     int x = 1;
@@ -80,7 +80,7 @@ public class BibleCommentList {
                 }
             }
         } catch (Exception e) {
-            sb.append(e.getMessage());
+            sb.append(Utils.createErrorMessage(e.getMessage()));
         }
         return sb;
     }
@@ -90,7 +90,6 @@ public class BibleCommentList {
         try {
             sb.append(today.getAllForRead());
             sb.append(getTituloForRead());
-            int i = 0;
             for (List<BibleComment> subList : allComentarios) {
                 if (subList.size() > 0) {
                     int x = 1;
@@ -104,7 +103,8 @@ public class BibleCommentList {
                 }
             }
         } catch (Exception e) {
-            sb.append(e.getMessage());
+            sb.append(Utils.createErrorMessage(e.getMessage()));
+
         }
         return sb;
     }
@@ -115,6 +115,7 @@ public class BibleCommentList {
         this.pericopa = pericopa;
     }
 
+    @SuppressWarnings("unused")
     public String getPericopa() {
         return this.pericopa;
     }

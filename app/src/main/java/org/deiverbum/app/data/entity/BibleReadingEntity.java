@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.BIBLE_READING;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -18,7 +20,7 @@ import org.deiverbum.app.model.MassReading;
  * @since 2022.2
  */
 
-@Entity(tableName = "bible_reading",
+@Entity(tableName = BIBLE_READING,
         foreignKeys =
         {
             @ForeignKey(
@@ -62,7 +64,6 @@ public class BibleReadingEntity {
     @ColumnInfo(name = "text")
     public String texto="";
 
-
     @SuppressWarnings("unused")
     @NonNull
     public Integer getLibroFK() {
@@ -97,28 +98,21 @@ public class BibleReadingEntity {
 
     public Biblical getDomainModel(){
     Biblical theModel=new Biblical();
-    //theModel.setLibro(String.valueOf(getLibroId()));
     theModel.setCapitulo(String.valueOf(getCapitulo()));
     theModel.setCita(String.valueOf(getHasta()));
     theModel.setVersoInicial(String.valueOf(getDesde()));
     theModel.setVersoFinal(String.valueOf(getHasta()));
-    //theModel.setTema(biblicaOficioWithResponsorio.tema);
     theModel.setTexto(getTexto());
-    //theModel.setResponsorio(lhResponsorioEntity.getDomainModel());
     return theModel;
 }
 
     public MassReading getDomainModelMisa(){
         MassReading theModel=new MassReading();
-        //theModel.setLibro(String.valueOf(getLibroId()));
-        //theModel.setLibro()
         theModel.setCapitulo(String.valueOf(getCapitulo()));
         theModel.setCita(String.valueOf(getHasta()));
         theModel.setVersoInicial(String.valueOf(getDesde()));
         theModel.setVersoFinal(String.valueOf(getHasta()));
-        //theModel.setTema(biblicaOficioWithResponsorio.tema);
         theModel.setTexto(getTexto());
-        //theModel.setResponsorio(lhResponsorioEntity.getDomainModel());
         return theModel;
     }
 

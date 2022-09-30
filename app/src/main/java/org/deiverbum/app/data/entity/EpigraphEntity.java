@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LH_EPIGRAPH;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -12,7 +14,7 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_epigraph",
+@Entity(tableName = LH_EPIGRAPH,
         indices = {@Index(value = {"epigraph"}, unique = true)})
 public class EpigraphEntity {
     @NonNull

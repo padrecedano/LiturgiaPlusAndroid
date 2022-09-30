@@ -10,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
 import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author A. Cedano
@@ -55,7 +56,7 @@ public class Chapter {
     public SpannableStringBuilder getAllForView(int bookType) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         if(bookType==10) {
-            String chapter = String.format("%s. %s", id, Utils.fromHtml(title));
+            String chapter = String.format(new Locale("es"),"%s. %s", id, Utils.fromHtml(title));
             sb.append(Utils.toH2RedNew(chapter));
                 sb.append(LS2);
         }
@@ -75,7 +76,7 @@ public class Chapter {
     public SpannableStringBuilder getAllForHtml(int bookType) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         if(bookType==10) {
-            String chapter = String.format("%s. %s", id, title);
+            String chapter = String.format(new Locale("es"),"%s. %s", id, title);
             sb.append(Utils.toH2RedNew(chapter));
             sb.append(LS2);
         }

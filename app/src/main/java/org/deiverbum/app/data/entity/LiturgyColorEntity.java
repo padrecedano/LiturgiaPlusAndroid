@@ -1,9 +1,10 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LITURGY_COLOR;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
@@ -12,11 +13,9 @@ import androidx.room.PrimaryKey;
  * @since 2022.2
  */
 
-@Entity(tableName = "liturgy_color"/*,
-        indices = {@Index(value = {"time"}, unique = true)}*/
-)
-public class LiturgyColorEntity {
+@Entity(tableName = LITURGY_COLOR)
 
+public class LiturgyColorEntity {
 
     @NonNull
     @PrimaryKey(autoGenerate = true)
