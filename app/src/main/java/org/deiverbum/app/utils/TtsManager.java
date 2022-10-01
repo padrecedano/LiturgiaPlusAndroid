@@ -6,7 +6,6 @@ import static org.deiverbum.app.utils.Constants.ERR_LANG;
 
 import android.content.Context;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
@@ -14,7 +13,6 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -25,7 +23,6 @@ import java.util.Locale;
 public class TtsManager implements TextToSpeech.OnInitListener {
 
     private final String[] mTexts;
-    private final HashMap<String, String> mTtsMap;
     private final TextToSpeech mTts;
     private final TextSpeechProgressListener mProgressListener;
 
@@ -39,8 +36,6 @@ public class TtsManager implements TextToSpeech.OnInitListener {
     public TtsManager(Context context, String text, String splitRegex, @Nullable TextSpeechProgressListener listener) {
         mTexts = text.split(splitRegex);
         mProgressListener = listener;
-        mTtsMap = new HashMap<>();
-        mTtsMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "TTS_ID");
         mTts = new TextToSpeech(context, this);
 
         mTts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
@@ -62,18 +57,10 @@ public class TtsManager implements TextToSpeech.OnInitListener {
 
     private void speakText() {
         if (mTextProgress >= mTexts.length) return;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            //API 21+
-            Bundle bundle = new Bundle();
-            bundle.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM, AudioManager.STREAM_MUSIC);
-            mTts.speak(mTexts[mTextProgress], TextToSpeech.QUEUE_FLUSH, bundle, "TTS_ID");
-
-        } else {
-            //API 15-
-            HashMap<String, String> param = new HashMap<>();
-            param.put(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(AudioManager.STREAM_MUSIC));
-            mTts.speak(mTexts[mTextProgress], TextToSpeech.QUEUE_FLUSH, mTtsMap);
-        }
+        //API 21+
+        Bundle bundle = new Bundle();
+        bundle.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM, AudioManager.STREAM_MUSIC);
+        mTts.speak(mTexts[mTextProgress], TextToSpeech.QUEUE_FLUSH, bundle, "TTS_ID");
     }
 
 

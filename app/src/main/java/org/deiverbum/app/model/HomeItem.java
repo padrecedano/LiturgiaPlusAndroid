@@ -8,13 +8,11 @@ import org.deiverbum.app.ui.fragments.HomeFragment;
  *     que aparecen en la pantalla inicial de la aplicación
  *     desde un elemento <code>RecyclerView</code>.
  * </p>
- * <p>
- *     Esta clase trabaja con:
+ * <p>Esta clase trabaja con:</p>
  *     <ul>
  *         <li>{@link HomeFragment}</li>
  *         <li><code>{@link org.deiverbum.app.data.adapters.HomeAdapter}</code></li>
  *     </ul>
- * </p>
  *
  * @author      A. Cedano
  * @version     1.0

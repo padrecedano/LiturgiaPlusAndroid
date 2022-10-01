@@ -192,7 +192,7 @@ public class LHResponsoryShort {
 
     /**
      * <p>Método que crea la cadena completa de un responsorio dado.</p>
-     *
+     * @param hourId El ID de la hora
      * @return Una cadena con el responsorio completo, con sus respectivos V. y R.
      * @since 2022.01
      */

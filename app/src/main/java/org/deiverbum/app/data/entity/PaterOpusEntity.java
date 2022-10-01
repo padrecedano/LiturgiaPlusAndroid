@@ -10,26 +10,12 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
+ * Entidad que representa a la tabla {@value org.deiverbum.app.utils.Constants#PATER_OPUS}.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2022.2
  *
- * CREATE TABLE `obra` (
- * 	`obraId` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
- * 	`obra` TEXT NOT NULL,
- * 	`liturgyName` TEXT NOT NULL DEFAULT '',
- * 	`subTitulo` TEXT DEFAULT NULL,
- * 	`fecha` INTEGER DEFAULT NULL,
- * 	`volumen` INTEGER DEFAULT NULL,
- * 	`editorial` TEXT DEFAULT NULL,
- * 	`ciudad` TEXT DEFAULT NULL,
- * 	`year` INTEGER DEFAULT NULL,
- * 	`padreFK` INTEGER NOT NULL DEFAULT 0,
- * 	`tipoFK` INTEGER NOT NULL DEFAULT 0,
- * 	`coleccionFK` INTEGER NOT NULL DEFAULT 0,
- * 	FOREIGN KEY(`padreFK`) REFERENCES `padre`(`padreId`) ON DELETE CASCADE ON UPDATE CASCADE,
- * 	UNIQUE (`obra`, `padreFK`, `volumen`)
- *  );
  */
 
 @Entity(tableName = PATER_OPUS,
@@ -41,7 +27,7 @@ import androidx.room.PrimaryKey;
                                 childColumns = "paterFK",
                                 onDelete = ForeignKey.CASCADE,
                                 onUpdate = ForeignKey.CASCADE)},
-         indices = {@Index(value = {"opus","paterFK","volume"},unique = true)}
+         indices = {@Index(value = {"opusName","paterFK","volume"},unique = true)}
 )
 public class PaterOpusEntity {
     @NonNull
@@ -50,8 +36,8 @@ public class PaterOpusEntity {
     public Integer obraId=0;
 
     @NonNull
-    @ColumnInfo(name = "opus")
-    public String obra="";
+    @ColumnInfo(name = "opusName")
+    public String opusName ="";
 
     @NonNull
     @ColumnInfo(name = "liturgyName", defaultValue = "")
@@ -59,14 +45,14 @@ public class PaterOpusEntity {
 
     //@NonNull
     @ColumnInfo(name = "subTitle", defaultValue = "NULL")
-    public String subTitulo="";
+    public String subTitle ="";
 
     //@NonNull
     @ColumnInfo(name = "volume", defaultValue = "NULL")
     public Integer volumen=0;
 
-    @ColumnInfo(name = "date", defaultValue = "NULL")
-    public Integer fecha=0;
+    @ColumnInfo(name = "opusDate", defaultValue = "NULL")
+    public Integer opusDate =0;
 
     //@NonNull
     @ColumnInfo(name = "editorial", defaultValue = "NULL")
@@ -77,24 +63,23 @@ public class PaterOpusEntity {
     public String ciudad;
 
     //@NonNull
-    @ColumnInfo(name = "year", defaultValue = "NULL")
-    public Integer year;
+    @ColumnInfo(name = "opusYear", defaultValue = "NULL")
+    public Integer opusYear;
 
     @NonNull
-    @ColumnInfo(name = "paterFK", defaultValue = "0")
+    @ColumnInfo(name = "paterFK", defaultValue = "0", index = true)
     public Integer padreFK=0;
 
     @NonNull
     @ColumnInfo(name = "typeFK", defaultValue = "0")
-    public Integer tipoFK=0;
+    public Integer typeFK =0;
 
     @NonNull
     @ColumnInfo(name = "collectionFK", defaultValue = "0")
-    public Integer coleccionFK=0;
+    public Integer collectionFK =0;
 
     @NonNull
-    public String getObra() {
-        return obra;
+    public String getOpusName() {
+        return opusName;
     }
 }
-

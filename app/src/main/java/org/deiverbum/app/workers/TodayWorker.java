@@ -14,7 +14,9 @@ import androidx.work.WorkerParameters;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.data.source.remote.network.ApiService;
-import org.deiverbum.app.data.wrappers.Crud;
+import org.deiverbum.app.model.LHPsalmody;
+import org.deiverbum.app.model.PaterOpus;
+import org.deiverbum.app.model.crud.Crud;
 import org.deiverbum.app.data.wrappers.SyncRequest;
 import org.deiverbum.app.model.BibleHomilyJoin;
 import org.deiverbum.app.model.Biblical;
@@ -205,6 +207,22 @@ public class TodayWorker extends Worker {
                                     }
                                 }
 
+                                if (r.crudLHPsalmody != null) {
+                                    List<LHPsalmody> c = r.crudLHPsalmody.c;
+                                    List<LHPsalmody> u = r.crudLHPsalmody.u;
+                                    List<LHPsalmody> d = r.crudLHPsalmody.d;
+
+                                    if (c != null && !c.isEmpty()) {
+                                        mTodayDao.lhPsalmodyInsertAll(c);
+                                    }
+                                    if (u != null && !u.isEmpty()) {
+                                        mTodayDao.lhPsalmodyUpdateAll(u);
+                                    }
+                                    if (d != null && !d.isEmpty()) {
+                                        mTodayDao.lhPsalmodyDeleteAll(d);
+                                    }
+                                }
+
                                 if (r.crudBibleReading != null) {
                                     List<Biblical> c = r.crudBibleReading.c;
                                     List<Biblical> u = r.crudBibleReading.u;
@@ -299,8 +317,6 @@ public class TodayWorker extends Worker {
                                     }
                                 }
 
-
-
                                 if (r.crudBibleHomilyJoin != null) {
                                     List<BibleHomilyJoin> c = r.crudBibleHomilyJoin.c;
                                     List<BibleHomilyJoin> u = r.crudBibleHomilyJoin.u;
@@ -313,6 +329,21 @@ public class TodayWorker extends Worker {
                                     }
                                     if (u != null && !u.isEmpty()) {
                                         mTodayDao.bibleHomilyJoinUpdateAll(u);
+                                    }
+                                }
+
+                                if (r.crudPaterOpus != null) {
+                                    List<PaterOpus> c = r.crudPaterOpus.c;
+                                    List<PaterOpus> u = r.crudPaterOpus.u;
+                                    List<PaterOpus> d = r.crudPaterOpus.d;
+                                    if (c != null && !c.isEmpty()) {
+                                        mTodayDao.paterOpusInsertAll(c);
+                                    }
+                                    if (d != null && !d.isEmpty()) {
+                                        mTodayDao.paterOpusDeleteAll(d);
+                                    }
+                                    if (u != null && !u.isEmpty()) {
+                                        mTodayDao.paterOpusUpdateAll(u);
                                     }
                                 }
 

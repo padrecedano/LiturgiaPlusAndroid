@@ -43,7 +43,7 @@ public class Constants {
             "por favor comunícalo al desarrollador a la dirección siguiente: " + "padre.cedano@gmail.com";
 
 
-    public static final String ERR_SUBJECT = String.format(new Locale("es", "ES"),"Reporte de error Liturgy+ v. %d", Constants.VERSION_CODE);
+    public static final String ERR_SUBJECT = String.format(new Locale("es", "ES"),"Reporte de error Liturgia+ v. %d", Constants.VERSION_CODE);
     public static final String ERR_LANG = "Lenguaje no soportado.";
     public static final String ERR_INITIALIZATION = "Falló la inicialización.";
     public static final String ERR_BIBLIA = "Todavía no hay introducción a este libro. <br>Proyecto abierto a la colaboración. <br><a href=\"http://bit.ly/2FInp4n\">Ver los detalles aquí</a>.";
@@ -105,7 +105,7 @@ public class Constants {
             "lo indicado en la Política de Privacidad.\n\n";
 
     public static final String DIALOG_LEGAL_TITLE = "Aviso";
-    public static final String DIALOG_LEGAL_BODY = "Retirarás tu consentimiento y Liturgy+ se cerrará al pulsar CONFIRMAR.";
+    public static final String DIALOG_LEGAL_BODY = "Retirarás tu consentimiento y Liturgia+ se cerrará al pulsar CONFIRMAR.";
 
     public static final String DIALOG_LEGAL_OK = "CONFIRMAR";
     public static final String DIALOG_LEGAL_CANCEL = "CANCELAR";

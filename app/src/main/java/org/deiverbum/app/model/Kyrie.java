@@ -158,6 +158,8 @@ public class Kyrie {
      * Este método obtiene el texto del Kyrie
      *
      * @since 2022.2
+     * @param type El tipo de celebración.
+     * @return El texto completo.
      */
 
     public static SpannableStringBuilder getKyrie(int type) {

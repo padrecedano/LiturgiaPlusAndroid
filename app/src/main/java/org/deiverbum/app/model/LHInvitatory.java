@@ -40,7 +40,7 @@ public class LHInvitatory extends LHPsalm {
             ssb.append(LS2);
             ssb.append(Utils.fromHtml(getSalmo()));
         } else {
-            ssb.append("Salmo 94.");
+            ssb.append(Utils.toRed("Salmo 94."));
             ssb.append(LS2);
             ssb.append(Utils.fromHtml(getUnique()));
         }
@@ -62,7 +62,7 @@ public class LHInvitatory extends LHPsalm {
 
     public SpannableStringBuilder getAll() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(Utils.formatSubTitle(getTitle().toLowerCase()));
+        sb.append(Utils.formatSubTitleToLower(getTitle()));
         sb.append(Utils.LS2);
         sb.append(Utils.fromHtml(PRE_ANT));
         sb.append(getAntifona());

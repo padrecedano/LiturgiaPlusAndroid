@@ -111,7 +111,7 @@ public class LegalFragment extends Fragment {
         button.setOnClickListener(v -> {
             String subject = String.format(Locale.getDefault(), "Dudas " +
                     "Política Privacidad y/o " +
-                    "Términos y Condiciones Liturgy+ v. %d", Constants.VERSION_CODE);
+                    "Términos y Condiciones Liturgia+ v. %d", Constants.VERSION_CODE);
             composeEmail(new String[]{Configuration.MY_EMAIL}, subject);
         });
     }

@@ -17,6 +17,7 @@ public class LHOfficePatristic {
     public String texto;
     public String ref;
     private Integer orden;
+    public PaterOpus paterOpus;
 
     public LHResponsory responsorioLargo;
 
@@ -35,7 +36,11 @@ public class LHOfficePatristic {
     }
 
     public String getObra() {
-        return obra;
+        return paterOpus.getOpusForView();
+    }
+
+    public String getObraForView() {
+        return paterOpus.getOpusForView();
     }
 
     public String getObraForRead() {
@@ -130,10 +135,10 @@ public class LHOfficePatristic {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeader());
         sb.append(LS2);
-        sb.append(padre);
-        sb.append(", ");
-        sb.append(obra);
-        sb.append(Utils.LS);
+        //sb.append(padre);
+        //sb.append(", ");
+        sb.append(getObraForView());
+        sb.append(Utils.LS2);
         sb.append(Utils.toSmallSizeRed(fuente));
         sb.append(LS2);
         sb.append(Utils.toRed(tema));

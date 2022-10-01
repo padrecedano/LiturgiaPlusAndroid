@@ -1,51 +1,121 @@
 package org.deiverbum.app.data.entity;
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
+import static org.deiverbum.app.utils.Constants.LH_PSALMODY;
 
-import org.deiverbum.app.data.entity.relation.PsalmodyWithPsalms;
-import org.deiverbum.app.model.LHPsalm;
-
-import java.util.ArrayList;
-import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2022.2
  */
-public class LHPsalmodyEntity {
-    @Embedded
-    public LHPsalmodyJoinEntity salmodia;
 
-    @Relation(
-            parentColumn = "groupID",
-            entityColumn = "groupFK",
-            entity = PsalmodyEntity.class
-    )
-    public List<PsalmodyWithPsalms> salmos;
-
-    public org.deiverbum.app.model.LHPsalmody getDomainModel(){
-        org.deiverbum.app.model.LHPsalmody theModel=new org.deiverbum.app.model.LHPsalmody();
-        theModel.setTipo(salmodia.getTipo());
-        List<LHPsalm> salmosList = new ArrayList<>();
-        for (PsalmodyWithPsalms salmo : salmos) {
-            LHPsalm s = new LHPsalm();
-            s.setSalmo(salmo.getSalmoText());
-            s.setRef(salmo.getRef());
-            s.setAntifona(salmo.getAntifona());
-            s.setTema(salmo.getTema());
-            s.setEpigrafe(salmo.getEpigrafe());
-            s.setParte(salmo.getParte());
-            s.setOrden(salmo.getOrden());
-            salmosList.add(s);
+@Entity(tableName = LH_PSALMODY,
+        primaryKeys = {"groupFK", "readingFK", "antiphonFK"},
+        foreignKeys =
+        {
+        @ForeignKey(
+                   entity = LHPsalmodyJoinEntity.class,
+                   parentColumns = "groupID",
+                   childColumns = "groupFK",
+                   onDelete = ForeignKey.CASCADE,
+                   onUpdate = ForeignKey.CASCADE),
+            @ForeignKey(
+                    entity = PsalmEntity.class,
+                    parentColumns = "psalmID",
+                    childColumns = "readingFK",
+                    onDelete = ForeignKey.CASCADE,
+                    onUpdate = ForeignKey.CASCADE),
+            @ForeignKey(
+                    entity = AntiphonEntity.class,
+                    parentColumns = "antiphonID",
+                    childColumns = "antiphonFK",
+                    onDelete = ForeignKey.CASCADE,
+                    onUpdate = ForeignKey.CASCADE),
+            @ForeignKey(
+                        entity = LHThemeEntity.class,
+                        parentColumns = "themeID",
+                        childColumns = "themeFK",
+                        onDelete = ForeignKey.SET_NULL,
+                        onUpdate = ForeignKey.CASCADE),
+            @ForeignKey(
+                        entity = EpigraphEntity.class,
+                        parentColumns = "epigraphID",
+                        childColumns = "epigraphFK",
+                        onDelete = ForeignKey.SET_NULL,
+                        onUpdate = ForeignKey.CASCADE)
         }
+)
+public class LHPsalmodyEntity {
 
-        theModel.setSalmos(salmosList);
-        theModel.sort();
-        return theModel;
+    @NonNull
+    @ColumnInfo(name = "groupFK")
+    public Integer grupoFK=0;
 
+    @NonNull
+    @ColumnInfo(name = "readingFK")
+    public Integer salmoFK=0;
+
+    @NonNull
+    @ColumnInfo(name = "order")
+    public Integer orden=0;
+
+    @NonNull
+    @ColumnInfo(name = "antiphonFK", defaultValue = "0")
+    public Integer antifonaId=0;
+
+    @ColumnInfo(name = "themeFK", defaultValue = "NULL")
+    public Integer temaFK=0;
+
+    @ColumnInfo(name = "epigraphFK", defaultValue = "NULL")
+    public Integer epigrafeFK=0;
+
+    @ColumnInfo(name = "part", defaultValue = "NULL")
+    public Integer parte=0;
+
+    public void setGrupoFK(@NonNull Integer grupoFK) {
+        this.grupoFK = grupoFK;
+    }
+    @NonNull
+    public Integer getGrupoFK() {
+        return grupoFK;
+    }
+
+    @NonNull
+    public Integer getSalmoFK() {
+        return salmoFK;
+    }
+    public void setSalmoFK(@NonNull Integer salmoFK) {
+        this.salmoFK = salmoFK;
+    }
+
+    @NonNull
+    public Integer getOrden() {
+        return orden;
+    }
+
+    public void setOrden(@NonNull Integer orden) {
+        this.orden = orden;
+    }
+
+    @SuppressWarnings("unused")
+    public void setAntifonaId(@NonNull Integer antifonaId) {
+        this.antifonaId = antifonaId;
+    }
+
+    @SuppressWarnings("unused")
+    @NonNull
+    public Integer getAntifonaId() {
+        return antifonaId;
+    }
+
+    public String getParte() {
+        return  parte==null || parte==0 ? "":String.valueOf(parte);
     }
 
 
 }
+

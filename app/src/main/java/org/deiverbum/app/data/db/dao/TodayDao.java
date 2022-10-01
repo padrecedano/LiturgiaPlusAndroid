@@ -20,10 +20,12 @@ import org.deiverbum.app.data.entity.LHHymnEntity;
 import org.deiverbum.app.data.entity.LHHymnJoinEntity;
 import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity;
 import org.deiverbum.app.data.entity.LHOficceVerseJoinEntity;
+import org.deiverbum.app.data.entity.LHPsalmodyEntity;
 import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
 import org.deiverbum.app.data.entity.LiturgyEntity;
 import org.deiverbum.app.data.entity.LiturgyHomilyJoinEntity;
 import org.deiverbum.app.data.entity.MassReadingEntity;
+import org.deiverbum.app.data.entity.PaterOpusEntity;
 import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.SaintLifeEntity;
 import org.deiverbum.app.data.entity.SyncStatusEntity;
@@ -50,10 +52,12 @@ import org.deiverbum.app.model.LHHymn;
 import org.deiverbum.app.model.LHHymnJoin;
 import org.deiverbum.app.model.LHInvitatoryJoin;
 import org.deiverbum.app.model.LHOfficeVerseJoin;
+import org.deiverbum.app.model.LHPsalmody;
 import org.deiverbum.app.model.LHReadingShortJoin;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.LiturgyHomilyJoin;
 import org.deiverbum.app.model.MassReadingOLD;
+import org.deiverbum.app.model.PaterOpus;
 import org.deiverbum.app.model.Saint;
 import org.deiverbum.app.model.SaintLife;
 import org.deiverbum.app.model.SyncStatus;
@@ -178,15 +182,9 @@ String t=TODAY_TABLE;
             "WHERE t.todayDate =:theDate AND mr.`theOrder` >= 40")
     TodayComentarios getComentarios(Integer theDate);
 
-    @Transaction
-    @Query("SELECT * FROM today t JOIN mass_reading mr ON t.massReadingFK=mr.liturgyFK WHERE t.todayDate =:theDate")
-    TodayComentarios getComentarioss(Integer theDate);
-
     @Insert(entity = LHReadingShortJoinEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
     void biblicaBreveJoinInsertAll(List<LHReadingShortJoin> list);
-
-
 
     @Update(entity = AntiphonEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
@@ -350,5 +348,27 @@ String t=TODAY_TABLE;
     @Delete(entity = LHHymnEntity.class)
     void lhHymnDeleteAll(List<LHHymn> d);
 
+    @Insert(entity = PaterOpusEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void paterOpusInsertAll(List<PaterOpus> c);
+
+    @Update(entity = PaterOpusEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void paterOpusUpdateAll(List<PaterOpus> u);
+
+    @Delete(entity = PaterOpusEntity.class)
+    void paterOpusDeleteAll(List<PaterOpus> d);
+
+
+    @Insert(entity = LHPsalmodyEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhPsalmodyInsertAll(List<LHPsalmody> c);
+
+    @Update(entity = LHPsalmodyEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhPsalmodyUpdateAll(List<LHPsalmody> u);
+
+    @Delete(entity = LHPsalmodyEntity.class)
+    void lhPsalmodyDeleteAll(List<LHPsalmody> d);
 }
 

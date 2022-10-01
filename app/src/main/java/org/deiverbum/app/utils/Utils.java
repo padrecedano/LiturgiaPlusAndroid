@@ -68,6 +68,14 @@ public final class Utils {
         return ssb;
     }
 
+    public static SpannableStringBuilder formatSubTitleToLower(String sOrigen) {
+        SpannableStringBuilder ssb = new SpannableStringBuilder(toLower(sOrigen));
+        RelativeSizeSpan textSize = new RelativeSizeSpan(H3);
+        ssb.setSpan(CharacterStyle.wrap(textSize), 0, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ssb.setSpan(CharacterStyle.wrap(new StyleSpan(BOLD)), 0, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return ssb;
+    }
+
 
     public static SpannableStringBuilder ssbSmallSize(SpannableStringBuilder ssb) {
         RelativeSizeSpan smallSizeText = new RelativeSizeSpan(0.8f);
@@ -220,6 +228,8 @@ public final class Utils {
      * Este método es @deprecated a partir de la versión 2022.2,
      * porque conviene migrar algunos métodos a clases más propias.
      * Usar en su lugar {@link org.deiverbum.app.model.Liturgy#getSaludoInicial()}
+     *
+     * @return El saludo formateado
      */
 
     @Deprecated
@@ -436,9 +446,10 @@ public final class Utils {
      */
 
     public static String getLongDate(String dateString) {
+        Locale loc=new Locale("es", "ES");
         SimpleDateFormat longFormat =
-                new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
-        DateFormat df = new SimpleDateFormat("yyyyMMdd");
+                new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy", loc);
+        DateFormat df = new SimpleDateFormat("yyyyMMdd",loc);
         try {
             return longFormat.format(Objects.requireNonNull(df.parse(dateString)));
         } catch (ParseException e) {
@@ -486,7 +497,7 @@ public final class Utils {
 
     public static int getDayOfWeekOld(Integer theDate) {
         String dateString=String.valueOf(theDate);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd",Locale.getDefault());
             Calendar c = Calendar.getInstance();
             try {
                 Date date = sdf.parse(dateString);
@@ -610,11 +621,11 @@ public final class Utils {
     }
 
     public static String toUpper(String s) {
-        return s.toUpperCase();
+        return s.toUpperCase(Locale.getDefault());
     }
 
     public static String toLower(String s) {
-        return s.toLowerCase();
+        return s.toLowerCase(Locale.getDefault());
     }
 
     public static SpannableStringBuilder toH1Red(String sOrigen) {

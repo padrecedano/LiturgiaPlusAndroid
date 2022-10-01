@@ -39,7 +39,7 @@ public class MassReadingEntity {
     public Integer groupFK=0;
 
     @NonNull
-    @ColumnInfo(name = "readingFK")
+    @ColumnInfo(name = "readingFK", index = true)
     public Integer readingFK=0;
 
     @NonNull

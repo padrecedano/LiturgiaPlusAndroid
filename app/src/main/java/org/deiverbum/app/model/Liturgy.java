@@ -295,6 +295,7 @@ public class Liturgy {
      * Devuelve el saludo inicial de la liturgia
      *
      * @since 2022.2
+     * @return El texto formateado para la vista
      */
     public SpannableStringBuilder getSaludoInicial() {
         SpannableStringBuilder ssb = new SpannableStringBuilder("");

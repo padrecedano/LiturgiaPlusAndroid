@@ -1,4 +1,4 @@
-package org.deiverbum.app.data.wrappers;
+package org.deiverbum.app.model.crud;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -62,6 +62,9 @@ public class Crud  {
     @SerializedName("crudLHHymnJoin")
     public CrudLHHymnJoin crudLHHymnJoin;
 
+    public CrudLHPsalmody crudLHPsalmody;
+
+
     @SerializedName("crudLHOfficeVerseJoin")
     public CrudLHOfficeVerseJoin crudLHOfficeVerseJoin;
 
@@ -89,6 +92,7 @@ public class Crud  {
     @SerializedName("crudBibleReading")
     public CrudBibleReading crudBibleReading;
 
+    public CrudPaterOpus crudPaterOpus;
     @SuppressWarnings("unused")
     public Crud() {
     }

@@ -5,22 +5,22 @@
         <item
             android:id="@+id/nav_help"
             android:icon="@drawable/ic_help"
-            android:title="Ayuda" />
+            android:title="@string/help" />
 
         <item
             android:id="@+id/nav_sync"
             android:icon="@drawable/ic_refresh_black_24dp"
-            android:title="Sincronización" />
+            android:title="@string/syncronization" />
 
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_configuration"
-            android:title="Configuración" />
+            android:title="@string/configuration" />
 
         <item
             android:id="@+id/nav_error"
             android:icon="@drawable/ic_bug_report"
-            android:title="Reportar error" />
+            android:title="@string/error_reporting" />
     </group>
 
     <group
@@ -30,20 +30,20 @@
     <item
                 android:id="@+id/nav_about"
                 android:icon="@drawable/ic_about"
-                android:title="Sobre Liturgia+" />
+                android:title="@string/about" />
             <item
                 android:id="@+id/nav_author"
                 android:icon="@drawable/ic_author"
-                android:title="Autor" />
+                android:title="@string/author" />
             <item
                 android:id="@+id/nav_thanks"
                 android:icon="@drawable/ic_thanks"
-                android:title="Agradecimientos" />
+                android:title="@string/thanks" />
 
             <item
                 android:id="@+id/nav_new"
                 android:icon="@drawable/ic_fiber_new_black_24dp"
-                android:title="Novedades" />
+                android:title="@string/what_is_new" />
 
     </group>
     <group
@@ -53,11 +53,11 @@
         <item
             android:id="@+id/nav_privacy"
             android:icon="@drawable/ic_privacy"
-            android:title="Política de Privacidad" />
+            android:title="@string/privacy_policy" />
         <item
             android:id="@+id/nav_terms"
             android:icon="@drawable/ic_terms"
-            android:title="Términos y Condiciones" />
+            android:title="@string/terms_conditions" />
     </group>
 
 </menu>

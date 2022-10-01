@@ -5,11 +5,10 @@ import androidx.room.Relation;
 
 import org.deiverbum.app.data.entity.LHHymnJoinEntity;
 import org.deiverbum.app.data.entity.LHPrayerEntity;
-import org.deiverbum.app.data.entity.LHPsalmodyEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
 import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
 import org.deiverbum.app.data.entity.LiturgyEntity;
-import org.deiverbum.app.data.entity.PsalmodyEntity;
+import org.deiverbum.app.data.entity.LHPsalmodyEntity;
 import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.TodayEntity;
 import org.deiverbum.app.model.BiblicalShort;
@@ -61,10 +60,10 @@ public class TodaySexta {
             parentColumn = "sPsalmodyFK",
             entityColumn = "groupID"
     )
-    public LHPsalmodyEntity salmodia;
+    public LHPsalmodyAll salmodia;
 
     @Relation(
-            entity = PsalmodyEntity.class,
+            entity = LHPsalmodyEntity.class,
             parentColumn = "sPsalmodyFK",
             entityColumn = "groupFK"
     )

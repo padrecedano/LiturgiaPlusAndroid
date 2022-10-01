@@ -8,7 +8,7 @@ import org.deiverbum.app.data.entity.EpigraphEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
 import org.deiverbum.app.data.entity.LHThemeEntity;
 import org.deiverbum.app.data.entity.PsalmEntity;
-import org.deiverbum.app.data.entity.PsalmodyEntity;
+import org.deiverbum.app.data.entity.LHPsalmodyEntity;
 
 /**
  * @author A. Cedano
@@ -17,7 +17,7 @@ import org.deiverbum.app.data.entity.PsalmodyEntity;
  */
 public class PsalmodyWithPsalms {
     @Embedded
-    public PsalmodyEntity salmodia;
+    public LHPsalmodyEntity salmodia;
     @Relation(
             parentColumn = "groupFK",
             entityColumn = "groupID",

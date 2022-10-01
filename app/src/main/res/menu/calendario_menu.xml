@@ -2,7 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group
         android:checkableBehavior="single"
-        android:title="file"
         >
 
         <item
@@ -13,7 +12,7 @@
             android:title="@string/lbl_homilias_hoy" />
         <item
             android:id="@+id/nav_lecturas"
-            android:title="Lecturas" />
+            android:title="@string/lbl_lecturas" />
         <item
             android:id="@+id/nav_comentarios"
             android:title="@string/lbl_comentarios_hoy" />
@@ -25,33 +24,32 @@
             android:title="@string/lbl_santo_hoy" />
     </group>
 
-    <item android:title="Liturgia de las Horas">
+    <item android:title="@string/liturgy_of_hours">
         <menu>
             <item
                 android:id="@+id/nav_mixto"
-                android:title="Oficio+Laudes" />
+                android:title="@string/lbl_mixto" />
             <item
                 android:id="@+id/nav_oficio"
-                android:title="Oficio" />
+                android:title="@string/lbl_office" />
             <item
                 android:id="@+id/nav_laudes"
-                android:title="Laudes" />
+                android:title="@string/lbl_laudes" />
             <item
                 android:id="@+id/nav_tercia"
-                android:title="Tercia" />
+                android:title="@string/lbl_tercia" />
             <item
                 android:id="@+id/nav_sexta"
-                android:title="Sexta" />
+                android:title="@string/lbl_sexta" />
             <item
                 android:id="@+id/nav_nona"
-                android:title="Nona" />
+                android:title="@string/lbl_nona" />
             <item
                 android:id="@+id/nav_visperas"
-                android:title="Vísperas" />
+                android:title="@string/lbl_visperas" />
             <item
                 android:id="@+id/nav_completas"
-                android:title="Completas" />
-
+                android:title="@string/lbl_completas" />
         </menu>
     </item>
 </menu>

@@ -9,6 +9,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Ignore;
 
 import org.deiverbum.app.utils.Utils;
 
@@ -16,10 +17,19 @@ import java.util.Collections;
 import java.util.List;
 
 public class LHPsalmody {
+    @Ignore
     private int tipo;
 
-    @ColumnInfo(name = "salmos")
+    //@ColumnInfo(name = "salmos")
+    @Ignore
     private List<LHPsalm> salmos;
+    public Integer groupFK;
+    public Integer readingFK;
+    public Integer order;
+    public Integer antiphonFK;
+    public Integer themeFK;
+    public Integer epigraphFK;
+    public Integer part;
 
     public LHPsalmody() {
     }
@@ -257,7 +267,7 @@ public class LHPsalmody {
     /**
      *
      * @return La rúbrica cuando no se dice Gloria en los salmos.
-     * @sice 2022.01
+     * @since 2022.01
      */
     public SpannableStringBuilder getNoGloria() {
         SpannableStringBuilder sb = new SpannableStringBuilder("No se dice Gloria");

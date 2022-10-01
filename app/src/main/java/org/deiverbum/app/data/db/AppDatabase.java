@@ -26,6 +26,7 @@ import org.deiverbum.app.data.entity.LHOfficePatristicJoinEntity;
 import org.deiverbum.app.data.entity.LHOficceVerseEntity;
 import org.deiverbum.app.data.entity.LHOficceVerseJoinEntity;
 import org.deiverbum.app.data.entity.LHPrayerEntity;
+import org.deiverbum.app.data.entity.LHPsalmodyEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
 import org.deiverbum.app.data.entity.LHReadingShortEntity;
 import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
@@ -43,7 +44,6 @@ import org.deiverbum.app.data.entity.PaterEntity;
 import org.deiverbum.app.data.entity.PaterOpusEntity;
 import org.deiverbum.app.data.entity.PrayerEntity;
 import org.deiverbum.app.data.entity.PsalmEntity;
-import org.deiverbum.app.data.entity.PsalmodyEntity;
 import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.SaintLifeEntity;
 import org.deiverbum.app.data.entity.SyncStatusEntity;
@@ -66,7 +66,7 @@ import org.deiverbum.app.data.entity.TodayEntity;
                 LHInvitatoryJoinEntity.class,
                 LHHymnEntity.class,
                 LHHymnJoinEntity.class,
-                PsalmodyEntity.class,
+                LHPsalmodyEntity.class,
                 LHPsalmodyJoinEntity.class,
                 PsalmEntity.class,
                 AntiphonEntity.class,

@@ -3,18 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/txt_salterio"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="16dp"
     android:layout_marginTop="?attr/actionBarSize"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
 
         <TextView
             android:id="@+id/tv_Clickable"
@@ -39,5 +32,4 @@
             android:textIsSelectable="true"
             android:textSize="@dimen/default_font" />
             -->
-    </ScrollView>
 </RelativeLayout>

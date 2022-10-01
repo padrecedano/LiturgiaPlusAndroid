@@ -31,7 +31,7 @@ public class OracionesAdapter extends RecyclerView.Adapter<OracionesAdapter.View
     /**
      * Inicializa el dataset del adaptador.
      *
-     * @param dataSet List<BreviarioItem> con los datos con que
+     * @param dataSet Una lista de objetos {@link OracionItem} con los datos con que
      *                se llenarán las vistas del {@link RecyclerView}.
      */
     public OracionesAdapter(List<OracionItem> dataSet) {

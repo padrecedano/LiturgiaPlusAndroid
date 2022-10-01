@@ -25,7 +25,7 @@ public class Today {
     private Integer previousFK;
     private Integer timeID;
     //@Ignore
-    private int hasSaint;
+    private Integer hasSaint;
     @Ignore
     public int hourID;
     @Ignore
@@ -102,7 +102,7 @@ public class Today {
         this.timeID = timeID;
     }
 
-    public void setHasSaint(int hasSaint) {
+    public void setHasSaint(Integer hasSaint) {
         this.hasSaint = hasSaint;
     }
 
@@ -156,7 +156,7 @@ public class Today {
     }
 
     public String getTiempo() {
-        return (liturgyPrevious!=null) ?
+        return (hourID==6 && liturgyPrevious!=null) ?
                 liturgyPrevious.getLiturgiaTiempo().getLiturgyName(): liturgyDay.getLiturgiaTiempo().getLiturgyName();
     }
     public String getTiempoForRead() {

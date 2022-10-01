@@ -56,7 +56,7 @@ public class LiturgyEntity {
     public Integer dia=0;
 
     @NonNull
-    @ColumnInfo(name = "colorFK")
+    @ColumnInfo(name = "colorFK", index = true)
     public Integer colorFK=0;
 
     @NonNull

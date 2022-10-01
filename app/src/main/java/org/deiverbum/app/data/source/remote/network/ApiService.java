@@ -1,7 +1,7 @@
 package org.deiverbum.app.data.source.remote.network;
 
 
-import org.deiverbum.app.data.wrappers.Crud;
+import org.deiverbum.app.model.crud.Crud;
 import org.deiverbum.app.data.wrappers.SyncRequest;
 import org.deiverbum.app.model.BibleCommentList;
 import org.deiverbum.app.model.BreviaryHour;

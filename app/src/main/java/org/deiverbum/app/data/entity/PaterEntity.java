@@ -8,6 +8,8 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import org.deiverbum.app.model.Pater;
+
 /**
  * @author A. Cedano
  * @version 1.0
@@ -77,5 +79,10 @@ public class PaterEntity {
         return ( liturgyName.equals("") ) ?  getPadre() : liturgyName;
     }
 
+    public Pater getDomainModel() {
+        Pater dm=new Pater();
+        dm.setNombre(padre);
+        return dm;
+    }
 }
 

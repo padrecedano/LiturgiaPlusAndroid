@@ -8,12 +8,10 @@ import org.deiverbum.app.data.entity.LHHymnJoinEntity;
 import org.deiverbum.app.data.entity.LHIntercessionsJoinEntity;
 import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity;
 import org.deiverbum.app.data.entity.LHPrayerEntity;
-import org.deiverbum.app.data.entity.LHPsalmodyEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
 import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
 import org.deiverbum.app.data.entity.LiturgyEntity;
 import org.deiverbum.app.data.entity.MassReadingEntity;
-import org.deiverbum.app.data.entity.PsalmodyEntity;
 import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.TodayEntity;
 import org.deiverbum.app.model.BiblicalShort;
@@ -73,14 +71,7 @@ public class TodayLaudes {
             parentColumn = "lPsalmodyFK",
             entityColumn = "groupID"
     )
-    public LHPsalmodyEntity salmodia;
-
-    @Relation(
-            entity = PsalmodyEntity.class,
-            parentColumn = "lPsalmodyFK",
-            entityColumn = "groupFK"
-    )
-    public List<PsalmodyWithPsalms> salmos;
+    public LHPsalmodyAll salmodia;
 
     @Relation(
             entity = LHIntercessionsJoinEntity.class,
