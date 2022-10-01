@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
             bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName);
             bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, screenName);
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
-            fetchData();
 
         };
 
@@ -132,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
             openDialog();
         } else {
             checkAppUpdate();
+            //fetchData();
             //navController.navigate(R.id.nav_today);
         }
     }

@@ -239,19 +239,19 @@ public class TodayEntity {
     public Integer hoy=0;
 
     @NonNull
-    @ColumnInfo(name = "timeID", defaultValue = "1")
+    @ColumnInfo(name = "timeID", defaultValue = "1", index = true)
     public Integer tiempoId=1;
 
     @NonNull
-    @ColumnInfo(name = "weekDay", defaultValue = "1")
+    @ColumnInfo(name = "weekDay", defaultValue = "1", index = true)
     public Integer weekDay=1;
 
     @NonNull
-    @ColumnInfo(name = "liturgyFK", defaultValue = "1")
+    @ColumnInfo(name = "liturgyFK", defaultValue = "1", index = true)
     public Integer liturgyFK=1;
 
     @NonNull
-    @ColumnInfo(name = "previousFK", defaultValue = "1")
+    @ColumnInfo(name = "previousFK", defaultValue = "1", index = true)
     public Integer previoId=1;
 
     @NonNull
@@ -259,35 +259,35 @@ public class TodayEntity {
     public Integer hasSaint=0;
 
     @NonNull
-    @ColumnInfo(name = "massReadingFK")
+    @ColumnInfo(name = "massReadingFK", index = true)
     public Integer mLecturasFK=0;
     
     @NonNull
-    @ColumnInfo(name = "invitatoryFK")
+    @ColumnInfo(name = "invitatoryFK", index = true)
     public Integer invitatorioFK=0;
 
     @NonNull
-    @ColumnInfo(name = "saintFK")
+    @ColumnInfo(name = "saintFK", index = true)
     public Integer santoFK=1;
 
     @NonNull
-    @ColumnInfo(name = "oHymnFK")
+    @ColumnInfo(name = "oHymnFK", index = true)
     public Integer oHimnoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "oPsalmodyFK")
+    @ColumnInfo(name = "oPsalmodyFK", index = true)
     public Integer oSalmodiaFK=0;
     
     @NonNull
-    @ColumnInfo(name = "oVerseFK")
+    @ColumnInfo(name = "oVerseFK", index = true)
     public Integer oVersoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "oBiblicalFK")
+    @ColumnInfo(name = "oBiblicalFK", index = true)
     public Integer oBiblicaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "oPatristicFK")
+    @ColumnInfo(name = "oPatristicFK", index = true)
     public Integer oPatristicaFK=0;
 
     @NonNull
@@ -295,105 +295,105 @@ public class TodayEntity {
     public Integer oTeDeum=0;
 
     @NonNull
-    @ColumnInfo(name = "oPrayerFK")
+    @ColumnInfo(name = "oPrayerFK", index = true)
     public Integer oOracionFK=0;
 
     @NonNull
-    @ColumnInfo(name = "lHymnFK")
+    @ColumnInfo(name = "lHymnFK", index = true)
     public Integer lHimnoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "lPsalmodyFK")
+    @ColumnInfo(name = "lPsalmodyFK", index = true)
     public Integer lSalmodiaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "lBiblicalFK")
+    @ColumnInfo(name = "lBiblicalFK", index = true)
     public Integer lBiblicaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "lBenedictusFK")
+    @ColumnInfo(name = "lBenedictusFK", index = true)
     public Integer lBenedictusFK=0;
 
     @NonNull
-    @ColumnInfo(name = "lIntercessionsFK")
+    @ColumnInfo(name = "lIntercessionsFK", index = true)
     public Integer lPrecesFK=0;
 
     @NonNull
-    @ColumnInfo(name = "lPrayerFK")
+    @ColumnInfo(name = "lPrayerFK", index = true)
     public Integer lOracionFK=0;
 
 
     @NonNull
-    @ColumnInfo(name = "tHymnFK")
+    @ColumnInfo(name = "tHymnFK", index = true)
     public Integer tHimnoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "tPsalmodyFK")
+    @ColumnInfo(name = "tPsalmodyFK", index = true)
     public Integer tSalmodiaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "tBiblicalFK")
+    @ColumnInfo(name = "tBiblicalFK", index = true)
     public Integer tBiblicaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "tPrayerFK")
+    @ColumnInfo(name = "tPrayerFK", index = true)
     public Integer tOracionFK=0;
 
     @NonNull
-    @ColumnInfo(name = "sHymnFK")
+    @ColumnInfo(name = "sHymnFK", index = true)
     public Integer sHimnoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "sPsalmodyFK")
+    @ColumnInfo(name = "sPsalmodyFK", index = true)
     public Integer sSalmodiaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "sBiblicalFK")
+    @ColumnInfo(name = "sBiblicalFK", index = true)
     public Integer sBiblicaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "sPrayerFK")
+    @ColumnInfo(name = "sPrayerFK", index = true)
     public Integer sOracionFK=0;
 
     @NonNull
-    @ColumnInfo(name = "nHymnFK")
+    @ColumnInfo(name = "nHymnFK", index = true)
     public Integer nHimnoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "nPsalmodyFK")
+    @ColumnInfo(name = "nPsalmodyFK", index = true)
     public Integer nSalmodiaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "nBiblicalFK")
+    @ColumnInfo(name = "nBiblicalFK", index = true)
     public Integer nBiblicaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "nPrayerFK")
+    @ColumnInfo(name = "nPrayerFK", index = true)
     public Integer nOracionFK=0;
 
 
     @NonNull
-    @ColumnInfo(name = "vHymnFK")
+    @ColumnInfo(name = "vHymnFK", index = true)
     public Integer vHimnoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "vPsalmodyFK")
+    @ColumnInfo(name = "vPsalmodyFK", index = true)
     public Integer vSalmodiaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "vBiblicalFK")
+    @ColumnInfo(name = "vBiblicalFK", index = true)
     public Integer vBiblicaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "vMagnificatFK")
+    @ColumnInfo(name = "vMagnificatFK", index = true)
     public Integer vMagnificatFK=0;
 
     @NonNull
-    @ColumnInfo(name = "vIntercessionsFK")
+    @ColumnInfo(name = "vIntercessionsFK", index = true)
     public Integer vPrecesFK=0;
 
     @NonNull
-    @ColumnInfo(name = "vPrayerFK")
+    @ColumnInfo(name = "vPrayerFK", index = true)
     public Integer vOracionFK=0;
 
     @NonNull

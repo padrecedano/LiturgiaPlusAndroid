@@ -32,7 +32,7 @@ public class BreviarioAdapter extends RecyclerView.Adapter<BreviarioAdapter.View
     /**
      * Inicializa el dataset del adaptador.
      *
-     * @param dataSet List<BreviarioItem> con los datos con que
+     * @param dataSet Una lista de objetos {@link BreviarioItem} con los datos con que
      *                se llenarán las vistas del {@link RecyclerView}.
      */
     public BreviarioAdapter(List<BreviarioItem> dataSet) {

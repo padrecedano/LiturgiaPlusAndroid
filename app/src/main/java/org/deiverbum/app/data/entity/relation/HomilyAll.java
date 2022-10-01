@@ -28,9 +28,11 @@ public class HomilyAll {
         LHOfficePatristic theModel=new LHOfficePatristic();
         //theModel.setTema(lhPatristica.getTema());
         theModel.setTexto(homilia.getTexto());
-        theModel.setPadre(paterOpusAll.padre.getPadre());
-        theModel.setObra(paterOpusAll.obra.getObra());
+        theModel.setPadre(paterOpusAll.paterEntity.getPadre());
+        theModel.setObra(paterOpusAll.paterOpusEntity.getOpusName());
+        theModel.paterOpus=paterOpusAll.getDomainModel();
         theModel.setFuente(String.valueOf(homilia.getNumero()));
+
         return theModel;
     }
 
@@ -38,8 +40,8 @@ public class HomilyAll {
         HomilyList theModel=new HomilyList();
         //theModel.setTema(lhPatristica.getTema());
         theModel.setHomilia(homilia.getTexto());
-        theModel.setPadre(paterOpusAll.padre.getPadre());
-        theModel.setObra(paterOpusAll.obra.getObra());
+        theModel.setPadre(paterOpusAll.paterEntity.getPadre());
+        theModel.setObra(paterOpusAll.paterOpusEntity.getOpusName());
         return theModel;
     }
 

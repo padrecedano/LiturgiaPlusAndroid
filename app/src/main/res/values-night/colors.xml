@@ -10,7 +10,6 @@
 
     <color name="text_color">#B3FFFFFF</color>
     <color name="text_background">#0D0D0D</color>
-    <color name="liturgicalRed">#AFB42B</color>
 
     <color name="colorBreviario">#0D0D0D</color>
     <color name="colorMisa">#0D0D0D</color>
@@ -27,7 +26,6 @@
     <color name="colorPadres">#0D0D0D</color>
     <color name="colorSacramentos">#0D0D0D</color>
     <color name="colorMain_img_mas">#0D0D0D</color>
-    <color name="color_mainrecycler_bg">#BDBDBD</color>
     <color name="colorMainIcon">#BDBDBD</color>
     <color name="colorMainItem">@color/amber_200</color>
     <color name="color_fondo_grupo2">#373737</color>

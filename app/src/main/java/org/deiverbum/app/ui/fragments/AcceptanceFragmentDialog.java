@@ -20,12 +20,21 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.work.BackoffPolicy;
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentAcceptanceBinding;
 import org.deiverbum.app.model.Book;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.viewmodel.FileViewModel;
+import org.deiverbum.app.workers.TodayWorker;
+
+import java.util.concurrent.TimeUnit;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -116,6 +125,7 @@ public class AcceptanceFragmentDialog extends DialogFragment {
             SharedPreferences.Editor editor = sp.edit();
             editor.putBoolean(PREF_ACCEPT, true);
             editor.apply();
+            launchWorker();
             dismiss();
         });
     }
@@ -142,4 +152,32 @@ public class AcceptanceFragmentDialog extends DialogFragment {
                     }
                 });
     }
+    public void launchWorker() {
+        WorkManager mWorkManager = WorkManager.getInstance(getActivity().getApplicationContext());
+
+        // Create Network constraint
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+
+        PeriodicWorkRequest periodicSyncDataWork =
+                new PeriodicWorkRequest.Builder(TodayWorker.class, 15, TimeUnit.MINUTES)
+                        .addTag("TAG_SYNC_DATA")
+                        .setConstraints(constraints)
+                        //.setInputData(inputData)
+                        // setting a backoff on case the work needs to retry
+                        .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
+                        .build();
+        mWorkManager.enqueueUniquePeriodicWork(
+                "SYNC_TODAY",
+                ExistingPeriodicWorkPolicy.REPLACE, //Existing Periodic Work
+                // policy
+                periodicSyncDataWork //work request
+        );
+        mWorkManager.getWorkInfoByIdLiveData(periodicSyncDataWork.getId()).observe(this,
+                workInfo -> {
+                    //mWorkManager.cancelWorkById(workInfo.getId());
+                });
+    }
+
 }

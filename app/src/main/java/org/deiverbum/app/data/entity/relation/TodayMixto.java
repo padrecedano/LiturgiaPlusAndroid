@@ -11,12 +11,10 @@ import org.deiverbum.app.data.entity.LHOfficeBiblicalJoinEntity;
 import org.deiverbum.app.data.entity.LHOfficePatristicEntity;
 import org.deiverbum.app.data.entity.LHOficceVerseJoinEntity;
 import org.deiverbum.app.data.entity.LHPrayerEntity;
-import org.deiverbum.app.data.entity.LHPsalmodyEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
 import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
 import org.deiverbum.app.data.entity.LiturgyEntity;
 import org.deiverbum.app.data.entity.MassReadingEntity;
-import org.deiverbum.app.data.entity.PsalmodyEntity;
 import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.TodayEntity;
 import org.deiverbum.app.model.BiblicalShort;
@@ -99,15 +97,7 @@ public class TodayMixto {
             parentColumn = "lPsalmodyFK",
             entityColumn = "groupID"
     )
-    public LHPsalmodyEntity salmodia;
-
-    @Relation(
-            entity = PsalmodyEntity.class,
-            parentColumn = "lPsalmodyFK",
-            entityColumn = "groupFK"
-    )
-    public List<PsalmodyWithPsalms> salmos;
-
+    public LHPsalmodyAll salmodia;
 
     @Relation(
             entity = LHOficceVerseJoinEntity.class,
@@ -291,40 +281,4 @@ public class TodayMixto {
         dm.setBreviaryHour(bh);
         return dm;
     }
-
-
-
-    public Mixto getDomainModelX(){
-        Mixto dm=new Mixto();
-        Laudes laudes=new Laudes();
-        Oficio oficio=new Oficio();
-        dm.setHoy(getToday());
-        laudes.setHoy(getToday());
-
-        if(santo!=null) {
-            dm.setSanto(santo.getDomainModelLH());
-        }
-        dm.setInvitatorio(getInvitatorio());
-        laudes.setHimno(getHimno());
-        laudes.setSalmodia(getSalmodia());
-        laudes.setLecturaBreve(getBiblica());
-        laudes.setBenedictus(getBenedictus());
-        laudes.setPreces(getPreces());
-        laudes.setOracion(getOracion());
-        LHOfficeOfReading ol=new LHOfficeOfReading();
-        ol.setBiblica(getBiblicas());
-        ol.setPatristica(getPatristicas());
-        ol.setResponsorio(getOficioVerso());
-        oficio.setOficioLecturas(ol);
-        oficio.setTeDeum(new TeDeum(today.oTeDeum));
-        laudes.setLecturaBreve(getBiblica());
-        laudes.setBenedictus(getBenedictus());
-        laudes.setPreces(getPreces());
-        laudes.setOracion(getOracion());
-        dm.setOficio(oficio);
-        dm.setLaudes(laudes);
-        dm.setEvangelios(getEvangelios());
-        return dm;
-    }
-
 }

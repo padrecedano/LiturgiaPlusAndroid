@@ -193,6 +193,7 @@ public class BreviarioRepository {
      * La llamada a la Api se hará desde el onError
      *
      * @param theDate La fecha
+     * @param hourId El Id de la hora
      */
 
     public void getFromFirebase(String theDate, int hourId) {

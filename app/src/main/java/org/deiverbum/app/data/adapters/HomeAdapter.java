@@ -37,7 +37,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     /**
      * Inicializa el dataset del adaptador.
      *
-     * @param dataSet List<BreviarioItem> con los datos con que
+     * @param dataSet  Una lista de objetos {@link HomeItem} con los datos con que
      *                se llenarán las vistas del {@link RecyclerView}.
      */
     public HomeAdapter(List<HomeItem> dataSet) {

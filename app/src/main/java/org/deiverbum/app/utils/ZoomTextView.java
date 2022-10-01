@@ -54,6 +54,8 @@ public class ZoomTextView extends androidx.appcompat.widget.AppCompatTextView im
                 this.setTextSize(mRatio + 13);
             }
         } else {
+            performClick();
+            //return super.onTouchEvent(event);
             return super.onTouchEvent(event);
         }
         return true;
@@ -77,6 +79,12 @@ public class ZoomTextView extends androidx.appcompat.widget.AppCompatTextView im
     @Override
     public void setTextIsSelectable(boolean selectable) {
         super.setTextIsSelectable(selectable);
+    }
+
+    @Override
+    public boolean performClick() {
+        super.performClick();
+        return true;
     }
 
 }

@@ -9,10 +9,8 @@ import org.deiverbum.app.data.entity.LHOfficeBiblicalJoinEntity;
 import org.deiverbum.app.data.entity.LHOfficePatristicEntity;
 import org.deiverbum.app.data.entity.LHOficceVerseJoinEntity;
 import org.deiverbum.app.data.entity.LHPrayerEntity;
-import org.deiverbum.app.data.entity.LHPsalmodyEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
 import org.deiverbum.app.data.entity.LiturgyEntity;
-import org.deiverbum.app.data.entity.PsalmodyEntity;
 import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.TodayEntity;
 import org.deiverbum.app.model.BreviaryHour;
@@ -20,6 +18,7 @@ import org.deiverbum.app.model.LHHymn;
 import org.deiverbum.app.model.LHInvitatory;
 import org.deiverbum.app.model.LHOfficeBiblical;
 import org.deiverbum.app.model.LHOfficeOfReading;
+import org.deiverbum.app.model.LHPsalmody;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.Oficio;
@@ -80,14 +79,7 @@ public class TodayOficio {
             parentColumn = "oPsalmodyFK",
             entityColumn = "groupID"
     )
-    public LHPsalmodyEntity salmodia;
-
-    @Relation(
-            entity = PsalmodyEntity.class,
-            parentColumn = "oPsalmodyFK",
-            entityColumn = "groupFK"
-    )
-    public List<PsalmodyWithPsalms> salmos;
+    public LHPsalmodyAll salmodia;
 
     @Relation(
             entity = LHOficceVerseJoinEntity.class,
@@ -95,7 +87,6 @@ public class TodayOficio {
             entityColumn = "groupID"
     )
     public OficceVerseAll oficioVerso;
-
 
     @Relation(
             entity = LHOfficeBiblicalJoinEntity.class,
@@ -109,7 +100,6 @@ public class TodayOficio {
             entityColumn = "groupFK"
     )
     public LHOfficePatristic patristica;
-
 
     @Relation(
             entity = LHOfficePatristicEntity.class,
@@ -154,7 +144,7 @@ public class TodayOficio {
         return himno.getDomainModel();
     }
 
-    public org.deiverbum.app.model.LHPsalmody getSalmodia() {
+    public LHPsalmody getSalmodia() {
         return salmodia.getDomainModel();
     }
 

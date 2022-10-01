@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Liturgia+</string>
-    <string name="app_version_name">v. 2022.2 [Iosue]</string>
     <string name="app_version_name_and_mail">v. 2022.2
         [Iosue]\na.cedano@deiverbum.org</string>
 
@@ -20,10 +19,9 @@
 
     <string name="title_fragment_sacramentos">Sacramentos</string>
     <string name="title_fragment_patristica">Patrística</string>
-    <string name="title_fragment_main_mas">+Más ...</string>
+    <string name="title_fragment_main_mas">+Más …</string>
 
     <string name="title_fragment_biblia_libros">Biblia: Libros</string>
-    <string name="title_fragment_rosario">Rosario</string>
 
     <string name="title_fragment_mixto">Oficio+Laudes</string>
     <string name="title_fragment_oficio">Oficio</string>
@@ -41,14 +39,11 @@
     <string name="title_fragment_about">Sobre Liturgia+</string>
     <string name="title_fragment_thanks">Agradecimientos</string>
     <string name="title_fragment_help">Ayuda</string>
-    <string name="title_fragment_otras_oraciones">Otras Oraciones</string>
     <string name="title_fragment_what_is_new">Novedades</string>
     <string name="title_fragment_privacy">Política de Privacidad</string>
     <string name="title_fragment_terms">Términos y Condiciones</string>
     <string name="title_fragment_author">Autor</string>
-    <string name="title_fragment_preferences">Preferencias</string>
 
-    <string name="title_fragment_menu">info</string>
     <string name="lbl_misa_hoy">Misa de hoy</string>
     <string name="lbl_homilias_hoy">Homilías para hoy</string>
     <string name="lbl_comentarios_hoy">Comentarios Evangelio</string>
@@ -56,14 +51,9 @@
     <string name="all_calendar">Calendario</string>
 
     <!-- Error Messages -->
-    <string name="generic_server_down">El servidor está fuera de servicio. Intenta más tarde.</string>
-    <string name="generic_error">Ha ocurrido un error desconocido. Intenta más tarde.</string>
     <string name="leer">Leer</string>
 
-    <string name="ant"><![CDATA[<font color="#A52A2A">Ant. </font>]]></string>
-
     <!-- Strings related to Settings -->
-    <string name="pref_header_general">General</string>
     <string name="pref_title_invitatorio">Múltiples Invitatorios</string>
     <string name="pref_description_invitatorio">Activar para usar el Invitatorio alternando entre los salmos 94, 99, 66 y 23
     </string>
@@ -119,32 +109,6 @@
 
     <!-- Large content -->
 
-    <string name="author_text"><![CDATA[<p>Soy Alfertson Cedano Guerrero, presbítero nacido en la República Dominicana, e incardinado en la Arquidiócesis de Santo Domingo.</p> <p>Soy el desarrollador de la aplicación Liturgia+, lanzada en 2018 con la intención de poner en tus manos una herramienta moderna que pueda serte de ayuda en la vida espiritual en estos tiempos de movilidad.</p> <p>Liturgia+ nació en el año 2018 y es ofrecida de forma gratuita. Detrás de ella hay muchos años de recopilación, organización, corrección de errores ortográficos, etc, del contenido, que no es sólo el Breviario o la Misa. El +  significa mucho más contenido recogido durante años (homilías, comentarios de los padres de la Iglesia, oraciones...) y significa también más gente que ha colaborado conmigo en módulos concretos o revisando el contenido.</p> <p><i>La paciencia todo lo alcanza</i>. Sigo trabajando en esta aplicación en la medida en que el tiempo me lo permite, para irla mejorando cada día. Si tienes alguna sugerencia o duda sobre cualquier aspecto de Liturgia+ puedes ponerte en contacto conmigo por correo electrónico pulsando el botón que aparece en la parte inferior derecha de esta pantalla o a través de mi cuenta de <a href="https://twitter.com/padrecedano/">Twitter</a>.</p> <p>Gracias por usar esta aplicación, esperando que te sea de ayuda. Eso sí, puedes pagarme el esfuerzo con una oración.... Eso se nota, cuando alguien ora por ti. Gracias y que Dios te bendiga a ti y a los tuyos.</p> <p>- <a href="https://www.liturgiaplus.app/">Página web de Liturgia+</a><br /><br />- <a href="https://www.deiverbum.org/">Mi primer amor online (desde 2013)</a><br /><br />- <a href="https://twitter.com/padrecedano/">Twitter (@padrecedano)</a></p>]]></string>
-
-    <string-array name="custom_weekdays">
-        <item>Lun</item>
-        <item>Mar</item>
-        <item>Mie</item>
-        <item>Jue</item>
-        <item>Vie</item>
-        <item>Sab</item>
-        <item>Dom</item>
-    </string-array>
-
-    <string-array name="custom_months">
-        <item>Ene</item>
-        <item>Feb</item>
-        <item>Mar</item>
-        <item>Abr</item>
-        <item>May</item>
-        <item>Jun</item>
-        <item>Jul</item>
-        <item>Ago</item>
-        <item>Sep</item>
-        <item>Oct</item>
-        <item>Nov</item>
-        <item>Dic</item>
-    </string-array>
     <!-- Preference Titles -->
 
 
@@ -156,17 +120,15 @@
     <string name="title_fragment_bugreport">Reportar Error</string>
     <string name="pref_description_brevis">Al desactivar esta opción se mostrará el Santo Rosario con todos los Ave María.</string>
     <string name="pref_title_brevis">Mostrar Rosario abreviado</string>
-    <string name="label">Email</string>
+    <string name="lbl_email">Email</string>
     <string name="bug_info">Haz una descripción clara del problema y marca el/los lugar(es) donde ocurre:</string>
     <string name="bug_privacy">Pulsa en el botón de más abajo para enviar el mensaje. Se abrirá tu cliente de correo electrónico, con el mensaje listo para enviar. Deberás pulsar en el botón \"Enviar\" de dicho programa para que el error sea reportado. Como se indica en la Política de Privacidad, tus datos serán usados únicamente con la finalidad de mejorar la aplicación, no serán compartidos con terceros y el mensaje será borrado en cuanto el error reportado sea registrado o resuelto.</string>
     <string name="pref_key_enable_analytics">Permitir Google Analytics</string>
-    <string name="pref_key_enable_ad_id">Activar el uso de tu ID de publicidad</string>
     <string name="pref_key_enable_crashlytics">Permitir reporte de errores</string>
     <string name="pref_description_privacy">Cualquier cambio aquí no tomará efecto hasta que no reinicies la aplicación.</string>
     <string name="pref_accept_terms">Acepto la Política de Privacidad y los Términos y Condiciones</string>
     <string name="pref_description_accept_terms">Activando esta opción, declaras haber leído y aceptado tanto la Política de Privacidad como los Términos y Condiciones. Sin esta aceptación no podrás hacer uso de la Aplicación.</string>
     <string name="label_accept">He leído y acepto la Política de Privacidad y los Términos y Condiciones de Uso.</string>
-    <string name="label_not_accept">No acepto</string>
     <string name="accept_info">Liturgia+ v. 2022.2\n\n<font color="#A52A2A"
         size="30">¡La Paz contigo!</font>\n\nSi estás viendo esta
         pantalla es porque estás instalando por primera vez una nueva versión
@@ -196,6 +158,26 @@
     <string name="accept">Acepto</string>
     <string name="title_fragment_acceptance">Aceptación inicial</string>
     <string name="title_fragment_oraciones_main">Oraciones Main</string>
+    <string name="help">Ayuda</string>
+    <string name="syncronization">Sincronización</string>
+    <string name="configuration">Configuración</string>
+    <string name="terms_conditions">Términos y Condiciones</string>
+    <string name="privacy_policy">Política de Privacidad</string>
+    <string name="error_reporting">Reportar error</string>
+    <string name="about">Sobre Liturgia+</string>
+    <string name="author">Autor</string>
+    <string name="thanks">Agradecimientos</string>
+    <string name="what_is_new">Novedades</string>
+    <string name="lbl_lecturas">Lecturas</string>
+    <string name="liturgy_of_hours">Liturgia de las Horas</string>
+    <string name="lbl_mixto">Oficio+Laudes</string>
+    <string name="lbl_office">Oficio</string>
+    <string name="lbl_laudes">Laudes</string>
+    <string name="lbl_tercia">Tercia</string>
+    <string name="lbl_sexta">Sexta</string>
+    <string name="lbl_nona">Nona</string>
+    <string name="lbl_visperas">Vísperas</string>
+    <string name="lbl_completas">Completas</string>
 
 
 </resources>

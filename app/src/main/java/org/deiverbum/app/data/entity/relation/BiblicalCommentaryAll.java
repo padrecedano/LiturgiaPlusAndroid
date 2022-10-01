@@ -47,8 +47,8 @@ public class BiblicalCommentaryAll {
             theModel.setTema(themeEntity.getTheological());
             theModel.setRef(themeEntity.getReference());
         }
-        theModel.setPadre(homilia.paterOpusAll.getPadre());
-        theModel.setObra(homilia.paterOpusAll.obra.getObra());
+        theModel.setPadre(homilia.paterOpusAll.getPaterEntity());
+        theModel.setObra(homilia.paterOpusAll.paterOpusEntity.getOpusName());
         theModel.setTexto(homilia.homilia.getTexto());
         theModel.setFecha(String.valueOf(homilia.homilia.fecha));
 

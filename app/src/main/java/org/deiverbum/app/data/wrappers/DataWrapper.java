@@ -51,6 +51,7 @@ public class DataWrapper<T, E extends CustomException> {
 
     /**
      * Cambiar por setException
+     * @param e La Excepción
      */
     @Deprecated
     public void postValue(E e) {
