@@ -1,5 +1,6 @@
 package org.deiverbum.app.repository;
 
+import static org.deiverbum.app.utils.Constants.CONTENT_TO_SYNC;
 import static org.deiverbum.app.utils.Constants.NOTFOUND_OR_NOTCONNECTION;
 
 import androidx.lifecycle.MediatorLiveData;
@@ -88,7 +89,7 @@ public class HomiliasRepository {
 
                     @Override
                     public void onError(Throwable e) {
-                        mData.setValue(new DataWrapper<>(new CustomException(NOTFOUND_OR_NOTCONNECTION)));
+                        mData.setValue(new DataWrapper<>(new CustomException(CONTENT_TO_SYNC)));
                     }
                 });
     }

@@ -7,7 +7,7 @@ import org.deiverbum.app.data.entity.LHHymnJoinEntity;
 import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity;
 import org.deiverbum.app.data.entity.LHOfficeBiblicalJoinEntity;
 import org.deiverbum.app.data.entity.LHOfficePatristicEntity;
-import org.deiverbum.app.data.entity.LHOficceVerseJoinEntity;
+import org.deiverbum.app.data.entity.LHOfficeVerseJoinEntity;
 import org.deiverbum.app.data.entity.LHPrayerEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
 import org.deiverbum.app.data.entity.LiturgyEntity;
@@ -82,7 +82,7 @@ public class TodayOficio {
     public LHPsalmodyAll salmodia;
 
     @Relation(
-            entity = LHOficceVerseJoinEntity.class,
+            entity = LHOfficeVerseJoinEntity.class,
             parentColumn = "oVerseFK",
             entityColumn = "groupID"
     )

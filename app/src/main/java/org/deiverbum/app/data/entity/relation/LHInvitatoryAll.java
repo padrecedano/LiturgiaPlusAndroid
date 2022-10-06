@@ -3,7 +3,7 @@ package org.deiverbum.app.data.entity.relation;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.data.entity.AntiphonEntity;
+import org.deiverbum.app.data.entity.LHAntiphonEntity;
 import org.deiverbum.app.data.entity.LHInvitatoryEntity;
 import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity;
 import org.deiverbum.app.model.LHInvitatory;
@@ -26,9 +26,9 @@ public class LHInvitatoryAll {
     @Relation(
             parentColumn = "antiphonFK",
             entityColumn = "antiphonID",
-            entity = AntiphonEntity.class
+            entity = LHAntiphonEntity.class
     )
-    public AntiphonEntity antifona;
+    public LHAntiphonEntity antifona;
 
     public LHInvitatory getDomainModel(){
         LHInvitatory dm=new LHInvitatory();

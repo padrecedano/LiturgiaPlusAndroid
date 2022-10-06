@@ -11,7 +11,8 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
-import org.deiverbum.app.data.entity.AntiphonEntity;
+import org.deiverbum.app.data.entity.EpigraphEntity;
+import org.deiverbum.app.data.entity.LHAntiphonEntity;
 import org.deiverbum.app.data.entity.BibleHomilyJoinEntity;
 import org.deiverbum.app.data.entity.BibleReadingEntity;
 import org.deiverbum.app.data.entity.HomilyEntity;
@@ -19,13 +20,16 @@ import org.deiverbum.app.data.entity.LHGospelCanticleJoinEntity;
 import org.deiverbum.app.data.entity.LHHymnEntity;
 import org.deiverbum.app.data.entity.LHHymnJoinEntity;
 import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity;
-import org.deiverbum.app.data.entity.LHOficceVerseJoinEntity;
+import org.deiverbum.app.data.entity.LHOfficeVerseEntity;
+import org.deiverbum.app.data.entity.LHOfficeVerseJoinEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyEntity;
 import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
+import org.deiverbum.app.data.entity.LHThemeEntity;
 import org.deiverbum.app.data.entity.LiturgyEntity;
 import org.deiverbum.app.data.entity.LiturgyHomilyJoinEntity;
 import org.deiverbum.app.data.entity.MassReadingEntity;
 import org.deiverbum.app.data.entity.PaterOpusEntity;
+import org.deiverbum.app.data.entity.PsalmEntity;
 import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.SaintLifeEntity;
 import org.deiverbum.app.data.entity.SyncStatusEntity;
@@ -47,13 +51,17 @@ import org.deiverbum.app.model.Biblical;
 import org.deiverbum.app.model.Homily;
 import org.deiverbum.app.model.HomilyList;
 import org.deiverbum.app.model.LHAntiphon;
+import org.deiverbum.app.model.LHEpigraph;
 import org.deiverbum.app.model.LHGospelCanticleJoin;
 import org.deiverbum.app.model.LHHymn;
 import org.deiverbum.app.model.LHHymnJoin;
 import org.deiverbum.app.model.LHInvitatoryJoin;
+import org.deiverbum.app.model.LHOfficeVerse;
 import org.deiverbum.app.model.LHOfficeVerseJoin;
+import org.deiverbum.app.model.LHPsalm;
 import org.deiverbum.app.model.LHPsalmody;
 import org.deiverbum.app.model.LHReadingShortJoin;
+import org.deiverbum.app.model.LHTheme;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.LiturgyHomilyJoin;
 import org.deiverbum.app.model.MassReadingOLD;
@@ -186,7 +194,7 @@ String t=TODAY_TABLE;
             onConflict = OnConflictStrategy.REPLACE)
     void biblicaBreveJoinInsertAll(List<LHReadingShortJoin> list);
 
-    @Update(entity = AntiphonEntity.class,
+    @Update(entity = LHAntiphonEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
     void lhAntifonaUpdateAll(List<LHAntiphon> list);
 
@@ -326,15 +334,28 @@ String t=TODAY_TABLE;
     @Delete(entity = LHHymnJoinEntity.class)
     void lhHymnJoinDeleteAll(List<LHHymnJoin> d);
 
-    @Insert(entity = LHOficceVerseJoinEntity.class,
+
+    @Insert(entity = LHOfficeVerseEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhOfficeVerseInsertAll(List<LHOfficeVerse> c);
+
+    @Update(entity = LHOfficeVerseEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhOfficeVerseUpdateAll(List<LHOfficeVerse> u);
+
+    @Delete(entity = LHOfficeVerseEntity.class)
+    void lhOfficeVerseDeleteAll(List<LHOfficeVerse> d);
+
+
+    @Insert(entity = LHOfficeVerseJoinEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
     void lhOfficeVerseJoinInsertAll(List<LHOfficeVerseJoin> c);
 
-    @Update(entity = LHOficceVerseJoinEntity.class,
+    @Update(entity = LHOfficeVerseJoinEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
     void lhOfficeVerseJoinUpdateAll(List<LHOfficeVerseJoin> u);
 
-    @Delete(entity = LHOficceVerseJoinEntity.class)
+    @Delete(entity = LHOfficeVerseJoinEntity.class)
     void lhOfficeVerseJoinDeleteAll(List<LHOfficeVerseJoin> d);
 
     @Insert(entity = LHHymnEntity.class,
@@ -370,5 +391,53 @@ String t=TODAY_TABLE;
 
     @Delete(entity = LHPsalmodyEntity.class)
     void lhPsalmodyDeleteAll(List<LHPsalmody> d);
+
+    @Insert(entity = LHAntiphonEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhAntiphonInsertAll(List<LHAntiphon> c);
+
+    @Update(entity = LHAntiphonEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhAntiphonUpdateAll(List<LHAntiphon> u);
+
+    @Delete(entity = LHAntiphonEntity.class)
+    void lhAntiphonDeleteAll(List<LHAntiphon> d);
+
+    @Insert(entity = LHThemeEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhThemeInsertAll(List<LHTheme> c);
+
+    @Update(entity = LHThemeEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhThemeUpdateAll(List<LHTheme> u);
+
+    @Delete(entity = LHThemeEntity.class)
+    void lhThemeDeleteAll(List<LHTheme> d);
+
+    @Insert(entity = EpigraphEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhEpigraphInsertAll(List<LHEpigraph> c);
+
+    @Update(entity = EpigraphEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhEpigraphUpdateAll(List<LHEpigraph> u);
+
+    @Delete(entity = EpigraphEntity.class)
+    void lhEpigraphDeleteAll(List<LHEpigraph> d);
+
+    @Insert(entity = PsalmEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhPsalmInsertAll(List<LHPsalm> c);
+
+    @Update(entity = PsalmEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhPsalmUpdateAll(List<LHPsalm> u);
+
+    @Delete(entity = PsalmEntity.class)
+    void lhPsalmDeleteAll(List<LHPsalm> d);
+
+
+
+
 }
 

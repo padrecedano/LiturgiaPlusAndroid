@@ -108,9 +108,6 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
             }
         }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
 
-
-
-
         //setHasOptionsMenu(true);
         binding = FragmentBreviarioDataBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

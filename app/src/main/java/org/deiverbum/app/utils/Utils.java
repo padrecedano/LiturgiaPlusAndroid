@@ -24,6 +24,8 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 
+import com.google.type.DateTime;
+
 import org.deiverbum.app.model.BreviaryHour;
 
 import java.text.DateFormat;
@@ -417,6 +419,26 @@ public final class Utils {
 
 
     /**
+     * Método que devuelve la fecha del sistema menos N días en formato yyyyMMdd
+     *
+     * @param minusDays Cantidad de días a sustraer
+     * @return Un número con la fecha
+     */
+
+    public static int getTodayMinus(int minusDays) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            String today=LocalDate.now().minusDays(minusDays).format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+            return Integer.valueOf(today);
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.DATE, -minusDays);
+        String s= df.format(cal.getTime());
+        return Integer.valueOf(s);
+    }
+
+    /**
      * Método que devuelve la fecha del sistema en formato yyyyMMdd
      *
      * @return Una cadena con la fecha
@@ -467,7 +489,7 @@ public final class Utils {
     public static String getTitleDate(String dateString) {
         SimpleDateFormat sdf =
                 new SimpleDateFormat("dd 'de' MMMM yyyy", new Locale("es", "ES"));
-        DateFormat df = new SimpleDateFormat("yyyyMMdd");
+        DateFormat df = new SimpleDateFormat("yyyyMMdd",Locale.getDefault());
         try {
             return sdf.format(Objects.requireNonNull(df.parse(dateString)));
         } catch (ParseException e) {

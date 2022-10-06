@@ -96,6 +96,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.5.0')
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-appcheck-playintegrity'
 
     // Declare the dependency for the Cloud Firestore library
     // When using the BoM, you don't specify versions in Firebase library dependencies
@@ -146,6 +147,7 @@ dependencies {
 
     //Material
     implementation "com.google.android.material:material:1.6.1"
+
 }
 
 android.applicationVariants.all { variant ->

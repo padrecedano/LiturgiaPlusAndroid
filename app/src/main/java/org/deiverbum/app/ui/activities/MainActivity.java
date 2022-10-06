@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -41,7 +42,10 @@ import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.InstallStatus;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.appcheck.FirebaseAppCheck;
+import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import org.deiverbum.app.BuildConfig;
@@ -49,6 +53,7 @@ import org.deiverbum.app.R;
 import org.deiverbum.app.databinding.ActivityMainBinding;
 import org.deiverbum.app.ui.fragments.AcceptanceFragmentDialog;
 import org.deiverbum.app.utils.Utils;
+import org.deiverbum.app.viewmodel.HomeViewModel;
 import org.deiverbum.app.workers.TodayWorker;
 
 import java.util.Objects;
@@ -68,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     private NavController.OnDestinationChangedListener onDestinationChangedListener;
     private FirebaseAnalytics mFirebaseAnalytics;
     private AppUpdateManager appUpdateManager;
+
     private final InstallStateUpdatedListener installStateUpdatedListener = installState -> {
         if (installState.installStatus() == InstallStatus.DOWNLOADED) {
             popupAlerter();
@@ -90,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
         strFechaHoy = Utils.getFecha();
         setPrivacy();
         showMain();
+        HomeViewModel mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        mViewModel.callFirestore();
 
         onDestinationChangedListener = (controller, destination, arguments) -> {
             Bundle bundle = new Bundle();
@@ -98,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName);
             bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, screenName);
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
-
+launchWorker();
         };
 
         navController.addOnDestinationChangedListener(onDestinationChangedListener);
@@ -106,6 +114,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void appCheck(){
+        FirebaseApp.initializeApp(this);
+        FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
+        firebaseAppCheck.installAppCheckProviderFactory(
+                PlayIntegrityAppCheckProviderFactory.getInstance());
+    }
     private void showMain() {
         ActivityMainBinding binding;
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -130,8 +144,10 @@ public class MainActivity extends AppCompatActivity {
         if (!acceptTerms) {
             openDialog();
         } else {
+            appCheck();
             checkAppUpdate();
-            //fetchData();
+            //launchFirestore();
+            launchWorker();
             //navController.navigate(R.id.nav_today);
         }
     }
@@ -242,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
             appUpdateManager.unregisterListener(installStateUpdatedListener);
     }
 
-    public void fetchData() {
+    public void launchWorker() {
         WorkManager mWorkManager = WorkManager.getInstance(getApplicationContext());
 
         // Create Network constraint

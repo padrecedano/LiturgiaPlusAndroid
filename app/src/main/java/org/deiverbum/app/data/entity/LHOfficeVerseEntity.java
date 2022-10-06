@@ -16,7 +16,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = LH_OFFICE_VERSE,
         indices = {@Index(value = {"verse"}, unique = true)})
-public class LHOficceVerseEntity {
+public class LHOfficeVerseEntity {
 
     @NonNull
     @PrimaryKey

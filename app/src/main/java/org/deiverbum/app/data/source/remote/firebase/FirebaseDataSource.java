@@ -7,10 +7,15 @@ import static org.deiverbum.app.utils.Constants.DOC_NOTFOUND;
 import static org.deiverbum.app.utils.Constants.ERR_BIBLIA;
 import static org.deiverbum.app.utils.Constants.FIREBASE_SANTOS;
 
+import android.util.Log;
+
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SnapshotMetadata;
 
+import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.model.BibleBooks;
@@ -20,6 +25,8 @@ import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.MassReadingList;
 import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.SaintLife;
+import org.deiverbum.app.model.Today;
+import org.deiverbum.app.model.crud.CrudToday;
 import org.deiverbum.app.utils.Utils;
 
 import java.util.Locale;
@@ -41,9 +48,12 @@ import io.reactivex.rxjava3.core.Single;
 //TODO Listener registration MUY IMPORTANTE
 public class FirebaseDataSource {
     private final FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    private final TodayDao mTodayDao;
 
     @Inject
-    public FirebaseDataSource() {
+    public FirebaseDataSource(TodayDao mTodayDao
+    ) {
+        this.mTodayDao = mTodayDao;
     }
 
     /**
@@ -191,11 +201,6 @@ public class FirebaseDataSource {
     }
 
 
-
-
-
-
-
     public Single<DataWrapper<MetaLiturgia, CustomException>> getMetaLiturgia(String dateString) {
         return Single.create(emitter -> {
             DataWrapper<MetaLiturgia, CustomException> data = new DataWrapper<>();
@@ -235,6 +240,7 @@ public class FirebaseDataSource {
             });
         });
     }
+
     public Single<DataWrapper<Liturgy, CustomException>> getBreviary(String dateString, int hourId) {
         return Single.create(emitter -> {
             DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
@@ -243,7 +249,7 @@ public class FirebaseDataSource {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         DocumentReference dataRef =
-                                document.getDocumentReference(String.format(new Locale("es"),"lh.%d",hourId));
+                                document.getDocumentReference(String.format(new Locale("es"), "lh.%d", hourId));
                         MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
                         Objects.requireNonNull(meta).setIdHour(hourId);
 
@@ -270,6 +276,49 @@ public class FirebaseDataSource {
                 }
             });
         });
+    }
+
+
+
+    public void getSync() {
+        firebaseFirestore.collection("/2022_02/sync/today")
+                .whereGreaterThanOrEqualTo("todayDate", Utils.getTodayMinus(3))
+                .addSnapshotListener(
+                        (snapshots, e) -> {
+                            if (e != null) {
+                                System.err.println("Listen failed: " + e);
+                                return;
+                            }
+                            CrudToday crudToday = new CrudToday();
+                            for (DocumentChange dc : Objects.requireNonNull(snapshots).getDocumentChanges()) {
+                                SnapshotMetadata metaData = dc.getDocument().getMetadata();
+                                DocumentChange.Type dcType = dc.getType();
+                                //DocumentSnapshot doc=dc.getDocument();
+                                if (dcType == DocumentChange.Type.ADDED && !metaData.isFromCache()) {
+                                    crudToday.addCreate(dc.getDocument().toObject(Today.class));
+                                }
+                                if (dcType == DocumentChange.Type.MODIFIED && !metaData.isFromCache()) {
+                                    crudToday.addUpdate(dc.getDocument().toObject(Today.class));
+                                }
+                                if (dcType == DocumentChange.Type.REMOVED && !metaData.isFromCache()) {
+                                    crudToday.addDelete(dc.getDocument().toObject(Today.class));
+                                }
+                            }
+                            try {
+                                if (crudToday.c != null && !crudToday.c.isEmpty()) {
+                                    mTodayDao.todayInsertAll(crudToday.c);
+                                }
+                                if (crudToday.u != null && !crudToday.u.isEmpty()) {
+                                    mTodayDao.todayUpdateAll(crudToday.u);
+                                }
+                                if (crudToday.d != null && !crudToday.d.isEmpty()) {
+                                    mTodayDao.todayDeleteAll(crudToday.d);
+                                }
+                            } catch (Exception ex) {
+                                Log.e("ERR", ex.getMessage());
+                            }
+
+                        });
     }
 
 }
