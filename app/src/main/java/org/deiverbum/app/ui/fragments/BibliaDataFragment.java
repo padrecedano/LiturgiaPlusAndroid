@@ -21,7 +21,9 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -52,7 +54,7 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
     private boolean isReading = false;
 
     private Menu audioMenu;
-    private Menu mainMenu;
+    private MenuItem voiceItem;
 
     public static ActionMode mActionMode;
     private TtsManager mTtsManager;
@@ -60,7 +62,40 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        setHasOptionsMenu(true);
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.toolbar_menu, menu);
+                voiceItem=menu.findItem(R.id.item_voz);
+                voiceItem.setVisible(isVoiceOn);
+                if (isReading) {
+                    voiceItem.setVisible(false);
+                }
+                // Add option Menu Here
+
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.item_voz) {
+                    if (mActionMode == null) {
+                        mActionMode =
+                                requireActivity().startActionMode(mActionModeCallback);
+                    }
+                    readText();
+                    isReading = true;
+                    voiceItem.setVisible(false);
+                    //item.setVisible(!isReading);
+                    requireActivity().invalidateOptionsMenu();
+                    return true;
+                }
+                NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                return NavigationUI.onNavDestinationSelected(item, navController);
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+
+
+
         binding = FragmentTextBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         setConfiguration();
@@ -93,7 +128,7 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
                 if (isVoiceOn) {
                     sbReader = new StringBuilder(VOICE_INI);
                     sbReader.append(libro.getForRead());
-                    setPlayerButton();
+                    //setPlayerButton();
                 }
             } else {
                 mTextView.setText(Utils.fromHtml(data.getError()));
@@ -101,43 +136,14 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
         });
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        mainMenu = menu;
-        inflater.inflate(R.menu.toolbar_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.item_voz) {
-            if (mActionMode == null) {
-                mActionMode = requireActivity().startActionMode(mActionModeCallback);
-            }
-            readText();
-            isReading = true;
-            requireActivity().invalidateOptionsMenu();
-            return true;
-        }
-
-        NavController navController = NavHostFragment.findNavController(this);
-        return NavigationUI.onNavDestinationSelected(item, navController)
-                || super.onOptionsItemSelected(item);
-    }
 
     private String prepareForRead() {
         String notQuotes = Utils.stripQuotation(sbReader.toString());
         return String.valueOf(Utils.fromHtml(notQuotes));
     }
 
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        MenuItem item = menu.findItem(R.id.item_voz);
-        if (isReading) {
-            item.setVisible(false);
-        }
-    }
+
     @Override
     public void onCompleted() {
     }
@@ -210,7 +216,7 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
     };
 
     private void setPlayerButton() {
-        mainMenu.findItem(R.id.item_voz).setVisible(isVoiceOn);
+        voiceItem.setVisible(isVoiceOn);
     }
 
     private void readText() {

@@ -19,14 +19,14 @@ import androidx.room.PrimaryKey;
         foreignKeys =
         {
                 @ForeignKey(
-                        entity = LHOficceVerseEntity.class,
+                        entity = LHOfficeVerseEntity.class,
                         parentColumns = "verseID",
                         childColumns = "verseFK",
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE)
         }
 )
-public class LHOficceVerseJoinEntity {
+public class LHOfficeVerseJoinEntity {
 
     @NonNull
     @PrimaryKey

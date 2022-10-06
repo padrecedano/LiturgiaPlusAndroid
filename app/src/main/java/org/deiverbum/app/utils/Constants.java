@@ -76,6 +76,11 @@ public class Constants {
             "con el desarrollador para informarle de que hay un problema en " +
             "este módulo.";
 
+    public static final String CONTENT_TO_SYNC = String.format("Contenido no encontrado. " +
+            "Puede que estés intentando acceder a un " +
+            "contenido fuera de fecha o que el contenido aún no exista. %sPuedes reportar esta incidencia al desarrollador para informarle de que hay un problema en " +
+            "este módulo mandando un mensaje a <b>%spadre.cedano@gmail.com%s</b> en el que indiques la fecha y el módulo en que ha ocurrido el problema. %sLos contenidos no presentes se incluirán mediante sincronización remota y necesitarás tener conexión a internet para recibirlos.",BRS,CSS_RED_A,CSS_RED_Z,BRS);
+
     /*
         File paths
      */

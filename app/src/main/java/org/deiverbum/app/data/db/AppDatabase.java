@@ -4,7 +4,7 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
-import org.deiverbum.app.data.entity.AntiphonEntity;
+import org.deiverbum.app.data.entity.LHAntiphonEntity;
 import org.deiverbum.app.data.entity.BibleHomilyJoinEntity;
 import org.deiverbum.app.data.entity.BibleHomilyThemeEntity;
 import org.deiverbum.app.data.entity.BibleReadingEntity;
@@ -23,8 +23,8 @@ import org.deiverbum.app.data.entity.LHOfficeBiblicalEntity;
 import org.deiverbum.app.data.entity.LHOfficeBiblicalJoinEntity;
 import org.deiverbum.app.data.entity.LHOfficePatristicEntity;
 import org.deiverbum.app.data.entity.LHOfficePatristicJoinEntity;
-import org.deiverbum.app.data.entity.LHOficceVerseEntity;
-import org.deiverbum.app.data.entity.LHOficceVerseJoinEntity;
+import org.deiverbum.app.data.entity.LHOfficeVerseEntity;
+import org.deiverbum.app.data.entity.LHOfficeVerseJoinEntity;
 import org.deiverbum.app.data.entity.LHPrayerEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
@@ -69,11 +69,11 @@ import org.deiverbum.app.data.entity.TodayEntity;
                 LHPsalmodyEntity.class,
                 LHPsalmodyJoinEntity.class,
                 PsalmEntity.class,
-                AntiphonEntity.class,
+                LHAntiphonEntity.class,
                 LHThemeEntity.class,
                 EpigraphEntity.class,
-                LHOficceVerseEntity.class,
-                LHOficceVerseJoinEntity.class,
+                LHOfficeVerseEntity.class,
+                LHOfficeVerseJoinEntity.class,
                 LHOfficeBiblicalJoinEntity.class,
 
                 //LHPatristicaEntity.class,

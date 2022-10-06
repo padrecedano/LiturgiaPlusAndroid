@@ -3,7 +3,7 @@ package org.deiverbum.app.data.entity.relation;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.data.entity.AntiphonEntity;
+import org.deiverbum.app.data.entity.LHAntiphonEntity;
 import org.deiverbum.app.data.entity.EpigraphEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
 import org.deiverbum.app.data.entity.LHThemeEntity;
@@ -35,9 +35,9 @@ public class PsalmodyWithPsalms {
     @Relation(
             parentColumn = "antiphonFK",
             entityColumn = "antiphonID",
-            entity = AntiphonEntity.class
+            entity = LHAntiphonEntity.class
     )
-    public AntiphonEntity antiphonEntity;
+    public LHAntiphonEntity antiphonEntity;
 
     @Relation(
             parentColumn = "themeFK",

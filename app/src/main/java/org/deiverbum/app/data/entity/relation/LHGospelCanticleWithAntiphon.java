@@ -3,7 +3,7 @@ package org.deiverbum.app.data.entity.relation;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.data.entity.AntiphonEntity;
+import org.deiverbum.app.data.entity.LHAntiphonEntity;
 import org.deiverbum.app.data.entity.LHGospelCanticleJoinEntity;
 import org.deiverbum.app.model.LHGospelCanticle;
 
@@ -18,9 +18,9 @@ public class LHGospelCanticleWithAntiphon {
     @Relation(
             parentColumn = "antiphonFK",
             entityColumn = "antiphonID",
-            entity = AntiphonEntity.class
+            entity = LHAntiphonEntity.class
     )
-    public AntiphonEntity antifona;
+    public LHAntiphonEntity antifona;
 
     public String getAntifona() {
         return antifona.getAntifona();

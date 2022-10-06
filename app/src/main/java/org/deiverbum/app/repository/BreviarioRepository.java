@@ -1,5 +1,6 @@
 package org.deiverbum.app.repository;
 
+import static org.deiverbum.app.utils.Constants.CONTENT_TO_SYNC;
 import static org.deiverbum.app.utils.Constants.ERR_REPORT;
 import static org.deiverbum.app.utils.Constants.NOTFOUND_OR_NOTCONNECTION;
 
@@ -76,7 +77,10 @@ public class BreviarioRepository {
      * @param hourId  Un valor numérico que identifica la hora
      * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
      */
+
+
     public MediatorLiveData<DataWrapper<Liturgy, CustomException>> getFromLocal(String theDate, int hourId) {
+        //getFromFirebase(1);
         switch (hourId) {
             case 0:
                 TodayMixto mixtoEntity = mTodayDao.getMixtoOfToday(Integer.valueOf(theDate));
@@ -165,6 +169,7 @@ public class BreviarioRepository {
         return liveData;
     }
 
+
     public void getFromFile(Liturgy liturgy) {
         fileDataSource.getCompletas(liturgy)
                 .subscribeOn(Schedulers.io())
@@ -239,7 +244,7 @@ public class BreviarioRepository {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        liveData.setValue(new DataWrapper<>(new CustomException(NOTFOUND_OR_NOTCONNECTION)));
+                        liveData.setValue(new DataWrapper<>(new CustomException(CONTENT_TO_SYNC)));
                     }
                 });
     }

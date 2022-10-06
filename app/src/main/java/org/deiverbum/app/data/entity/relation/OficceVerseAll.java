@@ -3,8 +3,8 @@ package org.deiverbum.app.data.entity.relation;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.data.entity.LHOficceVerseEntity;
-import org.deiverbum.app.data.entity.LHOficceVerseJoinEntity;
+import org.deiverbum.app.data.entity.LHOfficeVerseEntity;
+import org.deiverbum.app.data.entity.LHOfficeVerseJoinEntity;
 
 /**
  * @author A. Cedano
@@ -13,13 +13,13 @@ import org.deiverbum.app.data.entity.LHOficceVerseJoinEntity;
  */
 public class OficceVerseAll {
     @Embedded
-    public LHOficceVerseJoinEntity theJoin;
+    public LHOfficeVerseJoinEntity theJoin;
     @Relation(
             parentColumn = "verseFK",
             entityColumn = "verseID",
-            entity = LHOficceVerseEntity.class
+            entity = LHOfficeVerseEntity.class
     )
-    public LHOficceVerseEntity theEntity;
+    public LHOfficeVerseEntity theEntity;
 
     public String getDomainModel(){
         return theEntity.getResponsorio();

@@ -125,7 +125,7 @@ public class AcceptanceFragmentDialog extends DialogFragment {
             SharedPreferences.Editor editor = sp.edit();
             editor.putBoolean(PREF_ACCEPT, true);
             editor.apply();
-            launchWorker();
+            //launchWorker();
             dismiss();
         });
     }

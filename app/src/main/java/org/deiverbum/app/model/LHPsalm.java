@@ -6,16 +6,36 @@ import static org.deiverbum.app.utils.Constants.NBSP_SALMOS;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
+import androidx.room.Ignore;
+
 import org.deiverbum.app.utils.Utils;
 
 public class LHPsalm implements Comparable<LHPsalm>{
+    public Integer psalmID=0;
+    public Integer readingID=0;
+    public String quote="";
+    @Ignore
     private String orden;
+    @Ignore
     protected String antifona;
-    public String quote;
+
+    @Ignore
     private String tema;
+    @Ignore
     private String epigrafe;
+    @Ignore
     private String parte;
-    private String salmo;
+
+    public String getPsalm() {
+        return psalm;
+    }
+
+    public void setPsalm(String psalm) {
+        this.psalm = psalm;
+    }
+
+    //@Ignore
+    private String psalm="";
 
     public String getOrden() {
         return (orden != null ) ?  orden : "";
@@ -74,11 +94,11 @@ public class LHPsalm implements Comparable<LHPsalm>{
     }
 
     public String getSalmo() {
-        return salmo;
+        return psalm;
     }
 
     public void setSalmo(String salmo) {
-        this.salmo = salmo;
+        this.psalm = salmo;
     }
 
     public Spanned getTextos() {

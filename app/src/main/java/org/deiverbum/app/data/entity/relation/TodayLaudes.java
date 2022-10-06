@@ -165,6 +165,7 @@ public class TodayLaudes {
     }
 
     public Liturgy getDomainModel(){
+
         Liturgy dm= feria.getDomainModel();
         dm.typeID=2;
         dm.setHoy(getToday());

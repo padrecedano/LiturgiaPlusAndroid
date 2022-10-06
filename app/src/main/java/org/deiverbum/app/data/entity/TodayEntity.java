@@ -58,7 +58,7 @@ import androidx.room.PrimaryKey;
                         onDelete = ForeignKey.RESTRICT,
                         onUpdate = ForeignKey.RESTRICT),
                 @ForeignKey(
-                        entity = LHOficceVerseJoinEntity.class,
+                        entity = LHOfficeVerseJoinEntity.class,
                         parentColumns = "groupID",
                         childColumns = "oVerseFK",
                         onDelete = ForeignKey.RESTRICT,

@@ -16,7 +16,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = LH_ANTIPHON,
         indices = {@Index(value = {"antiphon"},unique = true)})
-public class AntiphonEntity {
+public class LHAntiphonEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "antiphonID")

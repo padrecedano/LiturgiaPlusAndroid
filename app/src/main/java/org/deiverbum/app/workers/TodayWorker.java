@@ -14,24 +14,10 @@ import androidx.work.WorkerParameters;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.data.source.remote.network.ApiService;
-import org.deiverbum.app.model.LHPsalmody;
-import org.deiverbum.app.model.PaterOpus;
-import org.deiverbum.app.model.crud.Crud;
 import org.deiverbum.app.data.wrappers.SyncRequest;
-import org.deiverbum.app.model.BibleHomilyJoin;
-import org.deiverbum.app.model.Biblical;
-import org.deiverbum.app.model.Homily;
-import org.deiverbum.app.model.LHGospelCanticleJoin;
-import org.deiverbum.app.model.LHHymn;
-import org.deiverbum.app.model.LHHymnJoin;
-import org.deiverbum.app.model.LHInvitatoryJoin;
-import org.deiverbum.app.model.LHOfficeVerseJoin;
-import org.deiverbum.app.model.LiturgyHomilyJoin;
-import org.deiverbum.app.model.MassReadingOLD;
-import org.deiverbum.app.model.Saint;
-import org.deiverbum.app.model.SaintLife;
 import org.deiverbum.app.model.SyncStatus;
 import org.deiverbum.app.model.Today;
+import org.deiverbum.app.model.crud.Crud;
 
 import java.util.List;
 
@@ -60,10 +46,12 @@ public class TodayWorker extends Worker {
             @Assisted @NonNull WorkerParameters params,
             ApiService workerDependency,
             TodayDao mTodayDao
-    ) {
+
+            ) {
         super(context, params);
         this.workerDependency = workerDependency;
         this.mTodayDao = mTodayDao;
+
     }
 
 
@@ -73,15 +61,15 @@ public class TodayWorker extends Worker {
 
         try {
             setSyncRequest();
-            Integer theDate = mTodayDao.findLastDate();
-            loadToday(theDate);
             loadCrud();
+            //getFromFirebase(theDate);
             return Result.success();
         } catch (Throwable e) {
             //e.printStackTrace();
             return Result.failure();
         }
     }
+
 
 
     private void setSyncRequest() {
@@ -112,256 +100,9 @@ public class TodayWorker extends Worker {
                     public void onSuccess(Crud r) {
                         try {
                             if (r.haveData) {
+                                r.doCrud(mTodayDao);
                                 //mTodayDao.syncUpdateAll(r.syncStatus);
                                 mTodayDao.syncUpdate(r.lastUpdate);
-                                if (r.crudSaint != null) {
-                                    List<Saint> cs = r.crudSaint.cSaint;
-                                    List<Saint> us = r.crudSaint.uSaint;
-                                    List<Saint> ds = r.crudSaint.dSaint;
-                                    List<SaintLife> cl = r.crudSaint.cLife;
-                                    List<SaintLife> ul = r.crudSaint.uLife;
-                                    List<SaintLife> dl = r.crudSaint.dLife;
-
-                                    if (cs != null && !cs.isEmpty()) {
-                                        mTodayDao.saintInsertAll(cs);
-                                    }
-                                    if (us != null && !us.isEmpty()) {
-                                        mTodayDao.saintUpdateAll(us);
-                                    }
-                                    if (ds != null && !ds.isEmpty()) {
-                                        mTodayDao.saintDeleteAll(ds);
-                                    }
-
-                                    if (cl != null && !cl.isEmpty()) {
-                                        mTodayDao.saintLifeInsertAll(cl);
-                                    }
-                                    if (ul != null && !ul.isEmpty()) {
-                                        mTodayDao.saintLifeUpdateAll(ul);
-                                    }
-                                    if (dl != null && !dl.isEmpty()) {
-                                        mTodayDao.saintLifeDeleteAll(dl);
-                                    }
-                                }
-
-                                if (r.crudLHInvitatoryJoin != null) {
-                                    List<LHInvitatoryJoin> c = r.crudLHInvitatoryJoin.c;
-                                    List<LHInvitatoryJoin> u = r.crudLHInvitatoryJoin.u;
-                                    List<LHInvitatoryJoin> d = r.crudLHInvitatoryJoin.d;
-
-                                    if (c != null && !c.isEmpty()) {
-                                        mTodayDao.lhInvitatoryJoinInsertAll(c);
-                                    }
-                                    if (u != null && !u.isEmpty()) {
-                                        mTodayDao.lhInvitatoryJoinUpdateAll(u);
-                                    }
-                                    if (d != null && !d.isEmpty()) {
-                                        mTodayDao.lhInvitatoryJoinDeleteAll(d);
-                                    }
-                                }
-
-                                if (r.crudLHHymn != null) {
-                                    List<LHHymn> c = r.crudLHHymn.c;
-                                    List<LHHymn> u = r.crudLHHymn.u;
-                                    List<LHHymn> d = r.crudLHHymn.d;
-
-                                    if (c != null && !c.isEmpty()) {
-                                        mTodayDao.lhHymnInsertAll(c);
-                                    }
-                                    if (u != null && !u.isEmpty()) {
-                                        mTodayDao.lhHymnUpdateAll(u);
-                                    }
-                                    if (d != null && !d.isEmpty()) {
-                                        mTodayDao.lhHymnDeleteAll(d);
-                                    }
-                                }
-
-                                if (r.crudLHHymnJoin != null) {
-                                    List<LHHymnJoin> c = r.crudLHHymnJoin.c;
-                                    List<LHHymnJoin> u = r.crudLHHymnJoin.u;
-                                    List<LHHymnJoin> d = r.crudLHHymnJoin.d;
-
-                                    if (c != null && !c.isEmpty()) {
-                                        mTodayDao.lhHymnJoinInsertAll(c);
-                                    }
-                                    if (u != null && !u.isEmpty()) {
-                                        mTodayDao.lhHymnJoinUpdateAll(u);
-                                    }
-                                    if (d != null && !d.isEmpty()) {
-                                        mTodayDao.lhHymnJoinDeleteAll(d);
-                                    }
-                                }
-
-                                if (r.crudLHOfficeVerseJoin != null) {
-                                    List<LHOfficeVerseJoin> c = r.crudLHOfficeVerseJoin.c;
-                                    List<LHOfficeVerseJoin> u = r.crudLHOfficeVerseJoin.u;
-                                    List<LHOfficeVerseJoin> d = r.crudLHOfficeVerseJoin.d;
-
-                                    if (c != null && !c.isEmpty()) {
-                                        mTodayDao.lhOfficeVerseJoinInsertAll(c);
-                                    }
-                                    if (u != null && !u.isEmpty()) {
-                                        mTodayDao.lhOfficeVerseJoinUpdateAll(u);
-                                    }
-                                    if (d != null && !d.isEmpty()) {
-                                        mTodayDao.lhOfficeVerseJoinDeleteAll(d);
-                                    }
-                                }
-
-                                if (r.crudLHPsalmody != null) {
-                                    List<LHPsalmody> c = r.crudLHPsalmody.c;
-                                    List<LHPsalmody> u = r.crudLHPsalmody.u;
-                                    List<LHPsalmody> d = r.crudLHPsalmody.d;
-
-                                    if (c != null && !c.isEmpty()) {
-                                        mTodayDao.lhPsalmodyInsertAll(c);
-                                    }
-                                    if (u != null && !u.isEmpty()) {
-                                        mTodayDao.lhPsalmodyUpdateAll(u);
-                                    }
-                                    if (d != null && !d.isEmpty()) {
-                                        mTodayDao.lhPsalmodyDeleteAll(d);
-                                    }
-                                }
-
-                                if (r.crudBibleReading != null) {
-                                    List<Biblical> c = r.crudBibleReading.c;
-                                    List<Biblical> u = r.crudBibleReading.u;
-                                    List<Biblical> d = r.crudBibleReading.d;
-
-                                    if (c != null && !c.isEmpty()) {
-                                        mTodayDao.bibleReadingInsertAll(c);
-                                    }
-                                    if (u != null && !u.isEmpty()) {
-                                        mTodayDao.bibleReadingUpdateAll(u);
-                                    }
-                                    if (d != null && !d.isEmpty()) {
-                                        mTodayDao.bibleReadingDeleteAll(d);
-                                    }
-                                }
-
-                                if (r.crudHomily != null) {
-                                    List<Homily> c = r.crudHomily.c;
-                                    List<Homily> u = r.crudHomily.u;
-                                    List<Homily> d = r.crudHomily.d;
-                                    if (c != null && !c.isEmpty()) {
-                                        mTodayDao.homilyInsertAll(c);
-                                    }
-                                    if (d != null && !d.isEmpty()) {
-                                        mTodayDao.homilyDeleteAll(d);
-                                    }
-                                    if (u != null && !u.isEmpty()) {
-                                        mTodayDao.homilyUpdateAll(u);
-                                    }
-                                }
-
-
-                                if (r.homilyJoin != null) {
-                                    List<LiturgyHomilyJoin> c = r.homilyJoin.c;
-                                    List<LiturgyHomilyJoin> u = r.homilyJoin.u;
-                                    List<LiturgyHomilyJoin> d = r.homilyJoin.d;
-                                    if (c != null && !c.isEmpty()) {
-                                        mTodayDao.homilyJoinInsertAll(c);
-                                    }
-                                    if (d != null && !d.isEmpty()) {
-                                        mTodayDao.homilyJoinDeleteAll(d);
-                                    }
-                                    if (u != null && !u.isEmpty()) {
-                                        mTodayDao.homilyJoinUpdateAll(u);
-                                    }
-                                }
-
-                                if (r.crudMassReading != null) {
-                                    List<MassReadingOLD> c = r.crudMassReading.c;
-                                    List<MassReadingOLD> u = r.crudMassReading.u;
-                                    List<MassReadingOLD> d = r.crudMassReading.d;
-                                    if (c != null && !c.isEmpty()) {
-                                        mTodayDao.massReadingInsertAll(c);
-                                    }
-                                    if (d != null && !d.isEmpty()) {
-                                        mTodayDao.massReadingDeleteAll(d);
-                                    }
-                                    if (u != null && !u.isEmpty()) {
-                                        mTodayDao.massReadingUpdateAll(u);
-                                    }
-                                }
-
-
-                                if (r.crudBibleHomilyJoin != null) {
-                                    List<BibleHomilyJoin> c = r.crudBibleHomilyJoin.c;
-                                    List<BibleHomilyJoin> u = r.crudBibleHomilyJoin.u;
-                                    List<BibleHomilyJoin> d = r.crudBibleHomilyJoin.d;
-                                    if (c != null && !c.isEmpty()) {
-                                        mTodayDao.bibleHomilyJoinInsertAll(c);
-                                    }
-                                    if (d != null && !d.isEmpty()) {
-                                        mTodayDao.bibleHomilyJoinDeleteAll(d);
-                                    }
-                                    if (u != null && !u.isEmpty()) {
-                                        mTodayDao.bibleHomilyJoinUpdateAll(u);
-                                    }
-                                }
-                                if (r.ce != null) {
-                                    List<LHGospelCanticleJoin> c = r.ce.c;
-                                    List<LHGospelCanticleJoin> u = r.ce.u;
-                                    List<LHGospelCanticleJoin> d = r.ce.d;
-
-                                    if (c != null && !c.isEmpty()) {
-                                        mTodayDao.gospelCanticleInsertAll(c);
-                                    }
-
-                                    if (d != null && !d.isEmpty()) {
-                                        mTodayDao.gospelCanticleDeleteAll(d);
-                                    }
-                                    if (u != null && !u.isEmpty()) {
-                                        mTodayDao.gospelCanticleUpdateAll(u);
-                                    }
-                                }
-
-                                if (r.crudBibleHomilyJoin != null) {
-                                    List<BibleHomilyJoin> c = r.crudBibleHomilyJoin.c;
-                                    List<BibleHomilyJoin> u = r.crudBibleHomilyJoin.u;
-                                    List<BibleHomilyJoin> d = r.crudBibleHomilyJoin.d;
-                                    if (c != null && !c.isEmpty()) {
-                                        mTodayDao.bibleHomilyJoinInsertAll(c);
-                                    }
-                                    if (d != null && !d.isEmpty()) {
-                                        mTodayDao.bibleHomilyJoinDeleteAll(d);
-                                    }
-                                    if (u != null && !u.isEmpty()) {
-                                        mTodayDao.bibleHomilyJoinUpdateAll(u);
-                                    }
-                                }
-
-                                if (r.crudPaterOpus != null) {
-                                    List<PaterOpus> c = r.crudPaterOpus.c;
-                                    List<PaterOpus> u = r.crudPaterOpus.u;
-                                    List<PaterOpus> d = r.crudPaterOpus.d;
-                                    if (c != null && !c.isEmpty()) {
-                                        mTodayDao.paterOpusInsertAll(c);
-                                    }
-                                    if (d != null && !d.isEmpty()) {
-                                        mTodayDao.paterOpusDeleteAll(d);
-                                    }
-                                    if (u != null && !u.isEmpty()) {
-                                        mTodayDao.paterOpusUpdateAll(u);
-                                    }
-                                }
-
-                                if (r.crudToday != null) {
-                                    List<Today> c = r.crudToday.c;
-                                    List<Today> u = r.crudToday.u;
-                                    List<Today> d = r.crudToday.d;
-
-                                    if (c != null && !c.isEmpty()) {
-                                        mTodayDao.todayInsertAll(c);
-                                    }
-                                    if (u != null && !u.isEmpty()) {
-                                        mTodayDao.todayUpdateAll(u);
-                                    }
-                                    if (d != null && !d.isEmpty()) {
-                                        mTodayDao.todayDeleteAll(d);
-                                    }
-                                }
                             }
                         } catch (Exception e) {
                             Log.e("ERR", e.getMessage());

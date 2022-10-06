@@ -19,7 +19,7 @@ import androidx.room.PrimaryKey;
         foreignKeys =
         {
             @ForeignKey(
-                    entity = AntiphonEntity.class,
+                    entity = LHAntiphonEntity.class,
                     parentColumns = "antiphonID",
                     childColumns = "antiphonFK",
                     onDelete = ForeignKey.CASCADE,
