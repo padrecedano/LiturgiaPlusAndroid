@@ -15,23 +15,33 @@ import org.deiverbum.app.utils.Utils;
 import java.util.Locale;
 
 public class LHResponsoryShort {
-    protected String texto;
-    protected int forma;
 
-    public String getTexto() {
-        return this.texto;
+    protected Integer responsoryID;
+    protected String text;
+    protected Integer type;
+
+    public Integer getResponsoryID() {
+        return responsoryID;
     }
 
-    public void setTexto(String texto) {
-        this.texto = texto;
+    public void setResponsoryID(Integer responsoryID) {
+        this.responsoryID = responsoryID;
     }
 
-    public int getForma() {
-        return this.forma;
+    public String getText() {
+        return this.text;
     }
 
-    public void setForma(int forma) {
-        this.forma = forma;
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Integer getType() {
+        return this.type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public SpannableStringBuilder getHeader(int hourId) {
@@ -55,9 +65,9 @@ public class LHResponsoryShort {
 
     public SpannableStringBuilder getAll() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        String[] respArray = texto.split("\\|");
+        String[] respArray = text.split("\\|");
         StringBuilder s = new StringBuilder();
-        switch (forma) {
+        switch (type) {
             case 1:
                 if (respArray.length == 3) {
                     s.append(RESP_R);
@@ -183,7 +193,7 @@ public class LHResponsoryShort {
                 sb.append("Tamaño del responsorio: ");
                 sb.append(String.valueOf(respArray.length));
                 sb.append(" Código forma: ");
-                sb.append(String.valueOf(forma));
+                sb.append(String.valueOf(type));
                 sb.append(BR);
                 break;
         }
@@ -199,14 +209,14 @@ public class LHResponsoryShort {
 
     public SpannableStringBuilder getAll(int hourId) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        String[] respArray = texto.split("\\|");
+        String[] respArray = text.split("\\|");
         StringBuilder s = new StringBuilder();
         if(hourId<3 || hourId > 5){
             sb.append(getHeader());
             s.append(BRS);
         }
 
-        switch (forma) {
+        switch (type) {
             case 1:
                 if (respArray.length == 3) {
                     s.append(RESP_R);
@@ -333,7 +343,7 @@ public class LHResponsoryShort {
                 sb.append("Tamaño del responsorio: ");
                 sb.append(String.valueOf(respArray.length));
                 sb.append(" Código forma: ");
-                sb.append(String.valueOf(forma));
+                sb.append(String.valueOf(type));
                 sb.append(BR);
                 break;
         }
@@ -347,10 +357,10 @@ public class LHResponsoryShort {
      * @return Una cadena formateada con el responsorio
      */
     public String getAllForRead() {
-        String[] respArray = texto.split("\\|");
+        String[] respArray = text.split("\\|");
         StringBuilder s = new StringBuilder();
         s.append(Utils.pointAtEnd(TITLE_RESPONSORY_SHORT));
-        switch (forma) {
+        switch (type) {
             case 1:
 
                 if (respArray.length == 3) {
@@ -421,6 +431,6 @@ public class LHResponsoryShort {
      */
 
     public void normalizeByTime(int calendarTime) {
-        this.texto=Utils.replaceByTime(texto,calendarTime);
+        this.text =Utils.replaceByTime(text,calendarTime);
     }
 }

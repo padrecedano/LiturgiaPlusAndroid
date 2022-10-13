@@ -48,8 +48,8 @@ public class LHResponsoryShortEntity {
 
     public LHResponsoryShort getDomainModel(Integer timeId){
         LHResponsoryShort theModel=new LHResponsoryShort();
-        theModel.setTexto(Utils.replaceByTime(getTexto(),timeId));
-        theModel.setForma(getTipo());
+        theModel.setText(Utils.replaceByTime(getTexto(),timeId));
+        theModel.setType(getTipo());
         return theModel;
     }
 

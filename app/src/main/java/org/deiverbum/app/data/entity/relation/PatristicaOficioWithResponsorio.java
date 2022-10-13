@@ -39,9 +39,9 @@ public class PatristicaOficioWithResponsorio {
 
     public LHOfficePatristic getDomainModelOficio(Integer tiempoId) {
         LHOfficePatristic theModel= homilyAll.getPatristicaDomainModel();
-        theModel.setTema(lhPatristica.tema);
-        theModel.setFuente(lhPatristica.fuente);
-        theModel.setOrden(lhPatristica.orden);
+        theModel.setTheme(lhPatristica.tema);
+        theModel.setSource(lhPatristica.fuente);
+        theModel.setTheOrder(lhPatristica.orden);
         theModel.setResponsorioLargo(lhResponsorio.getDomainModel(tiempoId));
         return theModel;
     }

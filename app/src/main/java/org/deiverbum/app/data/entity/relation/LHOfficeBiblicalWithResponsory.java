@@ -37,8 +37,8 @@ public class LHOfficeBiblicalWithResponsory {
 
     public LHOfficeBiblical getDomainModel(Integer tiempoId) {
         LHOfficeBiblical theModel= bibliaLectura.getDomainModelOficio();
-        theModel.setTema(lhBiblica.tema);
-        theModel.setOrden(lhBiblica.orden);
+        theModel.setTema(lhBiblica.theme);
+        theModel.setOrden(lhBiblica.theOrder);
         theModel.setResponsorioLargo(lhResponsorio.getDomainModel(tiempoId));
         return theModel;
     }

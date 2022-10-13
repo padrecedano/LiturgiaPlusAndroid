@@ -1,5 +1,7 @@
 package org.deiverbum.app.model.crud;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
@@ -13,16 +15,25 @@ import org.deiverbum.app.model.LHGospelCanticleJoin;
 import org.deiverbum.app.model.LHHymn;
 import org.deiverbum.app.model.LHHymnJoin;
 import org.deiverbum.app.model.LHInvitatoryJoin;
+import org.deiverbum.app.model.LHOfficeBiblical;
+import org.deiverbum.app.model.LHOfficeBiblicalJoin;
+import org.deiverbum.app.model.LHOfficeBiblicalTable;
+import org.deiverbum.app.model.LHOfficePatristic;
+import org.deiverbum.app.model.LHOfficePatristicJoin;
 import org.deiverbum.app.model.LHOfficeVerse;
 import org.deiverbum.app.model.LHOfficeVerseJoin;
+import org.deiverbum.app.model.LHPrayer;
 import org.deiverbum.app.model.LHPsalm;
 import org.deiverbum.app.model.LHPsalmody;
+import org.deiverbum.app.model.LHResponsory;
+import org.deiverbum.app.model.LHResponsoryTable;
 import org.deiverbum.app.model.LHTheme;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.LiturgyHomilyJoin;
 import org.deiverbum.app.model.MassReading;
 import org.deiverbum.app.model.MassReadingOLD;
 import org.deiverbum.app.model.PaterOpus;
+import org.deiverbum.app.model.Prayer;
 import org.deiverbum.app.model.Saint;
 import org.deiverbum.app.model.SaintLife;
 import org.deiverbum.app.model.SyncStatus;
@@ -79,6 +90,15 @@ public class Crud  {
 
     @SerializedName("crudLHOfficeVerseJoin")
     public CrudLHOfficeVerseJoin crudLHOfficeVerseJoin;
+
+    public CrudLHOfficeBiblical crudLHOfficeBiblical;
+    public CrudLHOfficeBiblicalJoin crudLHOfficeBiblicalJoin;
+    public CrudLHResponsory crudLHResponsory;
+
+    public CrudLHOfficePatristic crudLHOfficePatristic;
+    public CrudLHOfficePatristicJoin crudLHOfficePatristicJoin;
+    public CrudPrayer crudPrayer;
+    public CrudLHPrayer crudLHPrayer;
 
     @SerializedName("crudBibleHomilyJoin")
     public CrudBibleHomilyJoin crudBibleHomilyJoin;
@@ -219,6 +239,86 @@ public class Crud  {
             }
         }
 
+        if (crudLHOfficeBiblical != null) {
+            List<LHOfficeBiblicalTable> c = crudLHOfficeBiblical.c;
+            List<LHOfficeBiblicalTable> u = crudLHOfficeBiblical.u;
+            List<LHOfficeBiblicalTable> d = crudLHOfficeBiblical.d;
+
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.lhOfficeBiblicalInsertAll(c);
+            }
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.lhOfficeBiblicalUpdateAll(u);
+            }
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.lhOfficeBiblicalDeleteAll(d);
+            }
+        }
+
+        if (crudLHOfficeBiblicalJoin != null) {
+            List<LHOfficeBiblicalJoin> c = crudLHOfficeBiblicalJoin.c;
+            List<LHOfficeBiblicalJoin> u = crudLHOfficeBiblicalJoin.u;
+            List<LHOfficeBiblicalJoin> d = crudLHOfficeBiblicalJoin.d;
+
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.lhOfficeBiblicalJoinInsertAll(c);
+            }
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.lhOfficeBiblicalJoinUpdateAll(u);
+            }
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.lhOfficeBiblicalJoinDeleteAll(d);
+            }
+        }
+
+        if (crudLHResponsory != null) {
+            List<LHResponsoryTable> c = crudLHResponsory.c;
+            List<LHResponsoryTable> u = crudLHResponsory.u;
+            List<LHResponsoryTable> d = crudLHResponsory.d;
+
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.lhResponsoryInsertAll(c);
+            }
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.lhResponsoryUpdateAll(u);
+            }
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.lhResponsoryDeleteAll(d);
+            }
+        }
+
+        if (crudLHOfficePatristic != null) {
+            List<LHOfficePatristic> c = crudLHOfficePatristic.c;
+            List<LHOfficePatristic> u = crudLHOfficePatristic.u;
+            List<LHOfficePatristic> d = crudLHOfficePatristic.d;
+
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.lhOfficePatristicInsertAll(c);
+            }
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.lhOfficePatristicUpdateAll(u);
+            }
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.lhOfficePatristicDeleteAll(d);
+            }
+        }
+
+        if (crudLHOfficePatristicJoin != null) {
+            List<LHOfficePatristicJoin> c = crudLHOfficePatristicJoin.c;
+            List<LHOfficePatristicJoin> u = crudLHOfficePatristicJoin.u;
+            List<LHOfficePatristicJoin> d = crudLHOfficePatristicJoin.d;
+
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.lhOfficePatristicJoinInsertAll(c);
+            }
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.lhOfficePatristicJoinUpdateAll(u);
+            }
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.lhOfficePatristicJoinDeleteAll(d);
+            }
+        }
+
         if (crudLHPsalmody != null) {
             List<LHPsalmody> c = crudLHPsalmody.c;
             List<LHPsalmody> u = crudLHPsalmody.u;
@@ -298,6 +398,39 @@ public class Crud  {
                 mTodayDao.lhPsalmDeleteAll(d);
             }
         }
+
+        if (crudPrayer != null) {
+            List<Prayer> c = crudPrayer.c;
+            List<Prayer> u = crudPrayer.u;
+            List<Prayer> d = crudPrayer.d;
+
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.prayerInsertAll(c);
+            }
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.prayerUpdateAll(u);
+            }
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.prayerDeleteAll(d);
+            }
+        }
+
+        if (crudLHPrayer != null) {
+            List<LHPrayer> c = crudLHPrayer.c;
+            List<LHPrayer> u = crudLHPrayer.u;
+            List<LHPrayer> d = crudLHPrayer.d;
+
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.lhPrayerInsertAll(c);
+            }
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.lhPrayerUpdateAll(u);
+            }
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.lhPrayerDeleteAll(d);
+            }
+        }
+
 
         if (crudBibleReading != null) {
             List<Biblical> c = crudBibleReading.c;

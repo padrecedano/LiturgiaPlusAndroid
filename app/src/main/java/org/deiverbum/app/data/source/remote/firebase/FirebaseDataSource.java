@@ -2,6 +2,7 @@ package org.deiverbum.app.data.source.remote.firebase;
 
 import static org.deiverbum.app.utils.Configuration.BIBLIA_PATH;
 import static org.deiverbum.app.utils.Configuration.CALENDAR_PATH;
+import static org.deiverbum.app.utils.Configuration.FIREBASE_SYNC_PATH;
 import static org.deiverbum.app.utils.Constants.DATA_NOTFOUND;
 import static org.deiverbum.app.utils.Constants.DOC_NOTFOUND;
 import static org.deiverbum.app.utils.Constants.ERR_BIBLIA;
@@ -281,8 +282,8 @@ public class FirebaseDataSource {
 
 
     public void getSync() {
-        firebaseFirestore.collection("/2022_02/sync/today")
-                .whereGreaterThanOrEqualTo("todayDate", Utils.getTodayMinus(3))
+        firebaseFirestore.collection(FIREBASE_SYNC_PATH)
+                .whereGreaterThanOrEqualTo("todayDate", Utils.getTodayMinus(30))
                 .addSnapshotListener(
                         (snapshots, e) -> {
                             if (e != null) {

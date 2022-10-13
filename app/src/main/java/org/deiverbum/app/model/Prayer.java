@@ -8,14 +8,17 @@ import android.text.Spanned;
 import org.deiverbum.app.utils.Utils;
 
 public class Prayer {
-    public String texto;
+    public Integer prayerID;
+    public Integer order;
 
-    public String getTexto() {
-        return texto;
+    public String prayer;
+
+    public String getPrayer() {
+        return prayer;
     }
 
-    public void setTexto(String texto) {
-        this.texto = texto;
+    public void setPrayer(String prayer) {
+        this.prayer = prayer;
     }
 
     public SpannableStringBuilder getHeader() {
@@ -26,13 +29,13 @@ public class Prayer {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
             sb.append(getHeader());
             sb.append(Utils.LS2);
-            sb.append(Utils.fromHtml(texto));
+            sb.append(Utils.fromHtml(prayer));
 
         return sb;
     }
 
     public String getAllForRead() {
         return Utils.pointAtEnd(TITLE_PRAYER) +
-                Utils.fromHtml(texto);
+                Utils.fromHtml(prayer);
     }
 }

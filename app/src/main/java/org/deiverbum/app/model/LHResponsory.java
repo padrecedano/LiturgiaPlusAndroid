@@ -16,20 +16,20 @@ import org.deiverbum.app.utils.Utils;
 import java.util.Locale;
 
 public class LHResponsory extends LHResponsoryShort {
-    private String ref;
+    private String source;
 
-    public String getRef() {
-        return ref;
+    public String getSource() {
+        return source;
     }
 
-    public void setRef(String ref) {
-        this.ref = ref;
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public SpannableStringBuilder getHeader() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        if (ref != null) {
-            sb.append(Utils.toRed(String.format(new Locale("es"), "%s%s%s", TITLE_RESPONSORY, "     ", getRef())));
+        if (source != null) {
+            sb.append(Utils.toRed(String.format(new Locale("es"), "%s%s%s", TITLE_RESPONSORY, "     ", getSource())));
 
         } else {
             sb.append(Utils.toRed(TITLE_RESPONSORY));
@@ -47,11 +47,11 @@ public class LHResponsory extends LHResponsoryShort {
 
     public SpannableStringBuilder getAll() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        String[] respArray = texto.split("\\|");
+        String[] respArray = text.split("\\|");
         StringBuilder s = new StringBuilder();
 
         sb.append(getHeader());
-        switch (forma) {
+        switch (type) {
             case 1:
                 if (respArray.length == 3) {
                     s.append(RESP_R);
@@ -181,7 +181,7 @@ public class LHResponsory extends LHResponsoryShort {
                 sb.append("Tamaño del responsorio: ");
                 sb.append(String.valueOf(respArray.length));
                 sb.append(" Código forma: ");
-                sb.append(String.valueOf(forma));
+                sb.append(String.valueOf(type));
                 sb.append(BR);
                 break;
         }
@@ -195,9 +195,9 @@ public class LHResponsory extends LHResponsoryShort {
      */
 
     public String getAllForRead() {
-        String[] respArray = texto.split("\\|");
+        String[] respArray = text.split("\\|");
         StringBuilder s = new StringBuilder();
-        switch (forma) {
+        switch (type) {
             case 1:
 
                 if (respArray.length == 3) {

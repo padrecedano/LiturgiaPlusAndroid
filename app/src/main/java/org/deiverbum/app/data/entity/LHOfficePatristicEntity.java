@@ -14,7 +14,7 @@ import androidx.room.ForeignKey;
  */
 
 @Entity(tableName = LH_OFFICE_PATRISTIC,
-        primaryKeys = {"groupFK","homilyFK","responsoryFK"},
+        primaryKeys = {"groupFK","theOrder"},
 
         foreignKeys =
         {
@@ -56,7 +56,7 @@ public class LHOfficePatristicEntity {
     public String fuente="";
 
     @NonNull
-    @ColumnInfo(name = "order", defaultValue= "1")
+    @ColumnInfo(name = "theOrder", defaultValue= "1")
     public Integer orden=0;
 
     @NonNull

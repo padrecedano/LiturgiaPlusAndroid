@@ -6,19 +6,29 @@ import static org.deiverbum.app.utils.Utils.LS2;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
+import androidx.room.Ignore;
+
 import org.deiverbum.app.utils.Utils;
 
 @SuppressWarnings("SameReturnValue")
 public class LHOfficePatristic {
+    public Integer groupFK;
+    private Integer theOrder;
+    public Integer homilyFK;
+    public Integer responsoryFK;
+    public String source;
+    public String theme;
+    @Ignore
     public String padre;
+    @Ignore
     public String obra;
-    public String fuente;
-    public String tema;
+    @Ignore
     public String texto;
+    @Ignore
     public String ref;
-    private Integer orden;
+    @Ignore
     public PaterOpus paterOpus;
-
+    @Ignore
     public LHResponsory responsorioLargo;
 
     public LHOfficePatristic() {
@@ -52,25 +62,25 @@ public class LHOfficePatristic {
     }
 
     @SuppressWarnings("unused")
-    public String getFuente() {
-        return fuente;
+    public String getSource() {
+        return source;
     }
 
     @SuppressWarnings("unused")
-    public void setFuente(String fuente) {
-        this.fuente = fuente;
+    public void setSource(String source) {
+        this.source = source;
     }
 
-    public String getTema() {
-        return tema;
+    public String getTheme() {
+        return theme;
     }
 
     public String getTemaForRead() {
-        return Utils.pointAtEnd(tema);
+        return Utils.pointAtEnd(theme);
     }
 
-    public void setTema(String tema) {
-        this.tema = tema;
+    public void setTheme(String theme) {
+        this.theme = theme;
     }
 
     public String getTexto() {
@@ -139,9 +149,9 @@ public class LHOfficePatristic {
         //sb.append(", ");
         sb.append(getObraForView());
         sb.append(Utils.LS2);
-        sb.append(Utils.toSmallSizeRed(fuente));
+        sb.append(Utils.toSmallSizeRed(source));
         sb.append(LS2);
-        sb.append(Utils.toRed(tema));
+        sb.append(Utils.toRed(theme));
         sb.append(LS2);
         sb.append(getTextoSpan());
         sb.append(Utils.LS);
@@ -149,11 +159,11 @@ public class LHOfficePatristic {
         return sb;
     }
 
-    public void setOrden(Integer orden) {
-        this.orden=orden;
+    public void setTheOrder(Integer theOrder) {
+        this.theOrder = theOrder;
     }
 
-    public Integer getOrden() {
-        return this.orden;
+    public Integer getTheOrder() {
+        return this.theOrder;
     }
 }
