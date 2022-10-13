@@ -1,5 +1,7 @@
 package org.deiverbum.app.data.entity;
 
+import static org.deiverbum.app.utils.Constants.LH_RESPONSORY;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -14,7 +16,7 @@ import org.deiverbum.app.utils.Utils;
  * @since 2022.2
  */
 
-@Entity(tableName = "lh_responsory"/*,
+@Entity(tableName = LH_RESPONSORY/*,
         indices={
                 @Index(value={"texto","fuente", "tipo"},unique = true)}*/
 )
@@ -53,9 +55,9 @@ public class LHResponsoryEntity {
 
     public LHResponsory getDomainModel(Integer timeId){
         LHResponsory theModel=new LHResponsory();
-        theModel.setTexto(Utils.replaceByTime(getTexto(),timeId));
-        theModel.setForma(getTipo());
-        theModel.setRef(getFuente());
+        theModel.setText(Utils.replaceByTime(getTexto(),timeId));
+        theModel.setType(getTipo());
+        theModel.setSource(getFuente());
         return theModel;
     }
 

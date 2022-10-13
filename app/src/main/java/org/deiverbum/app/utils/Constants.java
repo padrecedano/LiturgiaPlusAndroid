@@ -161,6 +161,7 @@ public class Constants {
     public static final String LH_PRAYER = "lh_prayer";
     public static final String LH_READING_SHORT = "lh_reading_short";
     public static final String LH_READING_SHORT_JOIN = "lh_reading_short_join";
+    public static final String LH_RESPONSORY = "lh_responsory";
     public static final String LH_RESPONSORY_SHORT = "lh_responsory_short";
     public static final String SYNC_STATUS = "sync_status";
 

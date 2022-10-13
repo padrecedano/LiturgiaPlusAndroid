@@ -20,15 +20,22 @@ import org.deiverbum.app.data.entity.LHGospelCanticleJoinEntity;
 import org.deiverbum.app.data.entity.LHHymnEntity;
 import org.deiverbum.app.data.entity.LHHymnJoinEntity;
 import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity;
+import org.deiverbum.app.data.entity.LHOfficeBiblicalEntity;
+import org.deiverbum.app.data.entity.LHOfficeBiblicalJoinEntity;
+import org.deiverbum.app.data.entity.LHOfficePatristicEntity;
+import org.deiverbum.app.data.entity.LHOfficePatristicJoinEntity;
 import org.deiverbum.app.data.entity.LHOfficeVerseEntity;
 import org.deiverbum.app.data.entity.LHOfficeVerseJoinEntity;
+import org.deiverbum.app.data.entity.LHPrayerEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyEntity;
 import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
+import org.deiverbum.app.data.entity.LHResponsoryEntity;
 import org.deiverbum.app.data.entity.LHThemeEntity;
 import org.deiverbum.app.data.entity.LiturgyEntity;
 import org.deiverbum.app.data.entity.LiturgyHomilyJoinEntity;
 import org.deiverbum.app.data.entity.MassReadingEntity;
 import org.deiverbum.app.data.entity.PaterOpusEntity;
+import org.deiverbum.app.data.entity.PrayerEntity;
 import org.deiverbum.app.data.entity.PsalmEntity;
 import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.SaintLifeEntity;
@@ -56,16 +63,25 @@ import org.deiverbum.app.model.LHGospelCanticleJoin;
 import org.deiverbum.app.model.LHHymn;
 import org.deiverbum.app.model.LHHymnJoin;
 import org.deiverbum.app.model.LHInvitatoryJoin;
+import org.deiverbum.app.model.LHOfficeBiblical;
+import org.deiverbum.app.model.LHOfficeBiblicalJoin;
+import org.deiverbum.app.model.LHOfficeBiblicalTable;
+import org.deiverbum.app.model.LHOfficePatristic;
+import org.deiverbum.app.model.LHOfficePatristicJoin;
 import org.deiverbum.app.model.LHOfficeVerse;
 import org.deiverbum.app.model.LHOfficeVerseJoin;
+import org.deiverbum.app.model.LHPrayer;
 import org.deiverbum.app.model.LHPsalm;
 import org.deiverbum.app.model.LHPsalmody;
 import org.deiverbum.app.model.LHReadingShortJoin;
+import org.deiverbum.app.model.LHResponsory;
+import org.deiverbum.app.model.LHResponsoryTable;
 import org.deiverbum.app.model.LHTheme;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.LiturgyHomilyJoin;
 import org.deiverbum.app.model.MassReadingOLD;
 import org.deiverbum.app.model.PaterOpus;
+import org.deiverbum.app.model.Prayer;
 import org.deiverbum.app.model.Saint;
 import org.deiverbum.app.model.SaintLife;
 import org.deiverbum.app.model.SyncStatus;
@@ -436,8 +452,82 @@ String t=TODAY_TABLE;
     @Delete(entity = PsalmEntity.class)
     void lhPsalmDeleteAll(List<LHPsalm> d);
 
+    @Insert(entity = LHOfficeBiblicalEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhOfficeBiblicalInsertAll(List<LHOfficeBiblicalTable> c);
 
+    @Update(entity = LHOfficeBiblicalEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhOfficeBiblicalUpdateAll(List<LHOfficeBiblicalTable> u);
 
+    @Delete(entity = LHOfficeBiblicalEntity.class)
+    void lhOfficeBiblicalDeleteAll(List<LHOfficeBiblicalTable> d);
+
+    @Insert(entity = LHOfficeBiblicalJoinEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhOfficeBiblicalJoinInsertAll(List<LHOfficeBiblicalJoin> c);
+
+    @Update(entity = LHOfficeBiblicalJoinEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhOfficeBiblicalJoinUpdateAll(List<LHOfficeBiblicalJoin> u);
+
+    @Delete(entity = LHOfficeBiblicalJoinEntity.class)
+    void lhOfficeBiblicalJoinDeleteAll(List<LHOfficeBiblicalJoin> d);
+
+    @Insert(entity = LHResponsoryEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhResponsoryInsertAll(List<LHResponsoryTable> c);
+
+    @Update(entity = LHResponsoryEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhResponsoryUpdateAll(List<LHResponsoryTable> u);
+
+    @Delete(entity = LHResponsoryEntity.class)
+    void lhResponsoryDeleteAll(List<LHResponsoryTable> d);
+
+    @Insert(entity = LHOfficePatristicEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhOfficePatristicInsertAll(List<LHOfficePatristic> c);
+
+    @Update(entity = LHOfficePatristicEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhOfficePatristicUpdateAll(List<LHOfficePatristic> u);
+
+    @Delete(entity = LHOfficePatristicEntity.class)
+    void lhOfficePatristicDeleteAll(List<LHOfficePatristic> d);
+
+    @Insert(entity = LHOfficePatristicJoinEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhOfficePatristicJoinInsertAll(List<LHOfficePatristicJoin> c);
+
+    @Update(entity = LHOfficePatristicJoinEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhOfficePatristicJoinUpdateAll(List<LHOfficePatristicJoin> u);
+
+    @Delete(entity = LHOfficePatristicJoinEntity.class)
+    void lhOfficePatristicJoinDeleteAll(List<LHOfficePatristicJoin> d);
+
+    @Insert(entity = PrayerEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void prayerInsertAll(List<Prayer> c);
+
+    @Update(entity = PrayerEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void prayerUpdateAll(List<Prayer> u);
+
+    @Delete(entity = PrayerEntity.class)
+    void prayerDeleteAll(List<Prayer> d);
+
+    @Insert(entity = LHPrayerEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhPrayerInsertAll(List<LHPrayer> c);
+
+    @Update(entity = LHPrayerEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhPrayerUpdateAll(List<LHPrayer> u);
+
+    @Delete(entity = LHPrayerEntity.class)
+    void lhPrayerDeleteAll(List<LHPrayer> d);
 
 }
 

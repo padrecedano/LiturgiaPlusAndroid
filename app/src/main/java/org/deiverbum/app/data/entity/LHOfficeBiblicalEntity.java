@@ -14,7 +14,7 @@ import androidx.room.ForeignKey;
  */
 
 @Entity(tableName = LH_OFFICE_BIBLICAL,
-        primaryKeys = {"groupFK","readingFK","responsoryFK"},
+        primaryKeys = {"groupFK","theOrder"},
 
         foreignKeys =
         {
@@ -42,22 +42,22 @@ import androidx.room.ForeignKey;
 public class LHOfficeBiblicalEntity {
     @NonNull
     @ColumnInfo(name = "groupFK")
-    public Integer grupoFK=0;
+    public Integer groupFK =0;
 
     @NonNull
     @ColumnInfo(name = "readingFK")
-    public Integer lecturaFK=0;
+    public Integer readingFK =0;
 
     @NonNull
     @ColumnInfo(name = "responsoryFK")
-    public Integer responsorioFK=0;
+    public Integer responsoryFK =0;
 
     @NonNull
     @ColumnInfo(name = "theme")
-    public String tema="";
+    public String theme ="";
 
     @NonNull
-    @ColumnInfo(name = "order", defaultValue= "1")
-    public Integer orden=0;
+    @ColumnInfo(name = "theOrder", defaultValue= "1")
+    public Integer theOrder =1;
 }
 

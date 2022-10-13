@@ -31,7 +31,7 @@ public class HomilyAll {
         theModel.setPadre(paterOpusAll.paterEntity.getPadre());
         theModel.setObra(paterOpusAll.paterOpusEntity.getOpusName());
         theModel.paterOpus=paterOpusAll.getDomainModel();
-        theModel.setFuente(String.valueOf(homilia.getNumero()));
+        theModel.setSource(String.valueOf(homilia.getNumero()));
 
         return theModel;
     }

@@ -149,6 +149,7 @@
         <item name="android:textSize">@dimen/default_font_body</item>
         <item name="android:textColor">@color/text_color</item>
         <item name="android:textColorLink">@color/colorLink</item>
+        <item name="lineHeight">27dp</item>
     </style>
 
     <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

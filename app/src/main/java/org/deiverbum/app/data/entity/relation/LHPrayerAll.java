@@ -25,7 +25,7 @@ public class LHPrayerAll {
 
     public Prayer getDomainModel() {
         Prayer theModel=new Prayer();
-        theModel.setTexto(prayerEntity.getTexto());
+        theModel.setPrayer(prayerEntity.getTexto());
         return theModel;
     }
 }

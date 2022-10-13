@@ -33,7 +33,7 @@ public class LHOfficePatristic {
 
     public org.deiverbum.app.model.LHOfficePatristic getDomainModel(Integer timeId) {
         org.deiverbum.app.model.LHOfficePatristic theModel= homiliaAll.getPatristicaDomainModel();
-        theModel.setTema(lhPatristica.tema);
+        theModel.setTheme(lhPatristica.tema);
         theModel.setResponsorioLargo(lhResponsorio.getDomainModel(timeId));
         return theModel;
     }
