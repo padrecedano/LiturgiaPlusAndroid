@@ -3,7 +3,7 @@ package org.deiverbum.app.data.entity.relation;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.data.entity.LHGospelCanticleJoinEntity;
+import org.deiverbum.app.data.entity.LHGospelCanticleEntity;
 import org.deiverbum.app.data.entity.LHHymnJoinEntity;
 import org.deiverbum.app.data.entity.LHIntercessionsJoinEntity;
 import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity;
@@ -103,7 +103,7 @@ public class TodayLaudes {
     public LiturgyWithTime previo;
 
     @Relation(
-            entity = LHGospelCanticleJoinEntity.class,
+            entity = LHGospelCanticleEntity.class,
             parentColumn = "lBenedictusFK",
             entityColumn = "groupID"
     )

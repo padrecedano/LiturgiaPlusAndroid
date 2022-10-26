@@ -1,21 +1,21 @@
 package org.deiverbum.app.model.crud;
 
-import android.util.Log;
-
 import com.google.gson.annotations.SerializedName;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.model.BibleHomilyJoin;
+import org.deiverbum.app.model.BibleHomilyTheme;
 import org.deiverbum.app.model.Biblical;
 import org.deiverbum.app.model.Homily;
 import org.deiverbum.app.model.HomilyList;
 import org.deiverbum.app.model.LHAntiphon;
 import org.deiverbum.app.model.LHEpigraph;
-import org.deiverbum.app.model.LHGospelCanticleJoin;
+import org.deiverbum.app.model.LHGospelCanticleTable;
 import org.deiverbum.app.model.LHHymn;
 import org.deiverbum.app.model.LHHymnJoin;
+import org.deiverbum.app.model.LHIntercession;
+import org.deiverbum.app.model.LHIntercessionsJoin;
 import org.deiverbum.app.model.LHInvitatoryJoin;
-import org.deiverbum.app.model.LHOfficeBiblical;
 import org.deiverbum.app.model.LHOfficeBiblicalJoin;
 import org.deiverbum.app.model.LHOfficeBiblicalTable;
 import org.deiverbum.app.model.LHOfficePatristic;
@@ -25,13 +25,16 @@ import org.deiverbum.app.model.LHOfficeVerseJoin;
 import org.deiverbum.app.model.LHPrayer;
 import org.deiverbum.app.model.LHPsalm;
 import org.deiverbum.app.model.LHPsalmody;
-import org.deiverbum.app.model.LHResponsory;
+import org.deiverbum.app.model.LHPsalmodyJoin;
+import org.deiverbum.app.model.LHReadingShort;
+import org.deiverbum.app.model.LHResponsoryShort;
 import org.deiverbum.app.model.LHResponsoryTable;
 import org.deiverbum.app.model.LHTheme;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.LiturgyHomilyJoin;
 import org.deiverbum.app.model.MassReading;
-import org.deiverbum.app.model.MassReadingOLD;
+import org.deiverbum.app.model.MassReadingJoin;
+import org.deiverbum.app.model.MassReadingTable;
 import org.deiverbum.app.model.PaterOpus;
 import org.deiverbum.app.model.Prayer;
 import org.deiverbum.app.model.Saint;
@@ -61,9 +64,6 @@ public class Crud  {
     public List<Liturgy> liturgia;
     public List<Today> today;
 
-    //@SerializedName("mass_reading")
-    public List<MassReading> mass_reading;
-
     @SerializedName("crudToday")
     public CrudToday crudToday;
 
@@ -80,10 +80,14 @@ public class Crud  {
     public CrudLHHymnJoin crudLHHymnJoin;
 
     public CrudLHPsalmody crudLHPsalmody;
+    public CrudLHPsalmodyJoin crudLHPsalmodyJoin;
+
     public CrudLHAntiphon crudLHAntiphon;
     public CrudLHTheme crudLHTheme;
     public CrudLHEpigraph crudLHEpigraph;
     public CrudLHPsalm crudLHPsalm;
+    public CrudLHReadingShort crudLHReadingShort;
+    public CrudLHResponsoryShort crudLHResponsoryShort;
 
     @SerializedName("crudLHOfficeVerse")
     public CrudLHOfficeVerse crudLHOfficeVerse;
@@ -97,32 +101,22 @@ public class Crud  {
 
     public CrudLHOfficePatristic crudLHOfficePatristic;
     public CrudLHOfficePatristicJoin crudLHOfficePatristicJoin;
+    public CrudLHGospelCanticle crudLHGospelCanticle;
+    public CrudLHIntercessions crudLHIntercessions;
+    public CrudLHIntercessionsJoin crudLHIntercessionsJoin;
+
     public CrudPrayer crudPrayer;
     public CrudLHPrayer crudLHPrayer;
 
-    @SerializedName("crudBibleHomilyJoin")
-    public CrudBibleHomilyJoin crudBibleHomilyJoin;
-
-    @SerializedName("crudHomily")
-    public CrudHomily crudHomily;
-
-    @SerializedName("crudLHGospelCanticle")
-    public CrudLHGospelCanticle ce;
-
-    @SerializedName("bibleReading")
-    public List<Biblical> bibleReading;
-
-    @SerializedName("saintLife")
-    public List<SaintLife> saintLife;
-
-    @SerializedName("sync_liturgy_homily_join")
-    public CrudLiturgiaHomiliaJoin homilyJoin;
-
-    @SerializedName("sync_mass_reading")
-    public CrudMassReading crudMassReading;
-
-    @SerializedName("crudBibleReading")
     public CrudBibleReading crudBibleReading;
+    public CrudMassReading crudMassReading;
+    public CrudMassReadingJoin crudMassReadingJoin;
+
+
+    public CrudBibleHomilyJoin crudBibleHomilyJoin;
+    public CrudBibleHomilyTheme crudBibleHomilyTheme;
+
+    public CrudHomily crudHomily;
 
     public CrudPaterOpus crudPaterOpus;
     @SuppressWarnings("unused")
@@ -335,6 +329,22 @@ public class Crud  {
             }
         }
 
+        if (crudLHPsalmodyJoin != null) {
+            List<LHPsalmodyJoin> c = crudLHPsalmodyJoin.c;
+            List<LHPsalmodyJoin> u = crudLHPsalmodyJoin.u;
+            List<LHPsalmodyJoin> d = crudLHPsalmodyJoin.d;
+
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.lhPsalmodyJoinInsertAll(c);
+            }
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.lhPsalmodyJoinUpdateAll(u);
+            }
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.lhPsalmodyJoinDeleteAll(d);
+            }
+        }
+
         if (crudLHAntiphon != null) {
             List<LHAntiphon> d = crudLHAntiphon.d;
             List<LHAntiphon> c = crudLHAntiphon.c;
@@ -399,6 +409,38 @@ public class Crud  {
             }
         }
 
+        if (crudLHReadingShort != null) {
+            List<LHReadingShort> d = crudLHReadingShort.d;
+            List<LHReadingShort> c = crudLHReadingShort.c;
+            List<LHReadingShort> u = crudLHReadingShort.u;
+
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.lhReadingShortInsertAll(c);
+            }
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.lhReadingShortUpdateAll(u);
+            }
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.lhReadingShortDeleteAll(d);
+            }
+        }
+
+        if (crudLHResponsoryShort != null) {
+            List<LHResponsoryShort> d = crudLHResponsoryShort.d;
+            List<LHResponsoryShort> c = crudLHResponsoryShort.c;
+            List<LHResponsoryShort> u = crudLHResponsoryShort.u;
+
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.lhResponsoryShortInsertAll(c);
+            }
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.lhResponsoryShortUpdateAll(u);
+            }
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.lhResponsoryShortDeleteAll(d);
+            }
+        }
+
         if (crudPrayer != null) {
             List<Prayer> c = crudPrayer.c;
             List<Prayer> u = crudPrayer.u;
@@ -432,6 +474,37 @@ public class Crud  {
         }
 
 
+        if (crudHomily != null) {
+            List<Homily> c = crudHomily.c;
+            List<Homily> u = crudHomily.u;
+            List<Homily> d = crudHomily.d;
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.homilyInsertAll(c);
+            }
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.homilyDeleteAll(d);
+            }
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.homilyUpdateAll(u);
+            }
+        }
+
+/*
+        if (homilyJoin != null) {
+            List<LiturgyHomilyJoin> c = homilyJoin.c;
+            List<LiturgyHomilyJoin> u = homilyJoin.u;
+            List<LiturgyHomilyJoin> d = homilyJoin.d;
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.homilyJoinInsertAll(c);
+            }
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.homilyJoinDeleteAll(d);
+            }
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.homilyJoinUpdateAll(u);
+            }
+        }
+*/
         if (crudBibleReading != null) {
             List<Biblical> c = crudBibleReading.c;
             List<Biblical> u = crudBibleReading.u;
@@ -448,41 +521,10 @@ public class Crud  {
             }
         }
 
-        if (crudHomily != null) {
-            List<Homily> c = crudHomily.c;
-            List<Homily> u = crudHomily.u;
-            List<Homily> d = crudHomily.d;
-            if (c != null && !c.isEmpty()) {
-                mTodayDao.homilyInsertAll(c);
-            }
-            if (d != null && !d.isEmpty()) {
-                mTodayDao.homilyDeleteAll(d);
-            }
-            if (u != null && !u.isEmpty()) {
-                mTodayDao.homilyUpdateAll(u);
-            }
-        }
-
-
-        if (homilyJoin != null) {
-            List<LiturgyHomilyJoin> c = homilyJoin.c;
-            List<LiturgyHomilyJoin> u = homilyJoin.u;
-            List<LiturgyHomilyJoin> d = homilyJoin.d;
-            if (c != null && !c.isEmpty()) {
-                mTodayDao.homilyJoinInsertAll(c);
-            }
-            if (d != null && !d.isEmpty()) {
-                mTodayDao.homilyJoinDeleteAll(d);
-            }
-            if (u != null && !u.isEmpty()) {
-                mTodayDao.homilyJoinUpdateAll(u);
-            }
-        }
-
         if (crudMassReading != null) {
-            List<MassReadingOLD> c = crudMassReading.c;
-            List<MassReadingOLD> u = crudMassReading.u;
-            List<MassReadingOLD> d = crudMassReading.d;
+            List<MassReadingTable> c = crudMassReading.c;
+            List<MassReadingTable> u = crudMassReading.u;
+            List<MassReadingTable> d = crudMassReading.d;
             if (c != null && !c.isEmpty()) {
                 mTodayDao.massReadingInsertAll(c);
             }
@@ -509,10 +551,10 @@ public class Crud  {
                 mTodayDao.bibleHomilyJoinUpdateAll(u);
             }
         }
-        if (ce != null) {
-            List<LHGospelCanticleJoin> c = ce.c;
-            List<LHGospelCanticleJoin> u = ce.u;
-            List<LHGospelCanticleJoin> d = ce.d;
+        if (crudLHGospelCanticle != null) {
+            List<LHGospelCanticleTable> c = crudLHGospelCanticle.c;
+            List<LHGospelCanticleTable> u = crudLHGospelCanticle.u;
+            List<LHGospelCanticleTable> d = crudLHGospelCanticle.d;
 
             if (c != null && !c.isEmpty()) {
                 mTodayDao.gospelCanticleInsertAll(c);
@@ -523,6 +565,69 @@ public class Crud  {
             }
             if (u != null && !u.isEmpty()) {
                 mTodayDao.gospelCanticleUpdateAll(u);
+            }
+        }
+
+        if (crudLHIntercessions != null) {
+            List<LHIntercession> c = crudLHIntercessions.c;
+            List<LHIntercession> u = crudLHIntercessions.u;
+            List<LHIntercession> d = crudLHIntercessions.d;
+
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.lhIntercessionsInsertAll(c);
+            }
+
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.lhIntercessionsDeleteAll(d);
+            }
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.lhIntercessionsUpdateAll(u);
+            }
+        }
+
+        if (crudLHIntercessionsJoin != null) {
+            List<LHIntercessionsJoin> c = crudLHIntercessionsJoin.c;
+            List<LHIntercessionsJoin> u = crudLHIntercessionsJoin.u;
+            List<LHIntercessionsJoin> d = crudLHIntercessionsJoin.d;
+
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.lhIntercessionsJoinInsertAll(c);
+            }
+
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.lhIntercessionsJoinDeleteAll(d);
+            }
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.lhIntercessionsJoinUpdateAll(u);
+            }
+        }
+
+        if (crudMassReadingJoin != null) {
+            List<MassReadingJoin> c = crudMassReadingJoin.c;
+            List<MassReadingJoin> u = crudMassReadingJoin.u;
+            List<MassReadingJoin> d = crudMassReadingJoin.d;
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.massReadingJoinInsertAll(c);
+            }
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.massReadingJoinDeleteAll(d);
+            }
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.massReadingJoinUpdateAll(u);
+            }
+        }
+        if (crudBibleHomilyTheme != null) {
+            List<BibleHomilyTheme> c = crudBibleHomilyTheme.c;
+            List<BibleHomilyTheme> u = crudBibleHomilyTheme.u;
+            List<BibleHomilyTheme> d = crudBibleHomilyTheme.d;
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.bibleHomilyThemeInsertAll(c);
+            }
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.bibleHomilyThemeDeleteAll(d);
+            }
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.bibleHomilyThemeUpdateAll(u);
             }
         }
 
@@ -540,6 +645,8 @@ public class Crud  {
                 mTodayDao.bibleHomilyJoinUpdateAll(u);
             }
         }
+
+
 
         if (crudPaterOpus != null) {
             List<PaterOpus> c = crudPaterOpus.c;

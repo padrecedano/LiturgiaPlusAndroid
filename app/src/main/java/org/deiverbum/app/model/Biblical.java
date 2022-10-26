@@ -165,6 +165,7 @@ public class Biblical {
     }
 
     public String getTexto() {
+
         return text;
     }
 

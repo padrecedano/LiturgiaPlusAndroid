@@ -40,6 +40,7 @@ public class HomilyAll {
         HomilyList theModel=new HomilyList();
         //theModel.setTema(lhPatristica.getTema());
         theModel.setHomilia(homilia.getTexto());
+        theModel.homilyID=homilia.homiliaId;
         theModel.setPadre(paterOpusAll.paterEntity.getPadre());
         theModel.setObra(paterOpusAll.paterOpusEntity.getOpusName());
         return theModel;

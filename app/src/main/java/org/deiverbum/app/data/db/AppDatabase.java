@@ -12,7 +12,7 @@ import org.deiverbum.app.data.entity.BiblieBookEntity;
 import org.deiverbum.app.data.entity.DBTableEntity;
 import org.deiverbum.app.data.entity.EpigraphEntity;
 import org.deiverbum.app.data.entity.HomilyEntity;
-import org.deiverbum.app.data.entity.LHGospelCanticleJoinEntity;
+import org.deiverbum.app.data.entity.LHGospelCanticleEntity;
 import org.deiverbum.app.data.entity.LHHymnEntity;
 import org.deiverbum.app.data.entity.LHHymnJoinEntity;
 import org.deiverbum.app.data.entity.LHIntercessionsEntity;
@@ -90,7 +90,7 @@ import org.deiverbum.app.data.entity.TodayEntity;
                 LHReadingShortEntity.class,
                 LHReadingShortJoinEntity.class,
                 LHOfficeBiblicalEntity.class,
-                LHGospelCanticleJoinEntity.class,
+                LHGospelCanticleEntity.class,
                 LHIntercessionsEntity.class,
                 LHIntercessionsJoinEntity.class,
                 PrayerEntity.class,

@@ -37,6 +37,7 @@ public class LHReadingShortAll {
 
     public BiblicalShort getDomainModel(Integer tiempoId) {
         BiblicalShort dm=new BiblicalShort();
+        dm.setReadingID(biblica.lecturaId);
         dm.setTexto(biblica.texto);
         dm.setCita(biblica.cita);
         dm.setResponsorio(responsorio.getDomainModel(tiempoId));
