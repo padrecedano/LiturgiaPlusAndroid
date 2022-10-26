@@ -100,7 +100,7 @@ import androidx.room.PrimaryKey;
                         onDelete = ForeignKey.RESTRICT,
                         onUpdate = ForeignKey.RESTRICT),
                 @ForeignKey(
-                        entity = LHGospelCanticleJoinEntity.class,
+                        entity = LHGospelCanticleEntity.class,
                         parentColumns = "groupID",
                         childColumns = "lBenedictusFK",
                         onDelete = ForeignKey.RESTRICT,
@@ -208,7 +208,7 @@ import androidx.room.PrimaryKey;
                         onDelete = ForeignKey.RESTRICT,
                         onUpdate = ForeignKey.RESTRICT),
                 @ForeignKey(
-                        entity = LHGospelCanticleJoinEntity.class,
+                        entity = LHGospelCanticleEntity.class,
                         parentColumns = "groupID",
                         childColumns = "vMagnificatFK",
                         onDelete = ForeignKey.RESTRICT,

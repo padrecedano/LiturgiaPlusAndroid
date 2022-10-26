@@ -11,8 +11,9 @@ import org.deiverbum.app.utils.Utils;
 import java.util.Locale;
 
 public class LHIntercession {
+    public Integer intercessionID;
     public String intro;
-    public String texto;
+    public String intercession;
 
     public String getIntro() {
         return intro;
@@ -33,24 +34,24 @@ public class LHIntercession {
             sb.append(LS2);
             sb.append(Utils.fromHtml(String.format(new Locale("es"),"<i>%s</i>",introArray[1])));
             sb.append(LS2);
-            sb.append(getTexto());
+            sb.append(getIntercession());
             sb.append(LS2);
             sb.append(introArray[2]);
         } else {
             sb.append(getIntro());
             sb.append(LS2);
-            sb.append(getTexto());
+            sb.append(getIntercession());
         }
         return sb;
 
     }
 
-    public Spanned getTexto() {
-        return Utils.fromHtml(Utils.getFormato(texto));
+    public Spanned getIntercession() {
+        return Utils.fromHtml(Utils.getFormato(intercession));
     }
 
-    public void setTexto(String texto) {
-        this.texto = texto;
+    public void setIntercession(String intercession) {
+        this.intercession = intercession;
     }
 
     public SpannableStringBuilder getHeader() {
@@ -69,11 +70,11 @@ public class LHIntercession {
         if (introArray.length == 3) {
             sb.append(introArray[0]);
             sb.append(introArray[1]);
-            sb.append(getTexto());
+            sb.append(getIntercession());
             sb.append(introArray[2]);
         } else {
             sb.append(getIntro());
-            sb.append(getTexto());
+            sb.append(getIntercession());
         }
         return sb;
     }

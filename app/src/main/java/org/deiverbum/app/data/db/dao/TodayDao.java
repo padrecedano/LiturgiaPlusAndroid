@@ -11,14 +11,17 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
-import org.deiverbum.app.data.entity.EpigraphEntity;
-import org.deiverbum.app.data.entity.LHAntiphonEntity;
 import org.deiverbum.app.data.entity.BibleHomilyJoinEntity;
+import org.deiverbum.app.data.entity.BibleHomilyThemeEntity;
 import org.deiverbum.app.data.entity.BibleReadingEntity;
+import org.deiverbum.app.data.entity.EpigraphEntity;
 import org.deiverbum.app.data.entity.HomilyEntity;
-import org.deiverbum.app.data.entity.LHGospelCanticleJoinEntity;
+import org.deiverbum.app.data.entity.LHAntiphonEntity;
+import org.deiverbum.app.data.entity.LHGospelCanticleEntity;
 import org.deiverbum.app.data.entity.LHHymnEntity;
 import org.deiverbum.app.data.entity.LHHymnJoinEntity;
+import org.deiverbum.app.data.entity.LHIntercessionsEntity;
+import org.deiverbum.app.data.entity.LHIntercessionsJoinEntity;
 import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity;
 import org.deiverbum.app.data.entity.LHOfficeBiblicalEntity;
 import org.deiverbum.app.data.entity.LHOfficeBiblicalJoinEntity;
@@ -28,12 +31,16 @@ import org.deiverbum.app.data.entity.LHOfficeVerseEntity;
 import org.deiverbum.app.data.entity.LHOfficeVerseJoinEntity;
 import org.deiverbum.app.data.entity.LHPrayerEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyEntity;
+import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
+import org.deiverbum.app.data.entity.LHReadingShortEntity;
 import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
 import org.deiverbum.app.data.entity.LHResponsoryEntity;
+import org.deiverbum.app.data.entity.LHResponsoryShortEntity;
 import org.deiverbum.app.data.entity.LHThemeEntity;
 import org.deiverbum.app.data.entity.LiturgyEntity;
 import org.deiverbum.app.data.entity.LiturgyHomilyJoinEntity;
 import org.deiverbum.app.data.entity.MassReadingEntity;
+import org.deiverbum.app.data.entity.MassReadingJoinEntity;
 import org.deiverbum.app.data.entity.PaterOpusEntity;
 import org.deiverbum.app.data.entity.PrayerEntity;
 import org.deiverbum.app.data.entity.PsalmEntity;
@@ -54,16 +61,18 @@ import org.deiverbum.app.data.entity.relation.TodaySexta;
 import org.deiverbum.app.data.entity.relation.TodayTercia;
 import org.deiverbum.app.data.entity.relation.TodayVisperas;
 import org.deiverbum.app.model.BibleHomilyJoin;
+import org.deiverbum.app.model.BibleHomilyTheme;
 import org.deiverbum.app.model.Biblical;
 import org.deiverbum.app.model.Homily;
 import org.deiverbum.app.model.HomilyList;
 import org.deiverbum.app.model.LHAntiphon;
 import org.deiverbum.app.model.LHEpigraph;
-import org.deiverbum.app.model.LHGospelCanticleJoin;
+import org.deiverbum.app.model.LHGospelCanticleTable;
 import org.deiverbum.app.model.LHHymn;
 import org.deiverbum.app.model.LHHymnJoin;
+import org.deiverbum.app.model.LHIntercession;
+import org.deiverbum.app.model.LHIntercessionsJoin;
 import org.deiverbum.app.model.LHInvitatoryJoin;
-import org.deiverbum.app.model.LHOfficeBiblical;
 import org.deiverbum.app.model.LHOfficeBiblicalJoin;
 import org.deiverbum.app.model.LHOfficeBiblicalTable;
 import org.deiverbum.app.model.LHOfficePatristic;
@@ -73,13 +82,16 @@ import org.deiverbum.app.model.LHOfficeVerseJoin;
 import org.deiverbum.app.model.LHPrayer;
 import org.deiverbum.app.model.LHPsalm;
 import org.deiverbum.app.model.LHPsalmody;
+import org.deiverbum.app.model.LHPsalmodyJoin;
+import org.deiverbum.app.model.LHReadingShort;
 import org.deiverbum.app.model.LHReadingShortJoin;
-import org.deiverbum.app.model.LHResponsory;
+import org.deiverbum.app.model.LHResponsoryShort;
 import org.deiverbum.app.model.LHResponsoryTable;
 import org.deiverbum.app.model.LHTheme;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.LiturgyHomilyJoin;
-import org.deiverbum.app.model.MassReadingOLD;
+import org.deiverbum.app.model.MassReadingJoin;
+import org.deiverbum.app.model.MassReadingTable;
 import org.deiverbum.app.model.PaterOpus;
 import org.deiverbum.app.model.Prayer;
 import org.deiverbum.app.model.Saint;
@@ -221,16 +233,27 @@ String t=TODAY_TABLE;
     @Delete(entity = TodayEntity.class)
     void todayDeleteAll(List<Today> list);
 
-    @Update(entity = MassReadingEntity.class,
-            onConflict = OnConflictStrategy.REPLACE)
-    void massReadingUpdateAll(List<MassReadingOLD> misaLectura);
-
     @Insert(entity = MassReadingEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
-    void massReadingInsertAll(List<MassReadingOLD> misaLectura);
+    void massReadingInsertAll(List<MassReadingTable> misaLectura);
+
+    @Update(entity = MassReadingEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void massReadingUpdateAll(List<MassReadingTable> misaLectura);
 
     @Delete(entity = MassReadingEntity.class)
-    void massReadingDeleteAll(List<MassReadingOLD> misaLectura);
+    void massReadingDeleteAll(List<MassReadingTable> misaLectura);
+
+    @Insert(entity = MassReadingJoinEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void massReadingJoinInsertAll(List<MassReadingJoin> c);
+
+    @Update(entity = MassReadingJoinEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void massReadingJoinUpdateAll(List<MassReadingJoin> u);
+
+    @Delete(entity = MassReadingJoinEntity.class)
+    void massReadingJoinDeleteAll(List<MassReadingJoin> d);
 
     @Insert(entity = BibleReadingEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
@@ -240,7 +263,7 @@ String t=TODAY_TABLE;
     void bibleReadingUpdateAll(List<Biblical> list);
 
     @Delete(entity = BibleReadingEntity.class)
-    void bibleReadingDeleteAll(List<Biblical> homilyJoin);
+    void bibleReadingDeleteAll(List<Biblical> modelList);
 
 
     @Query("SELECT lastUpdate FROM sync_status WHERE tableName=:tableName LIMIT 1")
@@ -268,7 +291,7 @@ String t=TODAY_TABLE;
     void homilyJoinUpdateAll(List<LiturgyHomilyJoin> list);
 
     @Delete(entity = LiturgyHomilyJoinEntity.class)
-    void homilyJoinDeleteAll(List<LiturgyHomilyJoin> homilyJoin);
+    void homilyJoinDeleteAll(List<LiturgyHomilyJoin> modelList);
 
     @Query("UPDATE sync_status SET lastUpdate=:lastUpdate")
     void syncUpdate(String lastUpdate);
@@ -282,7 +305,19 @@ String t=TODAY_TABLE;
     void bibleHomilyJoinUpdateAll(List<BibleHomilyJoin> list);
 
     @Delete(entity = BibleHomilyJoinEntity.class)
-    void bibleHomilyJoinDeleteAll(List<BibleHomilyJoin> homilyJoin);
+    void bibleHomilyJoinDeleteAll(List<BibleHomilyJoin> modelList);
+
+
+    @Insert(entity = BibleHomilyThemeEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void bibleHomilyThemeInsertAll(List<BibleHomilyTheme> list);
+
+    @Update(entity = BibleHomilyThemeEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void bibleHomilyThemeUpdateAll(List<BibleHomilyTheme> list);
+
+    @Delete(entity = BibleHomilyThemeEntity.class)
+    void bibleHomilyThemeDeleteAll(List<BibleHomilyTheme> modelList);
 
     @Insert(entity = HomilyEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
@@ -293,18 +328,8 @@ String t=TODAY_TABLE;
     void homilyUpdateAll(List<Homily> list);
 
     @Delete(entity = HomilyEntity.class)
-    void homilyDeleteAll(List<Homily> homilyJoin);
+    void homilyDeleteAll(List<Homily> modelList);
 
-    @Insert(entity = LHGospelCanticleJoinEntity.class,
-            onConflict = OnConflictStrategy.IGNORE)
-    void gospelCanticleInsertAll(List<LHGospelCanticleJoin> list);
-
-    @Update(entity = LHGospelCanticleJoinEntity.class,
-            onConflict = OnConflictStrategy.REPLACE)
-    void gospelCanticleUpdateAll(List<LHGospelCanticleJoin> list);
-
-    @Delete(entity = LHGospelCanticleJoinEntity.class)
-    void gospelCanticleDeleteAll(List<LHGospelCanticleJoin> homilyJoin);
 
     @Insert(entity = LHInvitatoryJoinEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
@@ -408,6 +433,17 @@ String t=TODAY_TABLE;
     @Delete(entity = LHPsalmodyEntity.class)
     void lhPsalmodyDeleteAll(List<LHPsalmody> d);
 
+    @Insert(entity = LHPsalmodyJoinEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhPsalmodyJoinInsertAll(List<LHPsalmodyJoin> c);
+
+    @Update(entity = LHPsalmodyJoinEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhPsalmodyJoinUpdateAll(List<LHPsalmodyJoin> u);
+
+    @Delete(entity = LHPsalmodyJoinEntity.class)
+    void lhPsalmodyJoinDeleteAll(List<LHPsalmodyJoin> d);
+
     @Insert(entity = LHAntiphonEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
     void lhAntiphonInsertAll(List<LHAntiphon> c);
@@ -507,6 +543,40 @@ String t=TODAY_TABLE;
     @Delete(entity = LHOfficePatristicJoinEntity.class)
     void lhOfficePatristicJoinDeleteAll(List<LHOfficePatristicJoin> d);
 
+    @Insert(entity = LHGospelCanticleEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void gospelCanticleInsertAll(List<LHGospelCanticleTable> list);
+
+    @Update(entity = LHGospelCanticleEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void gospelCanticleUpdateAll(List<LHGospelCanticleTable> list);
+
+    @Delete(entity = LHGospelCanticleEntity.class)
+    void gospelCanticleDeleteAll(List<LHGospelCanticleTable> modelList);
+
+    @Insert(entity = LHIntercessionsEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhIntercessionsInsertAll(List<LHIntercession> list);
+
+    @Update(entity = LHIntercessionsEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhIntercessionsUpdateAll(List<LHIntercession> list);
+
+    @Delete(entity = LHIntercessionsEntity.class)
+    void lhIntercessionsDeleteAll(List<LHIntercession> list);
+
+    @Insert(entity = LHIntercessionsJoinEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhIntercessionsJoinInsertAll(List<LHIntercessionsJoin> list);
+
+    @Update(entity = LHIntercessionsJoinEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhIntercessionsJoinUpdateAll(List<LHIntercessionsJoin> list);
+
+    @Delete(entity = LHIntercessionsJoinEntity.class)
+    void lhIntercessionsJoinDeleteAll(List<LHIntercessionsJoin> list);
+
+
     @Insert(entity = PrayerEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
     void prayerInsertAll(List<Prayer> c);
@@ -528,6 +598,31 @@ String t=TODAY_TABLE;
 
     @Delete(entity = LHPrayerEntity.class)
     void lhPrayerDeleteAll(List<LHPrayer> d);
+
+    @Insert(entity = LHReadingShortEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhReadingShortInsertAll(List<LHReadingShort> c);
+
+    @Update(entity = LHReadingShortEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhReadingShortUpdateAll(List<LHReadingShort> u);
+
+    @Delete(entity = LHReadingShortEntity.class)
+    void lhReadingShortDeleteAll(List<LHReadingShort> d);
+
+    @Insert(entity = LHResponsoryShortEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhResponsoryShortInsertAll(List<LHResponsoryShort> c);
+
+    @Update(entity = LHResponsoryShortEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhResponsoryShortUpdateAll(List<LHResponsoryShort> u);
+
+    @Delete(entity = LHResponsoryShortEntity.class)
+    void lhResponsoryShortDeleteAll(List<LHResponsoryShort> d);
+
+
+
 
 }
 

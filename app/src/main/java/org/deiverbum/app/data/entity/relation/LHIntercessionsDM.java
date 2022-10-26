@@ -26,7 +26,7 @@ public class LHIntercessionsDM {
     public LHIntercession getDomainModel() {
         LHIntercession theModel=new LHIntercession();
         theModel.setIntro(preces.intro);
-        theModel.setTexto(preces.preces);
+        theModel.setIntercession(preces.preces);
         return theModel;
     }
 }

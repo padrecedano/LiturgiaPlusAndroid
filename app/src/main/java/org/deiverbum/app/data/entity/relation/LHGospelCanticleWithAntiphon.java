@@ -4,7 +4,7 @@ import androidx.room.Embedded;
 import androidx.room.Relation;
 
 import org.deiverbum.app.data.entity.LHAntiphonEntity;
-import org.deiverbum.app.data.entity.LHGospelCanticleJoinEntity;
+import org.deiverbum.app.data.entity.LHGospelCanticleEntity;
 import org.deiverbum.app.model.LHGospelCanticle;
 
 /**
@@ -14,7 +14,7 @@ import org.deiverbum.app.model.LHGospelCanticle;
  */
 public class LHGospelCanticleWithAntiphon {
     @Embedded
-    public LHGospelCanticleJoinEntity ce;
+    public LHGospelCanticleEntity ce;
     @Relation(
             parentColumn = "antiphonFK",
             entityColumn = "antiphonID",
