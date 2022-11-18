@@ -81,7 +81,7 @@ public class PaterEntity {
 
     public Pater getDomainModel() {
         Pater dm=new Pater();
-        dm.setNombre(padre);
+        dm.setPater(padre);
         return dm;
     }
 }
