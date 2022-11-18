@@ -74,6 +74,7 @@ public class Mixto extends BreviaryHour {
             sb.append(Utils.LS2);
 
             if (hoy.getHasSaint()==1) {
+                invitatorio.normalizeIsSaint(santo.theName);
                 sb.append(santo.getVidaSmall());
                 sb.append(LS2);
             }

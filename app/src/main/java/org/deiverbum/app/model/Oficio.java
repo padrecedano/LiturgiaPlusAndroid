@@ -70,6 +70,7 @@ public class Oficio extends BreviaryHour {
             sb.append(hoy.getAllForView());
             sb.append(LS2);
             if (hoy.getHasSaint()==1) {
+                invitatorio.normalizeIsSaint(santo.theName);
                 sb.append(santo.getVidaSmall());
                 sb.append(LS2);
             }

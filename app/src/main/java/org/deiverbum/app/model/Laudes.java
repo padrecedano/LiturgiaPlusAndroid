@@ -73,6 +73,7 @@ public class Laudes extends BreviaryHour {
             sb.append(LS2);
 
             if (hoy.getHasSaint()==1) {
+                invitatorio.normalizeIsSaint(santo.theName);
                 sb.append(santo.getVidaSmall());
                 sb.append(LS2);
             }

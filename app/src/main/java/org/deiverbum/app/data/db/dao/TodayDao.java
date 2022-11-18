@@ -41,6 +41,7 @@ import org.deiverbum.app.data.entity.LiturgyEntity;
 import org.deiverbum.app.data.entity.LiturgyHomilyJoinEntity;
 import org.deiverbum.app.data.entity.MassReadingEntity;
 import org.deiverbum.app.data.entity.MassReadingJoinEntity;
+import org.deiverbum.app.data.entity.PaterEntity;
 import org.deiverbum.app.data.entity.PaterOpusEntity;
 import org.deiverbum.app.data.entity.PrayerEntity;
 import org.deiverbum.app.data.entity.PsalmEntity;
@@ -92,6 +93,7 @@ import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.LiturgyHomilyJoin;
 import org.deiverbum.app.model.MassReadingJoin;
 import org.deiverbum.app.model.MassReadingTable;
+import org.deiverbum.app.model.Pater;
 import org.deiverbum.app.model.PaterOpus;
 import org.deiverbum.app.model.Prayer;
 import org.deiverbum.app.model.Saint;
@@ -110,7 +112,7 @@ import java.util.List;
 public interface TodayDao {
 
     String todayByDate = "SELECT * FROM today AS t WHERE t.todayDate =:theDate";
-String t=TODAY_TABLE;
+    String t=TODAY_TABLE;
 
     @Query("SELECT * FROM today WHERE todayDate =  :todayDate LIMIT 1")
     LiveData<Today> findByDate(Integer todayDate);
@@ -134,7 +136,6 @@ String t=TODAY_TABLE;
             onConflict = OnConflictStrategy.REPLACE)
     void insertAllTodays(List<Today> today);
 
-
     @Insert(entity = TodayEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
     void todayInsertAll(List<Today> today);
@@ -147,14 +148,14 @@ String t=TODAY_TABLE;
             onConflict = OnConflictStrategy.REPLACE)
     void homiliaInsertAll(List<HomilyList> list);
 
-
     @Insert(entity = LHHymnEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
     void insertAllHimnos(List<LHHymn> today);
 
     @Insert(entity = TodayEntity.class)
     void insertTodayX(Today today);
-@Transaction
+
+    @Transaction
     @Query(todayByDate)
     TodayOficio getOficioOfToday(Integer theDate);
 
@@ -282,16 +283,27 @@ String t=TODAY_TABLE;
             onConflict = OnConflictStrategy.REPLACE)
     void syncUpdateAll(List<SyncStatus> list);
 
+    @Insert(entity = LiturgyEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void liturgyInsertAll(List<Liturgy> c);
+
+    @Update(entity = LiturgyEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void liturgyUpdateAll(List<Liturgy> u);
+
+    @Delete(entity = LiturgyEntity.class)
+    void liturgyDeleteAll(List<Liturgy> d);
+
     @Insert(entity = LiturgyHomilyJoinEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
-    void homilyJoinInsertAll(List<LiturgyHomilyJoin> list);
+    void liturgyHomilyJoinInsertAll(List<LiturgyHomilyJoin> list);
 
     @Update(entity = LiturgyHomilyJoinEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
-    void homilyJoinUpdateAll(List<LiturgyHomilyJoin> list);
+    void liturgyHomilyJoinUpdateAll(List<LiturgyHomilyJoin> list);
 
     @Delete(entity = LiturgyHomilyJoinEntity.class)
-    void homilyJoinDeleteAll(List<LiturgyHomilyJoin> modelList);
+    void liturgyHomilyJoinDeleteAll(List<LiturgyHomilyJoin> modelList);
 
     @Query("UPDATE sync_status SET lastUpdate=:lastUpdate")
     void syncUpdate(String lastUpdate);
@@ -306,7 +318,6 @@ String t=TODAY_TABLE;
 
     @Delete(entity = BibleHomilyJoinEntity.class)
     void bibleHomilyJoinDeleteAll(List<BibleHomilyJoin> modelList);
-
 
     @Insert(entity = BibleHomilyThemeEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
@@ -329,7 +340,6 @@ String t=TODAY_TABLE;
 
     @Delete(entity = HomilyEntity.class)
     void homilyDeleteAll(List<Homily> modelList);
-
 
     @Insert(entity = LHInvitatoryJoinEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
@@ -375,7 +385,6 @@ String t=TODAY_TABLE;
     @Delete(entity = LHHymnJoinEntity.class)
     void lhHymnJoinDeleteAll(List<LHHymnJoin> d);
 
-
     @Insert(entity = LHOfficeVerseEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
     void lhOfficeVerseInsertAll(List<LHOfficeVerse> c);
@@ -386,7 +395,6 @@ String t=TODAY_TABLE;
 
     @Delete(entity = LHOfficeVerseEntity.class)
     void lhOfficeVerseDeleteAll(List<LHOfficeVerse> d);
-
 
     @Insert(entity = LHOfficeVerseJoinEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
@@ -409,6 +417,17 @@ String t=TODAY_TABLE;
 
     @Delete(entity = LHHymnEntity.class)
     void lhHymnDeleteAll(List<LHHymn> d);
+
+    @Insert(entity = PaterEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void paterInsertAll(List<Pater> c);
+
+    @Update(entity = PaterEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void paterUpdateAll(List<Pater> u);
+
+    @Delete(entity = PaterEntity.class)
+    void paterDeleteAll(List<Pater> d);
 
     @Insert(entity = PaterOpusEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
@@ -543,6 +562,39 @@ String t=TODAY_TABLE;
     @Delete(entity = LHOfficePatristicJoinEntity.class)
     void lhOfficePatristicJoinDeleteAll(List<LHOfficePatristicJoin> d);
 
+    @Insert(entity = LHReadingShortEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhReadingShortInsertAll(List<LHReadingShort> c);
+
+    @Update(entity = LHReadingShortEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhReadingShortUpdateAll(List<LHReadingShort> u);
+
+    @Delete(entity = LHReadingShortEntity.class)
+    void lhReadingShortDeleteAll(List<LHReadingShort> d);
+
+    @Insert(entity = LHResponsoryShortEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhResponsoryShortInsertAll(List<LHResponsoryShort> c);
+
+    @Update(entity = LHResponsoryShortEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhResponsoryShortUpdateAll(List<LHResponsoryShort> u);
+
+    @Delete(entity = LHResponsoryShortEntity.class)
+    void lhResponsoryShortDeleteAll(List<LHResponsoryShort> d);
+
+    @Insert(entity = LHReadingShortJoinEntity.class,
+            onConflict = OnConflictStrategy.IGNORE)
+    void lhReadingShortJoinInsertAll(List<LHReadingShortJoin> c);
+
+    @Update(entity = LHReadingShortJoinEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void lhReadingShortJoinUpdateAll(List<LHReadingShortJoin> u);
+
+    @Delete(entity = LHReadingShortJoinEntity.class)
+    void lhReadingShortJoinDeleteAll(List<LHReadingShortJoin> d);
+
     @Insert(entity = LHGospelCanticleEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
     void gospelCanticleInsertAll(List<LHGospelCanticleTable> list);
@@ -599,27 +651,6 @@ String t=TODAY_TABLE;
     @Delete(entity = LHPrayerEntity.class)
     void lhPrayerDeleteAll(List<LHPrayer> d);
 
-    @Insert(entity = LHReadingShortEntity.class,
-            onConflict = OnConflictStrategy.IGNORE)
-    void lhReadingShortInsertAll(List<LHReadingShort> c);
-
-    @Update(entity = LHReadingShortEntity.class,
-            onConflict = OnConflictStrategy.REPLACE)
-    void lhReadingShortUpdateAll(List<LHReadingShort> u);
-
-    @Delete(entity = LHReadingShortEntity.class)
-    void lhReadingShortDeleteAll(List<LHReadingShort> d);
-
-    @Insert(entity = LHResponsoryShortEntity.class,
-            onConflict = OnConflictStrategy.IGNORE)
-    void lhResponsoryShortInsertAll(List<LHResponsoryShort> c);
-
-    @Update(entity = LHResponsoryShortEntity.class,
-            onConflict = OnConflictStrategy.REPLACE)
-    void lhResponsoryShortUpdateAll(List<LHResponsoryShort> u);
-
-    @Delete(entity = LHResponsoryShortEntity.class)
-    void lhResponsoryShortDeleteAll(List<LHResponsoryShort> d);
 
 
 
