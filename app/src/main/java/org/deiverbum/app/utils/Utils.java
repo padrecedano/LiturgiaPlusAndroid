@@ -24,8 +24,6 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 
-import com.google.type.DateTime;
-
 import org.deiverbum.app.model.BreviaryHour;
 
 import java.text.DateFormat;
@@ -429,13 +427,13 @@ public final class Utils {
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             String today=LocalDate.now().minusDays(minusDays).format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-            return Integer.valueOf(today);
+            return Integer.parseInt(today);
         }
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.add(Calendar.DATE, -minusDays);
         String s= df.format(cal.getTime());
-        return Integer.valueOf(s);
+        return Integer.parseInt(s);
     }
 
     /**
@@ -598,6 +596,7 @@ public final class Utils {
         return date.substring(6, 8);
     }
 
+    @SuppressWarnings("unused")
     public static String getOrdinal(int i) {
         switch (i) {
             case 1:

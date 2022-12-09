@@ -86,7 +86,6 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
                     voiceItem.setVisible(false);
                 }
                 // Add option Menu Here
-
             }
 
             @Override
@@ -117,7 +116,6 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
     }
 
     private void setConfiguration() {
-
         mViewModel =
                 new ViewModelProvider(this).get(BreviarioViewModel.class);
         mTextView = binding.include.tvZoomable;

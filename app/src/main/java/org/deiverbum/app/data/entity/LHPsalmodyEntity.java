@@ -56,7 +56,7 @@ public class LHPsalmodyEntity {
     public Integer grupoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "readingFK")
+    @ColumnInfo(name = "readingFK", index = true)
     public Integer salmoFK=0;
 
     @NonNull
@@ -64,13 +64,13 @@ public class LHPsalmodyEntity {
     public Integer orden=0;
 
     @NonNull
-    @ColumnInfo(name = "antiphonFK", defaultValue = "0")
+    @ColumnInfo(name = "antiphonFK", defaultValue = "0", index = true)
     public Integer antifonaId=0;
 
-    @ColumnInfo(name = "themeFK", defaultValue = "NULL")
+    @ColumnInfo(name = "themeFK", defaultValue = "NULL", index = true)
     public Integer temaFK=0;
 
-    @ColumnInfo(name = "epigraphFK", defaultValue = "NULL")
+    @ColumnInfo(name = "epigraphFK", defaultValue = "NULL", index = true)
     public Integer epigrafeFK=0;
 
     @ColumnInfo(name = "part", defaultValue = "NULL")

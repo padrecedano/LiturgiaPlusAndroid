@@ -34,7 +34,7 @@ public class LHOfficeVerseJoinEntity {
     public Integer grupoId=0;
 
     @NonNull
-    @ColumnInfo(name = "verseFK")
+    @ColumnInfo(name = "verseFK",index = true)
     public Integer versoFK=0;
 
     public int getResponsorioFK() {

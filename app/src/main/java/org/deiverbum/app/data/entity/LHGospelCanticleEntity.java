@@ -34,7 +34,7 @@ public class LHGospelCanticleEntity {
     public Integer grupoId=0;
 
     @NonNull
-    @ColumnInfo(name = "antiphonFK")
+    @ColumnInfo(name = "antiphonFK",index = true)
     public Integer antifonaFK=0;
 
 }

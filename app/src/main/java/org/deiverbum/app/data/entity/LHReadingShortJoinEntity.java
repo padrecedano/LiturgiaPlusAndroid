@@ -39,11 +39,11 @@ public class LHReadingShortJoinEntity {
     public Integer grupoId=0;
 
     @NonNull
-    @ColumnInfo(name = "readingFK")
+    @ColumnInfo(name = "readingFK",index = true)
     public Integer lecturaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "responsoryFK")
+    @ColumnInfo(name = "responsoryFK",index = true)
     public Integer responsorioFK=0;
 
     public int getGrupoId() {

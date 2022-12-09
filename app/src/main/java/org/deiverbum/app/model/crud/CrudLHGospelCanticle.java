@@ -1,6 +1,5 @@
 package org.deiverbum.app.model.crud;
 
-import org.deiverbum.app.model.LHGospelCanticle;
 import org.deiverbum.app.model.LHGospelCanticleTable;
 
 import java.util.List;

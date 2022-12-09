@@ -23,11 +23,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import androidx.work.BackoffPolicy;
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import org.deiverbum.app.R;
 import org.deiverbum.app.data.wrappers.DataWrapper;
@@ -37,8 +45,11 @@ import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
 import org.deiverbum.app.viewmodel.HomiliasViewModel;
+import org.deiverbum.app.viewmodel.SyncViewModel;
+import org.deiverbum.app.workers.TodayWorker;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -46,6 +57,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
     private HomiliasViewModel mViewModel;
+    private SyncViewModel oViewModel;
 
     private FragmentHomiliasBinding binding;
     private ZoomTextView mTextView;
@@ -59,6 +71,7 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
     private StringBuilder sbReader;
     private Menu audioMenu;
     private Menu mainMenu;
+    private MenuItem voiceItem;
 
     public static ActionMode mActionMode;
     private TtsManager mTtsManager;
@@ -67,17 +80,50 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.toolbar_menu, menu);
+                voiceItem=menu.findItem(R.id.item_voz);
+                voiceItem.setVisible(isVoiceOn);
+                if (isReading) {
+                    voiceItem.setVisible(false);
+                }
+                // Add option Menu Here
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.item_voz) {
+                    if (mActionMode == null) {
+                        mActionMode =
+                                requireActivity().startActionMode(mActionModeCallback);
+                    }
+                    readText();
+                    isReading = true;
+                    voiceItem.setVisible(false);
+                    //item.setVisible(!isReading);
+                    requireActivity().invalidateOptionsMenu();
+                    return true;
+                }
+                NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                return NavigationUI.onNavDestinationSelected(item, navController);
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
         binding = FragmentHomiliasBinding.inflate(inflater, container, false);
         inflater.inflate(R.layout.seekbar, container, false);
         View root = binding.getRoot();
         setConfiguration();
+        //launchWorker();
         return root;
     }
 
     private void setConfiguration() {
         mViewModel =
                 new ViewModelProvider(this).get(HomiliasViewModel.class);
+        //oViewModel =
+        //        new ViewModelProvider(this).get(SyncViewModel.class);
+        //oViewModel.launchSync();
         mTextView = binding.include.tvZoomable;
         progressBar = binding.progressBar;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -112,7 +158,6 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
                         mTextView.setText(data.getData().getForView(), TextView.BufferType.SPANNABLE);
                         if(isVoiceOn){
                             sbReader.append(data.getData().getAllForRead());
-                            setPlayerButton();
                         }
                     } else {
                         mTextView.setText(Utils.fromHtml(data.getError()));
@@ -120,29 +165,6 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
                 });
     }
 
-    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
-        mainMenu = menu;
-        inflater.inflate(R.menu.toolbar_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.item_voz) {
-            if (mActionMode == null) {
-                mActionMode =
-                        requireActivity().startActionMode(mActionModeCallback);
-            }
-            readText();
-            isReading = true;
-            requireActivity().invalidateOptionsMenu();
-            return true;
-        }
-
-        NavController navController = NavHostFragment.findNavController(this);
-        return NavigationUI.onNavDestinationSelected(item, navController)
-                || super.onOptionsItemSelected(item);
-    }
 
     private String prepareForRead() {
         String notQuotes = Utils.stripQuotation(sbReader.toString());
@@ -150,22 +172,32 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
     }
 
 
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        MenuItem item = menu.findItem(R.id.item_voz);
-        if (isReading) {
-            item.setVisible(false);
-        }
+    private void setPlayerButton() {
+        voiceItem.setVisible(isVoiceOn);
     }
 
+    private void readText() {
+        mTtsManager = new TtsManager(getContext(), prepareForRead(), SEPARADOR, (current, max) -> {
+            seekBar.setProgress(current);
+            seekBar.setMax(max);
+        });
 
-    @Override
-    public void onCompleted() {
-    }
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (mTtsManager == null) return;
+                mTtsManager.changeProgress(progress);
+            }
 
-    @Override
-    public void onError() {
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+        mTtsManager.start();
     }
 
     private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
@@ -232,32 +264,18 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
         }
     };
 
-    private void setPlayerButton() {
-        mainMenu.findItem(R.id.item_voz).setVisible(isVoiceOn);
+    @Override
+    public void onCompleted() {
     }
 
-    private void readText() {
-        mTtsManager = new TtsManager(getContext(), prepareForRead(), SEPARADOR, (current, max) -> {
-            seekBar.setProgress(current);
-            seekBar.setMax(max);
-        });
+    @Override
+    public void onError() {
+    }
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (mTtsManager == null) return;
-                mTtsManager.changeProgress(progress);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-        mTtsManager.start();
+    private void cleanTTS() {
+        if (mTtsManager != null) {
+            mTtsManager.close();
+        }
     }
 
     @Override
@@ -269,10 +287,33 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
         cleanTTS();
         binding = null;
     }
+    public void launchWorker() {
+        WorkManager mWorkManager = WorkManager.getInstance(getActivity().getApplicationContext());
 
-    private void cleanTTS() {
-        if (mTtsManager != null) {
-            mTtsManager.close();
-        }
+        // Create Network constraint
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+
+        PeriodicWorkRequest periodicSyncDataWork =
+                new PeriodicWorkRequest.Builder(TodayWorker.class, 15, TimeUnit.MINUTES)
+                        .addTag("TAG_SYNC_DATA")
+                        .setConstraints(constraints)
+                        //.setInputData(inputData)
+                        // setting a backoff on case the work needs to retry
+                        .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
+                        .build();
+        mWorkManager.enqueueUniquePeriodicWork(
+                "SYNC_TODAY",
+                ExistingPeriodicWorkPolicy.REPLACE, //Existing Periodic Work
+                // policy
+                periodicSyncDataWork //work request
+        );
+        mWorkManager.getWorkInfoByIdLiveData(periodicSyncDataWork.getId()).observe(getActivity(),
+                workInfo -> {
+                    //mWorkManager.cancelWorkById(workInfo.getId());
+                });
     }
+
+
 }

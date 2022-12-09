@@ -40,11 +40,11 @@ import androidx.room.ForeignKey;
 )
 public class LHOfficePatristicEntity {
     @NonNull
-    @ColumnInfo(name = "groupFK")
+    @ColumnInfo(name = "groupFK",index = true)
     public Integer grupoFK=0;
 
     @NonNull
-    @ColumnInfo(name = "homilyFK")
+    @ColumnInfo(name = "homilyFK",index = true)
     public Integer homiliaFK=0;
 
     @NonNull
@@ -60,7 +60,7 @@ public class LHOfficePatristicEntity {
     public Integer orden=0;
 
     @NonNull
-    @ColumnInfo(name = "responsoryFK")
+    @ColumnInfo(name = "responsoryFK",index = true)
     public Integer responsorioFK=0;
 
 }

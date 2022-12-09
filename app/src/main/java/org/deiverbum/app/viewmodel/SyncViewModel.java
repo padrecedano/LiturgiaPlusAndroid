@@ -23,4 +23,6 @@ public class SyncViewModel extends ViewModel {
     public LiveData<SyncStatus> getObservable() {
         return mRepository.getFromDB();
     }
+
+
 }

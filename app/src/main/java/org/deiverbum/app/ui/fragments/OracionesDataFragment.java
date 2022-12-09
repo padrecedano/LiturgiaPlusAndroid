@@ -27,7 +27,9 @@ import android.widget.SeekBar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -62,7 +64,7 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
     private SharedPreferences prefs;
 
     private Menu audioMenu;
-    private Menu mainMenu;
+    private MenuItem voiceItem;
 
     public static ActionMode mActionMode;
     private TtsManager mTtsManager;
@@ -71,14 +73,41 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        setHasOptionsMenu(true);
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.toolbar_menu, menu);
+                voiceItem=menu.findItem(R.id.item_voz);
+                voiceItem.setVisible(isVoiceOn);
+                if (isReading) {
+                    voiceItem.setVisible(false);
+                }
+                // Add option Menu Here
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.item_voz) {
+                    if (mActionMode == null) {
+                        mActionMode =
+                                requireActivity().startActionMode(mActionModeCallback);
+                    }
+                    readText();
+                    isReading = true;
+                    voiceItem.setVisible(false);
+                    //item.setVisible(!isReading);
+                    requireActivity().invalidateOptionsMenu();
+                    return true;
+                }
+                NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                return NavigationUI.onNavDestinationSelected(item, navController);
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+
         binding = FragmentTextBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         setConfiguration();
         observeHour();
-        //observeBook();
-
-
         return root;
     }
 
@@ -147,7 +176,6 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
                 if (isVoiceOn) {
                     sbReader = new StringBuilder(VOICE_INI);
                     sbReader.append(rosario.getForRead());
-                    setPlayerButton();
                 }
             } else {
                 mTextView.setText(data.getError());
@@ -167,7 +195,6 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
                 if (isVoiceOn) {
                     sbReader = new StringBuilder(VOICE_INI);
                     sbReader.append(oracionSimple.getForRead());
-                    setPlayerButton();
                 }
             } else {
                 mTextView.setText(Utils.fromHtml(data.getError()));
@@ -187,7 +214,6 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
                 if (isVoiceOn) {
                     sbReader = new StringBuilder(VOICE_INI);
                     sbReader.append(viaCrucis.getForRead());
-                    setPlayerButton();
                 }
             } else {
                 mTextView.setText(Utils.fromHtml(data.getError()));
@@ -195,53 +221,37 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
         });
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        mainMenu = menu;
-        inflater.inflate(R.menu.toolbar_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-
-        if (item.getItemId() == R.id.item_voz) {
-            if (mActionMode == null) {
-                mActionMode = requireActivity().startActionMode(mActionModeCallback);
-            }
-            readText();
-            isReading = true;
-            requireActivity().invalidateOptionsMenu();
-            return true;
-        }
-
-        NavController navController = NavHostFragment.findNavController(this);
-        return NavigationUI.onNavDestinationSelected(item, navController)
-                || super.onOptionsItemSelected(item);
-    }
-
     private String prepareForRead() {
         String notQuotes = Utils.stripQuotation(sbReader.toString());
         return String.valueOf(Utils.fromHtml(notQuotes));
     }
 
-
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        MenuItem item = menu.findItem(R.id.item_voz);
-        if (isReading) {
-            item.setVisible(false);
-        }
+    private void setPlayerButton() {
+        voiceItem.setVisible(isVoiceOn);
     }
 
-    @Override
-    public void onCompleted() {
-    }
+    private void readText() {
+        mTtsManager = new TtsManager(getContext(), prepareForRead(), SEPARADOR, (current, max) -> {
+            seekBar.setProgress(current);
+            seekBar.setMax(max);
+        });
 
-    @Override
-    public void onError() {
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (mTtsManager == null) return;
+                mTtsManager.changeProgress(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+        mTtsManager.start();
     }
 
     private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
@@ -288,9 +298,7 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
             mode.getMenuInflater().inflate(R.menu.contextual_action_bar, menu);
             audioMenu = menu;
             @SuppressLint("InflateParams")
-            View view =
-                    LayoutInflater.from(getActivity()).inflate(R.layout.seekbar,
-                            null);
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.seekbar, null);
             mode.setCustomView(view);
             seekBar = view.findViewById(R.id.seekbar);
             return true;
@@ -309,32 +317,19 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
         }
     };
 
-    private void setPlayerButton() {
-        mainMenu.findItem(R.id.item_voz).setVisible(isVoiceOn);
+
+    @Override
+    public void onCompleted() {
     }
 
-    private void readText() {
-        mTtsManager = new TtsManager(getContext(), prepareForRead(), SEPARADOR, (current, max) -> {
-            seekBar.setProgress(current);
-            seekBar.setMax(max);
-        });
+    @Override
+    public void onError() {
+    }
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (mTtsManager == null) return;
-                mTtsManager.changeProgress(progress);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-        mTtsManager.start();
+    private void cleanTTS() {
+        if (mTtsManager != null) {
+            mTtsManager.close();
+        }
     }
 
     @Override
@@ -347,9 +342,4 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
         binding = null;
     }
 
-    private void cleanTTS() {
-        if (mTtsManager != null) {
-            mTtsManager.close();
-        }
-    }
 }

@@ -21,7 +21,6 @@ public class FileViewModel extends ViewModel {
         mRepository = repository;
     }
 
-
     public LiveData<DataWrapper<Book, CustomException>> getBook(String rawPath) {
         return mRepository.getBook(rawPath);
     }

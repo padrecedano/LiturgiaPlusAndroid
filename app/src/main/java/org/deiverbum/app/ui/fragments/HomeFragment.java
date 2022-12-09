@@ -19,7 +19,6 @@ import org.deiverbum.app.data.adapters.HomeAdapter;
 import org.deiverbum.app.databinding.FragmentHomeBinding;
 import org.deiverbum.app.model.HomeItem;
 import org.deiverbum.app.utils.Utils;
-import org.deiverbum.app.viewmodel.BreviarioViewModel;
 import org.deiverbum.app.viewmodel.HomeViewModel;
 
 import java.util.ArrayList;
@@ -47,12 +46,10 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private List<HomeItem> mList;
-    private HomeViewModel mViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        mViewModel =
-                new ViewModelProvider(getActivity()).get(HomeViewModel.class);
+        HomeViewModel mViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

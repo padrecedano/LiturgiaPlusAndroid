@@ -33,7 +33,7 @@ public class LHInvitatoryEntity {
     public Integer casoId=0;
 
     @NonNull
-    @ColumnInfo(name = "psalmFK")
+    @ColumnInfo(name = "psalmFK", index = true)
     public Integer salmoFK=0;
 
     @NonNull

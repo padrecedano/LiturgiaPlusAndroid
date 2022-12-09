@@ -39,7 +39,7 @@ public class BibleHomilyJoinEntity {
     public Integer readingFK=0;
 
     @NonNull
-    @ColumnInfo(name = "homilyFK")
+    @ColumnInfo(name = "homilyFK",index = true)
     public Integer homilyFK=0;
 
     public int getReadingFK() {

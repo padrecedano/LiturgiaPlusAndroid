@@ -1,7 +1,5 @@
 package org.deiverbum.app.model.crud;
 
-import com.google.gson.annotations.SerializedName;
-
 import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.model.BibleHomilyJoin;
 import org.deiverbum.app.model.BibleHomilyTheme;
@@ -33,7 +31,6 @@ import org.deiverbum.app.model.LHResponsoryTable;
 import org.deiverbum.app.model.LHTheme;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.LiturgyHomilyJoin;
-import org.deiverbum.app.model.MassReading;
 import org.deiverbum.app.model.MassReadingJoin;
 import org.deiverbum.app.model.MassReadingTable;
 import org.deiverbum.app.model.Pater;
@@ -67,6 +64,7 @@ public class Crud  {
     public CrudToday crudToday;
 
     public CrudSaint crudSaint;
+    public CrudSaintLife crudSaintLife;
 
     public CrudLHInvitatoryJoin crudLHInvitatoryJoin;
 
@@ -136,31 +134,35 @@ public class Crud  {
         }
 
         if (crudSaint != null) {
-            List<Saint> cs = crudSaint.cSaint;
-            List<Saint> us = crudSaint.uSaint;
-            List<Saint> ds = crudSaint.dSaint;
-            List<SaintLife> cl = crudSaint.cLife;
-            List<SaintLife> ul = crudSaint.uLife;
-            List<SaintLife> dl = crudSaint.dLife;
+            List<Saint> c = crudSaint.c;
+            List<Saint> u = crudSaint.u;
+            List<Saint> d = crudSaint.d;
 
-            if (cs != null && !cs.isEmpty()) {
-                mTodayDao.saintInsertAll(cs);
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.saintInsertAll(c);
             }
-            if (us != null && !us.isEmpty()) {
-                mTodayDao.saintUpdateAll(us);
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.saintUpdateAll(u);
             }
-            if (ds != null && !ds.isEmpty()) {
-                mTodayDao.saintDeleteAll(ds);
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.saintDeleteAll(d);
             }
+        }
 
-            if (cl != null && !cl.isEmpty()) {
-                mTodayDao.saintLifeInsertAll(cl);
+        if (crudSaintLife != null) {
+
+            List<SaintLife> c = crudSaintLife.c;
+            List<SaintLife> u = crudSaintLife.u;
+            List<SaintLife> d = crudSaintLife.d;
+
+            if (c != null && !c.isEmpty()) {
+                mTodayDao.saintLifeInsertAll(c);
             }
-            if (ul != null && !ul.isEmpty()) {
-                mTodayDao.saintLifeUpdateAll(ul);
+            if (u != null && !u.isEmpty()) {
+                mTodayDao.saintLifeUpdateAll(u);
             }
-            if (dl != null && !dl.isEmpty()) {
-                mTodayDao.saintLifeDeleteAll(dl);
+            if (d != null && !d.isEmpty()) {
+                mTodayDao.saintLifeDeleteAll(d);
             }
         }
 

@@ -169,7 +169,6 @@ public final class Numerals {
             return sb.append(word).toString();
         }
 
-        // at this point, we have a two digit number
         sb.append(NUMERALS_ES.get(18 + number / 10));
         sb.append(useDashes ? '-' : ' ');
         sb.append(words.get(number % 10));

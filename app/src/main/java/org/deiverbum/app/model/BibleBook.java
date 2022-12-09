@@ -17,11 +17,6 @@ public class BibleBook {
     public BibleBook() {
     }
 
-    public BibleBook(Integer id, String name) {
-        this.name = name;
-        this.id = id;
-
-    }
 
     public String getName() {
 

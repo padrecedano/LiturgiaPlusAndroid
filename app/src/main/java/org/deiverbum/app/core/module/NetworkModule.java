@@ -35,7 +35,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 @Module
-//@InstallIn(BaseApplication.class)
 @InstallIn(SingletonComponent.class)
 public abstract class NetworkModule {
 

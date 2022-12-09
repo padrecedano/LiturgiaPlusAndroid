@@ -118,7 +118,7 @@ public interface TodayDao {
     LiveData<Today> findByDate(Integer todayDate);
 
     @Query("SELECT * FROM sync_status")
-    List<SyncStatus> getAllSyncStatus();
+    SyncStatus getAllSyncStatus();
 
     @Query("SELECT todayDate FROM today ORDER BY todayDate DESC LIMIT 1")
     Integer findLastDate();
@@ -196,13 +196,11 @@ public interface TodayDao {
     TodaySanto getSantoOfToday(Integer theDate);
 
     @Transaction
-    @Query("SELECT * FROM today AS t " +
-            "JOIN `homily` h ON t.liturgyFK=h.homilyID " +
-            "WHERE t.todayDate =:theDate")
+    @Query(todayByDate)
     TodayHomilias getHomilias(Integer theDate);
 
     @Transaction
-    @Query("SELECT ss.lastUpdate,"+
+    @Query("SELECT ss.lastUpdate,ss.versionDB,"+
             "(SELECT max(todayDate) FROM today) tableName "+
     "FROM sync_status ss;")
     LiveData<SyncStatus> getSyncInfo();
@@ -212,11 +210,13 @@ public interface TodayDao {
     /*@Query("SELECT * FROM today AS t " +
             "JOIN homilia h ON t.feriaFK=h.homiliaId JOIN misa_lectura ml ON t.mLecturasFK=ml.liturgiaFK " +
             "WHERE t.hoy =:theDate AND ml.orden >= 40")*/
-    @Query("SELECT * FROM today AS t " +
+    /*@Query("SELECT * FROM today AS t " +
             "JOIN mass_reading mr ON t.massReadingFK=mr.liturgyFK "+
             "JOIN bible_homily_join bhj ON bhj.readingFK=mr.readingFK "+
             "JOIN homily h ON bhj.homilyFK=h.homilyID "+
-            "WHERE t.todayDate =:theDate AND mr.`theOrder` >= 40")
+            "WHERE t.todayDate =:theDate AND mr.`theOrder` >= 40")*/
+    @Query(todayByDate)
+
     TodayComentarios getComentarios(Integer theDate);
 
     @Insert(entity = LHReadingShortJoinEntity.class,

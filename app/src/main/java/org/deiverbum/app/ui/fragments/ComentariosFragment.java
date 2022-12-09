@@ -23,7 +23,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -55,7 +57,7 @@ public class ComentariosFragment extends Fragment implements TextToSpeechCallbac
     private boolean isReading = false;
     private StringBuilder sbReader;
     private Menu audioMenu;
-    private Menu mainMenu;
+    private MenuItem voiceItem;
 
     public static ActionMode mActionMode;
 
@@ -65,10 +67,40 @@ public class ComentariosFragment extends Fragment implements TextToSpeechCallbac
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.toolbar_menu, menu);
+                voiceItem=menu.findItem(R.id.item_voz);
+                voiceItem.setVisible(isVoiceOn);
+                if (isReading) {
+                    voiceItem.setVisible(false);
+                }
+                // Add option Menu Here
+
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.item_voz) {
+                    if (mActionMode == null) {
+                        mActionMode =
+                                requireActivity().startActionMode(mActionModeCallback);
+                    }
+                    readText();
+                    isReading = true;
+                    voiceItem.setVisible(false);
+                    //item.setVisible(!isReading);
+                    requireActivity().invalidateOptionsMenu();
+                    return true;
+                }
+                NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                return NavigationUI.onNavDestinationSelected(item, navController);
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+
 
         binding = FragmentComentariosBinding.inflate(inflater, container, false);
-        inflater.inflate(R.layout.seekbar, container, false);
         View root = binding.getRoot();
         setConfiguration();
         observeData();
@@ -112,7 +144,7 @@ public class ComentariosFragment extends Fragment implements TextToSpeechCallbac
                         mTextView.setText(data.getData().getAllForView(), TextView.BufferType.SPANNABLE);
                         if(isVoiceOn){
                             sbReader.append(data.getData().getAllForRead());
-                            setPlayerButton();
+                            //setPlayerButton();
                         }
                     } else {
                         mTextView.setText(Utils.fromHtml(data.getError()));
@@ -120,60 +152,44 @@ public class ComentariosFragment extends Fragment implements TextToSpeechCallbac
                 });
     }
 
-    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
-        mainMenu=menu;
-        inflater.inflate(R.menu.toolbar_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.item_voz) {
-            if (mActionMode == null){
-                mActionMode=
-                        requireActivity().startActionMode(mActionModeCallback);
-            }
-            readText();
-            isReading = true;
-            requireActivity().invalidateOptionsMenu();
-            return true;
-        }
-
-        NavController navController = NavHostFragment.findNavController(this);
-        return NavigationUI.onNavDestinationSelected(item, navController)
-                || super.onOptionsItemSelected(item);
-    }
 
     private String prepareForRead() {
         String notQuotes = Utils.stripQuotation(sbReader.toString());
         return String.valueOf(Utils.fromHtml(notQuotes));
     }
 
-
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        MenuItem item = menu.findItem(R.id.item_voz);
-        if (isReading) {
-            item.setVisible(false);
-        }
+    private void setPlayerButton() {
+        voiceItem.setVisible(isVoiceOn);
     }
 
-    @Override
-    public void onCompleted() {
+    private void readText() {
+        mTtsManager = new TtsManager(getContext(), prepareForRead(), SEPARADOR, (current, max) -> {
+            seekBar.setProgress(current);
+            seekBar.setMax(max);
+        });
 
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (mTtsManager == null) return;
+                mTtsManager.changeProgress(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+        mTtsManager.start();
     }
 
-    @Override
-    public void onError() {
-    }
+    private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 
-    private final ActionMode.Callback mActionModeCallback =
-            new ActionMode.Callback()
-    {
         @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item)
-        {
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 
             int menuItem = item.getItemId();
 
@@ -210,11 +226,9 @@ public class ComentariosFragment extends Fragment implements TextToSpeechCallbac
         }
 
         @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu)
-        {
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.getMenuInflater().inflate(R.menu.contextual_action_bar, menu);
-            audioMenu=menu;
-
+            audioMenu = menu;
             @SuppressLint("InflateParams")
             View view = LayoutInflater.from(getContext()).inflate(R.layout.seekbar, null);
             mode.setCustomView(view);
@@ -223,44 +237,31 @@ public class ComentariosFragment extends Fragment implements TextToSpeechCallbac
         }
 
         @Override
-        public void onDestroyActionMode(ActionMode mode)
-        {
+        public void onDestroyActionMode(ActionMode mode) {
             mActionMode = null;
             cleanTTS();
             setPlayerButton();
         }
 
         @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu)
-        {
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
             return false;
         }
     };
 
-    private void setPlayerButton() {
-        mainMenu.findItem(R.id.item_voz).setVisible(isVoiceOn);
+    @Override
+    public void onCompleted() {
+
     }
 
-    private void readText(){
-        mTtsManager = new TtsManager(getContext(), prepareForRead(), SEPARADOR, (current, max) -> {
-            seekBar.setProgress(current);
-            seekBar.setMax(max);
-        });
+    @Override
+    public void onError() {
+    }
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (mTtsManager == null) return;
-                mTtsManager.changeProgress(progress);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
-        });
-        mTtsManager.start();
+    private void cleanTTS(){
+        if (mTtsManager != null) {
+            mTtsManager.close();
+        }
     }
 
     @Override
@@ -273,9 +274,5 @@ public class ComentariosFragment extends Fragment implements TextToSpeechCallbac
         binding = null;
     }
 
-    private void cleanTTS(){
-        if (mTtsManager != null) {
-            mTtsManager.close();
-        }
-    }
+
 }

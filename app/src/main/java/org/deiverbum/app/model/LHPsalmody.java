@@ -8,7 +8,6 @@ import static org.deiverbum.app.utils.Utils.LS2;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Ignore;
 
 import org.deiverbum.app.utils.Utils;

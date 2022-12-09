@@ -1,6 +1,5 @@
 package org.deiverbum.app.model.crud;
 
-import org.deiverbum.app.model.LHIntercessionsJoin;
 import org.deiverbum.app.model.MassReadingJoin;
 
 import java.util.List;

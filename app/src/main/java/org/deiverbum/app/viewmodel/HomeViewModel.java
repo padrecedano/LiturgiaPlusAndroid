@@ -22,4 +22,8 @@ public class HomeViewModel extends ViewModel {
          mRepository.getFromFirebase();
     }
 
+    public void launchSync(){
+        mRepository.launchWorker();
+    }
+
 }
