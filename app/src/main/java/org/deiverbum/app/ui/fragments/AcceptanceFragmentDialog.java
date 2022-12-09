@@ -153,7 +153,7 @@ public class AcceptanceFragmentDialog extends DialogFragment {
                 });
     }
     public void launchWorker() {
-        WorkManager mWorkManager = WorkManager.getInstance(getActivity().getApplicationContext());
+        WorkManager mWorkManager = WorkManager.getInstance(requireActivity().getApplicationContext());
 
         // Create Network constraint
         Constraints constraints = new Constraints.Builder()

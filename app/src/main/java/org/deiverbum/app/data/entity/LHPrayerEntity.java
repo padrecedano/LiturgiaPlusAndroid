@@ -37,7 +37,7 @@ public class LHPrayerEntity {
     public Integer grupoId=0;
 
     @NonNull
-    @ColumnInfo(name = "prayerFK")
+    @ColumnInfo(name = "prayerFK",index = true)
     public Integer oracionFK=0;
 
 

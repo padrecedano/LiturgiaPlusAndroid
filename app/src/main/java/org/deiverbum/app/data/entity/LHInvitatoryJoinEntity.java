@@ -39,11 +39,11 @@ public class LHInvitatoryJoinEntity {
     public Integer grupoId=0;
 
     @NonNull
-    @ColumnInfo(name = "antiphonFK")
+    @ColumnInfo(name = "antiphonFK", index = true)
     public Integer antifonaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "caseFK")
+    @ColumnInfo(name = "caseFK", index = true)
     public Integer casoFK=0;
 
     public int getSalmoFK() {

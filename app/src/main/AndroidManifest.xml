@@ -3,10 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
-
     <!-- Without this entry the folders will remain in-accessible in Android-10, even if WRITE_EXTERNAL_STORAGE as above is present. -->
-
 
     <application
         android:name=".BaseApplication"
@@ -17,13 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- If you want to disable android.startup completely. -->
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             tools:node="remove">
         </provider>
-
 
 
         <activity

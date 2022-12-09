@@ -24,12 +24,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.work.BackoffPolicy;
-import androidx.work.Constraints;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.NetworkType;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
@@ -54,10 +48,8 @@ import org.deiverbum.app.databinding.ActivityMainBinding;
 import org.deiverbum.app.ui.fragments.AcceptanceFragmentDialog;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.viewmodel.HomeViewModel;
-import org.deiverbum.app.workers.TodayWorker;
 
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -106,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName);
             bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, screenName);
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
-launchWorker();
+            mViewModel.launchSync();
         };
 
         navController.addOnDestinationChangedListener(onDestinationChangedListener);
@@ -146,9 +138,6 @@ launchWorker();
         } else {
             appCheck();
             checkAppUpdate();
-            //launchFirestore();
-            launchWorker();
-            //navController.navigate(R.id.nav_today);
         }
     }
 
@@ -258,31 +247,4 @@ launchWorker();
             appUpdateManager.unregisterListener(installStateUpdatedListener);
     }
 
-    public void launchWorker() {
-        WorkManager mWorkManager = WorkManager.getInstance(getApplicationContext());
-
-        // Create Network constraint
-        Constraints constraints = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build();
-
-        PeriodicWorkRequest periodicSyncDataWork =
-                new PeriodicWorkRequest.Builder(TodayWorker.class, 15, TimeUnit.MINUTES)
-                        .addTag("TAG_SYNC_DATA")
-                        .setConstraints(constraints)
-                        //.setInputData(inputData)
-                        // setting a backoff on case the work needs to retry
-                        .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
-                        .build();
-        mWorkManager.enqueueUniquePeriodicWork(
-                "SYNC_TODAY",
-                ExistingPeriodicWorkPolicy.REPLACE, //Existing Periodic Work
-                // policy
-                periodicSyncDataWork //work request
-        );
-        mWorkManager.getWorkInfoByIdLiveData(periodicSyncDataWork.getId()).observe(this,
-                workInfo -> {
-                    //mWorkManager.cancelWorkById(workInfo.getId());
-                });
-    }
 }

@@ -36,7 +36,7 @@ public class LHHymnJoinEntity {
     public Integer grupoId=0;
 
     @NonNull
-    @ColumnInfo(name = "hymnFK")
+    @ColumnInfo(name = "hymnFK",index = true)
     public Integer himnoFK=0;
 
     public int getHimnoFK() {

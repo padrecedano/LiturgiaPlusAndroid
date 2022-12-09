@@ -45,11 +45,11 @@ public class LHOfficeBiblicalEntity {
     public Integer groupFK =0;
 
     @NonNull
-    @ColumnInfo(name = "readingFK")
+    @ColumnInfo(name = "readingFK", index = true)
     public Integer readingFK =0;
 
     @NonNull
-    @ColumnInfo(name = "responsoryFK")
+    @ColumnInfo(name = "responsoryFK", index = true)
     public Integer responsoryFK =0;
 
     @NonNull

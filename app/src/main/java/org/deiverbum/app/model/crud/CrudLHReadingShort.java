@@ -1,6 +1,5 @@
 package org.deiverbum.app.model.crud;
 
-import org.deiverbum.app.model.LHPsalm;
 import org.deiverbum.app.model.LHReadingShort;
 
 import java.util.List;

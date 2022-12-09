@@ -89,6 +89,7 @@ public class Liturgy {
     }
 
     public String getName() {
+
         return name;
     }
 

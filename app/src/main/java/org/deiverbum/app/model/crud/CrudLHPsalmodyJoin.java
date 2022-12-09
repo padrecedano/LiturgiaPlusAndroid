@@ -1,6 +1,5 @@
 package org.deiverbum.app.model.crud;
 
-import org.deiverbum.app.model.LHPsalmody;
 import org.deiverbum.app.model.LHPsalmodyJoin;
 
 import java.util.List;

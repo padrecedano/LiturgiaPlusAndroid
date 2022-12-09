@@ -1,23 +1,16 @@
 package org.deiverbum.app.model.crud;
 
 import org.deiverbum.app.model.Saint;
-import org.deiverbum.app.model.SaintLife;
 
 import java.util.List;
 
 public class CrudSaint {
 
-    public List<Saint> cSaint;
-    public List<Saint> uSaint;
-    public List<Saint> dSaint;
-
-    public List<SaintLife> cLife;
-    public List<SaintLife> uLife;
-    public List<SaintLife> dLife;
-
+    public List<Saint> c;
+    public List<Saint> u;
+    public List<Saint> d;
 
     @SuppressWarnings("unused")
     public CrudSaint() {}
-
 
 }

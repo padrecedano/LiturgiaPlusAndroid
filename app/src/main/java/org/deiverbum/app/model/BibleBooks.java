@@ -10,6 +10,7 @@ public class BibleBooks {
     private String description;
     private String intro;
 
+    @SuppressWarnings("unused")
     public BibleBooks() {
     }
 

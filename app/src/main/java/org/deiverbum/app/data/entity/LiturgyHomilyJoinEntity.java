@@ -38,7 +38,7 @@ public class LiturgyHomilyJoinEntity {
     public Integer liturgiaFK=0;
 
     @NonNull
-    @ColumnInfo(name = "homilyFK")
+    @ColumnInfo(name = "homilyFK",index = true)
     public Integer homiliaFK=0;
 
     @NonNull

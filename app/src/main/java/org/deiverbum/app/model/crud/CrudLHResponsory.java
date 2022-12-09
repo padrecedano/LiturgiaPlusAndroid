@@ -1,6 +1,5 @@
 package org.deiverbum.app.model.crud;
 
-import org.deiverbum.app.model.LHResponsory;
 import org.deiverbum.app.model.LHResponsoryTable;
 
 import java.util.List;

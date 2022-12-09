@@ -1,6 +1,5 @@
 package org.deiverbum.app.model.crud;
 
-import org.deiverbum.app.model.LHOfficeBiblicalTable;
 import org.deiverbum.app.model.LHOfficePatristic;
 
 import java.util.List;

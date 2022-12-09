@@ -35,7 +35,7 @@ public class LHIntercessionsJoinEntity {
     public Integer grupoId=0;
 
     @NonNull
-    @ColumnInfo(name = "intercessionFK")
+    @ColumnInfo(name = "intercessionFK",index = true)
     public Integer precesFK=0;
 }
 

@@ -2,7 +2,6 @@ package org.deiverbum.app.repository;
 
 import static org.deiverbum.app.utils.Constants.CONTENT_TO_SYNC;
 import static org.deiverbum.app.utils.Constants.ERR_REPORT;
-import static org.deiverbum.app.utils.Constants.NOTFOUND_OR_NOTCONNECTION;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MediatorLiveData;

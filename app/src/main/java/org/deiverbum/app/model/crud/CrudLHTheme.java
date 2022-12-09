@@ -1,6 +1,5 @@
 package org.deiverbum.app.model.crud;
 
-import org.deiverbum.app.model.LHAntiphon;
 import org.deiverbum.app.model.LHTheme;
 
 import java.util.List;

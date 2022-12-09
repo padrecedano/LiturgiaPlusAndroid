@@ -176,7 +176,9 @@ public class Today {
     }
 
     public String getTituloForRead() {
-        return Utils.pointAtEnd(getTitulo());
+
+        //return Utils.pointAtEnd(getTitulo());
+        return liturgyDay.getAllForRead().toString();
     }
 
     public SpannableStringBuilder getAllForView() {
@@ -191,7 +193,6 @@ public class Today {
 
     public String getAllForRead() {
         return Utils.pointAtEnd(getFecha()) +
-                getTiempoForRead() +
                 getTituloForRead();
     }
 }
