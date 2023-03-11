@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  */
 public class TodaySexta {
 
@@ -103,10 +103,10 @@ public class TodaySexta {
         BreviaryHour bh=new BreviaryHour();
         Intermedia hi=new Intermedia();
         dm.typeID=4;
-        dm.setHoy(getToday());
+        dm.setToday(getToday());
 
         hi.setHourId(4);
-        hi.setHoy(getToday());
+        hi.setToday(getToday());
         hi.setHimno(getHimno());
         hi.setSalmodia(getSalmodia());
         hi.setLecturaBreve(getBiblica());

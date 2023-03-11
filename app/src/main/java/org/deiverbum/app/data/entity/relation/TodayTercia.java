@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  */
 public class TodayTercia {
 
@@ -107,7 +107,7 @@ public class TodayTercia {
         Intermedia hi=new Intermedia();
         dm.typeID=3;
         hi.setHourId(3);
-        hi.setHoy(getToday());
+        hi.setToday(getToday());
         hi.setHimno(getHimno());
         hi.setSalmodia(getSalmodia());
         hi.setLecturaBreve(getBiblica());
@@ -117,6 +117,25 @@ public class TodayTercia {
         return dm;
     }
 
+    public Today getDomainModelToday(){
+        Liturgy dm= feria.getDomainModel();
+        BreviaryHour bh=new BreviaryHour();
+        Intermedia hi=new Intermedia();
+        Today dmToday=getToday();
+
+        dm.typeID=3;
+        hi.setHourId(3);
+        hi.setToday(getToday());
+        hi.setHimno(getHimno());
+        hi.setSalmodia(getSalmodia());
+        hi.setLecturaBreve(getBiblica());
+        hi.setOracion(getOracion());
+        bh.setIntermedia(hi);
+        dm.setBreviaryHour(bh);
+        dmToday.liturgyDay=dm;
+
+        return dmToday;
+    }
     public LHHymn getHimno(){
         return himno.getDomainModel();
     }

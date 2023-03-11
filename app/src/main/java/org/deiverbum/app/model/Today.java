@@ -181,19 +181,34 @@ public class Today {
         return liturgyDay.getAllForRead().toString();
     }
 
-    public SpannableStringBuilder getAllForView() {
+    public SpannableStringBuilder getAllForView(boolean hasInvitatory) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(getFecha());
-        sb.append(Utils.LS2);
-        sb.append(Utils.toH2(getTiempo()));
-        sb.append(Utils.LS2);
-        sb.append(Utils.toH3(getTitulo()));
+        try {
+            sb.append(Utils.LS);
+            sb.append(getFecha());
+            sb.append(Utils.LS2);
+            sb.append(Utils.toH2(getTiempo()));
+            sb.append(Utils.LS2);
+            sb.append(Utils.toH3(getTitulo()));
+            //liturgyDay.today.previousFK
+            sb.append(liturgyDay.getForView(hasInvitatory,previousFK));
+        } catch (Exception e) {
+            sb.append(Utils.createErrorMessage(e.getMessage()));
+        }
         return sb;
     }
 
-    public String getAllForRead() {
-        return Utils.pointAtEnd(getFecha()) +
-                getTituloForRead();
+    public StringBuilder getAllForRead() {
+        StringBuilder sb = new StringBuilder();
+        try {
+            sb.append(Utils.pointAtEnd(getFecha()));
+            sb.append(getTituloForRead());
+            sb.append(liturgyDay.getForRead());
+
+        } catch (Exception e) {
+            sb.append(Utils.createErrorMessage(e.getMessage()));
+        }
+        return sb;
     }
 }
 

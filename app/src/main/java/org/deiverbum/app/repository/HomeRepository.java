@@ -22,7 +22,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext;
  * <p>Repositorio de datos para el módulo Home.</p>
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  */
 
 public class HomeRepository {
@@ -63,7 +63,7 @@ public class HomeRepository {
                         .build();
         mWorkManager.enqueueUniquePeriodicWork(
                 "SYNC_TODAY",
-                ExistingPeriodicWorkPolicy.REPLACE, //Existing Periodic Work
+                ExistingPeriodicWorkPolicy.UPDATE, //Existing Periodic Work
                 // policy
                 periodicSyncDataWork //work request
         );

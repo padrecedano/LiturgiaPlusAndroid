@@ -225,7 +225,7 @@ public final class Utils {
 
 
     /**
-     * Este método es @deprecated a partir de la versión 2022.2,
+     * Este método es @deprecated a partir de la versión 2023.1,
      * porque conviene migrar algunos métodos a clases más propias.
      * Usar en su lugar {@link org.deiverbum.app.model.Liturgy#getSaludoInicial()}
      *
@@ -448,6 +448,31 @@ public final class Utils {
     }
 
     /**
+     * Método que devuelve la fecha de formato DateTime en formato yyyyMMdd
+     *
+     * @return Una cadena con la fecha
+     * @param s La Fecha en formato DateTime
+     */
+
+    public static String formatDate(String s) {
+        SimpleDateFormat srcFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        //java.util.Date temp = srcFormat.parse(s);
+        //Date thisDate = changeFormat.parse("2012-07-10 14:58:00.000000");
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        Date dateObj = null;
+        try {
+            dateObj = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(s);
+            //dateObj = sdf.parse(s);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        return sdf.format(dateObj);
+    }
+
+    /**
      * Método que devuelve la fecha del sistema en forma legible: 22 de Agosto de 1972
      *
      * @return Una cadena con la fecha
@@ -500,7 +525,7 @@ public final class Utils {
      *
      * @param theDate La fecha a formatear
      * @return Una cadena con la fecha
-     * @since 2022.2
+     * @since 2023.1
      */
 
     public static int getDayOfWeek(Integer theDate) {

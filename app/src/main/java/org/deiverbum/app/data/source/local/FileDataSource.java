@@ -194,7 +194,7 @@ public class FileDataSource {
      *
      * @param liturgy Un objeto {@link org.deiverbum.app.model.Liturgy} con información previa, al cual se adjuntarán las completas.
      * @return Observable del tipo solicitado o error.
-     * @since 2022.2
+     * @since 2023.1
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public Single<DataWrapper<Liturgy, CustomException>> getCompletas(Liturgy liturgy) {
@@ -209,7 +209,7 @@ public class FileDataSource {
                 Gson gson = new Gson();
                 Completas hora = gson.fromJson(new String(buffer, StandardCharsets.UTF_8), Completas.class);
 
-                hora.setHoy(liturgy.getHoy());
+                hora.setToday(liturgy.getToday());
                 BreviaryHour bh = new BreviaryHour();
                 bh.setCompletas(hora);
                 liturgy.setBreviaryHour(bh);

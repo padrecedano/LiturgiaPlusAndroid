@@ -8,6 +8,7 @@ import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.MassReadingList;
 import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.SyncStatus;
+import org.deiverbum.app.model.Today;
 import org.deiverbum.app.model.crud.Crud;
 
 import io.reactivex.rxjava3.core.Single;
@@ -43,10 +44,18 @@ public interface ApiService {
     @GET("{endPoint}/{dateString}")
     Single<Liturgy> getBreviary(@Path("endPoint") String endPoint, @Path("dateString") String dateString);
 
+    @GET("{endPoint}/{dateString}")
+    Single<Today> getToday(@Path("endPoint") String endPoint, @Path("dateString") String dateString);
+
+
     @GET("metaliturgia/{theDate}")
     Single<MetaLiturgia> getMetaLiturgia(@Path("theDate") String cleanDate);
 
     @Headers("Cache-Control: no-cache")
     @POST("insert/")
-    Single<Crud> callSyncStatus(@Body SyncStatus syncStatus);
+    Single<Crud> callSyncStatuss(@Body SyncStatus syncStatus);
+
+    @Headers("Cache-Control: no-cache")
+    @GET("insert/{theDate}")
+    Single<Crud> callSyncStatus(@Path("theDate") String lastUpdate);
 }

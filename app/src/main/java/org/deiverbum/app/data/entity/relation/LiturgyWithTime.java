@@ -11,7 +11,7 @@ import org.deiverbum.app.model.LiturgyTime;
 /**
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  */
 public class LiturgyWithTime {
     @Embedded
@@ -33,7 +33,7 @@ public class LiturgyWithTime {
         dm.setColorId(liturgyEntity.getColorFK());
         dm.setNombre(liturgyEntity.getNombre());
         LiturgyTime t=new LiturgyTime();
-        t.setTiempoId(tiempo.getTiempoId());
+        t.setTimeID(tiempo.getTiempoId());
         t.setTiempo(tiempo.getTiempo());
         t.setLiturgyName(tiempo.getLiturgyName());
         dm.setLiturgiaTiempo(t);

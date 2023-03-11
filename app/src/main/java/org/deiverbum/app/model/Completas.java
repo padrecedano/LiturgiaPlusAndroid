@@ -35,7 +35,7 @@ public class Completas extends BreviaryHour {
     }
 
     public Prayer getOracionByDay() {
-        return completasDias.get(hoy.getWeekDay()).getOracion();
+        return completasDias.get(today.getWeekDay()).getOracion();
     }
 
     public NuncDimitis getNuncDimitis() {
@@ -65,7 +65,7 @@ public class Completas extends BreviaryHour {
 
     public LHHymn getHimno() {
         SparseIntArray mMap = new SparseIntArray();
-        switch (hoy.getTimeID()) {
+        switch (today.getTimeID()) {
             case 1:
             case 2:
                 mMap.put(0, 0);
@@ -110,7 +110,7 @@ public class Completas extends BreviaryHour {
                 mMap.put(7, 0);
                 break;
         }
-        return completasHimno.get(hoy.weekDay).getHimno();
+        return completasHimno.get(today.weekDay).getHimno();
     }
 
     public List<CompletasDia> getCompletasDias() {
@@ -127,9 +127,9 @@ public class Completas extends BreviaryHour {
     public SpannableStringBuilder getLecturaSpan() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
 
-        int mIndex = (hoy.getTimeID() == 6) ? 1 : 0;
+        int mIndex = (today.getTimeID() == 6) ? 1 : 0;
         LHResponsoryShort mResponsorio = responsorio.get(mIndex);
-        BiblicalShort mLectura = completasDias.get(hoy.weekDay).getLecturaBreve();
+        BiblicalShort mLectura = completasDias.get(today.weekDay).getLecturaBreve();
         mLectura.setResponsorio(mResponsorio);
         ssb.append(mLectura.getAll());
         return ssb;
@@ -137,7 +137,7 @@ public class Completas extends BreviaryHour {
 
     public SpannableStringBuilder getLecturaForRead() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
-        BiblicalShort mLectura = completasDias.get(hoy.weekDay).getLecturaBreve();
+        BiblicalShort mLectura = completasDias.get(today.weekDay).getLecturaBreve();
         ssb.append(mLectura.getAllForRead());
         return ssb;
     }
@@ -149,10 +149,10 @@ public class Completas extends BreviaryHour {
             RitosIniciales ri = getRitosIniciales();
             Kyrie kyrie = ri.getKyrie();
             this.himno = getHimno();
-            this.salmodia = getCompletasDias().get(hoy.weekDay).getSalmodia();
+            this.salmodia = getCompletasDias().get(today.weekDay).getSalmodia();
             NuncDimitis nuncDimitis = getNuncDimitis();
             Conclusion conclusion = getConclusion();
-            sb.append(hoy.getAllForView());
+            sb.append(today.getAllForView(false));
             sb.append(Utils.LS2);
             sb.append(getTituloHora());
             sb.append(Utils.LS2);
@@ -166,11 +166,11 @@ public class Completas extends BreviaryHour {
             sb.append(Utils.LS2);
             sb.append(getLecturaSpan());
             sb.append(Utils.LS2);
-            sb.append(nuncDimitis.getAll(hoy.getTimeID()));
+            sb.append(nuncDimitis.getAll(today.getTimeID()));
             sb.append(Utils.LS2);
             sb.append(getOracionByDay().getAll());
             sb.append(Utils.LS2);
-            sb.append(conclusion.getAll(hoy.getTimeID()));
+            sb.append(conclusion.getAll(today.getTimeID()));
             sb.append(Utils.LS2);
             return sb;
         //} catch (Exception e) {
@@ -192,10 +192,10 @@ public class Completas extends BreviaryHour {
             RitosIniciales ri = getRitosIniciales();
             Kyrie kyrie = ri.getKyrie();
             this.himno = getHimno();
-            this.salmodia = getCompletasDias().get(hoy.weekDay).getSalmodia();
+            this.salmodia = getCompletasDias().get(today.weekDay).getSalmodia();
             NuncDimitis nuncDimitis = getNuncDimitis();
             Conclusion conclusion = getConclusion();
-            sb.append(hoy.getAllForRead());
+            sb.append(today.getAllForRead());
             sb.append(getTituloHoraForRead());
             sb.append(getSaludoDiosMioForRead());
             sb.append(kyrie.getAllForRead());
@@ -204,7 +204,7 @@ public class Completas extends BreviaryHour {
             sb.append(getLecturaForRead());
             sb.append(nuncDimitis.getAllForRead());
             sb.append(getOracionByDay().getAllForRead());
-            sb.append(conclusion.getAllForRead(hoy.getTimeID()));
+            sb.append(conclusion.getAllForRead(today.getTimeID()));
             return sb;
         } catch (Exception e) {
             return new StringBuilder(e.toString());

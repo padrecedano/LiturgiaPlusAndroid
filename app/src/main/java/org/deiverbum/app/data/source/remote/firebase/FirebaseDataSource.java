@@ -35,6 +35,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
 import io.reactivex.rxjava3.core.Single;
 
 
@@ -322,4 +323,40 @@ public class FirebaseDataSource {
                         });
     }
 
+    public Single<DataWrapper<Today, CustomException>> getToday(String dateString, int hourId) {
+        return Single.create(emitter -> {
+            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
+            docRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        DocumentReference dataRef =
+                                document.getDocumentReference(String.format(new Locale("es"), "lh.%d", hourId));
+                        MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
+                        Objects.requireNonNull(meta).setIdHour(hourId);
+
+                        try {
+
+                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
+                                if (mSnapshot.exists()) {
+                                    Today theHour = mSnapshot.toObject(Today.class);
+                                    //Objects.requireNonNull(theHour).setMetaLiturgia(meta);
+                                    emitter.onSuccess(new DataWrapper<>(theHour));
+                                } else {
+                                    emitter.onError(new Exception(DATA_NOTFOUND));
+                                }
+                            });
+                        } catch (Exception e) {
+                            emitter.onError(new Exception(e));
+                        }
+                    } else {
+                        emitter.onError(new Exception(DOC_NOTFOUND));
+
+                    }
+                } else {
+                    emitter.onError(task.getException());
+                }
+            });
+        });
+    }
 }

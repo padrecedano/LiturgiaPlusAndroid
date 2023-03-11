@@ -11,7 +11,7 @@ import org.deiverbum.app.model.LHOfficePatristic;
 /**
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  */
 public class HomilyAll {
     @Embedded
@@ -27,7 +27,7 @@ public class HomilyAll {
     public LHOfficePatristic getPatristicaDomainModel() {
         LHOfficePatristic theModel=new LHOfficePatristic();
         //theModel.setTema(lhPatristica.getTema());
-        theModel.setTexto(homilia.getTexto());
+        theModel.setText(homilia.getTexto());
         theModel.setPadre(paterOpusAll.paterEntity.getPadre());
         theModel.setObra(paterOpusAll.paterOpusEntity.getOpusName());
         theModel.paterOpus=paterOpusAll.getDomainModel();

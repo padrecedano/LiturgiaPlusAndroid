@@ -10,7 +10,7 @@ import org.deiverbum.app.model.HomilyList;
 /**
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  */
 public class LiturgiaWithHomilias {
     @Embedded

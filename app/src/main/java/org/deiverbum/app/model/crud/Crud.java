@@ -46,7 +46,7 @@ import java.util.List;
 /**
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  */
 public class Crud  {
 
@@ -55,6 +55,8 @@ public class Crud  {
     public List<SyncStatus> syncStatus;
 
     public String lastUpdate;
+    public String errorMessage;
+
 
     public boolean haveData;
 

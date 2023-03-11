@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey;
 /**
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  */
 
 @Entity(tableName = LH_INTERCESSIONS_JOIN,

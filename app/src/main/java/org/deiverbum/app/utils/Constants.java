@@ -12,8 +12,8 @@ public class Constants {
       strings.xml: app_version_name_and_mail
       strings.xml: accept_info
       */
-    public static final int VERSION_CODE = 202201004;
-                                         //202201001
+    public static final int VERSION_CODE = 202301000;
+                                         //LAST: 202201004
     public static final int DB_VERSION = 1;
 
     public static final String LS = System.getProperty("line.separator");
@@ -84,8 +84,8 @@ public class Constants {
     /*
         File paths
      */
-    public static final String FILE_PRIVACY = "raw/privacy_202201.json";
-    public static final String FILE_TERMS = "raw/terms_202201.json";
+    public static final String FILE_PRIVACY = "raw/privacy_202301.json";
+    public static final String FILE_TERMS = "raw/terms_202301.json";
     public static final String FILE_VIA_CRUCIS_2003 = "raw/viacrucis2003.json";
     public static final String FILE_VIA_CRUCIS_2005 = "raw/viacrucis2005.json";
     public static final String FILE_REGINA = "raw/regina.json";
@@ -200,12 +200,6 @@ public class Constants {
     public static final String TITLE_PATER_NOSTER ="Padre Nuestro";
     public static final String TITLE_PRAYER ="Oración";
     public static final String TITLE_BIBLE_COMMENTS ="Comentarios";
-
-
-
-
-
-
 
     private Constants() {
     }

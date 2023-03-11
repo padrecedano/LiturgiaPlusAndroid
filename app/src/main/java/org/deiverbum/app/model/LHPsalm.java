@@ -14,6 +14,8 @@ public class LHPsalm implements Comparable<LHPsalm>{
     public Integer psalmID=0;
     public Integer readingID=0;
     public String quote="";
+    private String psalm="";
+
     @Ignore
     private String orden;
     @Ignore
@@ -33,9 +35,6 @@ public class LHPsalm implements Comparable<LHPsalm>{
     public void setPsalm(String psalm) {
         this.psalm = psalm;
     }
-
-    //@Ignore
-    private String psalm="";
 
     public String getOrden() {
         return (orden != null ) ?  orden : "";

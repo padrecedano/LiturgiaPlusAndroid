@@ -87,7 +87,7 @@ public class MassReadingList extends Liturgy {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         try {
             //sb.append(hoy.getForViewMisa());
-            sb.append(hoy.getAllForView());
+            //sb.append(today.getAllForView());
             sb.append(LS2);
             sb.append(getTitulo());
             sb.append(LS2);
@@ -105,7 +105,7 @@ public class MassReadingList extends Liturgy {
 
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         try {
-            sb.append(hoy.getAllForRead());
+            sb.append(today.getAllForRead());
             sb.append(getTituloForRead());
             for (MassReading l : lecturas) {
                 sb.append(l.getAllForRead());

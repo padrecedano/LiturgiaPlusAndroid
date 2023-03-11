@@ -111,7 +111,8 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
         binding = FragmentBreviarioDataBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         setConfiguration();
-        observeHour();
+        //observeHour();
+        observeToday();
         return root;
     }
 
@@ -146,9 +147,33 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
                 if (data.status == DataWrapper.Status.SUCCESS) {
                     Liturgy liturgy =data.getData();
                     //liturgy.lhInvitatory.isUnique=this.hasInvitatory;
-                    mTextView.setText(liturgy.getForView(hasInvitatory));
+                    //mTextView.setText(liturgy.getForView(hasInvitatory));
                     if (isVoiceOn) {
-                        sbReader.append(data.getData().getForRead());
+                        sbReader.append(data.getData().getAllForRead());
+                        //setPlayerButton();
+                    }
+                } else {
+                    mTextView.setText(Utils.fromHtml(data.getError()));
+                }
+            });
+        }
+    }
+
+    private void observeToday() {
+        int hourId;
+        if (getArguments() != null) {
+            hourId = getArguments().getInt("hourId");
+            mTextView.setText(PACIENCIA);
+            mViewModel.getToday(mDate,hourId).observe(getViewLifecycleOwner(), data -> {
+                progressBar.setVisibility(View.GONE);
+                if (data.status == DataWrapper.Status.SUCCESS) {
+                    Liturgy liturgy =data.getData().liturgyDay;
+                    mTextView.setText(data.getData().getAllForView(hasInvitatory));
+
+                    //liturgy.lhInvitatory.isUnique=this.hasInvitatory;
+                    //mTextView.setText(liturgy.getForView(hasInvitatory));
+                    if (isVoiceOn) {
+                        sbReader.append(data.getData().getAllForRead());
                         //setPlayerButton();
                     }
                 } else {
@@ -289,5 +314,4 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
         cleanTTS();
         binding = null;
     }
-
 }

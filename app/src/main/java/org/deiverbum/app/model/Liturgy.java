@@ -39,7 +39,7 @@ public class Liturgy {
     @Ignore
     protected Saint santo;
     @Ignore
-    protected Today hoy;
+    protected Today today;
     @Ignore
     protected MetaLiturgia metaLiturgia;
     @Ignore
@@ -122,6 +122,7 @@ public class Liturgy {
     }
 
     public LiturgyTime getLiturgiaTiempo() {
+
         return liturgyTime;
     }
 
@@ -157,12 +158,12 @@ public class Liturgy {
         return this.metaLiturgia;
     }
 
-    public Today getHoy() {
-        return hoy;
+    public Today getToday() {
+        return today;
     }
 
-    public void setHoy(Today hoy) {
-        this.hoy = hoy;
+    public void setToday(Today today) {
+        this.today = today;
     }
 
     @SuppressWarnings("unused")
@@ -200,14 +201,19 @@ public class Liturgy {
 
     public SpannableStringBuilder getAllForRead() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
-        this.timeFK = liturgyTime.getTiempoId();
-        if (
-                this.timeFK >= 8 || this.timeFK == 1 && this.day > 16 || this.timeFK == 2 || this.timeFK == 3 && this.week == 0 || this.timeFK == 4 || this.timeFK == 5 || this.week >= 35 || this.timeFK == 6 && this.week == 6 && this.typeFK < 4 || this.timeFK == 6 && this.week == 1 || this.day == 0 || this.timeFK >= 1 && this.day == 1
+        try {
+            this.timeFK = liturgyTime.getTimeID();
+            if (
+                    this.timeFK >= 8 || this.timeFK == 1 && this.day > 16 || this.timeFK == 2 || this.timeFK == 3 && this.week == 0 || this.timeFK == 4 || this.timeFK == 5 || this.week >= 35 || this.timeFK == 6 && this.week == 6 && this.typeFK < 4 || this.timeFK == 6 && this.week == 1 || this.day == 0 || this.timeFK >= 1 && this.day == 1
 
-        ) {
-            ssb.append(getTimeWithTitleForRead());
-        } else {
-            ssb.append(getTimeWithWeekAndDay());
+            ) {
+                ssb.append(getTimeWithTitleForRead());
+            } else {
+                ssb.append(getTimeWithWeekAndDay());
+            }
+        } catch (Exception e) {
+            ssb.append(Utils.createErrorMessage(e.getMessage()));
+
         }
         return ssb;
     }
@@ -235,13 +241,18 @@ public class Liturgy {
         this.lhInvitatory = invitatorio;
     }
 
-    public SpannableStringBuilder getForView(boolean hasInvitatory) {
+    public SpannableStringBuilder getForView(boolean hasInvitatory, Integer previousFK) {
+        SpannableStringBuilder ssb = new SpannableStringBuilder("");
         try {
+            //ssb.append(today.getAllForView(hasInvitatory));
+
             if (typeID == 0) {
                 return breviaryHour.getMixto(hasInvitatory).getForView(liturgyTime);
             }
             if (typeID == 1) {
-                return breviaryHour.getOficio(hasInvitatory).getForView(liturgyTime);
+                //ssb.append(today.getAllForView());
+                ssb.append(breviaryHour.getOficio(hasInvitatory).getForView(liturgyTime));
+                return ssb;
             }
             if (typeID == 2) {
                 return breviaryHour.getLaudes(hasInvitatory).getForView(liturgyTime);
@@ -250,7 +261,7 @@ public class Liturgy {
                 return breviaryHour.getIntermedia().getForView(liturgyTime);
             }
             if (typeID == 6) {
-                return breviaryHour.getVisperas().getForView(liturgyTime);
+                return breviaryHour.getVisperas().getForView(liturgyTime,previousFK);
             }
             if (typeID == 7) {
                 return breviaryHour.getCompletas().getForView(liturgyTime);
@@ -268,7 +279,7 @@ public class Liturgy {
     public StringBuilder getForRead() {
         try {
             if (typeID == 0) {
-                return breviaryHour.getMixto(hasInvitatory).getForRead();
+                return breviaryHour.getMixto(hasInvitatory).getForReadd();
             }
             if (typeID == 1) {
                 return breviaryHour.getOficio().getForRead();
@@ -295,7 +306,7 @@ public class Liturgy {
     /**
      * Devuelve el saludo inicial de la liturgia
      *
-     * @since 2022.2
+     * @since 2023.1
      * @return El texto formateado para la vista
      */
     public SpannableStringBuilder getSaludoInicial() {

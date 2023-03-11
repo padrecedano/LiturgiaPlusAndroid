@@ -4,20 +4,20 @@ package org.deiverbum.app.model;
  * <p>Clase para expresar los tiempos litúrgicos.</p>
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  */
 public class LiturgyTime {
 
-    private Integer tiempoId;
+    private Integer timeID;
     private String tiempo;
     private String liturgyName;
 
-    public Integer getTiempoId() {
-        return tiempoId;
+    public Integer getTimeID() {
+        return timeID;
     }
 
-    public void setTiempoId(Integer tiempoId) {
-        this.tiempoId = tiempoId;
+    public void setTimeID(Integer timeID) {
+        this.timeID = timeID;
     }
 
     public String getTiempo() {

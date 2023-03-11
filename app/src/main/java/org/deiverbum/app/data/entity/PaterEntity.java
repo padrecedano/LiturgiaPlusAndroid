@@ -13,7 +13,7 @@ import org.deiverbum.app.model.Pater;
 /**
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  *
  * CREATE TABLE `padre` (
  * 	`padreId` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,

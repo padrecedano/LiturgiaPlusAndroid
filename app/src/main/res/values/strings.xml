@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Liturgia+</string>
-    <string name="app_version_name_and_mail">v. 2022.2
+    <string name="app_version_name_and_mail">v. 2023.1
         [Iosue]\na.cedano@deiverbum.org</string>
 
     <!-- Activity and Fragment titles -->
@@ -129,7 +129,7 @@
     <string name="pref_accept_terms">Acepto la Política de Privacidad y los Términos y Condiciones</string>
     <string name="pref_description_accept_terms">Activando esta opción, declaras haber leído y aceptado tanto la Política de Privacidad como los Términos y Condiciones. Sin esta aceptación no podrás hacer uso de la Aplicación.</string>
     <string name="label_accept">He leído y acepto la Política de Privacidad y los Términos y Condiciones de Uso.</string>
-    <string name="accept_info">Liturgia+ v. 2022.2\n\n<font color="#A52A2A"
+    <string name="accept_info">Liturgia+ v. 2023.1\n\n<font color="#A52A2A"
         size="30">¡La Paz contigo!</font>\n\nSi estás viendo esta
         pantalla es porque estás instalando por primera vez una nueva versión
         de la aplicación

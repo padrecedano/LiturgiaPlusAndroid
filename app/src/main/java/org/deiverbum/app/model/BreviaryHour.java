@@ -10,6 +10,8 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.CharacterStyle;
 
+import androidx.room.Ignore;
+
 import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
@@ -41,6 +43,8 @@ public class BreviaryHour extends Liturgy {
     private Mixto mixto;
     private Intermedia intermedia;
     private Visperas visperas;
+    //@Ignore
+    //public Integer typeID;
 
     public Completas getCompletas() {
         return completas;

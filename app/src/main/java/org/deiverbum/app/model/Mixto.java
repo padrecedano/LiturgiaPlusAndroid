@@ -42,6 +42,8 @@ public class Mixto extends BreviaryHour {
         this.oficio = oficio;
     }
 
+
+
     public MassReadingList getMisaLecturas() {
         return misaLecturas;
     }
@@ -61,10 +63,10 @@ public class Mixto extends BreviaryHour {
     public SpannableStringBuilder getForView(LiturgyTime liturgyTime) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
-            invitatorio.normalizeByTime(liturgyTime.getTiempoId());
-            laudes.salmodia.normalizeByTime(liturgyTime.getTiempoId());
-            oficio.getOficioLecturas().normalizeByTime(liturgyTime.getTiempoId());
-            sb.append(hoy.getAllForView());
+            invitatorio.normalizeByTime(liturgyTime.getTimeID());
+            laudes.salmodia.normalizeByTime(liturgyTime.getTimeID());
+            //oficio.getOficioLecturas().normalizeByTime(liturgyTime.getTiempoId());
+            //sb.append(today.getAllForView());
             LHHymn himno = laudes.getHimno();
             LHPsalmody salmodia = laudes.getSalmodia();
             LHOfficeOfReading oficioLecturas = oficio.getOficioLecturas();
@@ -73,7 +75,7 @@ public class Mixto extends BreviaryHour {
             LHIntercession preces = laudes.getPreces();
             sb.append(Utils.LS2);
 
-            if (hoy.getHasSaint()==1) {
+            if (santo !=null) {
                 invitatorio.normalizeIsSaint(santo.theName);
                 sb.append(santo.getVidaSmall());
                 sb.append(LS2);
@@ -91,7 +93,7 @@ public class Mixto extends BreviaryHour {
             sb.append(salmodia.getAll());
             sb.append(lecturaBreve.getAll());
             sb.append(Utils.LS2);
-            sb.append(oficioLecturas.getAll(liturgyTime.getTiempoId()));
+            sb.append(oficioLecturas.getAll(liturgyTime.getTimeID()));
             sb.append(Utils.LS2);
             sb.append(Utils.formatSubTitle("evangelio del día"));
             sb.append(Utils.LS2);
@@ -114,7 +116,7 @@ public class Mixto extends BreviaryHour {
         return sb;
     }
 
-    public StringBuilder getForRead() {
+    public StringBuilder getForReadd() {
         StringBuilder sb = new StringBuilder();
 
         try {
@@ -124,12 +126,12 @@ public class Mixto extends BreviaryHour {
             Biblical lecturaBreve = laudes.getLecturaBreve();
             LHGospelCanticle ce = laudes.getBenedictus();
             LHIntercession preces = laudes.getPreces();
-            sb.append(hoy.getAllForRead());
-
-            if (hoy.getHasSaint()==1) {
+            //sb.append(today.getAllForRead());
+/*
+            if (today.getHasSaint()==1) {
                 sb.append(santo.getVida());
             }
-
+*/
             sb.append(getTituloHoraForRead());
             sb.append(laudes.getSaludoOficioForRead());
             sb.append(invitatorio.getAllForRead());
@@ -138,7 +140,10 @@ public class Mixto extends BreviaryHour {
             sb.append(lecturaBreve.getAllForRead());
             sb.append(oficioLecturas.getAllForRead());
             sb.append(Utils.formatSubTitle("Evangelio del día."));
-            sb.append(misaLecturas.getAllEvangelioForRead());
+            for (MassReading item : evangelios) {
+                sb.append(item.getAllForRead());
+            }
+            //sb.append(misaLecturas.getAllEvangelioForRead());
             sb.append(ce.getAllForRead());
             sb.append(preces.getAllForRead());
             sb.append(PadreNuestro.getAll());
