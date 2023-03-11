@@ -1,11 +1,13 @@
 package org.deiverbum.app.viewmodel;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.model.Liturgy;
+import org.deiverbum.app.model.Today;
 import org.deiverbum.app.repository.BreviarioRepository;
 
 import javax.inject.Inject;
@@ -23,5 +25,9 @@ public class BreviarioViewModel extends ViewModel {
 
     public MutableLiveData<DataWrapper<Liturgy, CustomException>> getBreviary(String dateString, int hourId) {
         return mRepository.getFromLocal(dateString,hourId);
+    }
+
+    public MutableLiveData<DataWrapper<Today, CustomException>> getToday(String dateString, int hourId) {
+        return mRepository.getTodayFromLocal(dateString,hourId);
     }
 }

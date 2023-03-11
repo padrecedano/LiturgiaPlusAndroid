@@ -23,7 +23,7 @@ public class LHOfficePatristic {
     @Ignore
     public String obra;
     @Ignore
-    public String texto;
+    public String text;
     @Ignore
     public String ref;
     @Ignore
@@ -83,16 +83,17 @@ public class LHOfficePatristic {
         this.theme = theme;
     }
 
-    public String getTexto() {
-        return texto;
+    public String getText() {
+        return text;
     }
 
     public Spanned getTextoSpan() {
-       return Utils.fromHtml(Utils.getFormato(texto));
+
+        return Utils.fromHtml(Utils.getFormato(text));
     }
 
-    public void setTexto(String texto) {
-        this.texto = texto;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public String getRef() {
@@ -134,7 +135,7 @@ public class LHOfficePatristic {
         sb.append(getPadreForRead());
         sb.append(getObraForRead());
         sb.append(getTemaForRead());
-        sb.append(getTexto());
+        sb.append(getText());
         sb.append(getPadreForRead());
         sb.append(getResponsorioHeaderForRead());
         sb.append(responsorioLargo.getAllForRead());

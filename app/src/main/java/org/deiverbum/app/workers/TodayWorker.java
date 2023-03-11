@@ -10,7 +10,9 @@ import androidx.work.WorkerParameters;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.data.source.remote.network.ApiService;
+import org.deiverbum.app.model.SyncStatus;
 import org.deiverbum.app.model.crud.Crud;
+import org.deiverbum.app.utils.Utils;
 
 import javax.inject.Inject;
 
@@ -23,7 +25,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 /**
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  */
 
 @HiltWorker
@@ -67,7 +69,11 @@ public class TodayWorker extends Worker {
     }
 
     public void loadCrud() {
-        workerDependency.callSyncStatus(mTodayDao.getAllSyncStatus())
+        String lastUpdatee= mTodayDao.getAllSyncStatus().lastUpdate;
+
+        String lastUpdate= Utils.formatDate(mTodayDao.getAllSyncStatus().lastUpdate);
+        SyncStatus ss = mTodayDao.getAllSyncStatus();
+        workerDependency.callSyncStatuss(mTodayDao.getAllSyncStatus())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Crud>() {

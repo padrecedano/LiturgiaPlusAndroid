@@ -7,7 +7,8 @@ import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
-public class Oficio extends BreviaryHour {
+public class Oficio extends BreviaryHour
+{
 
     private LHInvitatory invitatorio;
     private LHIntercession preces;
@@ -64,12 +65,12 @@ public class Oficio extends BreviaryHour {
     public SpannableStringBuilder getForView(LiturgyTime liturgyTime) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
-            invitatorio.normalizeByTime(liturgyTime.getTiempoId());
-            salmodia.normalizeByTime(liturgyTime.getTiempoId());
-            oficioLecturas.normalizeByTime(liturgyTime.getTiempoId());
-            sb.append(hoy.getAllForView());
+            invitatorio.normalizeByTime(liturgyTime.getTimeID());
+            salmodia.normalizeByTime(liturgyTime.getTimeID());
+            oficioLecturas.normalizeByTime(liturgyTime.getTimeID());
+//            sb.append(today.getAllForView());
             sb.append(LS2);
-            if (hoy.getHasSaint()==1) {
+            if (santo !=null) {
                 invitatorio.normalizeIsSaint(santo.theName);
                 sb.append(santo.getVidaSmall());
                 sb.append(LS2);
@@ -90,7 +91,7 @@ public class Oficio extends BreviaryHour {
             sb.append(salmodia.getAll(1));
             sb.append(LS2);
 
-            sb.append(oficioLecturas.getAll(liturgyTime.getTiempoId()));
+            sb.append(oficioLecturas.getAll(liturgyTime.getTimeID()));
 
             if (teDeum.status) {
                 sb.append(teDeum.getAll());
@@ -108,11 +109,11 @@ public class Oficio extends BreviaryHour {
     public StringBuilder getForRead() {
         StringBuilder sb = new StringBuilder();
         try {
-            sb.append(hoy.getAllForRead());
-            if (hoy.getHasSaint()==1) {
+            /*sb.append(today.getAllForRead());
+            if (today.getHasSaint()==1) {
                 sb.append(santo.getVida());
             }
-            sb.append(getTituloHoraForRead());
+            sb.append(getTituloHoraForRead());*/
             sb.append(getSaludoOficioForRead());
             sb.append(invitatorio.getAllForRead());
             sb.append(himno.getAllForRead());

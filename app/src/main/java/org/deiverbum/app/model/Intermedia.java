@@ -39,8 +39,8 @@ public class Intermedia extends BreviaryHour {
     public SpannableStringBuilder getForView(LiturgyTime liturgyTime) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
-            salmodia.normalizeByTime(liturgyTime.getTiempoId());
-            sb.append(hoy.getAllForView());
+            salmodia.normalizeByTime(liturgyTime.getTimeID());
+            //sb.append(today.getAllForView());
             sb.append(Utils.LS2);
 
             sb.append(getTituloHoraForView());
@@ -73,7 +73,7 @@ public class Intermedia extends BreviaryHour {
     public StringBuilder getForRead() {
         StringBuilder sb = new StringBuilder();
         try {
-            sb.append(hoy.getAllForRead());
+            //sb.append(today.getAllForRead());
             sb.append(getTituloHoraForRead());
             sb.append(getSaludoDiosMioForRead());
             sb.append(himno.getAllForRead());

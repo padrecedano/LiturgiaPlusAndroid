@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  */
 public class TodayVisperas {
 
@@ -164,10 +164,10 @@ public class TodayVisperas {
     public Liturgy getDomainModel(){
         Liturgy dm= feria.getDomainModel();
         dm.typeID=6;
-        dm.setHoy(getToday());
+        dm.setToday(getToday());
         BreviaryHour bh=new BreviaryHour();
         Visperas visperas=new Visperas();
-        visperas.setHoy(getToday());
+        visperas.setToday(getToday());
         visperas.setInvitatorio(getInvitatorio());
         visperas.setSanto(getSanto());
         visperas.setHimno(getHimno());

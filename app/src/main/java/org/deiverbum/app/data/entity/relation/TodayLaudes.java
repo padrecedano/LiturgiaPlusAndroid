@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  */
 public class TodayLaudes {
 
@@ -168,10 +168,10 @@ public class TodayLaudes {
 
         Liturgy dm= feria.getDomainModel();
         dm.typeID=2;
-        dm.setHoy(getToday());
+        dm.setToday(getToday());
         BreviaryHour bh=new BreviaryHour();
         Laudes laudes=new Laudes();
-        laudes.setHoy(getToday());
+        laudes.setToday(getToday());
         laudes.setInvitatorio(getInvitatorio());
         laudes.setSanto(getSanto());
         laudes.setHimno(getHimno());

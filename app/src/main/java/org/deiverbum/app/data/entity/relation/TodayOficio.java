@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  */
 public class TodayOficio {
 
@@ -184,7 +184,7 @@ public class TodayOficio {
         Liturgy dm= feria.getDomainModel();
         dm.typeID=1;
         Today dmToday=getToday();
-        dm.setHoy(dmToday);
+        dm.setToday(dmToday);
 
         BreviaryHour bh=new BreviaryHour();
         Oficio oficio=new Oficio();
@@ -194,10 +194,41 @@ public class TodayOficio {
         ol.setPatristica(getPatristicas());
         ol.setResponsorio(getOficioVerso());
         //dm.setSanto(getSanto());
-        oficio.setHoy(getToday());
+        //oficio.setHoy(getToday());
+
+        if(dmToday.getHasSaint()==1){
+            //oficio.setSanto(santo.getDomainModelLH());
+        }
+        oficio.setInvitatorio(getInvitatorio());
+        //oficio.setHimno(getHimno());
+        oficio.setOficioLecturas(ol);
+        //oficio.setSalmodia(getSalmodia());
+        oficio.setTeDeum(new TeDeum(today.oTeDeum));
+        //oficio.setOracion((lhPrayerAll.getDomainModel()));
+        bh.setOficio(oficio);
+        dm.setBreviaryHour(bh);
+        return dm;
+    }
+
+    public Today getDomainModelToday(){
+        Liturgy dm= feria.getDomainModel();
+        dm.typeID=1;
+        Today dmToday=getToday();
+        dm.setToday(dmToday);
+
+        BreviaryHour bh=new BreviaryHour();
+        Oficio oficio=new Oficio();
+
+        LHOfficeOfReading ol=new LHOfficeOfReading();
+        ol.setBiblica(getBiblicas());
+        ol.setPatristica(getPatristicas());
+        ol.setResponsorio(getOficioVerso());
+        //dm.setSanto(getSanto());
+        //oficio.setHoy(getToday());
 
         if(dmToday.getHasSaint()==1){
             oficio.setSanto(santo.getDomainModelLH());
+            dm.setSanto(santo.getDomainModelLH());
         }
         oficio.setInvitatorio(getInvitatorio());
         oficio.setHimno(getHimno());
@@ -207,7 +238,9 @@ public class TodayOficio {
         oficio.setOracion((lhPrayerAll.getDomainModel()));
         bh.setOficio(oficio);
         dm.setBreviaryHour(bh);
-        return dm;
+
+        dmToday.liturgyDay=dm;
+        return dmToday;
     }
 
 }

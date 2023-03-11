@@ -109,7 +109,7 @@ public class CompletasRepository {
             InputStream raw = Objects.requireNonNull(getClass().getClassLoader()).getResourceAsStream(FILE_NIGHT_PRAYER);
             Gson gson = new Gson();
             Completas hora = gson.fromJson(new InputStreamReader(raw), Completas.class);
-            hora.setMetaLiturgia(meta);
+            //hora.setMetaLiturgia(meta);
             mData.setValue(new DataWrapper<>(hora));
         }
     }

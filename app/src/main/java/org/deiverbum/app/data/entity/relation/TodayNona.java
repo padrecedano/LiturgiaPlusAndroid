@@ -105,7 +105,7 @@ public class TodayNona {
         Intermedia hi=new Intermedia();
         dm.typeID=5;
         hi.setHourId(5);
-        hi.setHoy(getToday());
+        hi.setToday(getToday());
         hi.setHimno(getHimno());
         hi.setSalmodia(getSalmodia());
         hi.setLecturaBreve(getBiblica());

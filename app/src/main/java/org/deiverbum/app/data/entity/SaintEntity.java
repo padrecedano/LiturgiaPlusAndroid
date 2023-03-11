@@ -14,7 +14,7 @@ import org.deiverbum.app.model.Saint;
 /**
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  * CREATE TABLE `santo` (
  * 	`santoId` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
  * 	`liturgiaId` INTEGER NOT NULL,

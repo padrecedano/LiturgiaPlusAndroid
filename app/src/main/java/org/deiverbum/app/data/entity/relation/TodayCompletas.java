@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  */
 public class TodayCompletas {
 
@@ -105,7 +105,7 @@ public class TodayCompletas {
     public Liturgy getDomainModel(){
         Liturgy dm= feria.getDomainModel();
         dm.typeID=7;
-        dm.setHoy(getToday());
+        dm.setToday(getToday());
         return dm;
     }
 

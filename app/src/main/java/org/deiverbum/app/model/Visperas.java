@@ -45,16 +45,16 @@ public class Visperas extends BreviaryHour {
         return magnificat;
     }
 
-    public SpannableStringBuilder getForView(LiturgyTime liturgyTime) {
+    public SpannableStringBuilder getForView(LiturgyTime liturgyTime, Integer previousFK) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
             //¿?lecturaBreve.normalizeByTime(hoy.getCalendarTime());
-            salmodia.normalizeByTime(liturgyTime.getTiempoId());
+            salmodia.normalizeByTime(liturgyTime.getTimeID());
 
-            sb.append(hoy.getAllForView());
-            sb.append(Utils.LS2);
+            //sb.append(today.getAllForView());
+            //sb.append(Utils.LS2);
 
-            sb.append(getTituloHora());
+            sb.append(getTituloHora(previousFK));
             sb.append(Utils.fromHtmlToSmallRed(getMetaInfo()));
             sb.append(Utils.LS2);
 
@@ -90,11 +90,11 @@ public class Visperas extends BreviaryHour {
         return sb;
     }
 
-    public StringBuilder getForRead() {
+    public StringBuilder getForRead(Integer previousFK) {
         StringBuilder sb = new StringBuilder();
         try {
-            sb.append(hoy.getAllForRead());
-            sb.append(getTituloHoraForRead());
+            //sb.append(today.getAllForRead());
+            sb.append(getTituloHoraForRead(previousFK));
             sb.append(getSaludoDiosMioForRead());
             sb.append(himno.getAllForRead());
             sb.append(salmodia.getAllForRead());
@@ -110,13 +110,15 @@ public class Visperas extends BreviaryHour {
         return sb;
     }
 
-    private SpannableStringBuilder getTituloHora() {
-        String s = (hoy.getLiturgiaPrevio() == null) ? TITLE_VISPERAS : TITLE_I_VISPERAS;
+    private SpannableStringBuilder getTituloHora(Integer previousFK) {
+        String s = (previousFK == 0) ? TITLE_I_VISPERAS : TITLE_VISPERAS;
         return Utils.toH1Red(s);
     }
 
-    private String getTituloHoraForRead() {
-        String s = (hoy.getLiturgiaPrevio() == null) ? TITLE_VISPERAS : TITLE_I_VISPERAS_READ;
+    private String getTituloHoraForRead(Integer previousFK) {
+        String s = (previousFK == 0) ? TITLE_I_VISPERAS : TITLE_VISPERAS;
+
+        //String s = (today.getLiturgiaPrevio() == null) ? TITLE_VISPERAS : TITLE_I_VISPERAS_READ;
         return Utils.pointAtEnd(s);
     }
 

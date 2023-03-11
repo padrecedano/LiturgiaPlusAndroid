@@ -13,7 +13,7 @@ import org.deiverbum.app.model.SaintLife;
 /**
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  */
 
 @Entity(

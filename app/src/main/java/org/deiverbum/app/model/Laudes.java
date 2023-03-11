@@ -66,13 +66,13 @@ public class Laudes extends BreviaryHour {
             // demás horas
             //biblicaBreve.normalizeByTime(metaLiturgia.calendarTime);
 
-            invitatorio.normalizeByTime(liturgyTime.getTiempoId());
-            salmodia.normalizeByTime(liturgyTime.getTiempoId());
+            invitatorio.normalizeByTime(liturgyTime.getTimeID());
+            salmodia.normalizeByTime(liturgyTime.getTimeID());
 
-            sb.append(hoy.getAllForView());
+            //sb.append(today.getAllForView());
             sb.append(LS2);
 
-            if (hoy.getHasSaint()==1) {
+            if (today.getHasSaint()==1) {
                 invitatorio.normalizeIsSaint(santo.theName);
                 sb.append(santo.getVidaSmall());
                 sb.append(LS2);
@@ -118,8 +118,8 @@ public class Laudes extends BreviaryHour {
     public StringBuilder getForRead() {
         StringBuilder sb = new StringBuilder();
         try {
-            sb.append(hoy.getAllForRead());
-            if (hoy.getHasSaint()==1) {
+            sb.append(today.getAllForRead());
+            if (today.getHasSaint()==1) {
                 sb.append(santo.getVida());
             }
             sb.append(getTituloHoraForRead());

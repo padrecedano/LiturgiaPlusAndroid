@@ -4,6 +4,7 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'dagger.hilt.android.plugin'
 //apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'kotlin-android'
 
 
 android {
@@ -12,7 +13,7 @@ android {
         applicationId "org.deiverbum.app"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 202201004
+        versionCode 202301000
         versionName "Iosue"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -53,13 +54,14 @@ android {
 
 dependencies {
 
-    def room_version = "2.5.0-beta02"
-    def room_rx = "2.4.3"
-    def navigation_version = "2.6.0-alpha04"
+    def room_version = "2.5.0"
+    def room_rx = "2.5.0"
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.10'
 
-    implementation "androidx.work:work-runtime:2.7.1"
-    implementation "androidx.work:work-rxjava2:2.7.1"
-    implementation "androidx.work:work-gcm:2.7.1"
+    implementation "androidx.work:work-runtime:2.8.0"
+    implementation "androidx.work:work-rxjava2:2.8.0"
+    implementation "androidx.work:work-gcm:2.8.0"
     implementation("androidx.startup:startup-runtime:1.1.1")
 
     implementation 'androidx.hilt:hilt-work:1.0.0'
@@ -79,22 +81,22 @@ dependencies {
     //implementation "androidx.room:room-paging:$room_version"
 
     implementation "androidx.preference:preference:1.2.0"
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
-    implementation "androidx.annotation:annotation:1.5.0"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0'
+    implementation 'androidx.annotation:annotation:1.6.0'
 
-    implementation "androidx.fragment:fragment:1.5.4"
+    implementation "androidx.fragment:fragment:1.5.5"
     implementation 'androidx.activity:activity-compose:1.6.1'
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
 
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.recyclerview:recyclerview:1.3.0'
 
-    implementation platform('com.google.firebase:firebase-bom:30.5.0')
+    implementation platform('com.google.firebase:firebase-bom:31.2.2')
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-appcheck-playintegrity'
@@ -104,7 +106,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.google.firebase:firebase-core:21.1.1'
     implementation 'com.google.firebase:firebase-database:20.1.0'
-    implementation 'com.google.firebase:firebase-inappmessaging-display:20.2.0'
+    implementation 'com.google.firebase:firebase-inappmessaging-display:20.3.1'
 
 /*
     implementation 'com.google.firebase:firebase-core:20.0.0'
@@ -116,23 +118,23 @@ dependencies {
     implementation 'com.google.android.play:core:1.10.3'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
-    implementation 'com.google.code.gson:gson:2.9.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test:runner:1.5.1'
-    implementation 'androidx.test.espresso:espresso-core:3.5.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    implementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation "androidx.multidex:multidex:2.0.1"
-    implementation 'com.google.dagger:hilt-android:2.44.2'
-    annotationProcessor 'com.google.dagger:hilt-compiler:2.44.2'
-    annotationProcessor 'com.google.dagger:hilt-android-compiler:2.44.2'
+    implementation 'com.google.dagger:hilt-android:2.45'
+    annotationProcessor 'com.google.dagger:hilt-compiler:2.45'
+    annotationProcessor 'com.google.dagger:hilt-android-compiler:2.45'
 
     // For instrumentation tests
-    androidTestImplementation  'com.google.dagger:hilt-android-testing:2.44.2'
-    androidTestAnnotationProcessor 'com.google.dagger:hilt-compiler:2.44.2'
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.45'
+    androidTestAnnotationProcessor 'com.google.dagger:hilt-compiler:2.45'
 
     // For local unit tests
-    testImplementation 'com.google.dagger:hilt-android-testing:2.44.2'
-    testAnnotationProcessor 'com.google.dagger:hilt-compiler:2.44.2'
+    testImplementation 'com.google.dagger:hilt-android-testing:2.45'
+    testAnnotationProcessor 'com.google.dagger:hilt-compiler:2.45'
 
     //implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
     implementation 'com.android.support:support-annotations:28.0.0'
@@ -141,8 +143,8 @@ dependencies {
     //kapt "com.google.dagger:hilt-android-compiler:2.44.2"
 
     // Navigation
-    implementation "androidx.navigation:navigation-fragment:$navigation_version"
-    implementation "androidx.navigation:navigation-ui:$navigation_version"
+    implementation "androidx.navigation:navigation-fragment:2.6.0-alpha07"
+    implementation "androidx.navigation:navigation-ui:2.6.0-alpha07"
 
 
     //   Retrofit
@@ -153,14 +155,14 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava3:2.9.0"
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.10'
 
-    implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
-    implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.6'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
 
     //Firebase
     implementation 'com.github.FrangSierra:RxFirebase:1.5.6'
 
     //Material
-    implementation "com.google.android.material:material:1.7.0"
+    implementation 'com.google.android.material:material:1.8.0'
 
 }
 

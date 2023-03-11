@@ -22,6 +22,7 @@ import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.LiturgyHelper;
+import org.deiverbum.app.model.Today;
 import org.deiverbum.app.utils.Utils;
 
 import javax.inject.Inject;
@@ -49,6 +50,7 @@ public class BreviarioRepository {
     private final ApiService apiService;
     private final FirebaseDataSource firebaseDataSource;
     private final MediatorLiveData<DataWrapper<Liturgy, CustomException>> liveData = new MediatorLiveData<>();
+    private final MediatorLiveData<DataWrapper<Today, CustomException>> liveDataToday = new MediatorLiveData<>();
     private final TodayDao mTodayDao;
     private final FileDataSource fileDataSource;
 
@@ -85,7 +87,7 @@ public class BreviarioRepository {
                 TodayMixto mixtoEntity = mTodayDao.getMixtoOfToday(Integer.valueOf(theDate));
                 if (mixtoEntity != null) {
                     Liturgy theModel = mixtoEntity.getDomainModel();
-                    liveData.postValue(new DataWrapper<>(theModel));
+                    //liveData.postValue(new DataWrapper<>(theModel));
                 } else {
                     getFromFirebase(theDate, hourId);
                 }
@@ -96,9 +98,9 @@ public class BreviarioRepository {
 
                 if (oficioEntity != null) {
                     Liturgy theModel = oficioEntity.getDomainModel();
-                    liveData.postValue(new DataWrapper<>(theModel));
+                    //liveData.postValue(new DataWrapper<>(theModel));
                 } else {
-                    getFromFirebase(theDate, hourId);
+                    getFromApi(theDate, hourId);
                 }
                 break;
 
@@ -106,7 +108,7 @@ public class BreviarioRepository {
                 TodayLaudes laudesEntity = mTodayDao.getLaudesOfToday(Integer.valueOf(theDate));
                 if (laudesEntity != null) {
                     Liturgy theModel = laudesEntity.getDomainModel();
-                    liveData.postValue(new DataWrapper<>(theModel));
+                    //liveData.postValue(new DataWrapper<>(theModel));
                 } else {
                     getFromFirebase(theDate, hourId);
                 }
@@ -116,7 +118,7 @@ public class BreviarioRepository {
                 TodayTercia todayTercia = mTodayDao.getTerciaOfToday(Integer.valueOf(theDate));
                 if (todayTercia != null) {
                     Liturgy theModel = todayTercia.getDomainModel();
-                    liveData.postValue(new DataWrapper<>(theModel));
+                    //liveData.postValue(new DataWrapper<>(theModel));
                 } else {
                     getFromFirebase(theDate, hourId);
                 }
@@ -126,7 +128,7 @@ public class BreviarioRepository {
                 TodaySexta todaySexta = mTodayDao.getSextaOfToday(Integer.valueOf(theDate));
                 if (todaySexta != null) {
                     Liturgy theModel = todaySexta.getDomainModel();
-                    liveData.postValue(new DataWrapper<>(theModel));
+                    //liveData.postValue(new DataWrapper<>(theModel));
                 } else {
                     getFromFirebase(theDate, hourId);
                 }
@@ -136,7 +138,7 @@ public class BreviarioRepository {
                 TodayNona todayNona = mTodayDao.getNonaOfToday(Integer.valueOf(theDate));
                 if (todayNona != null) {
                     Liturgy theModel = todayNona.getDomainModel();
-                    liveData.postValue(new DataWrapper<>(theModel));
+                    //liveData.postValue(new DataWrapper<>(theModel));
                 } else {
                     getFromFirebase(theDate, hourId);
                 }
@@ -146,7 +148,7 @@ public class BreviarioRepository {
                 TodayVisperas todayVisperas = mTodayDao.getVisperasOfToday(Integer.valueOf(theDate));
                 if (todayVisperas != null) {
                     Liturgy theModel = todayVisperas.getDomainModel();
-                    liveData.postValue(new DataWrapper<>(theModel));
+                    //liveData.postValue(new DataWrapper<>(theModel));
                 } else {
                     getFromFirebase(theDate, hourId);
                 }
@@ -169,6 +171,96 @@ public class BreviarioRepository {
     }
 
 
+    public MediatorLiveData<DataWrapper<Today, CustomException>> getTodayFromLocal(String theDate, int hourId) {
+        //getFromFirebase(1);
+        switch (hourId) {
+            case 0:
+                TodayMixto mixtoEntity = mTodayDao.getMixtoOfToday(Integer.valueOf(theDate));
+                if (mixtoEntity != null) {
+                    Today theModel = mixtoEntity.getDomainModelToday();
+                    liveDataToday.postValue(new DataWrapper<>(theModel));
+                } else {
+                    getTodayFromApi(theDate, hourId);
+                }
+                break;
+
+            case 1:
+                TodayOficio oficioEntity = mTodayDao.getOficioOfToday(Integer.valueOf(theDate));
+                if (oficioEntity != null) {
+                    Today theModel = oficioEntity.getDomainModelToday();
+                    liveDataToday.postValue(new DataWrapper<>(theModel));
+                } else {
+                    getTodayFromApi(theDate, hourId);
+                }
+                break;
+
+            case 2:
+                TodayLaudes laudesEntity = mTodayDao.getLaudesOfToday(Integer.valueOf(theDate));
+                if (laudesEntity != null) {
+                    Liturgy theModel = laudesEntity.getDomainModel();
+                    //liveData.postValue(new DataWrapper<>(theModel));
+                } else {
+                    getFromFirebase(theDate, hourId);
+                }
+                break;
+
+            case 3:
+                TodayTercia todayTercia = mTodayDao.getTerciaOfToday(Integer.valueOf(theDate));
+                if (todayTercia != null) {
+                    Today theModel = todayTercia.getDomainModelToday();
+                    liveDataToday.postValue(new DataWrapper<>(theModel));
+                } else {
+                    getTodayFromApi(theDate, hourId);
+                }
+                break;
+
+            case 4:
+                TodaySexta todaySexta = mTodayDao.getSextaOfToday(Integer.valueOf(theDate));
+                if (todaySexta != null) {
+                    Liturgy theModel = todaySexta.getDomainModel();
+                    //liveData.postValue(new DataWrapper<>(theModel));
+                } else {
+                    getTodayFromApi(theDate, hourId);
+                }
+                break;
+
+            case 5:
+                TodayNona todayNona = mTodayDao.getNonaOfToday(Integer.valueOf(theDate));
+                if (todayNona != null) {
+                    Liturgy theModel = todayNona.getDomainModel();
+                    //liveData.postValue(new DataWrapper<>(theModel));
+                } else {
+                    getTodayFromApi(theDate, hourId);
+                }
+                break;
+
+            case 6:
+                TodayVisperas todayVisperas = mTodayDao.getVisperasOfToday(Integer.valueOf(theDate));
+                if (todayVisperas != null) {
+                    Liturgy theModel = todayVisperas.getDomainModel();
+                    //liveData.postValue(new DataWrapper<>(theModel));
+                } else {
+                    getTodayFromApi(theDate, hourId);
+                }
+                break;
+
+            case 7:
+                TodayCompletas completasEntity = mTodayDao.getCompletasOfToday(Integer.valueOf(theDate));
+                if (completasEntity != null) {
+                    Liturgy liturgy = completasEntity.getDomainModel();
+                    getFromFile(liturgy);
+                } else {
+                    getFromFirebase(theDate, hourId);
+                }
+                break;
+
+            default:
+                break;
+        }
+        return liveDataToday;
+    }
+
+
     public void getFromFile(Liturgy liturgy) {
         fileDataSource.getCompletas(liturgy)
                 .subscribeOn(Schedulers.io())
@@ -178,7 +270,7 @@ public class BreviarioRepository {
                     @Override
                     public void onSuccess(@NonNull DataWrapper<Liturgy,
                             CustomException> data) {
-                        liveData.postValue(data);
+                        //liveData.postValue(data);
                         dispose();
                     }
 
@@ -213,6 +305,7 @@ public class BreviarioRepository {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+
                         getFromApi(theDate, hourId);
                     }
                 });
@@ -247,4 +340,27 @@ public class BreviarioRepository {
                     }
                 });
     }
+
+    public void getTodayFromApi(String theDate, int hourId) {
+        String endPoint = LiturgyHelper.myMap.get(hourId);
+        apiService.getToday(endPoint, Utils.cleanDate(theDate))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<Today>() {
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull Today r) {
+                        liveDataToday.postValue(new DataWrapper<>(r));
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        liveDataToday.setValue(new DataWrapper<>(new CustomException(CONTENT_TO_SYNC)));
+                    }
+                });
+    }
+
 }

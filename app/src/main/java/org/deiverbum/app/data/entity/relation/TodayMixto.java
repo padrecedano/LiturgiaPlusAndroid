@@ -43,7 +43,7 @@ import java.util.List;
 /**
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  */
 public class TodayMixto {
 
@@ -106,7 +106,6 @@ public class TodayMixto {
     )
     public OficceVerseAll oficioVerso;
 
-
     @Relation(
             entity = LHOfficeBiblicalJoinEntity.class,
             parentColumn = "oBiblicalFK",
@@ -120,7 +119,6 @@ public class TodayMixto {
             entityColumn = "groupFK"
     )
     public org.deiverbum.app.data.entity.relation.LHOfficePatristic patristica;
-
 
     @Relation(
             entity = LHOfficePatristicEntity.class,
@@ -143,7 +141,6 @@ public class TodayMixto {
     )
     public List<MisaWithLecturas> lecturas;
 
-
     @Relation(
             entity = LHIntercessionsJoinEntity.class,
             parentColumn = "lIntercessionsFK",
@@ -159,14 +156,12 @@ public class TodayMixto {
     )
     public LHPrayerAll lhPrayerAll;
 
-
     @Relation(
             entity = MassReadingEntity.class,
             parentColumn = "massReadingFK",
             entityColumn = "liturgyFK"
     )
     public List<MisaWithComentariosRename> comentarios;
-
 
     public List<MassReading> getEvangelios(){
         List<MassReading> listModel=new ArrayList<>();
@@ -186,8 +181,6 @@ public class TodayMixto {
         dm.setHasSaint(today.hasSaint);
         return dm;
     }
-
-
 
     public LHHymn getHimno(){
         return himno.getDomainModel();
@@ -243,13 +236,13 @@ public class TodayMixto {
         dm.typeID=0;
         Today dmToday=getToday();
 
-        dm.setHoy(dmToday);
+        dm.setToday(dmToday);
         BreviaryHour bh=new BreviaryHour();
         Mixto mixto=new Mixto();
         Oficio oficio=new Oficio();
         Laudes laudes=new Laudes();
 
-        mixto.setHoy(dmToday);
+        mixto.setToday(dmToday);
 
         if(santo!=null) {
             dm.setSanto(santo.getDomainModelLH());
@@ -280,5 +273,51 @@ public class TodayMixto {
         mixto.setEvangelios(getEvangelios());
         dm.setBreviaryHour(bh);
         return dm;
+    }
+
+    public Today getDomainModelToday(){
+        Liturgy dm= feria.getDomainModel();
+        dm.typeID=0;
+        Today dmToday=getToday();
+
+        dm.setToday(dmToday);
+        BreviaryHour bh=new BreviaryHour();
+        Mixto mixto=new Mixto();
+        Oficio oficio=new Oficio();
+        Laudes laudes=new Laudes();
+
+        mixto.setToday(dmToday);
+
+        if(santo!=null) {
+            dm.setSanto(santo.getDomainModelLH());
+        }
+        if(dmToday.getHasSaint()==1){
+            mixto.setSanto(santo.getDomainModelLH());
+        }
+        mixto.setInvitatorio(getInvitatorio());
+        laudes.setHimno(getHimno());
+        laudes.setSalmodia(getSalmodia());
+        laudes.setLecturaBreve(getBiblica());
+        laudes.setBenedictus(getBenedictus());
+        laudes.setPreces(getPreces());
+        laudes.setOracion(getOracion());
+        LHOfficeOfReading ol=new LHOfficeOfReading();
+        ol.setBiblica(getBiblicas());
+        ol.setPatristica(getPatristicas());
+        ol.setResponsorio(getOficioVerso());
+        oficio.setOficioLecturas(ol);
+        oficio.setTeDeum(new TeDeum(today.oTeDeum));
+        laudes.setLecturaBreve(getBiblica());
+        laudes.setBenedictus(getBenedictus());
+        laudes.setPreces(getPreces());
+        laudes.setOracion(getOracion());
+        mixto.setOficio(oficio);
+        mixto.setLaudes(laudes);
+        bh.setMixto(mixto);
+        mixto.setEvangelios(getEvangelios());
+        dm.setBreviaryHour(bh);
+        dmToday.liturgyDay=dm;
+
+        return dmToday;
     }
 }

@@ -6,7 +6,7 @@ import static org.deiverbum.app.utils.Utils.normalizeEnd;
  * <p>Nueva clase para manejar libros de la Biblia en el contexto litúrgico.</p>
  * @author A. Cedano
  * @version 1.0
- * @since 2022.2
+ * @since 2023.1
  */
 public class BibleBook {
     private Integer id;

@@ -87,7 +87,7 @@
         <argument
             android:name="rawPath"
             app:argType="string"
-            android:defaultValue="raw/new_202201.json" />
+            android:defaultValue="raw/new_202301.json" />
     </fragment>
 
     <fragment
@@ -98,7 +98,7 @@
     <argument
         android:name="rawPath"
         app:argType="string"
-        android:defaultValue="raw/privacy_202201.json" />
+        android:defaultValue="raw/privacy_202301.json" />
     </fragment>
 
     <fragment
@@ -109,7 +109,7 @@
         <argument
             android:name="rawPath"
             app:argType="string"
-            android:defaultValue="raw/terms_202201.json" />
+            android:defaultValue="raw/terms_202301.json" />
     </fragment>
 
     <fragment

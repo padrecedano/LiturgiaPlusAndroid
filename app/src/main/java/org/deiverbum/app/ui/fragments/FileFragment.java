@@ -75,9 +75,7 @@ public class FileFragment extends Fragment {
                         } else {
                             mTextView.setText(Utils.fromHtml(data.getError()));
                         }
-
                     });
-
         }
       }
     @Override
