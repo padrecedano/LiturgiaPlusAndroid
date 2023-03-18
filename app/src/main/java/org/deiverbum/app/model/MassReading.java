@@ -31,7 +31,7 @@ public class MassReading extends Biblical implements Comparable<MassReading>{
     public SpannableStringBuilder getAll() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(LS);
-        sb.append(getHeader());
+        sb.append(Utils.formatTitle(getHeader()));
         sb.append(LS2);
         sb.append(book.getLiturgyName());
         sb.append("    ");
@@ -61,7 +61,7 @@ public class MassReading extends Biblical implements Comparable<MassReading>{
         return sb;
     }
     @Override
-    public SpannableStringBuilder getHeader() {
+    public String getHeader() {
 
         String header="";
         if (this.order >= 1 && this.order <= 19) {
@@ -79,7 +79,7 @@ public class MassReading extends Biblical implements Comparable<MassReading>{
             header="EVANGELIO";
         }
 
-        return Utils.formatTitle(header);
+        return header;
     }
 
     public String findOrden(int orden) {

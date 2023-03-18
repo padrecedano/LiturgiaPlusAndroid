@@ -21,7 +21,7 @@ public class SaintLife {
     public String longLife;
     @PropertyName("martirologio")
     private String martyrology;
-    private String source="";
+    private String theSource ="";
     @Ignore
     @PropertyName("nombre")
     public String name;
@@ -30,6 +30,7 @@ public class SaintLife {
     private String dia;
     @Ignore
     private String mes;
+    @Ignore
     private String shortLife;
 
     public Integer getSaintFK() {
@@ -70,12 +71,12 @@ public class SaintLife {
         this.martyrology = martyrology;
     }
 
-    public String getSource() {
-        return source;
+    public String getTheSource() {
+        return theSource;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    public void setTheSource(String theSource) {
+        this.theSource = theSource;
     }
 
     public SpannableStringBuilder getMartirologioSpan() {
@@ -110,7 +111,7 @@ public class SaintLife {
             sb.append(LS2);
             sb.append(getVidaSpan());
             sb.append(LS2);
-            sb.append(Utils.fromHtmlSmall((getSource())));
+            sb.append(Utils.fromHtmlSmall((getTheSource())));
         } catch (Exception e) {
             sb.append(Utils.createErrorMessage(e.getMessage()));
         }
@@ -138,7 +139,7 @@ public class SaintLife {
     }
 
     private String getSourceForRead() {
-        return source;
+        return theSource;
     }
 
     public String getName() {

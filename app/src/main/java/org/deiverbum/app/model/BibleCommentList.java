@@ -61,8 +61,8 @@ public class BibleCommentList {
     public SpannableStringBuilder getAllForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
-            //sb.append(today.getAllForView());
-            //sb.append(LS2);
+            sb.append(today.getSingleForView());
+            sb.append(LS2);
             sb.append(getTitulo());
             sb.append(LS2);
             for (List<BibleComment> subList : allComentarios) {
@@ -88,7 +88,7 @@ public class BibleCommentList {
     public StringBuilder getAllForRead() {
         StringBuilder sb = new StringBuilder();
         try {
-            sb.append(today.getAllForRead());
+            sb.append(today.getSingleForRead());
             sb.append(getTituloForRead());
             for (List<BibleComment> subList : allComentarios) {
                 if (subList.size() > 0) {

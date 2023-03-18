@@ -9,7 +9,7 @@ import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
 
-public class LHOfficeOfReading {
+public class LHOfficeOfReading{
     @SuppressWarnings("unused")
     private String responsorio;
     private List<LHOfficeBiblical> biblica;

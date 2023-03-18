@@ -6,6 +6,7 @@ import static org.deiverbum.app.utils.Constants.VOICE_INI;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.TypedValue;
@@ -37,6 +38,8 @@ import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
 import org.deiverbum.app.viewmodel.SantosViewModel;
+
+import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -108,6 +111,9 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        String fontFamily = String.format(new Locale("es"),"fonts/%s",prefs.getString("font_name", "robotoslab_regular.ttf"));
+        Typeface tf= Typeface.createFromAsset(requireActivity().getAssets(),fontFamily);
+        mTextView .setTypeface(tf);
         isVoiceOn = prefs.getBoolean("voice", true);
         if (isVoiceOn) {
             sbReader = new StringBuilder(VOICE_INI);
@@ -118,13 +124,13 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
     private void pickOutDate() {
         Bundle bundle = getArguments();
         String mDate = (bundle != null) ? bundle.getString("FECHA") : Utils.getHoy();
-        observeData(mDate);
-
+        int[] monthAndDay=Utils.getMonthAndDay(mDate);
+        observeData(monthAndDay);
     }
 
-    void observeData(String mDate) {
+    void observeData(int[]monthAndDay) {
         mTextView.setText(PACIENCIA);
-        mViewModel.getSaintLife(mDate).observe(getViewLifecycleOwner(),
+        mViewModel.getSaintLife(monthAndDay).observe(getViewLifecycleOwner(),
                 data -> {
                     progressBar.setVisibility(View.GONE);
                     if (data.status == DataWrapper.Status.SUCCESS) {

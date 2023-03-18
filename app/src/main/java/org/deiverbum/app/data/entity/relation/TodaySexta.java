@@ -5,11 +5,10 @@ import androidx.room.Relation;
 
 import org.deiverbum.app.data.entity.LHHymnJoinEntity;
 import org.deiverbum.app.data.entity.LHPrayerEntity;
+import org.deiverbum.app.data.entity.LHPsalmodyEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
 import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
 import org.deiverbum.app.data.entity.LiturgyEntity;
-import org.deiverbum.app.data.entity.LHPsalmodyEntity;
-import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.TodayEntity;
 import org.deiverbum.app.model.BiblicalShort;
 import org.deiverbum.app.model.BreviaryHour;
@@ -18,7 +17,6 @@ import org.deiverbum.app.model.LHHymn;
 import org.deiverbum.app.model.LHPsalmody;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.Prayer;
-import org.deiverbum.app.model.Saint;
 import org.deiverbum.app.model.Today;
 
 import java.util.List;
@@ -32,14 +30,6 @@ public class TodaySexta {
 
     @Embedded
     public TodayEntity today;
-
-    @Relation(
-            entity = SaintEntity.class,
-            parentColumn = "saintFK",
-            entityColumn = "saintID"
-    )
-    public SaintEntity santo;
-
 
     @Relation(
             entity = LHHymnJoinEntity.class,
@@ -120,19 +110,11 @@ public class TodaySexta {
         return himno.getDomainModel();
     }
 
-
-
     public BiblicalShort getBiblica(){
         return  biblica.getDomainModel(today.getTiempoId());
     }
 
-    public Saint getSanto(){
-        return  santo.getDomainModel();
-    }
-
-
     public LHPsalmody getSalmodia() {
-
         return salmodia.getDomainModel();
     }
 
@@ -140,5 +122,21 @@ public class TodaySexta {
         return lhPrayerAll.getDomainModel();
     }
 
+    public Today getDomainModelToday(){
+        Liturgy dm= feria.getDomainModel();
+        BreviaryHour bh=new BreviaryHour();
+        Intermedia hi=new Intermedia();
+        Today dmToday=getToday();
+        dm.typeID=4;
+        hi.setTypeId(4);
+        hi.setHimno(getHimno());
+        hi.setSalmodia(getSalmodia());
+        hi.setLecturaBreve(getBiblica());
+        hi.setOracion(getOracion());
+        bh.setIntermedia(hi);
+        dm.setBreviaryHour(bh);
+        dmToday.liturgyDay=dm;
+        return dmToday;
+    }
 
 }

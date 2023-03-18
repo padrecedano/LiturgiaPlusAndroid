@@ -4,7 +4,7 @@ import androidx.room.Embedded;
 import androidx.room.Relation;
 
 import org.deiverbum.app.data.entity.SaintEntity;
-import org.deiverbum.app.data.entity.TodayEntity;
+import org.deiverbum.app.data.entity.SaintLifeEntity;
 import org.deiverbum.app.model.SaintLife;
 
 /**
@@ -15,16 +15,23 @@ import org.deiverbum.app.model.SaintLife;
 public class TodaySanto {
 
     @Embedded
-    public TodayEntity today;
+    public SaintEntity saint;
 
     @Relation(
-            entity = SaintEntity.class,
-            parentColumn = "saintFK",
-            entityColumn = "saintID" //liturgiaId
+            entity = SaintLifeEntity.class,
+            parentColumn = "saintID",
+            entityColumn = "saintFK"
     )
-    public SaintLifeWithAll santo;
+    public SaintLife saintLife;
 
     public SaintLife getDomainModel(){
-        return santo.saintLife != null ? santo.getDomainModel() : null;
+        SaintLife dm= new SaintLife();
+        dm.setLongLife(saintLife.getLongLife());
+        dm.setMartyrology(saintLife.getMartyrology());
+        dm.setTheSource(saintLife.getTheSource());
+        dm.setDia(String.valueOf(saint.getTheDay()));
+        dm.setMes(String.valueOf(saint.getTheMonth()));
+        dm.setName(saint.getTheName());
+        return dm;
     }
 }

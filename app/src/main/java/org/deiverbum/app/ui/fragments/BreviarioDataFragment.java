@@ -34,7 +34,6 @@ import androidx.navigation.ui.NavigationUI;
 import org.deiverbum.app.R;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentBreviarioDataBinding;
-import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.utils.TextToSpeechCallback;
 import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
@@ -124,11 +123,10 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
         progressBar = binding.pb.progressBar;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         String fontFamily = String.format(new Locale("es"),"fonts/%s",prefs.getString("font_name", "robotoslab_regular.ttf"));
         Typeface tf= Typeface.createFromAsset(requireActivity().getAssets(),fontFamily);
         mTextView .setTypeface(tf);
-
-        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         hasInvitatory = prefs.getBoolean("invitatorio", false);
         isVoiceOn = prefs.getBoolean("voice", true);
         if (isVoiceOn) {
@@ -137,27 +135,6 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
         pickOutDate();
     }
 
-    private void observeHour() {
-        int hourId;
-        if (getArguments() != null) {
-            hourId = getArguments().getInt("hourId");
-            mTextView.setText(PACIENCIA);
-            mViewModel.getBreviary(mDate,hourId).observe(getViewLifecycleOwner(), data -> {
-                progressBar.setVisibility(View.GONE);
-                if (data.status == DataWrapper.Status.SUCCESS) {
-                    Liturgy liturgy =data.getData();
-                    //liturgy.lhInvitatory.isUnique=this.hasInvitatory;
-                    //mTextView.setText(liturgy.getForView(hasInvitatory));
-                    if (isVoiceOn) {
-                        sbReader.append(data.getData().getAllForRead());
-                        //setPlayerButton();
-                    }
-                } else {
-                    mTextView.setText(Utils.fromHtml(data.getError()));
-                }
-            });
-        }
-    }
 
     private void observeToday() {
         int hourId;
@@ -167,11 +144,7 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
             mViewModel.getToday(mDate,hourId).observe(getViewLifecycleOwner(), data -> {
                 progressBar.setVisibility(View.GONE);
                 if (data.status == DataWrapper.Status.SUCCESS) {
-                    Liturgy liturgy =data.getData().liturgyDay;
                     mTextView.setText(data.getData().getAllForView(hasInvitatory));
-
-                    //liturgy.lhInvitatory.isUnique=this.hasInvitatory;
-                    //mTextView.setText(liturgy.getForView(hasInvitatory));
                     if (isVoiceOn) {
                         sbReader.append(data.getData().getAllForRead());
                         //setPlayerButton();

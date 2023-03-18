@@ -42,6 +42,7 @@ import java.util.Objects;
  *
  * @author Alfertson Cedano Guerrero
  */
+@SuppressWarnings("all")
 public final class Utils {
 
     public static final String LS = System.getProperty("line.separator");
@@ -233,6 +234,7 @@ public final class Utils {
      */
 
     @Deprecated
+    //noinspection
     public static SpannableStringBuilder getSaludoEnElNombre() {
         SpannableStringBuilder ssb = new SpannableStringBuilder("");
         SpannableStringBuilder ssbPartial = new SpannableStringBuilder("V/. En el nombre del Padre, y del Hijo, y del Espíritu Santo.");
@@ -251,7 +253,7 @@ public final class Utils {
      * @deprecated desde v. 2022.01 - Usar en su lugar {@link BreviaryHour#getConclusionHorasMayores()}
      */
     @Deprecated
-
+    //noinspection
     public static SpannableStringBuilder getConclusionHorasMayores() {
         SpannableStringBuilder ssb = new SpannableStringBuilder(formatTitle("CONCLUSIÓN"));
         ssb.append(LS2);
@@ -354,6 +356,7 @@ public final class Utils {
         Solución a fromHTML deprecated...
         ver: http://stackoverflow.com/questions/37904739/html-fromhtml-deprecated-in-android-n
      */
+    //noinspection
     public static Spanned fromHtml(String s) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             return Html.fromHtml(getFormato(s), Html.FROM_HTML_MODE_LEGACY);
@@ -455,21 +458,15 @@ public final class Utils {
      */
 
     public static String formatDate(String s) {
-        SimpleDateFormat srcFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        //java.util.Date temp = srcFormat.parse(s);
-        //Date thisDate = changeFormat.parse("2012-07-10 14:58:00.000000");
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
-        Date dateObj = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", new Locale("es", "ES"));
+        Date dateObj;
         try {
-            dateObj = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(s);
-            //dateObj = sdf.parse(s);
+            dateObj = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",new Locale("es", "ES")).parse(s);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
 
-        return sdf.format(dateObj);
+        return sdf.format(Objects.requireNonNull(dateObj));
     }
 
     /**
@@ -521,13 +518,28 @@ public final class Utils {
     }
 
     /**
-     * Método que formatea una fecha dada en forma legible larga: 22 de Agosto de 1972
+     * Método que devuelve el mes y el día de una fecha dada
      *
-     * @param theDate La fecha a formatear
-     * @return Una cadena con la fecha
+     * @param dateString La fecha a formatear
+     * @return Un array con el mes y el día de la fecha
      * @since 2023.1
      */
 
+    public static int[] getMonthAndDay(String dateString) {
+        Calendar c = Calendar.getInstance();
+        int[] monthAndDay = new int[2];
+        try {
+            Date theDate = new SimpleDateFormat("yyyyMMdd",new Locale("es", "ES")).parse(dateString);
+            c.setTime(Objects.requireNonNull(theDate));
+            monthAndDay[0]=c.get(Calendar.MONTH)+1;
+            monthAndDay[1]=c.get(Calendar.DAY_OF_MONTH);
+            return monthAndDay;
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
+    @SuppressWarnings("unused")
     public static int getDayOfWeek(Integer theDate) {
         String dateString=String.valueOf(theDate);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -570,7 +582,6 @@ public final class Utils {
         );
     }
 
-
     /**
      * Quita el carácter / a las fechas que son pasadas inicialmente
      * para buscar datos en Firebase, a fin de hacer peticiones de Api
@@ -606,6 +617,7 @@ public final class Utils {
      * @return Una cadena con la parte del mes
      * @since 2022.1
      */
+    @SuppressWarnings("unused")
     public static String getMonth(String date) {
         return date.substring(4, 6);
     }

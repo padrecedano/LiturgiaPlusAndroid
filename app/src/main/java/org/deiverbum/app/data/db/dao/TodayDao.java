@@ -39,6 +39,7 @@ import org.deiverbum.app.data.entity.LHResponsoryShortEntity;
 import org.deiverbum.app.data.entity.LHThemeEntity;
 import org.deiverbum.app.data.entity.LiturgyEntity;
 import org.deiverbum.app.data.entity.LiturgyHomilyJoinEntity;
+import org.deiverbum.app.data.entity.LiturgySaintJoinEntity;
 import org.deiverbum.app.data.entity.MassReadingEntity;
 import org.deiverbum.app.data.entity.MassReadingJoinEntity;
 import org.deiverbum.app.data.entity.PaterEntity;
@@ -47,6 +48,7 @@ import org.deiverbum.app.data.entity.PrayerEntity;
 import org.deiverbum.app.data.entity.PsalmEntity;
 import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.SaintLifeEntity;
+import org.deiverbum.app.data.entity.SaintShortLifeEntity;
 import org.deiverbum.app.data.entity.SyncStatusEntity;
 import org.deiverbum.app.data.entity.TodayEntity;
 import org.deiverbum.app.data.entity.relation.TodayComentarios;
@@ -91,6 +93,7 @@ import org.deiverbum.app.model.LHResponsoryTable;
 import org.deiverbum.app.model.LHTheme;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.LiturgyHomilyJoin;
+import org.deiverbum.app.model.LiturgySaintJoin;
 import org.deiverbum.app.model.MassReadingJoin;
 import org.deiverbum.app.model.MassReadingTable;
 import org.deiverbum.app.model.Pater;
@@ -98,6 +101,7 @@ import org.deiverbum.app.model.PaterOpus;
 import org.deiverbum.app.model.Prayer;
 import org.deiverbum.app.model.Saint;
 import org.deiverbum.app.model.SaintLife;
+import org.deiverbum.app.model.SaintShortLife;
 import org.deiverbum.app.model.SyncStatus;
 import org.deiverbum.app.model.Today;
 
@@ -191,9 +195,11 @@ public interface TodayDao {
     @Query(todayByDate)
     TodayMisaLecturas getMisaLecturas(Integer theDate);
 
+    //@Query(todayByDate)
+    String sqlSaint = "SELECT * FROM saint AS s WHERE s.theMonth=:theMonth AND theDay =:theDay";
     @Transaction
-    @Query(todayByDate)
-    TodaySanto getSantoOfToday(Integer theDate);
+    @Query(sqlSaint)
+    TodaySanto getSantoOfToday(int theMonth, int theDay);
 
     @Transaction
     @Query(todayByDate)
@@ -305,6 +311,18 @@ public interface TodayDao {
     @Delete(entity = LiturgyHomilyJoinEntity.class)
     void liturgyHomilyJoinDeleteAll(List<LiturgyHomilyJoin> modelList);
 
+    @Insert(entity = LiturgySaintJoinEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void liturgySaintJoinInsertAll(List<LiturgySaintJoin> list);
+
+    @Update(entity = LiturgySaintJoinEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void liturgySaintJoinUpdateAll(List<LiturgySaintJoin> list);
+
+    @Delete(entity = LiturgySaintJoinEntity.class)
+    void liturgySaintJoinDeleteAll(List<LiturgySaintJoin> modelList);
+
+
     @Query("UPDATE sync_status SET lastUpdate=:lastUpdate")
     void syncUpdate(String lastUpdate);
 
@@ -362,6 +380,17 @@ public interface TodayDao {
 
     @Delete(entity = SaintEntity.class)
     void saintDeleteAll(List<Saint> d);
+
+    @Insert(entity = SaintShortLifeEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void saintShortLifeInsertAll(List<SaintShortLife> c);
+
+    @Update(entity = SaintShortLifeEntity.class,
+            onConflict = OnConflictStrategy.REPLACE)
+    void saintShortLifeUpdateAll(List<SaintShortLife> u);
+
+    @Delete(entity = SaintShortLifeEntity.class)
+    void saintShortLifeDeleteAll(List<SaintShortLife> d);
 
     @Insert(entity = SaintLifeEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
@@ -650,9 +679,6 @@ public interface TodayDao {
 
     @Delete(entity = LHPrayerEntity.class)
     void lhPrayerDeleteAll(List<LHPrayer> d);
-
-
-
 
 
 }

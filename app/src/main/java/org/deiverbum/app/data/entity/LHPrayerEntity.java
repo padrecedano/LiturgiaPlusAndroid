@@ -39,9 +39,5 @@ public class LHPrayerEntity {
     @NonNull
     @ColumnInfo(name = "prayerFK",index = true)
     public Integer oracionFK=0;
-
-
-
-
 }
 

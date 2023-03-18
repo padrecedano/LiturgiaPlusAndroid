@@ -29,8 +29,7 @@ public class Liturgy {
     public LHInvitatory lhInvitatory;
     @Ignore
     public int typeID;
-    @Ignore
-    public LHPsalmody lhPsalmody;
+
     @Ignore
     private BreviaryHour breviaryHour;
     private Integer liturgyID;
@@ -138,6 +137,7 @@ public class Liturgy {
         this.liturgyID = liturgiaId;
     }
 
+    @SuppressWarnings("unused")
     public Integer getColorId() {
         return colorFK;
     }
@@ -187,6 +187,7 @@ public class Liturgy {
         return this.week;
     }
 
+    @SuppressWarnings("unused")
     public LiturgyTime getLiturgyTime() {
         return liturgyTime;
     }
@@ -199,8 +200,8 @@ public class Liturgy {
         this.santo = santo;
     }
 
-    public SpannableStringBuilder getAllForRead() {
-        SpannableStringBuilder ssb = new SpannableStringBuilder();
+    public StringBuilder getAllForRead() {
+        StringBuilder ssb = new StringBuilder();
         try {
             this.timeFK = liturgyTime.getTimeID();
             if (
@@ -242,17 +243,20 @@ public class Liturgy {
     }
 
     public SpannableStringBuilder getForView(boolean hasInvitatory, Integer previousFK) {
-        SpannableStringBuilder ssb = new SpannableStringBuilder("");
         try {
-            //ssb.append(today.getAllForView(hasInvitatory));
-
             if (typeID == 0) {
-                return breviaryHour.getMixto(hasInvitatory).getForView(liturgyTime);
+                if (today.oBiblicalFK==600010101){
+                    return breviaryHour.getOficioEaster().getForView();
+                } else {
+                    return breviaryHour.getMixto(hasInvitatory).getForView(liturgyTime);
+                }
             }
             if (typeID == 1) {
-                //ssb.append(today.getAllForView());
-                ssb.append(breviaryHour.getOficio(hasInvitatory).getForView(liturgyTime));
-                return ssb;
+                if (today.oBiblicalFK==600010101){
+                    return breviaryHour.getOficioEaster().getForView();
+                }else {
+                    return breviaryHour.getOficio(hasInvitatory).getForView(liturgyTime);
+                }
             }
             if (typeID == 2) {
                 return breviaryHour.getLaudes(hasInvitatory).getForView(liturgyTime);
@@ -264,7 +268,7 @@ public class Liturgy {
                 return breviaryHour.getVisperas().getForView(liturgyTime,previousFK);
             }
             if (typeID == 7) {
-                return breviaryHour.getCompletas().getForView(liturgyTime);
+                return breviaryHour.getCompletas().getAllForView(liturgyTime);
             }
             return new SpannableStringBuilder(CONTENT_NOTFOUND);
         } catch (Exception e) {
@@ -278,11 +282,21 @@ public class Liturgy {
 
     public StringBuilder getForRead() {
         try {
+            //Integer typeID=breviaryHour.typeID;
+
             if (typeID == 0) {
-                return breviaryHour.getMixto(hasInvitatory).getForReadd();
+                if (today.oBiblicalFK == 600010101) {
+                    return breviaryHour.getOficioEaster().getForRead();
+                } else {
+                    return breviaryHour.getMixto(hasInvitatory).getAllForRead();
+                }
             }
             if (typeID == 1) {
-                return breviaryHour.getOficio().getForRead();
+                if (today.oBiblicalFK==600010101){
+                    return breviaryHour.getOficioEaster().getForRead();
+                }else {
+                    return breviaryHour.getOficio(hasInvitatory).getForRead();
+                }
             }
             if (typeID == 2) {
                 return breviaryHour.getLaudes().getForRead();
@@ -291,7 +305,7 @@ public class Liturgy {
                 return breviaryHour.getIntermedia().getForRead();
             }
             if (typeID == 6) {
-                return breviaryHour.getVisperas().getForRead();
+                return breviaryHour.getVisperas().getAllForRead(today.getPreviousFK());
             }
             if (typeID == 7) {
                 return breviaryHour.getCompletas().getForRead();

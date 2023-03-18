@@ -7,6 +7,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.deiverbum.app.model.Pater;
+import org.deiverbum.app.model.Prayer;
+
 /**
  * @author A. Cedano
  * @version 1.0
@@ -32,5 +35,12 @@ public class PrayerEntity {
     public String getTexto() {
         return texto;
     }
+
+    public Prayer getDomainModel() {
+        Prayer dm=new Prayer();
+        dm.setPrayer(texto);
+        return dm;
+    }
+
 }
 

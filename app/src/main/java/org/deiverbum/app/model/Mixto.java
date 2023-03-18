@@ -116,7 +116,8 @@ public class Mixto extends BreviaryHour {
         return sb;
     }
 
-    public StringBuilder getForReadd() {
+    @Override
+    public StringBuilder getAllForRead() {
         StringBuilder sb = new StringBuilder();
 
         try {

@@ -80,97 +80,6 @@ public class BreviarioRepository {
      */
 
 
-    public MediatorLiveData<DataWrapper<Liturgy, CustomException>> getFromLocal(String theDate, int hourId) {
-        //getFromFirebase(1);
-        switch (hourId) {
-            case 0:
-                TodayMixto mixtoEntity = mTodayDao.getMixtoOfToday(Integer.valueOf(theDate));
-                if (mixtoEntity != null) {
-                    Liturgy theModel = mixtoEntity.getDomainModel();
-                    //liveData.postValue(new DataWrapper<>(theModel));
-                } else {
-                    getFromFirebase(theDate, hourId);
-                }
-                break;
-
-            case 1:
-                TodayOficio oficioEntity = mTodayDao.getOficioOfToday(Integer.valueOf(theDate));
-
-                if (oficioEntity != null) {
-                    Liturgy theModel = oficioEntity.getDomainModel();
-                    //liveData.postValue(new DataWrapper<>(theModel));
-                } else {
-                    getFromApi(theDate, hourId);
-                }
-                break;
-
-            case 2:
-                TodayLaudes laudesEntity = mTodayDao.getLaudesOfToday(Integer.valueOf(theDate));
-                if (laudesEntity != null) {
-                    Liturgy theModel = laudesEntity.getDomainModel();
-                    //liveData.postValue(new DataWrapper<>(theModel));
-                } else {
-                    getFromFirebase(theDate, hourId);
-                }
-                break;
-
-            case 3:
-                TodayTercia todayTercia = mTodayDao.getTerciaOfToday(Integer.valueOf(theDate));
-                if (todayTercia != null) {
-                    Liturgy theModel = todayTercia.getDomainModel();
-                    //liveData.postValue(new DataWrapper<>(theModel));
-                } else {
-                    getFromFirebase(theDate, hourId);
-                }
-                break;
-
-            case 4:
-                TodaySexta todaySexta = mTodayDao.getSextaOfToday(Integer.valueOf(theDate));
-                if (todaySexta != null) {
-                    Liturgy theModel = todaySexta.getDomainModel();
-                    //liveData.postValue(new DataWrapper<>(theModel));
-                } else {
-                    getFromFirebase(theDate, hourId);
-                }
-                break;
-
-            case 5:
-                TodayNona todayNona = mTodayDao.getNonaOfToday(Integer.valueOf(theDate));
-                if (todayNona != null) {
-                    Liturgy theModel = todayNona.getDomainModel();
-                    //liveData.postValue(new DataWrapper<>(theModel));
-                } else {
-                    getFromFirebase(theDate, hourId);
-                }
-                break;
-
-            case 6:
-                TodayVisperas todayVisperas = mTodayDao.getVisperasOfToday(Integer.valueOf(theDate));
-                if (todayVisperas != null) {
-                    Liturgy theModel = todayVisperas.getDomainModel();
-                    //liveData.postValue(new DataWrapper<>(theModel));
-                } else {
-                    getFromFirebase(theDate, hourId);
-                }
-                break;
-
-            case 7:
-                TodayCompletas completasEntity = mTodayDao.getCompletasOfToday(Integer.valueOf(theDate));
-                if (completasEntity != null) {
-                    Liturgy liturgy = completasEntity.getDomainModel();
-                    getFromFile(liturgy);
-                } else {
-                    getFromFirebase(theDate, hourId);
-                }
-                break;
-
-            default:
-                break;
-        }
-        return liveData;
-    }
-
-
     public MediatorLiveData<DataWrapper<Today, CustomException>> getTodayFromLocal(String theDate, int hourId) {
         //getFromFirebase(1);
         switch (hourId) {
@@ -197,10 +106,10 @@ public class BreviarioRepository {
             case 2:
                 TodayLaudes laudesEntity = mTodayDao.getLaudesOfToday(Integer.valueOf(theDate));
                 if (laudesEntity != null) {
-                    Liturgy theModel = laudesEntity.getDomainModel();
-                    //liveData.postValue(new DataWrapper<>(theModel));
+                    Today theModel = laudesEntity.getDomainModelToday();
+                    liveDataToday.postValue(new DataWrapper<>(theModel));
                 } else {
-                    getFromFirebase(theDate, hourId);
+                    getTodayFromApi(theDate, hourId);
                 }
                 break;
 
@@ -217,8 +126,8 @@ public class BreviarioRepository {
             case 4:
                 TodaySexta todaySexta = mTodayDao.getSextaOfToday(Integer.valueOf(theDate));
                 if (todaySexta != null) {
-                    Liturgy theModel = todaySexta.getDomainModel();
-                    //liveData.postValue(new DataWrapper<>(theModel));
+                    Today theModel = todaySexta.getDomainModelToday();
+                    liveDataToday.postValue(new DataWrapper<>(theModel));
                 } else {
                     getTodayFromApi(theDate, hourId);
                 }
@@ -227,8 +136,8 @@ public class BreviarioRepository {
             case 5:
                 TodayNona todayNona = mTodayDao.getNonaOfToday(Integer.valueOf(theDate));
                 if (todayNona != null) {
-                    Liturgy theModel = todayNona.getDomainModel();
-                    //liveData.postValue(new DataWrapper<>(theModel));
+                    Today theModel = todayNona.getDomainModelToday();
+                    liveDataToday.postValue(new DataWrapper<>(theModel));
                 } else {
                     getTodayFromApi(theDate, hourId);
                 }
@@ -237,8 +146,8 @@ public class BreviarioRepository {
             case 6:
                 TodayVisperas todayVisperas = mTodayDao.getVisperasOfToday(Integer.valueOf(theDate));
                 if (todayVisperas != null) {
-                    Liturgy theModel = todayVisperas.getDomainModel();
-                    //liveData.postValue(new DataWrapper<>(theModel));
+                    Today theModel = todayVisperas.getDomainModelToday();
+                    liveDataToday.postValue(new DataWrapper<>(theModel));
                 } else {
                     getTodayFromApi(theDate, hourId);
                 }
@@ -247,10 +156,12 @@ public class BreviarioRepository {
             case 7:
                 TodayCompletas completasEntity = mTodayDao.getCompletasOfToday(Integer.valueOf(theDate));
                 if (completasEntity != null) {
-                    Liturgy liturgy = completasEntity.getDomainModel();
-                    getFromFile(liturgy);
+                    Today t=completasEntity.getToday();
+                    Liturgy liturgy = t.liturgyDay;//completasEntity.getDomainModel();
+                    getFromFileToday(t);
+
                 } else {
-                    getFromFirebase(theDate, hourId);
+                    getTodayFromApi(theDate, hourId);
                 }
                 break;
 
@@ -259,6 +170,7 @@ public class BreviarioRepository {
         }
         return liveDataToday;
     }
+
 
 
     public void getFromFile(Liturgy liturgy) {
@@ -270,7 +182,8 @@ public class BreviarioRepository {
                     @Override
                     public void onSuccess(@NonNull DataWrapper<Liturgy,
                             CustomException> data) {
-                        //liveData.postValue(data);
+                        //data.getData().liturgyDay.typeID=7;
+                        liveData.postValue(data);
                         dispose();
                     }
 
@@ -282,6 +195,27 @@ public class BreviarioRepository {
                 });
     }
 
+    public void getFromFileToday(Today today) {
+        fileDataSource.getCompletasToday(today)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<DataWrapper<Today,
+                        CustomException>>() {
+                    @Override
+                    public void onSuccess(@NonNull DataWrapper<Today,
+                            CustomException> data) {
+                        data.getData().liturgyDay.typeID=7;
+                        liveDataToday.postValue(data);
+                        dispose();
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        liveData.postValue(new DataWrapper<>(new CustomException(String.format("Error:\n%s%s", e.getMessage(), ERR_REPORT))));
+                        dispose();
+                    }
+                });
+    }
 
     /**
      * Este método buscará en Firestore mediante {@link FirebaseDataSource#getBreviary(String, int)}

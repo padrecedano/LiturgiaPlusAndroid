@@ -17,6 +17,7 @@ import org.deiverbum.app.model.Completas;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.OracionSimple;
 import org.deiverbum.app.model.Rosario;
+import org.deiverbum.app.model.Today;
 import org.deiverbum.app.model.ViaCrucis;
 
 import java.io.InputStream;
@@ -169,7 +170,8 @@ public class FileDataSource {
      * @return Observable del tipo solicitado o error.
      * @since 2022.01.01
      */
-    @SuppressWarnings("ResultOfMethodCallIgnored")
+
+    @SuppressWarnings({"unused", "ResultOfMethodCallIgnored"})
     public Single<DataWrapper<Completas, CustomException>> getCompletas(String rawPath) {
         return Single.create(emitter -> {
             try {
@@ -214,6 +216,36 @@ public class FileDataSource {
                 bh.setCompletas(hora);
                 liturgy.setBreviaryHour(bh);
                 emitter.onSuccess(new DataWrapper<>(liturgy));
+            } catch (Exception e) {
+                emitter.onError(new Exception(e));
+            }
+
+        });
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public Single<DataWrapper<Today, CustomException>> getCompletasToday(Today today) {
+        return Single.create(emitter -> {
+            try {
+                AssetManager manager = mContext.getAssets();
+                InputStream is = manager.open(FILE_NIGHT_PRAYER);
+                int size = is.available();
+                byte[] buffer = new byte[size];
+                is.read(buffer);
+                is.close();
+                Gson gson = new Gson();
+                Completas hora = gson.fromJson(new String(buffer, StandardCharsets.UTF_8), Completas.class);
+                hora.setTypeId(7);//typeID=7;
+                hora.setToday(today);
+                BreviaryHour bh = new BreviaryHour();
+                //bh.typeID=7;
+                bh.setTypeId(7);
+                bh.setCompletas(hora);
+                hora.setBreviaryHour(bh);
+                Liturgy l=today.liturgyDay;
+                l.setBreviaryHour(bh);
+
+                emitter.onSuccess(new DataWrapper<>(today));
             } catch (Exception e) {
                 emitter.onError(new Exception(e));
             }

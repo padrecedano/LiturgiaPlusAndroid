@@ -7,7 +7,7 @@ import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
-public class LHOfficeBiblical extends Biblical {
+public class LHOfficeBiblical extends Biblical{
     private String tema;
     private LHResponsory responsorioLargo;
 
@@ -32,8 +32,8 @@ public class LHOfficeBiblical extends Biblical {
     }
 
 
-    public SpannableStringBuilder getHeader() {
-        return Utils.formatTitle("PRIMERA LECTURA");
+    public String getHeader() {
+        return "PRIMERA LECTURA";
     }
 
 
@@ -49,7 +49,7 @@ public class LHOfficeBiblical extends Biblical {
     @Override
     public SpannableStringBuilder getAll() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(getHeader());
+        sb.append(Utils.formatTitle(getHeader()));
         sb.append(LS2);
         sb.append(book.getLiturgyName());
         sb.append("    ");
@@ -71,7 +71,7 @@ public class LHOfficeBiblical extends Biblical {
     @Override
     public SpannableStringBuilder getAllForRead(){
         SpannableStringBuilder sb=new SpannableStringBuilder();
-        sb.append(getHeaderForRead());
+        sb.append(Utils.pointAtEnd(getHeader()));
         sb.append(book.getForRead());
         sb.append(getTemaForRead());
         sb.append(getTexto());

@@ -22,13 +22,13 @@ public class SaintWithAll {
             entity = SaintLifeEntity.class
     )
 
-    public SaintLife lhSanto;
+    public SaintLifeEntity lhSanto;
 
     //TODO método getVida ¿?
     public Saint getDomainModelLH(){
         Saint dm=new Saint();
         dm.setTheName(santo.nombre);
-        dm.setVida(lhSanto.getShortLife());
+        //dm.setVida(lhSanto.getShortLife());
         return dm;
     }
 

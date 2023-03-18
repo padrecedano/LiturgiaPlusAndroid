@@ -9,7 +9,6 @@ import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.model.SaintLife;
-import org.deiverbum.app.utils.Utils;
 
 import javax.inject.Inject;
 
@@ -37,13 +36,12 @@ public class SantosRepository {
     /**
      * Este método inicia la llamada al DataSource.
      * Buscará únicamente en Firestore mediante
-     * {@link FirebaseDataSource#getSantos(String, String)}
+     * {@link FirebaseDataSource#getSantos(int[])}
      * y si no encuentra, devolverá un objeto {@link DataWrapper} con error.
-     * @param month El mes a buscar
-     * @param day El día a buscar
+     * @param monthAndDay El mes y el día a buscar
      */
-    public void getData(String month, String day) {
-        firebaseDataSource.getSantos(month, day)
+    public void getData(int[] monthAndDay) {
+        firebaseDataSource.getSantos(monthAndDay)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<DataWrapper<SaintLife,
@@ -64,14 +62,12 @@ public class SantosRepository {
                 });
     }
 
-    public MediatorLiveData<DataWrapper<SaintLife, CustomException>> getSaintDB(String s) {
-        SaintLife theModel=mTodayDao.getSantoOfToday(Integer.valueOf(s)).getDomainModel();
+    public MediatorLiveData<DataWrapper<SaintLife, CustomException>> getSaintDB(int[] monthAndDay) {
+        SaintLife theModel=mTodayDao.getSantoOfToday(monthAndDay[0],monthAndDay[1]).getDomainModel();
         if (theModel != null) {
                 mData.postValue(new DataWrapper<>(theModel));
         } else {
-            String month = Utils.getMonth(s);
-            String day = Utils.getDay(s);
-            getData(month,day);
+            getData(monthAndDay);
         }
         return mData;
     }

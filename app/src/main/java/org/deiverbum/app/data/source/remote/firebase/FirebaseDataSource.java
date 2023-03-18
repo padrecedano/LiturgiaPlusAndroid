@@ -35,7 +35,6 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import io.reactivex.Completable;
 import io.reactivex.rxjava3.core.Single;
 
 
@@ -61,12 +60,14 @@ public class FirebaseDataSource {
     /**
      * <p>Obtiene un observable con un objeto Saint o error.</p>
      *
-     * @param month El mes
-     * @param day   El día
+     * @param monthAndDay Un arreglo con el mes (posición 0) y el día (posición 1).
      * @return Datos del Saint o error
      */
-    public Single<DataWrapper<SaintLife, CustomException>> getSantos(String month, String day) {
+    public Single<DataWrapper<SaintLife, CustomException>> getSantos(int[] monthAndDay) {
         return Single.create(emitter -> {
+            Locale loc=new Locale("es", "ES");
+            String month=String.format(loc,"%02d", monthAndDay[0]);
+            String day=String.format(loc,"%02d", monthAndDay[1]);
             DocumentReference dataRef = firebaseFirestore.document(FIREBASE_SANTOS).collection(month).document(day);
             dataRef.get().addOnSuccessListener((DocumentSnapshot data) -> {
                 if (data.exists()) {

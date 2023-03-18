@@ -144,6 +144,66 @@ public class LHPsalmody {
         return sb;
     }
 
+    public SpannableStringBuilder getSalmosByIndex(int index) {
+        SpannableStringBuilder sb = new SpannableStringBuilder("");
+        String salmo;
+        String preAntifona = "Ant. ";
+
+            sb.append(Utils.toRed(preAntifona));
+            sb.append(salmos.get(index).getAntifona());
+        LHPsalm s=salmos.get(index);
+            SpannableStringBuilder tema = new SpannableStringBuilder("");
+            SpannableStringBuilder parte = new SpannableStringBuilder("");
+            SpannableStringBuilder intro = new SpannableStringBuilder("");
+            SpannableStringBuilder ref = new SpannableStringBuilder("");
+            String preRef = String.valueOf(s.getRef());
+
+                sb.append(Utils.toRed(preAntifona + s.getOrden() + ". "));
+                sb.append(Utils.fromHtml(s.getAntifona()));
+
+            if (!s.getTema().equals("")) {
+                tema.append(Utils.toRed(s.getTema()));
+                tema.append(LS2);
+            }
+
+            if (!s.getEpigrafe().equals("")) {
+                intro.append(Utils.fromHtmlSmall(s.getEpigrafe()));
+                intro.append(LS2);
+            }
+            if (!s.getParte().equals("")) {
+                parte.append(Utils.toRed(s.getParte()));
+                parte.append(LS2);
+            }
+            if (!preRef.isEmpty()) {
+                ref.append(Utils.LS);
+                ref.append(s.getRef());
+                ref.append(LS2);
+            }
+
+            sb.append(LS2);
+            sb.append(ref);
+            sb.append(tema);
+            sb.append(intro);
+            sb.append(parte);
+            salmo = Utils.getFormato(s.getSalmo());
+            sb.append(Utils.fromHtml(salmo));
+
+            if (s.getSalmo().endsWith("∸")) {
+                sb.append(Utils.LS);
+                sb.append(getNoGloria());
+            } else {
+                sb.append(LS2);
+                sb.append(getFinSalmo());
+            }
+
+                sb.append(LS2);
+                sb.append(Utils.toRed(preAntifona));
+                sb.append(getAntifonaLimpia(s.getAntifona()));
+                sb.append(LS2);
+
+        return sb;
+    }
+
     public SpannableStringBuilder getSalmosForRead(int hourIndex) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         String salmo;
@@ -185,6 +245,23 @@ public class LHPsalmody {
             sb.append(getAntifonaLimpia(antUnica));
             sb.append(LS2);
         }
+        return sb;
+    }
+
+    public SpannableStringBuilder getSalmosByIndexForRead(int index) {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+        String salmo;
+        LHPsalm s =salmos.get(index);
+        sb.append(Utils.fromHtml(s.getAntifonaForRead()));
+        sb.append(LS2);
+        salmo = Utils.getFormato(s.getSalmo());
+        sb.append(Utils.fromHtml(salmo));
+        if (!(s.getSalmo().endsWith("∸"))) {
+            sb.append(getFinSalmoForRead());
+        }
+        sb.append(LS2);
+        sb.append(getAntifonaLimpia(s.getAntifonaForRead()));
+        sb.append(LS2);
         return sb;
     }
 
@@ -293,4 +370,5 @@ public class LHPsalmody {
             s.setAntifona(Utils.replaceByTime(s.getAntifona(),calendarTime));
         }
     }
+
 }

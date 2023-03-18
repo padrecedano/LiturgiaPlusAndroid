@@ -31,27 +31,14 @@ import org.deiverbum.app.model.Saint;
 
 @Entity(
         tableName = SAINT,
-        indices = {@Index(value = {"liturgyFK","theName","theMonth","theDay"},unique = true)},
-        foreignKeys =
-                {
-
-                        @ForeignKey(
-                                entity = LiturgyEntity.class,
-                                parentColumns = "liturgyID",
-                                childColumns = "liturgyFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)
-                }
+        indices = {@Index(value = {"theName","theMonth","theDay"},unique = true)}
 )
+
 public class SaintEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "saintID")
     public Integer santoId=0;
-
-    @NonNull
-    @ColumnInfo(name = "liturgyFK")
-    public Integer liturgiaFK=0;
 
     @NonNull
     @ColumnInfo(name = "theName")
@@ -66,9 +53,10 @@ public class SaintEntity {
     public Integer dia=0;
 
     @NonNull
-    @ColumnInfo(name = "typeFK")
+    @ColumnInfo(name = "typeFK", defaultValue="0")
     public Integer tipoId=0;
 
+    @NonNull
     @ColumnInfo(name = "commonFK", defaultValue="0")
     public Integer comunId=0;
 

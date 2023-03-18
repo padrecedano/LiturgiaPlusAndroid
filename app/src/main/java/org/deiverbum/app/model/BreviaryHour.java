@@ -10,8 +10,6 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.CharacterStyle;
 
-import androidx.room.Ignore;
-
 import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
@@ -30,6 +28,7 @@ import java.util.List;
 @SuppressWarnings("SameReturnValue")
 public class BreviaryHour extends Liturgy {
     protected int hourId;
+    //protected int typeID;
 
     protected String metaInfo;
     protected LHHymn himno;
@@ -38,13 +37,13 @@ public class BreviaryHour extends Liturgy {
     protected LHOfficeOfReading oficioLecturas;
     protected TeDeum teDeum;
     protected Oficio oficio;
+    protected OficioEaster oficioEaster;
+
     protected Laudes laudes;
     protected List<MassReading> evangelios;
     private Mixto mixto;
     private Intermedia intermedia;
     private Visperas visperas;
-    //@Ignore
-    //public Integer typeID;
 
     public Completas getCompletas() {
         return completas;
@@ -225,7 +224,11 @@ public class BreviaryHour extends Liturgy {
     public void setHourId(int hourId) {
         this.hourId = hourId;
     }
+    public void setTypeId(int typeID) {
+        this.typeID = typeID;
+    }
 
+    @SuppressWarnings("unused")
     public int getHourId() {
         return hourId;
     }
@@ -235,9 +238,7 @@ public class BreviaryHour extends Liturgy {
         this.oficioLecturas = oficioLecturas;
     }
 
-
     public void setTeDeum(TeDeum teDeum) {
-
     }
 
     public void setLaudes(Laudes laudes) {
@@ -295,5 +296,12 @@ public class BreviaryHour extends Liturgy {
         return this.visperas;
     }
 
+    public OficioEaster getOficioEaster() {
+        return this.oficioEaster;
+    }
+
+    public void setOficioEaster(OficioEaster oficioEaster) {
+        this.oficioEaster=oficioEaster;
+    }
 }
 

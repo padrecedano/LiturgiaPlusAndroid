@@ -52,7 +52,7 @@ public class Visperas extends BreviaryHour {
             salmodia.normalizeByTime(liturgyTime.getTimeID());
 
             //sb.append(today.getAllForView());
-            //sb.append(Utils.LS2);
+            sb.append(Utils.LS2);
 
             sb.append(getTituloHora(previousFK));
             sb.append(Utils.fromHtmlToSmallRed(getMetaInfo()));
@@ -90,7 +90,8 @@ public class Visperas extends BreviaryHour {
         return sb;
     }
 
-    public StringBuilder getForRead(Integer previousFK) {
+    //@Override
+    public StringBuilder getAllForRead(Integer previousFK) {
         StringBuilder sb = new StringBuilder();
         try {
             //sb.append(today.getAllForRead());
@@ -111,12 +112,12 @@ public class Visperas extends BreviaryHour {
     }
 
     private SpannableStringBuilder getTituloHora(Integer previousFK) {
-        String s = (previousFK == 0) ? TITLE_I_VISPERAS : TITLE_VISPERAS;
+        String s = (previousFK == 0) ? TITLE_VISPERAS : TITLE_I_VISPERAS;
         return Utils.toH1Red(s);
     }
 
     private String getTituloHoraForRead(Integer previousFK) {
-        String s = (previousFK == 0) ? TITLE_I_VISPERAS : TITLE_VISPERAS;
+        String s = (previousFK == 0) ? TITLE_VISPERAS : TITLE_I_VISPERAS_READ;
 
         //String s = (today.getLiturgiaPrevio() == null) ? TITLE_VISPERAS : TITLE_I_VISPERAS_READ;
         return Utils.pointAtEnd(s);
