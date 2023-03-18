@@ -23,8 +23,8 @@ public class SantosViewModel extends ViewModel {
     }
 
 
-    public LiveData<DataWrapper<SaintLife, CustomException>> getSaintLife(String theDate) {
-        return mRepository.getSaintDB(theDate);
+    public LiveData<DataWrapper<SaintLife, CustomException>> getSaintLife(int[] monthAndDay) {
+        return mRepository.getSaintDB(monthAndDay);
     }
 
 }

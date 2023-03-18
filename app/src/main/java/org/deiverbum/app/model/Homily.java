@@ -64,8 +64,9 @@ public class Homily {
     public SpannableStringBuilder getForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
-            //sb.append(today.getAllForView());
             //sb.append(LS2);
+            sb.append(today.getSingleForView());
+            sb.append(LS2);
             sb.append(getTitulo());
             sb.append(LS2);
             for (HomilyList h : homilias) {
@@ -80,7 +81,7 @@ public class Homily {
     public StringBuilder getAllForRead() {
         StringBuilder sb = new StringBuilder();
         try {
-            sb.append(today.getAllForRead());
+            sb.append(today.getSingleForRead());
             sb.append(getTituloForRead());
             for (HomilyList s : homilias) {
                 sb.append(s.getAllForRead());

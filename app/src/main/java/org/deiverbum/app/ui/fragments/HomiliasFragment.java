@@ -6,6 +6,7 @@ import static org.deiverbum.app.utils.Constants.VOICE_INI;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.TypedValue;
@@ -30,12 +31,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
-import androidx.work.BackoffPolicy;
-import androidx.work.Constraints;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.NetworkType;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
 
 import org.deiverbum.app.R;
 import org.deiverbum.app.data.wrappers.DataWrapper;
@@ -45,11 +40,9 @@ import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
 import org.deiverbum.app.viewmodel.HomiliasViewModel;
-import org.deiverbum.app.viewmodel.SyncViewModel;
-import org.deiverbum.app.workers.TodayWorker;
 
+import java.util.Locale;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -57,7 +50,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
     private HomiliasViewModel mViewModel;
-    private SyncViewModel oViewModel;
 
     private FragmentHomiliasBinding binding;
     private ZoomTextView mTextView;
@@ -70,7 +62,6 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
     private boolean isVoiceOn;
     private StringBuilder sbReader;
     private Menu audioMenu;
-    private Menu mainMenu;
     private MenuItem voiceItem;
 
     public static ActionMode mActionMode;
@@ -121,14 +112,14 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
     private void setConfiguration() {
         mViewModel =
                 new ViewModelProvider(this).get(HomiliasViewModel.class);
-        //oViewModel =
-        //        new ViewModelProvider(this).get(SyncViewModel.class);
-        //oViewModel.launchSync();
         mTextView = binding.include.tvZoomable;
         progressBar = binding.progressBar;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        String fontFamily = String.format(new Locale("es"),"fonts/%s",prefs.getString("font_name", "robotoslab_regular.ttf"));
+        Typeface tf= Typeface.createFromAsset(requireActivity().getAssets(),fontFamily);
+        mTextView .setTypeface(tf);
         isVoiceOn = prefs.getBoolean("voice", true);
         if (isVoiceOn) {
             sbReader = new StringBuilder(VOICE_INI);
@@ -287,33 +278,4 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
         cleanTTS();
         binding = null;
     }
-    public void launchWorker() {
-        WorkManager mWorkManager = WorkManager.getInstance(getActivity().getApplicationContext());
-
-        // Create Network constraint
-        Constraints constraints = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build();
-
-        PeriodicWorkRequest periodicSyncDataWork =
-                new PeriodicWorkRequest.Builder(TodayWorker.class, 15, TimeUnit.MINUTES)
-                        .addTag("TAG_SYNC_DATA")
-                        .setConstraints(constraints)
-                        //.setInputData(inputData)
-                        // setting a backoff on case the work needs to retry
-                        .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
-                        .build();
-        mWorkManager.enqueueUniquePeriodicWork(
-                "SYNC_TODAY",
-                ExistingPeriodicWorkPolicy.REPLACE, //Existing Periodic Work
-                // policy
-                periodicSyncDataWork //work request
-        );
-        mWorkManager.getWorkInfoByIdLiveData(periodicSyncDataWork.getId()).observe(getActivity(),
-                workInfo -> {
-                    //mWorkManager.cancelWorkById(workInfo.getId());
-                });
-    }
-
-
 }

@@ -17,7 +17,7 @@ public class Intermedia extends BreviaryHour {
     }
 
     public String getTituloHora() {
-        switch (hourId) {
+        switch (typeID) {
             case 3:
                 return TITLE_TERCIA;
             case 4:
@@ -96,7 +96,7 @@ public class Intermedia extends BreviaryHour {
      * @since 2022.1
      */
     private int getHourIndex() {
-        switch (hourId) {
+        switch (typeID) {
             case 4:
                 return 1;
             case 5:

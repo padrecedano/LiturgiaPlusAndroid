@@ -142,8 +142,8 @@ public class Completas extends BreviaryHour {
         return ssb;
     }
 
-    public SpannableStringBuilder getForView(LiturgyTime liturgyTime) {
-        //try {
+    public SpannableStringBuilder getAllForView(LiturgyTime liturgyTime) {
+        try {
             //this.finalTime =  hoy.getFinalTime();
             SpannableStringBuilder sb = new SpannableStringBuilder();
             RitosIniciales ri = getRitosIniciales();
@@ -152,7 +152,7 @@ public class Completas extends BreviaryHour {
             this.salmodia = getCompletasDias().get(today.weekDay).getSalmodia();
             NuncDimitis nuncDimitis = getNuncDimitis();
             Conclusion conclusion = getConclusion();
-            sb.append(today.getAllForView(false));
+            //sb.append(today.getAllForView(false));
             sb.append(Utils.LS2);
             sb.append(getTituloHora());
             sb.append(Utils.LS2);
@@ -173,9 +173,9 @@ public class Completas extends BreviaryHour {
             sb.append(conclusion.getAll(today.getTimeID()));
             sb.append(Utils.LS2);
             return sb;
-        //} catch (Exception e) {
-        //    return new SpannableStringBuilder(e.toString());
-        //}
+        } catch (Exception e) {
+            return new SpannableStringBuilder(e.toString());
+        }
     }
 
     public SpannableStringBuilder getTituloHora() {
@@ -195,7 +195,7 @@ public class Completas extends BreviaryHour {
             this.salmodia = getCompletasDias().get(today.weekDay).getSalmodia();
             NuncDimitis nuncDimitis = getNuncDimitis();
             Conclusion conclusion = getConclusion();
-            sb.append(today.getAllForRead());
+            //sb.append(today.getAllForRead());
             sb.append(getTituloHoraForRead());
             sb.append(getSaludoDiosMioForRead());
             sb.append(kyrie.getAllForRead());

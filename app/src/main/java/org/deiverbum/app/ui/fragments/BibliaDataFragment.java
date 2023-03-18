@@ -6,6 +6,7 @@ import static org.deiverbum.app.utils.Constants.VOICE_INI;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.method.LinkMovementMethod;
@@ -39,6 +40,8 @@ import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
 import org.deiverbum.app.viewmodel.BibliaViewModel;
 
+import java.util.Locale;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -50,18 +53,14 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
     private boolean isVoiceOn;
     private StringBuilder sbReader;
     private SeekBar seekBar;
-
     private boolean isReading = false;
-
     private Menu audioMenu;
     private MenuItem voiceItem;
-
     public static ActionMode mActionMode;
     private TtsManager mTtsManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         requireActivity().addMenuProvider(new MenuProvider() {
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
@@ -71,8 +70,6 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
                 if (isReading) {
                     voiceItem.setVisible(false);
                 }
-                // Add option Menu Here
-
             }
 
             @Override
@@ -93,9 +90,6 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
                 return NavigationUI.onNavDestinationSelected(item, navController);
             }
         }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
-
-
-
         binding = FragmentTextBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         setConfiguration();
@@ -112,13 +106,14 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        String fontFamily = String.format(new Locale("es"),"fonts/%s",prefs.getString("font_name", "robotoslab_regular.ttf"));
+        Typeface tf= Typeface.createFromAsset(requireActivity().getAssets(),fontFamily);
+        mTextView .setTypeface(tf);
         isVoiceOn = prefs.getBoolean("voice", true);
     }
 
-
     private void observeData() {
         int param = requireArguments().getInt("bookId");
-
         mTextView.setText(PACIENCIA);
         mViewModel.getLibro(param).observe(getViewLifecycleOwner(), data -> {
             progressBar.setVisibility(View.GONE);
@@ -136,13 +131,10 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
         });
     }
 
-
-
     private String prepareForRead() {
         String notQuotes = Utils.stripQuotation(sbReader.toString());
         return String.valueOf(Utils.fromHtml(notQuotes));
     }
-
 
     @Override
     public void onCompleted() {
@@ -153,11 +145,9 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
     }
 
     private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
-
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             int menuItem = item.getItemId();
-
             if (menuItem == R.id.audio_play) {
                 readText();
                 audioMenu.findItem(R.id.audio_pause).setVisible(true);
@@ -165,14 +155,12 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
                 item.setVisible(false);
                 return true;
             }
-
             if (menuItem == R.id.audio_pause) {
                 mTtsManager.pause();
                 audioMenu.findItem(R.id.audio_resume).setVisible(true);
                 item.setVisible(false);
                 return true;
             }
-
             if (menuItem == R.id.audio_resume) {
                 mTtsManager.resume();
                 audioMenu.findItem(R.id.audio_pause).setVisible(true);
@@ -194,7 +182,6 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.getMenuInflater().inflate(R.menu.contextual_action_bar, menu);
             audioMenu = menu;
-
             @SuppressLint("InflateParams")
             View view = LayoutInflater.from(getContext()).inflate(R.layout.seekbar, null);
             mode.setCustomView(view);

@@ -17,6 +17,7 @@ import java.util.HashMap;
 public class Saint {
 
     public Integer saintID;
+    @Ignore
     public Integer liturgyFK;
     public Integer typeFK;
 

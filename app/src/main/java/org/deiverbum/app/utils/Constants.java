@@ -131,6 +131,7 @@ public class Constants {
     public static final String LITURGY_TIME = "liturgy_time";
     public static final String LITURGY_GROUP = "liturgy_group";
     public static final String LITURGY_HOMILY_JOIN = "liturgy_homily_join";
+    public static final String LITURGY_SAINT_JOIN = "liturgy_saint_join";
 
     public static final String LH_INVITATORY = "lh_invitatory";
     public static final String LH_INVITATORY_JOIN = "lh_invitatory_join";
@@ -152,8 +153,12 @@ public class Constants {
 
     public static final String SAINT = "saint";
     public static final String SAINT_LIFE = "saint_life";
+    public static final String SAINT_SHORT_LIFE = "saint_short_life";
+
     public static final String LH_OFFICE_BIBLICAL = "lh_office_biblical";
     public static final String LH_OFFICE_BIBLICAL_JOIN = "lh_office_biblical_join";
+    public static final String LH_OFFICE_BIBLICAL_EASTER = "lh_office_biblical_easter";
+
     public static final String LH_OFFICE_PATRISTIC = "lh_office_patristic";
     public static final String LH_OFFICE_PATRISTIC_JOIN = "lh_office_patristic_join";
     public static final String LH_OFFICE_VERSE = "lh_office_verse";

@@ -142,9 +142,18 @@ public class Today {
         }
     }
 
+
+
     public String getTitulo() {
             return (hourID==6) ?
                     getTituloVisperas(): liturgyDay.getName();
+    }
+
+    public String getTituloForRead() {
+        return (hourID==6) ?
+                getTituloVisperas(): liturgyDay.getName();
+        //return Utils.pointAtEnd(getTitulo());
+        //return liturgyDay.getAllForRead().toString();
     }
 
     public Liturgy getLiturgiaPrevio() {
@@ -175,11 +184,7 @@ public class Today {
         return this.hasSaint;
     }
 
-    public String getTituloForRead() {
 
-        //return Utils.pointAtEnd(getTitulo());
-        return liturgyDay.getAllForRead().toString();
-    }
 
     public SpannableStringBuilder getAllForView(boolean hasInvitatory) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
@@ -198,12 +203,42 @@ public class Today {
         return sb;
     }
 
+    public SpannableStringBuilder getSingleForView() {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+        try {
+            sb.append(Utils.LS);
+            sb.append(getFecha());
+            sb.append(Utils.LS2);
+            sb.append(Utils.toH2(getTiempo()));
+            sb.append(Utils.LS2);
+            sb.append(Utils.toH3(getTitulo()));
+            //liturgyDay.today.previousFK
+            //sb.append(liturgyDay.getAllForView());
+        } catch (Exception e) {
+            sb.append(Utils.createErrorMessage(e.getMessage()));
+        }
+        return sb;
+    }
+
     public StringBuilder getAllForRead() {
         StringBuilder sb = new StringBuilder();
         try {
             sb.append(Utils.pointAtEnd(getFecha()));
             sb.append(getTituloForRead());
             sb.append(liturgyDay.getForRead());
+
+        } catch (Exception e) {
+            sb.append(Utils.createErrorMessage(e.getMessage()));
+        }
+        return sb;
+    }
+
+    public StringBuilder getSingleForRead() {
+        StringBuilder sb = new StringBuilder();
+        try {
+            sb.append(Utils.pointAtEnd(getFecha()));
+            sb.append(getTituloForRead());
+            //sb.append(liturgyDay.getForRead());
 
         } catch (Exception e) {
             sb.append(Utils.createErrorMessage(e.getMessage()));

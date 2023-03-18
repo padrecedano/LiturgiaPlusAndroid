@@ -104,6 +104,7 @@ public class BibleComment {
 
     public SpannableStringBuilder getAllForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
+        //sb.append(today.getSingleForView());
 
         sb.append(Utils.toH2Red(getPadre()));
         sb.append(Utils.LS);

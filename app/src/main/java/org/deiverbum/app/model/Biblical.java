@@ -182,16 +182,13 @@ public class Biblical {
         this.quote = ref;
     }
 
+    @SuppressWarnings("unused")
     public String getReferencia() {
         return String.format(new Locale("es"),"%s, %s%s",getCapitulo(),getVersoInicial(),getVersoFinal());
     }
 
-    public SpannableStringBuilder getHeader() {
-        return Utils.formatTitle("PRIMERA LECTURA");
-    }
-
-    public String getHeaderForRead() {
-        return "Primera lectura.";
+    public String getHeader() {
+        return "PRIMERA LECTURA";
     }
 
     public String getConclusionForRead() {
@@ -233,7 +230,7 @@ public class Biblical {
      */
     public SpannableStringBuilder getAllForRead(){
         SpannableStringBuilder sb=new SpannableStringBuilder();
-        sb.append(getHeaderForRead());
+        sb.append(Utils.pointAtEnd(getHeader()));
         sb.append(getLibroForRead());
         sb.append(getTexto());
         sb.append(getConclusionForRead());
@@ -251,5 +248,6 @@ public class Biblical {
     public void setOrden(Integer orden) {
         this.order=orden;
     }
+
 
 }

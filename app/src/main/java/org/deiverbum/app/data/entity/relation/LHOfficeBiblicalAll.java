@@ -3,6 +3,7 @@ package org.deiverbum.app.data.entity.relation;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
+import org.deiverbum.app.data.entity.LHOfficeBiblicalEasterEntity;
 import org.deiverbum.app.data.entity.LHOfficeBiblicalEntity;
 import org.deiverbum.app.data.entity.LHOfficeBiblicalJoinEntity;
 import org.deiverbum.app.model.LHOfficeBiblical;
@@ -29,6 +30,13 @@ public class LHOfficeBiblicalAll {
             entity = LHOfficeBiblicalEntity.class
     )
     public List<LHOfficeBiblicalWithResponsory> biblica;
+
+    @Relation(
+            parentColumn = "groupID",
+            entityColumn = "groupFK",
+            entity = LHOfficeBiblicalEasterEntity.class
+    )
+    public List<LHOfficeBiblicalEasterEntity> biblicaE;
 
     public List<LHOfficeBiblical> getDomainModel(Integer tiempoId) {
         final List<LHOfficeBiblical> theList = new ArrayList<>();

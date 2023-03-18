@@ -13,6 +13,7 @@ import java.util.List;
 public class MassReadingList extends Liturgy {
     public List<Evangelio> evangelios;
 
+    @SuppressWarnings("unused")
     public List<Evangelio> getEvangelio() {
         return evangelios;
     }
@@ -27,6 +28,7 @@ public class MassReadingList extends Liturgy {
         this.lecturas = lecturas;
     }
 
+    @SuppressWarnings("unused")
     public void setEvangelio(List<Evangelio> evangelios) {
         this.evangelios = evangelios;
     }
@@ -69,6 +71,7 @@ public class MassReadingList extends Liturgy {
         return sb;
     }
 
+    @SuppressWarnings("unused")
     public SpannableStringBuilder getAllEvangelioForRead() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         for (MassReading b : lecturas) {
@@ -87,7 +90,7 @@ public class MassReadingList extends Liturgy {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         try {
             //sb.append(hoy.getForViewMisa());
-            //sb.append(today.getAllForView());
+            sb.append(today.getSingleForView());
             sb.append(LS2);
             sb.append(getTitulo());
             sb.append(LS2);
@@ -101,11 +104,11 @@ public class MassReadingList extends Liturgy {
     }
 
     @Override
-    public SpannableStringBuilder getAllForRead() {
+    public StringBuilder getAllForRead() {
 
-        SpannableStringBuilder sb = new SpannableStringBuilder("");
+        StringBuilder sb = new StringBuilder();
         try {
-            sb.append(today.getAllForRead());
+            sb.append(today.getSingleForRead());
             sb.append(getTituloForRead());
             for (MassReading l : lecturas) {
                 sb.append(l.getAllForRead());

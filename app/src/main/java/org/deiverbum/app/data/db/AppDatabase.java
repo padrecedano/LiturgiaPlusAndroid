@@ -4,7 +4,6 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
-import org.deiverbum.app.data.entity.LHAntiphonEntity;
 import org.deiverbum.app.data.entity.BibleHomilyJoinEntity;
 import org.deiverbum.app.data.entity.BibleHomilyThemeEntity;
 import org.deiverbum.app.data.entity.BibleReadingEntity;
@@ -12,6 +11,7 @@ import org.deiverbum.app.data.entity.BiblieBookEntity;
 import org.deiverbum.app.data.entity.DBTableEntity;
 import org.deiverbum.app.data.entity.EpigraphEntity;
 import org.deiverbum.app.data.entity.HomilyEntity;
+import org.deiverbum.app.data.entity.LHAntiphonEntity;
 import org.deiverbum.app.data.entity.LHGospelCanticleEntity;
 import org.deiverbum.app.data.entity.LHHymnEntity;
 import org.deiverbum.app.data.entity.LHHymnJoinEntity;
@@ -19,6 +19,7 @@ import org.deiverbum.app.data.entity.LHIntercessionsEntity;
 import org.deiverbum.app.data.entity.LHIntercessionsJoinEntity;
 import org.deiverbum.app.data.entity.LHInvitatoryEntity;
 import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity;
+import org.deiverbum.app.data.entity.LHOfficeBiblicalEasterEntity;
 import org.deiverbum.app.data.entity.LHOfficeBiblicalEntity;
 import org.deiverbum.app.data.entity.LHOfficeBiblicalJoinEntity;
 import org.deiverbum.app.data.entity.LHOfficePatristicEntity;
@@ -37,6 +38,7 @@ import org.deiverbum.app.data.entity.LiturgyColorEntity;
 import org.deiverbum.app.data.entity.LiturgyEntity;
 import org.deiverbum.app.data.entity.LiturgyGroupEntity;
 import org.deiverbum.app.data.entity.LiturgyHomilyJoinEntity;
+import org.deiverbum.app.data.entity.LiturgySaintJoinEntity;
 import org.deiverbum.app.data.entity.LiturgyTimeEntity;
 import org.deiverbum.app.data.entity.MassReadingEntity;
 import org.deiverbum.app.data.entity.MassReadingJoinEntity;
@@ -46,6 +48,7 @@ import org.deiverbum.app.data.entity.PrayerEntity;
 import org.deiverbum.app.data.entity.PsalmEntity;
 import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.SaintLifeEntity;
+import org.deiverbum.app.data.entity.SaintShortLifeEntity;
 import org.deiverbum.app.data.entity.SyncStatusEntity;
 import org.deiverbum.app.data.entity.TodayEntity;
 
@@ -57,11 +60,12 @@ import org.deiverbum.app.data.entity.TodayEntity;
 @Database(entities =
         {
                 TodayEntity.class,
-                //TodayTest.class,
                 LiturgyEntity.class,
                 LiturgyTimeEntity.class,
+                LiturgySaintJoinEntity.class,
                 SaintEntity.class,
                 SaintLifeEntity.class,
+                SaintShortLifeEntity.class,
                 LHInvitatoryEntity.class,
                 LHInvitatoryJoinEntity.class,
                 LHHymnEntity.class,
@@ -75,8 +79,8 @@ import org.deiverbum.app.data.entity.TodayEntity;
                 LHOfficeVerseEntity.class,
                 LHOfficeVerseJoinEntity.class,
                 LHOfficeBiblicalJoinEntity.class,
-
-                //LHPatristicaEntity.class,
+                LHOfficeBiblicalEntity.class,
+                LHOfficeBiblicalEasterEntity.class,
                 LHOfficePatristicEntity.class,
                 LHOfficePatristicJoinEntity.class,
 
@@ -89,7 +93,6 @@ import org.deiverbum.app.data.entity.TodayEntity;
                 BibleReadingEntity.class,
                 LHReadingShortEntity.class,
                 LHReadingShortJoinEntity.class,
-                LHOfficeBiblicalEntity.class,
                 LHGospelCanticleEntity.class,
                 LHIntercessionsEntity.class,
                 LHIntercessionsJoinEntity.class,

@@ -9,7 +9,6 @@ import org.deiverbum.app.data.entity.LHPsalmodyEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
 import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
 import org.deiverbum.app.data.entity.LiturgyEntity;
-import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.TodayEntity;
 import org.deiverbum.app.model.BiblicalShort;
 import org.deiverbum.app.model.BreviaryHour;
@@ -18,7 +17,6 @@ import org.deiverbum.app.model.LHHymn;
 import org.deiverbum.app.model.LHPsalmody;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.Prayer;
-import org.deiverbum.app.model.Saint;
 import org.deiverbum.app.model.Today;
 
 import java.util.List;
@@ -32,14 +30,6 @@ public class TodayTercia {
 
     @Embedded
     public TodayEntity today;
-
-    @Relation(
-            entity = SaintEntity.class,
-            parentColumn = "saintFK",
-            entityColumn = "saintID" //liturgiaId
-    )
-    public SaintEntity santo;
-
 
     @Relation(
             entity = LHHymnJoinEntity.class,
@@ -76,8 +66,6 @@ public class TodayTercia {
     )
     public LHPrayerAll lhPrayerAll;
 
-
-
     @Relation(
             entity = LiturgyEntity.class,
             parentColumn = "liturgyFK",
@@ -91,7 +79,6 @@ public class TodayTercia {
             entityColumn = "liturgyID"
     )
     public LiturgyWithTime previo;
-
 
     public Today getToday(){
         Today dm = new Today();
@@ -122,10 +109,9 @@ public class TodayTercia {
         BreviaryHour bh=new BreviaryHour();
         Intermedia hi=new Intermedia();
         Today dmToday=getToday();
-
         dm.typeID=3;
-        hi.setHourId(3);
-        hi.setToday(getToday());
+        hi.setTypeId(3);
+        //hi.setToday(getToday());
         hi.setHimno(getHimno());
         hi.setSalmodia(getSalmodia());
         hi.setLecturaBreve(getBiblica());
@@ -133,25 +119,15 @@ public class TodayTercia {
         bh.setIntermedia(hi);
         dm.setBreviaryHour(bh);
         dmToday.liturgyDay=dm;
-
         return dmToday;
     }
     public LHHymn getHimno(){
         return himno.getDomainModel();
     }
 
-
-
     public BiblicalShort getBiblica(){
         return  biblica.getDomainModel(today.getTiempoId());
     }
-
-
-
-    public Saint getSanto(){
-        return  santo.getDomainModel();
-    }
-
 
     public LHPsalmody getSalmodia() {
 
@@ -161,6 +137,5 @@ public class TodayTercia {
     public Prayer getOracion() {
         return lhPrayerAll.getDomainModel();
     }
-
 
 }

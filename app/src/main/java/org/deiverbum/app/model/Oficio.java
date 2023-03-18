@@ -106,14 +106,15 @@ public class Oficio extends BreviaryHour
         return sb;
     }
 
+
     public StringBuilder getForRead() {
         StringBuilder sb = new StringBuilder();
         try {
-            /*sb.append(today.getAllForRead());
-            if (today.getHasSaint()==1) {
+            /*sb.append(today.getAllForRead());*/
+            if (santo!=null) {
                 sb.append(santo.getVida());
             }
-            sb.append(getTituloHoraForRead());*/
+            sb.append(getTituloHoraForRead());
             sb.append(getSaludoOficioForRead());
             sb.append(invitatorio.getAllForRead());
             sb.append(himno.getAllForRead());

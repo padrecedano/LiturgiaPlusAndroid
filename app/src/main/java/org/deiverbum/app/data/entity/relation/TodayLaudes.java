@@ -11,8 +11,8 @@ import org.deiverbum.app.data.entity.LHPrayerEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
 import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
 import org.deiverbum.app.data.entity.LiturgyEntity;
+import org.deiverbum.app.data.entity.LiturgySaintJoinEntity;
 import org.deiverbum.app.data.entity.MassReadingEntity;
-import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.TodayEntity;
 import org.deiverbum.app.model.BiblicalShort;
 import org.deiverbum.app.model.BreviaryHour;
@@ -23,7 +23,6 @@ import org.deiverbum.app.model.LHInvitatory;
 import org.deiverbum.app.model.Laudes;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.Prayer;
-import org.deiverbum.app.model.Saint;
 import org.deiverbum.app.model.Today;
 
 import java.util.List;
@@ -39,11 +38,18 @@ public class TodayLaudes {
     public TodayEntity today;
 
     @Relation(
-            entity = SaintEntity.class,
-            parentColumn = "saintFK",
-            entityColumn = "saintID"
+            entity = LiturgyEntity.class,
+            parentColumn = "liturgyFK",
+            entityColumn = "liturgyID"
     )
-    public SaintWithAll santo;
+    public LiturgyWithTime feria;
+
+    @Relation(
+            entity = LiturgySaintJoinEntity.class,
+            parentColumn = "liturgyFK",
+            entityColumn = "liturgyFK"
+    )
+    public SaintShortWithAll saint;
 
     @Relation(
             entity = LHInvitatoryJoinEntity.class,
@@ -89,20 +95,6 @@ public class TodayLaudes {
     public LHPrayerAll lhPrayerAll;
 
     @Relation(
-            entity = LiturgyEntity.class,
-            parentColumn = "liturgyFK",
-            entityColumn = "liturgyID"
-    )
-    public LiturgyWithTime feria;
-
-    @Relation(
-            entity = LiturgyEntity.class,
-            parentColumn = "previousFK",
-            entityColumn = "liturgyID"
-    )
-    public LiturgyWithTime previo;
-
-    @Relation(
             entity = LHGospelCanticleEntity.class,
             parentColumn = "lBenedictusFK",
             entityColumn = "groupID"
@@ -139,10 +131,6 @@ public class TodayLaudes {
         return  lhIntercessionsDM.getDomainModel();
     }
 
-    public Saint getSanto(){
-        return  santo.getDomainModelLH();
-    }
-
     public LHInvitatory getInvitatorio() {
         return invitatorio.getDomainModel();
     }
@@ -158,22 +146,22 @@ public class TodayLaudes {
     public Today getToday(){
         Today dm = new Today();
         dm.liturgyDay=feria.getDomainModel();
-        dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
         dm.setTodayDate(today.getHoy());
         dm.setHasSaint(today.hasSaint);
         return dm;
     }
 
-    public Liturgy getDomainModel(){
-
+    public Today getDomainModelToday() {
+        Today dmToday=getToday();
         Liturgy dm= feria.getDomainModel();
         dm.typeID=2;
-        dm.setToday(getToday());
         BreviaryHour bh=new BreviaryHour();
         Laudes laudes=new Laudes();
-        laudes.setToday(getToday());
+        laudes.setTypeId(2);
         laudes.setInvitatorio(getInvitatorio());
-        laudes.setSanto(getSanto());
+        if(dmToday.getHasSaint()==1 && saint!=null){
+            laudes.setSanto(saint.getDomainModel());
+        }
         laudes.setHimno(getHimno());
         laudes.setSalmodia(getSalmodia());
         laudes.setLecturaBreve(getBiblica());
@@ -182,6 +170,7 @@ public class TodayLaudes {
         laudes.setOracion(getOracion());
         bh.setLaudes(laudes);
         dm.setBreviaryHour(bh);
-        return dm;
+        dmToday.liturgyDay=dm;
+        return dmToday;
     }
 }

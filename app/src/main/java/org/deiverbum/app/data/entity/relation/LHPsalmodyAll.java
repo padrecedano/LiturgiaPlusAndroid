@@ -5,7 +5,6 @@ import androidx.room.Relation;
 
 import org.deiverbum.app.data.entity.LHPsalmodyEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
-import org.deiverbum.app.data.entity.relation.PsalmodyWithPsalms;
 import org.deiverbum.app.model.LHPsalm;
 import org.deiverbum.app.model.LHPsalmody;
 
@@ -47,7 +46,6 @@ public class LHPsalmodyAll {
         theModel.setSalmos(salmosList);
         theModel.sort();
         return theModel;
-
     }
 
 
