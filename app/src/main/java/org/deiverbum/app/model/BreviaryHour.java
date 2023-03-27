@@ -12,8 +12,6 @@ import android.text.style.CharacterStyle;
 
 import org.deiverbum.app.utils.Utils;
 
-import java.util.List;
-
 /**
  * <p>
  * Reúne aquellos elementos que son comúnes a las diversas horas del Breviary.
@@ -27,7 +25,6 @@ import java.util.List;
  */
 @SuppressWarnings("SameReturnValue")
 public class BreviaryHour extends Liturgy {
-    protected int hourId;
     //protected int typeID;
 
     protected String metaInfo;
@@ -40,7 +37,6 @@ public class BreviaryHour extends Liturgy {
     protected OficioEaster oficioEaster;
 
     protected Laudes laudes;
-    protected List<MassReading> evangelios;
     private Mixto mixto;
     private Intermedia intermedia;
     private Visperas visperas;
@@ -221,16 +217,8 @@ public class BreviaryHour extends Liturgy {
         return "Bendigamos al Señor. Demos gracias a Dios.";
     }
 
-    public void setHourId(int hourId) {
-        this.hourId = hourId;
-    }
     public void setTypeId(int typeID) {
         this.typeID = typeID;
-    }
-
-    @SuppressWarnings("unused")
-    public int getHourId() {
-        return hourId;
     }
 
     @SuppressWarnings("unused")
@@ -244,16 +232,9 @@ public class BreviaryHour extends Liturgy {
     public void setLaudes(Laudes laudes) {
         this.laudes=laudes;
     }
-    public void setEvangelios(List<MassReading> evangelios) {
-        this.evangelios=evangelios;
-    }
+
     public void setMixto(Mixto mixto) {
        this.mixto=mixto;
-    }
-
-    public Mixto getMixto(boolean hasInvitatory) {
-        mixto.getInvitatorio().isMultiple=hasInvitatory;
-        return this.mixto;
     }
 
     @SuppressWarnings("unused")
@@ -303,5 +284,76 @@ public class BreviaryHour extends Liturgy {
     public void setOficioEaster(OficioEaster oficioEaster) {
         this.oficioEaster=oficioEaster;
     }
+
+    public SpannableStringBuilder getMixtoForView(LiturgyTime liturgyTime) {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+        try {
+            oficio.getInvitatorio().normalizeByTime(liturgyTime.getTimeID());
+            laudes.salmodia.normalizeByTime(liturgyTime.getTimeID());
+            sb.append(Utils.LS2);
+
+            if (santo !=null) {
+                oficio.getInvitatorio().normalizeIsSaint(santo.theName);
+                sb.append(santo.getVidaSmall());
+                sb.append(LS2);
+            }
+
+            sb.append(mixto.getTituloHora());
+            sb.append(Utils.fromHtmlToSmallRed(getMetaInfo()));
+            sb.append(LS2);
+            sb.append(laudes.getSaludoOficio());
+            sb.append(Utils.LS2);
+            sb.append(oficio.getInvitatorio().getAll());
+            sb.append(Utils.LS2);
+            sb.append(laudes.himno.getAll());
+            sb.append(Utils.LS2);
+            sb.append(laudes.getSalmodia().getAll());
+            sb.append(laudes.getLecturaBreve().getAllWithHourCheck(2));
+            //sb.append(lecturaBreve.getAllWithHourCheck(2));
+
+            sb.append(Utils.LS2);
+            sb.append(oficio.oficioLecturas.getAll(liturgyTime.getTimeID()));
+            sb.append(Utils.LS2);
+            //sb.append(mixto.getMisaLecturas().getAllEvangelioForView());
+
+            sb.append(mixto.getEvangeliosForView());
+            sb.append(Utils.LS2);
+            sb.append(laudes.getGospelCanticle().getAll());
+            sb.append(Utils.LS2);
+            sb.append(laudes.getPreces().getAll());
+            sb.append(LS2);
+            sb.append(PadreNuestro.getAll());
+            sb.append(LS2);
+            sb.append(laudes.oracion.getAll());
+            sb.append(LS2);
+            sb.append(getConclusionHorasMayores());
+        } catch (Exception e) {
+            sb.append(Utils.createErrorMessage(e.getMessage()));
+        }
+        return sb;
+    }
+
+    public StringBuilder getMixtoForRead() {
+        StringBuilder sb = new StringBuilder();
+        try {
+            sb.append(mixto.getTituloHoraForRead());
+            sb.append(laudes.getSaludoOficioForRead());
+            sb.append(oficio.getInvitatorio().getAllForRead());
+            sb.append(laudes.himno.getAllForRead());
+            sb.append(laudes.salmodia.getAllForRead());
+            sb.append(laudes.getLecturaBreve().getAllForRead());
+            sb.append(oficio.oficioLecturas.getAllForRead());
+            sb.append(mixto.getEvangeliosForRead());
+            sb.append(laudes.getGospelCanticle().getAllForRead());
+            sb.append(laudes.getPreces().getAllForRead());
+            sb.append(PadreNuestro.getAll());
+            sb.append(laudes.getOracion().getAllForRead());
+            sb.append(getConclusionHorasMayoresForRead());
+        } catch (Exception e) {
+            sb.append(Utils.createErrorMessage(e.getMessage()));
+        }
+        return sb;
+    }
+
 }
 

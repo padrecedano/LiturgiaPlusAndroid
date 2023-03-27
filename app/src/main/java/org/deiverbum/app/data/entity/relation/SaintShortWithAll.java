@@ -52,5 +52,4 @@ public class SaintShortWithAll {
         return dm;
     }
 
-
 }

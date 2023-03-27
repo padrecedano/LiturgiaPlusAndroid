@@ -11,8 +11,17 @@ import org.deiverbum.app.utils.Utils;
 
 public class Visperas extends BreviaryHour {
     private BiblicalShort lecturaBreve;
-    private LHGospelCanticle magnificat;
+    private LHGospelCanticle gospelCanticle;
     private LHIntercession preces;
+    private int isPrevious;
+
+    public int getIsPrevious() {
+        return isPrevious;
+    }
+
+    public void setIsPrevious(int isPrevious) {
+        this.isPrevious = isPrevious;
+    }
 
     public Visperas() {
     }
@@ -36,16 +45,16 @@ public class Visperas extends BreviaryHour {
     }
 
     @SuppressWarnings("unused")
-    public void setMagnificat(LHGospelCanticle magnificat) {
-        this.magnificat = magnificat;
+    public void setGospelCanticle(LHGospelCanticle gospelCanticle) {
+        this.gospelCanticle = gospelCanticle;
     }
 
     @SuppressWarnings("unused")
-    public LHGospelCanticle getMagnificat() {
-        return magnificat;
+    public LHGospelCanticle getGospelCanticle() {
+        return gospelCanticle;
     }
 
-    public SpannableStringBuilder getForView(LiturgyTime liturgyTime, Integer previousFK) {
+    public SpannableStringBuilder getForView(LiturgyTime liturgyTime) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
             //¿?lecturaBreve.normalizeByTime(hoy.getCalendarTime());
@@ -54,7 +63,7 @@ public class Visperas extends BreviaryHour {
             //sb.append(today.getAllForView());
             sb.append(Utils.LS2);
 
-            sb.append(getTituloHora(previousFK));
+            sb.append(getTituloHora());
             sb.append(Utils.fromHtmlToSmallRed(getMetaInfo()));
             sb.append(Utils.LS2);
 
@@ -70,7 +79,7 @@ public class Visperas extends BreviaryHour {
             sb.append(lecturaBreve.getAllWithHourCheck(6));
             sb.append(Utils.LS2);
 
-            sb.append(magnificat.getAll());
+            sb.append(gospelCanticle.getAll());
             sb.append(Utils.LS2);
 
             sb.append(preces.getAll());
@@ -95,12 +104,12 @@ public class Visperas extends BreviaryHour {
         StringBuilder sb = new StringBuilder();
         try {
             //sb.append(today.getAllForRead());
-            sb.append(getTituloHoraForRead(previousFK));
+            sb.append(getTituloHoraForRead());
             sb.append(getSaludoDiosMioForRead());
             sb.append(himno.getAllForRead());
             sb.append(salmodia.getAllForRead());
             sb.append(lecturaBreve.getAllForRead());
-            sb.append(magnificat.getAllForRead());
+            sb.append(gospelCanticle.getAllForRead());
             sb.append(preces.getAllForRead());
             sb.append(PadreNuestro.getAll());
             sb.append(oracion.getAllForRead());
@@ -111,13 +120,13 @@ public class Visperas extends BreviaryHour {
         return sb;
     }
 
-    private SpannableStringBuilder getTituloHora(Integer previousFK) {
-        String s = (previousFK == 0) ? TITLE_VISPERAS : TITLE_I_VISPERAS;
+    private SpannableStringBuilder getTituloHora() {
+        String s = (isPrevious == 0) ? TITLE_VISPERAS : TITLE_I_VISPERAS;
         return Utils.toH1Red(s);
     }
 
-    private String getTituloHoraForRead(Integer previousFK) {
-        String s = (previousFK == 0) ? TITLE_VISPERAS : TITLE_I_VISPERAS_READ;
+    private String getTituloHoraForRead() {
+        String s = (isPrevious == 0) ? TITLE_VISPERAS : TITLE_I_VISPERAS_READ;
 
         //String s = (today.getLiturgiaPrevio() == null) ? TITLE_VISPERAS : TITLE_I_VISPERAS_READ;
         return Utils.pointAtEnd(s);

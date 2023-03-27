@@ -18,6 +18,7 @@ import org.deiverbum.app.model.LHHymn;
 import org.deiverbum.app.model.LHInvitatory;
 import org.deiverbum.app.model.LHOfficeBiblical;
 import org.deiverbum.app.model.LHOfficeOfReading;
+import org.deiverbum.app.model.LHOfficePatristic;
 import org.deiverbum.app.model.LHPsalmody;
 import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.Oficio;
@@ -92,7 +93,6 @@ public class TodayOficio {
             parentColumn = "oBiblicalFK",
             entityColumn = "groupID"
     )
-    //public LHOfficeEasterJoin biblicasE;
     public LHOfficeEasterJoin biblicasE;
 
 
@@ -101,7 +101,7 @@ public class TodayOficio {
             parentColumn = "oPatristicFK",
             entityColumn = "groupFK"
     )
-    public LHOfficePatristic patristica;
+    public LHOfficePatristicWithAll patristica;
 
     @Relation(
             entity = LHOfficePatristicEntity.class,
@@ -139,7 +139,6 @@ public class TodayOficio {
         dm.liturgyDay=feria.getDomainModel();
         dm.setTodayDate(today.getHoy());
         dm.setHasSaint(today.hasSaint);
-        //dm.setMLecturasFK(today.mLecturasFK);
         dm.oBiblicalFK=today.oBiblicaFK;
         return dm;
     }
@@ -148,8 +147,8 @@ public class TodayOficio {
         return biblicas.getDomainModel(today.getTiempoId());
     }
 
-    public List<org.deiverbum.app.model.LHOfficePatristic> getPatristicas() {
-        List<org.deiverbum.app.model.LHOfficePatristic> theList = new ArrayList<>();
+    public List<LHOfficePatristic> getPatristicas() {
+        List<LHOfficePatristic> theList = new ArrayList<>();
         for (PatristicaOficioWithResponsorio item :
                 patristicaOficioWithResponsorio) {
             theList.add(item.getDomainModelOficio(today.getTiempoId()));

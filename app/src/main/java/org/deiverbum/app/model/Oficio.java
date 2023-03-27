@@ -34,6 +34,7 @@ public class Oficio extends BreviaryHour
         this.invitatorio = invitatorio;
     }
 
+    @SuppressWarnings("unused")
     public LHOfficeOfReading getOficioLecturas() {
         return oficioLecturas;
     }
@@ -62,15 +63,14 @@ public class Oficio extends BreviaryHour
         return Utils.pointAtEnd(TITLE_OFICIO);
     }
 
-    public SpannableStringBuilder getForView(LiturgyTime liturgyTime) {
+    public SpannableStringBuilder getForView(LiturgyTime liturgyTime, boolean hasSaint) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
             invitatorio.normalizeByTime(liturgyTime.getTimeID());
             salmodia.normalizeByTime(liturgyTime.getTimeID());
             oficioLecturas.normalizeByTime(liturgyTime.getTimeID());
-//            sb.append(today.getAllForView());
             sb.append(LS2);
-            if (santo !=null) {
+            if (santo !=null && hasSaint) {
                 invitatorio.normalizeIsSaint(santo.theName);
                 sb.append(santo.getVidaSmall());
                 sb.append(LS2);
@@ -93,7 +93,7 @@ public class Oficio extends BreviaryHour
 
             sb.append(oficioLecturas.getAll(liturgyTime.getTimeID()));
 
-            if (teDeum.status) {
+            if (teDeum.isStatus()) {
                 sb.append(teDeum.getAll());
             }
 
@@ -110,8 +110,7 @@ public class Oficio extends BreviaryHour
     public StringBuilder getForRead() {
         StringBuilder sb = new StringBuilder();
         try {
-            /*sb.append(today.getAllForRead());*/
-            if (santo!=null) {
+            if (santo != null && hasSaint) {
                 sb.append(santo.getVida());
             }
             sb.append(getTituloHoraForRead());
@@ -121,7 +120,7 @@ public class Oficio extends BreviaryHour
             sb.append(salmodia.getAllForRead());
             sb.append(oficioLecturas.getAllForRead());
 
-            if (teDeum.status) {
+            if (teDeum.isStatus()) {
                 sb.append(teDeum.getAllForRead());
             }
             sb.append(oracion.getAllForRead());

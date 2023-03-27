@@ -52,63 +52,75 @@ import java.util.List;
  * @since 2023.1
  */
 public class Crud  {
-
-    public List<HomilyList> homily;
-    public String lastUpdate;
-    public boolean haveData;
-    public List<Today> today;
+    public CrudBibleHomilyJoin crudBibleHomilyJoin;
+    public CrudBibleHomilyTheme crudBibleHomilyTheme;
+    public CrudBibleReading crudBibleReading;
+    public CrudHomily crudHomily;
+    public CrudLHAntiphon crudLHAntiphon;
+    public CrudLHEpigraph crudLHEpigraph;
+    public CrudLHGospelCanticle crudLHGospelCanticle;
+    public CrudLHHymn crudLHHymn;
+    public CrudLHHymnJoin crudLHHymnJoin;
+    public CrudLHIntercessions crudLHIntercessions;
+    public CrudLHIntercessionsJoin crudLHIntercessionsJoin;
+    public CrudLHInvitatoryJoin crudLHInvitatoryJoin;
+    public CrudLHOfficeBiblical crudLHOfficeBiblical;
+    public CrudLHOfficeBiblicalJoin crudLHOfficeBiblicalJoin;
+    public CrudLHOfficePatristic crudLHOfficePatristic;
+    public CrudLHOfficePatristicJoin crudLHOfficePatristicJoin;
+    public CrudLHOfficeVerse crudLHOfficeVerse;
+    public CrudLHOfficeVerseJoin crudLHOfficeVerseJoin;
+    public CrudLHPrayer crudLHPrayer;
+    public CrudLHPsalm crudLHPsalm;
+    public CrudLHPsalmody crudLHPsalmody;
+    public CrudLHPsalmodyJoin crudLHPsalmodyJoin;
+    public CrudLHReadingShort crudLHReadingShort;
+    public CrudLHReadingShortJoin crudLHReadingShortJoin;
+    public CrudLHResponsory crudLHResponsory;
+    public CrudLHResponsoryShort crudLHResponsoryShort;
+    public CrudLHTheme crudLHTheme;
     public CrudLiturgy crudLiturgy;
-
-    public CrudToday crudToday;
-
+    public CrudLiturgiaHomiliaJoin crudLiturgyHomilyJoin;
+    public CrudLiturgySaintJoin crudLiturgySaintJoin;
+    public CrudMassReading crudMassReading;
+    public CrudMassReadingJoin crudMassReadingJoin;
+    public CrudPater crudPater;
+    public CrudPaterOpus crudPaterOpus;
+    public CrudPrayer crudPrayer;
     public CrudSaint crudSaint;
     public CrudSaintLife crudSaintLife;
     public CrudSaintShortLife crudSaintShortLife;
+    public CrudToday crudToday;
 
-    public CrudLHInvitatoryJoin crudLHInvitatoryJoin;
+    public List<HomilyList> homily;
+    //public List<Today> today;
 
-    public CrudLHHymn crudLHHymn;
+    public String lastUpdate;
+    public boolean haveData;
 
-    public CrudLHHymnJoin crudLHHymnJoin;
 
-    public CrudLHPsalmody crudLHPsalmody;
-    public CrudLHPsalmodyJoin crudLHPsalmodyJoin;
 
-    public CrudLHAntiphon crudLHAntiphon;
-    public CrudLHTheme crudLHTheme;
-    public CrudLHEpigraph crudLHEpigraph;
-    public CrudLHPsalm crudLHPsalm;
-    public CrudLHReadingShort crudLHReadingShort;
-    public CrudLHResponsoryShort crudLHResponsoryShort;
-    public CrudLHReadingShortJoin crudLHReadingShortJoin;
 
-    public CrudLHOfficeVerse crudLHOfficeVerse;
-    public CrudLHOfficeVerseJoin crudLHOfficeVerseJoin;
-    public CrudLHOfficeBiblical crudLHOfficeBiblical;
-    public CrudLHOfficeBiblicalJoin crudLHOfficeBiblicalJoin;
-    public CrudLHResponsory crudLHResponsory;
-    public CrudLHOfficePatristic crudLHOfficePatristic;
-    public CrudLHOfficePatristicJoin crudLHOfficePatristicJoin;
-    public CrudLHGospelCanticle crudLHGospelCanticle;
-    public CrudLHIntercessions crudLHIntercessions;
-    public CrudLHIntercessionsJoin crudLHIntercessionsJoin;
 
-    public CrudPrayer crudPrayer;
-    public CrudLHPrayer crudLHPrayer;
 
-    public CrudBibleReading crudBibleReading;
-    public CrudMassReading crudMassReading;
-    public CrudMassReadingJoin crudMassReadingJoin;
 
-    public CrudBibleHomilyJoin crudBibleHomilyJoin;
-    public CrudBibleHomilyTheme crudBibleHomilyTheme;
 
-    public CrudPater crudPater;
-    public CrudHomily crudHomily;
-    public CrudLiturgiaHomiliaJoin crudLiturgyHomilyJoin;
-    public CrudLiturgySaintJoin crudLiturgySaintJoin;
 
-    public CrudPaterOpus crudPaterOpus;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @SuppressWarnings("unused")
     public Crud() {
     }
@@ -749,7 +761,7 @@ public class Crud  {
         }
 
     catch (Exception e) {
-            Log.d("AAA",e.getMessage());
+            Log.d("Crud",e.getMessage());
     }
 
     }

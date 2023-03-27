@@ -37,7 +37,6 @@ public class PatristicaOficioWithResponsorio {
     )
     public LHResponsoryEntity lhResponsorio;
 
-
     public LHOfficePatristic getDomainModelOficio(Integer tiempoId) {
         try {
             LHOfficePatristic theModel = homilyAll.getPatristicaDomainModel();

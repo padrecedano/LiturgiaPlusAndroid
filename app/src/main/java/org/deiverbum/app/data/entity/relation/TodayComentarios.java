@@ -5,12 +5,10 @@ import androidx.room.Relation;
 
 import org.deiverbum.app.data.entity.LiturgyEntity;
 import org.deiverbum.app.data.entity.MassReadingEntity;
-import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.TodayEntity;
 import org.deiverbum.app.model.BibleComment;
 import org.deiverbum.app.model.BibleCommentList;
 import org.deiverbum.app.model.MetaLiturgia;
-import org.deiverbum.app.model.Saint;
 import org.deiverbum.app.model.Today;
 
 import java.util.ArrayList;
@@ -33,71 +31,28 @@ public class TodayComentarios {
     )
     public LiturgyWithTime feria;
 
-    @Relation(
-            entity = LiturgyEntity.class,
-            parentColumn = "previousFK",
-            entityColumn = "liturgyID"
-    )
-    public LiturgyWithTime previo;
-
-    @Relation(
-            entity = SaintEntity.class,
-            parentColumn = "saintFK",
-            entityColumn = "saintID"
-    )
-    public SaintWithAll santo;
 
     @Relation(
             entity = MassReadingEntity.class,
             parentColumn = "massReadingFK",
             entityColumn = "liturgyFK"
     )
-    public MisaWithComentarios comentarios;
-
-
-    @Relation(
-            entity = MassReadingEntity.class,
-            parentColumn = "massReadingFK",
-            entityColumn = "liturgyFK"
-    )
-    public List<MisaWithComentariosRename> comentariosA;
-
-    @Relation(
-            entity = MassReadingEntity.class,
-            parentColumn = "massReadingFK",
-            entityColumn = "liturgyFK"
-    )
-    public MisaWithComentariosRename comentariosB;
+    public List<MisaWithComentarios> comentarios;
 
     public MetaLiturgia getMetaLiturgia(){
         MetaLiturgia theModel = new MetaLiturgia();
-        //theModel.setLiturgiaFeria(feria.getDomainModel());
-        //theModel.setLiturgiaPrevio(previo.getDomainModel());
         theModel.setFecha(String.valueOf(today.hoy));
-        //theModel.setColor(feria.colorFK);
-        theModel.setIdHour(2);
-        //theModel.setCalendarTime(feria.colorFK);
+        //theModel.setIdHour(2);
         theModel.setHasSaint(false);
-        //theModel.setIdBreviario(feria.colorFK);
-        //theModel.setIdDia(feria.colorFK);
         theModel.setIdLecturas(today.mLecturasFK);
-        theModel.setIdPrevio(1);
-        theModel.setIdSemana(1);
         theModel.setIdTiempo(today.getTiempoId());
-        theModel.setIdTiempoPrevio(1);
-        //theModel.setTitulo(feria.nombre);
         return theModel;
-    }
-
-
-    public Saint getSanto(){
-        return  santo.getDomainModelLH();
     }
 
     public Today getToday(){
         Today dm = new Today();
         dm.liturgyDay=feria.getDomainModel();
-        dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
+        //dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
         dm.setTodayDate(today.getHoy());
         dm.setHasSaint(today.hasSaint);
         return dm;
@@ -108,12 +63,9 @@ public class TodayComentarios {
         dm.setHoy(getToday());
         List<List<BibleComment>> listModel = new ArrayList<>();
         dm.setMetaLiturgia(getMetaLiturgia());
-        dm.setBiblica(comentarios.getBiblicaMisa());
-        //listModel.add(comentarios.getDomainModel());
-        for(MisaWithComentariosRename item : comentariosA){
+        for(MisaWithComentarios item : comentarios){
             listModel.add(item.getDomainModel());
         }
-
         dm.setAllComentarios(listModel);
         return dm;
     }

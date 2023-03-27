@@ -40,5 +40,4 @@ public class LiturgyWithTime {
         return dm;
     }
 
-
 }

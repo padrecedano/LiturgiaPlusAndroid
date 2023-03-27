@@ -28,8 +28,8 @@ public class LHGospelCanticleWithAntiphon {
 
     public LHGospelCanticle getDomainModel(Integer tipo) {
         LHGospelCanticle ce=new LHGospelCanticle();
-        ce.setTipo(tipo);
-        ce.setAntifona(getAntifona());
+        ce.setTypeID(tipo);
+        ce.setAntiphon(getAntifona());
         return ce;
     }
 }

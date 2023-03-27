@@ -40,7 +40,6 @@ import java.util.Objects;
 /**
  * Clase utilitaria que se usa en varias partes de la aplicación
  *
- * @author Alfertson Cedano Guerrero
  */
 @SuppressWarnings("all")
 public final class Utils {

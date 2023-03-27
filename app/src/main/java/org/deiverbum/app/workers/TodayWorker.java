@@ -10,9 +10,7 @@ import androidx.work.WorkerParameters;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.data.source.remote.network.ApiService;
-import org.deiverbum.app.model.SyncStatus;
 import org.deiverbum.app.model.crud.Crud;
-import org.deiverbum.app.utils.Utils;
 
 import javax.inject.Inject;
 
@@ -32,7 +30,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class TodayWorker extends Worker {
 
     @Inject
-    ApiService workerDependency;
+    ApiService apiService;
 
     @Inject
     TodayDao mTodayDao;
@@ -44,36 +42,21 @@ public class TodayWorker extends Worker {
 
     ) {
         super(context, params);
-
-
     }
 
     @NonNull
     @Override
     public Result doWork() {
         try {
-            setSyncRequest();
             loadCrud();
-            //getFromFirebase(theDate);
             return Result.success();
         } catch (Throwable e) {
-            //e.printStackTrace();
             return Result.failure();
         }
     }
 
-
-
-    private void setSyncRequest() {
-        //List<SyncStatus> syncStatus = mTodayDao.getAllSyncStatus();
-    }
-
     public void loadCrud() {
-        String lastUpdatee= mTodayDao.getAllSyncStatus().lastUpdate;
-
-        String lastUpdate= Utils.formatDate(mTodayDao.getAllSyncStatus().lastUpdate);
-        SyncStatus ss = mTodayDao.getAllSyncStatus();
-        workerDependency.callSyncStatuss(mTodayDao.getAllSyncStatus())
+        apiService.postCrud(mTodayDao.getAllSyncStatus())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Crud>() {
@@ -87,23 +70,19 @@ public class TodayWorker extends Worker {
                         try {
                             if (r.haveData) {
                                 r.doCrud(mTodayDao);
-                                //mTodayDao.syncUpdateAll(r.syncStatus);
                                 mTodayDao.syncUpdate(r.lastUpdate);
                             }
                         } catch (Exception e) {
-                            Log.e("ERR", e.getMessage());
-
+                            Log.d("ERR", e.getMessage());
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("ERR", e.getMessage());
 
+                        Log.d("ERR", e.getMessage());
                     }
                 });
     }
-
-
 }
 

@@ -79,8 +79,7 @@ public class BreviarioRepository {
      * @return En MediatorLiveData con los datos obtenidos de cualquiera de las fuentes
      */
 
-
-    public MediatorLiveData<DataWrapper<Today, CustomException>> getTodayFromLocal(String theDate, int hourId) {
+    public MediatorLiveData<DataWrapper<Today, CustomException>> getFromLocal(String theDate, int hourId) {
         //getFromFirebase(1);
         switch (hourId) {
             case 0:
@@ -89,7 +88,7 @@ public class BreviarioRepository {
                     Today theModel = mixtoEntity.getDomainModelToday();
                     liveDataToday.postValue(new DataWrapper<>(theModel));
                 } else {
-                    getTodayFromApi(theDate, hourId);
+                    getFromFirebase(theDate, hourId);
                 }
                 break;
 
@@ -99,7 +98,7 @@ public class BreviarioRepository {
                     Today theModel = oficioEntity.getDomainModelToday();
                     liveDataToday.postValue(new DataWrapper<>(theModel));
                 } else {
-                    getTodayFromApi(theDate, hourId);
+                    getFromFirebase(theDate, hourId);
                 }
                 break;
 
@@ -109,7 +108,7 @@ public class BreviarioRepository {
                     Today theModel = laudesEntity.getDomainModelToday();
                     liveDataToday.postValue(new DataWrapper<>(theModel));
                 } else {
-                    getTodayFromApi(theDate, hourId);
+                    getFromFirebase(theDate, hourId);
                 }
                 break;
 
@@ -119,7 +118,7 @@ public class BreviarioRepository {
                     Today theModel = todayTercia.getDomainModelToday();
                     liveDataToday.postValue(new DataWrapper<>(theModel));
                 } else {
-                    getTodayFromApi(theDate, hourId);
+                    getFromFirebase(theDate, hourId);
                 }
                 break;
 
@@ -129,7 +128,7 @@ public class BreviarioRepository {
                     Today theModel = todaySexta.getDomainModelToday();
                     liveDataToday.postValue(new DataWrapper<>(theModel));
                 } else {
-                    getTodayFromApi(theDate, hourId);
+                    getFromFirebase(theDate, hourId);
                 }
                 break;
 
@@ -139,7 +138,7 @@ public class BreviarioRepository {
                     Today theModel = todayNona.getDomainModelToday();
                     liveDataToday.postValue(new DataWrapper<>(theModel));
                 } else {
-                    getTodayFromApi(theDate, hourId);
+                    getFromFirebase(theDate, hourId);
                 }
                 break;
 
@@ -149,19 +148,17 @@ public class BreviarioRepository {
                     Today theModel = todayVisperas.getDomainModelToday();
                     liveDataToday.postValue(new DataWrapper<>(theModel));
                 } else {
-                    getTodayFromApi(theDate, hourId);
+                    getFromFirebase(theDate, hourId);
                 }
                 break;
 
             case 7:
                 TodayCompletas completasEntity = mTodayDao.getCompletasOfToday(Integer.valueOf(theDate));
                 if (completasEntity != null) {
-                    Today t=completasEntity.getToday();
-                    Liturgy liturgy = t.liturgyDay;//completasEntity.getDomainModel();
-                    getFromFileToday(t);
+                    getFromFile(completasEntity.getToday());
 
                 } else {
-                    getTodayFromApi(theDate, hourId);
+                    getFromApi(theDate, hourId);
                 }
                 break;
 
@@ -171,75 +168,28 @@ public class BreviarioRepository {
         return liveDataToday;
     }
 
-
-
-    public void getFromFile(Liturgy liturgy) {
-        fileDataSource.getCompletas(liturgy)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<Liturgy,
-                        CustomException>>() {
-                    @Override
-                    public void onSuccess(@NonNull DataWrapper<Liturgy,
-                            CustomException> data) {
-                        //data.getData().liturgyDay.typeID=7;
-                        liveData.postValue(data);
-                        dispose();
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        liveData.postValue(new DataWrapper<>(new CustomException(String.format("Error:\n%s%s", e.getMessage(), ERR_REPORT))));
-                        dispose();
-                    }
-                });
-    }
-
-    public void getFromFileToday(Today today) {
-        fileDataSource.getCompletasToday(today)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<Today,
-                        CustomException>>() {
-                    @Override
-                    public void onSuccess(@NonNull DataWrapper<Today,
-                            CustomException> data) {
-                        data.getData().liturgyDay.typeID=7;
-                        liveDataToday.postValue(data);
-                        dispose();
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        liveData.postValue(new DataWrapper<>(new CustomException(String.format("Error:\n%s%s", e.getMessage(), ERR_REPORT))));
-                        dispose();
-                    }
-                });
-    }
-
     /**
      * Este método buscará en Firestore mediante {@link FirebaseDataSource#getBreviary(String, int)}
      * y si no encuentra, buscará en la Api llamando a {@link #getFromApi(String, int)}
      * La llamada a la Api se hará desde el onError
      *
      * @param theDate La fecha
-     * @param hourId El Id de la hora
+     * @param hourId  El Id de la hora
      */
 
     public void getFromFirebase(String theDate, int hourId) {
         firebaseDataSource.getBreviary(theDate, hourId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<Liturgy, CustomException>>() {
+                .subscribe(new DisposableSingleObserver<DataWrapper<Today, CustomException>>() {
 
                     @Override
-                    public void onSuccess(@NonNull DataWrapper<Liturgy, CustomException> data) {
-                        liveData.postValue(data);
+                    public void onSuccess(@NonNull DataWrapper<Today, CustomException> data) {
+                        liveDataToday.postValue(data);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-
                         getFromApi(theDate, hourId);
                     }
                 });
@@ -254,28 +204,6 @@ public class BreviarioRepository {
      */
 
     public void getFromApi(String theDate, int hourId) {
-        String endPoint = LiturgyHelper.myMap.get(hourId);
-        apiService.getBreviary(endPoint, Utils.cleanDate(theDate))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<Liturgy>() {
-                    @Override
-                    public void onStart() {
-                    }
-
-                    @Override
-                    public void onSuccess(@NonNull Liturgy r) {
-                        liveData.postValue(new DataWrapper<>(r));
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        liveData.setValue(new DataWrapper<>(new CustomException(CONTENT_TO_SYNC)));
-                    }
-                });
-    }
-
-    public void getTodayFromApi(String theDate, int hourId) {
         String endPoint = LiturgyHelper.myMap.get(hourId);
         apiService.getToday(endPoint, Utils.cleanDate(theDate))
                 .subscribeOn(Schedulers.io())
@@ -296,5 +224,36 @@ public class BreviarioRepository {
                     }
                 });
     }
+
+    /**
+     * Este método es exclusivo de la hora de Completas.
+     * Obtendrá los textos desde un archivo local.
+     * En un futuro se migrará el modelo de Completas a la Base de Datos.
+     *
+     * @param today Un objeto {@link Today obtenido de la Base de Datos}
+     */
+
+    public void getFromFile(Today today) {
+        fileDataSource.getCompletas(today)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<DataWrapper<Today,
+                        CustomException>>() {
+                    @Override
+                    public void onSuccess(@NonNull DataWrapper<Today,
+                            CustomException> data) {
+                        data.getData().liturgyDay.typeID = 7;
+                        liveDataToday.postValue(data);
+                        dispose();
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        liveData.postValue(new DataWrapper<>(new CustomException(String.format("Error:\n%s%s", e.getMessage(), ERR_REPORT))));
+                        dispose();
+                    }
+                });
+    }
+
 
 }

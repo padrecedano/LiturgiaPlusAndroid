@@ -25,12 +25,12 @@ public class NuncDimitis extends LHPsalm {
     public SpannableStringBuilder getAntifonaSpan(int timeID) {
         SpannableStringBuilder ssb = new SpannableStringBuilder("");
         ssb.append(Utils.toRed("Ant. "));
-        ssb.append(Utils.replaceByTime(antifona, timeID));
+        ssb.append(Utils.replaceByTime(antiphon, timeID));
         return ssb;
     }
 
     public String getAntifonaForRead() {
-        return antifona;
+        return antiphon;
     }
 
     public SpannableStringBuilder getHeader() {

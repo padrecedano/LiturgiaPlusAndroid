@@ -6,7 +6,6 @@ import androidx.room.Relation;
 import org.deiverbum.app.data.entity.BibleReadingEntity;
 import org.deiverbum.app.data.entity.BiblieBookEntity;
 import org.deiverbum.app.model.Biblical;
-import org.deiverbum.app.model.Evangelio;
 import org.deiverbum.app.model.LHOfficeBiblical;
 import org.deiverbum.app.model.MassReading;
 
@@ -34,7 +33,6 @@ public class BibleReadingWithBook {
         theModel.setVersoInicial(String.valueOf(lectura.getDesde()));
         theModel.setVersoFinal(String.valueOf(lectura.getHasta()));
         theModel.setCita(lectura.getCita());
-        //theModel.setTema(lectura.getTema());
         theModel.setTexto(lectura.getTexto());
         return theModel;
     }
@@ -46,21 +44,8 @@ public class BibleReadingWithBook {
         theModel.setVersoInicial(String.valueOf(lectura.getDesde()));
         theModel.setVersoFinal(String.valueOf(lectura.getHasta()));
         theModel.setCita(lectura.getCita());
-        //theModel.setTema(lectura.getTema());
         theModel.setTexto(lectura.getTexto());
-theModel.setLibro(libro.getDomainModel());
-        return theModel;
-    }
-
-    public Evangelio getDomainModelMisaEvangelio() {
-        Evangelio theModel=new Evangelio();
         theModel.setLibro(libro.getDomainModel());
-        theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
-        theModel.setVersoInicial(String.valueOf(lectura.getDesde()));
-        theModel.setVersoFinal(String.valueOf(lectura.getHasta()));
-        theModel.setCita(lectura.getCita());
-        //theModel.setTema(lectura.getTema());
-        theModel.setTexto(lectura.getTexto());
         return theModel;
     }
 

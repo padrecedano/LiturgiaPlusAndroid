@@ -113,7 +113,7 @@ public class TodayLaudes {
             parentColumn = "massReadingFK",
             entityColumn = "liturgyFK"
     )
-    public MisaWithComentariosRename comentarios;
+    public MisaWithComentarios comentarios;
 
     public LHHymn getHimno(){
         return himno.getDomainModel();
@@ -145,6 +145,7 @@ public class TodayLaudes {
 
     public Today getToday(){
         Today dm = new Today();
+        dm.saintFK=today.santoFK;
         dm.liturgyDay=feria.getDomainModel();
         dm.setTodayDate(today.getHoy());
         dm.setHasSaint(today.hasSaint);
@@ -165,7 +166,7 @@ public class TodayLaudes {
         laudes.setHimno(getHimno());
         laudes.setSalmodia(getSalmodia());
         laudes.setLecturaBreve(getBiblica());
-        laudes.setBenedictus(getBenedictus());
+        laudes.setGospelCanticle(getBenedictus());
         laudes.setPreces(getPreces());
         laudes.setOracion(getOracion());
         bh.setLaudes(laudes);

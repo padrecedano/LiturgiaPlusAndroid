@@ -96,6 +96,7 @@ public class MassReading extends Biblical implements Comparable<MassReading>{
         return orderText;
     }
 
+
     @Override
     public int compareTo(MassReading e) {
         return this.getOrden().compareTo(e.getOrden());

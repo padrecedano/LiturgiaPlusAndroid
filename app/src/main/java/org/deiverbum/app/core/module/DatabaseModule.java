@@ -20,7 +20,6 @@ import dagger.hilt.components.SingletonComponent;
  * @since 2023.1
  */
 @Module
-//@InstallIn(ApplicationComponent.class)
 @InstallIn(SingletonComponent.class)
 
 public class DatabaseModule {

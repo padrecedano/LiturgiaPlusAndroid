@@ -65,29 +65,29 @@ public class LHInvitatory extends LHPsalm {
         sb.append(Utils.formatSubTitleToLower(getTitle()));
         sb.append(Utils.LS2);
         sb.append(Utils.fromHtml(PRE_ANT));
-        sb.append(getAntifona());
+        sb.append(getAntiphon());
         sb.append(Utils.LS2);
         sb.append(getTextoSpan());
         sb.append(Utils.LS);
         sb.append(getFinSalmo());
         sb.append(Utils.LS2);
         sb.append(Utils.fromHtml(PRE_ANT));
-        sb.append(getAntifona());
+        sb.append(getAntiphon());
         return sb;
     }
 
     public SpannableStringBuilder getAllForRead() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getTitleForRead());
-        sb.append(getAntifona());
+        sb.append(getAntiphon());
         sb.append(getTextoSpan());
         sb.append(getFinSalmo());
-        sb.append(getAntifona());
+        sb.append(getAntiphon());
         return sb;
     }
 
     public void normalizeIsSaint(String s) {
-        this.antifona=this.antifona.replace("ƞ", s.substring(s.indexOf(" ")+1));
+        this.antiphon =this.antiphon.replace("ƞ", s.substring(s.indexOf(" ")+1));
     }
 
     public String getUnique() {

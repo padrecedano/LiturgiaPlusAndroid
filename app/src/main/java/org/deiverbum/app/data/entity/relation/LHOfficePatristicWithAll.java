@@ -6,13 +6,14 @@ import androidx.room.Relation;
 import org.deiverbum.app.data.entity.HomilyEntity;
 import org.deiverbum.app.data.entity.LHOfficePatristicEntity;
 import org.deiverbum.app.data.entity.LHResponsoryEntity;
+import org.deiverbum.app.model.LHOfficePatristic;
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class LHOfficePatristic {
+public class LHOfficePatristicWithAll {
     @Embedded
     public LHOfficePatristicEntity lhPatristica;
 
@@ -31,8 +32,8 @@ public class LHOfficePatristic {
     public LHResponsoryEntity lhResponsorio;
 
 
-    public org.deiverbum.app.model.LHOfficePatristic getDomainModel(Integer timeId) {
-        org.deiverbum.app.model.LHOfficePatristic theModel= homiliaAll.getPatristicaDomainModel();
+    public LHOfficePatristic getDomainModel(Integer timeId) {
+        LHOfficePatristic theModel= homiliaAll.getPatristicaDomainModel();
         theModel.setTheme(lhPatristica.tema);
         theModel.setResponsorioLargo(lhResponsorio.getDomainModel(timeId));
         return theModel;

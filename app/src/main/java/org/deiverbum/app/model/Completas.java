@@ -59,6 +59,7 @@ public class Completas extends BreviaryHour {
         return conclusion;
     }
 
+    @SuppressWarnings("unused")
     public void setConclusion(Conclusion conclusion) {
         this.conclusion = conclusion;
     }
@@ -195,7 +196,6 @@ public class Completas extends BreviaryHour {
             this.salmodia = getCompletasDias().get(today.weekDay).getSalmodia();
             NuncDimitis nuncDimitis = getNuncDimitis();
             Conclusion conclusion = getConclusion();
-            //sb.append(today.getAllForRead());
             sb.append(getTituloHoraForRead());
             sb.append(getSaludoDiosMioForRead());
             sb.append(kyrie.getAllForRead());

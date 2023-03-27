@@ -63,7 +63,7 @@ public class MassReadingList extends Liturgy {
     @SuppressWarnings("unused")
     public SpannableStringBuilder getAllEvangelioForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
-        for (MassReading b : lecturas) {
+        for (MassReading b : evangelios) {
             if (b.getOrden() >= 40) {
                 sb.append(b.getAll());
             }
@@ -103,7 +103,7 @@ public class MassReadingList extends Liturgy {
         return sb;
     }
 
-    @Override
+    //@Override
     public StringBuilder getAllForRead() {
 
         StringBuilder sb = new StringBuilder();

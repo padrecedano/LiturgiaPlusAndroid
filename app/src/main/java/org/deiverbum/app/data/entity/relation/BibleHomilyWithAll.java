@@ -48,6 +48,4 @@ public class BibleHomilyWithAll {
 
         return theModel;
     }
-
-
 }

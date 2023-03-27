@@ -34,6 +34,7 @@ import androidx.navigation.ui.NavigationUI;
 import org.deiverbum.app.R;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentBreviarioDataBinding;
+import org.deiverbum.app.model.Today;
 import org.deiverbum.app.utils.TextToSpeechCallback;
 import org.deiverbum.app.utils.TtsManager;
 import org.deiverbum.app.utils.Utils;
@@ -144,9 +145,12 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
             mViewModel.getToday(mDate,hourId).observe(getViewLifecycleOwner(), data -> {
                 progressBar.setVisibility(View.GONE);
                 if (data.status == DataWrapper.Status.SUCCESS) {
-                    mTextView.setText(data.getData().getAllForView(hasInvitatory));
+                    Today t=data.getData();
+                    mTextView.setText(t.getAllForView(hasInvitatory));
+
+                    //mTextView.setText(data.getData().getAllForView(hasInvitatory));
                     if (isVoiceOn) {
-                        sbReader.append(data.getData().getAllForRead());
+                        sbReader.append(t.getAllForRead(hasInvitatory));
                         //setPlayerButton();
                     }
                 } else {

@@ -48,6 +48,7 @@ import org.deiverbum.app.databinding.ActivityMainBinding;
 import org.deiverbum.app.ui.fragments.AcceptanceFragmentDialog;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.viewmodel.HomeViewModel;
+import org.deiverbum.app.viewmodel.SyncViewModel;
 
 import java.util.Objects;
 
@@ -88,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
         strFechaHoy = Utils.getFecha();
         setPrivacy();
         showMain();
-        HomeViewModel mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        mViewModel.callFirestore();
+        SyncViewModel mViewModel = new ViewModelProvider(this).get(SyncViewModel.class);
+        mViewModel.launchSyncWorker();
 
         onDestinationChangedListener = (controller, destination, arguments) -> {
             Bundle bundle = new Bundle();
@@ -98,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
             bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName);
             bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, screenName);
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
-            mViewModel.launchSync();
         };
 
         navController.addOnDestinationChangedListener(onDestinationChangedListener);

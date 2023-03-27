@@ -94,8 +94,6 @@ public class TodaySexta {
         Intermedia hi=new Intermedia();
         dm.typeID=4;
         dm.setToday(getToday());
-
-        hi.setHourId(4);
         hi.setToday(getToday());
         hi.setHimno(getHimno());
         hi.setSalmodia(getSalmodia());

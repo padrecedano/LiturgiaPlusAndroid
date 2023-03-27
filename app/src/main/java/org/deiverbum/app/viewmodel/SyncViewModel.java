@@ -24,5 +24,12 @@ public class SyncViewModel extends ViewModel {
         return mRepository.getFromDB();
     }
 
+    public void launchSyncWorker(){
+        mRepository.launchSyncWorker();
+    }
+    public void initialSync(){
+        mRepository.initialSync();
+    }
+
 
 }

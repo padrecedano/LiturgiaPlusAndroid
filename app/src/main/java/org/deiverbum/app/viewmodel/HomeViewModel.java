@@ -18,12 +18,5 @@ public class HomeViewModel extends ViewModel {
         mRepository = repository;
     }
 
-    public void callFirestore() {
-         mRepository.getFromFirebase();
-    }
-
-    public void launchSync(){
-        mRepository.launchWorker();
-    }
 
 }
