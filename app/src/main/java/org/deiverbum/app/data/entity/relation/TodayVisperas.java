@@ -10,7 +10,6 @@ import org.deiverbum.app.data.entity.LHPrayerEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
 import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
 import org.deiverbum.app.data.entity.LiturgyEntity;
-import org.deiverbum.app.data.entity.MassReadingEntity;
 import org.deiverbum.app.data.entity.TodayEntity;
 import org.deiverbum.app.model.BiblicalShort;
 import org.deiverbum.app.model.BreviaryHour;
@@ -22,8 +21,6 @@ import org.deiverbum.app.model.Liturgy;
 import org.deiverbum.app.model.Prayer;
 import org.deiverbum.app.model.Today;
 import org.deiverbum.app.model.Visperas;
-
-import java.util.List;
 
 /**
  * @author A. Cedano
@@ -92,13 +89,6 @@ public class TodayVisperas {
     )
     public LHGospelCanticleWithAntiphon magnificat;
 
-    @Relation(
-            entity = MassReadingEntity.class,
-            parentColumn = "massReadingFK",
-            entityColumn = "liturgyFK"
-    )
-    public List<MisaWithLecturas> lecturas;
-
     public LHHymn getHimno(){
         return himno.getDomainModel();
     }
@@ -126,8 +116,8 @@ public class TodayVisperas {
 
     public Today getToday(){
         Today dm = new Today();
-        dm.hourID=6;
         dm.liturgyDay=feria.getDomainModel();
+        dm.liturgyDay.typeID=6;
         dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
         dm.setTodayDate(today.getHoy());
         dm.setHasSaint(today.hasSaint);
@@ -148,7 +138,7 @@ public class TodayVisperas {
         visperas.setHimno(getHimno());
         visperas.setSalmodia(getSalmodia());
         visperas.setLecturaBreve(getBiblica());
-        visperas.setMagnificat(getMagnificat());
+        visperas.setGospelCanticle(getMagnificat());
         visperas.setPreces(getPreces());
         visperas.setOracion(getOracion());
         bh.setVisperas(visperas);

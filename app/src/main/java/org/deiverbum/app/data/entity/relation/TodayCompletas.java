@@ -31,13 +31,6 @@ public class TodayCompletas {
     @Embedded
     public TodayEntity today;
 
-    @Relation(
-            entity = SaintEntity.class,
-            parentColumn = "saintFK",
-            entityColumn = "saintID" //liturgiaId
-    )
-    public SaintEntity santo;
-
 
     @Relation(
             entity = LHHymnJoinEntity.class,
@@ -74,8 +67,6 @@ public class TodayCompletas {
     )
     public LHPrayerAll lhPrayerAll;
 
-
-
     @Relation(
             entity = LiturgyEntity.class,
             parentColumn = "liturgyFK",
@@ -89,7 +80,6 @@ public class TodayCompletas {
             entityColumn = "liturgyID"
     )
     public LiturgyWithTime previo;
-
 
     public Today getToday(){
         Today dm = new Today();
@@ -115,10 +105,6 @@ public class TodayCompletas {
 
     public BiblicalShort getBiblica(){
         return  biblica.getDomainModel(today.getTiempoId());
-    }
-
-    public Saint getSanto(){
-        return  santo.getDomainModel();
     }
 
     public LHPsalmody getSalmodia() {

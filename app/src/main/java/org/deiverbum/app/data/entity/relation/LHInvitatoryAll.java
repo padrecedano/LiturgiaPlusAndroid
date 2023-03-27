@@ -32,7 +32,7 @@ public class LHInvitatoryAll {
 
     public LHInvitatory getDomainModel(){
         LHInvitatory dm=new LHInvitatory();
-        dm.setAntifona(antifona.getAntifona());
+        dm.setAntiphon(antifona.getAntifona());
         dm.setSalmo(salmo.getSalmo());
         dm.setRef(salmo.salmo.getSalmoRef());
         return dm;

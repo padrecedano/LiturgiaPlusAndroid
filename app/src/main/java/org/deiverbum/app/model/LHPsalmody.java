@@ -41,7 +41,7 @@ public class LHPsalmody {
         this.tipo = tipo;
     }
 
-    public void sort(){
+    public void sort() {
         Collections.sort(this.salmos);
     }
 
@@ -65,12 +65,12 @@ public class LHPsalmody {
 
         if (tipo == 1) {
             sb.append(Utils.toRed(preAntifona));
-            antUnica = salmos.get(hourIndex).getAntifona();
+            antUnica = salmos.get(hourIndex).getAntiphon();
             sb.append(antUnica);
         }
         if (tipo == 2) {
             sb.append(Utils.toRed(preAntifona));
-            antUnica = salmos.get(0).getAntifona();
+            antUnica = salmos.get(0).getAntiphon();
             sb.append(antUnica);
         }
         for (LHPsalm s : salmos) {
@@ -81,20 +81,20 @@ public class LHPsalmody {
             String preRef = String.valueOf(s.getRef());
 
             if (tipo == 0) {
-                sb.append(Utils.toRed(preAntifona + s.getOrden() + ". "));
-                sb.append(Utils.fromHtml(s.getAntifona()));
+                sb.append(Utils.toRed(preAntifona + s.getTheOrder() + ". "));
+                sb.append(Utils.fromHtml(s.getAntiphon()));
             }
-            if (!s.getTema().equals("")) {
-                tema.append(Utils.toRed(s.getTema()));
+            if (!s.getTheme().equals("")) {
+                tema.append(Utils.toRed(s.getTheme()));
                 tema.append(LS2);
             }
 
-            if (!s.getEpigrafe().equals("")) {
-                intro.append(Utils.fromHtmlSmall(s.getEpigrafe()));
+            if (!s.getEpigraph().equals("")) {
+                intro.append(Utils.fromHtmlSmall(s.getEpigraph()));
                 intro.append(LS2);
             }
-            if (!s.getParte().equals("")) {
-                parte.append(Utils.toRed(s.getParte()));
+            if (!s.getPart().equals("")) {
+                parte.append(Utils.toRed(s.getPart()));
                 parte.append(LS2);
             }
             if (!preRef.isEmpty()) {
@@ -122,7 +122,7 @@ public class LHPsalmody {
             if (tipo == 0) {
                 sb.append(LS2);
                 sb.append(Utils.toRed(preAntifona));
-                sb.append(getAntifonaLimpia(s.getAntifona()));
+                sb.append(getAntifonaLimpia(s.getAntiphon()));
                 sb.append(LS2);
             }
         }
@@ -130,14 +130,14 @@ public class LHPsalmody {
             sb.append(LS2);
 
             sb.append(Utils.toRed(preAntifona));
-            antUnica = getAntifonaLimpia(salmos.get(hourIndex).getAntifona());
+            antUnica = getAntifonaLimpia(salmos.get(hourIndex).getAntiphon());
             sb.append(antUnica);
             sb.append(LS2);
         }
         if (tipo == 2) {
             sb.append(LS2);
             sb.append(Utils.toRed(preAntifona));
-            antUnica = getAntifonaLimpia(salmos.get(0).getAntifona());
+            antUnica = getAntifonaLimpia(salmos.get(0).getAntiphon());
             sb.append(antUnica);
             sb.append(LS2);
         }
@@ -146,60 +146,60 @@ public class LHPsalmody {
 
     public SpannableStringBuilder getSalmosByIndex(int index) {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
-        String salmo;
         String preAntifona = "Ant. ";
 
-            sb.append(Utils.toRed(preAntifona));
-            sb.append(salmos.get(index).getAntifona());
-        LHPsalm s=salmos.get(index);
-            SpannableStringBuilder tema = new SpannableStringBuilder("");
-            SpannableStringBuilder parte = new SpannableStringBuilder("");
-            SpannableStringBuilder intro = new SpannableStringBuilder("");
-            SpannableStringBuilder ref = new SpannableStringBuilder("");
-            String preRef = String.valueOf(s.getRef());
+        sb.append(Utils.toRed(preAntifona));
+        //sb.append(salmos.get(index).getAntiphon());
+        LHPsalm s = salmos.get(index);
+        sb.append(Utils.fromHtml(s.getAntiphon()));
 
-                sb.append(Utils.toRed(preAntifona + s.getOrden() + ". "));
-                sb.append(Utils.fromHtml(s.getAntifona()));
+        SpannableStringBuilder tema = new SpannableStringBuilder("");
+        SpannableStringBuilder parte = new SpannableStringBuilder("");
+        SpannableStringBuilder intro = new SpannableStringBuilder("");
+        SpannableStringBuilder ref = new SpannableStringBuilder("");
+        String preRef = String.valueOf(s.getRef());
 
-            if (!s.getTema().equals("")) {
-                tema.append(Utils.toRed(s.getTema()));
-                tema.append(LS2);
-            }
+        //sb.append(Utils.toRed(preAntifona + s.getTheOrder() + ". "));
 
-            if (!s.getEpigrafe().equals("")) {
-                intro.append(Utils.fromHtmlSmall(s.getEpigrafe()));
-                intro.append(LS2);
-            }
-            if (!s.getParte().equals("")) {
-                parte.append(Utils.toRed(s.getParte()));
-                parte.append(LS2);
-            }
-            if (!preRef.isEmpty()) {
-                ref.append(Utils.LS);
-                ref.append(s.getRef());
-                ref.append(LS2);
-            }
+        if (!s.getTheme().equals("")) {
+            tema.append(Utils.toRed(s.getTheme()));
+            tema.append(LS2);
+        }
 
+        if (!s.getEpigraph().equals("")) {
+            intro.append(Utils.fromHtmlSmall(s.getEpigraph()));
+            intro.append(LS2);
+        }
+        if (!s.getPart().equals("")) {
+            parte.append(Utils.toRed(s.getPart()));
+            parte.append(LS2);
+        }
+        if (!preRef.isEmpty()) {
+            ref.append(Utils.LS);
+            ref.append(s.getRef());
+            ref.append(LS2);
+        }
+
+        sb.append(LS2);
+        sb.append(ref);
+        sb.append(tema);
+        sb.append(intro);
+        sb.append(parte);
+        //salmo = Utils.getFormato(s.getSalmo());
+        sb.append(Utils.fromHtml(Utils.getFormato(s.getSalmo())));
+
+        if (s.getSalmo().endsWith("∸")) {
+            sb.append(Utils.LS);
+            sb.append(getNoGloria());
+        } else {
             sb.append(LS2);
-            sb.append(ref);
-            sb.append(tema);
-            sb.append(intro);
-            sb.append(parte);
-            salmo = Utils.getFormato(s.getSalmo());
-            sb.append(Utils.fromHtml(salmo));
+            sb.append(getFinSalmo());
+        }
 
-            if (s.getSalmo().endsWith("∸")) {
-                sb.append(Utils.LS);
-                sb.append(getNoGloria());
-            } else {
-                sb.append(LS2);
-                sb.append(getFinSalmo());
-            }
-
-                sb.append(LS2);
-                sb.append(Utils.toRed(preAntifona));
-                sb.append(getAntifonaLimpia(s.getAntifona()));
-                sb.append(LS2);
+        sb.append(LS2);
+        sb.append(Utils.toRed(preAntifona));
+        sb.append(getAntifonaLimpia(s.getAntiphon()));
+        sb.append(LS2);
 
         return sb;
     }
@@ -251,7 +251,7 @@ public class LHPsalmody {
     public SpannableStringBuilder getSalmosByIndexForRead(int index) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         String salmo;
-        LHPsalm s =salmos.get(index);
+        LHPsalm s = salmos.get(index);
         sb.append(Utils.fromHtml(s.getAntifonaForRead()));
         sb.append(LS2);
         salmo = Utils.getFormato(s.getSalmo());
@@ -275,11 +275,12 @@ public class LHPsalmody {
 
     /**
      * <p>Obtiene el contenido de la salmodia formateado, para la vista.</p>
-     * @since 2022.01
+     *
      * @return Un {@link SpannableStringBuilder con el contenido.}
+     * @since 2022.01
      */
     public SpannableStringBuilder getAll() {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeader());
         sb.append(LS2);
         sb.append(getSalmos());
@@ -287,15 +288,15 @@ public class LHPsalmody {
     }
 
     /**
-     *
      * <p>Obtiene el contenido de la salmodia formateado, para la vista.</p>
-     * @since 2022.01
+     *
      * @param hourIndex Un entero con el índice de la hora intermedia
      * @return Un {@link SpannableStringBuilder con el contenido.}
+     * @since 2022.01
      */
 
     public SpannableStringBuilder getAll(int hourIndex) {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeader());
         sb.append(LS2);
         sb.append(getSalmos(hourIndex));
@@ -304,8 +305,9 @@ public class LHPsalmody {
 
     /**
      * <p>Obtiene el contenido de la salmodia formateado, para la vista.</p>
-     * @since 2022.01
+     *
      * @return Un {@link SpannableStringBuilder con el contenido.}
+     * @since 2022.01
      */
     public String getAllForRead() {
         return getHeaderForRead() +
@@ -314,16 +316,17 @@ public class LHPsalmody {
 
     /**
      * <p>Obtiene el contenido de la salmodia formateado, para la vista.</p>
-     * @since 2022.01
+     *
      * @param hourIndex Un entero con el índice de la hora intermedia
      * @return Un {@link SpannableStringBuilder con el contenido.}
+     * @since 2022.01
      */
     public String getAllForRead(int hourIndex) {
         return getHeaderForRead() +
                 getSalmosForRead(hourIndex);
     }
+
     /**
-     *
      * @return Texto al final de cada salmo
      * @since 2022.01
      */
@@ -335,13 +338,12 @@ public class LHPsalmody {
     }
 
     public String getFinSalmoForRead() {
-        return  "Gloria al Padre, y al Hijo, y al Espíritu Santo." +
+        return "Gloria al Padre, y al Hijo, y al Espíritu Santo." +
                 "Como era en el principio ahora y siempre, "
                 + "por los siglos de los siglos. Amén.";
     }
 
     /**
-     *
      * @return La rúbrica cuando no se dice Gloria en los salmos.
      * @since 2022.01
      */
@@ -352,6 +354,7 @@ public class LHPsalmody {
 
     /**
      * Método que limpia la segunda parte de la antífona, en el caso del símblo †
+     *
      * @param sAntifona Una cadena con el texto de la antífona
      * @return La misma cadena, pero sin el referido símbolo
      */
@@ -362,12 +365,13 @@ public class LHPsalmody {
 
     /**
      * Método que normaliza el contenido de las antífonas según el tiempo litúrgico del calendario
+     *
      * @param calendarTime Un entero con el Id del tiempo del calendario
      */
 
     public void normalizeByTime(int calendarTime) {
         for (LHPsalm s : salmos) {
-            s.setAntifona(Utils.replaceByTime(s.getAntifona(),calendarTime));
+            s.setAntiphon(Utils.replaceByTime(s.getAntiphon(), calendarTime));
         }
     }
 

@@ -17,16 +17,16 @@ public class LHPsalm implements Comparable<LHPsalm>{
     private String psalm="";
 
     @Ignore
-    private String orden;
+    private String theOrder;
     @Ignore
-    protected String antifona;
+    protected String antiphon;
 
     @Ignore
-    private String tema;
+    private String theme;
     @Ignore
-    private String epigrafe;
+    private String epigraph;
     @Ignore
-    private String parte;
+    private String part;
 
     public String getPsalm() {
         return psalm;
@@ -36,24 +36,24 @@ public class LHPsalm implements Comparable<LHPsalm>{
         this.psalm = psalm;
     }
 
-    public String getOrden() {
-        return (orden != null ) ?  orden : "";
+    public String getTheOrder() {
+        return (theOrder != null ) ? theOrder : "";
     }
 
-    public void setOrden(String orden) {
-        this.orden = orden;
+    public void setTheOrder(String theOrder) {
+        this.theOrder = theOrder;
     }
 
-    public String getAntifona() {
-        return (antifona != null ) ?  antifona : "";
+    public String getAntiphon() {
+        return (antiphon != null ) ? antiphon : "";
     }
 
     public String getAntifonaForRead() {
-        return (antifona != null ) ?  Utils.normalizeEnd(antifona)  : "";
+        return (antiphon != null ) ?  Utils.normalizeEnd(antiphon)  : "";
     }
 
-    public void setAntifona(String antifona) {
-        this.antifona = antifona;
+    public void setAntiphon(String antiphon) {
+        this.antiphon = antiphon;
     }
 
     public SpannableStringBuilder getRef() {
@@ -68,28 +68,28 @@ public class LHPsalm implements Comparable<LHPsalm>{
         this.quote = ref;
     }
 
-    public String getTema() {
-        return (tema != null ) ? tema : "";
+    public String getTheme() {
+        return (theme != null ) ? theme : "";
     }
 
-    public void setTema(String tema) {
-        this.tema = tema;
+    public void setTheme(String theme) {
+        this.theme = theme;
     }
 
-    public String getEpigrafe() {
-        return (epigrafe != null ) ? epigrafe:"";
+    public String getEpigraph() {
+        return (epigraph != null ) ? epigraph :"";
     }
 
-    public void setEpigrafe(String epigrafe) {
-        this.epigrafe = epigrafe;
+    public void setEpigraph(String epigraph) {
+        this.epigraph = epigraph;
     }
 
-    public String getParte() {
-        return (parte != null) ? parte: "";
+    public String getPart() {
+        return (part != null) ? part : "";
     }
 
-    public void setParte(String parte) {
-        this.parte = parte;
+    public void setPart(String part) {
+        this.part = part;
     }
 
     public String getSalmo() {
@@ -98,13 +98,6 @@ public class LHPsalm implements Comparable<LHPsalm>{
 
     public void setSalmo(String salmo) {
         this.psalm = salmo;
-    }
-
-    public Spanned getTextos() {
-        SpannableStringBuilder ssb = new SpannableStringBuilder();
-        Spanned str = Utils.fromHtml(Utils.getFormato(epigrafe));
-        ssb.append(str);
-        return Utils.ssbSmallSize(ssb);
     }
 
     /**
@@ -127,7 +120,7 @@ public class LHPsalm implements Comparable<LHPsalm>{
 
     @Override
     public int compareTo(LHPsalm e) {
-        return this.getOrden().compareTo(e.getOrden());
+        return this.getTheOrder().compareTo(e.getTheOrder());
     }
 
     /**
@@ -136,6 +129,6 @@ public class LHPsalm implements Comparable<LHPsalm>{
      */
 
     public void normalizeByTime(int calendarTime) {
-            this.antifona=Utils.replaceByTime(getAntifona(),calendarTime);
+            this.antiphon =Utils.replaceByTime(getAntiphon(),calendarTime);
     }
 }

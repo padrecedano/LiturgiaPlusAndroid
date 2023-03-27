@@ -9,7 +9,6 @@ import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
-import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.workers.TodayWorker;
 
 import java.util.concurrent.TimeUnit;
@@ -26,28 +25,20 @@ import dagger.hilt.android.qualifiers.ApplicationContext;
  */
 
 public class HomeRepository {
-    private final FirebaseDataSource firebaseDataSource;
     final Context context;
 
     @Inject
-    public HomeRepository(FirebaseDataSource firebaseDataSource,@ApplicationContext Context context
-    ) {
-        this.firebaseDataSource = firebaseDataSource;
+    public HomeRepository(@ApplicationContext Context context) {
         this.context=context;
     }
 
     /**
-     * Agrega un evento de escucha para sincronizar las fechas del calendario.
-     * Los datos serán recibidos desde Firebase mediante {@link FirebaseDataSource#getSync()}
+     * <p>Lanza el objeto  {@link TodayWorker}, encargado de monitorear/sincronizar
+     * eventuales cambios en los datos remotos.</p>
      */
-
-    public void getFromFirebase() {
-        firebaseDataSource.getSync();
-    }
 
     public void launchWorker() {
         WorkManager mWorkManager = WorkManager.getInstance(this.context);
-
         // Create Network constraint
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)

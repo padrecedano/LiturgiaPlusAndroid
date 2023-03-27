@@ -14,6 +14,8 @@ public class LHOfficeBiblicalEaster extends Biblical implements Comparable<LHOff
     @Ignore
     private Prayer prayer;
 
+
+
     public LHPsalm psalm;
     //public int theOrder;
 
@@ -55,34 +57,8 @@ public class LHOfficeBiblicalEaster extends Biblical implements Comparable<LHOff
         return Utils.pointAtEnd(TITLE_RESPONSORY);
     }
 
-    /**
-     * <p>Obtiene la lectura bíblica completa, incluyendo el responsorio, formateada para la vista.</p>
-     * @since 2022.01
-     * @return Un objeto {@link SpannableStringBuilder con el contenido.}
-     */
-    @Override
-    public SpannableStringBuilder getAll() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(getTextoSpan());
-        //sb.append(getTheme());
-        sb.append(LS2);
-        sb.append(prayer.getPrayer());
-        sb.append(LS2);
-//sb.append(psalmm);
 
-        /*sb.append(getHeader());
-        sb.append(LS2);
-        sb.append(book.getLiturgyName());
-        sb.append("    ");
-        sb.append(Utils.toRed(getCita()));
-        sb.append(LS2);*/
-        //sb.append(Utils.toRed(getTheme()));
-        sb.append(LS2);/*
-        sb.append(getTextoSpan());*/
-        sb.append(Utils.LS);
-        //sb.append(responsorioLargo.getAll());
-        return sb;
-    }
+
     public SpannableStringBuilder getBiblical() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(Utils.formatTitle(getHeader()));

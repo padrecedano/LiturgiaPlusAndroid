@@ -6,7 +6,6 @@ import androidx.room.Relation;
 import org.deiverbum.app.data.entity.SaintEntity;
 import org.deiverbum.app.data.entity.SaintLifeEntity;
 import org.deiverbum.app.model.Saint;
-import org.deiverbum.app.model.SaintLife;
 
 /**
  * @author A. Cedano
@@ -24,11 +23,9 @@ public class SaintWithAll {
 
     public SaintLifeEntity lhSanto;
 
-    //TODO método getVida ¿?
     public Saint getDomainModelLH(){
         Saint dm=new Saint();
         dm.setTheName(santo.nombre);
-        //dm.setVida(lhSanto.getShortLife());
         return dm;
     }
 

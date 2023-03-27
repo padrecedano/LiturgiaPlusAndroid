@@ -26,7 +26,9 @@ public class FileRepository {
     private final FileDataSource fileDataSource;
 
     @Inject
-    public FileRepository(FileDataSource fileDataSource) {
+    public FileRepository(
+            FileDataSource fileDataSource
+                          ) {
         this.fileDataSource = fileDataSource;
     }
 
@@ -53,4 +55,5 @@ public class FileRepository {
 
         return finalData;
     }
+
 }

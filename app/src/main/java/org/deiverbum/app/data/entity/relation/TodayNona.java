@@ -84,7 +84,7 @@ public class TodayNona {
         BreviaryHour bh=new BreviaryHour();
         Intermedia hi=new Intermedia();
         dm.typeID=5;
-        hi.setHourId(5);
+        //hi.setHourId(5);
         hi.setToday(getToday());
         hi.setHimno(getHimno());
         hi.setSalmodia(getSalmodia());

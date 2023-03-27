@@ -10,10 +10,18 @@ import static org.deiverbum.app.utils.Constants.FIREBASE_SANTOS;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SnapshotMetadata;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
@@ -244,46 +252,26 @@ public class FirebaseDataSource {
         });
     }
 
-    public Single<DataWrapper<Liturgy, CustomException>> getBreviary(String dateString, int hourId) {
-        return Single.create(emitter -> {
-            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
-            docRef.get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        DocumentReference dataRef =
-                                document.getDocumentReference(String.format(new Locale("es"), "lh.%d", hourId));
-                        MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
-                        Objects.requireNonNull(meta).setIdHour(hourId);
-
-                        try {
-
-                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
-                                if (mSnapshot.exists()) {
-                                    Liturgy theHour = mSnapshot.toObject(Liturgy.class);
-                                    Objects.requireNonNull(theHour).setMetaLiturgia(meta);
-                                    emitter.onSuccess(new DataWrapper<>(theHour));
-                                } else {
-                                    emitter.onError(new Exception(DATA_NOTFOUND));
-                                }
-                            });
-                        } catch (Exception e) {
-                            emitter.onError(new Exception(e));
+    public void getSync(){
+        firebaseFirestore.collection(FIREBASE_SYNC_PATH)
+                .whereGreaterThanOrEqualTo("todayDate", Utils.getTodayMinus(30))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
                         }
-                    } else {
-                        emitter.onError(new Exception(DOC_NOTFOUND));
-
                     }
-                } else {
-                    emitter.onError(task.getException());
-                }
-            });
-        });
+                });
     }
 
-
-
-    public void getSync() {
+    public void getSyncc() {
+        /*ListenerRegistration registration =*/
         firebaseFirestore.collection(FIREBASE_SYNC_PATH)
                 .whereGreaterThanOrEqualTo("todayDate", Utils.getTodayMinus(30))
                 .addSnapshotListener(
@@ -322,6 +310,8 @@ public class FirebaseDataSource {
                             }
 
                         });
+        //registration.remove();
+
     }
 
     public Single<DataWrapper<Today, CustomException>> getToday(String dateString, int hourId) {
@@ -343,6 +333,44 @@ public class FirebaseDataSource {
                                     Today theHour = mSnapshot.toObject(Today.class);
                                     //Objects.requireNonNull(theHour).setMetaLiturgia(meta);
                                     emitter.onSuccess(new DataWrapper<>(theHour));
+                                } else {
+                                    emitter.onError(new Exception(DATA_NOTFOUND));
+                                }
+                            });
+                        } catch (Exception e) {
+                            emitter.onError(new Exception(e));
+                        }
+                    } else {
+                        emitter.onError(new Exception(DOC_NOTFOUND));
+
+                    }
+                } else {
+                    emitter.onError(task.getException());
+                }
+            });
+        });
+    }
+
+    public Single<DataWrapper<Today, CustomException>> getBreviary(String dateString, int hourId) {
+        return Single.create(emitter -> {
+            DocumentReference docRef = firebaseFirestore.collection(FIREBASE_SYNC_PATH).document(dateString);
+            docRef.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+
+                        //Objects.requireNonNull(meta).setIdHour(hourId);
+
+                        try {
+                            DocumentReference dataRef =
+                                    document.getDocumentReference(String.format(new Locale("es"), "lh.%d", hourId));
+                            //MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
+                            Today today = document.toObject(Today.class);
+
+                            Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
+                                if (mSnapshot.exists()) {
+                                    Objects.requireNonNull(today).liturgyDay= mSnapshot.toObject(Liturgy.class);
+                                    emitter.onSuccess(new DataWrapper<>(today));
                                 } else {
                                     emitter.onError(new Exception(DATA_NOTFOUND));
                                 }

@@ -164,42 +164,14 @@ public class FileDataSource {
     }
 
     /**
-     * <p>Obtiene un observable de {@link org.deiverbum.app.model.OracionSimple} envuelto en {@link DataWrapper}.</p>
+     * <p>Obtiene un observable de {@link org.deiverbum.app.model.Today} envuelto en {@link DataWrapper}.</p>
      *
-     * @param rawPath La ruta del archivo que tiene los datos de la {@link org.deiverbum.app.model.OracionSimple} correspondiente
-     * @return Observable del tipo solicitado o error.
-     * @since 2022.01.01
-     */
-
-    @SuppressWarnings({"unused", "ResultOfMethodCallIgnored"})
-    public Single<DataWrapper<Completas, CustomException>> getCompletas(String rawPath) {
-        return Single.create(emitter -> {
-            try {
-                AssetManager manager = mContext.getAssets();
-                InputStream is = manager.open(rawPath);
-                int size = is.available();
-                byte[] buffer = new byte[size];
-                is.read(buffer);
-                is.close();
-                Gson gson = new Gson();
-                Completas data = gson.fromJson(new String(buffer, StandardCharsets.UTF_8), Completas.class);
-                emitter.onSuccess(new DataWrapper<>(data));
-            } catch (Exception e) {
-                emitter.onError(new Exception(e));
-            }
-
-        });
-    }
-
-    /**
-     * <p>Obtiene un observable de {@link org.deiverbum.app.model.Liturgy} envuelto en {@link DataWrapper}.</p>
-     *
-     * @param liturgy Un objeto {@link org.deiverbum.app.model.Liturgy} con información previa, al cual se adjuntarán las completas.
+     * @param today Un objeto {@link org.deiverbum.app.model.Today} con información previa, al cual se adjuntarán las completas.
      * @return Observable del tipo solicitado o error.
      * @since 2023.1
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public Single<DataWrapper<Liturgy, CustomException>> getCompletas(Liturgy liturgy) {
+    public Single<DataWrapper<Today, CustomException>> getCompletas(Today today) {
         return Single.create(emitter -> {
             try {
                 AssetManager manager = mContext.getAssets();
@@ -210,46 +182,18 @@ public class FileDataSource {
                 is.close();
                 Gson gson = new Gson();
                 Completas hora = gson.fromJson(new String(buffer, StandardCharsets.UTF_8), Completas.class);
-
-                hora.setToday(liturgy.getToday());
-                BreviaryHour bh = new BreviaryHour();
-                bh.setCompletas(hora);
-                liturgy.setBreviaryHour(bh);
-                emitter.onSuccess(new DataWrapper<>(liturgy));
-            } catch (Exception e) {
-                emitter.onError(new Exception(e));
-            }
-
-        });
-    }
-
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    public Single<DataWrapper<Today, CustomException>> getCompletasToday(Today today) {
-        return Single.create(emitter -> {
-            try {
-                AssetManager manager = mContext.getAssets();
-                InputStream is = manager.open(FILE_NIGHT_PRAYER);
-                int size = is.available();
-                byte[] buffer = new byte[size];
-                is.read(buffer);
-                is.close();
-                Gson gson = new Gson();
-                Completas hora = gson.fromJson(new String(buffer, StandardCharsets.UTF_8), Completas.class);
-                hora.setTypeId(7);//typeID=7;
+                hora.setTypeId(7);
                 hora.setToday(today);
                 BreviaryHour bh = new BreviaryHour();
-                //bh.typeID=7;
                 bh.setTypeId(7);
                 bh.setCompletas(hora);
                 hora.setBreviaryHour(bh);
                 Liturgy l=today.liturgyDay;
                 l.setBreviaryHour(bh);
-
                 emitter.onSuccess(new DataWrapper<>(today));
             } catch (Exception e) {
                 emitter.onError(new Exception(e));
             }
-
         });
     }
 }

@@ -8,18 +8,18 @@ import android.text.Spanned;
 import org.deiverbum.app.utils.Utils;
 
 public class TeDeum {
-    public boolean status;
+    public int status;
     public String texto;
 
-    public TeDeum(int i) {
-        this.status= i != 0;
+    public TeDeum(int status) {
+        this.status= status;
     }
 
     public boolean isStatus() {
-        return status;
+        return status==1;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -43,7 +43,7 @@ public class TeDeum {
     @Deprecated
     public final Spanned getTextoSpan() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
-        if (status) {
+        if (isStatus()) {
             sb.append(getHeader());
             sb.append(Utils.LS2);
             sb.append(Utils.fromHtml(getTexto()));
@@ -62,7 +62,7 @@ public class TeDeum {
 
     public String getAllForRead() {
         StringBuilder sb=new StringBuilder();
-        if (status) {
+        if (isStatus()) {
             sb.append(getHeader());
             sb.append(".");
             sb.append(Utils.fromHtml(getTexto()));

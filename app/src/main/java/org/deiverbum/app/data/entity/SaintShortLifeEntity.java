@@ -1,6 +1,5 @@
 package org.deiverbum.app.data.entity;
 
-import static org.deiverbum.app.utils.Constants.SAINT_LIFE;
 import static org.deiverbum.app.utils.Constants.SAINT_SHORT_LIFE;
 
 import androidx.annotation.NonNull;

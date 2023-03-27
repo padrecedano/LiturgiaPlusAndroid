@@ -35,14 +35,13 @@ public class LHPsalmodyAll {
             LHPsalm s = new LHPsalm();
             s.setSalmo(salmo.getSalmoText());
             s.setRef(salmo.getRef());
-            s.setAntifona(salmo.getAntifona());
-            s.setTema(salmo.getTema());
-            s.setEpigrafe(salmo.getEpigrafe());
-            s.setParte(salmo.getParte());
-            s.setOrden(salmo.getOrden());
+            s.setAntiphon(salmo.getAntifona());
+            s.setTheme(salmo.getTema());
+            s.setEpigraph(salmo.getEpigrafe());
+            s.setPart(salmo.getParte());
+            s.setTheOrder(salmo.getOrden());
             salmosList.add(s);
         }
-
         theModel.setSalmos(salmosList);
         theModel.sort();
         return theModel;

@@ -11,6 +11,9 @@ import org.deiverbum.app.model.SyncStatus;
 import org.deiverbum.app.model.Today;
 import org.deiverbum.app.model.crud.Crud;
 
+import java.util.List;
+
+import io.reactivex.Completable;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -52,10 +55,14 @@ public interface ApiService {
     Single<MetaLiturgia> getMetaLiturgia(@Path("theDate") String cleanDate);
 
     @Headers("Cache-Control: no-cache")
-    @POST("insert/")
-    Single<Crud> callSyncStatuss(@Body SyncStatus syncStatus);
+    @POST("crud/")
+    Single<Crud> postCrud(@Body SyncStatus syncStatus);
 
     @Headers("Cache-Control: no-cache")
     @GET("insert/{theDate}")
     Single<Crud> callSyncStatus(@Path("theDate") String lastUpdate);
+
+    @Headers("Cache-Control: no-cache")
+    @GET("today/{thePath}")
+    Single<List<Today>> getTodayAll(@Path("thePath") String thePath);
 }

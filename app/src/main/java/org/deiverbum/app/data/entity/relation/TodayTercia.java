@@ -93,7 +93,6 @@ public class TodayTercia {
         BreviaryHour bh=new BreviaryHour();
         Intermedia hi=new Intermedia();
         dm.typeID=3;
-        hi.setHourId(3);
         hi.setToday(getToday());
         hi.setHimno(getHimno());
         hi.setSalmodia(getSalmodia());
@@ -111,7 +110,6 @@ public class TodayTercia {
         Today dmToday=getToday();
         dm.typeID=3;
         hi.setTypeId(3);
-        //hi.setToday(getToday());
         hi.setHimno(getHimno());
         hi.setSalmodia(getSalmodia());
         hi.setLecturaBreve(getBiblica());

@@ -33,6 +33,4 @@ public class PaterOpusAll {
         dm.liturgyName=paterOpusEntity.liturgyName;
         return dm;
     }
-
-
 }

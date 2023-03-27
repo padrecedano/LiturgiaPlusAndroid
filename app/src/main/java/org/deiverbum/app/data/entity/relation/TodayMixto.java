@@ -125,7 +125,7 @@ public class TodayMixto {
             parentColumn = "oPatristicFK",
             entityColumn = "groupFK"
     )
-    public org.deiverbum.app.data.entity.relation.LHOfficePatristic patristica;
+    public LHOfficePatristicWithAll patristica;
 
     @Relation(
             entity = LHOfficePatristicEntity.class,
@@ -152,7 +152,6 @@ public class TodayMixto {
             entity = LHIntercessionsJoinEntity.class,
             parentColumn = "lIntercessionsFK",
             entityColumn = "groupID"
-
     )
     public LHIntercessionsDM lhIntercessionsDM;
 
@@ -163,18 +162,11 @@ public class TodayMixto {
     )
     public LHPrayerAll lhPrayerAll;
 
-    @Relation(
-            entity = MassReadingEntity.class,
-            parentColumn = "massReadingFK",
-            entityColumn = "liturgyFK"
-    )
-    public List<MisaWithComentariosRename> comentarios;
-
     public List<MassReading> getEvangelios(){
         List<MassReading> listModel=new ArrayList<>();
-        for (MisaWithComentariosRename item : comentarios) {
+        for (MisaWithLecturas item : lecturas) {
             if(item.misaLectura.getOrden()>=40) {
-                listModel.add(item.getBiblicaMisa());
+                listModel.add(item.getDomainModel());
             }
         }
         return listModel;
@@ -206,7 +198,6 @@ public class TodayMixto {
     public LHIntercession getPreces(){
         return  lhIntercessionsDM.getDomainModel();
     }
-
 
     public LHInvitatory getInvitatorio() {
         return invitatorio.getDomainModel();
@@ -255,10 +246,12 @@ public class TodayMixto {
                 mixto.setSanto(saint.getDomainModel());
             }
             mixto.setInvitatorio(getInvitatorio());
+            oficio.setInvitatorio(getInvitatorio());
+
             laudes.setHimno(getHimno());
             laudes.setSalmodia(getSalmodia());
             laudes.setLecturaBreve(getBiblica());
-            laudes.setBenedictus(getBenedictus());
+            laudes.setGospelCanticle(getBenedictus());
             laudes.setPreces(getPreces());
             laudes.setOracion(getOracion());
             LHOfficeOfReading ol = new LHOfficeOfReading();
@@ -268,13 +261,15 @@ public class TodayMixto {
             oficio.setOficioLecturas(ol);
             oficio.setTeDeum(new TeDeum(today.oTeDeum));
             laudes.setLecturaBreve(getBiblica());
-            laudes.setBenedictus(getBenedictus());
+            laudes.setGospelCanticle(getBenedictus());
             laudes.setPreces(getPreces());
             laudes.setOracion(getOracion());
             mixto.setOficio(oficio);
             mixto.setLaudes(laudes);
-            mixto.setEvangelios(getEvangelios());
+            mixto.setMisaLecturas(getEvangelios());
             bh.setMixto(mixto);
+            bh.setOficio(oficio);
+            bh.setLaudes(laudes);
         }
         dm.setBreviaryHour(bh);
         dmToday.liturgyDay=dm;

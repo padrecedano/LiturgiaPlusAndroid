@@ -76,6 +76,7 @@ public class AuthorFragment extends Fragment {
         });
 
         observeBook();
+
         return root;
     }
 

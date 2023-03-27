@@ -5,6 +5,8 @@ import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
 
+import androidx.room.Ignore;
+
 import org.deiverbum.app.utils.Utils;
 
 import java.util.Collections;
@@ -15,6 +17,8 @@ public class LHOfficeOfReadingEaster extends LHOfficeOfReading {
     private String metaInfo;
     private List<LHOfficeBiblicalEaster> biblical;
     public LHPsalmody lhPsalmody;
+    @Ignore
+    transient TeDeum teDeum;
 
     public LHOfficeOfReadingEaster() {
     }
@@ -66,15 +70,35 @@ public class LHOfficeOfReadingEaster extends LHOfficeOfReading {
 
     public SpannableStringBuilder getAllBiblica(int calendarTime) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
+        this.teDeum = new TeDeum(1);
+
         int i = 0;
         for (LHOfficeBiblicalEaster oneBiblica : this.biblical) {
-            sb.append(LS2);
-            sb.append(oneBiblica.getBiblical());
-            sb.append(LS2);
-            sb.append(lhPsalmody.getSalmosByIndex(i));
-            sb.append(LS2);
-            sb.append(oneBiblica.getPrayer().getAll());
-            sb.append(LS2);
+            if (i <= 1) {
+                sb.append(LS2);
+                sb.append(oneBiblica.getBiblical());
+                sb.append(LS2);
+                sb.append(lhPsalmody.getSalmosByIndex(i));
+                sb.append(LS2);
+                sb.append(oneBiblica.getPrayer().getAll());
+                sb.append(LS2);
+            }
+            if (i == 2) {
+                sb.append(LS2);
+                sb.append(oneBiblica.getBiblical());
+                sb.append(LS2);
+                sb.append(lhPsalmody.getSalmosByIndex(i));
+                sb.append(LS2);
+                //sb.append(oneBiblica.getPrayer().getAll());
+            }
+            if (i == 3) {
+                sb.append(oneBiblica.getBiblical());
+                sb.append(LS2);
+                sb.append(this.teDeum.getAll());
+                sb.append(LS2);
+                sb.append(oneBiblica.getPrayer().getAll());
+            }
+            i++;
         }
         return sb;
     }
@@ -83,9 +107,32 @@ public class LHOfficeOfReadingEaster extends LHOfficeOfReading {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         int i = 0;
         for (LHOfficeBiblicalEaster oneBiblica : this.biblical) {
-            sb.append(oneBiblica.getBiblicalForRead());
-            sb.append(lhPsalmody.getSalmosByIndexForRead(i));
-            sb.append(oneBiblica.getPrayer().getAllForRead());
+
+            if (i <= 1) {
+                sb.append(LS2);
+                sb.append(oneBiblica.getBiblicalForRead());
+                sb.append(LS2);
+                sb.append(lhPsalmody.getSalmosByIndexForRead(i));
+                sb.append(LS2);
+                sb.append(oneBiblica.getPrayer().getAllForRead());
+                sb.append(LS2);
+            }
+            if (i == 2) {
+                sb.append(LS2);
+                sb.append(oneBiblica.getBiblicalForRead());
+                sb.append(LS2);
+                sb.append(lhPsalmody.getSalmosByIndexForRead(i));
+                sb.append(LS2);
+                //sb.append(oneBiblica.getPrayer().getAll());
+            }
+            if (i == 3) {
+                sb.append(oneBiblica.getBiblicalForRead());
+                sb.append(LS2);
+                sb.append(this.teDeum.getAllForRead());
+                sb.append(LS2);
+                sb.append(oneBiblica.getPrayer().getAllForRead());
+            }
+            i++;
         }
         return sb;
     }
