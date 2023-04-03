@@ -45,6 +45,7 @@ public class LHOfficePatristic {
         this.padre = padre;
     }
 
+    @SuppressWarnings("unused")
     public String getObra() {
         return paterOpus.getOpusForView();
     }
@@ -87,19 +88,25 @@ public class LHOfficePatristic {
         return text;
     }
 
+    public Spanned getTextForRead() {
+        return Utils.fromHtmlForRead(text);
+    }
+
     public Spanned getTextoSpan() {
 
-        return Utils.fromHtml(Utils.getFormato(text));
+        return Utils.fromHtml(text);
     }
 
     public void setText(String text) {
         this.text = text;
     }
 
+    @SuppressWarnings("unused")
     public String getRef() {
         return ref;
     }
 
+    @SuppressWarnings("unused")
     public void setRef(String ref) {
         this.ref = ref;
     }
@@ -135,7 +142,7 @@ public class LHOfficePatristic {
         sb.append(getPadreForRead());
         sb.append(getObraForRead());
         sb.append(getTemaForRead());
-        sb.append(getText());
+        sb.append(getTextForRead());
         sb.append(getPadreForRead());
         sb.append(getResponsorioHeaderForRead());
         sb.append(responsorioLargo.getAllForRead());
@@ -146,8 +153,6 @@ public class LHOfficePatristic {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeader());
         sb.append(LS2);
-        //sb.append(padre);
-        //sb.append(", ");
         sb.append(getObraForView());
         sb.append(Utils.LS2);
         sb.append(Utils.toSmallSizeRed(source));

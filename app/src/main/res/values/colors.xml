@@ -62,11 +62,11 @@
     <color name="colorTextInput">#283593</color>
     <color name="colorUnchecked">#8E585A6B</color>
 
-    <color name="md_theme_dark_primary">#A9C7FF</color>
+    <color name="md_theme_dark_primary">#464647</color>
     <color name="md_theme_dark_onPrimary">#002F68</color>
     <color name="md_theme_dark_primaryContainer">#02458E</color>
     <color name="md_theme_dark_onPrimaryContainer">#D6E3FF</color>
-    <color name="md_theme_dark_secondary">#BEC7DD</color>
+    <color name="md_theme_dark_secondary">#FFCC80</color>
     <color name="md_theme_dark_onSecondary">#283041</color>
     <color name="md_theme_dark_secondaryContainer">#3E4759</color>
     <color name="md_theme_dark_onSecondaryContainer">#DAE2F8</color>

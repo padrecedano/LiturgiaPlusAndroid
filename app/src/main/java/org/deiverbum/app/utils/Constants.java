@@ -4,7 +4,7 @@ import android.graphics.Color;
 import android.text.style.ForegroundColorSpan;
 
 import java.util.Locale;
-
+@SuppressWarnings("unused")
 public class Constants {
 
     /*Cambiar tambien en
@@ -30,10 +30,8 @@ public class Constants {
     public static final String BRS = "<br /><br />";
     public static final String BR = "<br />";
 
-    public static final String PRE_ANT = CSS_RED_A + "Ant. " + CSS_RED_Z;
     public static final String NBSP_4 = " &nbsp;&nbsp;&nbsp;&nbsp;";
-    public static final String RESP_V = CSS_RED_A + "V. " + CSS_RED_Z;
-    public static final String RESP_R = CSS_RED_A + "R. " + CSS_RED_Z;
+    public static final String TAB_2 = "\t\t";
 
     //Mensajes de error
     public static final String ERR_RESPONSORIO = CSS_RED_A + "¡ERROR! " + CSS_RED_Z + BR + "Hay un error en el responsorio de este día, " +
@@ -54,9 +52,9 @@ public class Constants {
     public static final String PACIENCIA = "\n\nLa paciencia todo lo alcanza. Por favor espere ...";
     public static final String NBSP_SALMOS = BR + "&nbsp;&nbsp;";
     public static final String RESP_A = CSS_RED_A + " * " + CSS_RED_Z;
-    static final String PRECES_IL = BRS + CSS_RED_A + "Se pueden añadir algunas intenciones libres." + CSS_RED_Z + BRS;
+    static final String PRECES_IL = "Se pueden añadir algunas intenciones libres.";
     static final String OBIEN = BRS + CSS_RED_A + "O bien:" + CSS_RED_Z + BRS;
-    static final String PRECES_R = NBSP_SALMOS + CSS_RED_A + "– " + CSS_RED_Z;
+    static final String PRECES_R = "–";
 
     public static final String DATA_NOTFOUND = "No se encontraron datos";
     public static final String FIREBASE_SANTOS = "/liturgia/santos/";
@@ -80,6 +78,9 @@ public class Constants {
             "Puede que estés intentando acceder a un " +
             "contenido fuera de fecha o que el contenido aún no exista. %sPuedes reportar esta incidencia al desarrollador para informarle de que hay un problema en " +
             "este módulo mandando un mensaje a <b>%spadre.cedano@gmail.com%s</b> en el que indiques la fecha y el módulo en que ha ocurrido el problema. %sLos contenidos no presentes se incluirán mediante sincronización remota y necesitarás tener conexión a internet para recibirlos.",BRS,CSS_RED_A,CSS_RED_Z,BRS);
+
+
+    public static final String SYNC_LABEL = "Sincronizar";
 
     /*
         File paths

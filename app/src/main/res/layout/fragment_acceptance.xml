@@ -20,7 +20,7 @@
                 style="@style/TextAppearance.AppTheme.DisplayBody"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/accept_info" />
+                 />
 
 
             <com.google.android.material.divider.MaterialDivider
@@ -68,10 +68,6 @@
                 android:layout_margin="10dp"
                 />
 
-
-
-
-
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/btnEmail"
                 android:layout_width="wrap_content"
@@ -80,7 +76,6 @@
                 android:layout_margin="10dp"
                 android:text="@string/accept"
                 app:icon="@drawable/ic_baseline_check_circle_24"
-
                 />
 
 

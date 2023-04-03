@@ -1,9 +1,11 @@
 package org.deiverbum.app.data.adapters;
 
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -33,6 +35,8 @@ import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private final List<HomeItem> mDataSet;
+    private static int bgColor;
+
 
     /**
      * Inicializa el dataset del adaptador.
@@ -40,8 +44,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
      * @param dataSet  Una lista de objetos {@link HomeItem} con los datos con que
      *                se llenarán las vistas del {@link RecyclerView}.
      */
-    public HomeAdapter(List<HomeItem> dataSet) {
+    public HomeAdapter(List<HomeItem> dataSet, int bgColor) {
         mDataSet = dataSet;
+        HomeAdapter.bgColor = bgColor;
     }
 
     /**
@@ -50,6 +55,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        //Layout h=R.layout.home_card;
+        //LinearLayout myLayout = (LinearLayout) findViewById(R.id.home_card);
+
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.home_card, viewGroup, false);
 
@@ -88,6 +96,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         public ViewHolder(View v) {
             super(v);
+            LinearLayout cardView=v.findViewById(R.id.mainCardView);
+            cardView.setBackgroundColor(HomeAdapter.bgColor);
             v.setOnClickListener(v1 -> {
                 int itemId=mItem.getItemId();
                 if(itemId==2 || itemId>9){
@@ -114,6 +124,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         public void setData(HomeItem item) {
             mItem = item;
             viewIcon.setImageResource(item.getThumbnail());
+            viewIcon.setColorFilter(item.getImageColor());
+
+                //viewIcon.settin.setBackgroundColor(item.imageColor);}
             viewText.setText(item.getName());
             relativeLayout.setBackgroundColor(item.getColor());
         }

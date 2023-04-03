@@ -24,17 +24,19 @@ public class HomeItem {
     private int thumbnail;
     private int color;
     private int navId;
-
+    private int imageColor;
     @SuppressWarnings("unused")
     public HomeItem() {
     }
 
-    public HomeItem(String name, int itemId, int thumbnail, int color, int navId) {
+    public HomeItem(String name, int itemId, int thumbnail, int color, int navId, int imageColor) {
         this.name = name;
         this.itemId = itemId;
         this.thumbnail = thumbnail;
+        this.imageColor = imageColor;
         this.color = color;
         this.navId = navId;
+
     }
 
 
@@ -66,6 +68,9 @@ public class HomeItem {
 
     public int getColor() {
         return color;
+    }
+    public int getImageColor() {
+        return imageColor;
     }
 
     public void setColor(int color) {

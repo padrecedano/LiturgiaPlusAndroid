@@ -88,11 +88,11 @@ public class BreviaryHour extends Liturgy {
 
     public SpannableStringBuilder getSaludoOficioForRead() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append("<p>Señor abre mis labios.</p>");
-        sb.append("<p>Y mi boca proclamará tu alabanza.</p>");
-        sb.append("<p>Gloria al Padre, y al Hijo, y al Espíritu Santo.</p>");
-        sb.append("<p>Como era en el principio ahora y siempre, por los siglos de los siglos. Amén.</p>");
-        return (SpannableStringBuilder) Utils.fromHtml(sb.toString());
+        sb.append("Señor abre mis labios.");
+        sb.append("Y mi boca proclamará tu alabanza.");
+        sb.append("Gloria al Padre, y al Hijo, y al Espíritu Santo.");
+        sb.append("Como era en el principio ahora y siempre, por los siglos de los siglos. Amén.");
+        return sb;
     }
 
     public SpannableStringBuilder getSaludoDiosMio() {
@@ -169,12 +169,11 @@ public class BreviaryHour extends Liturgy {
     public static SpannableStringBuilder getConclusionHorasMayores() {
         SpannableStringBuilder ssb = new SpannableStringBuilder(Utils.formatTitle(TITLE_CONCLUSION));
         ssb.append(LS2);
-        SpannableStringBuilder ssbPartial = new SpannableStringBuilder("V. El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna.");
-        ssbPartial.append(LS);
-        ssbPartial.append("R. Amén.");
-        ssbPartial.setSpan(CharacterStyle.wrap(RED_COLOR), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ssbPartial.setSpan(CharacterStyle.wrap(RED_COLOR), 78, 80, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ssb.append(ssbPartial);
+        ssb.append(Utils.toRed("V. "));
+        ssb.append("El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna.");
+        ssb.append(LS);
+        ssb.append(Utils.toRed("R. "));
+        ssb.append("Amén.");
         return ssb;
     }
 
@@ -182,11 +181,8 @@ public class BreviaryHour extends Liturgy {
      * @since 2021.01
      * @return Texto con la conclusión de la hora, formateado para lectura
      */
-    public static SpannableStringBuilder getConclusionHorasMayoresForRead() {
-        SpannableStringBuilder ssb = new SpannableStringBuilder();
-        ssb.append(Utils.fromHtml("<p>El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna.</p>"));
-        ssb.append(Utils.fromHtml("<p>Amén.</p>"));
-        return ssb;
+    public static String getConclusionHorasMayoresForRead() {
+        return "El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna. Amén.";
     }
 
     /**
@@ -285,17 +281,22 @@ public class BreviaryHour extends Liturgy {
         this.oficioEaster=oficioEaster;
     }
 
-    public SpannableStringBuilder getMixtoForView(LiturgyTime liturgyTime) {
+    public SpannableStringBuilder getMixtoForView(LiturgyTime liturgyTime, boolean hasSaint) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        try {
-            oficio.getInvitatorio().normalizeByTime(liturgyTime.getTimeID());
-            laudes.salmodia.normalizeByTime(liturgyTime.getTimeID());
-            sb.append(Utils.LS2);
 
-            if (santo !=null) {
-                oficio.getInvitatorio().normalizeIsSaint(santo.theName);
+
+        try {
+            this.hasSaint=hasSaint;
+            LHInvitatory invitatory=oficio.getInvitatorio();
+
+            invitatory.normalizeByTime(liturgyTime.getTimeID());
+            laudes.salmodia.normalizeByTime(liturgyTime.getTimeID());
+
+            sb.append(LS2);
+            if (santo != null && this.hasSaint) {
+                invitatory.normalizeIsSaint(santo.theName);
                 sb.append(santo.getVidaSmall());
-                sb.append(LS2);
+                sb.append(LS);
             }
 
             sb.append(mixto.getTituloHora());
@@ -336,11 +337,14 @@ public class BreviaryHour extends Liturgy {
     public StringBuilder getMixtoForRead() {
         StringBuilder sb = new StringBuilder();
         try {
+            if (santo != null && this.hasSaint) {
+                sb.append(santo.getVida());
+            }
             sb.append(mixto.getTituloHoraForRead());
             sb.append(laudes.getSaludoOficioForRead());
             sb.append(oficio.getInvitatorio().getAllForRead());
             sb.append(laudes.himno.getAllForRead());
-            sb.append(laudes.salmodia.getAllForRead());
+            sb.append(laudes.salmodia.getAll());
             sb.append(laudes.getLecturaBreve().getAllForRead());
             sb.append(oficio.oficioLecturas.getAllForRead());
             sb.append(mixto.getEvangeliosForRead());

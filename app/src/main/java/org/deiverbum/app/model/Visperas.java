@@ -15,9 +15,6 @@ public class Visperas extends BreviaryHour {
     private LHIntercession preces;
     private int isPrevious;
 
-    public int getIsPrevious() {
-        return isPrevious;
-    }
 
     public void setIsPrevious(int isPrevious) {
         this.isPrevious = isPrevious;
@@ -100,10 +97,9 @@ public class Visperas extends BreviaryHour {
     }
 
     //@Override
-    public StringBuilder getAllForRead(Integer previousFK) {
+    public StringBuilder getAllForRead() {
         StringBuilder sb = new StringBuilder();
         try {
-            //sb.append(today.getAllForRead());
             sb.append(getTituloHoraForRead());
             sb.append(getSaludoDiosMioForRead());
             sb.append(himno.getAllForRead());

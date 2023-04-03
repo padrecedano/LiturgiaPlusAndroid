@@ -5,6 +5,7 @@ import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
 
+import org.deiverbum.app.utils.ColorUtils;
 import org.deiverbum.app.utils.Utils;
 
 import java.util.Collections;
@@ -86,7 +87,8 @@ public class MassReadingList extends Liturgy {
         Collections.sort(this.lecturas);
     }
 
-    public SpannableStringBuilder getForView() {
+    public SpannableStringBuilder getForView(boolean nightMode) {
+        ColorUtils.isNightMode=nightMode;
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         try {
             //sb.append(hoy.getForViewMisa());

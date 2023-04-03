@@ -6,6 +6,7 @@ import static org.deiverbum.app.utils.Utils.LS2;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
+import org.deiverbum.app.utils.ColorUtils;
 import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
@@ -131,7 +132,9 @@ public class Rosario {
         this.day = day;
     }
 
-    public SpannableStringBuilder getForView(boolean isBrevis) {
+    public SpannableStringBuilder getForView(boolean isBrevis, boolean nightMode) {
+        ColorUtils.isNightMode=nightMode;
+
         SpannableStringBuilder sb=new SpannableStringBuilder();
         sb.append(Utils.toH3Red("INVOCACIÓN INICIAL"));
         sb.append(LS2);

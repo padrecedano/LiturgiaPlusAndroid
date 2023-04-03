@@ -17,6 +17,7 @@ public class ConnectionChecker {
         mContext = context;
     }
 
+    @SuppressWarnings("unused")
     public boolean isConnected() {
         ConnectivityManager cm =
                 (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);

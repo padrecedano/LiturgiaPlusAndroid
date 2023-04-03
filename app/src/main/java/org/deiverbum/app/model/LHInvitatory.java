@@ -1,7 +1,6 @@
 package org.deiverbum.app.model;
 
 import static org.deiverbum.app.utils.Constants.LS2;
-import static org.deiverbum.app.utils.Constants.PRE_ANT;
 import static org.deiverbum.app.utils.Constants.TITLE_INVITATORY;
 
 import android.text.SpannableStringBuilder;
@@ -47,6 +46,28 @@ public class LHInvitatory extends LHPsalm {
         return ssb;
     }
 
+    /**
+     * Determina si el usuario tiene configurado un invitatorio variable
+     * y devuelve el texto que corresponda.
+     *
+     * @return El texto obtenido del archivo correspondiente o el texto por defecto
+     * @since 2022.1
+     */
+    public StringBuilder getTextoForRead() {
+        StringBuilder sb = new StringBuilder();
+
+        if (isMultiple) {
+            sb.append(Utils.normalizeEnd(String.valueOf(getRef())));
+            //sb.append(LS2);
+            sb.append(Utils.getFormatoForRead(getSalmo()));
+        } else {
+            sb.append("Salmo 94.");
+            sb.append(Utils.getFormatoForRead(getUnique()));
+        }
+        return sb;
+    }
+
+
     @SuppressWarnings("SameReturnValue")
     public String getTitle() {
         return TITLE_INVITATORY;
@@ -64,14 +85,14 @@ public class LHInvitatory extends LHPsalm {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(Utils.formatSubTitleToLower(getTitle()));
         sb.append(Utils.LS2);
-        sb.append(Utils.fromHtml(PRE_ANT));
+        sb.append(Utils.toRed("Ant. "));
         sb.append(getAntiphon());
         sb.append(Utils.LS2);
         sb.append(getTextoSpan());
         sb.append(Utils.LS);
         sb.append(getFinSalmo());
         sb.append(Utils.LS2);
-        sb.append(Utils.fromHtml(PRE_ANT));
+        sb.append(Utils.toRed("Ant. "));
         sb.append(getAntiphon());
         return sb;
     }
@@ -80,7 +101,7 @@ public class LHInvitatory extends LHPsalm {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getTitleForRead());
         sb.append(getAntiphon());
-        sb.append(getTextoSpan());
+        sb.append(getTextoForRead());
         sb.append(getFinSalmo());
         sb.append(getAntiphon());
         return sb;

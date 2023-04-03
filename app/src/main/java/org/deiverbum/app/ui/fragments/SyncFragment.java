@@ -1,8 +1,10 @@
 package org.deiverbum.app.ui.fragments;
 
 import static org.deiverbum.app.utils.Constants.PACIENCIA;
+import static org.deiverbum.app.utils.Constants.SYNC_LABEL;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.TypedValue;
@@ -15,12 +17,22 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
+
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.common.util.concurrent.ListenableFuture;
 
 import org.deiverbum.app.R;
 import org.deiverbum.app.databinding.FragmentSyncBinding;
+import org.deiverbum.app.model.SyncStatus;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.utils.ZoomTextView;
 import org.deiverbum.app.viewmodel.SyncViewModel;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -32,8 +44,9 @@ public class SyncFragment extends Fragment {
     private ZoomTextView mTextView;
 
     private ProgressBar progressBar;
+    //private MaterialButton mButton;
 
-
+    private ExtendedFloatingActionButton mButton;
     public static ActionMode mActionMode;
 
 
@@ -55,7 +68,24 @@ public class SyncFragment extends Fragment {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        observeData();
+        mButton = binding.include.btnEmail;
+        mButton.setVisibility(View.GONE);
+
+        mButton.setOnClickListener(v -> {
+            mViewModel.launchSyncWorker();
+            mButton.setVisibility(View.GONE);
+            observeData();
+        });
+
+        if(!isWorkScheduled()){
+            progressBar.setVisibility(View.GONE);
+            mTextView.setText(Utils.fromHtml(new SyncStatus().getLastUpdate(isNightMode())));
+            mButton.setIconResource(R.drawable.ic_refresh_black_24dp);
+            mButton.setText(SYNC_LABEL);
+            mButton.setVisibility(View.VISIBLE);
+        }else {
+            observeData();
+        }
     }
 
     void observeData() {
@@ -64,12 +94,34 @@ public class SyncFragment extends Fragment {
                 data -> {
                     progressBar.setVisibility(View.GONE);
                     if (data!=null) {
-                        mTextView.setText(Utils.fromHtml(data.getAll()));
+                        mTextView.setText(Utils.fromHtml(data.getAll(isNightMode())));
                     } else {
-                        mTextView.setText(Utils.fromHtml("data.getError())"));
+                        mTextView.setText(Utils.fromHtml(new SyncStatus().getLastUpdate(isNightMode())));
                     }
                 });
     }
+
+    private boolean isWorkScheduled() {
+        WorkManager instance = WorkManager.getInstance(Objects.requireNonNull(requireActivity()).getApplicationContext());
+        ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag("TAG_SYNC_DATA");
+        try {
+            boolean running = false;
+            List<WorkInfo> workInfoList = statuses.get();
+            for (WorkInfo workInfo : workInfoList) {
+                WorkInfo.State state = workInfo.getState();
+                running = state == WorkInfo.State.RUNNING | state == WorkInfo.State.ENQUEUED;
+            }
+            return running;
+        } catch (ExecutionException | InterruptedException e) {
+            return false;
+        }
+    }
+
+    public boolean isNightMode() {
+        int nightModeFlags = requireActivity().getApplicationContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
+    }
+
 
     @Override
     public void onDestroyView() {

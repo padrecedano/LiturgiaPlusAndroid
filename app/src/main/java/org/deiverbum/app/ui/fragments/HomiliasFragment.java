@@ -6,6 +6,7 @@ import static org.deiverbum.app.utils.Constants.VOICE_INI;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -75,17 +76,20 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
                 menuInflater.inflate(R.menu.toolbar_menu, menu);
-                voiceItem=menu.findItem(R.id.item_voz);
+                voiceItem = menu.findItem(R.id.item_voz);
                 voiceItem.setVisible(isVoiceOn);
                 if (isReading) {
                     voiceItem.setVisible(false);
                 }
-                // Add option Menu Here
             }
 
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.item_voz) {
+                if (item.getItemId() == android.R.id.home) {
+                    NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                    navController.popBackStack();
+                    return true;
+                } else if (item.getItemId() == R.id.item_voz) {
                     if (mActionMode == null) {
                         mActionMode =
                                 requireActivity().startActionMode(mActionModeCallback);
@@ -93,19 +97,18 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
                     readText();
                     isReading = true;
                     voiceItem.setVisible(false);
-                    //item.setVisible(!isReading);
                     requireActivity().invalidateOptionsMenu();
                     return true;
+                } else {
+                    NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                    return NavigationUI.onNavDestinationSelected(item, navController);
                 }
-                NavController navController = NavHostFragment.findNavController(requireParentFragment());
-                return NavigationUI.onNavDestinationSelected(item, navController);
             }
         }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
         binding = FragmentHomiliasBinding.inflate(inflater, container, false);
         inflater.inflate(R.layout.seekbar, container, false);
         View root = binding.getRoot();
         setConfiguration();
-        //launchWorker();
         return root;
     }
 
@@ -117,9 +120,9 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        String fontFamily = String.format(new Locale("es"),"fonts/%s",prefs.getString("font_name", "robotoslab_regular.ttf"));
-        Typeface tf= Typeface.createFromAsset(requireActivity().getAssets(),fontFamily);
-        mTextView .setTypeface(tf);
+        String fontFamily = String.format(new Locale("es"), "fonts/%s", prefs.getString("font_name", "robotoslab_regular.ttf"));
+        Typeface tf = Typeface.createFromAsset(requireActivity().getAssets(), fontFamily);
+        mTextView.setTypeface(tf);
         isVoiceOn = prefs.getBoolean("voice", true);
         if (isVoiceOn) {
             sbReader = new StringBuilder(VOICE_INI);
@@ -133,8 +136,8 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
         if (bundle != null) {
             mDate = bundle.getString("FECHA") == null ? Utils.getHoy() :
                     bundle.getString("FECHA");
-        }else{
-            mDate=Utils.getHoy();
+        } else {
+            mDate = Utils.getHoy();
         }
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         Objects.requireNonNull(actionBar).setSubtitle(Utils.getTitleDate(mDate));
@@ -146,8 +149,8 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
                 data -> {
                     progressBar.setVisibility(View.GONE);
                     if (data.status == DataWrapper.Status.SUCCESS) {
-                        mTextView.setText(data.getData().getForView(), TextView.BufferType.SPANNABLE);
-                        if(isVoiceOn){
+                        mTextView.setText(data.getData().getForView(isNightMode()), TextView.BufferType.SPANNABLE);
+                        if (isVoiceOn) {
                             sbReader.append(data.getData().getAllForRead());
                         }
                     } else {
@@ -161,7 +164,6 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
         String notQuotes = Utils.stripQuotation(sbReader.toString());
         return String.valueOf(Utils.fromHtml(notQuotes));
     }
-
 
     private void setPlayerButton() {
         voiceItem.setVisible(isVoiceOn);
@@ -234,7 +236,6 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.getMenuInflater().inflate(R.menu.contextual_action_bar, menu);
             audioMenu = menu;
-
             @SuppressLint("InflateParams")
             View view = LayoutInflater.from(getContext()).inflate(R.layout.seekbar, null);
             mode.setCustomView(view);
@@ -267,6 +268,11 @@ public class HomiliasFragment extends Fragment implements TextToSpeechCallback {
         if (mTtsManager != null) {
             mTtsManager.close();
         }
+    }
+
+    public boolean isNightMode() {
+        int nightModeFlags = requireActivity().getApplicationContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
     }
 
     @Override

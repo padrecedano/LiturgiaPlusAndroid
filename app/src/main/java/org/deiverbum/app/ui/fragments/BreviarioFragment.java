@@ -41,7 +41,6 @@ public class BreviarioFragment extends Fragment{
         View root = binding.getRoot();
         recyclerView = binding.recyclerView;
         mList = new ArrayList<>();
-        //BreviarioAdapter mAdapter = new BreviarioAdapter(mList);
         recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 3));
         recyclerView.setAdapter(new BreviarioAdapter(mList));
         prepareItems();
@@ -71,8 +70,6 @@ public class BreviarioFragment extends Fragment{
         mList.add(new BreviarioItem("Vísperas",  colorGrupo1, "V",R.id.nav_visperas));
         mList.add(new BreviarioItem("Completas",  colorGrupo1, "C",R.id.nav_completas));
         mList.add(new BreviarioItem("Más...", colorGrupo1, "+",R.id.nav_breviario_mas));
-        //mAdapter.notifyDataSetChanged();
-
     }
 }
 

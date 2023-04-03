@@ -7,6 +7,7 @@ import android.text.SpannableStringBuilder;
 
 import com.google.firebase.firestore.PropertyName;
 
+import org.deiverbum.app.utils.ColorUtils;
 import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
@@ -16,7 +17,6 @@ public class BibleCommentList {
     @SuppressWarnings("unused")
     public int id_homilia;
     public String pericopa;
-    public MetaLiturgia metaLiturgia;
     private Today today;
     public List<List<BibleComment>> allComentarios;
     private MassReading biblica;
@@ -27,13 +27,6 @@ public class BibleCommentList {
     public BibleCommentList() {
     }
 
-    public MetaLiturgia getMetaLiturgia() {
-        return metaLiturgia;
-    }
-
-    public void setMetaLiturgia(MetaLiturgia metaLiturgia) {
-        this.metaLiturgia = metaLiturgia;
-    }
 
     @PropertyName("comentarios")
     public void setComentarios(List<BibleComment> comentarios) {
@@ -58,7 +51,8 @@ public class BibleCommentList {
     }
 
 
-    public SpannableStringBuilder getAllForView() {
+    public SpannableStringBuilder getAllForView(boolean nightMode) {
+        ColorUtils.isNightMode=nightMode;
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
             sb.append(today.getSingleForView());

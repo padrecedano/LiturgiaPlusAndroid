@@ -11,6 +11,7 @@ import static org.deiverbum.app.utils.Constants.VOICE_INI;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -80,17 +81,20 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
                 menuInflater.inflate(R.menu.toolbar_menu, menu);
-                voiceItem=menu.findItem(R.id.item_voz);
+                voiceItem = menu.findItem(R.id.item_voz);
                 voiceItem.setVisible(isVoiceOn);
                 if (isReading) {
                     voiceItem.setVisible(false);
                 }
-                // Add option Menu Here
             }
 
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.item_voz) {
+                if (item.getItemId() == android.R.id.home) {
+                    NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                    navController.popBackStack();
+                    return true;
+                } else if (item.getItemId() == R.id.item_voz) {
                     if (mActionMode == null) {
                         mActionMode =
                                 requireActivity().startActionMode(mActionModeCallback);
@@ -98,12 +102,12 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
                     readText();
                     isReading = true;
                     voiceItem.setVisible(false);
-                    //item.setVisible(!isReading);
                     requireActivity().invalidateOptionsMenu();
                     return true;
+                } else {
+                    NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                    return NavigationUI.onNavDestinationSelected(item, navController);
                 }
-                NavController navController = NavHostFragment.findNavController(requireParentFragment());
-                return NavigationUI.onNavDestinationSelected(item, navController);
             }
         }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
 
@@ -124,9 +128,9 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
         prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        String fontFamily = String.format(new Locale("es"),"fonts/%s",prefs.getString("font_name", "robotoslab_regular.ttf"));
-        Typeface tf= Typeface.createFromAsset(requireActivity().getAssets(),fontFamily);
-        mTextView .setTypeface(tf);
+        String fontFamily = String.format(new Locale("es"), "fonts/%s", prefs.getString("font_name", "robotoslab_regular.ttf"));
+        Typeface tf = Typeface.createFromAsset(requireActivity().getAssets(), fontFamily);
+        mTextView.setTypeface(tf);
         isVoiceOn = prefs.getBoolean("voice", true);
         //pickOutDate();
     }
@@ -177,7 +181,7 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
                 Rosario rosario = data.getData();
                 actionBar.setTitle("Rosario");
                 actionBar.setSubtitle(rosario.getSubTitle());
-                mTextView.setText(rosario.getForView(isBrevis));
+                mTextView.setText(rosario.getForView(isBrevis, isNightMode()));
                 if (isVoiceOn) {
                     sbReader = new StringBuilder(VOICE_INI);
                     sbReader.append(rosario.getForRead());
@@ -196,7 +200,7 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
                 OracionSimple oracionSimple = data.getData();
                 actionBar.setTitle(oracionSimple.getTitulo());
                 actionBar.setSubtitle("");
-                mTextView.setText(oracionSimple.getForView());
+                mTextView.setText(oracionSimple.getForView(isNightMode()));
                 if (isVoiceOn) {
                     sbReader = new StringBuilder(VOICE_INI);
                     sbReader.append(oracionSimple.getForRead());
@@ -215,7 +219,7 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
                 ViaCrucis viaCrucis = data.getData();
                 actionBar.setTitle(viaCrucis.getTitulo());
                 actionBar.setSubtitle("");
-                mTextView.setText(viaCrucis.getForView());
+                mTextView.setText(viaCrucis.getForView(isNightMode()));
                 if (isVoiceOn) {
                     sbReader = new StringBuilder(VOICE_INI);
                     sbReader.append(viaCrucis.getForRead());
@@ -335,6 +339,11 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
         if (mTtsManager != null) {
             mTtsManager.close();
         }
+    }
+
+    public boolean isNightMode() {
+        int nightModeFlags = requireActivity().getApplicationContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
     }
 
     @Override

@@ -74,7 +74,11 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
 
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.item_voz) {
+                if (item.getItemId() == android.R.id.home) {
+                    NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                    navController.popBackStack();
+                    return true;
+                } else if (item.getItemId() == R.id.item_voz) {
                     if (mActionMode == null) {
                         mActionMode =
                                 requireActivity().startActionMode(mActionModeCallback);
@@ -82,12 +86,12 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
                     readText();
                     isReading = true;
                     voiceItem.setVisible(false);
-                    //item.setVisible(!isReading);
                     requireActivity().invalidateOptionsMenu();
                     return true;
+                } else {
+                    NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                    return NavigationUI.onNavDestinationSelected(item, navController);
                 }
-                NavController navController = NavHostFragment.findNavController(requireParentFragment());
-                return NavigationUI.onNavDestinationSelected(item, navController);
             }
         }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
         binding = FragmentTextBinding.inflate(inflater, container, false);
@@ -119,7 +123,7 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
             progressBar.setVisibility(View.GONE);
             if (data.status == DataWrapper.Status.SUCCESS) {
                 BibleBooks libro=data.getData();
-                mTextView.setText(libro.getForView());
+                mTextView.setText(libro.getForView(isNightMode()));
                 if (isVoiceOn) {
                     sbReader = new StringBuilder(VOICE_INI);
                     sbReader.append(libro.getForRead());
@@ -238,6 +242,11 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
         }
         cleanTTS();
         binding = null;
+    }
+
+    public boolean isNightMode() {
+        int nightModeFlags = requireActivity().getApplicationContext().getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES;
     }
 
     private void cleanTTS() {

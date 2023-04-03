@@ -74,7 +74,7 @@ public class LHOfficeBiblical extends Biblical{
         sb.append(Utils.pointAtEnd(getHeader()));
         sb.append(book.getForRead());
         sb.append(getTemaForRead());
-        sb.append(getTexto());
+        sb.append(getTextoForRead());
         sb.append(getConclusionForRead());
         sb.append(getResponsorioHeaderForRead());
         sb.append(getResponsorioLargo().getAllForRead());

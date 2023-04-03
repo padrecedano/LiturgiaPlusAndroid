@@ -243,7 +243,7 @@ public class TodayMixto {
             Laudes laudes = new Laudes();
             mixto.setTypeId(0);
             if (dmToday.getHasSaint() == 1 && saint != null) {
-                mixto.setSanto(saint.getDomainModel());
+                bh.setSanto(saint.getDomainModel());
             }
             mixto.setInvitatorio(getInvitatorio());
             oficio.setInvitatorio(getInvitatorio());

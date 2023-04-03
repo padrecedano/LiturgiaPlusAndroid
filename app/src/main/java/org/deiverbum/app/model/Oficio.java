@@ -1,5 +1,6 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Constants.LS;
 import static org.deiverbum.app.utils.Constants.TITLE_OFICIO;
 import static org.deiverbum.app.utils.Utils.LS2;
 
@@ -63,17 +64,18 @@ public class Oficio extends BreviaryHour
         return Utils.pointAtEnd(TITLE_OFICIO);
     }
 
-    public SpannableStringBuilder getForView(LiturgyTime liturgyTime, boolean hasSaint) {
+    public SpannableStringBuilder getForView(LiturgyTime liturgyTime, boolean hasSaint, boolean nightMode) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
+        this.hasSaint=hasSaint;
         try {
             invitatorio.normalizeByTime(liturgyTime.getTimeID());
             salmodia.normalizeByTime(liturgyTime.getTimeID());
             oficioLecturas.normalizeByTime(liturgyTime.getTimeID());
             sb.append(LS2);
-            if (santo !=null && hasSaint) {
+            if (santo !=null && this.hasSaint) {
                 invitatorio.normalizeIsSaint(santo.theName);
                 sb.append(santo.getVidaSmall());
-                sb.append(LS2);
+                sb.append(LS);
             }
 
             sb.append(getTituloHora());
@@ -110,7 +112,7 @@ public class Oficio extends BreviaryHour
     public StringBuilder getForRead() {
         StringBuilder sb = new StringBuilder();
         try {
-            if (santo != null && hasSaint) {
+            if (santo != null && this.hasSaint) {
                 sb.append(santo.getVida());
             }
             sb.append(getTituloHoraForRead());

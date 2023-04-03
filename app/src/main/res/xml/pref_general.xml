@@ -1,26 +1,26 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="General"
-        android:key="pref_key_general">
+        android:key="pref_key_general"
+        android:title="General">
 
-    <SwitchPreference
-        android:defaultValue="false"
-        android:key="invitatorio"
-        android:summary="@string/pref_description_invitatorio"
-        android:title="@string/pref_title_invitatorio" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="invitatorio"
+            android:summary="@string/pref_description_invitatorio"
+            android:title="@string/pref_title_invitatorio" />
 
-    <SwitchPreference
-        android:defaultValue="true"
-        android:key="voice"
-        android:summary="@string/pref_description_voice"
-        android:title="@string/pref_title_voice" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="voice"
+            android:summary="@string/pref_description_voice"
+            android:title="@string/pref_title_voice" />
 
-    <SwitchPreference
-        android:defaultValue="true"
-        android:key="brevis"
-        android:summary="@string/pref_description_brevis"
-        android:title="@string/pref_title_brevis" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="brevis"
+            android:summary="@string/pref_description_brevis"
+            android:title="@string/pref_title_brevis" />
 
         <ListPreference
             android:defaultValue="robotoslab_regular.ttf"
@@ -32,70 +32,77 @@
             android:summary="Selecciona el tipo de letra por defecto"
             android:title="@string/pref_title_font" />
 
-    <ListPreference
-        android:defaultValue="18"
-        android:entries="@array/pref_font_size_list_titles"
-        android:entryValues="@array/pref_font_size_list_values"
-        android:key="font_size"
-        android:negativeButtonText="@null"
-        android:positiveButtonText="@null"
-        android:summary="Selecciona el tamaño de letra por defecto"
-        android:title="@string/pref_title_font_size" />
+        <ListPreference
+            android:defaultValue="18"
+            android:entries="@array/pref_font_size_list_titles"
+            android:entryValues="@array/pref_font_size_list_values"
+            android:key="font_size"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:summary="Selecciona el tamaño de letra por defecto"
+            android:title="@string/pref_title_font_size" />
 
-    <SwitchPreference
-        android:defaultValue="true"
-        android:enabled="false"
-        android:key="textos_biblicos"
-        android:summary="@string/pref_description_bible"
-        android:title="@string/pref_title_bible" />
-
-    <SwitchPreference
-        android:defaultValue="true"
-        android:enabled="false"
-        android:key="tema_simple"
-        android:summary="@string/pref_description_theme"
-        android:title="@string/pref_title_theme" />
-
-    <SwitchPreference
-        android:defaultValue="true"
-        android:enabled="false"
-        android:key="himnos"
-        android:summary="@string/pref_description_himno"
-        android:title="@string/pref_title_himno" />
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/pref_theme_list_titles"
+            android:entryValues="@array/pref_theme_list_values"
+            android:key="theme"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:summary="@string/pref_theme_description"
+            android:title="@string/pref_title_theme" />
 
 
-    <Preference
-        android:enabled="true"
-        android:key="futuro"
-        android:selectable="false"
-        android:summary="* Opciones futuras" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:enabled="false"
+            android:key="textos_biblicos"
+            android:summary="@string/pref_description_bible"
+            android:title="@string/pref_title_bible" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:enabled="false"
+            android:key="tema_simple"
+            android:summary="@string/pref_description_theme"
+            android:title="@string/pref_title_theme" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:enabled="false"
+            android:key="himnos"
+            android:summary="@string/pref_description_himno"
+            android:title="@string/pref_title_himno" />
+
+
+        <Preference
+            android:enabled="true"
+            android:key="futuro"
+            android:selectable="false"
+            android:summary="* Opciones futuras" />
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="Privacidad"
-        android:key="pref_key_privacy_settings">
+        android:key="pref_key_privacy_settings"
+        android:title="Privacidad">
 
         <SwitchPreference
-            android:key="accept_terms"
-            android:title="@string/pref_accept_terms"
-            android:summary="@string/pref_description_accept_terms"
             android:defaultValue="false"
-            />
+            android:key="accept_terms"
+            android:summary="@string/pref_description_accept_terms"
+            android:title="@string/pref_accept_terms" />
 
         <Preference android:summary="@string/pref_description_privacy" />
 
         <SwitchPreference
-            android:key="enable_analytics"
-            android:title="@string/pref_key_enable_analytics"
             android:defaultValue="true"
-            />
+            android:key="enable_analytics"
+            android:title="@string/pref_key_enable_analytics" />
 
         <SwitchPreference
-            android:key="enable_crashlytics"
-            android:title="@string/pref_key_enable_crashlytics"
             android:defaultValue="true"
-            />
-
+            android:key="enable_crashlytics"
+            android:title="@string/pref_key_enable_crashlytics" />
 
 
     </PreferenceCategory>

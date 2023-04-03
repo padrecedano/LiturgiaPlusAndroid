@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,7 +103,6 @@ public class LegalFragment extends Fragment {
         textAgree = binding.textAgree;
         textContacto = binding.textContacto;
         bottomLayout = binding.bottomLayout;
-        //footLayout = binding.footLayout;
 
         bottomLayout.setVisibility(View.GONE);
         Button button = binding.btnEmail;
@@ -127,7 +125,7 @@ public class LegalFragment extends Fragment {
                         progressBar.setVisibility(View.GONE);
                         if (data.status == DataWrapper.Status.SUCCESS) {
                             Book book = data.getData();
-                            mTextView.setText(book.getForView(), TextView.BufferType.SPANNABLE);
+                            mTextView.setText(book.getForView(isNightMode()), TextView.BufferType.SPANNABLE);
                             //saveHtmlFile(book.getForHtml().toString());
                             agreeYes = book.getAgreeYes();
                             agreeNot = book.getAgreeNot();
@@ -157,7 +155,6 @@ public class LegalFragment extends Fragment {
             byte[] data = html.getBytes();
             out.write(data);
             out.close();
-            Log.d("TAG", "File Save : " + file.getPath());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -184,7 +181,6 @@ public class LegalFragment extends Fragment {
     }
 
     private void closeApp() {
-
         requireActivity().finishAndRemoveTask();
     }
 
@@ -202,6 +198,11 @@ public class LegalFragment extends Fragment {
             startActivity(intent);
         }
         requireActivity().onBackPressed();
+    }
+
+    public boolean isNightMode() {
+        int nightModeFlags = requireActivity().getApplicationContext().getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES;
     }
 
     @Override

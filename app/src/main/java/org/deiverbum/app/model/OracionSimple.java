@@ -4,6 +4,7 @@ import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
 
+import org.deiverbum.app.utils.ColorUtils;
 import org.deiverbum.app.utils.Utils;
 
 public class OracionSimple {
@@ -39,7 +40,9 @@ public class OracionSimple {
         this.info = info;
     }
 
-    public SpannableStringBuilder getForView() {
+    public SpannableStringBuilder getForView(boolean nightMode) {
+        ColorUtils.isNightMode=nightMode;
+
         SpannableStringBuilder sb=new SpannableStringBuilder();
         sb.append(Utils.toH3Red(titulo));
         if(this.info!=null){

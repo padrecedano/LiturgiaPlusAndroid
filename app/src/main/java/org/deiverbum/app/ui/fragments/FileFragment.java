@@ -3,6 +3,8 @@ package org.deiverbum.app.ui.fragments;
 import static org.deiverbum.app.utils.Constants.PACIENCIA;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.method.LinkMovementMethod;
@@ -21,6 +23,7 @@ import org.deiverbum.app.databinding.FragmentFileBinding;
 import org.deiverbum.app.model.Book;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.viewmodel.FileViewModel;
+import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -51,14 +54,13 @@ public class FileFragment extends Fragment {
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
-
         mTextView = binding.include.tvClickable;
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-
+        String fontFamily = String.format(new Locale("es"),"fonts/%s",prefs.getString("font_name", "robotoslab_regular.ttf"));
+        Typeface tf= Typeface.createFromAsset(requireActivity().getAssets(),fontFamily);
+        mTextView .setTypeface(tf);
         mTextView.setMovementMethod(LinkMovementMethod.getInstance());
         mTextView.setClickable(true);
-
-
         observeBook();
         return root;
     }
@@ -71,13 +73,19 @@ public class FileFragment extends Fragment {
                     data -> {
                         if (data.status == DataWrapper.Status.SUCCESS) {
                             Book book = data.getData();
-                            mTextView.setText(book.getForView(), TextView.BufferType.SPANNABLE);
+                            mTextView.setText(book.getForView(isNightMode()), TextView.BufferType.SPANNABLE);
                         } else {
                             mTextView.setText(Utils.fromHtml(data.getError()));
                         }
                     });
         }
       }
+
+    public boolean isNightMode() {
+        int nightModeFlags = requireActivity().getApplicationContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
