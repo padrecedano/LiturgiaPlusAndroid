@@ -66,7 +66,7 @@ public class TodayHomilias {
 
         List<HomilyList> listModel = new ArrayList<>();
 
-        dm.setMetaLiturgia(getMetaLiturgia());
+        //dm.setMetaLiturgia(getMetaLiturgia());
         for (LiturgiaWithHomilias item : homilias) {
             listModel.add(item.getDomainModel());
         }

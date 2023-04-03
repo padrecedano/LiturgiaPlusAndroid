@@ -211,6 +211,8 @@ public interface TodayDao {
     "FROM sync_status ss;")
     LiveData<SyncStatus> getSyncInfo();
 
+    @Query("SELECT COUNT(*) FROM sync_status")
+    int syncStatusCount();
 
     @Transaction
     /*@Query("SELECT * FROM today AS t " +
@@ -288,6 +290,9 @@ public interface TodayDao {
     @Update(entity = SyncStatusEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
     void syncUpdateAll(List<SyncStatus> list);
+
+    @Query("INSERT INTO sync_status (tableName,versionDB)VALUES (:initial,1)")
+    void insertSyncStatus(String initial);
 
     @Insert(entity = LiturgyEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
@@ -680,6 +685,9 @@ public interface TodayDao {
     @Delete(entity = LHPrayerEntity.class)
     void lhPrayerDeleteAll(List<LHPrayer> d);
 
+    //@Delete(entity = TodayEntity.class)
+    @Query("DELETE FROM today WHERE todayDate LIKE '' || :lastYear || '____'")
+    int deleteOldEntries(int lastYear);
 
 }
 

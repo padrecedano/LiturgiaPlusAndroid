@@ -23,6 +23,12 @@ public class SyncViewModel extends ViewModel {
     public LiveData<SyncStatus> getObservable() {
         return mRepository.getFromDB();
     }
+    public LiveData<Integer> getInitialSyncStatus() {
+        return mRepository.getInitialSyncStatus();
+    }
+    public LiveData<Integer> getYearClean() {
+        return mRepository.getYearClean();
+    }
 
     public void launchSyncWorker(){
         mRepository.launchSyncWorker();
@@ -31,5 +37,7 @@ public class SyncViewModel extends ViewModel {
         mRepository.initialSync();
     }
 
-
+    public void cleanUp(int lastYear) {
+        mRepository.launchCleanUp(lastYear);
+    }
 }

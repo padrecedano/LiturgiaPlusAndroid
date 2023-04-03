@@ -2,6 +2,7 @@ package org.deiverbum.app.model;
 
 import android.text.SpannableStringBuilder;
 
+import org.deiverbum.app.utils.ColorUtils;
 import org.deiverbum.app.utils.Utils;
 
 public class BibleBooks {
@@ -54,7 +55,8 @@ public class BibleBooks {
         this.description = description;
     }
 
-    public SpannableStringBuilder getForView() {
+    public SpannableStringBuilder getForView(boolean isNightMode) {
+        ColorUtils.isNightMode=isNightMode;
         SpannableStringBuilder sb=new SpannableStringBuilder();
         sb.append(Utils.fromHtml(getIntro()));
         return sb;

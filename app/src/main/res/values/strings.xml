@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Liturgia+</string>
+    <string name="app_name_and_version">Liturgia+ v. 2023.1</string>
+
     <string name="app_version_name_and_mail">v. 2023.1
         [Iosue]\na.cedano@deiverbum.org</string>
-
+    <string name="app_version_name">v. 2023.1
+        [Iosue]</string>
     <!-- Activity and Fragment titles -->
     <string name="title_fragment_breviario">Breviario</string>
     <string name="title_fragment_misa">Misa</string>
@@ -49,6 +52,7 @@
     <string name="lbl_comentarios_hoy">Comentarios Evangelio</string>
     <string name="lbl_santo_hoy">Santo del día</string>
     <string name="all_calendar">Calendario</string>
+    <string name="text_label">Contenido</string>
 
     <!-- Error Messages -->
     <string name="leer">Leer</string>
@@ -57,7 +61,6 @@
     <string name="pref_title_invitatorio">Múltiples Invitatorios</string>
     <string name="pref_description_invitatorio">Activar para usar el Invitatorio alternando entre los salmos 94, 99, 66 y 23
     </string>
-    <string name="pref_title_theme">Tema simple (sin colores) *</string>
     <string name="pref_description_theme">Activar para usar en tema monocolor en la pantalla principal</string>
     <string name="pref_title_bible">Textos de la Biblia de Jerusalén *</string>
     <string name="pref_description_bible">Activar para mostrar los textos bíblicos de la Biblia de Jerusalén</string>
@@ -91,7 +94,6 @@
         <item>50</item>
         <item>60</item>
         <item>80</item>
-
     </string-array>
     <string-array name="pref_font_size_list_values">
         <item>14</item>
@@ -106,6 +108,19 @@
         <item>60</item>
         <item>80</item>
     </string-array>
+
+    <string name="pref_title_theme">Tema por defecto</string>
+    <string-array name="pref_theme_list_titles">
+        <item>Multicolor</item>
+        <item>Monocolor oscuro</item>
+        <item>Monocolor claro</item>
+    </string-array>
+    <string-array name="pref_theme_list_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string name="pref_theme_description">Selecciona el Tema por defecto</string>
 
     <!-- Large content -->
 
@@ -129,8 +144,11 @@
     <string name="pref_accept_terms">Acepto la Política de Privacidad y los Términos y Condiciones</string>
     <string name="pref_description_accept_terms">Activando esta opción, declaras haber leído y aceptado tanto la Política de Privacidad como los Términos y Condiciones. Sin esta aceptación no podrás hacer uso de la Aplicación.</string>
     <string name="label_accept">He leído y acepto la Política de Privacidad y los Términos y Condiciones de Uso.</string>
-    <string name="accept_info">Liturgia+ v. 2023.1\n\n<font color="#A52A2A"
-        size="30">¡La Paz contigo!</font>\n\nSi estás viendo esta
+    <string name="welcome_message">Hello, <font color="{0}">Title</font>! You have new messages.</string>
+
+    <string name="accept_intro">Bienvenido a Liturgia+ \nv. 2023.1</string>
+
+    <string name="accept_info">Si estás viendo esta
         pantalla es porque estás instalando por primera vez una nueva versión
         de la aplicación
         en este dispositivo, o porque en algún momento desmarcaste tu

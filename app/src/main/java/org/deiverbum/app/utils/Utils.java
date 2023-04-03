@@ -13,14 +13,12 @@ import static org.deiverbum.app.utils.Constants.PRECES_IL;
 import static org.deiverbum.app.utils.Constants.PRECES_R;
 import static org.deiverbum.app.utils.Constants.VERSION_CODE;
 
-import android.graphics.Color;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.CharacterStyle;
-import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 
@@ -50,12 +48,15 @@ public final class Utils {
     public static final float H2 = 1.7f;
     public static final float H3 = 1.4f;
     public static final float H4 = 1.1f;
+    public static boolean isNightMode;
 
-    private static final ForegroundColorSpan liturgicalRed = new ForegroundColorSpan(Color.parseColor("#A52A2A"));
+    public static void setNightMode(boolean nightMode){
+        //nightMode=nightMode;
+    }
 
     public static SpannableStringBuilder formatTitle(String sOrigen) {
         SpannableStringBuilder ssb = new SpannableStringBuilder(toUpper(sOrigen));
-        ssb.setSpan(CharacterStyle.wrap(liturgicalRed), 0, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ssb.setSpan(CharacterStyle.wrap(ColorUtils.getRed()), 0, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.setSpan(CharacterStyle.wrap(new StyleSpan(BOLD)), 0, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return ssb;
     }
@@ -109,7 +110,7 @@ public final class Utils {
         SpannableStringBuilder ssb = new SpannableStringBuilder("");
         SpannableString spannableString = new SpannableString(sOrigen);
         spannableString.setSpan(CharacterStyle.wrap(smallSizeText), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(CharacterStyle.wrap(liturgicalRed), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(CharacterStyle.wrap(ColorUtils.getRed()), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.append(spannableString);
         return ssb;
     }
@@ -121,7 +122,7 @@ public final class Utils {
         SpannableStringBuilder ssb = new SpannableStringBuilder("");
         SpannableString spannableString = new SpannableString(s);
         spannableString.setSpan(CharacterStyle.wrap(smallSizeText), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(CharacterStyle.wrap(liturgicalRed), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(CharacterStyle.wrap(ColorUtils.getRed()), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.append(spannableString);
         return ssb;
 
@@ -167,7 +168,7 @@ public final class Utils {
         SpannableString spannableString = new SpannableString(sOrigen);
         spannableString.setSpan(CharacterStyle.wrap(h2), 0,
                 spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(CharacterStyle.wrap(liturgicalRed), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(CharacterStyle.wrap(ColorUtils.getRed()), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.append(spannableString);
         return ssb;
     }
@@ -180,7 +181,7 @@ public final class Utils {
         //spannableString=fromHtml(spannableString);
         spannableString.setSpan(CharacterStyle.wrap(h2), 0,
                 spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(CharacterStyle.wrap(liturgicalRed), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(CharacterStyle.wrap(ColorUtils.getRed()), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.append(spannableString);
         return ssb;
     }
@@ -190,7 +191,7 @@ public final class Utils {
         SpannableStringBuilder ssb = new SpannableStringBuilder("");
         SpannableString spannableString = new SpannableString(sOrigen);
         spannableString.setSpan(CharacterStyle.wrap(smallSizeText), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(CharacterStyle.wrap(liturgicalRed), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(CharacterStyle.wrap(ColorUtils.getRed()), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.append(spannableString);
         return ssb;
     }
@@ -200,26 +201,30 @@ public final class Utils {
         SpannableStringBuilder ssb = new SpannableStringBuilder("");
         SpannableString spannableString = new SpannableString(sOrigen);
         spannableString.setSpan(CharacterStyle.wrap(smallSizeText), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(CharacterStyle.wrap(liturgicalRed), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(CharacterStyle.wrap(ColorUtils.getRed()), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.append(spannableString);
         return ssb;
     }
 
     public static SpannableStringBuilder toRed(String sOrigen) {
         SpannableString s = new SpannableString(sOrigen);
-        s.setSpan(CharacterStyle.wrap(liturgicalRed), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(CharacterStyle.wrap(ColorUtils.getRed()), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return new SpannableStringBuilder(s);
     }
 
+    public static String toRedFont(String s) {
+     return String.format("<font color=\"%s\">%s</font>",ColorUtils.getRedCode(),s);
+    }
+
     public static SpannableStringBuilder toRedNew(SpannableStringBuilder sOrigen) {
-        sOrigen.setSpan(CharacterStyle.wrap(liturgicalRed), 0, sOrigen.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sOrigen.setSpan(CharacterStyle.wrap(ColorUtils.getRed()), 0, sOrigen.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return sOrigen;
     }
 
     public static SpannableStringBuilder toRedHtml(String sOrigen) {
         SpannableString s = new SpannableString(fromHtml(sOrigen));
 
-        s.setSpan(CharacterStyle.wrap(liturgicalRed), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(CharacterStyle.wrap(ColorUtils.getRed()), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return new SpannableStringBuilder(s);
     }
 
@@ -239,8 +244,8 @@ public final class Utils {
         SpannableStringBuilder ssbPartial = new SpannableStringBuilder("V/. En el nombre del Padre, y del Hijo, y del Espíritu Santo.");
         ssbPartial.append(LS);
         ssbPartial.append("R/. Amén.");
-        ssbPartial.setSpan(CharacterStyle.wrap(liturgicalRed), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ssbPartial.setSpan(CharacterStyle.wrap(liturgicalRed), 62, 65, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ssbPartial.setSpan(CharacterStyle.wrap(ColorUtils.getRed()), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ssbPartial.setSpan(CharacterStyle.wrap(ColorUtils.getRed()), 62, 65, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.append(ssbPartial);
         ssb.append(LS2);
         return ssb;
@@ -259,8 +264,8 @@ public final class Utils {
         SpannableStringBuilder ssbPartial = new SpannableStringBuilder("V. El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna.");
         ssbPartial.append(LS);
         ssbPartial.append("R. Amén.");
-        ssbPartial.setSpan(CharacterStyle.wrap(liturgicalRed), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ssbPartial.setSpan(CharacterStyle.wrap(liturgicalRed), 78, 80, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ssbPartial.setSpan(CharacterStyle.wrap(ColorUtils.getRed()), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ssbPartial.setSpan(CharacterStyle.wrap(ColorUtils.getRed()), 78, 80, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.append(ssbPartial);
         return ssb;
     }
@@ -298,35 +303,100 @@ public final class Utils {
                 .replace("~", BR)
                 .replace("¦", NBSP_4)
                 .replace("⊣", BR + NBSP_4)
-                .replace("≠", PRECES_R)
-                .replace("∞", PRECES_IL)
+                .replace("≠", String.format("%s %s ",NBSP_SALMOS,toRedFont(PRECES_R)))
+                .replace("∞", String.format("%s%s",BRS,toRedFont(PRECES_IL)))
                 .replace("⊚", OBIEN)
-                .replace("†", CSS_RED_A + " † " + CSS_RED_Z)
-                .replace("⊓", CSS_RED_A + " N. " + CSS_RED_Z)
-                .replace("Ɽ", CSS_RED_A + " R. " + CSS_RED_Z)
-                .replace("⟨", CSS_RED_A + "(" + CSS_RED_Z)
-                .replace("⟩", CSS_RED_A + ")" + CSS_RED_Z)
-                .replace("ⱱ", CSS_RED_A + "V/." + CSS_RED_Z)
-                .replace("ⱴ", CSS_RED_A + "R/." + CSS_RED_Z)
-                .replace("Ʀ", CSS_RED_A + " R/. " + CSS_RED_Z + BRS)
+                .replace("†", toRedFont(" † "))
+                .replace("⊓", toRedFont(" N. "))
+                .replace("Ɽ", toRedFont(" R. "))
+                .replace("⟨", toRedFont("("))
+                .replace("⟩", toRedFont(")"))
+                .replace("ⱱ", toRedFont("V/."))
+                .replace("ⱴ", toRedFont("R/."))
+                .replace("Ʀ", toRedFont(" R/. ") + BRS)
                 //NEW
-                .replace("℟", CSS_RED_A + "℟." + CSS_RED_Z)
+                .replace("℟", toRedFont("℟."))
                 //.replace("℟",  toRed("℟") )
 
-                .replace("℣", CSS_RED_A + "℣." + CSS_RED_Z)
+                .replace("℣", toRedFont("℣."))
                 .replace("≀", BR + NBSP_4 + NBSP_4)
                 .replace("~", BR)
                 .replace("§", BRS)
                 .replace("∸", BRS)
-                .replace("⊞", CSS_RED_A + "✚. " + CSS_RED_Z)
-                .replace("⊝", CSS_RED_A + "C. " + CSS_RED_Z)
-                .replace("⊟", CSS_RED_A + "S. " + CSS_RED_Z)
+                .replace("⊞", toRedFont("✚. "))
+                .replace("⊝", toRedFont("C. "))
+                .replace("⊟", toRedFont("S. "))
                 .replace("[rubrica]", CSS_RED_A)
                 .replace("[/rubrica]", CSS_RED_Z)
         ;
         return sFormateado;
     }
 
+    /**
+     * <p>Extrae, para la lectura por voz, algunos caracteres que pueden agregarse para la presentación visual.</p>
+     *
+     * @param sOrigen Cadena original para hacer el reemplazo
+     * @return La cadena formateada
+     * @since 2023.1
+     *
+     */
+    public static String getFormatoForRead(String sOrigen) {
+        String sFormateado;
+        sFormateado = sOrigen
+                .replace("_", " ")
+                .replace("§", " ")
+                .replace("~", " ")
+                .replace("¦", " ")
+                .replace("⊣", " ")
+                .replace("≠", " ")
+                .replace("∞", " ")
+                .replace("⊚", OBIEN)
+                .replace("†", "")
+                .replace("⊓", " ")
+                .replace("Ɽ", " ")
+                .replace("⟨", " ")
+                .replace("⟩", " ")
+                .replace("ⱱ", " ")
+                .replace("ⱴ", " ")
+                .replace("Ʀ", " ")
+                .replace("℟", " ")
+                .replace("℣", " ")
+                .replace("≀", " ")
+                .replace("~", " ")
+                .replace("§", " ")
+                .replace("∸", " ")
+                .replace("⊞", " ")
+                .replace("⊝", " ")
+                .replace("⊟", " ")
+                .replace("[rubrica]", " ")
+                .replace("[/rubrica]", " ")
+
+                .replace("«", "")
+                .replace(".»", "».")
+                .replace("\"", "")
+                .replace("'", "")
+                .replace("“", "")
+                .replace("”", "")
+                .replace("(...)", ".")
+                .replace("(", "")
+                .replace(")", "")
+                .replace("...", ".")
+                .replace("[...]", "")
+                .replace("ς", "")
+                .replace("ν", "")
+                .replace("τ", "")
+                .replace("*", "")
+                .replace("—", "")
+                //.replace("ü", "u")
+                .replace("⊞", " ")
+                .replace("⊝", " ")
+                .replace("⊟", " ")
+                .replace("⊓", " ")
+                .replaceAll("(?s)[\\[rubrica].*?/rubrica]", "")
+
+        ;
+        return sFormateado;
+    }
     public static String replaceByTime(String mText, int timeID) {
         String sFormateado;
         if (timeID == 6) {
@@ -361,6 +431,15 @@ public final class Utils {
             return Html.fromHtml(getFormato(s), Html.FROM_HTML_MODE_LEGACY);
         } else {
             return Html.fromHtml(getFormato(s));
+        }
+    }
+
+    //noinspection
+    public static Spanned fromHtmlForRead(String s) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            return Html.fromHtml(getFormatoForRead(s), Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            return Html.fromHtml(getFormatoForRead(s));
         }
     }
 
@@ -399,7 +478,10 @@ public final class Utils {
                 .replace("*", "")
                 .replace("—", "")
                 //.replace("ü", "u")
-
+                .replace("⊞", " ")
+                .replace("⊝", " ")
+                .replace("⊟", " ")
+                .replace("⊓", " ")
                 .replaceAll("(?s)[\\[rubrica].*?/rubrica]", "")
         ;
         return sFormateado.trim();
@@ -686,14 +768,16 @@ public final class Utils {
     }
 
     public static SpannableStringBuilder toH1Red(String sOrigen) {
+
         RelativeSizeSpan h2 = new RelativeSizeSpan(H1);
         SpannableStringBuilder ssb = new SpannableStringBuilder("");
         SpannableString spannableString = new SpannableString(sOrigen);
         spannableString.setSpan(CharacterStyle.wrap(h2), 0,
                 spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(CharacterStyle.wrap(liturgicalRed), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(CharacterStyle.wrap(ColorUtils.getRed()), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.append(spannableString);
         return ssb;
     }
+
 
 }

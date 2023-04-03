@@ -29,7 +29,7 @@ public class DatabaseModule {
     public static AppDatabase provideDatabase(Application application){
         return Room.databaseBuilder(application,AppDatabase.class,
                 "LiturgiaPlusDB")
-                .createFromAsset("database/liturgia_v0001.db")
+                .createFromAsset("database/liturgia_202301000.db")
                 .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .build();

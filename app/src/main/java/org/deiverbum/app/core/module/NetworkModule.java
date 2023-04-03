@@ -23,7 +23,6 @@ import okhttp3.Dispatcher;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -50,11 +49,9 @@ public abstract class NetworkModule {
         return new Retrofit.Builder().baseUrl(URL_API)
                 .addConverterFactory(gsonConverterFactory)
                 .addCallAdapterFactory(rxJava3CallAdapterFactory)
-
                 .client(okHttpClient)
                 .build();
     }
-
 
     @Provides
     @Singleton
@@ -62,14 +59,12 @@ public abstract class NetworkModule {
         return application;
     }
 
-
     @Provides
     @Singleton
     static OkHttpClient provideHttpClient(Application application) {
         Dispatcher dispatcher = new Dispatcher();
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-// set your desired log level
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        //HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        //logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient.Builder client = new OkHttpClient.Builder()
                 .connectTimeout(60, TimeUnit.SECONDS)
@@ -86,17 +81,15 @@ public abstract class NetworkModule {
             return chain.proceed(request);
         };
         client.addInterceptor(interceptor);
-        client.interceptors().add(logging);
+        //client.interceptors().add(logging);
         return client.build();
     }
-
 
     @Provides
     @Singleton
     static Gson provideGson() {
         return new GsonBuilder().setLenient().create();
     }
-
 
     @Provides
     @Singleton
@@ -115,7 +108,6 @@ public abstract class NetworkModule {
     static ApiService provideService(Retrofit retrofit) {
         return retrofit.create(ApiService.class);
     }
-
 
 }
 

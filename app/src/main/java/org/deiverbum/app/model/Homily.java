@@ -6,6 +6,7 @@ import android.text.SpannableStringBuilder;
 
 import androidx.room.Ignore;
 
+import org.deiverbum.app.utils.ColorUtils;
 import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
@@ -27,21 +28,11 @@ public class Homily {
     public String padre;
     public String homily;
     @Ignore
-    public MetaLiturgia metaLiturgia;
-    @Ignore
     public List<HomilyList> homilias;
     @Ignore
     private Today today;
 
     public Homily() {
-    }
-
-    public MetaLiturgia getMetaLiturgia() {
-        return metaLiturgia;
-    }
-
-    public void setMetaLiturgia(MetaLiturgia metaLiturgia) {
-        this.metaLiturgia = metaLiturgia;
     }
 
     public void setHomilias(List<HomilyList> homilias) {
@@ -61,7 +52,8 @@ public class Homily {
         return "Homilías.";
     }
 
-    public SpannableStringBuilder getForView() {
+    public SpannableStringBuilder getForView(boolean isNightMode) {
+        ColorUtils.isNightMode=isNightMode;
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
             //sb.append(LS2);

@@ -4,6 +4,7 @@ import android.text.SpannableStringBuilder;
 
 import androidx.room.Ignore;
 
+import org.deiverbum.app.utils.ColorUtils;
 import org.deiverbum.app.utils.Utils;
 
 /**
@@ -16,6 +17,7 @@ import org.deiverbum.app.utils.Utils;
  */
 
 //@SuppressWarnings("SameReturnValue")
+@SuppressWarnings("unused")
 public class Today {
     public Integer todayDate;
     public Integer weekDay;
@@ -185,12 +187,13 @@ public class Today {
     }
 
     public boolean hasSaintToday() {
-        return this.hasSaint == 1;
+        return this.hasSaint != null && this.hasSaint == 1; //this.hasSaint == 1;
     }
 
 
-    public SpannableStringBuilder getAllForView(boolean hasInvitatory) {
+    public SpannableStringBuilder getAllForView(boolean hasInvitatory, boolean nightMode) {
         liturgyDay.setHasSaint(hasSaintToday());
+        ColorUtils.isNightMode=nightMode;
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
             sb.append(Utils.LS);
@@ -205,18 +208,18 @@ public class Today {
                 if (oBiblicalFK==600010101){
                     sb.append(liturgyDay.getBreviaryHour().getOficioEaster().getForView());
                 } else {
-                    sb.append(liturgyDay.getBreviaryHour().getMixtoForView(liturgyDay.liturgyTime));//.getForView(liturgyDay.liturgyTime));
+                    sb.append(liturgyDay.getBreviaryHour().getMixtoForView(liturgyDay.liturgyTime, hasSaintToday()));//.getForView(liturgyDay.liturgyTime));
                 }
             }
             if (liturgyDay.typeID == 1) {
                 if (oBiblicalFK==600010101){
                     sb.append(liturgyDay.getBreviaryHour().getOficioEaster().getForView());
                 }else {
-                    sb.append(liturgyDay.getBreviaryHour().getOficio(hasInvitatory).getForView(liturgyDay.liturgyTime, hasSaintToday()));
+                    sb.append(liturgyDay.getBreviaryHour().getOficio(hasInvitatory).getForView(liturgyDay.liturgyTime, hasSaintToday(),nightMode));
                 }
             }
             if (liturgyDay.typeID == 2) {
-                sb.append(liturgyDay.getBreviaryHour().getLaudes(hasInvitatory).getForView(liturgyDay.liturgyTime));
+                sb.append(liturgyDay.getBreviaryHour().getLaudes(hasInvitatory).getForView(liturgyDay.liturgyTime,hasSaintToday()));
             }
             if (liturgyDay.typeID == 3 || liturgyDay.typeID == 4 || liturgyDay.typeID == 5) {
                 sb.append(liturgyDay.getBreviaryHour().getIntermedia().getForView(liturgyDay.liturgyTime,liturgyDay.typeID));
@@ -225,7 +228,7 @@ public class Today {
                 sb.append(liturgyDay.getBreviaryHour().getVisperas().getForView(liturgyDay.liturgyTime));
             }
             if (liturgyDay.typeID == 7) {
-                sb.append(liturgyDay.getBreviaryHour().getCompletas().getAllForView(liturgyDay.liturgyTime));
+                sb.append(liturgyDay.getBreviaryHour().getCompletas().getAllForView());
             }
 
         } catch (Exception e) {
@@ -279,10 +282,10 @@ public class Today {
                 sb.append(liturgyDay.getBreviaryHour().getIntermedia().getForRead());
             }
             if (liturgyDay.typeID == 6) {
-                sb.append(liturgyDay.getBreviaryHour().getVisperas().getAllForRead(previousFK));
+                sb.append(liturgyDay.getBreviaryHour().getVisperas().getAllForRead());
             }
             if (liturgyDay.typeID == 7) {
-                sb.append(liturgyDay.getBreviaryHour().getCompletas().getAllForView(liturgyDay.liturgyTime));
+                sb.append(liturgyDay.getBreviaryHour().getCompletas().getForRead());
             }
 
         } catch (Exception e) {

@@ -134,6 +134,7 @@ public class TodayVisperas {
         dm.setToday(getToday());
         BreviaryHour bh=new BreviaryHour();
         Visperas visperas=new Visperas();
+        visperas.setIsPrevious(dmToday.previousFK);
         visperas.setToday(getToday());
         visperas.setHimno(getHimno());
         visperas.setSalmodia(getSalmodia());
@@ -142,6 +143,7 @@ public class TodayVisperas {
         visperas.setPreces(getPreces());
         visperas.setOracion(getOracion());
         bh.setVisperas(visperas);
+
         dm.setBreviaryHour(bh);
         dmToday.liturgyDay=dm;
         return dmToday;

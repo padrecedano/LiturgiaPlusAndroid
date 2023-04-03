@@ -5,6 +5,7 @@ import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
 
+import org.deiverbum.app.utils.ColorUtils;
 import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
@@ -148,7 +149,8 @@ public class ViaCrucis {
         this.oracion = oracion;
     }
 
-    public SpannableStringBuilder getForView() {
+    public SpannableStringBuilder getForView(boolean isNightMode) {
+        ColorUtils.isNightMode=isNightMode;
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         sb.append(Utils.toH2Red(getTitulo()));
         sb.append(LS2);

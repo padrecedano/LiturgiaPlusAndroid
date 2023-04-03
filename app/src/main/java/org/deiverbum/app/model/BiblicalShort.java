@@ -29,18 +29,6 @@ public SpannableStringBuilder getHeaderLectura() {
         this.responsorio=responsorio;
     }
 
-    public SpannableStringBuilder getAll() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(getHeaderLectura());
-        sb.append(LS2);
-        sb.append(getTexto());
-        sb.append(LS2);
-        sb.append(responsorio.getAll());
-        //sb.append(getResponsorio().getAll());
-        return sb;
-    }
-
-
     public SpannableStringBuilder getAllWithHourCheck(int hourId) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeaderLectura());

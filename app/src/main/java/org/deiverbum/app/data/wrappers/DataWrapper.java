@@ -28,12 +28,6 @@ public class DataWrapper<T, E extends CustomException> {
         this.status = Status.SUCCESS;
     }
 
-    public void postValue(T data) {
-        this.data = data;
-        this.status = Status.SUCCESS;
-
-    }
-
     public void setValue(T data) {
         this.status = Status.SUCCESS;
         this.data = data;
@@ -68,5 +62,4 @@ public class DataWrapper<T, E extends CustomException> {
     }
 
     public enum Status {SUCCESS, ERROR, LOADING}
-
 }

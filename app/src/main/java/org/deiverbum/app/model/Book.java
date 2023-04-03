@@ -7,6 +7,7 @@ import android.text.SpannableStringBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.deiverbum.app.utils.ColorUtils;
 import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
@@ -116,7 +117,8 @@ public class Book {
          this.agreeNot=agreeNot;
     }
 
-    public SpannableStringBuilder getForView(){
+    public SpannableStringBuilder getForView(boolean isNightMode){
+        ColorUtils.isNightMode=isNightMode;
         SpannableStringBuilder sb=new SpannableStringBuilder();
 
         if(bookType==2){

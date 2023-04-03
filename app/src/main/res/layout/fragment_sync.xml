@@ -9,7 +9,7 @@
     <include
         android:id="@+id/include"
         app:layout_constraintTop_toBottomOf="parent"
-        layout="@layout/tv_zoomable"
+        layout="@layout/tv_zoomable_with_button"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
     <!--
@@ -41,5 +41,7 @@
             android:minWidth="200dp"
             android:indeterminate="true"
             android:progress="0" />
+
+
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

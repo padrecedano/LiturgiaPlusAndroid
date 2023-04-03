@@ -3,11 +3,14 @@ package org.deiverbum.app.ui.fragments;
 import static org.deiverbum.app.utils.Constants.FILE_PRIVACY;
 import static org.deiverbum.app.utils.Constants.FILE_TERMS;
 import static org.deiverbum.app.utils.Constants.PREF_ACCEPT;
+import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.app.Dialog;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -21,12 +24,16 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
+import org.deiverbum.app.R;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentAcceptanceBinding;
 import org.deiverbum.app.model.Book;
+import org.deiverbum.app.utils.ColorUtils;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.viewmodel.FileViewModel;
 import org.deiverbum.app.viewmodel.SyncViewModel;
+
+import java.text.MessageFormat;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -90,21 +97,23 @@ public class AcceptanceFragmentDialog extends DialogFragment {
     }
 
     private void prepareView() {
+        ColorUtils.isNightMode=isNightMode();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
         float fontSize = Float.parseFloat(sp.getString("font_size", "18"));
         TextView textInitial = binding.textInitial;
         textPrivacy = binding.textPrivacy;
         textTerms = binding.textTerms;
         TextView textFinal = binding.textFinal;
-        //TextView textContacto = binding.textContacto;
         textInitial.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         textPrivacy.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         textTerms.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         textFinal.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        //textContacto.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         Button button = binding.btnEmail;
-
+  SpannableStringBuilder ssb=new SpannableStringBuilder();
+ssb.append(Utils.toH3Red(getActivity().getResources().getString(R.string.accept_intro)));
+ssb.append(LS2);
+ssb.append(getActivity().getResources().getString(R.string.accept_info));
+        textInitial.setText(ssb);
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(Utils.toH2Red("Aceptación"));
         sb.append("\n\nSi aceptas tanto la Política de Privacidad, como los " +
@@ -118,10 +127,16 @@ public class AcceptanceFragmentDialog extends DialogFragment {
 
         button.setOnClickListener(v -> {
             SharedPreferences.Editor editor = sp.edit();
-            editor.putBoolean(PREF_ACCEPT, true);
-            editor.apply();
-            //launchWorker();
-            syncViewModel.initialSync();
+            editor.putBoolean(PREF_ACCEPT, true).apply();
+            boolean isInitialSync=sp.getBoolean("initialSync", false);
+            if(!isInitialSync) {
+                syncViewModel.initialSync();
+                syncViewModel.getInitialSyncStatus().observe(getViewLifecycleOwner(),
+                        data -> {
+                            boolean isSuccess = data > 0;
+                            sp.edit().putBoolean("initialSync", isSuccess).apply();
+                        });
+            }
             dismiss();
         });
     }
@@ -131,7 +146,7 @@ public class AcceptanceFragmentDialog extends DialogFragment {
                 data -> {
                     if (data.status == DataWrapper.Status.SUCCESS) {
                         Book book = data.getData();
-                        textPrivacy.setText(book.getForView(), TextView.BufferType.SPANNABLE);
+                        textPrivacy.setText(book.getForView(isNightMode()), TextView.BufferType.SPANNABLE);
                     } else {
                         textPrivacy.setText(Utils.fromHtml(data.getError()));
                     }
@@ -141,7 +156,7 @@ public class AcceptanceFragmentDialog extends DialogFragment {
                 data -> {
                     if (data.status == DataWrapper.Status.SUCCESS) {
                         Book book = data.getData();
-                        textTerms.setText(book.getForView(),
+                        textTerms.setText(book.getForView(isNightMode()),
                                 TextView.BufferType.SPANNABLE);
                     } else {
                         textTerms.setText(Utils.fromHtml(data.getError()));
@@ -149,5 +164,9 @@ public class AcceptanceFragmentDialog extends DialogFragment {
                 });
     }
 
+    public boolean isNightMode() {
+        int nightModeFlags = requireActivity().getApplicationContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
+    }
 
 }

@@ -4,6 +4,7 @@ import static org.deiverbum.app.utils.Constants.PACIENCIA;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -56,14 +57,14 @@ public class AuthorFragment extends Fragment {
 
         binding = FragmentAuthorBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
+        mTextView = binding.include.tvZoomable;
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
-
-        mTextView = binding.include.tvZoomable;
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-
+        String fontFamily = String.format(new Locale("es"),"fonts/%s",prefs.getString("font_name", "robotoslab_regular.ttf"));
+        Typeface tf= Typeface.createFromAsset(requireActivity().getAssets(),fontFamily);
+        mTextView .setTypeface(tf);
         mTextView.setMovementMethod(LinkMovementMethod.getInstance());
         mTextView.setClickable(true);
         progressBar = binding.pb.progressBar;
@@ -90,7 +91,7 @@ public class AuthorFragment extends Fragment {
 
                         if (data.status == DataWrapper.Status.SUCCESS) {
                             Book book = data.getData();
-                            mTextView.setText(book.getForView(), TextView.BufferType.SPANNABLE);
+                            mTextView.setText(book.getForView(isNightMode()), TextView.BufferType.SPANNABLE);
                         } else {
                             mTextView.setText(Utils.fromHtml(data.getError()));
                         }
@@ -113,6 +114,12 @@ public class AuthorFragment extends Fragment {
         }
         requireActivity().onBackPressed();
     }
+
+    public boolean isNightMode() {
+        int nightModeFlags = requireActivity().getApplicationContext().getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES;
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

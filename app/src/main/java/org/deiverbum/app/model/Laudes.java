@@ -1,5 +1,6 @@
 package org.deiverbum.app.model;
 
+import static org.deiverbum.app.utils.Constants.LS;
 import static org.deiverbum.app.utils.Constants.TITLE_LAUDES;
 import static org.deiverbum.app.utils.Utils.LS2;
 
@@ -59,23 +60,23 @@ public class Laudes extends BreviaryHour {
         this.preces = preces;
     }
 
-    public SpannableStringBuilder getForView(LiturgyTime liturgyTime) {
+    public SpannableStringBuilder getForView(LiturgyTime liturgyTime, boolean hasSaint) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
             //TODO hacer esto en la clase LHResponsoryShort, revisar Completas y
             // demás horas
             //biblicaBreve.normalizeByTime(metaLiturgia.calendarTime);
-
+            this.hasSaint=hasSaint;
             invitatorio.normalizeByTime(liturgyTime.getTimeID());
             salmodia.normalizeByTime(liturgyTime.getTimeID());
 
             //sb.append(today.getAllForView());
             sb.append(LS2);
 
-            if (santo != null && hasSaint) {
+            if (santo != null && this.hasSaint) {
                 invitatorio.normalizeIsSaint(santo.theName);
                 sb.append(santo.getVidaSmall());
-                sb.append(LS2);
+                sb.append(LS);
             }
 
             sb.append(getTituloHora());
@@ -91,10 +92,10 @@ public class Laudes extends BreviaryHour {
             sb.append(LS2);
 
             sb.append(salmodia.getAll());
-            sb.append(Utils.LS2);
+            sb.append(LS2);
 
             sb.append(lecturaBreve.getAllWithHourCheck(2));
-            sb.append(Utils.LS2);
+            sb.append(LS2);
 
             sb.append(gospelCanticle.getAll());
             sb.append(LS2);
@@ -119,7 +120,7 @@ public class Laudes extends BreviaryHour {
         StringBuilder sb = new StringBuilder();
         try {
             //sb.append(today.getAllForRead());
-            if (santo != null && hasSaint) {
+            if (santo != null && this.hasSaint) {
                 sb.append(santo.getVida());
             }
             sb.append(getTituloHoraForRead());

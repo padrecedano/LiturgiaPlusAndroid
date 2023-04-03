@@ -127,12 +127,11 @@ public class Completas extends BreviaryHour {
      */
     public SpannableStringBuilder getLecturaSpan() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
-
         int mIndex = (today.getTimeID() == 6) ? 1 : 0;
         LHResponsoryShort mResponsorio = responsorio.get(mIndex);
         BiblicalShort mLectura = completasDias.get(today.weekDay).getLecturaBreve();
         mLectura.setResponsorio(mResponsorio);
-        ssb.append(mLectura.getAll());
+        ssb.append(mLectura.getAllWithHourCheck(7));
         return ssb;
     }
 
@@ -143,9 +142,8 @@ public class Completas extends BreviaryHour {
         return ssb;
     }
 
-    public SpannableStringBuilder getAllForView(LiturgyTime liturgyTime) {
+    public SpannableStringBuilder getAllForView() {
         try {
-            //this.finalTime =  hoy.getFinalTime();
             SpannableStringBuilder sb = new SpannableStringBuilder();
             RitosIniciales ri = getRitosIniciales();
             Kyrie kyrie = ri.getKyrie();
@@ -153,7 +151,6 @@ public class Completas extends BreviaryHour {
             this.salmodia = getCompletasDias().get(today.weekDay).getSalmodia();
             NuncDimitis nuncDimitis = getNuncDimitis();
             Conclusion conclusion = getConclusion();
-            //sb.append(today.getAllForView(false));
             sb.append(Utils.LS2);
             sb.append(getTituloHora());
             sb.append(Utils.LS2);

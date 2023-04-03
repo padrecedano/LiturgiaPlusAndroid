@@ -156,7 +156,7 @@ public class Biblical {
 
 
     public Spanned getTextoForRead() {
-        return Utils.fromHtml(Utils.getFormato(text));
+        return Utils.fromHtml(Utils.getFormatoForRead(text));
     }
 
 
@@ -232,7 +232,7 @@ public class Biblical {
         SpannableStringBuilder sb=new SpannableStringBuilder();
         sb.append(Utils.pointAtEnd(getHeader()));
         sb.append(getLibroForRead());
-        sb.append(getTexto());
+        sb.append(getTextoForRead());
         sb.append(getConclusionForRead());
         sb.append(getResponsorioHeaderForRead());
         return sb;

@@ -1,9 +1,10 @@
 package org.deiverbum.app.repository;
 
 import android.content.Context;
-import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.work.BackoffPolicy;
 import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
@@ -12,11 +13,15 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import org.deiverbum.app.data.db.dao.TodayDao;
+import org.deiverbum.app.data.source.remote.firebase.FirebaseDataSource;
 import org.deiverbum.app.data.source.remote.network.ApiService;
+import org.deiverbum.app.data.wrappers.CustomException;
+import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.model.SyncStatus;
 import org.deiverbum.app.model.Today;
 import org.deiverbum.app.workers.TodayWorker;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -30,6 +35,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 /**
  * <p>Repositorio para el módulo de Sincronización.</p>
  * <p>Busca en la base de datos la última fecha disponible en el calendario y la fecha de la última sincronización.</p>
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
@@ -37,23 +43,28 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SyncRepository {
     private final ApiService apiService;
-    private final LiveData<SyncStatus> mData;
+    private final FirebaseDataSource mFirebase;
     private final Context context;
     private final TodayDao mTodayDao;
+    private final MutableLiveData<Integer> initialSync = new MutableLiveData<>();
+    private final MutableLiveData<Integer> yearClean = new MutableLiveData<>();
 
     @Inject
     public SyncRepository(
+            FirebaseDataSource mFirebase,
             ApiService apiService,
             TodayDao todayDao, @ApplicationContext Context context) {
         this.apiService = apiService;
         this.mTodayDao = todayDao;
-
-        this.mData= todayDao.getSyncInfo();
+        this.mFirebase = mFirebase;
         this.context = context;
     }
 
     public LiveData<SyncStatus> getFromDB() {
-        return mData;
+        if (mTodayDao.syncStatusCount() == 0) {
+            mTodayDao.insertSyncStatus("initial");
+        }
+        return mTodayDao.getSyncInfo();
     }
 
     /**
@@ -72,15 +83,12 @@ public class SyncRepository {
                 new PeriodicWorkRequest.Builder(TodayWorker.class, 15, TimeUnit.MINUTES)
                         .addTag("TAG_SYNC_DATA")
                         .setConstraints(constraints)
-                        //.setInputData(inputData)
-                        // setting a backoff on case the work needs to retry
                         .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
                         .build();
         mWorkManager.enqueueUniquePeriodicWork(
                 "SYNC_TODAY",
-                ExistingPeriodicWorkPolicy.UPDATE, //Existing Periodic Work
-                // policy
-                periodicSyncDataWork //work request
+                ExistingPeriodicWorkPolicy.UPDATE,
+                periodicSyncDataWork
         );
 
     }
@@ -98,20 +106,72 @@ public class SyncRepository {
                     @Override
                     public void onSuccess(List<Today> r) {
                         try {
-                            if (r.size()>0) {
+                            if (r.size() > 0) {
                                 mTodayDao.insertAllTodays(r);
+                                launchSyncWorker();
+                                initialSync.setValue(1);
+                            } else {
+                                getFromFirebase();
                             }
-                            launchSyncWorker();
                         } catch (Exception e) {
-                            Log.d("ERR", e.getMessage());
+                            getFromFirebase();
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
-                        Log.d("ERR", e.getMessage());
+                        getFromFirebase();
                     }
                 });
+    }
+
+
+    /**
+     * <p>Este método buscará las fechas de los próximos siete días
+     * en Firestore mediante {@link FirebaseDataSource#loadInitialToday()}</p>
+     * <p>Se usa como alternativa, en caso de que falle la llamada a {@link SyncRepository#initialSync()}</p>
+     */
+
+    public void getFromFirebase() {
+        mFirebase.loadInitialToday()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSingleObserver<List<DataWrapper<Today, CustomException>>>() {
+
+                    @Override
+                    public void onSuccess(@NonNull List<DataWrapper<Today, CustomException>> data) {
+                        List<Today> allToday = new ArrayList<>();
+                        for (DataWrapper<Today, CustomException> item : data) {
+                            allToday.add(item.getData());
+                        }
+                        try {
+                            mTodayDao.insertAllTodays(allToday);
+                            initialSync.setValue(0);
+                            launchSyncWorker();
+                        } catch (Exception e) {
+                            initialSync.setValue(0);
+                            launchSyncWorker();
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        initialSync.setValue(0);
+                        launchSyncWorker();
+                    }
+                });
+    }
+
+    public LiveData<Integer> getInitialSyncStatus() {
+        return initialSync;
+    }
+
+    public LiveData<Integer> getYearClean() {
+        return yearClean;
+    }
+
+    public void launchCleanUp(int lastYear) {
+        mTodayDao.deleteOldEntries(lastYear);
+        yearClean.setValue(1);
     }
 }

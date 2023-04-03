@@ -10,21 +10,11 @@ import static org.deiverbum.app.utils.Constants.FIREBASE_SANTOS;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.SnapshotMetadata;
 
-import org.deiverbum.app.data.db.dao.TodayDao;
 import org.deiverbum.app.data.wrappers.CustomException;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.model.BibleBooks;
@@ -35,9 +25,10 @@ import org.deiverbum.app.model.MassReadingList;
 import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.SaintLife;
 import org.deiverbum.app.model.Today;
-import org.deiverbum.app.model.crud.CrudToday;
 import org.deiverbum.app.utils.Utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -57,12 +48,9 @@ import io.reactivex.rxjava3.core.Single;
 //TODO Listener registration MUY IMPORTANTE
 public class FirebaseDataSource {
     private final FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-    private final TodayDao mTodayDao;
 
     @Inject
-    public FirebaseDataSource(TodayDao mTodayDao
-    ) {
-        this.mTodayDao = mTodayDao;
+    public FirebaseDataSource() {
     }
 
     /**
@@ -141,14 +129,13 @@ public class FirebaseDataSource {
                     if (document.exists()) {
                         DocumentReference dataRef =
                                 document.getDocumentReference("comentarios");
-                        MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
                         try {
 
                             Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
                                 if (mSnapshot.exists()) {
                                     BibleCommentList theData =
                                             mSnapshot.toObject(BibleCommentList.class);
-                                    Objects.requireNonNull(theData).setMetaLiturgia(meta);
+                                    //Objects.requireNonNull(theData).setMetaLiturgia(meta);
                                     emitter.onSuccess(new DataWrapper<>(theData));
                                 } else {
                                     emitter.onError(new Exception(DATA_NOTFOUND));
@@ -184,14 +171,13 @@ public class FirebaseDataSource {
                     if (document.exists()) {
                         DocumentReference dataRef =
                                 document.getDocumentReference("homilias");
-                        MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
                         try {
 
                             Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
                                 if (mSnapshot.exists()) {
                                     Homily theData =
                                             mSnapshot.toObject(Homily.class);
-                                    Objects.requireNonNull(theData).setMetaLiturgia(meta);
+                                    //Objects.requireNonNull(theData).setMetaLiturgia(meta);
                                     emitter.onSuccess(new DataWrapper<>(theData));
                                 } else {
                                     emitter.onError(new Exception(DATA_NOTFOUND));
@@ -212,27 +198,6 @@ public class FirebaseDataSource {
     }
 
 
-    public Single<DataWrapper<MetaLiturgia, CustomException>> getMetaLiturgia(String dateString) {
-        return Single.create(emitter -> {
-            DataWrapper<MetaLiturgia, CustomException> data = new DataWrapper<>();
-            DocumentReference docRef = firebaseFirestore.collection(CALENDAR_PATH).document(Utils.toDocument(dateString));
-            docRef.get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
-                        data.postValue(meta);
-                        emitter.onSuccess(data);
-                    } else {
-                        emitter.onError(new Exception(DOC_NOTFOUND));
-                    }
-                } else {
-                    emitter.onError(task.getException());
-                }
-            });
-        });
-    }
-
     /**
      * <p>Obtiene un observable con el libro de la Biblia según los parámetros dados.</p>
      *
@@ -251,67 +216,43 @@ public class FirebaseDataSource {
             });
         });
     }
-
-    public void getSync(){
-        firebaseFirestore.collection(FIREBASE_SYNC_PATH)
-                .whereGreaterThanOrEqualTo("todayDate", Utils.getTodayMinus(30))
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("TAG", document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.d("TAG", "Error getting documents: ", task.getException());
-                        }
+    public Single<List<DataWrapper<Today, CustomException>>> loadInitialToday() {
+        return Single.create(emitter -> {
+            List<DataWrapper<Today, CustomException>> data = new ArrayList();
+             firebaseFirestore.collection(FIREBASE_SYNC_PATH)
+                 .whereGreaterThanOrEqualTo("todayDate", Utils.getTodayMinus(1))
+                    .limit(7)
+                     .get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Today t = document.toObject(Today.class);
+                        data.add(new DataWrapper<>(t));
                     }
-                });
+                        emitter.onSuccess(data);
+                    } else {
+                        emitter.onError(new Exception(DOC_NOTFOUND));
+                    }
+
+            });
+        });
     }
 
-    public void getSyncc() {
-        /*ListenerRegistration registration =*/
+    @SuppressWarnings("unused")
+    public void getSync(){
         firebaseFirestore.collection(FIREBASE_SYNC_PATH)
-                .whereGreaterThanOrEqualTo("todayDate", Utils.getTodayMinus(30))
-                .addSnapshotListener(
-                        (snapshots, e) -> {
-                            if (e != null) {
-                                System.err.println("Listen failed: " + e);
-                                return;
-                            }
-                            CrudToday crudToday = new CrudToday();
-                            for (DocumentChange dc : Objects.requireNonNull(snapshots).getDocumentChanges()) {
-                                SnapshotMetadata metaData = dc.getDocument().getMetadata();
-                                DocumentChange.Type dcType = dc.getType();
-                                //DocumentSnapshot doc=dc.getDocument();
-                                if (dcType == DocumentChange.Type.ADDED && !metaData.isFromCache()) {
-                                    crudToday.addCreate(dc.getDocument().toObject(Today.class));
-                                }
-                                if (dcType == DocumentChange.Type.MODIFIED && !metaData.isFromCache()) {
-                                    crudToday.addUpdate(dc.getDocument().toObject(Today.class));
-                                }
-                                if (dcType == DocumentChange.Type.REMOVED && !metaData.isFromCache()) {
-                                    crudToday.addDelete(dc.getDocument().toObject(Today.class));
-                                }
-                            }
-                            try {
-                                if (crudToday.c != null && !crudToday.c.isEmpty()) {
-                                    mTodayDao.todayInsertAll(crudToday.c);
-                                }
-                                if (crudToday.u != null && !crudToday.u.isEmpty()) {
-                                    mTodayDao.todayUpdateAll(crudToday.u);
-                                }
-                                if (crudToday.d != null && !crudToday.d.isEmpty()) {
-                                    mTodayDao.todayDeleteAll(crudToday.d);
-                                }
-                            } catch (Exception ex) {
-                                Log.e("ERR", ex.getMessage());
-                            }
-
-                        });
-        //registration.remove();
-
+                .whereGreaterThanOrEqualTo("todayDate", Utils.getTodayMinus(1))
+                .limit(7)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        List<Today> allToday = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            allToday.add(document.toObject(Today.class));
+                        }
+                    } else {
+                        Log.d("TAG", "Error getting documents: ", task.getException());
+                    }
+                });
     }
 
     public Single<DataWrapper<Today, CustomException>> getToday(String dateString, int hourId) {

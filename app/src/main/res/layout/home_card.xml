@@ -1,13 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorSurface"
+
     android:paddingLeft=".5dp"
     android:paddingRight=".5dp"
     android:paddingTop=".5dp"
     android:paddingBottom=".5dp">
 
     <androidx.cardview.widget.CardView
+        android:background="@color/colorSurface"
+
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:layout_gravity="center"
@@ -30,10 +35,11 @@
                 android:maxWidth="82dp"
                 android:maxHeight="82dp"
                 android:padding="5dp"
-                card_view:tint="@color/colorMainIcon"
                 android:scaleType="fitCenter"
                 android:contentDescription="@string/app_name" />
-                <!--card_view:tint="@color/color_mainrecycler_bg"-->
+                <!--card_view:tint="@color/color_mainrecycler_bg"
+                                card_view:tint="@color/color_nav_start"
+-->
 
             <TextView
                 android:id="@+id/title"

@@ -3,9 +3,10 @@ package org.deiverbum.app.model;
 import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 
 import org.deiverbum.app.utils.Utils;
-
+@SuppressWarnings("unused")
 public class BibleComment {
     private PaterOpus obras;
     private String tema = "";
@@ -74,6 +75,10 @@ public class BibleComment {
         return this.texto;
     }
 
+    public Spanned getTextoForRead() {
+        return Utils.fromHtmlForRead(this.texto);
+    }
+
     public void setTexto(String texto) {
         this.texto = texto;
     }
@@ -100,6 +105,26 @@ public class BibleComment {
 
     public void setBiblica(MassReading biblica) {
         this.biblica = biblica;
+    }
+
+    private String getCitaForRead() {
+        return (!getCita().equals("")) ? Utils.normalizeEnd(getCita()) : "";
+    }
+
+    private String getPadreForRead() {
+        return (!getPadre().equals("")) ? Utils.normalizeEnd(getPadre()) : "";
+    }
+
+    private String getObraForRead() {
+        return (!getObra().equals("")) ? Utils.normalizeEnd(getObra()) : "";
+    }
+
+    private String getTemaForRead() {
+        return (!getTema().equals("")) ? Utils.normalizeEnd(getTema()) : "";
+    }
+
+    private String getRefForRead() {
+        return (!getRef().equals("")) ? Utils.normalizeEnd(getRef()) : "";
     }
 
     public SpannableStringBuilder getAllForView() {
@@ -136,31 +161,14 @@ public class BibleComment {
 
     public StringBuilder getAllForRead() {
         StringBuilder sb = new StringBuilder();
-        sb.append(getPadre());
-        sb.append(".");
-        sb.append(getObra());
-        sb.append(".");
-
-        if (!getTema().equals("")) {
-            sb.append(getTema());
-            sb.append(".");
-        }
-
-        if (!getRef().equals("")) {
-            sb.append(getRef());
-            sb.append(".");
-        }
-
-        //TODO
-        /*
-        Revisar esta nomenclatura
-         */
-        if (!getCita().equals("")) {
-            sb.append(Utils.toRed(getCita()));
-            sb.append(".");
-        }
-
-        sb.append(Utils.fromHtml(getTexto()));
+        sb.append(getPadreForRead());
+        sb.append(getObraForRead());
+        sb.append(getTemaForRead());
+        sb.append(getRefForRead());
+        sb.append(getCitaForRead());
+        sb.append(getTextoForRead());
         return sb;
     }
+
+
 }

@@ -109,7 +109,7 @@ public class HomilyList {
         if(!date.isEmpty() && !date.equals("0000-00-00")) {
             sb.append(Utils.normalizeEnd(date));
         }
-        sb.append(Utils.fromHtml(getHomilia()));
+        sb.append(Utils.fromHtmlForRead(getHomilia()));
         return sb;
     }
     @SuppressWarnings("unused")

@@ -8,7 +8,6 @@ import org.deiverbum.app.data.entity.MassReadingEntity;
 import org.deiverbum.app.data.entity.TodayEntity;
 import org.deiverbum.app.model.BibleComment;
 import org.deiverbum.app.model.BibleCommentList;
-import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.Today;
 
 import java.util.ArrayList;
@@ -39,15 +38,6 @@ public class TodayComentarios {
     )
     public List<MisaWithComentarios> comentarios;
 
-    public MetaLiturgia getMetaLiturgia(){
-        MetaLiturgia theModel = new MetaLiturgia();
-        theModel.setFecha(String.valueOf(today.hoy));
-        //theModel.setIdHour(2);
-        theModel.setHasSaint(false);
-        theModel.setIdLecturas(today.mLecturasFK);
-        theModel.setIdTiempo(today.getTiempoId());
-        return theModel;
-    }
 
     public Today getToday(){
         Today dm = new Today();
@@ -62,7 +52,6 @@ public class TodayComentarios {
         BibleCommentList dm=new BibleCommentList();
         dm.setHoy(getToday());
         List<List<BibleComment>> listModel = new ArrayList<>();
-        dm.setMetaLiturgia(getMetaLiturgia());
         for(MisaWithComentarios item : comentarios){
             listModel.add(item.getDomainModel());
         }

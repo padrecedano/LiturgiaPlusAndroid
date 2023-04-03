@@ -10,6 +10,7 @@ import androidx.room.Ignore;
 
 import com.google.firebase.firestore.PropertyName;
 
+import org.deiverbum.app.utils.ColorUtils;
 import org.deiverbum.app.utils.Utils;
 
 import java.util.HashMap;
@@ -98,7 +99,8 @@ public class SaintLife {
         return sb;
     }
 
-    public SpannableStringBuilder getForView() {
+    public SpannableStringBuilder getForView(boolean nightMode) {
+        ColorUtils.isNightMode=nightMode;
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
             sb.append(Utils.toH3Red(getMonthName(mes)));

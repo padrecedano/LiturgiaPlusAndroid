@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -47,8 +46,6 @@ import org.deiverbum.app.R;
 import org.deiverbum.app.databinding.ActivityMainBinding;
 import org.deiverbum.app.ui.fragments.AcceptanceFragmentDialog;
 import org.deiverbum.app.utils.Utils;
-import org.deiverbum.app.viewmodel.HomeViewModel;
-import org.deiverbum.app.viewmodel.SyncViewModel;
 
 import java.util.Objects;
 
@@ -66,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
     private NavController.OnDestinationChangedListener onDestinationChangedListener;
     private FirebaseAnalytics mFirebaseAnalytics;
     private AppUpdateManager appUpdateManager;
-
     private final InstallStateUpdatedListener installStateUpdatedListener = installState -> {
         if (installState.installStatus() == InstallStatus.DOWNLOADED) {
             popupAlerter();
@@ -89,22 +85,17 @@ public class MainActivity extends AppCompatActivity {
         strFechaHoy = Utils.getFecha();
         setPrivacy();
         showMain();
-        SyncViewModel mViewModel = new ViewModelProvider(this).get(SyncViewModel.class);
-        mViewModel.launchSyncWorker();
 
         onDestinationChangedListener = (controller, destination, arguments) -> {
             Bundle bundle = new Bundle();
             String screenName = Objects.requireNonNull(destination.getLabel()).toString();
-
             bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName);
             bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, screenName);
             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
         };
-
         navController.addOnDestinationChangedListener(onDestinationChangedListener);
-
-
     }
+
 
     private void appCheck(){
         FirebaseApp.initializeApp(this);
@@ -112,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseAppCheck.installAppCheckProviderFactory(
                 PlayIntegrityAppCheckProviderFactory.getInstance());
     }
+
     private void showMain() {
         ActivityMainBinding binding;
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -123,14 +115,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = binding.navView;
         NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
-        //app:navGraph="@navigation/nav_home"
         navController = Objects.requireNonNull(navHostFragment).getNavController();
-
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home)
+                R.id.home)
                 .setOpenableLayout(drawer)
                 .build();
-
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         if (!acceptTerms) {
@@ -216,9 +205,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*
-      You should execute this check at all app entry points.
-     */
     private void checkNewAppVersionState() {
         appUpdateManager
                 .getAppUpdateInfo()

@@ -6,6 +6,7 @@ import static org.deiverbum.app.utils.Constants.VOICE_INI;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -68,17 +69,20 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
                 menuInflater.inflate(R.menu.toolbar_menu, menu);
-                voiceItem=menu.findItem(R.id.item_voz);
+                voiceItem = menu.findItem(R.id.item_voz);
                 voiceItem.setVisible(isVoiceOn);
                 if (isReading) {
                     voiceItem.setVisible(false);
                 }
-                // Add option Menu Here
             }
 
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.item_voz) {
+                if (item.getItemId() == android.R.id.home) {
+                    NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                    navController.popBackStack();
+                    return true;
+                } else if (item.getItemId() == R.id.item_voz) {
                     if (mActionMode == null) {
                         mActionMode =
                                 requireActivity().startActionMode(mActionModeCallback);
@@ -86,12 +90,12 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
                     readText();
                     isReading = true;
                     voiceItem.setVisible(false);
-                    //item.setVisible(!isReading);
                     requireActivity().invalidateOptionsMenu();
                     return true;
+                } else {
+                    NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                    return NavigationUI.onNavDestinationSelected(item, navController);
                 }
-                NavController navController = NavHostFragment.findNavController(requireParentFragment());
-                return NavigationUI.onNavDestinationSelected(item, navController);
             }
         }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
 
@@ -111,9 +115,9 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        String fontFamily = String.format(new Locale("es"),"fonts/%s",prefs.getString("font_name", "robotoslab_regular.ttf"));
-        Typeface tf= Typeface.createFromAsset(requireActivity().getAssets(),fontFamily);
-        mTextView .setTypeface(tf);
+        String fontFamily = String.format(new Locale("es"), "fonts/%s", prefs.getString("font_name", "robotoslab_regular.ttf"));
+        Typeface tf = Typeface.createFromAsset(requireActivity().getAssets(), fontFamily);
+        mTextView.setTypeface(tf);
         isVoiceOn = prefs.getBoolean("voice", true);
         if (isVoiceOn) {
             sbReader = new StringBuilder(VOICE_INI);
@@ -124,17 +128,17 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
     private void pickOutDate() {
         Bundle bundle = getArguments();
         String mDate = (bundle != null) ? bundle.getString("FECHA") : Utils.getHoy();
-        int[] monthAndDay=Utils.getMonthAndDay(mDate);
+        int[] monthAndDay = Utils.getMonthAndDay(mDate);
         observeData(monthAndDay);
     }
 
-    void observeData(int[]monthAndDay) {
+    void observeData(int[] monthAndDay) {
         mTextView.setText(PACIENCIA);
         mViewModel.getSaintLife(monthAndDay).observe(getViewLifecycleOwner(),
                 data -> {
                     progressBar.setVisibility(View.GONE);
                     if (data.status == DataWrapper.Status.SUCCESS) {
-                        mTextView.setText(data.getData().getForView(), TextView.BufferType.SPANNABLE);
+                        mTextView.setText(data.getData().getForView(isNightMode()), TextView.BufferType.SPANNABLE);
                         if (isVoiceOn) {
                             sbReader.append(data.getData().getForRead());
                         }
@@ -253,6 +257,11 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
         if (mTtsManager != null) {
             mTtsManager.close();
         }
+    }
+
+    public boolean isNightMode() {
+        int nightModeFlags = requireActivity().getApplicationContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES;
     }
 
     @Override
