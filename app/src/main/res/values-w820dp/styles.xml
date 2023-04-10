@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="body_line_height">30sp</dimen>
+    <dimen name="default_font_recycler">12sp</dimen>
+    <dimen name="default_icon_recycler">50sp</dimen>
+</resources>

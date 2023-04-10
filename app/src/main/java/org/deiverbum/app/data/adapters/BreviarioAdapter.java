@@ -1,4 +1,5 @@
 package org.deiverbum.app.data.adapters;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,16 +85,17 @@ public class BreviarioAdapter extends RecyclerView.Adapter<BreviarioAdapter.View
         public ViewHolder(View v) {
             super(v);
             v.setOnClickListener(v1 -> {
-                String itemText=mItem.text;
-                if(itemText.equals("Más...")){
+                String itemText = mItem.text;
+                if (itemText.equals("Más...")) {
                     Snackbar snackbar = Snackbar
                             .make(v1, "Este módulo está pendiente de " +
                                             "programación...",
                                     Snackbar.LENGTH_LONG);
                     snackbar.show();
-                }else {
+                } else {
                     Navigation.findNavController(v1).navigate(mItem.navId);
-                } });
+                }
+            });
 
             viewIcon = v.findViewById(R.id.tv_Material);
             viewText = v.findViewById(R.id.tv_Elemento);

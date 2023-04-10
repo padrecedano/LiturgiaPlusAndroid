@@ -10,11 +10,13 @@ import static org.deiverbum.app.utils.Constants.PREF_ACCEPT;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.text.method.LinkMovementMethod;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,6 +89,10 @@ public class LegalFragment extends Fragment {
                 new ViewModelProvider(this).get(FileViewModel.class);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         acceptLegal = sp.getBoolean(PREF_ACCEPT, false);
+        float fontSize = Float.parseFloat(sp.getString("font_size", "18"));
+        String fontFamily = String.format(new Locale("es"), "fonts/%s", sp.getString("font_name", "robotoslab_regular.ttf"));
+        Typeface tf = Typeface.createFromAsset(requireActivity().getAssets(), fontFamily);
+
         progressBar = binding.progressBar;
         switchAccept = binding.switchAccept;
         switchAccept.setChecked(acceptLegal);
@@ -100,9 +106,19 @@ public class LegalFragment extends Fragment {
         mTextView = binding.textLegal;
         mTextView.setMovementMethod(LinkMovementMethod.getInstance());
         mTextView.setClickable(true);
+
         textAgree = binding.textAgree;
         textContacto = binding.textContacto;
         bottomLayout = binding.bottomLayout;
+
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        mTextView.setTypeface(tf);
+
+        textAgree.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        textAgree.setTypeface(tf);
+
+        textContacto.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        textContacto.setTypeface(tf);
 
         bottomLayout.setVisibility(View.GONE);
         Button button = binding.btnEmail;

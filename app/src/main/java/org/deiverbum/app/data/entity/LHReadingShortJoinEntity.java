@@ -17,18 +17,18 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = LH_READING_SHORT_JOIN,
         foreignKeys =
                 {
-                   @ForeignKey(
-                           entity = LHReadingShortEntity.class,
-                           parentColumns = "readingID",
-                           childColumns = "readingFK",
-                           onDelete = ForeignKey.CASCADE,
-                           onUpdate = ForeignKey.CASCADE),
-                   @ForeignKey(
-                           entity = LHResponsoryShortEntity.class,
-                           parentColumns = "responsoryID",
-                           childColumns = "responsoryFK",
-                           onDelete = ForeignKey.CASCADE,
-                           onUpdate = ForeignKey.CASCADE)
+                        @ForeignKey(
+                                entity = LHReadingShortEntity.class,
+                                parentColumns = "readingID",
+                                childColumns = "readingFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE),
+                        @ForeignKey(
+                                entity = LHResponsoryShortEntity.class,
+                                parentColumns = "responsoryID",
+                                childColumns = "responsoryFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE)
                 }
 )
 public class LHReadingShortJoinEntity {
@@ -36,18 +36,18 @@ public class LHReadingShortJoinEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    public Integer grupoId=0;
+    public Integer grupoId = 0;
 
     @NonNull
-    @ColumnInfo(name = "readingFK",index = true)
-    public Integer lecturaFK=0;
+    @ColumnInfo(name = "readingFK", index = true)
+    public Integer lecturaFK = 0;
 
     @NonNull
-    @ColumnInfo(name = "responsoryFK",index = true)
-    public Integer responsorioFK=0;
+    @ColumnInfo(name = "responsoryFK", index = true)
+    public Integer responsorioFK = 0;
 
     public int getGrupoId() {
-        return  grupoId;
+        return grupoId;
     }
 
 }

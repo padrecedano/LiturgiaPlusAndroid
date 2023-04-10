@@ -16,7 +16,7 @@ public class LHHymn {
     }
 
     public LHHymn(String himno) {
-        this.hymn=himno;
+        this.hymn = himno;
     }
 
     public Spanned getTextoSpan() {
@@ -28,16 +28,16 @@ public class LHHymn {
         return hymn;
     }
 
+    public void setTexto(String texto) {
+        this.hymn = texto;
+    }
+
     public String getHimno() {
         return hymn;
     }
 
     public void setHimno(String himno) {
         this.hymn = himno;
-    }
-
-    public void setTexto(String texto) {
-        this.hymn = texto;
     }
 
     public String getHymn() {
@@ -57,7 +57,7 @@ public class LHHymn {
     }
 
     public SpannableStringBuilder getAll() {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeader());
         sb.append(LS2);
         sb.append(getTextoSpan());

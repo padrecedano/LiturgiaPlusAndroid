@@ -11,5 +11,6 @@ public class CrudLHOfficeVerse {
     public List<LHOfficeVerse> d;
 
     @SuppressWarnings("unused")
-    public CrudLHOfficeVerse() {}
+    public CrudLHOfficeVerse() {
+    }
 }

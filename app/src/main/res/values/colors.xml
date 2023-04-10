@@ -14,6 +14,7 @@
 
     <color name="amber_200">#FFE082</color>
     <color name="amber_50">#FFF8E1</color>
+    <color name="amber_900">#FFCA28</color>
 
     <color name="txt_salterio">#74f7c65d</color>
 
@@ -63,7 +64,7 @@
     <color name="colorUnchecked">#8E585A6B</color>
 
     <color name="md_theme_dark_primary">#464647</color>
-    <color name="md_theme_dark_onPrimary">#002F68</color>
+    <color name="md_theme_dark_onPrimary">#FBE9E7</color>
     <color name="md_theme_dark_primaryContainer">#02458E</color>
     <color name="md_theme_dark_onPrimaryContainer">#D6E3FF</color>
     <color name="md_theme_dark_secondary">#FFCC80</color>
@@ -81,7 +82,7 @@
     <color name="md_theme_dark_background">#1A1C19</color>
     <color name="md_theme_dark_onBackground">#E2E3DD</color>
     <color name="md_theme_dark_surface">#1A1C19</color>
-    <color name="md_theme_dark_onSurface">#E2E3DD</color>
+    <color name="md_theme_dark_onSurface">#464647</color>
     <color name="md_theme_dark_surfaceVariant">#44474F</color>
     <color name="md_theme_dark_onSurfaceVariant">#C4C6D0</color>
     <color name="md_theme_dark_outline">#8E9099</color>

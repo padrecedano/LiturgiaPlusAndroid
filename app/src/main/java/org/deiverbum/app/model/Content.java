@@ -68,38 +68,36 @@ public class Content {
     }
 
 
-
-
-    public SpannableStringBuilder getByType(){
-        SpannableStringBuilder sb=new SpannableStringBuilder();
-        if(type==10) {
-            Spanned txt = Utils.fromHtml(String.format(new Locale("es"),"%s<b>%s</b> %s",
-                    NBSP_4,item,
+    public SpannableStringBuilder getByType() {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+        if (type == 10) {
+            Spanned txt = Utils.fromHtml(String.format(new Locale("es"), "%s<b>%s</b> %s",
+                    NBSP_4, item,
                     getTextForView()));
             sb.append(txt);
             sb.append(LS2);
-        }else if(type==2) {
+        } else if (type == 2) {
             sb.append(Utils.toH3(title));
             sb.append(LS2);
 
             sb.append(getTextForView());
-        }else if(type==3) {
+        } else if (type == 3) {
             sb.append(Utils.toH4(title));
             sb.append(LS2);
             sb.append(getTextForView());
 
-        }else if(type==4) {
+        } else if (type == 4) {
             sb.append(Utils.toH3Red(title));
             sb.append(LS2);
             //sb.append(getTextForView());
-        }else if(type==5) {
+        } else if (type == 5) {
             sb.append(Utils.toH4Red(title));
             sb.append(LS2);
-        }else if(type==11) {
+        } else if (type == 11) {
             sb.append(getTextForView());
-        }else if(type==12) {
+        } else if (type == 12) {
             sb.append(getTextForView());
-        }else if(type==13) {
+        } else if (type == 13) {
             sb.append(getNumberedList());
         } else {
             sb.append(getTextForView());
@@ -109,31 +107,31 @@ public class Content {
 
     private SpannableStringBuilder getNumberedList() {
 
-        SpannableStringBuilder sb=new SpannableStringBuilder();
-        int i=1;
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+        int i = 1;
         for (String s : text) {
-            String tmp=String.format(new Locale("es"),"\t\t%d. %s",i,
+            String tmp = String.format(new Locale("es"), "\t\t%d. %s", i,
                     s);
             sb.append(Utils.fromHtml(tmp));
             sb.append(LS2);
             i++;
         }
-            return sb;
+        return sb;
     }
 
 
     private SpannableStringBuilder getTextForView() {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         for (String s : text) {
-            if(type==11) {
+            if (type == 11) {
                 sb.append("\t\t\t\t");
                 sb.append("- ");
             }
-            if(type<4) {
+            if (type < 4) {
                 sb.append("\t\t");
             }
 
-            if(type==20) {
+            if (type == 20) {
                 sb.append(toH3Red(getTitle()));
                 sb.append(LS2);
             }
@@ -143,28 +141,28 @@ public class Content {
         return sb;
     }
 
-    public SpannableStringBuilder getHtmlByType(){
-        SpannableStringBuilder sb=new SpannableStringBuilder();
-        if(type==10) {
-            String txt = String.format(new Locale("es"),"%s<b>%s</b> %s",
-                    NBSP_4,item,
+    public SpannableStringBuilder getHtmlByType() {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+        if (type == 10) {
+            String txt = String.format(new Locale("es"), "%s<b>%s</b> %s",
+                    NBSP_4, item,
                     getTextHtml());
             sb.append(txt);
             sb.append(LS2);
-        }else if(type==2) {
+        } else if (type == 2) {
             sb.append(Utils.toH3(title));
             sb.append(LS2);
 
             sb.append(getTextForView());
-        }else if(type==3) {
+        } else if (type == 3) {
             sb.append(Utils.toH4(title));
             sb.append(LS2);
             sb.append(getTextHtml());
-        }else if(type==11) {
+        } else if (type == 11) {
             sb.append(getTextHtml());
-        }else if(type==12) {
+        } else if (type == 12) {
             sb.append(getTextHtml());
-        }else if(type==13) {
+        } else if (type == 13) {
             sb.append(getNumberedList());
         } else {
             sb.append(getTextHtml());
@@ -173,17 +171,17 @@ public class Content {
     }
 
     private SpannableStringBuilder getTextHtml() {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         for (String s : text) {
-            if(type==11) {
+            if (type == 11) {
                 sb.append("\t\t\t\t");
                 sb.append("- ");
             }
-            if(type<4) {
+            if (type < 4) {
                 sb.append("\t\t");
             }
 
-            if(type==20) {
+            if (type == 20) {
                 sb.append(toH3Red(getTitle()));
                 sb.append(LS2);
             }

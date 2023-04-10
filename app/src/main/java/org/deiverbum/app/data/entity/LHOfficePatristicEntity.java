@@ -14,54 +14,54 @@ import androidx.room.ForeignKey;
  */
 
 @Entity(tableName = LH_OFFICE_PATRISTIC,
-        primaryKeys = {"groupFK","theOrder"},
+        primaryKeys = {"groupFK", "theOrder"},
 
         foreignKeys =
-        {
-          @ForeignKey(
-                    entity = LHOfficePatristicJoinEntity.class,
-                    parentColumns = "groupID",
-                    childColumns = "groupFK",
-                    onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE),
-            @ForeignKey(
-                    entity = HomilyEntity.class,
-                    parentColumns = "homilyID",
-                    childColumns = "homilyFK",
-                    onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE),
-            @ForeignKey(
-                    entity = LHResponsoryEntity.class,
-                    parentColumns = "responsoryID",
-                    childColumns = "responsoryFK",
-                    onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE)
-        }
+                {
+                        @ForeignKey(
+                                entity = LHOfficePatristicJoinEntity.class,
+                                parentColumns = "groupID",
+                                childColumns = "groupFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE),
+                        @ForeignKey(
+                                entity = HomilyEntity.class,
+                                parentColumns = "homilyID",
+                                childColumns = "homilyFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE),
+                        @ForeignKey(
+                                entity = LHResponsoryEntity.class,
+                                parentColumns = "responsoryID",
+                                childColumns = "responsoryFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE)
+                }
 )
 public class LHOfficePatristicEntity {
     @NonNull
-    @ColumnInfo(name = "groupFK",index = true)
-    public Integer grupoFK=0;
+    @ColumnInfo(name = "groupFK", index = true)
+    public Integer grupoFK = 0;
 
     @NonNull
-    @ColumnInfo(name = "homilyFK",index = true)
-    public Integer homiliaFK=0;
+    @ColumnInfo(name = "homilyFK", index = true)
+    public Integer homiliaFK = 0;
 
     @NonNull
     @ColumnInfo(name = "theme")
-    public String tema="";
+    public String tema = "";
 
     @NonNull
     @ColumnInfo(name = "source", defaultValue = "")
-    public String fuente="";
+    public String fuente = "";
 
     @NonNull
-    @ColumnInfo(name = "theOrder", defaultValue= "1")
-    public Integer orden=0;
+    @ColumnInfo(name = "theOrder", defaultValue = "1")
+    public Integer orden = 0;
 
     @NonNull
-    @ColumnInfo(name = "responsoryFK",index = true)
-    public Integer responsorioFK=0;
+    @ColumnInfo(name = "responsoryFK", index = true)
+    public Integer responsorioFK = 0;
 
 }
 

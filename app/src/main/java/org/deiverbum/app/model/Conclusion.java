@@ -16,11 +16,10 @@ import java.util.Random;
 @SuppressWarnings("SameReturnValue")
 public class Conclusion {
 
+    List<String> antVirgen;
     @SerializedName("bendicion")
     @Expose
     private String bendicion;
-
-    List<String> antVirgen;
 
 
     public Conclusion() {
@@ -40,16 +39,14 @@ public class Conclusion {
         return bendicion;
     }
 
-
-    public String getBendicionForRead() {
-        return "El Señor todopoderoso nos conceda una noche tranquila y una santa muerte. Amén.";
-    }
-
     @SuppressWarnings("unused")
     public void setBendicion(String bendicion) {
         this.bendicion = bendicion;
     }
 
+    public String getBendicionForRead() {
+        return "El Señor todopoderoso nos conceda una noche tranquila y una santa muerte. Amén.";
+    }
 
     public String getAntifonaVirgen(int timeID) {
         int mIndex = (timeID != 6) ? new Random().nextInt(3) : 4;
@@ -59,7 +56,7 @@ public class Conclusion {
     }
 
     public SpannableStringBuilder getAll(int idTiempo) {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeader());
         sb.append(Utils.LS2);
         sb.append(getBendicion());
@@ -71,7 +68,7 @@ public class Conclusion {
     }
 
     public SpannableStringBuilder getAllForRead(int idTiempo) {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeaderForRead());
         sb.append(getBendicionForRead());
         sb.append("ANTÍFONA FINAL DE LA SANTÍSIMA VIRGEN.");

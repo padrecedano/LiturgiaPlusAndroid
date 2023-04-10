@@ -18,7 +18,6 @@ public class BibleReadingWithBook {
     @Embedded
     public BibleReadingEntity lectura;
 
-
     @Relation(
             parentColumn = "bookFK",
             entityColumn = "bookID",
@@ -27,7 +26,7 @@ public class BibleReadingWithBook {
     public BiblieBookEntity libro;
 
     public Biblical getDomainModel() {
-        Biblical theModel=new Biblical();
+        Biblical theModel = new Biblical();
         theModel.setLibro(libro.getDomainModel());
         theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
         theModel.setVersoInicial(String.valueOf(lectura.getDesde()));
@@ -38,7 +37,7 @@ public class BibleReadingWithBook {
     }
 
     public MassReading getDomainModelMisa() {
-        MassReading theModel=new MassReading();
+        MassReading theModel = new MassReading();
         theModel.setLibro(libro.getDomainModel());
         theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
         theModel.setVersoInicial(String.valueOf(lectura.getDesde()));
@@ -49,9 +48,8 @@ public class BibleReadingWithBook {
         return theModel;
     }
 
-
     public LHOfficeBiblical getDomainModelOficio() {
-        LHOfficeBiblical theModel=new LHOfficeBiblical();
+        LHOfficeBiblical theModel = new LHOfficeBiblical();
         theModel.setLibro(libro.getDomainModel());
         theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
         theModel.setVersoInicial(String.valueOf(lectura.getDesde()));

@@ -41,6 +41,6 @@ public class PaterOpus {
     }
 
     public String getOpusForView() {
-        return liturgyName!=null && !liturgyName.equals("") ? liturgyName : MessageFormat.format("{0}, {1}",pater.getPater(), opusName);
+        return liturgyName != null && !liturgyName.equals("") ? liturgyName : MessageFormat.format("{0}, {1}", pater.getPater(), opusName);
     }
 }

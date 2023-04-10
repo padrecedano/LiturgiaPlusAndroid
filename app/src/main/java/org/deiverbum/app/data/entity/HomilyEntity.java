@@ -24,54 +24,54 @@ import androidx.room.PrimaryKey;
                                 childColumns = "opusFK",
                                 onDelete = ForeignKey.SET_DEFAULT,
                                 onUpdate = ForeignKey.SET_DEFAULT)},
-         indices = {@Index(value = {"opusFK", "date", "book", "chapter", "number", "paragraph", "collectionFK", "colNumber", "colParagraph"},unique = true)}
+        indices = {@Index(value = {"opusFK", "date", "book", "chapter", "number", "paragraph", "collectionFK", "colNumber", "colParagraph"}, unique = true)}
 )
 
 public class HomilyEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "homilyID")
-    public Integer homiliaId=0;
+    public Integer homiliaId = 0;
 
     @NonNull
     @ColumnInfo(name = "opusFK", defaultValue = "0")
-    public Integer obraFK=0;
+    public Integer obraFK = 0;
 
     @NonNull
     @ColumnInfo(name = "date", defaultValue = "0")
-    public Integer fecha=0;
+    public Integer fecha = 0;
 
     @NonNull
     @ColumnInfo(name = "book", defaultValue = "0")
-    public Integer libro=0;
+    public Integer libro = 0;
 
     @NonNull
     @ColumnInfo(name = "chapter", defaultValue = "0")
-    public Integer capitulo=0;
+    public Integer capitulo = 0;
 
     @NonNull
     @ColumnInfo(name = "number", defaultValue = "0")
-    public Integer numero=0;
+    public Integer numero = 0;
 
     @NonNull
     @ColumnInfo(name = "paragraph", defaultValue = "0")
-    public Integer parrafo=0;
+    public Integer parrafo = 0;
 
     @NonNull
     @ColumnInfo(name = "collectionFK", defaultValue = "0")
-    public Integer coleccionFK=0;
+    public Integer coleccionFK = 0;
 
     @NonNull
     @ColumnInfo(name = "colNumber", defaultValue = "0")
-    public Integer colDoc=0;
+    public Integer colDoc = 0;
 
     @NonNull
     @ColumnInfo(name = "colParagraph", defaultValue = "0")
-    public Integer colParrafo=0;
+    public Integer colParrafo = 0;
 
     @NonNull
     @ColumnInfo(name = "homily")
-    public String texto="";
+    public String texto = "";
 
     @NonNull
     public Integer getNumero() {

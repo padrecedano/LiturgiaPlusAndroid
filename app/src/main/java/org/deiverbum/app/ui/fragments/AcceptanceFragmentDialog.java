@@ -3,14 +3,12 @@ package org.deiverbum.app.ui.fragments;
 import static org.deiverbum.app.utils.Constants.FILE_PRIVACY;
 import static org.deiverbum.app.utils.Constants.FILE_TERMS;
 import static org.deiverbum.app.utils.Constants.PREF_ACCEPT;
-import static org.deiverbum.app.utils.Utils.LS2;
 
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -29,17 +27,17 @@ import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentAcceptanceBinding;
 import org.deiverbum.app.model.Book;
 import org.deiverbum.app.utils.ColorUtils;
+import org.deiverbum.app.utils.Constants;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.viewmodel.FileViewModel;
 import org.deiverbum.app.viewmodel.SyncViewModel;
-
-import java.text.MessageFormat;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * <p>Fragmento que muestra el diálogo inicial para la Aceptción de la
  * Política de Privacidad y los Términos y Condiciones de Uso.</p>
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
@@ -97,7 +95,7 @@ public class AcceptanceFragmentDialog extends DialogFragment {
     }
 
     private void prepareView() {
-        ColorUtils.isNightMode=isNightMode();
+        ColorUtils.isNightMode = isNightMode();
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(sp.getString("font_size", "18"));
         TextView textInitial = binding.textInitial;
@@ -109,10 +107,15 @@ public class AcceptanceFragmentDialog extends DialogFragment {
         textTerms.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         textFinal.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         Button button = binding.btnEmail;
-  SpannableStringBuilder ssb=new SpannableStringBuilder();
-ssb.append(Utils.toH3Red(getActivity().getResources().getString(R.string.accept_intro)));
-ssb.append(LS2);
-ssb.append(getActivity().getResources().getString(R.string.accept_info));
+        SpannableStringBuilder ssb = new SpannableStringBuilder();
+        String intro = String.format("%s %s%nv. %s",
+                requireActivity().getResources().getString(R.string.accept_intro),
+                requireActivity().getResources().getString(R.string.app_name),
+                requireActivity().getResources().getString(R.string.app_version_code_view)
+        );
+        ssb.append(Utils.toH3Red(intro));
+        ssb.append(Constants.LS2);
+        ssb.append(requireActivity().getResources().getString(R.string.accept_info));
         textInitial.setText(ssb);
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(Utils.toH2Red("Aceptación"));
@@ -128,8 +131,8 @@ ssb.append(getActivity().getResources().getString(R.string.accept_info));
         button.setOnClickListener(v -> {
             SharedPreferences.Editor editor = sp.edit();
             editor.putBoolean(PREF_ACCEPT, true).apply();
-            boolean isInitialSync=sp.getBoolean("initialSync", false);
-            if(!isInitialSync) {
+            boolean isInitialSync = sp.getBoolean("initialSync", false);
+            if (!isInitialSync) {
                 syncViewModel.initialSync();
                 syncViewModel.getInitialSyncStatus().observe(getViewLifecycleOwner(),
                         data -> {

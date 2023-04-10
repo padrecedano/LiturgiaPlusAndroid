@@ -25,19 +25,19 @@ public class HomilyAll {
     public PaterOpusAll paterOpusAll;
 
     public LHOfficePatristic getPatristicaDomainModel() {
-        LHOfficePatristic theModel=new LHOfficePatristic();
+        LHOfficePatristic theModel = new LHOfficePatristic();
         theModel.setText(homilia.getTexto());
         theModel.setPadre(paterOpusAll.paterEntity.getPadre());
         theModel.setObra(paterOpusAll.paterOpusEntity.getOpusName());
-        theModel.paterOpus=paterOpusAll.getDomainModel();
+        theModel.paterOpus = paterOpusAll.getDomainModel();
         theModel.setSource(String.valueOf(homilia.getNumero()));
         return theModel;
     }
 
     public HomilyList getDomainModel() {
-        HomilyList theModel=new HomilyList();
+        HomilyList theModel = new HomilyList();
         theModel.setHomilia(homilia.getTexto());
-        theModel.homilyID=homilia.homiliaId;
+        theModel.homilyID = homilia.homiliaId;
         theModel.setPadre(paterOpusAll.paterEntity.getPadre());
         theModel.setObra(paterOpusAll.paterOpusEntity.getOpusName());
         return theModel;

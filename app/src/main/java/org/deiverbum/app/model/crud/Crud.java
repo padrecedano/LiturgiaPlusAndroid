@@ -51,7 +51,7 @@ import java.util.List;
  * @version 1.0
  * @since 2023.1
  */
-public class Crud  {
+public class Crud {
     public CrudBibleHomilyJoin crudBibleHomilyJoin;
     public CrudBibleHomilyTheme crudBibleHomilyTheme;
     public CrudBibleReading crudBibleReading;
@@ -97,28 +97,6 @@ public class Crud  {
 
     public String lastUpdate;
     public boolean haveData;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @SuppressWarnings("unused")
@@ -758,11 +736,9 @@ public class Crud  {
                     mTodayDao.todayDeleteAll(d);
                 }
             }
+        } catch (Exception e) {
+            Log.d("Crud", e.getMessage());
         }
-
-    catch (Exception e) {
-            Log.d("Crud",e.getMessage());
-    }
 
     }
 

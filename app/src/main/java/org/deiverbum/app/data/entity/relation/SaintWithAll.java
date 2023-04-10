@@ -23,8 +23,8 @@ public class SaintWithAll {
 
     public SaintLifeEntity lhSanto;
 
-    public Saint getDomainModelLH(){
-        Saint dm=new Saint();
+    public Saint getDomainModelLH() {
+        Saint dm = new Saint();
         dm.setTheName(santo.nombre);
         return dm;
     }

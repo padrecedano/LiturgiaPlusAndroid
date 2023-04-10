@@ -9,8 +9,8 @@ public class BreviarioItem {
     public BreviarioItem(String t, int c, String l, int navId) {
         text = t;
         color = c;
-        letra=l;
-        this.navId=navId;
+        letra = l;
+        this.navId = navId;
     }
 
 }

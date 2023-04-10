@@ -38,20 +38,20 @@ public class MetaLiturgia {
         this.fecha = fecha;
     }
 
-    public void setTiempo(int idTiempo) {
-        this.idTiempo = idTiempo;
-    }
-
     public int getTiempo() {
         return idTiempo;
     }
 
-    public void setWeekDay(int weekDay) {
-        this.weekDay = weekDay;
+    public void setTiempo(int idTiempo) {
+        this.idTiempo = idTiempo;
     }
 
     public int getWeekDay() {
         return this.weekDay;
+    }
+
+    public void setWeekDay(int weekDay) {
+        this.weekDay = weekDay;
     }
 
     public int getSemana() {

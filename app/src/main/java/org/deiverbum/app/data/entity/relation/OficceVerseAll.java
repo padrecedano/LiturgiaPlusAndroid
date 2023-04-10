@@ -21,7 +21,7 @@ public class OficceVerseAll {
     )
     public LHOfficeVerseEntity theEntity;
 
-    public String getDomainModel(){
+    public String getDomainModel() {
         return theEntity.getResponsorio();
     }
 

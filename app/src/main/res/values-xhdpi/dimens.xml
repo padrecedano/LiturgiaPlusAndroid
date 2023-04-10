@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_font">20sp</dimen>
+    <dimen name="default_font_body">24sp</dimen>
+    <dimen name="body_line_height">45sp</dimen>
+
+</resources>

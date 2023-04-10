@@ -27,8 +27,8 @@ public class LHPsalmodyAll {
     )
     public List<PsalmodyWithPsalms> salmos;
 
-    public LHPsalmody getDomainModel(){
-        LHPsalmody theModel=new LHPsalmody();
+    public LHPsalmody getDomainModel() {
+        LHPsalmody theModel = new LHPsalmody();
         theModel.setTipo(salmodia.getTipo());
         List<LHPsalm> salmosList = new ArrayList<>();
         for (PsalmodyWithPsalms salmo : salmos) {

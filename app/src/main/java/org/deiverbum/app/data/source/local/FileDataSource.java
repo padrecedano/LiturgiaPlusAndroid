@@ -188,7 +188,7 @@ public class FileDataSource {
                 bh.setTypeId(7);
                 bh.setCompletas(hora);
                 hora.setBreviaryHour(bh);
-                Liturgy l=today.liturgyDay;
+                Liturgy l = today.liturgyDay;
                 l.setBreviaryHour(bh);
                 emitter.onSuccess(new DataWrapper<>(today));
             } catch (Exception e) {

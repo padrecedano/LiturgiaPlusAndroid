@@ -1,12 +1,13 @@
 package org.deiverbum.app.model;
 
 public class LHReadingShortJoin {
-    public Integer groupID=0;
-    public Integer readingFK=0;
-    public Integer responsoryFK=0;
+    public Integer groupID = 0;
+    public Integer readingFK = 0;
+    public Integer responsoryFK = 0;
 
     @SuppressWarnings("unused")
-    public LHReadingShortJoin() {}
+    public LHReadingShortJoin() {
+    }
 
     public Integer getGrupoId() {
         return groupID;

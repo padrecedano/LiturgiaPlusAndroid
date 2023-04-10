@@ -14,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 
 /**
  * ViewModel para el módulo Biblia
+ *
  * @author A. Cedano
  * @since 2022.01.01
  */
@@ -21,7 +22,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class BibliaViewModel extends ViewModel {
     private final BibliaRepository mRepository;
 
-@Inject
+    @Inject
     public BibliaViewModel(BibliaRepository repository) {
         mRepository = repository;
     }

@@ -46,6 +46,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class BibliaDataFragment extends Fragment implements TextToSpeechCallback {
+    public static ActionMode mActionMode;
     private BibliaViewModel mViewModel;
     private FragmentTextBinding binding;
     private ZoomTextView mTextView;
@@ -56,98 +57,7 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
     private boolean isReading = false;
     private Menu audioMenu;
     private MenuItem voiceItem;
-    public static ActionMode mActionMode;
     private TtsManager mTtsManager;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        requireActivity().addMenuProvider(new MenuProvider() {
-            @Override
-            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-                menuInflater.inflate(R.menu.toolbar_menu, menu);
-                voiceItem=menu.findItem(R.id.item_voz);
-                voiceItem.setVisible(isVoiceOn);
-                if (isReading) {
-                    voiceItem.setVisible(false);
-                }
-            }
-
-            @Override
-            public boolean onMenuItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == android.R.id.home) {
-                    NavController navController = NavHostFragment.findNavController(requireParentFragment());
-                    navController.popBackStack();
-                    return true;
-                } else if (item.getItemId() == R.id.item_voz) {
-                    if (mActionMode == null) {
-                        mActionMode =
-                                requireActivity().startActionMode(mActionModeCallback);
-                    }
-                    readText();
-                    isReading = true;
-                    voiceItem.setVisible(false);
-                    requireActivity().invalidateOptionsMenu();
-                    return true;
-                } else {
-                    NavController navController = NavHostFragment.findNavController(requireParentFragment());
-                    return NavigationUI.onNavDestinationSelected(item, navController);
-                }
-            }
-        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
-        binding = FragmentTextBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-        setConfiguration();
-        observeData();
-        return root;
-    }
-
-    private void setConfiguration() {
-        mViewModel =
-                new ViewModelProvider(this).get(BibliaViewModel.class);
-        mTextView = binding.include.tvZoomable;
-        mTextView.setMovementMethod(LinkMovementMethod.getInstance());
-        progressBar = binding.progressBar;
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
-        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        String fontFamily = String.format(new Locale("es"),"fonts/%s",prefs.getString("font_name", "robotoslab_regular.ttf"));
-        Typeface tf= Typeface.createFromAsset(requireActivity().getAssets(),fontFamily);
-        mTextView .setTypeface(tf);
-        isVoiceOn = prefs.getBoolean("voice", true);
-    }
-
-    private void observeData() {
-        int param = requireArguments().getInt("bookId");
-        mTextView.setText(PACIENCIA);
-        mViewModel.getLibro(param).observe(getViewLifecycleOwner(), data -> {
-            progressBar.setVisibility(View.GONE);
-            if (data.status == DataWrapper.Status.SUCCESS) {
-                BibleBooks libro=data.getData();
-                mTextView.setText(libro.getForView(isNightMode()));
-                if (isVoiceOn) {
-                    sbReader = new StringBuilder(VOICE_INI);
-                    sbReader.append(libro.getForRead());
-                    //setPlayerButton();
-                }
-            } else {
-                mTextView.setText(Utils.fromHtml(data.getError()));
-            }
-        });
-    }
-
-    private String prepareForRead() {
-        String notQuotes = Utils.stripQuotation(sbReader.toString());
-        return String.valueOf(Utils.fromHtml(notQuotes));
-    }
-
-    @Override
-    public void onCompleted() {
-    }
-
-    @Override
-    public void onError() {
-    }
-
     private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
@@ -205,6 +115,97 @@ public class BibliaDataFragment extends Fragment implements TextToSpeechCallback
             return false;
         }
     };
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.toolbar_menu, menu);
+                voiceItem = menu.findItem(R.id.item_voz);
+                voiceItem.setVisible(isVoiceOn);
+                if (isReading) {
+                    voiceItem.setVisible(false);
+                }
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == android.R.id.home) {
+                    NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                    navController.popBackStack();
+                    return true;
+                } else if (item.getItemId() == R.id.item_voz) {
+                    if (mActionMode == null) {
+                        mActionMode =
+                                requireActivity().startActionMode(mActionModeCallback);
+                    }
+                    readText();
+                    isReading = true;
+                    voiceItem.setVisible(false);
+                    requireActivity().invalidateOptionsMenu();
+                    return true;
+                } else {
+                    NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                    return NavigationUI.onNavDestinationSelected(item, navController);
+                }
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+        binding = FragmentTextBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+        setConfiguration();
+        observeData();
+        return root;
+    }
+
+    private void setConfiguration() {
+        mViewModel =
+                new ViewModelProvider(this).get(BibliaViewModel.class);
+        mTextView = binding.include.tvZoomable;
+        mTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        progressBar = binding.progressBar;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        String fontFamily = String.format(new Locale("es"), "fonts/%s", prefs.getString("font_name", "robotoslab_regular.ttf"));
+        Typeface tf = Typeface.createFromAsset(requireActivity().getAssets(), fontFamily);
+        mTextView.setTypeface(tf);
+        isVoiceOn = prefs.getBoolean("voice", true);
+    }
+
+    private void observeData() {
+        int param = requireArguments().getInt("bookId");
+        mTextView.setText(PACIENCIA);
+        mViewModel.getLibro(param).observe(getViewLifecycleOwner(), data -> {
+            progressBar.setVisibility(View.GONE);
+            if (data.status == DataWrapper.Status.SUCCESS) {
+                BibleBooks libro = data.getData();
+                mTextView.setText(libro.getForView(isNightMode()));
+                if (isVoiceOn) {
+                    sbReader = new StringBuilder(VOICE_INI);
+                    sbReader.append(libro.getForRead());
+                    //setPlayerButton();
+                }
+            } else {
+                mTextView.setText(Utils.fromHtml(data.getError()));
+                isVoiceOn = false;
+                setPlayerButton();
+            }
+        });
+    }
+
+    private String prepareForRead() {
+        String notQuotes = Utils.stripQuotation(sbReader.toString());
+        return String.valueOf(Utils.fromHtml(notQuotes));
+    }
+
+    @Override
+    public void onCompleted() {
+    }
+
+    @Override
+    public void onError() {
+    }
 
     private void setPlayerButton() {
         voiceItem.setVisible(isVoiceOn);

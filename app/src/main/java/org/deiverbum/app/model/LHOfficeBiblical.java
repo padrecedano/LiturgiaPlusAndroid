@@ -7,7 +7,7 @@ import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
-public class LHOfficeBiblical extends Biblical{
+public class LHOfficeBiblical extends Biblical {
     private String tema;
     private LHResponsory responsorioLargo;
 
@@ -20,7 +20,7 @@ public class LHOfficeBiblical extends Biblical{
     }
 
     public String getTemaForRead() {
-        return tema+".";
+        return tema + ".";
     }
 
     public LHResponsory getResponsorioLargo() {
@@ -28,7 +28,7 @@ public class LHOfficeBiblical extends Biblical{
     }
 
     public void setResponsorioLargo(LHResponsory responsorioLargo) {
-        this.responsorioLargo=responsorioLargo;
+        this.responsorioLargo = responsorioLargo;
     }
 
 
@@ -43,8 +43,9 @@ public class LHOfficeBiblical extends Biblical{
 
     /**
      * <p>Obtiene la lectura bíblica completa, incluyendo el responsorio, formateada para la vista.</p>
-     * @since 2022.01
+     *
      * @return Un objeto {@link SpannableStringBuilder con el contenido.}
+     * @since 2022.01
      */
     @Override
     public SpannableStringBuilder getAll() {
@@ -65,12 +66,13 @@ public class LHOfficeBiblical extends Biblical{
 
     /**
      * <p>Obtiene la lectura bíblica completa formateada para la lectura de voz.</p>
-     * @since 2022.01
+     *
      * @return Un objeto {@link SpannableStringBuilder con el contenido.}
+     * @since 2022.01
      */
     @Override
-    public SpannableStringBuilder getAllForRead(){
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+    public SpannableStringBuilder getAllForRead() {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(Utils.pointAtEnd(getHeader()));
         sb.append(book.getForRead());
         sb.append(getTemaForRead());
@@ -86,6 +88,6 @@ public class LHOfficeBiblical extends Biblical{
     }
 
     public void setOrden(Integer orden) {
-        this.order=orden;
+        this.order = orden;
     }
 }

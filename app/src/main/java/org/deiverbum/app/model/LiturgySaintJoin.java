@@ -5,7 +5,9 @@ public class LiturgySaintJoin {
     public Integer saintFK;
 
     @SuppressWarnings("unused")
-    public LiturgySaintJoin() {}
+    public LiturgySaintJoin() {
+    }
+
     public Integer getLiturgyFK() {
         return liturgyFK;
     }

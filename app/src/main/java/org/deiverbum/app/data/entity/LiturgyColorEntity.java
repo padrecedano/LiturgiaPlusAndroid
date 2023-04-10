@@ -20,11 +20,11 @@ public class LiturgyColorEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "colorID")
-    public Integer colorID=0;
+    public Integer colorID = 0;
 
     @NonNull
     @ColumnInfo(name = "colorName")
-    public String colorName="";
+    public String colorName = "";
 
     @NonNull
     public Integer getColorID() {

@@ -18,22 +18,22 @@ import org.deiverbum.app.utils.Utils;
  */
 
 @Entity(tableName = LH_RESPONSORY_SHORT,
-        indices={
-                @Index(value={"text"},unique = true)}
+        indices = {
+                @Index(value = {"text"}, unique = true)}
 )
 public class LHResponsoryShortEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "responsoryID")
-    public Integer responsorioId=0;
+    public Integer responsorioId = 0;
 
     @NonNull
     @ColumnInfo(name = "text")
-    public String texto="";
+    public String texto = "";
 
     @NonNull
     @ColumnInfo(name = "type")
-    public Integer tipo=0;
+    public Integer tipo = 0;
 
     @NonNull
     public String getTexto() {
@@ -46,10 +46,10 @@ public class LHResponsoryShortEntity {
     }
 
 
-    public LHResponsoryShort getDomainModel(Integer timeId){
-        LHResponsoryShort theModel=new LHResponsoryShort();
+    public LHResponsoryShort getDomainModel(Integer timeId) {
+        LHResponsoryShort theModel = new LHResponsoryShort();
         theModel.setResponsoryID(responsorioId);
-        theModel.setText(Utils.replaceByTime(getTexto(),timeId));
+        theModel.setText(Utils.replaceByTime(getTexto(), timeId));
         theModel.setType(getTipo());
         return theModel;
     }

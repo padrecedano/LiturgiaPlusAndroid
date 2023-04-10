@@ -9,7 +9,7 @@ import org.deiverbum.app.utils.Utils;
 
 import java.util.List;
 
-public class LHOfficeOfReading{
+public class LHOfficeOfReading {
     @SuppressWarnings("unused")
     private String responsorio;
     private List<LHOfficeBiblical> biblica;
@@ -21,6 +21,10 @@ public class LHOfficeOfReading{
 
     public String getResponsorio() {
         return responsorio;
+    }
+
+    public void setResponsorio(String responsorio) {
+        this.responsorio = responsorio;
     }
 
     public String getResponsorioForRead() {
@@ -143,12 +147,9 @@ public class LHOfficeOfReading{
                 getAllPatristicaForRead();
     }
 
-    public void setResponsorio(String responsorio) {
-        this.responsorio=responsorio;
-    }
-
     /**
      * Método que normaliza el contenido de las antífonas según el tiempo litúrgico del calendario
+     *
      * @param calendarTime Un entero con el Id del tiempo del calendario
      */
 
@@ -156,6 +157,6 @@ public class LHOfficeOfReading{
         for (LHOfficeBiblical oneBiblica : this.biblica) {
             oneBiblica.getResponsorioLargo().normalizeByTime(calendarTime);
         }
-        responsorio=Utils.replaceByTime(responsorio,calendarTime);
+        responsorio = Utils.replaceByTime(responsorio, calendarTime);
     }
 }

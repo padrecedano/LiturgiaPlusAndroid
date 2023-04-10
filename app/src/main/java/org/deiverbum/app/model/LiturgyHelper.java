@@ -15,9 +15,10 @@ import java.util.Map;
  * @version 1.0
  * @since 2022.1
  */
-public final class LiturgyHelper  {
+public final class LiturgyHelper {
 
     public static final Map<Integer, String> myMap;
+
     static {
         Map<Integer, String> aMap = new HashMap<>();
         aMap.put(0, "mixto");

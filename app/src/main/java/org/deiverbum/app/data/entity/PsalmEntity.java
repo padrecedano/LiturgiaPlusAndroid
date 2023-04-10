@@ -21,35 +21,35 @@ public class PsalmEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "psalmID")
-    public Integer salmoId=0;
+    public Integer salmoId = 0;
 
     @NonNull
     @ColumnInfo(name = "psalm")
-    public String salmo="";
+    public String salmo = "";
 
     @NonNull
     @ColumnInfo(name = "readingID")
-    public Integer pericopaId=0;
+    public Integer pericopaId = 0;
 
     @ColumnInfo(name = "quote")
     public String salmoRef;
-
-    public void setSalmo(@NonNull String salmo) {
-        this.salmo = salmo;
-    }
 
     @NonNull
     public String getSalmo() {
         return salmo;
     }
 
-    @SuppressWarnings("unused")
-    public void setSalmoRef(String salmoRef) {
-        this.salmoRef = salmoRef;
+    public void setSalmo(@NonNull String salmo) {
+        this.salmo = salmo;
     }
 
     public String getSalmoRef() {
         return (salmoRef != null) ? salmoRef : "";
+    }
+
+    @SuppressWarnings("unused")
+    public void setSalmoRef(String salmoRef) {
+        this.salmoRef = salmoRef;
     }
 
     @SuppressWarnings("unused")
@@ -74,8 +74,8 @@ public class PsalmEntity {
         this.pericopaId = pericopaId;
     }
 
-    public LHPsalm getDomainModel(){
-        LHPsalm dm=new LHPsalm();
+    public LHPsalm getDomainModel() {
+        LHPsalm dm = new LHPsalm();
         dm.setSalmo(getSalmo());
         dm.setRef(getSalmoRef());
         return dm;

@@ -11,7 +11,8 @@ public class CrudPrayer {
     public List<Prayer> d;
 
     @SuppressWarnings("unused")
-    public CrudPrayer() {}
+    public CrudPrayer() {
+    }
 
 
 }

@@ -11,7 +11,8 @@ public class CrudLiturgySaintJoin {
     public List<LiturgySaintJoin> d;
 
     @SuppressWarnings("unused")
-    public CrudLiturgySaintJoin() {}
+    public CrudLiturgySaintJoin() {
+    }
 
 
 }

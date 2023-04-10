@@ -9,14 +9,11 @@ import androidx.room.Ignore;
 
 import org.deiverbum.app.utils.Utils;
 
-public class LHOfficeBiblicalEaster extends Biblical implements Comparable<LHOfficeBiblicalEaster>{
+public class LHOfficeBiblicalEaster extends Biblical implements Comparable<LHOfficeBiblicalEaster> {
+    public LHPsalm psalm;
     private String theme;
     @Ignore
     private Prayer prayer;
-
-
-
-    public LHPsalm psalm;
     //public int theOrder;
 
     public Prayer getPrayer() {
@@ -35,20 +32,20 @@ public class LHOfficeBiblicalEaster extends Biblical implements Comparable<LHOff
         this.theme = theme;
     }
 
-@Override
+    @Override
     public String getHeader() {
-        String header="";
+        String header = "";
         if (this.order == 1) {
-            header="PRIMERA LECTURA";
+            header = "PRIMERA LECTURA";
         }
         if (this.order == 2) {
-            header="SEGUNDA LECTURA";
+            header = "SEGUNDA LECTURA";
         }
         if (this.order == 3) {
-            header="TERCERA LECTURA";
+            header = "TERCERA LECTURA";
         }
         if (this.order == 4) {
-            header="CUARTA LECTURA";
+            header = "CUARTA LECTURA";
         }
         return header;
     }
@@ -56,7 +53,6 @@ public class LHOfficeBiblicalEaster extends Biblical implements Comparable<LHOff
     public String getResponsorioHeaderForRead() {
         return Utils.pointAtEnd(TITLE_RESPONSORY);
     }
-
 
 
     public SpannableStringBuilder getBiblical() {
@@ -92,12 +88,13 @@ public class LHOfficeBiblicalEaster extends Biblical implements Comparable<LHOff
 
     /**
      * <p>Obtiene la lectura bíblica completa formateada para la lectura de voz.</p>
-     * @since 2022.01
+     *
      * @return Un objeto {@link SpannableStringBuilder con el contenido.}
+     * @since 2022.01
      */
     @Override
-    public SpannableStringBuilder getAllForRead(){
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+    public SpannableStringBuilder getAllForRead() {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(Utils.pointAtEnd(getHeader()));
         sb.append(getBiblicalForRead());
         return sb;
@@ -108,7 +105,7 @@ public class LHOfficeBiblicalEaster extends Biblical implements Comparable<LHOff
     }
 
     public void setOrden(Integer orden) {
-        this.order=orden;
+        this.order = orden;
     }
 
     @Override

@@ -4,18 +4,19 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Misterio {
-    public int id;
-    public String titulo;
-    public List<String> contenido;
-    public final List<String> ordinalName= Arrays.asList(
+    public final List<String> ordinalName = Arrays.asList(
             "Primer Misterio",
             "Segundo Misterio",
             "Tercer Misterio",
             "Cuarto Misterio",
             "Quinto Misterio");
+    public int id;
+    public String titulo;
+    public List<String> contenido;
 
-    public Misterio(){
+    public Misterio() {
     }
+
     public int getId() {
         return id;
     }

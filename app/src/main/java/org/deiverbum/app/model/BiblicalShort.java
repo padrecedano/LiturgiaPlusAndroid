@@ -13,9 +13,10 @@ public class BiblicalShort extends Biblical {
 
     public BiblicalShort() {
     }
-public SpannableStringBuilder getHeaderLectura() {
+
+    public SpannableStringBuilder getHeaderLectura() {
         //String s=String.format(new Locale("es"),"%s    %s",TITLE_SHORT_READING,getRefBreve());
-        SpannableStringBuilder ssb=new SpannableStringBuilder(Utils.formatTitle(TITLE_SHORT_READING));
+        SpannableStringBuilder ssb = new SpannableStringBuilder(Utils.formatTitle(TITLE_SHORT_READING));
         ssb.append("    ");
         ssb.append(Utils.toRed(getRefBreve()));
         return ssb;
@@ -26,7 +27,7 @@ public SpannableStringBuilder getHeaderLectura() {
     }
 
     public void setResponsorio(LHResponsoryShort responsorio) {
-        this.responsorio=responsorio;
+        this.responsorio = responsorio;
     }
 
     public SpannableStringBuilder getAllWithHourCheck(int hourId) {

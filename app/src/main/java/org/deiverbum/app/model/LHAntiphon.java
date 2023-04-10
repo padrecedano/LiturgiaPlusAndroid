@@ -1,11 +1,12 @@
 package org.deiverbum.app.model;
 
 public class LHAntiphon {
-    public Integer antiphonID=0;
-    public String antiphon="";
+    public Integer antiphonID = 0;
+    public String antiphon = "";
 
     @SuppressWarnings("unused")
-    public LHAntiphon() {}
+    public LHAntiphon() {
+    }
 
     public Integer getAntifonaId() {
         return antiphonID;

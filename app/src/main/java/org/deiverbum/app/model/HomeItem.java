@@ -4,19 +4,19 @@ import org.deiverbum.app.ui.fragments.HomeFragment;
 
 /**
  * <p>
- *     HomeItem es la clase para manejar las opciones
- *     que aparecen en la pantalla inicial de la aplicación
- *     desde un elemento <code>RecyclerView</code>.
+ * HomeItem es la clase para manejar las opciones
+ * que aparecen en la pantalla inicial de la aplicación
+ * desde un elemento <code>RecyclerView</code>.
  * </p>
  * <p>Esta clase trabaja con:</p>
- *     <ul>
- *         <li>{@link HomeFragment}</li>
- *         <li><code>{@link org.deiverbum.app.data.adapters.HomeAdapter}</code></li>
- *     </ul>
+ * <ul>
+ *     <li>{@link HomeFragment}</li>
+ *     <li><code>{@link org.deiverbum.app.data.adapters.HomeAdapter}</code></li>
+ * </ul>
  *
- * @author      A. Cedano
- * @version     1.0
- * @since       2022.1
+ * @author A. Cedano
+ * @version 1.0
+ * @since 2022.1
  */
 public class HomeItem {
     private String name;
@@ -25,6 +25,7 @@ public class HomeItem {
     private int color;
     private int navId;
     private int imageColor;
+
     @SuppressWarnings("unused")
     public HomeItem() {
     }
@@ -69,12 +70,13 @@ public class HomeItem {
     public int getColor() {
         return color;
     }
-    public int getImageColor() {
-        return imageColor;
-    }
 
     public void setColor(int color) {
         this.color = color;
+    }
+
+    public int getImageColor() {
+        return imageColor;
     }
 
     public int getNavId() {

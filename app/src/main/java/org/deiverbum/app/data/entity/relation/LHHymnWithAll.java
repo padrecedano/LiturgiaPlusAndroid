@@ -22,8 +22,8 @@ public class LHHymnWithAll {
     )
     public LHHymnEntity himno;
 
-    public LHHymn getDomainModel(){
-        LHHymn dm=new LHHymn();
+    public LHHymn getDomainModel() {
+        LHHymn dm = new LHHymn();
         dm.setTexto(himno.getHimno());
         return dm;
     }

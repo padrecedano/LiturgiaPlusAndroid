@@ -11,7 +11,8 @@ public class CrudLHPsalm {
     public List<LHPsalm> d;
 
     @SuppressWarnings("unused")
-    public CrudLHPsalm() {}
+    public CrudLHPsalm() {
+    }
 
 
 }

@@ -32,7 +32,7 @@ public class LHOfficeEasterAll {
     public PrayerEntity prayer;
 
     public LHOfficeBiblicalEaster getDomainModel() {
-        LHOfficeBiblicalEaster dm=new LHOfficeBiblicalEaster();
+        LHOfficeBiblicalEaster dm = new LHOfficeBiblicalEaster();
         dm.setOrden(biblical.theOrder);
         dm.setTheme(biblical.theme);
         dm.setLibro(reading.libro.getDomainModel());

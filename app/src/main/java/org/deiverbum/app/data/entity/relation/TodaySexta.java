@@ -80,19 +80,19 @@ public class TodaySexta {
     )
     public LiturgyWithTime previo;
 
-    public Today getToday(){
+    public Today getToday() {
         Today dm = new Today();
-        dm.liturgyDay=feria.getDomainModel();
-        dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
+        dm.liturgyDay = feria.getDomainModel();
+        dm.liturgyPrevious = today.previoId > 1 ? previo.getDomainModel() : null;
         dm.setTodayDate(today.getHoy());
         return dm;
     }
 
-    public Liturgy getDomainModel(){
-        Liturgy dm= feria.getDomainModel();
-        BreviaryHour bh=new BreviaryHour();
-        Intermedia hi=new Intermedia();
-        dm.typeID=4;
+    public Liturgy getDomainModel() {
+        Liturgy dm = feria.getDomainModel();
+        BreviaryHour bh = new BreviaryHour();
+        Intermedia hi = new Intermedia();
+        dm.typeID = 4;
         dm.setToday(getToday());
         hi.setToday(getToday());
         hi.setHimno(getHimno());
@@ -104,12 +104,12 @@ public class TodaySexta {
         return dm;
     }
 
-    public LHHymn getHimno(){
+    public LHHymn getHimno() {
         return himno.getDomainModel();
     }
 
-    public BiblicalShort getBiblica(){
-        return  biblica.getDomainModel(today.getTiempoId());
+    public BiblicalShort getBiblica() {
+        return biblica.getDomainModel(today.getTiempoId());
     }
 
     public LHPsalmody getSalmodia() {
@@ -120,12 +120,12 @@ public class TodaySexta {
         return lhPrayerAll.getDomainModel();
     }
 
-    public Today getDomainModelToday(){
-        Liturgy dm= feria.getDomainModel();
-        BreviaryHour bh=new BreviaryHour();
-        Intermedia hi=new Intermedia();
-        Today dmToday=getToday();
-        dm.typeID=4;
+    public Today getDomainModelToday() {
+        Liturgy dm = feria.getDomainModel();
+        BreviaryHour bh = new BreviaryHour();
+        Intermedia hi = new Intermedia();
+        Today dmToday = getToday();
+        dm.typeID = 4;
         hi.setTypeId(4);
         hi.setHimno(getHimno());
         hi.setSalmodia(getSalmodia());
@@ -133,7 +133,7 @@ public class TodaySexta {
         hi.setOracion(getOracion());
         bh.setIntermedia(hi);
         dm.setBreviaryHour(bh);
-        dmToday.liturgyDay=dm;
+        dmToday.liturgyDay = dm;
         return dmToday;
     }
 

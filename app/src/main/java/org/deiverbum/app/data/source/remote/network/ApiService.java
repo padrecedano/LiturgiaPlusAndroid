@@ -7,7 +7,9 @@ import org.deiverbum.app.model.MassReadingList;
 import org.deiverbum.app.model.SyncStatus;
 import org.deiverbum.app.model.Today;
 import org.deiverbum.app.model.crud.Crud;
+
 import java.util.List;
+
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -19,7 +21,6 @@ import retrofit2.http.Path;
  * @version 1.0
  * @since 2022.1
  */
-
 
 
 public interface ApiService {

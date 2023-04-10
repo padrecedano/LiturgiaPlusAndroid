@@ -21,6 +21,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 /**
  * <p>Repositorio para el módulo Oraciones.</p>
+ *
  * @author A. Cedano
  * @since 2022.01.01
  */
@@ -32,14 +33,14 @@ public class OracionesRepository {
         this.fileDataSource = fileDataSource;
     }
 
-    public MutableLiveData<DataWrapper<Rosario,CustomException>> getRosario(int param) {
+    public MutableLiveData<DataWrapper<Rosario, CustomException>> getRosario(int param) {
         MutableLiveData<DataWrapper<Rosario, CustomException>> finalData = new MediatorLiveData<>();
         fileDataSource.getRosario(param)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<Rosario,CustomException>>() {
+                .subscribe(new DisposableSingleObserver<DataWrapper<Rosario, CustomException>>() {
                     @Override
-                    public void onSuccess(@NonNull DataWrapper<Rosario,CustomException> data) {
+                    public void onSuccess(@NonNull DataWrapper<Rosario, CustomException> data) {
                         finalData.postValue(data);
                         dispose();
                     }
@@ -48,21 +49,22 @@ public class OracionesRepository {
                     public void onError(@NonNull Throwable e) {
                         finalData.postValue(new DataWrapper<>(new CustomException(e)));
                         dispose();
-                    }});
+                    }
+                });
 
         return finalData;
     }
 
-    public MediatorLiveData<DataWrapper<OracionSimple,CustomException>> getOracionSimple(String rawPath) {
+    public MediatorLiveData<DataWrapper<OracionSimple, CustomException>> getOracionSimple(String rawPath) {
         MediatorLiveData<DataWrapper<OracionSimple, CustomException>> finalData = new MediatorLiveData<>();
 
         fileDataSource.getOracionSimple(rawPath)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<OracionSimple,CustomException>>() {
+                .subscribe(new DisposableSingleObserver<DataWrapper<OracionSimple, CustomException>>() {
 
                     @Override
-                    public void onSuccess(@NonNull DataWrapper<OracionSimple,CustomException> data) {
+                    public void onSuccess(@NonNull DataWrapper<OracionSimple, CustomException> data) {
                         finalData.postValue(data);
                         dispose();
                     }
@@ -76,23 +78,24 @@ public class OracionesRepository {
         return finalData;
     }
 
-    public MutableLiveData<DataWrapper<ViaCrucis,CustomException>> getViaCrucis(String rawPath) {
+    public MutableLiveData<DataWrapper<ViaCrucis, CustomException>> getViaCrucis(String rawPath) {
         MutableLiveData<DataWrapper<ViaCrucis, CustomException>> finalData = new MediatorLiveData<>();
         fileDataSource.getViaCrucis(rawPath)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<ViaCrucis,CustomException>>() {
+                .subscribe(new DisposableSingleObserver<DataWrapper<ViaCrucis, CustomException>>() {
                     @Override
-                    public void onSuccess(@NonNull DataWrapper<ViaCrucis,CustomException> data) {
+                    public void onSuccess(@NonNull DataWrapper<ViaCrucis, CustomException> data) {
                         finalData.postValue(data);
                         dispose();
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        finalData.postValue(new DataWrapper<>(new CustomException(String.format("Error:\n%s%s",e.getMessage(),ERR_REPORT))));
+                        finalData.postValue(new DataWrapper<>(new CustomException(String.format("Error:\n%s%s", e.getMessage(), ERR_REPORT))));
                         dispose();
-                    }});
+                    }
+                });
 
         return finalData;
     }

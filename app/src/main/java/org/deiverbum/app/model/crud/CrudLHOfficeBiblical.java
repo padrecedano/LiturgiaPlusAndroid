@@ -10,5 +10,6 @@ public class CrudLHOfficeBiblical {
     public List<LHOfficeBiblicalTable> d;
 
     @SuppressWarnings("unused")
-    public CrudLHOfficeBiblical() {}
+    public CrudLHOfficeBiblical() {
+    }
 }

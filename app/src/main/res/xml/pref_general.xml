@@ -63,17 +63,9 @@
         <SwitchPreference
             android:defaultValue="true"
             android:enabled="false"
-            android:key="tema_simple"
-            android:summary="@string/pref_description_theme"
-            android:title="@string/pref_title_theme" />
-
-        <SwitchPreference
-            android:defaultValue="true"
-            android:enabled="false"
             android:key="himnos"
             android:summary="@string/pref_description_himno"
             android:title="@string/pref_title_himno" />
-
 
         <Preference
             android:enabled="true"

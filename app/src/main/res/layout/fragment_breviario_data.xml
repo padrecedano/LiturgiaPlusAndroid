@@ -5,14 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.BreviarioDataFragment">
 
-        <include
-            android:id="@+id/include"
-            layout="@layout/tv_zoomable" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/tv_zoomable" />
 
-        <include
-            android:id="@+id/pb"
-            layout="@layout/progressbar" />
-
+    <include
+        android:id="@+id/pb"
+        layout="@layout/progressbar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,10 +46,10 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class SantosFragment extends Fragment implements TextToSpeechCallback {
+    public static ActionMode mActionMode;
     private SantosViewModel mViewModel;
     private FragmentSantosBinding binding;
     private ZoomTextView mTextView;
-
     private ProgressBar progressBar;
     private SeekBar seekBar;
     private boolean isVoiceOn;
@@ -57,131 +57,7 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
     private StringBuilder sbReader;
     private Menu audioMenu;
     private MenuItem voiceItem;
-
-    public static ActionMode mActionMode;
-
     private TtsManager mTtsManager;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requireActivity().addMenuProvider(new MenuProvider() {
-            @Override
-            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-                menuInflater.inflate(R.menu.toolbar_menu, menu);
-                voiceItem = menu.findItem(R.id.item_voz);
-                voiceItem.setVisible(isVoiceOn);
-                if (isReading) {
-                    voiceItem.setVisible(false);
-                }
-            }
-
-            @Override
-            public boolean onMenuItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == android.R.id.home) {
-                    NavController navController = NavHostFragment.findNavController(requireParentFragment());
-                    navController.popBackStack();
-                    return true;
-                } else if (item.getItemId() == R.id.item_voz) {
-                    if (mActionMode == null) {
-                        mActionMode =
-                                requireActivity().startActionMode(mActionModeCallback);
-                    }
-                    readText();
-                    isReading = true;
-                    voiceItem.setVisible(false);
-                    requireActivity().invalidateOptionsMenu();
-                    return true;
-                } else {
-                    NavController navController = NavHostFragment.findNavController(requireParentFragment());
-                    return NavigationUI.onNavDestinationSelected(item, navController);
-                }
-            }
-        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
-
-        binding = FragmentSantosBinding.inflate(inflater, container, false);
-        inflater.inflate(R.layout.seekbar, container, false);
-        View root = binding.getRoot();
-        setConfiguration();
-        return root;
-    }
-
-
-    private void setConfiguration() {
-        mViewModel =
-                new ViewModelProvider(this).get(SantosViewModel.class);
-        mTextView = binding.include.tvZoomable;
-        progressBar = binding.progressBar;
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
-        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        String fontFamily = String.format(new Locale("es"), "fonts/%s", prefs.getString("font_name", "robotoslab_regular.ttf"));
-        Typeface tf = Typeface.createFromAsset(requireActivity().getAssets(), fontFamily);
-        mTextView.setTypeface(tf);
-        isVoiceOn = prefs.getBoolean("voice", true);
-        if (isVoiceOn) {
-            sbReader = new StringBuilder(VOICE_INI);
-        }
-        pickOutDate();
-    }
-
-    private void pickOutDate() {
-        Bundle bundle = getArguments();
-        String mDate = (bundle != null) ? bundle.getString("FECHA") : Utils.getHoy();
-        int[] monthAndDay = Utils.getMonthAndDay(mDate);
-        observeData(monthAndDay);
-    }
-
-    void observeData(int[] monthAndDay) {
-        mTextView.setText(PACIENCIA);
-        mViewModel.getSaintLife(monthAndDay).observe(getViewLifecycleOwner(),
-                data -> {
-                    progressBar.setVisibility(View.GONE);
-                    if (data.status == DataWrapper.Status.SUCCESS) {
-                        mTextView.setText(data.getData().getForView(isNightMode()), TextView.BufferType.SPANNABLE);
-                        if (isVoiceOn) {
-                            sbReader.append(data.getData().getForRead());
-                        }
-                    } else {
-                        mTextView.setText(Utils.fromHtml(data.getError()));
-                    }
-                });
-    }
-
-    private String prepareForRead() {
-        String notQuotes = Utils.stripQuotation(sbReader.toString());
-        return String.valueOf(Utils.fromHtml(notQuotes));
-    }
-
-
-    private void setPlayerButton() {
-        voiceItem.setVisible(isVoiceOn);
-    }
-
-    private void readText() {
-        mTtsManager = new TtsManager(getContext(), prepareForRead(), SEPARADOR, (current, max) -> {
-            seekBar.setProgress(current);
-            seekBar.setMax(max);
-        });
-
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (mTtsManager == null) return;
-                mTtsManager.changeProgress(progress);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-        mTtsManager.start();
-    }
-
     private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 
         @Override
@@ -244,6 +120,124 @@ public class SantosFragment extends Fragment implements TextToSpeechCallback {
             return false;
         }
     };
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.toolbar_menu, menu);
+                voiceItem = menu.findItem(R.id.item_voz);
+                voiceItem.setVisible(isVoiceOn);
+                if (isReading) {
+                    voiceItem.setVisible(false);
+                }
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == android.R.id.home) {
+                    NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                    navController.popBackStack();
+                    return true;
+                } else if (item.getItemId() == R.id.item_voz) {
+                    if (mActionMode == null) {
+                        mActionMode =
+                                requireActivity().startActionMode(mActionModeCallback);
+                    }
+                    readText();
+                    isReading = true;
+                    voiceItem.setVisible(false);
+                    requireActivity().invalidateOptionsMenu();
+                    return true;
+                } else {
+                    NavController navController = NavHostFragment.findNavController(requireParentFragment());
+                    return NavigationUI.onNavDestinationSelected(item, navController);
+                }
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+
+        binding = FragmentSantosBinding.inflate(inflater, container, false);
+        inflater.inflate(R.layout.seekbar, container, false);
+        View root = binding.getRoot();
+        setConfiguration();
+        return root;
+    }
+
+    private void setConfiguration() {
+        mViewModel =
+                new ViewModelProvider(this).get(SantosViewModel.class);
+        mTextView = binding.include.tvZoomable;
+        progressBar = binding.progressBar;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        String fontFamily = String.format(new Locale("es"), "fonts/%s", prefs.getString("font_name", "robotoslab_regular.ttf"));
+        Typeface tf = Typeface.createFromAsset(requireActivity().getAssets(), fontFamily);
+        mTextView.setTypeface(tf);
+        isVoiceOn = prefs.getBoolean("voice", true);
+        if (isVoiceOn) {
+            sbReader = new StringBuilder(VOICE_INI);
+        }
+        pickOutDate();
+    }
+
+    private void pickOutDate() {
+        Bundle bundle = getArguments();
+        String mDate = (bundle != null) ? bundle.getString("FECHA") : Utils.getHoy();
+        int[] monthAndDay = Utils.getMonthAndDay(mDate);
+        observeData(monthAndDay);
+    }
+
+    void observeData(int[] monthAndDay) {
+        mTextView.setText(PACIENCIA);
+        mViewModel.getSaintLife(monthAndDay).observe(getViewLifecycleOwner(),
+                data -> {
+                    progressBar.setVisibility(View.GONE);
+                    if (data.status == DataWrapper.Status.SUCCESS) {
+                        mTextView.setText(data.getData().getForView(isNightMode()), TextView.BufferType.SPANNABLE);
+                        if (isVoiceOn) {
+                            sbReader.append(data.getData().getForRead());
+                        }
+                    } else {
+                        mTextView.setText(Utils.fromHtml(data.getError()));
+                    }
+                });
+    }
+
+    private String prepareForRead() {
+        String notQuotes = Utils.stripQuotation(sbReader.toString());
+        return String.valueOf(Utils.fromHtml(notQuotes));
+    }
+
+    private void setPlayerButton() {
+        voiceItem.setVisible(isVoiceOn);
+    }
+
+    private void readText() {
+        mTtsManager = new TtsManager(getContext(), prepareForRead(), SEPARADOR, (current, max) -> {
+            seekBar.setProgress(current);
+            seekBar.setMax(max);
+        });
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (mTtsManager == null) return;
+                mTtsManager.changeProgress(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+        mTtsManager.start();
+    }
 
     @Override
     public void onCompleted() {

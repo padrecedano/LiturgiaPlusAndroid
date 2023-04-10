@@ -22,23 +22,21 @@
         android:name="org.deiverbum.app.ui.fragments.FileFragment"
         android:label="@string/title_fragment_help"
         tools:layout="@layout/fragment_file">
-    <argument
-        android:name="rawPath"
-        app:argType="string"
-        android:defaultValue="raw/help_202201.json"/>
+        <argument
+            android:name="rawPath"
+            android:defaultValue="raw/help_202201.json"
+            app:argType="string" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_sync"
         android:name="org.deiverbum.app.ui.fragments.SyncFragment"
-        android:label="@string/title_fragment_sync"
-         />
+        android:label="@string/title_fragment_sync" />
 
     <fragment
         android:id="@+id/nav_settings"
         android:name="org.deiverbum.app.ui.fragments.SettingsFragment"
-        android:label="@string/title_fragment_settings"
-        />
+        android:label="@string/title_fragment_settings" />
 
     <fragment
         android:id="@+id/nav_error"
@@ -53,19 +51,19 @@
         tools:layout="@layout/fragment_file">
         <argument
             android:name="rawPath"
-            app:argType="string"
-            android:defaultValue="raw/about_202201.json" />
+            android:defaultValue="raw/about_202201.json"
+            app:argType="string" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_author"
-        android:name="org.deiverbum.app.ui.fragments.AuthorFragment"
+        android:name="org.deiverbum.app.ui.fragments.FileFragment"
         android:label="@string/title_fragment_author"
         tools:layout="@layout/fragment_author">
         <argument
             android:name="rawPath"
-            app:argType="string"
-            android:defaultValue="raw/author_202201.json" />
+            android:defaultValue="raw/author_202201.json"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -75,8 +73,8 @@
         tools:layout="@layout/fragment_nobuttom">
         <argument
             android:name="rawPath"
-            app:argType="string"
-            android:defaultValue="raw/thanks_202201.json" />
+            android:defaultValue="raw/thanks_202201.json"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -86,8 +84,8 @@
         tools:layout="@layout/fragment_file">
         <argument
             android:name="rawPath"
-            app:argType="string"
-            android:defaultValue="raw/new_202301.json" />
+            android:defaultValue="raw/new_202301.json"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -95,10 +93,10 @@
         android:name="org.deiverbum.app.ui.fragments.LegalFragment"
         android:label="@string/title_fragment_privacy"
         tools:layout="@layout/fragment_legal">
-    <argument
-        android:name="rawPath"
-        app:argType="string"
-        android:defaultValue="raw/privacy_202301.json" />
+        <argument
+            android:name="rawPath"
+            android:defaultValue="raw/privacy_202301.json"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -108,8 +106,8 @@
         tools:layout="@layout/fragment_legal">
         <argument
             android:name="rawPath"
-            app:argType="string"
-            android:defaultValue="raw/terms_202301.json" />
+            android:defaultValue="raw/terms_202301.json"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -177,7 +175,7 @@
         android:id="@+id/nav_biblia_libros"
         android:name="org.deiverbum.app.ui.fragments.BibliaDataFragment"
         android:label="@string/title_fragment_biblia_libros"
-        tools:layout="@layout/fragment_text"/>
+        tools:layout="@layout/fragment_text" />
 
     <fragment
         android:id="@+id/nav_patristica"
@@ -195,88 +193,88 @@
         android:id="@+id/nav_mixto"
         android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
         android:label="@string/title_fragment_mixto"
-        tools:layout="@layout/fragment_breviario_data" >
+        tools:layout="@layout/fragment_breviario_data">
         <argument
             android:name="hourId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_oficio"
         android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
         android:label="@string/title_fragment_oficio"
-        tools:layout="@layout/fragment_breviario_data" >
+        tools:layout="@layout/fragment_breviario_data">
         <argument
             android:name="hourId"
-            app:argType="integer"
-            android:defaultValue="1" />
+            android:defaultValue="1"
+            app:argType="integer" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_laudes"
         android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
         android:label="@string/title_fragment_laudes"
-        tools:layout="@layout/fragment_breviario_data" >
+        tools:layout="@layout/fragment_breviario_data">
         <argument
             android:name="hourId"
-            app:argType="integer"
-            android:defaultValue="2" />
+            android:defaultValue="2"
+            app:argType="integer" />
     </fragment>
-    
+
     <fragment
         android:id="@+id/nav_tercia"
         android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
         android:label="@string/title_fragment_tercia"
-        tools:layout="@layout/fragment_breviario_data" >
+        tools:layout="@layout/fragment_breviario_data">
         <argument
             android:name="hourId"
-            app:argType="integer"
-            android:defaultValue="3" />
+            android:defaultValue="3"
+            app:argType="integer" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_sexta"
         android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
         android:label="@string/title_fragment_sexta"
-        tools:layout="@layout/fragment_breviario_data" >
+        tools:layout="@layout/fragment_breviario_data">
         <argument
             android:name="hourId"
-            app:argType="integer"
-            android:defaultValue="4" />
+            android:defaultValue="4"
+            app:argType="integer" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_nona"
         android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
         android:label="@string/title_fragment_nona"
-        tools:layout="@layout/fragment_breviario_data" >
+        tools:layout="@layout/fragment_breviario_data">
         <argument
             android:name="hourId"
-            app:argType="integer"
-            android:defaultValue="5" />
+            android:defaultValue="5"
+            app:argType="integer" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_visperas"
         android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
         android:label="@string/title_fragment_visperas"
-        tools:layout="@layout/fragment_breviario_data" >
+        tools:layout="@layout/fragment_breviario_data">
         <argument
             android:name="hourId"
-            app:argType="integer"
-            android:defaultValue="6" />
+            android:defaultValue="6"
+            app:argType="integer" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_completas"
         android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
         android:label="@string/title_fragment_completas"
-        tools:layout="@layout/fragment_breviario_data" >
+        tools:layout="@layout/fragment_breviario_data">
         <argument
             android:name="hourId"
-            app:argType="integer"
-            android:defaultValue="7" />
+            android:defaultValue="7"
+            app:argType="integer" />
     </fragment>
 
     <fragment
@@ -289,7 +287,7 @@
         android:id="@+id/nav_rosario"
         android:name="org.deiverbum.app.ui.fragments.OracionesDataFragment"
         android:label="@string/title_fragment_oraciones_main"
-        tools:layout="@layout/fragment_text"  />
+        tools:layout="@layout/fragment_text" />
 
 
 </navigation>

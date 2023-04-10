@@ -108,7 +108,7 @@ public class LHInvitatory extends LHPsalm {
     }
 
     public void normalizeIsSaint(String s) {
-        this.antiphon =this.antiphon.replace("ƞ", s.substring(s.indexOf(" ")+1));
+        this.antiphon = this.antiphon.replace("ƞ", s.substring(s.indexOf(" ") + 1));
     }
 
     public String getUnique() {

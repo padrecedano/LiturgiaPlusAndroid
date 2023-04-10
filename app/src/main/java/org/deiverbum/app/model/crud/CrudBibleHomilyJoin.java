@@ -11,7 +11,8 @@ public class CrudBibleHomilyJoin {
     public List<BibleHomilyJoin> d;
 
     @SuppressWarnings("unused")
-    public CrudBibleHomilyJoin() {}
+    public CrudBibleHomilyJoin() {
+    }
 
 
 }

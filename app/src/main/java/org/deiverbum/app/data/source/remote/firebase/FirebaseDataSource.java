@@ -61,9 +61,9 @@ public class FirebaseDataSource {
      */
     public Single<DataWrapper<SaintLife, CustomException>> getSantos(int[] monthAndDay) {
         return Single.create(emitter -> {
-            Locale loc=new Locale("es", "ES");
-            String month=String.format(loc,"%02d", monthAndDay[0]);
-            String day=String.format(loc,"%02d", monthAndDay[1]);
+            Locale loc = new Locale("es", "ES");
+            String month = String.format(loc, "%02d", monthAndDay[0]);
+            String day = String.format(loc, "%02d", monthAndDay[1]);
             DocumentReference dataRef = firebaseFirestore.document(FIREBASE_SANTOS).collection(month).document(day);
             dataRef.get().addOnSuccessListener((DocumentSnapshot data) -> {
                 if (data.exists()) {
@@ -100,7 +100,7 @@ public class FirebaseDataSource {
                                 if (mSnapshot.exists()) {
                                     MassReadingList theHour =
                                             mSnapshot.toObject(MassReadingList.class);
-                                    Objects.requireNonNull(theHour).setMetaLiturgia(meta);
+                                    //Objects.requireNonNull(theHour).setMetaLiturgia(meta);
                                     emitter.onSuccess(new DataWrapper<>(theHour));
                                 } else {
                                     emitter.onError(new Exception(DATA_NOTFOUND));
@@ -216,29 +216,30 @@ public class FirebaseDataSource {
             });
         });
     }
+
     public Single<List<DataWrapper<Today, CustomException>>> loadInitialToday() {
         return Single.create(emitter -> {
             List<DataWrapper<Today, CustomException>> data = new ArrayList();
-             firebaseFirestore.collection(FIREBASE_SYNC_PATH)
-                 .whereGreaterThanOrEqualTo("todayDate", Utils.getTodayMinus(1))
+            firebaseFirestore.collection(FIREBASE_SYNC_PATH)
+                    .whereGreaterThanOrEqualTo("todayDate", Utils.getTodayMinus(1))
                     .limit(7)
-                     .get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Today t = document.toObject(Today.class);
-                        data.add(new DataWrapper<>(t));
-                    }
-                        emitter.onSuccess(data);
-                    } else {
-                        emitter.onError(new Exception(DOC_NOTFOUND));
-                    }
+                    .get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Today t = document.toObject(Today.class);
+                                data.add(new DataWrapper<>(t));
+                            }
+                            emitter.onSuccess(data);
+                        } else {
+                            emitter.onError(new Exception(DOC_NOTFOUND));
+                        }
 
-            });
+                    });
         });
     }
 
     @SuppressWarnings("unused")
-    public void getSync(){
+    public void getSync() {
         firebaseFirestore.collection(FIREBASE_SYNC_PATH)
                 .whereGreaterThanOrEqualTo("todayDate", Utils.getTodayMinus(1))
                 .limit(7)
@@ -310,7 +311,7 @@ public class FirebaseDataSource {
 
                             Objects.requireNonNull(dataRef).get().addOnSuccessListener((DocumentSnapshot mSnapshot) -> {
                                 if (mSnapshot.exists()) {
-                                    Objects.requireNonNull(today).liturgyDay= mSnapshot.toObject(Liturgy.class);
+                                    Objects.requireNonNull(today).liturgyDay = mSnapshot.toObject(Liturgy.class);
                                     emitter.onSuccess(new DataWrapper<>(today));
                                 } else {
                                     emitter.onError(new Exception(DATA_NOTFOUND));

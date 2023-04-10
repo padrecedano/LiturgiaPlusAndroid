@@ -33,7 +33,7 @@ public class LHOfficePatristicWithAll {
 
 
     public LHOfficePatristic getDomainModel(Integer timeId) {
-        LHOfficePatristic theModel= homiliaAll.getPatristicaDomainModel();
+        LHOfficePatristic theModel = homiliaAll.getPatristicaDomainModel();
         theModel.setTheme(lhPatristica.tema);
         theModel.setResponsorioLargo(lhResponsorio.getDomainModel(timeId));
         return theModel;

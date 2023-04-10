@@ -11,7 +11,8 @@ public class CrudLHInvitatoryJoin {
     public List<LHInvitatoryJoin> d;
 
     @SuppressWarnings("unused")
-    public CrudLHInvitatoryJoin() {}
+    public CrudLHInvitatoryJoin() {
+    }
 
 
 }

@@ -88,45 +88,45 @@ public class ViaCrucis {
 
     public SpannableStringBuilder getAllEstaciones() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
-         for (Estacion e : estaciones) {
-                sb.append(LS);
-                sb.append(Utils.toH3Red(e.getTitulo()));
-                sb.append(LS2);
-                sb.append(Utils.toH3(e.getSubtitulo()));
-                sb.append(LS2);
-                sb.append(getAdoramus());
-                sb.append(LS2);
-                sb.append(e.getTextoBiblicoSpan());
-                sb.append(LS2);
-                sb.append(e.getMeditacionSpan(respuestas));
-                sb.append(LS);
-                sb.append(PadreNuestro.getTexto());
-                sb.append(LS2);
-                sb.append(Utils.toH4Red("Estrofa del Stabat Mater"));
-                sb.append(LS2);
-                sb.append(Utils.fromHtml(Utils.getFormato(e.getCanto())));
-                sb.append(LS2);
-            }
+        for (Estacion e : estaciones) {
+            sb.append(LS);
+            sb.append(Utils.toH3Red(e.getTitulo()));
+            sb.append(LS2);
+            sb.append(Utils.toH3(e.getSubtitulo()));
+            sb.append(LS2);
+            sb.append(getAdoramus());
+            sb.append(LS2);
+            sb.append(e.getTextoBiblicoSpan());
+            sb.append(LS2);
+            sb.append(e.getMeditacionSpan(respuestas));
+            sb.append(LS);
+            sb.append(PadreNuestro.getTexto());
+            sb.append(LS2);
+            sb.append(Utils.toH4Red("Estrofa del Stabat Mater"));
+            sb.append(LS2);
+            sb.append(Utils.fromHtml(Utils.getFormato(e.getCanto())));
+            sb.append(LS2);
+        }
         return sb;
     }
 
     @SuppressWarnings("unused")
     public StringBuilder getAllEstacionesForRead() {
         StringBuilder sb = new StringBuilder();
-            String[] textParts = adoramus.split("\\|");
-            String txtAdoramus = textParts[0] + "." + textParts[1] + ".";
-            for (Estacion e : estaciones) {
-                sb.append(e.getTitulo());
-                sb.append(".");
-                sb.append(e.getSubtitulo());
-                sb.append(".");
-                sb.append(txtAdoramus);
-                sb.append(e.getTextoBiblico());
-                sb.append(".");
-                sb.append(e.getMeditacionSpan(respuestas));
-                sb.append(PadreNuestro.getTexto());
-                sb.append("Estrofa del Stabat Mater.");
-                sb.append(Utils.fromHtml(Utils.getFormato(e.getCanto())));
+        String[] textParts = adoramus.split("\\|");
+        String txtAdoramus = textParts[0] + "." + textParts[1] + ".";
+        for (Estacion e : estaciones) {
+            sb.append(e.getTitulo());
+            sb.append(".");
+            sb.append(e.getSubtitulo());
+            sb.append(".");
+            sb.append(txtAdoramus);
+            sb.append(e.getTextoBiblico());
+            sb.append(".");
+            sb.append(e.getMeditacionSpan(respuestas));
+            sb.append(PadreNuestro.getTexto());
+            sb.append("Estrofa del Stabat Mater.");
+            sb.append(Utils.fromHtml(Utils.getFormato(e.getCanto())));
         }
         return sb;
     }
@@ -150,7 +150,7 @@ public class ViaCrucis {
     }
 
     public SpannableStringBuilder getForView(boolean isNightMode) {
-        ColorUtils.isNightMode=isNightMode;
+        ColorUtils.isNightMode = isNightMode;
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         sb.append(Utils.toH2Red(getTitulo()));
         sb.append(LS2);
@@ -182,7 +182,7 @@ public class ViaCrucis {
     }
 
     public StringBuilder getForRead() {
-        StringBuilder sb=new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         sb.append(getTitulo());
         sb.append(".");
         sb.append(getSubTitulo());

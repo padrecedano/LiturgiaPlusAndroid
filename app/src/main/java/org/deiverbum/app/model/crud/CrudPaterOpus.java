@@ -11,5 +11,6 @@ public class CrudPaterOpus {
     public List<PaterOpus> d;
 
     @SuppressWarnings("unused")
-    public CrudPaterOpus() {}
+    public CrudPaterOpus() {
+    }
 }

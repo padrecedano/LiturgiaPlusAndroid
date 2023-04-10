@@ -39,20 +39,20 @@ public class TodayComentarios {
     public List<MisaWithComentarios> comentarios;
 
 
-    public Today getToday(){
+    public Today getToday() {
         Today dm = new Today();
-        dm.liturgyDay=feria.getDomainModel();
+        dm.liturgyDay = feria.getDomainModel();
         //dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
         dm.setTodayDate(today.getHoy());
         dm.setHasSaint(today.hasSaint);
         return dm;
     }
 
-    public BibleCommentList getDomainModel(){
-        BibleCommentList dm=new BibleCommentList();
+    public BibleCommentList getDomainModel() {
+        BibleCommentList dm = new BibleCommentList();
         dm.setHoy(getToday());
         List<List<BibleComment>> listModel = new ArrayList<>();
-        for(MisaWithComentarios item : comentarios){
+        for (MisaWithComentarios item : comentarios) {
             listModel.add(item.getDomainModel());
         }
         dm.setAllComentarios(listModel);

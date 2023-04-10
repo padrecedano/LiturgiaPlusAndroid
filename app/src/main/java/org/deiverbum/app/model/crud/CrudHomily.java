@@ -11,7 +11,8 @@ public class CrudHomily {
     public List<Homily> d;
 
     @SuppressWarnings("unused")
-    public CrudHomily() {}
+    public CrudHomily() {
+    }
 
 
 }

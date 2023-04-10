@@ -22,15 +22,15 @@ public class LHReadingShortEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "readingID")
-    public Integer lecturaId=0;
+    public Integer lecturaId = 0;
 
     @NonNull
     @ColumnInfo(name = "text")
-    public String texto="";
+    public String texto = "";
 
     @NonNull
     @ColumnInfo(name = "quote")
-    public String cita="";
+    public String cita = "";
 
 
 }

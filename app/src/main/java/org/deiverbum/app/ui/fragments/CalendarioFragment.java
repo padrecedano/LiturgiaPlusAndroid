@@ -38,12 +38,12 @@ public class CalendarioFragment extends Fragment {
         View root = binding.getRoot();
 
         DatePicker datePicker = binding.datePicker;
-        Locale loc=new Locale("es", "ES");
+        Locale loc = new Locale("es", "ES");
         Calendar calendar = Calendar.getInstance();
         datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), (datePicker1, year, month, dayOfMonth) -> {
             datePicker1.performLongClick();
-            mDate = String.format(loc,"%d%02d%02d",year,
-                    month+1,dayOfMonth);
+            mDate = String.format(loc, "%d%02d%02d", year,
+                    month + 1, dayOfMonth);
             updateActionBar();
 
         });
@@ -69,7 +69,7 @@ public class CalendarioFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString("FECHA", mDate);
         NavController navController = NavHostFragment.findNavController(this);
-        navController.navigate(item.getItemId(),bundle);
+        navController.navigate(item.getItemId(), bundle);
         return true;
     }
 

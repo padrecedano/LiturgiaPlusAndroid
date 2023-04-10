@@ -52,15 +52,15 @@ public class LHResponsory extends LHResponsoryShort {
         switch (type) {
             case 1:
                 if (respArray.length == 3) {
-                    s.append(Utils.toRed("R. "));
+                    s.append(Utils.toRedFont("R. "));
                     s.append(respArray[0]);
                     s.append(RESP_A);
                     s.append(respArray[1]);
                     s.append(BRS);
-                    s.append(Utils.toRed("V. "));
+                    s.append(Utils.toRedFont("V. "));
                     s.append(respArray[2]);
                     s.append(BRS);
-                    s.append(Utils.toRed("R. "));
+                    s.append(Utils.toRedFont("R. "));
                     s.append(Character.toUpperCase(respArray[1].charAt(0)));
                     s.append(respArray[1].substring(1));
                     s.append(BRS);
@@ -69,15 +69,15 @@ public class LHResponsory extends LHResponsoryShort {
                 break;
 
             case 2:
-                s.append(Utils.toRed("R. "));
+                s.append(Utils.toRedFont("R. "));
                 s.append(respArray[0]);
                 s.append(RESP_A);
                 s.append(respArray[1]);
                 s.append(BRS);
-                s.append(Utils.toRed("V. "));
+                s.append(Utils.toRedFont("V. "));
                 s.append(respArray[2]);
                 s.append(BRS);
-                s.append(Utils.toRed("R. "));
+                s.append(Utils.toRedFont("R. "));
                 s.append(Character.toUpperCase(respArray[1].charAt(0)));
                 s.append(respArray[1].substring(1));
                 s.append(BRS);
@@ -90,22 +90,22 @@ public class LHResponsory extends LHResponsoryShort {
              */
             case 6001230:
                 if (respArray.length == 4) {
-                    s.append(Utils.toRed("V. "));
+                    s.append(Utils.toRedFont("V. "));
                     s.append(respArray[0]);
                     s.append(BR);
-                    s.append(Utils.toRed("R. "));
+                    s.append(Utils.toRedFont("R. "));
                     s.append(respArray[0]);
                     s.append(BRS);
-                    s.append(Utils.toRed("V. "));
+                    s.append(Utils.toRedFont("V. "));
                     s.append(respArray[1]);
                     s.append(BR);
-                    s.append(Utils.toRed("R. "));
+                    s.append(Utils.toRedFont("R. "));
                     s.append(respArray[2]);
                     s.append(BRS);
-                    s.append(Utils.toRed("V. "));
+                    s.append(Utils.toRedFont("V. "));
                     s.append(respArray[3]);
                     s.append(BR);
-                    s.append(Utils.toRed("R. "));
+                    s.append(Utils.toRedFont("R. "));
                     s.append(respArray[0]);
                     s.append(BRS);
                     sb.append(Utils.fromHtml(s.toString()));
@@ -116,22 +116,22 @@ public class LHResponsory extends LHResponsoryShort {
 
             case 6001020:
                 if (respArray.length == 3) {
-                    s.append(Utils.toRed("V. "));
+                    s.append(Utils.toRedFont("V. "));
                     s.append(respArray[0]);
                     s.append(BR);
-                    s.append(Utils.toRed("R. "));
+                    s.append(Utils.toRedFont("R. "));
                     s.append(respArray[0]);
                     s.append(BRS);
-                    s.append(Utils.toRed("V. "));
+                    s.append(Utils.toRedFont("V. "));
                     s.append(respArray[1]);
                     s.append(BR);
-                    s.append(Utils.toRed("R. "));
+                    s.append(Utils.toRedFont("R. "));
                     s.append(respArray[0]);
                     s.append(BRS);
-                    s.append(Utils.toRed("V. "));
+                    s.append(Utils.toRedFont("V. "));
                     s.append(respArray[2]);
                     s.append(BR);
-                    s.append(Utils.toRed("R. "));
+                    s.append(Utils.toRedFont("R. "));
                     s.append(respArray[0]);
                     s.append(BRS);
                     sb.append(Utils.fromHtml(s.toString()));
@@ -141,32 +141,32 @@ public class LHResponsory extends LHResponsoryShort {
 
 
             case 4:
-                s.append(Utils.toRed("V. "));
+                s.append(Utils.toRedFont("V. "));
                 s.append(respArray[0]);
                 s.append(BR);
-                s.append(Utils.toRed("R. "));
+                s.append(Utils.toRedFont("R. "));
                 s.append(respArray[0]);
                 s.append(BRS);
-                s.append(Utils.toRed("V. "));
+                s.append(Utils.toRedFont("V. "));
                 s.append(respArray[1]);
                 s.append(BR);
-                s.append(Utils.toRed("R. "));
+                s.append(Utils.toRedFont("R. "));
                 s.append(respArray[0]);
                 s.append(BRS);
-                s.append(Utils.toRed("V. "));
+                s.append(Utils.toRedFont("V. "));
                 s.append(respArray[2]);
                 s.append(BR);
-                s.append(Utils.toRed("R. "));
+                s.append(Utils.toRedFont("R. "));
                 s.append(respArray[0]);
                 s.append(BRS);
                 sb.append(Utils.fromHtml(s.toString()));
                 break;
 
             case 201:
-                s.append(Utils.toRed("V. "));
+                s.append(Utils.toRedFont("V. "));
                 s.append(respArray[0]);
                 s.append(BR);
-                s.append(Utils.toRed("R. "));
+                s.append(Utils.toRedFont("R. "));
                 s.append(respArray[1]);
                 s.append(BRS);
                 sb.append(Utils.fromHtml(s.toString()));

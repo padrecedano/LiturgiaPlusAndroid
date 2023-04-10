@@ -11,7 +11,8 @@ public class CrudMassReading {
     public List<MassReadingTable> d;
 
     @SuppressWarnings("unused")
-    public CrudMassReading() {}
+    public CrudMassReading() {
+    }
 
 
 }

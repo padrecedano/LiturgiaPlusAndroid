@@ -16,33 +16,29 @@ import androidx.room.ForeignKey;
 @Entity(tableName = BIBLE_HOMILY_THEME,
         primaryKeys = {"homilyFK"},
         foreignKeys =
-        {
-                @ForeignKey(
-                        entity = HomilyEntity.class,
-                        parentColumns = "homilyID",
-                        childColumns = "homilyFK",
-                        onDelete = ForeignKey.CASCADE,
-                        onUpdate = ForeignKey.CASCADE)
-        }
+                {
+                        @ForeignKey(
+                                entity = HomilyEntity.class,
+                                parentColumns = "homilyID",
+                                childColumns = "homilyFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE)
+                }
 )
 public class BibleHomilyThemeEntity {
 
     @NonNull
     @ColumnInfo(name = "homilyFK")
-    public Integer homilyFK=0;
+    public Integer homilyFK = 0;
 
     @ColumnInfo(name = "theological", defaultValue = "")
-    public String theological="";
+    public String theological = "";
 
     @ColumnInfo(name = "biblical", defaultValue = "")
-    public String biblical="";
+    public String biblical = "";
 
     @ColumnInfo(name = "reference", defaultValue = "")
-    public String reference="";
-
-    public void setHomilyFK(@NonNull Integer homilyFK) {
-        this.homilyFK = homilyFK;
-    }
+    public String reference = "";
 
     public String getTheological() {
         return theological;
@@ -70,6 +66,10 @@ public class BibleHomilyThemeEntity {
 
     public int getHomilyFK() {
         return homilyFK;
+    }
+
+    public void setHomilyFK(@NonNull Integer homilyFK) {
+        this.homilyFK = homilyFK;
     }
 
 }

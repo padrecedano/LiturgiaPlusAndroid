@@ -27,23 +27,23 @@
         android:id="@+id/grp2"
         android:checkableBehavior="single">
 
-    <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_about"
-                android:title="@string/about" />
-            <item
-                android:id="@+id/nav_author"
-                android:icon="@drawable/ic_author"
-                android:title="@string/author" />
-            <item
-                android:id="@+id/nav_thanks"
-                android:icon="@drawable/ic_thanks"
-                android:title="@string/thanks" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_about"
+            android:title="@string/about" />
+        <item
+            android:id="@+id/nav_author"
+            android:icon="@drawable/ic_author"
+            android:title="@string/author" />
+        <item
+            android:id="@+id/nav_thanks"
+            android:icon="@drawable/ic_thanks"
+            android:title="@string/thanks" />
 
-            <item
-                android:id="@+id/nav_new"
-                android:icon="@drawable/ic_fiber_new_black_24dp"
-                android:title="@string/what_is_new" />
+        <item
+            android:id="@+id/nav_new"
+            android:icon="@drawable/ic_fiber_new_black_24dp"
+            android:title="@string/what_is_new" />
 
     </group>
     <group

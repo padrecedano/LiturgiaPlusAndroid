@@ -11,7 +11,8 @@ public class CrudLHAntiphon {
     public List<LHAntiphon> d;
 
     @SuppressWarnings("unused")
-    public CrudLHAntiphon() {}
+    public CrudLHAntiphon() {
+    }
 
 
 }

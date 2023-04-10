@@ -35,8 +35,8 @@ public class BibleHomilyWithAll {
 
 
     public BibleComment getDomainModel() {
-        BibleComment theModel=new BibleComment();
-        if(themeEntity!=null) {
+        BibleComment theModel = new BibleComment();
+        if (themeEntity != null) {
             theModel.setCita(themeEntity.getBiblical());
             theModel.setTema(themeEntity.getTheological());
             theModel.setRef(themeEntity.getReference());

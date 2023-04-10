@@ -10,5 +10,6 @@ public class CrudLHOfficePatristic {
     public List<LHOfficePatristic> d;
 
     @SuppressWarnings("unused")
-    public CrudLHOfficePatristic() {}
+    public CrudLHOfficePatristic() {
+    }
 }

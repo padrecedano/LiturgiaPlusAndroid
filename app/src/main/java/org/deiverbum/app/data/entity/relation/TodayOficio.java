@@ -122,7 +122,7 @@ public class TodayOficio {
         return invitatorio.getDomainModel();
     }
 
-    public LHHymn getHimno(){
+    public LHHymn getHimno() {
         return himno.getDomainModel();
     }
 
@@ -130,16 +130,16 @@ public class TodayOficio {
         return salmodia.getDomainModel();
     }
 
-    public String getOficioVerso(){
+    public String getOficioVerso() {
         return oficioVerso.getDomainModel();
     }
 
-    public Today getToday(){
+    public Today getToday() {
         Today dm = new Today();
-        dm.liturgyDay=feria.getDomainModel();
+        dm.liturgyDay = feria.getDomainModel();
         dm.setTodayDate(today.getHoy());
         dm.setHasSaint(today.hasSaint);
-        dm.oBiblicalFK=today.oBiblicaFK;
+        dm.oBiblicalFK = today.oBiblicaFK;
         return dm;
     }
 
@@ -162,17 +162,17 @@ public class TodayOficio {
         Today dmToday = getToday();
         dm.setToday(dmToday);
         BreviaryHour bh = new BreviaryHour();
-        if (today.oBiblicaFK==600010101){
+        if (today.oBiblicaFK == 600010101) {
             OficioEaster oEaster = new OficioEaster();
             oEaster.setOficioLecturas(biblicasE.getDomainModel());
             bh.setOficioEaster(oEaster);
-        }else {
+        } else {
             Oficio oficio = new Oficio();
-            LHOfficeOfReading ol=new LHOfficeOfReading();
+            LHOfficeOfReading ol = new LHOfficeOfReading();
             ol.setBiblica(getBiblicas());
             ol.setPatristica(getPatristicas());
             ol.setResponsorio(getOficioVerso());
-            if(dmToday.getHasSaint()==1 && saint!=null){
+            if (dmToday.getHasSaint() == 1 && saint != null) {
                 oficio.setSanto(saint.getDomainModel());
             }
             oficio.setInvitatorio(getInvitatorio());
@@ -184,7 +184,7 @@ public class TodayOficio {
             bh.setOficio(oficio);
         }
         dm.setBreviaryHour(bh);
-        dmToday.liturgyDay=dm;
+        dmToday.liturgyDay = dm;
         return dmToday;
     }
 

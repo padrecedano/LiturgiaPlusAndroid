@@ -24,7 +24,7 @@ public class LiturgiaWithHomilias {
     public HomilyAll homilia;
 
     public HomilyList getDomainModel() {
-        HomilyList dm=homilia.getDomainModel();
+        HomilyList dm = homilia.getDomainModel();
         dm.setTema(joinEntity.getTema());
         return dm;
     }

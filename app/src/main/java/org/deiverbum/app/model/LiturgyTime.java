@@ -2,6 +2,7 @@ package org.deiverbum.app.model;
 
 /**
  * <p>Clase para expresar los tiempos litúrgicos.</p>
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1

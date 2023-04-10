@@ -20,17 +20,16 @@ public class Saint {
     @Ignore
     public Integer liturgyFK;
     public Integer typeFK;
-
+    public String theDay;
+    public String theMonth;
     //@Ignore
-    protected  String theName;
+    protected String theName;
     @Ignore
     private String vida;
     @SuppressWarnings("unused")
     //private String martirologio;
     @Ignore
     private boolean crg;
-    public String theDay;
-    public String theMonth;
 
     public String getTheName() {
         return theName;
@@ -61,13 +60,13 @@ public class Saint {
     }
 
     @SuppressWarnings("unused")
-    public void setCrg(boolean crg) {
-        this.crg = crg;
+    public boolean getCrg() {
+        return this.crg;
     }
 
     @SuppressWarnings("unused")
-    public boolean getCrg() {
-        return this.crg;
+    public void setCrg(boolean crg) {
+        this.crg = crg;
     }
 
     public void setDay(String dia) {
@@ -172,7 +171,7 @@ public class Saint {
         monthNames.put(10, "Octubre");
         monthNames.put(11, "Noviembre");
         monthNames.put(12, "Diciembre");
-        Integer theMonth=Integer.valueOf(mes);
+        Integer theMonth = Integer.valueOf(mes);
         return String.format("%s de %s", theDay, monthNames.get(theMonth));
     }
 }

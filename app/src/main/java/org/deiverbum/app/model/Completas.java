@@ -11,18 +11,22 @@ import org.deiverbum.app.utils.Utils;
 import java.util.List;
 
 public class Completas extends BreviaryHour {
+    List<CompletasHimno> completasHimno;
     private RitosIniciales ritosIniciales;
     private NuncDimitis nuncDimitis;
     private Conclusion conclusion;
-    List<CompletasHimno> completasHimno;
     private List<CompletasDia> completasDias;
     private List<LHResponsoryShort> responsorio;
+
+    public Completas() {
+    }
 
     public List<LHResponsoryShort> getResponsorio() {
         return responsorio;
     }
 
-    public Completas() {
+    public void setResponsorio(List<LHResponsoryShort> responsorio) {
+        this.responsorio = responsorio;
     }
 
     public RitosIniciales getRitosIniciales() {
@@ -44,15 +48,12 @@ public class Completas extends BreviaryHour {
 
     @SuppressWarnings("unused")
     public void setNuncDimitis(NuncDimitis nuncDimitis) {
-        this.nuncDimitis=nuncDimitis;
+        this.nuncDimitis = nuncDimitis;
     }
+
     @SuppressWarnings("unused")
     public void setCompletasDia(List<CompletasDia> completasDias) {
         this.completasDias = completasDias;
-    }
-
-    public void setResponsorio(List<LHResponsoryShort> responsorio) {
-        this.responsorio = responsorio;
     }
 
     public Conclusion getConclusion() {

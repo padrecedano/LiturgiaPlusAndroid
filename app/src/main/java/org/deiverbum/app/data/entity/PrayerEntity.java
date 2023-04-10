@@ -20,15 +20,15 @@ public class PrayerEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "prayerID")
-    public Integer oracionId=0;
+    public Integer oracionId = 0;
 
     @NonNull
     @ColumnInfo(name = "prayer")
-    public String texto="";
+    public String texto = "";
 
     @NonNull
     @ColumnInfo(name = "order")
-    public Integer orden=0;
+    public Integer orden = 0;
 
     @NonNull
     public String getTexto() {
@@ -36,7 +36,7 @@ public class PrayerEntity {
     }
 
     public Prayer getDomainModel() {
-        Prayer dm=new Prayer();
+        Prayer dm = new Prayer();
         dm.setPrayer(texto);
         return dm;
     }

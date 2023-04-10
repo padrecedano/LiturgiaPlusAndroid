@@ -16,11 +16,11 @@ public class Visperas extends BreviaryHour {
     private int isPrevious;
 
 
-    public void setIsPrevious(int isPrevious) {
-        this.isPrevious = isPrevious;
+    public Visperas() {
     }
 
-    public Visperas() {
+    public void setIsPrevious(int isPrevious) {
+        this.isPrevious = isPrevious;
     }
 
     @SuppressWarnings("unused")
@@ -42,13 +42,13 @@ public class Visperas extends BreviaryHour {
     }
 
     @SuppressWarnings("unused")
-    public void setGospelCanticle(LHGospelCanticle gospelCanticle) {
-        this.gospelCanticle = gospelCanticle;
+    public LHGospelCanticle getGospelCanticle() {
+        return gospelCanticle;
     }
 
     @SuppressWarnings("unused")
-    public LHGospelCanticle getGospelCanticle() {
-        return gospelCanticle;
+    public void setGospelCanticle(LHGospelCanticle gospelCanticle) {
+        this.gospelCanticle = gospelCanticle;
     }
 
     public SpannableStringBuilder getForView(LiturgyTime liturgyTime) {

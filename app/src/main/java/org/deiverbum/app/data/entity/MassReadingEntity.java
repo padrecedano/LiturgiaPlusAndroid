@@ -16,16 +16,16 @@ import org.deiverbum.app.model.MassReading;
  */
 
 @Entity(tableName = MASS_READING,
-        primaryKeys = {"liturgyFK","readingFK","theOrder"},
+        primaryKeys = {"liturgyFK", "readingFK", "theOrder"},
         foreignKeys =
                 {
-                       @ForeignKey(
+                        @ForeignKey(
                                 entity = LiturgyEntity.class,
                                 parentColumns = "liturgyID",
                                 childColumns = "liturgyFK",
                                 onDelete = ForeignKey.CASCADE,
                                 onUpdate = ForeignKey.CASCADE),
-                       @ForeignKey(
+                        @ForeignKey(
                                 entity = BibleReadingEntity.class,
                                 parentColumns = "readingID",
                                 childColumns = "readingFK",
@@ -36,19 +36,19 @@ import org.deiverbum.app.model.MassReading;
 public class MassReadingEntity {
     @NonNull
     @ColumnInfo(name = "liturgyFK")
-    public Integer groupFK=0;
+    public Integer groupFK = 0;
 
     @NonNull
     @ColumnInfo(name = "readingFK", index = true)
-    public Integer readingFK=0;
+    public Integer readingFK = 0;
 
     @NonNull
     @ColumnInfo(name = "theOrder")
-    public Integer order=0;
+    public Integer order = 0;
 
     @NonNull
     @ColumnInfo(name = "theme")
-    public String theme="";
+    public String theme = "";
 
     public Integer getOrden() {
         return order;
@@ -59,7 +59,7 @@ public class MassReadingEntity {
     }
 
     public MassReading getDomainModel() {
-        MassReading theModel=new MassReading();
+        MassReading theModel = new MassReading();
         theModel.setTema(getTema());
         theModel.setOrden(getOrden());
         return theModel;

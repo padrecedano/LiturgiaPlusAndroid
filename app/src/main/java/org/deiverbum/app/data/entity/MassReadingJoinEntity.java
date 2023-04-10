@@ -16,7 +16,7 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = MASS_READING_JOIN,
-        indices = {@Index(value = {"liturgyFK","type"}, unique = true)},
+        indices = {@Index(value = {"liturgyFK", "type"}, unique = true)},
         foreignKeys =
                 {
                         @ForeignKey(
@@ -33,11 +33,11 @@ public class MassReadingJoinEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "liturgyFK")
-    public Integer liturgyFK=0;
+    public Integer liturgyFK = 0;
 
     @NonNull
     @ColumnInfo(name = "type")
-    public final Integer type=0;
+    public Integer type = 0;
 
     public int getType() {
         return type;

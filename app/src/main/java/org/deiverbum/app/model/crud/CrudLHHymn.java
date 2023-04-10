@@ -11,7 +11,8 @@ public class CrudLHHymn {
     public List<LHHymn> d;
 
     @SuppressWarnings("unused")
-    public CrudLHHymn() {}
+    public CrudLHHymn() {
+    }
 
 
 }

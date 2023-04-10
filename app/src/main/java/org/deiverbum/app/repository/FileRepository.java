@@ -20,6 +20,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 /**
  * <p>Esta clase obtiene el contenido guardado en archivos para mostrarlo en pantalla.</p>
  * Created by A. Cedano on 2021/11/11
+ *
  * @since 2021.01
  */
 public class FileRepository {
@@ -28,7 +29,7 @@ public class FileRepository {
     @Inject
     public FileRepository(
             FileDataSource fileDataSource
-                          ) {
+    ) {
         this.fileDataSource = fileDataSource;
     }
 
@@ -51,7 +52,8 @@ public class FileRepository {
                     public void onError(@NonNull Throwable e) {
                         finalData.postValue(new DataWrapper<>(new CustomException(Utils.createErrorMessage(e.getMessage()))));
                         dispose();
-                    }});
+                    }
+                });
 
         return finalData;
     }

@@ -6,11 +6,11 @@ public class OracionItem {
     public final String description;
     public final int navId;
 
-    public OracionItem(int id, String title, String description,  int navId) {
-        this.id=id;
+    public OracionItem(int id, String title, String description, int navId) {
+        this.id = id;
         this.title = title;
-        this.description=description;
-        this.navId=navId;
+        this.description = description;
+        this.navId = navId;
     }
 
 }

@@ -9,9 +9,9 @@ import org.deiverbum.app.data.entity.LHResponsoryShortEntity;
 import org.deiverbum.app.model.BiblicalShort;
 
 /**
- *  <p>Obtiene los valores para una lectura bíblica de
- *  la Liturgy de las Horas,
- *  desde las distintas tablas relacionadas.</p>
+ * <p>Obtiene los valores para una lectura bíblica de
+ * la Liturgy de las Horas,
+ * desde las distintas tablas relacionadas.</p>
  *
  * @author A. Cedano
  * @version 1.0
@@ -36,7 +36,7 @@ public class LHReadingShortAll {
     public LHResponsoryShortEntity responsorio;
 
     public BiblicalShort getDomainModel(Integer tiempoId) {
-        BiblicalShort dm=new BiblicalShort();
+        BiblicalShort dm = new BiblicalShort();
         dm.setReadingID(biblica.lecturaId);
         dm.setTexto(biblica.texto);
         dm.setCita(biblica.cita);

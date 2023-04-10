@@ -79,8 +79,7 @@ public class TodayWorker extends Worker {
 
                     @Override
                     public void onError(Throwable e) {
-
-                        Log.d("ERR", e.getMessage());
+                        Log.d("ERR", e.getMessage() == null ? "" : e.getMessage());
                     }
                 });
     }

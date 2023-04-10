@@ -27,9 +27,9 @@ public class Prayer {
 
     public final Spanned getAll() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
-            sb.append(getHeader());
-            sb.append(Utils.LS2);
-            sb.append(Utils.fromHtml(prayer));
+        sb.append(getHeader());
+        sb.append(Utils.LS2);
+        sb.append(Utils.fromHtml(prayer));
 
         return sb;
     }

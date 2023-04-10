@@ -17,29 +17,30 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = LH_INVITATORY,
 
         foreignKeys =
-        {
-                @ForeignKey(
-                        entity = PsalmEntity.class,
-                        parentColumns = "psalmID",
-                        childColumns = "psalmFK",
-                        onDelete = ForeignKey.CASCADE,
-                        onUpdate = ForeignKey.CASCADE)
-        }
+                {
+                        @ForeignKey(
+                                entity = PsalmEntity.class,
+                                parentColumns = "psalmID",
+                                childColumns = "psalmFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE)
+                }
 )
 public class LHInvitatoryEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "caseID")
-    public Integer casoId=0;
+    public Integer casoId = 0;
 
     @NonNull
     @ColumnInfo(name = "psalmFK", index = true)
-    public Integer salmoFK=0;
+    public Integer salmoFK = 0;
 
     @NonNull
     public Integer getSalmoFK() {
         return salmoFK;
     }
+
     public void setSalmoFK(@NonNull Integer salmoFK) {
         this.salmoFK = salmoFK;
     }
@@ -49,6 +50,7 @@ public class LHInvitatoryEntity {
     public Integer getCasoId() {
         return casoId;
     }
+
     @SuppressWarnings("unused")
     public void setCasoId(@NonNull Integer casoId) {
         this.casoId = casoId;

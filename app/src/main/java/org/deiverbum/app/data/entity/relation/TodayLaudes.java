@@ -115,20 +115,20 @@ public class TodayLaudes {
     )
     public MisaWithComentarios comentarios;
 
-    public LHHymn getHimno(){
+    public LHHymn getHimno() {
         return himno.getDomainModel();
     }
 
-    public BiblicalShort getBiblica(){
-        return  biblica.getDomainModel(today.getTiempoId());
+    public BiblicalShort getBiblica() {
+        return biblica.getDomainModel(today.getTiempoId());
     }
 
-    public LHGospelCanticle getBenedictus(){
-        return  benedictus.getDomainModel(2);
+    public LHGospelCanticle getBenedictus() {
+        return benedictus.getDomainModel(2);
     }
 
-    public LHIntercession getPreces(){
-        return  lhIntercessionsDM.getDomainModel();
+    public LHIntercession getPreces() {
+        return lhIntercessionsDM.getDomainModel();
     }
 
     public LHInvitatory getInvitatorio() {
@@ -143,24 +143,24 @@ public class TodayLaudes {
         return lhPrayerAll.getDomainModel();
     }
 
-    public Today getToday(){
+    public Today getToday() {
         Today dm = new Today();
-        dm.saintFK=today.santoFK;
-        dm.liturgyDay=feria.getDomainModel();
+        dm.saintFK = today.santoFK;
+        dm.liturgyDay = feria.getDomainModel();
         dm.setTodayDate(today.getHoy());
         dm.setHasSaint(today.hasSaint);
         return dm;
     }
 
     public Today getDomainModelToday() {
-        Today dmToday=getToday();
-        Liturgy dm= feria.getDomainModel();
-        dm.typeID=2;
-        BreviaryHour bh=new BreviaryHour();
-        Laudes laudes=new Laudes();
+        Today dmToday = getToday();
+        Liturgy dm = feria.getDomainModel();
+        dm.typeID = 2;
+        BreviaryHour bh = new BreviaryHour();
+        Laudes laudes = new Laudes();
         laudes.setTypeId(2);
         laudes.setInvitatorio(getInvitatorio());
-        if(dmToday.getHasSaint()==1 && saint!=null){
+        if (dmToday.getHasSaint() == 1 && saint != null) {
             laudes.setSanto(saint.getDomainModel());
         }
         laudes.setHimno(getHimno());
@@ -171,7 +171,7 @@ public class TodayLaudes {
         laudes.setOracion(getOracion());
         bh.setLaudes(laudes);
         dm.setBreviaryHour(bh);
-        dmToday.liturgyDay=dm;
+        dmToday.liturgyDay = dm;
         return dmToday;
     }
 }

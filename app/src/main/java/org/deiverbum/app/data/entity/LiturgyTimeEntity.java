@@ -21,15 +21,15 @@ public class LiturgyTimeEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "timeID")
-    public Integer tiempoId=0;
+    public Integer tiempoId = 0;
 
     @NonNull
     @ColumnInfo(name = "timeName")
-    public String tiempo="";
+    public String tiempo = "";
 
     @NonNull
     @ColumnInfo(name = "liturgyName")
-    public String liturgyName="";
+    public String liturgyName = "";
 
     @NonNull
     public Integer getTiempoId() {

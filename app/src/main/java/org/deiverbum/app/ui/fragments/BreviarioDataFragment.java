@@ -49,24 +49,82 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class BreviarioDataFragment extends Fragment implements TextToSpeechCallback {
+    public static ActionMode mActionMode;
     private BreviarioViewModel mViewModel;
     private FragmentBreviarioDataBinding binding;
     private ZoomTextView mTextView;
     private ProgressBar progressBar;
     private String mDate;
     private SeekBar seekBar;
-
     private boolean isReading = false;
     private boolean isVoiceOn;
     private boolean hasInvitatory;
-
     private StringBuilder sbReader;
-
     private Menu audioMenu;
     private MenuItem voiceItem;
-
-    public static ActionMode mActionMode;
     private TtsManager mTtsManager;
+    private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+
+            int menuItem = item.getItemId();
+
+            if (menuItem == R.id.audio_play) {
+                readText();
+                audioMenu.findItem(R.id.audio_pause).setVisible(true);
+                audioMenu.findItem(R.id.audio_stop).setVisible(true);
+                item.setVisible(false);
+                return true;
+            }
+
+            if (menuItem == R.id.audio_pause) {
+                mTtsManager.pause();
+                audioMenu.findItem(R.id.audio_resume).setVisible(true);
+                item.setVisible(false);
+                return true;
+            }
+
+            if (menuItem == R.id.audio_resume) {
+                mTtsManager.resume();
+                audioMenu.findItem(R.id.audio_pause).setVisible(true);
+                item.setVisible(false);
+                return true;
+            }
+            if (menuItem == R.id.audio_stop) {
+                mTtsManager.stop();
+                audioMenu.findItem(R.id.audio_play).setVisible(true);
+                audioMenu.findItem(R.id.audio_pause).setVisible(false);
+                audioMenu.findItem(R.id.audio_resume).setVisible(false);
+                item.setVisible(false);
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.contextual_action_bar, menu);
+            audioMenu = menu;
+            @SuppressLint("InflateParams")
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.seekbar, null);
+            mode.setCustomView(view);
+            seekBar = view.findViewById(R.id.seekbar);
+            return true;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            mActionMode = null;
+            cleanTTS();
+            setPlayerButton();
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,7 +177,6 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
         return root;
     }
 
-
     private void setConfiguration() {
         mViewModel =
                 new ViewModelProvider(this).get(BreviarioViewModel.class);
@@ -128,9 +185,9 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
         progressBar = binding.pb.progressBar;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
-        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         String fontFamily = String.format(new Locale("es"), "fonts/%s", prefs.getString("font_name", "robotoslab_regular.ttf"));
         Typeface tf = Typeface.createFromAsset(requireActivity().getAssets(), fontFamily);
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         mTextView.setTypeface(tf);
         hasInvitatory = prefs.getBoolean("invitatorio", false);
         isVoiceOn = prefs.getBoolean("voice", true);
@@ -139,7 +196,6 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
         }
         pickOutDate();
     }
-
 
     private void observeToday() {
         int hourId;
@@ -203,69 +259,6 @@ public class BreviarioDataFragment extends Fragment implements TextToSpeechCallb
         });
         mTtsManager.start();
     }
-
-    private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
-
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-
-            int menuItem = item.getItemId();
-
-            if (menuItem == R.id.audio_play) {
-                readText();
-                audioMenu.findItem(R.id.audio_pause).setVisible(true);
-                audioMenu.findItem(R.id.audio_stop).setVisible(true);
-                item.setVisible(false);
-                return true;
-            }
-
-            if (menuItem == R.id.audio_pause) {
-                mTtsManager.pause();
-                audioMenu.findItem(R.id.audio_resume).setVisible(true);
-                item.setVisible(false);
-                return true;
-            }
-
-            if (menuItem == R.id.audio_resume) {
-                mTtsManager.resume();
-                audioMenu.findItem(R.id.audio_pause).setVisible(true);
-                item.setVisible(false);
-                return true;
-            }
-            if (menuItem == R.id.audio_stop) {
-                mTtsManager.stop();
-                audioMenu.findItem(R.id.audio_play).setVisible(true);
-                audioMenu.findItem(R.id.audio_pause).setVisible(false);
-                audioMenu.findItem(R.id.audio_resume).setVisible(false);
-                item.setVisible(false);
-                return true;
-            }
-            return false;
-        }
-
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            mode.getMenuInflater().inflate(R.menu.contextual_action_bar, menu);
-            audioMenu = menu;
-            @SuppressLint("InflateParams")
-            View view = LayoutInflater.from(getContext()).inflate(R.layout.seekbar, null);
-            mode.setCustomView(view);
-            seekBar = view.findViewById(R.id.seekbar);
-            return true;
-        }
-
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-            mActionMode = null;
-            cleanTTS();
-            setPlayerButton();
-        }
-
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false;
-        }
-    };
 
     @Override
     public void onCompleted() {

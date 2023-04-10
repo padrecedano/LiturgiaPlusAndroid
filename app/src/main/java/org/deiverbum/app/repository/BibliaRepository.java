@@ -17,6 +17,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 /**
  * <p>Repositorio para el módulo Biblia.</p>
+ *
  * @author A. Cedano
  * @since 2022.1
  */
@@ -28,14 +29,14 @@ public class BibliaRepository {
         this.firebaseDataSource = firebaseDataSource;
     }
 
-    public MutableLiveData<DataWrapper<BibleBooks,CustomException>> getLibro(int param) {
+    public MutableLiveData<DataWrapper<BibleBooks, CustomException>> getLibro(int param) {
         MutableLiveData<DataWrapper<BibleBooks, CustomException>> finalData = new MediatorLiveData<>();
         firebaseDataSource.getBiblia(param)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<BibleBooks,CustomException>>() {
+                .subscribe(new DisposableSingleObserver<DataWrapper<BibleBooks, CustomException>>() {
                     @Override
-                    public void onSuccess(@NonNull DataWrapper<BibleBooks,CustomException> data) {
+                    public void onSuccess(@NonNull DataWrapper<BibleBooks, CustomException> data) {
                         finalData.postValue(data);
                         dispose();
                     }
@@ -44,7 +45,8 @@ public class BibliaRepository {
                     public void onError(@NonNull Throwable e) {
                         finalData.postValue(new DataWrapper<>(new CustomException(e.getMessage())));
                         dispose();
-                    }});
+                    }
+                });
 
         return finalData;
     }

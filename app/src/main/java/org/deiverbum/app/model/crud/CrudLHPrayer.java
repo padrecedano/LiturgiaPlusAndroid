@@ -11,7 +11,8 @@ public class CrudLHPrayer {
     public List<LHPrayer> d;
 
     @SuppressWarnings("unused")
-    public CrudLHPrayer() {}
+    public CrudLHPrayer() {
+    }
 
 
 }

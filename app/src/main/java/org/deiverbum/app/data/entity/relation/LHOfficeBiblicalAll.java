@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  <p>Obtiene los valores para una lectura bíblica de
- *  la Liturgy de las Horas,
- *  desde las distintas tablas relacionadas.</p>
+ * <p>Obtiene los valores para una lectura bíblica de
+ * la Liturgy de las Horas,
+ * desde las distintas tablas relacionadas.</p>
  *
  * @author A. Cedano
  * @version 1.0

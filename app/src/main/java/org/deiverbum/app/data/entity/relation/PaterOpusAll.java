@@ -22,15 +22,15 @@ public class PaterOpusAll {
     )
     public PaterEntity paterEntity;
 
-    public String getPaterEntity(){
+    public String getPaterEntity() {
         return paterEntity.getLiturgyName();
     }
 
-    public PaterOpus getDomainModel(){
-        PaterOpus dm=new PaterOpus();
+    public PaterOpus getDomainModel() {
+        PaterOpus dm = new PaterOpus();
         dm.setPater(paterEntity.getDomainModel());
-        dm.opusName =paterOpusEntity.opusName;
-        dm.liturgyName=paterOpusEntity.liturgyName;
+        dm.opusName = paterOpusEntity.opusName;
+        dm.liturgyName = paterOpusEntity.liturgyName;
         return dm;
     }
 }

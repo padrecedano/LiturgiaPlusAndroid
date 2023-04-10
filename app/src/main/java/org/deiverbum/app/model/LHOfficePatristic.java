@@ -13,7 +13,6 @@ import org.deiverbum.app.utils.Utils;
 @SuppressWarnings("SameReturnValue")
 public class LHOfficePatristic {
     public Integer groupFK;
-    private Integer theOrder;
     public Integer homilyFK;
     public Integer responsoryFK;
     public String source;
@@ -30,24 +29,30 @@ public class LHOfficePatristic {
     public PaterOpus paterOpus;
     @Ignore
     public LHResponsory responsorioLargo;
+    private Integer theOrder;
 
     public LHOfficePatristic() {
     }
+
     public String getPadre() {
         return padre;
-    }
-
-    public String getPadreForRead() {
-        return Utils.pointAtEnd(padre);
     }
 
     public void setPadre(String padre) {
         this.padre = padre;
     }
 
+    public String getPadreForRead() {
+        return Utils.pointAtEnd(padre);
+    }
+
     @SuppressWarnings("unused")
     public String getObra() {
         return paterOpus.getOpusForView();
+    }
+
+    public void setObra(String obra) {
+        this.obra = obra;
     }
 
     public String getObraForView() {
@@ -56,10 +61,6 @@ public class LHOfficePatristic {
 
     public String getObraForRead() {
         return Utils.pointAtEnd(obra);
-    }
-
-    public void setObra(String obra) {
-        this.obra = obra;
     }
 
     @SuppressWarnings("unused")
@@ -76,16 +77,20 @@ public class LHOfficePatristic {
         return theme;
     }
 
-    public String getTemaForRead() {
-        return Utils.pointAtEnd(theme);
-    }
-
     public void setTheme(String theme) {
         this.theme = theme;
     }
 
+    public String getTemaForRead() {
+        return Utils.pointAtEnd(theme);
+    }
+
     public String getText() {
         return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Spanned getTextForRead() {
@@ -95,10 +100,6 @@ public class LHOfficePatristic {
     public Spanned getTextoSpan() {
 
         return Utils.fromHtml(text);
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
     @SuppressWarnings("unused")
@@ -131,11 +132,12 @@ public class LHOfficePatristic {
         return "Segunda lectura.";
     }
 
-        /**
-         * <p>Obtiene la lectura patrística completa, incluyendo el responsorio, formateada para la vista.</p>
-         * @since 2022.01
-         * @return Un objeto {@link SpannableStringBuilder con el contenido.}
-         */
+    /**
+     * <p>Obtiene la lectura patrística completa, incluyendo el responsorio, formateada para la vista.</p>
+     *
+     * @return Un objeto {@link SpannableStringBuilder con el contenido.}
+     * @since 2022.01
+     */
     public SpannableStringBuilder getAllForRead() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeaderForRead());
@@ -165,11 +167,11 @@ public class LHOfficePatristic {
         return sb;
     }
 
-    public void setTheOrder(Integer theOrder) {
-        this.theOrder = theOrder;
-    }
-
     public Integer getTheOrder() {
         return this.theOrder;
+    }
+
+    public void setTheOrder(Integer theOrder) {
+        this.theOrder = theOrder;
     }
 }

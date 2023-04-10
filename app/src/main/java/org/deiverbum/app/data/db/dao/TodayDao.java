@@ -116,7 +116,9 @@ import java.util.List;
 public interface TodayDao {
 
     String todayByDate = "SELECT * FROM today AS t WHERE t.todayDate =:theDate";
-    String t=TODAY_TABLE;
+    String t = TODAY_TABLE;
+    //@Query(todayByDate)
+    String sqlSaint = "SELECT * FROM saint AS s WHERE s.theMonth=:theMonth AND theDay =:theDay";
 
     @Query("SELECT * FROM today WHERE todayDate =  :todayDate LIMIT 1")
     LiveData<Today> findByDate(Integer todayDate);
@@ -195,8 +197,6 @@ public interface TodayDao {
     @Query(todayByDate)
     TodayMisaLecturas getMisaLecturas(Integer theDate);
 
-    //@Query(todayByDate)
-    String sqlSaint = "SELECT * FROM saint AS s WHERE s.theMonth=:theMonth AND theDay =:theDay";
     @Transaction
     @Query(sqlSaint)
     TodaySanto getSantoOfToday(int theMonth, int theDay);
@@ -206,10 +206,13 @@ public interface TodayDao {
     TodayHomilias getHomilias(Integer theDate);
 
     @Transaction
-    @Query("SELECT ss.lastUpdate,ss.versionDB,"+
-            "(SELECT max(todayDate) FROM today) tableName "+
-    "FROM sync_status ss;")
+    @Query("SELECT ss.lastUpdate,ss.versionDB," +
+            "(SELECT max(todayDate) FROM today) tableName " +
+            "FROM sync_status ss;")
     LiveData<SyncStatus> getSyncInfo();
+
+    //@Query("SELECT COUNT(*) FROM sync_status")
+    //LiveData<Integer> syncStatusCount();
 
     @Query("SELECT COUNT(*) FROM sync_status")
     int syncStatusCount();
@@ -224,7 +227,6 @@ public interface TodayDao {
             "JOIN homily h ON bhj.homilyFK=h.homilyID "+
             "WHERE t.todayDate =:theDate AND mr.`theOrder` >= 40")*/
     @Query(todayByDate)
-
     TodayComentarios getComentarios(Integer theDate);
 
     @Insert(entity = LHReadingShortJoinEntity.class,
@@ -267,6 +269,7 @@ public interface TodayDao {
     @Insert(entity = BibleReadingEntity.class,
             onConflict = OnConflictStrategy.IGNORE)
     void bibleReadingInsertAll(List<Biblical> bibleReading);
+
     @Update(entity = BibleReadingEntity.class,
             onConflict = OnConflictStrategy.REPLACE)
     void bibleReadingUpdateAll(List<Biblical> list);

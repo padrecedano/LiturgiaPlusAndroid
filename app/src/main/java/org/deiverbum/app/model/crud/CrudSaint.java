@@ -11,6 +11,7 @@ public class CrudSaint {
     public List<Saint> d;
 
     @SuppressWarnings("unused")
-    public CrudSaint() {}
+    public CrudSaint() {
+    }
 
 }

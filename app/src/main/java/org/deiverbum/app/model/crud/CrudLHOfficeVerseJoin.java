@@ -11,6 +11,7 @@ public class CrudLHOfficeVerseJoin {
     public List<LHOfficeVerseJoin> d;
 
     @SuppressWarnings("unused")
-    public CrudLHOfficeVerseJoin() {}
+    public CrudLHOfficeVerseJoin() {
+    }
 
 }

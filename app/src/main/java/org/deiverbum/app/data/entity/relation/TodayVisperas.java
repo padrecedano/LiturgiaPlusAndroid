@@ -89,21 +89,21 @@ public class TodayVisperas {
     )
     public LHGospelCanticleWithAntiphon magnificat;
 
-    public LHHymn getHimno(){
+    public LHHymn getHimno() {
         return himno.getDomainModel();
     }
 
-//TODO incluir algo como hasPriority en TodayEntity
-    public BiblicalShort getBiblica(){
-        return  biblica.getDomainModel(today.getTiempoId());
+    //TODO incluir algo como hasPriority en TodayEntity
+    public BiblicalShort getBiblica() {
+        return biblica.getDomainModel(today.getTiempoId());
     }
 
-    public LHGospelCanticle getMagnificat(){
-        return  magnificat.getDomainModel(6);
+    public LHGospelCanticle getMagnificat() {
+        return magnificat.getDomainModel(6);
     }
 
-    public LHIntercession getPreces(){
-        return  lhIntercessionsDM.getDomainModel();
+    public LHIntercession getPreces() {
+        return lhIntercessionsDM.getDomainModel();
     }
 
     public LHPsalmody getSalmodia() {
@@ -114,26 +114,26 @@ public class TodayVisperas {
         return lhPrayerAll.getDomainModel();
     }
 
-    public Today getToday(){
+    public Today getToday() {
         Today dm = new Today();
-        dm.liturgyDay=feria.getDomainModel();
-        dm.liturgyDay.typeID=6;
-        dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
+        dm.liturgyDay = feria.getDomainModel();
+        dm.liturgyDay.typeID = 6;
+        dm.liturgyPrevious = today.previoId > 1 ? previo.getDomainModel() : null;
         dm.setTodayDate(today.getHoy());
         dm.setHasSaint(today.hasSaint);
-        int previousFK=today.getPrevioId();
+        int previousFK = today.getPrevioId();
         previousFK = previousFK == 1 ? 0 : previousFK;
         dm.setPreviousFK(previousFK);
         return dm;
     }
 
-    public Today getDomainModelToday(){
-        Liturgy dm= feria.getDomainModel();
-        Today dmToday=getToday();
-        dm.typeID=6;
+    public Today getDomainModelToday() {
+        Liturgy dm = feria.getDomainModel();
+        Today dmToday = getToday();
+        dm.typeID = 6;
         dm.setToday(getToday());
-        BreviaryHour bh=new BreviaryHour();
-        Visperas visperas=new Visperas();
+        BreviaryHour bh = new BreviaryHour();
+        Visperas visperas = new Visperas();
         visperas.setIsPrevious(dmToday.previousFK);
         visperas.setToday(getToday());
         visperas.setHimno(getHimno());
@@ -145,7 +145,7 @@ public class TodayVisperas {
         bh.setVisperas(visperas);
 
         dm.setBreviaryHour(bh);
-        dmToday.liturgyDay=dm;
+        dmToday.liturgyDay = dm;
         return dmToday;
     }
 

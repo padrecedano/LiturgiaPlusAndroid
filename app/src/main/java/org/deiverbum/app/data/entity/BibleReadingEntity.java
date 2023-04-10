@@ -22,47 +22,47 @@ import org.deiverbum.app.model.MassReading;
 
 @Entity(tableName = BIBLE_READING,
         foreignKeys =
-        {
-            @ForeignKey(
-                    entity = BiblieBookEntity.class,
-                    parentColumns = "bookID",
-                    childColumns = "bookFK",
-                    onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE)
-        },
-        indices={
-                @Index(value={"bookFK", "verseChapter", "verseFrom", "verseTo"},unique = true)}
+                {
+                        @ForeignKey(
+                                entity = BiblieBookEntity.class,
+                                parentColumns = "bookID",
+                                childColumns = "bookFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE)
+                },
+        indices = {
+                @Index(value = {"bookFK", "verseChapter", "verseFrom", "verseTo"}, unique = true)}
 )
 public class BibleReadingEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "readingID")
-    public Integer lecturaId=0;
+    public Integer lecturaId = 0;
 
     @NonNull
     @ColumnInfo(name = "bookFK")
-    public Integer libroFK=0;
+    public Integer libroFK = 0;
 
     @NonNull
     @ColumnInfo(name = "verseChapter")
-    public Integer capitulo=0;
+    public Integer capitulo = 0;
 
     @NonNull
     @ColumnInfo(name = "verseFrom")
     @SerializedName("versoInicial")
-    public Integer desde=0;
+    public Integer desde = 0;
 
     @NonNull
     @ColumnInfo(name = "verseTo")
-    public Integer hasta=0;
+    public Integer hasta = 0;
 
     @NonNull
     @ColumnInfo(name = "quote")
-    public String cita="";
+    public String cita = "";
 
     @NonNull
     @ColumnInfo(name = "text")
-    public String texto="";
+    public String texto = "";
 
     @SuppressWarnings("unused")
     @NonNull
@@ -96,18 +96,18 @@ public class BibleReadingEntity {
     }
 
 
-    public Biblical getDomainModel(){
-    Biblical theModel=new Biblical();
-    theModel.setCapitulo(String.valueOf(getCapitulo()));
-    theModel.setCita(String.valueOf(getHasta()));
-    theModel.setVersoInicial(String.valueOf(getDesde()));
-    theModel.setVersoFinal(String.valueOf(getHasta()));
-    theModel.setTexto(getTexto());
-    return theModel;
-}
+    public Biblical getDomainModel() {
+        Biblical theModel = new Biblical();
+        theModel.setCapitulo(String.valueOf(getCapitulo()));
+        theModel.setCita(String.valueOf(getHasta()));
+        theModel.setVersoInicial(String.valueOf(getDesde()));
+        theModel.setVersoFinal(String.valueOf(getHasta()));
+        theModel.setTexto(getTexto());
+        return theModel;
+    }
 
-    public MassReading getDomainModelMisa(){
-        MassReading theModel=new MassReading();
+    public MassReading getDomainModelMisa() {
+        MassReading theModel = new MassReading();
         theModel.setCapitulo(String.valueOf(getCapitulo()));
         theModel.setCita(String.valueOf(getHasta()));
         theModel.setVersoInicial(String.valueOf(getDesde()));

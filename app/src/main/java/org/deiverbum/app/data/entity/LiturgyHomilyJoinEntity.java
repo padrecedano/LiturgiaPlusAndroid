@@ -14,36 +14,36 @@ import androidx.room.ForeignKey;
  */
 
 @Entity(tableName = LITURGY_HOMILY_JOIN,
-        primaryKeys = {"liturgyFK","homilyFK"},
+        primaryKeys = {"liturgyFK", "homilyFK"},
         foreignKeys =
-        {
-                @ForeignKey(
-                        entity = LiturgyEntity.class,
-                        parentColumns = "liturgyID",
-                        childColumns = "liturgyFK",
-                        onDelete = ForeignKey.CASCADE,
-                        onUpdate = ForeignKey.CASCADE),
-                @ForeignKey(
-                        entity = HomilyEntity.class,
-                        parentColumns = "homilyID",
-                        childColumns = "homilyFK",
-                        onDelete = ForeignKey.CASCADE,
-                        onUpdate = ForeignKey.CASCADE)
-        }
+                {
+                        @ForeignKey(
+                                entity = LiturgyEntity.class,
+                                parentColumns = "liturgyID",
+                                childColumns = "liturgyFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE),
+                        @ForeignKey(
+                                entity = HomilyEntity.class,
+                                parentColumns = "homilyID",
+                                childColumns = "homilyFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE)
+                }
 )
 public class LiturgyHomilyJoinEntity {
 
     @NonNull
     @ColumnInfo(name = "liturgyFK")
-    public Integer liturgiaFK=0;
+    public Integer liturgiaFK = 0;
 
     @NonNull
-    @ColumnInfo(name = "homilyFK",index = true)
-    public Integer homiliaFK=0;
+    @ColumnInfo(name = "homilyFK", index = true)
+    public Integer homiliaFK = 0;
 
     @NonNull
     @ColumnInfo(name = "theme", defaultValue = "")
-    public String tema="";
+    public String tema = "";
 
     @SuppressWarnings("unused")
     public int getLiturgiaFK() {
@@ -54,6 +54,7 @@ public class LiturgyHomilyJoinEntity {
     public int getHomiliaFK() {
         return homiliaFK;
     }
+
     @NonNull
     public String getTema() {
         return tema;

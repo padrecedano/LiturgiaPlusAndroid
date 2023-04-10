@@ -21,17 +21,18 @@ import java.util.List;
 
 /**
  * <p>
- *     Este Fragmento maneja lo relativo al módulo <b>Breviary</b>.
- *     Muestra un <code>RecyclerView</code> con las diferentes oraciones
- *     de la Liturgy de las Horas.
+ * Este Fragmento maneja lo relativo al módulo <b>Breviary</b>.
+ * Muestra un <code>RecyclerView</code> con las diferentes oraciones
+ * de la Liturgy de las Horas.
  * </p>
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
  */
-public class BreviarioFragment extends Fragment{
-    private FragmentBreviarioBinding binding;
+public class BreviarioFragment extends Fragment {
     RecyclerView recyclerView;
+    private FragmentBreviarioBinding binding;
     private List<BreviarioItem> mList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -55,21 +56,21 @@ public class BreviarioFragment extends Fragment{
 
     private void prepareItems() {
         int colorGrupo1 =
-                ContextCompat.getColor(requireActivity(),R.color.color_fondo_grupo1);
+                ContextCompat.getColor(requireActivity(), R.color.color_fondo_grupo1);
         int colorGrupo2 = ContextCompat.getColor(requireActivity(),
                 R.color.color_fondo_grupo2);
 
-        mList.add(new BreviarioItem("Oficio+Laudes", colorGrupo1, "M",R.id.nav_mixto));
-        mList.add(new BreviarioItem("Oficio", colorGrupo1, "O",R.id.nav_oficio));
-        mList.add(new BreviarioItem("Laudes",  colorGrupo1, "L",R.id.nav_laudes));
+        mList.add(new BreviarioItem("Oficio+Laudes", colorGrupo1, "M", R.id.nav_mixto));
+        mList.add(new BreviarioItem("Oficio", colorGrupo1, "O", R.id.nav_oficio));
+        mList.add(new BreviarioItem("Laudes", colorGrupo1, "L", R.id.nav_laudes));
 
-        mList.add(new BreviarioItem("Tercia",  colorGrupo2, "T",R.id.nav_tercia));
-        mList.add(new BreviarioItem("Sexta",  colorGrupo2, "S",R.id.nav_sexta));
-        mList.add(new BreviarioItem("Nona", colorGrupo2, "N",R.id.nav_nona));
+        mList.add(new BreviarioItem("Tercia", colorGrupo2, "T", R.id.nav_tercia));
+        mList.add(new BreviarioItem("Sexta", colorGrupo2, "S", R.id.nav_sexta));
+        mList.add(new BreviarioItem("Nona", colorGrupo2, "N", R.id.nav_nona));
 
-        mList.add(new BreviarioItem("Vísperas",  colorGrupo1, "V",R.id.nav_visperas));
-        mList.add(new BreviarioItem("Completas",  colorGrupo1, "C",R.id.nav_completas));
-        mList.add(new BreviarioItem("Más...", colorGrupo1, "+",R.id.nav_breviario_mas));
+        mList.add(new BreviarioItem("Vísperas", colorGrupo1, "V", R.id.nav_visperas));
+        mList.add(new BreviarioItem("Completas", colorGrupo1, "C", R.id.nav_completas));
+        mList.add(new BreviarioItem("Más...", colorGrupo1, "+", R.id.nav_breviario_mas));
     }
 }
 

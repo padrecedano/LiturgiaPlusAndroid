@@ -33,19 +33,19 @@ public class SaintLifeEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "saintFK")
-    public Integer saintFK=0;
+    public Integer saintFK = 0;
 
     @NonNull
     @ColumnInfo(name = "longLife")
-    public String longLife="";
+    public String longLife = "";
 
     @NonNull
     @ColumnInfo(name = "martyrology")
-    public String martyrology="";
+    public String martyrology = "";
 
     @NonNull
     @ColumnInfo(name = "theSource")
-    public String theSource="";
+    public String theSource = "";
 
     @NonNull
     public Integer getSaintFK() {
@@ -83,8 +83,8 @@ public class SaintLifeEntity {
         this.theSource = theSource;
     }
 
-    public SaintLife getDomainModel(){
-        SaintLife theModel=new SaintLife();
+    public SaintLife getDomainModel() {
+        SaintLife theModel = new SaintLife();
         theModel.setLongLife(getLongLife());
         theModel.setSaintFK(getSaintFK());
         theModel.setMartyrology(getMartyrology());

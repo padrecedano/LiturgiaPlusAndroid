@@ -27,7 +27,7 @@ public class LHGospelCanticleWithAntiphon {
     }
 
     public LHGospelCanticle getDomainModel(Integer tipo) {
-        LHGospelCanticle ce=new LHGospelCanticle();
+        LHGospelCanticle ce = new LHGospelCanticle();
         ce.setTypeID(tipo);
         ce.setAntiphon(getAntifona());
         return ce;

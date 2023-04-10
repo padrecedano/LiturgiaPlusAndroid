@@ -27,7 +27,7 @@ public class SantosRepository {
 
 
     @Inject
-    public SantosRepository(FirebaseDataSource firebaseDataSource,TodayDao todayDao) {
+    public SantosRepository(FirebaseDataSource firebaseDataSource, TodayDao todayDao) {
         this.firebaseDataSource = firebaseDataSource;
         this.mTodayDao = todayDao;
 
@@ -38,6 +38,7 @@ public class SantosRepository {
      * Buscará únicamente en Firestore mediante
      * {@link FirebaseDataSource#getSantos(int[])}
      * y si no encuentra, devolverá un objeto {@link DataWrapper} con error.
+     *
      * @param monthAndDay El mes y el día a buscar
      */
     public void getData(int[] monthAndDay) {
@@ -48,13 +49,13 @@ public class SantosRepository {
                         CustomException>>() {
 
                     @Override
-                    public void onSuccess(DataWrapper<SaintLife,CustomException> data) {
+                    public void onSuccess(DataWrapper<SaintLife, CustomException> data) {
                         mData.postValue(data);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        String msg=String.format("%s%s",e.getMessage(),
+                        String msg = String.format("%s%s", e.getMessage(),
                                 ERR_REPORT);
                         mData.postValue(new DataWrapper<>(new CustomException(msg)));
                         //loadFromApi(Utils.cleanDate(param));
@@ -63,9 +64,9 @@ public class SantosRepository {
     }
 
     public MediatorLiveData<DataWrapper<SaintLife, CustomException>> getSaintDB(int[] monthAndDay) {
-        SaintLife theModel=mTodayDao.getSantoOfToday(monthAndDay[0],monthAndDay[1]).getDomainModel();
+        SaintLife theModel = mTodayDao.getSantoOfToday(monthAndDay[0], monthAndDay[1]).getDomainModel();
         if (theModel != null) {
-                mData.postValue(new DataWrapper<>(theModel));
+            mData.postValue(new DataWrapper<>(theModel));
         } else {
             getData(monthAndDay);
         }
