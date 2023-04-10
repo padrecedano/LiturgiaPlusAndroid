@@ -23,15 +23,17 @@ import org.deiverbum.app.databinding.FragmentFileBinding;
 import org.deiverbum.app.model.Book;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.viewmodel.FileViewModel;
+
 import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * <p>
- *     Este Fragmento coordina la obtención de datos que provienen de archivos
- *     guardados en el directorio res/raw.
+ * Este Fragmento coordina la obtención de datos que provienen de archivos
+ * guardados en el directorio res/raw.
  * </p>
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
@@ -56,9 +58,9 @@ public class FileFragment extends Fragment {
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
         mTextView = binding.include.tvClickable;
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        String fontFamily = String.format(new Locale("es"),"fonts/%s",prefs.getString("font_name", "robotoslab_regular.ttf"));
-        Typeface tf= Typeface.createFromAsset(requireActivity().getAssets(),fontFamily);
-        mTextView .setTypeface(tf);
+        String fontFamily = String.format(new Locale("es"), "fonts/%s", prefs.getString("font_name", "robotoslab_regular.ttf"));
+        Typeface tf = Typeface.createFromAsset(requireActivity().getAssets(), fontFamily);
+        mTextView.setTypeface(tf);
         mTextView.setMovementMethod(LinkMovementMethod.getInstance());
         mTextView.setClickable(true);
         observeBook();
@@ -79,7 +81,7 @@ public class FileFragment extends Fragment {
                         }
                     });
         }
-      }
+    }
 
     public boolean isNightMode() {
         int nightModeFlags = requireActivity().getApplicationContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;

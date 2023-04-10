@@ -17,25 +17,25 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = LH_GOSPEL_CANTICLE,
 
         foreignKeys =
-        {
-            @ForeignKey(
-                    entity = LHAntiphonEntity.class,
-                    parentColumns = "antiphonID",
-                    childColumns = "antiphonFK",
-                    onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE)
-        }
+                {
+                        @ForeignKey(
+                                entity = LHAntiphonEntity.class,
+                                parentColumns = "antiphonID",
+                                childColumns = "antiphonFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE)
+                }
 )
 public class LHGospelCanticleEntity {
 
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    public Integer grupoId=0;
+    public Integer grupoId = 0;
 
     @NonNull
-    @ColumnInfo(name = "antiphonFK",index = true)
-    public Integer antifonaFK=0;
+    @ColumnInfo(name = "antiphonFK", index = true)
+    public Integer antifonaFK = 0;
 
 }
 

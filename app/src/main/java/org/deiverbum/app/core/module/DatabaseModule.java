@@ -26,9 +26,9 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-    public static AppDatabase provideDatabase(Application application){
-        return Room.databaseBuilder(application,AppDatabase.class,
-                "LiturgiaPlusDB")
+    public static AppDatabase provideDatabase(Application application) {
+        return Room.databaseBuilder(application, AppDatabase.class,
+                        "LiturgiaPlusDB")
                 .createFromAsset("database/liturgia_202301000.db")
                 .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
@@ -37,7 +37,7 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-    public static TodayDao provideTodayDao(AppDatabase appDB){
+    public static TodayDao provideTodayDao(AppDatabase appDB) {
         return appDB.todayDao();
     }
 }

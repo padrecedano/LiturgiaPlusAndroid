@@ -8,16 +8,15 @@
 
     <include
         android:id="@+id/include"
-        app:layout_constraintTop_toBottomOf="parent"
         layout="@layout/tv_zoomable_with_button"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+        app:layout_constraintTop_toBottomOf="parent" />
 
 
     <include
         android:id="@+id/pb"
         layout="@layout/progressbar" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

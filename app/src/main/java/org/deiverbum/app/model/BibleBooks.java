@@ -56,14 +56,14 @@ public class BibleBooks {
     }
 
     public SpannableStringBuilder getForView(boolean isNightMode) {
-        ColorUtils.isNightMode=isNightMode;
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        ColorUtils.isNightMode = isNightMode;
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(Utils.fromHtml(getIntro()));
         return sb;
     }
 
     public StringBuilder getForRead() {
-        StringBuilder sb=new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         sb.append(Utils.fromHtml(Utils.stripQuotation(getIntro())));
         return sb;
     }

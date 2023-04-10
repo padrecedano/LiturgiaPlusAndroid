@@ -24,17 +24,18 @@ import java.util.Objects;
 
 /**
  * <p>
- *     Este Fragmento maneja lo relativo al módulo <b>Oraciones</b>.
- *     Muestra un <code>RecyclerView</code> con las diferentes oraciones
- *     de la Liturgy de las Horas.
+ * Este Fragmento maneja lo relativo al módulo <b>Oraciones</b>.
+ * Muestra un <code>RecyclerView</code> con las diferentes oraciones
+ * de la Liturgy de las Horas.
  * </p>
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
  */
-public class OracionesFragment extends Fragment{
-    private FragmentOracionesBinding binding;
+public class OracionesFragment extends Fragment {
     RecyclerView recyclerView;
+    private FragmentOracionesBinding binding;
     private List<OracionItem> mList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -59,16 +60,16 @@ public class OracionesFragment extends Fragment{
     }
 
     private void prepareItems() {
-        mList.add(new OracionItem(1,"Misterios Gloriosos", "Domingos y Miércoles",R.id.nav_rosario));
-        mList.add(new OracionItem(2,"Misterios Gozosos", "Lunes y Sábados",R.id.nav_rosario));
-        mList.add(new OracionItem(3,"Misterios Dolorosos", "Martes y Viernes",R.id.nav_rosario));
-        mList.add(new OracionItem(4,"Misterios Luminosos", "Jueves",R.id.nav_rosario));
-        mList.add(new OracionItem(5,"Letanías Lauretanas", "Solamente las Letanías",R.id.nav_rosario));
-        mList.add(new OracionItem(6,"Ángelus", "Recuerda la Encarnación de Cristo",R.id.nav_rosario));
-        mList.add(new OracionItem(7,"Regina Coeli", "En lugar del Àngelus, en el tiempo de Pascua",R.id.nav_rosario));
-        mList.add(new OracionItem(8,"Via Crucis 2003", "Con meditaciones de Juan Pablo II",R.id.nav_rosario));
-        mList.add(new OracionItem(9,"Via Crucis 2005", "Con meditaciones de Joseph Ratzinger",R.id.nav_rosario));
-       //mAdapter.notifyDataSetChanged();
+        mList.add(new OracionItem(1, "Misterios Gloriosos", "Domingos y Miércoles", R.id.nav_rosario));
+        mList.add(new OracionItem(2, "Misterios Gozosos", "Lunes y Sábados", R.id.nav_rosario));
+        mList.add(new OracionItem(3, "Misterios Dolorosos", "Martes y Viernes", R.id.nav_rosario));
+        mList.add(new OracionItem(4, "Misterios Luminosos", "Jueves", R.id.nav_rosario));
+        mList.add(new OracionItem(5, "Letanías Lauretanas", "Solamente las Letanías", R.id.nav_rosario));
+        mList.add(new OracionItem(6, "Ángelus", "Recuerda la Encarnación de Cristo", R.id.nav_rosario));
+        mList.add(new OracionItem(7, "Regina Coeli", "En lugar del Àngelus, en el tiempo de Pascua", R.id.nav_rosario));
+        mList.add(new OracionItem(8, "Via Crucis 2003", "Con meditaciones de Juan Pablo II", R.id.nav_rosario));
+        mList.add(new OracionItem(9, "Via Crucis 2005", "Con meditaciones de Joseph Ratzinger", R.id.nav_rosario));
+        //mAdapter.notifyDataSetChanged();
     }
 
     private void pickOutDate() {
@@ -76,8 +77,8 @@ public class OracionesFragment extends Fragment{
         String dateString;
         if (bundle != null) {
             dateString = bundle.getString("FECHA") == null ? Utils.getHoy() : bundle.getString("FECHA");
-        }else{
-            dateString=Utils.getHoy();
+        } else {
+            dateString = Utils.getHoy();
         }
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         Objects.requireNonNull(actionBar).setSubtitle(Utils.getTitleDate(dateString));

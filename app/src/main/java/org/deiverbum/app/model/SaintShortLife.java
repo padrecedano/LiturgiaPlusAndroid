@@ -1,11 +1,12 @@
 package org.deiverbum.app.model;
 
 public class SaintShortLife {
-    public Integer saintFK=0;
-    public String shortLife="";
+    public Integer saintFK = 0;
+    public String shortLife = "";
 
     @SuppressWarnings("unused")
-    public SaintShortLife() {}
+    public SaintShortLife() {
+    }
 
     public Integer getSaintFK() {
         return saintFK;

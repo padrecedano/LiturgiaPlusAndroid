@@ -16,39 +16,40 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = LH_INVITATORY_JOIN,
         foreignKeys =
-        {
-                @ForeignKey(
-                        entity = LHInvitatoryEntity.class,
-                        parentColumns = "caseID",
-                        childColumns = "caseFK",
-                        onDelete = ForeignKey.CASCADE,
-                        onUpdate = ForeignKey.CASCADE),
-                @ForeignKey(
-                        entity = LHAntiphonEntity.class,
-                        parentColumns = "antiphonID",
-                        childColumns = "antiphonFK",
-                        onDelete = ForeignKey.CASCADE,
-                        onUpdate = ForeignKey.CASCADE)
-        }
+                {
+                        @ForeignKey(
+                                entity = LHInvitatoryEntity.class,
+                                parentColumns = "caseID",
+                                childColumns = "caseFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE),
+                        @ForeignKey(
+                                entity = LHAntiphonEntity.class,
+                                parentColumns = "antiphonID",
+                                childColumns = "antiphonFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE)
+                }
 )
 public class LHInvitatoryJoinEntity {
 
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    public Integer grupoId=0;
+    public Integer grupoId = 0;
 
     @NonNull
     @ColumnInfo(name = "antiphonFK", index = true)
-    public Integer antifonaFK=0;
+    public Integer antifonaFK = 0;
 
     @NonNull
     @ColumnInfo(name = "caseFK", index = true)
-    public Integer casoFK=0;
+    public Integer casoFK = 0;
 
     public int getSalmoFK() {
-        return  antifonaFK;
+        return antifonaFK;
     }
+
     public int getGrupoId() {
         return grupoId;
     }

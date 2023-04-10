@@ -11,7 +11,8 @@ public class CrudLiturgy {
     public List<Liturgy> d;
 
     @SuppressWarnings("unused")
-    public CrudLiturgy() {}
+    public CrudLiturgy() {
+    }
 
 
 }

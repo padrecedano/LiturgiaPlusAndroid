@@ -11,7 +11,8 @@ public class CrudMassReadingJoin {
     public List<MassReadingJoin> d;
 
     @SuppressWarnings("unused")
-    public CrudMassReadingJoin() {}
+    public CrudMassReadingJoin() {
+    }
 
 
 }

@@ -10,5 +10,6 @@ public class CrudLHOfficePatristicJoin {
     public List<LHOfficePatristicJoin> d;
 
     @SuppressWarnings("unused")
-    public CrudLHOfficePatristicJoin() {}
+    public CrudLHOfficePatristicJoin() {
+    }
 }

@@ -80,19 +80,19 @@ public class TodayTercia {
     )
     public LiturgyWithTime previo;
 
-    public Today getToday(){
+    public Today getToday() {
         Today dm = new Today();
-        dm.liturgyDay=feria.getDomainModel();
-        dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
+        dm.liturgyDay = feria.getDomainModel();
+        dm.liturgyPrevious = today.previoId > 1 ? previo.getDomainModel() : null;
         dm.setTodayDate(today.getHoy());
         return dm;
     }
 
-    public Liturgy getDomainModel(){
-        Liturgy dm= feria.getDomainModel();
-        BreviaryHour bh=new BreviaryHour();
-        Intermedia hi=new Intermedia();
-        dm.typeID=3;
+    public Liturgy getDomainModel() {
+        Liturgy dm = feria.getDomainModel();
+        BreviaryHour bh = new BreviaryHour();
+        Intermedia hi = new Intermedia();
+        dm.typeID = 3;
         hi.setToday(getToday());
         hi.setHimno(getHimno());
         hi.setSalmodia(getSalmodia());
@@ -103,12 +103,12 @@ public class TodayTercia {
         return dm;
     }
 
-    public Today getDomainModelToday(){
-        Liturgy dm= feria.getDomainModel();
-        BreviaryHour bh=new BreviaryHour();
-        Intermedia hi=new Intermedia();
-        Today dmToday=getToday();
-        dm.typeID=3;
+    public Today getDomainModelToday() {
+        Liturgy dm = feria.getDomainModel();
+        BreviaryHour bh = new BreviaryHour();
+        Intermedia hi = new Intermedia();
+        Today dmToday = getToday();
+        dm.typeID = 3;
         hi.setTypeId(3);
         hi.setHimno(getHimno());
         hi.setSalmodia(getSalmodia());
@@ -116,15 +116,16 @@ public class TodayTercia {
         hi.setOracion(getOracion());
         bh.setIntermedia(hi);
         dm.setBreviaryHour(bh);
-        dmToday.liturgyDay=dm;
+        dmToday.liturgyDay = dm;
         return dmToday;
     }
-    public LHHymn getHimno(){
+
+    public LHHymn getHimno() {
         return himno.getDomainModel();
     }
 
-    public BiblicalShort getBiblica(){
-        return  biblica.getDomainModel(today.getTiempoId());
+    public BiblicalShort getBiblica() {
+        return biblica.getDomainModel(today.getTiempoId());
     }
 
     public LHPsalmody getSalmodia() {

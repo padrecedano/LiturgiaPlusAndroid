@@ -8,6 +8,8 @@ package org.deiverbum.app.utils;
 
 public interface TextToSpeechCallback {
     void onStart();
+
     void onCompleted();
+
     void onError();
 }

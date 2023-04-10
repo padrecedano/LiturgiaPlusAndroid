@@ -29,10 +29,6 @@ public class TtsManager implements TextToSpeech.OnInitListener {
     private int mTextProgress = 0;
     private boolean mIsPlaying;
 
-    public interface TextSpeechProgressListener {
-        void onProgressChanged(int current, int max);
-    }
-
     public TtsManager(Context context, String text, String splitRegex, @Nullable TextSpeechProgressListener listener) {
         mTexts = text.split(splitRegex);
         mProgressListener = listener;
@@ -48,10 +44,12 @@ public class TtsManager implements TextToSpeech.OnInitListener {
             }
 
             @Override
-            public void onStart(String utteranceId) {}
+            public void onStart(String utteranceId) {
+            }
 
             @Override
-            public void onError(String utteranceId) {}
+            public void onError(String utteranceId) {
+            }
         });
     }
 
@@ -62,7 +60,6 @@ public class TtsManager implements TextToSpeech.OnInitListener {
         bundle.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM, AudioManager.STREAM_MUSIC);
         mTts.speak(mTexts[mTextProgress], TextToSpeech.QUEUE_FLUSH, bundle, "TTS_ID");
     }
-
 
     public void start() {
         mIsPlaying = true;
@@ -119,5 +116,9 @@ public class TtsManager implements TextToSpeech.OnInitListener {
     public void close() {
         mTts.stop();
         mTts.shutdown();
+    }
+
+    public interface TextSpeechProgressListener {
+        void onProgressChanged(int current, int max);
     }
 }

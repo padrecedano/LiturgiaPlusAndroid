@@ -13,12 +13,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class LHOfficeOfReadingEaster extends LHOfficeOfReading {
-    @SuppressWarnings("unused")
-    private String metaInfo;
-    private List<LHOfficeBiblicalEaster> biblical;
     public LHPsalmody lhPsalmody;
     @Ignore
     transient TeDeum teDeum;
+    @SuppressWarnings("unused")
+    private String metaInfo;
+    private List<LHOfficeBiblicalEaster> biblical;
 
     public LHOfficeOfReadingEaster() {
     }

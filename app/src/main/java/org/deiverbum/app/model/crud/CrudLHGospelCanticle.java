@@ -11,7 +11,8 @@ public class CrudLHGospelCanticle {
     public List<LHGospelCanticleTable> d;
 
     @SuppressWarnings("unused")
-    public CrudLHGospelCanticle() {}
+    public CrudLHGospelCanticle() {
+    }
 
 
 }

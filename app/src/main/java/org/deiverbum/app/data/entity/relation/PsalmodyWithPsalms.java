@@ -3,12 +3,12 @@ package org.deiverbum.app.data.entity.relation;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import org.deiverbum.app.data.entity.LHAntiphonEntity;
 import org.deiverbum.app.data.entity.EpigraphEntity;
+import org.deiverbum.app.data.entity.LHAntiphonEntity;
+import org.deiverbum.app.data.entity.LHPsalmodyEntity;
 import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
 import org.deiverbum.app.data.entity.LHThemeEntity;
 import org.deiverbum.app.data.entity.PsalmEntity;
-import org.deiverbum.app.data.entity.LHPsalmodyEntity;
 
 /**
  * @author A. Cedano
@@ -53,32 +53,32 @@ public class PsalmodyWithPsalms {
     )
     public EpigraphEntity epigrafe;
 
-    public String getEpigrafe(){
-        return epigrafe!=null ? epigrafe.getEpigrafe() : "";
+    public String getEpigrafe() {
+        return epigrafe != null ? epigrafe.getEpigrafe() : "";
     }
 
-    public String getSalmoText(){
-            return (psalmEntity !=null) ? psalmEntity.getSalmo() : "";
+    public String getSalmoText() {
+        return (psalmEntity != null) ? psalmEntity.getSalmo() : "";
     }
 
-    public String getRef(){
-            return (psalmEntity !=null) ? psalmEntity.getSalmoRef() : "";
+    public String getRef() {
+        return (psalmEntity != null) ? psalmEntity.getSalmoRef() : "";
     }
 
-    public String getAntifona(){
-            return (antiphonEntity !=null) ? antiphonEntity.getAntifona() : "";
+    public String getAntifona() {
+        return (antiphonEntity != null) ? antiphonEntity.getAntifona() : "";
     }
 
-    public String getTema(){
-        return (tema!=null) ? tema.getTema() : "";
+    public String getTema() {
+        return (tema != null) ? tema.getTema() : "";
     }
 
-    public String getParte(){
-            return salmodia.getParte() ;
+    public String getParte() {
+        return salmodia.getParte();
     }
 
-    public String getOrden(){
-        return (salmodia!=null) ? String.valueOf(salmodia.getOrden()) : "0";
+    public String getOrden() {
+        return (salmodia != null) ? String.valueOf(salmodia.getOrden()) : "0";
     }
 
 }

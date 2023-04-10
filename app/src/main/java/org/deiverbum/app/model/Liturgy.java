@@ -18,30 +18,27 @@ import java.util.Locale;
 
 public class Liturgy {
     @Ignore
-    protected LiturgyTime liturgyTime;
-    private Integer week;
-    private Integer day;
-    private Integer colorFK;
-    private String name;
-    @Ignore
     public LHInvitatory lhInvitatory;
     @Ignore
     @PropertyName("typeId")
     public int typeID;
-
     @Ignore
-    private BreviaryHour breviaryHour;
-    private Integer liturgyID;
-    private Integer typeFK;
-    private Integer timeFK;
+    protected LiturgyTime liturgyTime;
     @Ignore
     protected Saint santo;
     @Ignore
     protected Today today;
     @Ignore
-    protected MetaLiturgia metaLiturgia;
-    @Ignore
     protected boolean hasSaint;
+    private Integer week;
+    private Integer day;
+    private Integer colorFK;
+    private String name;
+    @Ignore
+    private BreviaryHour breviaryHour;
+    private Integer liturgyID;
+    private Integer typeFK;
+    private Integer timeFK;
 
     public Liturgy() {
     }
@@ -98,16 +95,16 @@ public class Liturgy {
         return timeFK;
     }
 
+    public void setTiempoFK(Integer tiempoFK) {
+        this.timeFK = tiempoFK;
+    }
+
     public Integer getTipoFK() {
         return typeFK;
     }
 
     public void setTipoFK(Integer tipoFK) {
         this.typeFK = tipoFK;
-    }
-
-    public void setTiempoFK(Integer tiempoFK) {
-        this.timeFK = tiempoFK;
     }
 
     public Integer getColorFK() {
@@ -152,9 +149,6 @@ public class Liturgy {
         this.name = nombre;
     }
 
-    public MetaLiturgia getMetaLiturgia() {
-        return this.metaLiturgia;
-    }
 
     public Today getToday() {
         return today;
@@ -164,25 +158,20 @@ public class Liturgy {
         this.today = today;
     }
 
-    @SuppressWarnings("unused")
-    public void setMetaLiturgia(MetaLiturgia metaLiturgia) {
-        this.metaLiturgia = metaLiturgia;
+    public int getDia() {
+        return this.day;
     }
 
     public void setDia(Integer dia) {
         this.day = dia;
     }
 
-    public void setSemana(Integer semana) {
-        this.week = semana;
-    }
-
-    public int getDia() {
-        return this.day;
-    }
-
     public int getSemana() {
         return this.week;
+    }
+
+    public void setSemana(Integer semana) {
+        this.week = semana;
     }
 
     @SuppressWarnings("unused")
@@ -202,7 +191,16 @@ public class Liturgy {
         try {
             this.timeFK = liturgyTime.getTimeID();
             if (
-                    this.timeFK >= 8 || this.timeFK == 1 && this.day > 16 || this.timeFK == 2 || this.timeFK == 3 && this.week == 0 || this.timeFK == 4 || this.timeFK == 5 || this.week >= 35 || this.timeFK == 6 && this.week == 6 && this.typeFK < 4 || this.timeFK == 6 && this.week == 1 || this.day == 0 || this.timeFK >= 1 && this.day == 1
+                    this.timeFK >= 8 ||
+                            this.timeFK == 1 && this.day > 16 ||
+                            this.timeFK == 2 ||
+                            this.timeFK == 3 && this.week == 0 ||
+                            this.timeFK == 4 ||
+                            this.timeFK == 5 ||
+                            this.week >= 35 ||
+                            this.timeFK == 6 && this.week == 6 && this.typeFK < 4 ||
+                            this.timeFK == 6 && this.week == 1 && this.day != 1 ||
+                            this.day == 0
 
             ) {
                 return getTimeWithTitleForRead();
@@ -212,8 +210,8 @@ public class Liturgy {
         } catch (Exception e) {
             return Utils.createErrorMessage(e.getMessage());
         }
-        //return ssb;
     }
+
     @NonNull
     public String toString() {
         return
@@ -237,19 +235,19 @@ public class Liturgy {
         this.lhInvitatory = invitatorio;
     }
 
-    public void setBreviaryHour(BreviaryHour bh) {
-        this.breviaryHour = bh;
-    }
     public BreviaryHour getBreviaryHour() {
         return this.breviaryHour;
     }
 
+    public void setBreviaryHour(BreviaryHour bh) {
+        this.breviaryHour = bh;
+    }
 
     /**
      * Devuelve el saludo inicial de la liturgia
      *
-     * @since 2023.1
      * @return El texto formateado para la vista
+     * @since 2023.1
      */
     public SpannableStringBuilder getSaludoInicial() {
         SpannableStringBuilder ssb = new SpannableStringBuilder("");
@@ -263,6 +261,6 @@ public class Liturgy {
     }
 
     public void setHasSaint(boolean hasSaint) {
-        this.hasSaint=hasSaint;
+        this.hasSaint = hasSaint;
     }
 }

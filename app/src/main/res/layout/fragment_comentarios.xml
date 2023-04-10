@@ -8,10 +8,10 @@
 
     <include
         android:id="@+id/include"
-        app:layout_constraintTop_toBottomOf="parent"
         layout="@layout/tv_zoomable"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+        app:layout_constraintTop_toBottomOf="parent" />
     <!--
 
             <ProgressBar
@@ -29,7 +29,9 @@
                 app:layout_constraintVertical_bias="0.0" />
     -->
     <RelativeLayout
-        android:layout_width="match_parent" android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
@@ -37,9 +39,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="100dp"
             android:layout_marginTop="200dp"
-            android:minHeight="70dp"
-            android:minWidth="200dp"
             android:indeterminate="true"
+            android:minWidth="200dp"
+            android:minHeight="70dp"
             android:progress="0" />
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,25 +13,25 @@ import androidx.room.PrimaryKey;
  * @since 2023.1
  */
 
-@Entity(tableName = "liturgy_group", indices = {@Index(value = {"liturgyFK"},unique =
+@Entity(tableName = "liturgy_group", indices = {@Index(value = {"liturgyFK"}, unique =
         true)},
         foreignKeys =
                 {
-        @ForeignKey(
-                entity = LiturgyEntity.class,
-                parentColumns = "liturgyID",
-                childColumns = "liturgyFK",
-                onDelete = ForeignKey.CASCADE,
-                onUpdate = ForeignKey.CASCADE)})
+                        @ForeignKey(
+                                entity = LiturgyEntity.class,
+                                parentColumns = "liturgyID",
+                                childColumns = "liturgyFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE)})
 public class LiturgyGroupEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    public Integer groupID=0;
+    public Integer groupID = 0;
 
     @NonNull
     @ColumnInfo(name = "liturgyFK")
-    public Integer liturgyFK=0;
+    public Integer liturgyFK = 0;
 
 }
 

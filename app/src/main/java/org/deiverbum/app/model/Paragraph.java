@@ -19,14 +19,12 @@ public class Paragraph {
 
     /**
      * No args constructor for use in serialization
-     *
      */
     @SuppressWarnings("unused")
     public Paragraph() {
     }
 
     /**
-     *
      * @param text Texto del párrafo
      */
     @SuppressWarnings("unused")

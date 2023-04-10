@@ -13,7 +13,8 @@ public class CrudSaintShortLife {
 
 
     @SuppressWarnings("unused")
-    public CrudSaintShortLife() {}
+    public CrudSaintShortLife() {
+    }
 
 
 }

@@ -11,7 +11,8 @@ public class CrudLHIntercessions {
     public List<LHIntercession> d;
 
     @SuppressWarnings("unused")
-    public CrudLHIntercessions() {}
+    public CrudLHIntercessions() {
+    }
 
 
 }

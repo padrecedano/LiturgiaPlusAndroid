@@ -14,37 +14,38 @@ import androidx.room.ForeignKey;
  */
 
 @Entity(tableName = BIBLE_HOMILY_JOIN,
-        primaryKeys = {"readingFK","homilyFK"},
+        primaryKeys = {"readingFK", "homilyFK"},
         foreignKeys =
-        {
+                {
 
-                @ForeignKey(
-                        entity = BibleReadingEntity.class,
-                        parentColumns = "readingID",
-                        childColumns = "readingFK",
-                        onDelete = ForeignKey.CASCADE,
-                        onUpdate = ForeignKey.CASCADE),
-                @ForeignKey(
-                        entity = HomilyEntity.class,
-                        parentColumns = "homilyID",
-                        childColumns = "homilyFK",
-                        onDelete = ForeignKey.CASCADE,
-                        onUpdate = ForeignKey.CASCADE)
-        }
+                        @ForeignKey(
+                                entity = BibleReadingEntity.class,
+                                parentColumns = "readingID",
+                                childColumns = "readingFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE),
+                        @ForeignKey(
+                                entity = HomilyEntity.class,
+                                parentColumns = "homilyID",
+                                childColumns = "homilyFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE)
+                }
 )
 public class BibleHomilyJoinEntity {
 
     @NonNull
     @ColumnInfo(name = "readingFK")
-    public Integer readingFK=0;
+    public Integer readingFK = 0;
 
     @NonNull
-    @ColumnInfo(name = "homilyFK",index = true)
-    public Integer homilyFK=0;
+    @ColumnInfo(name = "homilyFK", index = true)
+    public Integer homilyFK = 0;
 
     public int getReadingFK() {
         return readingFK;
     }
+
     public int getHomilyFK() {
         return homilyFK;
     }

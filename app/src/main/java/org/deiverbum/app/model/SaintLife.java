@@ -17,15 +17,15 @@ import java.util.HashMap;
 
 @SuppressWarnings("SameReturnValue")
 public class SaintLife {
-    private Integer saintFK;
     @PropertyName("vida")
     public String longLife;
-    @PropertyName("martirologio")
-    private String martyrology;
-    private String theSource ="";
     @Ignore
     @PropertyName("nombre")
     public String name;
+    private Integer saintFK;
+    @PropertyName("martirologio")
+    private String martyrology;
+    private String theSource = "";
     @Ignore
     @PropertyName("dia")
     private String dia;
@@ -83,6 +83,7 @@ public class SaintLife {
     public SpannableStringBuilder getMartirologioSpan() {
         return Utils.toSmallSize(martyrology);
     }
+
     public SpannableStringBuilder getVidaSpan() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(Utils.fromHtml("<hr>"));
@@ -100,7 +101,7 @@ public class SaintLife {
     }
 
     public SpannableStringBuilder getForView(boolean nightMode) {
-        ColorUtils.isNightMode=nightMode;
+        ColorUtils.isNightMode = nightMode;
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
             sb.append(Utils.toH3Red(getMonthName(mes)));
@@ -123,6 +124,7 @@ public class SaintLife {
     public SpannableStringBuilder getMartirologioTitleSpan() {
         return Utils.toSmallSize("(Martirologio Romano)");
     }
+
     public StringBuilder getForRead() {
         StringBuilder sb = new StringBuilder();
         try {
@@ -186,7 +188,7 @@ public class SaintLife {
         monthNames.put(10, "Octubre");
         monthNames.put(11, "Noviembre");
         monthNames.put(12, "Diciembre");
-        Integer theMonth=Integer.valueOf(mes);
+        Integer theMonth = Integer.valueOf(mes);
         return String.format("%s de %s", dia, monthNames.get(theMonth));
     }
 }

@@ -11,7 +11,8 @@ public class CrudLHHymnJoin {
     public List<LHHymnJoin> d;
 
     @SuppressWarnings("unused")
-    public CrudLHHymnJoin() {}
+    public CrudLHHymnJoin() {
+    }
 
 
 }

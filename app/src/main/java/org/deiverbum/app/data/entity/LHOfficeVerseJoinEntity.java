@@ -17,25 +17,25 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = LH_OFFICE_VERSE_JOIN,
 
         foreignKeys =
-        {
-                @ForeignKey(
-                        entity = LHOfficeVerseEntity.class,
-                        parentColumns = "verseID",
-                        childColumns = "verseFK",
-                        onDelete = ForeignKey.CASCADE,
-                        onUpdate = ForeignKey.CASCADE)
-        }
+                {
+                        @ForeignKey(
+                                entity = LHOfficeVerseEntity.class,
+                                parentColumns = "verseID",
+                                childColumns = "verseFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE)
+                }
 )
 public class LHOfficeVerseJoinEntity {
 
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    public Integer grupoId=0;
+    public Integer grupoId = 0;
 
     @NonNull
-    @ColumnInfo(name = "verseFK",index = true)
-    public Integer versoFK=0;
+    @ColumnInfo(name = "verseFK", index = true)
+    public Integer versoFK = 0;
 
     public int getResponsorioFK() {
         return versoFK;

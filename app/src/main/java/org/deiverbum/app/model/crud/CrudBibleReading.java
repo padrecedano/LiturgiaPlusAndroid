@@ -11,7 +11,8 @@ public class CrudBibleReading {
     public List<Biblical> d;
 
     @SuppressWarnings("unused")
-    public CrudBibleReading() {}
+    public CrudBibleReading() {
+    }
 
 
 }

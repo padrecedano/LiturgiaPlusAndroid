@@ -10,7 +10,7 @@ import java.util.List;
  * @version 1.0
  * @since 2022.1
  */
-    public class Intro {
+public class Intro {
 
     @SerializedName("content")
     @Expose

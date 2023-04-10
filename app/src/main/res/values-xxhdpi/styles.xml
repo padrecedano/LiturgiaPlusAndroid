@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_font_recycler">45px</dimen>
+    <dimen name="default_icon_recycler">40sp</dimen>
+</resources>

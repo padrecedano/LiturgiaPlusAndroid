@@ -37,7 +37,6 @@ import java.util.Objects;
 
 /**
  * Clase utilitaria que se usa en varias partes de la aplicación
- *
  */
 @SuppressWarnings("all")
 public final class Utils {
@@ -48,11 +47,6 @@ public final class Utils {
     public static final float H2 = 1.7f;
     public static final float H3 = 1.4f;
     public static final float H4 = 1.1f;
-    public static boolean isNightMode;
-
-    public static void setNightMode(boolean nightMode){
-        //nightMode=nightMode;
-    }
 
     public static SpannableStringBuilder formatTitle(String sOrigen) {
         SpannableStringBuilder ssb = new SpannableStringBuilder(toUpper(sOrigen));
@@ -77,7 +71,6 @@ public final class Utils {
         return ssb;
     }
 
-
     public static SpannableStringBuilder ssbSmallSize(SpannableStringBuilder ssb) {
         RelativeSizeSpan smallSizeText = new RelativeSizeSpan(0.8f);
         ssb.setSpan(CharacterStyle.wrap(smallSizeText), 0, ssb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -91,9 +84,7 @@ public final class Utils {
         spannableString.setSpan(CharacterStyle.wrap(smallSizeText), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.append(spannableString);
         return ssb;
-
     }
-
 
     public static SpannableStringBuilder toSmallSizes(Spanned sOrigen) {
         RelativeSizeSpan smallSizeText = new RelativeSizeSpan(0.8f);
@@ -103,7 +94,6 @@ public final class Utils {
         ssb.append(spannableString);
         return ssb;
     }
-
 
     public static SpannableStringBuilder toSmallSizeRed(String sOrigen) {
         RelativeSizeSpan smallSizeText = new RelativeSizeSpan(0.8f);
@@ -213,7 +203,7 @@ public final class Utils {
     }
 
     public static String toRedFont(String s) {
-     return String.format("<font color=\"%s\">%s</font>",ColorUtils.getRedCode(),s);
+        return String.format("<font color=\"%s\">%s</font>", ColorUtils.getRedCode(), s);
     }
 
     public static SpannableStringBuilder toRedNew(SpannableStringBuilder sOrigen) {
@@ -303,8 +293,8 @@ public final class Utils {
                 .replace("~", BR)
                 .replace("¦", NBSP_4)
                 .replace("⊣", BR + NBSP_4)
-                .replace("≠", String.format("%s %s ",NBSP_SALMOS,toRedFont(PRECES_R)))
-                .replace("∞", String.format("%s%s",BRS,toRedFont(PRECES_IL)))
+                .replace("≠", String.format("%s %s ", NBSP_SALMOS, toRedFont(PRECES_R)))
+                .replace("∞", String.format("%s%s", BRS, toRedFont(PRECES_IL)))
                 .replace("⊚", OBIEN)
                 .replace("†", toRedFont(" † "))
                 .replace("⊓", toRedFont(" N. "))
@@ -338,7 +328,6 @@ public final class Utils {
      * @param sOrigen Cadena original para hacer el reemplazo
      * @return La cadena formateada
      * @since 2023.1
-     *
      */
     public static String getFormatoForRead(String sOrigen) {
         String sFormateado;
@@ -392,11 +381,11 @@ public final class Utils {
                 .replace("⊝", " ")
                 .replace("⊟", " ")
                 .replace("⊓", " ")
-                .replaceAll("(?s)[\\[rubrica].*?/rubrica]", "")
 
         ;
         return sFormateado;
     }
+
     public static String replaceByTime(String mText, int timeID) {
         String sFormateado;
         if (timeID == 6) {
@@ -482,7 +471,6 @@ public final class Utils {
                 .replace("⊝", " ")
                 .replace("⊟", " ")
                 .replace("⊓", " ")
-                .replaceAll("(?s)[\\[rubrica].*?/rubrica]", "")
         ;
         return sFormateado.trim();
     }
@@ -510,13 +498,13 @@ public final class Utils {
     public static int getTodayMinus(int minusDays) {
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            String today=LocalDate.now().minusDays(minusDays).format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+            String today = LocalDate.now().minusDays(minusDays).format(DateTimeFormatter.ofPattern("yyyyMMdd"));
             return Integer.parseInt(today);
         }
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.add(Calendar.DATE, -minusDays);
-        String s= df.format(cal.getTime());
+        String s = df.format(cal.getTime());
         return Integer.parseInt(s);
     }
 
@@ -534,15 +522,15 @@ public final class Utils {
     /**
      * Método que devuelve la fecha de formato DateTime en formato yyyyMMdd
      *
-     * @return Una cadena con la fecha
      * @param s La Fecha en formato DateTime
+     * @return Una cadena con la fecha
      */
 
     public static String formatDate(String s) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", new Locale("es", "ES"));
         Date dateObj;
         try {
-            dateObj = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",new Locale("es", "ES")).parse(s);
+            dateObj = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", new Locale("es", "ES")).parse(s);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -569,10 +557,10 @@ public final class Utils {
      */
 
     public static String getLongDate(String dateString) {
-        Locale loc=new Locale("es", "ES");
+        Locale loc = new Locale("es", "ES");
         SimpleDateFormat longFormat =
                 new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy", loc);
-        DateFormat df = new SimpleDateFormat("yyyyMMdd",loc);
+        DateFormat df = new SimpleDateFormat("yyyyMMdd", loc);
         try {
             return longFormat.format(Objects.requireNonNull(df.parse(dateString)));
         } catch (ParseException e) {
@@ -589,8 +577,8 @@ public final class Utils {
 
     public static String getTitleDate(String dateString) {
         SimpleDateFormat sdf =
-                new SimpleDateFormat("dd 'de' MMMM yyyy", new Locale("es", "ES"));
-        DateFormat df = new SimpleDateFormat("yyyyMMdd",Locale.getDefault());
+                new SimpleDateFormat("d '-' MMMM yyyy", new Locale("es", "ES"));
+        DateFormat df = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         try {
             return sdf.format(Objects.requireNonNull(df.parse(dateString)));
         } catch (ParseException e) {
@@ -610,10 +598,10 @@ public final class Utils {
         Calendar c = Calendar.getInstance();
         int[] monthAndDay = new int[2];
         try {
-            Date theDate = new SimpleDateFormat("yyyyMMdd",new Locale("es", "ES")).parse(dateString);
+            Date theDate = new SimpleDateFormat("yyyyMMdd", new Locale("es", "ES")).parse(dateString);
             c.setTime(Objects.requireNonNull(theDate));
-            monthAndDay[0]=c.get(Calendar.MONTH)+1;
-            monthAndDay[1]=c.get(Calendar.DAY_OF_MONTH);
+            monthAndDay[0] = c.get(Calendar.MONTH) + 1;
+            monthAndDay[1] = c.get(Calendar.DAY_OF_MONTH);
             return monthAndDay;
         } catch (ParseException e) {
             return null;
@@ -622,30 +610,30 @@ public final class Utils {
 
     @SuppressWarnings("unused")
     public static int getDayOfWeek(Integer theDate) {
-        String dateString=String.valueOf(theDate);
+        String dateString = String.valueOf(theDate);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMdd", new Locale("en", "US"));
             LocalDate ld = LocalDate.parse(dateString, dtf);
             int dow = ld.getDayOfWeek().getValue();
-            return (dow==7) ? 1 : dow+1;
+            return (dow == 7) ? 1 : dow + 1;
         } else {
             return getDayOfWeekOld(theDate);
         }
     }
 
     public static int getDayOfWeekOld(Integer theDate) {
-        String dateString=String.valueOf(theDate);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd",Locale.getDefault());
-            Calendar c = Calendar.getInstance();
-            try {
-                Date date = sdf.parse(dateString);
-                c.setFirstDayOfWeek(Calendar.SUNDAY);
-                c.setTime(Objects.requireNonNull(date));
-                return c.get(Calendar.DAY_OF_WEEK);
-            } catch (ParseException e) {
-                c = Calendar.getInstance();
-                return c.get(Calendar.DAY_OF_WEEK);
-            }
+        String dateString = String.valueOf(theDate);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        Calendar c = Calendar.getInstance();
+        try {
+            Date date = sdf.parse(dateString);
+            c.setFirstDayOfWeek(Calendar.SUNDAY);
+            c.setTime(Objects.requireNonNull(date));
+            return c.get(Calendar.DAY_OF_WEEK);
+        } catch (ParseException e) {
+            c = Calendar.getInstance();
+            return c.get(Calendar.DAY_OF_WEEK);
+        }
     }
 
     /**
@@ -688,7 +676,7 @@ public final class Utils {
     }
 
     public static String createErrorMessage(String msg) {
-        return String.format(new Locale("es"),"Ha ocurrido el siguiente error:%s%s %s%s %sVersión de la aplicación: %s", LS2,msg, LS2,ERR_REPORT, LS2,VERSION_CODE);
+        return String.format(new Locale("es"), "Ha ocurrido el siguiente error:%s%s %s%s %sVersión de la aplicación: %s", LS2, msg, LS2, ERR_REPORT, LS2, VERSION_CODE);
     }
 
     /**
@@ -774,7 +762,7 @@ public final class Utils {
         SpannableString spannableString = new SpannableString(sOrigen);
         spannableString.setSpan(CharacterStyle.wrap(h2), 0,
                 spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            spannableString.setSpan(CharacterStyle.wrap(ColorUtils.getRed()), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(CharacterStyle.wrap(ColorUtils.getRed()), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ssb.append(spannableString);
         return ssb;
     }

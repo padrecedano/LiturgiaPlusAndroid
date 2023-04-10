@@ -5,6 +5,7 @@ import androidx.room.Relation;
 
 import org.deiverbum.app.data.entity.LiturgyEntity;
 import org.deiverbum.app.data.entity.MassReadingEntity;
+import org.deiverbum.app.data.entity.MassReadingJoinEntity;
 import org.deiverbum.app.data.entity.TodayEntity;
 import org.deiverbum.app.model.MassReading;
 import org.deiverbum.app.model.MassReadingList;
@@ -38,27 +39,34 @@ public class TodayMisaLecturas {
     public LiturgyWithTime previo;
 
     @Relation(
+            entity = MassReadingJoinEntity.class,
+            parentColumn = "massReadingFK",
+            entityColumn = "liturgyFK")
+    public MassReadingJoinEntity joinTable;
+
+    @Relation(
             entity = MassReadingEntity.class,
             parentColumn = "massReadingFK",
             entityColumn = "liturgyFK")
     public List<MassReadingWithAll> lecturas;
 
-    public Today getToday(){
+    public Today getToday() {
         Today dm = new Today();
-        dm.liturgyDay=feria.getDomainModel();
-        dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
+        dm.liturgyDay = feria.getDomainModel();
+        dm.liturgyPrevious = today.previoId > 1 ? previo.getDomainModel() : null;
         dm.setTodayDate(today.getHoy());
         dm.setHasSaint(today.hasSaint);
         dm.setMLecturasFK(today.mLecturasFK);
         return dm;
     }
 
-    public MassReadingList getDomainModel(){
-        MassReadingList dm=new MassReadingList();
+    public MassReadingList getDomainModel() {
+        MassReadingList dm = new MassReadingList();
         dm.setToday(getToday());
+        dm.type = joinTable.type;
         List<MassReading> listModel = new ArrayList<>();
         for (MassReadingWithAll item : lecturas) {
-                listModel.add(item.getDomainModel());
+            listModel.add(item.getDomainModel());
         }
         dm.setLecturas(listModel);
         dm.sort();

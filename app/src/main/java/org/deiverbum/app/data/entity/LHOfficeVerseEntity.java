@@ -21,11 +21,11 @@ public class LHOfficeVerseEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "verseID")
-    public Integer versoId=0;
+    public Integer versoId = 0;
 
     @NonNull
     @ColumnInfo(name = "verse")
-    public String verso="";
+    public String verso = "";
 
     public String getResponsorio() {
         return verso;

@@ -24,17 +24,18 @@ import okhttp3.Response;
 
 public class ConnectivityIntecepter implements Interceptor {
     final Context context;
-    public ConnectivityIntecepter(Context context){
+
+    public ConnectivityIntecepter(Context context) {
         this.context = context;
     }
 
     @NotNull
     @Override
     public Response intercept(@NotNull Chain chain) throws IOException {
-        int connectionStatus=getConnectionType();
-        if (connectionStatus==0){
+        int connectionStatus = getConnectionType();
+        if (connectionStatus == 0) {
             throw new NoConnectivityException();
-        }else {
+        } else {
             return chain.proceed(chain.request());
         }
     }

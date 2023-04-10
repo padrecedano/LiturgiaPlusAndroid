@@ -26,6 +26,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
  *     <li>Firebase</li>
  *     <li>Api</li>
  * </ul>
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
@@ -53,16 +54,17 @@ public class HomiliasRepository {
      * Primero buscará en Firestore mediante {@link FirebaseDataSource#getHomilias(String)}
      * y si no encuentra, buscará en la Api mediante {@link ApiService#getHomilias(String)}
      * La llamada a la Api se hará desde el onError
+     *
      * @param param El parámetro a buscar, en principio la fecha, quizá también un Id
      */
     public void getData(String param) {
         firebaseDataSource.getHomilias(param)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<DataWrapper<Homily,CustomException>>() {
+                .subscribe(new DisposableSingleObserver<DataWrapper<Homily, CustomException>>() {
 
                     @Override
-                    public void onSuccess(DataWrapper<Homily,CustomException> data) {
+                    public void onSuccess(DataWrapper<Homily, CustomException> data) {
                         mData.postValue(data);
                     }
 
@@ -79,8 +81,10 @@ public class HomiliasRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<Homily>() {
 
-                    @Override public void onStart() {
+                    @Override
+                    public void onStart() {
                     }
+
                     @Override
                     public void onSuccess(Homily r) {
                         mData.postValue(new DataWrapper<>(r));

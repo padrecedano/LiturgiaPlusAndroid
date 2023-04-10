@@ -2,11 +2,14 @@
 <resources>
     <!-- Customize your Primary color here. -->
     <color name="colorPrimary">#1D2430</color>
-    <color name="colorPrimaryDark">#1D2530</color>
+    <color name="colorPrimaryDark">@color/md_theme_dark_primary</color>
     <color name="colorLink">@color/amber_50</color>
     <color name="colorInput">#FFD600</color>
 
-    <color name="colorSurface">#000000</color>
+    <color name="colorSurface">@color/md_theme_dark_primary</color>
+    <color name="transparent">@color/md_theme_dark_primary</color>
+    <color name="colorMainIcon">@color/md_theme_dark_outline</color>
+    <color name="color_mainrecycler_text">@color/amber_900</color>
 
     <color name="colorOnSurface">#FFD600</color>
     <color name="colorOnSurfaceVariant">#FFD600</color>
@@ -14,28 +17,26 @@
     <color name="text_color">#B3FFFFFF</color>
     <color name="text_background">#0D0D0D</color>
 
-    <color name="colorBreviario">#0D0D0D</color>
-    <color name="colorMisa">#0D0D0D</color>
-    <color name="colorHomilias">#0D0D0D</color>
+    <color name="colorBreviario">@color/md_theme_dark_onSecondary</color>
+    <color name="colorMisa">@color/md_theme_dark_onSecondary</color>
+    <color name="colorHomilias">@color/md_theme_dark_onSecondary</color>
 
-    <color name="colorSantos">#0D0D0D</color>
-    <color name="colorMain_lecturas_img">#0D0D0D</color>
-    <color name="colorMain_evangelio_img">#0D0D0D</color>
+    <color name="colorSantos">@color/md_theme_dark_onSecondary</color>
+    <color name="colorMain_lecturas_img">@color/md_theme_dark_onSecondary</color>
+    <color name="colorMain_evangelio_img">@color/md_theme_dark_onSecondary</color>
 
-    <color name="colorCalendario">#0D0D0D</color>
-    <color name="colorOraciones">#0D0D0D</color>
-    <color name="colorBiblia">#0D0D0D</color>
+    <color name="colorCalendario">@color/md_theme_dark_onSecondary</color>
+    <color name="colorOraciones">@color/md_theme_dark_onSecondary</color>
+    <color name="colorBiblia">@color/md_theme_dark_onSecondary</color>
 
-    <color name="colorPadres">#0D0D0D</color>
-    <color name="colorSacramentos">#0D0D0D</color>
-    <color name="colorMain_img_mas">#0D0D0D</color>
-    <color name="colorMainIcon">#BDBDBD</color>
+    <color name="colorPadres">@color/md_theme_dark_onSecondary</color>
+    <color name="colorSacramentos">@color/md_theme_dark_onSecondary</color>
+    <color name="colorMain_img_mas">@color/md_theme_dark_onSecondary</color>
     <color name="colorMainItem">@color/amber_200</color>
     <color name="color_fondo_grupo2">#373737</color>
     <color name="color_rv_subtitle">@color/amber_200</color>
     <color name="color_rv_oraciones">@color/amber_50</color>
     <color name="txt_salterio">@color/color_fondo_rv</color>
-
 
 
     <!-- Customize your icon here.

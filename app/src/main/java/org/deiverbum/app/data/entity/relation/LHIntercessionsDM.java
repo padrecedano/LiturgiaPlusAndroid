@@ -24,7 +24,7 @@ public class LHIntercessionsDM {
     public LHIntercessionsEntity preces;
 
     public LHIntercession getDomainModel() {
-        LHIntercession theModel=new LHIntercession();
+        LHIntercession theModel = new LHIntercession();
         theModel.setIntro(preces.intro);
         theModel.setIntercession(preces.preces);
         return theModel;

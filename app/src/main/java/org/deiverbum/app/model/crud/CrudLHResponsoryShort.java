@@ -11,7 +11,8 @@ public class CrudLHResponsoryShort {
     public List<LHResponsoryShort> d;
 
     @SuppressWarnings("unused")
-    public CrudLHResponsoryShort() {}
+    public CrudLHResponsoryShort() {
+    }
 
 
 }

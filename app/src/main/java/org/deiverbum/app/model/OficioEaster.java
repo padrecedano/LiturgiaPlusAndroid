@@ -7,8 +7,7 @@ import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
-public class OficioEaster extends BreviaryHour
-{
+public class OficioEaster extends BreviaryHour {
 
     private LHInvitatory invitatorio;
     private LHOfficeOfReadingEaster officeOfReadingEaster;

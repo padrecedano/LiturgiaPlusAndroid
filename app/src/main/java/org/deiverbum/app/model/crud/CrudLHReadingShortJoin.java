@@ -11,7 +11,8 @@ public class CrudLHReadingShortJoin {
     public List<LHReadingShortJoin> d;
 
     @SuppressWarnings("unused")
-    public CrudLHReadingShortJoin() {}
+    public CrudLHReadingShortJoin() {
+    }
 
 
 }

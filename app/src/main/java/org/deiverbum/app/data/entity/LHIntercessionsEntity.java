@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = LH_INTERCESSIONS,
-        indices = {@Index(value = {"intro","intercession"}, unique = true)}
+        indices = {@Index(value = {"intro", "intercession"}, unique = true)}
 )
 
 public class LHIntercessionsEntity {
@@ -23,15 +23,15 @@ public class LHIntercessionsEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "intercessionID")
-    public Integer precesId=0;
+    public Integer precesId = 0;
 
     @NonNull
     @ColumnInfo(name = "intro")
-    public String intro="";
+    public String intro = "";
 
     @NonNull
     @ColumnInfo(name = "intercession")
-    public String preces="";
+    public String preces = "";
 
 }
 

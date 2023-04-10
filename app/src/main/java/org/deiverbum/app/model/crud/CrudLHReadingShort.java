@@ -11,7 +11,8 @@ public class CrudLHReadingShort {
     public List<LHReadingShort> d;
 
     @SuppressWarnings("unused")
-    public CrudLHReadingShort() {}
+    public CrudLHReadingShort() {
+    }
 
 
 }

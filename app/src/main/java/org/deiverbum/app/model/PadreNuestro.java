@@ -26,13 +26,13 @@ public final class PadreNuestro {
         return sb;
     }
 
-    public SpannableStringBuilder getAllForRead() {
+    public static SpannableStringBuilder getTexto() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         sb.append(Utils.fromHtml(texto));
         return sb;
     }
 
-    public static SpannableStringBuilder getTexto() {
+    public SpannableStringBuilder getAllForRead() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         sb.append(Utils.fromHtml(texto));
         return sb;

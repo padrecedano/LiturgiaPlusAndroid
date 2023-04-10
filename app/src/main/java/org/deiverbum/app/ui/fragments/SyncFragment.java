@@ -5,6 +5,7 @@ import static org.deiverbum.app.utils.Constants.SYNC_LABEL;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.TypedValue;
@@ -31,6 +32,7 @@ import org.deiverbum.app.utils.ZoomTextView;
 import org.deiverbum.app.viewmodel.SyncViewModel;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
@@ -38,17 +40,12 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class SyncFragment extends Fragment {
+    public static ActionMode mActionMode;
     private SyncViewModel mViewModel;
-
     private FragmentSyncBinding binding;
     private ZoomTextView mTextView;
-
     private ProgressBar progressBar;
-    //private MaterialButton mButton;
-
     private ExtendedFloatingActionButton mButton;
-    public static ActionMode mActionMode;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -67,7 +64,11 @@ public class SyncFragment extends Fragment {
         progressBar = binding.progressBar;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
+        String fontFamily = String.format(new Locale("es"), "fonts/%s", prefs.getString("font_name", "robotoslab_regular.ttf"));
+        Typeface tf = Typeface.createFromAsset(requireActivity().getAssets(), fontFamily);
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+        mTextView.setTypeface(tf);
+
         mButton = binding.include.btnEmail;
         mButton.setVisibility(View.GONE);
 
@@ -77,13 +78,13 @@ public class SyncFragment extends Fragment {
             observeData();
         });
 
-        if(!isWorkScheduled()){
+        if (!isWorkScheduled()) {
             progressBar.setVisibility(View.GONE);
             mTextView.setText(Utils.fromHtml(new SyncStatus().getLastUpdate(isNightMode())));
             mButton.setIconResource(R.drawable.ic_refresh_black_24dp);
             mButton.setText(SYNC_LABEL);
             mButton.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             observeData();
         }
     }
@@ -93,7 +94,7 @@ public class SyncFragment extends Fragment {
         mViewModel.getObservable().observe(getViewLifecycleOwner(),
                 data -> {
                     progressBar.setVisibility(View.GONE);
-                    if (data!=null) {
+                    if (data != null) {
                         mTextView.setText(Utils.fromHtml(data.getAll(isNightMode())));
                     } else {
                         mTextView.setText(Utils.fromHtml(new SyncStatus().getLastUpdate(isNightMode())));

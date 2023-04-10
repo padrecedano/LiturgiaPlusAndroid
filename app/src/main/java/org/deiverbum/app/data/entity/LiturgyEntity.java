@@ -14,54 +14,54 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = "liturgy",
-        indices = {@Index(value = {"timeFK","typeFK", "week", "day"}, unique = true)},
+        indices = {@Index(value = {"timeFK", "typeFK", "week", "day"}, unique = true)},
 
         foreignKeys =
-        {
-            @ForeignKey(
-                    entity = LiturgyTimeEntity.class,
-                    parentColumns = "timeID",
-                    childColumns = "timeFK",
-                    onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE),
-            @ForeignKey(
-                    entity = LiturgyColorEntity.class,
-                    parentColumns = "colorID",
-                    childColumns = "colorFK",
-                    onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE)
-        }
+                {
+                        @ForeignKey(
+                                entity = LiturgyTimeEntity.class,
+                                parentColumns = "timeID",
+                                childColumns = "timeFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE),
+                        @ForeignKey(
+                                entity = LiturgyColorEntity.class,
+                                parentColumns = "colorID",
+                                childColumns = "colorFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE)
+                }
 )
 public class LiturgyEntity {
 
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "liturgyID")
-    public Integer liturgiaId=0;
+    public Integer liturgiaId = 0;
 
     @NonNull
     @ColumnInfo(name = "timeFK")
-    public Integer tiempoFK=0;
+    public Integer tiempoFK = 0;
 
     @NonNull
     @ColumnInfo(name = "typeFK")
-    public Integer tipoFK=0;
+    public Integer tipoFK = 0;
 
     @NonNull
     @ColumnInfo(name = "week")
-    public Integer semana=0;
+    public Integer semana = 0;
 
     @NonNull
     @ColumnInfo(name = "day")
-    public Integer dia=0;
+    public Integer dia = 0;
 
     @NonNull
     @ColumnInfo(name = "colorFK", index = true)
-    public Integer colorFK=0;
+    public Integer colorFK = 0;
 
     @NonNull
     @ColumnInfo(name = "name")
-    public String nombre="";
+    public String nombre = "";
 
     @NonNull
     public Integer getLiturgiaId() {

@@ -35,12 +35,12 @@ public class Homily {
     public Homily() {
     }
 
-    public void setHomilias(List<HomilyList> homilias) {
-        this.homilias = homilias;
-    }
-
     public List<HomilyList> getHomilias() {
         return this.homilias;
+    }
+
+    public void setHomilias(List<HomilyList> homilias) {
+        this.homilias = homilias;
     }
 
     @SuppressWarnings("unused")
@@ -53,7 +53,7 @@ public class Homily {
     }
 
     public SpannableStringBuilder getForView(boolean isNightMode) {
-        ColorUtils.isNightMode=isNightMode;
+        ColorUtils.isNightMode = isNightMode;
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
             //sb.append(LS2);
@@ -85,6 +85,6 @@ public class Homily {
     }
 
     public void setHoy(Today today) {
-        this.today=today;
+        this.today = today;
     }
 }

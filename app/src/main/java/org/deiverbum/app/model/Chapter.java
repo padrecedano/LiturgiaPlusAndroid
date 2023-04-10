@@ -55,13 +55,13 @@ public class Chapter {
 
     public SpannableStringBuilder getAllForView(int bookType) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        if(bookType==10) {
-            String chapter = String.format(new Locale("es"),"%s. %s", id, Utils.fromHtml(title));
+        if (bookType == 10) {
+            String chapter = String.format(new Locale("es"), "%s. %s", id, Utils.fromHtml(title));
             sb.append(Utils.toH2RedNew(chapter));
-                sb.append(LS2);
+            sb.append(LS2);
         }
 
-        if(bookType==21) {
+        if (bookType == 21) {
             sb.append("\t\t");
             sb.append(Utils.toH4Red(String.valueOf(id)));
             sb.append(Utils.toRed(".- "));
@@ -69,19 +69,19 @@ public class Chapter {
         for (Content c : content) {
             sb.append(c.getByType());
         }
-            return sb;
-        }
+        return sb;
+    }
 
 
     public SpannableStringBuilder getAllForHtml(int bookType) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        if(bookType==10) {
-            String chapter = String.format(new Locale("es"),"%s. %s", id, title);
+        if (bookType == 10) {
+            String chapter = String.format(new Locale("es"), "%s. %s", id, title);
             sb.append(Utils.toH2RedNew(chapter));
             sb.append(LS2);
         }
 
-        if(bookType==21) {
+        if (bookType == 21) {
             sb.append("\t\t");
             sb.append(Utils.toH4Red(String.valueOf(id)));
             sb.append(Utils.toRed(".- "));

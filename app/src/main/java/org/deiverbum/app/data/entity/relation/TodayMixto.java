@@ -162,41 +162,41 @@ public class TodayMixto {
     )
     public LHPrayerAll lhPrayerAll;
 
-    public List<MassReading> getEvangelios(){
-        List<MassReading> listModel=new ArrayList<>();
+    public List<MassReading> getEvangelios() {
+        List<MassReading> listModel = new ArrayList<>();
         for (MisaWithLecturas item : lecturas) {
-            if(item.misaLectura.getOrden()>=40) {
+            if (item.misaLectura.getOrden() >= 40) {
                 listModel.add(item.getDomainModel());
             }
         }
         return listModel;
     }
 
-    public Today getToday(){
+    public Today getToday() {
         Today dm = new Today();
-        dm.liturgyDay=feria.getDomainModel();
-        dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
+        dm.liturgyDay = feria.getDomainModel();
+        dm.liturgyPrevious = today.previoId > 1 ? previo.getDomainModel() : null;
         dm.setTodayDate(today.getHoy());
         dm.setHasSaint(today.hasSaint);
-        dm.oBiblicalFK=today.oBiblicaFK;
+        dm.oBiblicalFK = today.oBiblicaFK;
         return dm;
     }
 
-    public LHHymn getHimno(){
+    public LHHymn getHimno() {
         return himno.getDomainModel();
     }
 
     //TODO incluir algo como hasPriority en TodayEntity
-    public BiblicalShort getBiblica(){
-        return  biblica.getDomainModel(today.getTiempoId());
+    public BiblicalShort getBiblica() {
+        return biblica.getDomainModel(today.getTiempoId());
     }
 
-    public LHGospelCanticle getBenedictus(){
-        return  benedictus.getDomainModel(2);
+    public LHGospelCanticle getBenedictus() {
+        return benedictus.getDomainModel(2);
     }
 
-    public LHIntercession getPreces(){
-        return  lhIntercessionsDM.getDomainModel();
+    public LHIntercession getPreces() {
+        return lhIntercessionsDM.getDomainModel();
     }
 
     public LHInvitatory getInvitatorio() {
@@ -223,21 +223,22 @@ public class TodayMixto {
         }
         return theList;
     }
-    public String getOficioVerso(){
+
+    public String getOficioVerso() {
         return oficioVerso.getDomainModel();
     }
 
-    public Today getDomainModelToday(){
-        Liturgy dm= feria.getDomainModel();
-        dm.typeID=0;
-        Today dmToday=getToday();
+    public Today getDomainModelToday() {
+        Liturgy dm = feria.getDomainModel();
+        dm.typeID = 0;
+        Today dmToday = getToday();
         dm.setToday(dmToday);
-        BreviaryHour bh=new BreviaryHour();
-        if (today.oBiblicaFK==600010101){
+        BreviaryHour bh = new BreviaryHour();
+        if (today.oBiblicaFK == 600010101) {
             OficioEaster oEaster = new OficioEaster();
             oEaster.setOficioLecturas(biblicasE.getDomainModel());
             bh.setOficioEaster(oEaster);
-        }else {
+        } else {
             Mixto mixto = new Mixto();
             Oficio oficio = new Oficio();
             Laudes laudes = new Laudes();
@@ -272,7 +273,7 @@ public class TodayMixto {
             bh.setLaudes(laudes);
         }
         dm.setBreviaryHour(bh);
-        dmToday.liturgyDay=dm;
+        dmToday.liturgyDay = dm;
         return dmToday;
     }
 }

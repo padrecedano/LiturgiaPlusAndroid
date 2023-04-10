@@ -16,12 +16,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class LHPsalmody {
-    @Ignore
-    private int tipo;
-
-    //@ColumnInfo(name = "salmos")
-    @Ignore
-    private List<LHPsalm> salmos;
     public Integer groupFK;
     public Integer readingFK;
     public Integer order;
@@ -29,6 +23,11 @@ public class LHPsalmody {
     public Integer themeFK;
     public Integer epigraphFK;
     public Integer part;
+    @Ignore
+    private int tipo;
+    //@ColumnInfo(name = "salmos")
+    @Ignore
+    private List<LHPsalm> salmos;
 
     public LHPsalmody() {
     }
@@ -224,7 +223,7 @@ public class LHPsalmody {
             }
 
             sb.append(LS2);
-            salmo = Utils.getFormato(s.getSalmo());
+            salmo = Utils.getFormatoForRead(s.getSalmo());
             sb.append(Utils.fromHtml(salmo));
 
             if (!(s.getSalmo().endsWith("∸"))) {
@@ -254,7 +253,7 @@ public class LHPsalmody {
         LHPsalm s = salmos.get(index);
         sb.append(Utils.fromHtml(s.getAntifonaForRead()));
         sb.append(LS2);
-        salmo = Utils.getFormato(s.getSalmo());
+        salmo = Utils.getFormatoForRead(s.getSalmo());
         sb.append(Utils.fromHtml(salmo));
         if (!(s.getSalmo().endsWith("∸"))) {
             sb.append(getFinSalmoForRead());

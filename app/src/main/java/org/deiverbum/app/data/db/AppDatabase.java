@@ -109,7 +109,6 @@ import org.deiverbum.app.data.entity.TodayEntity;
                 DBTableEntity.class
 
 
-
         },
         version = 1)
 public abstract class AppDatabase extends RoomDatabase {

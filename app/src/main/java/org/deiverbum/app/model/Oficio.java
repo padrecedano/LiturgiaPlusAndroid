@@ -8,8 +8,7 @@ import android.text.SpannableStringBuilder;
 
 import org.deiverbum.app.utils.Utils;
 
-public class Oficio extends BreviaryHour
-{
+public class Oficio extends BreviaryHour {
 
     private LHInvitatory invitatorio;
     private LHIntercession preces;
@@ -66,13 +65,13 @@ public class Oficio extends BreviaryHour
 
     public SpannableStringBuilder getForView(LiturgyTime liturgyTime, boolean hasSaint, boolean nightMode) {
         SpannableStringBuilder sb = new SpannableStringBuilder();
-        this.hasSaint=hasSaint;
+        this.hasSaint = hasSaint;
         try {
             invitatorio.normalizeByTime(liturgyTime.getTimeID());
             salmodia.normalizeByTime(liturgyTime.getTimeID());
             oficioLecturas.normalizeByTime(liturgyTime.getTimeID());
             sb.append(LS2);
-            if (santo !=null && this.hasSaint) {
+            if (santo != null && this.hasSaint) {
                 invitatorio.normalizeIsSaint(santo.theName);
                 sb.append(santo.getVidaSmall());
                 sb.append(LS);

@@ -11,7 +11,8 @@ public class CrudLHPsalmody {
     public List<LHPsalmody> d;
 
     @SuppressWarnings("unused")
-    public CrudLHPsalmody() {}
+    public CrudLHPsalmody() {
+    }
 
 
 }

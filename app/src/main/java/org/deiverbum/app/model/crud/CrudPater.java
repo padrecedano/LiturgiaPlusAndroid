@@ -11,5 +11,6 @@ public class CrudPater {
     public List<Pater> d;
 
     @SuppressWarnings("unused")
-    public CrudPater() {}
+    public CrudPater() {
+    }
 }

@@ -8,19 +8,19 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <DatePicker
             android:id="@+id/date_picker"
-            android:datePickerMode="calendar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginTop="37dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="37dp"
+            android:datePickerMode="calendar"
             android:scaleX="1.1"
-            android:scaleY="1.1"/>
+            android:scaleY="1.1" />
 
     </RelativeLayout>
 

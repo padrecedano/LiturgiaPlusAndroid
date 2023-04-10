@@ -1,8 +1,12 @@
 package org.deiverbum.app.model;
 
 public class LHTheme {
-    public Integer themeID=0;
-    public String theme="";
+    public Integer themeID = 0;
+    public String theme = "";
+
+    @SuppressWarnings("unused")
+    public LHTheme() {
+    }
 
     public Integer getThemeID() {
         return themeID;
@@ -19,7 +23,4 @@ public class LHTheme {
     public void setTheme(String theme) {
         this.theme = theme;
     }
-
-    @SuppressWarnings("unused")
-    public LHTheme() {}
 }

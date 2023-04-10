@@ -3,7 +3,6 @@ package org.deiverbum.app.ui.activities;
 import static org.deiverbum.app.utils.Constants.PREF_ACCEPT;
 import static org.deiverbum.app.utils.Constants.PREF_ANALYTICS;
 import static org.deiverbum.app.utils.Constants.PREF_CRASHLYTICS;
-import static org.deiverbum.app.utils.Constants.VERSION_CODE;
 
 import android.content.Intent;
 import android.content.IntentSender;
@@ -38,6 +37,7 @@ import com.google.android.play.core.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.appcheck.FirebaseAppCheck;
+import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory;
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
@@ -54,10 +54,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    private static final int UPDATE_REQUEST_CODE = VERSION_CODE;
     String strFechaHoy;
     NavController navController;
-    //202001030;
+    private int UPDATE_REQUEST_CODE;
     private AppBarConfiguration mAppBarConfiguration;
     private boolean acceptTerms;
     private NavController.OnDestinationChangedListener onDestinationChangedListener;
@@ -82,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UPDATE_REQUEST_CODE = getResources().getInteger(R.integer.app_version_code);
         strFechaHoy = Utils.getFecha();
         setPrivacy();
         showMain();
@@ -97,11 +97,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void appCheck(){
+    private void appCheck() {
         FirebaseApp.initializeApp(this);
         FirebaseAppCheck firebaseAppCheck = FirebaseAppCheck.getInstance();
         firebaseAppCheck.installAppCheckProviderFactory(
                 PlayIntegrityAppCheckProviderFactory.getInstance());
+        firebaseAppCheck.installAppCheckProviderFactory(
+                DebugAppCheckProviderFactory.getInstance());
+
     }
 
     private void showMain() {

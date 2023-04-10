@@ -103,34 +103,34 @@ public class Book {
         return this.agreeYes;
     }
 
+    @SuppressWarnings("unused")
+    public void setAgreeYes(String agreeYes) {
+        this.agreeYes = agreeYes;
+    }
+
     public String getAgreeNot() {
         return this.agreeNot;
     }
 
     @SuppressWarnings("unused")
-    public void setAgreeYes(String agreeYes) {
-         this.agreeYes=agreeYes;
-    }
-
-    @SuppressWarnings("unused")
     public void setAgreeNot(String agreeNot) {
-         this.agreeNot=agreeNot;
+        this.agreeNot = agreeNot;
     }
 
-    public SpannableStringBuilder getForView(boolean isNightMode){
-        ColorUtils.isNightMode=isNightMode;
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+    public SpannableStringBuilder getForView(boolean isNightMode) {
+        ColorUtils.isNightMode = isNightMode;
+        SpannableStringBuilder sb = new SpannableStringBuilder();
 
-        if(bookType==2){
+        if (bookType == 2) {
             for (Chapter c : chapters) {
                 sb.append(c.getAllForView(bookType));
             }
 
-        }else {
+        } else {
             sb.append(Utils.toH2(title));
             sb.append(LS2);
             sb.append("Fecha efectiva: ");
-            String dateString = String.format(new Locale("es"),"<b>%s</b>", Utils.getTitleDate(date));
+            String dateString = String.format(new Locale("es"), "<b>%s</b>", Utils.getTitleDate(date));
             sb.append(Utils.fromHtml(dateString));
             //sb.append(_abstract.getAllForView());
             sb.append(LS2);
@@ -153,19 +153,19 @@ public class Book {
 
 
     @SuppressWarnings("unused")
-    public SpannableStringBuilder getForHtml(){
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+    public SpannableStringBuilder getForHtml() {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
 
-        if(bookType==2){
+        if (bookType == 2) {
             for (Chapter c : chapters) {
                 sb.append(c.getAllForHtml(bookType));
             }
 
-        }else {
+        } else {
             sb.append(Utils.toH2(title));
             sb.append(LS2);
             sb.append("Fecha efectiva: ");
-            String dateString = String.format(new Locale("es"),"<b>%s</b>", Utils.getTitleDate(date));
+            String dateString = String.format(new Locale("es"), "<b>%s</b>", Utils.getTitleDate(date));
             sb.append(dateString);
             //sb.append(_abstract.getAllForView());
             sb.append(LS2);

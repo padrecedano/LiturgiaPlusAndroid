@@ -16,16 +16,16 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = LH_HYMN_JOIN,
-        indices = {@Index(value = {"groupID","hymnFK"}, unique = true)},
+        indices = {@Index(value = {"groupID", "hymnFK"}, unique = true)},
         foreignKeys =
-        {
-                @ForeignKey(
-                        entity = LHHymnEntity.class,
-                        parentColumns = "hymnID",
-                        childColumns = "hymnFK",
-                        onDelete = ForeignKey.CASCADE,
-                        onUpdate = ForeignKey.CASCADE)
-        }
+                {
+                        @ForeignKey(
+                                entity = LHHymnEntity.class,
+                                parentColumns = "hymnID",
+                                childColumns = "hymnFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE)
+                }
 )
 
 public class LHHymnJoinEntity {
@@ -33,15 +33,16 @@ public class LHHymnJoinEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    public Integer grupoId=0;
+    public Integer grupoId = 0;
 
     @NonNull
-    @ColumnInfo(name = "hymnFK",index = true)
-    public Integer himnoFK=0;
+    @ColumnInfo(name = "hymnFK", index = true)
+    public Integer himnoFK = 0;
 
     public int getHimnoFK() {
         return himnoFK;
     }
+
     public int getGrupoId() {
         return grupoId;
     }

@@ -15,20 +15,20 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = LH_THEME,
-         indices = {@Index(value = {"theme"},unique = true)}
+        indices = {@Index(value = {"theme"}, unique = true)}
 )
 public class LHThemeEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "themeID")
-    public Integer temaId=0;
+    public Integer temaId = 0;
 
     @NonNull
     @ColumnInfo(name = "theme")
-    public String tema="";
+    public String tema = "";
 
     @NonNull
-    public String getTema(){
+    public String getTema() {
         return tema;
     }
 }

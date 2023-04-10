@@ -18,11 +18,11 @@ public class DBTableEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "tableID")
-    public Integer tableID=0;
+    public Integer tableID = 0;
 
     @NonNull
     @ColumnInfo(name = "tableName")
-    public String tableName="";
+    public String tableName = "";
 
 }
 

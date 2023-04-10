@@ -16,33 +16,34 @@
         <RelativeLayout
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical">
 
 
             <TextView
                 android:id="@+id/tv_Material"
-                style="@style/TextAppearance.AppCompat.Headline"
-                android:layout_width="wrap_content"
+
+                style="@style/TextAppearance.AppTheme.BreviarioRVIcon"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="top|center_horizontal"
-                android:textColor="@color/transparent"
-                android:textSize="70sp"
 
 
                 />
 
             <TextView
                 android:id="@+id/tv_Elemento"
+                style="@style/TextAppearance.AppTheme.BreviarioRV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_Material"
                 android:layout_alignParentBottom="true"
                 android:gravity="bottom|center_horizontal"
-                android:textColor="@color/color_mainrecycler_text"
-                android:textStyle="bold" />
+
+
+                />
 
         </RelativeLayout>
 

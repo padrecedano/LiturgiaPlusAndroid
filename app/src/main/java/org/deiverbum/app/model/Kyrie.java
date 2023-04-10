@@ -30,6 +30,73 @@ public class Kyrie {
     private String tipo;
     private int kyrieType;
 
+    /**
+     * Este método obtiene el texto del Kyrie
+     *
+     * @param type El tipo de celebración.
+     * @return El texto completo.
+     * @since 2022.2
+     */
+
+    public static SpannableStringBuilder getKyrie(int type) {
+        SpannableStringBuilder ssb = new SpannableStringBuilder();
+
+        switch (type) {
+            case 0:
+                String text = "Yo confieso ante Dios todopoderoso " + LS +
+                        "y ante vosotros, hermanos " + LS +
+                        "que he pecado mucho" + LS +
+                        "de pensamiento, palabra, obra y omisión:" + LS +
+                        "por mi culpa, por mi culpa, por mi gran culpa." + LS2 +
+                        "Por eso ruego a santa María, siempre Virgen," + LS +
+                        "a los ángeles, a los santos y a vosotros, hermanos," + LS +
+                        "que intercedáis por mí ante Dios, nuestro Señor.";
+
+                ssb.append(text);
+
+                break;
+            case 1:
+                ssb.append(Utils.toRed("V."));
+                ssb.append("Señor, ten misericordia de nosotros.");
+                ssb.append(LS);
+                ssb.append(Utils.toRed("R. "));
+                ssb.append("Porque hemos pecado contra ti.");
+                ssb.append(LS2);
+                ssb.append(Utils.toRed("V."));
+                ssb.append("Muéstranos, Señor, tu misericordia.");
+                ssb.append(LS);
+                ssb.append(Utils.toRed("R. "));
+                ssb.append("Y danos tu salvación.");
+                break;
+            case 2:
+
+                ssb.append(Utils.toRed("V. "));
+                ssb.append("Tú que has sido enviado a sanar los corazones afligidos: Señor, ten piedad.");
+                ssb.append(LS);
+                ssb.append(Utils.toRed("R. "));
+                ssb.append("Señor, ten piedad.");
+                ssb.append(LS2);
+
+                ssb.append(Utils.toRed("V. "));
+                ssb.append("Tú que has venido a llamar a los pecadores: Cristo, ten piedad.");
+                ssb.append(LS);
+                ssb.append(Utils.toRed("R. "));
+                ssb.append("Cristo, ten piedad.");
+                ssb.append(LS2);
+
+                ssb.append(Utils.toRed("V. "));
+                ssb.append("Tú que estás sentado a la derecha del Pater para interceder por nosotros: Señor, ten piedad.");
+                ssb.append(LS);
+                ssb.append(Utils.toRed("R. "));
+                ssb.append("Señor, ten piedad.");
+
+            default:
+                ssb.append("");
+                break;
+        }
+        return ssb;
+    }
+
     public SpannableStringBuilder getIntroduccionForRead() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
         ssb.append(Utils.fromHtml("<p>EXAMEN DE CONCIENCIA.</p>"));
@@ -76,6 +143,7 @@ public class Kyrie {
     public String getConclusionForRead() {
         return "El Señor todopoderoso tenga misericordia de nosotros, perdone nuestros pecados y nos lleve a la vida eterna. Amén.";
     }
+
     public SpannableStringBuilder getConclusion() {
         SpannableStringBuilder ssb = new SpannableStringBuilder();
         ssb.append(Utils.toSmallSizeRed("Pueden usarse otras invocaciones penitenciales."));
@@ -137,7 +205,7 @@ public class Kyrie {
     }
 
     public SpannableStringBuilder getAll() {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getIntroduccion());
         sb.append(LS2);
         sb.append(getTexto());
@@ -147,77 +215,10 @@ public class Kyrie {
     }
 
     public SpannableStringBuilder getAllForRead() {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getIntroduccionForRead());
         sb.append(getTextoForRead());
         sb.append(getConclusionForRead());
         return sb;
-    }
-
-    /**
-     * Este método obtiene el texto del Kyrie
-     *
-     * @since 2022.2
-     * @param type El tipo de celebración.
-     * @return El texto completo.
-     */
-
-    public static SpannableStringBuilder getKyrie(int type) {
-        SpannableStringBuilder ssb = new SpannableStringBuilder();
-
-        switch (type) {
-            case 0:
-                String text = "Yo confieso ante Dios todopoderoso " + LS +
-                        "y ante vosotros, hermanos " + LS +
-                        "que he pecado mucho" + LS +
-                        "de pensamiento, palabra, obra y omisión:" + LS +
-                        "por mi culpa, por mi culpa, por mi gran culpa." + LS2 +
-                        "Por eso ruego a santa María, siempre Virgen," + LS +
-                        "a los ángeles, a los santos y a vosotros, hermanos," + LS +
-                        "que intercedáis por mí ante Dios, nuestro Señor.";
-
-                ssb.append(text);
-
-                break;
-            case 1:
-                ssb.append(Utils.toRed("V."));
-                ssb.append("Señor, ten misericordia de nosotros.");
-                ssb.append(LS);
-                ssb.append(Utils.toRed("R. "));
-                ssb.append("Porque hemos pecado contra ti.");
-                ssb.append(LS2);
-                ssb.append(Utils.toRed("V."));
-                ssb.append("Muéstranos, Señor, tu misericordia.");
-                ssb.append(LS);
-                ssb.append(Utils.toRed("R. "));
-                ssb.append("Y danos tu salvación.");
-                break;
-            case 2:
-
-                ssb.append(Utils.toRed("V. "));
-                ssb.append("Tú que has sido enviado a sanar los corazones afligidos: Señor, ten piedad.");
-                ssb.append(LS);
-                ssb.append(Utils.toRed("R. "));
-                ssb.append("Señor, ten piedad.");
-                ssb.append(LS2);
-
-                ssb.append(Utils.toRed("V. "));
-                ssb.append("Tú que has venido a llamar a los pecadores: Cristo, ten piedad.");
-                ssb.append(LS);
-                ssb.append(Utils.toRed("R. "));
-                ssb.append("Cristo, ten piedad.");
-                ssb.append(LS2);
-
-                ssb.append(Utils.toRed("V. "));
-                ssb.append("Tú que estás sentado a la derecha del Pater para interceder por nosotros: Señor, ten piedad.");
-                ssb.append(LS);
-                ssb.append(Utils.toRed("R. "));
-                ssb.append("Señor, ten piedad.");
-
-            default:
-                ssb.append("");
-                break;
-        }
-        return ssb;
     }
 }

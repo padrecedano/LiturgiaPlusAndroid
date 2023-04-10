@@ -35,9 +35,10 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * <p>
- *     Este Fragmento coordina la obtención de datos que provienen de archivos
- *     guardados en el directorio res/raw.
+ * Este Fragmento coordina la obtención de datos que provienen de archivos
+ * guardados en el directorio res/raw.
  * </p>
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
@@ -62,9 +63,9 @@ public class AuthorFragment extends Fragment {
                 PreferenceManager.getDefaultSharedPreferences(getActivity());
         float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        String fontFamily = String.format(new Locale("es"),"fonts/%s",prefs.getString("font_name", "robotoslab_regular.ttf"));
-        Typeface tf= Typeface.createFromAsset(requireActivity().getAssets(),fontFamily);
-        mTextView .setTypeface(tf);
+        String fontFamily = String.format(new Locale("es"), "fonts/%s", prefs.getString("font_name", "robotoslab_regular.ttf"));
+        Typeface tf = Typeface.createFromAsset(requireActivity().getAssets(), fontFamily);
+        mTextView.setTypeface(tf);
         mTextView.setMovementMethod(LinkMovementMethod.getInstance());
         mTextView.setClickable(true);
         progressBar = binding.pb.progressBar;
@@ -99,7 +100,7 @@ public class AuthorFragment extends Fragment {
                     });
 
         }
-      }
+    }
 
     private void composeEmail(String[] addresses, String subject) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);

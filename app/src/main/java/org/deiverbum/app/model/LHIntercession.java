@@ -25,14 +25,14 @@ public class LHIntercession {
 
     public SpannableStringBuilder getAll() {
 
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeader());
         sb.append(LS2);
         String[] introArray = intro.split("\\|");
         if (introArray.length == 3) {
             sb.append(introArray[0]);
             sb.append(LS2);
-            sb.append(Utils.fromHtml(String.format(new Locale("es"),"<i>%s</i>",introArray[1])));
+            sb.append(Utils.fromHtml(String.format(new Locale("es"), "<i>%s</i>", introArray[1])));
             sb.append(LS2);
             sb.append(getIntercession());
             sb.append(LS2);
@@ -63,7 +63,7 @@ public class LHIntercession {
     }
 
     public SpannableStringBuilder getAllForRead() {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeaderForRead());
         sb.append(LS2);
         String[] introArray = intro.split("\\|");

@@ -15,18 +15,18 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = LH_PSALMODY_JOIN,
-        indices = {@Index(value = {"groupID","type"}, unique = true)}
+        indices = {@Index(value = {"groupID", "type"}, unique = true)}
 )
 public class LHPsalmodyJoinEntity {
 
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    public Integer grupoId=0;
+    public Integer grupoId = 0;
 
     @NonNull
     @ColumnInfo(name = "type")
-    public Integer tipo=0;
+    public Integer tipo = 0;
 
     public int getTipo() {
         return tipo;

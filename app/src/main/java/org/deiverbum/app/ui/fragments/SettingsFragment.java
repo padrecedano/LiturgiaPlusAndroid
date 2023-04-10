@@ -49,7 +49,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         requireActivity().finishAndRemoveTask();
     }
 
-    private void updatePreference(){
+    private void updatePreference() {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean(PREF_ACCEPT, true);

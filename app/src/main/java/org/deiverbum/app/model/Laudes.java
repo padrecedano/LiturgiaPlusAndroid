@@ -20,6 +20,7 @@ public class Laudes extends BreviaryHour {
     public SpannableStringBuilder getTituloHora() {
         return Utils.toH1Red(TITLE_LAUDES);
     }
+
     public String getTituloHoraForRead() {
         return Utils.pointAtEnd(TITLE_LAUDES);
     }
@@ -66,7 +67,7 @@ public class Laudes extends BreviaryHour {
             //TODO hacer esto en la clase LHResponsoryShort, revisar Completas y
             // demás horas
             //biblicaBreve.normalizeByTime(metaLiturgia.calendarTime);
-            this.hasSaint=hasSaint;
+            this.hasSaint = hasSaint;
             invitatorio.normalizeByTime(liturgyTime.getTimeID());
             salmodia.normalizeByTime(liturgyTime.getTimeID());
 

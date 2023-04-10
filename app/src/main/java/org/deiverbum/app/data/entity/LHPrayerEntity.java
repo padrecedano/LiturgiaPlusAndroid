@@ -16,17 +16,17 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = LH_PRAYER,
-        indices = {@Index(value = {"groupID","prayerFK"}, unique = true)},
+        indices = {@Index(value = {"groupID", "prayerFK"}, unique = true)},
 
         foreignKeys =
-        {
-            @ForeignKey(
-                    entity = PrayerEntity.class,
-                    parentColumns = "prayerID",
-                    childColumns = "prayerFK",
-                    onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE)
-        }
+                {
+                        @ForeignKey(
+                                entity = PrayerEntity.class,
+                                parentColumns = "prayerID",
+                                childColumns = "prayerFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE)
+                }
 )
 
 public class LHPrayerEntity {
@@ -34,10 +34,10 @@ public class LHPrayerEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    public Integer grupoId=0;
+    public Integer grupoId = 0;
 
     @NonNull
-    @ColumnInfo(name = "prayerFK",index = true)
-    public Integer oracionFK=0;
+    @ColumnInfo(name = "prayerFK", index = true)
+    public Integer oracionFK = 0;
 }
 

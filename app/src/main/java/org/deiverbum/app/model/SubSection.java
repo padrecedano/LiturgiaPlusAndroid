@@ -21,15 +21,13 @@ public class SubSection {
 
     /**
      * No args constructor for use in serialization
-     *
      */
     @SuppressWarnings("unused")
     public SubSection() {
     }
 
     /**
-     *
-     * @param title Título
+     * @param title      Título
      * @param paragraphs Conjunto de párrafos
      */
     @SuppressWarnings("unused")

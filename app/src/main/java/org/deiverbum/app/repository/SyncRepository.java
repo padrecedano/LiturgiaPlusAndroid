@@ -1,5 +1,7 @@
 package org.deiverbum.app.repository;
 
+import static org.deiverbum.app.utils.Constants.SYNC_INTERVAL_DAYS;
+
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -61,6 +63,7 @@ public class SyncRepository {
     }
 
     public LiveData<SyncStatus> getFromDB() {
+
         if (mTodayDao.syncStatusCount() == 0) {
             mTodayDao.insertSyncStatus("initial");
         }
@@ -80,7 +83,7 @@ public class SyncRepository {
                 .build();
 
         PeriodicWorkRequest periodicSyncDataWork =
-                new PeriodicWorkRequest.Builder(TodayWorker.class, 15, TimeUnit.MINUTES)
+                new PeriodicWorkRequest.Builder(TodayWorker.class, SYNC_INTERVAL_DAYS, TimeUnit.DAYS)
                         .addTag("TAG_SYNC_DATA")
                         .setConstraints(constraints)
                         .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)

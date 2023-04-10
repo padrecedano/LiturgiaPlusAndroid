@@ -40,12 +40,12 @@ public class SaintShortWithAll {
     public SaintLifeEntity longLife;
 
     public Saint getDomainModel() {
-        Saint dm=new Saint();
+        Saint dm = new Saint();
         String saintLife;
-        if(shortLife != null){
-            saintLife =shortLife.getShortLife();
-        }else{
-            saintLife=longLife.getMartyrology();
+        if (shortLife != null) {
+            saintLife = shortLife.getShortLife();
+        } else {
+            saintLife = longLife.getMartyrology();
         }
         dm.setVida(saintLife);
         dm.setTheName(saint.getTheName());

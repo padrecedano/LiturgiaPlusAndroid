@@ -33,11 +33,11 @@ public class SaintShortLifeEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "saintFK")
-    public Integer saintFK=0;
+    public Integer saintFK = 0;
 
     @NonNull
     @ColumnInfo(name = "shortLife", defaultValue = "")
-    public String shortLife="";
+    public String shortLife = "";
 
     @NonNull
     public Integer getSaintFK() {
@@ -57,8 +57,8 @@ public class SaintShortLifeEntity {
         this.shortLife = shortLife;
     }
 
-    public SaintLife getDomainModel(){
-        SaintLife theModel=new SaintLife();
+    public SaintLife getDomainModel() {
+        SaintLife theModel = new SaintLife();
         theModel.setShortLife(getShortLife());
         theModel.setSaintFK(getSaintFK());
         return theModel;

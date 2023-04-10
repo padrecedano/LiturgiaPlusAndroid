@@ -22,6 +22,6 @@ public class BreviarioViewModel extends ViewModel {
     }
 
     public MutableLiveData<DataWrapper<Today, CustomException>> getToday(String dateString, int hourId) {
-        return mRepository.getFromLocal(dateString,hourId);
+        return mRepository.getFromLocal(dateString, hourId);
     }
 }

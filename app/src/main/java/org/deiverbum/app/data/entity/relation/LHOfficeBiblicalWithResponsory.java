@@ -9,9 +9,9 @@ import org.deiverbum.app.data.entity.LHResponsoryEntity;
 import org.deiverbum.app.model.LHOfficeBiblical;
 
 /**
- *  <p>Obtiene los valores para una lectura bíblica de
- *  la Liturgy de las Horas,
- *  desde las distintas tablas relacionadas.</p>
+ * <p>Obtiene los valores para una lectura bíblica de
+ * la Liturgy de las Horas,
+ * desde las distintas tablas relacionadas.</p>
  *
  * @author A. Cedano
  * @version 1.0
@@ -36,7 +36,7 @@ public class LHOfficeBiblicalWithResponsory {
     public LHResponsoryEntity lhResponsorio;
 
     public LHOfficeBiblical getDomainModel(Integer tiempoId) {
-        LHOfficeBiblical theModel= bibliaLectura.getDomainModelOficio();
+        LHOfficeBiblical theModel = bibliaLectura.getDomainModelOficio();
         theModel.setTema(lhBiblica.theme);
         theModel.setOrden(lhBiblica.theOrder);
         theModel.setResponsorioLargo(lhResponsorio.getDomainModel(tiempoId));

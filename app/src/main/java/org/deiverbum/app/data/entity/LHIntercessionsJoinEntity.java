@@ -15,16 +15,16 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = LH_INTERCESSIONS_JOIN,
-    foreignKeys =
-    {
-        @ForeignKey(
-                    entity = LHIntercessionsEntity.class,
-                    parentColumns = "intercessionID",
-                    childColumns = "intercessionFK",
-                    onDelete = ForeignKey.CASCADE,
-                    onUpdate = ForeignKey.CASCADE
-                    )
-    }
+        foreignKeys =
+                {
+                        @ForeignKey(
+                                entity = LHIntercessionsEntity.class,
+                                parentColumns = "intercessionID",
+                                childColumns = "intercessionFK",
+                                onDelete = ForeignKey.CASCADE,
+                                onUpdate = ForeignKey.CASCADE
+                        )
+                }
 )
 
 public class LHIntercessionsJoinEntity {
@@ -32,10 +32,10 @@ public class LHIntercessionsJoinEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    public Integer grupoId=0;
+    public Integer grupoId = 0;
 
     @NonNull
-    @ColumnInfo(name = "intercessionFK",index = true)
-    public Integer precesFK=0;
+    @ColumnInfo(name = "intercessionFK", index = true)
+    public Integer precesFK = 0;
 }
 

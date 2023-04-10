@@ -27,6 +27,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
  *     <li>Firebase</li>
  *     <li>Api</li>
  * </ul>
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
@@ -51,6 +52,7 @@ public class ComentariosRepository {
      * y si no encuentra, buscará en la Api mediante
      * {@link ApiService#getLecturas(String)}
      * La llamada a la Api se hará desde el onError
+     *
      * @param dateString La fecha
      */
     public void getComentarios(String dateString) {
@@ -75,6 +77,7 @@ public class ComentariosRepository {
 
     /**
      * Este método buscará los datos en el servidor remoto, si no los encuentra en Firebase.
+     *
      * @param dateString La fecha
      */
 
@@ -83,12 +86,15 @@ public class ComentariosRepository {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<BibleCommentList>() {
-                    @Override public void onStart() {
+                    @Override
+                    public void onStart() {
                     }
+
                     @Override
                     public void onSuccess(@NonNull BibleCommentList r) {
                         mData.postValue(new DataWrapper<>(r));
                     }
+
                     @Override
                     public void onError(@NonNull Throwable e) {
                         mData.setValue(new DataWrapper<>(new CustomException(CONTENT_TO_SYNC)));

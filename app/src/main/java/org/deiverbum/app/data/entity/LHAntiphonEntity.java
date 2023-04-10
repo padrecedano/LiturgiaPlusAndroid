@@ -15,26 +15,25 @@ import androidx.room.PrimaryKey;
  */
 
 @Entity(tableName = LH_ANTIPHON,
-        indices = {@Index(value = {"antiphon"},unique = true)})
+        indices = {@Index(value = {"antiphon"}, unique = true)})
 public class LHAntiphonEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "antiphonID")
-    public Integer antifonaId=0;
+    public Integer antifonaId = 0;
 
     @NonNull
     @ColumnInfo(name = "antiphon")
-    public String antifona="";
-
-    public void setAntifona(@NonNull String antifona) {
-        this.antifona = antifona;
-    }
+    public String antifona = "";
 
     @NonNull
     public String getAntifona() {
         return antifona;
     }
 
+    public void setAntifona(@NonNull String antifona) {
+        this.antifona = antifona;
+    }
 
     @NonNull
     public Integer getAntifonaId() {

@@ -55,6 +55,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class OracionesDataFragment extends Fragment implements TextToSpeechCallback {
+    public static ActionMode mActionMode;
     private OracionesViewModel mViewModel;
     private FragmentTextBinding binding;
     private ZoomTextView mTextView;
@@ -62,16 +63,73 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
     private boolean isVoiceOn;
     private StringBuilder sbReader;
     private SeekBar seekBar;
-
     private boolean isReading = false;
-
     private SharedPreferences prefs;
-
     private Menu audioMenu;
     private MenuItem voiceItem;
-
-    public static ActionMode mActionMode;
     private TtsManager mTtsManager;
+    private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+
+            int menuItem = item.getItemId();
+
+            if (menuItem == R.id.audio_play) {
+                readText();
+                audioMenu.findItem(R.id.audio_pause).setVisible(true);
+                audioMenu.findItem(R.id.audio_stop).setVisible(true);
+                item.setVisible(false);
+                return true;
+            }
+
+            if (menuItem == R.id.audio_pause) {
+                mTtsManager.pause();
+                audioMenu.findItem(R.id.audio_resume).setVisible(true);
+                item.setVisible(false);
+                return true;
+            }
+
+            if (menuItem == R.id.audio_resume) {
+                mTtsManager.resume();
+                audioMenu.findItem(R.id.audio_pause).setVisible(true);
+                item.setVisible(false);
+                return true;
+            }
+            if (menuItem == R.id.audio_stop) {
+                mTtsManager.stop();
+                audioMenu.findItem(R.id.audio_play).setVisible(true);
+                audioMenu.findItem(R.id.audio_pause).setVisible(false);
+                audioMenu.findItem(R.id.audio_resume).setVisible(false);
+                item.setVisible(false);
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.contextual_action_bar, menu);
+            audioMenu = menu;
+            @SuppressLint("InflateParams")
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.seekbar, null);
+            mode.setCustomView(view);
+            seekBar = view.findViewById(R.id.seekbar);
+            return true;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            mActionMode = null;
+            cleanTTS();
+            setPlayerButton();
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+    };
     private ActionBar actionBar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -118,7 +176,6 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
         return root;
     }
 
-
     private void setConfiguration() {
         mViewModel =
                 new ViewModelProvider(this).get(OracionesViewModel.class);
@@ -134,7 +191,6 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
         isVoiceOn = prefs.getBoolean("voice", true);
         //pickOutDate();
     }
-
 
     private void observeHour() {
         int param = requireArguments().getInt("id");
@@ -170,7 +226,6 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
                 break;
         }
     }
-
 
     private void observeRosario(int param) {
         boolean isBrevis = prefs.getBoolean("brevis", true);
@@ -262,70 +317,6 @@ public class OracionesDataFragment extends Fragment implements TextToSpeechCallb
         });
         mTtsManager.start();
     }
-
-    private final ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
-
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-
-            int menuItem = item.getItemId();
-
-            if (menuItem == R.id.audio_play) {
-                readText();
-                audioMenu.findItem(R.id.audio_pause).setVisible(true);
-                audioMenu.findItem(R.id.audio_stop).setVisible(true);
-                item.setVisible(false);
-                return true;
-            }
-
-            if (menuItem == R.id.audio_pause) {
-                mTtsManager.pause();
-                audioMenu.findItem(R.id.audio_resume).setVisible(true);
-                item.setVisible(false);
-                return true;
-            }
-
-            if (menuItem == R.id.audio_resume) {
-                mTtsManager.resume();
-                audioMenu.findItem(R.id.audio_pause).setVisible(true);
-                item.setVisible(false);
-                return true;
-            }
-            if (menuItem == R.id.audio_stop) {
-                mTtsManager.stop();
-                audioMenu.findItem(R.id.audio_play).setVisible(true);
-                audioMenu.findItem(R.id.audio_pause).setVisible(false);
-                audioMenu.findItem(R.id.audio_resume).setVisible(false);
-                item.setVisible(false);
-                return true;
-            }
-            return false;
-        }
-
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            mode.getMenuInflater().inflate(R.menu.contextual_action_bar, menu);
-            audioMenu = menu;
-            @SuppressLint("InflateParams")
-            View view = LayoutInflater.from(getContext()).inflate(R.layout.seekbar, null);
-            mode.setCustomView(view);
-            seekBar = view.findViewById(R.id.seekbar);
-            return true;
-        }
-
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-            mActionMode = null;
-            cleanTTS();
-            setPlayerButton();
-        }
-
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false;
-        }
-    };
-
 
     @Override
     public void onCompleted() {

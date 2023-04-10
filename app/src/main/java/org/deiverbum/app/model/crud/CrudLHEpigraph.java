@@ -11,7 +11,8 @@ public class CrudLHEpigraph {
     public List<LHEpigraph> d;
 
     @SuppressWarnings("unused")
-    public CrudLHEpigraph() {}
+    public CrudLHEpigraph() {
+    }
 
 
 }

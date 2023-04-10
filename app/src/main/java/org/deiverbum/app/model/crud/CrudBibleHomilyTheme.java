@@ -11,7 +11,8 @@ public class CrudBibleHomilyTheme {
     public List<BibleHomilyTheme> d;
 
     @SuppressWarnings("unused")
-    public CrudBibleHomilyTheme() {}
+    public CrudBibleHomilyTheme() {
+    }
 
 
 }

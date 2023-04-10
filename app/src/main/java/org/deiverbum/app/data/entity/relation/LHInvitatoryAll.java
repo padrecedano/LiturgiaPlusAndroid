@@ -30,8 +30,8 @@ public class LHInvitatoryAll {
     )
     public LHAntiphonEntity antifona;
 
-    public LHInvitatory getDomainModel(){
-        LHInvitatory dm=new LHInvitatory();
+    public LHInvitatory getDomainModel() {
+        LHInvitatory dm = new LHInvitatory();
         dm.setAntiphon(antifona.getAntifona());
         dm.setSalmo(salmo.getSalmo());
         dm.setRef(salmo.salmo.getSalmoRef());

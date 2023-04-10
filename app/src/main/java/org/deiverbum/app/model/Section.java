@@ -27,18 +27,16 @@ public class Section {
 
     /**
      * No args constructor for use in serialization
-     *
      */
     @SuppressWarnings("unused")
     public Section() {
     }
 
     /**
-     *
      * @param subsections Subsección
      * @param orderedlist Lista
-     * @param id Id
-     * @param title Título
+     * @param id          Id
+     * @param title       Título
      */
     @SuppressWarnings("unused")
     public Section(Integer id, List<OrderedList> orderedlist, String title,

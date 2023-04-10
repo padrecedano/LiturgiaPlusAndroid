@@ -42,7 +42,7 @@ public class NuncDimitis extends LHPsalm {
     }
 
     public SpannableStringBuilder getAll(int idTiempo) {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeader());
         sb.append(Utils.LS2);
         sb.append(getAntifonaSpan(idTiempo));
@@ -56,7 +56,7 @@ public class NuncDimitis extends LHPsalm {
     }
 
     public SpannableStringBuilder getAllForRead() {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getHeaderForRead());
         sb.append(".");
         sb.append(getAntifonaForRead());

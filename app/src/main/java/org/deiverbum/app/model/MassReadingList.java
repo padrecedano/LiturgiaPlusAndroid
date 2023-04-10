@@ -13,13 +13,18 @@ import java.util.List;
 
 public class MassReadingList extends Liturgy {
     public List<Evangelio> evangelios;
+    public int type;
+    List<MassReading> lecturas;
 
     @SuppressWarnings("unused")
     public List<Evangelio> getEvangelio() {
         return evangelios;
     }
 
-    List<MassReading> lecturas;
+    @SuppressWarnings("unused")
+    public void setEvangelio(List<Evangelio> evangelios) {
+        this.evangelios = evangelios;
+    }
 
     public List<MassReading> getLecturas() {
         return lecturas;
@@ -29,19 +34,6 @@ public class MassReadingList extends Liturgy {
         this.lecturas = lecturas;
     }
 
-    @SuppressWarnings("unused")
-    public void setEvangelio(List<Evangelio> evangelios) {
-        this.evangelios = evangelios;
-    }
-
-    public MetaLiturgia getMetaLiturgia() {
-        return metaliturgia;
-    }
-
-    public void setMetaLiturgia(MetaLiturgia metaliturgia) {
-        this.metaliturgia = metaliturgia;
-    }
-
     private SpannableStringBuilder getTitulo() {
         return Utils.toH3Red(Utils.toUpper(TITLE_MASS_READING));
     }
@@ -49,9 +41,6 @@ public class MassReadingList extends Liturgy {
     public String getTituloForRead() {
         return Utils.pointAtEnd(TITLE_MASS_READING);
     }
-
-    @SuppressWarnings("unused")
-    private MetaLiturgia metaliturgia;
 
     public SpannableStringBuilder getAllForView() {
         SpannableStringBuilder sb = new SpannableStringBuilder("");
@@ -88,7 +77,7 @@ public class MassReadingList extends Liturgy {
     }
 
     public SpannableStringBuilder getForView(boolean nightMode) {
-        ColorUtils.isNightMode=nightMode;
+        ColorUtils.isNightMode = nightMode;
         SpannableStringBuilder sb = new SpannableStringBuilder("");
         try {
             //sb.append(hoy.getForViewMisa());
@@ -97,7 +86,7 @@ public class MassReadingList extends Liturgy {
             sb.append(getTitulo());
             sb.append(LS2);
             for (MassReading l : lecturas) {
-                sb.append(l.getAll());
+                sb.append(l.getAll(type));
             }
         } catch (Exception e) {
             sb.append(Utils.createErrorMessage(e.getMessage()));
@@ -120,4 +109,6 @@ public class MassReadingList extends Liturgy {
         }
         return sb;
     }
+
+
 }

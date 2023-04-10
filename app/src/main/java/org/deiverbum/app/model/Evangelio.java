@@ -17,10 +17,9 @@ public class Evangelio extends MassReading {
     }
 
 
-
     @Override
     public SpannableStringBuilder getAll() {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(Utils.formatSubTitle("evangelio del día"));
         sb.append(Utils.LS2);
         sb.append(book.getLiturgyName());

@@ -22,7 +22,7 @@ public class HomiliasViewModel extends ViewModel {
         mRepository = repository;
     }
 
-    public MediatorLiveData<DataWrapper <Homily, CustomException>> getObservable(String date) {
+    public MediatorLiveData<DataWrapper<Homily, CustomException>> getObservable(String date) {
         return mRepository.getFromDB(date);
     }
 }

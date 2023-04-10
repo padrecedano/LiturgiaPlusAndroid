@@ -13,29 +13,28 @@ import java.util.Locale;
 
 @SuppressWarnings("SameReturnValue")
 public class Biblical {
+    public Integer bookFK = 0;
     @Ignore
     protected BibleBook book;
     protected String verseChapter;
-    private String verseFrom;
-    private String verseTo;
     protected String text;
     protected String quote;
     @Ignore
     protected Integer order;
-
     protected Integer readingID;
-    public Integer bookFK=0;
+    private String verseFrom;
+    private String verseTo;
 
     public BibleBook getLibro() {
         return book;
     }
 
-    public String getLibroForRead() {
-        return book.getForRead();
-    }
-
     public void setLibro(BibleBook libro) {
         this.book = libro;
+    }
+
+    public String getLibroForRead() {
+        return book.getForRead();
     }
 
     public String getCapitulo() {
@@ -159,32 +158,31 @@ public class Biblical {
         return Utils.fromHtml(Utils.getFormatoForRead(text));
     }
 
-
-    public void setTexto(String texto) {
-        this.text = texto;
-    }
-
     public String getTexto() {
 
         return text;
     }
 
+    public void setTexto(String texto) {
+        this.text = texto;
+    }
 
     public String getCita() {
         return quote;
         //getReferencia();
-    }
-    public String getRefBreve() {
-        return (this.quote!=null) ? this.quote : "";
     }
 
     public void setCita(String ref) {
         this.quote = ref;
     }
 
+    public String getRefBreve() {
+        return (this.quote != null) ? this.quote : "";
+    }
+
     @SuppressWarnings("unused")
     public String getReferencia() {
-        return String.format(new Locale("es"),"%s, %s%s",getCapitulo(),getVersoInicial(),getVersoFinal());
+        return String.format(new Locale("es"), "%s, %s%s", getCapitulo(), getVersoInicial(), getVersoFinal());
     }
 
     public String getHeader() {
@@ -201,8 +199,9 @@ public class Biblical {
 
     /**
      * <p>Obtiene la lectura bíblica completa, incluyendo el responsorio, formateada para la vista.</p>
-     * @since 2022.01
+     *
      * @return Un objeto {@link SpannableStringBuilder con el contenido.}
+     * @since 2022.01
      */
     public SpannableStringBuilder getAll() {
         SpannableStringBuilder sb = new SpannableStringBuilder();
@@ -225,11 +224,12 @@ public class Biblical {
 
     /**
      * <p>Obtiene la lectura bíblica completa formateada para la lectura de voz.</p>
-     * @since 2022.01
+     *
      * @return Un objeto {@link SpannableStringBuilder con el contenido.}
+     * @since 2022.01
      */
-    public SpannableStringBuilder getAllForRead(){
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+    public SpannableStringBuilder getAllForRead() {
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(Utils.pointAtEnd(getHeader()));
         sb.append(getLibroForRead());
         sb.append(getTextoForRead());
@@ -241,12 +241,13 @@ public class Biblical {
     public Integer getOrden() {
         return this.order;
     }
-    public Integer getLecturaId() {
-        return this.readingID;
-    }
 
     public void setOrden(Integer orden) {
-        this.order=orden;
+        this.order = orden;
+    }
+
+    public Integer getLecturaId() {
+        return this.readingID;
     }
 
 

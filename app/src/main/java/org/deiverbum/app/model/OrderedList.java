@@ -19,14 +19,12 @@ public class OrderedList {
 
     /**
      * No args constructor for use in serialization
-     *
      */
     @SuppressWarnings("unused")
     public OrderedList() {
     }
 
     /**
-     *
      * @param item Título del item
      * @param text Texto descriptivo
      */

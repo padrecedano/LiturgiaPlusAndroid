@@ -10,5 +10,6 @@ public class CrudLHResponsory {
     public List<LHResponsoryTable> d;
 
     @SuppressWarnings("unused")
-    public CrudLHResponsory() {}
+    public CrudLHResponsory() {
+    }
 }

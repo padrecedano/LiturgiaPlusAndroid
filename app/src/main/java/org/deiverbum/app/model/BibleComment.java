@@ -6,6 +6,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 
 import org.deiverbum.app.utils.Utils;
+
 @SuppressWarnings("unused")
 public class BibleComment {
     private PaterOpus obras;
@@ -75,12 +76,12 @@ public class BibleComment {
         return this.texto;
     }
 
-    public Spanned getTextoForRead() {
-        return Utils.fromHtmlForRead(this.texto);
-    }
-
     public void setTexto(String texto) {
         this.texto = texto;
+    }
+
+    public Spanned getTextoForRead() {
+        return Utils.fromHtmlForRead(this.texto);
     }
 
     public String getPadre() {

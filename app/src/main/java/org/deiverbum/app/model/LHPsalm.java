@@ -10,17 +10,15 @@ import androidx.room.Ignore;
 
 import org.deiverbum.app.utils.Utils;
 
-public class LHPsalm implements Comparable<LHPsalm>{
-    public Integer psalmID=0;
-    public Integer readingID=0;
-    public String quote="";
-    private String psalm="";
-
-    @Ignore
-    private String theOrder;
+public class LHPsalm implements Comparable<LHPsalm> {
+    public Integer psalmID = 0;
+    public Integer readingID = 0;
+    public String quote = "";
     @Ignore
     protected String antiphon;
-
+    private String psalm = "";
+    @Ignore
+    private String theOrder;
     @Ignore
     private String theme;
     @Ignore
@@ -37,7 +35,7 @@ public class LHPsalm implements Comparable<LHPsalm>{
     }
 
     public String getTheOrder() {
-        return (theOrder != null ) ? theOrder : "";
+        return (theOrder != null) ? theOrder : "";
     }
 
     public void setTheOrder(String theOrder) {
@@ -45,22 +43,22 @@ public class LHPsalm implements Comparable<LHPsalm>{
     }
 
     public String getAntiphon() {
-        return (antiphon != null ) ? antiphon : "";
-    }
-
-    public String getAntifonaForRead() {
-        return (antiphon != null ) ?  Utils.normalizeEnd(antiphon)  : "";
+        return (antiphon != null) ? antiphon : "";
     }
 
     public void setAntiphon(String antiphon) {
         this.antiphon = antiphon;
     }
 
+    public String getAntifonaForRead() {
+        return (antiphon != null) ? Utils.normalizeEnd(antiphon) : "";
+    }
+
     public SpannableStringBuilder getRef() {
         if (quote != null) {
             return new SpannableStringBuilder(Utils.toRedHtml(Utils.getFormato(quote)));//Utils.ssbRed((SpannableStringBuilder) Utils.fromHtml(ref));
         } else {
-            return  new SpannableStringBuilder("");
+            return new SpannableStringBuilder("");
         }
     }
 
@@ -69,7 +67,7 @@ public class LHPsalm implements Comparable<LHPsalm>{
     }
 
     public String getTheme() {
-        return (theme != null ) ? theme : "";
+        return (theme != null) ? theme : "";
     }
 
     public void setTheme(String theme) {
@@ -77,7 +75,7 @@ public class LHPsalm implements Comparable<LHPsalm>{
     }
 
     public String getEpigraph() {
-        return (epigraph != null ) ? epigraph :"";
+        return (epigraph != null) ? epigraph : "";
     }
 
     public void setEpigraph(String epigraph) {
@@ -101,7 +99,6 @@ public class LHPsalm implements Comparable<LHPsalm>{
     }
 
     /**
-     *
      * @return Texto al final de cada salmo
      * @since 2022.01
      */
@@ -125,10 +122,11 @@ public class LHPsalm implements Comparable<LHPsalm>{
 
     /**
      * Método que normaliza el contenido de las antífonas según el tiempo litúrgico del calendario
+     *
      * @param calendarTime Un entero con el Id del tiempo del calendario
      */
 
     public void normalizeByTime(int calendarTime) {
-            this.antiphon =Utils.replaceByTime(getAntiphon(),calendarTime);
+        this.antiphon = Utils.replaceByTime(getAntiphon(), calendarTime);
     }
 }

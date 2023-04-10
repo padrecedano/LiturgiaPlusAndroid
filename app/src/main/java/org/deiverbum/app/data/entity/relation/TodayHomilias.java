@@ -38,7 +38,7 @@ public class TodayHomilias {
     )
     public List<LiturgiaWithHomilias> homilias;
 
-    public MetaLiturgia getMetaLiturgia(){
+    public MetaLiturgia getMetaLiturgia() {
         MetaLiturgia theModel = new MetaLiturgia();
         theModel.setFecha(String.valueOf(today.hoy));
         theModel.setIdHour(2);
@@ -51,17 +51,17 @@ public class TodayHomilias {
         return theModel;
     }
 
-    public Today getToday(){
+    public Today getToday() {
         Today dm = new Today();
-        dm.liturgyDay=feria.getDomainModel();
+        dm.liturgyDay = feria.getDomainModel();
         dm.setTodayDate(today.getHoy());
         dm.setHasSaint(today.hasSaint);
         return dm;
-}
+    }
 
 
-    public Homily getDomainModel(){
-        Homily dm=new Homily();
+    public Homily getDomainModel() {
+        Homily dm = new Homily();
         dm.setHoy(getToday());
 
         List<HomilyList> listModel = new ArrayList<>();

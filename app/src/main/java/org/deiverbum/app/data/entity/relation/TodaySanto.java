@@ -24,8 +24,8 @@ public class TodaySanto {
     )
     public SaintLife saintLife;
 
-    public SaintLife getDomainModel(){
-        SaintLife dm= new SaintLife();
+    public SaintLife getDomainModel() {
+        SaintLife dm = new SaintLife();
         dm.setLongLife(saintLife.getLongLife());
         dm.setMartyrology(saintLife.getMartyrology());
         dm.setTheSource(saintLife.getTheSource());

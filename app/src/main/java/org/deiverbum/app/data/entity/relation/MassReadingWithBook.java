@@ -24,7 +24,7 @@ public class MassReadingWithBook {
     public BiblieBookEntity libro;
 
     public MassReading getDomainModel() {
-        MassReading theModel=new MassReading();
+        MassReading theModel = new MassReading();
         theModel.setLibro(libro.getDomainModel());
         theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
         theModel.setVersoInicial(String.valueOf(lectura.getDesde()));
@@ -35,7 +35,7 @@ public class MassReadingWithBook {
     }
 
     public MassReading getDomainModelMisa() {
-        MassReading theModel=new MassReading();
+        MassReading theModel = new MassReading();
         theModel.setLibro(libro.getDomainModel());
         theModel.setCapitulo(String.valueOf(lectura.getCapitulo()));
         theModel.setVersoInicial(String.valueOf(lectura.getDesde()));

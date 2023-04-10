@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Liturgia+</string>
-    <string name="app_name_and_version">Liturgia+ v. 2023.1</string>
-
-    <string name="app_version_name_and_mail">v. 2023.1
-        [Iosue]\na.cedano@deiverbum.org</string>
-    <string name="app_version_name">v. 2023.1
-        [Iosue]</string>
     <!-- Activity and Fragment titles -->
     <string name="title_fragment_breviario">Breviario</string>
     <string name="title_fragment_misa">Misa</string>
@@ -146,7 +140,7 @@
     <string name="label_accept">He leído y acepto la Política de Privacidad y los Términos y Condiciones de Uso.</string>
     <string name="welcome_message">Hello, <font color="{0}">Title</font>! You have new messages.</string>
 
-    <string name="accept_intro">Bienvenido a Liturgia+ \nv. 2023.1</string>
+    <string name="accept_intro">Bienvenido a</string>
 
     <string name="accept_info">Si estás viendo esta
         pantalla es porque estás instalando por primera vez una nueva versión
@@ -155,9 +149,7 @@
         aceptación de la Política de Privacidad y/o los Términos y
         Condiciones de Uso. \n\nDebido a cambios
         recientes en las leyes de protección de datos en diversos países,
-        antes de usar la aplicación deberás leer y aceptar la <font
-            color="#A52A2A"><b>Política de Privacidad</b></font> y los <font
-            color="#A52A2A"><b>Términos y Condiciones de Uso</b></font>.
+        antes de usar la aplicación deberás leer y aceptar la <font color="#A52A2A"><b>Política de Privacidad</b></font> y los <font color="#A52A2A"><b>Términos y Condiciones de Uso</b></font>.
         \n\nAl final encontrarás un botón <b>Aceptar</b>, al pulsar sobre él estarás indicando que has leído la Política de
         Privacidad y los Términos y Condiciones de Uso y que los aceptas. De
         este modo accederás a la pantalla inicial de la Aplicación y tu

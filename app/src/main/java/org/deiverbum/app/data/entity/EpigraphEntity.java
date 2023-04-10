@@ -20,11 +20,11 @@ public class EpigraphEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "epigraphID")
-    public Integer epigrafeId=0;
+    public Integer epigrafeId = 0;
 
     @NonNull
     @ColumnInfo(name = "epigraph")
-    public String epigrafe="";
+    public String epigrafe = "";
 
     @NonNull
     public String getEpigrafe() {

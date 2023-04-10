@@ -4,16 +4,17 @@
     <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="fontFamily">@font/roboto_regular</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorSurface</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorSurface">@color/colorSurface</item>
         <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="colorOnPrimary">@color/colorOnSurface</item>
 
         <item name="actionModeStyle">@style/Widget.App.ActionMode</item>
         <item name="actionModeCloseDrawable">@drawable/ic_baseline_close_24</item>
 
-        <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
+        <!--<item name="toolbarStyle">@style/Widget.App.Toolbar</item>-->
         <item name="textAppearanceBody1">@style/TextAppearance.AppTheme.DisplayBody</item>
         <item name="textAppearanceBody2">
             @style/TextAppearance.AppTheme.Body2
@@ -23,7 +24,9 @@
         <item name="checkboxStyle">@style/Widget.App.CheckBox</item>
 
         <item name="switchStyle">@style/Widget.App.Switch</item>
-        <item name="extendedFloatingActionButtonStyle">@style/Widget.App.ExtendedFloatingActionButton</item>
+        <item name="extendedFloatingActionButtonStyle">
+            @style/Widget.App.ExtendedFloatingActionButton
+        </item>
 
         <item name="navigationViewStyle">@style/Widget.App.NavigationView</item>
 
@@ -43,8 +46,7 @@
 
     </style>
 
-    <style name="Widget.App.LinearProgressIndicator"
-        parent="Widget.MaterialComponents.LinearProgressIndicator">
+    <style name="Widget.App.LinearProgressIndicator" parent="Widget.MaterialComponents.LinearProgressIndicator">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.LinearProgressIndicator</item>
         <item name="trackThickness">20dp</item>
     </style>
@@ -96,7 +98,6 @@
     </style>
 
 
-
     <style name="Widget.App.TextView" parent="@android:style/Widget.Material.TextView" tools:ignore="NewApi">
         <item name="android:textAppearance">@style/TextAppearance.AppTheme.Body2</item>
         <item name="android:textColorLink">@color/colorLink</item>
@@ -114,18 +115,36 @@
         <!--toolbar, primaryColor en tema claro, surfaceColor en tema oscuro-->
 
     </style>
-
-    <style name="Widget.App.Toolbar" parent="Widget.Material3.Toolbar">
+    <!--
+        <style name="Widget.App.Toolbar" parent="Widget.Material3.Toolbar">
+              <item name="materialThemeOverlay">@style/ThemeOverlay.App.Toolbar</item>
+          </style>
+    -->
+    <!--
+      <style name="ThemeOverlay.App.Toolbar" parent="Widget.Material3.AppBarLayout">
+          <item name="colorSurface">@color/colorSurface</item>
+          <item name="colorOnSurface">@color/colorOnSurface</item>
+          <item name="titleTextColor">@color/colorOnSurface</item>
+          <item name="navigationIconTint">@color/colorOnSurface</item>
+          <item name="android:textColorSecondary">@color/colorOnSurface</item>
+          <item name="subtitleTextColor">@color/colorOnSurfaceVariant</item>
+    </style>
+  -->
+    <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Toolbar</item>
+        <!-- <item name="titleTextAppearance">@style/TextAppearance.App.Headline</item> -->
+        <item name="subtitleTextAppearance">@style/TextAppearance.Material3.TitleSmall</item>
+        <item name="subtitleTextColor">@color/amber_50</item>
+
     </style>
 
-    <style name="ThemeOverlay.App.Toolbar" parent="Widget.Material3.AppBarLayout">
-        <item name="colorSurface">@color/colorSurface</item>
-        <item name="colorOnSurface">@color/colorOnSurface</item>
-        <item name="titleTextColor">@color/colorOnSurface</item>
-        <item name="navigationIconTint">@color/colorOnSurface</item>
-        <item name="android:textColorSecondary">@color/colorOnSurface</item>
-        <item name="subtitleTextColor">@color/colorOnSurfaceVariant</item>
+    <style name="ThemeOverlay.App.Toolbar" parent="">
+        <!--
+                <item name="colorPrimary">#3F51B5</item>
+                <item name="colorPrimaryVariant">#983F51B5</item>
+                <item name="colorOnPrimary">@color/amber_900</item>
+                    -->
+
     </style>
 
     <style name="Widget.App.ExtendedFloatingActionButton" parent="Widget.Material3.ExtendedFloatingActionButton.Icon.Primary">
@@ -149,7 +168,7 @@
         <item name="android:textSize">@dimen/default_font_body</item>
         <item name="android:textColor">@color/text_color</item>
         <item name="android:textColorLink">@color/colorLink</item>
-        <item name="lineHeight">27dp</item>
+        <item name="lineHeight">@dimen/body_line_height</item>
     </style>
 
     <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -172,12 +191,26 @@
     </style>
 
     <!-- Textos de Recyclerview -->
-    <style name="TextAppearance.AppTheme.Body2" parent="TextAppearance.MaterialComponents.Body2">
-        <item name="fontFamily">@font/roboto_light</item>
-        <item name="android:textSize">17sp</item>
+    <style name="TextAppearance.AppTheme.BreviarioRV" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">@dimen/default_font_recycler</item>
+        <item name="android:textColor">@color/color_mainrecycler_text</item>
+
+    </style>
+
+    <style name="TextAppearance.AppTheme.BreviarioRVIcon" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">@dimen/default_icon_recycler</item>
+        <item name="android:textColor">@color/colorMainIcon</item>
+    </style>
+
+
+    <!-- Textos de Recyclerview Deprecated-->
+
+    <style name="TextAppearance.AppTheme.Body2" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">@dimen/default_font_recycler</item>
         <item name="android:textColorLink">@color/colorLink</item>
-
-
     </style>
 
     <style name="Widget.App.CheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
@@ -199,7 +232,6 @@
         <item name="android:textSize">@dimen/default_font</item>
 
 
-
     </style>
 
 
@@ -209,8 +241,10 @@
         <item name="colorSurface">@color/background_player</item>
         <item name="colorOnSurface">@color/colorBreviario</item>
         <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
-        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.App.Title.Text</item>
-        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.App.Body.Text</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.App.Title.Text
+        </item>
+        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.App.Body.Text
+        </item>
 
         <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button</item>
         <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button</item>
@@ -224,12 +258,13 @@
     <style name="MaterialAlertDialog.App.Title.Text" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
         <item name="android:textColor">@color/colorInput</item>
     </style>
-    <style name="MaterialAlertDialog.App.Body.Text"
-        parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+
+    <style name="MaterialAlertDialog.App.Body.Text" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
         <item name="android:textColor">@color/colorTextInput</item>
         <item name="android:fontFamily">@font/roboto_bold</item>
         <item name="android:textAppearance">
-            @style/TextAppearance.Material3.HeadlineLarge</item>
+            @style/TextAppearance.Material3.HeadlineLarge
+        </item>
 
 
     </style>
@@ -243,10 +278,14 @@
         <item name="cornerFamily">cut</item>
         <item name="cornerSize">8dp</item>
     </style>
+
     <style name="ThemeOverlay.App.Button.TextButton" parent="">
         <item name="colorPrimary">@color/colorInput</item>
         <item name="android:fontFamily">@font/roboto_bold</item>
 
     </style>
 
+    <dimen name="body_line_height">45sp</dimen>
+    <dimen name="default_font_recycler">45px</dimen>
+    <dimen name="default_icon_recycler">50sp</dimen>
 </resources>

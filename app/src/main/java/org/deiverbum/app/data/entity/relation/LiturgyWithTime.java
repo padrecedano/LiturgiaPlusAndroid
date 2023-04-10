@@ -25,14 +25,14 @@ public class LiturgyWithTime {
     public LiturgyTimeEntity tiempo;
 
     public Liturgy getDomainModel() {
-        Liturgy dm=new Liturgy();
+        Liturgy dm = new Liturgy();
         dm.setLiturgyID(liturgyEntity.liturgiaId);
         dm.setLiturgiaId(liturgyEntity.getLiturgiaId());
         dm.setSemana(liturgyEntity.getSemana());
         dm.setDia(liturgyEntity.getDia());
         dm.setColorId(liturgyEntity.getColorFK());
         dm.setNombre(liturgyEntity.getNombre());
-        LiturgyTime t=new LiturgyTime();
+        LiturgyTime t = new LiturgyTime();
         t.setTimeID(tiempo.getTiempoId());
         t.setTiempo(tiempo.getTiempo());
         t.setLiturgyName(tiempo.getLiturgyName());

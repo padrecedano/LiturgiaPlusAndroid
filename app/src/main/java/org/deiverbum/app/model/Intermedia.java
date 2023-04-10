@@ -28,6 +28,7 @@ public class Intermedia extends BreviaryHour {
                 return "";
         }
     }
+
     public String getTituloHoraForRead() {
         return Utils.pointAtEnd(getTituloHora());
     }
@@ -38,11 +39,10 @@ public class Intermedia extends BreviaryHour {
     }
 
     public SpannableStringBuilder getForView(LiturgyTime liturgyTime, int typeID) {
-        this.typeID=typeID;
+        this.typeID = typeID;
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
             salmodia.normalizeByTime(liturgyTime.getTimeID());
-            //sb.append(today.getAllForView());
             sb.append(Utils.LS2);
 
             sb.append(getTituloHoraForView());

@@ -72,18 +72,18 @@ public class TodayNona {
     )
     public LHPrayerAll lhPrayerAll;
 
-    public Today getToday(){
+    public Today getToday() {
         Today dm = new Today();
-        dm.liturgyDay=feria.getDomainModel();
+        dm.liturgyDay = feria.getDomainModel();
         dm.setTodayDate(today.getHoy());
         return dm;
     }
 
-    public Liturgy getDomainModel(){
-        Liturgy dm= feria.getDomainModel();
-        BreviaryHour bh=new BreviaryHour();
-        Intermedia hi=new Intermedia();
-        dm.typeID=5;
+    public Liturgy getDomainModel() {
+        Liturgy dm = feria.getDomainModel();
+        BreviaryHour bh = new BreviaryHour();
+        Intermedia hi = new Intermedia();
+        dm.typeID = 5;
         //hi.setHourId(5);
         hi.setToday(getToday());
         hi.setHimno(getHimno());
@@ -95,12 +95,12 @@ public class TodayNona {
         return dm;
     }
 
-    public LHHymn getHimno(){
+    public LHHymn getHimno() {
         return himno.getDomainModel();
     }
 
-    public BiblicalShort getBiblica(){
-        return  biblica.getDomainModel(today.getTiempoId());
+    public BiblicalShort getBiblica() {
+        return biblica.getDomainModel(today.getTiempoId());
     }
 
     public org.deiverbum.app.model.LHPsalmody getSalmodia() {
@@ -111,12 +111,12 @@ public class TodayNona {
         return lhPrayerAll.getDomainModel();
     }
 
-    public Today getDomainModelToday(){
-        Liturgy dm= feria.getDomainModel();
-        BreviaryHour bh=new BreviaryHour();
-        Intermedia hi=new Intermedia();
-        Today dmToday=getToday();
-        dm.typeID=5;
+    public Today getDomainModelToday() {
+        Liturgy dm = feria.getDomainModel();
+        BreviaryHour bh = new BreviaryHour();
+        Intermedia hi = new Intermedia();
+        Today dmToday = getToday();
+        dm.typeID = 5;
         hi.setTypeId(5);
         hi.setHimno(getHimno());
         hi.setSalmodia(getSalmodia());
@@ -124,7 +124,7 @@ public class TodayNona {
         hi.setOracion(getOracion());
         bh.setIntermedia(hi);
         dm.setBreviaryHour(bh);
-        dmToday.liturgyDay=dm;
+        dmToday.liturgyDay = dm;
         return dmToday;
     }
 

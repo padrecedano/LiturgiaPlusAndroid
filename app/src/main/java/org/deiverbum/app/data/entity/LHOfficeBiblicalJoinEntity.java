@@ -19,6 +19,6 @@ public class LHOfficeBiblicalJoinEntity {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    public Integer grupoId=0;
+    public Integer grupoId = 0;
 }
 

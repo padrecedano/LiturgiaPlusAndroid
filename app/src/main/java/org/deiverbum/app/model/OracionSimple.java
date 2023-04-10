@@ -41,11 +41,11 @@ public class OracionSimple {
     }
 
     public SpannableStringBuilder getForView(boolean nightMode) {
-        ColorUtils.isNightMode=nightMode;
+        ColorUtils.isNightMode = nightMode;
 
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(Utils.toH3Red(titulo));
-        if(this.info!=null){
+        if (this.info != null) {
             sb.append(LS2);
             sb.append(Utils.toRed(getInfo()));
         }
@@ -55,7 +55,7 @@ public class OracionSimple {
     }
 
     public StringBuilder getForRead() {
-        StringBuilder sb=new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         sb.append(getTitulo());
         sb.append(".");
         sb.append(Utils.fromHtml(this.texto));

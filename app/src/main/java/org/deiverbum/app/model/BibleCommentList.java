@@ -17,20 +17,13 @@ public class BibleCommentList {
     @SuppressWarnings("unused")
     public int id_homilia;
     public String pericopa;
-    private Today today;
     public List<List<BibleComment>> allComentarios;
-    private MassReading biblica;
-
     @PropertyName("comentarios")
     public List<BibleComment> comentarios;
+    private Today today;
+    private MassReading biblica;
 
     public BibleCommentList() {
-    }
-
-
-    @PropertyName("comentarios")
-    public void setComentarios(List<BibleComment> comentarios) {
-        this.comentarios = comentarios;
     }
 
     public void setAllComentarios(List<List<BibleComment>> comentarios) {
@@ -40,6 +33,11 @@ public class BibleCommentList {
     @PropertyName("comentarios")
     public List<BibleComment> getComentarios() {
         return this.comentarios;
+    }
+
+    @PropertyName("comentarios")
+    public void setComentarios(List<BibleComment> comentarios) {
+        this.comentarios = comentarios;
     }
 
     private SpannableStringBuilder getTitulo() {
@@ -52,7 +50,7 @@ public class BibleCommentList {
 
 
     public SpannableStringBuilder getAllForView(boolean nightMode) {
-        ColorUtils.isNightMode=nightMode;
+        ColorUtils.isNightMode = nightMode;
         SpannableStringBuilder sb = new SpannableStringBuilder();
         try {
             sb.append(today.getSingleForView());
@@ -103,15 +101,14 @@ public class BibleCommentList {
         return sb;
     }
 
+    @SuppressWarnings("unused")
+    public String getPericopa() {
+        return this.pericopa;
+    }
 
     @SuppressWarnings("unused")
     public void setPericopa(String pericopa) {
         this.pericopa = pericopa;
-    }
-
-    @SuppressWarnings("unused")
-    public String getPericopa() {
-        return this.pericopa;
     }
 
     public void setHoy(Today today) {

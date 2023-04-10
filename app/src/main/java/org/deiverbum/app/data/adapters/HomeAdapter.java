@@ -1,6 +1,5 @@
 package org.deiverbum.app.data.adapters;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,14 +33,14 @@ import java.util.List;
  */
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
-    private final List<HomeItem> mDataSet;
     private static int bgColor;
+    private final List<HomeItem> mDataSet;
 
 
     /**
      * Inicializa el dataset del adaptador.
      *
-     * @param dataSet  Una lista de objetos {@link HomeItem} con los datos con que
+     * @param dataSet Una lista de objetos {@link HomeItem} con los datos con que
      *                se llenarán las vistas del {@link RecyclerView}.
      */
     public HomeAdapter(List<HomeItem> dataSet, int bgColor) {
@@ -96,19 +95,20 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         public ViewHolder(View v) {
             super(v);
-            LinearLayout cardView=v.findViewById(R.id.mainCardView);
+            LinearLayout cardView = v.findViewById(R.id.mainCardView);
             cardView.setBackgroundColor(HomeAdapter.bgColor);
             v.setOnClickListener(v1 -> {
-                int itemId=mItem.getItemId();
-                if(itemId==2 || itemId>9){
+                int itemId = mItem.getItemId();
+                if (itemId == 2 || itemId > 9) {
                     Snackbar snackbar = Snackbar
                             .make(v1, "Este módulo está pendiente de " +
                                             "programación...",
                                     Snackbar.LENGTH_LONG);
                     snackbar.show();
-                }else {
+                } else {
                     Navigation.findNavController(v1).navigate(mItem.getNavId());
-                } });
+                }
+            });
             viewIcon = v.findViewById(R.id.thumbnail);
             viewText = v.findViewById(R.id.title);
             relativeLayout = v.findViewById(R.id.mainCardRelativeLayout);
@@ -126,7 +126,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             viewIcon.setImageResource(item.getThumbnail());
             viewIcon.setColorFilter(item.getImageColor());
 
-                //viewIcon.settin.setBackgroundColor(item.imageColor);}
+            //viewIcon.settin.setBackgroundColor(item.imageColor);}
             viewText.setText(item.getName());
             relativeLayout.setBackgroundColor(item.getColor());
         }

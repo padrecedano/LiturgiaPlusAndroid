@@ -43,11 +43,6 @@ public class Rosario {
         }
     }
 
-    @SuppressWarnings("unused")
-    public void setMisterios(List<Misterio> misterios) {
-        this.misterios = misterios;
-    }
-
     public Spanned getSaludo() {
         return Utils.fromHtml(saludo);
     }
@@ -133,17 +128,17 @@ public class Rosario {
     }
 
     public SpannableStringBuilder getForView(boolean isBrevis, boolean nightMode) {
-        ColorUtils.isNightMode=nightMode;
+        ColorUtils.isNightMode = nightMode;
 
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(Utils.toH3Red("INVOCACIÓN INICIAL"));
         sb.append(LS2);
         sb.append(getSaludo());
         sb.append(LS2);
 
-        if(isBrevis) {
+        if (isBrevis) {
             sb.append(getMisteriosBrevis());
-        }else{
+        } else {
             sb.append(getMisterios());
         }
 
@@ -183,7 +178,7 @@ public class Rosario {
 
             for (int i = 0; i < 10; i++) {
                 sb.append(Utils.toRed(String.format(Locale.getDefault(), "%d" +
-                        "%s",i+1,".-")));
+                        "%s", i + 1, ".-")));
                 sb.append(LS);
                 sb.append(Utils.fromHtml(getAvemaria()));
                 sb.append(LS2);
@@ -195,6 +190,11 @@ public class Rosario {
             x++;
         }
         return sb;
+    }
+
+    @SuppressWarnings("unused")
+    public void setMisterios(List<Misterio> misterios) {
+        this.misterios = misterios;
     }
 
     public SpannableStringBuilder getMisteriosBrevis() {
@@ -220,8 +220,9 @@ public class Rosario {
         }
         return sb;
     }
+
     public SpannableStringBuilder getForRead() {
-        SpannableStringBuilder sb=new SpannableStringBuilder();
+        SpannableStringBuilder sb = new SpannableStringBuilder();
         sb.append(getTitleForRead());
         sb.append(getSaludo());
         sb.append(getMisteriosForRead());

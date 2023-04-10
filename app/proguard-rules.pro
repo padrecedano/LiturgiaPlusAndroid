@@ -18,4 +18,20 @@
 
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# -renamesourcefileattribute SourceFile
+# -printusage usage.txt
+# -printseeds seeds.txt
+
+#-keep public interface org.deiverbum.app.data.db.dao.TodayDao
+-keep class org.deiverbum.app.data.** { *; }
+-keep class org.deiverbum.app.core.** { *; }
+-keep class org.deiverbum.app.model.** { *; }
+-keep class org.deiverbum.app.repository.** { *; }
+-keep class org.deiverbum.app.ui.** { *; }
+-keep class org.deiverbum.app.utils.** { *; }
+-keep class org.deiverbum.app.viewmodel.** { *; }
+-keep class org.deiverbum.app.workers.** { *; }
+-keep class org.deiverbum.app.BaseApplication
+
+-keepdirectories assets/*
+

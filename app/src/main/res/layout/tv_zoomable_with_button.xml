@@ -8,16 +8,17 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.activities.MainActivity"
-    >
-<ScrollView
+    tools:context=".ui.activities.MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -25,26 +26,22 @@
                 android:layout_margin="10dp"
                 android:orientation="vertical">
 
-            <org.deiverbum.app.utils.ZoomTextView
-                android:id="@+id/tv_Zoomable"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="0dp"
-                android:paddingBottom="50dp"
-                android:contentDescription="@string/text_label"
-
-                style="@style/TextAppearance.AppTheme.DisplayBody"
-                />
-            </LinearLayout>
-                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                    android:id="@+id/btnEmail"
-                    android:layout_width="wrap_content"
+                <org.deiverbum.app.utils.ZoomTextView
+                    android:id="@+id/tv_Zoomable"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    app:backgroundTint="@color/md_theme_dark_surface"
-                    android:text="@string/enviar_email"
-                    />
+                    android:contentDescription="@string/text_label"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="50dp" />
             </LinearLayout>
-        </ScrollView>
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/btnEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="@string/enviar_email" />
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

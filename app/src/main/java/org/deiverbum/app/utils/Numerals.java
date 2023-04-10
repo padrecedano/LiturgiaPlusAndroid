@@ -29,9 +29,42 @@ import java.util.List;
 
 /**
  * Utility for converting integers to English numerals or ordinals.
+ *
  * @author Leo Aso
  */
 public final class Numerals {
+    private static final String[] HIGHER_NAMES = {"billion", "million", "thousand"};
+    private static final int[] HIGHER_BASES = {1_000_000_000, 1_000_000, 1000};
+    private static final List<String> ORDINALS = Arrays.asList("",
+            "first", "second", "third", "fourth", "fifth", "sixth",
+            "seventh", "eighth", "nineth", "tenth", "eleventh",
+            "twelfth", "thirteenth", "fourteenth", "fifteenth",
+            "sixteenth", "seventeenth", "eighteenth", "nineteenth",
+            "twentieth", "thirtieth", "fortieth", "fiftieth",
+            "sixtieth", "seventieth", "eightieth", "ninetieth"
+    );
+    private static final List<String> ORDINALS_ES = Arrays.asList("",
+            "primera", "segunda", "tercera", "cuarta", "quinta", "sexta",
+            "séptima", "octava", "novena", "décima", "undécima",
+            "duodécima", "décimo tercera", "décimo cuarta", "décimo quinta",
+            "décimo sexta", "décimo séptima", "décimo octava", "décimo novena",
+            "vigésima", "trigésima", "cuadragésima", "quincuagésima",
+            "sexagésima", "septuagésima", "octogésima", "nonagésima"
+    );
+    private static final List<String> NUMERALS = Arrays.asList("",
+            "one", "two", "three", "four", "five", "six", "seven",
+            "eight", "nine", "ten", "eleven", "twelve", "thirteen",
+            "fourteen", "fifteen", "sixteen", "seventeen",
+            "eighteen", "nineteen", "twenty", "thirty", "forty",
+            "fifty", "sixty", "seventy", "eighty", "ninety"
+    );
+    private static final List<String> NUMERALS_ES = Arrays.asList("",
+            "one", "two", "three", "four", "five", "six", "seven",
+            "eight", "nine", "ten", "eleven", "twelve", "thirteen",
+            "fourteen", "fifteen", "sixteen", "seventeen",
+            "eighteen", "nineteen", "vigésimo", "trigésimo", "forty",
+            "fifty", "sixty", "seventy", "eighty", "ninety"
+    );
     private final boolean useAnd;
     private final boolean useCommas;
     private final boolean useDashes;
@@ -46,12 +79,13 @@ public final class Numerals {
 
     /**
      * Creates a new numerals.
-     * @param useAnd whether or not to print 'and' before tens and units
-     * i.e. {@code one thousand and five} vs {@code one thousand five}.
+     *
+     * @param useAnd    whether or not to print 'and' before tens and units
+     *                  i.e. {@code one thousand and five} vs {@code one thousand five}.
      * @param useCommas whether or not to print 'commas' after
-     * thousand, million, and billion.
+     *                  thousand, million, and billion.
      * @param useDashes whether or not to use dashes between tens and units
-     * i.e. {@code forty-two} vs {@code forty two}.
+     *                  i.e. {@code forty-two} vs {@code forty two}.
      */
     public Numerals(boolean useAnd,
                     boolean useCommas,
@@ -63,6 +97,7 @@ public final class Numerals {
 
     /**
      * Converts the number to words in English.
+     *
      * @param number the number to convert.
      * @return the generated numeral.
      */
@@ -72,9 +107,10 @@ public final class Numerals {
 
     /**
      * Converts the number to words in English.
-     * @param number the number to convert.
+     *
+     * @param number  the number to convert.
      * @param ordinal if true, generates an ordinal (first, forty-third);
-     * if false, generates a regular numeral (one, forty-two).
+     *                if false, generates a regular numeral (one, forty-two).
      * @return the generated numeral/ordinal.
      */
     public String toWords(int number, boolean ordinal) {
@@ -103,43 +139,6 @@ public final class Numerals {
         sb.append(wordsBelow1000(number, ordinal));
         return sb.toString();
     }
-
-    private static final String[] HIGHER_NAMES = { "billion", "million", "thousand" };
-    private static final int[] HIGHER_BASES = { 1_000_000_000, 1_000_000, 1000 };
-
-    private static final List<String> ORDINALS = Arrays.asList("",
-            "first", "second", "third", "fourth", "fifth", "sixth",
-            "seventh", "eighth", "nineth", "tenth", "eleventh",
-            "twelfth", "thirteenth", "fourteenth", "fifteenth",
-            "sixteenth", "seventeenth", "eighteenth", "nineteenth",
-            "twentieth", "thirtieth", "fortieth", "fiftieth",
-            "sixtieth", "seventieth", "eightieth", "ninetieth"
-    );
-
-    private static final List<String> ORDINALS_ES = Arrays.asList("",
-            "primera", "segunda", "tercera", "cuarta", "quinta", "sexta",
-            "séptima", "octava", "novena", "décima", "undécima",
-            "duodécima", "décimo tercera", "décimo cuarta", "décimo quinta",
-            "décimo sexta", "décimo séptima", "décimo octava", "décimo novena",
-            "vigésima", "trigésima", "cuadragésima", "quincuagésima",
-            "sexagésima", "septuagésima", "octogésima", "nonagésima"
-    );
-
-    private static final List<String> NUMERALS = Arrays.asList("",
-            "one", "two", "three", "four", "five", "six", "seven",
-            "eight", "nine", "ten", "eleven", "twelve", "thirteen",
-            "fourteen", "fifteen", "sixteen", "seventeen",
-            "eighteen", "nineteen", "twenty", "thirty", "forty",
-            "fifty", "sixty", "seventy", "eighty", "ninety"
-    );
-
-    private static final List<String> NUMERALS_ES = Arrays.asList("",
-            "one", "two", "three", "four", "five", "six", "seven",
-            "eight", "nine", "ten", "eleven", "twelve", "thirteen",
-            "fourteen", "fifteen", "sixteen", "seventeen",
-            "eighteen", "nineteen", "vigésimo", "trigésimo", "forty",
-            "fifty", "sixty", "seventy", "eighty", "ninety"
-    );
 
     private String wordsBelow1000(int number, boolean useOrdinals) {
         if (number == 0) return "";

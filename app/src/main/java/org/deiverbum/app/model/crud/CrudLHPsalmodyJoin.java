@@ -11,7 +11,8 @@ public class CrudLHPsalmodyJoin {
     public List<LHPsalmodyJoin> d;
 
     @SuppressWarnings("unused")
-    public CrudLHPsalmodyJoin() {}
+    public CrudLHPsalmodyJoin() {
+    }
 
 
 }

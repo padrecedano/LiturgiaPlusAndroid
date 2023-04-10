@@ -23,17 +23,18 @@ import java.util.Objects;
 
 /**
  * <p>
- *     Este Fragmento maneja lo relativo al módulo <b>Biblia</b>.
- *     Muestra un <code>RecyclerView</code> con las diferentes oraciones
- *     de la Liturgy de las Horas.
+ * Este Fragmento maneja lo relativo al módulo <b>Biblia</b>.
+ * Muestra un <code>RecyclerView</code> con las diferentes oraciones
+ * de la Liturgy de las Horas.
  * </p>
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
  */
-public class BibliaFragment extends Fragment{
-    private FragmentBibliaBinding binding;
+public class BibliaFragment extends Fragment {
     RecyclerView recyclerView;
+    private FragmentBibliaBinding binding;
     private List<BibleBooks> booksList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -143,8 +144,8 @@ public class BibliaFragment extends Fragment{
         String dateString;
         if (bundle != null) {
             dateString = bundle.getString("FECHA") == null ? Utils.getHoy() : bundle.getString("FECHA");
-        }else{
-            dateString=Utils.getHoy();
+        } else {
+            dateString = Utils.getHoy();
         }
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         Objects.requireNonNull(actionBar).setSubtitle(Utils.getTitleDate(dateString));

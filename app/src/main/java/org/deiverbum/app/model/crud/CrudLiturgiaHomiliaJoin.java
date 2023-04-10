@@ -11,7 +11,8 @@ public class CrudLiturgiaHomiliaJoin {
     public List<LiturgyHomilyJoin> d;
 
     @SuppressWarnings("unused")
-    public CrudLiturgiaHomiliaJoin() {}
+    public CrudLiturgiaHomiliaJoin() {
+    }
 
 
 }

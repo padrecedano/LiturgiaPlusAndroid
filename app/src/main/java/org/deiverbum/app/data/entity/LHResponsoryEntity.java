@@ -24,7 +24,16 @@ public class LHResponsoryEntity {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "responsoryID")
-    public Integer responsorioId=0;
+    public Integer responsorioId = 0;
+    @NonNull
+    @ColumnInfo(name = "text")
+    public String texto = "";
+    @NonNull
+    @ColumnInfo(name = "source")
+    public String fuente = "";
+    @NonNull
+    @ColumnInfo(name = "type")
+    public Integer tipo = 0;
 
     @NonNull
     public String getTexto() {
@@ -41,21 +50,9 @@ public class LHResponsoryEntity {
         return tipo;
     }
 
-    @NonNull
-    @ColumnInfo(name = "text")
-    public String texto="";
-
-    @NonNull
-    @ColumnInfo(name = "source")
-    public String fuente="";
-
-    @NonNull
-    @ColumnInfo(name = "type")
-    public Integer tipo=0;
-
-    public LHResponsory getDomainModel(Integer timeId){
-        LHResponsory theModel=new LHResponsory();
-        theModel.setText(Utils.replaceByTime(getTexto(),timeId));
+    public LHResponsory getDomainModel(Integer timeId) {
+        LHResponsory theModel = new LHResponsory();
+        theModel.setText(Utils.replaceByTime(getTexto(), timeId));
         theModel.setType(getTipo());
         theModel.setSource(getFuente());
         return theModel;
