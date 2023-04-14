@@ -1,67 +1,61 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.LH_OFFICE_PATRISTIC;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.Companion.CASCADE
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = LH_OFFICE_PATRISTIC,
-        primaryKeys = {"groupFK", "theOrder"},
-
-        foreignKeys =
-                {
-                        @ForeignKey(
-                                entity = LHOfficePatristicJoinEntity.class,
-                                parentColumns = "groupID",
-                                childColumns = "groupFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE),
-                        @ForeignKey(
-                                entity = HomilyEntity.class,
-                                parentColumns = "homilyID",
-                                childColumns = "homilyFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE),
-                        @ForeignKey(
-                                entity = LHResponsoryEntity.class,
-                                parentColumns = "responsoryID",
-                                childColumns = "responsoryFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)
-                }
+@Entity(
+    tableName = Constants.LH_OFFICE_PATRISTIC,
+    primaryKeys = ["groupFK", "theOrder"],
+    foreignKeys = [ForeignKey(
+        entity = LHOfficePatristicJoinEntity::class,
+        parentColumns = arrayOf("groupID"),
+        childColumns = arrayOf("groupFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    ), ForeignKey(
+        entity = HomilyEntity::class,
+        parentColumns = arrayOf("homilyID"),
+        childColumns = arrayOf("homilyFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    ), ForeignKey(
+        entity = LHResponsoryEntity::class,
+        parentColumns = arrayOf("responsoryID"),
+        childColumns = arrayOf("responsoryFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )]
 )
-public class LHOfficePatristicEntity {
-    @NonNull
+class LHOfficePatristicEntity {
+    @JvmField
     @ColumnInfo(name = "groupFK", index = true)
-    public Integer grupoFK = 0;
+    var grupoFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "homilyFK", index = true)
-    public Integer homiliaFK = 0;
+    var homiliaFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "theme")
-    public String tema = "";
+    var tema = ""
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "source", defaultValue = "")
-    public String fuente = "";
+    var fuente = ""
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "theOrder", defaultValue = "1")
-    public Integer orden = 0;
+    var orden = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "responsoryFK", index = true)
-    public Integer responsorioFK = 0;
-
+    var responsorioFK = 0
 }
-

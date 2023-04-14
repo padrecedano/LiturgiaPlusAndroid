@@ -1,86 +1,71 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.HOMILY;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
+import androidx.room.*
+import androidx.room.ForeignKey.Companion.SET_DEFAULT
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = HOMILY,
-        foreignKeys =
-                {
-                        @ForeignKey(
-                                entity = PaterOpusEntity.class,
-                                parentColumns = "opusID",
-                                childColumns = "opusFK",
-                                onDelete = ForeignKey.SET_DEFAULT,
-                                onUpdate = ForeignKey.SET_DEFAULT)},
-        indices = {@Index(value = {"opusFK", "date", "book", "chapter", "number", "paragraph", "collectionFK", "colNumber", "colParagraph"}, unique = true)}
+@Entity(
+    tableName = Constants.HOMILY,
+    foreignKeys = [ForeignKey(
+        entity = PaterOpusEntity::class,
+        parentColumns = arrayOf("opusID"),
+        childColumns = arrayOf("opusFK"),
+        onDelete = SET_DEFAULT,
+        onUpdate = SET_DEFAULT
+    )],
+    indices = [Index(
+        value = ["opusFK", "date", "book", "chapter", "number", "paragraph", "collectionFK", "colNumber", "colParagraph"],
+        unique = true
+    )]
 )
-
-public class HomilyEntity {
-    @NonNull
+class HomilyEntity {
+    @JvmField
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "homilyID")
-    public Integer homiliaId = 0;
+    var homiliaId = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "opusFK", defaultValue = "0")
-    public Integer obraFK = 0;
+    var obraFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "date", defaultValue = "0")
-    public Integer fecha = 0;
+    var fecha = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "book", defaultValue = "0")
-    public Integer libro = 0;
+    var libro = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "chapter", defaultValue = "0")
-    public Integer capitulo = 0;
+    var capitulo = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "number", defaultValue = "0")
-    public Integer numero = 0;
+    var numero = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "paragraph", defaultValue = "0")
-    public Integer parrafo = 0;
+    var parrafo = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "collectionFK", defaultValue = "0")
-    public Integer coleccionFK = 0;
+    var coleccionFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "colNumber", defaultValue = "0")
-    public Integer colDoc = 0;
+    var colDoc = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "colParagraph", defaultValue = "0")
-    public Integer colParrafo = 0;
+    var colParrafo = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "homily")
-    public String texto = "";
-
-    @NonNull
-    public Integer getNumero() {
-        return numero;
-    }
-
-    @NonNull
-    public String getTexto() {
-        return texto;
-    }
+    var texto = ""
 }
-

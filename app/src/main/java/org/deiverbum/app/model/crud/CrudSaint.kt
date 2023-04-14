@@ -1,17 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.Saint;
+import org.deiverbum.app.model.Saint
 
-import java.util.List;
-
-public class CrudSaint {
-
-    public List<Saint> c;
-    public List<Saint> u;
-    public List<Saint> d;
-
-    @SuppressWarnings("unused")
-    public CrudSaint() {
-    }
-
+class CrudSaint {
+    var c: List<Saint>? = null
+    var u: List<Saint>? = null
+    var d: List<Saint>? = null
 }

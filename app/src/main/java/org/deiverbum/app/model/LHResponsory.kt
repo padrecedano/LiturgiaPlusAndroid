@@ -1,263 +1,219 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Constants.BR;
-import static org.deiverbum.app.utils.Constants.BRS;
-import static org.deiverbum.app.utils.Constants.ERR_RESPONSORIO;
-import static org.deiverbum.app.utils.Constants.RESP_A;
-import static org.deiverbum.app.utils.Constants.TITLE_RESPONSORY;
-import static org.deiverbum.app.utils.Utils.LS2;
+import android.text.SpannableStringBuilder
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
+import java.util.*
 
-import android.text.SpannableStringBuilder;
-
-import org.deiverbum.app.utils.Utils;
-
-import java.util.Locale;
-
-public class LHResponsory extends LHResponsoryShort {
-    private String source;
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public SpannableStringBuilder getHeader() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        if (source != null) {
-            sb.append(Utils.toRed(String.format(new Locale("es"), "%s%s%s", TITLE_RESPONSORY, "     ", getSource())));
-
-        } else {
-            sb.append(Utils.toRed(TITLE_RESPONSORY));
+class LHResponsory : LHResponsoryShort() {
+    var source: String? = null
+    override val header: SpannableStringBuilder
+        get() {
+            val sb = SpannableStringBuilder()
+            if (source != null) {
+                sb.append(
+                    Utils.toRed(
+                        String.format(
+                            Locale("es"),
+                            "%s%s%s",
+                            Constants.TITLE_RESPONSORY,
+                            "     ",
+                            source
+                        )
+                    )
+                )
+            } else {
+                sb.append(Utils.toRed(Constants.TITLE_RESPONSORY))
+            }
+            sb.append(Utils.LS2)
+            return sb
         }
-        sb.append(LS2);
-        return sb;
-    }
 
     /**
-     * <p>Método que crea la cadena completa de un responsorio dado.</p>
+     *
+     * Método que crea la cadena completa de un responsorio dado.
      *
      * @return Una cadena con el responsorio completo, con sus respectivos V. y R.
      * @since 2022.01
      */
-
-    public SpannableStringBuilder getAll() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        String[] respArray = text.split("\\|");
-        StringBuilder s = new StringBuilder();
-
-        sb.append(getHeader());
-        switch (type) {
-            case 1:
-                if (respArray.length == 3) {
-                    s.append(Utils.toRedFont("R. "));
-                    s.append(respArray[0]);
-                    s.append(RESP_A);
-                    s.append(respArray[1]);
-                    s.append(BRS);
-                    s.append(Utils.toRedFont("V. "));
-                    s.append(respArray[2]);
-                    s.append(BRS);
-                    s.append(Utils.toRedFont("R. "));
-                    s.append(Character.toUpperCase(respArray[1].charAt(0)));
-                    s.append(respArray[1].substring(1));
-                    s.append(BRS);
-                    sb.append(Utils.fromHtml(s.toString()));
+    val all: SpannableStringBuilder
+        get() {
+            val sb = SpannableStringBuilder()
+            val respArray =
+                text!!.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val s = StringBuilder()
+            sb.append(header)
+            when (type) {
+                1 -> if (respArray.size == 3) {
+                    s.append(Utils.toRedFont("R. "))
+                    s.append(respArray[0])
+                    s.append(Constants.RESP_A)
+                    s.append(respArray[1])
+                    s.append(Constants.BRS)
+                    s.append(Utils.toRedFont("V. "))
+                    s.append(respArray[2])
+                    s.append(Constants.BRS)
+                    s.append(Utils.toRedFont("R. "))
+                    s.append(respArray[1][0].uppercaseChar())
+                    s.append(respArray[1].substring(1))
+                    s.append(Constants.BRS)
+                    sb.append(Utils.fromHtml(s.toString()))
                 }
-                break;
-
-            case 2:
-                s.append(Utils.toRedFont("R. "));
-                s.append(respArray[0]);
-                s.append(RESP_A);
-                s.append(respArray[1]);
-                s.append(BRS);
-                s.append(Utils.toRedFont("V. "));
-                s.append(respArray[2]);
-                s.append(BRS);
-                s.append(Utils.toRedFont("R. "));
-                s.append(Character.toUpperCase(respArray[1].charAt(0)));
-                s.append(respArray[1].substring(1));
-                s.append(BRS);
-                sb.append(Utils.fromHtml(s.toString()));
-                break;
-
-            /*
-             *6 partes distribuidas así: 0-0-1-2-3-0, de ahí el código 6001230...
-             *Suele ser el modelo de responsorio para Laudes
-             */
-            case 6001230:
-                if (respArray.length == 4) {
-                    s.append(Utils.toRedFont("V. "));
-                    s.append(respArray[0]);
-                    s.append(BR);
-                    s.append(Utils.toRedFont("R. "));
-                    s.append(respArray[0]);
-                    s.append(BRS);
-                    s.append(Utils.toRedFont("V. "));
-                    s.append(respArray[1]);
-                    s.append(BR);
-                    s.append(Utils.toRedFont("R. "));
-                    s.append(respArray[2]);
-                    s.append(BRS);
-                    s.append(Utils.toRedFont("V. "));
-                    s.append(respArray[3]);
-                    s.append(BR);
-                    s.append(Utils.toRedFont("R. "));
-                    s.append(respArray[0]);
-                    s.append(BRS);
-                    sb.append(Utils.fromHtml(s.toString()));
-
+                2 -> {
+                    s.append(Utils.toRedFont("R. "))
+                    s.append(respArray[0])
+                    s.append(Constants.RESP_A)
+                    s.append(respArray[1])
+                    s.append(Constants.BRS)
+                    s.append(Utils.toRedFont("V. "))
+                    s.append(respArray[2])
+                    s.append(Constants.BRS)
+                    s.append(Utils.toRedFont("R. "))
+                    s.append(respArray[1][0].uppercaseChar())
+                    s.append(respArray[1].substring(1))
+                    s.append(Constants.BRS)
+                    sb.append(Utils.fromHtml(s.toString()))
                 }
-                break;
-
-
-            case 6001020:
-                if (respArray.length == 3) {
-                    s.append(Utils.toRedFont("V. "));
-                    s.append(respArray[0]);
-                    s.append(BR);
-                    s.append(Utils.toRedFont("R. "));
-                    s.append(respArray[0]);
-                    s.append(BRS);
-                    s.append(Utils.toRedFont("V. "));
-                    s.append(respArray[1]);
-                    s.append(BR);
-                    s.append(Utils.toRedFont("R. "));
-                    s.append(respArray[0]);
-                    s.append(BRS);
-                    s.append(Utils.toRedFont("V. "));
-                    s.append(respArray[2]);
-                    s.append(BR);
-                    s.append(Utils.toRedFont("R. "));
-                    s.append(respArray[0]);
-                    s.append(BRS);
-                    sb.append(Utils.fromHtml(s.toString()));
-
+                6001230 -> if (respArray.size == 4) {
+                    s.append(Utils.toRedFont("V. "))
+                    s.append(respArray[0])
+                    s.append(Constants.BR)
+                    s.append(Utils.toRedFont("R. "))
+                    s.append(respArray[0])
+                    s.append(Constants.BRS)
+                    s.append(Utils.toRedFont("V. "))
+                    s.append(respArray[1])
+                    s.append(Constants.BR)
+                    s.append(Utils.toRedFont("R. "))
+                    s.append(respArray[2])
+                    s.append(Constants.BRS)
+                    s.append(Utils.toRedFont("V. "))
+                    s.append(respArray[3])
+                    s.append(Constants.BR)
+                    s.append(Utils.toRedFont("R. "))
+                    s.append(respArray[0])
+                    s.append(Constants.BRS)
+                    sb.append(Utils.fromHtml(s.toString()))
                 }
-                break;
-
-
-            case 4:
-                s.append(Utils.toRedFont("V. "));
-                s.append(respArray[0]);
-                s.append(BR);
-                s.append(Utils.toRedFont("R. "));
-                s.append(respArray[0]);
-                s.append(BRS);
-                s.append(Utils.toRedFont("V. "));
-                s.append(respArray[1]);
-                s.append(BR);
-                s.append(Utils.toRedFont("R. "));
-                s.append(respArray[0]);
-                s.append(BRS);
-                s.append(Utils.toRedFont("V. "));
-                s.append(respArray[2]);
-                s.append(BR);
-                s.append(Utils.toRedFont("R. "));
-                s.append(respArray[0]);
-                s.append(BRS);
-                sb.append(Utils.fromHtml(s.toString()));
-                break;
-
-            case 201:
-                s.append(Utils.toRedFont("V. "));
-                s.append(respArray[0]);
-                s.append(BR);
-                s.append(Utils.toRedFont("R. "));
-                s.append(respArray[1]);
-                s.append(BRS);
-                sb.append(Utils.fromHtml(s.toString()));
-
-                break;
-
-            default:
-                sb.append(ERR_RESPONSORIO);
-                sb.append(BR);
-                sb.append("Tamaño del responsorio: ");
-                sb.append(String.valueOf(respArray.length));
-                sb.append(" Código forma: ");
-                sb.append(String.valueOf(type));
-                sb.append(BR);
-                break;
+                6001020 -> if (respArray.size == 3) {
+                    s.append(Utils.toRedFont("V. "))
+                    s.append(respArray[0])
+                    s.append(Constants.BR)
+                    s.append(Utils.toRedFont("R. "))
+                    s.append(respArray[0])
+                    s.append(Constants.BRS)
+                    s.append(Utils.toRedFont("V. "))
+                    s.append(respArray[1])
+                    s.append(Constants.BR)
+                    s.append(Utils.toRedFont("R. "))
+                    s.append(respArray[0])
+                    s.append(Constants.BRS)
+                    s.append(Utils.toRedFont("V. "))
+                    s.append(respArray[2])
+                    s.append(Constants.BR)
+                    s.append(Utils.toRedFont("R. "))
+                    s.append(respArray[0])
+                    s.append(Constants.BRS)
+                    sb.append(Utils.fromHtml(s.toString()))
+                }
+                4 -> {
+                    s.append(Utils.toRedFont("V. "))
+                    s.append(respArray[0])
+                    s.append(Constants.BR)
+                    s.append(Utils.toRedFont("R. "))
+                    s.append(respArray[0])
+                    s.append(Constants.BRS)
+                    s.append(Utils.toRedFont("V. "))
+                    s.append(respArray[1])
+                    s.append(Constants.BR)
+                    s.append(Utils.toRedFont("R. "))
+                    s.append(respArray[0])
+                    s.append(Constants.BRS)
+                    s.append(Utils.toRedFont("V. "))
+                    s.append(respArray[2])
+                    s.append(Constants.BR)
+                    s.append(Utils.toRedFont("R. "))
+                    s.append(respArray[0])
+                    s.append(Constants.BRS)
+                    sb.append(Utils.fromHtml(s.toString()))
+                }
+                201 -> {
+                    s.append(Utils.toRedFont("V. "))
+                    s.append(respArray[0])
+                    s.append(Constants.BR)
+                    s.append(Utils.toRedFont("R. "))
+                    s.append(respArray[1])
+                    s.append(Constants.BRS)
+                    sb.append(Utils.fromHtml(s.toString()))
+                }
+                else -> {
+                    sb.append(Constants.ERR_RESPONSORIO)
+                    sb.append(Constants.BR)
+                    sb.append("Tamaño del responsorio: ")
+                    sb.append(respArray.size.toString())
+                    sb.append(" Código forma: ")
+                    sb.append(type.toString())
+                    sb.append(Constants.BR)
+                }
+            }
+            return sb
         }
-        return sb;
-    }
 
     /**
      * Método que crea la cadena completa de un responsorio dado destinado a la lectura de voz
      *
      * @return Una cadena con el responsorio completo, con sus respectivos V. y R.
      */
-
-    public String getAllForRead() {
-        String[] respArray = text.split("\\|");
-        StringBuilder s = new StringBuilder();
-        switch (type) {
-            case 1:
-
-                if (respArray.length == 3) {
-                    s.append(respArray[0]);
-                    s.append(respArray[1]);
-                    s.append(respArray[2]);
-                    s.append(respArray[1]);
+    override val allForRead: String
+        get() {
+            val respArray =
+                text!!.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val s = StringBuilder()
+            when (type) {
+                1 -> if (respArray.size == 3) {
+                    s.append(respArray[0])
+                    s.append(respArray[1])
+                    s.append(respArray[2])
+                    s.append(respArray[1])
                 }
-                break;
-
-            case 2:
-                s.append(respArray[0]);
-                s.append(respArray[1]);
-                s.append(BRS);
-                s.append(respArray[2]);
-                s.append(BRS);
-                s.append(respArray[1]);
-                break;
-
-
-            case 6001230:
-
-                if (respArray.length == 4) {
-                    s.append(respArray[0]);
-                    s.append(respArray[0]);
-                    s.append(respArray[1]);
-                    s.append(respArray[2]);
-                    s.append(respArray[3]);
-                    s.append(respArray[0]);
+                2 -> {
+                    s.append(respArray[0])
+                    s.append(respArray[1])
+                    s.append(Constants.BRS)
+                    s.append(respArray[2])
+                    s.append(Constants.BRS)
+                    s.append(respArray[1])
                 }
-                break;
-
-            case 6001020:
-
-                if (respArray.length == 3) {
-                    s.append(respArray[0]);
-                    s.append(respArray[0]);
-                    s.append(respArray[1]);
-                    s.append(respArray[0]);
-                    s.append(respArray[2]);
-                    s.append(respArray[0]);
+                6001230 -> if (respArray.size == 4) {
+                    s.append(respArray[0])
+                    s.append(respArray[0])
+                    s.append(respArray[1])
+                    s.append(respArray[2])
+                    s.append(respArray[3])
+                    s.append(respArray[0])
                 }
-                break;
-
-            case 4:
-                s.append(respArray[0]);
-                s.append(respArray[0]);
-                s.append(respArray[1]);
-                s.append(respArray[0]);
-                s.append(respArray[2]);
-                s.append(respArray[0]);
-                break;
-
-            case 201:
-                s.append(respArray[0]);
-                s.append(respArray[1]);
-                break;
-
-            default:
-                s.append(ERR_RESPONSORIO);
-                break;
+                6001020 -> if (respArray.size == 3) {
+                    s.append(respArray[0])
+                    s.append(respArray[0])
+                    s.append(respArray[1])
+                    s.append(respArray[0])
+                    s.append(respArray[2])
+                    s.append(respArray[0])
+                }
+                4 -> {
+                    s.append(respArray[0])
+                    s.append(respArray[0])
+                    s.append(respArray[1])
+                    s.append(respArray[0])
+                    s.append(respArray[2])
+                    s.append(respArray[0])
+                }
+                201 -> {
+                    s.append(respArray[0])
+                    s.append(respArray[1])
+                }
+                else -> s.append(Constants.ERR_RESPONSORIO)
+            }
+            return s.toString()
         }
-        return s.toString();
-    }
 }

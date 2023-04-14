@@ -1,12 +1,12 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class BibleHomilyTheme {
-    public Integer homilyFK = 0;
-    public String theological = "";
-    public String biblical = "";
-    public String reference = "";
-
-    @SuppressWarnings("unused")
-    public BibleHomilyTheme() {
-    }
+class BibleHomilyTheme {
+    @JvmField
+    var homilyFK = 0
+    @JvmField
+    var theological = ""
+    @JvmField
+    var biblical = ""
+    @JvmField
+    var reference = ""
 }

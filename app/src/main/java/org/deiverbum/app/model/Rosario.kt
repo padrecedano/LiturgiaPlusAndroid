@@ -1,268 +1,196 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Utils.LS;
-import static org.deiverbum.app.utils.Utils.LS2;
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import org.deiverbum.app.utils.ColorUtils
+import org.deiverbum.app.utils.Utils
+import java.util.*
 
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-
-import org.deiverbum.app.utils.ColorUtils;
-import org.deiverbum.app.utils.Utils;
-
-import java.util.List;
-import java.util.Locale;
-
-@SuppressWarnings("SameReturnValue")
-public class Rosario {
-    public String saludo;
-    public String padrenuestro;
-    public String avemaria;
-    public String gloria;
-    public String letanias;
-    public String oracion;
-    public String salve;
-    private List<Misterio> misterios;
-    private int day;
+class Rosario {
+    var saludo: String? = null
+    var padrenuestro: String? = null
+    var avemaria: String? = null
+    var gloria: String? = null
+    var letanias: String? = null
+    var oracion: String? = null
+    var salve: String? = null
+    private var misterios: List<Misterio>? = null
+    var day = 0
 
     /*
-      @TODO
-      - Arreglar esto de otro modo
-     */
-    public String getByDay() {
-        switch (day) {
-            case 1:
-                return "Misterios Gloriosos";
-            case 2:
-                return "Misterios Gozosos";
-            case 3:
-                return "Misterios Dolorosos";
-            case 4:
-                return "Misterios Luminosos";
-            default:
-                return "*";
+        @TODO
+        - Arreglar esto de otro modo
+       */
+    val byDay: String
+        get() = when (day) {
+            1 -> "Misterios Gloriosos"
+            2 -> "Misterios Gozosos"
+            3 -> "Misterios Dolorosos"
+            4 -> "Misterios Luminosos"
+            else -> "*"
         }
+
+    fun getSaludoForView(): Spanned {
+        return Utils.fromHtml(saludo)
     }
 
-    public Spanned getSaludo() {
-        return Utils.fromHtml(saludo);
-    }
 
-    @SuppressWarnings("unused")
-    public void setSaludo(String saludo) {
-        this.saludo = saludo;
-    }
-
-    public String getPadrenuestro() {
-        return padrenuestro;
-    }
-
-    @SuppressWarnings("unused")
-    public void setPadrenuestro(String padrenuestro) {
-        this.padrenuestro = padrenuestro;
-    }
-
-    @SuppressWarnings("unused")
-    public SpannableStringBuilder misterioCompleto() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(Utils.fromHtml(getPadrenuestro()));
-        sb.append(LS2);
-        for (int i = 0; i < 10; i++) {
-            sb.append(Utils.fromHtml(getAvemaria()));
-            sb.append(LS2);
+    fun misterioCompleto(): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        sb.append(Utils.fromHtml(padrenuestro))
+        sb.append(Utils.LS2)
+        for (i in 0..9) {
+            sb.append(Utils.fromHtml(avemaria))
+            sb.append(Utils.LS2)
         }
-        sb.append(Utils.fromHtml(gloria));
-        sb.append(LS2);
-        return sb;
+        sb.append(Utils.fromHtml(gloria))
+        sb.append(Utils.LS2)
+        return sb
     }
 
-    public String getAvemaria() {
-        return avemaria;
+    fun getLetaniasForView(): Spanned {
+        return Utils.fromHtml(letanias)
     }
 
-    @SuppressWarnings("unused")
-    public void setAvemaria(String avemaria) {
-        this.avemaria = avemaria;
+
+    fun getOracionForView(): Spanned {
+        return Utils.fromHtml(oracion)
     }
 
-    public String getGloria() {
-        return gloria;
+
+    fun getSalveForView(): Spanned {
+        return Utils.fromHtml(salve)
     }
 
-    public void setGloria(String gloria) {
-        this.gloria = gloria;
-    }
 
-    public Spanned getLetanias() {
-        return Utils.fromHtml(letanias);
-    }
-
-    @SuppressWarnings("unused")
-    public void setLetanias(String letanias) {
-        this.letanias = letanias;
-    }
-
-    public Spanned getOracion() {
-        return Utils.fromHtml(oracion);
-    }
-
-    public void setOracion(String oracion) {
-        this.oracion = oracion;
-    }
-
-    public Spanned getSalve() {
-        return Utils.fromHtml(salve);
-    }
-
-    @SuppressWarnings("unused")
-    public void setSalve(String salve) {
-        this.salve = salve;
-    }
-
-    @SuppressWarnings("unused")
-    public int getDay() {
-        return day;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
-
-    public SpannableStringBuilder getForView(boolean isBrevis, boolean nightMode) {
-        ColorUtils.isNightMode = nightMode;
-
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(Utils.toH3Red("INVOCACIÓN INICIAL"));
-        sb.append(LS2);
-        sb.append(getSaludo());
-        sb.append(LS2);
-
+    fun getForView(isBrevis: Boolean, nightMode: Boolean): SpannableStringBuilder {
+        ColorUtils.isNightMode = nightMode
+        val sb = SpannableStringBuilder()
+        sb.append(Utils.toH3Red("INVOCACIÓN INICIAL"))
+        sb.append(Utils.LS2)
+        sb.append(getSaludoForView())
+        sb.append(Utils.LS2)
         if (isBrevis) {
-            sb.append(getMisteriosBrevis());
+            sb.append(misteriosBrevis)
         } else {
-            sb.append(getMisterios());
+            sb.append(getMisterios())
         }
-
-        sb.append(Utils.toH3Red("LETANÍAS DE NUESTRA SEÑORA"));
-        sb.append(LS2);
-
-        sb.append(getLetanias());
-
-        sb.append(LS2);
-        sb.append(Utils.toH3Red("SALVE"));
-        sb.append(LS2);
-
-        sb.append(getSalve());
-
-        sb.append(LS2);
-        sb.append(Utils.toH3Red("ORACIÓN"));
-        sb.append(LS2);
-
-        sb.append(getOracion());
-        return sb;
+        sb.append(Utils.toH3Red("LETANÍAS DE NUESTRA SEÑORA"))
+        sb.append(Utils.LS2)
+        sb.append(getLetaniasForView())
+        sb.append(Utils.LS2)
+        sb.append(Utils.toH3Red("SALVE"))
+        sb.append(Utils.LS2)
+        sb.append(getSalveForView())
+        sb.append(Utils.LS2)
+        sb.append(Utils.toH3Red("ORACIÓN"))
+        sb.append(Utils.LS2)
+        sb.append(getOracionForView())
+        return sb
     }
 
-    public SpannableStringBuilder getMisterios() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        Misterio m = misterios.get(this.day - 1);
-        sb.append(LS);
-        sb.append(Utils.toH2Red(m.getTitulo()));
-        sb.append(LS2);
-        int x = 0;
-        for (String s : m.getContenido()) {
-            sb.append(Utils.toH4Red(m.ordinalName.get(x)));
-            sb.append(LS);
-            sb.append(Utils.toH3Red(s));
-            sb.append(LS2);
-            sb.append(Utils.fromHtml(getPadrenuestro()));
-            sb.append(LS2);
-
-            for (int i = 0; i < 10; i++) {
-                sb.append(Utils.toRed(String.format(Locale.getDefault(), "%d" +
-                        "%s", i + 1, ".-")));
-                sb.append(LS);
-                sb.append(Utils.fromHtml(getAvemaria()));
-                sb.append(LS2);
+    fun getMisterios(): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        val m = misterios!![day - 1]
+        sb.append(Utils.LS)
+        sb.append(Utils.toH2Red(m.titulo))
+        sb.append(Utils.LS2)
+        var x = 0
+        for (s in m.contenido!!) {
+            sb.append(Utils.toH4Red(m.ordinalName[x]))
+            sb.append(Utils.LS)
+            sb.append(Utils.toH3Red(s))
+            sb.append(Utils.LS2)
+            sb.append(Utils.fromHtml(padrenuestro))
+            sb.append(Utils.LS2)
+            for (i in 0..9) {
+                sb.append(
+                    Utils.toRed(
+                        String.format(
+                            Locale.getDefault(), "%d" +
+                                    "%s", i + 1, ".-"
+                        )
+                    )
+                )
+                sb.append(Utils.LS)
+                sb.append(Utils.fromHtml(avemaria))
+                sb.append(Utils.LS2)
             }
-            sb.append(LS);
-            sb.append(Utils.fromHtml(gloria));
-            sb.append(LS2);
-            sb.append(LS);
-            x++;
+            sb.append(Utils.LS)
+            sb.append(Utils.fromHtml(gloria))
+            sb.append(Utils.LS2)
+            sb.append(Utils.LS)
+            x++
         }
-        return sb;
+        return sb
     }
 
-    @SuppressWarnings("unused")
-    public void setMisterios(List<Misterio> misterios) {
-        this.misterios = misterios;
+    fun setMisterios(misterios: List<Misterio>?) {
+        this.misterios = misterios
     }
 
-    public SpannableStringBuilder getMisteriosBrevis() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        Misterio m = misterios.get(this.day - 1);
-        sb.append(LS);
-        sb.append(Utils.toH2Red(m.getTitulo()));
-        sb.append(LS2);
-        int x = 0;
-        for (String s : m.getContenido()) {
-            sb.append(Utils.toH4Red(m.ordinalName.get(x)));
-            sb.append(LS);
-            sb.append(Utils.toH3Red(s));
-            sb.append(LS2);
-            sb.append("Padre Nuestro ...");
-            sb.append(LS2);
-            sb.append("10 Ave María");
-            sb.append(LS2);
-            sb.append("Gloria ...");
-            sb.append(LS2);
-            sb.append(LS);
-            x++;
-        }
-        return sb;
-    }
-
-    public SpannableStringBuilder getForRead() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(getTitleForRead());
-        sb.append(getSaludo());
-        sb.append(getMisteriosForRead());
-        sb.append("LETANÍAS DE NUESTRA SEÑORA.");
-        sb.append(getLetanias());
-        sb.append("SALVE.");
-        sb.append(getSalve());
-        sb.append("ORACIÓN.");
-        sb.append(getOracion());
-        return sb;
-    }
-
-    public StringBuilder getMisteriosForRead() {
-        StringBuilder sb = new StringBuilder();
-        Misterio m = misterios.get(this.day - 1);
-        sb.append(m.getTitulo());
-        sb.append(".");
-        int x = 0;
-        for (String s : m.getContenido()) {
-            sb.append(m.ordinalName.get(x));
-            sb.append(".");
-            sb.append(s);
-            sb.append(".");
-            sb.append(Utils.fromHtml(getPadrenuestro()));
-            sb.append(".");
-
-            for (int i = 0; i < 10; i++) {
-                sb.append(Utils.fromHtml(getAvemaria()));
+    val misteriosBrevis: SpannableStringBuilder
+        get() {
+            val sb = SpannableStringBuilder()
+            val m = misterios!![day - 1]
+            sb.append(Utils.LS)
+            sb.append(Utils.toH2Red(m.titulo))
+            sb.append(Utils.LS2)
+            var x = 0
+            for (s in m.contenido!!) {
+                sb.append(Utils.toH4Red(m.ordinalName[x]))
+                sb.append(Utils.LS)
+                sb.append(Utils.toH3Red(s))
+                sb.append(Utils.LS2)
+                sb.append("Padre Nuestro ...")
+                sb.append(Utils.LS2)
+                sb.append("10 Ave María")
+                sb.append(Utils.LS2)
+                sb.append("Gloria ...")
+                sb.append(Utils.LS2)
+                sb.append(Utils.LS)
+                x++
             }
-            sb.append(Utils.fromHtml(gloria));
-            x++;
+            return sb
         }
-        return sb;
-    }
-
-    private String getTitleForRead() {
-        return "Santo Rosario.";
-    }
-
-    public String getSubTitle() {
-        return getByDay();
-    }
+    val forRead: SpannableStringBuilder
+        get() {
+            val sb = SpannableStringBuilder()
+            sb.append(titleForRead)
+            sb.append(getSaludoForView())
+            sb.append(misteriosForRead)
+            sb.append("LETANÍAS DE NUESTRA SEÑORA.")
+            sb.append(getLetaniasForView())
+            sb.append("SALVE.")
+            sb.append(getSalveForView())
+            sb.append("ORACIÓN.")
+            sb.append(getOracionForView())
+            return sb
+        }
+    val misteriosForRead: StringBuilder
+        get() {
+            val sb = StringBuilder()
+            val m = misterios!![day - 1]
+            sb.append(m.titulo)
+            sb.append(".")
+            var x = 0
+            for (s in m.contenido!!) {
+                sb.append(m.ordinalName[x])
+                sb.append(".")
+                sb.append(s)
+                sb.append(".")
+                sb.append(Utils.fromHtml(padrenuestro))
+                sb.append(".")
+                for (i in 0..9) {
+                    sb.append(Utils.fromHtml(avemaria))
+                }
+                sb.append(Utils.fromHtml(gloria))
+                x++
+            }
+            return sb
+        }
+    private val titleForRead: String
+        private get() = "Santo Rosario."
+    val subTitle: String
+        get() = byDay
 }

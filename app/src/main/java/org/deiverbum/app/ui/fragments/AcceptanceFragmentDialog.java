@@ -108,7 +108,7 @@ public class AcceptanceFragmentDialog extends DialogFragment {
         textFinal.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         Button button = binding.btnEmail;
         SpannableStringBuilder ssb = new SpannableStringBuilder();
-        String intro = String.format("%s %s%nv. %s",
+        String intro = String.format("%s %s%n%s",
                 requireActivity().getResources().getString(R.string.accept_intro),
                 requireActivity().getResources().getString(R.string.app_name),
                 requireActivity().getResources().getString(R.string.app_version_code_view)

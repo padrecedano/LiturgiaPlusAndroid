@@ -1,36 +1,34 @@
-package org.deiverbum.app.data.entity.relation;
+package org.deiverbum.app.data.entity.relation
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
-
-import org.deiverbum.app.data.entity.BibleReadingEntity;
-import org.deiverbum.app.data.entity.MassReadingEntity;
-import org.deiverbum.app.model.MassReading;
+import androidx.room.Embedded
+import androidx.room.Relation
+import org.deiverbum.app.data.entity.BibleReadingEntity
+import org.deiverbum.app.data.entity.MassReadingEntity
+import org.deiverbum.app.model.MassReading
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class MassReadingWithAll {
+class MassReadingWithAll {
+    @JvmField
     @Embedded
+    var massReadingEntity: MassReadingEntity? = null
 
-    public MassReadingEntity massReadingEntity;
-
+    @JvmField
     @Relation(
-            parentColumn = "readingFK",
-            entityColumn = "readingID",
-            entity = BibleReadingEntity.class
+        parentColumn = "readingFK",
+        entityColumn = "readingID",
+        entity = BibleReadingEntity::class
     )
-    public BibleReadingWithBook lectura;
-
-    public MassReading getDomainModel() {
-        MassReading theModel = lectura.getDomainModelMisa();
-        theModel.setReadingID(massReadingEntity.readingFK);
-        theModel.setTema(massReadingEntity.getTema());
-        theModel.setOrden(massReadingEntity.getOrden());
-        return theModel;
-    }
-
-
+    var lectura: BibleReadingWithBook? = null
+    val domainModel: MassReading?
+        get() {
+            val theModel = lectura?.domainModelMisa
+            theModel!!.readingID = massReadingEntity!!.readingFK
+            theModel!!.tema = massReadingEntity!!.tema
+            theModel!!.setOrden(massReadingEntity!!.orden)
+            return theModel
+        }
 }

@@ -1,101 +1,84 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Utils.LS;
-import static org.deiverbum.app.utils.Utils.LS2;
-import static org.deiverbum.app.utils.Utils.normalizeEnd;
+import android.text.SpannableStringBuilder
+import org.deiverbum.app.utils.Utils
 
-import android.text.SpannableStringBuilder;
-
-import org.deiverbum.app.utils.Utils;
-
-public class MassReading extends Biblical implements Comparable<MassReading> {
-    private String tema;
-
-    public String getTema() {
-        return tema;
-    }
-
-    public void setTema(String tema) {
-        this.tema = tema;
-    }
-
-    public String getTemaForRead() {
-        return normalizeEnd(tema);
-    }
+open class MassReading : Biblical(), Comparable<MassReading> {
+    var tema: String? = null
+    val temaForRead: String
+        get() = Utils.normalizeEnd(tema)
 
     /**
-     * <p>Obtiene la lectura bíblica completa, incluyendo el responsorio, formateada para la vista.</p>
      *
-     * @return Un objeto {@link SpannableStringBuilder con el contenido.}
+     * Obtiene la lectura bíblica completa, incluyendo el responsorio, formateada para la vista.
+     *
+     * @return Un objeto [con el contenido.][SpannableStringBuilder]
      * @since 2022.01
      */
-    public SpannableStringBuilder getAll(int type) {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(LS);
-        sb.append(Utils.formatTitle(getHeader(type)));
-        sb.append(LS2);
-        sb.append(book.getLiturgyName());
-        sb.append("    ");
-        sb.append(Utils.toRed(getCita()));
-        sb.append(LS2);
+    fun getAll(type: Int): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        sb.append(Utils.LS)
+        sb.append(Utils.formatTitle(getHeader(type)))
+        sb.append(Utils.LS2)
+        sb.append(libro?.liturgyName)
+        sb.append("    ")
+        sb.append(Utils.toRed(quote))
+        sb.append(Utils.LS2)
         if (tema != null) {
-            sb.append(Utils.toRed(getTema()));
-            sb.append(LS2);
+            sb.append(Utils.toRed(tema))
+            sb.append(Utils.LS2)
         }
-        sb.append(getTextoSpan());
-        sb.append(Utils.LS2);
-        return sb;
+        sb.append(textoSpan)
+        sb.append(Utils.LS2)
+        return sb
     }
 
-
     /**
-     * <p>Obtiene la lectura bíblica completa formateada para la lectura de voz.</p>
      *
-     * @return Un objeto {@link SpannableStringBuilder con el contenido.}
+     * Obtiene la lectura bíblica completa formateada para la lectura de voz.
+     *
+     * @return Un objeto [con el contenido.][SpannableStringBuilder]
      * @since 2022.01
      */
-    @Override
-    public SpannableStringBuilder getAllForRead() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(Utils.normalizeEnd(findOrden(getOrden())));
-        sb.append(getLibroForRead());
-        sb.append(getTemaForRead());
-        sb.append(getTextoForRead());
-        return sb;
+    //@Override
+    fun getAllForRead(type: Int): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        sb.append(Utils.normalizeEnd(getHeader(type)))
+        sb.append(libro?.getForRead())
+        sb.append(temaForRead)
+        sb.append(textoForRead)
+        return sb
     }
 
-    public String getHeader(int type) {
-        if (type == 0) {
-            String header = "";
-            if (this.order >= 1 && this.order <= 19) {
-                header = "PRIMERA LECTURA";
+    fun getHeader(type: Int): String {
+        return if (type == 0) {
+            var header = ""
+            if (order!! >= 1 && order!! <= 19) {
+                header = "PRIMERA LECTURA"
             }
-
-            if (this.order >= 20 && this.order <= 29) {
-                header = "SALMO RESPONSORIAL";
+            if (order!! >= 20 && order!! <= 29) {
+                header = "SALMO RESPONSORIAL"
             }
-
-            if (this.order >= 30 && this.order <= 39) {
-                header = "SEGUNDA LECTURA";
+            if (order!! >= 30 && order!! <= 39) {
+                header = "SEGUNDA LECTURA"
             }
-            if (this.order >= 40) {
-                header = "EVANGELIO";
+            if (order!! >= 40) {
+                header = "EVANGELIO"
             }
-
-            return header;
+            header
         } else {
-            return getHeaderByType(type);
-
+            getHeaderByType(type)
         }
     }
 
     /**
-     * <p>Obtiene el encabezado de cada lectura según el tipo.</p>
      *
-     * @return Un objeto {@link String con el contenido.}
+     * Obtiene el encabezado de cada lectura según el tipo.
+     *
+     * @return Un objeto [con el contenido.][String]
      * @since 2023.1.2
      */
-    public String getHeaderByType(int type) {
+    fun getHeaderByType(type: Int): String {
         /*
             type 1 es la Vigilia Pascual, con el siguiente esquema:
             1. 1ª Lectura
@@ -118,63 +101,60 @@ public class MassReading extends Biblical implements Comparable<MassReading> {
             18. Salmo
             40. Evangelio
          */
-        String header = "";
+        var header = ""
         if (type == 1) {
-            if (this.order == 1) {
-                header = "PRIMERA LECTURA";
+            if (order == 1) {
+                header = "PRIMERA LECTURA"
             }
-            if (this.order == 2 || this.order == 5 || this.order == 7 ||
-                    this.order == 9 || this.order == 11 || this.order == 13 || this.order == 15 || this.order == 18) {
-                header = "SALMO RESPONSORIAL";
+            if (order == 2 || order == 5 || order == 7 || order == 9 || order == 11 || order == 13 || order == 15 || order == 18) {
+                header = "SALMO RESPONSORIAL"
             }
-            if (this.order == 3 || this.order == 16) {
-                header = "O bien: SALMO RESPONSORIAL";
+            if (order == 3 || order == 16) {
+                header = "O bien: SALMO RESPONSORIAL"
             }
-            if (this.order == 4) {
-                header = "SEGUNDA LECTURA";
+            if (order == 4) {
+                header = "SEGUNDA LECTURA"
             }
-            if (this.order == 6) {
-                header = "TERCERA LECTURA";
+            if (order == 6) {
+                header = "TERCERA LECTURA"
             }
-            if (this.order == 8) {
-                header = "CUARTA LECTURA";
+            if (order == 8) {
+                header = "CUARTA LECTURA"
             }
-            if (this.order == 10) {
-                header = "QUINTA LECTURA";
+            if (order == 10) {
+                header = "QUINTA LECTURA"
             }
-            if (this.order == 12) {
-                header = "SEXTA LECTURA";
+            if (order == 12) {
+                header = "SEXTA LECTURA"
             }
-            if (this.order == 14) {
-                header = "SÉPTIMA LECTURA";
+            if (order == 14) {
+                header = "SÉPTIMA LECTURA"
             }
-            if (this.order == 17) {
-                header = "EPÍSTOLA";
+            if (order == 17) {
+                header = "EPÍSTOLA"
             }
-            if (this.order >= 40) {
-                header = "EVANGELIO";
+            if (order!! >= 40) {
+                header = "EVANGELIO"
             }
         }
-        return header;
+        return header
     }
 
-    public String findOrden(int orden) {
-        String orderText;
-        if (orden <= 19) {
-            orderText = "Primera Lectura";
+    fun findOrden(orden: Int): String {
+        val orderText: String
+        orderText = if (orden <= 19) {
+            "Primera Lectura"
         } else if (orden <= 29) {
-            orderText = "Salmo Responsorial";
+            "Salmo Responsorial"
         } else if (orden <= 39) {
-            orderText = "Segunda Lectura";
+            "Segunda Lectura"
         } else {
-            orderText = "Evangelio";
+            "Evangelio"
         }
-        return orderText;
+        return orderText
     }
 
-
-    @Override
-    public int compareTo(MassReading e) {
-        return this.getOrden().compareTo(e.getOrden());
+    override fun compareTo(e: MassReading): Int {
+        return getOrden()!!.compareTo(e.getOrden()!!)
     }
 }

@@ -1,6 +1,6 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class LHOfficeVerseJoin {
-    public Integer groupID = 0;
-    public Integer verseFK = 0;
+class LHOfficeVerseJoin {
+    var groupID = 0
+    var verseFK = 0
 }

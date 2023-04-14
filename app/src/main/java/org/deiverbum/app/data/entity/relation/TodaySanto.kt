@@ -1,37 +1,33 @@
-package org.deiverbum.app.data.entity.relation;
+package org.deiverbum.app.data.entity.relation
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
-
-import org.deiverbum.app.data.entity.SaintEntity;
-import org.deiverbum.app.data.entity.SaintLifeEntity;
-import org.deiverbum.app.model.SaintLife;
+import androidx.room.Embedded
+import androidx.room.Relation
+import org.deiverbum.app.data.entity.SaintEntity
+import org.deiverbum.app.data.entity.SaintLifeEntity
+import org.deiverbum.app.model.SaintLife
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class TodaySanto {
-
+class TodaySanto {
+    @JvmField
     @Embedded
-    public SaintEntity saint;
+    var saint: SaintEntity? = null
 
-    @Relation(
-            entity = SaintLifeEntity.class,
-            parentColumn = "saintID",
-            entityColumn = "saintFK"
-    )
-    public SaintLife saintLife;
-
-    public SaintLife getDomainModel() {
-        SaintLife dm = new SaintLife();
-        dm.setLongLife(saintLife.getLongLife());
-        dm.setMartyrology(saintLife.getMartyrology());
-        dm.setTheSource(saintLife.getTheSource());
-        dm.setDia(String.valueOf(saint.getTheDay()));
-        dm.setMes(String.valueOf(saint.getTheMonth()));
-        dm.setName(saint.getTheName());
-        return dm;
-    }
+    @JvmField
+    @Relation(entity = SaintLifeEntity::class, parentColumn = "saintID", entityColumn = "saintFK")
+    var saintLife: SaintLife? = null
+    val domainModel: SaintLife
+        get() {
+            val dm = SaintLife()
+            dm.longLife = saintLife!!.longLife
+            dm.martyrology = saintLife!!.martyrology
+            dm.theSource = saintLife!!.theSource
+            dm.dia = saint!!.theDay.toString()
+            dm.mes = saint!!.theMonth.toString()
+            dm.name = saint!!.theName
+            return dm
+        }
 }

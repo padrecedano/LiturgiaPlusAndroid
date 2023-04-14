@@ -1,194 +1,186 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Constants.NBSP_4;
-import static org.deiverbum.app.utils.Utils.LS2;
-import static org.deiverbum.app.utils.Utils.toH3Red;
-
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-import org.deiverbum.app.utils.Utils;
-
-import java.util.List;
-import java.util.Locale;
+import android.text.SpannableStringBuilder
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
+import java.util.*
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
  */
-public class Content {
-
+open class Content {
     @SerializedName("type")
     @Expose
-    private int type;
+    private var type = 0
+
     @SerializedName("item")
     @Expose
-    private String item;
+    private var item: String? = null
+
     @SerializedName("text")
     @Expose
-    private List<String> text = null;
+    private var text: List<String>? = null
+
     @SerializedName("title")
     @Expose
-    private String title;
-
-    public int getType() {
-        return type;
+    private var title: String? = null
+    fun getType(): Int {
+        return type
     }
 
-    public void setType(int type) {
-        this.type = type;
+    fun setType(type: Int) {
+        this.type = type
     }
 
-    public String getItem() {
-        return item;
+    fun getItem(): String? {
+        return item
     }
 
-    public void setItem(String item) {
-        this.item = item;
+    fun setItem(item: String?) {
+        this.item = item
     }
 
-    public List<String> getText() {
-        return text;
+    fun getText(): List<String>? {
+        return text
     }
 
-    public void setText(List<String> text) {
-        this.text = text;
+    fun setText(text: List<String>?) {
+        this.text = text
     }
 
-    public String getTitle() {
-        return title;
+    fun getTitle(): String? {
+        return title
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    fun setTitle(title: String?) {
+        this.title = title
     }
 
-
-    public SpannableStringBuilder getByType() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
+    fun getByType(): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
         if (type == 10) {
-            Spanned txt = Utils.fromHtml(String.format(new Locale("es"), "%s<b>%s</b> %s",
-                    NBSP_4, item,
-                    getTextForView()));
-            sb.append(txt);
-            sb.append(LS2);
+            val txt = Utils.fromHtml(
+                String.format(
+                    Locale("es"), "%s<b>%s</b> %s",
+                    Constants.NBSP_4, item,
+                    getTextForView()
+                )
+            )
+            sb.append(txt)
+            sb.append(Utils.LS2)
         } else if (type == 2) {
-            sb.append(Utils.toH3(title));
-            sb.append(LS2);
-
-            sb.append(getTextForView());
+            sb.append(Utils.toH3(title))
+            sb.append(Utils.LS2)
+            sb.append(getTextForView())
         } else if (type == 3) {
-            sb.append(Utils.toH4(title));
-            sb.append(LS2);
-            sb.append(getTextForView());
-
+            sb.append(Utils.toH4(title))
+            sb.append(Utils.LS2)
+            sb.append(getTextForView())
         } else if (type == 4) {
-            sb.append(Utils.toH3Red(title));
-            sb.append(LS2);
+            sb.append(Utils.toH3Red(title))
+            sb.append(Utils.LS2)
             //sb.append(getTextForView());
         } else if (type == 5) {
-            sb.append(Utils.toH4Red(title));
-            sb.append(LS2);
+            sb.append(Utils.toH4Red(title))
+            sb.append(Utils.LS2)
         } else if (type == 11) {
-            sb.append(getTextForView());
+            sb.append(getTextForView())
         } else if (type == 12) {
-            sb.append(getTextForView());
+            sb.append(getTextForView())
         } else if (type == 13) {
-            sb.append(getNumberedList());
+            sb.append(getNumberedList())
         } else {
-            sb.append(getTextForView());
+            sb.append(getTextForView())
         }
-        return sb;
+        return sb
     }
 
-    private SpannableStringBuilder getNumberedList() {
-
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        int i = 1;
-        for (String s : text) {
-            String tmp = String.format(new Locale("es"), "\t\t%d. %s", i,
-                    s);
-            sb.append(Utils.fromHtml(tmp));
-            sb.append(LS2);
-            i++;
+    private fun getNumberedList(): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        var i = 1
+        for (s in text!!) {
+            val tmp = String.format(
+                Locale("es"), "\t\t%d. %s", i,
+                s
+            )
+            sb.append(Utils.fromHtml(tmp))
+            sb.append(Utils.LS2)
+            i++
         }
-        return sb;
+        return sb
     }
 
-
-    private SpannableStringBuilder getTextForView() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        for (String s : text) {
+    private fun getTextForView(): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        for (s in text!!) {
             if (type == 11) {
-                sb.append("\t\t\t\t");
-                sb.append("- ");
+                sb.append("\t\t\t\t")
+                sb.append("- ")
             }
             if (type < 4) {
-                sb.append("\t\t");
+                sb.append("\t\t")
             }
-
             if (type == 20) {
-                sb.append(toH3Red(getTitle()));
-                sb.append(LS2);
+                sb.append(Utils.toH3Red(getTitle()))
+                sb.append(Utils.LS2)
             }
-            sb.append(Utils.fromHtml(s));
-            sb.append(LS2);
+            sb.append(Utils.fromHtml(s))
+            sb.append(Utils.LS2)
         }
-        return sb;
+        return sb
     }
 
-    public SpannableStringBuilder getHtmlByType() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
+    fun getHtmlByType(): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
         if (type == 10) {
-            String txt = String.format(new Locale("es"), "%s<b>%s</b> %s",
-                    NBSP_4, item,
-                    getTextHtml());
-            sb.append(txt);
-            sb.append(LS2);
+            val txt = String.format(
+                Locale("es"), "%s<b>%s</b> %s",
+                Constants.NBSP_4, item,
+                getTextHtml()
+            )
+            sb.append(txt)
+            sb.append(Utils.LS2)
         } else if (type == 2) {
-            sb.append(Utils.toH3(title));
-            sb.append(LS2);
-
-            sb.append(getTextForView());
+            sb.append(Utils.toH3(title))
+            sb.append(Utils.LS2)
+            sb.append(getTextForView())
         } else if (type == 3) {
-            sb.append(Utils.toH4(title));
-            sb.append(LS2);
-            sb.append(getTextHtml());
+            sb.append(Utils.toH4(title))
+            sb.append(Utils.LS2)
+            sb.append(getTextHtml())
         } else if (type == 11) {
-            sb.append(getTextHtml());
+            sb.append(getTextHtml())
         } else if (type == 12) {
-            sb.append(getTextHtml());
+            sb.append(getTextHtml())
         } else if (type == 13) {
-            sb.append(getNumberedList());
+            sb.append(getNumberedList())
         } else {
-            sb.append(getTextHtml());
+            sb.append(getTextHtml())
         }
-        return sb;
+        return sb
     }
 
-    private SpannableStringBuilder getTextHtml() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        for (String s : text) {
+    private fun getTextHtml(): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        for (s in text!!) {
             if (type == 11) {
-                sb.append("\t\t\t\t");
-                sb.append("- ");
+                sb.append("\t\t\t\t")
+                sb.append("- ")
             }
             if (type < 4) {
-                sb.append("\t\t");
+                sb.append("\t\t")
             }
-
             if (type == 20) {
-                sb.append(toH3Red(getTitle()));
-                sb.append(LS2);
+                sb.append(Utils.toH3Red(getTitle()))
+                sb.append(Utils.LS2)
             }
-            sb.append(s);
-            sb.append(LS2);
+            sb.append(s)
+            sb.append(Utils.LS2)
         }
-        return sb;
+        return sb
     }
-
 }

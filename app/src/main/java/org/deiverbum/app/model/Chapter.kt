@@ -1,94 +1,85 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Utils.LS2;
-
-import android.text.SpannableStringBuilder;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-import org.deiverbum.app.utils.Utils;
-
-import java.util.List;
-import java.util.Locale;
+import android.text.SpannableStringBuilder
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+import org.deiverbum.app.utils.Utils
+import java.util.*
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
  */
-public class Chapter {
-
+class Chapter {
     @SerializedName("id")
     @Expose
-    private int id;
+    private var id = 0
+
     @SerializedName("title")
     @Expose
-    private String title;
+    private var title: String? = null
+
     @SerializedName("content")
     @Expose
-    private List<Content> content = null;
-
-    public int getId() {
-        return id;
+    private var content: List<Content>? = null
+    fun getId(): Int {
+        return id
     }
 
-    public void setId(int id) {
-        this.id = id;
+    fun setId(id: Int) {
+        this.id = id
     }
 
-    public String getTitle() {
-        return title;
+    fun getTitle(): String? {
+        return title
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    fun setTitle(title: String?) {
+        this.title = title
     }
 
-    public List<Content> getContent() {
-        return content;
+    fun getContent(): List<Content>? {
+        return content
     }
 
-    public void setContent(List<Content> content) {
-        this.content = content;
+    fun setContent(content: List<Content>?) {
+        this.content = content
     }
 
-    public SpannableStringBuilder getAllForView(int bookType) {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
+    fun getAllForView(bookType: Int): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
         if (bookType == 10) {
-            String chapter = String.format(new Locale("es"), "%s. %s", id, Utils.fromHtml(title));
-            sb.append(Utils.toH2RedNew(chapter));
-            sb.append(LS2);
+            val chapter = String.format(Locale("es"), "%s. %s", id, Utils.fromHtml(title))
+            sb.append(Utils.toH2RedNew(chapter))
+            sb.append(Utils.LS2)
         }
-
         if (bookType == 21) {
-            sb.append("\t\t");
-            sb.append(Utils.toH4Red(String.valueOf(id)));
-            sb.append(Utils.toRed(".- "));
+            sb.append("\t\t")
+            sb.append(Utils.toH4Red(id.toString()))
+            sb.append(Utils.toRed(".- "))
         }
-        for (Content c : content) {
-            sb.append(c.getByType());
+        for (c in content!!) {
+            sb.append(c.getByType())
         }
-        return sb;
+        return sb
     }
 
-
-    public SpannableStringBuilder getAllForHtml(int bookType) {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
+    fun getAllForHtml(bookType: Int): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
         if (bookType == 10) {
-            String chapter = String.format(new Locale("es"), "%s. %s", id, title);
-            sb.append(Utils.toH2RedNew(chapter));
-            sb.append(LS2);
+            val chapter = String.format(Locale("es"), "%s. %s", id, title)
+            sb.append(Utils.toH2RedNew(chapter))
+            sb.append(Utils.LS2)
         }
-
         if (bookType == 21) {
-            sb.append("\t\t");
-            sb.append(Utils.toH4Red(String.valueOf(id)));
-            sb.append(Utils.toRed(".- "));
+            sb.append("\t\t")
+            sb.append(Utils.toH4Red(id.toString()))
+            sb.append(Utils.toRed(".- "))
         }
-        for (Content c : content) {
-            sb.append(c.getHtmlByType());
+        for (c in content!!) {
+            sb.append(c.getHtmlByType())
         }
-        return sb;
+        return sb
     }
 }

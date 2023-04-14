@@ -1,21 +1,19 @@
-package org.deiverbum.app.core.module;
+package org.deiverbum.app.core.module
 
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.Provides;
-import dagger.hilt.InstallIn;
-import dagger.hilt.components.SingletonComponent;
+import com.google.firebase.firestore.FirebaseFirestore
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent.class)
-public abstract class FirebaseModule {
+@InstallIn(SingletonComponent::class)
+object FirebaseModule {
+    @JvmStatic
     @Provides
     @Singleton
-    static FirebaseFirestore provideFirebaseInstance() {
-        return FirebaseFirestore.getInstance();
+    fun provideFirebaseInstance(): FirebaseFirestore {
+        return FirebaseFirestore.getInstance()
     }
 }
-

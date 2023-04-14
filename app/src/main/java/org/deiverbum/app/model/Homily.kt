@@ -1,90 +1,70 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Utils.LS2;
+import android.text.SpannableStringBuilder
+import androidx.room.Ignore
+import org.deiverbum.app.utils.ColorUtils
+import org.deiverbum.app.utils.Utils
 
-import android.text.SpannableStringBuilder;
+class Homily {
+    var homilyID: Int? = null
+    var opusFK: Int? = null
+    var date: String? = null
+    var book: Int? = null
+    var chapter: Int? = null
+    var number: Int? = null
+    var paragraph: Int? = null
+    var collectionFK: Int? = null
+    var colNumber: Int? = null
+    var colParagraph: Int? = null
 
-import androidx.room.Ignore;
-
-import org.deiverbum.app.utils.ColorUtils;
-import org.deiverbum.app.utils.Utils;
-
-import java.util.List;
-
-@SuppressWarnings("SameReturnValue")
-public class Homily {
-
-    public Integer homilyID;
-    public Integer opusFK;
-    public String date;
-    public Integer book;
-    public Integer chapter;
-    public Integer number;
-    public Integer paragraph;
-    public Integer collectionFK;
-    public Integer colNumber;
-    public Integer colParagraph;
     @Ignore
-    public String padre;
-    public String homily;
+    var padre: String? = null
+    var homily: String? = null
+
     @Ignore
-    public List<HomilyList> homilias;
+    var homilias: List<HomilyList?>? = null
+
     @Ignore
-    private Today today;
+    private var today: Today? = null
+    private val titulo: SpannableStringBuilder
+        get() = Utils.toH3Red("HOMILÍAS")
+    private val tituloForRead: String
+        get() = "Homilías."
 
-    public Homily() {
-    }
-
-    public List<HomilyList> getHomilias() {
-        return this.homilias;
-    }
-
-    public void setHomilias(List<HomilyList> homilias) {
-        this.homilias = homilias;
-    }
-
-    @SuppressWarnings("unused")
-    private SpannableStringBuilder getTitulo() {
-        return Utils.toH3Red("HOMILÍAS");
-    }
-
-    private String getTituloForRead() {
-        return "Homilías.";
-    }
-
-    public SpannableStringBuilder getForView(boolean isNightMode) {
-        ColorUtils.isNightMode = isNightMode;
-        SpannableStringBuilder sb = new SpannableStringBuilder();
+    fun getForView(isNightMode: Boolean): SpannableStringBuilder {
+        ColorUtils.isNightMode = isNightMode
+        val sb = SpannableStringBuilder()
         try {
             //sb.append(LS2);
-            sb.append(today.getSingleForView());
-            sb.append(LS2);
-            sb.append(getTitulo());
-            sb.append(LS2);
-            for (HomilyList h : homilias) {
-                sb.append(h.getAllForView());
+            sb.append(today!!.singleForView)
+            sb.append(Utils.LS2)
+            sb.append(titulo)
+            sb.append(Utils.LS2)
+            for (h in homilias!!) {
+                sb.append(h?.allForView)
             }
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
+        } catch (e: Exception) {
+            sb.append(Utils.createErrorMessage(e.message))
         }
-        return sb;
+        return sb
     }
 
-    public StringBuilder getAllForRead() {
-        StringBuilder sb = new StringBuilder();
-        try {
-            sb.append(today.getSingleForRead());
-            sb.append(getTituloForRead());
-            for (HomilyList s : homilias) {
-                sb.append(s.getAllForRead());
+    val allForRead: StringBuilder
+        get() {
+            val sb = StringBuilder()
+            try {
+                sb.append(today!!.getSingleForRead())
+                sb.append(tituloForRead)
+                for (s in homilias!!) {
+                    sb.append(s?.allForRead)
+                }
+            } catch (e: Exception) {
+                sb.append(Utils.createErrorMessage(e.message))
             }
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
+            return sb
         }
-        return sb;
-    }
 
-    public void setHoy(Today today) {
-        this.today = today;
+    fun setHoy(today: Today?) {
+        this.today = today
     }
 }

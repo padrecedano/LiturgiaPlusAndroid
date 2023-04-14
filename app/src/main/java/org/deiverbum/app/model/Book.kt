@@ -1,188 +1,166 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Utils.LS2;
-
-import android.text.SpannableStringBuilder;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-import org.deiverbum.app.utils.ColorUtils;
-import org.deiverbum.app.utils.Utils;
-
-import java.util.List;
-import java.util.Locale;
+import android.text.SpannableStringBuilder
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+import org.deiverbum.app.utils.ColorUtils
+import org.deiverbum.app.utils.Utils
+import java.util.*
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
  */
-
-
-public class Book {
-
+class Book {
     @SerializedName("author")
     @Expose
-    private String author;
+    private var author: String? = null
+
     @SerializedName("title")
     @Expose
-    private String title;
+    private var title: String? = null
+
     @SerializedName("date")
     @Expose
-    private String date;
+    private var date: String? = null
+
     @SerializedName("intro")
     @Expose
-    private Intro intro;
+    private var intro: Intro? = null
 
     @SerializedName("bookType")
     @Expose
-    private int bookType;
+    private var bookType = 0
 
     @SerializedName("chapters")
     @Expose
-    private List<Chapter> chapters = null;
+    private var chapters: List<Chapter>? = null
 
     @SerializedName("agreeYes")
     @Expose
-    private String agreeYes;
+    private var agreeYes: String? = null
 
     @SerializedName("agreeNot")
     @Expose
-    private String agreeNot;
-
-    public String getAuthor() {
-        return author;
+    private var agreeNot: String? = null
+    fun getAuthor(): String? {
+        return author
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    fun setAuthor(author: String?) {
+        this.author = author
     }
 
-    public String getTitle() {
-        return title;
+    fun getTitle(): String? {
+        return title
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    fun setTitle(title: String?) {
+        this.title = title
     }
 
-    public String getDate() {
-        return date;
+    fun getDate(): String? {
+        return date
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    fun setDate(date: String?) {
+        this.date = date
     }
 
-    public int getBookType() {
-        return bookType;
+    fun getBookType(): Int {
+        return bookType
     }
 
-    public void setBookType(int bookType) {
-        this.bookType = bookType;
+    fun setBookType(bookType: Int) {
+        this.bookType = bookType
     }
 
-    public Intro getIntro() {
-        return intro;
+    fun getIntro(): Intro? {
+        return intro
     }
 
-    public void setIntro(Intro intro) {
-        this.intro = intro;
+    fun setIntro(intro: Intro?) {
+        this.intro = intro
     }
 
-    public List<Chapter> getChapters() {
-        return chapters;
+    fun getChapters(): List<Chapter>? {
+        return chapters
     }
 
-    public void setChapters(List<Chapter> chapters) {
-        this.chapters = chapters;
+    fun setChapters(chapters: List<Chapter>?) {
+        this.chapters = chapters
     }
 
-    public String getAgreeYes() {
-        return this.agreeYes;
+    fun getAgreeYes(): String? {
+        return agreeYes
     }
 
-    @SuppressWarnings("unused")
-    public void setAgreeYes(String agreeYes) {
-        this.agreeYes = agreeYes;
+    fun setAgreeYes(agreeYes: String?) {
+        this.agreeYes = agreeYes
     }
 
-    public String getAgreeNot() {
-        return this.agreeNot;
+    fun getAgreeNot(): String? {
+        return agreeNot
     }
 
-    @SuppressWarnings("unused")
-    public void setAgreeNot(String agreeNot) {
-        this.agreeNot = agreeNot;
+    fun setAgreeNot(agreeNot: String?) {
+        this.agreeNot = agreeNot
     }
 
-    public SpannableStringBuilder getForView(boolean isNightMode) {
-        ColorUtils.isNightMode = isNightMode;
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-
+    fun getForView(isNightMode: Boolean): SpannableStringBuilder {
+        ColorUtils.isNightMode = isNightMode
+        val sb = SpannableStringBuilder()
         if (bookType == 2) {
-            for (Chapter c : chapters) {
-                sb.append(c.getAllForView(bookType));
+            for (c in chapters!!) {
+                sb.append(c.getAllForView(bookType))
             }
-
         } else {
-            sb.append(Utils.toH2(title));
-            sb.append(LS2);
-            sb.append("Fecha efectiva: ");
-            String dateString = String.format(new Locale("es"), "<b>%s</b>", Utils.getTitleDate(date));
-            sb.append(Utils.fromHtml(dateString));
+            sb.append(Utils.toH2(title))
+            sb.append(Utils.LS2)
+            sb.append("Fecha efectiva: ")
+            val dateString = String.format(Locale("es"), "<b>%s</b>", Utils.getTitleDate(date))
+            sb.append(Utils.fromHtml(dateString))
             //sb.append(_abstract.getAllForView());
-            sb.append(LS2);
+            sb.append(Utils.LS2)
             if (intro != null) {
-                for (Content ci : intro.getContent()) {
-                    sb.append(ci.getByType());
+                for (ci in intro!!.content!!) {
+                    sb.append(ci.getByType())
                 }
-                sb.append(LS2);
-
+                sb.append(Utils.LS2)
             }
-
-            for (Chapter c : chapters) {
-                sb.append(c.getAllForView(bookType));
+            for (c in chapters!!) {
+                sb.append(c.getAllForView(bookType))
             }
-
         }
         //saveHtmlFile(sb.toString());
-        return sb;
+        return sb
     }
 
-
-    @SuppressWarnings("unused")
-    public SpannableStringBuilder getForHtml() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-
+    fun getForHtml(): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
         if (bookType == 2) {
-            for (Chapter c : chapters) {
-                sb.append(c.getAllForHtml(bookType));
+            for (c in chapters!!) {
+                sb.append(c.getAllForHtml(bookType))
             }
-
         } else {
-            sb.append(Utils.toH2(title));
-            sb.append(LS2);
-            sb.append("Fecha efectiva: ");
-            String dateString = String.format(new Locale("es"), "<b>%s</b>", Utils.getTitleDate(date));
-            sb.append(dateString);
+            sb.append(Utils.toH2(title))
+            sb.append(Utils.LS2)
+            sb.append("Fecha efectiva: ")
+            val dateString = String.format(Locale("es"), "<b>%s</b>", Utils.getTitleDate(date))
+            sb.append(dateString)
             //sb.append(_abstract.getAllForView());
-            sb.append(LS2);
+            sb.append(Utils.LS2)
             if (intro != null) {
-                for (Content ci : intro.getContent()) {
-                    sb.append(ci.getHtmlByType());
+                for (ci in intro!!.content!!) {
+                    sb.append(ci.getHtmlByType())
                 }
-                sb.append(LS2);
-
+                sb.append(Utils.LS2)
             }
-
-            for (Chapter c : chapters) {
-                sb.append(c.getAllForHtml(bookType));
+            for (c in chapters!!) {
+                sb.append(c.getAllForHtml(bookType))
             }
         }
-        return sb;
+        return sb
     }
 }
-
-

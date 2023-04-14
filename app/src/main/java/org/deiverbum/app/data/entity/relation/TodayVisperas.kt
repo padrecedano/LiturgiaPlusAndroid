@@ -1,152 +1,126 @@
-package org.deiverbum.app.data.entity.relation;
+package org.deiverbum.app.data.entity.relation
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
-
-import org.deiverbum.app.data.entity.LHGospelCanticleEntity;
-import org.deiverbum.app.data.entity.LHHymnJoinEntity;
-import org.deiverbum.app.data.entity.LHIntercessionsJoinEntity;
-import org.deiverbum.app.data.entity.LHPrayerEntity;
-import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
-import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
-import org.deiverbum.app.data.entity.LiturgyEntity;
-import org.deiverbum.app.data.entity.TodayEntity;
-import org.deiverbum.app.model.BiblicalShort;
-import org.deiverbum.app.model.BreviaryHour;
-import org.deiverbum.app.model.LHGospelCanticle;
-import org.deiverbum.app.model.LHHymn;
-import org.deiverbum.app.model.LHIntercession;
-import org.deiverbum.app.model.LHPsalmody;
-import org.deiverbum.app.model.Liturgy;
-import org.deiverbum.app.model.Prayer;
-import org.deiverbum.app.model.Today;
-import org.deiverbum.app.model.Visperas;
+import androidx.room.Embedded
+import androidx.room.Relation
+import org.deiverbum.app.data.entity.*
+import org.deiverbum.app.model.*
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class TodayVisperas {
-
+class TodayVisperas {
+    @JvmField
     @Embedded
-    public TodayEntity today;
+    var today: TodayEntity? = null
 
+    @JvmField
+    @Relation(entity = LiturgyEntity::class, parentColumn = "liturgyFK", entityColumn = "liturgyID")
+    var feria: LiturgyWithTime? = null
+
+    @JvmField
     @Relation(
-            entity = LiturgyEntity.class,
-            parentColumn = "liturgyFK",
-            entityColumn = "liturgyID"
+        entity = LiturgyEntity::class,
+        parentColumn = "previousFK",
+        entityColumn = "liturgyID"
     )
-    public LiturgyWithTime feria;
+    var previo: LiturgyWithTime? = null
 
+    @JvmField
+    @Relation(entity = LHHymnJoinEntity::class, parentColumn = "vHymnFK", entityColumn = "groupID")
+    var himno: LHHymnWithAll? = null
+
+    @JvmField
     @Relation(
-            entity = LiturgyEntity.class,
-            parentColumn = "previousFK",
-            entityColumn = "liturgyID"
+        entity = LHReadingShortJoinEntity::class,
+        parentColumn = "vBiblicalFK",
+        entityColumn = "groupID"
     )
-    public LiturgyWithTime previo;
+    var biblica: LHReadingShortAll? = null
 
+    @JvmField
     @Relation(
-            entity = LHHymnJoinEntity.class,
-            parentColumn = "vHymnFK",
-            entityColumn = "groupID"
+        entity = LHPsalmodyJoinEntity::class,
+        parentColumn = "vPsalmodyFK",
+        entityColumn = "groupID"
     )
-    public LHHymnWithAll himno;
+    var salmodia: LHPsalmodyAll? = null
 
+    @JvmField
     @Relation(
-            entity = LHReadingShortJoinEntity.class,
-            parentColumn = "vBiblicalFK",
-            entityColumn = "groupID"
+        entity = LHIntercessionsJoinEntity::class,
+        parentColumn = "vIntercessionsFK",
+        entityColumn = "groupID"
     )
-    public LHReadingShortAll biblica;
+    var lhIntercessionsDM: LHIntercessionsDM? = null
 
+    @JvmField
+    @Relation(entity = LHPrayerEntity::class, parentColumn = "vPrayerFK", entityColumn = "groupID")
+    var lhPrayerAll: LHPrayerAll? = null
+
+    @JvmField
     @Relation(
-            entity = LHPsalmodyJoinEntity.class,
-            parentColumn = "vPsalmodyFK",
-            entityColumn = "groupID"
+        entity = LHGospelCanticleEntity::class,
+        parentColumn = "vMagnificatFK",
+        entityColumn = "groupID"
     )
-    public LHPsalmodyAll salmodia;
-
-    @Relation(
-            entity = LHIntercessionsJoinEntity.class,
-            parentColumn = "vIntercessionsFK",
-            entityColumn = "groupID"
-
-    )
-    public LHIntercessionsDM lhIntercessionsDM;
-
-    @Relation(
-            entity = LHPrayerEntity.class,
-            parentColumn = "vPrayerFK",
-            entityColumn = "groupID"
-    )
-    public LHPrayerAll lhPrayerAll;
-
-    @Relation(
-            entity = LHGospelCanticleEntity.class,
-            parentColumn = "vMagnificatFK",
-            entityColumn = "groupID"
-    )
-    public LHGospelCanticleWithAntiphon magnificat;
-
-    public LHHymn getHimno() {
-        return himno.getDomainModel();
+    var magnificat: LHGospelCanticleWithAntiphon? = null
+    fun getHimno(): LHHymn? {
+        return himno?.domainModel
     }
 
     //TODO incluir algo como hasPriority en TodayEntity
-    public BiblicalShort getBiblica() {
-        return biblica.getDomainModel(today.getTiempoId());
+    fun getBiblica(): BiblicalShort? {
+        return biblica!!.getDomainModel(today!!.tiempoId)
     }
 
-    public LHGospelCanticle getMagnificat() {
-        return magnificat.getDomainModel(6);
+    fun getMagnificat(): LHGospelCanticle? {
+        return magnificat!!.getDomainModel(6)
     }
 
-    public LHIntercession getPreces() {
-        return lhIntercessionsDM.getDomainModel();
+    val preces: LHIntercession?
+        get() = lhIntercessionsDM?.domainModel
+
+    fun getSalmodia(): LHPsalmody? {
+        return salmodia?.domainModel
     }
 
-    public LHPsalmody getSalmodia() {
-        return salmodia.getDomainModel();
+    val oracion: Prayer?
+        get() = lhPrayerAll?.domainModel
+
+    fun getToday(): Today {
+        val dm = Today()
+        dm.liturgyDay = feria?.domainModel
+        dm.liturgyDay!!.typeID = 6
+        dm.liturgyPrevious = if (today!!.previoId > 1) previo?.domainModel else null
+        dm.todayDate = today!!.hoy
+        dm.hasSaint = today!!.hasSaint
+        var previousFK = today!!.previoId
+        previousFK = if (previousFK == 1) 0 else previousFK
+        dm.previousFK = previousFK
+        return dm
     }
 
-    public Prayer getOracion() {
-        return lhPrayerAll.getDomainModel();
-    }
-
-    public Today getToday() {
-        Today dm = new Today();
-        dm.liturgyDay = feria.getDomainModel();
-        dm.liturgyDay.typeID = 6;
-        dm.liturgyPrevious = today.previoId > 1 ? previo.getDomainModel() : null;
-        dm.setTodayDate(today.getHoy());
-        dm.setHasSaint(today.hasSaint);
-        int previousFK = today.getPrevioId();
-        previousFK = previousFK == 1 ? 0 : previousFK;
-        dm.setPreviousFK(previousFK);
-        return dm;
-    }
-
-    public Today getDomainModelToday() {
-        Liturgy dm = feria.getDomainModel();
-        Today dmToday = getToday();
-        dm.typeID = 6;
-        dm.setToday(getToday());
-        BreviaryHour bh = new BreviaryHour();
-        Visperas visperas = new Visperas();
-        visperas.setIsPrevious(dmToday.previousFK);
-        visperas.setToday(getToday());
-        visperas.setHimno(getHimno());
-        visperas.setSalmodia(getSalmodia());
-        visperas.setLecturaBreve(getBiblica());
-        visperas.setGospelCanticle(getMagnificat());
-        visperas.setPreces(getPreces());
-        visperas.setOracion(getOracion());
-        bh.setVisperas(visperas);
-
-        dm.setBreviaryHour(bh);
-        dmToday.liturgyDay = dm;
-        return dmToday;
-    }
-
+    val domainModelToday: Today
+        get() {
+            val dm = feria?.domainModel
+            val dmToday = getToday()
+            dm!!.typeID = 6
+            dm!!.today = getToday()
+            val bh = BreviaryHour()
+            val visperas = Visperas()
+            visperas.setIsPrevious(dmToday.previousFK!!)
+            visperas.today = getToday()
+            visperas.setHimno(getHimno())
+            visperas.setSalmodia(getSalmodia())
+            visperas.setLecturaBreve(getBiblica())
+            visperas.setGospelCanticle(getMagnificat())
+            visperas.setPreces(preces)
+            visperas.setOracion(oracion)
+            bh.setVisperas(visperas)
+            dm!!.breviaryHour = bh
+            dmToday.liturgyDay = dm
+            return dmToday
+        }
 }

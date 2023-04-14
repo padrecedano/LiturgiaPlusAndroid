@@ -294,7 +294,7 @@ public final class Utils {
                 .replace("¦", NBSP_4)
                 .replace("⊣", BR + NBSP_4)
                 .replace("≠", String.format("%s %s ", NBSP_SALMOS, toRedFont(PRECES_R)))
-                .replace("∞", String.format("%s%s", BRS, toRedFont(PRECES_IL)))
+                .replace("∞", String.format("%s%s%s", BRS, toRedFont(PRECES_IL),BRS))
                 .replace("⊚", OBIEN)
                 .replace("†", toRedFont(" † "))
                 .replace("⊓", toRedFont(" N. "))

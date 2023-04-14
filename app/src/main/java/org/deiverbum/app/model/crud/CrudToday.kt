@@ -1,47 +1,36 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.Today;
+import org.deiverbum.app.model.Today
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class CrudToday {
-
-    public List<Today> c;
-    public List<Today> u;
-    public List<Today> d;
-
-    @SuppressWarnings("unused")
-    public CrudToday() {
-    }
-
-    public void c(Today t) {
+class CrudToday {
+    var c: MutableList<Today>? = null
+    var u: MutableList<Today>? = null
+    var d: MutableList<Today>? = null
+    fun c(t: Today) {
         if (c == null) {
-            c = new ArrayList<>();
+            c = ArrayList()
         }
-        c.add(t);
+        c!!.add(t)
     }
 
-    public void addUpdate(Today t) {
+    fun addUpdate(t: Today) {
         if (u == null) {
-            u = new ArrayList<>();
+            u = ArrayList()
         }
-        u.add(t);
+        u!!.add(t)
     }
 
-    public void addCreate(Today t) {
+    fun addCreate(t: Today) {
         if (c == null) {
-            c = new ArrayList<>();
+            c = ArrayList()
         }
-        c.add(t);
+        c!!.add(t)
     }
 
-    public void addDelete(Today t) {
+    fun addDelete(t: Today) {
         if (d == null) {
-            d = new ArrayList<>();
+            d = ArrayList()
         }
-        d.add(t);
+        d!!.add(t)
     }
-
-
 }

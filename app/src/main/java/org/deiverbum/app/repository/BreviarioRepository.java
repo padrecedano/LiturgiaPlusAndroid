@@ -204,7 +204,7 @@ public class BreviarioRepository {
      */
 
     public void getFromApi(String theDate, int hourId) {
-        String endPoint = LiturgyHelper.myMap.get(hourId);
+        String endPoint = LiturgyHelper.Companion.getMap(hourId);
         apiService.getToday(endPoint, Utils.cleanDate(theDate))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

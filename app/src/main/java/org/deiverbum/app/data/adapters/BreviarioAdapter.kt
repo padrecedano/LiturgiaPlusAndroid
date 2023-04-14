@@ -1,105 +1,88 @@
-package org.deiverbum.app.data.adapters;
+package org.deiverbum.app.data.adapters
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.snackbar.Snackbar;
-
-import org.deiverbum.app.R;
-
-import java.util.List;
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.RelativeLayout
+import android.widget.TextView
+import androidx.navigation.Navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import org.deiverbum.app.R
 
 /**
- * <p>
- * Esta clase maneja el adaptador de la pantalla <code>Breviary</code>,
- * presentada desde <code>BreviarioFragment</code>.
- * </p>
+ *
+ *
+ * Esta clase maneja el adaptador de la pantalla `Breviary`,
+ * presentada desde `BreviarioFragment`.
+ *
  *
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
  */
-
-public class BreviarioAdapter extends RecyclerView.Adapter<BreviarioAdapter.ViewHolder> {
-    private final List<BreviarioItem> mDataSet;
-
-    /**
-     * Inicializa el dataset del adaptador.
-     *
-     * @param dataSet Una lista de objetos {@link BreviarioItem} con los datos con que
-     *                se llenarán las vistas del {@link RecyclerView}.
-     */
-    public BreviarioAdapter(List<BreviarioItem> dataSet) {
-        mDataSet = dataSet;
-    }
-
+class BreviarioAdapter
+/**
+ * Inicializa el dataset del adaptador.
+ *
+ * @param dataSet Una lista de objetos [BreviarioItem] con los datos con que
+ * se llenarán las vistas del [RecyclerView].
+ */(private val mDataSet: List<BreviarioItem>) :
+    RecyclerView.Adapter<BreviarioAdapter.ViewHolder>() {
     /**
      * Crea las nuevas vistas (invocadas por el layout manager)
      */
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.rv_breviario_items, viewGroup, false);
-
-        return new ViewHolder(v);
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+        val v = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.rv_breviario_items, viewGroup, false)
+        return ViewHolder(v)
     }
 
     /**
      * Reemplaza los contenidos de la vista
      * y guarda una referencia invocando al método
-     * {@link ViewHolder#setData(BreviarioItem)}
+     * [ViewHolder.setData]
      * con el propósito de obtener el id de navegación
      * al hacer clic en cada elemento
      *
-     * @param viewHolder Este {@link ViewHolder}
+     * @param viewHolder Este [ViewHolder]
      * @param position   La posición del elemento
      */
-
-    @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        viewHolder.setData(mDataSet.get(position));
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        viewHolder.setData(mDataSet[position])
     }
 
     /**
      * Devuelve el tamaño del dataset
      */
-    @Override
-    public int getItemCount() {
-        return mDataSet.size();
+    override fun getItemCount(): Int {
+        return mDataSet.size
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView viewIcon;
-        private final TextView viewText;
-        private final RelativeLayout relativeLayout;
-        BreviarioItem mItem;
+    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        private val viewIcon: TextView
+        private val viewText: TextView
+        private val relativeLayout: RelativeLayout
+        var mItem: BreviarioItem? = null
 
-        public ViewHolder(View v) {
-            super(v);
-            v.setOnClickListener(v1 -> {
-                String itemText = mItem.text;
-                if (itemText.equals("Más...")) {
-                    Snackbar snackbar = Snackbar
-                            .make(v1, "Este módulo está pendiente de " +
-                                            "programación...",
-                                    Snackbar.LENGTH_LONG);
-                    snackbar.show();
+        init {
+            v.setOnClickListener { v1: View? ->
+                val itemText = mItem!!.text
+                if (itemText == "Más...") {
+                    val snackbar = Snackbar
+                        .make(
+                            v1!!, "Este módulo está pendiente de " +
+                                    "programación...",
+                            Snackbar.LENGTH_LONG
+                        )
+                    snackbar.show()
                 } else {
-                    Navigation.findNavController(v1).navigate(mItem.navId);
+                    findNavController(v1!!).navigate(mItem!!.navId)
                 }
-            });
-
-            viewIcon = v.findViewById(R.id.tv_Material);
-            viewText = v.findViewById(R.id.tv_Elemento);
-            relativeLayout = v.findViewById(R.id.relativeLayout);
+            }
+            viewIcon = v.findViewById(R.id.tv_Material)
+            viewText = v.findViewById(R.id.tv_Elemento)
+            relativeLayout = v.findViewById(R.id.relativeLayout)
         }
 
         /**
@@ -107,13 +90,13 @@ public class BreviarioAdapter extends RecyclerView.Adapter<BreviarioAdapter.View
          * y guarda una referencia del objeto
          * para poder obtener el id de navegación al hacer click
          *
-         * @param item del tipo {@link BreviarioItem}
+         * @param item del tipo [BreviarioItem]
          */
-        public void setData(BreviarioItem item) {
-            mItem = item;
-            viewIcon.setText(item.letra);
-            viewText.setText(item.text);
-            relativeLayout.setBackgroundColor(item.color);
+        fun setData(item: BreviarioItem) {
+            mItem = item
+            viewIcon.text = item.letra
+            viewText.text = item.text
+            relativeLayout.setBackgroundColor(item.color)
         }
     }
 }

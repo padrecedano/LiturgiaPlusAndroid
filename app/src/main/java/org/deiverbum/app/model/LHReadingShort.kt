@@ -1,12 +1,7 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class LHReadingShort {
-    public Integer readingID = 0;
-    public String text = "";
-    public String quote = "";
-
-    @SuppressWarnings("unused")
-    public LHReadingShort() {
-    }
-
+class LHReadingShort {
+    var readingID = 0
+    var text = ""
+    var quote = ""
 }

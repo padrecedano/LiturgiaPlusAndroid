@@ -1,46 +1,42 @@
-package org.deiverbum.app.data.entity.relation;
+package org.deiverbum.app.data.entity.relation
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
-
-import org.deiverbum.app.data.entity.HomilyEntity;
-import org.deiverbum.app.data.entity.PaterOpusEntity;
-import org.deiverbum.app.model.HomilyList;
-import org.deiverbum.app.model.LHOfficePatristic;
+import androidx.room.Embedded
+import androidx.room.Relation
+import org.deiverbum.app.data.entity.HomilyEntity
+import org.deiverbum.app.data.entity.PaterOpusEntity
+import org.deiverbum.app.model.HomilyList
+import org.deiverbum.app.model.LHOfficePatristic
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class HomilyAll {
+class HomilyAll {
+    @JvmField
     @Embedded
-    public HomilyEntity homilia;
+    var homilia: HomilyEntity? = null
 
-    @Relation(
-            parentColumn = "opusFK",
-            entityColumn = "opusID",
-            entity = PaterOpusEntity.class
-    )
-    public PaterOpusAll paterOpusAll;
-
-    public LHOfficePatristic getPatristicaDomainModel() {
-        LHOfficePatristic theModel = new LHOfficePatristic();
-        theModel.setText(homilia.getTexto());
-        theModel.setPadre(paterOpusAll.paterEntity.getPadre());
-        theModel.setObra(paterOpusAll.paterOpusEntity.getOpusName());
-        theModel.paterOpus = paterOpusAll.getDomainModel();
-        theModel.setSource(String.valueOf(homilia.getNumero()));
-        return theModel;
-    }
-
-    public HomilyList getDomainModel() {
-        HomilyList theModel = new HomilyList();
-        theModel.setHomilia(homilia.getTexto());
-        theModel.homilyID = homilia.homiliaId;
-        theModel.setPadre(paterOpusAll.paterEntity.getPadre());
-        theModel.setObra(paterOpusAll.paterOpusEntity.getOpusName());
-        return theModel;
-    }
-
+    @JvmField
+    @Relation(parentColumn = "opusFK", entityColumn = "opusID", entity = PaterOpusEntity::class)
+    var paterOpusAll: PaterOpusAll? = null
+    val patristicaDomainModel: LHOfficePatristic
+        get() {
+            val theModel = LHOfficePatristic()
+            theModel.text = homilia!!.texto
+            theModel.padre = paterOpusAll!!.paterEntity!!.padre
+            theModel.obra = paterOpusAll!!.paterOpusEntity!!.opusName
+            theModel.paterOpus = paterOpusAll?.domainModel
+            theModel.source = homilia!!.numero.toString()
+            return theModel
+        }
+    val domainModel: HomilyList
+        get() {
+            val theModel = HomilyList()
+            theModel.homily = homilia!!.texto
+            theModel.homilyID = homilia!!.homiliaId
+            theModel.padre = paterOpusAll!!.paterEntity!!.padre
+            theModel.obra = paterOpusAll!!.paterOpusEntity!!.opusName
+            return theModel
+        }
 }

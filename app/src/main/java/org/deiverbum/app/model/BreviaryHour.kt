@@ -1,337 +1,310 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Constants.TITLE_CONCLUSION;
-import static org.deiverbum.app.utils.Constants.TITLE_INITIAL_INVOCATION;
-import static org.deiverbum.app.utils.Utils.LS;
-import static org.deiverbum.app.utils.Utils.LS2;
-
-import android.text.SpannableStringBuilder;
-
-import org.deiverbum.app.utils.Utils;
+import android.text.SpannableStringBuilder
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
 
 /**
- * <p>
+ *
+ *
  * Reúne aquellos elementos que son comúnes a las diversas horas del Breviary.
  * Las clases de las diferentes horas extienden de ésta,
  * y cada una tendrá aquellos elementos que le sean propios.
- * </p>
+ *
  *
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
  */
-@SuppressWarnings("SameReturnValue")
-public class BreviaryHour extends Liturgy {
+open class BreviaryHour : Liturgy() {
     //protected int typeID;
+    protected var metaInfo: String? = null
+        get() = if (field==null && field !="") "" else "<br><br>$field"
+    @JvmField
+    protected var himno: LHHymn? = null
+    @JvmField
+    protected var salmodia: LHPsalmody? = null
+    @JvmField
+    protected var oracion: Prayer? = null
+    protected var lhOfficeOfReading: LHOfficeOfReading? = null
 
-    protected String metaInfo;
-    protected LHHymn himno;
-    protected LHPsalmody salmodia;
-    protected Prayer oracion;
-    protected LHOfficeOfReading oficioLecturas;
-    protected TeDeum teDeum;
-    protected Oficio oficio;
-    protected OficioEaster oficioEaster;
-
-    protected Laudes laudes;
-    private Mixto mixto;
-    private Intermedia intermedia;
-    private Visperas visperas;
-    private Completas completas;
-
-    public BreviaryHour() {
+    //internal var teDeum: TeDeum? = null
+    @JvmField
+    protected var oficio: Oficio? = null
+    @JvmField
+    protected var oficioEaster: OficioEaster? = null
+    @JvmField
+    protected var laudes: Laudes? = null
+    private var mixto: Mixto? = null
+    private var intermedia: Intermedia? = null
+    private var visperas: Visperas? = null
+    private var completas: Completas? = null
+    fun getCompletas(): Completas? {
+        return completas
     }
 
-    /**
-     * @return El saludo listo para el lector de voz.
-     * @since 2021.01
-     */
-    public static String getSaludoDiosMioForRead() {
-        return "Dios mío, ven en mi auxilio." +
-                "Señor, date prisa en socorrerme." +
-                "Gloria al Padre, y al Hijo, y al Espíritu Santo." +
-                "Como era en el principio ahora y siempre, por los siglos de los siglos. Amén.";
+    fun setCompletas(completas: Completas?) {
+        this.completas = completas
     }
 
-    public static SpannableStringBuilder getConclusionHorasMayores() {
-        SpannableStringBuilder ssb = new SpannableStringBuilder(Utils.formatTitle(TITLE_CONCLUSION));
-        ssb.append(LS2);
-        ssb.append(Utils.toRed("V. "));
-        ssb.append("El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna.");
-        ssb.append(LS);
-        ssb.append(Utils.toRed("R. "));
-        ssb.append("Amén.");
-        return ssb;
+
+    fun getSaludoOficio(): SpannableStringBuilder {
+        val sb = SpannableStringBuilder("")
+        sb.append(Utils.formatTitle(Constants.TITLE_INITIAL_INVOCATION))
+        sb.append(Utils.LS2)
+        sb.append(Utils.toRed("V. "))
+        sb.append("Señor, abre mis labios.")
+        sb.append(Utils.LS)
+        sb.append(Utils.toRed("R. "))
+        sb.append("Y mi boca proclamará tu alabanza.")
+        sb.append(Utils.LS2)
+        sb.append(salmodia!!.finSalmo)
+        return sb
     }
 
-    /**
-     * @return Texto con la conclusión de la hora, formateado para lectura
-     * @since 2021.01
-     */
-    public static String getConclusionHorasMayoresForRead() {
-        return "El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna. Amén.";
+    fun getSaludoOficioForRead(): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        sb.append("Señor abre mis labios.")
+        sb.append("Y mi boca proclamará tu alabanza.")
+        sb.append("Gloria al Padre, y al Hijo, y al Espíritu Santo.")
+        sb.append("Como era en el principio ahora y siempre, por los siglos de los siglos. Amén.")
+        return sb
     }
 
-    /**
-     * Método que obtiene la conclusión de la hora
-     *
-     * @return Texto con la conclusión de la hora, formateado para vista
-     * @since 2022.2
-     */
-    public static SpannableStringBuilder getConclusionHoraMenor() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(Utils.formatTitle(TITLE_CONCLUSION));
-        sb.append(LS2);
-        sb.append(Utils.toRed("V. "));
-        sb.append("Bendigamos al Señor.");
-        sb.append(LS);
-        sb.append(Utils.toRed("R. "));
-        sb.append("Demos gracias a Dios.");
-        return sb;
+    fun getSaludoDiosMio(): SpannableStringBuilder {
+        val sb = SpannableStringBuilder("")
+        sb.append(Utils.formatTitle(Constants.TITLE_INITIAL_INVOCATION))
+        sb.append(Utils.LS2)
+        sb.append(Utils.toRed("V. "))
+        sb.append("Dios mío, ven en mi auxilio.")
+        sb.append(Utils.LS)
+        sb.append(Utils.toRed("R. "))
+        sb.append("Señor, date prisa en socorrerme.")
+        sb.append(Utils.LS2)
+        sb.append(salmodia!!.finSalmo)
+        return sb
     }
 
-    /**
-     * Método que obtiene la conclusión de la hora
-     *
-     * @return Texto con la conclusión de la hora, formateado para lectura
-     * @since 2022.2
-     */
-    public static String getConclusionHoraMenorForRead() {
-        return "Bendigamos al Señor. Demos gracias a Dios.";
+    open fun getHimno(): LHHymn? {
+        return himno
     }
 
-    public Completas getCompletas() {
-        return completas;
+    fun setHimno(himno: LHHymn?) {
+        this.himno = himno
     }
 
-    public void setCompletas(Completas completas) {
-        this.completas = completas;
+    fun getSalmodia(): LHPsalmody? {
+        return salmodia
     }
 
-    //TODO checkthis
-    public String getMetaInfo() {
-
-        if (metaInfo != null) {
-            return !metaInfo.equals("") ? "<br><br>" + metaInfo : "";
-        } else {
-            return "";
-        }
+    fun setSalmodia(salmodia: LHPsalmody?) {
+        this.salmodia = salmodia
     }
 
-    @SuppressWarnings("unused")
-    public void setMetaInfo(String metaInfo) {
-        this.metaInfo = metaInfo;
+    fun getOracion(): Prayer? {
+        return oracion
     }
 
-    public SpannableStringBuilder getSaludoOficio() {
-        SpannableStringBuilder sb = new SpannableStringBuilder("");
-        sb.append(Utils.formatTitle(TITLE_INITIAL_INVOCATION));
-        sb.append(LS2);
-        sb.append(Utils.toRed("V. "));
-        sb.append("Señor, abre mis labios.");
-        sb.append(LS);
-        sb.append(Utils.toRed("R. "));
-        sb.append("Y mi boca proclamará tu alabanza.");
-        sb.append(LS2);
-        sb.append(salmodia.getFinSalmo());
-        return sb;
+    fun setOracion(oracion: Prayer?) {
+        this.oracion = oracion
     }
 
-    public SpannableStringBuilder getSaludoOficioForRead() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append("Señor abre mis labios.");
-        sb.append("Y mi boca proclamará tu alabanza.");
-        sb.append("Gloria al Padre, y al Hijo, y al Espíritu Santo.");
-        sb.append("Como era en el principio ahora y siempre, por los siglos de los siglos. Amén.");
-        return sb;
+    fun setTypeId(typeID: Int) {
+        this.typeID = typeID
     }
 
-    public SpannableStringBuilder getSaludoDiosMio() {
-        SpannableStringBuilder sb = new SpannableStringBuilder("");
-        sb.append(Utils.formatTitle(TITLE_INITIAL_INVOCATION));
-        sb.append(LS2);
-        sb.append(Utils.toRed("V. "));
-        sb.append("Dios mío, ven en mi auxilio.");
-        sb.append(LS);
-        sb.append(Utils.toRed("R. "));
-        sb.append("Señor, date prisa en socorrerme.");
-        sb.append(LS2);
-        sb.append(salmodia.getFinSalmo());
-        return sb;
+    fun setOfficeOfReading(oficioLecturas: LHOfficeOfReading?) {
+        this.lhOfficeOfReading = oficioLecturas
     }
 
-    public LHHymn getHimno() {
-        return himno;
+    fun getMixto(): Mixto? {
+        return mixto
     }
 
-    public void setHimno(LHHymn himno) {
-        this.himno = himno;
+    fun setMixto(mixto: Mixto?) {
+        this.mixto = mixto
     }
 
-    public LHPsalmody getSalmodia() {
-        return salmodia;
+    open fun getOficio(): Oficio? {
+        return oficio
     }
 
-    public void setSalmodia(LHPsalmody salmodia) {
-        this.salmodia = salmodia;
+    open fun setOficio(oficio: Oficio?) {
+        this.oficio = oficio
     }
 
-    public Prayer getOracion() {
-        return oracion;
+    fun getOficio(hasInvitatory: Boolean): Oficio? {
+        oficio!!.invitatorio?.isMultiple = hasInvitatory
+        return oficio
     }
 
-    public void setOracion(Prayer oracion) {
-        this.oracion = oracion;
+    open fun getLaudes(): Laudes? {
+        return laudes
     }
 
-    public void setTypeId(int typeID) {
-        this.typeID = typeID;
+    open fun setLaudes(laudes: Laudes?) {
+        this.laudes = laudes
     }
 
-    @SuppressWarnings("unused")
-    public void setOfficeOfReading(LHOfficeOfReading oficioLecturas) {
-        this.oficioLecturas = oficioLecturas;
+    fun getLaudes(hasInvitatory: Boolean): Laudes? {
+        laudes!!.invitatorio?.isMultiple = hasInvitatory
+        return laudes
     }
 
-    public void setTeDeum(TeDeum teDeum) {
+    fun getIntermedia(): Intermedia? {
+        return intermedia
     }
 
-    @SuppressWarnings("unused")
-    public Mixto getMixto() {
-        return this.mixto;
+    fun setIntermedia(intermedia: Intermedia?) {
+        this.intermedia = intermedia
     }
 
-    public void setMixto(Mixto mixto) {
-        this.mixto = mixto;
+    fun getVisperas(): Visperas? {
+        return visperas
     }
 
-    public Oficio getOficio() {
-        return oficio;
+    fun setVisperas(visperas: Visperas?) {
+        this.visperas = visperas
     }
 
-    public void setOficio(Oficio oficio) {
-        this.oficio = oficio;
+    fun getOficioEaster(): OficioEaster? {
+        return oficioEaster
     }
 
-    public Oficio getOficio(boolean hasInvitatory) {
-        oficio.getInvitatorio().isMultiple = hasInvitatory;
-        return oficio;
+    fun setOficioEaster(oficioEaster: OficioEaster?) {
+        this.oficioEaster = oficioEaster
     }
 
-    public Laudes getLaudes() {
-        return this.laudes;
-    }
-
-    public void setLaudes(Laudes laudes) {
-        this.laudes = laudes;
-    }
-
-    public Laudes getLaudes(boolean hasInvitatory) {
-        laudes.getInvitatorio().isMultiple = hasInvitatory;
-        return laudes;
-    }
-
-    public Intermedia getIntermedia() {
-        return this.intermedia;
-    }
-
-    public void setIntermedia(Intermedia intermedia) {
-        this.intermedia = intermedia;
-    }
-
-    public Visperas getVisperas() {
-        return this.visperas;
-    }
-
-    public void setVisperas(Visperas visperas) {
-        this.visperas = visperas;
-    }
-
-    public OficioEaster getOficioEaster() {
-        return this.oficioEaster;
-    }
-
-    public void setOficioEaster(OficioEaster oficioEaster) {
-        this.oficioEaster = oficioEaster;
-    }
-
-    public SpannableStringBuilder getMixtoForView(LiturgyTime liturgyTime, boolean hasSaint) {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-
-
+    fun getMixtoForView(liturgyTime: LiturgyTime, hasSaint: Boolean): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
         try {
-            this.hasSaint = hasSaint;
-            LHInvitatory invitatory = oficio.getInvitatorio();
-
-            invitatory.normalizeByTime(liturgyTime.getTimeID());
-            laudes.salmodia.normalizeByTime(liturgyTime.getTimeID());
-
-            sb.append(LS2);
+            this.hasSaint = hasSaint
+            val invitatory = oficio?.invitatorio
+            invitatory?.normalizeByTime(liturgyTime.timeID!!)
+            laudes!!.salmodia?.normalizeByTime(liturgyTime.timeID)
+            sb.append(Utils.LS2)
             if (santo != null && this.hasSaint) {
-                invitatory.normalizeIsSaint(santo.theName);
-                sb.append(santo.getVidaSmall());
-                sb.append(LS);
+                invitatory?.normalizeIsSaint(santo!!.theName)
+                sb.append(santo?.vidaSmall)
+                sb.append(Utils.LS)
             }
-
-            sb.append(mixto.getTituloHora());
-            sb.append(Utils.fromHtmlToSmallRed(getMetaInfo()));
-            sb.append(LS2);
-            sb.append(laudes.getSaludoOficio());
-            sb.append(Utils.LS2);
-            sb.append(oficio.getInvitatorio().getAll());
-            sb.append(Utils.LS2);
-            sb.append(laudes.himno.getAll());
-            sb.append(Utils.LS2);
-            sb.append(laudes.getSalmodia().getAll());
-            sb.append(laudes.getLecturaBreve().getAllWithHourCheck(2));
-            //sb.append(lecturaBreve.getAllWithHourCheck(2));
-
-            sb.append(Utils.LS2);
-            sb.append(oficio.oficioLecturas.getAll(liturgyTime.getTimeID()));
-            sb.append(Utils.LS2);
-            //sb.append(mixto.getMisaLecturas().getAllEvangelioForView());
-
-            sb.append(mixto.getEvangeliosForView());
-            sb.append(Utils.LS2);
-            sb.append(laudes.getGospelCanticle().getAll());
-            sb.append(Utils.LS2);
-            sb.append(laudes.getPreces().getAll());
-            sb.append(LS2);
-            sb.append(PadreNuestro.getAll());
-            sb.append(LS2);
-            sb.append(laudes.oracion.getAll());
-            sb.append(LS2);
-            sb.append(getConclusionHorasMayores());
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
+            sb.append(mixto!!.tituloHora)
+            sb.append(Utils.fromHtmlToSmallRed(metaInfo))
+            sb.append(Utils.LS2)
+            sb.append(laudes!!.getSaludoOficio())
+            sb.append(Utils.LS2)
+            sb.append(oficio!!.invitatorio?.all)
+            sb.append(Utils.LS2)
+            sb.append(laudes!!.himno!!.all)
+            sb.append(Utils.LS2)
+            sb.append(laudes!!.salmodia?.all)
+            sb.append(laudes!!.lecturaBreve?.getAllWithHourCheck(2))
+            sb.append(Utils.LS2)
+            sb.append(oficio!!.lhOfficeOfReading?.getAll(liturgyTime.timeID))
+            sb.append(mixto!!.evangeliosForView)
+            sb.append(Utils.LS)
+            sb.append(laudes!!.gospelCanticle?.all)
+            sb.append(Utils.LS2)
+            sb.append(laudes!!.preces?.all)
+            sb.append(Utils.LS2)
+            sb.append(PadreNuestro.all)
+            sb.append(Utils.LS2)
+            sb.append(laudes!!.oracion?.all)
+            sb.append(Utils.LS2)
+            sb.append(getConclusionHorasMayores())
+        } catch (e: Exception) {
+            sb.append(Utils.createErrorMessage(e.message))
         }
-        return sb;
+        return sb
     }
 
-    public StringBuilder getMixtoForRead() {
-        StringBuilder sb = new StringBuilder();
+    fun getMixtoForRead(): StringBuilder {
+        val sb = StringBuilder()
         try {
-            if (santo != null && this.hasSaint) {
-                sb.append(santo.getVida());
+            if (santo != null && hasSaint) {
+                sb.append(santo?.vida)
             }
-            sb.append(mixto.getTituloHoraForRead());
-            sb.append(laudes.getSaludoOficioForRead());
-            sb.append(oficio.getInvitatorio().getAllForRead());
-            sb.append(laudes.himno.getAllForRead());
-            sb.append(laudes.salmodia.getAll());
-            sb.append(laudes.getLecturaBreve().getAllForRead());
-            sb.append(oficio.oficioLecturas.getAllForRead());
-            sb.append(mixto.getEvangeliosForRead());
-            sb.append(laudes.getGospelCanticle().getAllForRead());
-            sb.append(laudes.getPreces().getAllForRead());
-            sb.append(PadreNuestro.getAll());
-            sb.append(laudes.getOracion().getAllForRead());
-            sb.append(getConclusionHorasMayoresForRead());
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
+            sb.append(mixto!!.tituloHoraForRead)
+            sb.append(laudes!!.getSaludoOficioForRead())
+            sb.append(oficio!!.invitatorio?.allForRead)
+            sb.append(laudes!!.himno?.allForRead)
+            sb.append(laudes!!.salmodia?.all)
+            sb.append(laudes!!.lecturaBreve?.getAllForRead())
+            sb.append(oficio!!.lhOfficeOfReading?.allForRead)
+            sb.append(mixto!!.evangeliosForRead)
+            sb.append(laudes!!.gospelCanticle?.allForRead)
+            sb.append(laudes!!.preces?.allForRead)
+            sb.append(PadreNuestro.all)
+            sb.append(laudes!!.getOracion()?.allForRead)
+            sb.append(getConclusionHorasMayoresForRead())
+        } catch (e: Exception) {
+            sb.append(Utils.createErrorMessage(e.message))
         }
-        return sb;
+        return sb
     }
 
+    companion object {
+        /**
+         * @return El saludo listo para el lector de voz.
+         * @since 2021.01
+         */
+        @JvmStatic
+        fun getSaludoDiosMioForRead(): String {
+            return "Dios mío, ven en mi auxilio." +
+                    "Señor, date prisa en socorrerme." +
+                    "Gloria al Padre, y al Hijo, y al Espíritu Santo." +
+                    "Como era en el principio ahora y siempre, por los siglos de los siglos. Amén."
+        }
+
+        @JvmStatic
+        fun getConclusionHorasMayores(): SpannableStringBuilder {
+            val ssb = SpannableStringBuilder(Utils.formatTitle(Constants.TITLE_CONCLUSION))
+            ssb.append(Utils.LS2)
+            ssb.append(Utils.toRed("V. "))
+            ssb.append("El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna.")
+            ssb.append(Utils.LS)
+            ssb.append(Utils.toRed("R. "))
+            ssb.append("Amén.")
+            return ssb
+        }
+
+        /**
+         * @return Texto con la conclusión de la hora, formateado para lectura
+         * @since 2021.01
+         */
+        @JvmStatic
+        fun getConclusionHorasMayoresForRead(): String {
+            return "El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna. Amén."
+        }
+
+        /**
+         * Método que obtiene la conclusión de la hora
+         *
+         * @return Texto con la conclusión de la hora, formateado para vista
+         * @since 2022.2
+         */
+        @JvmStatic
+        fun getConclusionHoraMenor(): SpannableStringBuilder {
+            val sb = SpannableStringBuilder()
+            sb.append(Utils.formatTitle(Constants.TITLE_CONCLUSION))
+            sb.append(Utils.LS2)
+            sb.append(Utils.toRed("V. "))
+            sb.append("Bendigamos al Señor.")
+            sb.append(Utils.LS)
+            sb.append(Utils.toRed("R. "))
+            sb.append("Demos gracias a Dios.")
+            return sb
+        }
+
+        /**
+         * Método que obtiene la conclusión de la hora
+         *
+         * @return Texto con la conclusión de la hora, formateado para lectura
+         * @since 2022.2
+         */
+        @JvmStatic
+        fun getConclusionHoraMenorForRead(): String {
+            return "Bendigamos al Señor. Demos gracias a Dios."
+        }
+    }
 }
-

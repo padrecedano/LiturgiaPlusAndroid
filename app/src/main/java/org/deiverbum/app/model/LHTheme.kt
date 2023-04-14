@@ -1,26 +1,6 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class LHTheme {
-    public Integer themeID = 0;
-    public String theme = "";
-
-    @SuppressWarnings("unused")
-    public LHTheme() {
-    }
-
-    public Integer getThemeID() {
-        return themeID;
-    }
-
-    public void setThemeID(Integer themeID) {
-        this.themeID = themeID;
-    }
-
-    public String getTheme() {
-        return theme;
-    }
-
-    public void setTheme(String theme) {
-        this.theme = theme;
-    }
+class LHTheme {
+    var themeID = 0
+    var theme = ""
 }

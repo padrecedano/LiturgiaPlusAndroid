@@ -1,17 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.LHOfficeVerseJoin;
+import org.deiverbum.app.model.LHOfficeVerseJoin
 
-import java.util.List;
-
-public class CrudLHOfficeVerseJoin {
-
-    public List<LHOfficeVerseJoin> c;
-    public List<LHOfficeVerseJoin> u;
-    public List<LHOfficeVerseJoin> d;
-
-    @SuppressWarnings("unused")
-    public CrudLHOfficeVerseJoin() {
-    }
-
+class CrudLHOfficeVerseJoin {
+    var c: List<LHOfficeVerseJoin>? = null
+    var u: List<LHOfficeVerseJoin>? = null
+    var d: List<LHOfficeVerseJoin>? = null
 }

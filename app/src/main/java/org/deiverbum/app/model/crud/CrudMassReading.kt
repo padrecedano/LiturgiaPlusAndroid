@@ -1,18 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.MassReadingTable;
+import org.deiverbum.app.model.MassReadingTable
 
-import java.util.List;
-
-public class CrudMassReading {
-
-    public List<MassReadingTable> c;
-    public List<MassReadingTable> u;
-    public List<MassReadingTable> d;
-
-    @SuppressWarnings("unused")
-    public CrudMassReading() {
-    }
-
-
+class CrudMassReading {
+    var c: List<MassReadingTable>? = null
+    var u: List<MassReadingTable>? = null
+    var d: List<MassReadingTable>? = null
 }

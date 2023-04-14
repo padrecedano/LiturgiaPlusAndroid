@@ -1,68 +1,53 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.MASS_READING;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-
-import org.deiverbum.app.model.MassReading;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.Companion.CASCADE
+import org.deiverbum.app.model.MassReading
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = MASS_READING,
-        primaryKeys = {"liturgyFK", "readingFK", "theOrder"},
-        foreignKeys =
-                {
-                        @ForeignKey(
-                                entity = LiturgyEntity.class,
-                                parentColumns = "liturgyID",
-                                childColumns = "liturgyFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE),
-                        @ForeignKey(
-                                entity = BibleReadingEntity.class,
-                                parentColumns = "readingID",
-                                childColumns = "readingFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)}
+@Entity(
+    tableName = Constants.MASS_READING,
+    primaryKeys = ["liturgyFK", "readingFK", "theOrder"],
+    foreignKeys = [ForeignKey(
+        entity = LiturgyEntity::class,
+        parentColumns = arrayOf("liturgyID"),
+        childColumns = arrayOf("liturgyFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    ), ForeignKey(
+        entity = BibleReadingEntity::class,
+        parentColumns = arrayOf("readingID"),
+        childColumns = arrayOf("readingFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )]
 )
-
-public class MassReadingEntity {
-    @NonNull
+class MassReadingEntity {
+    @JvmField
     @ColumnInfo(name = "liturgyFK")
-    public Integer groupFK = 0;
+    var groupFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "readingFK", index = true)
-    public Integer readingFK = 0;
+    var readingFK = 0
 
-    @NonNull
     @ColumnInfo(name = "theOrder")
-    public Integer order = 0;
+    var orden = 0
 
-    @NonNull
     @ColumnInfo(name = "theme")
-    public String theme = "";
-
-    public Integer getOrden() {
-        return order;
-    }
-
-    public String getTema() {
-        return theme;
-    }
-
-    public MassReading getDomainModel() {
-        MassReading theModel = new MassReading();
-        theModel.setTema(getTema());
-        theModel.setOrden(getOrden());
-        return theModel;
-    }
+    var tema = ""
+    val domainModel: MassReading
+        get() {
+            val theModel = MassReading()
+            theModel.tema = tema
+            theModel.setOrden(orden)
+            return theModel
+        }
 }
-

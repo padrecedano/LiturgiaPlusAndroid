@@ -1,126 +1,86 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Constants.TITLE_BIBLE_COMMENTS;
-import static org.deiverbum.app.utils.Utils.LS2;
+import android.text.SpannableStringBuilder
+import com.google.firebase.firestore.PropertyName
+import org.deiverbum.app.utils.ColorUtils
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
 
-import android.text.SpannableStringBuilder;
+class BibleCommentList {
+    var padre: String? = null
+    var allComentarios: MutableList<List<BibleComment?>> = ArrayList()
 
-import com.google.firebase.firestore.PropertyName;
-
-import org.deiverbum.app.utils.ColorUtils;
-import org.deiverbum.app.utils.Utils;
-
-import java.util.List;
-
-public class BibleCommentList {
-    public String padre;
-    @SuppressWarnings("unused")
-    public int id_homilia;
-    public String pericopa;
-    public List<List<BibleComment>> allComentarios;
+    @get:PropertyName("comentarios")
+    @set:PropertyName("comentarios")
     @PropertyName("comentarios")
-    public List<BibleComment> comentarios;
-    private Today today;
-    private MassReading biblica;
-
-    public BibleCommentList() {
-    }
-
-    public void setAllComentarios(List<List<BibleComment>> comentarios) {
-        this.allComentarios = comentarios;
-    }
-
-    @PropertyName("comentarios")
-    public List<BibleComment> getComentarios() {
-        return this.comentarios;
-    }
-
-    @PropertyName("comentarios")
-    public void setComentarios(List<BibleComment> comentarios) {
-        this.comentarios = comentarios;
-    }
-
-    private SpannableStringBuilder getTitulo() {
-        return Utils.toH3Red(TITLE_BIBLE_COMMENTS);
-    }
-
-    private String getTituloForRead() {
-        return Utils.pointAtEnd(TITLE_BIBLE_COMMENTS);
-    }
+    var comentarios: List<BibleComment>? = null
+    private var today: Today? = null
+    var biblica: MassReading? = null
+    var type = 0
 
 
-    public SpannableStringBuilder getAllForView(boolean nightMode) {
-        ColorUtils.isNightMode = nightMode;
-        SpannableStringBuilder sb = new SpannableStringBuilder();
+    private val titulo: SpannableStringBuilder
+        get() = Utils.toH3Red(Constants.TITLE_BIBLE_COMMENTS)
+    private val tituloForRead: String
+        get() = Utils.pointAtEnd(Constants.TITLE_BIBLE_COMMENTS)
+
+    fun getAllForView(nightMode: Boolean): SpannableStringBuilder {
+        ColorUtils.isNightMode = nightMode
+        val sb = SpannableStringBuilder()
         try {
-            sb.append(today.getSingleForView());
-            sb.append(LS2);
-            sb.append(getTitulo());
-            sb.append(LS2);
-            for (List<BibleComment> subList : allComentarios) {
-                if (subList.size() > 0) {
-                    int x = 1;
-                    for (BibleComment item : subList) {
-                        if (x++ == 1) {
-                            sb.append(item.getBiblica().getAll());
-                            sb.append(LS2);
-                            sb.append(Utils.formatTitle(TITLE_BIBLE_COMMENTS));
-                            sb.append(LS2);
+            sb.append(today!!.singleForView)
+            sb.append(Utils.LS2)
+            sb.append(titulo)
+            sb.append(Utils.LS2)
+            for (subList in allComentarios!!) {
+                if (subList != null) {
+                    if (subList.isNotEmpty()) {
+                        var x = 1
+                        for (item in subList) {
+                            if (x++ == 1) {
+                                sb.append(item?.biblica!!.getAll(type))
+                                sb.append(Utils.LS2)
+                                sb.append(Utils.formatTitle(Constants.TITLE_BIBLE_COMMENTS))
+                                sb.append(Utils.LS2)
+                            }
+                            sb.append(item?.allForView)
                         }
-                        sb.append(item.getAllForView());
                     }
                 }
             }
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
+        } catch (e: Exception) {
+            sb.append(Utils.createErrorMessage(e.message))
         }
-        return sb;
+        return sb
     }
 
-    public StringBuilder getAllForRead() {
-        StringBuilder sb = new StringBuilder();
-        try {
-            sb.append(today.getSingleForRead());
-            sb.append(getTituloForRead());
-            for (List<BibleComment> subList : allComentarios) {
-                if (subList.size() > 0) {
-                    int x = 1;
-                    for (BibleComment item : subList) {
-                        if (x++ == 1) {
-                            sb.append(item.getBiblica().getAllForRead());
-                            sb.append(Utils.pointAtEnd(TITLE_BIBLE_COMMENTS));
+    val allForRead: StringBuilder
+        get() {
+            val sb = StringBuilder()
+            try {
+                sb.append(today!!.getSingleForRead())
+                sb.append(tituloForRead)
+                for (subList in allComentarios!!) {
+                    if (subList != null) {
+                        if (subList.isNotEmpty()) {
+                            var x = 1
+                            for (item in subList) {
+                                if (x++ == 1) {
+                                    sb.append(item?.biblica!!.getAllForRead(type))
+                                    sb.append(Utils.pointAtEnd(Constants.TITLE_BIBLE_COMMENTS))
+                                }
+                                sb.append(item?.allForRead)
+                            }
                         }
-                        sb.append(item.getAllForRead());
                     }
                 }
+            } catch (e: Exception) {
+                sb.append(Utils.createErrorMessage(e.message))
             }
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
-
+            return sb
         }
-        return sb;
-    }
 
-    @SuppressWarnings("unused")
-    public String getPericopa() {
-        return this.pericopa;
+    fun setHoy(today: Today?) {
+        this.today = today
     }
-
-    @SuppressWarnings("unused")
-    public void setPericopa(String pericopa) {
-        this.pericopa = pericopa;
-    }
-
-    public void setHoy(Today today) {
-        this.today = today;
-    }
-
-    public MassReading getBiblica() {
-        return biblica;
-    }
-
-    public void setBiblica(MassReading biblica) {
-        this.biblica = biblica;
-    }
-
 }

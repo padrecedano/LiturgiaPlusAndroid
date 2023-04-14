@@ -87,4 +87,20 @@ public class ZoomTextView extends androidx.appcompat.widget.AppCompatTextView im
         return true;
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        // FIXME simple workaround to https://code.google.com/p/android/issues/detail?id=191430
+        int startSelection = getSelectionStart();
+        int endSelection = getSelectionEnd();
+        if (startSelection != endSelection) {
+            if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                final CharSequence text = getText();
+                setText(null);
+                setText(text);
+            }
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
+
 }

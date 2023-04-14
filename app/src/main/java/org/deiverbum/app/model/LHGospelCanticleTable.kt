@@ -1,6 +1,6 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class LHGospelCanticleTable {
-    public Integer groupID = 0;
-    public Integer antiphonFK = 0;
+class LHGospelCanticleTable {
+    var groupID = 0
+    var antiphonFK = 0
 }

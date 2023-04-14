@@ -1,15 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.LHOfficeBiblicalJoin;
+import org.deiverbum.app.model.LHOfficeBiblicalJoin
 
-import java.util.List;
-
-public class CrudLHOfficeBiblicalJoin {
-    public List<LHOfficeBiblicalJoin> c;
-    public List<LHOfficeBiblicalJoin> u;
-    public List<LHOfficeBiblicalJoin> d;
-
-    @SuppressWarnings("unused")
-    public CrudLHOfficeBiblicalJoin() {
-    }
+class CrudLHOfficeBiblicalJoin {
+    var c: List<LHOfficeBiblicalJoin>? = null
+    var u: List<LHOfficeBiblicalJoin>? = null
+    var d: List<LHOfficeBiblicalJoin>? = null
 }

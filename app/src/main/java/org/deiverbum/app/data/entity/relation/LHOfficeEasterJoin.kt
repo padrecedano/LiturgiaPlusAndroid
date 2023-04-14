@@ -1,48 +1,48 @@
-package org.deiverbum.app.data.entity.relation;
+package org.deiverbum.app.data.entity.relation
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
-
-import org.deiverbum.app.data.entity.LHOfficeBiblicalEasterEntity;
-import org.deiverbum.app.data.entity.LHOfficeBiblicalJoinEntity;
-import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
-import org.deiverbum.app.model.LHOfficeBiblicalEaster;
-import org.deiverbum.app.model.LHOfficeOfReadingEaster;
-
-import java.util.ArrayList;
-import java.util.List;
+import androidx.room.Embedded
+import androidx.room.Relation
+import org.deiverbum.app.data.entity.LHOfficeBiblicalEasterEntity
+import org.deiverbum.app.data.entity.LHOfficeBiblicalJoinEntity
+import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity
+import org.deiverbum.app.model.LHOfficeBiblicalEaster
+import org.deiverbum.app.model.LHOfficeOfReadingEaster
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class LHOfficeEasterJoin {
+class LHOfficeEasterJoin {
+    @JvmField
     @Embedded
-    public LHOfficeBiblicalJoinEntity biblical;
-    @Relation(
-            parentColumn = "groupID",
-            entityColumn = "groupFK",
-            entity = LHOfficeBiblicalEasterEntity.class
-    )
-    public List<LHOfficeEasterAll> lstEaster;
+    var biblical: LHOfficeBiblicalJoinEntity? = null
 
+    @JvmField
     @Relation(
-            parentColumn = "groupID",
-            entityColumn = "groupID",
-            entity = LHPsalmodyJoinEntity.class
+        parentColumn = "groupID",
+        entityColumn = "groupFK",
+        entity = LHOfficeBiblicalEasterEntity::class
     )
-    public LHPsalmodyAll entityPsalmody;
+    var lstEaster: List<LHOfficeEasterAll>? = null
 
-    public LHOfficeOfReadingEaster getDomainModel() {
-        LHOfficeOfReadingEaster theModel = new LHOfficeOfReadingEaster();
-        List<LHOfficeBiblicalEaster> theList = new ArrayList<>();
-        for (LHOfficeEasterAll item : lstEaster) {
-            theList.add(item.getDomainModel());
+    @JvmField
+    @Relation(
+        parentColumn = "groupID",
+        entityColumn = "groupID",
+        entity = LHPsalmodyJoinEntity::class
+    )
+    var entityPsalmody: LHPsalmodyAll? = null
+    val domainModel: LHOfficeOfReadingEaster
+        get() {
+            val theModel = LHOfficeOfReadingEaster()
+            val theList: MutableList<LHOfficeBiblicalEaster?> = ArrayList()
+            for (item in lstEaster!!) {
+                theList.add(item.domainModel)
+            }
+            theModel.setBiblicalE(theList)
+            theModel.lhPsalmody = entityPsalmody?.domainModel
+            theModel.sort()
+            return theModel
         }
-        theModel.setBiblicalE(theList);
-        theModel.lhPsalmody = entityPsalmody.getDomainModel();
-        theModel.sort();
-        return theModel;
-    }
 }

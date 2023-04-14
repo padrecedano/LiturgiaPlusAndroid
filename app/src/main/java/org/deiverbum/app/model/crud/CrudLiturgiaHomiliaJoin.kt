@@ -1,18 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.LiturgyHomilyJoin;
+import org.deiverbum.app.model.LiturgyHomilyJoin
 
-import java.util.List;
-
-public class CrudLiturgiaHomiliaJoin {
-
-    public List<LiturgyHomilyJoin> c;
-    public List<LiturgyHomilyJoin> u;
-    public List<LiturgyHomilyJoin> d;
-
-    @SuppressWarnings("unused")
-    public CrudLiturgiaHomiliaJoin() {
-    }
-
-
+class CrudLiturgiaHomiliaJoin {
+    var c: List<LiturgyHomilyJoin>? = null
+    var u: List<LiturgyHomilyJoin>? = null
+    var d: List<LiturgyHomilyJoin>? = null
 }

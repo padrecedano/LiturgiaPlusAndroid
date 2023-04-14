@@ -1,18 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.LHPsalmodyJoin;
+import org.deiverbum.app.model.LHPsalmodyJoin
 
-import java.util.List;
-
-public class CrudLHPsalmodyJoin {
-
-    public List<LHPsalmodyJoin> c;
-    public List<LHPsalmodyJoin> u;
-    public List<LHPsalmodyJoin> d;
-
-    @SuppressWarnings("unused")
-    public CrudLHPsalmodyJoin() {
-    }
-
-
+class CrudLHPsalmodyJoin {
+    var c: List<LHPsalmodyJoin>? = null
+    var u: List<LHPsalmodyJoin>? = null
+    var d: List<LHPsalmodyJoin>? = null
 }

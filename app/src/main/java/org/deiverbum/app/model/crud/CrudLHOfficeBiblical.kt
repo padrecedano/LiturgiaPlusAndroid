@@ -1,15 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.LHOfficeBiblicalTable;
+import org.deiverbum.app.model.LHOfficeBiblicalTable
 
-import java.util.List;
-
-public class CrudLHOfficeBiblical {
-    public List<LHOfficeBiblicalTable> c;
-    public List<LHOfficeBiblicalTable> u;
-    public List<LHOfficeBiblicalTable> d;
-
-    @SuppressWarnings("unused")
-    public CrudLHOfficeBiblical() {
-    }
+class CrudLHOfficeBiblical {
+    var c: List<LHOfficeBiblicalTable>? = null
+    var u: List<LHOfficeBiblicalTable>? = null
+    var d: List<LHOfficeBiblicalTable>? = null
 }

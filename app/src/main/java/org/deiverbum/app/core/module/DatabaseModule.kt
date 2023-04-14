@@ -1,18 +1,14 @@
-package org.deiverbum.app.core.module;
+package org.deiverbum.app.core.module
 
-import android.app.Application;
-
-import androidx.room.Room;
-
-import org.deiverbum.app.data.db.AppDatabase;
-import org.deiverbum.app.data.db.dao.TodayDao;
-
-import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.Provides;
-import dagger.hilt.InstallIn;
-import dagger.hilt.components.SingletonComponent;
+import android.app.Application
+import androidx.room.Room.databaseBuilder
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import org.deiverbum.app.data.db.AppDatabase
+import org.deiverbum.app.data.db.dao.TodayDao
+import javax.inject.Singleton
 
 /**
  * @author A. Cedano
@@ -20,25 +16,26 @@ import dagger.hilt.components.SingletonComponent;
  * @since 2023.1
  */
 @Module
-@InstallIn(SingletonComponent.class)
-
-public class DatabaseModule {
-
+@InstallIn(SingletonComponent::class)
+object DatabaseModule {
+    @JvmStatic
     @Provides
     @Singleton
-    public static AppDatabase provideDatabase(Application application) {
-        return Room.databaseBuilder(application, AppDatabase.class,
-                        "LiturgiaPlusDB")
-                .createFromAsset("database/liturgia_202301000.db")
-                .fallbackToDestructiveMigration()
-                .allowMainThreadQueries()
-                .build();
+    fun provideDatabase(application: Application?): AppDatabase {
+        return databaseBuilder(
+            application!!, AppDatabase::class.java,
+            "LiturgiaPlusDB"
+        )
+            .createFromAsset("database/liturgia_202301000.db")
+            .fallbackToDestructiveMigration()
+            .allowMainThreadQueries()
+            .build()
     }
 
+    @JvmStatic
     @Provides
     @Singleton
-    public static TodayDao provideTodayDao(AppDatabase appDB) {
-        return appDB.todayDao();
+    fun provideTodayDao(appDB: AppDatabase): TodayDao {
+        return appDB.todayDao()
     }
 }
-

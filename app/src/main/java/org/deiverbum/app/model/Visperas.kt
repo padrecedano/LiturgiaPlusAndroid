@@ -1,131 +1,105 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Constants.TITLE_I_VISPERAS;
-import static org.deiverbum.app.utils.Constants.TITLE_I_VISPERAS_READ;
-import static org.deiverbum.app.utils.Constants.TITLE_VISPERAS;
-import static org.deiverbum.app.utils.Utils.LS2;
+import android.text.SpannableStringBuilder
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
 
-import android.text.SpannableStringBuilder;
-
-import org.deiverbum.app.utils.Utils;
-
-public class Visperas extends BreviaryHour {
-    private BiblicalShort lecturaBreve;
-    private LHGospelCanticle gospelCanticle;
-    private LHIntercession preces;
-    private int isPrevious;
-
-
-    public Visperas() {
+class Visperas : BreviaryHour() {
+    private var lecturaBreve: BiblicalShort? = null
+    private var gospelCanticle: LHGospelCanticle? = null
+    private var preces: LHIntercession? = null
+    private var isPrevious = 0
+    fun setIsPrevious(isPrevious: Int) {
+        this.isPrevious = isPrevious
     }
 
-    public void setIsPrevious(int isPrevious) {
-        this.isPrevious = isPrevious;
+    fun getLecturaBreve(): BiblicalShort? {
+        return lecturaBreve
     }
 
-    @SuppressWarnings("unused")
-    public BiblicalShort getLecturaBreve() {
-        return lecturaBreve;
+    fun setLecturaBreve(lecturaBreve: BiblicalShort?) {
+        this.lecturaBreve = lecturaBreve
     }
 
-    @SuppressWarnings("unused")
-    public void setLecturaBreve(BiblicalShort lecturaBreve) {
-        this.lecturaBreve = lecturaBreve;
+    fun getPreces(): LHIntercession? {
+        return preces
     }
 
-    public LHIntercession getPreces() {
-        return preces;
+    fun setPreces(preces: LHIntercession?) {
+        this.preces = preces
     }
 
-    public void setPreces(LHIntercession preces) {
-        this.preces = preces;
+    fun getGospelCanticle(): LHGospelCanticle? {
+        return gospelCanticle
     }
 
-    @SuppressWarnings("unused")
-    public LHGospelCanticle getGospelCanticle() {
-        return gospelCanticle;
+    fun setGospelCanticle(gospelCanticle: LHGospelCanticle?) {
+        this.gospelCanticle = gospelCanticle
     }
 
-    @SuppressWarnings("unused")
-    public void setGospelCanticle(LHGospelCanticle gospelCanticle) {
-        this.gospelCanticle = gospelCanticle;
-    }
-
-    public SpannableStringBuilder getForView(LiturgyTime liturgyTime) {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
+    fun getForView(liturgyTime: LiturgyTime?): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
         try {
             //¿?lecturaBreve.normalizeByTime(hoy.getCalendarTime());
-            salmodia.normalizeByTime(liturgyTime.getTimeID());
+            salmodia!!.normalizeByTime(liturgyTime!!.timeID!!)
 
             //sb.append(today.getAllForView());
-            sb.append(Utils.LS2);
-
-            sb.append(getTituloHora());
-            sb.append(Utils.fromHtmlToSmallRed(getMetaInfo()));
-            sb.append(Utils.LS2);
-
-            sb.append(getSaludoDiosMio());
-            sb.append(Utils.LS2);
-
-            sb.append(himno.getAll());
-            sb.append(Utils.LS2);
-
-            sb.append(salmodia.getAll());
-            sb.append(Utils.LS2);
-
-            sb.append(lecturaBreve.getAllWithHourCheck(6));
-            sb.append(Utils.LS2);
-
-            sb.append(gospelCanticle.getAll());
-            sb.append(Utils.LS2);
-
-            sb.append(preces.getAll());
-            sb.append(LS2);
-
-            sb.append(PadreNuestro.getAll());
-            sb.append(LS2);
-
-            sb.append(oracion.getAll());
-            sb.append(LS2);
-
-            sb.append(getConclusionHorasMayores());
-
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
+            sb.append(Utils.LS2)
+            sb.append(getTituloHora())
+            sb.append(Utils.fromHtmlToSmallRed(metaInfo))
+            sb.append(Utils.LS2)
+            sb.append(getSaludoDiosMio())
+            sb.append(Utils.LS2)
+            sb.append(himno!!.all)
+            sb.append(Utils.LS2)
+            sb.append(salmodia!!.all)
+            sb.append(Utils.LS2)
+            sb.append(lecturaBreve!!.getAllWithHourCheck(6))
+            sb.append(Utils.LS2)
+            sb.append(gospelCanticle!!.all)
+            sb.append(Utils.LS2)
+            sb.append(preces!!.all)
+            sb.append(Utils.LS2)
+            sb.append(PadreNuestro.Companion?.all)
+            sb.append(Utils.LS2)
+            sb.append(oracion?.all)
+            sb.append(Utils.LS2)
+            sb.append(getConclusionHorasMayores())
+        } catch (e: Exception) {
+            sb.append(Utils.createErrorMessage(e.message))
         }
-        return sb;
+        return sb
     }
 
     //@Override
-    public StringBuilder getAllForRead() {
-        StringBuilder sb = new StringBuilder();
+    fun getAllForRead(): StringBuilder {
+        val sb = StringBuilder()
         try {
-            sb.append(getTituloHoraForRead());
-            sb.append(getSaludoDiosMioForRead());
-            sb.append(himno.getAllForRead());
-            sb.append(salmodia.getAllForRead());
-            sb.append(lecturaBreve.getAllForRead());
-            sb.append(gospelCanticle.getAllForRead());
-            sb.append(preces.getAllForRead());
-            sb.append(PadreNuestro.getAll());
-            sb.append(oracion.getAllForRead());
-            sb.append(getConclusionHorasMayoresForRead());
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
+            sb.append(getTituloHoraForRead())
+            sb.append(getSaludoDiosMioForRead())
+            sb.append(himno!!.allForRead)
+            sb.append(salmodia!!.allForRead)
+            sb.append(lecturaBreve!!.getAllForRead())
+            sb.append(gospelCanticle!!.allForRead)
+            sb.append(preces!!.allForRead)
+            sb.append(PadreNuestro.Companion.all)
+            sb.append(oracion?.allForRead)
+            sb.append(getConclusionHorasMayoresForRead())
+        } catch (e: Exception) {
+            sb.append(Utils.createErrorMessage(e.message))
         }
-        return sb;
+        return sb
     }
 
-    private SpannableStringBuilder getTituloHora() {
-        String s = (isPrevious == 0) ? TITLE_VISPERAS : TITLE_I_VISPERAS;
-        return Utils.toH1Red(s);
+    private fun getTituloHora(): SpannableStringBuilder {
+        val s = if (isPrevious == 0) Constants.TITLE_VISPERAS else Constants.TITLE_I_VISPERAS
+        return Utils.toH1Red(s)
     }
 
-    private String getTituloHoraForRead() {
-        String s = (isPrevious == 0) ? TITLE_VISPERAS : TITLE_I_VISPERAS_READ;
+    private fun getTituloHoraForRead(): String {
+        val s = if (isPrevious == 0) Constants.TITLE_VISPERAS else Constants.TITLE_I_VISPERAS_READ
 
         //String s = (today.getLiturgiaPrevio() == null) ? TITLE_VISPERAS : TITLE_I_VISPERAS_READ;
-        return Utils.pointAtEnd(s);
+        return Utils.pointAtEnd(s)
     }
-
 }

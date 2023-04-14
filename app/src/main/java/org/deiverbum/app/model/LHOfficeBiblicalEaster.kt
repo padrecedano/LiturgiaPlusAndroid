@@ -1,116 +1,95 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Constants.TITLE_RESPONSORY;
-import static org.deiverbum.app.utils.Utils.LS2;
+import android.text.SpannableStringBuilder
+import androidx.room.Ignore
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
 
-import android.text.SpannableStringBuilder;
+class LHOfficeBiblicalEaster : Biblical(), Comparable<LHOfficeBiblicalEaster> {
+    var psalm: LHPsalm? = null
+    var theme: String? = null
 
-import androidx.room.Ignore;
-
-import org.deiverbum.app.utils.Utils;
-
-public class LHOfficeBiblicalEaster extends Biblical implements Comparable<LHOfficeBiblicalEaster> {
-    public LHPsalm psalm;
-    private String theme;
-    @Ignore
-    private Prayer prayer;
     //public int theOrder;
-
-    public Prayer getPrayer() {
-        return prayer;
-    }
-
-    public void setPrayer(Prayer prayer) {
-        this.prayer = prayer;
-    }
-
-    public String getTheme() {
-        return theme;
-    }
-
-    public void setTheme(String theme) {
-        this.theme = theme;
-    }
-
-    @Override
-    public String getHeader() {
-        String header = "";
-        if (this.order == 1) {
-            header = "PRIMERA LECTURA";
+    @Ignore
+    var prayer: Prayer? = null
+    override fun getHeader(): String? {
+        var header = ""
+        if (order == 1) {
+            header = "PRIMERA LECTURA"
         }
-        if (this.order == 2) {
-            header = "SEGUNDA LECTURA";
+        if (order == 2) {
+            header = "SEGUNDA LECTURA"
         }
-        if (this.order == 3) {
-            header = "TERCERA LECTURA";
+        if (order == 3) {
+            header = "TERCERA LECTURA"
         }
-        if (this.order == 4) {
-            header = "CUARTA LECTURA";
+        if (order == 4) {
+            header = "CUARTA LECTURA"
         }
-        return header;
+        return header
     }
 
-    public String getResponsorioHeaderForRead() {
-        return Utils.pointAtEnd(TITLE_RESPONSORY);
+    override fun getResponsorioHeaderForRead(): String? {
+        return Utils.pointAtEnd(Constants.TITLE_RESPONSORY)
     }
 
+    val biblical: SpannableStringBuilder
+        get() {
+            val sb = SpannableStringBuilder()
+            sb.append(Utils.formatTitle(getHeader()))
+            sb.append(Utils.LS2)
+            sb.append(libro!!.liturgyName)
+            sb.append("    ")
+            sb.append(Utils.toRed(quote))
+            sb.append(Utils.LS2)
+            sb.append(Utils.toRed(theme))
+            sb.append(Utils.LS2)
+            sb.append(textoSpan)
+            sb.append(Utils.LS)
+            return sb
+        }
 
-    public SpannableStringBuilder getBiblical() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(Utils.formatTitle(getHeader()));
-        sb.append(LS2);
-        sb.append(book.getLiturgyName());
-        sb.append("    ");
-        sb.append(Utils.toRed(getCita()));
-        sb.append(LS2);
-        sb.append(Utils.toRed(getTheme()));
-        sb.append(LS2);
-        sb.append(getTextoSpan());
-        sb.append(Utils.LS);
-        return sb;
-    }
-
-    public SpannableStringBuilder getBiblicalForRead() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(getHeader());
-        sb.append(LS2);
-        sb.append(book.getLiturgyName());
-        sb.append("    ");
-        sb.append(Utils.toRed(getCita()));
-        sb.append(LS2);
-        sb.append(Utils.toRed(getTheme()));
-        sb.append(LS2);
-        sb.append(getTextoSpan());
-        sb.append(Utils.LS);
-        //sb.append(responsorioLargo.getAll());
-        return sb;
-    }
+    //sb.append(responsorioLargo.getAll());
+    val biblicalForRead: SpannableStringBuilder
+        get() {
+            val sb = SpannableStringBuilder()
+            sb.append(getHeader())
+            sb.append(Utils.LS2)
+            sb.append(libro!!.liturgyName)
+            sb.append("    ")
+            sb.append(quote)
+            sb.append(Utils.LS2)
+            sb.append(theme)
+            sb.append(Utils.LS2)
+            sb.append(textoSpan)
+            sb.append(Utils.LS)
+            //sb.append(responsorioLargo.getAll());
+            return sb
+        }
 
     /**
-     * <p>Obtiene la lectura bíblica completa formateada para la lectura de voz.</p>
      *
-     * @return Un objeto {@link SpannableStringBuilder con el contenido.}
+     * Obtiene la lectura bíblica completa formateada para la lectura de voz.
+     *
+     * @return Un objeto [con el contenido.][SpannableStringBuilder]
      * @since 2022.01
      */
-    @Override
-    public SpannableStringBuilder getAllForRead() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(Utils.pointAtEnd(getHeader()));
-        sb.append(getBiblicalForRead());
-        return sb;
+    override fun getAllForRead(): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        sb.append(Utils.pointAtEnd(getHeader()))
+        sb.append(biblicalForRead)
+        return sb
     }
 
-    public Integer getOrden() {
-        return this.order;
+    override fun getOrden(): Int? {
+        return order
     }
 
-    public void setOrden(Integer orden) {
-        this.order = orden;
+    override fun setOrden(orden: Int?) {
+        order = orden
     }
 
-    @Override
-    public int compareTo(LHOfficeBiblicalEaster e) {
-        return this.getOrden().compareTo(e.getOrden());
+    override fun compareTo(e: LHOfficeBiblicalEaster): Int {
+        return getOrden()!!.compareTo(e.getOrden()!!)
     }
-
 }

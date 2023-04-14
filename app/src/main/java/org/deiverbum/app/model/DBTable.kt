@@ -1,13 +1,6 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class DBTable {
-    public Integer tableID = 0;
-    public String tableName = "";
-
-
-    @SuppressWarnings("unused")
-    public DBTable() {
-    }
-
-
+class DBTable {
+    var tableID = 0
+    var tableName = ""
 }

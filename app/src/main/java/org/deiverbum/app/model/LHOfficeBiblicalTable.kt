@@ -1,9 +1,9 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class LHOfficeBiblicalTable {
-    public Integer groupFK;
-    public Integer readingFK;
-    public Integer responsoryFK;
-    public String theme;
-    public Integer theOrder;
+class LHOfficeBiblicalTable {
+    var groupFK: Int? = null
+    var readingFK: Int? = null
+    var responsoryFK: Int? = null
+    var theme: String? = null
+    var theOrder: Int? = null
 }

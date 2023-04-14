@@ -1,16 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.Pater;
+import org.deiverbum.app.model.Pater
 
-import java.util.List;
-
-public class CrudPater {
-
-    public List<Pater> c;
-    public List<Pater> u;
-    public List<Pater> d;
-
-    @SuppressWarnings("unused")
-    public CrudPater() {
-    }
+class CrudPater {
+    var c: List<Pater>? = null
+    var u: List<Pater>? = null
+    var d: List<Pater>? = null
 }

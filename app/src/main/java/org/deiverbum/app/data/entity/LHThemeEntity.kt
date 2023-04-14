@@ -1,35 +1,24 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.LH_THEME;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = LH_THEME,
-        indices = {@Index(value = {"theme"}, unique = true)}
-)
-public class LHThemeEntity {
-    @NonNull
+@Entity(tableName = Constants.LH_THEME, indices = [Index(value = ["theme"], unique = true)])
+class LHThemeEntity {
+    @JvmField
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "themeID")
-    public Integer temaId = 0;
+    var temaId = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "theme")
-    public String tema = "";
-
-    @NonNull
-    public String getTema() {
-        return tema;
-    }
+    var tema = ""
 }
-

@@ -1,64 +1,43 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.LITURGY_HOMILY_JOIN;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.Companion.CASCADE
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = LITURGY_HOMILY_JOIN,
-        primaryKeys = {"liturgyFK", "homilyFK"},
-        foreignKeys =
-                {
-                        @ForeignKey(
-                                entity = LiturgyEntity.class,
-                                parentColumns = "liturgyID",
-                                childColumns = "liturgyFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE),
-                        @ForeignKey(
-                                entity = HomilyEntity.class,
-                                parentColumns = "homilyID",
-                                childColumns = "homilyFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)
-                }
+@Entity(
+    tableName = Constants.LITURGY_HOMILY_JOIN,
+    primaryKeys = ["liturgyFK", "homilyFK"],
+    foreignKeys = [ForeignKey(
+        entity = LiturgyEntity::class,
+        parentColumns = arrayOf("liturgyID"),
+        childColumns = arrayOf("liturgyFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    ), ForeignKey(
+        entity = HomilyEntity::class,
+        parentColumns = arrayOf("homilyID"),
+        childColumns = arrayOf("homilyFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )]
 )
-public class LiturgyHomilyJoinEntity {
-
-    @NonNull
+class LiturgyHomilyJoinEntity {
+    @JvmField
     @ColumnInfo(name = "liturgyFK")
-    public Integer liturgiaFK = 0;
+    var liturgiaFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "homilyFK", index = true)
-    public Integer homiliaFK = 0;
+    var homiliaFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "theme", defaultValue = "")
-    public String tema = "";
-
-    @SuppressWarnings("unused")
-    public int getLiturgiaFK() {
-        return liturgiaFK;
-    }
-
-    @SuppressWarnings("unused")
-    public int getHomiliaFK() {
-        return homiliaFK;
-    }
-
-    @NonNull
-    public String getTema() {
-        return tema;
-    }
-
+    var tema = ""
 }
-

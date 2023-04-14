@@ -1,6 +1,6 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class LHHymnJoin {
-    public Integer groupID = 0;
-    public Integer hymnFK = 0;
+class LHHymnJoin {
+    var groupID = 0
+    var hymnFK = 0
 }

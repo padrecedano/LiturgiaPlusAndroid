@@ -183,7 +183,7 @@ public class FileDataSource {
                 Gson gson = new Gson();
                 Completas hora = gson.fromJson(new String(buffer, StandardCharsets.UTF_8), Completas.class);
                 hora.setTypeId(7);
-                hora.setToday(today);
+                hora.today=today;
                 BreviaryHour bh = new BreviaryHour();
                 bh.setTypeId(7);
                 bh.setCompletas(hora);
@@ -196,4 +196,6 @@ public class FileDataSource {
             }
         });
     }
+
+
 }

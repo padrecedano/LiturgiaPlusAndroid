@@ -1,14 +1,11 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.SAINT;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
-
-import org.deiverbum.app.model.Saint;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
+import org.deiverbum.app.model.Saint
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
@@ -27,69 +24,38 @@ import org.deiverbum.app.model.Saint;
  * UNIQUE(`nombre`,`mes`,`dia`)
  * );
  */
-
 @Entity(
-        tableName = SAINT,
-        indices = {@Index(value = {"theName", "theMonth", "theDay"}, unique = true)}
+    tableName = Constants.SAINT,
+    indices = [Index(value = ["theName", "theMonth", "theDay"], unique = true)]
 )
-
-public class SaintEntity {
-    @NonNull
+class SaintEntity {
+    @JvmField
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "saintID")
-    public Integer santoId = 0;
+    var santoId = 0
 
-    @NonNull
     @ColumnInfo(name = "theName")
-    public String nombre = "";
+    var theName = ""
 
-    @NonNull
     @ColumnInfo(name = "theMonth")
-    public Integer mes = 0;
+    var theMonth = 0
 
-    @NonNull
     @ColumnInfo(name = "theDay")
-    public Integer dia = 0;
+    var theDay = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "typeFK", defaultValue = "0")
-    public Integer tipoId = 0;
+    var tipoId = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "commonFK", defaultValue = "0")
-    public Integer comunId = 0;
-
-    @SuppressWarnings("unused")
-    @NonNull
-    public Integer getTipoId() {
-        return tipoId;
-    }
-
-    @NonNull
-    public Integer getTheMonth() {
-        return mes;
-    }
-
-    @NonNull
-    public Integer getTheDay() {
-        return dia;
-    }
-
-    public String getTheName() {
-        return nombre;
-    }
-
-    public void setTheName(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Saint getDomainModel() {
-        Saint theModel = new Saint();
-        theModel.setDay(String.valueOf(getTheDay()));
-        theModel.setMonth(String.valueOf(getTheMonth()));
-        theModel.setTheName(getTheName());
-        return theModel;
-    }
-
+    var comunId = 0
+    val domainModel: Saint
+        get() {
+            val theModel = Saint()
+            theModel.setDay(theDay.toString())
+            theModel.setMonth(theMonth.toString())
+            theModel.theName = theName
+            return theModel
+        }
 }
-

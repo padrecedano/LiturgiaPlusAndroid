@@ -1,76 +1,78 @@
-package org.deiverbum.app.data.entity.relation;
+package org.deiverbum.app.data.entity.relation
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
-
-import org.deiverbum.app.data.entity.LiturgyEntity;
-import org.deiverbum.app.data.entity.MassReadingEntity;
-import org.deiverbum.app.data.entity.MassReadingJoinEntity;
-import org.deiverbum.app.data.entity.TodayEntity;
-import org.deiverbum.app.model.MassReading;
-import org.deiverbum.app.model.MassReadingList;
-import org.deiverbum.app.model.Today;
-
-import java.util.ArrayList;
-import java.util.List;
+import androidx.room.Embedded
+import androidx.room.Relation
+import org.deiverbum.app.data.entity.LiturgyEntity
+import org.deiverbum.app.data.entity.MassReadingEntity
+import org.deiverbum.app.data.entity.MassReadingJoinEntity
+import org.deiverbum.app.data.entity.TodayEntity
+import org.deiverbum.app.model.MassReading
+import org.deiverbum.app.model.MassReadingList
+import org.deiverbum.app.model.Today
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class TodayMisaLecturas {
-
+class TodayMisaLecturas {
+    @JvmField
     @Embedded
-    public TodayEntity today;
+    var today: TodayEntity? = null
 
+    @JvmField
     @Relation(
-            entity = LiturgyEntity.class,
-            parentColumn = "massReadingFK",
-            entityColumn = "liturgyID"
+        entity = LiturgyEntity::class,
+        parentColumn = "massReadingFK",
+        entityColumn = "liturgyID"
     )
-    public LiturgyWithTime feria;
+    var feria: LiturgyWithTime? = null
 
+    @JvmField
     @Relation(
-            entity = LiturgyEntity.class,
-            parentColumn = "previousFK",
-            entityColumn = "liturgyID"
+        entity = LiturgyEntity::class,
+        parentColumn = "previousFK",
+        entityColumn = "liturgyID"
     )
-    public LiturgyWithTime previo;
+    var previo: LiturgyWithTime? = null
 
+    @JvmField
     @Relation(
-            entity = MassReadingJoinEntity.class,
-            parentColumn = "massReadingFK",
-            entityColumn = "liturgyFK")
-    public MassReadingJoinEntity joinTable;
+        entity = MassReadingJoinEntity::class,
+        parentColumn = "massReadingFK",
+        entityColumn = "liturgyFK"
+    )
+    var joinTable: MassReadingJoinEntity? = null
 
+    @JvmField
     @Relation(
-            entity = MassReadingEntity.class,
-            parentColumn = "massReadingFK",
-            entityColumn = "liturgyFK")
-    public List<MassReadingWithAll> lecturas;
-
-    public Today getToday() {
-        Today dm = new Today();
-        dm.liturgyDay = feria.getDomainModel();
-        dm.liturgyPrevious = today.previoId > 1 ? previo.getDomainModel() : null;
-        dm.setTodayDate(today.getHoy());
-        dm.setHasSaint(today.hasSaint);
-        dm.setMLecturasFK(today.mLecturasFK);
-        return dm;
+        entity = MassReadingEntity::class,
+        parentColumn = "massReadingFK",
+        entityColumn = "liturgyFK"
+    )
+    var lecturas: List<MassReadingWithAll>? = null
+    fun getToday(): Today {
+        val dm = Today()
+        dm.liturgyDay = feria?.domainModel
+        dm.liturgyPrevious = if (today!!.previoId > 1) previo?.domainModel else null
+        dm.todayDate = today!!.hoy
+        dm.hasSaint = today!!.hasSaint
+        dm.setMLecturasFK(today!!.mLecturasFK)
+        return dm
     }
 
-    public MassReadingList getDomainModel() {
-        MassReadingList dm = new MassReadingList();
-        dm.setToday(getToday());
-        dm.type = joinTable.type;
-        List<MassReading> listModel = new ArrayList<>();
-        for (MassReadingWithAll item : lecturas) {
-            listModel.add(item.getDomainModel());
+    val domainModel: MassReadingList
+        get() {
+            val dm = MassReadingList()
+            dm.today = getToday()
+            dm.type = joinTable!!.type
+            val listModel: MutableList<MassReading?> = ArrayList()
+            for (item in lecturas!!) {
+                listModel.add(item.domainModel)
+            }
+            listModel.sortBy{it?.getOrden()}
+            dm.lecturas = listModel
+            dm.sort()
+            return dm
         }
-        dm.setLecturas(listModel);
-        dm.sort();
-        return dm;
-    }
-
 }

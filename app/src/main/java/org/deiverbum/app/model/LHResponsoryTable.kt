@@ -1,8 +1,8 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class LHResponsoryTable {
-    public Integer responsoryID;
-    public String text;
-    public Integer type;
-    public String source;
+class LHResponsoryTable {
+    var responsoryID: Int? = null
+    var text: String? = null
+    var type: Int? = null
+    var source: String? = null
 }

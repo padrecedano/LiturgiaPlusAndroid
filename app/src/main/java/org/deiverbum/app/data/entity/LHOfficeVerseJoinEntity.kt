@@ -1,49 +1,33 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.LH_OFFICE_VERSE_JOIN;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.PrimaryKey;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.Companion.CASCADE
+import androidx.room.PrimaryKey
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = LH_OFFICE_VERSE_JOIN,
-
-        foreignKeys =
-                {
-                        @ForeignKey(
-                                entity = LHOfficeVerseEntity.class,
-                                parentColumns = "verseID",
-                                childColumns = "verseFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)
-                }
+@Entity(
+    tableName = Constants.LH_OFFICE_VERSE_JOIN,
+    foreignKeys = [ForeignKey(
+        entity = LHOfficeVerseEntity::class,
+        parentColumns = arrayOf("verseID"),
+        childColumns = arrayOf("verseFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )]
 )
-public class LHOfficeVerseJoinEntity {
-
-    @NonNull
+class LHOfficeVerseJoinEntity {
+    @JvmField
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    public Integer grupoId = 0;
+    var grupoId = 0
 
-    @NonNull
     @ColumnInfo(name = "verseFK", index = true)
-    public Integer versoFK = 0;
-
-    public int getResponsorioFK() {
-        return versoFK;
-    }
-
-    public int getGrupoId() {
-        return grupoId;
-    }
-
+    var responsorioFK = 0
 }
-

@@ -1,105 +1,57 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
+import androidx.room.*
+import androidx.room.ForeignKey.Companion.CASCADE
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = "liturgy",
-        indices = {@Index(value = {"timeFK", "typeFK", "week", "day"}, unique = true)},
-
-        foreignKeys =
-                {
-                        @ForeignKey(
-                                entity = LiturgyTimeEntity.class,
-                                parentColumns = "timeID",
-                                childColumns = "timeFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE),
-                        @ForeignKey(
-                                entity = LiturgyColorEntity.class,
-                                parentColumns = "colorID",
-                                childColumns = "colorFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)
-                }
+@Entity(
+    tableName = "liturgy",
+    indices = [Index(value = ["timeFK", "typeFK", "week", "day"], unique = true)],
+    foreignKeys = [ForeignKey(
+        entity = LiturgyTimeEntity::class,
+        parentColumns = arrayOf("timeID"),
+        childColumns = arrayOf("timeFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    ), ForeignKey(
+        entity = LiturgyColorEntity::class,
+        parentColumns = arrayOf("colorID"),
+        childColumns = arrayOf("colorFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )]
 )
-public class LiturgyEntity {
-
-    @NonNull
+class LiturgyEntity {
+    @JvmField
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "liturgyID")
-    public Integer liturgiaId = 0;
+    var liturgiaId = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "timeFK")
-    public Integer tiempoFK = 0;
+    var tiempoFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "typeFK")
-    public Integer tipoFK = 0;
+    var tipoFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "week")
-    public Integer semana = 0;
+    var semana = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "day")
-    public Integer dia = 0;
+    var dia = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "colorFK", index = true)
-    public Integer colorFK = 0;
+    var colorFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "name")
-    public String nombre = "";
-
-    @NonNull
-    public Integer getLiturgiaId() {
-        return liturgiaId;
-    }
-
-    @SuppressWarnings("unused")
-    @NonNull
-    public Integer getTiempoFK() {
-        return tiempoFK;
-    }
-
-    @SuppressWarnings("unused")
-    @NonNull
-    public Integer getTipoFK() {
-        return tipoFK;
-    }
-
-    @NonNull
-    public Integer getSemana() {
-        return semana;
-    }
-
-    @NonNull
-    public Integer getDia() {
-        return dia;
-    }
-
-    @NonNull
-    public Integer getColorFK() {
-        return colorFK;
-    }
-
-    @NonNull
-    public String getNombre() {
-        return nombre;
-    }
-
-
+    var nombre = ""
 }
-

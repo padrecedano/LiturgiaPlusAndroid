@@ -1,7 +1,6 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class LHIntercessionsJoin {
-    public Integer groupID;
-    public Integer intercessionFK;
-
+class LHIntercessionsJoin {
+    var groupID: Int? = null
+    var intercessionFK: Int? = null
 }

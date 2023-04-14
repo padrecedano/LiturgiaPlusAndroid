@@ -1,45 +1,34 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.PRAYER;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
-import org.deiverbum.app.model.Prayer;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import org.deiverbum.app.model.Prayer
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = PRAYER)
-public class PrayerEntity {
-    @NonNull
+@Entity(tableName = Constants.PRAYER)
+class PrayerEntity {
+    @JvmField
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "prayerID")
-    public Integer oracionId = 0;
+    var oracionId = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "prayer")
-    public String texto = "";
+    var texto = ""
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "order")
-    public Integer orden = 0;
-
-    @NonNull
-    public String getTexto() {
-        return texto;
-    }
-
-    public Prayer getDomainModel() {
-        Prayer dm = new Prayer();
-        dm.setPrayer(texto);
-        return dm;
-    }
-
+    var orden = 0
+    val domainModel: Prayer
+        get() {
+            val dm = Prayer()
+            dm.prayer = texto
+            return dm
+        }
 }
-

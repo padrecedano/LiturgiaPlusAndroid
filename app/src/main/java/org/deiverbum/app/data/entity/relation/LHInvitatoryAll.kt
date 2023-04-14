@@ -1,40 +1,39 @@
-package org.deiverbum.app.data.entity.relation;
+package org.deiverbum.app.data.entity.relation
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
-
-import org.deiverbum.app.data.entity.LHAntiphonEntity;
-import org.deiverbum.app.data.entity.LHInvitatoryEntity;
-import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity;
-import org.deiverbum.app.model.LHInvitatory;
+import androidx.room.Embedded
+import androidx.room.Relation
+import org.deiverbum.app.data.entity.LHAntiphonEntity
+import org.deiverbum.app.data.entity.LHInvitatoryEntity
+import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity
+import org.deiverbum.app.model.LHInvitatory
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class LHInvitatoryAll {
+class LHInvitatoryAll {
+    @JvmField
     @Embedded
-    public LHInvitatoryJoinEntity salmodia;
-    @Relation(
-            parentColumn = "caseFK",
-            entityColumn = "caseID",
-            entity = LHInvitatoryEntity.class
-    )
-    public InvitatoryWithPsalm salmo;
+    var salmodia: LHInvitatoryJoinEntity? = null
 
-    @Relation(
-            parentColumn = "antiphonFK",
-            entityColumn = "antiphonID",
-            entity = LHAntiphonEntity.class
-    )
-    public LHAntiphonEntity antifona;
+    @JvmField
+    @Relation(parentColumn = "caseFK", entityColumn = "caseID", entity = LHInvitatoryEntity::class)
+    var salmo: InvitatoryWithPsalm? = null
 
-    public LHInvitatory getDomainModel() {
-        LHInvitatory dm = new LHInvitatory();
-        dm.setAntiphon(antifona.getAntifona());
-        dm.setSalmo(salmo.getSalmo());
-        dm.setRef(salmo.salmo.getSalmoRef());
-        return dm;
-    }
+    @JvmField
+    @Relation(
+        parentColumn = "antiphonFK",
+        entityColumn = "antiphonID",
+        entity = LHAntiphonEntity::class
+    )
+    var antifona: LHAntiphonEntity? = null
+    val domainModel: LHInvitatory
+        get() {
+            val dm = LHInvitatory()
+            dm.antiphon = antifona!!.antifona
+            dm.psalm = salmo!!.getSalmo()
+            dm.setRef(salmo!!.salmo!!.getSalmoRef())
+            return dm
+        }
 }

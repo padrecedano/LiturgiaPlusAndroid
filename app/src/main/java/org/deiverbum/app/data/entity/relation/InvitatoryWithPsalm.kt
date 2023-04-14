@@ -1,36 +1,33 @@
-package org.deiverbum.app.data.entity.relation;
+package org.deiverbum.app.data.entity.relation
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
-
-import org.deiverbum.app.data.entity.LHInvitatoryEntity;
-import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity;
-import org.deiverbum.app.data.entity.PsalmEntity;
+import androidx.room.Embedded
+import androidx.room.Relation
+import org.deiverbum.app.data.entity.LHInvitatoryEntity
+import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity
+import org.deiverbum.app.data.entity.PsalmEntity
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class InvitatoryWithPsalm {
+class InvitatoryWithPsalm {
+    @JvmField
     @Embedded
-    public LHInvitatoryEntity invitatorio;
+    var invitatorio: LHInvitatoryEntity? = null
 
+    @JvmField
     @Relation(
-            parentColumn = "caseID",
-            entityColumn = "caseFK",
-            entity = LHInvitatoryJoinEntity.class
+        parentColumn = "caseID",
+        entityColumn = "caseFK",
+        entity = LHInvitatoryJoinEntity::class
     )
-    public LHInvitatoryJoinEntity invitatorioEntity;
+    var invitatorioEntity: LHInvitatoryJoinEntity? = null
 
-    @Relation(
-            parentColumn = "psalmFK",
-            entityColumn = "psalmID",
-            entity = PsalmEntity.class
-    )
-    public PsalmEntity salmo;
-
-    public String getSalmo() {
-        return salmo.getSalmo();
+    @JvmField
+    @Relation(parentColumn = "psalmFK", entityColumn = "psalmID", entity = PsalmEntity::class)
+    var salmo: PsalmEntity? = null
+    fun getSalmo(): String {
+        return salmo!!.salmo
     }
 }

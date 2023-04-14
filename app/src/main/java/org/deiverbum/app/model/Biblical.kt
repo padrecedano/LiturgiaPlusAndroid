@@ -1,254 +1,118 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Utils.LS2;
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import androidx.room.Ignore
+import org.deiverbum.app.utils.Utils
+import java.util.*
 
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
+open class Biblical {
+     var bookFK = 0
 
-import androidx.room.Ignore;
+    @Ignore var libro: BibleBook? = null
 
-import org.deiverbum.app.utils.Utils;
+     var verseChapter: String? = null
 
-import java.util.Locale;
+     var text: String? = null
 
-@SuppressWarnings("SameReturnValue")
-public class Biblical {
-    public Integer bookFK = 0;
-    @Ignore
-    protected BibleBook book;
-    protected String verseChapter;
-    protected String text;
-    protected String quote;
-    @Ignore
-    protected Integer order;
-    protected Integer readingID;
-    private String verseFrom;
-    private String verseTo;
 
-    public BibleBook getLibro() {
-        return book;
+    //getReferencia();
+     var quote: String? = ""
+
+    //getReferencia();
+    @Ignore var order: Int? = null
+     var readingID: Int? = null
+     var verseFrom: String? = null
+     var verseTo: String? = null
+
+
+
+
+    val textoSpan: Spanned
+        get() = Utils.fromHtml(text)
+    val textoForRead: Spanned
+        get() = Utils.fromHtml(
+            Utils.getFormatoForRead(
+                text
+            )
+        )
+
+    fun setCita(ref: String?) {
+        this.quote = ref
     }
 
-    public void setLibro(BibleBook libro) {
-        this.book = libro;
+    fun getRefBreve(): String? {
+        return if (quote != null) quote else ""
     }
 
-    public String getLibroForRead() {
-        return book.getForRead();
+    fun getReferencia(): String {
+        return String.format(Locale("es"), "%s, %s%s", verseChapter, verseFrom, verseTo)
     }
 
-    public String getCapitulo() {
-        return verseChapter;
+    open fun getHeader(): String? {
+        return "PRIMERA LECTURA"
     }
 
-    public void setCapitulo(String capitulo) {
-        this.verseChapter = capitulo;
+    fun getConclusionForRead(): String {
+        return "Palabra de Dios."
     }
 
-    public String getVersoInicial() {
-        return verseFrom;
-    }
-
-    public void setVersoInicial(String versoInicial) {
-        this.verseFrom = versoInicial;
-    }
-
-    public String getDesde() {
-        return verseFrom;
-    }
-
-    public void setDesde(String versoInicial) {
-        this.verseFrom = versoInicial;
-    }
-
-    public String getVersoFinal() {
-        return verseTo;
-    }
-
-    public void setVersoFinal(String versoFinal) {
-        this.verseTo = versoFinal;
-    }
-
-    public String getHasta() {
-        return verseTo;
-    }
-
-    public void setHasta(String verseTo) {
-        this.verseTo = verseTo;
-    }
-
-    public BibleBook getBook() {
-        return book;
-    }
-
-    public void setBook(BibleBook book) {
-        this.book = book;
-    }
-
-    public String getVerseChapter() {
-        return verseChapter;
-    }
-
-    public void setVerseChapter(String chapter) {
-        this.verseChapter = chapter;
-    }
-
-    public String getVerseFrom() {
-        return verseFrom;
-    }
-
-    public void setVerseFrom(String verseFrom) {
-        this.verseFrom = verseFrom;
-    }
-
-    public String getVerseTo() {
-        return verseTo;
-    }
-
-    public void setVerseTo(String verseTo) {
-        this.verseTo = verseTo;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getQuote() {
-        return quote;
-    }
-
-    public void setQuote(String quote) {
-        this.quote = quote;
-    }
-
-    public Integer getOrder() {
-        return order;
-    }
-
-    public void setOrder(Integer order) {
-        this.order = order;
-    }
-
-    public Integer getReadingID() {
-        return readingID;
-    }
-
-    public void setReadingID(Integer readingID) {
-        this.readingID = readingID;
-    }
-
-    public Integer getBookFK() {
-        return bookFK;
-    }
-
-    public void setBookFK(Integer bookFK) {
-        this.bookFK = bookFK;
-    }
-
-    public Spanned getTextoSpan() {
-        return Utils.fromHtml(text);
-    }
-
-
-    public Spanned getTextoForRead() {
-        return Utils.fromHtml(Utils.getFormatoForRead(text));
-    }
-
-    public String getTexto() {
-
-        return text;
-    }
-
-    public void setTexto(String texto) {
-        this.text = texto;
-    }
-
-    public String getCita() {
-        return quote;
-        //getReferencia();
-    }
-
-    public void setCita(String ref) {
-        this.quote = ref;
-    }
-
-    public String getRefBreve() {
-        return (this.quote != null) ? this.quote : "";
-    }
-
-    @SuppressWarnings("unused")
-    public String getReferencia() {
-        return String.format(new Locale("es"), "%s, %s%s", getCapitulo(), getVersoInicial(), getVersoFinal());
-    }
-
-    public String getHeader() {
-        return "PRIMERA LECTURA";
-    }
-
-    public String getConclusionForRead() {
-        return "Palabra de Dios.";
-    }
-
-    public String getResponsorioHeaderForRead() {
-        return "LHResponsoryShort.";
+    open fun getResponsorioHeaderForRead(): String? {
+        return "LHResponsoryShort."
     }
 
     /**
-     * <p>Obtiene la lectura bíblica completa, incluyendo el responsorio, formateada para la vista.</p>
      *
-     * @return Un objeto {@link SpannableStringBuilder con el contenido.}
+     * Obtiene la lectura bíblica completa, incluyendo el responsorio, formateada para la vista.
+     *
+     * @return Un objeto [con el contenido.][SpannableStringBuilder]
      * @since 2022.01
      */
-    public SpannableStringBuilder getAll() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(getHeader());
-        sb.append(LS2);
-        sb.append(book.getLiturgyName());
-        sb.append("    ");
-        sb.append(Utils.toRed(getCapitulo()));
-        sb.append(", ");
-        sb.append(Utils.toRed(getVersoInicial()));
-        sb.append(Utils.toRed(getVersoFinal()));
-        sb.append(LS2);
+    open fun getAll(): SpannableStringBuilder? {
+        val sb = SpannableStringBuilder()
+        sb.append(getHeader())
+        sb.append(Utils.LS2)
+        sb.append(libro!!.liturgyName)
+        sb.append("    ")
+        sb.append(Utils.toRed(verseChapter))
+        sb.append(", ")
+        sb.append(Utils.toRed(verseFrom))
+        sb.append(Utils.toRed(verseTo))
+        sb.append(Utils.LS2)
         //sb.append(Utils.toRed(getTema()));
-        sb.append(LS2);
-        sb.append(getTextoSpan());
-        sb.append(Utils.LS);
+        sb.append(Utils.LS2)
+        sb.append(textoSpan)
+        sb.append(Utils.LS)
         //sb.append(responsorio.getAll());
-        return sb;
+        return sb
     }
 
     /**
-     * <p>Obtiene la lectura bíblica completa formateada para la lectura de voz.</p>
      *
-     * @return Un objeto {@link SpannableStringBuilder con el contenido.}
+     * Obtiene la lectura bíblica completa formateada para la lectura de voz.
+     *
+     * @return Un objeto [con el contenido.][SpannableStringBuilder]
      * @since 2022.01
      */
-    public SpannableStringBuilder getAllForRead() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(Utils.pointAtEnd(getHeader()));
-        sb.append(getLibroForRead());
-        sb.append(getTextoForRead());
-        sb.append(getConclusionForRead());
-        sb.append(getResponsorioHeaderForRead());
-        return sb;
+    open fun getAllForRead(): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        sb.append(Utils.pointAtEnd(getHeader()))
+        sb.append(this.libro!!.getForRead())
+        sb.append(textoForRead)
+        sb.append(getConclusionForRead())
+        sb.append(getResponsorioHeaderForRead())
+        return sb
     }
 
-    public Integer getOrden() {
-        return this.order;
+    open fun getOrden(): Int? {
+        return order
     }
 
-    public void setOrden(Integer orden) {
-        this.order = orden;
+    open fun setOrden(orden: Int?) {
+        order = orden
     }
 
-    public Integer getLecturaId() {
-        return this.readingID;
+    fun getLecturaId(): Int? {
+        return readingID
     }
-
-
 }

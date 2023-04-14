@@ -1,34 +1,24 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.LH_OFFICE_VERSE;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = LH_OFFICE_VERSE,
-        indices = {@Index(value = {"verse"}, unique = true)})
-public class LHOfficeVerseEntity {
-
-    @NonNull
+@Entity(tableName = Constants.LH_OFFICE_VERSE, indices = [Index(value = ["verse"], unique = true)])
+class LHOfficeVerseEntity {
+    @JvmField
     @PrimaryKey
     @ColumnInfo(name = "verseID")
-    public Integer versoId = 0;
+    var versoId = 0
 
-    @NonNull
     @ColumnInfo(name = "verse")
-    public String verso = "";
+    var verse = ""
 
-    public String getResponsorio() {
-        return verso;
-    }
 }
-

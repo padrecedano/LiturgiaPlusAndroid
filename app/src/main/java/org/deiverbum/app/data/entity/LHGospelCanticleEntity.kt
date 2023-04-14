@@ -1,41 +1,34 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.LH_GOSPEL_CANTICLE;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.PrimaryKey;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.Companion.CASCADE
+import androidx.room.PrimaryKey
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = LH_GOSPEL_CANTICLE,
-
-        foreignKeys =
-                {
-                        @ForeignKey(
-                                entity = LHAntiphonEntity.class,
-                                parentColumns = "antiphonID",
-                                childColumns = "antiphonFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)
-                }
+@Entity(
+    tableName = Constants.LH_GOSPEL_CANTICLE,
+    foreignKeys = [ForeignKey(
+        entity = LHAntiphonEntity::class,
+        parentColumns = arrayOf("antiphonID"),
+        childColumns = arrayOf("antiphonFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )]
 )
-public class LHGospelCanticleEntity {
-
-    @NonNull
+class LHGospelCanticleEntity {
+    @JvmField
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    public Integer grupoId = 0;
+    var grupoId = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "antiphonFK", index = true)
-    public Integer antifonaFK = 0;
-
+    var antifonaFK = 0
 }
-
