@@ -1,120 +1,76 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.BIBLE_READING;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
-
-import com.google.gson.annotations.SerializedName;
-
-import org.deiverbum.app.model.Biblical;
-import org.deiverbum.app.model.MassReading;
+import androidx.room.*
+import androidx.room.ForeignKey.Companion.CASCADE
+import com.google.gson.annotations.SerializedName
+import org.deiverbum.app.model.Biblical
+import org.deiverbum.app.model.MassReading
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = BIBLE_READING,
-        foreignKeys =
-                {
-                        @ForeignKey(
-                                entity = BiblieBookEntity.class,
-                                parentColumns = "bookID",
-                                childColumns = "bookFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)
-                },
-        indices = {
-                @Index(value = {"bookFK", "verseChapter", "verseFrom", "verseTo"}, unique = true)}
+@Entity(
+    tableName = Constants.BIBLE_READING,
+    foreignKeys = [ForeignKey(
+        entity = BiblieBookEntity::class,
+        parentColumns = arrayOf("bookID"),
+        childColumns = arrayOf("bookFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )],
+    indices = [Index(value = ["bookFK", "verseChapter", "verseFrom", "verseTo"], unique = true)]
 )
-public class BibleReadingEntity {
-    @NonNull
+class BibleReadingEntity {
+    @JvmField
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "readingID")
-    public Integer lecturaId = 0;
+    var lecturaId = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "bookFK")
-    public Integer libroFK = 0;
+    var libroFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "verseChapter")
-    public Integer capitulo = 0;
+    var capitulo = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "verseFrom")
     @SerializedName("versoInicial")
-    public Integer desde = 0;
+    var desde = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "verseTo")
-    public Integer hasta = 0;
+    var hasta = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "quote")
-    public String cita = "";
+    var cita = ""
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "text")
-    public String texto = "";
-
-    @SuppressWarnings("unused")
-    @NonNull
-    public Integer getLibroFK() {
-        return libroFK;
-    }
-
-    @NonNull
-    public Integer getCapitulo() {
-        return capitulo;
-    }
-
-    @NonNull
-    public Integer getDesde() {
-        return desde;
-    }
-
-    @NonNull
-    public Integer getHasta() {
-        return hasta;
-    }
-
-    @NonNull
-    public String getCita() {
-        return cita;
-    }
-
-    @NonNull
-    public String getTexto() {
-        return texto;
-    }
-
-
-    public Biblical getDomainModel() {
-        Biblical theModel = new Biblical();
-        theModel.setCapitulo(String.valueOf(getCapitulo()));
-        theModel.setCita(String.valueOf(getHasta()));
-        theModel.setVersoInicial(String.valueOf(getDesde()));
-        theModel.setVersoFinal(String.valueOf(getHasta()));
-        theModel.setTexto(getTexto());
-        return theModel;
-    }
-
-    public MassReading getDomainModelMisa() {
-        MassReading theModel = new MassReading();
-        theModel.setCapitulo(String.valueOf(getCapitulo()));
-        theModel.setCita(String.valueOf(getHasta()));
-        theModel.setVersoInicial(String.valueOf(getDesde()));
-        theModel.setVersoFinal(String.valueOf(getHasta()));
-        theModel.setTexto(getTexto());
-        return theModel;
-    }
-
+    var texto = ""
+    val domainModel: Biblical
+        get() {
+            val theModel = Biblical()
+            theModel.verseChapter = capitulo.toString()
+            theModel.setCita(hasta.toString())
+            theModel.verseFrom = desde.toString()
+            theModel.verseTo = hasta.toString()
+            theModel.text = texto
+            return theModel
+        }
+    val domainModelMisa: MassReading
+        get() {
+            val theModel = MassReading()
+            theModel.verseChapter = capitulo.toString()
+            theModel.setCita(hasta.toString())
+            theModel.verseFrom = desde.toString()
+            theModel.verseTo = hasta.toString()
+            theModel.text = texto
+            return theModel
+        }
 }
-

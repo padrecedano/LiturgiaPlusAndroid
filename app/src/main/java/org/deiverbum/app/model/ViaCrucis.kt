@@ -1,203 +1,188 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Utils.LS;
-import static org.deiverbum.app.utils.Utils.LS2;
+import android.text.SpannableStringBuilder
+import org.deiverbum.app.utils.ColorUtils
+import org.deiverbum.app.utils.Utils
 
-import android.text.SpannableStringBuilder;
-
-import org.deiverbum.app.utils.ColorUtils;
-import org.deiverbum.app.utils.Utils;
-
-import java.util.List;
-
-@SuppressWarnings("SameReturnValue")
-public class ViaCrucis {
-
-    private String subTitulo;
-    private String fecha;
-    private String autor;
-    private IntroViaCrucis introViaCrucis;
-    private String adoramus;
-    private List<String> respuestas;
-    private List<Estacion> estaciones;
-    private String oracion;
-
-    public String getTitulo() {
-        return "Vía Crucis";
+class ViaCrucis {
+    private var subTitulo: String? = null
+    private var fecha: String? = null
+    private var autor: String? = null
+    private var introViaCrucis: IntroViaCrucis? = null
+    private var adoramus: String? = null
+    private var respuestas: List<String?>? = null
+    private var estaciones: List<Estacion>? = null
+    private var oracion: String? = null
+    fun getTitulo(): String {
+        return "Vía Crucis"
     }
 
-    public String getSubTitulo() {
-        return subTitulo;
+    fun getSubTitulo(): String? {
+        return subTitulo
     }
 
-    @SuppressWarnings("unused")
-    public void setSubTitulo(String subTitulo) {
-        this.subTitulo = subTitulo;
+    fun setSubTitulo(subTitulo: String?) {
+        this.subTitulo = subTitulo
     }
 
-    public String getFecha() {
-        return fecha;
+    fun getFecha(): String? {
+        return fecha
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    fun setFecha(fecha: String?) {
+        this.fecha = fecha
     }
 
-    public String getAutor() {
-        return autor;
+    fun getAutor(): String? {
+        return autor
     }
 
-    public void setAutor(String autor) {
-        this.autor = autor;
+    fun setAutor(autor: String?) {
+        this.autor = autor
     }
 
-    @SuppressWarnings("unused")
-    public IntroViaCrucis getIntroViaCrucis() {
-        return this.introViaCrucis;
+    fun getIntroViaCrucis(): IntroViaCrucis? {
+        return introViaCrucis
     }
 
-    public void setIntro(IntroViaCrucis introViaCrucis) {
-        this.introViaCrucis = introViaCrucis;
+    fun setIntro(introViaCrucis: IntroViaCrucis?) {
+        this.introViaCrucis = introViaCrucis
     }
 
-    public SpannableStringBuilder getAdoramus() {
-        String[] textParts = adoramus.split("\\|");
-        SpannableStringBuilder sb = new SpannableStringBuilder("");
-        sb.append(Utils.toRed("V/. "));
-        sb.append(textParts[0]);
-        sb.append(LS2);
-        sb.append(Utils.toRed("R/. "));
-        sb.append(textParts[1]);
-        return sb;//this.adoramus;
+    fun getAdoramus(): SpannableStringBuilder {
+        val textParts =
+            adoramus!!.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val sb = SpannableStringBuilder("")
+        sb.append(Utils.toRed("V/. "))
+        sb.append(textParts[0])
+        sb.append(Utils.LS2)
+        sb.append(Utils.toRed("R/. "))
+        sb.append(textParts[1])
+        return sb //this.adoramus;
     }
 
-    @SuppressWarnings("unused")
-    public void setAdoramus(String adoramus) {
-        this.adoramus = adoramus;
+    fun setAdoramus(adoramus: String?) {
+        this.adoramus = adoramus
     }
 
-    @SuppressWarnings("unused")
-    public List<String> getRespuestas() {
-        return this.respuestas;
+    fun getRespuestas(): List<String?>? {
+        return respuestas
     }
 
-    @SuppressWarnings("unused")
-    public void setRespuestas(List<String> respuestas) {
-        this.respuestas = respuestas;
+    fun setRespuestas(respuestas: List<String?>?) {
+        this.respuestas = respuestas
     }
 
-    public SpannableStringBuilder getAllEstaciones() {
-        SpannableStringBuilder sb = new SpannableStringBuilder("");
-        for (Estacion e : estaciones) {
-            sb.append(LS);
-            sb.append(Utils.toH3Red(e.getTitulo()));
-            sb.append(LS2);
-            sb.append(Utils.toH3(e.getSubtitulo()));
-            sb.append(LS2);
-            sb.append(getAdoramus());
-            sb.append(LS2);
-            sb.append(e.getTextoBiblicoSpan());
-            sb.append(LS2);
-            sb.append(e.getMeditacionSpan(respuestas));
-            sb.append(LS);
-            sb.append(PadreNuestro.getTexto());
-            sb.append(LS2);
-            sb.append(Utils.toH4Red("Estrofa del Stabat Mater"));
-            sb.append(LS2);
-            sb.append(Utils.fromHtml(Utils.getFormato(e.getCanto())));
-            sb.append(LS2);
+    fun getAllEstaciones(): SpannableStringBuilder {
+        val sb = SpannableStringBuilder("")
+        for (e in estaciones!!) {
+            sb.append(Utils.LS)
+            sb.append(Utils.toH3Red(e.titulo))
+            sb.append(Utils.LS2)
+            sb.append(Utils.toH3(e.subtitulo))
+            sb.append(Utils.LS2)
+            sb.append(getAdoramus())
+            sb.append(Utils.LS2)
+            sb.append(e.textoBiblicoSpan)
+            sb.append(Utils.LS2)
+            sb.append(e.getMeditacionSpan(respuestas!!))
+            sb.append(Utils.LS)
+            sb.append(PadreNuestro.Companion.getTexto())
+            sb.append(Utils.LS2)
+            sb.append(Utils.toH4Red("Estrofa del Stabat Mater"))
+            sb.append(Utils.LS2)
+            sb.append(Utils.fromHtml(Utils.getFormato(e.canto)))
+            sb.append(Utils.LS2)
         }
-        return sb;
+        return sb
     }
 
-    @SuppressWarnings("unused")
-    public StringBuilder getAllEstacionesForRead() {
-        StringBuilder sb = new StringBuilder();
-        String[] textParts = adoramus.split("\\|");
-        String txtAdoramus = textParts[0] + "." + textParts[1] + ".";
-        for (Estacion e : estaciones) {
-            sb.append(e.getTitulo());
-            sb.append(".");
-            sb.append(e.getSubtitulo());
-            sb.append(".");
-            sb.append(txtAdoramus);
-            sb.append(e.getTextoBiblico());
-            sb.append(".");
-            sb.append(e.getMeditacionSpan(respuestas));
-            sb.append(PadreNuestro.getTexto());
-            sb.append("Estrofa del Stabat Mater.");
-            sb.append(Utils.fromHtml(Utils.getFormato(e.getCanto())));
+    fun getAllEstacionesForRead(): StringBuilder {
+        val sb = StringBuilder()
+        val textParts =
+            adoramus!!.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val txtAdoramus = textParts[0] + "." + textParts[1] + "."
+        for (e in estaciones!!) {
+            sb.append(e.titulo)
+            sb.append(".")
+            sb.append(e.subtitulo)
+            sb.append(".")
+            sb.append(txtAdoramus)
+            sb.append(e.textoBiblico)
+            sb.append(".")
+            sb.append(e.getMeditacionSpan(respuestas!!))
+            sb.append(PadreNuestro.Companion.getTexto())
+            sb.append("Estrofa del Stabat Mater.")
+            sb.append(Utils.fromHtml(Utils.getFormato(e.canto)))
         }
-        return sb;
+        return sb
     }
 
-    @SuppressWarnings("unused")
-    public List<Estacion> getEstaciones() {
-        return this.estaciones;
+    fun getEstaciones(): List<Estacion>? {
+        return estaciones
     }
 
-    @SuppressWarnings("unused")
-    public void setEstaciones(List<Estacion> estaciones) {
-        this.estaciones = estaciones;
+    fun setEstaciones(estaciones: List<Estacion>?) {
+        this.estaciones = estaciones
     }
 
-    public String getOracion() {
-        return this.oracion;
+    fun getOracion(): String? {
+        return oracion
     }
 
-    public void setOracion(String oracion) {
-        this.oracion = oracion;
+    fun setOracion(oracion: String?) {
+        this.oracion = oracion
     }
 
-    public SpannableStringBuilder getForView(boolean isNightMode) {
-        ColorUtils.isNightMode = isNightMode;
-        SpannableStringBuilder sb = new SpannableStringBuilder("");
-        sb.append(Utils.toH2Red(getTitulo()));
-        sb.append(LS2);
-        sb.append(Utils.toH3(getSubTitulo()));
-        sb.append(LS);
-        sb.append(Utils.toH4(getFecha()));
-        sb.append(LS);
-        sb.append(Utils.toH4Red(getAutor()));
-        sb.append(LS2);
-        sb.append(Utils.getSaludoEnElNombre());
-        sb.append(LS);
-        sb.append(Utils.toH3Red("Preámbulo"));
-        sb.append(LS2);
-        sb.append(Utils.fromHtml(introViaCrucis.getIntro()));
-        sb.append(LS2);
-        sb.append(Utils.toH3Red("Oración inicial"));
-        sb.append(LS2);
-        sb.append(Utils.fromHtml(introViaCrucis.getOracion()));
-        sb.append(LS2);
-        sb.append(getAllEstaciones());
-        sb.append(Utils.toH3Red("Oración final"));
-        sb.append(LS2);
-        sb.append(Utils.fromHtml(Utils.getFormato(getOracion())));
-        sb.append(LS2);
-        sb.append(Utils.getConclusionHorasMayores());
-        sb.append(LS2);
-        sb.append(Utils.toRed("Si la celebración la preside un ministro ordenado se concluye con la bendición, como habitualmente."));
-        return sb;
+    fun getForView(isNightMode: Boolean): SpannableStringBuilder {
+        ColorUtils.isNightMode = isNightMode
+        val sb = SpannableStringBuilder("")
+        sb.append(Utils.toH2Red(getTitulo()))
+        sb.append(Utils.LS2)
+        sb.append(Utils.toH3(getSubTitulo()))
+        sb.append(Utils.LS)
+        sb.append(Utils.toH4(getFecha()))
+        sb.append(Utils.LS)
+        sb.append(Utils.toH4Red(getAutor()))
+        sb.append(Utils.LS2)
+        sb.append(Utils.getSaludoEnElNombre())
+        sb.append(Utils.LS)
+        sb.append(Utils.toH3Red("Preámbulo"))
+        sb.append(Utils.LS2)
+        sb.append(Utils.fromHtml(introViaCrucis?.intro))
+        sb.append(Utils.LS2)
+        sb.append(Utils.toH3Red("Oración inicial"))
+        sb.append(Utils.LS2)
+        sb.append(Utils.fromHtml(introViaCrucis?.oracion))
+        sb.append(Utils.LS2)
+        sb.append(getAllEstaciones())
+        sb.append(Utils.toH3Red("Oración final"))
+        sb.append(Utils.LS2)
+        sb.append(Utils.fromHtml(Utils.getFormato(getOracion())))
+        sb.append(Utils.LS2)
+        sb.append(Utils.getConclusionHorasMayores())
+        sb.append(Utils.LS2)
+        sb.append(Utils.toRed("Si la celebración la preside un ministro ordenado se concluye con la bendición, como habitualmente."))
+        return sb
     }
 
-    public StringBuilder getForRead() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getTitulo());
-        sb.append(".");
-        sb.append(getSubTitulo());
-        sb.append(".");
-        sb.append(getAutor());
-        sb.append(".");
-        sb.append(Utils.getSaludoEnElNombre());
-        sb.append(Utils.toH3Red("Preámbulo."));
-        sb.append(Utils.fromHtml(introViaCrucis.getIntro()));
-        sb.append("Oración inicial.");
-        sb.append(Utils.fromHtml(introViaCrucis.getOracion()));
-        sb.append(getAllEstaciones());
-        sb.append("Oración final.");
-        sb.append(Utils.fromHtml(Utils.getFormato(getOracion())));
-        sb.append(Utils.getConclusionHorasMayores());
-        return sb;
+    fun getForRead(): StringBuilder {
+        val sb = StringBuilder()
+        sb.append(getTitulo())
+        sb.append(".")
+        sb.append(getSubTitulo())
+        sb.append(".")
+        sb.append(getAutor())
+        sb.append(".")
+        sb.append(Utils.getSaludoEnElNombre())
+        sb.append(Utils.toH3Red("Preámbulo."))
+        sb.append(Utils.fromHtml(introViaCrucis?.intro))
+        sb.append("Oración inicial.")
+        sb.append(Utils.fromHtml(introViaCrucis?.oracion))
+        sb.append(getAllEstaciones())
+        sb.append("Oración final.")
+        sb.append(Utils.fromHtml(Utils.getFormato(getOracion())))
+        sb.append(Utils.getConclusionHorasMayores())
+        return sb
     }
 }

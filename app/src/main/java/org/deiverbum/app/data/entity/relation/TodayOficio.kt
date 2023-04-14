@@ -1,191 +1,164 @@
-package org.deiverbum.app.data.entity.relation;
+package org.deiverbum.app.data.entity.relation
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
-
-import org.deiverbum.app.data.entity.LHHymnJoinEntity;
-import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity;
-import org.deiverbum.app.data.entity.LHOfficeBiblicalJoinEntity;
-import org.deiverbum.app.data.entity.LHOfficePatristicEntity;
-import org.deiverbum.app.data.entity.LHOfficeVerseJoinEntity;
-import org.deiverbum.app.data.entity.LHPrayerEntity;
-import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
-import org.deiverbum.app.data.entity.LiturgyEntity;
-import org.deiverbum.app.data.entity.LiturgySaintJoinEntity;
-import org.deiverbum.app.data.entity.TodayEntity;
-import org.deiverbum.app.model.BreviaryHour;
-import org.deiverbum.app.model.LHHymn;
-import org.deiverbum.app.model.LHInvitatory;
-import org.deiverbum.app.model.LHOfficeBiblical;
-import org.deiverbum.app.model.LHOfficeOfReading;
-import org.deiverbum.app.model.LHOfficePatristic;
-import org.deiverbum.app.model.LHPsalmody;
-import org.deiverbum.app.model.Liturgy;
-import org.deiverbum.app.model.Oficio;
-import org.deiverbum.app.model.OficioEaster;
-import org.deiverbum.app.model.TeDeum;
-import org.deiverbum.app.model.Today;
-
-import java.util.ArrayList;
-import java.util.List;
+import androidx.room.Embedded
+import androidx.room.Relation
+import org.deiverbum.app.data.entity.*
+import org.deiverbum.app.model.*
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class TodayOficio {
-
+class TodayOficio {
+    @JvmField
     @Embedded
-    public TodayEntity today;
+    var today: TodayEntity? = null
 
+    @JvmField
+    @Relation(entity = LiturgyEntity::class, parentColumn = "liturgyFK", entityColumn = "liturgyID")
+    var feria: LiturgyWithTime? = null
+
+    @JvmField
     @Relation(
-            entity = LiturgyEntity.class,
-            parentColumn = "liturgyFK",
-            entityColumn = "liturgyID"
+        entity = LiturgySaintJoinEntity::class,
+        parentColumn = "liturgyFK",
+        entityColumn = "liturgyFK"
     )
-    public LiturgyWithTime feria;
+    var saint: SaintShortWithAll? = null
 
+    @JvmField
     @Relation(
-            entity = LiturgySaintJoinEntity.class,
-            parentColumn = "liturgyFK",
-            entityColumn = "liturgyFK"
+        entity = LHInvitatoryJoinEntity::class,
+        parentColumn = "invitatoryFK",
+        entityColumn = "groupID"
     )
-    public SaintShortWithAll saint;
+    var invitatorio: LHInvitatoryAll? = null
 
+    @JvmField
+    @Relation(entity = LHHymnJoinEntity::class, parentColumn = "oHymnFK", entityColumn = "groupID")
+    var himno: LHHymnWithAll? = null
+
+    @JvmField
     @Relation(
-            entity = LHInvitatoryJoinEntity.class,
-            parentColumn = "invitatoryFK",
-            entityColumn = "groupID"
+        entity = LHPsalmodyJoinEntity::class,
+        parentColumn = "oPsalmodyFK",
+        entityColumn = "groupID"
     )
-    public LHInvitatoryAll invitatorio;
+    var salmodia: LHPsalmodyAll? = null
 
+    @JvmField
     @Relation(
-            entity = LHHymnJoinEntity.class,
-            parentColumn = "oHymnFK",
-            entityColumn = "groupID"
+        entity = LHOfficeVerseJoinEntity::class,
+        parentColumn = "oVerseFK",
+        entityColumn = "groupID"
     )
-    public LHHymnWithAll himno;
+    var oficioVerso: OficceVerseAll? = null
 
+    @JvmField
     @Relation(
-            entity = LHPsalmodyJoinEntity.class,
-            parentColumn = "oPsalmodyFK",
-            entityColumn = "groupID"
+        entity = LHOfficeBiblicalJoinEntity::class,
+        parentColumn = "oBiblicalFK",
+        entityColumn = "groupID"
     )
-    public LHPsalmodyAll salmodia;
+    var biblicas: LHOfficeBiblicalAll? = null
 
+    @JvmField
     @Relation(
-            entity = LHOfficeVerseJoinEntity.class,
-            parentColumn = "oVerseFK",
-            entityColumn = "groupID"
+        entity = LHOfficeBiblicalJoinEntity::class,
+        parentColumn = "oBiblicalFK",
+        entityColumn = "groupID"
     )
-    public OficceVerseAll oficioVerso;
+    var biblicasE: LHOfficeEasterJoin? = null
 
+    @JvmField
     @Relation(
-            entity = LHOfficeBiblicalJoinEntity.class,
-            parentColumn = "oBiblicalFK",
-            entityColumn = "groupID"
+        entity = LHOfficePatristicEntity::class,
+        parentColumn = "oPatristicFK",
+        entityColumn = "groupFK"
     )
-    public LHOfficeBiblicalAll biblicas;
+    var patristica: LHOfficePatristicWithAll? = null
 
+    @JvmField
     @Relation(
-            entity = LHOfficeBiblicalJoinEntity.class,
-            parentColumn = "oBiblicalFK",
-            entityColumn = "groupID"
+        entity = LHOfficePatristicEntity::class,
+        parentColumn = "oPatristicFK",
+        entityColumn = "groupFK"
     )
-    public LHOfficeEasterJoin biblicasE;
+    var patristicaOficioWithResponsorio: List<PatristicaOficioWithResponsorio>? = null
 
-
-    @Relation(
-            entity = LHOfficePatristicEntity.class,
-            parentColumn = "oPatristicFK",
-            entityColumn = "groupFK"
-    )
-    public LHOfficePatristicWithAll patristica;
-
-    @Relation(
-            entity = LHOfficePatristicEntity.class,
-            parentColumn = "oPatristicFK",
-            entityColumn = "groupFK"
-    )
-    public List<PatristicaOficioWithResponsorio> patristicaOficioWithResponsorio;
-
-    @Relation(
-            entity = LHPrayerEntity.class,
-            parentColumn = "oPrayerFK",
-            entityColumn = "groupID"
-    )
-    public LHPrayerAll lhPrayerAll;
-
-
-    public LHInvitatory getInvitatorio() {
-        return invitatorio.getDomainModel();
+    @JvmField
+    @Relation(entity = LHPrayerEntity::class, parentColumn = "oPrayerFK", entityColumn = "groupID")
+    var lhPrayerAll: LHPrayerAll? = null
+    fun getInvitatorio(): LHInvitatory? {
+        return invitatorio?.domainModel
     }
 
-    public LHHymn getHimno() {
-        return himno.getDomainModel();
+    fun getHimno(): LHHymn? {
+        return himno?.domainModel
     }
 
-    public LHPsalmody getSalmodia() {
-        return salmodia.getDomainModel();
+    fun getSalmodia(): LHPsalmody? {
+        return salmodia?.domainModel
     }
 
-    public String getOficioVerso() {
-        return oficioVerso.getDomainModel();
+    fun getOficioVerso(): String? {
+        return oficioVerso?.theEntity?.verse
     }
 
-    public Today getToday() {
-        Today dm = new Today();
-        dm.liturgyDay = feria.getDomainModel();
-        dm.setTodayDate(today.getHoy());
-        dm.setHasSaint(today.hasSaint);
-        dm.oBiblicalFK = today.oBiblicaFK;
-        return dm;
+    fun getToday(): Today {
+        val dm = Today()
+        dm.liturgyDay = feria?.domainModel
+        dm.todayDate = today!!.hoy
+        dm.hasSaint = today!!.hasSaint
+        dm.oBiblicalFK = today!!.oBiblicaFK
+        return dm
     }
 
-    public List<LHOfficeBiblical> getBiblicas() {
-        return biblicas.getDomainModel(today.getTiempoId());
+    fun getBiblicas(): List<LHOfficeBiblical?>? {
+        return biblicas!!.getDomainModel(today!!.tiempoId)
     }
 
-    public List<LHOfficePatristic> getPatristicas() {
-        List<LHOfficePatristic> theList = new ArrayList<>();
-        for (PatristicaOficioWithResponsorio item :
-                patristicaOficioWithResponsorio) {
-            theList.add(item.getDomainModelOficio(today.getTiempoId()));
-        }
-        return theList;
-    }
-
-    public Today getDomainModelToday() {
-        Liturgy dm = feria.getDomainModel();
-        dm.typeID = 1;
-        Today dmToday = getToday();
-        dm.setToday(dmToday);
-        BreviaryHour bh = new BreviaryHour();
-        if (today.oBiblicaFK == 600010101) {
-            OficioEaster oEaster = new OficioEaster();
-            oEaster.setOficioLecturas(biblicasE.getDomainModel());
-            bh.setOficioEaster(oEaster);
-        } else {
-            Oficio oficio = new Oficio();
-            LHOfficeOfReading ol = new LHOfficeOfReading();
-            ol.setBiblica(getBiblicas());
-            ol.setPatristica(getPatristicas());
-            ol.setResponsorio(getOficioVerso());
-            if (dmToday.getHasSaint() == 1 && saint != null) {
-                oficio.setSanto(saint.getDomainModel());
+    val patristicas: List<LHOfficePatristic?>
+        get() {
+            val theList: MutableList<LHOfficePatristic?> = ArrayList()
+            for (item in patristicaOficioWithResponsorio!!) {
+                theList.add(item.getDomainModelOficio(today!!.tiempoId))
             }
-            oficio.setInvitatorio(getInvitatorio());
-            oficio.setHimno(getHimno());
-            oficio.setOficioLecturas(ol);
-            oficio.setSalmodia(getSalmodia());
-            oficio.setTeDeum(new TeDeum(today.oTeDeum));
-            oficio.setOracion((lhPrayerAll.getDomainModel()));
-            bh.setOficio(oficio);
+            return theList
         }
-        dm.setBreviaryHour(bh);
-        dmToday.liturgyDay = dm;
-        return dmToday;
-    }
-
+    val domainModelToday: Today
+        get() {
+            val dm = feria?.domainModel
+            dm!!.typeID = 1
+            val dmToday = getToday()
+            dm!!.today = dmToday
+            val bh = BreviaryHour()
+            if (today!!.oBiblicaFK == 600010101) {
+                val oEaster = OficioEaster()
+                oEaster.lhOfficeOfReadingEaster = biblicasE?.domainModel
+                bh.setOficioEaster(oEaster)
+            } else {
+                val oficio = Oficio()
+                val ol = LHOfficeOfReading()
+                ol.biblica = getBiblicas()
+                ol.patristica = patristicas
+                ol.responsorio = getOficioVerso()
+                if (dmToday.hasSaint == 1 && saint != null) {
+                    oficio.santo = saint?.domainModel
+                }
+                oficio.invitatorio = getInvitatorio()
+                oficio.setHimno(getHimno())
+                oficio.setOfficeOfReading(ol)
+                oficio.setSalmodia(getSalmodia())
+                if (today!!.oTeDeum == 1) {
+                    oficio.teDeum = TeDeum()
+                }
+                oficio.setOracion(lhPrayerAll?.domainModel)
+                bh.setOficio(oficio)
+            }
+            dm!!.breviaryHour = bh
+            dmToday.liturgyDay = dm
+            return dmToday
+        }
 }

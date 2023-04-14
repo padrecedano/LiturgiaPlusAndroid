@@ -1,47 +1,48 @@
-package org.deiverbum.app.data.entity.relation;
+package org.deiverbum.app.data.entity.relation
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
-
-import org.deiverbum.app.data.entity.LHReadingShortEntity;
-import org.deiverbum.app.data.entity.LHReadingShortJoinEntity;
-import org.deiverbum.app.data.entity.LHResponsoryShortEntity;
-import org.deiverbum.app.model.BiblicalShort;
+import androidx.room.Embedded
+import androidx.room.Relation
+import org.deiverbum.app.data.entity.LHReadingShortEntity
+import org.deiverbum.app.data.entity.LHReadingShortJoinEntity
+import org.deiverbum.app.data.entity.LHResponsoryShortEntity
+import org.deiverbum.app.model.BiblicalShort
 
 /**
- * <p>Obtiene los valores para una lectura bíblica de
+ *
+ * Obtiene los valores para una lectura bíblica de
  * la Liturgy de las Horas,
- * desde las distintas tablas relacionadas.</p>
+ * desde las distintas tablas relacionadas.
  *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class LHReadingShortAll {
+class LHReadingShortAll {
+    @JvmField
     @Embedded
-    public LHReadingShortJoinEntity lhBiblica;
+    var lhBiblica: LHReadingShortJoinEntity? = null
 
+    @JvmField
     @Relation(
-            parentColumn = "readingFK",
-            entityColumn = "readingID",
-            entity = LHReadingShortEntity.class
+        parentColumn = "readingFK",
+        entityColumn = "readingID",
+        entity = LHReadingShortEntity::class
     )
-    public LHReadingShortEntity biblica;
+    var biblica: LHReadingShortEntity? = null
 
+    @JvmField
     @Relation(
-            parentColumn = "responsoryFK",
-            entityColumn = "responsoryID",
-            entity = LHResponsoryShortEntity.class
+        parentColumn = "responsoryFK",
+        entityColumn = "responsoryID",
+        entity = LHResponsoryShortEntity::class
     )
-    public LHResponsoryShortEntity responsorio;
-
-    public BiblicalShort getDomainModel(Integer tiempoId) {
-        BiblicalShort dm = new BiblicalShort();
-        dm.setReadingID(biblica.lecturaId);
-        dm.setTexto(biblica.texto);
-        dm.setCita(biblica.cita);
-        dm.setResponsorio(responsorio.getDomainModel(tiempoId));
-        return dm;
+    var responsorio: LHResponsoryShortEntity? = null
+    fun getDomainModel(tiempoId: Int?): BiblicalShort {
+        val dm = BiblicalShort()
+        dm.readingID = biblica!!.lecturaId
+        dm.text = biblica!!.texto
+        dm.setCita(biblica!!.cita)
+        dm.setResponsorio(responsorio!!.getDomainModel(tiempoId))
+        return dm
     }
-
 }

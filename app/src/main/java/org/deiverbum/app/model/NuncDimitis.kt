@@ -1,68 +1,51 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Constants.TITLE_GOSPEL_CANTICLE;
+import android.text.SpannableStringBuilder
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
 
-import android.text.SpannableStringBuilder;
-
-import org.deiverbum.app.utils.Utils;
-
-public class NuncDimitis extends LHPsalm {
-
+class NuncDimitis : LHPsalm() {
     //private String antiphonEntity;
-    private String texto;
+    var texto: String? = null
+        get() = Utils.getFormato(field)
 
-    public NuncDimitis() {
+    fun getAntifonaSpan(timeID: Int): SpannableStringBuilder {
+        val ssb = SpannableStringBuilder("")
+        ssb.append(Utils.toRed("Ant. "))
+        ssb.append(Utils.replaceByTime(antiphon, timeID))
+        return ssb
     }
 
-    public String getTexto() {
-        return Utils.getFormato(texto);
+    override val antifonaForRead: String
+        get() = antiphon!!
+    val header: SpannableStringBuilder
+        get() = Utils.formatTitle(Constants.TITLE_GOSPEL_CANTICLE)
+    val headerForRead: String
+        get() = Utils.pointAtEnd(Constants.TITLE_GOSPEL_CANTICLE)
+
+    fun getAll(idTiempo: Int): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        sb.append(header)
+        sb.append(Utils.LS2)
+        sb.append(getAntifonaSpan(idTiempo))
+        sb.append(Utils.LS2)
+        sb.append(Utils.fromHtml(texto))
+        sb.append(Utils.LS2)
+        sb.append(finSalmo)
+        sb.append(Utils.LS2)
+        sb.append(getAntifonaSpan(idTiempo))
+        return sb
     }
 
-    public void setTexto(String texto) {
-        this.texto = texto;
-    }
-
-    public SpannableStringBuilder getAntifonaSpan(int timeID) {
-        SpannableStringBuilder ssb = new SpannableStringBuilder("");
-        ssb.append(Utils.toRed("Ant. "));
-        ssb.append(Utils.replaceByTime(antiphon, timeID));
-        return ssb;
-    }
-
-    public String getAntifonaForRead() {
-        return antiphon;
-    }
-
-    public SpannableStringBuilder getHeader() {
-        return Utils.formatTitle(TITLE_GOSPEL_CANTICLE);
-    }
-
-    public String getHeaderForRead() {
-        return Utils.pointAtEnd(TITLE_GOSPEL_CANTICLE);
-    }
-
-    public SpannableStringBuilder getAll(int idTiempo) {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(getHeader());
-        sb.append(Utils.LS2);
-        sb.append(getAntifonaSpan(idTiempo));
-        sb.append(Utils.LS2);
-        sb.append(Utils.fromHtml(getTexto()));
-        sb.append(Utils.LS2);
-        sb.append(getFinSalmo());
-        sb.append(Utils.LS2);
-        sb.append(getAntifonaSpan(idTiempo));
-        return sb;
-    }
-
-    public SpannableStringBuilder getAllForRead() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(getHeaderForRead());
-        sb.append(".");
-        sb.append(getAntifonaForRead());
-        sb.append(Utils.fromHtml(getTexto()));
-        sb.append(getFinSalmoForRead());
-        sb.append(getAntifonaForRead());
-        return sb;
-    }
+    val allForRead: SpannableStringBuilder
+        get() {
+            val sb = SpannableStringBuilder()
+            sb.append(headerForRead)
+            sb.append(".")
+            sb.append(antifonaForRead)
+            sb.append(Utils.fromHtml(texto))
+            sb.append(finSalmoForRead)
+            sb.append(antifonaForRead)
+            return sb
+        }
 }

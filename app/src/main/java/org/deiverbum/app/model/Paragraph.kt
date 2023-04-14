@@ -1,43 +1,37 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import android.text.Spanned;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-import org.deiverbum.app.utils.Utils;
+import android.text.Spanned
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+import org.deiverbum.app.utils.Utils
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
  */
-public class Paragraph {
+class Paragraph {
     @SerializedName("text")
     @Expose
-    private String text;
+    private var text: String? = null
 
     /**
      * No args constructor for use in serialization
      */
-    @SuppressWarnings("unused")
-    public Paragraph() {
-    }
+    constructor() {}
 
     /**
      * @param text Texto del párrafo
      */
-    @SuppressWarnings("unused")
-    public Paragraph(String text) {
-        super();
-        this.text = text;
+    constructor(text: String?) : super() {
+        this.text = text
     }
 
-    public Spanned getText() {
-        return Utils.fromHtml(text);
+    fun getText(): Spanned {
+        return Utils.fromHtml(text)
     }
 
-    public void setText(String text) {
-        this.text = text;
+    fun setText(text: String?) {
+        this.text = text
     }
 }

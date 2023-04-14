@@ -1,18 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.LHTheme;
+import org.deiverbum.app.model.LHTheme
 
-import java.util.List;
-
-public class CrudLHTheme {
-
-    public List<LHTheme> c;
-    public List<LHTheme> u;
-    public List<LHTheme> d;
-
-    @SuppressWarnings("unused")
-    public CrudLHTheme() {
-    }
-
-
+class CrudLHTheme {
+    var c: List<LHTheme>? = null
+    var u: List<LHTheme>? = null
+    var d: List<LHTheme>? = null
 }

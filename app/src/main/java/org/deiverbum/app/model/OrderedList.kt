@@ -1,53 +1,33 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
  */
-public class OrderedList {
-
+class OrderedList {
     @SerializedName("item")
     @Expose
-    private String item;
+    var item: String? = null
+
     @SerializedName("text")
     @Expose
-    private String text;
+    var text: String? = null
 
     /**
      * No args constructor for use in serialization
      */
-    @SuppressWarnings("unused")
-    public OrderedList() {
-    }
+    constructor() {}
 
     /**
      * @param item Título del item
      * @param text Texto descriptivo
      */
-    @SuppressWarnings("unused")
-    public OrderedList(String item, String text) {
-        super();
-        this.item = item;
-        this.text = text;
-    }
-
-    public String getItem() {
-        return item;
-    }
-
-    public void setItem(String item) {
-        this.item = item;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
+    constructor(item: String?, text: String?) : super() {
+        this.item = item
+        this.text = text
     }
 }

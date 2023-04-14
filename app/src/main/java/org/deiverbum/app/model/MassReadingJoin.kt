@@ -1,6 +1,8 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class MassReadingJoin {
-    public Integer liturgyFK;
-    public Integer type;
+class MassReadingJoin {
+    @JvmField
+    var liturgyFK: Int? = null
+    @JvmField
+    var type: Int? = null
 }

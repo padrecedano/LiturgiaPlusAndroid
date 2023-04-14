@@ -1,311 +1,253 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import android.text.SpannableStringBuilder;
-
-import androidx.room.Ignore;
-
-import org.deiverbum.app.utils.ColorUtils;
-import org.deiverbum.app.utils.Utils;
+import android.text.SpannableStringBuilder
+import androidx.room.Ignore
+import org.deiverbum.app.utils.ColorUtils
+import org.deiverbum.app.utils.Utils
 
 /**
- * <p>
+ *
+ *
  * Esta clase recoge información valiosa sobre el día litúrgico.
- * </p>
+ *
  *
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
  */
-
 //@SuppressWarnings("SameReturnValue")
-@SuppressWarnings("unused")
-public class Today {
-    public Integer todayDate;
-    public Integer weekDay;
-    public Integer timeID;
+class Today {
+    var todayDate: Int = 0
+        get() = field
+        set(todayDate) {
+            field = todayDate
+        }
+
+    var weekDay: Int? = null
+        get() = if(field==null) 0 else field
+        set(weekDay) {field=weekDay}
+
+    var timeID: Int? = null
+        get() = field
+        set(timeID) {
+            field = timeID
+        }
+
     @Ignore
-    public Integer weekDayFK;
-    public Integer liturgyFK;
-    public Integer previousFK;
-    public Integer massReadingFK;
-    public Integer invitatoryFK;
+    var weekDayFK: Int? = null
+    var liturgyFK: Int? = null
+    var previousFK: Int? = null
+        get() = field
+        set(previo_id) {
+            field = previo_id
+        }
+    var massReadingFK: Int? = null
+    var invitatoryFK: Int? = null
 
     //@Ignore
-    public Integer hasSaint;
-    public Integer saintFK;
+    var hasSaint: Int? = null
+    @JvmField
+    var saintFK: Int? = null
+    var oHymnFK: Int? = null
+    var oPsalmodyFK: Int? = null
+    var oVerseFK: Int? = null
+    @JvmField
+    var oBiblicalFK: Int? = null
+    var oPatristicFK: Int? = null
+    var oPrayerFK: Int? = null
+    var oTeDeum: Int? = null
+    var lHymnFK: Int? = null
+    var lPsalmodyFK: Int? = null
+    var lBiblicalFK: Int? = null
+    var lBenedictusFK: Int? = null
+    var lIntercessionsFK: Int? = null
+    var lPrayerFK: Int? = null
+    var tHymnFK: Int? = null
+    var tPsalmodyFK: Int? = null
+    var tBiblicalFK: Int? = null
+    var tPrayerFK: Int? = null
+    var sHymnFK: Int? = null
+    var sPsalmodyFK: Int? = null
+    var sBiblicalFK: Int? = null
+    var sPrayerFK: Int? = null
+    var nHymnFK: Int? = null
+    var nPsalmodyFK: Int? = null
+    var nBiblicalFK: Int? = null
+    var nPrayerFK: Int? = null
+    var vHymnFK: Int? = null
+    var vPsalmodyFK: Int? = null
+    var vBiblicalFK: Int? = null
+    var vMagnificatFK: Int? = null
+    var vIntercessionsFK: Int? = null
+    var vPrayerFK: Int? = null
 
+    @JvmField
+    @Ignore
+    var liturgyDay: Liturgy? = null
 
-    public Integer oHymnFK;
-    public Integer oPsalmodyFK;
-    public Integer oVerseFK;
-    public Integer oBiblicalFK;
-    public Integer oPatristicFK;
-    public Integer oPrayerFK;
-    public Integer oTeDeum;
-
-    public Integer lHymnFK;
-    public Integer lPsalmodyFK;
-    public Integer lBiblicalFK;
-    public Integer lBenedictusFK;
-    public Integer lIntercessionsFK;
-    public Integer lPrayerFK;
-
-    public Integer tHymnFK;
-    public Integer tPsalmodyFK;
-    public Integer tBiblicalFK;
-    public Integer tPrayerFK;
-
-    public Integer sHymnFK;
-    public Integer sPsalmodyFK;
-    public Integer sBiblicalFK;
-    public Integer sPrayerFK;
-
-    public Integer nHymnFK;
-    public Integer nPsalmodyFK;
-    public Integer nBiblicalFK;
-    public Integer nPrayerFK;
-
-    public Integer vHymnFK;
-    public Integer vPsalmodyFK;
-    public Integer vBiblicalFK;
-    public Integer vMagnificatFK;
-    public Integer vIntercessionsFK;
-    public Integer vPrayerFK;
+    @JvmField
+    @Ignore
+    var liturgyPrevious: Liturgy? = null
 
     @Ignore
-    public Liturgy liturgyDay;
-    @Ignore
-    public Liturgy liturgyPrevious;
-    @Ignore
-    public LiturgyTime liturgyTime;
-
-    public Today() {
+    var liturgyTime: LiturgyTime? = null
+    fun setMLecturasFK(mLecturasFK: Int?) {
+        massReadingFK = mLecturasFK
     }
 
-    public Integer getTodayDate() {
-        return todayDate;
-    }
-
-    public void setTodayDate(Integer todayDate) {
-        this.todayDate = todayDate;
-    }
-
-    public Integer getMassReadingFK() {
-        return massReadingFK;
-    }
-
-    public void setMassReadingFK(Integer massReadingFK) {
-        this.massReadingFK = massReadingFK;
-    }
-
-    public Integer getPreviousFK() {
-        return previousFK;
-    }
-
-    public void setPreviousFK(Integer previousFK) {
-        this.previousFK = previousFK;
-    }
-
-    public Integer getTimeID() {
-        return timeID;
-    }
-
-    public void setTimeID(Integer timeID) {
-        this.timeID = timeID;
-    }
-
-    public Integer getHoy() {
-        return todayDate;
-    }
-
-    public void setHoy(Integer hoy) {
-        this.todayDate = hoy;
-    }
-
-    public void setMLecturasFK(Integer mLecturasFK) {
-        this.massReadingFK = mLecturasFK;
-    }
-
-    public Integer getPrevioId() {
-        return previousFK;
-    }
-
-    public void setPrevioId(Integer previo_id) {
-        this.previousFK = previo_id;
-    }
-
-    public Integer getTiempoId() {
-        return timeID;
-    }
-
-    public void setTiempoId(Integer tiempo_id) {
-        this.timeID = tiempo_id;
-    }
-
-    public String getTituloVisperas() {
-        if (liturgyPrevious != null) {
-            return liturgyPrevious.getNombre().replaceAll(" I Vísperas.| I Vísperas", "");
+    val tituloVisperas: String?
+        get() = if (liturgyPrevious != null) {
+            liturgyPrevious!!.name!!.replace(" I Vísperas.| I Vísperas".toRegex(), "")
         } else {
-            return liturgyDay.getNombre();
+            liturgyDay!!.name
         }
+    val titulo: String?
+        get() = if (liturgyDay!!.typeID == 6) tituloVisperas else liturgyDay!!.name
+    val tituloForRead: String?
+        get() = if (liturgyDay!!.typeID == 6) tituloVisperas else liturgyDay!!.titleForRead
+    val fecha: String
+        get() = if (todayDate != null) Utils.getLongDate(todayDate.toString()) else ""
+    val tiempo: String?
+        get() = if (liturgyDay!!.typeID == 6 && liturgyPrevious != null) liturgyPrevious!!.liturgiaTiempo!!.liturgyName else liturgyDay!!.liturgiaTiempo!!.liturgyName
+
+
+
+    fun hasSaintToday(): Boolean {
+        return hasSaint != null && hasSaint == 1 //this.hasSaint == 1;
     }
 
-    public String getTitulo() {
-        return (liturgyDay.typeID == 6) ?
-                getTituloVisperas() : liturgyDay.getName();
-    }
-
-    public String getTituloForRead() {
-        return (liturgyDay.typeID == 6) ?
-                getTituloVisperas() : liturgyDay.getTitleForRead();
-    }
-
-    public String getFecha() {
-        return (todayDate != null) ? Utils.getLongDate(String.valueOf(todayDate)) : "";
-    }
-
-    public String getTiempo() {
-        return (liturgyDay.typeID == 6 && liturgyPrevious != null) ?
-                liturgyPrevious.getLiturgiaTiempo().getLiturgyName() : liturgyDay.getLiturgiaTiempo().getLiturgyName();
-    }
-
-    public int getWeekDay() {
-        return (this.weekDay != null) ? weekDay : 0;
-    }
-
-    public void setWeekDay(int weekDay) {
-        this.weekDay = weekDay;
-    }
-
-    public int getHasSaint() {
-        return this.hasSaint;
-    }
-
-    public void setHasSaint(int hasSaint) {
-        this.hasSaint = hasSaint;
-    }
-
-    public boolean hasSaintToday() {
-        return this.hasSaint != null && this.hasSaint == 1; //this.hasSaint == 1;
-    }
-
-
-    public SpannableStringBuilder getAllForView(boolean hasInvitatory, boolean nightMode) {
-        liturgyDay.setHasSaint(hasSaintToday());
-        ColorUtils.isNightMode = nightMode;
-        SpannableStringBuilder sb = new SpannableStringBuilder();
+    fun getAllForView(hasInvitatory: Boolean, nightMode: Boolean): SpannableStringBuilder {
+        liturgyDay!!.setHasSaint(hasSaintToday())
+        ColorUtils.isNightMode = nightMode
+        val sb = SpannableStringBuilder()
         try {
-            sb.append(Utils.LS);
-            sb.append(getFecha());
-            sb.append(Utils.LS2);
-            sb.append(Utils.toH2(getTiempo()));
-            sb.append(Utils.LS2);
-            sb.append(Utils.toH3(getTitulo()));
+            sb.append(Utils.LS)
+            sb.append(fecha)
+            sb.append(Utils.LS2)
+            sb.append(Utils.toH2(tiempo))
+            sb.append(Utils.LS2)
+            sb.append(Utils.toH3(titulo))
             //liturgyDay.today.previousFK
             //sb.append(liturgyDay.getForView(hasInvitatory,previousFK));
-            if (liturgyDay.typeID == 0) {
+            var bh: BreviaryHour? =liturgyDay!!.breviaryHour
+
+            if (liturgyDay!!.typeID == 0) {
                 if (oBiblicalFK == 600010101) {
-                    sb.append(liturgyDay.getBreviaryHour().getOficioEaster().getForView());
+                    sb.append(bh?.getOficioEaster()?.forView)
                 } else {
-                    sb.append(liturgyDay.getBreviaryHour().getMixtoForView(liturgyDay.liturgyTime, hasSaintToday()));//.getForView(liturgyDay.liturgyTime));
+                    sb.append(
+                        bh?.getMixtoForView(
+                            liturgyDay!!.liturgiaTiempo!!,
+                            hasSaintToday()
+                        )
+                    ) //.getForView(liturgyDay.liturgyTime));
                 }
             }
-            if (liturgyDay.typeID == 1) {
+            if (liturgyDay!!.typeID == 1) {
                 if (oBiblicalFK == 600010101) {
-                    sb.append(liturgyDay.getBreviaryHour().getOficioEaster().getForView());
+                    sb.append(liturgyDay!!.breviaryHour!!.getOficioEaster()?.forView)
                 } else {
-                    sb.append(liturgyDay.getBreviaryHour().getOficio(hasInvitatory).getForView(liturgyDay.liturgyTime, hasSaintToday(), nightMode));
+                    sb.append(
+                        liturgyDay!!.breviaryHour!!.getOficio(hasInvitatory)!!
+                            .getForView(liturgyDay!!.liturgiaTiempo, hasSaintToday(), nightMode)
+                    )
                 }
             }
-            if (liturgyDay.typeID == 2) {
-                sb.append(liturgyDay.getBreviaryHour().getLaudes(hasInvitatory).getForView(liturgyDay.liturgyTime, hasSaintToday()));
+            if (liturgyDay!!.typeID == 2) {
+                sb.append(
+                    liturgyDay!!.breviaryHour!!.getLaudes(hasInvitatory)!!
+                        .getForView(liturgyDay!!.liturgiaTiempo!!, hasSaintToday())
+                )
             }
-            if (liturgyDay.typeID == 3 || liturgyDay.typeID == 4 || liturgyDay.typeID == 5) {
-                sb.append(liturgyDay.getBreviaryHour().getIntermedia().getForView(liturgyDay.liturgyTime, liturgyDay.typeID));
+            if (liturgyDay!!.typeID == 3 || liturgyDay!!.typeID == 4 || liturgyDay!!.typeID == 5) {
+                sb.append(
+                    liturgyDay!!.breviaryHour!!.getIntermedia()!!
+                        .getForView(liturgyDay!!.liturgiaTiempo!!, liturgyDay!!.typeID)
+                )
             }
-            if (liturgyDay.typeID == 6) {
-                sb.append(liturgyDay.getBreviaryHour().getVisperas().getForView(liturgyDay.liturgyTime));
+            if (liturgyDay!!.typeID == 6) {
+                sb.append(
+                    liturgyDay!!.breviaryHour!!.getVisperas()!!
+                        .getForView(liturgyDay!!.liturgiaTiempo)
+                )
             }
-            if (liturgyDay.typeID == 7) {
-                sb.append(liturgyDay.getBreviaryHour().getCompletas().getAllForView());
+            if (liturgyDay!!.typeID == 7) {
+                sb.append(liturgyDay!!.breviaryHour!!.getCompletas()!!.getAllForView())
             }
-
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
+        } catch (e: Exception) {
+            sb.append(Utils.createErrorMessage(e.message))
         }
-        return sb;
+        return sb
     }
 
-    public SpannableStringBuilder getSingleForView() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        try {
-            sb.append(Utils.LS);
-            sb.append(getFecha());
-            sb.append(Utils.LS2);
-            sb.append(Utils.toH2(getTiempo()));
-            sb.append(Utils.LS2);
-            sb.append(Utils.toH3(getTitulo()));
-            //liturgyDay.today.previousFK
-            //sb.append(liturgyDay.getAllForView());
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
+    //liturgyDay.today.previousFK
+    //sb.append(liturgyDay.getAllForView());
+    val singleForView: SpannableStringBuilder
+        get() {
+            val sb = SpannableStringBuilder()
+            try {
+                sb.append(Utils.LS)
+                sb.append(fecha)
+                sb.append(Utils.LS2)
+                sb.append(Utils.toH2(tiempo))
+                sb.append(Utils.LS2)
+                sb.append(Utils.toH3(titulo))
+                //liturgyDay.today.previousFK
+                //sb.append(liturgyDay.getAllForView());
+            } catch (e: Exception) {
+                sb.append(Utils.createErrorMessage(e.message))
+            }
+            return sb
         }
-        return sb;
-    }
 
-    public StringBuilder getAllForRead(boolean hasInvitatory) {
-        StringBuilder sb = new StringBuilder();
+    fun getAllForRead(hasInvitatory: Boolean): StringBuilder {
+        val sb = StringBuilder()
         try {
-            sb.append(Utils.pointAtEnd(getFecha()));
-            sb.append(getTituloForRead());
+            sb.append(Utils.pointAtEnd(fecha))
+            sb.append(tituloForRead)
             //sb.append(liturgyDay.getForRead());
-            if (liturgyDay.typeID == 0) {
+            if (liturgyDay!!.typeID == 0) {
                 if (oBiblicalFK == 600010101) {
-                    sb.append(liturgyDay.getBreviaryHour().getOficioEaster().getForRead());
+                    sb.append(liturgyDay!!.breviaryHour!!.getOficioEaster()?.forRead)
                 } else {
                     //TODO
-                    sb.append(liturgyDay.getBreviaryHour().getMixtoForRead());
+                    sb.append(liturgyDay!!.breviaryHour!!.getMixtoForRead())
                 }
             }
-            if (liturgyDay.typeID == 1) {
+            if (liturgyDay!!.typeID == 1) {
                 if (oBiblicalFK == 600010101) {
-                    sb.append(liturgyDay.getBreviaryHour().getOficioEaster().getForRead());
+                    sb.append(liturgyDay!!.breviaryHour!!.getOficioEaster()?.forRead)
                 } else {
-                    sb.append(liturgyDay.getBreviaryHour().getOficio(hasInvitatory).getForRead());
+                    sb.append(liturgyDay!!.breviaryHour!!.getOficio(hasInvitatory)?.forRead)
                 }
             }
-            if (liturgyDay.typeID == 2) {
-                sb.append(liturgyDay.getBreviaryHour().getLaudes(hasInvitatory).getForRead());
+            if (liturgyDay!!.typeID == 2) {
+                sb.append(liturgyDay!!.breviaryHour!!.getLaudes(hasInvitatory)!!.forRead)
             }
-            if (liturgyDay.typeID == 3 || liturgyDay.typeID == 4 || liturgyDay.typeID == 5) {
-                sb.append(liturgyDay.getBreviaryHour().getIntermedia().getForRead());
+            if (liturgyDay!!.typeID == 3 || liturgyDay!!.typeID == 4 || liturgyDay!!.typeID == 5) {
+                sb.append(liturgyDay!!.breviaryHour!!.getIntermedia()!!.forRead)
             }
-            if (liturgyDay.typeID == 6) {
-                sb.append(liturgyDay.getBreviaryHour().getVisperas().getAllForRead());
+            if (liturgyDay!!.typeID == 6) {
+                sb.append(liturgyDay!!.breviaryHour!!.getVisperas()!!.getAllForRead())
             }
-            if (liturgyDay.typeID == 7) {
-                sb.append(liturgyDay.getBreviaryHour().getCompletas().getForRead());
+            if (liturgyDay!!.typeID == 7) {
+                sb.append(liturgyDay!!.breviaryHour!!.getCompletas()!!.getForRead())
             }
-
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
+        } catch (e: Exception) {
+            sb.append(Utils.createErrorMessage(e.message))
         }
-        return sb;
+        return sb
     }
 
-    public StringBuilder getSingleForRead() {
-        StringBuilder sb = new StringBuilder();
+    fun getSingleForRead(): StringBuilder {
+        val sb = StringBuilder()
         try {
-            sb.append(Utils.pointAtEnd(getFecha()));
-            sb.append(getTituloForRead());
+            sb.append(Utils.pointAtEnd(fecha))
+            sb.append(tituloForRead)
             //sb.append(liturgyDay.getForRead());
-
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
+        } catch (e: Exception) {
+            sb.append(Utils.createErrorMessage(e.message))
         }
-        return sb;
+        return sb
     }
 }
-
-
-

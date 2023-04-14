@@ -1,63 +1,57 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.LH_OFFICE_BIBLICAL;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.Companion.CASCADE
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = LH_OFFICE_BIBLICAL,
-        primaryKeys = {"groupFK", "theOrder"},
-
-        foreignKeys =
-                {
-                        @ForeignKey(
-                                entity = LHOfficeBiblicalJoinEntity.class,
-                                parentColumns = "groupID",
-                                childColumns = "groupFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE),
-                        @ForeignKey(
-                                entity = BibleReadingEntity.class,
-                                parentColumns = "readingID",
-                                childColumns = "readingFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE),
-                        @ForeignKey(
-                                entity = LHResponsoryEntity.class,
-                                parentColumns = "responsoryID",
-                                childColumns = "responsoryFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)
-                }
+@Entity(
+    tableName = Constants.LH_OFFICE_BIBLICAL,
+    primaryKeys = ["groupFK", "theOrder"],
+    foreignKeys = [ForeignKey(
+        entity = LHOfficeBiblicalJoinEntity::class,
+        parentColumns = arrayOf("groupID"),
+        childColumns = arrayOf("groupFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    ), ForeignKey(
+        entity = BibleReadingEntity::class,
+        parentColumns = arrayOf("readingID"),
+        childColumns = arrayOf("readingFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    ), ForeignKey(
+        entity = LHResponsoryEntity::class,
+        parentColumns = arrayOf("responsoryID"),
+        childColumns = arrayOf("responsoryFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )]
 )
-
-public class LHOfficeBiblicalEntity {
-    @NonNull
+class LHOfficeBiblicalEntity {
+    @JvmField
     @ColumnInfo(name = "groupFK")
-    public Integer groupFK = 0;
+    var groupFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "readingFK", index = true)
-    public Integer readingFK = 0;
+    var readingFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "responsoryFK", index = true)
-    public Integer responsoryFK = 0;
+    var responsoryFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "theme")
-    public String theme = "";
+    var theme = ""
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "theOrder", defaultValue = "1")
-    public Integer theOrder = 1;
+    var theOrder = 1
 }
-

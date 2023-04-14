@@ -1,46 +1,32 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.MASS_READING_JOIN;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
+import androidx.room.*
+import androidx.room.ForeignKey.Companion.CASCADE
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = MASS_READING_JOIN,
-        indices = {@Index(value = {"liturgyFK", "type"}, unique = true)},
-        foreignKeys =
-                {
-                        @ForeignKey(
-                                entity = LiturgyEntity.class,
-                                parentColumns = "liturgyID",
-                                childColumns = "liturgyFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)
-                }
+@Entity(
+    tableName = Constants.MASS_READING_JOIN,
+    indices = [Index(value = ["liturgyFK", "type"], unique = true)],
+    foreignKeys = [ForeignKey(
+        entity = LiturgyEntity::class,
+        parentColumns = arrayOf("liturgyID"),
+        childColumns = arrayOf("liturgyFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )]
 )
-
-public class MassReadingJoinEntity {
-
-    @NonNull
+class MassReadingJoinEntity {
+    @JvmField
     @PrimaryKey
     @ColumnInfo(name = "liturgyFK")
-    public Integer liturgyFK = 0;
+    var liturgyFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "type")
-    public Integer type = 0;
-
-    public int getType() {
-        return type;
-    }
+    var type = 0
 }
-

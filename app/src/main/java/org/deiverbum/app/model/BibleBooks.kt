@@ -1,70 +1,39 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import android.text.SpannableStringBuilder;
+import android.text.SpannableStringBuilder
+import org.deiverbum.app.utils.ColorUtils
+import org.deiverbum.app.utils.Utils
 
-import org.deiverbum.app.utils.ColorUtils;
-import org.deiverbum.app.utils.Utils;
+class BibleBooks {
+    var id = 0
+    var name: String? = null
+    var description: String? = null
+    var intro: String? = null
 
-public class BibleBooks {
-    private int id;
-    private String name;
-    private String description;
-    private String intro;
-
-    @SuppressWarnings("unused")
-    public BibleBooks() {
+    constructor() {}
+    constructor(id: Int, name: String?, description: String?) {
+        this.name = name
+        this.id = id
+        this.description = description
     }
 
-    public BibleBooks(int id, String name, String description) {
-        this.name = name;
-        this.id = id;
-        this.description = description;
-
+    fun getForView(isNightMode: Boolean): SpannableStringBuilder {
+        ColorUtils.isNightMode = isNightMode
+        val sb = SpannableStringBuilder()
+        sb.append(Utils.fromHtml(intro))
+        return sb
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getIntro() {
-        return intro;
-    }
-
-    public void setIntro(String intro) {
-        this.intro = intro;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public SpannableStringBuilder getForView(boolean isNightMode) {
-        ColorUtils.isNightMode = isNightMode;
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(Utils.fromHtml(getIntro()));
-        return sb;
-    }
-
-    public StringBuilder getForRead() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(Utils.fromHtml(Utils.stripQuotation(getIntro())));
-        return sb;
-    }
+    val forRead: StringBuilder
+        get() {
+            val sb = StringBuilder()
+            sb.append(
+                Utils.fromHtml(
+                    Utils.stripQuotation(
+                        intro
+                    )
+                )
+            )
+            return sb
+        }
 }

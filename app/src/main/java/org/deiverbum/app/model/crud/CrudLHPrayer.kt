@@ -1,18 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.LHPrayer;
+import org.deiverbum.app.model.LHPrayer
 
-import java.util.List;
-
-public class CrudLHPrayer {
-
-    public List<LHPrayer> c;
-    public List<LHPrayer> u;
-    public List<LHPrayer> d;
-
-    @SuppressWarnings("unused")
-    public CrudLHPrayer() {
-    }
-
-
+class CrudLHPrayer {
+    var c: List<LHPrayer>? = null
+    var u: List<LHPrayer>? = null
+    var d: List<LHPrayer>? = null
 }

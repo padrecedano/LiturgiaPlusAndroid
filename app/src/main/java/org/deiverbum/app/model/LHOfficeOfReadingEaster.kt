@@ -1,150 +1,120 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Constants.TITLE_OFFICE_OF_READING;
-import static org.deiverbum.app.utils.Utils.LS2;
+import android.text.SpannableStringBuilder
+import androidx.room.Ignore
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
+import java.util.*
 
-import android.text.SpannableStringBuilder;
+class LHOfficeOfReadingEaster : LHOfficeOfReading() {
+    @JvmField
+    var lhPsalmody: LHPsalmody? = null
 
-import androidx.room.Ignore;
-
-import org.deiverbum.app.utils.Utils;
-
-import java.util.Collections;
-import java.util.List;
-
-public class LHOfficeOfReadingEaster extends LHOfficeOfReading {
-    public LHPsalmody lhPsalmody;
     @Ignore
-    transient TeDeum teDeum;
-    @SuppressWarnings("unused")
-    private String metaInfo;
-    private List<LHOfficeBiblicalEaster> biblical;
 
-    public LHOfficeOfReadingEaster() {
+    var biblical: MutableList<LHOfficeBiblicalEaster?>? = null
+        private set
+    val metaInfoForView: String
+        get() = String.format(
+            "%s%s%s%s%s",
+            "Hoy, la celebración solemne de la Vigilia pascual reemplaza el Oficio de lectura.",
+            Utils.LS2,
+            "Quienes no hayan participado en la celebración de la Vigilia pascual usarán, para el Oficio de lectura, al menos cuatro de las lecturas de la referida Vigilia pascual, con sus cantos y oraciones. Es muy conveniente elegir, de entre las lecturas de la Vigilia pascual, las que se proponen a continuación.",
+            Utils.LS2,
+            "Este Oficio empieza directamente con las lecturas."
+        )
+    val metaInfoForRead: String
+        get() = "Hoy, la celebración solemne de la Vigilia pascual reemplaza el Oficio de lectura. Quienes no hayan participado en la celebración de la Vigilia pascual usarán, para el Oficio de lectura, al menos cuatro de las lecturas de la referida Vigilia pascual, con sus cantos y oraciones. Es muy conveniente elegir, de entre las lecturas de la Vigilia pascual, las que se proponen a continuación. Este Oficio empieza directamente con las lecturas."
+
+    fun setBiblicalE(biblical: MutableList<LHOfficeBiblicalEaster?>) {
+        this.biblical = biblical
     }
 
-    @SuppressWarnings("unused")
-    public String getMetaInfo() {
-        return metaInfo;
+    override val header: SpannableStringBuilder?
+        get() = Utils.formatSubTitle(Utils.toLower(Constants.TITLE_OFFICE_OF_READING))
+    override val headerForRead: String
+        get() = Utils.pointAtEnd(Constants.TITLE_OFFICE_OF_READING)
+
+    override fun getAll(calendarTime: Int): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        sb.append(Utils.toSmallSizeRed(metaInfoForView))
+        sb.append(getAllBiblica(calendarTime))
+        return sb
     }
 
-    @SuppressWarnings("unused")
-    public void setMetaInfo(String metaInfo) {
-        this.metaInfo = metaInfo;
-    }
-
-    public String getMetaInfoForView() {
-        return
-                String.format("%s%s%s%s%s", "Hoy, la celebración solemne de la Vigilia pascual reemplaza el Oficio de lectura.", LS2, "Quienes no hayan participado en la celebración de la Vigilia pascual usarán, para el Oficio de lectura, al menos cuatro de las lecturas de la referida Vigilia pascual, con sus cantos y oraciones. Es muy conveniente elegir, de entre las lecturas de la Vigilia pascual, las que se proponen a continuación.", LS2, "Este Oficio empieza directamente con las lecturas.");
-    }
-
-    public String getMetaInfoForRead() {
-        return "Hoy, la celebración solemne de la Vigilia pascual reemplaza el Oficio de lectura. Quienes no hayan participado en la celebración de la Vigilia pascual usarán, para el Oficio de lectura, al menos cuatro de las lecturas de la referida Vigilia pascual, con sus cantos y oraciones. Es muy conveniente elegir, de entre las lecturas de la Vigilia pascual, las que se proponen a continuación. Este Oficio empieza directamente con las lecturas.";
-    }
-
-    @SuppressWarnings("unused")
-    public List<LHOfficeBiblicalEaster> getBiblical() {
-        return biblical;
-    }
-
-    @SuppressWarnings("unused")
-    public void setBiblicalE(List<LHOfficeBiblicalEaster> biblical) {
-        this.biblical = biblical;
-    }
-
-    public SpannableStringBuilder getHeader() {
-        return Utils.formatSubTitle(Utils.toLower(TITLE_OFFICE_OF_READING));
-    }
-
-    public String getHeaderForRead() {
-        return Utils.pointAtEnd(TITLE_OFFICE_OF_READING);
-    }
-
-    @Override
-    public SpannableStringBuilder getAll(int calendarTime) {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(Utils.toSmallSizeRed(getMetaInfoForView()));
-        sb.append(getAllBiblica(calendarTime));
-        return sb;
-    }
-
-    public SpannableStringBuilder getAllBiblica(int calendarTime) {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        this.teDeum = new TeDeum(1);
-
-        int i = 0;
-        for (LHOfficeBiblicalEaster oneBiblica : this.biblical) {
+    override fun getAllBiblica(calendarTime: Int): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        this.teDeum = TeDeum()
+        var i = 0
+        for (oneBiblica in biblical!!) {
             if (i <= 1) {
-                sb.append(LS2);
-                sb.append(oneBiblica.getBiblical());
-                sb.append(LS2);
-                sb.append(lhPsalmody.getSalmosByIndex(i));
-                sb.append(LS2);
-                sb.append(oneBiblica.getPrayer().getAll());
-                sb.append(LS2);
+                sb.append(Utils.LS2)
+                sb.append(oneBiblica?.biblical)
+                sb.append(Utils.LS2)
+                sb.append(lhPsalmody!!.getSalmosByIndex(i))
+                sb.append(Utils.LS2)
+                sb.append(oneBiblica?.prayer?.all)
+                sb.append(Utils.LS2)
             }
             if (i == 2) {
-                sb.append(LS2);
-                sb.append(oneBiblica.getBiblical());
-                sb.append(LS2);
-                sb.append(lhPsalmody.getSalmosByIndex(i));
-                sb.append(LS2);
+                sb.append(Utils.LS2)
+                sb.append(oneBiblica?.biblical)
+                sb.append(Utils.LS2)
+                sb.append(lhPsalmody!!.getSalmosByIndex(i))
+                sb.append(Utils.LS2)
                 //sb.append(oneBiblica.getPrayer().getAll());
             }
             if (i == 3) {
-                sb.append(oneBiblica.getBiblical());
-                sb.append(LS2);
-                sb.append(this.teDeum.getAll());
-                sb.append(LS2);
-                sb.append(oneBiblica.getPrayer().getAll());
+                sb.append(oneBiblica?.biblical)
+                sb.append(Utils.LS2)
+                sb.append(this.teDeum!!.all)
+                sb.append(Utils.LS2)
+                sb.append(oneBiblica?.prayer?.all)
             }
-            i++;
+            i++
         }
-        return sb;
+        return sb
     }
 
-    public SpannableStringBuilder getAllBiblicaForRead() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        int i = 0;
-        for (LHOfficeBiblicalEaster oneBiblica : this.biblical) {
-
-            if (i <= 1) {
-                sb.append(LS2);
-                sb.append(oneBiblica.getBiblicalForRead());
-                sb.append(LS2);
-                sb.append(lhPsalmody.getSalmosByIndexForRead(i));
-                sb.append(LS2);
-                sb.append(oneBiblica.getPrayer().getAllForRead());
-                sb.append(LS2);
+    //sb.append(oneBiblica.getPrayer().getAll());
+    override val allBiblicaForRead: SpannableStringBuilder
+        get() {
+            val sb = SpannableStringBuilder()
+            var i = 0
+            for (oneBiblica in biblical!!) {
+                if (i <= 1) {
+                    sb.append(Utils.LS2)
+                    sb.append(oneBiblica?.biblicalForRead)
+                    sb.append(Utils.LS2)
+                    sb.append(lhPsalmody!!.getSalmosByIndexForRead(i))
+                    sb.append(Utils.LS2)
+                    sb.append(oneBiblica?.prayer?.allForRead)
+                    sb.append(Utils.LS2)
+                }
+                if (i == 2) {
+                    sb.append(Utils.LS2)
+                    sb.append(oneBiblica?.biblicalForRead)
+                    sb.append(Utils.LS2)
+                    sb.append(lhPsalmody!!.getSalmosByIndexForRead(i))
+                    sb.append(Utils.LS2)
+                    //sb.append(oneBiblica.getPrayer().getAll());
+                }
+                if (i == 3) {
+                    sb.append(oneBiblica?.biblicalForRead)
+                    sb.append(Utils.LS2)
+                    sb.append(this.teDeum!!.allForRead)
+                    sb.append(Utils.LS2)
+                    sb.append(oneBiblica?.prayer?.allForRead)
+                }
+                i++
             }
-            if (i == 2) {
-                sb.append(LS2);
-                sb.append(oneBiblica.getBiblicalForRead());
-                sb.append(LS2);
-                sb.append(lhPsalmody.getSalmosByIndexForRead(i));
-                sb.append(LS2);
-                //sb.append(oneBiblica.getPrayer().getAll());
-            }
-            if (i == 3) {
-                sb.append(oneBiblica.getBiblicalForRead());
-                sb.append(LS2);
-                sb.append(this.teDeum.getAllForRead());
-                sb.append(LS2);
-                sb.append(oneBiblica.getPrayer().getAllForRead());
-            }
-            i++;
+            return sb
         }
-        return sb;
-    }
+    override val allForRead: String
+        get() = metaInfoForRead +
+                allBiblicaForRead
 
-    @Override
-    public String getAllForRead() {
-        return
-                getMetaInfoForRead() +
-                        getAllBiblicaForRead();
-    }
-
-    public void sort() {
-        Collections.sort(this.biblical);
+    fun sort() {
+        //Collections.sort(biblical)
     }
 }

@@ -1,31 +1,28 @@
-package org.deiverbum.app.data.entity.relation;
+package org.deiverbum.app.data.entity.relation
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
-
-import org.deiverbum.app.data.entity.LHPrayerEntity;
-import org.deiverbum.app.data.entity.PrayerEntity;
-import org.deiverbum.app.model.Prayer;
+import androidx.room.Embedded
+import androidx.room.Relation
+import org.deiverbum.app.data.entity.LHPrayerEntity
+import org.deiverbum.app.data.entity.PrayerEntity
+import org.deiverbum.app.model.Prayer
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class LHPrayerAll {
+class LHPrayerAll {
+    @JvmField
     @Embedded
-    public LHPrayerEntity lhPrayerEntity;
+    var lhPrayerEntity: LHPrayerEntity? = null
 
-    @Relation(
-            parentColumn = "prayerFK",
-            entityColumn = "prayerID",
-            entity = PrayerEntity.class
-    )
-    public PrayerEntity prayerEntity;
-
-    public Prayer getDomainModel() {
-        Prayer theModel = new Prayer();
-        theModel.setPrayer(prayerEntity.getTexto());
-        return theModel;
-    }
+    @JvmField
+    @Relation(parentColumn = "prayerFK", entityColumn = "prayerID", entity = PrayerEntity::class)
+    var prayerEntity: PrayerEntity? = null
+    val domainModel: Prayer
+        get() {
+            val theModel = Prayer()
+            theModel.prayer = prayerEntity!!.texto
+            return theModel
+        }
 }

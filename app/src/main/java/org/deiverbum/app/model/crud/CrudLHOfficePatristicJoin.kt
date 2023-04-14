@@ -1,15 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.LHOfficePatristicJoin;
+import org.deiverbum.app.model.LHOfficePatristicJoin
 
-import java.util.List;
-
-public class CrudLHOfficePatristicJoin {
-    public List<LHOfficePatristicJoin> c;
-    public List<LHOfficePatristicJoin> u;
-    public List<LHOfficePatristicJoin> d;
-
-    @SuppressWarnings("unused")
-    public CrudLHOfficePatristicJoin() {
-    }
+class CrudLHOfficePatristicJoin {
+    var c: List<LHOfficePatristicJoin>? = null
+    var u: List<LHOfficePatristicJoin>? = null
+    var d: List<LHOfficePatristicJoin>? = null
 }

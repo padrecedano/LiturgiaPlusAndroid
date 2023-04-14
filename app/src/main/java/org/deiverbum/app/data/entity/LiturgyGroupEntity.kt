@@ -1,37 +1,29 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
+import androidx.room.*
+import androidx.room.ForeignKey.Companion.CASCADE
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = "liturgy_group", indices = {@Index(value = {"liturgyFK"}, unique =
-        true)},
-        foreignKeys =
-                {
-                        @ForeignKey(
-                                entity = LiturgyEntity.class,
-                                parentColumns = "liturgyID",
-                                childColumns = "liturgyFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)})
-public class LiturgyGroupEntity {
-    @NonNull
+@Entity(
+    tableName = "liturgy_group",
+    indices = [Index(value = ["liturgyFK"], unique = true)],
+    foreignKeys = [ForeignKey(
+        entity = LiturgyEntity::class,
+        parentColumns = arrayOf("liturgyID"),
+        childColumns = arrayOf("liturgyFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )]
+)
+class LiturgyGroupEntity {
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    public Integer groupID = 0;
+    var groupID = 0
 
-    @NonNull
     @ColumnInfo(name = "liturgyFK")
-    public Integer liturgyFK = 0;
-
+    var liturgyFK = 0
 }
-

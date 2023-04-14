@@ -1,34 +1,24 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.LH_EPIGRAPH;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = LH_EPIGRAPH,
-        indices = {@Index(value = {"epigraph"}, unique = true)})
-public class EpigraphEntity {
-    @NonNull
+@Entity(tableName = Constants.LH_EPIGRAPH, indices = [Index(value = ["epigraph"], unique = true)])
+class EpigraphEntity {
+    @JvmField
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "epigraphID")
-    public Integer epigrafeId = 0;
+    var epigrafeId = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "epigraph")
-    public String epigrafe = "";
-
-    @NonNull
-    public String getEpigrafe() {
-        return epigrafe;
-    }
+    var epigrafe = ""
 }
-

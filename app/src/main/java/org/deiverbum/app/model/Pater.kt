@@ -1,25 +1,13 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class Pater {
-    public String pater;
-    public Integer paterID;
-    public String liturgyName;
-    public Integer placeFK;
-    public Integer typeFK;
-    public Integer titleFK;
-    public Integer missionFK;
-    public Integer sexFK;
-    public Integer groupFK;
-
-    public Pater() {
-    }
-
-
-    public String getPater() {
-        return this.pater;
-    }
-
-    public void setPater(String pater) {
-        this.pater = pater;
-    }
+class Pater {
+    var pater: String? = null
+    var paterID: Int? = null
+    var liturgyName: String? = null
+    var placeFK: Int? = null
+    var typeFK: Int? = null
+    var titleFK: Int? = null
+    var missionFK: Int? = null
+    var sexFK: Int? = null
+    var groupFK: Int? = null
 }

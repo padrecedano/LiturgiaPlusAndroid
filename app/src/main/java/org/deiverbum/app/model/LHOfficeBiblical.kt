@@ -1,93 +1,70 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Constants.TITLE_RESPONSORY;
-import static org.deiverbum.app.utils.Utils.LS2;
+import android.text.SpannableStringBuilder
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
 
-import android.text.SpannableStringBuilder;
+class LHOfficeBiblical : Biblical() {
+    var tema: String? = null
+    var responsorioLargo: LHResponsory? = null
+    val temaForRead: String
+        get() = "$tema."
 
-import org.deiverbum.app.utils.Utils;
-
-public class LHOfficeBiblical extends Biblical {
-    private String tema;
-    private LHResponsory responsorioLargo;
-
-    public String getTema() {
-        return tema;
+    override fun getHeader(): String? {
+        return "PRIMERA LECTURA"
     }
 
-    public void setTema(String tema) {
-        this.tema = tema;
-    }
-
-    public String getTemaForRead() {
-        return tema + ".";
-    }
-
-    public LHResponsory getResponsorioLargo() {
-        return responsorioLargo;
-    }
-
-    public void setResponsorioLargo(LHResponsory responsorioLargo) {
-        this.responsorioLargo = responsorioLargo;
-    }
-
-
-    public String getHeader() {
-        return "PRIMERA LECTURA";
-    }
-
-
-    public String getResponsorioHeaderForRead() {
-        return Utils.pointAtEnd(TITLE_RESPONSORY);
+    override fun getResponsorioHeaderForRead(): String? {
+        return Utils.pointAtEnd(Constants.TITLE_RESPONSORY)
     }
 
     /**
-     * <p>Obtiene la lectura bíblica completa, incluyendo el responsorio, formateada para la vista.</p>
      *
-     * @return Un objeto {@link SpannableStringBuilder con el contenido.}
+     * Obtiene la lectura bíblica completa, incluyendo el responsorio, formateada para la vista.
+     *
+     * @return Un objeto [con el contenido.][SpannableStringBuilder]
      * @since 2022.01
      */
-    @Override
-    public SpannableStringBuilder getAll() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(Utils.formatTitle(getHeader()));
-        sb.append(LS2);
-        sb.append(book.getLiturgyName());
-        sb.append("    ");
-        sb.append(Utils.toRed(getCita()));
-        sb.append(LS2);
-        sb.append(Utils.toRed(getTema()));
-        sb.append(LS2);
-        sb.append(getTextoSpan());
-        sb.append(Utils.LS);
-        sb.append(responsorioLargo.getAll());
-        return sb;
+    override fun getAll(): SpannableStringBuilder? {
+        val sb = SpannableStringBuilder()
+        sb.append(Utils.formatTitle(getHeader()))
+        sb.append(Utils.LS2)
+        sb.append(libro?.liturgyName)
+        sb.append("    ")
+        sb.append(Utils.toRed(quote))
+        sb.append(Utils.LS2)
+        sb.append(Utils.toRed(tema))
+        sb.append(Utils.LS2)
+        sb.append(textoSpan)
+        sb.append(Utils.LS)
+        sb.append(responsorioLargo!!.all)
+        return sb
     }
 
     /**
-     * <p>Obtiene la lectura bíblica completa formateada para la lectura de voz.</p>
      *
-     * @return Un objeto {@link SpannableStringBuilder con el contenido.}
+     * Obtiene la lectura bíblica completa formateada para la lectura de voz.
+     *
+     * @return Un objeto [con el contenido.][SpannableStringBuilder]
      * @since 2022.01
      */
-    @Override
-    public SpannableStringBuilder getAllForRead() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(Utils.pointAtEnd(getHeader()));
-        sb.append(book.getForRead());
-        sb.append(getTemaForRead());
-        sb.append(getTextoForRead());
-        sb.append(getConclusionForRead());
-        sb.append(getResponsorioHeaderForRead());
-        sb.append(getResponsorioLargo().getAllForRead());
-        return sb;
+    override fun getAllForRead(): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        sb.append(Utils.pointAtEnd(getHeader()))
+        sb.append(libro!!.getForRead())
+        sb.append(temaForRead)
+        sb.append(textoForRead)
+        sb.append(getConclusionForRead())
+        sb.append(getResponsorioHeaderForRead())
+        sb.append(responsorioLargo?.allForRead)
+        return sb
     }
 
-    public Integer getOrden() {
-        return this.order;
+    override fun getOrden(): Int? {
+        return order
     }
 
-    public void setOrden(Integer orden) {
-        this.order = orden;
+    override fun setOrden(orden: Int?) {
+        order = orden
     }
 }

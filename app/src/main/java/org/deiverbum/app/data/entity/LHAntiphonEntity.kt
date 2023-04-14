@@ -1,48 +1,24 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.LH_ANTIPHON;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = LH_ANTIPHON,
-        indices = {@Index(value = {"antiphon"}, unique = true)})
-public class LHAntiphonEntity {
-    @NonNull
+@Entity(tableName = Constants.LH_ANTIPHON, indices = [Index(value = ["antiphon"], unique = true)])
+class LHAntiphonEntity {
+    @JvmField
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "antiphonID")
-    public Integer antifonaId = 0;
+    var antifonaId = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "antiphon")
-    public String antifona = "";
-
-    @NonNull
-    public String getAntifona() {
-        return antifona;
-    }
-
-    public void setAntifona(@NonNull String antifona) {
-        this.antifona = antifona;
-    }
-
-    @NonNull
-    public Integer getAntifonaId() {
-        return antifonaId;
-    }
-
-    public void setAntifonaId(@NonNull Integer antifonaId) {
-        this.antifonaId = antifonaId;
-    }
-
+    var antifona = ""
 }
-

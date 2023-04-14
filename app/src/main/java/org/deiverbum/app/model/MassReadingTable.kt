@@ -1,8 +1,8 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class MassReadingTable {
-    public Integer liturgyFK = 0;
-    public Integer readingFK = 0;
-    public Integer theOrder = 0;
-    public String theme;
+class MassReadingTable {
+    var liturgyFK = 0
+    var readingFK = 0
+    var theOrder = 0
+    var theme: String? = null
 }

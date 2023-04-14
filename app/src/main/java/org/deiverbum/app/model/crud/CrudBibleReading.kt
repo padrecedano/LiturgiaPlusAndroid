@@ -1,18 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.Biblical;
+import org.deiverbum.app.model.Biblical
 
-import java.util.List;
-
-public class CrudBibleReading {
-
-    public List<Biblical> c;
-    public List<Biblical> u;
-    public List<Biblical> d;
-
-    @SuppressWarnings("unused")
-    public CrudBibleReading() {
-    }
-
-
+class CrudBibleReading {
+    var c: List<Biblical>? = null
+    var u: List<Biblical>? = null
+    var d: List<Biblical>? = null
 }

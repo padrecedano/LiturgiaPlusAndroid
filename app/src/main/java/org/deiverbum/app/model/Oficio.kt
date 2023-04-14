@@ -1,134 +1,80 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Constants.LS;
-import static org.deiverbum.app.utils.Constants.TITLE_OFICIO;
-import static org.deiverbum.app.utils.Utils.LS2;
+import android.text.SpannableStringBuilder
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
 
-import android.text.SpannableStringBuilder;
+class Oficio : BreviaryHour() {
+    var invitatorio: LHInvitatory? = null
+    var teDeum: TeDeum? = null
 
-import org.deiverbum.app.utils.Utils;
+    val tituloHora: SpannableStringBuilder
+        get() = Utils.toH1Red(Constants.TITLE_OFICIO)
+    val tituloHoraForRead: String
+        get() = Utils.pointAtEnd(Constants.TITLE_OFICIO)
 
-public class Oficio extends BreviaryHour {
-
-    private LHInvitatory invitatorio;
-    private LHIntercession preces;
-
-    public Oficio() {
-    }
-
-    public LHIntercession getPreces() {
-        return preces;
-    }
-
-    public void setPreces(LHIntercession preces) {
-        this.preces = preces;
-    }
-
-    @SuppressWarnings("unused")
-    public LHInvitatory getInvitatorio() {
-        return invitatorio;
-    }
-
-    @SuppressWarnings("unused")
-    public void setInvitatorio(LHInvitatory invitatorio) {
-        this.invitatorio = invitatorio;
-    }
-
-    @SuppressWarnings("unused")
-    public LHOfficeOfReading getOficioLecturas() {
-        return oficioLecturas;
-    }
-
-    @SuppressWarnings("unused")
-    public void setOficioLecturas(LHOfficeOfReading oficioLecturas) {
-        this.oficioLecturas = oficioLecturas;
-    }
-
-    @SuppressWarnings("unused")
-    public TeDeum getTeDeum() {
-        return teDeum;
-    }
-
-    @SuppressWarnings("unused")
-    public void setTeDeum(TeDeum teDeum) {
-        this.teDeum = teDeum;
-    }
-
-    public SpannableStringBuilder getTituloHora() {
-
-        return Utils.toH1Red(TITLE_OFICIO);
-    }
-
-    public String getTituloHoraForRead() {
-        return Utils.pointAtEnd(TITLE_OFICIO);
-    }
-
-    public SpannableStringBuilder getForView(LiturgyTime liturgyTime, boolean hasSaint, boolean nightMode) {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        this.hasSaint = hasSaint;
+    fun getForView(
+        liturgyTime: LiturgyTime?,
+        hasSaint: Boolean,
+        nightMode: Boolean
+    ): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        this.hasSaint = hasSaint
         try {
-            invitatorio.normalizeByTime(liturgyTime.getTimeID());
-            salmodia.normalizeByTime(liturgyTime.getTimeID());
-            oficioLecturas.normalizeByTime(liturgyTime.getTimeID());
-            sb.append(LS2);
+            invitatorio!!.normalizeByTime(liturgyTime!!.timeID!!)
+            salmodia!!.normalizeByTime(liturgyTime.timeID!!)
+            lhOfficeOfReading!!.normalizeByTime(liturgyTime.timeID!!)
+            sb.append(Utils.LS2)
             if (santo != null && this.hasSaint) {
-                invitatorio.normalizeIsSaint(santo.theName);
-                sb.append(santo.getVidaSmall());
-                sb.append(LS);
+                invitatorio!!.normalizeIsSaint(santo!!.theName!!)
+                sb.append(santo?.vidaSmall)
+                sb.append(Constants.LS)
             }
-
-            sb.append(getTituloHora());
-            sb.append(Utils.fromHtmlToSmallRed(getMetaInfo()));
-            sb.append(LS2);
-
-            sb.append(getSaludoOficio());
-            sb.append(LS2);
-
-            sb.append(invitatorio.getAll());
-            sb.append(LS2);
-
-            sb.append(himno.getAll());
-            sb.append(LS2);
-            sb.append(salmodia.getAll(1));
-            sb.append(LS2);
-
-            sb.append(oficioLecturas.getAll(liturgyTime.getTimeID()));
-
-            if (teDeum.isStatus()) {
-                sb.append(teDeum.getAll());
+            sb.append(tituloHora)
+            sb.append(Utils.fromHtmlToSmallRed(metaInfo))
+            sb.append(Utils.LS2)
+            sb.append(getSaludoOficio())
+            sb.append(Utils.LS2)
+            sb.append(invitatorio!!.all)
+            sb.append(Utils.LS2)
+            sb.append(himno!!.all)
+            sb.append(Utils.LS2)
+            sb.append(salmodia!!.getAll(1))
+            sb.append(Utils.LS2)
+            sb.append(lhOfficeOfReading!!.getAll(liturgyTime.timeID!!))
+            if (teDeum!=null) {
+                sb.append(teDeum?.all)
             }
-
-            sb.append(oracion.getAll());
-            sb.append(LS2);
-            sb.append(getConclusionHorasMayores());
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
+            sb.append(oracion?.all)
+            sb.append(Utils.LS2)
+            sb.append(getConclusionHorasMayores())
+        } catch (e: Exception) {
+            sb.append(Utils.createErrorMessage(e.message))
         }
-        return sb;
+        return sb
     }
 
-
-    public StringBuilder getForRead() {
-        StringBuilder sb = new StringBuilder();
-        try {
-            if (santo != null && this.hasSaint) {
-                sb.append(santo.getVida());
+    val forRead: StringBuilder
+        get() {
+            val sb = StringBuilder()
+            try {
+                if (santo != null && hasSaint) {
+                    sb.append(santo!!.vida)
+                }
+                sb.append(tituloHoraForRead)
+                sb.append(getSaludoOficioForRead())
+                sb.append(invitatorio!!.allForRead)
+                sb.append(himno!!.allForRead)
+                sb.append(salmodia!!.allForRead)
+                sb.append(lhOfficeOfReading!!.allForRead)
+                if (teDeum!=null) {
+                    sb.append(teDeum?.allForRead)
+                }
+                sb.append(oracion?.allForRead)
+                sb.append(getConclusionHorasMayoresForRead())
+            } catch (e: Exception) {
+                sb.append(Utils.createErrorMessage(e.message))
             }
-            sb.append(getTituloHoraForRead());
-            sb.append(getSaludoOficioForRead());
-            sb.append(invitatorio.getAllForRead());
-            sb.append(himno.getAllForRead());
-            sb.append(salmodia.getAllForRead());
-            sb.append(oficioLecturas.getAllForRead());
-
-            if (teDeum.isStatus()) {
-                sb.append(teDeum.getAllForRead());
-            }
-            sb.append(oracion.getAllForRead());
-            sb.append(getConclusionHorasMayoresForRead());
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
+            return sb
         }
-        return sb;
-    }
 }

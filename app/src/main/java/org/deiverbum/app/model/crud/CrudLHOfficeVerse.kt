@@ -1,16 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
+import org.deiverbum.app.model.LHOfficeVerse
 
-import org.deiverbum.app.model.LHOfficeVerse;
-
-import java.util.List;
-
-public class CrudLHOfficeVerse {
-    public List<LHOfficeVerse> c;
-    public List<LHOfficeVerse> u;
-    public List<LHOfficeVerse> d;
-
-    @SuppressWarnings("unused")
-    public CrudLHOfficeVerse() {
-    }
+class CrudLHOfficeVerse {
+    var c: List<LHOfficeVerse>? = null
+    var u: List<LHOfficeVerse>? = null
+    var d: List<LHOfficeVerse>? = null
 }

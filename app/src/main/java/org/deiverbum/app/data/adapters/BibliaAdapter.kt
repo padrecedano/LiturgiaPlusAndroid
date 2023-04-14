@@ -1,95 +1,76 @@
-package org.deiverbum.app.data.adapters;
+package org.deiverbum.app.data.adapters
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
-
-import org.deiverbum.app.R;
-import org.deiverbum.app.model.BibleBooks;
-
-import java.util.List;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.navigation.Navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
+import org.deiverbum.app.R
+import org.deiverbum.app.model.BibleBooks
 
 /**
- * <p>
- * Esta clase maneja el adaptador de la pantalla <code>Breviary</code>,
- * presentada desde <code>BreviarioFragment</code>.
- * </p>
+ *
+ *
+ * Esta clase maneja el adaptador de la pantalla `Breviary`,
+ * presentada desde `BreviarioFragment`.
+ *
  *
  * @author A. Cedano
  * @version 1.0
  * @since 2022.01.01
  */
-
-public class BibliaAdapter extends RecyclerView.Adapter<BibliaAdapter.ViewHolder> {
-    private final List<BibleBooks> mDataSet;
-
-    /**
-     * Inicializa el dataset del adaptador.
-     *
-     * @param dataSet Una lista de objetos {@link BibleBooks} con los datos con que
-     *                se llenarán las vistas del {@link RecyclerView}.
-     */
-    public BibliaAdapter(List<BibleBooks> dataSet) {
-        mDataSet = dataSet;
-    }
-
+class BibliaAdapter
+/**
+ * Inicializa el dataset del adaptador.
+ *
+ * @param dataSet Una lista de objetos [BibleBooks] con los datos con que
+ * se llenarán las vistas del [RecyclerView].
+ */(private val mDataSet: List<BibleBooks>) : RecyclerView.Adapter<BibliaAdapter.ViewHolder>() {
     /**
      * Crea las nuevas vistas (invocadas por el layout manager)
      */
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.rv_rosario, viewGroup, false);
-
-        return new ViewHolder(v);
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+        val v = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.rv_rosario, viewGroup, false)
+        return ViewHolder(v)
     }
 
     /**
      * Reemplaza los contenidos de la vista
      * y guarda una referencia invocando al método
-     * {@link ViewHolder#setData(BibleBooks)}
+     * [ViewHolder.setData]
      * con el propósito de obtener el id de navegación
      * al hacer clic en cada elemento
      *
-     * @param viewHolder Este {@link ViewHolder}
+     * @param viewHolder Este [ViewHolder]
      * @param position   La posición del elemento
      */
-
-    @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        viewHolder.setData(mDataSet.get(position));
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        viewHolder.setData(mDataSet[position])
     }
 
     /**
      * Devuelve el tamaño del dataset
      */
-    @Override
-    public int getItemCount() {
-        return mDataSet.size();
+    override fun getItemCount(): Int {
+        return mDataSet.size
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView txtTitle;
-        private final TextView txtDescription;
-        BibleBooks mItem;
+    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        private val txtTitle: TextView
+        private val txtDescription: TextView
+        var mItem: BibleBooks? = null
 
-        public ViewHolder(View v) {
-            super(v);
-
-            v.setOnClickListener(v1 -> {
-                Bundle bundle = new Bundle();
-                bundle.putInt("bookId", mItem.getId());
-                Navigation.findNavController(v1).navigate(R.id.nav_biblia_libros, bundle);
-            });
-            txtTitle = v.findViewById(R.id.tv_title);
-            txtDescription = v.findViewById(R.id.tv_description);
+        init {
+            v.setOnClickListener { v1: View? ->
+                val bundle = Bundle()
+                bundle.putInt("bookId", mItem!!.id)
+                findNavController(v1!!).navigate(R.id.nav_biblia_libros, bundle)
+            }
+            txtTitle = v.findViewById(R.id.tv_title)
+            txtDescription = v.findViewById(R.id.tv_description)
         }
 
         /**
@@ -97,12 +78,12 @@ public class BibliaAdapter extends RecyclerView.Adapter<BibliaAdapter.ViewHolder
          * y guarda una referencia del objeto
          * para poder obtener el id de navegación al hacer click
          *
-         * @param item Un objeto {@link BibleBooks}
+         * @param item Un objeto [BibleBooks]
          */
-        public void setData(BibleBooks item) {
-            mItem = item;
-            txtTitle.setText(item.getName());
-            txtDescription.setText(item.getDescription());
+        fun setData(item: BibleBooks) {
+            mItem = item
+            txtTitle.text = item.name
+            txtDescription.text = item.description
         }
     }
 }

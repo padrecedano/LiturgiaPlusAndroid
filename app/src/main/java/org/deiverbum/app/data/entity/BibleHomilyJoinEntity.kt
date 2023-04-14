@@ -1,54 +1,39 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.BIBLE_HOMILY_JOIN;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.Companion.CASCADE
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = BIBLE_HOMILY_JOIN,
-        primaryKeys = {"readingFK", "homilyFK"},
-        foreignKeys =
-                {
-
-                        @ForeignKey(
-                                entity = BibleReadingEntity.class,
-                                parentColumns = "readingID",
-                                childColumns = "readingFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE),
-                        @ForeignKey(
-                                entity = HomilyEntity.class,
-                                parentColumns = "homilyID",
-                                childColumns = "homilyFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)
-                }
+@Entity(
+    tableName = Constants.BIBLE_HOMILY_JOIN,
+    primaryKeys = ["readingFK", "homilyFK"],
+    foreignKeys = [ForeignKey(
+        entity = BibleReadingEntity::class,
+        parentColumns = arrayOf("readingID"),
+        childColumns = arrayOf("readingFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    ), ForeignKey(
+        entity = HomilyEntity::class,
+        parentColumns = arrayOf("homilyID"),
+        childColumns = arrayOf("homilyFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )]
 )
-public class BibleHomilyJoinEntity {
-
-    @NonNull
+class BibleHomilyJoinEntity {
+    @JvmField
     @ColumnInfo(name = "readingFK")
-    public Integer readingFK = 0;
+    var readingFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "homilyFK", index = true)
-    public Integer homilyFK = 0;
-
-    public int getReadingFK() {
-        return readingFK;
-    }
-
-    public int getHomilyFK() {
-        return homilyFK;
-    }
-
+    var homilyFK = 0
 }
-

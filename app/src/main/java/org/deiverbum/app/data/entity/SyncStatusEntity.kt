@@ -1,32 +1,24 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.SYNC_STATUS;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = SYNC_STATUS)
-
-public class SyncStatusEntity {
-    @NonNull
+@Entity(tableName = Constants.SYNC_STATUS)
+class SyncStatusEntity {
     @PrimaryKey
     @ColumnInfo(name = "tableName")
-    public String tableName = "";
+    var tableName = ""
 
-    @NonNull
     @ColumnInfo(name = "versionDB")
-    public Integer versionDB = 1;
+    var versionDB = 1
 
     @ColumnInfo(name = "lastUpdate", defaultValue = "CURRENT_TIMESTAMP")
-    public String lastUpdate;
-
+    var lastUpdate: String? = null
 }
-

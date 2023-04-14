@@ -1,5 +1,5 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class LHOfficeBiblicalJoin {
-    public Integer groupID;
+class LHOfficeBiblicalJoin {
+    var groupID: Int? = null
 }

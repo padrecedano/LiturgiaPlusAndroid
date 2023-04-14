@@ -67,7 +67,7 @@ public class SyncRepository {
         if (mTodayDao.syncStatusCount() == 0) {
             mTodayDao.insertSyncStatus("initial");
         }
-        return mTodayDao.getSyncInfo();
+        return mTodayDao.syncInfo();
     }
 
     /**

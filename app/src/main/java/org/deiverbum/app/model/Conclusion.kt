@@ -1,79 +1,61 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Constants.TITLE_CONCLUSION;
-import static org.deiverbum.app.utils.Constants.TITLE_VIRGIN_ANTIHPON;
+import android.text.SpannableStringBuilder
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
+import java.util.*
 
-import android.text.SpannableStringBuilder;
+class Conclusion {
+    var antVirgen: List<String>? = null
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-import org.deiverbum.app.utils.Utils;
-
-import java.util.List;
-import java.util.Random;
-
-@SuppressWarnings("SameReturnValue")
-public class Conclusion {
-
-    List<String> antVirgen;
     @SerializedName("bendicion")
     @Expose
-    private String bendicion;
-
-
-    public Conclusion() {
+    private var bendicion: String? = null
+    fun getHeader(): SpannableStringBuilder {
+        return Utils.formatTitle(Constants.TITLE_CONCLUSION)
     }
 
-    public SpannableStringBuilder getHeader() {
-
-        return Utils.formatTitle(TITLE_CONCLUSION);
+    fun getHeaderForRead(): String {
+        return Utils.pointAtEnd(Constants.TITLE_CONCLUSION)
     }
 
-    public String getHeaderForRead() {
-        return Utils.pointAtEnd(TITLE_CONCLUSION);
+    fun getBendicion(): String? {
+        return bendicion
     }
 
-
-    public String getBendicion() {
-        return bendicion;
+    fun setBendicion(bendicion: String?) {
+        this.bendicion = bendicion
     }
 
-    @SuppressWarnings("unused")
-    public void setBendicion(String bendicion) {
-        this.bendicion = bendicion;
+    fun getBendicionForRead(): String {
+        return "El Señor todopoderoso nos conceda una noche tranquila y una santa muerte. Amén."
     }
 
-    public String getBendicionForRead() {
-        return "El Señor todopoderoso nos conceda una noche tranquila y una santa muerte. Amén.";
+    fun getAntifonaVirgen(timeID: Int): String {
+        val mIndex = if (timeID != 6) Random().nextInt(3) else 4
+        return antVirgen!![mIndex]
     }
 
-    public String getAntifonaVirgen(int timeID) {
-        int mIndex = (timeID != 6) ? new Random().nextInt(3) : 4;
-
-        return antVirgen.get(mIndex);
-
+    fun getAll(idTiempo: Int): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        sb.append(getHeader())
+        sb.append(Utils.LS2)
+        sb.append(getBendicion())
+        sb.append(Utils.LS2)
+        sb.append(Utils.formatTitle(Constants.TITLE_VIRGIN_ANTIHPON))
+        sb.append(Utils.LS2)
+        sb.append(Utils.fromHtml(getAntifonaVirgen(idTiempo)))
+        return sb
     }
 
-    public SpannableStringBuilder getAll(int idTiempo) {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(getHeader());
-        sb.append(Utils.LS2);
-        sb.append(getBendicion());
-        sb.append(Utils.LS2);
-        sb.append(Utils.formatTitle(TITLE_VIRGIN_ANTIHPON));
-        sb.append(Utils.LS2);
-        sb.append(Utils.fromHtml(getAntifonaVirgen(idTiempo)));
-        return sb;
-    }
-
-    public SpannableStringBuilder getAllForRead(int idTiempo) {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(getHeaderForRead());
-        sb.append(getBendicionForRead());
-        sb.append("ANTÍFONA FINAL DE LA SANTÍSIMA VIRGEN.");
-        sb.append(Utils.fromHtml(getAntifonaVirgen(idTiempo)));
-        return sb;
+    fun getAllForRead(idTiempo: Int): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        sb.append(getHeaderForRead())
+        sb.append(getBendicionForRead())
+        sb.append("ANTÍFONA FINAL DE LA SANTÍSIMA VIRGEN.")
+        sb.append(Utils.fromHtml(getAntifonaVirgen(idTiempo)))
+        return sb
     }
 }
-

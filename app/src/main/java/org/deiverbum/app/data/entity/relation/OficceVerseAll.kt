@@ -1,28 +1,25 @@
-package org.deiverbum.app.data.entity.relation;
+package org.deiverbum.app.data.entity.relation
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
-
-import org.deiverbum.app.data.entity.LHOfficeVerseEntity;
-import org.deiverbum.app.data.entity.LHOfficeVerseJoinEntity;
+import androidx.room.Embedded
+import androidx.room.Relation
+import org.deiverbum.app.data.entity.LHOfficeVerseEntity
+import org.deiverbum.app.data.entity.LHOfficeVerseJoinEntity
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class OficceVerseAll {
+class OficceVerseAll {
+    @JvmField
     @Embedded
-    public LHOfficeVerseJoinEntity theJoin;
+    var theJoin: LHOfficeVerseJoinEntity? = null
+
+    @JvmField
     @Relation(
-            parentColumn = "verseFK",
-            entityColumn = "verseID",
-            entity = LHOfficeVerseEntity.class
+        parentColumn = "verseFK",
+        entityColumn = "verseID",
+        entity = LHOfficeVerseEntity::class
     )
-    public LHOfficeVerseEntity theEntity;
-
-    public String getDomainModel() {
-        return theEntity.getResponsorio();
-    }
-
+    var theEntity: LHOfficeVerseEntity? = null
 }

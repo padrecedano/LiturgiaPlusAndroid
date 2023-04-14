@@ -1,76 +1,41 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.BIBLE_HOMILY_THEME;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
+import androidx.annotation.NonNull
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.Companion.CASCADE
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = BIBLE_HOMILY_THEME,
-        primaryKeys = {"homilyFK"},
-        foreignKeys =
-                {
-                        @ForeignKey(
-                                entity = HomilyEntity.class,
-                                parentColumns = "homilyID",
-                                childColumns = "homilyFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)
-                }
+@Entity(
+    tableName = Constants.BIBLE_HOMILY_THEME,
+    primaryKeys = ["homilyFK"],
+    foreignKeys = [ForeignKey(
+        entity = HomilyEntity::class,
+        parentColumns = arrayOf("homilyID"),
+        childColumns = arrayOf("homilyFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )]
 )
-public class BibleHomilyThemeEntity {
-
-    @NonNull
+class BibleHomilyThemeEntity {
+    @JvmField
     @ColumnInfo(name = "homilyFK")
-    public Integer homilyFK = 0;
+    var homilyFK = 0
 
     @ColumnInfo(name = "theological", defaultValue = "")
-    public String theological = "";
+    var theological:String? = ""
 
+    @JvmField
     @ColumnInfo(name = "biblical", defaultValue = "")
-    public String biblical = "";
+    var biblical:String? = ""
 
+    @JvmField
     @ColumnInfo(name = "reference", defaultValue = "")
-    public String reference = "";
-
-    public String getTheological() {
-        return theological;
-    }
-
-    public void setTheological(String theological) {
-        this.theological = theological;
-    }
-
-    public String getBiblical() {
-        return biblical;
-    }
-
-    public void setBiblical(String biblical) {
-        this.biblical = biblical;
-    }
-
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
-    }
-
-    public int getHomilyFK() {
-        return homilyFK;
-    }
-
-    public void setHomilyFK(@NonNull Integer homilyFK) {
-        this.homilyFK = homilyFK;
-    }
-
+    var reference:String? = ""
 }
-

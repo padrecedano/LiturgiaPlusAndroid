@@ -1,18 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.Liturgy;
+import org.deiverbum.app.model.Liturgy
 
-import java.util.List;
-
-public class CrudLiturgy {
-
-    public List<Liturgy> c;
-    public List<Liturgy> u;
-    public List<Liturgy> d;
-
-    @SuppressWarnings("unused")
-    public CrudLiturgy() {
-    }
-
-
+class CrudLiturgy {
+    var c: List<Liturgy>? = null
+    var u: List<Liturgy>? = null
+    var d: List<Liturgy>? = null
 }

@@ -1,36 +1,24 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.LH_HYMN;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = LH_HYMN,
-        indices = {@Index(value = {"hymn"}, unique = true)}
-)
-
-public class LHHymnEntity {
-    @NonNull
+@Entity(tableName = Constants.LH_HYMN, indices = [Index(value = ["hymn"], unique = true)])
+class LHHymnEntity {
+    @JvmField
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "hymnID")
-    public Integer himnoId = 0;
+    var himnoId = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "hymn")
-    public String himno = "";
-
-    @NonNull
-    public String getHimno() {
-        return himno;
-    }
+    var himno = ""
 }
-

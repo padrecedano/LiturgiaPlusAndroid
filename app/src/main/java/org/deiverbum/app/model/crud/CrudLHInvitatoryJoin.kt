@@ -1,18 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.LHInvitatoryJoin;
+import org.deiverbum.app.model.LHInvitatoryJoin
 
-import java.util.List;
-
-public class CrudLHInvitatoryJoin {
-
-    public List<LHInvitatoryJoin> c;
-    public List<LHInvitatoryJoin> u;
-    public List<LHInvitatoryJoin> d;
-
-    @SuppressWarnings("unused")
-    public CrudLHInvitatoryJoin() {
-    }
-
-
+class CrudLHInvitatoryJoin {
+    var c: List<LHInvitatoryJoin>? = null
+    var u: List<LHInvitatoryJoin>? = null
+    var d: List<LHInvitatoryJoin>? = null
 }

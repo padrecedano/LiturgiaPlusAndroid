@@ -1,746 +1,623 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import android.util.Log;
-
-import org.deiverbum.app.data.db.dao.TodayDao;
-import org.deiverbum.app.model.BibleHomilyJoin;
-import org.deiverbum.app.model.BibleHomilyTheme;
-import org.deiverbum.app.model.Biblical;
-import org.deiverbum.app.model.Homily;
-import org.deiverbum.app.model.HomilyList;
-import org.deiverbum.app.model.LHAntiphon;
-import org.deiverbum.app.model.LHEpigraph;
-import org.deiverbum.app.model.LHGospelCanticleTable;
-import org.deiverbum.app.model.LHHymn;
-import org.deiverbum.app.model.LHHymnJoin;
-import org.deiverbum.app.model.LHIntercession;
-import org.deiverbum.app.model.LHIntercessionsJoin;
-import org.deiverbum.app.model.LHInvitatoryJoin;
-import org.deiverbum.app.model.LHOfficeBiblicalJoin;
-import org.deiverbum.app.model.LHOfficeBiblicalTable;
-import org.deiverbum.app.model.LHOfficePatristic;
-import org.deiverbum.app.model.LHOfficePatristicJoin;
-import org.deiverbum.app.model.LHOfficeVerse;
-import org.deiverbum.app.model.LHOfficeVerseJoin;
-import org.deiverbum.app.model.LHPrayer;
-import org.deiverbum.app.model.LHPsalm;
-import org.deiverbum.app.model.LHPsalmody;
-import org.deiverbum.app.model.LHPsalmodyJoin;
-import org.deiverbum.app.model.LHReadingShort;
-import org.deiverbum.app.model.LHReadingShortJoin;
-import org.deiverbum.app.model.LHResponsoryShort;
-import org.deiverbum.app.model.LHResponsoryTable;
-import org.deiverbum.app.model.LHTheme;
-import org.deiverbum.app.model.Liturgy;
-import org.deiverbum.app.model.LiturgyHomilyJoin;
-import org.deiverbum.app.model.LiturgySaintJoin;
-import org.deiverbum.app.model.MassReadingJoin;
-import org.deiverbum.app.model.MassReadingTable;
-import org.deiverbum.app.model.Pater;
-import org.deiverbum.app.model.PaterOpus;
-import org.deiverbum.app.model.Prayer;
-import org.deiverbum.app.model.Saint;
-import org.deiverbum.app.model.SaintLife;
-import org.deiverbum.app.model.SaintShortLife;
-import org.deiverbum.app.model.Today;
-
-import java.util.List;
+import android.util.Log
+import org.deiverbum.app.data.db.dao.TodayDao
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class Crud {
-    public CrudBibleHomilyJoin crudBibleHomilyJoin;
-    public CrudBibleHomilyTheme crudBibleHomilyTheme;
-    public CrudBibleReading crudBibleReading;
-    public CrudHomily crudHomily;
-    public CrudLHAntiphon crudLHAntiphon;
-    public CrudLHEpigraph crudLHEpigraph;
-    public CrudLHGospelCanticle crudLHGospelCanticle;
-    public CrudLHHymn crudLHHymn;
-    public CrudLHHymnJoin crudLHHymnJoin;
-    public CrudLHIntercessions crudLHIntercessions;
-    public CrudLHIntercessionsJoin crudLHIntercessionsJoin;
-    public CrudLHInvitatoryJoin crudLHInvitatoryJoin;
-    public CrudLHOfficeBiblical crudLHOfficeBiblical;
-    public CrudLHOfficeBiblicalJoin crudLHOfficeBiblicalJoin;
-    public CrudLHOfficePatristic crudLHOfficePatristic;
-    public CrudLHOfficePatristicJoin crudLHOfficePatristicJoin;
-    public CrudLHOfficeVerse crudLHOfficeVerse;
-    public CrudLHOfficeVerseJoin crudLHOfficeVerseJoin;
-    public CrudLHPrayer crudLHPrayer;
-    public CrudLHPsalm crudLHPsalm;
-    public CrudLHPsalmody crudLHPsalmody;
-    public CrudLHPsalmodyJoin crudLHPsalmodyJoin;
-    public CrudLHReadingShort crudLHReadingShort;
-    public CrudLHReadingShortJoin crudLHReadingShortJoin;
-    public CrudLHResponsory crudLHResponsory;
-    public CrudLHResponsoryShort crudLHResponsoryShort;
-    public CrudLHTheme crudLHTheme;
-    public CrudLiturgy crudLiturgy;
-    public CrudLiturgiaHomiliaJoin crudLiturgyHomilyJoin;
-    public CrudLiturgySaintJoin crudLiturgySaintJoin;
-    public CrudMassReading crudMassReading;
-    public CrudMassReadingJoin crudMassReadingJoin;
-    public CrudPater crudPater;
-    public CrudPaterOpus crudPaterOpus;
-    public CrudPrayer crudPrayer;
-    public CrudSaint crudSaint;
-    public CrudSaintLife crudSaintLife;
-    public CrudSaintShortLife crudSaintShortLife;
-    public CrudToday crudToday;
+class Crud {
+    private var crudBibleHomilyJoin: CrudBibleHomilyJoin? = null
+    private var crudBibleHomilyTheme: CrudBibleHomilyTheme? = null
+    private var crudBibleReading: CrudBibleReading? = null
+    private var crudHomily: CrudHomily? = null
+    private var crudLHAntiphon: CrudLHAntiphon? = null
+    private var crudLHEpigraph: CrudLHEpigraph? = null
+    private var crudLHGospelCanticle: CrudLHGospelCanticle? = null
+    private var crudLHHymn: CrudLHHymn? = null
+    private var crudLHHymnJoin: CrudLHHymnJoin? = null
+    private var crudLHIntercessions: CrudLHIntercessions? = null
+    private var crudLHIntercessionsJoin: CrudLHIntercessionsJoin? = null
+    private var crudLHInvitatoryJoin: CrudLHInvitatoryJoin? = null
+    private var crudLHOfficeBiblical: CrudLHOfficeBiblical? = null
+    private var crudLHOfficeBiblicalJoin: CrudLHOfficeBiblicalJoin? = null
+    private var crudLHOfficePatristic: CrudLHOfficePatristic? = null
+    private var crudLHOfficePatristicJoin: CrudLHOfficePatristicJoin? = null
+    private var crudLHOfficeVerse: CrudLHOfficeVerse? = null
+    private var crudLHOfficeVerseJoin: CrudLHOfficeVerseJoin? = null
+    private var crudLHPrayer: CrudLHPrayer? = null
+    private var crudLHPsalm: CrudLHPsalm? = null
+    private var crudLHPsalmody: CrudLHPsalmody? = null
+    private var crudLHPsalmodyJoin: CrudLHPsalmodyJoin? = null
+    private var crudLHReadingShort: CrudLHReadingShort? = null
+    private var crudLHReadingShortJoin: CrudLHReadingShortJoin? = null
+    private var crudLHResponsory: CrudLHResponsory? = null
+    private var crudLHResponsoryShort: CrudLHResponsoryShort? = null
+    private var crudLHTheme: CrudLHTheme? = null
+    private var crudLiturgy: CrudLiturgy? = null
+    private var crudLiturgyHomilyJoin: CrudLiturgiaHomiliaJoin? = null
+    private var crudLiturgySaintJoin: CrudLiturgySaintJoin? = null
+    private var crudMassReading: CrudMassReading? = null
+    private var crudMassReadingJoin: CrudMassReadingJoin? = null
+    private var crudPater: CrudPater? = null
+    private var crudPaterOpus: CrudPaterOpus? = null
+    private var crudPrayer: CrudPrayer? = null
+    private var crudSaint: CrudSaint? = null
+    private var crudSaintLife: CrudSaintLife? = null
+    private var crudSaintShortLife: CrudSaintShortLife? = null
+    private var crudToday: CrudToday? = null
 
-    public List<HomilyList> homily;
     //public List<Today> today;
-
-    public String lastUpdate;
-    public boolean haveData;
-
-
-    @SuppressWarnings("unused")
-    public Crud() {
-    }
-
-    public void doCrud(TodayDao mTodayDao) {
+    @JvmField
+    var lastUpdate: String? = null
+    @JvmField
+    var haveData = false
+    fun doCrud(mTodayDao: TodayDao) {
         try {
-
             if (crudLiturgy != null) {
-                List<Liturgy> c = crudLiturgy.c;
-                List<Liturgy> u = crudLiturgy.u;
-                List<Liturgy> d = crudLiturgy.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.liturgyInsertAll(c);
+                val c = crudLiturgy!!.c
+                val u = crudLiturgy!!.u
+                val d = crudLiturgy!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.liturgyInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.liturgyUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.liturgyUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.liturgyDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.liturgyDeleteAll(d)
                 }
             }
-
             if (crudSaint != null) {
-                List<Saint> c = crudSaint.c;
-                List<Saint> u = crudSaint.u;
-                List<Saint> d = crudSaint.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.saintInsertAll(c);
+                val c = crudSaint!!.c
+                val u = crudSaint!!.u
+                val d = crudSaint!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.saintInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.saintUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.saintUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.saintDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.saintDeleteAll(d)
                 }
             }
-
             if (crudSaintLife != null) {
-                List<SaintLife> c = crudSaintLife.c;
-                List<SaintLife> u = crudSaintLife.u;
-                List<SaintLife> d = crudSaintLife.d;
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.saintLifeInsertAll(c);
+                val c = crudSaintLife!!.c
+                val u = crudSaintLife!!.u
+                val d = crudSaintLife!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.saintLifeInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.saintLifeUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.saintLifeUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.saintLifeDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.saintLifeDeleteAll(d)
                 }
             }
-
             if (crudSaintShortLife != null) {
-                List<SaintShortLife> c = crudSaintShortLife.c;
-                List<SaintShortLife> u = crudSaintShortLife.u;
-                List<SaintShortLife> d = crudSaintShortLife.d;
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.saintShortLifeInsertAll(c);
+                val c = crudSaintShortLife!!.c
+                val u = crudSaintShortLife!!.u
+                val d = crudSaintShortLife!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.saintShortLifeInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.saintShortLifeUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.saintShortLifeUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.saintShortLifeDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.saintShortLifeDeleteAll(d)
                 }
             }
-
-
             if (crudLHInvitatoryJoin != null) {
-                List<LHInvitatoryJoin> c = crudLHInvitatoryJoin.c;
-                List<LHInvitatoryJoin> u = crudLHInvitatoryJoin.u;
-                List<LHInvitatoryJoin> d = crudLHInvitatoryJoin.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhInvitatoryJoinInsertAll(c);
+                val c = crudLHInvitatoryJoin!!.c
+                val u = crudLHInvitatoryJoin!!.u
+                val d = crudLHInvitatoryJoin!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhInvitatoryJoinInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhInvitatoryJoinUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhInvitatoryJoinUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhInvitatoryJoinDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhInvitatoryJoinDeleteAll(d)
                 }
             }
-
             if (crudLHHymn != null) {
-                List<LHHymn> c = crudLHHymn.c;
-                List<LHHymn> u = crudLHHymn.u;
-                List<LHHymn> d = crudLHHymn.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhHymnInsertAll(c);
+                val c = crudLHHymn!!.c
+                val u = crudLHHymn!!.u
+                val d = crudLHHymn!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhHymnInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhHymnUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhHymnUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhHymnDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhHymnDeleteAll(d)
                 }
             }
-
             if (crudLHHymnJoin != null) {
-                List<LHHymnJoin> c = crudLHHymnJoin.c;
-                List<LHHymnJoin> u = crudLHHymnJoin.u;
-                List<LHHymnJoin> d = crudLHHymnJoin.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhHymnJoinInsertAll(c);
+                val c = crudLHHymnJoin!!.c
+                val u = crudLHHymnJoin!!.u
+                val d = crudLHHymnJoin!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhHymnJoinInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhHymnJoinUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhHymnJoinUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhHymnJoinDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhHymnJoinDeleteAll(d)
                 }
             }
             if (crudLHOfficeVerse != null) {
-                List<LHOfficeVerse> c = crudLHOfficeVerse.c;
-                List<LHOfficeVerse> u = crudLHOfficeVerse.u;
-                List<LHOfficeVerse> d = crudLHOfficeVerse.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhOfficeVerseInsertAll(c);
+                val c = crudLHOfficeVerse!!.c
+                val u = crudLHOfficeVerse!!.u
+                val d = crudLHOfficeVerse!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhOfficeVerseInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhOfficeVerseUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhOfficeVerseUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhOfficeVerseDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhOfficeVerseDeleteAll(d)
                 }
             }
-
             if (crudLHOfficeVerseJoin != null) {
-                List<LHOfficeVerseJoin> c = crudLHOfficeVerseJoin.c;
-                List<LHOfficeVerseJoin> u = crudLHOfficeVerseJoin.u;
-                List<LHOfficeVerseJoin> d = crudLHOfficeVerseJoin.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhOfficeVerseJoinInsertAll(c);
+                val c = crudLHOfficeVerseJoin!!.c
+                val u = crudLHOfficeVerseJoin!!.u
+                val d = crudLHOfficeVerseJoin!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhOfficeVerseJoinInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhOfficeVerseJoinUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhOfficeVerseJoinUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhOfficeVerseJoinDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhOfficeVerseJoinDeleteAll(d)
                 }
             }
-
             if (crudLHOfficeBiblical != null) {
-                List<LHOfficeBiblicalTable> c = crudLHOfficeBiblical.c;
-                List<LHOfficeBiblicalTable> u = crudLHOfficeBiblical.u;
-                List<LHOfficeBiblicalTable> d = crudLHOfficeBiblical.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhOfficeBiblicalInsertAll(c);
+                val c = crudLHOfficeBiblical!!.c
+                val u = crudLHOfficeBiblical!!.u
+                val d = crudLHOfficeBiblical!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhOfficeBiblicalInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhOfficeBiblicalUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhOfficeBiblicalUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhOfficeBiblicalDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhOfficeBiblicalDeleteAll(d)
                 }
             }
-
             if (crudLHOfficeBiblicalJoin != null) {
-                List<LHOfficeBiblicalJoin> c = crudLHOfficeBiblicalJoin.c;
-                List<LHOfficeBiblicalJoin> u = crudLHOfficeBiblicalJoin.u;
-                List<LHOfficeBiblicalJoin> d = crudLHOfficeBiblicalJoin.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhOfficeBiblicalJoinInsertAll(c);
+                val c = crudLHOfficeBiblicalJoin!!.c
+                val u = crudLHOfficeBiblicalJoin!!.u
+                val d = crudLHOfficeBiblicalJoin!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhOfficeBiblicalJoinInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhOfficeBiblicalJoinUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhOfficeBiblicalJoinUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhOfficeBiblicalJoinDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhOfficeBiblicalJoinDeleteAll(d)
                 }
             }
-
             if (crudLHResponsory != null) {
-                List<LHResponsoryTable> c = crudLHResponsory.c;
-                List<LHResponsoryTable> u = crudLHResponsory.u;
-                List<LHResponsoryTable> d = crudLHResponsory.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhResponsoryInsertAll(c);
+                val c = crudLHResponsory!!.c
+                val u = crudLHResponsory!!.u
+                val d = crudLHResponsory!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhResponsoryInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhResponsoryUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhResponsoryUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhResponsoryDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhResponsoryDeleteAll(d)
                 }
             }
-
             if (crudLHOfficePatristic != null) {
-                List<LHOfficePatristic> c = crudLHOfficePatristic.c;
-                List<LHOfficePatristic> u = crudLHOfficePatristic.u;
-                List<LHOfficePatristic> d = crudLHOfficePatristic.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhOfficePatristicInsertAll(c);
+                val c = crudLHOfficePatristic!!.c
+                val u = crudLHOfficePatristic!!.u
+                val d = crudLHOfficePatristic!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhOfficePatristicInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhOfficePatristicUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhOfficePatristicUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhOfficePatristicDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhOfficePatristicDeleteAll(d)
                 }
             }
-
             if (crudLHOfficePatristicJoin != null) {
-                List<LHOfficePatristicJoin> c = crudLHOfficePatristicJoin.c;
-                List<LHOfficePatristicJoin> u = crudLHOfficePatristicJoin.u;
-                List<LHOfficePatristicJoin> d = crudLHOfficePatristicJoin.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhOfficePatristicJoinInsertAll(c);
+                val c = crudLHOfficePatristicJoin!!.c
+                val u = crudLHOfficePatristicJoin!!.u
+                val d = crudLHOfficePatristicJoin!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhOfficePatristicJoinInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhOfficePatristicJoinUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhOfficePatristicJoinUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhOfficePatristicJoinDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhOfficePatristicJoinDeleteAll(d)
                 }
             }
-
             if (crudLHPsalmody != null) {
-                List<LHPsalmody> c = crudLHPsalmody.c;
-                List<LHPsalmody> u = crudLHPsalmody.u;
-                List<LHPsalmody> d = crudLHPsalmody.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhPsalmodyInsertAll(c);
+                val c = crudLHPsalmody!!.c
+                val u = crudLHPsalmody!!.u
+                val d = crudLHPsalmody!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhPsalmodyInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhPsalmodyUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhPsalmodyUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhPsalmodyDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhPsalmodyDeleteAll(d)
                 }
             }
-
             if (crudLHPsalmodyJoin != null) {
-                List<LHPsalmodyJoin> c = crudLHPsalmodyJoin.c;
-                List<LHPsalmodyJoin> u = crudLHPsalmodyJoin.u;
-                List<LHPsalmodyJoin> d = crudLHPsalmodyJoin.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhPsalmodyJoinInsertAll(c);
+                val c = crudLHPsalmodyJoin!!.c
+                val u = crudLHPsalmodyJoin!!.u
+                val d = crudLHPsalmodyJoin!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhPsalmodyJoinInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhPsalmodyJoinUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhPsalmodyJoinUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhPsalmodyJoinDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhPsalmodyJoinDeleteAll(d)
                 }
             }
-
             if (crudLHAntiphon != null) {
-                List<LHAntiphon> d = crudLHAntiphon.d;
-                List<LHAntiphon> c = crudLHAntiphon.c;
-                List<LHAntiphon> u = crudLHAntiphon.u;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhAntiphonInsertAll(c);
+                val d = crudLHAntiphon!!.d
+                val c = crudLHAntiphon!!.c
+                val u = crudLHAntiphon!!.u
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhAntiphonInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhAntiphonUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhAntiphonUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhAntiphonDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhAntiphonDeleteAll(d)
                 }
             }
-
             if (crudLHTheme != null) {
-                List<LHTheme> d = crudLHTheme.d;
-                List<LHTheme> c = crudLHTheme.c;
-                List<LHTheme> u = crudLHTheme.u;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhThemeInsertAll(c);
+                val d = crudLHTheme!!.d
+                val c = crudLHTheme!!.c
+                val u = crudLHTheme!!.u
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhThemeInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhThemeUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhThemeUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhThemeDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhThemeDeleteAll(d)
                 }
             }
-
             if (crudLHEpigraph != null) {
-                List<LHEpigraph> d = crudLHEpigraph.d;
-                List<LHEpigraph> c = crudLHEpigraph.c;
-                List<LHEpigraph> u = crudLHEpigraph.u;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhEpigraphInsertAll(c);
+                val d = crudLHEpigraph!!.d
+                val c = crudLHEpigraph!!.c
+                val u = crudLHEpigraph!!.u
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhEpigraphInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhEpigraphUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhEpigraphUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhEpigraphDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhEpigraphDeleteAll(d)
                 }
             }
-
             if (crudLHPsalm != null) {
-                List<LHPsalm> d = crudLHPsalm.d;
-                List<LHPsalm> c = crudLHPsalm.c;
-                List<LHPsalm> u = crudLHPsalm.u;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhPsalmInsertAll(c);
+                val d = crudLHPsalm!!.d
+                val c = crudLHPsalm!!.c
+                val u = crudLHPsalm!!.u
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhPsalmInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhPsalmUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhPsalmUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhPsalmDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhPsalmDeleteAll(d)
                 }
             }
-
             if (crudLHReadingShort != null) {
-                List<LHReadingShort> d = crudLHReadingShort.d;
-                List<LHReadingShort> c = crudLHReadingShort.c;
-                List<LHReadingShort> u = crudLHReadingShort.u;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhReadingShortInsertAll(c);
+                val d = crudLHReadingShort!!.d
+                val c = crudLHReadingShort!!.c
+                val u = crudLHReadingShort!!.u
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhReadingShortInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhReadingShortUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhReadingShortUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhReadingShortDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhReadingShortDeleteAll(d)
                 }
             }
-
             if (crudLHResponsoryShort != null) {
-                List<LHResponsoryShort> d = crudLHResponsoryShort.d;
-                List<LHResponsoryShort> c = crudLHResponsoryShort.c;
-                List<LHResponsoryShort> u = crudLHResponsoryShort.u;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhResponsoryShortInsertAll(c);
+                val d = crudLHResponsoryShort!!.d
+                val c = crudLHResponsoryShort!!.c
+                val u = crudLHResponsoryShort!!.u
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhResponsoryShortInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhResponsoryShortUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhResponsoryShortUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhResponsoryShortDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhResponsoryShortDeleteAll(d)
                 }
             }
-
             if (crudLHReadingShortJoin != null) {
-                List<LHReadingShortJoin> d = crudLHReadingShortJoin.d;
-                List<LHReadingShortJoin> c = crudLHReadingShortJoin.c;
-                List<LHReadingShortJoin> u = crudLHReadingShortJoin.u;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhReadingShortJoinInsertAll(c);
+                val d = crudLHReadingShortJoin!!.d
+                val c = crudLHReadingShortJoin!!.c
+                val u = crudLHReadingShortJoin!!.u
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhReadingShortJoinInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhReadingShortJoinUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhReadingShortJoinUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhReadingShortJoinDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhReadingShortJoinDeleteAll(d)
                 }
             }
-
             if (crudPrayer != null) {
-                List<Prayer> c = crudPrayer.c;
-                List<Prayer> u = crudPrayer.u;
-                List<Prayer> d = crudPrayer.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.prayerInsertAll(c);
+                val c = crudPrayer!!.c
+                val u = crudPrayer!!.u
+                val d = crudPrayer!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.prayerInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.prayerUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.prayerUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.prayerDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.prayerDeleteAll(d)
                 }
             }
-
             if (crudLHPrayer != null) {
-                List<LHPrayer> c = crudLHPrayer.c;
-                List<LHPrayer> u = crudLHPrayer.u;
-                List<LHPrayer> d = crudLHPrayer.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhPrayerInsertAll(c);
+                val c = crudLHPrayer!!.c
+                val u = crudLHPrayer!!.u
+                val d = crudLHPrayer!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhPrayerInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhPrayerUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhPrayerUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhPrayerDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhPrayerDeleteAll(d)
                 }
             }
-
             if (crudPater != null) {
-                List<Pater> c = crudPater.c;
-                List<Pater> u = crudPater.u;
-                List<Pater> d = crudPater.d;
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.paterInsertAll(c);
+                val c = crudPater!!.c
+                val u = crudPater!!.u
+                val d = crudPater!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.paterInsertAll(c)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.paterDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.paterDeleteAll(d)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.paterUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.paterUpdateAll(u)
                 }
             }
-
             if (crudHomily != null) {
-                List<Homily> c = crudHomily.c;
-                List<Homily> u = crudHomily.u;
-                List<Homily> d = crudHomily.d;
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.homilyInsertAll(c);
+                val c = crudHomily!!.c
+                val u = crudHomily!!.u
+                val d = crudHomily!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.homilyInsertAll(c)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.homilyDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.homilyDeleteAll(d)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.homilyUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.homilyUpdateAll(u)
                 }
             }
-
             if (crudLiturgyHomilyJoin != null) {
-                List<LiturgyHomilyJoin> c = crudLiturgyHomilyJoin.c;
-                List<LiturgyHomilyJoin> u = crudLiturgyHomilyJoin.u;
-                List<LiturgyHomilyJoin> d = crudLiturgyHomilyJoin.d;
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.liturgyHomilyJoinInsertAll(c);
+                val c = crudLiturgyHomilyJoin!!.c
+                val u = crudLiturgyHomilyJoin!!.u
+                val d = crudLiturgyHomilyJoin!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.liturgyHomilyJoinInsertAll(c)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.liturgyHomilyJoinDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.liturgyHomilyJoinDeleteAll(d)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.liturgyHomilyJoinUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.liturgyHomilyJoinUpdateAll(u)
                 }
             }
-
             if (crudLiturgySaintJoin != null) {
-                List<LiturgySaintJoin> c = crudLiturgySaintJoin.c;
-                List<LiturgySaintJoin> u = crudLiturgySaintJoin.u;
-                List<LiturgySaintJoin> d = crudLiturgySaintJoin.d;
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.liturgySaintJoinInsertAll(c);
+                val c = crudLiturgySaintJoin!!.c
+                val u = crudLiturgySaintJoin!!.u
+                val d = crudLiturgySaintJoin!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.liturgySaintJoinInsertAll(c)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.liturgySaintJoinDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.liturgySaintJoinDeleteAll(d)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.liturgySaintJoinUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.liturgySaintJoinUpdateAll(u)
                 }
             }
-
             if (crudBibleReading != null) {
-                List<Biblical> c = crudBibleReading.c;
-                List<Biblical> u = crudBibleReading.u;
-                List<Biblical> d = crudBibleReading.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.bibleReadingInsertAll(c);
+                val c = crudBibleReading!!.c
+                val u = crudBibleReading!!.u
+                val d = crudBibleReading!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.bibleReadingInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.bibleReadingUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.bibleReadingUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.bibleReadingDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.bibleReadingDeleteAll(d)
                 }
             }
-
             if (crudMassReading != null) {
-                List<MassReadingTable> c = crudMassReading.c;
-                List<MassReadingTable> u = crudMassReading.u;
-                List<MassReadingTable> d = crudMassReading.d;
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.massReadingInsertAll(c);
+                val c = crudMassReading!!.c
+                val u = crudMassReading!!.u
+                val d = crudMassReading!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.massReadingInsertAll(c)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.massReadingDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.massReadingDeleteAll(d)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.massReadingUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.massReadingUpdateAll(u)
                 }
             }
-
-
             if (crudBibleHomilyJoin != null) {
-                List<BibleHomilyJoin> c = crudBibleHomilyJoin.c;
-                List<BibleHomilyJoin> u = crudBibleHomilyJoin.u;
-                List<BibleHomilyJoin> d = crudBibleHomilyJoin.d;
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.bibleHomilyJoinInsertAll(c);
+                val c = crudBibleHomilyJoin!!.c
+                val u = crudBibleHomilyJoin!!.u
+                val d = crudBibleHomilyJoin!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.bibleHomilyJoinInsertAll(c)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.bibleHomilyJoinDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.bibleHomilyJoinDeleteAll(d)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.bibleHomilyJoinUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.bibleHomilyJoinUpdateAll(u)
                 }
             }
             if (crudLHGospelCanticle != null) {
-                List<LHGospelCanticleTable> c = crudLHGospelCanticle.c;
-                List<LHGospelCanticleTable> u = crudLHGospelCanticle.u;
-                List<LHGospelCanticleTable> d = crudLHGospelCanticle.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.gospelCanticleInsertAll(c);
+                val c = crudLHGospelCanticle!!.c
+                val u = crudLHGospelCanticle!!.u
+                val d = crudLHGospelCanticle!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.gospelCanticleInsertAll(c)
                 }
-
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.gospelCanticleDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.gospelCanticleDeleteAll(d)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.gospelCanticleUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.gospelCanticleUpdateAll(u)
                 }
             }
-
             if (crudLHIntercessions != null) {
-                List<LHIntercession> c = crudLHIntercessions.c;
-                List<LHIntercession> u = crudLHIntercessions.u;
-                List<LHIntercession> d = crudLHIntercessions.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhIntercessionsInsertAll(c);
+                val c = crudLHIntercessions!!.c
+                val u = crudLHIntercessions!!.u
+                val d = crudLHIntercessions!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhIntercessionsInsertAll(c)
                 }
-
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhIntercessionsDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhIntercessionsDeleteAll(d)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhIntercessionsUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhIntercessionsUpdateAll(u)
                 }
             }
-
             if (crudLHIntercessionsJoin != null) {
-                List<LHIntercessionsJoin> c = crudLHIntercessionsJoin.c;
-                List<LHIntercessionsJoin> u = crudLHIntercessionsJoin.u;
-                List<LHIntercessionsJoin> d = crudLHIntercessionsJoin.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.lhIntercessionsJoinInsertAll(c);
+                val c = crudLHIntercessionsJoin!!.c
+                val u = crudLHIntercessionsJoin!!.u
+                val d = crudLHIntercessionsJoin!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.lhIntercessionsJoinInsertAll(c)
                 }
-
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.lhIntercessionsJoinDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.lhIntercessionsJoinDeleteAll(d)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.lhIntercessionsJoinUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.lhIntercessionsJoinUpdateAll(u)
                 }
             }
-
             if (crudMassReadingJoin != null) {
-                List<MassReadingJoin> c = crudMassReadingJoin.c;
-                List<MassReadingJoin> u = crudMassReadingJoin.u;
-                List<MassReadingJoin> d = crudMassReadingJoin.d;
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.massReadingJoinInsertAll(c);
+                val c = crudMassReadingJoin!!.c
+                val u = crudMassReadingJoin!!.u
+                val d = crudMassReadingJoin!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.massReadingJoinInsertAll(c)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.massReadingJoinDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.massReadingJoinDeleteAll(d)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.massReadingJoinUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.massReadingJoinUpdateAll(u)
                 }
             }
             if (crudBibleHomilyTheme != null) {
-                List<BibleHomilyTheme> c = crudBibleHomilyTheme.c;
-                List<BibleHomilyTheme> u = crudBibleHomilyTheme.u;
-                List<BibleHomilyTheme> d = crudBibleHomilyTheme.d;
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.bibleHomilyThemeInsertAll(c);
+                val c = crudBibleHomilyTheme!!.c
+                val u = crudBibleHomilyTheme!!.u
+                val d = crudBibleHomilyTheme!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.bibleHomilyThemeInsertAll(c)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.bibleHomilyThemeDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.bibleHomilyThemeDeleteAll(d)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.bibleHomilyThemeUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.bibleHomilyThemeUpdateAll(u)
                 }
             }
-
             if (crudBibleHomilyJoin != null) {
-                List<BibleHomilyJoin> c = crudBibleHomilyJoin.c;
-                List<BibleHomilyJoin> u = crudBibleHomilyJoin.u;
-                List<BibleHomilyJoin> d = crudBibleHomilyJoin.d;
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.bibleHomilyJoinInsertAll(c);
+                val c = crudBibleHomilyJoin!!.c
+                val u = crudBibleHomilyJoin!!.u
+                val d = crudBibleHomilyJoin!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.bibleHomilyJoinInsertAll(c)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.bibleHomilyJoinDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.bibleHomilyJoinDeleteAll(d)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.bibleHomilyJoinUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.bibleHomilyJoinUpdateAll(u)
                 }
             }
-
-
             if (crudPaterOpus != null) {
-                List<PaterOpus> c = crudPaterOpus.c;
-                List<PaterOpus> u = crudPaterOpus.u;
-                List<PaterOpus> d = crudPaterOpus.d;
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.paterOpusInsertAll(c);
+                val c = crudPaterOpus!!.c
+                val u = crudPaterOpus!!.u
+                val d = crudPaterOpus!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.paterOpusInsertAll(c)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.paterOpusDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.paterOpusDeleteAll(d)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.paterOpusUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.paterOpusUpdateAll(u)
                 }
             }
-
             if (crudToday != null) {
-                List<Today> c = crudToday.c;
-                List<Today> u = crudToday.u;
-                List<Today> d = crudToday.d;
-
-                if (c != null && !c.isEmpty()) {
-                    mTodayDao.todayInsertAll(c);
+                val c = crudToday!!.c
+                val u = crudToday!!.u
+                val d = crudToday!!.d
+                if (c != null && c.isNotEmpty()) {
+                    mTodayDao.todayInsertAll(c)
                 }
-                if (u != null && !u.isEmpty()) {
-                    mTodayDao.todayUpdateAll(u);
+                if (u != null && u.isNotEmpty()) {
+                    mTodayDao.todayUpdateAll(u)
                 }
-                if (d != null && !d.isEmpty()) {
-                    mTodayDao.todayDeleteAll(d);
+                if (d != null && d.isNotEmpty()) {
+                    mTodayDao.todayDeleteAll(d)
                 }
             }
-        } catch (Exception e) {
-            Log.d("Crud", e.getMessage());
+        } catch (e: Exception) {
+            Log.d("Crud", e.message!!)
         }
-
     }
-
-
 }

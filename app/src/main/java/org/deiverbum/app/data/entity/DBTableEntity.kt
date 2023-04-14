@@ -1,28 +1,21 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.DB_TABLE;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = DB_TABLE)
-public class DBTableEntity {
-    @NonNull
+@Entity(tableName = Constants.DB_TABLE)
+class DBTableEntity {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "tableID")
-    public Integer tableID = 0;
+    var tableID = 0
 
-    @NonNull
     @ColumnInfo(name = "tableName")
-    public String tableName = "";
-
+    var tableName = ""
 }
-

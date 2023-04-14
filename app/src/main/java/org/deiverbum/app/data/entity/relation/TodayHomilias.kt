@@ -1,77 +1,55 @@
-package org.deiverbum.app.data.entity.relation;
+package org.deiverbum.app.data.entity.relation
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
-
-import org.deiverbum.app.data.entity.LiturgyEntity;
-import org.deiverbum.app.data.entity.LiturgyHomilyJoinEntity;
-import org.deiverbum.app.data.entity.TodayEntity;
-import org.deiverbum.app.model.Homily;
-import org.deiverbum.app.model.HomilyList;
-import org.deiverbum.app.model.MetaLiturgia;
-import org.deiverbum.app.model.Today;
-
-import java.util.ArrayList;
-import java.util.List;
+import androidx.room.Embedded
+import androidx.room.Relation
+import org.deiverbum.app.data.entity.LiturgyEntity
+import org.deiverbum.app.data.entity.LiturgyHomilyJoinEntity
+import org.deiverbum.app.data.entity.TodayEntity
+import org.deiverbum.app.model.Homily
+import org.deiverbum.app.model.HomilyList
+import org.deiverbum.app.model.Today
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class TodayHomilias {
-
+class TodayHomilias {
+    @JvmField
     @Embedded
-    public TodayEntity today;
+    var today: TodayEntity? = null
 
+    @JvmField
+    @Relation(entity = LiturgyEntity::class, parentColumn = "liturgyFK", entityColumn = "liturgyID")
+    var feria: LiturgyWithTime? = null
+
+    @JvmField
     @Relation(
-            entity = LiturgyEntity.class,
-            parentColumn = "liturgyFK",
-            entityColumn = "liturgyID"
+        entity = LiturgyHomilyJoinEntity::class,
+        parentColumn = "liturgyFK",
+        entityColumn = "liturgyFK"
     )
-    public LiturgyWithTime feria;
-
-    @Relation(
-            entity = LiturgyHomilyJoinEntity.class,
-            parentColumn = "liturgyFK",
-            entityColumn = "liturgyFK"
-    )
-    public List<LiturgiaWithHomilias> homilias;
-
-    public MetaLiturgia getMetaLiturgia() {
-        MetaLiturgia theModel = new MetaLiturgia();
-        theModel.setFecha(String.valueOf(today.hoy));
-        theModel.setIdHour(2);
-        theModel.setHasSaint(false);
-        theModel.setIdLecturas(today.mLecturasFK);
-        theModel.setIdPrevio(1);
-        theModel.setIdSemana(1);
-        theModel.setIdTiempo(today.getTiempoId());
-        theModel.setIdTiempoPrevio(1);
-        return theModel;
+    var homilias: List<LiturgiaWithHomilias>? = null
+    fun getToday(): Today {
+        val dm = Today()
+        dm.liturgyDay = feria?.domainModel
+        dm.todayDate = today!!.hoy
+        dm.hasSaint = today!!.hasSaint
+        return dm
     }
 
-    public Today getToday() {
-        Today dm = new Today();
-        dm.liturgyDay = feria.getDomainModel();
-        dm.setTodayDate(today.getHoy());
-        dm.setHasSaint(today.hasSaint);
-        return dm;
-    }
+    //dm.setMetaLiturgia(getMetaLiturgia());
+    val domainModel: Homily
+        get() {
+            val dm = Homily()
+            dm.setHoy(getToday())
+            val listModel: MutableList<HomilyList?> = ArrayList()
 
-
-    public Homily getDomainModel() {
-        Homily dm = new Homily();
-        dm.setHoy(getToday());
-
-        List<HomilyList> listModel = new ArrayList<>();
-
-        //dm.setMetaLiturgia(getMetaLiturgia());
-        for (LiturgiaWithHomilias item : homilias) {
-            listModel.add(item.getDomainModel());
+            //dm.setMetaLiturgia(getMetaLiturgia());
+            for (item in homilias!!) {
+                listModel.add(item.domainModel)
+            }
+            dm.homilias = listModel
+            return dm
         }
-        dm.setHomilias(listModel);
-        return dm;
-    }
-
 }

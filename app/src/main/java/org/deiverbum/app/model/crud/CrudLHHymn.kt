@@ -1,18 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.LHHymn;
+import org.deiverbum.app.model.LHHymn
 
-import java.util.List;
-
-public class CrudLHHymn {
-
-    public List<LHHymn> c;
-    public List<LHHymn> u;
-    public List<LHHymn> d;
-
-    @SuppressWarnings("unused")
-    public CrudLHHymn() {
-    }
-
-
+class CrudLHHymn {
+    var c: List<LHHymn>? = null
+    var u: List<LHHymn>? = null
+    var d: List<LHHymn>? = null
 }

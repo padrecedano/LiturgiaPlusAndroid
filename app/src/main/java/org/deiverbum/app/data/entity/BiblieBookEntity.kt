@@ -1,70 +1,48 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.BIBLE_BOOK;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
-import org.deiverbum.app.model.BibleBook;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import org.deiverbum.app.model.BibleBook
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = BIBLE_BOOK)
-
-public class BiblieBookEntity {
-    @NonNull
+@Entity(tableName = Constants.BIBLE_BOOK)
+class BiblieBookEntity {
+    @JvmField
     @PrimaryKey
     @ColumnInfo(name = "bookID")
-    public Integer libroId = 0;
+    var libroId = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "bookType")
-    public Integer bookType = 0;
+    var bookType = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "shortName")
-    public String shortName = "";
+    var shortName = ""
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "longName")
-    public String longName = "";
+    var longName = ""
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "liturgyName")
-    public String liturgyName = "";
+    var liturgyName = ""
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "orderName")
-    public String orderName = "";
-
-    @NonNull
-    public String getShortName() {
-        return shortName;
-    }
-
-    @NonNull
-    public String getLongName() {
-        return longName;
-    }
-
-    @NonNull
-    public String getLiturgyName() {
-        return liturgyName;
-    }
-
-    public BibleBook getDomainModel() {
-        BibleBook theModel = new BibleBook();
-        theModel.setName(getLongName());
-        theModel.setLiturgyName(getLiturgyName());
-        theModel.setShortName(getShortName());
-        return theModel;
-    }
-
+    var orderName = ""
+    val domainModel: BibleBook
+        get() {
+            val theModel = BibleBook()
+            theModel.name = longName
+            theModel.liturgyName = liturgyName
+            theModel.shortName = shortName
+            return theModel
+        }
 }
-

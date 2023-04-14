@@ -1,51 +1,43 @@
-package org.deiverbum.app.data.entity.relation;
+package org.deiverbum.app.data.entity.relation
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
-
-import org.deiverbum.app.data.entity.LHPsalmodyEntity;
-import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
-import org.deiverbum.app.model.LHPsalm;
-import org.deiverbum.app.model.LHPsalmody;
-
-import java.util.ArrayList;
-import java.util.List;
+import androidx.room.Embedded
+import androidx.room.Relation
+import org.deiverbum.app.data.entity.LHPsalmodyEntity
+import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity
+import org.deiverbum.app.model.LHPsalm
+import org.deiverbum.app.model.LHPsalmody
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class LHPsalmodyAll {
+class LHPsalmodyAll {
+    @JvmField
     @Embedded
-    public LHPsalmodyJoinEntity salmodia;
+    var salmodia: LHPsalmodyJoinEntity? = null
 
-    @Relation(
-            parentColumn = "groupID",
-            entityColumn = "groupFK",
-            entity = LHPsalmodyEntity.class
-    )
-    public List<PsalmodyWithPsalms> salmos;
-
-    public LHPsalmody getDomainModel() {
-        LHPsalmody theModel = new LHPsalmody();
-        theModel.setTipo(salmodia.getTipo());
-        List<LHPsalm> salmosList = new ArrayList<>();
-        for (PsalmodyWithPsalms salmo : salmos) {
-            LHPsalm s = new LHPsalm();
-            s.setSalmo(salmo.getSalmoText());
-            s.setRef(salmo.getRef());
-            s.setAntiphon(salmo.getAntifona());
-            s.setTheme(salmo.getTema());
-            s.setEpigraph(salmo.getEpigrafe());
-            s.setPart(salmo.getParte());
-            s.setTheOrder(salmo.getOrden());
-            salmosList.add(s);
+    @JvmField
+    @Relation(parentColumn = "groupID", entityColumn = "groupFK", entity = LHPsalmodyEntity::class)
+    var salmos: List<PsalmodyWithPsalms>? = null
+    val domainModel: LHPsalmody
+        get() {
+            val theModel = LHPsalmody()
+            theModel.tipo = salmodia!!.type
+            val salmosList: MutableList<LHPsalm> = ArrayList()
+            for (salmo in salmos!!) {
+                val s = LHPsalm()
+                s.psalm = salmo.salmoText
+                s.setRef(salmo.ref)
+                s.antiphon = salmo.antifona
+                s.theme = salmo.getTema()
+                s.epigraph = salmo.getEpigrafe()
+                s.part = salmo.parte
+                s.theOrder = salmo.orden
+                salmosList.add(s)
+            }
+            theModel.setSalmos(salmosList)
+            theModel.sort()
+            return theModel
         }
-        theModel.setSalmos(salmosList);
-        theModel.sort();
-        return theModel;
-    }
-
-
 }

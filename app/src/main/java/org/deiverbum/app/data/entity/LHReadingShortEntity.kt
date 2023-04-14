@@ -1,37 +1,28 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.LH_READING_SHORT;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = LH_READING_SHORT,
-        indices = {@Index(value = {"text"}, unique = true)}
-)
-public class LHReadingShortEntity {
-
-    @NonNull
+@Entity(tableName = Constants.LH_READING_SHORT, indices = [Index(value = ["text"], unique = true)])
+class LHReadingShortEntity {
+    @JvmField
     @PrimaryKey
     @ColumnInfo(name = "readingID")
-    public Integer lecturaId = 0;
+    var lecturaId = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "text")
-    public String texto = "";
+    var texto = ""
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "quote")
-    public String cita = "";
-
-
+    var cita = ""
 }
-

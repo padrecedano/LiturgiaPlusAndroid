@@ -1,41 +1,25 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Constants.TITLE_PRAYER;
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
 
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-
-import org.deiverbum.app.utils.Utils;
-
-public class Prayer {
-    public Integer prayerID;
-    public Integer order;
-
-    public String prayer;
-
-    public String getPrayer() {
-        return prayer;
-    }
-
-    public void setPrayer(String prayer) {
-        this.prayer = prayer;
-    }
-
-    public SpannableStringBuilder getHeader() {
-        return Utils.formatTitle(TITLE_PRAYER);
-    }
-
-    public final Spanned getAll() {
-        SpannableStringBuilder sb = new SpannableStringBuilder("");
-        sb.append(getHeader());
-        sb.append(Utils.LS2);
-        sb.append(Utils.fromHtml(prayer));
-
-        return sb;
-    }
-
-    public String getAllForRead() {
-        return Utils.pointAtEnd(TITLE_PRAYER) +
-                Utils.fromHtml(prayer);
-    }
+class Prayer {
+    var prayerID: Int? = null
+    var order: Int? = null
+    var prayer: String? = null
+    val header: SpannableStringBuilder
+        get() = Utils.formatTitle(Constants.TITLE_PRAYER)
+    val all: Spanned
+        get() {
+            val sb = SpannableStringBuilder("")
+            sb.append(header)
+            sb.append(Utils.LS2)
+            sb.append(Utils.fromHtml(prayer))
+            return sb
+        }
+    val allForRead: String
+        get() = Utils.pointAtEnd(Constants.TITLE_PRAYER) +
+                Utils.fromHtml(prayer)
 }

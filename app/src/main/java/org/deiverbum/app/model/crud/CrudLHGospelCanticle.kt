@@ -1,18 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.LHGospelCanticleTable;
+import org.deiverbum.app.model.LHGospelCanticleTable
 
-import java.util.List;
-
-public class CrudLHGospelCanticle {
-
-    public List<LHGospelCanticleTable> c;
-    public List<LHGospelCanticleTable> u;
-    public List<LHGospelCanticleTable> d;
-
-    @SuppressWarnings("unused")
-    public CrudLHGospelCanticle() {
-    }
-
-
+class CrudLHGospelCanticle {
+    var c: List<LHGospelCanticleTable>? = null
+    var u: List<LHGospelCanticleTable>? = null
+    var d: List<LHGospelCanticleTable>? = null
 }

@@ -1,93 +1,67 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Constants.TITLE_NONA;
-import static org.deiverbum.app.utils.Constants.TITLE_SEXTA;
-import static org.deiverbum.app.utils.Constants.TITLE_TERCIA;
-import static org.deiverbum.app.utils.Utils.LS;
-import static org.deiverbum.app.utils.Utils.LS2;
+import android.text.SpannableStringBuilder
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
 
-import android.text.SpannableStringBuilder;
-
-import org.deiverbum.app.utils.Utils;
-
-public class Intermedia extends BreviaryHour {
-    private BiblicalShort lecturaBreve;
-
-    public Intermedia() {
-    }
-
-    public String getTituloHora() {
-        switch (typeID) {
-            case 3:
-                return TITLE_TERCIA;
-            case 4:
-                return TITLE_SEXTA;
-            case 5:
-                return TITLE_NONA;
-            default:
-                return "";
+class Intermedia : BreviaryHour() {
+    var lecturaBreve: BiblicalShort? = null
+    val tituloHora: String
+        get() = when (typeID) {
+            3 -> Constants.TITLE_TERCIA
+            4 -> Constants.TITLE_SEXTA
+            5 -> Constants.TITLE_NONA
+            else -> ""
         }
-    }
+    val tituloHoraForRead: String
+        get() = Utils.pointAtEnd(tituloHora)
+    val tituloHoraForView: SpannableStringBuilder
+        get() = Utils.toH1Red(tituloHora)
 
-    public String getTituloHoraForRead() {
-        return Utils.pointAtEnd(getTituloHora());
-    }
-
-    public SpannableStringBuilder getTituloHoraForView() {
-
-        return Utils.toH1Red(getTituloHora());
-    }
-
-    public SpannableStringBuilder getForView(LiturgyTime liturgyTime, int typeID) {
-        this.typeID = typeID;
-        SpannableStringBuilder sb = new SpannableStringBuilder();
+    fun getForView(liturgyTime: LiturgyTime, typeID: Int): SpannableStringBuilder {
+        this.typeID = typeID
+        val sb = SpannableStringBuilder()
         try {
-            salmodia.normalizeByTime(liturgyTime.getTimeID());
-            sb.append(Utils.LS2);
-
-            sb.append(getTituloHoraForView());
-            sb.append(Utils.fromHtmlToSmallRed(getMetaInfo()));
-            sb.append(LS2);
-
-            sb.append(getSaludoDiosMio());
-            sb.append(LS2);
-
-            sb.append(himno.getAll());
-            sb.append(LS2);
-
-            sb.append(salmodia.getAll(getHourIndex()));
-            sb.append(LS);
-
-            sb.append(lecturaBreve.getAllWithHourCheck(typeID));
-            sb.append(LS2);
-
-            sb.append(oracion.getAll());
-            sb.append(LS2);
-
-            sb.append(getConclusionHoraMenor());
-
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
+            salmodia!!.normalizeByTime(liturgyTime.timeID)
+            sb.append(Utils.LS2)
+            sb.append(tituloHoraForView)
+            sb.append(Utils.fromHtmlToSmallRed(metaInfo))
+            sb.append(Utils.LS2)
+            sb.append(getSaludoDiosMio())
+            sb.append(Utils.LS2)
+            sb.append(himno?.all)
+            sb.append(Utils.LS2)
+            sb.append(salmodia!!.getAll(hourIndex))
+            sb.append(Utils.LS)
+            sb.append(lecturaBreve!!.getAllWithHourCheck(typeID))
+            sb.append(Utils.LS2)
+            sb.append(oracion!!.all)
+            sb.append(Utils.LS2)
+            sb.append(getConclusionHoraMenor())
+        } catch (e: Exception) {
+            sb.append(Utils.createErrorMessage(e.message))
         }
-        return sb;
+        return sb
     }
 
-    public StringBuilder getForRead() {
-        StringBuilder sb = new StringBuilder();
-        try {
-            //sb.append(today.getAllForRead());
-            sb.append(getTituloHoraForRead());
-            sb.append(getSaludoDiosMioForRead());
-            sb.append(himno.getAllForRead());
-            sb.append(salmodia.getAllForRead(getHourIndex()));
-            sb.append(lecturaBreve.getAllForRead());
-            sb.append(oracion.getAllForRead());
-            sb.append(getConclusionHoraMenorForRead());
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
+    //sb.append(today.getAllForRead());
+    val forRead: StringBuilder
+        get() {
+            val sb = StringBuilder()
+            try {
+                //sb.append(today.getAllForRead());
+                sb.append(tituloHoraForRead)
+                sb.append(getSaludoDiosMioForRead())
+                sb.append(himno?.allForRead)
+                sb.append(salmodia!!.getAllForRead(hourIndex))
+                sb.append(lecturaBreve!!.getAllForRead())
+                sb.append(oracion!!.allForRead)
+                sb.append(getConclusionHoraMenorForRead())
+            } catch (e: Exception) {
+                sb.append(Utils.createErrorMessage(e.message))
+            }
+            return sb
         }
-        return sb;
-    }
 
     /**
      * Devuelve el índice de la hora para fines de LHPsalmody
@@ -97,25 +71,11 @@ public class Intermedia extends BreviaryHour {
      * @return Un entero con el índice 0
      * @since 2022.1
      */
-    private int getHourIndex() {
-        switch (typeID) {
-            case 4:
-                return 1;
-            case 5:
-                return 2;
-            case 3:
-            default:
-                return 0;
+    private val hourIndex: Int
+        private get() = when (typeID) {
+            4 -> 1
+            5 -> 2
+            3 -> 0
+            else -> 0
         }
-    }
-
-    @SuppressWarnings("unused")
-    public BiblicalShort getLecturaBreve() {
-        return lecturaBreve;
-    }
-
-    public void setLecturaBreve(BiblicalShort lecturaBreve) {
-        this.lecturaBreve = lecturaBreve;
-    }
-
 }

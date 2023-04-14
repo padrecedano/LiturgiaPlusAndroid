@@ -1,13 +1,8 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.PATER_OPUS;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
+import androidx.room.*
+import androidx.room.ForeignKey.Companion.CASCADE
+import org.deiverbum.app.utils.Constants
 
 /**
  * Entidad que representa a la tabla {@value org.deiverbum.app.utils.Constants#PATER_OPUS}.
@@ -16,69 +11,69 @@ import androidx.room.PrimaryKey;
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = PATER_OPUS,
-        foreignKeys =
-                {
-                        @ForeignKey(
-                                entity = PaterEntity.class,
-                                parentColumns = "paterID",
-                                childColumns = "paterFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)},
-        indices = {@Index(value = {"opusName", "paterFK", "volume"}, unique = true)}
+@Entity(
+    tableName = Constants.PATER_OPUS,
+    foreignKeys = [ForeignKey(
+        entity = PaterEntity::class,
+        parentColumns = arrayOf("paterID"),
+        childColumns = arrayOf("paterFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )],
+    indices = [Index(value = ["opusName", "paterFK", "volume"], unique = true)]
 )
-public class PaterOpusEntity {
-    @NonNull
+class PaterOpusEntity {
+    @JvmField
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "opusID")
-    public Integer obraId = 0;
+    var obraId = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "opusName")
-    public String opusName = "";
+    var opusName = ""
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "liturgyName", defaultValue = "")
-    public String liturgyName = "";
+    var liturgyName = ""
 
     //@NonNull
+    @JvmField
     @ColumnInfo(name = "subTitle", defaultValue = "NULL")
-    public String subTitle = "";
+    var subTitle : String? = null
 
     //@NonNull
+    @JvmField
     @ColumnInfo(name = "volume", defaultValue = "NULL")
-    public Integer volumen = 0;
+    var volumen : Int? = null
 
+    @JvmField
     @ColumnInfo(name = "opusDate", defaultValue = "NULL")
-    public Integer opusDate = 0;
+    var opusDate : Int? = null
 
     //@NonNull
+    @JvmField
     @ColumnInfo(name = "editorial", defaultValue = "NULL")
-    public String editorial = "";
+    var editorial : String? = null
 
     //@NonNull
+    @JvmField
     @ColumnInfo(name = "city", defaultValue = "NULL")
-    public String ciudad;
+    var ciudad: String? = null
 
     //@NonNull
+    @JvmField
     @ColumnInfo(name = "opusYear", defaultValue = "NULL")
-    public Integer opusYear;
+    var opusYear: Int? = null
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "paterFK", defaultValue = "0", index = true)
-    public Integer padreFK = 0;
+    var padreFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "typeFK", defaultValue = "0")
-    public Integer typeFK = 0;
+    var typeFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "collectionFK", defaultValue = "0")
-    public Integer collectionFK = 0;
-
-    @NonNull
-    public String getOpusName() {
-        return opusName;
-    }
+    var collectionFK = 0
 }

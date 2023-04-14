@@ -266,7 +266,7 @@ public class FirebaseDataSource {
                         DocumentReference dataRef =
                                 document.getDocumentReference(String.format(new Locale("es"), "lh.%d", hourId));
                         MetaLiturgia meta = document.get("metaliturgia", MetaLiturgia.class);
-                        Objects.requireNonNull(meta).setIdHour(hourId);
+                        //Objects.requireNonNull(meta).setIdHour(hourId);
 
                         try {
 

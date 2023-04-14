@@ -1,62 +1,40 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.LH_RESPONSORY;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
-import org.deiverbum.app.model.LHResponsory;
-import org.deiverbum.app.utils.Utils;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import org.deiverbum.app.model.LHResponsory
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = LH_RESPONSORY/*,
-        indices={
-                @Index(value={"texto","fuente", "tipo"},unique = true)}*/
-)
-public class LHResponsoryEntity {
-    @NonNull
+@Entity(tableName = Constants.LH_RESPONSORY)
+class LHResponsoryEntity {
+    @JvmField
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "responsoryID")
-    public Integer responsorioId = 0;
-    @NonNull
+    var responsorioId = 0
+
+    @JvmField
     @ColumnInfo(name = "text")
-    public String texto = "";
-    @NonNull
+    var texto = ""
+
+    @JvmField
     @ColumnInfo(name = "source")
-    public String fuente = "";
-    @NonNull
+    var fuente = ""
+
+    @JvmField
     @ColumnInfo(name = "type")
-    public Integer tipo = 0;
-
-    @NonNull
-    public String getTexto() {
-        return texto;
+    var tipo = 0
+    fun getDomainModel(timeId: Int?): LHResponsory {
+        val theModel = LHResponsory()
+        theModel.text = Utils.replaceByTime(texto, timeId!!)
+        theModel.type = tipo
+        theModel.source = fuente
+        return theModel
     }
-
-    @NonNull
-    public String getFuente() {
-        return fuente;
-    }
-
-    @NonNull
-    public Integer getTipo() {
-        return tipo;
-    }
-
-    public LHResponsory getDomainModel(Integer timeId) {
-        LHResponsory theModel = new LHResponsory();
-        theModel.setText(Utils.replaceByTime(getTexto(), timeId));
-        theModel.setType(getTipo());
-        theModel.setSource(getFuente());
-        return theModel;
-    }
-
 }
-

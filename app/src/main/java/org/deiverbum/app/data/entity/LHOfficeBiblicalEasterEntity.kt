@@ -1,82 +1,74 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.LH_OFFICE_BIBLICAL_EASTER;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-
-import org.deiverbum.app.model.LHOfficeBiblicalEaster;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.Companion.CASCADE
+import org.deiverbum.app.model.LHOfficeBiblicalEaster
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = LH_OFFICE_BIBLICAL_EASTER,
-        primaryKeys = {"groupFK", "readingFK", "psalmodyFK", "prayerFK"},
-
-        foreignKeys =
-                {
-                        @ForeignKey(
-                                entity = LHOfficeBiblicalJoinEntity.class,
-                                parentColumns = "groupID",
-                                childColumns = "groupFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE),
-                        @ForeignKey(
-                                entity = BibleReadingEntity.class,
-                                parentColumns = "readingID",
-                                childColumns = "readingFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE),
-                        @ForeignKey(
-                                entity = LHPsalmodyJoinEntity.class,
-                                parentColumns = "groupID",
-                                childColumns = "psalmodyFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE),
-                        @ForeignKey(
-                                entity = PrayerEntity.class,
-                                parentColumns = "prayerID",
-                                childColumns = "prayerFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)
-                }
+@Entity(
+    tableName = Constants.LH_OFFICE_BIBLICAL_EASTER,
+    primaryKeys = ["groupFK", "readingFK", "psalmodyFK", "prayerFK"],
+    foreignKeys = [ForeignKey(
+        entity = LHOfficeBiblicalJoinEntity::class,
+        parentColumns = arrayOf("groupID"),
+        childColumns = arrayOf("groupFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    ), ForeignKey(
+        entity = BibleReadingEntity::class,
+        parentColumns = arrayOf("readingID"),
+        childColumns = arrayOf("readingFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    ), ForeignKey(
+        entity = LHPsalmodyJoinEntity::class,
+        parentColumns = arrayOf("groupID"),
+        childColumns = arrayOf("psalmodyFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    ), ForeignKey(
+        entity = PrayerEntity::class,
+        parentColumns = arrayOf("prayerID"),
+        childColumns = arrayOf("prayerFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )]
 )
-
-public class LHOfficeBiblicalEasterEntity {
-
-    @NonNull
+class LHOfficeBiblicalEasterEntity {
+    @JvmField
     @ColumnInfo(name = "groupFK", index = true)
-    public Integer groupFK = 0;
+    var groupFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "readingFK", index = true)
-    public Integer readingFK = 0;
+    var readingFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "psalmodyFK", index = true)
-    public Integer psalmodyFK = 0;
+    var psalmodyFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "prayerFK", index = true)
-    public Integer prayerFK = 0;
+    var prayerFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "theme")
-    public String theme = "";
+    var theme = ""
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "theOrder", defaultValue = "1")
-    public Integer theOrder = 1;
-
-    public LHOfficeBiblicalEaster getDomainModel() {
-        LHOfficeBiblicalEaster dm = new LHOfficeBiblicalEaster();
-        dm.setTheme(theme);
-        return dm;
-    }
+    var theOrder = 1
+    val domainModel: LHOfficeBiblicalEaster
+        get() {
+            val dm = LHOfficeBiblicalEaster()
+            dm.theme = theme
+            return dm
+        }
 }
-

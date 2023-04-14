@@ -1,53 +1,36 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import android.text.SpannableStringBuilder;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
+import android.text.SpannableStringBuilder
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
  */
-public class Preamble extends Content {
-
+class Preamble
+/**
+ * No args constructor for use in serialization
+ */
+    : Content() {
     @SerializedName("paragraphs")
     @Expose
-    private List<Paragraph> paragraphs = null;
-
-    /**
-     * No args constructor for use in serialization
-     */
-    public Preamble() {
-    }
-
-    @SuppressWarnings("unused")
-    public List<Paragraph> getParagraphs() {
-        return paragraphs;
-    }
-
-    @SuppressWarnings("unused")
-    public void setParagraphs(List<Paragraph> paragraphs) {
-        this.paragraphs = paragraphs;
-    }
-
-    public SpannableStringBuilder getAll() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        for (Paragraph p : paragraphs) {
-            sb.append(p.getText());
+    var paragraphs: List<Paragraph>? = null
+    val all: SpannableStringBuilder
+        get() {
+            val sb = SpannableStringBuilder()
+            for (p in paragraphs!!) {
+                sb.append(p.getText())
+            }
+            return sb
         }
-        return sb;
-    }
-
-    @SuppressWarnings("unused")
-    public SpannableStringBuilder getAllForView() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        for (Paragraph p : paragraphs) {
-            sb.append(p.getText());
+    val allForView: SpannableStringBuilder
+        get() {
+            val sb = SpannableStringBuilder()
+            for (p in paragraphs!!) {
+                sb.append(p.getText())
+            }
+            return sb
         }
-        return sb;
-    }
 }

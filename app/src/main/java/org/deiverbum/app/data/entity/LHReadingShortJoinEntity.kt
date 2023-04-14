@@ -1,54 +1,44 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.LH_READING_SHORT_JOIN;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.PrimaryKey;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.Companion.CASCADE
+import androidx.room.PrimaryKey
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = LH_READING_SHORT_JOIN,
-        foreignKeys =
-                {
-                        @ForeignKey(
-                                entity = LHReadingShortEntity.class,
-                                parentColumns = "readingID",
-                                childColumns = "readingFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE),
-                        @ForeignKey(
-                                entity = LHResponsoryShortEntity.class,
-                                parentColumns = "responsoryID",
-                                childColumns = "responsoryFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)
-                }
+@Entity(
+    tableName = Constants.LH_READING_SHORT_JOIN,
+    foreignKeys = [ForeignKey(
+        entity = LHReadingShortEntity::class,
+        parentColumns = arrayOf("readingID"),
+        childColumns = arrayOf("readingFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    ), ForeignKey(
+        entity = LHResponsoryShortEntity::class,
+        parentColumns = arrayOf("responsoryID"),
+        childColumns = arrayOf("responsoryFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )]
 )
-public class LHReadingShortJoinEntity {
-
-    @NonNull
+class LHReadingShortJoinEntity {
+    @JvmField
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    public Integer grupoId = 0;
+    var grupoId = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "readingFK", index = true)
-    public Integer lecturaFK = 0;
+    var lecturaFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "responsoryFK", index = true)
-    public Integer responsorioFK = 0;
-
-    public int getGrupoId() {
-        return grupoId;
-    }
-
+    var responsorioFK = 0
 }
-

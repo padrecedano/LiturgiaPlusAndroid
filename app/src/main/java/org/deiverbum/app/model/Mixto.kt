@@ -1,65 +1,45 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Constants.TITLE_MIXTO;
+import android.text.SpannableStringBuilder
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
 
-import android.text.SpannableStringBuilder;
-
-import org.deiverbum.app.utils.Utils;
-
-import java.util.List;
-
-public class Mixto extends BreviaryHour {
-    private List<MassReading> misaLecturas;
-
-    public Mixto() {
+class Mixto : BreviaryHour() {
+    var misaLecturas: List<MassReading?>? = null
+    override fun getLaudes(): Laudes? {
+        return laudes
     }
 
-    public Laudes getLaudes() {
-        return laudes;
+    override fun setLaudes(laudes: Laudes?) {
+        this.laudes = laudes
     }
 
-    public void setLaudes(Laudes laudes) {
-        this.laudes = laudes;
+    override fun getOficio(): Oficio? {
+        return oficio
     }
 
-    public Oficio getOficio() {
-        return oficio;
+    override fun setOficio(oficio: Oficio?) {
+        this.oficio = oficio
     }
 
-    public void setOficio(Oficio oficio) {
-        this.oficio = oficio;
-    }
-
-    public List<MassReading> getMisaLecturas() {
-        return misaLecturas;
-    }
-
-    @SuppressWarnings("unused")
-    public void setMisaLecturas(List<MassReading> misaLecturas) {
-        this.misaLecturas = misaLecturas;
-    }
-
-    public SpannableStringBuilder getTituloHora() {
-        return Utils.toH1Red(TITLE_MIXTO);
-    }
-
-    public String getTituloHoraForRead() {
-        return Utils.pointAtEnd(TITLE_MIXTO);
-    }
-
-    public SpannableStringBuilder getEvangeliosForView() {
-        SpannableStringBuilder ssb = new SpannableStringBuilder();
-        for (MassReading item : misaLecturas) {
-            ssb.append(item.getAll());
+    val tituloHora: SpannableStringBuilder
+        get() = Utils.toH1Red(Constants.TITLE_MIXTO)
+    val tituloHoraForRead: String
+        get() = Utils.pointAtEnd(Constants.TITLE_MIXTO)
+    val evangeliosForView: SpannableStringBuilder
+        get() {
+            val ssb = SpannableStringBuilder()
+            for (item in misaLecturas!!) {
+                ssb.append(item?.getAll(0))
+            }
+            return ssb
         }
-        return ssb;
-    }
-
-    public StringBuilder getEvangeliosForRead() {
-        StringBuilder sb = new StringBuilder();
-        for (MassReading item : misaLecturas) {
-            sb.append(item.getAllForRead());
+    val evangeliosForRead: StringBuilder
+        get() {
+            val sb = StringBuilder()
+            for (item in misaLecturas!!) {
+                sb.append(item?.getAllForRead())
+            }
+            return sb
         }
-        return sb;
-    }
 }

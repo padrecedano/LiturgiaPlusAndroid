@@ -1,18 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.LHPsalm;
+import org.deiverbum.app.model.LHPsalm
 
-import java.util.List;
-
-public class CrudLHPsalm {
-
-    public List<LHPsalm> c;
-    public List<LHPsalm> u;
-    public List<LHPsalm> d;
-
-    @SuppressWarnings("unused")
-    public CrudLHPsalm() {
-    }
-
-
+class CrudLHPsalm {
+    var c: List<LHPsalm>? = null
+    var u: List<LHPsalm>? = null
+    var d: List<LHPsalm>? = null
 }

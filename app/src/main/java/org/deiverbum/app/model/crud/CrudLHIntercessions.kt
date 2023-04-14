@@ -1,18 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.LHIntercession;
+import org.deiverbum.app.model.LHIntercession
 
-import java.util.List;
-
-public class CrudLHIntercessions {
-
-    public List<LHIntercession> c;
-    public List<LHIntercession> u;
-    public List<LHIntercession> d;
-
-    @SuppressWarnings("unused")
-    public CrudLHIntercessions() {
-    }
-
-
+class CrudLHIntercessions {
+    var c: List<LHIntercession>? = null
+    var u: List<LHIntercession>? = null
+    var d: List<LHIntercession>? = null
 }

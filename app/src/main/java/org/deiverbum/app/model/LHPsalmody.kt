@@ -1,355 +1,317 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Constants.BR;
-import static org.deiverbum.app.utils.Constants.NBSP_SALMOS;
-import static org.deiverbum.app.utils.Constants.TITLE_PSALMODY;
-import static org.deiverbum.app.utils.Utils.LS2;
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import androidx.room.Ignore
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
+import java.util.*
 
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
+class LHPsalmody {
+    var groupFK: Int? = null
+    var readingFK: Int? = null
+    var order: Int? = null
+    var antiphonFK: Int? = null
+    var themeFK: Int? = null
+    var epigraphFK: Int? = null
+    var part: Int? = null
 
-import androidx.room.Ignore;
-
-import org.deiverbum.app.utils.Utils;
-
-import java.util.Collections;
-import java.util.List;
-
-public class LHPsalmody {
-    public Integer groupFK;
-    public Integer readingFK;
-    public Integer order;
-    public Integer antiphonFK;
-    public Integer themeFK;
-    public Integer epigraphFK;
-    public Integer part;
     @Ignore
-    private int tipo;
+    var tipo = 0
+
     //@ColumnInfo(name = "salmos")
     @Ignore
-    private List<LHPsalm> salmos;
-
-    public LHPsalmody() {
+    private var salmos: List<LHPsalm>? = null
+    fun sort() {
+        Collections.sort(salmos)
     }
 
-    public int getTipo() {
-        return tipo;
+    val salmosForRead: SpannableStringBuilder
+        get() = getSalmosForRead(-1)
+
+    fun getSalmos(): SpannableStringBuilder {
+        return getSalmos(-1)
     }
 
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
+    fun setSalmos(salmos: List<LHPsalm>?) {
+        this.salmos = salmos
     }
 
-    public void sort() {
-        Collections.sort(this.salmos);
-    }
-
-    public SpannableStringBuilder getSalmosForRead() {
-        return getSalmosForRead(-1);
-    }
-
-    public SpannableStringBuilder getSalmos() {
-        return getSalmos(-1);
-    }
-
-    public void setSalmos(List<LHPsalm> salmos) {
-        this.salmos = salmos;
-    }
-
-    public SpannableStringBuilder getSalmos(int hourIndex) {
-        SpannableStringBuilder sb = new SpannableStringBuilder("");
-        String salmo;
-        String preAntifona = "Ant. ";
-        String antUnica;
-
+    fun getSalmos(hourIndex: Int): SpannableStringBuilder {
+        val sb = SpannableStringBuilder("")
+        var salmo: String?
+        val preAntifona = "Ant. "
+        var antUnica: String?
         if (tipo == 1) {
-            sb.append(Utils.toRed(preAntifona));
-            antUnica = salmos.get(hourIndex).getAntiphon();
-            sb.append(antUnica);
+            sb.append(Utils.toRed(preAntifona))
+            antUnica = salmos!![hourIndex].antiphon
+            sb.append(antUnica)
         }
         if (tipo == 2) {
-            sb.append(Utils.toRed(preAntifona));
-            antUnica = salmos.get(0).getAntiphon();
-            sb.append(antUnica);
+            sb.append(Utils.toRed(preAntifona))
+            antUnica = salmos!![0].antiphon
+            sb.append(antUnica)
         }
-        for (LHPsalm s : salmos) {
-            SpannableStringBuilder tema = new SpannableStringBuilder("");
-            SpannableStringBuilder parte = new SpannableStringBuilder("");
-            SpannableStringBuilder intro = new SpannableStringBuilder("");
-            SpannableStringBuilder ref = new SpannableStringBuilder("");
-            String preRef = String.valueOf(s.getRef());
-
+        for (s in salmos!!) {
+            val tema = SpannableStringBuilder("")
+            val parte = SpannableStringBuilder("")
+            val intro = SpannableStringBuilder("")
+            val ref = SpannableStringBuilder("")
+            val preRef = s.ref.toString()
             if (tipo == 0) {
-                sb.append(Utils.toRed(preAntifona + s.getTheOrder() + ". "));
-                sb.append(Utils.fromHtml(s.getAntiphon()));
+                sb.append(Utils.toRed(preAntifona + s.theOrder + ". "))
+                sb.append(Utils.fromHtml(s.antiphon))
             }
-            if (!s.getTheme().equals("")) {
-                tema.append(Utils.toRed(s.getTheme()));
-                tema.append(LS2);
+            if (s.theme != "") {
+                tema.append(Utils.toRed(s.theme))
+                tema.append(Utils.LS2)
             }
-
-            if (!s.getEpigraph().equals("")) {
-                intro.append(Utils.fromHtmlSmall(s.getEpigraph()));
-                intro.append(LS2);
+            if (s.epigraph != "") {
+                intro.append(Utils.fromHtmlSmall(s.epigraph))
+                intro.append(Utils.LS2)
             }
-            if (!s.getPart().equals("")) {
-                parte.append(Utils.toRed(s.getPart()));
-                parte.append(LS2);
+            if (s.part != "") {
+                parte.append(Utils.toRed(s.part))
+                parte.append(Utils.LS2)
             }
             if (!preRef.isEmpty()) {
-                ref.append(Utils.LS);
-                ref.append(s.getRef());
-                ref.append(LS2);
+                ref.append(Utils.LS)
+                ref.append(s.ref)
+                ref.append(Utils.LS2)
             }
-
-            sb.append(LS2);
-            sb.append(ref);
-            sb.append(tema);
-            sb.append(intro);
-            sb.append(parte);
-            salmo = Utils.getFormato(s.getSalmo());
-            sb.append(Utils.fromHtml(salmo));
-
-            if (s.getSalmo().endsWith("∸")) {
-                sb.append(Utils.LS);
-                sb.append(getNoGloria());
+            sb.append(Utils.LS2)
+            sb.append(ref)
+            sb.append(tema)
+            sb.append(intro)
+            sb.append(parte)
+            salmo = Utils.getFormato(s.psalm)
+            sb.append(Utils.fromHtml(salmo))
+            if (s.psalm.endsWith("∸")) {
+                sb.append(Utils.LS)
+                sb.append(noGloria)
             } else {
-                sb.append(LS2);
-                sb.append(getFinSalmo());
+                sb.append(Utils.LS2)
+                sb.append(finSalmo)
             }
-
             if (tipo == 0) {
-                sb.append(LS2);
-                sb.append(Utils.toRed(preAntifona));
-                sb.append(getAntifonaLimpia(s.getAntiphon()));
-                sb.append(LS2);
+                sb.append(Utils.LS2)
+                sb.append(Utils.toRed(preAntifona))
+                sb.append(getAntifonaLimpia(s.antiphon))
+                sb.append(Utils.LS2)
             }
         }
         if (tipo == 1) {
-            sb.append(LS2);
-
-            sb.append(Utils.toRed(preAntifona));
-            antUnica = getAntifonaLimpia(salmos.get(hourIndex).getAntiphon());
-            sb.append(antUnica);
-            sb.append(LS2);
+            sb.append(Utils.LS2)
+            sb.append(Utils.toRed(preAntifona))
+            antUnica = getAntifonaLimpia(salmos!![hourIndex].antiphon)
+            sb.append(antUnica)
+            sb.append(Utils.LS2)
         }
         if (tipo == 2) {
-            sb.append(LS2);
-            sb.append(Utils.toRed(preAntifona));
-            antUnica = getAntifonaLimpia(salmos.get(0).getAntiphon());
-            sb.append(antUnica);
-            sb.append(LS2);
+            sb.append(Utils.LS2)
+            sb.append(Utils.toRed(preAntifona))
+            antUnica = getAntifonaLimpia(salmos!![0].antiphon)
+            sb.append(antUnica)
+            sb.append(Utils.LS2)
         }
-        return sb;
+        return sb
     }
 
-    public SpannableStringBuilder getSalmosByIndex(int index) {
-        SpannableStringBuilder sb = new SpannableStringBuilder("");
-        String preAntifona = "Ant. ";
-
-        sb.append(Utils.toRed(preAntifona));
+    fun getSalmosByIndex(index: Int): SpannableStringBuilder {
+        val sb = SpannableStringBuilder("")
+        val preAntifona = "Ant. "
+        sb.append(Utils.toRed(preAntifona))
         //sb.append(salmos.get(index).getAntiphon());
-        LHPsalm s = salmos.get(index);
-        sb.append(Utils.fromHtml(s.getAntiphon()));
-
-        SpannableStringBuilder tema = new SpannableStringBuilder("");
-        SpannableStringBuilder parte = new SpannableStringBuilder("");
-        SpannableStringBuilder intro = new SpannableStringBuilder("");
-        SpannableStringBuilder ref = new SpannableStringBuilder("");
-        String preRef = String.valueOf(s.getRef());
+        val s = salmos!![index]
+        sb.append(Utils.fromHtml(s.antiphon))
+        val tema = SpannableStringBuilder("")
+        val parte = SpannableStringBuilder("")
+        val intro = SpannableStringBuilder("")
+        val ref = SpannableStringBuilder("")
+        val preRef = s.ref.toString()
 
         //sb.append(Utils.toRed(preAntifona + s.getTheOrder() + ". "));
-
-        if (!s.getTheme().equals("")) {
-            tema.append(Utils.toRed(s.getTheme()));
-            tema.append(LS2);
+        if (s.theme != "") {
+            tema.append(Utils.toRed(s.theme))
+            tema.append(Utils.LS2)
         }
-
-        if (!s.getEpigraph().equals("")) {
-            intro.append(Utils.fromHtmlSmall(s.getEpigraph()));
-            intro.append(LS2);
+        if (s.epigraph != "") {
+            intro.append(Utils.fromHtmlSmall(s.epigraph))
+            intro.append(Utils.LS2)
         }
-        if (!s.getPart().equals("")) {
-            parte.append(Utils.toRed(s.getPart()));
-            parte.append(LS2);
+        if (s.part != "") {
+            parte.append(Utils.toRed(s.part))
+            parte.append(Utils.LS2)
         }
         if (!preRef.isEmpty()) {
-            ref.append(Utils.LS);
-            ref.append(s.getRef());
-            ref.append(LS2);
+            ref.append(Utils.LS)
+            ref.append(s.ref)
+            ref.append(Utils.LS2)
         }
-
-        sb.append(LS2);
-        sb.append(ref);
-        sb.append(tema);
-        sb.append(intro);
-        sb.append(parte);
+        sb.append(Utils.LS2)
+        sb.append(ref)
+        sb.append(tema)
+        sb.append(intro)
+        sb.append(parte)
         //salmo = Utils.getFormato(s.getSalmo());
-        sb.append(Utils.fromHtml(Utils.getFormato(s.getSalmo())));
-
-        if (s.getSalmo().endsWith("∸")) {
-            sb.append(Utils.LS);
-            sb.append(getNoGloria());
+        sb.append(Utils.fromHtml(Utils.getFormato(s.psalm)))
+        if (s.psalm.endsWith("∸")) {
+            sb.append(Utils.LS)
+            sb.append(noGloria)
         } else {
-            sb.append(LS2);
-            sb.append(getFinSalmo());
+            sb.append(Utils.LS2)
+            sb.append(finSalmo)
         }
-
-        sb.append(LS2);
-        sb.append(Utils.toRed(preAntifona));
-        sb.append(getAntifonaLimpia(s.getAntiphon()));
-        sb.append(LS2);
-
-        return sb;
+        sb.append(Utils.LS2)
+        sb.append(Utils.toRed(preAntifona))
+        sb.append(getAntifonaLimpia(s.antiphon))
+        sb.append(Utils.LS2)
+        return sb
     }
 
-    public SpannableStringBuilder getSalmosForRead(int hourIndex) {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        String salmo;
-        String antUnica = "";
-
+    fun getSalmosForRead(hourIndex: Int): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        var salmo: String?
+        var antUnica = ""
         if (tipo == 1) {
-            antUnica = getAntifonaLimpia(salmos.get(hourIndex).getAntifonaForRead());
-            sb.append(antUnica);
+            antUnica = getAntifonaLimpia(salmos!![hourIndex].antifonaForRead)
+            sb.append(antUnica)
         }
         if (tipo == 2) {
-            antUnica = getAntifonaLimpia(salmos.get(0).getAntifonaForRead());
+            antUnica = getAntifonaLimpia(salmos!![0].antifonaForRead)
             //antUnica = salmoCompleto.get(0).getAntifona();
-            sb.append(antUnica);
+            sb.append(antUnica)
         }
-        for (LHPsalm s : salmos) {
+        for (s in salmos!!) {
             if (tipo == 0) {
-                sb.append(Utils.fromHtml(s.getAntifonaForRead()));
+                sb.append(Utils.fromHtml(s.antifonaForRead))
             }
-
-            sb.append(LS2);
-            salmo = Utils.getFormatoForRead(s.getSalmo());
-            sb.append(Utils.fromHtml(salmo));
-
-            if (!(s.getSalmo().endsWith("∸"))) {
-                sb.append(getFinSalmoForRead());
+            sb.append(Utils.LS2)
+            salmo = Utils.getFormatoForRead(s.psalm)
+            sb.append(Utils.fromHtml(salmo))
+            if (!s.psalm.endsWith("∸")) {
+                sb.append(finSalmoForRead)
             }
-            sb.append(LS2);
-
+            sb.append(Utils.LS2)
             if (tipo == 0) {
-                sb.append(getAntifonaLimpia(s.getAntifonaForRead()));
-                sb.append(LS2);
+                sb.append(getAntifonaLimpia(s.antifonaForRead))
+                sb.append(Utils.LS2)
             }
         }
         if (tipo == 1) {
-            sb.append(getAntifonaLimpia(antUnica));
-            sb.append(LS2);
+            sb.append(getAntifonaLimpia(antUnica))
+            sb.append(Utils.LS2)
         }
         if (tipo == 2) {
-            sb.append(getAntifonaLimpia(antUnica));
-            sb.append(LS2);
+            sb.append(getAntifonaLimpia(antUnica))
+            sb.append(Utils.LS2)
         }
-        return sb;
+        return sb
     }
 
-    public SpannableStringBuilder getSalmosByIndexForRead(int index) {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        String salmo;
-        LHPsalm s = salmos.get(index);
-        sb.append(Utils.fromHtml(s.getAntifonaForRead()));
-        sb.append(LS2);
-        salmo = Utils.getFormatoForRead(s.getSalmo());
-        sb.append(Utils.fromHtml(salmo));
-        if (!(s.getSalmo().endsWith("∸"))) {
-            sb.append(getFinSalmoForRead());
+    fun getSalmosByIndexForRead(index: Int): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        val salmo: String
+        val s = salmos!![index]
+        sb.append(Utils.fromHtml(s.antifonaForRead))
+        sb.append(Utils.LS2)
+        salmo = Utils.getFormatoForRead(s.psalm)
+        sb.append(Utils.fromHtml(salmo))
+        if (!s.psalm.endsWith("∸")) {
+            sb.append(finSalmoForRead)
         }
-        sb.append(LS2);
-        sb.append(getAntifonaLimpia(s.getAntifonaForRead()));
-        sb.append(LS2);
-        return sb;
+        sb.append(Utils.LS2)
+        sb.append(getAntifonaLimpia(s.antifonaForRead))
+        sb.append(Utils.LS2)
+        return sb
     }
 
-    public SpannableStringBuilder getHeader() {
-        return Utils.formatTitle(TITLE_PSALMODY);
-    }
-
-    public String getHeaderForRead() {
-        return Utils.pointAtEnd(TITLE_PSALMODY);
-    }
+    val header: SpannableStringBuilder
+        get() = Utils.formatTitle(Constants.TITLE_PSALMODY)
+    val headerForRead: String
+        get() = Utils.pointAtEnd(Constants.TITLE_PSALMODY)
 
     /**
-     * <p>Obtiene el contenido de la salmodia formateado, para la vista.</p>
      *
-     * @return Un {@link SpannableStringBuilder con el contenido.}
+     * Obtiene el contenido de la salmodia formateado, para la vista.
+     *
+     * @return Un [con el contenido.][SpannableStringBuilder]
      * @since 2022.01
      */
-    public SpannableStringBuilder getAll() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(getHeader());
-        sb.append(LS2);
-        sb.append(getSalmos());
-        return sb;
-    }
+    val all: SpannableStringBuilder
+        get() {
+            val sb = SpannableStringBuilder()
+            sb.append(header)
+            sb.append(Utils.LS2)
+            sb.append(getSalmos())
+            return sb
+        }
 
     /**
-     * <p>Obtiene el contenido de la salmodia formateado, para la vista.</p>
+     *
+     * Obtiene el contenido de la salmodia formateado, para la vista.
      *
      * @param hourIndex Un entero con el índice de la hora intermedia
-     * @return Un {@link SpannableStringBuilder con el contenido.}
+     * @return Un [con el contenido.][SpannableStringBuilder]
      * @since 2022.01
      */
-
-    public SpannableStringBuilder getAll(int hourIndex) {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(getHeader());
-        sb.append(LS2);
-        sb.append(getSalmos(hourIndex));
-        return sb;
+    fun getAll(hourIndex: Int): SpannableStringBuilder {
+        val sb = SpannableStringBuilder()
+        sb.append(header)
+        sb.append(Utils.LS2)
+        sb.append(getSalmos(hourIndex))
+        return sb
     }
 
     /**
-     * <p>Obtiene el contenido de la salmodia formateado, para la vista.</p>
      *
-     * @return Un {@link SpannableStringBuilder con el contenido.}
+     * Obtiene el contenido de la salmodia formateado, para la vista.
+     *
+     * @return Un [con el contenido.][SpannableStringBuilder]
      * @since 2022.01
      */
-    public String getAllForRead() {
-        return getHeaderForRead() +
-                getSalmosForRead();
-    }
+    val allForRead: String
+        get() = headerForRead +
+                salmosForRead
 
     /**
-     * <p>Obtiene el contenido de la salmodia formateado, para la vista.</p>
+     *
+     * Obtiene el contenido de la salmodia formateado, para la vista.
      *
      * @param hourIndex Un entero con el índice de la hora intermedia
-     * @return Un {@link SpannableStringBuilder con el contenido.}
+     * @return Un [con el contenido.][SpannableStringBuilder]
      * @since 2022.01
      */
-    public String getAllForRead(int hourIndex) {
-        return getHeaderForRead() +
-                getSalmosForRead(hourIndex);
+    fun getAllForRead(hourIndex: Int): String {
+        return headerForRead +
+                getSalmosForRead(hourIndex)
     }
 
     /**
      * @return Texto al final de cada salmo
      * @since 2022.01
      */
-    public Spanned getFinSalmo() {
-        String fin = "Gloria al Padre, y al Hijo, y al Espíritu Santo." + BR
-                + NBSP_SALMOS + "Como era en el principio ahora y siempre, "
-                + NBSP_SALMOS + "por los siglos de los siglos. Amén.";
-        return Utils.fromHtml(fin);
-    }
-
-    public String getFinSalmoForRead() {
-        return "Gloria al Padre, y al Hijo, y al Espíritu Santo." +
+    val finSalmo: Spanned
+        get() {
+            val fin = ("Gloria al Padre, y al Hijo, y al Espíritu Santo." + Constants.BR
+                    + Constants.NBSP_SALMOS + "Como era en el principio ahora y siempre, "
+                    + Constants.NBSP_SALMOS + "por los siglos de los siglos. Amén.")
+            return Utils.fromHtml(fin)
+        }
+    val finSalmoForRead: String
+        get() = ("Gloria al Padre, y al Hijo, y al Espíritu Santo." +
                 "Como era en el principio ahora y siempre, "
-                + "por los siglos de los siglos. Amén.";
-    }
+                + "por los siglos de los siglos. Amén.")
 
     /**
      * @return La rúbrica cuando no se dice Gloria en los salmos.
      * @since 2022.01
      */
-    public SpannableStringBuilder getNoGloria() {
-        SpannableStringBuilder sb = new SpannableStringBuilder("No se dice Gloria");
-        return Utils.toRedNew(sb);
-    }
+    val noGloria: SpannableStringBuilder
+        get() {
+            val sb = SpannableStringBuilder("No se dice Gloria")
+            return Utils.toRedNew(sb)
+        }
 
     /**
      * Método que limpia la segunda parte de la antífona, en el caso del símblo †
@@ -357,9 +319,8 @@ public class LHPsalmody {
      * @param sAntifona Una cadena con el texto de la antífona
      * @return La misma cadena, pero sin el referido símbolo
      */
-
-    public String getAntifonaLimpia(String sAntifona) {
-        return sAntifona.replace("†", "");
+    fun getAntifonaLimpia(sAntifona: String?): String {
+        return sAntifona!!.replace("†", "")
     }
 
     /**
@@ -367,11 +328,9 @@ public class LHPsalmody {
      *
      * @param calendarTime Un entero con el Id del tiempo del calendario
      */
-
-    public void normalizeByTime(int calendarTime) {
-        for (LHPsalm s : salmos) {
-            s.setAntiphon(Utils.replaceByTime(s.getAntiphon(), calendarTime));
+    fun normalizeByTime(calendarTime: Int) {
+        for (s in salmos!!) {
+            s.normalizeByTime(calendarTime)
         }
     }
-
 }

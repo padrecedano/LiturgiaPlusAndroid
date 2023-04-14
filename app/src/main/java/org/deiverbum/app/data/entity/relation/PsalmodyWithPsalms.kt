@@ -1,84 +1,67 @@
-package org.deiverbum.app.data.entity.relation;
+package org.deiverbum.app.data.entity.relation
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
-
-import org.deiverbum.app.data.entity.EpigraphEntity;
-import org.deiverbum.app.data.entity.LHAntiphonEntity;
-import org.deiverbum.app.data.entity.LHPsalmodyEntity;
-import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity;
-import org.deiverbum.app.data.entity.LHThemeEntity;
-import org.deiverbum.app.data.entity.PsalmEntity;
+import androidx.room.Embedded
+import androidx.room.Relation
+import org.deiverbum.app.data.entity.*
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class PsalmodyWithPsalms {
+class PsalmodyWithPsalms {
+    @JvmField
     @Embedded
-    public LHPsalmodyEntity salmodia;
+    var salmodia: LHPsalmodyEntity? = null
+
+    @JvmField
     @Relation(
-            parentColumn = "groupFK",
-            entityColumn = "groupID",
-            entity = LHPsalmodyJoinEntity.class
+        parentColumn = "groupFK",
+        entityColumn = "groupID",
+        entity = LHPsalmodyJoinEntity::class
     )
-    public LHPsalmodyJoinEntity salmodiaEntity;
+    var salmodiaEntity: LHPsalmodyJoinEntity? = null
 
+    @JvmField
+    @Relation(parentColumn = "readingFK", entityColumn = "psalmID", entity = PsalmEntity::class)
+    var psalmEntity: PsalmEntity? = null
+
+    @JvmField
     @Relation(
-            parentColumn = "readingFK",
-            entityColumn = "psalmID",
-            entity = PsalmEntity.class
+        parentColumn = "antiphonFK",
+        entityColumn = "antiphonID",
+        entity = LHAntiphonEntity::class
     )
-    public PsalmEntity psalmEntity;
+    var antiphonEntity: LHAntiphonEntity? = null
 
+    @JvmField
+    @Relation(parentColumn = "themeFK", entityColumn = "themeID", entity = LHThemeEntity::class)
+    var tema: LHThemeEntity? = null
+
+    @JvmField
     @Relation(
-            parentColumn = "antiphonFK",
-            entityColumn = "antiphonID",
-            entity = LHAntiphonEntity.class
+        parentColumn = "epigraphFK",
+        entityColumn = "epigraphID",
+        entity = EpigraphEntity::class
     )
-    public LHAntiphonEntity antiphonEntity;
-
-    @Relation(
-            parentColumn = "themeFK",
-            entityColumn = "themeID",
-            entity = LHThemeEntity.class
-    )
-    public LHThemeEntity tema;
-
-    @Relation(
-            parentColumn = "epigraphFK",
-            entityColumn = "epigraphID",
-            entity = EpigraphEntity.class
-    )
-    public EpigraphEntity epigrafe;
-
-    public String getEpigrafe() {
-        return epigrafe != null ? epigrafe.getEpigrafe() : "";
+    var epigrafe: EpigraphEntity? = null
+    fun getEpigrafe(): String {
+        return if (epigrafe != null) epigrafe!!.epigrafe else ""
     }
 
-    public String getSalmoText() {
-        return (psalmEntity != null) ? psalmEntity.getSalmo() : "";
+    val salmoText: String
+        get() = if (psalmEntity != null) psalmEntity!!.salmo else ""
+    val ref: String
+        get() = if (psalmEntity != null) psalmEntity!!.getSalmoRef() else ""
+    val antifona: String
+        get() = if (antiphonEntity != null) antiphonEntity!!.antifona else ""
+
+    fun getTema(): String {
+        return if (tema != null) tema!!.tema else ""
     }
 
-    public String getRef() {
-        return (psalmEntity != null) ? psalmEntity.getSalmoRef() : "";
-    }
-
-    public String getAntifona() {
-        return (antiphonEntity != null) ? antiphonEntity.getAntifona() : "";
-    }
-
-    public String getTema() {
-        return (tema != null) ? tema.getTema() : "";
-    }
-
-    public String getParte() {
-        return salmodia.getParte();
-    }
-
-    public String getOrden() {
-        return (salmodia != null) ? String.valueOf(salmodia.getOrden()) : "0";
-    }
-
+    val parte: String
+        get() = salmodia!!.getParte()
+    val orden: String
+        get() = if (salmodia != null) salmodia!!.orden.toString() else "0"
 }

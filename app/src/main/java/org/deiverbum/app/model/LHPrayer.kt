@@ -1,7 +1,6 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class LHPrayer {
-    public Integer groupID;
-    public Integer prayerFK;
-
+class LHPrayer {
+    var groupID: Int? = null
+    var prayerFK: Int? = null
 }

@@ -1,9 +1,6 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class LHPsalmodyJoin {
-    public Integer groupID;
-    public int type;
-
-    public LHPsalmodyJoin() {
-    }
+class LHPsalmodyJoin {
+    var groupID: Int? = null
+    var type = 0
 }

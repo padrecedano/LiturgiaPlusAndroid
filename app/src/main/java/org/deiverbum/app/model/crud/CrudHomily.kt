@@ -1,18 +1,9 @@
-package org.deiverbum.app.model.crud;
+package org.deiverbum.app.model.crud
 
-import org.deiverbum.app.model.Homily;
+import org.deiverbum.app.model.Homily
 
-import java.util.List;
-
-public class CrudHomily {
-
-    public List<Homily> c;
-    public List<Homily> u;
-    public List<Homily> d;
-
-    @SuppressWarnings("unused")
-    public CrudHomily() {
-    }
-
-
+class CrudHomily {
+    var c: List<Homily>? = null
+    var u: List<Homily>? = null
+    var d: List<Homily>? = null
 }

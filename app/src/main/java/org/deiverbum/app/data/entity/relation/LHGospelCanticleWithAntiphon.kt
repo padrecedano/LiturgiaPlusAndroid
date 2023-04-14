@@ -1,35 +1,36 @@
-package org.deiverbum.app.data.entity.relation;
+package org.deiverbum.app.data.entity.relation
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
-
-import org.deiverbum.app.data.entity.LHAntiphonEntity;
-import org.deiverbum.app.data.entity.LHGospelCanticleEntity;
-import org.deiverbum.app.model.LHGospelCanticle;
+import androidx.room.Embedded
+import androidx.room.Relation
+import org.deiverbum.app.data.entity.LHAntiphonEntity
+import org.deiverbum.app.data.entity.LHGospelCanticleEntity
+import org.deiverbum.app.model.LHGospelCanticle
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-public class LHGospelCanticleWithAntiphon {
+class LHGospelCanticleWithAntiphon {
+    @JvmField
     @Embedded
-    public LHGospelCanticleEntity ce;
-    @Relation(
-            parentColumn = "antiphonFK",
-            entityColumn = "antiphonID",
-            entity = LHAntiphonEntity.class
-    )
-    public LHAntiphonEntity antifona;
+    var ce: LHGospelCanticleEntity? = null
 
-    public String getAntifona() {
-        return antifona.getAntifona();
+    @JvmField
+    @Relation(
+        parentColumn = "antiphonFK",
+        entityColumn = "antiphonID",
+        entity = LHAntiphonEntity::class
+    )
+    var antifona: LHAntiphonEntity? = null
+    fun getAntifona(): String {
+        return antifona!!.antifona
     }
 
-    public LHGospelCanticle getDomainModel(Integer tipo) {
-        LHGospelCanticle ce = new LHGospelCanticle();
-        ce.setTypeID(tipo);
-        ce.setAntiphon(getAntifona());
-        return ce;
+    fun getDomainModel(tipo: Int?): LHGospelCanticle {
+        val ce = LHGospelCanticle()
+        ce.typeID = tipo!!
+        ce.antiphon = getAntifona()
+        return ce
     }
 }

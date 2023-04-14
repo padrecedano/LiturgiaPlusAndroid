@@ -1,194 +1,118 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Constants.OLD_SEPARATOR;
-import static org.deiverbum.app.utils.Utils.LS;
-import static org.deiverbum.app.utils.Utils.LS2;
+import android.text.SpannableStringBuilder
+import androidx.room.Ignore
+import com.google.firebase.firestore.PropertyName
+import org.deiverbum.app.utils.ColorUtils
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
 
-import android.text.SpannableStringBuilder;
-
-import androidx.room.Ignore;
-
-import com.google.firebase.firestore.PropertyName;
-
-import org.deiverbum.app.utils.ColorUtils;
-import org.deiverbum.app.utils.Utils;
-
-import java.util.HashMap;
-
-@SuppressWarnings("SameReturnValue")
-public class SaintLife {
+class SaintLife {
+    @get:PropertyName("vida")
+    @set:PropertyName("vida")
     @PropertyName("vida")
-    public String longLife;
+    var longLife: String? = null
+
     @Ignore
     @PropertyName("nombre")
-    public String name;
-    private Integer saintFK;
+    var name: String? = null
+    var saintFK: Int? = null
+    var theSource: String? = ""
+
+    @get:PropertyName("martirologio")
+    @set:PropertyName("martirologio")
     @PropertyName("martirologio")
-    private String martyrology;
-    private String theSource = "";
+    var martyrology: String? = null
+
+
     @Ignore
     @PropertyName("dia")
-    private String dia;
+    var dia: String? = null
+
     @Ignore
-    private String mes;
-    @Ignore
-    private String shortLife;
-
-    public Integer getSaintFK() {
-        return saintFK;
-    }
-
-    public void setSaintFK(Integer saintFK) {
-        this.saintFK = saintFK;
-    }
-
-    @PropertyName("vida")
-    public String getLongLife() {
-        return longLife;
-    }
-
-    @PropertyName("vida")
-    public void setLongLife(String longLife) {
-        this.longLife = longLife;
-    }
+    var mes: String? = null
 
     //@PropertyName("vida")
-    public String getShortLife() {
-        return shortLife;
-    }
-
     //@PropertyName("vida")
-    public void setShortLife(String shortLife) {
-        this.shortLife = shortLife;
-    }
-
-    @PropertyName("martirologio")
-    public String getMartyrology() {
-        return martyrology;
-    }
-
-    @PropertyName("martirologio")
-    public void setMartyrology(String martyrology) {
-        this.martyrology = martyrology;
-    }
-
-    public String getTheSource() {
-        return theSource;
-    }
-
-    public void setTheSource(String theSource) {
-        this.theSource = theSource;
-    }
-
-    public SpannableStringBuilder getMartirologioSpan() {
-        return Utils.toSmallSize(martyrology);
-    }
-
-    public SpannableStringBuilder getVidaSpan() {
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        sb.append(Utils.fromHtml("<hr>"));
-        sb.append(Utils.toH3Red("Vida"));
-        sb.append(LS2);
-        sb.append(Utils.fromHtml(longLife.replaceAll(OLD_SEPARATOR, "")));
-        return sb;
-    }
-
-    public StringBuilder getLifeForRead() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("VIDA.");
-        sb.append(Utils.fromHtml(longLife.replaceAll(OLD_SEPARATOR, "")));
-        return sb;
-    }
-
-    public SpannableStringBuilder getForView(boolean nightMode) {
-        ColorUtils.isNightMode = nightMode;
-        SpannableStringBuilder sb = new SpannableStringBuilder();
-        try {
-            sb.append(Utils.toH3Red(getMonthName(mes)));
-            sb.append(LS2);
-            sb.append(Utils.toH2Red(name));
-            sb.append(LS2);
-            sb.append(getMartirologioSpan());
-            sb.append(LS);
-            sb.append(getMartirologioTitleSpan());
-            sb.append(LS2);
-            sb.append(getVidaSpan());
-            sb.append(LS2);
-            sb.append(Utils.fromHtmlSmall((getTheSource())));
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
+    @Ignore
+    var shortLife: String? = null
+    val martirologioSpan: SpannableStringBuilder
+        get() = Utils.toSmallSize(martyrology)
+    val vidaSpan: SpannableStringBuilder
+        get() {
+            val sb = SpannableStringBuilder()
+            sb.append(Utils.fromHtml("<hr>"))
+            sb.append(Utils.toH3Red("Vida"))
+            sb.append(Utils.LS2)
+            sb.append(Utils.fromHtml(longLife!!.replace(Constants.OLD_SEPARATOR.toRegex(), "")))
+            return sb
         }
-        return sb;
-    }
-
-    public SpannableStringBuilder getMartirologioTitleSpan() {
-        return Utils.toSmallSize("(Martirologio Romano)");
-    }
-
-    public StringBuilder getForRead() {
-        StringBuilder sb = new StringBuilder();
-        try {
-            sb.append(getMonthName(mes));
-            sb.append(".");
-            sb.append(name);
-            sb.append(".");
-            sb.append(getMartyrology());
-            sb.append(getMartirologioTitleForRead());
-            sb.append(getLifeForRead());
-            sb.append(getSourceForRead());
-        } catch (Exception e) {
-            sb.append(Utils.createErrorMessage(e.getMessage()));
+    val lifeForRead: StringBuilder
+        get() {
+            val sb = StringBuilder()
+            sb.append("VIDA.")
+            sb.append(Utils.fromHtml(longLife!!.replace(Constants.OLD_SEPARATOR.toRegex(), "")))
+            return sb
         }
-        return sb;
+
+    fun getForView(nightMode: Boolean): SpannableStringBuilder {
+        ColorUtils.isNightMode = nightMode
+        val sb = SpannableStringBuilder()
+        try {
+            sb.append(Utils.toH3Red(getMonthName(mes)))
+            sb.append(Utils.LS2)
+            sb.append(Utils.toH2Red(name))
+            sb.append(Utils.LS2)
+            sb.append(martirologioSpan)
+            sb.append(Utils.LS)
+            sb.append(martirologioTitleSpan)
+            sb.append(Utils.LS2)
+            sb.append(vidaSpan)
+            sb.append(Utils.LS2)
+            sb.append(Utils.fromHtmlSmall(theSource))
+        } catch (e: Exception) {
+            sb.append(Utils.createErrorMessage(e.message))
+        }
+        return sb
     }
 
-    private String getSourceForRead() {
-        return theSource;
-    }
+    val martirologioTitleSpan: SpannableStringBuilder
+        get() = Utils.toSmallSize("(Martirologio Romano)")
+    val forRead: StringBuilder
+        get() {
+            val sb = StringBuilder()
+            try {
+                sb.append(getMonthName(mes))
+                sb.append(".")
+                sb.append(name)
+                sb.append(".")
+                sb.append(martyrology)
+                sb.append(martirologioTitleForRead)
+                sb.append(lifeForRead)
+                sb.append(theSource)
+            } catch (e: Exception) {
+                sb.append(Utils.createErrorMessage(e.message))
+            }
+            return sb
+        }
+    val martirologioTitleForRead: String
+        get() = "Martirologio Romano."
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDia() {
-        return dia;
-    }
-
-    public void setDia(String dia) {
-        this.dia = dia;
-    }
-
-    public String getMes() {
-        return mes;
-    }
-
-    public void setMes(String mes) {
-        this.mes = mes;
-    }
-
-    public String getMartirologioTitleForRead() {
-        return "Martirologio Romano.";
-    }
-
-    public String getMonthName(String mes) {
-        HashMap<Integer, String> monthNames = new HashMap<>();
-        monthNames.put(1, "Enero");
-        monthNames.put(2, "Febrero");
-        monthNames.put(3, "Marzo");
-        monthNames.put(4, "Abril");
-        monthNames.put(5, "Mayo");
-        monthNames.put(6, "Junio");
-        monthNames.put(7, "Julio");
-        monthNames.put(8, "Agosto");
-        monthNames.put(9, "Septiembre");
-        monthNames.put(10, "Octubre");
-        monthNames.put(11, "Noviembre");
-        monthNames.put(12, "Diciembre");
-        Integer theMonth = Integer.valueOf(mes);
-        return String.format("%s de %s", dia, monthNames.get(theMonth));
+    fun getMonthName(mes: String?): String {
+        val monthNames = HashMap<Int, String>()
+        monthNames[1] = "Enero"
+        monthNames[2] = "Febrero"
+        monthNames[3] = "Marzo"
+        monthNames[4] = "Abril"
+        monthNames[5] = "Mayo"
+        monthNames[6] = "Junio"
+        monthNames[7] = "Julio"
+        monthNames[8] = "Agosto"
+        monthNames[9] = "Septiembre"
+        monthNames[10] = "Octubre"
+        monthNames[11] = "Noviembre"
+        monthNames[12] = "Diciembre"
+        val theMonth = Integer.valueOf(mes)
+        return String.format("%s de %s", dia, monthNames[theMonth])
     }
 }

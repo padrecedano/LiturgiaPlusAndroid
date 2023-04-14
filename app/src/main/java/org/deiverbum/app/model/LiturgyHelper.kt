@@ -1,37 +1,36 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*
 
 /**
- * <p>
+ *
+ *
  * Reúne aquellos elementos que son comúnes a las diversas horas del Breviary.
  * Las clases de las diferentes horas extienden de ésta,
  * y cada una tendrá aquellos elementos que le sean propios.
- * </p>
+ *
  *
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
  */
-public final class LiturgyHelper {
+class LiturgyHelper {
+    //var myMap: Map<Int, String>? = null
+    companion object {
 
-    public static final Map<Integer, String> myMap;
+        fun getMap(theKey: Int): String? {
+            val myMap:HashMap<Int,String> = HashMap<Int,String>() //define empty hashmap
 
-    static {
-        Map<Integer, String> aMap = new HashMap<>();
-        aMap.put(0, "mixto");
-        aMap.put(1, "oficio");
-        aMap.put(2, "laudes");
-        aMap.put(3, "tercia");
-        aMap.put(4, "sexta");
-        aMap.put(5, "nona");
-        aMap.put(6, "visperas");
-        aMap.put(7, "completas");
-        myMap = Collections.unmodifiableMap(aMap);
+            myMap.put(0, "mixto")
+            myMap.put(1, "oficio")
+            myMap.put(2, "laudes")
+            myMap.put(3, "tercia")
+            myMap.put(4, "sexta")
+            myMap.put(5, "nona")
+            myMap.put(6, "visperas")
+            myMap.put(7, "completas")
+            //myMap = Collections.unmodifiableMap(aMap)
+            return myMap.get(theKey)
+        }
     }
-
-    public LiturgyHelper() {
     }
-}

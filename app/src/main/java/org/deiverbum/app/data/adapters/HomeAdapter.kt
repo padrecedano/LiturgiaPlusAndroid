@@ -1,117 +1,101 @@
-package org.deiverbum.app.data.adapters;
+package org.deiverbum.app.data.adapters
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.snackbar.Snackbar;
-
-import org.deiverbum.app.R;
-import org.deiverbum.app.model.HomeItem;
-
-import java.util.List;
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
+import androidx.navigation.Navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import org.deiverbum.app.R
+import org.deiverbum.app.model.HomeItem
 
 /**
- * <p>
- * Esta clase maneja el adaptador de la pantalla <code>Home</code>,
- * presentada desde <code>HomeFragment</code>.
- * Es una versión mejorada de la clase <code>MainItemsAdapter</code>,
+ *
+ *
+ * Esta clase maneja el adaptador de la pantalla `Home`,
+ * presentada desde `HomeFragment`.
+ * Es una versión mejorada de la clase `MainItemsAdapter`,
  * la cual será eliminada desde la versión 2021.1
- * </p>
+ *
  *
  * @author A. Cedano
  * @version 1.0
  * @since 2022.1
  */
-
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
-    private static int bgColor;
-    private final List<HomeItem> mDataSet;
-
-
+class HomeAdapter(private val mDataSet: List<HomeItem>, bgColor: Int) :
+    RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     /**
      * Inicializa el dataset del adaptador.
      *
-     * @param dataSet Una lista de objetos {@link HomeItem} con los datos con que
-     *                se llenarán las vistas del {@link RecyclerView}.
+     * @param dataSet Una lista de objetos [HomeItem] con los datos con que
+     * se llenarán las vistas del [RecyclerView].
      */
-    public HomeAdapter(List<HomeItem> dataSet, int bgColor) {
-        mDataSet = dataSet;
-        HomeAdapter.bgColor = bgColor;
+    init {
+        Companion.bgColor = bgColor
     }
 
     /**
      * Crea las nuevas vistas (invocadas por el layout manager)
      */
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         //Layout h=R.layout.home_card;
         //LinearLayout myLayout = (LinearLayout) findViewById(R.id.home_card);
-
-        View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.home_card, viewGroup, false);
-
-        return new ViewHolder(v);
+        val v = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.home_card, viewGroup, false)
+        return ViewHolder(v)
     }
 
     /**
      * Reemplaza los contenidos de la vista
      * y guarda una referencia invocando al método
-     * {@link ViewHolder#setData(HomeItem)}
+     * [ViewHolder.setData]
      * con el propósito de obtener el id de navegación
      * al hacer clic en cada elemento
      *
-     * @param viewHolder Este {@link ViewHolder}
+     * @param viewHolder Este [ViewHolder]
      * @param position   La posición del elemento
      */
-
-    @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        viewHolder.setData(mDataSet.get(position));
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        viewHolder.setData(mDataSet[position])
     }
 
     /**
      * Devuelve el tamaño del dataset
      */
-    @Override
-    public int getItemCount() {
-        return mDataSet.size();
+    override fun getItemCount(): Int {
+        return mDataSet.size
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView viewIcon;
-        private final TextView viewText;
-        private final RelativeLayout relativeLayout;
-        HomeItem mItem;
+    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        private val viewIcon: ImageView
+        private val viewText: TextView
+        private val relativeLayout: RelativeLayout
+        var mItem: HomeItem? = null
 
-        public ViewHolder(View v) {
-            super(v);
-            LinearLayout cardView = v.findViewById(R.id.mainCardView);
-            cardView.setBackgroundColor(HomeAdapter.bgColor);
-            v.setOnClickListener(v1 -> {
-                int itemId = mItem.getItemId();
+        init {
+            val cardView = v.findViewById<LinearLayout>(R.id.mainCardView)
+            cardView.setBackgroundColor(bgColor)
+            v.setOnClickListener { v1: View? ->
+                val itemId = mItem!!.itemId
                 if (itemId == 2 || itemId > 9) {
-                    Snackbar snackbar = Snackbar
-                            .make(v1, "Este módulo está pendiente de " +
-                                            "programación...",
-                                    Snackbar.LENGTH_LONG);
-                    snackbar.show();
+                    val snackbar = Snackbar
+                        .make(
+                            v1!!, "Este módulo está pendiente de " +
+                                    "programación...",
+                            Snackbar.LENGTH_LONG
+                        )
+                    snackbar.show()
                 } else {
-                    Navigation.findNavController(v1).navigate(mItem.getNavId());
+                    findNavController(v1!!).navigate(mItem!!.navId)
                 }
-            });
-            viewIcon = v.findViewById(R.id.thumbnail);
-            viewText = v.findViewById(R.id.title);
-            relativeLayout = v.findViewById(R.id.mainCardRelativeLayout);
+            }
+            viewIcon = v.findViewById(R.id.thumbnail)
+            viewText = v.findViewById(R.id.title)
+            relativeLayout = v.findViewById(R.id.mainCardRelativeLayout)
         }
 
         /**
@@ -121,14 +105,18 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
          *
          * @param item Item con imagen y texto
          */
-        public void setData(HomeItem item) {
-            mItem = item;
-            viewIcon.setImageResource(item.getThumbnail());
-            viewIcon.setColorFilter(item.getImageColor());
+        fun setData(item: HomeItem) {
+            mItem = item
+            viewIcon.setImageResource(item.thumbnail)
+            viewIcon.setColorFilter(item.imageColor)
 
             //viewIcon.settin.setBackgroundColor(item.imageColor);}
-            viewText.setText(item.getName());
-            relativeLayout.setBackgroundColor(item.getColor());
+            viewText.text = item.name
+            relativeLayout.setBackgroundColor(item.color)
         }
+    }
+
+    companion object {
+        private var bgColor = 0
     }
 }

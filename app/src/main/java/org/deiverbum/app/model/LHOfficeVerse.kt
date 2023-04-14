@@ -1,7 +1,6 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class LHOfficeVerse {
-    public Integer verseID = 0;
-    public String verse = "";
-
+class LHOfficeVerse {
+    var verseID = 0
+    var verse = ""
 }

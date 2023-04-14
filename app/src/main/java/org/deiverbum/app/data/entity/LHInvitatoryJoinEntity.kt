@@ -1,58 +1,43 @@
-package org.deiverbum.app.data.entity;
+package org.deiverbum.app.data.entity
 
-import static org.deiverbum.app.utils.Constants.LH_INVITATORY_JOIN;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.PrimaryKey;
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.Companion.CASCADE
+import androidx.room.PrimaryKey
+import org.deiverbum.app.utils.Constants
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-
-@Entity(tableName = LH_INVITATORY_JOIN,
-        foreignKeys =
-                {
-                        @ForeignKey(
-                                entity = LHInvitatoryEntity.class,
-                                parentColumns = "caseID",
-                                childColumns = "caseFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE),
-                        @ForeignKey(
-                                entity = LHAntiphonEntity.class,
-                                parentColumns = "antiphonID",
-                                childColumns = "antiphonFK",
-                                onDelete = ForeignKey.CASCADE,
-                                onUpdate = ForeignKey.CASCADE)
-                }
+@Entity(
+    tableName = Constants.LH_INVITATORY_JOIN,
+    foreignKeys = [ForeignKey(
+        entity = LHInvitatoryEntity::class,
+        parentColumns = arrayOf("caseID"),
+        childColumns = arrayOf("caseFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    ), ForeignKey(
+        entity = LHAntiphonEntity::class,
+        parentColumns = arrayOf("antiphonID"),
+        childColumns = arrayOf("antiphonFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )]
 )
-public class LHInvitatoryJoinEntity {
-
-    @NonNull
+class LHInvitatoryJoinEntity {
+    @JvmField
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    public Integer grupoId = 0;
+    var grupoId = 0
 
-    @NonNull
     @ColumnInfo(name = "antiphonFK", index = true)
-    public Integer antifonaFK = 0;
+    var salmoFK = 0
 
-    @NonNull
+    @JvmField
     @ColumnInfo(name = "caseFK", index = true)
-    public Integer casoFK = 0;
-
-    public int getSalmoFK() {
-        return antifonaFK;
-    }
-
-    public int getGrupoId() {
-        return grupoId;
-    }
-
+    var casoFK = 0
 }
-

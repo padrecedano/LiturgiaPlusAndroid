@@ -1,72 +1,50 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-import static org.deiverbum.app.utils.Constants.TITLE_TEDEUM;
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Utils
 
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
+class TeDeum() {
+    var texto: String? = "<p>Señor, Dios eterno, alegres te cantamos, <br />a ti " +
+            "nuestra alabanza, <br />a ti, Padre del cielo, te aclama la creación. <br /><br />Postrados ante ti, los ángeles te adoran <br />y cantan sin cesar: <br /><br />Santo, santo, santo es el Señor, <br />Dios del universo; <br />llenos están el cielo y la tierra de tu gloria. <br /><br />A ti, Señor, te alaba el coro celestial de los apóstoles, <br />la multitud de los profetas te enaltece, <br />y el ejército glorioso de los mártires te aclama. <br /><br />A ti la Iglesia santa, <br />por todos los confines extendida, <br />con júbilo te adora y canta tu grandeza: <br /><br />Padre, infinitamente santo, <br />Hijo eterno, unigénito de Dios, <br />Santo Espíritu de amor y de consuelo. <br /><br />Oh Cristo, tú eres el Rey de la gloria, <br />tú el Hijo y Palabra del Padre, <br />tú el Rey de toda la creación. <br /><br />Tú, para salvar al hombre, <br />tomaste la condición de esclavo <br />en el seno de una virgen. <br /><br />Tú destruiste la muerte <br />y abriste a los creyentes las puertas de la gloria. <br /><br />Tú vives ahora, <br />inmortal y glorioso, en el reino del Padre. <br /><br />Tú vendrás algún día, <br />como juez universal. <br /><br />Muéstrate, pues, amigo y defensor <br />de los hombres que salvaste. <br /><br />Y recíbelos por siempre allá en tu reino, <br />con tus santos y elegidos. <br /><br />Salva a tu pueblo, Señor, <br />y bendice a tu heredad. <br /><br />Sé su pastor, <br />y guíalos por siempre. <br /><br />Día tras día te bendeciremos <br />y alabaremos tu nombre por siempre jamás. <br /><br />Dígnate, Señor, <br />guardarnos de pecado en este día. <br /><br />Ten piedad de nosotros, Señor, <br />ten piedad de nosotros. <br /><br />Que tu misericordia, Señor, venga sobre nosotros, <br />como lo esperamos de ti. <br /><br />A ti, Señor, me acojo, <br />no quede yo nunca defraudado.</p>"
 
-import org.deiverbum.app.utils.Utils;
+    var isStatus: Boolean = true
 
-public class TeDeum {
-    public int status;
-    public String texto;
 
-    public TeDeum(int status) {
-        this.status = status;
-    }
-
-    public boolean isStatus() {
-        return status == 1;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public final String getTexto() {
-        return "<p>Señor, Dios eterno, alegres te cantamos, <br />a ti " +
-                "nuestra alabanza, <br />a ti, Padre del cielo, te aclama la creación. <br /><br />Postrados ante ti, los ángeles te adoran <br />y cantan sin cesar: <br /><br />Santo, santo, santo es el Señor, <br />Dios del universo; <br />llenos están el cielo y la tierra de tu gloria. <br /><br />A ti, Señor, te alaba el coro celestial de los apóstoles, <br />la multitud de los profetas te enaltece, <br />y el ejército glorioso de los mártires te aclama. <br /><br />A ti la Iglesia santa, <br />por todos los confines extendida, <br />con júbilo te adora y canta tu grandeza: <br /><br />Padre, infinitamente santo, <br />Hijo eterno, unigénito de Dios, <br />Santo Espíritu de amor y de consuelo. <br /><br />Oh Cristo, tú eres el Rey de la gloria, <br />tú el Hijo y Palabra del Padre, <br />tú el Rey de toda la creación. <br /><br />Tú, para salvar al hombre, <br />tomaste la condición de esclavo <br />en el seno de una virgen. <br /><br />Tú destruiste la muerte <br />y abriste a los creyentes las puertas de la gloria. <br /><br />Tú vives ahora, <br />inmortal y glorioso, en el reino del Padre. <br /><br />Tú vendrás algún día, <br />como juez universal. <br /><br />Muéstrate, pues, amigo y defensor <br />de los hombres que salvaste. <br /><br />Y recíbelos por siempre allá en tu reino, <br />con tus santos y elegidos. <br /><br />Salva a tu pueblo, Señor, <br />y bendice a tu heredad. <br /><br />Sé su pastor, <br />y guíalos por siempre. <br /><br />Día tras día te bendeciremos <br />y alabaremos tu nombre por siempre jamás. <br /><br />Dígnate, Señor, <br />guardarnos de pecado en este día. <br /><br />Ten piedad de nosotros, Señor, <br />ten piedad de nosotros. <br /><br />Que tu misericordia, Señor, venga sobre nosotros, <br />como lo esperamos de ti. <br /><br />A ti, Señor, me acojo, <br />no quede yo nunca defraudado.</p>";
-    }
-
-    //TODO quitar la propiedad texto de la respuesta de API,
-    public void setTexto(String texto) {
-        this.texto = texto;
-    }
-
-    public final Spanned getAll() {
-        SpannableStringBuilder sb = new SpannableStringBuilder("");
-        sb.append(getHeader());
-        sb.append(Utils.LS2);
-        sb.append(Utils.fromHtml(getTexto()));
-        return sb;
-    }
+    val all: Spanned
+        get() {
+            val sb = SpannableStringBuilder("")
+            sb.append(header)
+            sb.append(Utils.LS2)
+            sb.append(Utils.fromHtml(texto))
+            return sb
+        }
 
     /**
      * @return Contenido del TeDeum
-     * @deprecated desde la versión 2022.01 - Usar en su lugar {@link TeDeum#getAll()}
      */
-    @Deprecated
-    public final Spanned getTextoSpan() {
-        SpannableStringBuilder sb = new SpannableStringBuilder("");
-        if (isStatus()) {
-            sb.append(getHeader());
-            sb.append(Utils.LS2);
-            sb.append(Utils.fromHtml(getTexto()));
+    @get:Deprecated("desde la versión 2022.01 - Usar en su lugar {@link TeDeum#getAll()}")
+    val textoSpan: Spanned
+        get() {
+            val sb = SpannableStringBuilder("")
+            if (isStatus) {
+                sb.append(header)
+                sb.append(Utils.LS2)
+                sb.append(Utils.fromHtml(texto))
+            }
+            return sb
         }
-        return sb;
-    }
-
-    public SpannableStringBuilder getHeader() {
-        return Utils.formatTitle(TITLE_TEDEUM);
-    }
-
-    public String getAllForRead() {
-        StringBuilder sb = new StringBuilder();
-        if (isStatus()) {
-            sb.append(getHeader());
-            sb.append(".");
-            sb.append(Utils.fromHtml(getTexto()));
+    val header: SpannableStringBuilder
+        get() = Utils.formatTitle(Constants.TITLE_TEDEUM)
+    val allForRead: String
+        get() {
+            val sb = StringBuilder()
+            if (isStatus) {
+                sb.append(header)
+                sb.append(".")
+                sb.append(Utils.fromHtml(texto))
+            }
+            return sb.toString()
         }
-        return sb.toString();
-    }
 }

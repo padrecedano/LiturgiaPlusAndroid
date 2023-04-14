@@ -1,15 +1,12 @@
-package org.deiverbum.app.model;
+package org.deiverbum.app.model
 
-public class CompletasHimno {
-    private LHHymn himno;
-
-    public LHHymn getHimno() {
-        return himno;
+class CompletasHimno {
+    private var himno: LHHymn? = null
+    fun getHimno(): LHHymn? {
+        return himno
     }
 
-    public void setHimno(LHHymn himno) {
-        this.himno = himno;
+    fun setHimno(himno: LHHymn?) {
+        this.himno = himno
     }
-
-
 }
