@@ -7,7 +7,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.deiverbum.app.data.db.AppDatabase
-import org.deiverbum.app.data.db.dao.TodayDao
 import javax.inject.Singleton
 
 /**
@@ -28,14 +27,20 @@ object DatabaseModule {
         )
             .createFromAsset("database/liturgia_202301000.db")
             .fallbackToDestructiveMigration()
-            .allowMainThreadQueries()
+            //.allowMainThreadQueries()
             .build()
     }
 
     @JvmStatic
     @Provides
     @Singleton
-    fun provideTodayDao(appDB: AppDatabase): TodayDao {
+    fun provideTodayDao(appDB: AppDatabase): org.deiverbum.app.data.db.dao.TodayDao {
         return appDB.todayDao()
+    }
+
+    @Provides
+    @Singleton
+    fun providePrayDao(appDB: AppDatabase): org.deiverbum.app.data.database.dao.TodayDao {
+        return appDB.prayDao()
     }
 }

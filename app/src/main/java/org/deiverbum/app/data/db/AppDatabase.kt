@@ -2,7 +2,6 @@ package org.deiverbum.app.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import org.deiverbum.app.data.db.dao.TodayDao
 import org.deiverbum.app.data.entity.*
 
 /**
@@ -15,5 +14,8 @@ import org.deiverbum.app.data.entity.*
     version = 1
 )
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun todayDao(): TodayDao
+    abstract fun todayDao(): org.deiverbum.app.data.db.dao.TodayDao
+    abstract fun prayDao(): org.deiverbum.app.data.database.dao.TodayDao
+
 }
+

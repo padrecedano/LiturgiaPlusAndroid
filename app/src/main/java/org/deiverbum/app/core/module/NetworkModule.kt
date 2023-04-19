@@ -13,6 +13,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.deiverbum.app.core.utils.ConnectivityIntecepter
 import org.deiverbum.app.data.source.remote.network.ApiService
+import org.deiverbum.app.data.source.remote.network.TestService
 import org.deiverbum.app.utils.Configuration
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
@@ -96,5 +97,11 @@ object NetworkModule {
     fun provideServicee(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideTestService(retrofit: Retrofit): TestService =
+        retrofit.create(TestService::class.java)
+
 
 }
