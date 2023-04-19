@@ -79,9 +79,9 @@
 
     <fragment
         android:id="@+id/nav_new"
-        android:name="org.deiverbum.app.ui.fragments.FileFragment"
+        android:name="org.deiverbum.app.presentation.home.HomeFragment"
         android:label="@string/title_fragment_what_is_new"
-        tools:layout="@layout/fragment_file">
+        tools:layout="@layout/fragment_homebis">
         <argument
             android:name="rawPath"
             android:defaultValue="raw/new_202301.json"
@@ -125,7 +125,7 @@
 
     <fragment
         android:id="@+id/nav_homilias"
-        android:name="org.deiverbum.app.ui.fragments.HomiliasFragment"
+        android:name="org.deiverbum.app.presentation.homily.HomilyFragment"
         android:label="@string/title_fragment_homilias"
         tools:layout="@layout/fragment_homilias" />
 
@@ -143,7 +143,7 @@
 
     <fragment
         android:id="@+id/nav_comentarios"
-        android:name="org.deiverbum.app.ui.fragments.ComentariosFragment"
+        android:name="org.deiverbum.app.presentation.biblicalcomment.BiblicalCommentFragment"
         android:label="@string/title_fragment_comentarios"
         tools:layout="@layout/fragment_comentarios" />
 
@@ -191,7 +191,7 @@
 
     <fragment
         android:id="@+id/nav_mixto"
-        android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
+        android:name="org.deiverbum.app.presentation.today.TodayFragment"
         android:label="@string/title_fragment_mixto"
         tools:layout="@layout/fragment_breviario_data">
         <argument
@@ -202,7 +202,7 @@
 
     <fragment
         android:id="@+id/nav_oficio"
-        android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
+        android:name="org.deiverbum.app.presentation.today.TodayFragment"
         android:label="@string/title_fragment_oficio"
         tools:layout="@layout/fragment_breviario_data">
         <argument

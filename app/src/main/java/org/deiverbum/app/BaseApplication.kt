@@ -11,12 +11,16 @@ import javax.inject.Inject
  */
 @HiltAndroidApp
 class BaseApplication : Application(), Configuration.Provider {
-    @JvmField
     @Inject
-    var workerFactory: HiltWorkerFactory? = null
-    override fun getWorkManagerConfiguration(): Configuration {
+    lateinit var workerFactory: HiltWorkerFactory
+
+    override fun getWorkManagerConfiguration() =
+        Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .build()
+}
+ /*   override fun getWorkManagerConfiguration(): Configuration {
         return Configuration.Builder()
             .setWorkerFactory(workerFactory!!)
             .build()
-    }
-}
+    }*/
