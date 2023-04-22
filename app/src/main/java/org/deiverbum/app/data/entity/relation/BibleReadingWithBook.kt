@@ -24,7 +24,7 @@ class BibleReadingWithBook {
     val domainModel: Biblical
         get() {
             val theModel = Biblical()
-            theModel.libro = libro!!.domainModel
+            theModel.book = libro!!.domainModel
             theModel.verseChapter = lectura!!.capitulo.toString()
             theModel.verseFrom = lectura!!.desde.toString()
             theModel.verseTo = lectura!!.hasta.toString()
@@ -35,19 +35,19 @@ class BibleReadingWithBook {
     val domainModelMisa: MassReading
         get() {
             val theModel = MassReading()
-            theModel.libro = libro!!.domainModel
+            theModel.book = libro!!.domainModel
             theModel.verseChapter = lectura!!.capitulo.toString()
             theModel.verseFrom = lectura!!.desde.toString()
             theModel.verseTo = lectura!!.hasta.toString()
             theModel.setCita(lectura!!.cita)
             theModel.text = lectura!!.texto
-            theModel.libro = libro!!.domainModel
+            theModel.book = libro!!.domainModel
             return theModel
         }
     val domainModelOficio: LHOfficeBiblical
         get() {
             val theModel = LHOfficeBiblical()
-            theModel.libro = libro!!.domainModel
+            theModel.book = libro!!.domainModel
             theModel.verseChapter = lectura!!.capitulo.toString()
             theModel.verseFrom = lectura!!.desde.toString()
             theModel.verseTo = lectura!!.hasta.toString()

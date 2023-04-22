@@ -10,7 +10,7 @@ class LHOfficeBiblical : Biblical() {
     val temaForRead: String
         get() = "$tema."
 
-    override fun getHeader(): String? {
+    override fun getHeader(): String {
         return "PRIMERA LECTURA"
     }
 
@@ -25,11 +25,11 @@ class LHOfficeBiblical : Biblical() {
      * @return Un objeto [con el contenido.][SpannableStringBuilder]
      * @since 2022.01
      */
-    override fun getAll(): SpannableStringBuilder? {
+    override fun getAll(): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         sb.append(Utils.formatTitle(getHeader()))
         sb.append(Utils.LS2)
-        sb.append(libro?.liturgyName)
+        sb.append(book?.liturgyName)
         sb.append("    ")
         sb.append(Utils.toRed(quote))
         sb.append(Utils.LS2)
@@ -51,7 +51,7 @@ class LHOfficeBiblical : Biblical() {
     override fun getAllForRead(): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         sb.append(Utils.pointAtEnd(getHeader()))
-        sb.append(libro!!.getForRead())
+        sb.append(book!!.getForRead())
         sb.append(temaForRead)
         sb.append(textoForRead)
         sb.append(getConclusionForRead())

@@ -9,7 +9,7 @@ class Evangelio : MassReading() {
         val sb = SpannableStringBuilder()
         sb.append(Utils.formatSubTitle("evangelio del día"))
         sb.append(Utils.LS2)
-        sb.append(libro!!.liturgyName)
+        sb.append(book!!.liturgyName)
         sb.append("    ")
         sb.append(Utils.toRed(quote))
         sb.append(Utils.LS2)

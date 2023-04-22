@@ -12,7 +12,7 @@ class LHOfficeBiblicalEaster : Biblical(), Comparable<LHOfficeBiblicalEaster> {
     //public int theOrder;
     @Ignore
     var prayer: Prayer? = null
-    override fun getHeader(): String? {
+    override fun getHeader(): String {
         var header = ""
         if (order == 1) {
             header = "PRIMERA LECTURA"
@@ -38,7 +38,7 @@ class LHOfficeBiblicalEaster : Biblical(), Comparable<LHOfficeBiblicalEaster> {
             val sb = SpannableStringBuilder()
             sb.append(Utils.formatTitle(getHeader()))
             sb.append(Utils.LS2)
-            sb.append(libro!!.liturgyName)
+            sb.append(book!!.liturgyName)
             sb.append("    ")
             sb.append(Utils.toRed(quote))
             sb.append(Utils.LS2)
@@ -55,7 +55,7 @@ class LHOfficeBiblicalEaster : Biblical(), Comparable<LHOfficeBiblicalEaster> {
             val sb = SpannableStringBuilder()
             sb.append(getHeader())
             sb.append(Utils.LS2)
-            sb.append(libro!!.liturgyName)
+            sb.append(book!!.liturgyName)
             sb.append("    ")
             sb.append(quote)
             sb.append(Utils.LS2)
@@ -89,7 +89,7 @@ class LHOfficeBiblicalEaster : Biblical(), Comparable<LHOfficeBiblicalEaster> {
         order = orden
     }
 
-    override fun compareTo(e: LHOfficeBiblicalEaster): Int {
-        return getOrden()!!.compareTo(e.getOrden()!!)
+    override fun compareTo(other: LHOfficeBiblicalEaster): Int {
+        return getOrden()!!.compareTo(other.getOrden()!!)
     }
 }

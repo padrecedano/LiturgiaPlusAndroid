@@ -33,7 +33,7 @@ class LHOfficeEasterAll {
             val dm = LHOfficeBiblicalEaster()
             dm.setOrden(biblical!!.theOrder)
             dm.theme = biblical!!.theme
-            dm.libro = reading!!.libro!!.domainModel
+            dm.book = reading!!.libro!!.domainModel
             dm.verseChapter = reading!!.lectura!!.capitulo.toString()
             dm.verseFrom = reading!!.lectura!!.desde.toString()
             dm.verseTo = reading!!.lectura!!.hasta.toString()

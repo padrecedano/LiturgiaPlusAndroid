@@ -29,14 +29,18 @@ class Intermedia : BreviaryHour() {
             sb.append(Utils.LS2)
             sb.append(getSaludoDiosMio())
             sb.append(Utils.LS2)
+            sb.append(Utils.LS)
             sb.append(himno?.all)
             sb.append(Utils.LS2)
+            sb.append(Utils.LS)
             sb.append(salmodia!!.getAll(hourIndex))
             sb.append(Utils.LS)
             sb.append(lecturaBreve!!.getAllWithHourCheck(typeID))
-            sb.append(Utils.LS2)
+            sb.append(Utils.LS)
             sb.append(oracion!!.all)
             sb.append(Utils.LS2)
+            sb.append(Utils.LS)
+
             sb.append(getConclusionHoraMenor())
         } catch (e: Exception) {
             sb.append(Utils.createErrorMessage(e.message))
@@ -72,7 +76,7 @@ class Intermedia : BreviaryHour() {
      * @since 2022.1
      */
     private val hourIndex: Int
-        private get() = when (typeID) {
+        get() = when (typeID) {
             4 -> 1
             5 -> 2
             3 -> 0

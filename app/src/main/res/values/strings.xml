@@ -188,6 +188,7 @@
     <string name="lbl_nona">Nona</string>
     <string name="lbl_visperas">Vísperas</string>
     <string name="lbl_completas">Completas</string>
+    <string name="title_activity_main">MainActivity</string>
 
 
 </resources>

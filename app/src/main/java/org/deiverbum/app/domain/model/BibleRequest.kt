@@ -1,6 +1,6 @@
 package org.deiverbum.app.domain.model
 
 class BibleRequest(
-    val city: String,
+    val param: String,
     val date: String
 )

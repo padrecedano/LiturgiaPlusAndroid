@@ -11,8 +11,7 @@ open class LHOfficeOfReading {
     var teDeum: TeDeum? = null
     val responsorioForRead: String
         get() {
-            val r: String?
-            r = if (responsorio!!.contains("|")) {
+            val r: String? = if (responsorio!!.contains("|")) {
                 responsorio!!.replace("\\|".toRegex(), "")
             } else {
                 responsorio

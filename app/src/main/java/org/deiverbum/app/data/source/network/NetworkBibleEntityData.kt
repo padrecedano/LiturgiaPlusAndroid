@@ -12,7 +12,7 @@ class NetworkBibleEntityData @Inject constructor(
 ) : BibleEntityData {
 
     override suspend fun getBible(bibleRequest: BibleRequest): List<Bible> {
-        return todayApi.getBible(bibleRequest.city)
+        return todayApi.getBible(bibleRequest.date)
             .toBible()
     }
 

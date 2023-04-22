@@ -67,7 +67,7 @@ public class CalendarioFragment extends Fragment {
             return true;
         }
         Bundle bundle = new Bundle();
-        bundle.putString("FECHA", mDate);
+        bundle.putInt("FECHA", Integer.parseInt(mDate));
         NavController navController = NavHostFragment.findNavController(this);
         navController.navigate(item.getItemId(), bundle);
         return true;

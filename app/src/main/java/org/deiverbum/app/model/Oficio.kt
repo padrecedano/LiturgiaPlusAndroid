@@ -1,12 +1,15 @@
 package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
+import androidx.room.Ignore
 import org.deiverbum.app.utils.Constants
 import org.deiverbum.app.utils.Utils
 
 class Oficio : BreviaryHour() {
     var invitatorio: LHInvitatory? = null
     var teDeum: TeDeum? = null
+    @Ignore
+    var hasTeDeum: Int = 0
 
     val tituloHora: SpannableStringBuilder
         get() = Utils.toH1Red(Constants.TITLE_OFICIO)
@@ -15,18 +18,17 @@ class Oficio : BreviaryHour() {
 
     fun getForView(
         liturgyTime: LiturgyTime?,
-        hasSaint: Boolean,
-        nightMode: Boolean
+        hasSaint: Boolean
     ): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         this.hasSaint = hasSaint
         try {
-            invitatorio!!.normalizeByTime(liturgyTime!!.timeID!!)
-            salmodia!!.normalizeByTime(liturgyTime.timeID!!)
-            lhOfficeOfReading!!.normalizeByTime(liturgyTime.timeID!!)
+            invitatorio!!.normalizeByTime(liturgyTime!!.timeID)
+            salmodia!!.normalizeByTime(liturgyTime.timeID)
+            lhOfficeOfReading!!.normalizeByTime(liturgyTime.timeID)
             sb.append(Utils.LS2)
             if (santo != null && this.hasSaint) {
-                invitatorio!!.normalizeIsSaint(santo!!.theName!!)
+                invitatorio!!.normalizeIsSaint(santo!!.theName)
                 sb.append(santo?.vidaSmall)
                 sb.append(Constants.LS)
             }
@@ -41,9 +43,9 @@ class Oficio : BreviaryHour() {
             sb.append(Utils.LS2)
             sb.append(salmodia!!.getAll(1))
             sb.append(Utils.LS2)
-            sb.append(lhOfficeOfReading!!.getAll(liturgyTime.timeID!!))
-            if (teDeum!=null) {
-                sb.append(teDeum?.all)
+            sb.append(lhOfficeOfReading!!.getAll(liturgyTime.timeID))
+            if (hasTeDeum!=0) {
+                sb.append(TeDeum().all)
             }
             sb.append(oracion?.all)
             sb.append(Utils.LS2)

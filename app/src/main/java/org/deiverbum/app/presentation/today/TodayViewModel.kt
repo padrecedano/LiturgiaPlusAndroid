@@ -8,13 +8,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.deiverbum.app.data.networking.CoroutineDispatcherProvider
-import org.deiverbum.app.domain.model.BiblicalCommentRequest
 import org.deiverbum.app.domain.model.TodayRequest
-import org.deiverbum.app.domain.usecase.GetBiblicalComment
 import org.deiverbum.app.domain.usecase.GetToday
 import org.deiverbum.app.util.ExceptionParser
 import javax.inject.Inject
 
+/**
+ * <p>ViewModel para el contenido litúrgico de la fecha dada.</p>
+ *
+ * @author A. Cedano
+ * @since 2023.3
+ */
 @HiltViewModel
 class TodayViewModel @Inject constructor(
     private val getTodayUseCase: GetToday,
@@ -24,12 +28,11 @@ class TodayViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<TodayUiState>(TodayUiState.Empty)
     val uiState: StateFlow<TodayUiState> = _uiState
 
-    fun loadData() {
+    fun loadData(todayRequest: TodayRequest) {
         _uiState.value = TodayUiState.Loading
         viewModelScope.launch(coroutineDispatcherProvider.IO()) {
             try {
-                val requestParam = TodayRequest("getTodayDate()",0)
-                val result = getTodayUseCase.execute(requestParam)
+                val result = getTodayUseCase.execute(todayRequest)
                 _uiState.value = TodayUiState.Loaded(TodayItemUiState(result))
             } catch (error: Exception) {
                 _uiState.value = TodayUiState.Error(ExceptionParser.getMessage(error))

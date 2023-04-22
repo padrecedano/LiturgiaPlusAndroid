@@ -9,7 +9,7 @@ import java.util.*
 open class Biblical {
      var bookFK = 0
 
-    @Ignore var libro: BibleBook? = null
+    @Ignore var book: BibleBook? = null
 
      var verseChapter: String? = null
 
@@ -72,7 +72,7 @@ open class Biblical {
         val sb = SpannableStringBuilder()
         sb.append(getHeader())
         sb.append(Utils.LS2)
-        sb.append(libro!!.liturgyName)
+        sb.append(book!!.liturgyName)
         sb.append("    ")
         sb.append(Utils.toRed(verseChapter))
         sb.append(", ")
@@ -97,7 +97,7 @@ open class Biblical {
     open fun getAllForRead(): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         sb.append(Utils.pointAtEnd(getHeader()))
-        sb.append(this.libro!!.getForRead())
+        sb.append(book!!.getForRead())
         sb.append(textoForRead)
         sb.append(getConclusionForRead())
         sb.append(getResponsorioHeaderForRead())
