@@ -33,7 +33,7 @@ class LiturgyWithTime {
             t.timeID = tiempo!!.tiempoId
             t.tiempo = tiempo!!.tiempo
             t.liturgyName = tiempo!!.liturgyName
-            dm.liturgiaTiempo = t
+            dm.liturgyTime = t
             return dm
         }
 }

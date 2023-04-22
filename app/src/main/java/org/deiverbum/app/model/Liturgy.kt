@@ -15,11 +15,7 @@ open class Liturgy {
     var typeID = 0
 
     @Ignore
-    var liturgiaTiempo: LiturgyTime? = null
-        get() = field
-        set(liturgiaTiempo) {
-            field = liturgiaTiempo
-        }
+    var liturgyTime: LiturgyTime? = null
 
     @JvmField
     @Ignore
@@ -75,7 +71,7 @@ open class Liturgy {
         }
     val titleForRead: String
         get() = try {
-            timeFK = liturgiaTiempo?.timeID
+            timeFK = liturgyTime?.timeID
             if (timeFK!! >= 8 || timeFK == 1 && day!! > 16 || timeFK == 2 || timeFK == 3 && week == 0 || timeFK == 4 || timeFK == 5 || week!! >= 35 || timeFK == 6 && week == 6 && typeFK!! < 4 || timeFK == 6 && week == 1 && day != 1 || day == 0) {
                 timeWithTitleForRead
             } else {
@@ -97,7 +93,7 @@ open class Liturgy {
             return String.format(
                 Locale("es"),
                 "%s. %s de la %s semana.",
-                liturgiaTiempo?.liturgyName,
+                liturgyTime?.liturgyName,
                 Utils.getDayName(
                     day!!
                 ),
@@ -108,7 +104,7 @@ open class Liturgy {
         get() = String.format(
             Locale("es"),
             "%s. %s",
-            liturgiaTiempo?.liturgyName,
+            liturgyTime?.liturgyName,
             tituloForRead
         )
 

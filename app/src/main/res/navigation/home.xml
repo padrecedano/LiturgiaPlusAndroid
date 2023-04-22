@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_help"
-        android:name="org.deiverbum.app.ui.fragments.FileFragment"
+        android:name="org.deiverbum.app.presentation.file.FileFragment"
         android:label="@string/title_fragment_help"
         tools:layout="@layout/fragment_file">
         <argument
@@ -125,9 +125,15 @@
 
     <fragment
         android:id="@+id/nav_homilias"
-        android:name="org.deiverbum.app.presentation.homily.HomilyFragment"
+        android:name="org.deiverbum.app.presentation.today.TodayFragment"
         android:label="@string/title_fragment_homilias"
-        tools:layout="@layout/fragment_homilias" />
+        tools:layout="@layout/fragment_breviario_data">
+        <argument
+            android:name="hourId"
+            android:defaultValue="9"
+            app:argType="integer" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/nav_santo"
@@ -137,15 +143,25 @@
 
     <fragment
         android:id="@+id/nav_lecturas"
-        android:name="org.deiverbum.app.ui.fragments.LecturasFragment"
+        android:name="org.deiverbum.app.presentation.today.TodayFragment"
         android:label="@string/title_fragment_lecturas"
-        tools:layout="@layout/fragment_lecturas" />
+        tools:layout="@layout/fragment_breviario_data">
+    <argument
+        android:name="hourId"
+        android:defaultValue="10"
+        app:argType="integer" />
+</fragment>
 
     <fragment
         android:id="@+id/nav_comentarios"
-        android:name="org.deiverbum.app.presentation.biblicalcomment.BiblicalCommentFragment"
+        android:name="org.deiverbum.app.presentation.today.TodayFragment"
         android:label="@string/title_fragment_comentarios"
-        tools:layout="@layout/fragment_comentarios" />
+        tools:layout="@layout/fragment_breviario_data">
+        <argument
+            android:name="hourId"
+            android:defaultValue="11"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_calendario"
@@ -213,7 +229,7 @@
 
     <fragment
         android:id="@+id/nav_laudes"
-        android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
+        android:name="org.deiverbum.app.presentation.today.TodayFragment"
         android:label="@string/title_fragment_laudes"
         tools:layout="@layout/fragment_breviario_data">
         <argument
@@ -224,7 +240,7 @@
 
     <fragment
         android:id="@+id/nav_tercia"
-        android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
+        android:name="org.deiverbum.app.presentation.today.TodayFragment"
         android:label="@string/title_fragment_tercia"
         tools:layout="@layout/fragment_breviario_data">
         <argument
@@ -235,7 +251,7 @@
 
     <fragment
         android:id="@+id/nav_sexta"
-        android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
+        android:name="org.deiverbum.app.presentation.today.TodayFragment"
         android:label="@string/title_fragment_sexta"
         tools:layout="@layout/fragment_breviario_data">
         <argument
@@ -246,7 +262,7 @@
 
     <fragment
         android:id="@+id/nav_nona"
-        android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
+        android:name="org.deiverbum.app.presentation.today.TodayFragment"
         android:label="@string/title_fragment_nona"
         tools:layout="@layout/fragment_breviario_data">
         <argument
@@ -257,7 +273,7 @@
 
     <fragment
         android:id="@+id/nav_visperas"
-        android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
+        android:name="org.deiverbum.app.presentation.today.TodayFragment"
         android:label="@string/title_fragment_visperas"
         tools:layout="@layout/fragment_breviario_data">
         <argument
@@ -268,7 +284,7 @@
 
     <fragment
         android:id="@+id/nav_completas"
-        android:name="org.deiverbum.app.ui.fragments.BreviarioDataFragment"
+        android:name="org.deiverbum.app.presentation.today.TodayFragment"
         android:label="@string/title_fragment_completas"
         tools:layout="@layout/fragment_breviario_data">
         <argument

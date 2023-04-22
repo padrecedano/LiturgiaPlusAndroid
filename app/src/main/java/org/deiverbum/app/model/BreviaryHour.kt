@@ -20,22 +20,21 @@ open class BreviaryHour : Liturgy() {
     //protected int typeID;
     protected var metaInfo: String? = null
         get() = if (field==null && field !="") "" else "<br><br>$field"
-    @JvmField
-    protected var himno: LHHymn? = null
-    @JvmField
-    protected var salmodia: LHPsalmody? = null
-    @JvmField
-    protected var oracion: Prayer? = null
-    protected var lhOfficeOfReading: LHOfficeOfReading? = null
+    //@JvmField
+    internal var himno: LHHymn? = null
+    //@JvmField
+    internal var salmodia: LHPsalmody? = null
+    internal var oracion: Prayer? = null
+    internal var lhOfficeOfReading: LHOfficeOfReading? = null
 
     //internal var teDeum: TeDeum? = null
     @JvmField
     protected var oficio: Oficio? = null
     @JvmField
     protected var oficioEaster: OficioEaster? = null
-    @JvmField
-    protected var laudes: Laudes? = null
-    private var mixto: Mixto? = null
+    //@JvmField
+    internal var laudes: Laudes? = null
+    internal var mixto: Mixto? = null
     private var intermedia: Intermedia? = null
     private var visperas: Visperas? = null
     private var completas: Completas? = null
@@ -175,7 +174,7 @@ open class BreviaryHour : Liturgy() {
         this.oficioEaster = oficioEaster
     }
 
-    fun getMixtoForView(liturgyTime: LiturgyTime, hasSaint: Boolean): SpannableStringBuilder {
+    open fun getMixtoForView(liturgyTime: LiturgyTime, hasSaint: Boolean): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         try {
             this.hasSaint = hasSaint

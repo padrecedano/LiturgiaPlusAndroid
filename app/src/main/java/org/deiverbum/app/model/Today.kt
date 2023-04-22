@@ -18,29 +18,16 @@ import org.deiverbum.app.utils.Utils
 //@SuppressWarnings("SameReturnValue")
 class Today {
     var todayDate: Int = 0
-        get() = field
-        set(todayDate) {
-            field = todayDate
-        }
 
     var weekDay: Int? = null
         get() = if(field==null) 0 else field
-        set(weekDay) {field=weekDay}
 
     var timeID: Int? = null
-        get() = field
-        set(timeID) {
-            field = timeID
-        }
 
     @Ignore
     var weekDayFK: Int? = null
     var liturgyFK: Int? = null
     var previousFK: Int? = null
-        get() = field
-        set(previo_id) {
-            field = previo_id
-        }
     var massReadingFK: Int? = null
     var invitatoryFK: Int? = null
 
@@ -97,7 +84,7 @@ class Today {
 
     val tituloVisperas: String?
         get() = if (liturgyPrevious != null) {
-            liturgyPrevious!!.name!!.replace(" I Vísperas.| I Vísperas".toRegex(), "")
+            liturgyPrevious!!.name.replace(" I Vísperas.| I Vísperas".toRegex(), "")
         } else {
             liturgyDay!!.name
         }
@@ -106,9 +93,9 @@ class Today {
     val tituloForRead: String?
         get() = if (liturgyDay!!.typeID == 6) tituloVisperas else liturgyDay!!.titleForRead
     val fecha: String
-        get() = if (todayDate != null) Utils.getLongDate(todayDate.toString()) else ""
+        get() = Utils.getLongDate(todayDate.toString())
     val tiempo: String?
-        get() = if (liturgyDay!!.typeID == 6 && liturgyPrevious != null) liturgyPrevious!!.liturgiaTiempo!!.liturgyName else liturgyDay!!.liturgiaTiempo!!.liturgyName
+        get() = if (liturgyDay!!.typeID == 6 && liturgyPrevious != null) liturgyPrevious!!.liturgyTime!!.liturgyName else liturgyDay!!.liturgyTime!!.liturgyName
 
 
 
@@ -129,15 +116,19 @@ class Today {
             sb.append(Utils.toH3(titulo))
             //liturgyDay.today.previousFK
             //sb.append(liturgyDay.getForView(hasInvitatory,previousFK));
-            var bh: BreviaryHour? =liturgyDay!!.breviaryHour
+            val bh: BreviaryHour? =liturgyDay!!.breviaryHour
 
             if (liturgyDay!!.typeID == 0) {
                 if (oBiblicalFK == 600010101) {
                     sb.append(bh?.getOficioEaster()?.forView)
                 } else {
+                    /*sb.append(
+                        liturgyDay!!.breviaryHour!!.getMixto()!!
+                            .getForView(liturgyDay!!.liturgyTime, hasSaintToday())
+                    )*/
                     sb.append(
                         bh?.getMixtoForView(
-                            liturgyDay!!.liturgiaTiempo!!,
+                            liturgyDay!!.liturgyTime!!,
                             hasSaintToday()
                         )
                     ) //.getForView(liturgyDay.liturgyTime));
@@ -149,26 +140,26 @@ class Today {
                 } else {
                     sb.append(
                         liturgyDay!!.breviaryHour!!.getOficio(hasInvitatory)!!
-                            .getForView(liturgyDay!!.liturgiaTiempo, hasSaintToday(), nightMode)
+                            .getForView(liturgyDay!!.liturgyTime, hasSaintToday())
                     )
                 }
             }
             if (liturgyDay!!.typeID == 2) {
                 sb.append(
                     liturgyDay!!.breviaryHour!!.getLaudes(hasInvitatory)!!
-                        .getForView(liturgyDay!!.liturgiaTiempo!!, hasSaintToday())
+                        .getForView(liturgyDay!!.liturgyTime!!, hasSaintToday())
                 )
             }
             if (liturgyDay!!.typeID == 3 || liturgyDay!!.typeID == 4 || liturgyDay!!.typeID == 5) {
                 sb.append(
                     liturgyDay!!.breviaryHour!!.getIntermedia()!!
-                        .getForView(liturgyDay!!.liturgiaTiempo!!, liturgyDay!!.typeID)
+                        .getForView(liturgyDay!!.liturgyTime!!, liturgyDay!!.typeID)
                 )
             }
             if (liturgyDay!!.typeID == 6) {
                 sb.append(
                     liturgyDay!!.breviaryHour!!.getVisperas()!!
-                        .getForView(liturgyDay!!.liturgiaTiempo)
+                        .getForView(liturgyDay!!.liturgyTime)
                 )
             }
             if (liturgyDay!!.typeID == 7) {

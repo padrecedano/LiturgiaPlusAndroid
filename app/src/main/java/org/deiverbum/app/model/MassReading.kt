@@ -20,7 +20,7 @@ open class MassReading : Biblical(), Comparable<MassReading> {
         sb.append(Utils.LS)
         sb.append(Utils.formatTitle(getHeader(type)))
         sb.append(Utils.LS2)
-        sb.append(libro?.liturgyName)
+        sb.append(book?.liturgyName)
         sb.append("    ")
         sb.append(Utils.toRed(quote))
         sb.append(Utils.LS2)
@@ -44,7 +44,7 @@ open class MassReading : Biblical(), Comparable<MassReading> {
     fun getAllForRead(type: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         sb.append(Utils.normalizeEnd(getHeader(type)))
-        sb.append(libro?.getForRead())
+        sb.append(book?.getForRead())
         sb.append(temaForRead)
         sb.append(textoForRead)
         return sb
@@ -140,21 +140,7 @@ open class MassReading : Biblical(), Comparable<MassReading> {
         return header
     }
 
-    fun findOrden(orden: Int): String {
-        val orderText: String
-        orderText = if (orden <= 19) {
-            "Primera Lectura"
-        } else if (orden <= 29) {
-            "Salmo Responsorial"
-        } else if (orden <= 39) {
-            "Segunda Lectura"
-        } else {
-            "Evangelio"
-        }
-        return orderText
-    }
-
-    override fun compareTo(e: MassReading): Int {
-        return getOrden()!!.compareTo(e.getOrden()!!)
+    override fun compareTo(other: MassReading): Int {
+        return getOrden()!!.compareTo(other.getOrden()!!)
     }
 }

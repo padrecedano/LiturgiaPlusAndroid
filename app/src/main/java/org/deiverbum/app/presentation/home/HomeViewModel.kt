@@ -30,11 +30,10 @@ class HomeViewModel @Inject constructor(
 
         viewModelScope.launch(coroutineDispatcherProvider.IO()) {
             try {
-                val city = "Jakarta"
-                val requestParam = BibleRequest(city, getTodayDate())
+                val requestParam = BibleRequest("", getTodayDate())
                 val result = getBibleUseCase.execute(requestParam)
 
-                _uiState.value = HomeUiState.Loaded(HomeItemUiState(city, result))
+                _uiState.value = HomeUiState.Loaded(HomeItemUiState("", result))
             } catch (error: Exception) {
                 _uiState.value = HomeUiState.Error(ExceptionParser.getMessage(error))
             }

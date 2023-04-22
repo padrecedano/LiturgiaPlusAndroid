@@ -10,5 +10,11 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="card_album_radius">1dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="cell_min_width">150dp</dimen>
+    <dimen name="cell_thumb_height">200dp</dimen>
+    <dimen name="cell_play_icon_size">92dp</dimen>
+
+    <dimen name="padding_xsmall">2dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
 
 </resources>

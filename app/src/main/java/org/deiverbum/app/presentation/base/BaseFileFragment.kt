@@ -23,7 +23,7 @@ import org.deiverbum.app.utils.Utils
 import org.deiverbum.app.utils.ZoomTextView
 import java.util.*
 
-abstract class BaseFragment<T> : Fragment() {
+abstract class BaseFileFragment<T> : Fragment() {
 
     private var viewBinding: ViewBinding? = null
     protected lateinit var todayRequest: TodayRequest

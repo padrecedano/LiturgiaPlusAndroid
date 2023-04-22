@@ -6,6 +6,7 @@ import static org.deiverbum.app.utils.Constants.FILE_ROSARY;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -74,6 +75,26 @@ public class FileDataSource {
             }
 
         });
+    }
+
+    public void getRosarioo(int day) {
+            try {
+                AssetManager manager = mContext.getAssets();
+                InputStream is = manager.open(FILE_ROSARY);
+                int size = is.available();
+                byte[] buffer = new byte[size];
+                is.read(buffer);
+                is.close();
+                Gson gson = new Gson();
+                Rosario data = gson.fromJson(new String(buffer, StandardCharsets.UTF_8), Rosario.class);
+                data.setDay(day);
+                //emitter.onSuccess(new DataWrapper<>(data));
+            } catch (Exception e) {
+                Log.d("ddd",e.getMessage());
+                //emitter.onError(e);
+            }
+
+
     }
 
     /**
