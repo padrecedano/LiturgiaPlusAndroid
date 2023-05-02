@@ -9,13 +9,9 @@ class LHHymn {
     var hymnID: Int? = null
 
     var hymn: String? = null
-        set(value) {
-            field = value
-        }
-        get() = field
 
 
-    constructor() {}
+    constructor()
     constructor(hymn: String?) {
         this.hymn = hymn
     }

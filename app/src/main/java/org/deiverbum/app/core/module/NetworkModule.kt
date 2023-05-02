@@ -11,6 +11,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.Dispatcher
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.deiverbum.app.core.utils.ConnectivityIntecepter
 import org.deiverbum.app.data.source.remote.network.ApiService
 import org.deiverbum.app.data.source.remote.network.TestService
@@ -54,8 +55,9 @@ object NetworkModule {
     @Singleton
     fun provideHttpClient(application: Context): OkHttpClient {
         val dispatcher = Dispatcher()
-        //HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        //logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        var logging: HttpLoggingInterceptor = HttpLoggingInterceptor()
+//= new HttpLoggingInterceptor()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         val client =OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
@@ -70,7 +72,7 @@ object NetworkModule {
             chain.proceed(request)
         }
         client.addInterceptor(interceptor)
-        //client.interceptors().add(logging);
+        client.interceptors().add(logging);
         return client.build()
     }
 

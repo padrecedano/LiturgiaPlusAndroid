@@ -10,9 +10,9 @@ class Laudes : BreviaryHour() {
     var lecturaBreve: BiblicalShort? = null
     var gospelCanticle: LHGospelCanticle? = null
     var preces: LHIntercession? = null
-    val tituloHora: SpannableStringBuilder
+    private val tituloHora: SpannableStringBuilder
         get() = Utils.toH1Red(Constants.TITLE_LAUDES)
-    val tituloHoraForRead: String
+    private val tituloHoraForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_LAUDES)
 
 

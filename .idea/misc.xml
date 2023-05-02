@@ -103,8 +103,9 @@
     </option>
   </component>
   <component name="EntryPointsManager">
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="com.google.gson.annotations.Expose" />
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="androidx.room.Ignore" />
+      <item index="1" class="java.lang.String" itemvalue="com.google.gson.annotations.Expose" />
     </list>
   </component>
   <component name="JavadocGenerationManager">

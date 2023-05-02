@@ -5,7 +5,6 @@ import android.text.Spanned
 import androidx.room.Ignore
 import org.deiverbum.app.utils.Constants
 import org.deiverbum.app.utils.Utils
-import java.util.*
 
 class LHPsalmody {
     var groupFK: Int? = null
@@ -23,13 +22,14 @@ class LHPsalmody {
     @Ignore
     private var salmos: List<LHPsalm>? = null
     fun sort() {
-        Collections.sort(salmos)
+        salmos?.sortedBy { it.theOrder }
+        //Collections.sort(salmos!!)
     }
 
-    val salmosForRead: SpannableStringBuilder
+    private val salmosForRead: SpannableStringBuilder
         get() = getSalmosForRead(-1)
 
-    fun getSalmos(): SpannableStringBuilder {
+    private fun getSalmos(): SpannableStringBuilder {
         return getSalmos(-1)
     }
 
@@ -37,7 +37,7 @@ class LHPsalmody {
         this.salmos = salmos
     }
 
-    fun getSalmos(hourIndex: Int): SpannableStringBuilder {
+    private fun getSalmos(hourIndex: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder("")
         var salmo: String?
         val preAntifona = "Ant. "
@@ -74,7 +74,7 @@ class LHPsalmody {
                 parte.append(Utils.toRed(s.part))
                 parte.append(Utils.LS2)
             }
-            if (!preRef.isEmpty()) {
+            if (preRef.isNotEmpty()) {
                 ref.append(Utils.LS)
                 ref.append(s.ref)
                 ref.append(Utils.LS2)
@@ -143,7 +143,7 @@ class LHPsalmody {
             parte.append(Utils.toRed(s.part))
             parte.append(Utils.LS2)
         }
-        if (!preRef.isEmpty()) {
+        if (preRef.isNotEmpty()) {
             ref.append(Utils.LS)
             ref.append(s.ref)
             ref.append(Utils.LS2)
@@ -169,7 +169,7 @@ class LHPsalmody {
         return sb
     }
 
-    fun getSalmosForRead(hourIndex: Int): SpannableStringBuilder {
+    private fun getSalmosForRead(hourIndex: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         var salmo: String?
         var antUnica = ""
@@ -228,7 +228,7 @@ class LHPsalmody {
 
     val header: SpannableStringBuilder
         get() = Utils.formatTitle(Constants.TITLE_PSALMODY)
-    val headerForRead: String
+    private val headerForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_PSALMODY)
 
     /**
@@ -298,7 +298,7 @@ class LHPsalmody {
                     + Constants.NBSP_SALMOS + "por los siglos de los siglos. Amén.")
             return Utils.fromHtml(fin)
         }
-    val finSalmoForRead: String
+    private val finSalmoForRead: String
         get() = ("Gloria al Padre, y al Hijo, y al Espíritu Santo." +
                 "Como era en el principio ahora y siempre, "
                 + "por los siglos de los siglos. Amén.")
@@ -307,7 +307,7 @@ class LHPsalmody {
      * @return La rúbrica cuando no se dice Gloria en los salmos.
      * @since 2022.01
      */
-    val noGloria: SpannableStringBuilder
+    private val noGloria: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder("No se dice Gloria")
             return Utils.toRedNew(sb)
@@ -319,7 +319,7 @@ class LHPsalmody {
      * @param sAntifona Una cadena con el texto de la antífona
      * @return La misma cadena, pero sin el referido símbolo
      */
-    fun getAntifonaLimpia(sAntifona: String?): String {
+    private fun getAntifonaLimpia(sAntifona: String?): String {
         return sAntifona!!.replace("†", "")
     }
 

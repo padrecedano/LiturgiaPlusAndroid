@@ -5,6 +5,7 @@ import android.util.SparseIntArray
 import org.deiverbum.app.utils.Constants
 import org.deiverbum.app.utils.Utils
 
+@Suppress("unused")
 class Completas : BreviaryHour() {
     var completasHimno: List<CompletasHimno>? = null
     private var ritosIniciales: RitosIniciales? = null
@@ -179,7 +180,7 @@ class Completas : BreviaryHour() {
             val nuncDimitis = getNuncDimitis()
             val conclusion = getConclusion()
             sb.append(getTituloHoraForRead())
-            sb.append(BreviaryHour.Companion.getSaludoDiosMioForRead())
+            sb.append(getSaludoDiosMioForRead())
             sb.append(kyrie?.allForRead)
             sb.append(himno!!.allForRead)
             sb.append(salmodia!!.allForRead)

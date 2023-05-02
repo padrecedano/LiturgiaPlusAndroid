@@ -4,7 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import org.deiverbum.app.data.entity.HomilyEntity
 import org.deiverbum.app.data.entity.PaterOpusEntity
-import org.deiverbum.app.model.HomilyList
+import org.deiverbum.app.model.Homily
 import org.deiverbum.app.model.LHOfficePatristic
 
 /**
@@ -20,6 +20,7 @@ class HomilyAll {
     @JvmField
     @Relation(parentColumn = "opusFK", entityColumn = "opusID", entity = PaterOpusEntity::class)
     var paterOpusAll: PaterOpusAll? = null
+
     val patristicaDomainModel: LHOfficePatristic
         get() {
             val theModel = LHOfficePatristic()
@@ -30,13 +31,14 @@ class HomilyAll {
             theModel.source = homilia!!.numero.toString()
             return theModel
         }
-    val domainModel: HomilyList
+
+    val homilyDomailModel: Homily
         get() {
-            val theModel = HomilyList()
+            val theModel = Homily()
             theModel.homily = homilia!!.texto
             theModel.homilyID = homilia!!.homiliaId
-            theModel.padre = paterOpusAll!!.paterEntity!!.padre
-            theModel.obra = paterOpusAll!!.paterOpusEntity!!.opusName
+            theModel.paterOpus= paterOpusAll!!.domainModel
+            theModel.date= homilia!!.fecha.toString()
             return theModel
         }
 }

@@ -22,7 +22,7 @@ class SyncStatus {
     var versionDB = 1
     var lastUpdate = ""
 
-    constructor() {}
+    constructor()
 
     @Ignore
     constructor(lastUpdate: String) {

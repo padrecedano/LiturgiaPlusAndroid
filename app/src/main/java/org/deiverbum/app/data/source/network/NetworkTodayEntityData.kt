@@ -17,17 +17,16 @@ class NetworkTodayEntityData @Inject constructor(
         val endPoint = LiturgyHelper.map[todayRequest.typeID]
         Timber.d(endPoint)
         val apiResponse = todayApi.getToday(endPoint, todayRequest.theDate.toString())
-        val ssb: SpannableStringBuilder
+        val todayResponse=TodayResponse()
         return try {
-            ssb = apiResponse?.getAllForView(
-                todayRequest.isMultipleInvitatory,
-                todayRequest.isNightMode
+            todayResponse.dataForView=apiResponse?.getAllForView(
+                todayRequest
             )!!
-            var sb: StringBuilder? = null
             if (todayRequest.isVoiceOn) {
-                sb = apiResponse.getAllForRead(todayRequest.isMultipleInvitatory)
+                todayResponse.dataForRead=
+                    apiResponse.getAllForRead(todayRequest.isMultipleInvitatory)
             }
-            TodayResponse(ssb, sb)
+            todayResponse
         } catch (e: Exception) {
             TodayResponse(SpannableStringBuilder(e.stackTraceToString()), null)
         }

@@ -2,6 +2,7 @@ package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
 import androidx.room.Ignore
+import org.deiverbum.app.domain.model.TodayRequest
 import org.deiverbum.app.utils.ColorUtils
 import org.deiverbum.app.utils.Utils
 
@@ -82,15 +83,15 @@ class Today {
         massReadingFK = mLecturasFK
     }
 
-    val tituloVisperas: String?
+    private val tituloVisperas: String
         get() = if (liturgyPrevious != null) {
             liturgyPrevious!!.name.replace(" I Vísperas.| I Vísperas".toRegex(), "")
         } else {
             liturgyDay!!.name
         }
-    val titulo: String?
+    val titulo: String
         get() = if (liturgyDay!!.typeID == 6) tituloVisperas else liturgyDay!!.name
-    val tituloForRead: String?
+    private val tituloForRead: String
         get() = if (liturgyDay!!.typeID == 6) tituloVisperas else liturgyDay!!.titleForRead
     val fecha: String
         get() = Utils.getLongDate(todayDate.toString())
@@ -98,14 +99,13 @@ class Today {
         get() = if (liturgyDay!!.typeID == 6 && liturgyPrevious != null) liturgyPrevious!!.liturgyTime!!.liturgyName else liturgyDay!!.liturgyTime!!.liturgyName
 
 
-
-    fun hasSaintToday(): Boolean {
+    private fun hasSaintToday(): Boolean {
         return hasSaint != null && hasSaint == 1 //this.hasSaint == 1;
     }
 
-    fun getAllForView(hasInvitatory: Boolean, nightMode: Boolean): SpannableStringBuilder {
+    fun getAllForView(todayRequest:TodayRequest): SpannableStringBuilder {
         liturgyDay!!.setHasSaint(hasSaintToday())
-        ColorUtils.isNightMode = nightMode
+        ColorUtils.isNightMode = todayRequest.isNightMode
         val sb = SpannableStringBuilder()
         try {
             sb.append(Utils.LS)
@@ -114,8 +114,23 @@ class Today {
             sb.append(Utils.toH2(tiempo))
             sb.append(Utils.LS2)
             sb.append(Utils.toH3(titulo))
+            //sb.append(Utils.LS2)
             //liturgyDay.today.previousFK
             //sb.append(liturgyDay.getForView(hasInvitatory,previousFK));
+
+            if (liturgyDay!!.typeID == 9) {
+                sb.append(liturgyDay?.homilyList?.getAllForView(todayRequest)
+                )
+                return sb
+            }
+
+            if (liturgyDay!!.typeID == 10) {
+                sb.append(liturgyDay!!.massReadingList?.getForView(
+                    todayRequest
+                )
+                )
+            }
+
             val bh: BreviaryHour? =liturgyDay!!.breviaryHour
 
             if (liturgyDay!!.typeID == 0) {
@@ -139,14 +154,14 @@ class Today {
                     sb.append(liturgyDay!!.breviaryHour!!.getOficioEaster()?.forView)
                 } else {
                     sb.append(
-                        liturgyDay!!.breviaryHour!!.getOficio(hasInvitatory)!!
+                        liturgyDay!!.breviaryHour!!.getOficio(todayRequest.isMultipleInvitatory)!!
                             .getForView(liturgyDay!!.liturgyTime, hasSaintToday())
                     )
                 }
             }
             if (liturgyDay!!.typeID == 2) {
                 sb.append(
-                    liturgyDay!!.breviaryHour!!.getLaudes(hasInvitatory)!!
+                    liturgyDay!!.breviaryHour!!.getLaudes(todayRequest.isMultipleInvitatory)!!
                         .getForView(liturgyDay!!.liturgyTime!!, hasSaintToday())
                 )
             }
@@ -165,6 +180,8 @@ class Today {
             if (liturgyDay!!.typeID == 7) {
                 sb.append(liturgyDay!!.breviaryHour!!.getCompletas()!!.getAllForView())
             }
+
+
         } catch (e: Exception) {
             sb.append(Utils.createErrorMessage(e.message))
         }
@@ -196,6 +213,12 @@ class Today {
         try {
             sb.append(Utils.pointAtEnd(fecha))
             sb.append(tituloForRead)
+
+            if (liturgyDay!!.typeID == 9) {
+                sb.append(liturgyDay?.homilyList?.allForRead
+                )
+                return sb
+            }
             //sb.append(liturgyDay.getForRead());
             if (liturgyDay!!.typeID == 0) {
                 if (oBiblicalFK == 600010101) {
@@ -234,6 +257,8 @@ class Today {
         val sb = StringBuilder()
         try {
             sb.append(Utils.pointAtEnd(fecha))
+            sb.append(Utils.pointAtEnd(tiempo))
+
             sb.append(tituloForRead)
             //sb.append(liturgyDay.getForRead());
         } catch (e: Exception) {

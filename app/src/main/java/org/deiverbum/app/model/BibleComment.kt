@@ -3,7 +3,7 @@ package org.deiverbum.app.model
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import org.deiverbum.app.utils.Utils
-
+@Suppress("unused")
 class BibleComment {
     private val obras: PaterOpus? = null
     var tema = ""
@@ -16,20 +16,19 @@ class BibleComment {
     var ref = ""
     var fecha: String? = null
     var biblica: MassReading? = null
-    val textoForRead: Spanned
+    private val textoForRead: Spanned
         get() = Utils.fromHtmlForRead(texto)
     private val citaForRead: String
-        private get() = if (cita != "") Utils.normalizeEnd(cita) else ""
+        get() = if (cita != "") Utils.normalizeEnd(cita) else ""
     private val padreForRead: String
-        private get() = if (padre != "") Utils.normalizeEnd(padre) else ""
+        get() = if (padre != "") Utils.normalizeEnd(padre) else ""
     private val obraForRead: String
-        private get() = if (obra != "") Utils.normalizeEnd(obra) else ""
+        get() = if (obra != "") Utils.normalizeEnd(obra) else ""
     private val temaForRead: String
-        private get() = if (tema != "") Utils.normalizeEnd(tema) else ""
+        get() = if (tema != "") Utils.normalizeEnd(tema) else ""
     private val refForRead: String
-        private get() = if (ref != "") Utils.normalizeEnd(ref) else ""
+        get() = if (ref != "") Utils.normalizeEnd(ref) else ""
 
-    //sb.append(today.getSingleForView());
     val allForView: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()
@@ -49,7 +48,7 @@ class BibleComment {
                 sb.append(Utils.LS2)
                 sb.append(Utils.toRed(cita))
             }
-            if (!fecha!!.isEmpty() && fecha != "0000-00-00" && fecha != "0") {
+            if (fecha!!.isNotEmpty() && fecha != "0000-00-00" && fecha != "0") {
                 sb.append(Utils.LS2)
                 sb.append(Utils.toRed(fecha))
             }

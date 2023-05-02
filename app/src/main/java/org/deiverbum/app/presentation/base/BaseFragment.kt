@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.*
 import android.widget.ProgressBar
@@ -18,7 +17,6 @@ import org.deiverbum.app.R
 import org.deiverbum.app.databinding.FragmentTodayBinding
 import org.deiverbum.app.domain.model.TodayRequest
 import org.deiverbum.app.presentation.today.TodayFragmentArgs
-import org.deiverbum.app.ui.fragments.BreviarioDataFragment
 import org.deiverbum.app.utils.Utils
 import org.deiverbum.app.utils.ZoomTextView
 import java.util.*
@@ -28,10 +26,11 @@ abstract class BaseFragment<T> : Fragment() {
     private var viewBinding: ViewBinding? = null
     protected lateinit var todayRequest: TodayRequest
     protected lateinit var mTextView: ZoomTextView
-    private var _binding: FragmentTodayBinding? = null;
-    private val binding get() = _binding!!;
+    private var _binding: FragmentTodayBinding? = null
+    //private var binding get() = _binding!!;
     private var progressBar: ProgressBar? = null
-    private var mActionMode: ActionMode? = null
+    private var mActionModee: ActionMode? = null
+    var mActionMode: ActionMode? = null
 
     private val mActionModeCallback: ActionMode.Callback = object : ActionMode.Callback {
         override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
@@ -77,7 +76,7 @@ abstract class BaseFragment<T> : Fragment() {
         }
 
         override fun onDestroyActionMode(mode: ActionMode) {
-            BreviarioDataFragment.mActionMode = null
+            mActionMode = null
             //cleanTTS()
             //setPlayerButton()
         }
@@ -93,9 +92,9 @@ abstract class BaseFragment<T> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentTodayBinding.inflate(inflater,container,false);
+        _binding = FragmentTodayBinding.inflate(inflater,container,false)
 
-        setConfiguration()
+        //setConfiguration()
 
 
         viewBinding = constructViewBinding()
@@ -108,7 +107,7 @@ abstract class BaseFragment<T> : Fragment() {
 
     private fun pickOutDatec(): Int {
         val bundle = arguments
-        var mDate = if (bundle != null && bundle.containsKey("FECHA")) {
+        val mDate = if (bundle != null && bundle.containsKey("FECHA")) {
             bundle.getInt("FECHA")
         } else {
             Utils.getHoy().toInt()
@@ -116,7 +115,7 @@ abstract class BaseFragment<T> : Fragment() {
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
         Objects.requireNonNull<ActionBar?>(actionBar).subtitle =
             Utils.getTitleDate(mDate.toString())
-        return mDate;
+        return mDate
     }
 
     open fun isNightMode(): Boolean {
@@ -125,32 +124,7 @@ abstract class BaseFragment<T> : Fragment() {
         return nightModeFlags == Configuration.UI_MODE_NIGHT_YES
     }
 
-    private fun setConfiguration() {
-        val args: TodayFragmentArgs by navArgs()
-        //Timber.d(args.hourId.toString())
-        Log.d("XYZ", args.hourId.toString())
 
-        mTextView = _binding!!.include.tvZoomable
-        progressBar = _binding?.progressBar
-        val sp = activity?.getPreferences(Context.MODE_PRIVATE)
-
-
-        val fontSize = sp?.getString("font_size", "18")!!.toFloat()
-        val fontFamily = String.format(
-            Locale("es"),
-            "fonts/%s",
-            sp.getString("font_name", "robotoslab_regular.ttf")
-        )
-        val tf = Typeface.createFromAsset(requireActivity().assets, fontFamily)
-        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
-        mTextView.setTypeface(tf)
-        val hasInvitatory = sp.getBoolean("invitatorio", false)
-        val isVoiceOn = sp.getBoolean("voice", true)
-        todayRequest =
-            TodayRequest(pickOutDatec(), args.hourId, isNightMode(), isVoiceOn, hasInvitatory)
-
-        //pickOutDate()
-    }
 
 
     override fun onDestroyView() {

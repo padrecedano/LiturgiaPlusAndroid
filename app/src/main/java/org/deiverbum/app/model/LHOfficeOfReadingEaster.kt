@@ -4,7 +4,6 @@ import android.text.SpannableStringBuilder
 import androidx.room.Ignore
 import org.deiverbum.app.utils.Constants
 import org.deiverbum.app.utils.Utils
-import java.util.*
 
 class LHOfficeOfReadingEaster : LHOfficeOfReading() {
     @JvmField
@@ -14,7 +13,7 @@ class LHOfficeOfReadingEaster : LHOfficeOfReading() {
 
     var biblical: MutableList<LHOfficeBiblicalEaster?>? = null
         private set
-    val metaInfoForView: String
+    private val metaInfoForView: String
         get() = String.format(
             "%s%s%s%s%s",
             "Hoy, la celebración solemne de la Vigilia pascual reemplaza el Oficio de lectura.",
@@ -23,7 +22,7 @@ class LHOfficeOfReadingEaster : LHOfficeOfReading() {
             Utils.LS2,
             "Este Oficio empieza directamente con las lecturas."
         )
-    val metaInfoForRead: String
+    private val metaInfoForRead: String
         get() = "Hoy, la celebración solemne de la Vigilia pascual reemplaza el Oficio de lectura. Quienes no hayan participado en la celebración de la Vigilia pascual usarán, para el Oficio de lectura, al menos cuatro de las lecturas de la referida Vigilia pascual, con sus cantos y oraciones. Es muy conveniente elegir, de entre las lecturas de la Vigilia pascual, las que se proponen a continuación. Este Oficio empieza directamente con las lecturas."
 
     fun setBiblicalE(biblical: MutableList<LHOfficeBiblicalEaster?>) {
@@ -45,8 +44,7 @@ class LHOfficeOfReadingEaster : LHOfficeOfReading() {
     override fun getAllBiblica(calendarTime: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         this.teDeum = TeDeum()
-        var i = 0
-        for (oneBiblica in biblical!!) {
+        for ((i, oneBiblica) in biblical!!.withIndex()) {
             if (i <= 1) {
                 sb.append(Utils.LS2)
                 sb.append(oneBiblica?.biblical)
@@ -71,7 +69,6 @@ class LHOfficeOfReadingEaster : LHOfficeOfReading() {
                 sb.append(Utils.LS2)
                 sb.append(oneBiblica?.prayer?.all)
             }
-            i++
         }
         return sb
     }
@@ -80,8 +77,7 @@ class LHOfficeOfReadingEaster : LHOfficeOfReading() {
     override val allBiblicaForRead: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()
-            var i = 0
-            for (oneBiblica in biblical!!) {
+            for ((i, oneBiblica) in biblical!!.withIndex()) {
                 if (i <= 1) {
                     sb.append(Utils.LS2)
                     sb.append(oneBiblica?.biblicalForRead)
@@ -106,7 +102,6 @@ class LHOfficeOfReadingEaster : LHOfficeOfReading() {
                     sb.append(Utils.LS2)
                     sb.append(oneBiblica?.prayer?.allForRead)
                 }
-                i++
             }
             return sb
         }

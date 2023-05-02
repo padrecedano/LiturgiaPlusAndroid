@@ -31,13 +31,14 @@ class Saint {
             Utils.fromHtml("")
         }
 
+    @Suppress("unused")
     fun getVidaForView(): Spanned {
         return Utils.fromHtml(vida)
     }
 
 
     //martirologio;
-    val martirologio: String
+    private val martirologio: String
         get() = "" //martirologio;
 
     fun setDay(dia: String?) {
@@ -48,13 +49,13 @@ class Saint {
         theMonth = mes
     }
 
-    val martirologioSpan: SpannableStringBuilder
+    private val martirologioSpan: SpannableStringBuilder
         get() = Utils.toSmallSize("martirologio")
-    val martirologioTitleSpan: SpannableStringBuilder
+    private val martirologioTitleSpan: SpannableStringBuilder
         get() = Utils.toSmallSize("(Martirologio Romano)")
-    val martirologioTitleForRead: String
+    private val martirologioTitleForRead: String
         get() = "Martirologio Romano."
-    val vidaSpan: SpannableStringBuilder
+    private val vidaSpan: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()
             sb.append(Utils.fromHtml("<hr>"))
@@ -63,7 +64,7 @@ class Saint {
             sb.append(Utils.fromHtml(vida!!.replace(Constants.OLD_SEPARATOR.toRegex(), "")))
             return sb
         }
-    val vidaForRead: StringBuilder
+    private val vidaForRead: StringBuilder
         get() {
             val sb = StringBuilder()
             sb.append("VIDA.")
@@ -104,7 +105,7 @@ class Saint {
             }
             return sb
         }
-    val monthName: String
+    private val monthName: String
         get() {
             val monthNames = HashMap<String?, String>()
             monthNames["01"] = "Enero"
@@ -122,6 +123,7 @@ class Saint {
             return String.format("%s de %s", theDay, monthNames[theMonth])
         }
 
+    @Suppress("unused")
     fun getMonthName(mes: String?): String {
         val monthNames = HashMap<Int, String>()
         monthNames[1] = "Enero"
@@ -136,7 +138,7 @@ class Saint {
         monthNames[10] = "Octubre"
         monthNames[11] = "Noviembre"
         monthNames[12] = "Diciembre"
-        val theMonth = Integer.valueOf(mes)
+        val theMonth = Integer.valueOf(mes!!)
         return String.format("%s de %s", theDay, monthNames[theMonth])
     }
 }

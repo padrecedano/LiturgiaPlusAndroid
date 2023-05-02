@@ -61,18 +61,23 @@ class TodayMisaLecturas {
         return dm
     }
 
-    val domainModel: MassReadingList
+    val domainModel: Today
         get() {
-            val dm = MassReadingList()
-            dm.today = getToday()
-            dm.type = joinTable!!.type
+            val dmToday = getToday()
+            val dm = feria?.domainModel
+            dm!!.typeID = 10
+
+            val mr = MassReadingList()
+            mr.type = joinTable!!.type
             val listModel: MutableList<MassReading?> = ArrayList()
             for (item in lecturas!!) {
                 listModel.add(item.domainModel)
             }
-            listModel.sortBy{it?.getOrden()}
-            dm.lecturas = listModel
-            dm.sort()
-            return dm
+            listModel.sortBy { it?.getOrden() }
+            mr.lecturas = listModel
+            mr.sort()
+            dmToday.liturgyDay = dm
+            dmToday.liturgyDay!!.massReadingList = mr
+            return dmToday
         }
 }

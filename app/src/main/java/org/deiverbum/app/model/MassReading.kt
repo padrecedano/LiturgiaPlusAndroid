@@ -5,7 +5,7 @@ import org.deiverbum.app.utils.Utils
 
 open class MassReading : Biblical(), Comparable<MassReading> {
     var tema: String? = null
-    val temaForRead: String
+    private val temaForRead: String
         get() = Utils.normalizeEnd(tema)
 
     /**
@@ -50,7 +50,7 @@ open class MassReading : Biblical(), Comparable<MassReading> {
         return sb
     }
 
-    fun getHeader(type: Int): String {
+    private fun getHeader(type: Int): String {
         return if (type == 0) {
             var header = ""
             if (order!! >= 1 && order!! <= 19) {
@@ -78,7 +78,7 @@ open class MassReading : Biblical(), Comparable<MassReading> {
      * @return Un objeto [con el contenido.][String]
      * @since 2023.1.2
      */
-    fun getHeaderByType(type: Int): String {
+    private fun getHeaderByType(type: Int): String {
         /*
             type 1 es la Vigilia Pascual, con el siguiente esquema:
             1. 1ª Lectura

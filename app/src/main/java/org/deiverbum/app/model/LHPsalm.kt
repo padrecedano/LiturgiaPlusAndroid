@@ -16,10 +16,6 @@ open class LHPsalm : Comparable<LHPsalm> {
     var antiphon: String? = null
     get() = if (field != null) field else ""
     var psalm = ""
-        get() = field
-        set(salmo) {
-            field = salmo
-        }
 
     @Ignore
     var theOrder: String? = null
@@ -69,8 +65,8 @@ open class LHPsalm : Comparable<LHPsalm> {
                 "Como era en el principio ahora y siempre, "
                 + "por los siglos de los siglos. Amén.")
 
-    override fun compareTo(e: LHPsalm): Int {
-        return theOrder!!.compareTo(e.theOrder!!)
+    override fun compareTo(other: LHPsalm): Int {
+        return theOrder!!.compareTo(other.theOrder!!)
     }
 
     /**
@@ -79,6 +75,6 @@ open class LHPsalm : Comparable<LHPsalm> {
      * @param calendarTime Un entero con el Id del tiempo del calendario
      */
     fun normalizeByTime(calendarTime: Int) {
-        antiphon = if(antiphon.isNullOrEmpty()==true) "" else replaceByTime(antiphon, calendarTime)
+        antiphon = if(antiphon.isNullOrEmpty()) "" else replaceByTime(antiphon, calendarTime)
     }
 }

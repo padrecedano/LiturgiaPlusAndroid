@@ -46,7 +46,7 @@ class LHInvitatory : LHPsalm() {
      * @return El texto obtenido del archivo correspondiente o el texto por defecto
      * @since 2022.1
      */
-    val textoForRead: StringBuilder
+    private val textoForRead: StringBuilder
         get() {
             val sb = StringBuilder()
             if (isMultiple) {
@@ -61,8 +61,9 @@ class LHInvitatory : LHPsalm() {
         }
     val title: String
         get() = Constants.TITLE_INVITATORY
-    val titleForRead: String
+    private val titleForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_INVITATORY)
+    @Suppress("unused")
     val headerForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_INVITATORY)
     val all: SpannableStringBuilder

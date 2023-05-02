@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.*
 import android.widget.ProgressBar
@@ -18,7 +17,6 @@ import org.deiverbum.app.R
 import org.deiverbum.app.databinding.FragmentTodayBinding
 import org.deiverbum.app.domain.model.TodayRequest
 import org.deiverbum.app.presentation.today.TodayFragmentArgs
-import org.deiverbum.app.ui.fragments.BreviarioDataFragment
 import org.deiverbum.app.utils.Utils
 import org.deiverbum.app.utils.ZoomTextView
 import java.util.*
@@ -28,8 +26,8 @@ abstract class BaseFileFragment<T> : Fragment() {
     private var viewBinding: ViewBinding? = null
     protected lateinit var todayRequest: TodayRequest
     protected lateinit var mTextView: ZoomTextView
-    private var _binding: FragmentTodayBinding? = null;
-    private val binding get() = _binding!!;
+    private var _binding: FragmentTodayBinding? = null
+    private val binding get() = _binding!!
     private var progressBar: ProgressBar? = null
     private var mActionMode: ActionMode? = null
 
@@ -77,7 +75,7 @@ abstract class BaseFileFragment<T> : Fragment() {
         }
 
         override fun onDestroyActionMode(mode: ActionMode) {
-            BreviarioDataFragment.mActionMode = null
+            mActionMode = null
             //cleanTTS()
             //setPlayerButton()
         }
@@ -93,7 +91,7 @@ abstract class BaseFileFragment<T> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentTodayBinding.inflate(inflater,container,false);
+        _binding = FragmentTodayBinding.inflate(inflater,container,false)
 
         setConfiguration()
 
@@ -108,7 +106,7 @@ abstract class BaseFileFragment<T> : Fragment() {
 
     private fun pickOutDatec(): Int {
         val bundle = arguments
-        var mDate = if (bundle != null && bundle.containsKey("FECHA")) {
+        val mDate = if (bundle != null && bundle.containsKey("FECHA")) {
             bundle.getInt("FECHA")
         } else {
             Utils.getHoy().toInt()
@@ -116,7 +114,7 @@ abstract class BaseFileFragment<T> : Fragment() {
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
         Objects.requireNonNull<ActionBar?>(actionBar).subtitle =
             Utils.getTitleDate(mDate.toString())
-        return mDate;
+        return mDate
     }
 
     open fun isNightMode(): Boolean {
@@ -128,7 +126,6 @@ abstract class BaseFileFragment<T> : Fragment() {
     private fun setConfiguration() {
         val args: TodayFragmentArgs by navArgs()
         //Timber.d(args.hourId.toString())
-        Log.d("XYZ", args.hourId.toString())
 
         mTextView = _binding!!.include.tvZoomable
         progressBar = _binding?.progressBar
@@ -143,7 +140,7 @@ abstract class BaseFileFragment<T> : Fragment() {
         )
         val tf = Typeface.createFromAsset(requireActivity().assets, fontFamily)
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
-        mTextView.setTypeface(tf)
+        mTextView.typeface = tf
         val hasInvitatory = sp.getBoolean("invitatorio", false)
         val isVoiceOn = sp.getBoolean("voice", true)
         todayRequest =

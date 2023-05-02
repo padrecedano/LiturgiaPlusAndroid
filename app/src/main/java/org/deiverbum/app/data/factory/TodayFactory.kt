@@ -16,8 +16,16 @@ class TodayFactory @Inject constructor(
 
     fun create(source: Source): TodayEntityData {
         return when (source) {
+            Source.LOCAL -> localTodayEntityData
+            else -> networkTodayEntityData
+        }
+    }
+/*
+    fun create(source: Source): TodayEntityData {
+        return when (source) {
             Source.NETWORK -> networkTodayEntityData
             else -> localTodayEntityData
         }
     }
+*/
 }

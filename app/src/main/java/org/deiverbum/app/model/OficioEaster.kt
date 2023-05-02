@@ -7,8 +7,9 @@ import org.deiverbum.app.utils.Utils
 class OficioEaster : BreviaryHour() {
     var lhOfficeOfReadingEaster: LHOfficeOfReadingEaster? = null
 
-    val tituloHora: SpannableStringBuilder
+    private val tituloHora: SpannableStringBuilder
         get() = Utils.toH1Red(Constants.TITLE_OFICIO)
+    @Suppress("unused")
     val tituloHoraForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_OFICIO)
 

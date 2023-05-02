@@ -4,5 +4,7 @@ import android.text.SpannableStringBuilder
 
 class TodayResponse(
     var dataForView: SpannableStringBuilder,
-    val dataForRead: StringBuilder?
-)
+    var dataForRead: StringBuilder?
+) {
+    constructor() : this(SpannableStringBuilder(),java.lang.StringBuilder())
+}

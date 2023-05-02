@@ -33,23 +33,23 @@ class TodayHomilias {
     fun getToday(): Today {
         val dm = Today()
         dm.liturgyDay = feria?.domainModel
+        dm.liturgyDay?.typeID=9
         dm.todayDate = today!!.hoy
         dm.hasSaint = today!!.hasSaint
         return dm
     }
 
-    //dm.setMetaLiturgia(getMetaLiturgia());
-    val domainModel: Homily
+    val domainModeToday: Today
         get() {
-            val dm = Homily()
-            dm.setHoy(getToday())
-            val listModel: MutableList<HomilyList?> = ArrayList()
-
-            //dm.setMetaLiturgia(getMetaLiturgia());
+            val dmToday : Today = getToday()
+            val dm = HomilyList()
+            dm.today=getToday()
+            val listModel: MutableList<Homily?> = ArrayList()
             for (item in homilias!!) {
                 listModel.add(item.domainModel)
             }
-            dm.homilias = listModel
-            return dm
+            dm.homilyes = listModel
+            dmToday.liturgyDay?.homilyList=dm
+            return dmToday
         }
 }

@@ -1,15 +1,11 @@
 package org.deiverbum.app.utils;
 
 
-import static org.deiverbum.app.utils.Constants.ERR_INITIALIZATION;
-import static org.deiverbum.app.utils.Constants.ERR_LANG;
-
 import android.content.Context;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -104,12 +100,9 @@ public class TtsManager implements TextToSpeech.OnInitListener {
             final Locale locSpanish = new Locale("spa", "ESP");
             int result = mTts.setLanguage(locSpanish);
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Log.e("TTS", ERR_LANG);
                 return;
             }
             changeProgress(1);
-        } else {
-            Log.e("TTS", ERR_INITIALIZATION);
         }
     }
 

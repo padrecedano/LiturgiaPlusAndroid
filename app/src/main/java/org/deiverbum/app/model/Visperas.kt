@@ -13,6 +13,7 @@ class Visperas : BreviaryHour() {
         this.isPrevious = isPrevious
     }
 
+    @Suppress("unused")
     fun getLecturaBreve(): BiblicalShort? {
         return lecturaBreve
     }
@@ -21,6 +22,7 @@ class Visperas : BreviaryHour() {
         this.lecturaBreve = lecturaBreve
     }
 
+    @Suppress("unused")
     fun getPreces(): LHIntercession? {
         return preces
     }
@@ -29,6 +31,7 @@ class Visperas : BreviaryHour() {
         this.preces = preces
     }
 
+    @Suppress("unused")
     fun getGospelCanticle(): LHGospelCanticle? {
         return gospelCanticle
     }
@@ -41,7 +44,7 @@ class Visperas : BreviaryHour() {
         val sb = SpannableStringBuilder()
         try {
             //¿?lecturaBreve.normalizeByTime(hoy.getCalendarTime());
-            salmodia!!.normalizeByTime(liturgyTime!!.timeID!!)
+            salmodia!!.normalizeByTime(liturgyTime!!.timeID)
 
             //sb.append(today.getAllForView());
             sb.append(Utils.LS2)
@@ -82,7 +85,7 @@ class Visperas : BreviaryHour() {
             sb.append(lecturaBreve!!.getAllForRead())
             sb.append(gospelCanticle!!.allForRead)
             sb.append(preces!!.allForRead)
-            sb.append(PadreNuestro.Companion.all)
+            sb.append(PadreNuestro.all)
             sb.append(oracion?.allForRead)
             sb.append(getConclusionHorasMayoresForRead())
         } catch (e: Exception) {

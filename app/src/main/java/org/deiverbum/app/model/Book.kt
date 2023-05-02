@@ -12,6 +12,7 @@ import java.util.*
  * @version 1.0
  * @since 2022.1
  */
+@Suppress("unused")
 class Book {
     @SerializedName("author")
     @Expose

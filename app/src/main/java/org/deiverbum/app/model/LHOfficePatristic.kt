@@ -32,25 +32,25 @@ class LHOfficePatristic {
     @Ignore
     var responsorioLargo: LHResponsory? = null
     var theOrder: Int? = null
-    val padreForRead: String
+    private val padreForRead: String
         get() = Utils.pointAtEnd(padre)
 
 
-    val obraForView: String
+    private val obraForView: String
         get() = paterOpus!!.opusForView
-    val obraForRead: String
+    private val obraForRead: String
         get() = Utils.pointAtEnd(obra)
-    val temaForRead: String
+    private val temaForRead: String
         get() = Utils.pointAtEnd(theme)
-    val textForRead: Spanned
+    private val textForRead: Spanned
         get() = Utils.fromHtmlForRead(text)
     val textoSpan: Spanned
         get() = Utils.fromHtml(text)
     val header: SpannableStringBuilder
         get() = Utils.formatTitle("SEGUNDA LECTURA")
-    val responsorioHeaderForRead: String
+    private val responsorioHeaderForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_RESPONSORY)
-    val headerForRead: String
+    private val headerForRead: String
         get() = "Segunda lectura."
 
     /**

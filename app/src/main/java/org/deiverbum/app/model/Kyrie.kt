@@ -21,7 +21,7 @@ class Kyrie {
     private var conclusion: String? = null
     val tipo: String? = null
     private var kyrieType = 0
-    val introduccionForRead: SpannableStringBuilder
+    private val introduccionForRead: SpannableStringBuilder
         get() {
             val ssb = SpannableStringBuilder()
             ssb.append(Utils.fromHtml("<p>EXAMEN DE CONCIENCIA.</p>"))
@@ -35,7 +35,7 @@ class Kyrie {
             return ssb
         }
 
-    fun getIntroduccion(): SpannableStringBuilder {
+    private fun getIntroduccion(): SpannableStringBuilder {
         val ssb = SpannableStringBuilder()
         ssb.append(Utils.formatTitle(Constants.TITLE_SOUL_SEARCHING))
         ssb.append(Utils.LS2)
@@ -53,23 +53,25 @@ class Kyrie {
         return ssb
     }
 
+    @Suppress("unused")
     fun setIntroduccion(introduccion: String?) {
         this.introduccion = introduccion
     }
 
-    fun getTexto(): SpannableStringBuilder {
+    private fun getTexto(): SpannableStringBuilder {
         kyrieType = Random().nextInt(3)
         return getKyrie(kyrieType)
     }
 
+    @Suppress("unused")
     fun setTexto(texto: String?) {
         this.texto = texto
     }
 
-    val conclusionForRead: String
+    private val conclusionForRead: String
         get() = "El Señor todopoderoso tenga misericordia de nosotros, perdone nuestros pecados y nos lleve a la vida eterna. Amén."
 
-    fun getConclusion(): SpannableStringBuilder {
+    private fun getConclusion(): SpannableStringBuilder {
         val ssb = SpannableStringBuilder()
         ssb.append(Utils.toSmallSizeRed("Pueden usarse otras invocaciones penitenciales."))
         ssb.append(Utils.LS)
@@ -83,11 +85,12 @@ class Kyrie {
         return ssb
     }
 
+    @Suppress("unused")
     fun setConclusion(conclusion: String?) {
         this.conclusion = conclusion
     }
 
-    val textoForRead: SpannableStringBuilder
+    private val textoForRead: SpannableStringBuilder
         get() {
             val ssb = SpannableStringBuilder()
             when (kyrieType) {

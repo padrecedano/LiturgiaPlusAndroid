@@ -92,6 +92,7 @@ open class BreviaryHour : Liturgy() {
         this.himno = himno
     }
 
+    @Suppress("unused")
     fun getSalmodia(): LHPsalmody? {
         return salmodia
     }
@@ -116,6 +117,7 @@ open class BreviaryHour : Liturgy() {
         this.lhOfficeOfReading = oficioLecturas
     }
 
+    @Suppress("unused")
     fun getMixto(): Mixto? {
         return mixto
     }
@@ -179,7 +181,7 @@ open class BreviaryHour : Liturgy() {
         try {
             this.hasSaint = hasSaint
             val invitatory = oficio?.invitatorio
-            invitatory?.normalizeByTime(liturgyTime.timeID!!)
+            invitatory?.normalizeByTime(liturgyTime.timeID)
             laudes!!.salmodia?.normalizeByTime(liturgyTime.timeID)
             sb.append(Utils.LS2)
             if (santo != null && this.hasSaint) {

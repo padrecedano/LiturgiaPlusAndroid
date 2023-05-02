@@ -1,6 +1,5 @@
-package org.deiverbum.app.presentation.homily
+package org.deiverbum.app.presentation.today
 
-import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,7 +9,6 @@ import kotlinx.coroutines.launch
 import org.deiverbum.app.data.networking.CoroutineDispatcherProvider
 import org.deiverbum.app.domain.model.TodayRequest
 import org.deiverbum.app.domain.usecase.GetToday
-import org.deiverbum.app.util.ExceptionParser
 import javax.inject.Inject
 
 /**
@@ -35,7 +33,8 @@ class TodayViewModel @Inject constructor(
                 val result = getTodayUseCase.execute(todayRequest)
                 _uiState.value = TodayUiState.Loaded(TodayItemUiState(result))
             } catch (error: Exception) {
-                _uiState.value = TodayUiState.Error(ExceptionParser.getMessage(error))
+                _uiState.value = TodayUiState.Error(error.message.toString())
+
             }
         }
     }
@@ -44,6 +43,6 @@ class TodayViewModel @Inject constructor(
         object Empty : TodayUiState()
         object Loading : TodayUiState()
         class Loaded(val itemState: TodayItemUiState) : TodayUiState()
-        class Error(@StringRes val message: Int) : TodayUiState()
+        class Error(val message: String) : TodayUiState()
     }
 }

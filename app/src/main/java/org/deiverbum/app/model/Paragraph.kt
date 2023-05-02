@@ -10,22 +10,14 @@ import org.deiverbum.app.utils.Utils
  * @version 1.0
  * @since 2022.1
  */
-class Paragraph {
+class Paragraph
+/**
+ * @param text Texto del párrafo
+ */(
     @SerializedName("text")
     @Expose
-    private var text: String? = null
-
-    /**
-     * No args constructor for use in serialization
-     */
-    constructor() {}
-
-    /**
-     * @param text Texto del párrafo
-     */
-    constructor(text: String?) : super() {
-        this.text = text
-    }
+    private var text: String?
+) {
 
     fun getText(): Spanned {
         return Utils.fromHtml(text)

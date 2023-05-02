@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.deiverbum.app.R;
-import org.deiverbum.app.data.adapters.OracionItem;
-import org.deiverbum.app.data.adapters.OracionesAdapter;
+import org.deiverbum.app.presentation.oraciones.adapter.OracionItem;
+import org.deiverbum.app.presentation.oraciones.adapter.OracionesAdapter;
 import org.deiverbum.app.databinding.FragmentOracionesBinding;
 import org.deiverbum.app.utils.Utils;
 
@@ -60,15 +60,15 @@ public class OracionesFragment extends Fragment {
     }
 
     private void prepareItems() {
-        mList.add(new OracionItem(1, "Misterios Gloriosos", "Domingos y Miércoles", R.id.nav_rosario));
-        mList.add(new OracionItem(2, "Misterios Gozosos", "Lunes y Sábados", R.id.nav_rosario));
-        mList.add(new OracionItem(3, "Misterios Dolorosos", "Martes y Viernes", R.id.nav_rosario));
-        mList.add(new OracionItem(4, "Misterios Luminosos", "Jueves", R.id.nav_rosario));
-        mList.add(new OracionItem(5, "Letanías Lauretanas", "Solamente las Letanías", R.id.nav_rosario));
-        mList.add(new OracionItem(6, "Ángelus", "Recuerda la Encarnación de Cristo", R.id.nav_rosario));
-        mList.add(new OracionItem(7, "Regina Coeli", "En lugar del Àngelus, en el tiempo de Pascua", R.id.nav_rosario));
-        mList.add(new OracionItem(8, "Via Crucis 2003", "Con meditaciones de Juan Pablo II", R.id.nav_rosario));
-        mList.add(new OracionItem(9, "Via Crucis 2005", "Con meditaciones de Joseph Ratzinger", R.id.nav_rosario));
+        mList.add(new OracionItem(1, "Misterios Gloriosos", "Domingos y Miércoles", R.id.nav_rosario,"raw/rosario.json"));
+        mList.add(new OracionItem(2, "Misterios Gozosos", "Lunes y Sábados", R.id.nav_rosario, "raw/rosario.json"));
+        mList.add(new OracionItem(3, "Misterios Dolorosos", "Martes y Viernes", R.id.nav_rosario, "raw/rosario.json"));
+        mList.add(new OracionItem(4, "Misterios Luminosos", "Jueves", R.id.nav_rosario, "raw/rosario.json"));
+        mList.add(new OracionItem(5, "Letanías Lauretanas", "Solamente las Letanías", R.id.nav_letanias, "raw/letanias.json"));
+        mList.add(new OracionItem(6, "Ángelus", "Recuerda la Encarnación de Cristo", R.id.nav_angelus, "raw/angelus.json"));
+        mList.add(new OracionItem(7, "Regina Coeli", "En lugar del Àngelus, en el tiempo de Pascua", R.id.nav_regina, "raw/regina.json"));
+        mList.add(new OracionItem(8, "Via Crucis 2003", "Con meditaciones de Juan Pablo II", R.id.nav_viacrucis2003, "raw/viacrucis2003.json"));
+        mList.add(new OracionItem(9, "Via Crucis 2005", "Con meditaciones de Joseph Ratzinger", R.id.nav_viacrucis2005, "raw/viacrucis2005.json"));
         //mAdapter.notifyDataSetChanged();
     }
 

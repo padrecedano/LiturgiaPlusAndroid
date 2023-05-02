@@ -19,9 +19,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.deiverbum.app.R;
-import org.deiverbum.app.data.adapters.HomeAdapter;
+import org.deiverbum.app.presentation.home.adapter.HomeAdapter;
 import org.deiverbum.app.databinding.FragmentHomeBinding;
-import org.deiverbum.app.model.HomeItem;
+import org.deiverbum.app.presentation.home.adapter.HomeItem;
 import org.deiverbum.app.utils.Utils;
 import org.deiverbum.app.viewmodel.SyncViewModel;
 
@@ -80,8 +80,6 @@ public class HomeFragment extends Fragment {
 
     private void prepareItems(String theme) {
         if (theme.equals("1")) {
-            mAdapter = new HomeAdapter(mList, ContextCompat.getColor(requireActivity(), R.color.transparent));
-            binding.homeParent.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.colorSurface));
             int imageColor = ContextCompat.getColor(requireActivity(), R.color.colorMainIcon);
             int colorBreviario = ContextCompat.getColor(requireActivity(), R.color.colorBreviario);
             int colorMisa = ContextCompat.getColor(requireActivity(), R.color.colorMisa);
@@ -109,6 +107,11 @@ public class HomeFragment extends Fragment {
             mList.add(new HomeItem("Patrística", 10, R.drawable.ic_patristica, colorMas, R.id.nav_patristica, imageColor));
             mList.add(new HomeItem("Sacramentos", 11, R.drawable.ic_sacramentos, colorSacramentos, R.id.nav_sacramentos, imageColor));
             mList.add(new HomeItem("Más...", 12, R.drawable.ic_mas, colorPadres, R.id.nav_mas, imageColor));
+
+            mAdapter = new HomeAdapter(mList, ContextCompat.getColor(requireActivity(), R.color.transparent));
+            binding.homeParent.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.colorSurface));
+
+
         } else if (theme.equals("2")) {
             mAdapter = new HomeAdapter(mList, ContextCompat.getColor(requireActivity(), R.color.transparent));
             int colorUnique = ContextCompat.getColor(requireActivity(), R.color.md_theme_dark_background);
@@ -129,11 +132,11 @@ public class HomeFragment extends Fragment {
             mList.add(new HomeItem("Más...", 12, R.drawable.ic_mas, colorUnique, R.id.nav_mas, imageColor));
 
         } else {
-            mAdapter = new HomeAdapter(mList, ContextCompat.getColor(requireActivity(), R.color.transparent));
             int colorUnique = ContextCompat.getColor(requireActivity(), R.color.color_nav_start);
-            binding.homeParent.setBackgroundColor(colorUnique);
-
             int imageColor = ContextCompat.getColor(requireActivity(), R.color.colorBreviario);
+            binding.homeParent.setBackgroundColor(colorUnique);
+            mAdapter = new HomeAdapter(mList, ContextCompat.getColor(requireActivity(), R.color.transparent));
+
             mList.add(new HomeItem("Breviario", 1, R.drawable.ic_breviario, colorUnique, R.id.nav_breviario, imageColor));
             mList.add(new HomeItem("Misa", 2, R.drawable.ic_misa, colorUnique, R.id.nav_misa, imageColor));
             mList.add(new HomeItem("Homilías", 3, R.drawable.ic_homilias, colorUnique, R.id.nav_homilias, imageColor));

@@ -3,7 +3,7 @@ package org.deiverbum.app.model
 import android.text.SpannableStringBuilder
 import org.deiverbum.app.utils.ColorUtils
 import org.deiverbum.app.utils.Utils
-
+@Suppress("unused")
 class ViaCrucis {
     private var subTitulo: String? = null
     private var fecha: String? = null
@@ -87,7 +87,7 @@ class ViaCrucis {
             sb.append(Utils.LS2)
             sb.append(e.getMeditacionSpan(respuestas!!))
             sb.append(Utils.LS)
-            sb.append(PadreNuestro.Companion.getTexto())
+            sb.append(PadreNuestro.getTexto())
             sb.append(Utils.LS2)
             sb.append(Utils.toH4Red("Estrofa del Stabat Mater"))
             sb.append(Utils.LS2)
@@ -111,7 +111,7 @@ class ViaCrucis {
             sb.append(e.textoBiblico)
             sb.append(".")
             sb.append(e.getMeditacionSpan(respuestas!!))
-            sb.append(PadreNuestro.Companion.getTexto())
+            sb.append(PadreNuestro.getTexto())
             sb.append("Estrofa del Stabat Mater.")
             sb.append(Utils.fromHtml(Utils.getFormato(e.canto)))
         }

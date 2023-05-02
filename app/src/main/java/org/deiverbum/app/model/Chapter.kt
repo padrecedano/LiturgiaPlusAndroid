@@ -11,6 +11,7 @@ import java.util.*
  * @version 1.0
  * @since 2022.1
  */
+@Suppress("unused")
 class Chapter {
     @SerializedName("id")
     @Expose

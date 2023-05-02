@@ -27,12 +27,12 @@ class FileViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<FileUiState>(FileUiState.Empty)
     val uiState: StateFlow<FileUiState> = _uiState
 
-    fun loadData() {
+    fun loadData(fileRequest: FileRequest) {
         _uiState.value = FileUiState.Loading
         viewModelScope.launch(coroutineDispatcherProvider.IO()) {
             try {
-                val requestParam = FileRequest("angelus.json")
-                val result = getFileUseCase.execute(requestParam)
+                //val requestParam = FileRequest(fileRequest)
+                val result = getFileUseCase.execute(fileRequest)
                 _uiState.value = FileUiState.Loaded(FileItemUiState(result))
             } catch (error: Exception) {
                 _uiState.value = FileUiState.Error(ExceptionParser.getMessage(error))
