@@ -7,7 +7,7 @@ import org.deiverbum.app.utils.Utils
 class OracionSimple {
     var titulo: String? = null
     var texto: String? = null
-    var info: String? = null
+    private var info: String? = null
     fun getForView(nightMode: Boolean): SpannableStringBuilder {
         ColorUtils.isNightMode = nightMode
         val sb = SpannableStringBuilder()

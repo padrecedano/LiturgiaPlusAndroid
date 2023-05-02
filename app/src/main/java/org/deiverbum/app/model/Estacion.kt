@@ -7,7 +7,8 @@ class Estacion {
     var titulo: String? = null
     var subtitulo: String? = null
     var textoBiblico: TextoBiblico? = null
-    var meditacion: Meditacion? = null
+    private var meditacion: Meditacion? = null
+    @Suppress("unused")
     var aclamaciones: String? = null
     var r = 0
     var canto: String? = null

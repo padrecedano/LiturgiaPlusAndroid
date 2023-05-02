@@ -1,6 +1,5 @@
-package org.deiverbum.app.presentation.homily
+package org.deiverbum.app.presentation.today
 
-import android.text.SpannableStringBuilder
 import org.deiverbum.app.domain.model.TodayResponse
 
 data class TodayItemUiState (

@@ -11,9 +11,9 @@ class Oficio : BreviaryHour() {
     @Ignore
     var hasTeDeum: Int = 0
 
-    val tituloHora: SpannableStringBuilder
+    private val tituloHora: SpannableStringBuilder
         get() = Utils.toH1Red(Constants.TITLE_OFICIO)
-    val tituloHoraForRead: String
+    private val tituloHoraForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_OFICIO)
 
     fun getForView(

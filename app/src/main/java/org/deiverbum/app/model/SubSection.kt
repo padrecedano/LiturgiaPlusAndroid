@@ -8,26 +8,12 @@ import com.google.gson.annotations.SerializedName
  * @version 1.0
  * @since 2022.1
  */
-class SubSection {
+class SubSection
+/**
+ * @param title      Título
+ * @param paragraphs Conjunto de párrafos
+ */(
     @SerializedName("title")
-    @Expose
-    var title: String? = null
-
-    @SerializedName("paragraphs")
-    @Expose
-    var paragraphs: List<Paragraph>? = null
-
-    /**
-     * No args constructor for use in serialization
-     */
-    constructor() {}
-
-    /**
-     * @param title      Título
-     * @param paragraphs Conjunto de párrafos
-     */
-    constructor(title: String?, paragraphs: List<Paragraph>?) : super() {
-        this.title = title
-        this.paragraphs = paragraphs
-    }
-}
+    @Expose var title: String?, @SerializedName("paragraphs")
+    @Expose var paragraphs: List<Paragraph>?
+)

@@ -7,13 +7,13 @@ import org.deiverbum.app.utils.Utils
 import java.util.*
 
 class Rosario {
-    var saludo: String? = null
-    var padrenuestro: String? = null
-    var avemaria: String? = null
+    private var saludo: String? = null
+    private var padrenuestro: String? = null
+    private var avemaria: String? = null
     var gloria: String? = null
-    var letanias: String? = null
+    private var letanias: String? = null
     var oracion: String? = null
-    var salve: String? = null
+    private var salve: String? = null
     private var misterios: List<Misterio>? = null
     var day = 0
 
@@ -21,7 +21,7 @@ class Rosario {
         @TODO
         - Arreglar esto de otro modo
        */
-    val byDay: String
+    private val byDay: String
         get() = when (day) {
             1 -> "Misterios Gloriosos"
             2 -> "Misterios Gozosos"
@@ -30,11 +30,11 @@ class Rosario {
             else -> "*"
         }
 
-    fun getSaludoForView(): Spanned {
+    private fun getSaludoForView(): Spanned {
         return Utils.fromHtml(saludo)
     }
 
-
+    @Suppress("unused")
     fun misterioCompleto(): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         sb.append(Utils.fromHtml(padrenuestro))
@@ -48,17 +48,17 @@ class Rosario {
         return sb
     }
 
-    fun getLetaniasForView(): Spanned {
+    private fun getLetaniasForView(): Spanned {
         return Utils.fromHtml(letanias)
     }
 
 
-    fun getOracionForView(): Spanned {
+    private fun getOracionForView(): Spanned {
         return Utils.fromHtml(oracion)
     }
 
 
-    fun getSalveForView(): Spanned {
+    private fun getSalveForView(): Spanned {
         return Utils.fromHtml(salve)
     }
 
@@ -89,14 +89,13 @@ class Rosario {
         return sb
     }
 
-    fun getMisterios(): SpannableStringBuilder {
+    private fun getMisterios(): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         val m = misterios!![day - 1]
         sb.append(Utils.LS)
         sb.append(Utils.toH2Red(m.titulo))
         sb.append(Utils.LS2)
-        var x = 0
-        for (s in m.contenido!!) {
+        for ((x, s) in m.contenido!!.withIndex()) {
             sb.append(Utils.toH4Red(m.ordinalName[x]))
             sb.append(Utils.LS)
             sb.append(Utils.toH3Red(s))
@@ -120,24 +119,23 @@ class Rosario {
             sb.append(Utils.fromHtml(gloria))
             sb.append(Utils.LS2)
             sb.append(Utils.LS)
-            x++
         }
         return sb
     }
 
+    @Suppress("unused")
     fun setMisterios(misterios: List<Misterio>?) {
         this.misterios = misterios
     }
 
-    val misteriosBrevis: SpannableStringBuilder
+    private val misteriosBrevis: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()
             val m = misterios!![day - 1]
             sb.append(Utils.LS)
             sb.append(Utils.toH2Red(m.titulo))
             sb.append(Utils.LS2)
-            var x = 0
-            for (s in m.contenido!!) {
+            for ((x, s) in m.contenido!!.withIndex()) {
                 sb.append(Utils.toH4Red(m.ordinalName[x]))
                 sb.append(Utils.LS)
                 sb.append(Utils.toH3Red(s))
@@ -149,7 +147,6 @@ class Rosario {
                 sb.append("Gloria ...")
                 sb.append(Utils.LS2)
                 sb.append(Utils.LS)
-                x++
             }
             return sb
         }
@@ -167,14 +164,13 @@ class Rosario {
             sb.append(getOracionForView())
             return sb
         }
-    val misteriosForRead: StringBuilder
+    private val misteriosForRead: StringBuilder
         get() {
             val sb = StringBuilder()
             val m = misterios!![day - 1]
             sb.append(m.titulo)
             sb.append(".")
-            var x = 0
-            for (s in m.contenido!!) {
+            for ((x, s) in m.contenido!!.withIndex()) {
                 sb.append(m.ordinalName[x])
                 sb.append(".")
                 sb.append(s)
@@ -185,12 +181,11 @@ class Rosario {
                     sb.append(Utils.fromHtml(avemaria))
                 }
                 sb.append(Utils.fromHtml(gloria))
-                x++
             }
             return sb
         }
     private val titleForRead: String
-        private get() = "Santo Rosario."
+        get() = "Santo Rosario."
     val subTitle: String
         get() = byDay
 }

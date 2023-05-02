@@ -9,7 +9,7 @@ class NuncDimitis : LHPsalm() {
     var texto: String? = null
         get() = Utils.getFormato(field)
 
-    fun getAntifonaSpan(timeID: Int): SpannableStringBuilder {
+    private fun getAntifonaSpan(timeID: Int): SpannableStringBuilder {
         val ssb = SpannableStringBuilder("")
         ssb.append(Utils.toRed("Ant. "))
         ssb.append(Utils.replaceByTime(antiphon, timeID))
@@ -20,7 +20,7 @@ class NuncDimitis : LHPsalm() {
         get() = antiphon!!
     val header: SpannableStringBuilder
         get() = Utils.formatTitle(Constants.TITLE_GOSPEL_CANTICLE)
-    val headerForRead: String
+    private val headerForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_GOSPEL_CANTICLE)
 
     fun getAll(idTiempo: Int): SpannableStringBuilder {

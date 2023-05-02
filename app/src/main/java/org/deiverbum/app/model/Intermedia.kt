@@ -6,16 +6,16 @@ import org.deiverbum.app.utils.Utils
 
 class Intermedia : BreviaryHour() {
     var lecturaBreve: BiblicalShort? = null
-    val tituloHora: String
+    private val tituloHora: String
         get() = when (typeID) {
             3 -> Constants.TITLE_TERCIA
             4 -> Constants.TITLE_SEXTA
             5 -> Constants.TITLE_NONA
             else -> ""
         }
-    val tituloHoraForRead: String
+    private val tituloHoraForRead: String
         get() = Utils.pointAtEnd(tituloHora)
-    val tituloHoraForView: SpannableStringBuilder
+    private val tituloHoraForView: SpannableStringBuilder
         get() = Utils.toH1Red(tituloHora)
 
     fun getForView(liturgyTime: LiturgyTime, typeID: Int): SpannableStringBuilder {

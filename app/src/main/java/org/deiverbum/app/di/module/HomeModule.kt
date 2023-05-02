@@ -12,6 +12,6 @@ object HomeModule {
 
     @Provides
     fun providePrayAdapter(): HomeAdapter {
-        return HomeAdapter()
+        return HomeAdapter(emptyList(),1)
     }
 }

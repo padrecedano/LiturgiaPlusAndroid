@@ -3,7 +3,7 @@ package org.deiverbum.app.model
 import java.util.*
 
 class Misterio {
-    val ordinalName = Arrays.asList(
+    val ordinalName: MutableList<String> = mutableListOf(
         "Primer Misterio",
         "Segundo Misterio",
         "Tercer Misterio",
@@ -13,7 +13,8 @@ class Misterio {
     var id = 0
     var titulo: String? = null
     var contenido: List<String>? = null
-    fun getContenidoAll(dayCode: Int): List<String>? {
+    @Suppress("unused")
+    fun getContenidoAll(): List<String>? {
         return contenido
     }
 }

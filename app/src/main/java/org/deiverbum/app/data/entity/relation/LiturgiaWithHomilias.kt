@@ -4,7 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import org.deiverbum.app.data.entity.HomilyEntity
 import org.deiverbum.app.data.entity.LiturgyHomilyJoinEntity
-import org.deiverbum.app.model.HomilyList
+import org.deiverbum.app.model.Homily
 
 /**
  * @author A. Cedano
@@ -19,9 +19,10 @@ class LiturgiaWithHomilias {
     @JvmField
     @Relation(parentColumn = "homilyFK", entityColumn = "homilyID", entity = HomilyEntity::class)
     var homilia: HomilyAll? = null
-    val domainModel: HomilyList?
+
+    val domainModel: Homily
         get() {
-            val dm = homilia?.domainModel
+            val dm = homilia?.homilyDomailModel
             dm!!.tema = joinEntity!!.tema
             return dm
         }

@@ -9,7 +9,7 @@ open class LHOfficeOfReading {
     var biblica: List<LHOfficeBiblical?>? = null
     var patristica: List<LHOfficePatristic?>? = null
     var teDeum: TeDeum? = null
-    val responsorioForRead: String
+    private val responsorioForRead: String
         get() {
             val r: String? = if (responsorio!!.contains("|")) {
                 responsorio!!.replace("\\|".toRegex(), "")
@@ -18,7 +18,7 @@ open class LHOfficeOfReading {
             }
             return Utils.pointAtEnd(r)
         }
-    val responsorioSpan: SpannableStringBuilder
+    private val responsorioSpan: SpannableStringBuilder
         get() {
             val ssb = SpannableStringBuilder()
             if (responsorio!!.contains("|")) {
@@ -72,7 +72,7 @@ open class LHOfficeOfReading {
             return sb
         }
 
-    fun getAllPatristica(calendarTime: Int): SpannableStringBuilder {
+    private fun getAllPatristica(calendarTime: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         for (theModel in patristica!!) {
             theModel?.responsorioLargo?.normalizeByTime(calendarTime)
@@ -81,7 +81,7 @@ open class LHOfficeOfReading {
         return sb
     }
 
-    val allPatristicaForRead: SpannableStringBuilder
+    private val allPatristicaForRead: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()
             for (theModel in patristica!!) {

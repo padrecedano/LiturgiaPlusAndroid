@@ -36,10 +36,12 @@ open class Content {
         this.type = type
     }
 
+    @Suppress("unused")
     fun getItem(): String? {
         return item
     }
 
+    @Suppress("unused")
     fun setItem(item: String?) {
         this.item = item
     }
@@ -52,49 +54,59 @@ open class Content {
         this.text = text
     }
 
-    fun getTitle(): String? {
+    private fun getTitle(): String? {
         return title
     }
 
+    @Suppress("unused")
     fun setTitle(title: String?) {
         this.title = title
     }
 
     fun getByType(): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
-        if (type == 10) {
-            val txt = Utils.fromHtml(
-                String.format(
-                    Locale("es"), "%s<b>%s</b> %s",
-                    Constants.NBSP_4, item,
-                    getTextForView()
+        when (type) {
+            10 -> {
+                val txt = Utils.fromHtml(
+                    String.format(
+                        Locale("es"), "%s<b>%s</b> %s",
+                        Constants.NBSP_4, item,
+                        getTextForView()
+                    )
                 )
-            )
-            sb.append(txt)
-            sb.append(Utils.LS2)
-        } else if (type == 2) {
-            sb.append(Utils.toH3(title))
-            sb.append(Utils.LS2)
-            sb.append(getTextForView())
-        } else if (type == 3) {
-            sb.append(Utils.toH4(title))
-            sb.append(Utils.LS2)
-            sb.append(getTextForView())
-        } else if (type == 4) {
-            sb.append(Utils.toH3Red(title))
-            sb.append(Utils.LS2)
-            //sb.append(getTextForView());
-        } else if (type == 5) {
-            sb.append(Utils.toH4Red(title))
-            sb.append(Utils.LS2)
-        } else if (type == 11) {
-            sb.append(getTextForView())
-        } else if (type == 12) {
-            sb.append(getTextForView())
-        } else if (type == 13) {
-            sb.append(getNumberedList())
-        } else {
-            sb.append(getTextForView())
+                sb.append(txt)
+                sb.append(Utils.LS2)
+            }
+            2 -> {
+                sb.append(Utils.toH3(title))
+                sb.append(Utils.LS2)
+                sb.append(getTextForView())
+            }
+            3 -> {
+                sb.append(Utils.toH4(title))
+                sb.append(Utils.LS2)
+                sb.append(getTextForView())
+            }
+            4 -> {
+                sb.append(Utils.toH3Red(title))
+                sb.append(Utils.LS2)
+            }
+            5 -> {
+                sb.append(Utils.toH4Red(title))
+                sb.append(Utils.LS2)
+            }
+            11 -> {
+                sb.append(getTextForView())
+            }
+            12 -> {
+                sb.append(getTextForView())
+            }
+            13 -> {
+                sb.append(getNumberedList())
+            }
+            else -> {
+                sb.append(getTextForView())
+            }
         }
         return sb
     }

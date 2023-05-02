@@ -1,17 +1,24 @@
 package org.deiverbum.app.presentation.file
 
+import android.graphics.Typeface
+import android.util.TypedValue
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
+import androidx.preference.PreferenceManager
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.deiverbum.app.databinding.FragmentHomiliasBinding
+import org.deiverbum.app.databinding.FragmentFileBinding
+import org.deiverbum.app.domain.model.FileRequest
 import org.deiverbum.app.presentation.base.BaseFileFragment
-import timber.log.Timber
+import org.deiverbum.app.utils.Constants
+import java.util.*
 
 /**
  * <p>
@@ -23,14 +30,37 @@ import timber.log.Timber
  * @since 2023.3
  */
 @AndroidEntryPoint
-class FileFragment : BaseFileFragment<FragmentHomiliasBinding>() {
+class FileFragment : BaseFileFragment<FragmentFileBinding>() {
     private val mViewModel: FileViewModel by viewModels()
 
-    override fun constructViewBinding(): ViewBinding = FragmentHomiliasBinding.inflate(layoutInflater)
+    override fun constructViewBinding(): ViewBinding =
+        FragmentFileBinding.inflate(layoutInflater)
 
     override fun init(viewBinding: ViewBinding) {
-        mViewModel.loadData()
+        setConfiguration()
         fetchData()
+    }
+
+    private fun setConfiguration() {
+        val sp = PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
+        val args: FileFragmentArgs by navArgs()
+        val filePath = args.rawPath
+        val fileRequest = FileRequest(filePath, 1, 6, isNightMode(), true, true)
+
+        if (filePath == "raw/rosario.json") {
+            fileRequest.dayOfWeek = requireArguments().getInt("id")
+            fileRequest.isBrevis = sp.getBoolean("brevis", true)
+        }
+        val fontSize = sp?.getString("font_size", "18")!!.toFloat()
+        val fontFamily = String.format(
+            Locale("es"),
+            "fonts/%s",
+            sp.getString("font_name", "robotoslab_regular.ttf")
+        )
+        val tf = Typeface.createFromAsset(requireActivity().assets, fontFamily)
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
+        mTextView.typeface = tf
+        mViewModel.loadData(fileRequest)
     }
 
     private fun fetchData() {
@@ -49,12 +79,14 @@ class FileFragment : BaseFileFragment<FragmentHomiliasBinding>() {
 
     private fun onLoaded(homeItemUiState: FileItemUiState) {
         homeItemUiState.run {
-            getViewBinding().include.tvZoomable.text = allData
+            getViewBinding().progressBar.visibility = View.GONE
+            getViewBinding().include.tvZoomable.text = allData.text
         }
     }
 
     private fun showLoading() {
-        Timber.d("showLoading")
+        mTextView.text = Constants.PACIENCIA
+
     }
 
     private fun showError(@StringRes stringRes: Int) {

@@ -21,16 +21,15 @@ class LiturgyHelper {
         fun getMap(theKey: Int): String? {
             val myMap:HashMap<Int,String> = HashMap<Int,String>() //define empty hashmap
 
-            myMap.put(0, "mixto")
-            myMap.put(1, "oficio")
-            myMap.put(2, "laudes")
-            myMap.put(3, "tercia")
-            myMap.put(4, "sexta")
-            myMap.put(5, "nona")
-            myMap.put(6, "visperas")
-            myMap.put(7, "completas")
-            //myMap = Collections.unmodifiableMap(aMap)
-            return myMap.get(theKey)
+            myMap[0] = "mixto"
+            myMap[1] = "oficio"
+            myMap[2] = "laudes"
+            myMap[3] = "tercia"
+            myMap[4] = "sexta"
+            myMap[5] = "nona"
+            myMap[6] = "visperas"
+            myMap[7] = "completas"
+            return myMap[theKey]
         }
     }
     }

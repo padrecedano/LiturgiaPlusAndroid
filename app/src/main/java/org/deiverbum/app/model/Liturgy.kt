@@ -31,34 +31,21 @@ open class Liturgy {
     var week: Int? = null
     var day: Int? = null
     var colorFK: Int? = null
-        get() = field
-        set(colorFK) {
-            field = colorFK
-        }
 
     @Ignore
     var breviaryHour: BreviaryHour? = null
+
+    @Ignore
+    var massReadingList: MassReadingList? = null
+
+    @Ignore
+    open var homilyList: HomilyList? = null
+
     var liturgyID: Int? = null
-        get() = field
-        set(liturgiaId) {
-            field = liturgiaId
-        }
     var typeFK: Int? = null
-        get() = field
-        set(tipoFK) {
-            field = tipoFK
-        }
     var timeFK: Int? = null
-        get() = field
-        set(tiempoFK) {
-            field = tiempoFK
-        }
 
     var name: String = ""
-        get() = if (field != null) field else "***"
-        set(name) {
-            field = name
-        }
     var dia: Int?
         get() = day
         set(dia) {
@@ -87,7 +74,7 @@ open class Liturgy {
 
     open val tituloForRead: String?
         get() = String.format(Locale("es"), "%s%s", name, ".")
-    val timeWithWeekAndDay: String
+    private val timeWithWeekAndDay: String
         get() {
             val ns = Numerals(false, false, false)
             return String.format(
@@ -100,7 +87,7 @@ open class Liturgy {
                 ns.toWords(week!!, true)
             )
         }
-    val timeWithTitleForRead: String
+    private val timeWithTitleForRead: String
         get() = String.format(
             Locale("es"),
             "%s. %s",

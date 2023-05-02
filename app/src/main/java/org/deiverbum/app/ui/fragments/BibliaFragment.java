@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.deiverbum.app.data.adapters.BibliaAdapter;
+import org.deiverbum.app.presentation.biblia.adapter.BibliaAdapter;
 import org.deiverbum.app.databinding.FragmentBibliaBinding;
 import org.deiverbum.app.model.BibleBooks;
 import org.deiverbum.app.utils.Utils;

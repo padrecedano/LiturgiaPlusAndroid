@@ -42,7 +42,7 @@ interface TodayDao {
     fun liturgiaInsertAll(today: List<Liturgy?>?)
 
     @Insert(entity = HomilyEntity::class, onConflict = OnConflictStrategy.REPLACE)
-    fun homiliaInsertAll(list: List<HomilyList?>?)
+    fun homiliaInsertAll(list: List<HomilyListDao?>?)
 
     @Insert(entity = LHHymnEntity::class, onConflict = OnConflictStrategy.IGNORE)
     fun insertAllHimnos(today: List<LHHymn?>?)

@@ -33,14 +33,14 @@ class LHIntercession {
             return sb
         }
 
-    fun getIntercessionForView(): Spanned {
+    private fun getIntercessionForView(): Spanned {
         return Utils.fromHtml(Utils.getFormato(intercession))
     }
 
 
     val header: SpannableStringBuilder
         get() = Utils.formatTitle(Constants.TITLE_INTERCESSIONS)
-    val headerForRead: String
+    private val headerForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_INTERCESSIONS)
     val allForRead: SpannableStringBuilder
         get() {

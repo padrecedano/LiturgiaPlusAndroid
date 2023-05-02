@@ -2,6 +2,7 @@ package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
 import com.google.firebase.firestore.PropertyName
+import org.deiverbum.app.domain.model.TodayRequest
 import org.deiverbum.app.utils.ColorUtils
 import org.deiverbum.app.utils.Constants
 import org.deiverbum.app.utils.Utils
@@ -24,27 +25,25 @@ class BibleCommentList {
     private val tituloForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_BIBLE_COMMENTS)
 
-    fun getAllForView(nightMode: Boolean): SpannableStringBuilder {
-        ColorUtils.isNightMode = nightMode
+    fun getAllForView(todayRequest: TodayRequest): SpannableStringBuilder {
+        ColorUtils.isNightMode = todayRequest.isNightMode
         val sb = SpannableStringBuilder()
         try {
             sb.append(today!!.singleForView)
             sb.append(Utils.LS2)
             sb.append(titulo)
             sb.append(Utils.LS2)
-            for (subList in allComentarios!!) {
-                if (subList != null) {
-                    if (subList.isNotEmpty()) {
-                        var x = 1
-                        for (item in subList) {
-                            if (x++ == 1) {
-                                sb.append(item?.biblica!!.getAll(type))
-                                sb.append(Utils.LS2)
-                                sb.append(Utils.formatTitle(Constants.TITLE_BIBLE_COMMENTS))
-                                sb.append(Utils.LS2)
-                            }
-                            sb.append(item?.allForView)
+            for (subList in allComentarios) {
+                if (subList.isNotEmpty()) {
+                    var x = 1
+                    for (item in subList) {
+                        if (x++ == 1) {
+                            sb.append(item?.biblica!!.getAll(type))
+                            sb.append(Utils.LS2)
+                            sb.append(Utils.formatTitle(Constants.TITLE_BIBLE_COMMENTS))
+                            sb.append(Utils.LS2)
                         }
+                        sb.append(item?.allForView)
                     }
                 }
             }
@@ -54,23 +53,21 @@ class BibleCommentList {
         return sb
     }
 
-    val allForRead: StringBuilder
+    val getAllForRead: StringBuilder
         get() {
             val sb = StringBuilder()
             try {
                 sb.append(today!!.getSingleForRead())
                 sb.append(tituloForRead)
-                for (subList in allComentarios!!) {
-                    if (subList != null) {
-                        if (subList.isNotEmpty()) {
-                            var x = 1
-                            for (item in subList) {
-                                if (x++ == 1) {
-                                    sb.append(item?.biblica!!.getAllForRead(type))
-                                    sb.append(Utils.pointAtEnd(Constants.TITLE_BIBLE_COMMENTS))
-                                }
-                                sb.append(item?.allForRead)
+                for (subList in allComentarios) {
+                    if (subList.isNotEmpty()) {
+                        var x = 1
+                        for (item in subList) {
+                            if (x++ == 1) {
+                                sb.append(item?.biblica!!.getAllForRead(type))
+                                sb.append(Utils.pointAtEnd(Constants.TITLE_BIBLE_COMMENTS))
                             }
+                            sb.append(item?.allForRead)
                         }
                     }
                 }

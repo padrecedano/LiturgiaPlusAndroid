@@ -9,6 +9,7 @@ open class LHResponsoryShort {
     var responsoryID: Int? = null
     var text: String? = null
     var type: Int? = null
+    @Suppress("unused")
     fun getHeader(hourId: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         if (hourId < 3 || hourId > 5) {

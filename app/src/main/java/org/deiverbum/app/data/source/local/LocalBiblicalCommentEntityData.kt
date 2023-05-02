@@ -2,7 +2,6 @@ package org.deiverbum.app.data.source.local
 
 import android.text.SpannableStringBuilder
 import org.deiverbum.app.data.database.dao.TodayDao
-import org.deiverbum.app.data.mapper.BiblicalCommentEntityMapper.toBiblicalCommentDomainModel
 import org.deiverbum.app.data.source.BiblicalCommentEntityData
 import org.deiverbum.app.domain.model.BiblicalComment
 import org.deiverbum.app.domain.model.BiblicalCommentRequest
@@ -13,7 +12,7 @@ class LocalBiblicalCommentEntityData @Inject constructor(
 ) : BiblicalCommentEntityData {
 
     override suspend fun getBiblicalComment(biblicalCommentRequest: BiblicalCommentRequest): SpannableStringBuilder {
-        val allBiblicalComment: List<BiblicalComment> = todayDao.getBiblicalComment().toBiblicalCommentDomainModel()
+        val allBiblicalComment: List<BiblicalComment> = emptyList()//todayDao.getBiblicalComment().toBiblicalCommentDomainModel()
         val sb = SpannableStringBuilder()
         allBiblicalComment.forEach {
             sb.append("\n\n")
@@ -21,7 +20,7 @@ class LocalBiblicalCommentEntityData @Inject constructor(
             sb.append("\n\n")
             sb.append(it.homily)
         }
-        return sb;
+        return sb
     }
 
     override suspend fun addBiblicalComment(biblicalComment: SpannableStringBuilder) {

@@ -6,7 +6,6 @@ import static org.deiverbum.app.utils.Constants.FILE_ROSARY;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -77,25 +76,7 @@ public class FileDataSource {
         });
     }
 
-    public void getRosarioo(int day) {
-            try {
-                AssetManager manager = mContext.getAssets();
-                InputStream is = manager.open(FILE_ROSARY);
-                int size = is.available();
-                byte[] buffer = new byte[size];
-                is.read(buffer);
-                is.close();
-                Gson gson = new Gson();
-                Rosario data = gson.fromJson(new String(buffer, StandardCharsets.UTF_8), Rosario.class);
-                data.setDay(day);
-                //emitter.onSuccess(new DataWrapper<>(data));
-            } catch (Exception e) {
-                Log.d("ddd",e.getMessage());
-                //emitter.onError(e);
-            }
 
-
-    }
 
     /**
      * <p>Obtiene un observable de {@link org.deiverbum.app.model.OracionSimple} envuelto en {@link DataWrapper}.</p>
@@ -210,7 +191,9 @@ public class FileDataSource {
                 bh.setCompletas(hora);
                 hora.setBreviaryHour(bh);
                 Liturgy l = today.liturgyDay;
-                l.setBreviaryHour(bh);
+                if (l != null) {
+                    l.setBreviaryHour(bh);
+                }
                 emitter.onSuccess(new DataWrapper<>(today));
             } catch (Exception e) {
                 emitter.onError(new Exception(e));

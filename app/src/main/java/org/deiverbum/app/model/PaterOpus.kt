@@ -27,4 +27,10 @@ class PaterOpus {
             pater?.pater,
             opusName
         )
+
+    val paterForView: String
+        get() = if (pater?.liturgyName!=null && pater?.liturgyName!="") pater?.liturgyName!! else pater?.pater!!
+
+    val singleName: String
+        get() = if (opusName != null) opusName!! else ""
 }

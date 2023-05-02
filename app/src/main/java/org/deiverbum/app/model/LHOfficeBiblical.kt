@@ -7,7 +7,7 @@ import org.deiverbum.app.utils.Utils
 class LHOfficeBiblical : Biblical() {
     var tema: String? = null
     var responsorioLargo: LHResponsory? = null
-    val temaForRead: String
+    private val temaForRead: String
         get() = "$tema."
 
     override fun getHeader(): String {

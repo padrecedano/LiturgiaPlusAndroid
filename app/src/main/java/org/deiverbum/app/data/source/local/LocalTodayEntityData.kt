@@ -5,8 +5,6 @@ import org.deiverbum.app.data.database.dao.TodayDao
 import org.deiverbum.app.data.source.TodayEntityData
 import org.deiverbum.app.domain.model.TodayRequest
 import org.deiverbum.app.domain.model.TodayResponse
-import org.deiverbum.app.model.Homily
-import org.deiverbum.app.model.Today
 import javax.inject.Inject
 
 class LocalTodayEntityData @Inject constructor(
@@ -14,101 +12,99 @@ class LocalTodayEntityData @Inject constructor(
 ) : TodayEntityData {
 
     override suspend fun getToday(todayRequest: TodayRequest): TodayResponse {
+        val todayResponse = TodayResponse()
+
         when (todayRequest.typeID) {
             0 -> {
-                val dm=todayDao.getMixtoByDate(todayRequest.theDate)?.domainModelToday
-                val ssb:SpannableStringBuilder=dm?.getAllForView(todayRequest.isMultipleInvitatory,todayRequest.isNightMode)!!
-                var sb:StringBuilder?=null
+                val dm = todayDao.getMixtoByDate(todayRequest.theDate)?.domainModelToday
+                todayResponse.dataForView = dm?.getAllForView(todayRequest)!!
                 if (todayRequest.isVoiceOn) {
-                    sb = dm.getAllForRead(todayRequest.isMultipleInvitatory)
+                    todayResponse.dataForRead = dm.getAllForRead(todayRequest.isMultipleInvitatory)
                 }
-                return TodayResponse(ssb,sb)
-
             }
 
-            1 ->  {
-                val dm=todayDao.getOficioByDate(todayRequest.theDate)?.domainModelToday
-                val ssb:SpannableStringBuilder=dm?.getAllForView(todayRequest.isMultipleInvitatory,todayRequest.isNightMode)!!
-                var sb:StringBuilder?=null
+            1 -> {
+                val dm = todayDao.getOficioByDate(todayRequest.theDate)?.domainModelToday
+                todayResponse.dataForView = dm?.getAllForView(todayRequest)!!
                 if (todayRequest.isVoiceOn) {
-                    sb = dm.getAllForRead(todayRequest.isMultipleInvitatory)
+                    todayResponse.dataForRead = dm.getAllForRead(todayRequest.isMultipleInvitatory)
                 }
-                return TodayResponse(ssb,sb)
             }
-            2 ->  {
-                val dm=todayDao.getLaudesByDate(todayRequest.theDate)?.domainModelToday
-                val ssb:SpannableStringBuilder=dm?.getAllForView(todayRequest.isMultipleInvitatory,todayRequest.isNightMode)!!
-                var sb:StringBuilder?=null
+            2 -> {
+                val dm = todayDao.getLaudesByDate(todayRequest.theDate)?.domainModelToday
+                todayResponse.dataForView = dm?.getAllForView(todayRequest)!!
                 if (todayRequest.isVoiceOn) {
-                    sb = dm.getAllForRead(todayRequest.isMultipleInvitatory)
+                    todayResponse.dataForRead = dm.getAllForRead(todayRequest.isMultipleInvitatory)
                 }
-                return TodayResponse(ssb,sb)
             }
-            3 ->  {
-                val dm=todayDao.getTerciaByDate(todayRequest.theDate)?.domainModelToday
-                val ssb:SpannableStringBuilder=dm?.getAllForView(todayRequest.isMultipleInvitatory,todayRequest.isNightMode)!!
-                var sb:StringBuilder?=null
+            3 -> {
+                val dm = todayDao.getTerciaByDate(todayRequest.theDate)?.domainModelToday
+                todayResponse.dataForView = dm?.getAllForView(todayRequest)!!
                 if (todayRequest.isVoiceOn) {
-                    sb = dm.getAllForRead(todayRequest.isMultipleInvitatory)
+                    todayResponse.dataForRead = dm.getAllForRead(todayRequest.isMultipleInvitatory)
                 }
-                return TodayResponse(ssb,sb)
             }
-            4 ->  {
-                val dm=todayDao.getSextaByDate(todayRequest.theDate)?.domainModelToday
-                val ssb:SpannableStringBuilder=dm?.getAllForView(todayRequest.isMultipleInvitatory,todayRequest.isNightMode)!!
-                var sb:StringBuilder?=null
+            4 -> {
+                val dm = todayDao.getSextaByDate(todayRequest.theDate)?.domainModelToday
+                todayResponse.dataForView = dm?.getAllForView(todayRequest)!!
                 if (todayRequest.isVoiceOn) {
-                    sb = dm.getAllForRead(todayRequest.isMultipleInvitatory)
+                    todayResponse.dataForRead = dm.getAllForRead(todayRequest.isMultipleInvitatory)
                 }
-                return TodayResponse(ssb,sb)
             }
-            5 ->  {
-                val dm=todayDao.getNonaByDate(todayRequest.theDate)?.domainModelToday
-                val ssb:SpannableStringBuilder=dm?.getAllForView(todayRequest.isMultipleInvitatory,todayRequest.isNightMode)!!
-                var sb:StringBuilder?=null
+            5 -> {
+                val dm = todayDao.getNonaByDate(todayRequest.theDate)?.domainModelToday
+                todayResponse.dataForView = dm?.getAllForView(todayRequest)!!
                 if (todayRequest.isVoiceOn) {
-                    sb = dm.getAllForRead(todayRequest.isMultipleInvitatory)
+                    todayResponse.dataForRead = dm.getAllForRead(todayRequest.isMultipleInvitatory)
                 }
-                return TodayResponse(ssb,sb)
             }
-            6 ->  {
-                val dm=todayDao.getVisperasByDate(todayRequest.theDate)?.domainModelToday
-                val ssb:SpannableStringBuilder=dm?.getAllForView(todayRequest.isMultipleInvitatory,todayRequest.isNightMode)!!
-                var sb:StringBuilder?=null
+            6 -> {
+                val dm = todayDao.getVisperasByDate(todayRequest.theDate)?.domainModelToday
+                todayResponse.dataForView = dm?.getAllForView(todayRequest)!!
                 if (todayRequest.isVoiceOn) {
-                    sb = dm.getAllForRead(todayRequest.isMultipleInvitatory)
+                    todayResponse.dataForRead = dm.getAllForRead(todayRequest.isMultipleInvitatory)
                 }
-                return TodayResponse(ssb,sb)
             }
-            7 ->  {
+            7 -> {
                 TODO("Pasar Completas de archivo a BD")
-                val dm=todayDao.getCompletasByDate(todayRequest.theDate)?.domainModel
-                val c=dm?.today?.liturgyDay?.breviaryHour?.breviaryHour?.getCompletas()
+                val dm = todayDao.getCompletasByDate(todayRequest.theDate)?.domainModel
+                val c = dm?.today?.liturgyDay?.breviaryHour?.breviaryHour?.getCompletas()
                 //dm.breviaryHour.breviaryHour.breviaryHour.
                 //c..getAllForView()
-                val ssb:SpannableStringBuilder=c?.getAllForView()!!
-                var sb:StringBuilder?=null
+                val ssb: SpannableStringBuilder = c?.getAllForView()!!
+                var sb: StringBuilder? = null
                 if (todayRequest.isVoiceOn) {
                     sb = c.getForRead()
                 }
-                return TodayResponse(ssb,sb)
+                return TodayResponse(ssb, sb)
             }
 
-            //2 -> //return todayDao.getLaudesOfToday(todayRequest.theDate)?.domainModelToday?.getAllForView(false,false)!!
-            8 -> {
-                val dm =todayDao.getHomilyByDate(todayRequest.theDate)?.domainModel
-            val ssb: SpannableStringBuilder = dm?.getForView(todayRequest.isNightMode)!!
-            var sb:StringBuilder?=null
-            if (todayRequest.isVoiceOn) {
-                sb = dm.allForRead
+            9 -> {
+                val dm = todayDao.getHomilyByDate(todayRequest.theDate)?.domainModeToday
+                todayResponse.dataForView = dm?.getAllForView(todayRequest)!!
+                if (todayRequest.isVoiceOn) {
+                    todayResponse.dataForRead = dm.getAllForRead(false)
+                }
             }
-            return TodayResponse(ssb,sb)
-            //return dm!!.getForView(false)
+            10 -> {
+                val dm = todayDao.getMassReadingByDate(todayRequest.theDate)?.domainModel
+                todayResponse.dataForView = dm?.getAllForView(todayRequest)!!
+                if (todayRequest.isVoiceOn) {
+                    todayResponse.dataForRead = dm.getAllForRead(todayRequest.isMultipleInvitatory)
+                }
+            }
+            11 -> {
+                val dm = todayDao.getCommentsByDate(todayRequest.theDate)?.domainModel
+                todayResponse.dataForView = dm?.getAllForView(todayRequest)!!
+                if (todayRequest.isVoiceOn) {
+                    todayResponse.dataForRead = dm.getAllForRead
+                }
             }
             else -> {
-                return TodayResponse(SpannableStringBuilder("no Data"),null)
+                todayResponse.dataForView = SpannableStringBuilder("no Data")
             }
         }
+        return todayResponse
     }
 
     override suspend fun addToday(today: TodayResponse) {

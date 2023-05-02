@@ -8,32 +8,33 @@ import org.deiverbum.app.utils.Utils
 import java.util.*
 
 class Conclusion {
-    var antVirgen: List<String>? = null
+    private var antVirgen: List<String>? = null
 
     @SerializedName("bendicion")
     @Expose
     private var bendicion: String? = null
-    fun getHeader(): SpannableStringBuilder {
+    private fun getHeader(): SpannableStringBuilder {
         return Utils.formatTitle(Constants.TITLE_CONCLUSION)
     }
 
-    fun getHeaderForRead(): String {
+    private fun getHeaderForRead(): String {
         return Utils.pointAtEnd(Constants.TITLE_CONCLUSION)
     }
 
-    fun getBendicion(): String? {
+    private fun getBendicion(): String? {
         return bendicion
     }
 
+    @Suppress("unused")
     fun setBendicion(bendicion: String?) {
         this.bendicion = bendicion
     }
 
-    fun getBendicionForRead(): String {
+    private fun getBendicionForRead(): String {
         return "El Señor todopoderoso nos conceda una noche tranquila y una santa muerte. Amén."
     }
 
-    fun getAntifonaVirgen(timeID: Int): String {
+    private fun getAntifonaVirgen(timeID: Int): String {
         val mIndex = if (timeID != 6) Random().nextInt(3) else 4
         return antVirgen!![mIndex]
     }

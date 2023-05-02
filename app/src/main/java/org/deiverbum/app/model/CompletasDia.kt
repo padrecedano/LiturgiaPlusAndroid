@@ -12,6 +12,7 @@ class CompletasDia {
         return lecturaBreve
     }
 
+    @Suppress("unused")
     fun setLecturaBreve(lecturaBreve: BiblicalShort?) {
         this.lecturaBreve = lecturaBreve
     }

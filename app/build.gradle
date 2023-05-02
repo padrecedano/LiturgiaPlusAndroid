@@ -9,11 +9,10 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: "androidx.navigation.safeargs"
+//apply plugin: "androidx.navigation.safeargs.kotlin"
+
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'kotlin-android'
-
-
-
 
 android {
     compileSdkVersion 33
@@ -129,10 +128,10 @@ dependencies {
     implementation "com.google.accompanist:accompanist-themeadapter-material:0.28.0"
 */
 
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.10'
+    //implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.20'
 
     implementation "androidx.work:work-runtime:2.8.1"
     implementation "androidx.work:work-rxjava2:2.8.1"
@@ -166,8 +165,8 @@ dependencies {
 
     implementation 'androidx.annotation:annotation:1.6.0'
 
-    implementation "androidx.fragment:fragment-ktx:1.5.6"
-    implementation 'androidx.activity:activity-compose:1.7.0'
+    implementation "androidx.fragment:fragment-ktx:1.5.7"
+    implementation 'androidx.activity:activity-compose:1.7.1'
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -177,7 +176,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.3.0'
 
-    implementation platform('com.google.firebase:firebase-bom:31.2.2')
+    implementation platform('com.google.firebase:firebase-bom:31.4.0')
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-appcheck-playintegrity'
@@ -226,8 +225,9 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:2.45"
 
     // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:2.6.0-alpha09"
-    implementation "androidx.navigation:navigation-ui-ktx:2.6.0-alpha09"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
+    implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.5.3")
 
 
     //   Retrofit

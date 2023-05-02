@@ -36,9 +36,9 @@ class SaintLife {
     //@PropertyName("vida")
     @Ignore
     var shortLife: String? = null
-    val martirologioSpan: SpannableStringBuilder
+    private val martirologioSpan: SpannableStringBuilder
         get() = Utils.toSmallSize(martyrology)
-    val vidaSpan: SpannableStringBuilder
+    private val vidaSpan: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()
             sb.append(Utils.fromHtml("<hr>"))
@@ -47,7 +47,7 @@ class SaintLife {
             sb.append(Utils.fromHtml(longLife!!.replace(Constants.OLD_SEPARATOR.toRegex(), "")))
             return sb
         }
-    val lifeForRead: StringBuilder
+    private val lifeForRead: StringBuilder
         get() {
             val sb = StringBuilder()
             sb.append("VIDA.")
@@ -76,7 +76,7 @@ class SaintLife {
         return sb
     }
 
-    val martirologioTitleSpan: SpannableStringBuilder
+    private val martirologioTitleSpan: SpannableStringBuilder
         get() = Utils.toSmallSize("(Martirologio Romano)")
     val forRead: StringBuilder
         get() {
@@ -95,10 +95,10 @@ class SaintLife {
             }
             return sb
         }
-    val martirologioTitleForRead: String
+    private val martirologioTitleForRead: String
         get() = "Martirologio Romano."
 
-    fun getMonthName(mes: String?): String {
+    private fun getMonthName(mes: String?): String {
         val monthNames = HashMap<Int, String>()
         monthNames[1] = "Enero"
         monthNames[2] = "Febrero"
@@ -112,7 +112,7 @@ class SaintLife {
         monthNames[10] = "Octubre"
         monthNames[11] = "Noviembre"
         monthNames[12] = "Diciembre"
-        val theMonth = Integer.valueOf(mes)
+        val theMonth = Integer.valueOf(mes!!)
         return String.format("%s de %s", dia, monthNames[theMonth])
     }
 }
