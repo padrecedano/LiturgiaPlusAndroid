@@ -108,7 +108,7 @@ class Today {
         ColorUtils.isNightMode = todayRequest.isNightMode
         val sb = SpannableStringBuilder()
         try {
-            sb.append(Utils.LS)
+            //sb.append(Utils.LS)
             sb.append(fecha)
             sb.append(Utils.LS2)
             sb.append(Utils.toH2(tiempo))

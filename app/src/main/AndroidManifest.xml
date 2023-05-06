@@ -2,9 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Without this entry the folders will remain in-accessible in Android-10, even if WRITE_EXTERNAL_STORAGE as above is present. -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Without this entry the folders will remain in-accessible in Android-10, even if WRITE_EXTERNAL_STORAGE as above is present. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
 
     <application
         android:name=".BaseApplication"
@@ -20,9 +25,8 @@
             android:authorities="${applicationId}.androidx-startup"
             tools:node="remove" />
 
-
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name=".presentation.main.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true">
             <intent-filter>
@@ -33,10 +37,11 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SENDTO" />
+
                 <data android:scheme="mailto" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
 
         <meta-data
@@ -48,12 +53,6 @@
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="true" />
-
     </application>
-    <queries>
-        <intent>
-            <action android:name="android.intent.action.TTS_SERVICE" />
-        </intent>
-    </queries>
 
 </manifest>

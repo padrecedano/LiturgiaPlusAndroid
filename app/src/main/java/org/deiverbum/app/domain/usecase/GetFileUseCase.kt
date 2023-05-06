@@ -5,6 +5,12 @@ import org.deiverbum.app.domain.model.FileRequest
 import org.deiverbum.app.domain.repository.FileRepository
 import javax.inject.Inject
 
+/**
+ * <p>Caso de uso archivos locales.</p>
+ *
+ * @author A. Cedano
+ * @since 2023.3
+ */
 class GetFileUseCase @Inject constructor(
     private val fileRepository: FileRepository
 ) {

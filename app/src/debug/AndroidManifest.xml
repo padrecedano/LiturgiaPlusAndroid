@@ -26,7 +26,7 @@
             tools:node="remove" />
 
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name=".presentation.main.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true">
             <intent-filter>

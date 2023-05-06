@@ -6,7 +6,12 @@ import org.deiverbum.app.data.source.TodayEntityData
 import org.deiverbum.app.domain.model.TodayRequest
 import org.deiverbum.app.domain.model.TodayResponse
 import javax.inject.Inject
-
+/**
+ * <p>Fuente de datos local para el módulo Today.</p>
+ *
+ * @author A. Cedano
+ * @since 2023.3
+ */
 class LocalTodayEntityData @Inject constructor(
     private val todayDao: TodayDao
 ) : TodayEntityData {

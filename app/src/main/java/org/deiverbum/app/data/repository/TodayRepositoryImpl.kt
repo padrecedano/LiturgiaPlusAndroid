@@ -6,7 +6,14 @@ import org.deiverbum.app.domain.model.TodayResponse
 import org.deiverbum.app.domain.repository.TodayRepository
 import org.deiverbum.app.util.Source
 import javax.inject.Inject
-
+/**
+ *
+ * Implementación del Repositorio para el módulo Today.
+ *
+ * @author A. Cedano
+ * @version 1.0
+ * @since 2023.3
+ */
 class TodayRepositoryImpl @Inject constructor(
     private val todayFactory: TodayFactory
 ) : TodayRepository {

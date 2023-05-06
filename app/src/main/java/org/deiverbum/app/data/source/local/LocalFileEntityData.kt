@@ -13,6 +13,12 @@ import org.deiverbum.app.util.AssetProvider
 import org.deiverbum.app.utils.Constants.DATA_NOTFOUND
 import javax.inject.Inject
 
+/**
+ * <p>Fuente de datos local para los archivos.</p>
+ *
+ * @author A. Cedano
+ * @since 2023.3
+ */
 class LocalFileEntityData @Inject constructor(
     private val assetProvider: AssetProvider
 ) : FileEntityData {
