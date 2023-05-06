@@ -15,23 +15,6 @@ interface TodayApi {
     ): Today?
 
 
-    @GET("today/{thePath}")
-    suspend fun getBible(
-        @Query("a") a: String,
-        @Query("b") key: String? = "BuildConfig.API_KEY"
-    ): BibleResponse
-
-    @GET("today/{thePath}")
-    suspend fun getHomily(
-        @Query("a") a: String,
-        @Query("b") key: String? = "BuildConfig.API_KEY"
-    ): HomilyResponse
-
-    @GET("today/{thePath}")
-    suspend fun getBiblicalComment(
-        @Query("a") a: String,
-        @Query("b") key: String? = "BuildConfig.API_KEY"
-    ): BiblicalCommentResponse
 
     @GET("today/{thePath}")
     suspend fun getBreviary(
@@ -45,5 +28,8 @@ interface TodayApi {
         @Path("dateString") dateString: String?
     ): BreviaryHour?
 
+
+    @GET("today/{thePath}")
+    fun getTodayAll(@Path("thePath") thePath: String?): List<Today?>
 
 }

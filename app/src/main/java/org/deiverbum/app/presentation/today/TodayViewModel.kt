@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.deiverbum.app.data.networking.CoroutineDispatcherProvider
 import org.deiverbum.app.domain.model.TodayRequest
-import org.deiverbum.app.domain.usecase.GetToday
+import org.deiverbum.app.domain.usecase.GetTodayUseCase
 import javax.inject.Inject
 
 /**
@@ -19,7 +19,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class TodayViewModel @Inject constructor(
-    private val getTodayUseCase: GetToday,
+    private val getTodayUseCase: GetTodayUseCase,
     private val coroutineDispatcherProvider: CoroutineDispatcherProvider
 ) : ViewModel() {
 

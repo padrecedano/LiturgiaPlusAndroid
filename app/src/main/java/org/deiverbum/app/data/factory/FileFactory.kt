@@ -1,22 +1,22 @@
 package org.deiverbum.app.data.factory
 
 import org.deiverbum.app.data.source.FileEntityData
-import org.deiverbum.app.data.source.HomilyEntityData
 import org.deiverbum.app.data.source.local.LocalFileEntityData
-import org.deiverbum.app.data.source.local.LocalHomilyEntityData
-import org.deiverbum.app.data.source.network.NetworkHomilyEntityData
 import org.deiverbum.app.util.Source
 import javax.inject.Inject
 
+/**
+ * <p>Factory para el módulo que lee archivos locales. Fuente de datos única.</p>
+ *
+ * @author A. Cedano
+ * @since 2023.3
+ */
+
 class FileFactory @Inject constructor(
-    private val networkHomilyEntityData: NetworkHomilyEntityData,
     private val localFileEntityData: LocalFileEntityData
 ) {
 
-    fun create(source: Source): FileEntityData {
-        return when (source) {
-            Source.LOCAL -> localFileEntityData
-            else -> localFileEntityData
-        }
+    fun create(): FileEntityData {
+        return localFileEntityData
     }
 }

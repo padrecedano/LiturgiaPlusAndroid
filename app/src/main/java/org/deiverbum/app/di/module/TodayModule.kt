@@ -12,18 +12,13 @@ import org.deiverbum.app.domain.repository.*
 abstract class TodayModule {
 
     @Binds
-    abstract fun bindBibleRepository(bibleRepositoryImpl: BibleRepositoryImpl): BibleRepository
-
-    @Binds
-    abstract fun bindHomilyRepository(homilyRepositoryImpl: HomilyRepositoryImpl): HomilyRepository
-
-    @Binds
-    abstract fun bindBiblicalCommentRepository(biblicalCommentRepositoryImpl: BiblicalCommentRepositoryImpl): BiblicalCommentRepository
-
-    @Binds
     abstract fun todayRepository(todayRepositoryImpl: TodayRepositoryImpl): TodayRepository
 
     @Binds
     abstract fun fileRepository(todayRepositoryImpl: FileRepositoryImpl):
             FileRepository
+
+    @Binds
+    abstract fun syncRepository(syncRepositoryImpl: SyncRepositoryImpl):
+            SyncRepository
 }

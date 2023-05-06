@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.deiverbum.app.data.networking.CoroutineDispatcherProvider
-import org.deiverbum.app.domain.model.BibleRequest
-import org.deiverbum.app.domain.usecase.GetBibleUseCase
+import org.deiverbum.app.domain.model.TodayRequest
+import org.deiverbum.app.domain.usecase.GetTodayUseCase
 import org.deiverbum.app.util.ExceptionParser
 import org.deiverbum.app.util.TimeUtil
 import java.util.*
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getBibleUseCase: GetBibleUseCase,
+    private val getBibleUseCase: GetTodayUseCase,
     private val coroutineDispatcherProvider: CoroutineDispatcherProvider
 ) : ViewModel() {
 
@@ -30,10 +30,10 @@ class HomeViewModel @Inject constructor(
 
         viewModelScope.launch(coroutineDispatcherProvider.IO()) {
             try {
-                val requestParam = BibleRequest("", getTodayDate())
-                val result = getBibleUseCase.execute(requestParam)
+                val requestParam = TodayRequest(0, getTodayDate().toInt(),false,false,false)
+                //val result = getBibleUseCase.execute(requestParam)
 
-                _uiState.value = HomeUiState.Loaded(HomeItemUiState("", result))
+                _uiState.value = HomeUiState.Loaded(HomeItemUiState(""))
             } catch (error: Exception) {
                 _uiState.value = HomeUiState.Error(ExceptionParser.getMessage(error))
             }

@@ -5,6 +5,12 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/home">
 
+    <activity
+        android:id="@+id/sampleActivityDestination"
+        android:name="org.deiverbum.app.presentation.TextoActivity"
+        android:label="@string/app_name" />
+
+
     <fragment
         android:id="@+id/home"
         android:name="org.deiverbum.app.presentation.home.HomeFragment"
@@ -19,9 +25,9 @@
 
     <fragment
         android:id="@+id/nav_help"
-        android:name="org.deiverbum.app.presentation.file.FileFragment"
+        android:name="org.deiverbum.app.presentation.ScrollingFragment"
         android:label="@string/title_fragment_help"
-        tools:layout="@layout/fragment_file">
+        tools:layout="@layout/fragment_scrolling">
         <argument
             android:name="rawPath"
             android:defaultValue="raw/help_202201.json"
@@ -30,7 +36,7 @@
 
     <fragment
         android:id="@+id/nav_sync"
-        android:name="org.deiverbum.app.ui.fragments.SyncFragment"
+        android:name="org.deiverbum.app.presentation.sync.SyncFragment"
         android:label="@string/title_fragment_sync" />
 
     <fragment
