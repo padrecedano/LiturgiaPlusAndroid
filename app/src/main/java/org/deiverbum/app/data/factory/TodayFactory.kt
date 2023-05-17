@@ -10,7 +10,7 @@ import javax.inject.Inject
  * <p>Factory para el módulo Today.</p>
  *
  * @author A. Cedano
- * @since 2023.3
+ * @since 2023.1.3
  */
 
 class TodayFactory @Inject constructor(

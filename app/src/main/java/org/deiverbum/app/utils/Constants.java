@@ -3,6 +3,8 @@ package org.deiverbum.app.utils;
 import android.graphics.Color;
 import android.text.style.ForegroundColorSpan;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Locale;
 
 @SuppressWarnings("unused")
@@ -90,6 +92,8 @@ public class Constants {
     public static final String PREF_ACCEPT = "accept_terms";
     public static final String PREF_ANALYTICS = "enable_analytics";
     public static final String PREF_CRASHLYTICS = "enable_crashlytics";
+    public static final String PREF_INITIAL_SYNC = "initial_sync";
+
     public static final String MSG_LEGAL = "Si tienes alguna duda, puedes " +
             "pulsar en el botón \"Enviar eMail\" para ponerte en contacto con" +
             " " +

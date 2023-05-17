@@ -25,7 +25,7 @@ class AssetProvider @Inject constructor(
 
         } catch (ex: Exception) {
             //Log.e("TAG", "Error seeding database", ex)
-            return FileResponse(SpannableStringBuilder(Constants.ERR_FILE_NOT_FOUND),false)
+            return FileResponse(SpannableStringBuilder(Constants.ERR_FILE_NOT_FOUND))
 
         }
     }

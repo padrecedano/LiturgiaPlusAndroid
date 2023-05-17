@@ -9,7 +9,7 @@ import javax.inject.Inject
  * <p>Caso de uso para Sincronización.</p>
  *
  * @author A. Cedano
- * @since 2023.3
+ * @since 2023.1.3
  */
 class GetSyncUseCase @Inject constructor(
     private val mRepository: SyncRepository

@@ -11,7 +11,7 @@ import javax.inject.Inject
  * <p>Factory para la sincronización.</p>
  *
  * @author A. Cedano
- * @since 2023.3
+ * @since 2023.1.3
  */
 
 class SyncFactory @Inject constructor(

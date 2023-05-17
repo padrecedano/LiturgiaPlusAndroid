@@ -162,11 +162,15 @@
         a ellos por separado, desde el menú principal de la Aplicación, el
         cual se activa desde la pantalla inicial, pulsando en el botón superior izquierdo.
         </string>
+    <string name="accept_warning">Si aceptas tanto la Política de Privacidad, como los Términos y Condiciones de Uso, pulsa en el botón Aceptar. Accederás a la pantalla inicial de la aplicación y el estado de tu aceptación se guardará en el dispositivo. Será revocado si desinstalas la Aplicación o si desmarcas el botón de aceptación en algún momento.</string>
+
     <string name="enviar_email">Enviar eMail</string>
     <string name="error_description">descripción del error</string>
     <string name="otro">Otro</string>
     <string name="accept">Acepto</string>
     <string name="title_fragment_acceptance">Aceptación inicial</string>
+    <string name="title_acceptance">Aceptación</string>
+
     <string name="title_fragment_oraciones_main">Oraciones Main</string>
     <string name="help">Ayuda</string>
     <string name="syncronization">Sincronización</string>

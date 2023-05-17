@@ -15,7 +15,15 @@ import org.deiverbum.app.util.ExceptionParser
 import org.deiverbum.app.util.TimeUtil
 import java.util.*
 import javax.inject.Inject
-
+/**
+ * <p>
+ *     ViewModel para el Home.
+ * </p>
+ *
+ * @author A. Cedano
+ * @version 1.0
+ * @since 2023.1.3
+ */
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getBibleUseCase: GetTodayUseCase,

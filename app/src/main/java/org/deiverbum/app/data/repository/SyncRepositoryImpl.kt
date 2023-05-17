@@ -12,6 +12,7 @@ import org.deiverbum.app.domain.model.SyncRequest
 import org.deiverbum.app.domain.model.SyncResponse
 import org.deiverbum.app.domain.repository.SyncRepository
 import org.deiverbum.app.model.SyncStatus
+import org.deiverbum.app.model.Today
 import org.deiverbum.app.util.Source
 import org.deiverbum.app.utils.Constants
 import org.deiverbum.app.workers.TodayWorker
@@ -38,13 +39,7 @@ class SyncRepositoryImpl @Inject constructor(
 
     private val initialSync = MutableLiveData<Int>()
     private val yearClean = MutableLiveData<Int>()
-    val fromDB: LiveData<SyncStatus?>?
-        get() {
-            /*if (mTodayDao.syncStatusCount() == 0) {
-                mTodayDao.insertSyncStatus("initial")
-            }*/
-            return null//mTodayDao.syncInfo()
-        }
+
 
     /**
      *
@@ -151,12 +146,51 @@ class SyncRepositoryImpl @Inject constructor(
         return SpannableStringBuilder()
     }
 
+    /**
+     *
+     * <p>
+     *     Este método buscará las fechas disponibles en el servidor remoto.
+     *     Si hubiera algún fallo, buscará provisionalmente las fechas
+     *     de la presente semana en Firebase. En este caso, el módulo de sincronización
+     *     e intentará en cuanto sea posible una sincronización completa
+     *     con los datos del servidor remoto.
+     *     En cualquier caso, se insertarán en la tabla Today de la base de datos
+     *     las fechas que se hayan encontrado, sin importar la fuente.
+     * </p>
+     *
+     */
     override suspend fun getSync(syncRequest: SyncRequest): SyncResponse {
-        val r = syncFactory.create(Source.FIREBASE).getSync(syncRequest)
-        return if(r.dataForView.isNullOrEmpty()) syncSync(syncRequest)
-        else r
+        var syncResponse = SyncResponse(SpannableStringBuilder(), emptyList())
+        if(syncRequest.type==1) {
+            val syncNetwork = syncFactory.create(Source.NETWORK).getSync(syncRequest)
+            if(syncNetwork.allToday.isNotEmpty()) {
+                syncResponse.allToday=syncNetwork.allToday
+                syncResponse.dataForView=syncNetwork.dataForView
+                syncResponse.status=1
+            }else{
+                val syncFirebase = syncFactory.create(Source.FIREBASE).getSync(syncRequest)
+                syncResponse.allToday=syncFirebase.allToday
+                syncResponse.dataForView=syncFirebase.dataForView
+                syncResponse.status=2
+            }
+        }
+        syncFactory.create(Source.LOCAL).addSync(syncResponse)
+
+        return syncResponse
+        //Timber.d(local.dataForView.toString())
+        //val r = syncFactory.create(Source.FIREBASE).getSync(syncRequest)
+        //return if(r.dataForView.isNullOrEmpty()) syncSync(syncRequest)
+        //else r
         // . dataForView { syncSync(syncRequest) }
     }
+/*
+    private suspend fun syncPraySchedule(prayScheduleRequest: SyncRequest): List<Today> {
+        return syncFactory.create(Source.NETWORK).getSync(prayScheduleRequest)
+            .also { prayScheduleFromNetwork ->
+                syncFactory.create(Source.LOCAL).addSync(prayScheduleFromNetwork)
+            }
+    }*/
+
 
     private suspend fun syncSync(syncRequest: SyncRequest): SyncResponse {
         return syncFactory.create(Source.NETWORK).getSync(syncRequest)

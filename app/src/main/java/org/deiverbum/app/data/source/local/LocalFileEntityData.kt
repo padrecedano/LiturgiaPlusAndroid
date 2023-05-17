@@ -17,7 +17,7 @@ import javax.inject.Inject
  * <p>Fuente de datos local para los archivos.</p>
  *
  * @author A. Cedano
- * @since 2023.3
+ * @since 2023.1.3
  */
 class LocalFileEntityData @Inject constructor(
     private val assetProvider: AssetProvider
@@ -30,6 +30,7 @@ class LocalFileEntityData @Inject constructor(
             "raw/privacy_202301.json","raw/terms_202301.json","raw/thanks_202201.json"-> {
                 val data: Book = Gson().fromJson(fileResponse.text.toString(), Book::class.java)
                 fileResponse.text=data.getForView(false)
+                fileResponse.fileName=fileRequest.fileName
                 return fileResponse
             }
             "raw/viacrucis2003.json","raw/viacrucis2005.json" -> {

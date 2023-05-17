@@ -21,6 +21,13 @@ import org.deiverbum.app.utils.Utils
 import org.deiverbum.app.utils.ZoomTextView
 import java.util.*
 
+/**
+ * <p>Fragmento base para el módulo Today.</p>
+ *
+ * @author A. Cedano
+ * @since 2023.1.3
+ */
+
 abstract class BaseFragment<T> : Fragment() {
 
     private var viewBinding: ViewBinding? = null
