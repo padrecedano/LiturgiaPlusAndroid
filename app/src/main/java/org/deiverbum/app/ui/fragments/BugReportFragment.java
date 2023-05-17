@@ -1,6 +1,8 @@
 package org.deiverbum.app.ui.fragments;
 
 import static org.deiverbum.app.utils.Constants.ERR_SUBJECT;
+import static org.deiverbum.app.utils.Constants.VERSION_CODE;
+
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -75,7 +77,8 @@ public class BugReportFragment extends Fragment {
 
             String textSelected = TextUtils.join(", ", selected);
             String msg = String.format("Mensaje: \n\n%s\n\nEn:\n\n%s", Objects.requireNonNull(binding.message.getText()), textSelected);
-            composeEmail(new String[]{Configuration.MY_EMAIL}, ERR_SUBJECT, msg);
+            String errSubject=String.format("%s %s",ERR_SUBJECT,VERSION_CODE);
+            composeEmail(new String[]{Configuration.MY_EMAIL}, errSubject, msg);
         });
 
         return root;

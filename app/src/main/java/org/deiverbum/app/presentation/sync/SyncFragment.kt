@@ -2,9 +2,11 @@ package org.deiverbum.app.presentation.sync
 
 import android.graphics.Typeface
 import android.util.TypedValue
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.widget.ProgressBar
-import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -24,50 +26,49 @@ import org.deiverbum.app.databinding.FragmentSyncBinding
 import org.deiverbum.app.domain.model.SyncRequest
 import org.deiverbum.app.presentation.base.BaseFragment
 import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.TtsManager
 import org.deiverbum.app.utils.Utils
 import org.deiverbum.app.utils.ZoomTextView
 import java.util.*
 
 /**
- * Este fragmento maneja la lógica de Sincronización, definida del siguiente modo:
+ * <p>
+ *     Este fragmento maneja la lógica de Sincronización,
+ *     definida del siguiente modo:
+ * </p>
  *
- * 1. Cuando se instala por primera vez la aplicación, desde AcceptanceFragmentDialog
- *    a. Se invocará al método initialSync() de SyncViewModel cuando el usuario pulse en el
- *       botón de aceptación.
+ * <p>
+ *     1. Cuando se instala por primera vez la aplicación,
+ *        desde AcceptanceFragmentDialog <br />
+ *    a. Se invocará al método initialSync() de SyncViewModel cuando el usuario
+ *       pulse en el botón de aceptación. <br />
  *    b. Seguidamente se observará a getInitialSyncStatus() de SyncViewModel,
  *       si devuelve un valor mayor que 0 se creará una entrada en SharedPreferences
- *       con clave initialSync y valor true
+ *       con clave initialSync y valor true.
+ * </p>
  *
- * 2. En lo adelante, cada vez que se inicie la aplicación, se verificará desde el método
- *    setConfiguration en HomeFragment el estado de initialSync en SharedPreferences
- *    Si es false:
- *      a. Se llamará a initialSync() de SyncViewModel
+ * <p>
+ *     2. En lo adelante, cada vez que se inicie la aplicación,
+ *        se verificará desde el método setConfiguration en HomeFragment
+ *        el estado de initialSync en SharedPreferences. <br />
+ *        Si es false: <br />
+ *      a. Se llamará a initialSync() de SyncViewModel. <br />
  *      b. Se observará a getInitialSyncStatus() y si devuelve un valor mayor que 0
- *         se actualizará la entrada initialSync de SharedPreferences a true
+ *         se actualizará la entrada initialSync de SharedPreferences a true.
+ * </p>
  *
- * 3. En el repositorio de sincronización existe también un método getFromFirebase
- *    el cual sirve para buscar las fechas de los próximos siete días en Firebase.
- *    Es un método alternativo, para usar en caso de que la llamada a initialSync falle
- *    por algún motivo: el servidor está offline en ese momento, u otro.
+ * <p>
+ *     3. En el repositorio de sincronización existe también un método getFromFirebase
+ *        el cual sirve para buscar las fechas de los próximos siete días en Firebase.
+ *        Es un método alternativo, para usar en caso de que la llamada a initialSync falle
+ *        por algún motivo: el servidor está offline en ese momento, u otro.
+ * </p>
  */
 @AndroidEntryPoint
 class SyncFragment : BaseFragment<FragmentSyncBinding>() {
     private lateinit var syncRequest: SyncRequest
-
-    //private var mViewModel: TodayViewModel? = null;
-    private val mViewModel: SyncViewModelBis by viewModels()
+    private val mViewModel: SyncViewModel by viewModels()
     private lateinit var mTextVieww: ZoomTextView
     private var progressBar: ProgressBar? = null
-    private var seekBar: SeekBar? = null
-    private var isReading = false
-    private var isVoiceOn = false
-    private var hasInvitatory = false
-    private var sbReader: StringBuilder? = null
-    private var audioMenu: Menu? = null
-    private var voiceItem: MenuItem? = null
-    private var mTtsManager: TtsManager? = null
-    private var mainMenu: Menu? = null
 
 
     override fun constructViewBinding(): ViewBinding = FragmentSyncBinding.inflate(layoutInflater)
@@ -75,8 +76,8 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
     override fun init(viewBinding: ViewBinding) {
         setConfiguration()
         setMenu()
-        mViewModel.loadData(syncRequest)
-        fetchData()
+        //mViewModel.loadData(syncRequest)
+        //fetchData()
     }
 
     private fun fetchData() {
@@ -84,8 +85,8 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mViewModel.uiState.collect { state ->
                     when (state) {
-                        is SyncViewModelBis.SyncUiState.Loaded -> onLoaded(state.itemState)
-                        is SyncViewModelBis.SyncUiState.Error -> showError(state.message)
+                        is SyncViewModel.SyncUiState.Loaded -> onLoaded(state.itemState)
+                        is SyncViewModel.SyncUiState.Error -> showError(state.message)
                         else -> showLoading()
                     }
                 }
@@ -96,8 +97,6 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
     private fun onLoaded(syncItemUiState: SyncItemUiState) {
         syncItemUiState.run {
             getViewBinding().progressBar.visibility = View.GONE
-            //getViewBinding().include.tvZoomable.text = allData
-
             mTextVieww.text = Utils.fromHtml(allData.dataForView.toString())//.dataForView
 
         }
@@ -115,28 +114,12 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
 
     private fun setMenu() {
         val menuHost: MenuHost = requireActivity()
-        //_binding.inflateroot.inflateMenu(R.menu.sample_menu)
-        // Add menu items without using the Fragment Menu APIs
-        // Note how we can tie the MenuProvider to the viewLifecycleOwner
-        // and an optional Lifecycle.State (here, RESUMED) to indicate when
-        // the menu should be visible
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                // Add menu items here
                 menuInflater.inflate(R.menu.toolbar_menu, menu)
-                mainMenu = menu
-                voiceItem = menu.findItem(R.id.item_voz)
-                //mainMenu!!.getItem(R.id.item_voz).isVisible = isVoiceOn
-                voiceItem!!.isVisible = isVoiceOn
-                if (isReading) {
-                    voiceItem!!.isVisible = false
-                }
-
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle the menu selection
-                //return true
                 return when (menuItem.itemId) {
                     android.R.id.home -> {
                         val navController =
@@ -157,13 +140,8 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
     }
 
     private fun setConfiguration() {
-        //val args: TodayFragmentArgs by navArgs()
-        //Timber.d(args.hourId.toString())
-        //Timber.d(args.hourId.toString())
-
         mTextVieww = getViewBinding().include.tvZoomable
         progressBar = getViewBinding().progressBar
-        //val sp = activity?.getPreferences(Context.MODE_PRIVATE)
         val sp =
             androidx.preference.PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
         val fontSize = sp?.getString("font_size", "18")!!.toFloat()
@@ -175,10 +153,10 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
         val tf = Typeface.createFromAsset(requireActivity().assets, fontFamily)
         mTextVieww.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
         mTextVieww.typeface = tf
-        hasInvitatory = sp.getBoolean("invitatorio", false)
-        isVoiceOn = sp.getBoolean("voice", true)
+        //hasInvitatory = sp.getBoolean("invitatorio", false)
+        //isVoiceOn = sp.getBoolean("voice", true)
         syncRequest =
-            SyncRequest(pickOutDate(), 1, isNightMode(), isVoiceOn)
+            SyncRequest(pickOutDate(), 1, isNightMode(), false)
 
         //pickOutDate()
     }
@@ -188,7 +166,6 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
     private fun pickOutDate(): Int {
         val bundle = arguments
         val mDate = if (bundle != null && bundle.containsKey("FECHA")) {
-            //Timber.d(bundle.getInt("FECHA").toString())
             bundle.getInt("FECHA")
         } else {
             Utils.getHoy().toInt()

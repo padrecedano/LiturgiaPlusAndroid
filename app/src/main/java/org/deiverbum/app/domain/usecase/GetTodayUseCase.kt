@@ -9,7 +9,7 @@ import javax.inject.Inject
  * <p>Caso de uso Today.</p>
  *
  * @author A. Cedano
- * @since 2023.3
+ * @since 2023.1.3
  */
 class GetTodayUseCase @Inject constructor(
     private val mRepository: TodayRepository

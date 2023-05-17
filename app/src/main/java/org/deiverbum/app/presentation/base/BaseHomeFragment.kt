@@ -6,6 +6,12 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import java.util.*
 
+/**
+ * <p>Fragmento base para el manejo de las páginas iniciales.</p>
+ *
+ * @author A. Cedano
+ * @since 2023.1.3
+ */
 abstract class BaseHomeFragment<T> : Fragment() {
     private var viewBinding: ViewBinding? = null
     override fun onCreateView(

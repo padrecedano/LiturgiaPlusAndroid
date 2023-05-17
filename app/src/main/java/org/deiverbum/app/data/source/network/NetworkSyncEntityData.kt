@@ -11,16 +11,15 @@ import javax.inject.Inject
  * <p>Se llama esta fuente de datos en primer lugar.</p>
  *
  * @author A. Cedano
- * @since 2023.3
+ * @since 2023.1.3
  */
 class NetworkSyncEntityData @Inject constructor(
     private val todayApi: TodayApi
 ) : SyncEntityData {
 
     override suspend fun getSync(syncRequest: SyncRequest): SyncResponse {
-        SpannableStringBuilder()
-        val syncResponse= SyncResponse(SpannableStringBuilder(),null)
-        //firebase.loadInitialToday(object : FirebaseCallBack)
+        val todayAll=todayApi.getTodayAll("all")
+        val syncResponse= SyncResponse(SpannableStringBuilder(),todayAll)
         return syncResponse
     }
 
@@ -30,7 +29,7 @@ class NetworkSyncEntityData @Inject constructor(
      * <p>Se usa como alternativa, en caso de que falle la llamada a {@link SyncRepository#initialSync()}</p>
      */
     suspend fun initialSync(syncRequest: SyncRequest): SyncResponse {
-        val syncResponse = SyncResponse(SpannableStringBuilder(),null)
+        val syncResponse = SyncResponse(SpannableStringBuilder(), emptyList())
 
         val todayAll=todayApi.getTodayAll("all")
         if(todayAll.isNotEmpty()) {

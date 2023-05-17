@@ -22,13 +22,15 @@ import java.util.*
 
 /**
  * <p>
- * Este Fragmento coordina la obtención del contenido proveniente de archivos locales.
+ * Este Fragmento coordina la obtención de datos que provienen de archivos
+ * guardados en el directorio res/raw.
  * </p>
  *
  * @author A. Cedano
- * @version 1.0
- * @since 2023.3
+ * @version 2.0
+ * @since 2022.1
  */
+
 @AndroidEntryPoint
 class FileFragment : BaseFileFragment<FragmentFileBinding>() {
     private val mViewModel: FileViewModel by viewModels()
@@ -77,8 +79,8 @@ class FileFragment : BaseFileFragment<FragmentFileBinding>() {
         }
     }
 
-    private fun onLoaded(homeItemUiState: FileItemUiState) {
-        homeItemUiState.run {
+    private fun onLoaded(fileItemUiState: FileItemUiState) {
+        fileItemUiState.run {
             getViewBinding().progressBar.visibility = View.GONE
             getViewBinding().include.tvZoomable.text = allData.text
         }

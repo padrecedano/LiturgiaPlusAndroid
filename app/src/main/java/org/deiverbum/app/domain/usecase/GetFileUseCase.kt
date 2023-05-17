@@ -9,7 +9,7 @@ import javax.inject.Inject
  * <p>Caso de uso archivos locales.</p>
  *
  * @author A. Cedano
- * @since 2023.3
+ * @since 2023.1.3
  */
 class GetFileUseCase @Inject constructor(
     private val fileRepository: FileRepository

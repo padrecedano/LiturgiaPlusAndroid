@@ -21,6 +21,12 @@ import org.deiverbum.app.utils.Utils
 import org.deiverbum.app.utils.ZoomTextView
 import java.util.*
 
+/**
+ * <p>Fragmento base para el manejo de archivos.</p>
+ *
+ * @author A. Cedano
+ * @since 2023.1.3
+ */
 abstract class BaseFileFragment<T> : Fragment() {
 
     private var viewBinding: ViewBinding? = null

@@ -16,7 +16,8 @@ import javax.inject.Inject
  * <p>ViewModel para el contenido proveniente de archivos locales.</p>
  *
  * @author A. Cedano
- * @since 2023.3
+ * @version 2.0
+ * @since 2022.1
  */
 @HiltViewModel
 class FileViewModel @Inject constructor(
@@ -31,7 +32,6 @@ class FileViewModel @Inject constructor(
         _uiState.value = FileUiState.Loading
         viewModelScope.launch(coroutineDispatcherProvider.IO()) {
             try {
-                //val requestParam = FileRequest(fileRequest)
                 val result = getFileUseCase.execute(fileRequest)
                 _uiState.value = FileUiState.Loaded(FileItemUiState(result))
             } catch (error: Exception) {

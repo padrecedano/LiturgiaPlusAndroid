@@ -13,10 +13,11 @@ import org.deiverbum.app.util.ExceptionParser
 import javax.inject.Inject
 
 /**
- * <p>ViewModel para el contenido proveniente de archivos locales.</p>
+ * <p>ViewModel para el contenido proveniente de archivos del módulo legal.</p>
  *
  * @author A. Cedano
- * @since 2023.3
+ * @version 1.0
+ * @since 2023.1.3
  */
 @HiltViewModel
 class LegalViewModel @Inject constructor(

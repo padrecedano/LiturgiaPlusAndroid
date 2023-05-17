@@ -4,6 +4,6 @@ import android.text.SpannableStringBuilder
 
 class FileResponse(
     var text: SpannableStringBuilder? = null,
-    val status: Boolean = true
+    var fileName: String = ""
 )
 

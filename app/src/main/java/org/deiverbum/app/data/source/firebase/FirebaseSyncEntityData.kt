@@ -16,7 +16,7 @@ import javax.inject.Inject
  * <p>Se llama a esta fuente de datos si falla la llamada a [org.deiverbum.app.data.source.network.NetworkSyncEntityData].</p>
  *
  * @author A. Cedano
- * @since 2023.3
+ * @since 2023.1.3
  */
 class FirebaseSyncEntityData @Inject constructor() : SyncEntityData {
     private val firebaseFirestore = FirebaseFirestore.getInstance()
@@ -31,17 +31,17 @@ class FirebaseSyncEntityData @Inject constructor() : SyncEntityData {
             val userList = firebaseFirestore.collection(Configuration.FIREBASE_SYNC_PATH)
                 .whereGreaterThanOrEqualTo(
                     "todayDate",
-                    Utils.getTodayMinus(30)
+                    Utils.getTodayMinus(45)
                 )
                 .limit(7).get()
                 .await().toObjects(Today::class.java)
                     as List<Today>
             return SyncResponse(
-                SpannableStringBuilder(userList.joinToString()),
-                null
+                SpannableStringBuilder("Datos obtenidos de Firebase. Sincronización pendiente..."),
+                userList,2
             )
         } catch (e: Exception) {
-            return SyncResponse(SpannableStringBuilder(e.message), null)
+            return SyncResponse(SpannableStringBuilder(e.message), emptyList())
         }
     }
 
