@@ -1,8 +1,5 @@
 package org.deiverbum.app.presentation.legal
 
-import android.app.AlertDialog
-import android.app.Dialog
-import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
@@ -11,11 +8,9 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.StringRes
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -30,22 +25,29 @@ import org.deiverbum.app.R
 import org.deiverbum.app.databinding.FragmentAcceptanceBinding
 import org.deiverbum.app.domain.model.FileRequest
 import org.deiverbum.app.domain.model.SyncRequest
-import org.deiverbum.app.domain.model.TodayRequest
 import org.deiverbum.app.presentation.file.FileItemUiState
 import org.deiverbum.app.presentation.file.FileViewModel
 import org.deiverbum.app.presentation.sync.SyncItemUiState
 import org.deiverbum.app.presentation.sync.SyncViewModel
 import org.deiverbum.app.utils.ColorUtils
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Constants.LS2
-import org.deiverbum.app.utils.Constants.PREF_INITIAL_SYNC
+import org.deiverbum.app.utils.Constants.*
 import org.deiverbum.app.utils.Utils
 import timber.log.Timber
 
 /**
  *
- * Fragmento que muestra el diálogo inicial para la Aceptción de la
- * Política de Privacidad y los Términos y Condiciones de Uso.
+ * <p>
+ *     Fragmento que muestra el diálogo inicial para la Aceptación
+ *     de la Política de Privacidad y los Términos y Condiciones de Uso.
+ * </p>
+ * <p>
+ *     1. Cuando el usuario pulse en el botón Aceptar la entrada `accept_terms`
+ *     se Shared Preferences se establecerá a `true`. <br />
+ *     2. Se verificará si no hay una sincronización inicial, en cuyo caso llamará a
+ *     [SyncViewModel.initialSync()] para obtener dicha sincronización. <br />
+ *     3. Desde [SyncViewModel] quedará iniciado [TodayWorker], quien se ocupará
+ *     de futuras sincornizaciones.
+ * </p>
  *
  * @author A. Cedano
  * @version 2.0
@@ -53,7 +55,6 @@ import timber.log.Timber
  */
 @AndroidEntryPoint
 class AcceptanceFragmentDialog : DialogFragment() {
-    private var binding: FragmentAcceptanceBinding? = null
     private val mViewModel: FileViewModel by viewModels()
     private val syncViewModel: SyncViewModel by viewModels()
     private var textPrivacy: TextView? = null
@@ -61,7 +62,9 @@ class AcceptanceFragmentDialog : DialogFragment() {
     private val prefs: SharedPreferences by lazy {
         PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
     }
-//        val sp = androidx.preference.PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
+    private var _binding: FragmentAcceptanceBinding? = null
+    private val binding get() = _binding!!
+
     override fun onStart() {
         super.onStart()
         val dialog = dialog
@@ -70,46 +73,6 @@ class AcceptanceFragmentDialog : DialogFragment() {
             val height = ViewGroup.LayoutParams.MATCH_PARENT
             dialog.window!!.setLayout(width, height)
         }
-    }
-
-     fun onCreateDialogg(savedInstanceState: Bundle?): Dialog {
-        return activity?.let {
-            // Use the Builder class for convenient dialog construction
-            val builder = AlertDialog.Builder(it)
-            val ssb = SpannableStringBuilder()
-            val intro = String.format(
-                "%s %s%n%s",
-                requireActivity().resources.getString(R.string.accept_intro),
-                requireActivity().resources.getString(R.string.app_name),
-                requireActivity().resources.getString(R.string.app_version_code_view)
-            )
-            ssb.append(Utils.toH3Red(intro))
-            ssb.append(LS2)
-            ssb.append(requireActivity().resources.getString(R.string.accept_info))
-            builder.setMessage(ssb)
-                .setPositiveButton(R.string.ok
-                ) { _, _ ->
-                    val syncRequest = SyncRequest(0, 1, isNightMode = false, isVoiceOn = false)
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        syncViewModel.initialSync(syncRequest)
-                        fetchDataSync()
-
-
-
-                    }
-
-                }
-                .setNegativeButton(R.string.help
-                ) { _, _ ->
-                    // User cancelled the dialog
-                }
-                .apply {
-                    this@AcceptanceFragmentDialog.isCancelable = true
-                    setCancelable(true)
-                }
-            // Create the AlertDialog object and return it
-            builder.create()
-        } ?: throw IllegalStateException("Activity cannot be null")
     }
 
 
@@ -132,8 +95,11 @@ class AcceptanceFragmentDialog : DialogFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         //mViewModel = ViewModelProvider(this)[FileViewModel::class.java]
         //syncViewModel = ViewModelProvider(this)[SyncViewModel::class.java]
-        binding = FragmentAcceptanceBinding.inflate(inflater, container, false)
-        val root: View = binding!!.root
+        _binding = FragmentAcceptanceBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+        //val editor = prefs.edit()
+        //editor.putBoolean("accept_terms", true).apply()
+//dismiss()
         prepareView()
         //observeData()
         return root
@@ -141,17 +107,19 @@ class AcceptanceFragmentDialog : DialogFragment() {
 
     private fun prepareView() {
         ColorUtils.isNightMode = isNightMode
-        val sp = androidx.preference.PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
-        val fontSize = sp.getString("font_size", "18")!!.toFloat()
-        val textInitial = binding!!.textInitial
-        textPrivacy = binding!!.textPrivacy
-        textTerms = binding!!.textTerms
-        val textFinal = binding!!.textFinal
+        //val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
+
+        //val sp = PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
+        val fontSize = prefs.getString("font_size", "18")!!.toFloat()
+        val textInitial = binding.textInitial
+        textPrivacy = binding.textPrivacy
+        textTerms = binding.textTerms
+        val textFinal = binding.textFinal
         textInitial.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
         textPrivacy!!.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
         textTerms!!.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
         textFinal.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
-        val button: Button = binding!!.btnEmail
+        //val button: Button = binding.btnEmail
         val ssb = SpannableStringBuilder()
         val intro = String.format(
             "%s %s%n%s",
@@ -162,54 +130,39 @@ class AcceptanceFragmentDialog : DialogFragment() {
         ssb.append(Utils.toH3Red(intro))
         ssb.append(LS2)
         ssb.append(requireActivity().resources.getString(R.string.accept_info))
-        //textInitial.text = ssb
+        textInitial.text = ssb
+
+        val fileRequest = FileRequest(listOf(FILE_TERMS,FILE_PRIVACY), 1, 6, isNightMode, isVoiceOn = false, false)
+        mViewModel.loadData(fileRequest)
+        fetchData()
+
         val sb = SpannableStringBuilder()
         sb.append(Utils.toH2Red(requireActivity().resources.getString(R.string.title_acceptance)))
         sb.append(LS2)
         sb.append(requireActivity().resources.getString(R.string.accept_warning))
-        //textFinal.setText(sb, TextView.BufferType.SPANNABLE)
+        textFinal.setText(sb, TextView.BufferType.SPANNABLE)
 
-        val termsRequest = FileRequest("raw/terms_202301.json", 1, 6, isNightMode, isVoiceOn = false, false)
-        //mViewModel.loadData(termsRequest)
-        //fetchData()
 
-        val privacyRequest = FileRequest("raw/privacy_202301.json", 1, 6, isNightMode, isVoiceOn = false, false)
-        //mViewModel.loadData(privacyRequest)
-        //fetchData()
-        button.setOnClickListener {
+        binding.btnEmail.setOnClickListener {
             val editor = prefs.edit()
-            editor.putBoolean(Constants.PREF_ACCEPT, true).apply()
-            var isInitialSync = prefs.getBoolean(PREF_INITIAL_SYNC, false)
-
-            //fetchDataSync()
-            //isInitialSync=false
+            editor.putBoolean(PREF_ACCEPT, true).apply()
+            val isInitialSync = prefs.getBoolean(PREF_INITIAL_SYNC, false)
             if (!isInitialSync) {
-                val syncRequest = SyncRequest(0, 1, isNightMode = false, isVoiceOn = false)
+                val syncRequest = SyncRequest(true)
                 lifecycleScope.launch(Dispatchers.IO) {
                     syncViewModel.initialSync(syncRequest)
                     fetchDataSync()
                 }
-                //fetchDataSync()
-
-                //syncViewModel.initialSync(syncRequest)
-                /*syncViewModel.initialSyncStatus.observe(
-                    viewLifecycleOwner
-                ) { data: Int ->
-                    val isSuccess = data > 0
-                    sp.edit().putBoolean("initialSync", isSuccess).apply()
-                }*/
             }
-            //dismiss()
         }
     }
-
 
     private fun fetchData() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mViewModel.uiState.collect { state ->
                     when (state) {
-                        is FileViewModel.FileUiState.Loaded -> onLoaded(listOf(state.itemState))
+                        is FileViewModel.FileUiState.Loaded -> onLoaded(state.itemState)
                         is FileViewModel.FileUiState.Error -> showError(state.message)
                         else -> showLoading()
                     }
@@ -217,13 +170,19 @@ class AcceptanceFragmentDialog : DialogFragment() {
             }
         }
     }
-    private fun onLoaded(fileItemUiStates: List<FileItemUiState>) {
-        fileItemUiStates.forEach { fileItemUiState ->
-            if (fileItemUiState.allData.fileName == "raw/terms_202301.json") {
-                //binding?.textTerms?.text = fileItemUiState.allData.text
-            } else if (fileItemUiState.allData.fileName == "raw/privacy_202301.json") {
-                //binding?.textPrivacy?.text = fileItemUiState.allData.text
+
+
+    private fun onLoaded(fileItemUiState: FileItemUiState) {
+        fileItemUiState.run {
+            allData.forEach{
+                if(it.fileName==FILE_TERMS){
+                    binding.textTerms.text = it.text
+                }
+                if(it.fileName==FILE_PRIVACY){
+                    binding.textPrivacy.text = it.text
+                }
             }
+            binding.btnEmail.visibility=View.VISIBLE
         }
     }
 
@@ -243,48 +202,19 @@ class AcceptanceFragmentDialog : DialogFragment() {
 
     private fun onLoadedSync(syncItemUiState: SyncItemUiState) {
         syncItemUiState.run {
-            if(allData.status==1){
-                prefs.edit().putBoolean("initialSync", true).apply()
+            if(syncResponse.syncStatus.status==1){
+                prefs.edit().putBoolean(PREF_INITIAL_SYNC, true).apply()
             }
-            Timber.d(syncItemUiState.allData.dataForView.toString())
+            //Timber.d(syncItemUiState.allData.dataForView.toString())
             dismiss()
-
-            //binding.progressBar.visibility = View.GONE
-            //getViewBinding().include.tvZoomable.text = allData.text
         }
     }
 
     private fun showLoading() {
-        //mTextView.text = Constants.PACIENCIA
     }
 
     private fun showError(@StringRes stringRes: Int) {
         Toast.makeText(requireContext(), stringRes, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun observeData() {
-        /*
-        mViewModel.getBook(FILE_PRIVACY).observe(this,
-                data -> {
-                    if (data.status == DataWrapper.Status.SUCCESS) {
-                        Book book = data.getData();
-                        textPrivacy.setText(book.getForView(isNightMode()), TextView.BufferType.SPANNABLE);
-                    } else {
-                        textPrivacy.setText(Utils.fromHtml(data.getError()));
-                    }
-                });
-
-        mViewModel.getBook(FILE_TERMS).observe(this,
-                data -> {
-                    if (data.status == DataWrapper.Status.SUCCESS) {
-                        Book book = data.getData();
-                        textTerms.setText(book.getForView(isNightMode()),
-                                TextView.BufferType.SPANNABLE);
-                    } else {
-                        textTerms.setText(Utils.fromHtml(data.getError()));
-                    }
-                });
-        */
     }
 
     val isNightMode: Boolean

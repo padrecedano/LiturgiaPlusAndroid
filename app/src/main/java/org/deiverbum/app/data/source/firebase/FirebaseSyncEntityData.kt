@@ -6,6 +6,7 @@ import kotlinx.coroutines.tasks.await
 import org.deiverbum.app.data.source.SyncEntityData
 import org.deiverbum.app.domain.model.SyncRequest
 import org.deiverbum.app.domain.model.SyncResponse
+import org.deiverbum.app.model.SyncStatus
 import org.deiverbum.app.model.Today
 import org.deiverbum.app.utils.Configuration
 import org.deiverbum.app.utils.Utils
@@ -36,12 +37,9 @@ class FirebaseSyncEntityData @Inject constructor() : SyncEntityData {
                 .limit(7).get()
                 .await().toObjects(Today::class.java)
                     as List<Today>
-            return SyncResponse(
-                SpannableStringBuilder("Datos obtenidos de Firebase. Sincronización pendiente..."),
-                userList,2
-            )
+            return SyncResponse(SyncStatus(),userList)
         } catch (e: Exception) {
-            return SyncResponse(SpannableStringBuilder(e.message), emptyList())
+            return SyncResponse(SyncStatus(e.message.toString()))
         }
     }
 

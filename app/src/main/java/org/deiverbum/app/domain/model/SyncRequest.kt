@@ -6,10 +6,12 @@ package org.deiverbum.app.domain.model
  *
  * @author A. Cedano
  * @since 2023.1.3
+ *
+ * @param isInitial indica si el tipo de sincronización es inicial o parcial.
+ * @param yearToClean se pasará un dato distinto de `0` cuando se necesite limpiar datos del año anterior.
+
  */
 class SyncRequest(
-    val theDate: Int?,
-    val type: Int, //1=initial
-    val isNightMode: Boolean,
-    val isVoiceOn: Boolean
+    val isInitial: Boolean,
+    val yearToClean: Int =0
 )

@@ -2,6 +2,7 @@ package org.deiverbum.app.ui.fragments;
 
 import static org.deiverbum.app.utils.Constants.PACIENCIA;
 import static org.deiverbum.app.utils.Constants.SYNC_LABEL;
+import static org.deiverbum.app.utils.Constants.SYNC_TAG;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -80,7 +81,7 @@ public class SyncFragment extends Fragment {
 
         if (!isWorkScheduled()) {
             progressBar.setVisibility(View.GONE);
-            mTextView.setText(Utils.fromHtml(new SyncStatus().getLastUpdate(isNightMode())));
+            //mTextView.setText(Utils.fromHtml(new SyncStatus().getLastUpdate(isNightMode())));
             mButton.setIconResource(R.drawable.ic_refresh_black_24dp);
             mButton.setText(SYNC_LABEL);
             mButton.setVisibility(View.VISIBLE);
@@ -97,14 +98,14 @@ public class SyncFragment extends Fragment {
                     if (data != null) {
                         mTextView.setText(Utils.fromHtml(data.getAll(isNightMode())));
                     } else {
-                        mTextView.setText(Utils.fromHtml(new SyncStatus().getLastUpdate(isNightMode())));
+                        //mTextView.setText(Utils.fromHtml(new SyncStatus().getLastUpdate(isNightMode())));
                     }
                 });
     }
 
     private boolean isWorkScheduled() {
         WorkManager instance = WorkManager.getInstance(Objects.requireNonNull(requireActivity()).getApplicationContext());
-        ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag("TAG_SYNC_DATA");
+        ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosByTag(SYNC_TAG);
         try {
             boolean running = false;
             List<WorkInfo> workInfoList = statuses.get();

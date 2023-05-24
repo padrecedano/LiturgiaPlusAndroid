@@ -35,8 +35,6 @@ interface TodayDao {
     @Insert(entity = TodayEntity::class, onConflict = OnConflictStrategy.REPLACE)
     fun insertAllTodays(today: List<Today?>?)
 
-    @Insert(entity = TodayEntity::class, onConflict = OnConflictStrategy.REPLACE)
-    fun todayInsertAll(today: List<Today?>?)
 
     @Insert(entity = LiturgyEntity::class, onConflict = OnConflictStrategy.REPLACE)
     fun liturgiaInsertAll(today: List<Liturgy?>?)
@@ -129,6 +127,9 @@ interface TodayDao {
 
     @Update(entity = LHAntiphonEntity::class, onConflict = OnConflictStrategy.REPLACE)
     fun lhAntifonaUpdateAll(list: List<LHAntiphon?>?)
+
+    @Insert(entity = TodayEntity::class, onConflict = OnConflictStrategy.REPLACE)
+    fun todayInsertAll(today: List<Today?>?)
 
     @Update(entity = TodayEntity::class, onConflict = OnConflictStrategy.REPLACE)
     fun todayUpdateAll(list: List<Today?>?)

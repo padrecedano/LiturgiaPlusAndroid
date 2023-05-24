@@ -6,7 +6,7 @@ package org.deiverbum.app.domain.model
  * @since 2023.1.3
  */
 class FileRequest(
-    var fileName: String,
+    var fileName: List<String>,
     var dayOfWeek: Int,
     var timeId: Int,
     var isNightMode: Boolean = false,

@@ -65,6 +65,8 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:text="@string/accept"
+                android:visibility="invisible"
+
                 app:icon="@drawable/ic_baseline_check_circle_24" />
 
         </LinearLayout>

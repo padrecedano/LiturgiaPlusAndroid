@@ -9,7 +9,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -42,6 +41,7 @@ import org.deiverbum.app.domain.model.SyncRequest
 import org.deiverbum.app.presentation.legal.AcceptanceFragmentDialog.Companion.display
 import org.deiverbum.app.presentation.sync.SyncViewModel
 import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Constants.PREF_ACCEPT
 import org.deiverbum.app.utils.Utils
 
 /**
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private var mUpdateCode = 0
     private lateinit var mAppBarConfiguration: AppBarConfiguration
-    private var acceptTerms = false
+    private var acceptTerms:Boolean = false
     private val syncViewModel: SyncViewModel by viewModels()
 
     private val appUpdateManager by lazy {
@@ -88,9 +88,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mUpdateCode = resources.getInteger(R.integer.app_version_code)
         strFechaHoy = Utils.getFecha()
-        val syncRequest =
+        /*val syncRequest =
             SyncRequest(0, 1,false,false)
-
+*/
         //syncViewModel.initialSync(syncRequest)
 
         setPrivacy()
@@ -157,11 +157,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setPrivacy() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val editor = prefs.edit()
-        editor.putBoolean(Constants.PREF_ACCEPT, false).apply()
-        editor.putBoolean(Constants.PREF_INITIAL_SYNC, false).apply()
+        //editor.putBoolean(Constants.PREF_ACCEPT, false).apply()
+        //editor.putBoolean(Constants.PREF_INITIAL_SYNC, false).apply()
 
-        acceptTerms = prefs.getBoolean(Constants.PREF_ACCEPT, false)
+         acceptTerms = prefs.getBoolean(PREF_ACCEPT, false)
         val collectData = prefs.getBoolean(Constants.PREF_ANALYTICS, true)
         val collectCrash = prefs.getBoolean(Constants.PREF_CRASHLYTICS, true)
         if (!BuildConfig.DEBUG) {

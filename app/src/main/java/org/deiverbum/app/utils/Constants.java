@@ -3,8 +3,6 @@ package org.deiverbum.app.utils;
 import android.graphics.Color;
 import android.text.style.ForegroundColorSpan;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.util.Locale;
 
 @SuppressWarnings("unused")
@@ -78,10 +76,16 @@ public class Constants {
             "este módulo mandando un mensaje a <b>%spadre.cedano@gmail.com%s</b> en el que indiques la fecha y el módulo en que ha ocurrido el problema. %sLos contenidos no presentes se incluirán mediante sincronización remota y necesitarás tener conexión a internet para recibirlos.", BRS, CSS_RED_A, CSS_RED_Z, BRS);
     public static final String SYNC_LABEL = "Sincronizar";
     /*
-        File paths
+        File paths raw/terms_202301.json
      */
     public static final String FILE_PRIVACY = "raw/privacy_202301.json";
     public static final String FILE_TERMS = "raw/terms_202301.json";
+    public static final String FILE_ABOUT = "raw/about_202201.json";
+    public static final String FILE_AUTHOR = "raw/author_202201.json";
+    public static final String FILE_HELP = "raw/help_202201.json";
+    public static final String FILE_NEW = "raw/new_202301.json";
+    public static final String FILE_THANKS = "raw/thanks_202201.json";
+
     public static final String FILE_VIA_CRUCIS_2003 = "raw/viacrucis2003.json";
     public static final String FILE_VIA_CRUCIS_2005 = "raw/viacrucis2005.json";
     public static final String FILE_REGINA = "raw/regina.json";
@@ -93,6 +97,9 @@ public class Constants {
     public static final String PREF_ANALYTICS = "enable_analytics";
     public static final String PREF_CRASHLYTICS = "enable_crashlytics";
     public static final String PREF_INITIAL_SYNC = "initial_sync";
+    public static final String PREF_LAST_YEAR_CLEANED = "last_year_cleaned";
+
+    public static final String SYNC_TAG = "TAG_SYNC_DATA";
 
     public static final String MSG_LEGAL = "Si tienes alguna duda, puedes " +
             "pulsar en el botón \"Enviar eMail\" para ponerte en contacto con" +

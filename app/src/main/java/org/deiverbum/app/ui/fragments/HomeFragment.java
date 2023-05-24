@@ -1,6 +1,8 @@
 package org.deiverbum.app.ui.fragments;
 
 import static org.deiverbum.app.utils.Constants.PREF_ACCEPT;
+import static org.deiverbum.app.utils.Constants.PREF_INITIAL_SYNC;
+import static org.deiverbum.app.utils.Constants.PREF_LAST_YEAR_CLEANED;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -167,7 +169,7 @@ public class HomeFragment extends Fragment {
     private void setConfiguration() {
         SyncViewModel mViewModel = new ViewModelProvider(this).get(SyncViewModel.class);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        boolean isInitialSync = prefs.getBoolean("initialSync", false);
+        boolean isInitialSync = prefs.getBoolean(PREF_INITIAL_SYNC, false);
         boolean isAccept = prefs.getBoolean(PREF_ACCEPT, false);
         String theme = prefs.getString("theme", "1");
         if (!isInitialSync && isAccept) {
@@ -180,7 +182,7 @@ public class HomeFragment extends Fragment {
         }
         int dayNumber = Integer.parseInt(Utils.getDay(Utils.getHoy()));
         if (dayNumber >= 30) {
-            int lastYearCleaned = prefs.getInt("lastYear", 0);
+            int lastYearCleaned = prefs.getInt(PREF_LAST_YEAR_CLEANED, 0);
             long systemTime = System.currentTimeMillis();
             SimpleDateFormat sdfY = new SimpleDateFormat("yyyy", new Locale("es", "ES"));
             Date theDate = new Date(systemTime);
@@ -194,7 +196,7 @@ public class HomeFragment extends Fragment {
                     mViewModel.getYearClean().observe(getViewLifecycleOwner(),
                             data -> {
                                 if (data > 0) {
-                                    prefs.edit().putInt("lastYear", currentYear).apply();
+                                    prefs.edit().putInt(PREF_LAST_YEAR_CLEANED, currentYear).apply();
                                 }
                             });
                 }

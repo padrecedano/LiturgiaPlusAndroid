@@ -15,7 +15,7 @@ class GetFileUseCase @Inject constructor(
     private val fileRepository: FileRepository
 ) {
 
-    suspend fun execute(fileRequest: FileRequest): FileResponse {
+    suspend fun execute(fileRequest: FileRequest): MutableList<FileResponse> {
         return fileRepository.getFile(fileRequest)
     }
 }
