@@ -11,5 +11,5 @@ import org.deiverbum.app.domain.model.FileRequest
  */
 interface FileRepository {
 
-    suspend fun getFile(fileRequest: FileRequest): FileResponse
+    suspend fun getFile(fileRequest: FileRequest): MutableList<FileResponse>
 }

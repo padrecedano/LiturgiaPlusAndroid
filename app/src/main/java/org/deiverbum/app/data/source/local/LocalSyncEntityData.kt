@@ -5,6 +5,7 @@ import org.deiverbum.app.data.database.dao.TodayDao
 import org.deiverbum.app.data.source.SyncEntityData
 import org.deiverbum.app.domain.model.SyncRequest
 import org.deiverbum.app.domain.model.SyncResponse
+import org.deiverbum.app.model.SyncStatus
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -21,10 +22,16 @@ class LocalSyncEntityData @Inject constructor(
 ) : SyncEntityData {
 
     override suspend fun getSync(syncRequest: SyncRequest): SyncResponse {
+        if(syncRequest.yearToClean!=0){
+            val rowsDeleted=todayDao.deleteLastYear(syncRequest.yearToClean)
+            //val yearClean=todayDao.deleteLastYear(syncRequest.yearToClean)
+            val syncInfo=String.format("Total de filas borradas: %d",rowsDeleted)
+            return SyncResponse(SyncStatus(syncInfo,syncRequest.yearToClean))
+        }
         val se = todayDao.syncInfo()
         //syncResponse.dataForView=SpannableStringBuilder( se!!.getAll(false))
         //if(syncResponse.allToday.isNullOrEmpty())
-        return SyncResponse(SpannableStringBuilder(se!!.getAll(false)), emptyList())
+        return SyncResponse(se!!)
     }
 
     override suspend fun addSync(sync: SyncResponse) {

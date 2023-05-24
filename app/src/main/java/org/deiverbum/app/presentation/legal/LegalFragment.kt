@@ -6,28 +6,32 @@ import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.text.format.DateFormat
-import android.text.method.LinkMovementMethod
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.switchmaterial.SwitchMaterial
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import org.deiverbum.app.R
 import org.deiverbum.app.databinding.FragmentLegalBinding
-import org.deiverbum.app.model.Book
+import org.deiverbum.app.domain.model.FileRequest
+import org.deiverbum.app.presentation.file.FileFragmentArgs
+import org.deiverbum.app.presentation.file.FileItemUiState
+import org.deiverbum.app.presentation.file.FileViewModel
 import org.deiverbum.app.utils.Configuration
 import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
-import org.deiverbum.app.presentation.legal.LegalViewModel
+import org.deiverbum.app.utils.Constants.FILE_PRIVACY
+import org.deiverbum.app.utils.Constants.FILE_TERMS
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -47,66 +51,61 @@ import java.util.*
  */
 @AndroidEntryPoint
 class LegalFragment : Fragment() {
-    private var mViewModel: LegalViewModel? = null
-    private var binding: FragmentLegalBinding? = null
-    private var mTextView: TextView? = null
-    private var textAgree: TextView? = null
-    private var textContacto: TextView? = null
     private var acceptLegal = false
-    private var bottomLayout: LinearLayout? = null
-    private var agreeYes: String? = null
-    private var agreeNot: String? = null
-    private var progressBar: ProgressBar? = null
-    private var switchAccept: SwitchMaterial? = null
+    private val prefs: SharedPreferences by lazy {
+        androidx.preference.PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
+    }
+    private val mViewModel: FileViewModel by viewModels()
+    private var _binding: FragmentLegalBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentLegalBinding.inflate(inflater, container, false)
-        val root: View = binding!!.root
+    ): View {
+        _binding = FragmentLegalBinding.inflate(inflater, container, false)
+        val root: View = binding.root
         prepareView()
-        observeBook()
         return root
     }
 
     private fun prepareView() {
-        mViewModel = ViewModelProvider(this).get(LegalViewModel::class.java)
-        val sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(
-            activity
-        )
-        acceptLegal = sp.getBoolean(Constants.PREF_ACCEPT, false)
-        val fontSize: Float = sp.getString("font_size", "18")!!.toFloat()
+        acceptLegal = prefs.getBoolean(Constants.PREF_ACCEPT, false)
+        val fontSize: Float = prefs.getString("font_size", "18")!!.toFloat()
         val fontFamily = String.format(
             Locale("es"),
             "fonts/%s",
-            sp.getString("font_name", "robotoslab_regular.ttf")
+            prefs.getString("font_name", "robotoslab_regular.ttf")
         )
         val tf = Typeface.createFromAsset(requireActivity().assets, fontFamily)
-        progressBar = binding!!.progressBar
-        switchAccept = binding!!.switchAccept
-        /*switchAccept.setChecked(acceptLegal)
-        switchAccept.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView: CompoundButton?, isChecked: Boolean ->
-            acceptLegal = isChecked
-            setAcceptText()
-            val editor: SharedPreferences.Editor = sp.edit()
-            editor.putBoolean(Constants.PREF_ACCEPT, isChecked)
-            editor.apply()
-        })*/
-        mTextView = binding!!.textLegal
+        //progressBar = binding.progressBar
+        //switchAccept = binding.switchAccept
+        binding.switchAccept.isChecked = acceptLegal
+        binding.switchAccept.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+            if (!isChecked) {
+                showConfirm()
+            }
+        }
+        //mTextView = binding.textLegal
         //mTextView.setMovementMethod(LinkMovementMethod.getInstance())
-       // mTextView.setClickable(true)
-        textAgree = binding!!.textAgree
-        textContacto = binding!!.textContacto
-        bottomLayout = binding!!.bottomLayout
-        /*mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
-        mTextView.setTypeface(tf)
-        textAgree.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
-        textAgree.setTypeface(tf)
-        textContacto.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
-        textContacto.setTypeface(tf)
-        bottomLayout.setVisibility(View.GONE)*/
-        val button: Button = binding!!.btnEmail
-        button.setOnClickListener { v: View? ->
+        // mTextView.setClickable(true)
+        //textAgree = binding.textAgree
+        //textContacto = binding.textContacto
+        //bottomLayout = binding.bottomLayout
+        binding.textLegal.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
+        binding.textLegal.typeface = tf
+        binding.textAgree.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
+        binding.textAgree.typeface = tf
+        binding.textContacto.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
+        binding.textContacto.typeface = tf
+        val args: FileFragmentArgs by navArgs()
+
+        val fileRequest =
+            FileRequest(listOf(args.rawPath), 1, 6, isNightMode, isVoiceOn = false, false)
+        mViewModel.loadData(fileRequest)
+        fetchData()
+
+        binding.btnEmail.setOnClickListener {
             val subject = String.format(
                 Locale.getDefault(), "Dudas " +
                         "Política Privacidad y/o " +
@@ -116,32 +115,41 @@ class LegalFragment : Fragment() {
         }
     }
 
-    private fun observeBook() {
-/*        progressBar.setVisibility(View.VISIBLE)
-        mTextView.setText(Constants.PACIENCIA)
-        if (arguments != null) {
-            val filePath = arguments!!.getString("rawPath")
-            mViewModel.getBook(filePath).observe(
-                viewLifecycleOwner
-            ) { data ->
-                progressBar.setVisibility(View.GONE)
-                if (data.status === DataWrapper.Status.SUCCESS) {
-                    val book: Book = data.getData()
-                    mTextView.setText(book.getForView(isNightMode), TextView.BufferType.SPANNABLE)
-                    //saveHtmlFile(book.getForHtml().toString());
-                    agreeYes = book.getAgreeYes()
-                    agreeNot = book.getAgreeNot()
-                    //footLayout.setVisibility(View.VISIBLE);
-                } else {
-                    mTextView.setText(Utils.fromHtml(data.getError()))
+    private fun fetchData() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mViewModel.uiState.collect { state ->
+                    when (state) {
+                        is FileViewModel.FileUiState.Loaded -> onLoaded(state.itemState)
+                        is FileViewModel.FileUiState.Error -> showError(state.message)
+                        else -> showLoading()
+                    }
                 }
-                textContacto.setText(Constants.MSG_LEGAL)
-                bottomLayout.setVisibility(View.VISIBLE)
-                setAcceptText()
             }
-        }*/
+        }
     }
 
+    private fun onLoaded(fileItemUiState: FileItemUiState) {
+        fileItemUiState.run {
+            allData.forEach {
+                binding.textLegal.text = it.text
+                setAcceptText(it.fileName)
+            }
+        }
+        binding.progressBar.visibility = View.GONE
+        binding.btnEmail.visibility = View.VISIBLE
+        binding.bottomLayout.visibility = View.VISIBLE
+    }
+
+
+    private fun showLoading() {
+    }
+
+    private fun showError(@StringRes stringRes: Int) {
+        Toast.makeText(requireContext(), stringRes, Toast.LENGTH_SHORT).show()
+    }
+
+    @Suppress("unused")
     private fun saveHtmlFile(html: String) {
         val path = requireActivity().getExternalFilesDir(null)!!.absolutePath
         var fileName =
@@ -158,11 +166,22 @@ class LegalFragment : Fragment() {
         }
     }
 
-    private fun setAcceptText() {
-        val acceptText = if (acceptLegal) agreeYes else agreeNot
-        textAgree?.setText(acceptText)
-        if (!acceptLegal) {
-            showConfirm()
+    private fun setAcceptText(fileName: String) {
+        var acceptText: String
+        if (fileName == FILE_TERMS) {
+            acceptText =
+                if (acceptLegal) activity?.resources!!.getString(R.string.privacy_agree) else activity?.resources!!.getString(
+                    R.string.privacy_disagree
+                )
+            binding.textAgree.text = acceptText
+        }
+        if (fileName == FILE_PRIVACY) {
+            acceptText =
+                if (acceptLegal) activity?.resources!!.getString(R.string.privacy_agree) else activity?.resources!!.getString(
+                    R.string.privacy_disagree
+                )
+            binding.textAgree.text = acceptText
+
         }
     }
 
@@ -171,32 +190,35 @@ class LegalFragment : Fragment() {
         materialAlertDialogBuilder.setTitle(Constants.DIALOG_LEGAL_TITLE)
         materialAlertDialogBuilder.setMessage(Constants.DIALOG_LEGAL_BODY)
         materialAlertDialogBuilder.setPositiveButton(
-            Constants.DIALOG_LEGAL_OK,
-            DialogInterface.OnClickListener { dialogInterface: DialogInterface?, i: Int -> closeApp() })
+            Constants.DIALOG_LEGAL_OK
+        ) { _: DialogInterface?, _: Int -> closeApp() }
         materialAlertDialogBuilder.setNegativeButton(
-            Constants.DIALOG_LEGAL_CANCEL,
-            DialogInterface.OnClickListener { dialogInterface: DialogInterface?, i: Int -> updateSwitch() })
+            Constants.DIALOG_LEGAL_CANCEL
+        ) { _: DialogInterface?, _: Int -> updateSwitch() }
         materialAlertDialogBuilder.show()
     }
 
     private fun closeApp() {
+        val editor: SharedPreferences.Editor = prefs.edit()
+        editor.putBoolean(Constants.PREF_ACCEPT, false)
+        editor.apply()
         requireActivity().finishAndRemoveTask()
     }
 
     private fun updateSwitch() {
-        switchAccept?.setChecked(true)
+        binding.switchAccept.isChecked = true
     }
 
     private fun composeEmail(addresses: Array<String>, subject: String) {
         val intent = Intent(Intent.ACTION_SENDTO)
-        intent.setData(Uri.parse("mailto:"))
+        intent.data = Uri.parse("mailto:")
         intent.putExtra(Intent.EXTRA_EMAIL, addresses)
         intent.putExtra(Intent.EXTRA_SUBJECT, subject)
         intent.putExtra(Intent.EXTRA_TEXT, "Plantea a continuación tu duda: \n\n")
         if (intent.resolveActivity(requireActivity().packageManager) != null) {
             startActivity(intent)
         }
-        requireActivity().onBackPressed()
+        requireActivity().onBackPressedDispatcher
     }
 
     val isNightMode: Boolean
@@ -208,6 +230,6 @@ class LegalFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding = null
+        _binding = null
     }
 }

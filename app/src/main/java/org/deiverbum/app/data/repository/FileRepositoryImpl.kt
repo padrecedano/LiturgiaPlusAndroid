@@ -18,7 +18,7 @@ class FileRepositoryImpl @Inject constructor(
     private val fileFactory: FileFactory
 ) : FileRepository {
 
-    override suspend fun getFile(fileRequest: FileRequest): FileResponse {
+    override suspend fun getFile(fileRequest: FileRequest): MutableList<FileResponse> {
         return fileFactory.create().getFile(fileRequest)
     }
 

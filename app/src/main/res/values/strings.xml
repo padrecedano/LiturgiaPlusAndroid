@@ -139,9 +139,11 @@
     <string name="pref_description_accept_terms">Activando esta opción, declaras haber leído y aceptado tanto la Política de Privacidad como los Términos y Condiciones. Sin esta aceptación no podrás hacer uso de la Aplicación.</string>
     <string name="label_accept">He leído y acepto la Política de Privacidad y los Términos y Condiciones de Uso.</string>
     <string name="welcome_message">Hello, <font color="{0}">Title</font>! You have new messages.</string>
-
+    <string name="privacy_agree">He leído y ACEPTO esta Política de Privacidad.</string>
+    <string name="privacy_disagree">NO ACEPTO esta Política de Privacidad y por tanto no usaré esta aplicación.</string>
+    <string name="terms_agree">He leído y ACEPTO estos Términos y Condiciones de Uso.</string>
+    <string name="terms_disagree">NO ACEPTO estos Términos y Condiciones de Uso y por tanto no usaré esta aplicación.</string>
     <string name="accept_intro">Bienvenido a</string>
-
     <string name="accept_info">Si estás viendo esta
         pantalla es porque estás instalando por primera vez una nueva versión
         de la aplicación

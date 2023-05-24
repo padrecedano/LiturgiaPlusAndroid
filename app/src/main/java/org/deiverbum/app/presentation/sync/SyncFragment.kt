@@ -1,5 +1,6 @@
 package org.deiverbum.app.presentation.sync
 
+import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.Menu
@@ -8,8 +9,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
@@ -18,7 +17,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import androidx.preference.PreferenceManager
 import androidx.viewbinding.ViewBinding
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.deiverbum.app.R
@@ -26,9 +28,12 @@ import org.deiverbum.app.databinding.FragmentSyncBinding
 import org.deiverbum.app.domain.model.SyncRequest
 import org.deiverbum.app.presentation.base.BaseFragment
 import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Constants.*
 import org.deiverbum.app.utils.Utils
 import org.deiverbum.app.utils.ZoomTextView
+import timber.log.Timber
 import java.util.*
+import java.util.concurrent.ExecutionException
 
 /**
  * <p>
@@ -39,11 +44,11 @@ import java.util.*
  * <p>
  *     1. Cuando se instala por primera vez la aplicación,
  *        desde AcceptanceFragmentDialog <br />
- *    a. Se invocará al método initialSync() de SyncViewModel cuando el usuario
- *       pulse en el botón de aceptación. <br />
- *    b. Seguidamente se observará a getInitialSyncStatus() de SyncViewModel,
- *       si devuelve un valor mayor que 0 se creará una entrada en SharedPreferences
- *       con clave initialSync y valor true.
+ *       a. Se invocará al método initialSync() de SyncViewModel cuando el usuario
+ *          pulse en el botón de aceptación. <br />
+ *       b. Seguidamente se observará a getInitialSyncStatus() de SyncViewModel,
+ *          si devuelve un valor mayor que 0 se creará una entrada en SharedPreferences
+ *          con clave initialSync y valor true.
  * </p>
  *
  * <p>
@@ -65,51 +70,23 @@ import java.util.*
  */
 @AndroidEntryPoint
 class SyncFragment : BaseFragment<FragmentSyncBinding>() {
-    private lateinit var syncRequest: SyncRequest
     private val mViewModel: SyncViewModel by viewModels()
     private lateinit var mTextVieww: ZoomTextView
     private var progressBar: ProgressBar? = null
-
+    private val prefs: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
+    }
 
     override fun constructViewBinding(): ViewBinding = FragmentSyncBinding.inflate(layoutInflater)
 
     override fun init(viewBinding: ViewBinding) {
         setConfiguration()
         setMenu()
-        //mViewModel.loadData(syncRequest)
-        //fetchData()
-    }
-
-    private fun fetchData() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                mViewModel.uiState.collect { state ->
-                    when (state) {
-                        is SyncViewModel.SyncUiState.Loaded -> onLoaded(state.itemState)
-                        is SyncViewModel.SyncUiState.Error -> showError(state.message)
-                        else -> showLoading()
-                    }
-                }
-            }
-        }
-    }
-
-    private fun onLoaded(syncItemUiState: SyncItemUiState) {
-        syncItemUiState.run {
-            getViewBinding().progressBar.visibility = View.GONE
-            mTextVieww.text = Utils.fromHtml(allData.dataForView.toString())//.dataForView
-
-        }
-    }
-
-    private fun showLoading() {
-        mTextVieww.text = Constants.PACIENCIA
-
-    }
-
-    private fun showError(stringRes: String) {
-        mTextVieww.text = stringRes
-        Toast.makeText(requireContext(), stringRes, Toast.LENGTH_SHORT).show()
+        val isInitial = prefs.getBoolean(Constants.PREF_INITIAL_SYNC, false)
+        val syncRequest = SyncRequest(isInitial)
+        Timber.d(syncRequest.isInitial.toString())
+        mViewModel.initialSync(syncRequest)
+        fetchData()
     }
 
     private fun setMenu() {
@@ -142,48 +119,96 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
     private fun setConfiguration() {
         mTextVieww = getViewBinding().include.tvZoomable
         progressBar = getViewBinding().progressBar
-        val sp =
-            androidx.preference.PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
-        val fontSize = sp?.getString("font_size", "18")!!.toFloat()
+        val fontSize = prefs.getString("font_size", "18")?.toFloat()
         val fontFamily = String.format(
             Locale("es"),
             "fonts/%s",
-            sp.getString("font_name", "robotoslab_regular.ttf")
+            prefs.getString("font_name", "robotoslab_regular.ttf")
         )
         val tf = Typeface.createFromAsset(requireActivity().assets, fontFamily)
-        mTextVieww.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
+        mTextVieww.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize!!)
         mTextVieww.typeface = tf
-        //hasInvitatory = sp.getBoolean("invitatorio", false)
-        //isVoiceOn = sp.getBoolean("voice", true)
-        syncRequest =
-            SyncRequest(pickOutDate(), 1, isNightMode(), false)
+        getViewBinding().include.tvBottom.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
+        getViewBinding().include.tvBottom.typeface = tf
+    //syncRequest =
+        //SyncRequest(pickOutDate(), 1, isNightMode(), false)
 
         //pickOutDate()
     }
 
-
-
-    private fun pickOutDate(): Int {
-        val bundle = arguments
-        val mDate = if (bundle != null && bundle.containsKey("FECHA")) {
-            bundle.getInt("FECHA")
-        } else {
-            Utils.getHoy().toInt()
+    private val isWorkScheduled: Boolean
+        get() {
+            val instance =
+                WorkManager.getInstance(requireActivity().applicationContext)
+            val statuses = instance.getWorkInfosByTag(SYNC_TAG)
+            return try {
+                var running = false
+                val workInfoList = statuses.get()
+                for (workInfo in workInfoList) {
+                    val state = workInfo.state
+                    running =
+                        (state == WorkInfo.State.RUNNING) or (state == WorkInfo.State.ENQUEUED)
+                }
+                running
+            } catch (e: ExecutionException) {
+                false
+            } catch (e: InterruptedException) {
+                false
+            }
         }
-        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
-        Objects.requireNonNull<ActionBar?>(actionBar).subtitle =
-            Utils.getTitleDate(mDate.toString())
-        return mDate
+
+
+    private fun fetchData() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mViewModel.uiState.collect { state ->
+                    when (state) {
+                        is SyncViewModel.SyncUiState.Loaded -> onLoaded(state.itemState)
+                        is SyncViewModel.SyncUiState.Error -> showError(state.message)
+                        else -> showLoading()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun onLoaded(syncItemUiState: SyncItemUiState) {
+        syncItemUiState.run {
+            getViewBinding().progressBar.visibility = View.GONE
+            syncResponse.syncStatus.lastYearCleaned=prefs.getInt(PREF_LAST_YEAR_CLEANED,0)
+            Timber.d(prefs.getInt(PREF_LAST_YEAR_CLEANED,0).toString())
+
+            mTextVieww.text = Utils.fromHtml(syncResponse.syncStatus.getAll(isNightMode()))//.dataForView
+            if (!isWorkScheduled) {
+                getViewBinding().include.btnEmail.visibility = View.VISIBLE
+                getViewBinding().include.btnEmail.setIconResource(R.drawable.ic_refresh_black_24dp)
+                getViewBinding().include.btnEmail.text = SYNC_LABEL
+                getViewBinding().include.tvBottom.text =
+                    syncResponse.syncStatus.getNotWorkerMessage(isNightMode())
+            } else {
+                getViewBinding().include.tvBottom.text = syncResponse.syncStatus.getWorkerMessage()
+            }
+        }
+    }
+
+    private fun showLoading() {
+        mTextVieww.text = Constants.PACIENCIA
+
+    }
+
+    private fun showError(stringRes: String) {
+        mTextVieww.text = stringRes
+        Toast.makeText(requireContext(), stringRes, Toast.LENGTH_SHORT).show()
     }
 
 
-    override fun onDestroyView() {
+    /*override fun onDestroyView() {
         super.onDestroyView()
         if (mActionMode != null) {
             mActionMode!!.finish()
         }
-        //binding = null
-    }
+        //_binding = null
+    }*/
 }
 
 /*Fragment() {
@@ -258,26 +283,7 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
         }
     }
 
-    private val isWorkScheduled: Boolean
-        private get() {
-            val instance =
-                WorkManager.getInstance(Objects.requireNonNull(requireActivity()).applicationContext)
-            val statuses = instance.getWorkInfosByTag("TAG_SYNC_DATA")
-            return try {
-                var running = false
-                val workInfoList = statuses.get()
-                for (workInfo in workInfoList) {
-                    val state = workInfo.state
-                    running =
-                        (state == WorkInfo.State.RUNNING) or (state == WorkInfo.State.ENQUEUED)
-                }
-                running
-            } catch (e: ExecutionException) {
-                false
-            } catch (e: InterruptedException) {
-                false
-            }
-        }
+
     val isNightMode: Boolean
         get() {
             val nightModeFlags =

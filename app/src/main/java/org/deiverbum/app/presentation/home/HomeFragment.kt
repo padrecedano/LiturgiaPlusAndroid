@@ -1,22 +1,34 @@
 package org.deiverbum.app.presentation.home
 
+import android.content.SharedPreferences
 import android.graphics.Color
+import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.deiverbum.app.R
 import org.deiverbum.app.databinding.FragmentHomeBinding
+import org.deiverbum.app.domain.model.SyncRequest
 import org.deiverbum.app.presentation.base.BaseFragment
 import org.deiverbum.app.presentation.home.adapter.HomeAdapter
 import org.deiverbum.app.presentation.home.adapter.HomeItem
+import org.deiverbum.app.presentation.sync.SyncItemUiState
+import org.deiverbum.app.presentation.sync.SyncViewModel
 import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.utils.Constants.PREF_INITIAL_SYNC
+import org.deiverbum.app.utils.Constants.PREF_LAST_YEAR_CLEANED
 import org.deiverbum.app.utils.Utils
-import org.deiverbum.app.viewmodel.SyncViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -45,7 +57,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private lateinit var mList: List<HomeItem>
 
     private val homeViewModel: HomeViewModel by viewModels()
-
+    private val syncViewModel: SyncViewModel by viewModels()
+    private val prefs: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
+    }
     override fun constructViewBinding(): ViewBinding = FragmentHomeBinding.inflate(layoutInflater)
 
     override fun init(viewBinding: ViewBinding) {
@@ -57,23 +72,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun setConfiguration() {
-        val mViewModel = ViewModelProvider(this)[SyncViewModel::class.java]
-        val prefs = androidx.preference.PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
-        val isInitialSync = prefs.getBoolean("initialSync", false)
+        //val mViewModel = ViewModelProvider(this)[SyncViewModel::class.java]
+        val isInitialSync = prefs.getBoolean(PREF_INITIAL_SYNC, false)
         val isAccept = prefs.getBoolean(Constants.PREF_ACCEPT, false)
         val theme = prefs.getString("theme", "1")
         if (!isInitialSync && isAccept) {
-            mViewModel.initialSync()
-            mViewModel.initialSyncStatus.observe(
+            syncViewModel.initialSync(SyncRequest(true))
+            /*syncViewModel.initialSyncStatus.observe(
                 viewLifecycleOwner
             ) { data: Int ->
                 val isSuccess = data > 0
-                prefs.edit().putBoolean("initialSync", isSuccess).apply()
-            }
+                prefs.edit().putBoolean(PREF_INITIAL_SYNC, isSuccess).apply()
+            }*/
         }
         val dayNumber = Utils.getDay(Utils.getHoy()).toInt()
-        if (dayNumber >= 30) {
-            val lastYearCleaned = prefs.getInt("lastYear", 0)
+        if (dayNumber >= 30 || 1==1) {
+            val lastYearCleaned = prefs.getInt(PREF_LAST_YEAR_CLEANED, 0)
             val systemTime = System.currentTimeMillis()
             val sdfY = SimpleDateFormat("yyyy", Locale("es", "ES"))
             val theDate = Date(systemTime)
@@ -81,15 +95,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             if (lastYearCleaned == 0 || lastYearCleaned == currentYear - 1) {
                 val sdfMd = SimpleDateFormat("MMdd", Locale("es", "ES"))
                 val mmDD = sdfMd.format(theDate).toInt()
-                if (mmDD >= 1225) {
-                    mViewModel.cleanUp(currentYear - 1)
-                    mViewModel.yearClean.observe(
+                if (mmDD >= 1225 || 1==1) {
+                    syncViewModel.cleanUpYear(SyncRequest(false,currentYear - 1))
+                    fetchData()
+                    /*syncViewModel.yearClean.observe(
                         viewLifecycleOwner
                     ) { data: Int ->
                         if (data > 0) {
-                            prefs.edit().putInt("lastYear", currentYear).apply()
+                            prefs.edit().putInt(PREF_LAST_YEAR_CLEANED, currentYear).apply()
                         }
-                    }
+                    }*/
                 }
             }
         }
@@ -283,6 +298,48 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             setHasFixedSize(true)
             adapter = homeAdapter
         }
+    }
+
+    private fun fetchData() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                syncViewModel.uiState.collect { state ->
+                    when (state) {
+                        is SyncViewModel.SyncUiState.Loaded -> onLoaded(state.itemState)
+                        is SyncViewModel.SyncUiState.Error -> showError(state.message)
+                        else -> showLoading()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun onLoaded(syncItemUiState: SyncItemUiState) {
+        syncItemUiState.run {
+            //getViewBinding().progressBar.visibility = View.GONE
+            //mTextVieww.text = Utils.fromHtml(allData.dataForView.toString())//.dataForView
+            if (syncResponse.syncStatus.lastYearCleaned!=0) {
+                prefs.edit().putInt(PREF_LAST_YEAR_CLEANED, syncResponse.syncStatus.lastYearCleaned).apply()
+
+                //getViewBinding().include.btnEmail.visibility = View.VISIBLE
+                //getViewBinding().include.btnEmail.setIconResource(R.drawable.ic_refresh_black_24dp)
+                //getViewBinding().include.btnEmail.text = Constants.SYNC_LABEL
+                //getViewBinding().include.tvBottom.text =
+                //    allData.syncStatus.getNotWorkerMessage(isNightMode())
+            } else {
+                //getViewBinding().include.tvBottom.text = allData.syncStatus.getWorkerMessage()
+            }
+        }
+    }
+
+    private fun showLoading() {
+        //mTextVieww.text = Constants.PACIENCIA
+
+    }
+
+    private fun showError(stringRes: String) {
+        //mTextVieww.text = stringRes
+        Toast.makeText(requireContext(), stringRes, Toast.LENGTH_SHORT).show()
     }
 
 

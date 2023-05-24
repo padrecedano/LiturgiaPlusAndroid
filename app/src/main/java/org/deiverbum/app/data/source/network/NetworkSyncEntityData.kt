@@ -4,6 +4,7 @@ import android.text.SpannableStringBuilder
 import org.deiverbum.app.data.api.TodayApi
 import org.deiverbum.app.data.source.SyncEntityData
 import org.deiverbum.app.domain.model.*
+import org.deiverbum.app.model.SyncStatus
 import javax.inject.Inject
 
 /**
@@ -18,9 +19,8 @@ class NetworkSyncEntityData @Inject constructor(
 ) : SyncEntityData {
 
     override suspend fun getSync(syncRequest: SyncRequest): SyncResponse {
-        val todayAll=todayApi.getTodayAll("all")
-        val syncResponse= SyncResponse(SpannableStringBuilder(),todayAll)
-        return syncResponse
+        val todayAll = todayApi.getTodayAll("all")
+        return SyncResponse(SyncStatus(),todayAll)
     }
 
     /**
@@ -29,7 +29,7 @@ class NetworkSyncEntityData @Inject constructor(
      * <p>Se usa como alternativa, en caso de que falle la llamada a {@link SyncRepository#initialSync()}</p>
      */
     suspend fun initialSync(syncRequest: SyncRequest): SyncResponse {
-        val syncResponse = SyncResponse(SpannableStringBuilder(), emptyList())
+        val syncResponse = SyncResponse(SyncStatus())
 
         val todayAll=todayApi.getTodayAll("all")
         if(todayAll.isNotEmpty()) {

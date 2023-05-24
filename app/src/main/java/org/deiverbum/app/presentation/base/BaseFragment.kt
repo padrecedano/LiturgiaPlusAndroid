@@ -1,22 +1,17 @@
 package org.deiverbum.app.presentation.base
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.res.Configuration
-import android.graphics.Typeface
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.*
 import android.widget.ProgressBar
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import org.deiverbum.app.R
 import org.deiverbum.app.databinding.FragmentTodayBinding
 import org.deiverbum.app.domain.model.TodayRequest
-import org.deiverbum.app.presentation.today.TodayFragmentArgs
 import org.deiverbum.app.utils.Utils
 import org.deiverbum.app.utils.ZoomTextView
 import java.util.*
@@ -130,8 +125,6 @@ abstract class BaseFragment<T> : Fragment() {
             requireActivity().applicationContext.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         return nightModeFlags == Configuration.UI_MODE_NIGHT_YES
     }
-
-
 
 
     override fun onDestroyView() {

@@ -46,10 +46,13 @@ class FileFragment : BaseFileFragment<FragmentFileBinding>() {
     private fun setConfiguration() {
         val sp = PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
         val args: FileFragmentArgs by navArgs()
-        val filePath = args.rawPath
-        val fileRequest = FileRequest(filePath, 1, 6, isNightMode(), true, true)
+        val filePath = listOf(args.rawPath)
+        val fileRequest = FileRequest(filePath, 1, 6, isNightMode(),
+            isVoiceOn = true,
+            isBrevis = true
+        )
 
-        if (filePath == "raw/rosario.json") {
+        if (args.rawPath == "raw/rosario.json") {
             fileRequest.dayOfWeek = requireArguments().getInt("id")
             fileRequest.isBrevis = sp.getBoolean("brevis", true)
         }
@@ -81,8 +84,10 @@ class FileFragment : BaseFileFragment<FragmentFileBinding>() {
 
     private fun onLoaded(fileItemUiState: FileItemUiState) {
         fileItemUiState.run {
-            getViewBinding().progressBar.visibility = View.GONE
-            getViewBinding().include.tvZoomable.text = allData.text
+            allData.forEach {
+                getViewBinding().progressBar.visibility = View.GONE
+                getViewBinding().include.tvZoomable.text = it.text
+            }
         }
     }
 

@@ -10,7 +10,7 @@ import org.deiverbum.app.model.OracionSimple
 import org.deiverbum.app.model.Rosario
 import org.deiverbum.app.model.ViaCrucis
 import org.deiverbum.app.util.AssetProvider
-import org.deiverbum.app.utils.Constants.DATA_NOTFOUND
+import org.deiverbum.app.utils.Constants.*
 import javax.inject.Inject
 
 /**
@@ -22,35 +22,32 @@ import javax.inject.Inject
 class LocalFileEntityData @Inject constructor(
     private val assetProvider: AssetProvider
 ) : FileEntityData {
+    private val books = listOf(
+        FILE_ABOUT, FILE_AUTHOR, FILE_HELP,
+        FILE_NEW, FILE_PRIVACY, FILE_TERMS, FILE_THANKS
+    )
+    private val viacrucis = listOf(FILE_VIA_CRUCIS_2003, FILE_VIA_CRUCIS_2005)
+    private val pray = listOf(FILE_ANGELUS, FILE_REGINA, FILE_LITANIES)
 
-    override suspend fun getFile(fileRequest: FileRequest): FileResponse {
-        val fileResponse = assetProvider.getFile(fileRequest.fileName)
-        when (fileRequest.fileName) {
-            "raw/about_202201.json","raw/author_202201.json","raw/help_202201.json","raw/new_202301.json",
-            "raw/privacy_202301.json","raw/terms_202301.json","raw/thanks_202201.json"-> {
-                val data: Book = Gson().fromJson(fileResponse.text.toString(), Book::class.java)
-                fileResponse.text=data.getForView(false)
-                fileResponse.fileName=fileRequest.fileName
-                return fileResponse
-            }
-            "raw/viacrucis2003.json","raw/viacrucis2005.json" -> {
-                val data: ViaCrucis = Gson().fromJson(fileResponse.text.toString(), ViaCrucis::class.java)
-                fileResponse.text= data.getForView(fileRequest.isNightMode)
-                return fileResponse
-            }
-            "raw/rosario.json" -> {
-                val data: Rosario = Gson().fromJson(fileResponse.text.toString(), Rosario::class.java)
-                data.day=fileRequest.dayOfWeek
-                fileResponse.text= data.getForView(fileRequest.isBrevis,fileRequest.isNightMode)
-                return fileResponse
-            }
-            "raw/letanias.json","raw/angelus.json","raw/regina.json" -> {
-                val data: OracionSimple = Gson().fromJson(fileResponse.text.toString(), OracionSimple::class.java)
-                fileResponse.text= data.getForView(fileRequest.isNightMode)
-                return fileResponse
-            }
-            else -> {
-                fileResponse.text=SpannableStringBuilder(DATA_NOTFOUND)
+    override suspend fun getFile(fileRequest: FileRequest): MutableList<FileResponse> {
+        val fileResponse = assetProvider.getFiles(fileRequest.fileName)
+        fileResponse.forEach {
+            if (books.contains(it.fileName)) {
+                val data: Book = Gson().fromJson(it.text.toString(), Book::class.java)
+                it.text = data.getForView(false)
+            } else if (viacrucis.contains(it.fileName)) {
+                val data: ViaCrucis = Gson().fromJson(it.text.toString(), ViaCrucis::class.java)
+                it.text = data.getForView(fileRequest.isNightMode)
+            } else if (it.fileName == FILE_ROSARY) {
+                val data: Rosario = Gson().fromJson(it.text.toString(), Rosario::class.java)
+                data.day = fileRequest.dayOfWeek
+                it.text = data.getForView(fileRequest.isBrevis, fileRequest.isNightMode)
+            } else if (pray.contains(it.fileName)) {
+                val data: OracionSimple =
+                    Gson().fromJson(it.text.toString(), OracionSimple::class.java)
+                it.text = data.getForView(fileRequest.isNightMode)
+            } else {
+                it.text = SpannableStringBuilder(DATA_NOTFOUND)
             }
         }
         return fileResponse
