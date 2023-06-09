@@ -8,6 +8,7 @@ import org.deiverbum.app.domain.model.SyncRequest
 import org.deiverbum.app.domain.model.SyncResponse
 import org.deiverbum.app.model.SyncStatus
 import org.deiverbum.app.model.Today
+import org.deiverbum.app.util.Source
 import org.deiverbum.app.utils.Configuration
 import org.deiverbum.app.utils.Utils
 import javax.inject.Inject
@@ -37,9 +38,11 @@ class FirebaseSyncEntityData @Inject constructor() : SyncEntityData {
                 .limit(7).get()
                 .await().toObjects(Today::class.java)
                     as List<Today>
-            return SyncResponse(SyncStatus(),userList)
+            var syncStatus=SyncStatus()
+            syncStatus.source=Source.FIREBASE
+            return SyncResponse(syncStatus,userList)
         } catch (e: Exception) {
-            return SyncResponse(SyncStatus(e.message.toString()))
+            return SyncResponse(SyncStatus(e.message.toString(), 0))
         }
     }
 

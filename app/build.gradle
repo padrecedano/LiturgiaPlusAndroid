@@ -3,6 +3,10 @@
     id 'kotlin-kapt'
 
 }*/
+plugins {
+    id("org.jetbrains.dokka") version "1.8.20"
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 

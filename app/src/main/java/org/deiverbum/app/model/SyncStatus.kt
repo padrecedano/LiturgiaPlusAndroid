@@ -2,6 +2,7 @@ package org.deiverbum.app.model
 
 import android.text.Spanned
 import androidx.room.Ignore
+import org.deiverbum.app.util.Source
 import org.deiverbum.app.utils.ColorUtils
 import org.deiverbum.app.utils.Constants
 import org.deiverbum.app.utils.Utils
@@ -26,7 +27,7 @@ class SyncStatus {
     var lastYearCleaned = 0
 
     @Ignore
-    var source = 0 //0=red, 1=firebase
+    var  source: Source = Source.LOCAL //0=red, 1=firebase
 
     constructor()
 
@@ -39,9 +40,7 @@ class SyncStatus {
 
     }
 
-    public fun setSource(_source :Int){
-        this.source=_source
-    }
+
 
     fun getAll(isNightMode: Boolean): String {
         ColorUtils.isNightMode = isNightMode
@@ -51,16 +50,16 @@ class SyncStatus {
         val lastYear=if (lastYearCleaned==0)  "" else  String.format("Los datos del año <b>%s</b> fueron limpiados.",Utils.toRedFont(lastYearCleaned.toString()))
         return String.format(
             "%s" + "%s" +
-                    "Última fecha disponible en el calendario: " +
+                    "Última fecha en el calendario: " +
                     "<b>%s</b> (*)" +
-                    "%sÚltima sincronización realizada: %s" +
+                    "%sÚltima sincronización: %s" +
                     "<b>%s</b>" +
                     "%s"+
                     "%s%s<small>..............%s%s(*) El calendario se sincroniza periódicamente cuando tienes conexión a internet.</small>",
             title,
             Constants.BRS,
             Utils.toRedFont(tableName),
-            Constants.BRS, Constants.NBSP_4,
+            Constants.BRS, Constants.BR,
             Utils.toRedFont(lastUpdate),Constants.BRS,lastYear,
             Constants.BRS, Constants.BR, Constants.BR
         )
@@ -69,10 +68,9 @@ class SyncStatus {
     fun getNotWorkerMessage(isNightMode: Boolean): Spanned? {
         ColorUtils.isNightMode = isNightMode
         return Utils.fromHtml(String.format(
-            "<p><b>%s</b></p>Es posible que la sincronización no esté activada. " +
-                    "Sin esta opción no podrás recibir las fechas futuras del calendario ni la corrección de eventuales errores.%sPulsa en el botón <b>Sincronizar</b> para activarla.",
-            Utils.toRedFont("AVISO"),
-            Constants.BRS
+            "<p><b>%s</b></p>La sincronización no está activada. " +
+                    "Pulsa en el botón <b>Sincronizar</b> para activarla.",
+            Utils.toRedFont("AVISO")
         ))
     }
 

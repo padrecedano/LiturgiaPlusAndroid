@@ -1,5 +1,6 @@
 package org.deiverbum.app.model.crud
 
+import android.util.Log
 import org.deiverbum.app.data.database.dao.TodayDao
 
 /**
@@ -616,7 +617,7 @@ class Crud {
                 }
             }
         } catch (e: Exception) {
-            //Log.d("Crud", e.message!!)
+            Log.d("Crud", e.message!!)
         }
     }
 }
