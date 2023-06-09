@@ -3,8 +3,10 @@ package org.deiverbum.app.data.source.network
 import android.text.SpannableStringBuilder
 import org.deiverbum.app.data.api.TodayApi
 import org.deiverbum.app.data.source.SyncEntityData
-import org.deiverbum.app.domain.model.*
+import org.deiverbum.app.domain.model.SyncRequest
+import org.deiverbum.app.domain.model.SyncResponse
 import org.deiverbum.app.model.SyncStatus
+import org.deiverbum.app.util.Source
 import javax.inject.Inject
 
 /**
@@ -19,8 +21,11 @@ class NetworkSyncEntityData @Inject constructor(
 ) : SyncEntityData {
 
     override suspend fun getSync(syncRequest: SyncRequest): SyncResponse {
-        val todayAll = todayApi.getTodayAll("all")
-        return SyncResponse(SyncStatus(),todayAll)
+        var todayAll = todayApi.getTodayAll("all")
+        var syncStatus = SyncStatus()
+        syncStatus.source=Source.NETWORK
+        var syncResponse = SyncResponse(syncStatus,todayAll);
+        return syncResponse//SyncResponse(SyncStatus(),todayAll)
     }
 
     /**

@@ -9,12 +9,16 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import org.deiverbum.app.R
 import org.deiverbum.app.databinding.FragmentTodayBinding
 import org.deiverbum.app.domain.model.TodayRequest
+import org.deiverbum.app.utils.Constants
 import org.deiverbum.app.utils.Utils
 import org.deiverbum.app.utils.ZoomTextView
 import java.util.*
+import java.util.concurrent.ExecutionException
 
 /**
  * <p>Fragmento base para el módulo Today.</p>
@@ -134,4 +138,26 @@ abstract class BaseFragment<T> : Fragment() {
 
     abstract fun constructViewBinding(): ViewBinding
     abstract fun init(viewBinding: ViewBinding)
+
+    protected val isWorkScheduled: Boolean
+        get() {
+            val instance =
+                WorkManager.getInstance(requireActivity().applicationContext)
+            val statuses = instance.getWorkInfosByTag(Constants.SYNC_TAG)
+            return try {
+                var running = false
+                val workInfoList = statuses.get()
+                for (workInfo in workInfoList) {
+                    val state = workInfo.state
+                    running =
+                        (state == WorkInfo.State.RUNNING) or (state == WorkInfo.State.ENQUEUED)
+                }
+                running
+            } catch (e: ExecutionException) {
+                false
+            } catch (e: InterruptedException) {
+                false
+            }
+        }
+
 }

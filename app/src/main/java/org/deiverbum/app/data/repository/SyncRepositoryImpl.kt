@@ -92,6 +92,23 @@ class SyncRepositoryImpl @Inject constructor(
      *
      */
     override suspend fun getSync(syncRequest: SyncRequest): SyncResponse {
+        var syncResponse : SyncResponse
+        if(!syncRequest.hasInitial){
+            syncResponse=syncFactory.create(Source.NETWORK).getSync(syncRequest)
+            if(syncResponse.allToday.isNotEmpty()){
+                syncFactory.create(Source.LOCAL).addSync(syncResponse)
+            } else {
+                syncResponse=syncFactory.create(Source.FIREBASE).getSync(syncRequest)
+                syncFactory.create(Source.LOCAL).addSync(syncResponse)
+
+            }
+            return syncResponse
+        }
+        if(!syncRequest.isWorkScheduled && syncRequest.hasInitial){
+            launchSyncWorker()
+        }
+        //syncResponse=syncFactory.create(Source.LOCAL).getSync(syncRequest)
+
         return syncFactory.create(Source.LOCAL).getSync(syncRequest)
 /*
         return if (syncRequest.yearToClean!=0) {

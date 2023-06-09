@@ -77,7 +77,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         val isAccept = prefs.getBoolean(Constants.PREF_ACCEPT, false)
         val theme = prefs.getString("theme", "1")
         if (!isInitialSync && isAccept) {
-            syncViewModel.initialSync(SyncRequest(true))
+            syncViewModel.launchSync(SyncRequest(true, isWorkScheduled = isWorkScheduled))
             /*syncViewModel.initialSyncStatus.observe(
                 viewLifecycleOwner
             ) { data: Int ->
@@ -95,8 +95,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             if (lastYearCleaned == 0 || lastYearCleaned == currentYear - 1) {
                 val sdfMd = SimpleDateFormat("MMdd", Locale("es", "ES"))
                 val mmDD = sdfMd.format(theDate).toInt()
-                if (mmDD >= 1225 || 1==1) {
-                    syncViewModel.cleanUpYear(SyncRequest(false,currentYear - 1))
+                if (mmDD >= 1225 || 1==10) {
+                    syncViewModel.cleanUpYear(SyncRequest(false,currentYear - 1, isWorkScheduled=isWorkScheduled))
                     fetchData()
                     /*syncViewModel.yearClean.observe(
                         viewLifecycleOwner

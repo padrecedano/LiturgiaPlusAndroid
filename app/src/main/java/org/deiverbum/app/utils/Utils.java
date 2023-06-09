@@ -29,6 +29,7 @@ import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
@@ -517,6 +518,20 @@ public final class Utils {
     public static String getHoy() {
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         return format.format(new Date());
+    }
+
+    /**
+     * Método que devuelve la fecha y hora actual en formato yyyy-MM-dd HH:mm:ss
+     *
+     * @return Una cadena con la fecha
+     */
+
+    public static String getCurrentTimeStamp() {
+
+        LocalDateTime myObj = LocalDateTime.now();
+        DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return myObj.format(myFormat);
+
     }
 
     /**

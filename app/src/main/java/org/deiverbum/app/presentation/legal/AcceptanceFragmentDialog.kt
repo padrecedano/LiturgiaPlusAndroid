@@ -29,25 +29,26 @@ import org.deiverbum.app.presentation.file.FileItemUiState
 import org.deiverbum.app.presentation.file.FileViewModel
 import org.deiverbum.app.presentation.sync.SyncItemUiState
 import org.deiverbum.app.presentation.sync.SyncViewModel
+import org.deiverbum.app.util.Source
 import org.deiverbum.app.utils.ColorUtils
 import org.deiverbum.app.utils.Constants.*
 import org.deiverbum.app.utils.Utils
-import timber.log.Timber
 
 /**
  *
- * <p>
- *     Fragmento que muestra el diálogo inicial para la Aceptación
- *     de la Política de Privacidad y los Términos y Condiciones de Uso.
- * </p>
- * <p>
- *     1. Cuando el usuario pulse en el botón Aceptar la entrada `accept_terms`
- *     se Shared Preferences se establecerá a `true`. <br />
- *     2. Se verificará si no hay una sincronización inicial, en cuyo caso llamará a
- *     [SyncViewModel.initialSync()] para obtener dicha sincronización. <br />
- *     3. Desde [SyncViewModel] quedará iniciado [TodayWorker], quien se ocupará
- *     de futuras sincornizaciones.
- * </p>
+ * Fragmento que muestra el diálogo inicial para la Aceptación de la Política de Privacidad y los Términos y Condiciones de Uso.
+ *
+ * Para mostrar el texto tanto de la Política de Privacidad como de los Términos y Condiciones el fragmento envía una [FileRequest] a [FileViewModel] pidiendo el contenido de los archivos respectivos. Y muestra también el botón de aceptación.
+ *
+ * Desde el evento de escucha del botón se lanza la sincronización, siguiendo los criterios siguientes:
+ *
+ * 1. Cuando el usuario pulse en el botón `Aceptar` se verificará el valor de la entrada [PREF_ACCEPT] de Shared Preferences. Si es `false` se lanzará una sincronización llamando a [SyncViewModel.launchSync].
+ *
+ * 2. Luego se observará el estado de la sincronización llamando a [fetchDataSync] y posteriormente a [onLoadedSync]. Si el valor del objeto [SyncResponse] devuelto viene de un [Source.NETWORK] y tiene datos,
+ * el valor de la preferencia [PREF_INITIAL_SYNC] se establecerá a `true`. Si por algún error la sincronización inicial no se realiza, el valor de la preferencia [PREF_INITIAL_SYNC] permanecerá en `false` y desde el repositorio
+ * se intentará obtener provisionalmente las fechas de los próximos días desde la [Source.FIREBASE].
+
+ * 3. Desde el repositorio que llama [SyncViewModel] quedará iniciado [TodayWorker], quien se ocupará de futuras sincornizaciones.
  *
  * @author A. Cedano
  * @version 2.0
@@ -63,6 +64,7 @@ class AcceptanceFragmentDialog : DialogFragment() {
         PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
     }
     private var _binding: FragmentAcceptanceBinding? = null
+    private var hasInitialSync:Boolean=false
     private val binding get() = _binding!!
 
     override fun onStart() {
@@ -105,6 +107,7 @@ class AcceptanceFragmentDialog : DialogFragment() {
         return root
     }
 
+    @Suppress("KotlinConstantConditions")
     private fun prepareView() {
         ColorUtils.isNightMode = isNightMode
         //val sharedPref = PreferenceManager.getDefaultSharedPreferences(context)
@@ -134,7 +137,7 @@ class AcceptanceFragmentDialog : DialogFragment() {
 
         val fileRequest = FileRequest(listOf(FILE_TERMS,FILE_PRIVACY), 1, 6, isNightMode, isVoiceOn = false, false)
         mViewModel.loadData(fileRequest)
-        fetchData()
+        fetchFileData()
 
         val sb = SpannableStringBuilder()
         sb.append(Utils.toH2Red(requireActivity().resources.getString(R.string.title_acceptance)))
@@ -146,23 +149,25 @@ class AcceptanceFragmentDialog : DialogFragment() {
         binding.btnEmail.setOnClickListener {
             val editor = prefs.edit()
             editor.putBoolean(PREF_ACCEPT, true).apply()
-            val isInitialSync = prefs.getBoolean(PREF_INITIAL_SYNC, false)
-            if (!isInitialSync) {
-                val syncRequest = SyncRequest(true)
+            hasInitialSync = prefs.getBoolean(PREF_INITIAL_SYNC, false)
+            if (!hasInitialSync) {
+                val syncRequest = SyncRequest(hasInitialSync,0,false)
                 lifecycleScope.launch(Dispatchers.IO) {
-                    syncViewModel.initialSync(syncRequest)
+                    syncViewModel.launchSync(syncRequest)
                     fetchDataSync()
                 }
+            }else{
+                dismiss()
             }
         }
     }
 
-    private fun fetchData() {
+    private fun fetchFileData() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mViewModel.uiState.collect { state ->
                     when (state) {
-                        is FileViewModel.FileUiState.Loaded -> onLoaded(state.itemState)
+                        is FileViewModel.FileUiState.Loaded -> onFileLoaded(state.itemState)
                         is FileViewModel.FileUiState.Error -> showError(state.message)
                         else -> showLoading()
                     }
@@ -172,7 +177,7 @@ class AcceptanceFragmentDialog : DialogFragment() {
     }
 
 
-    private fun onLoaded(fileItemUiState: FileItemUiState) {
+    private fun onFileLoaded(fileItemUiState: FileItemUiState) {
         fileItemUiState.run {
             allData.forEach{
                 if(it.fileName==FILE_TERMS){
@@ -202,10 +207,10 @@ class AcceptanceFragmentDialog : DialogFragment() {
 
     private fun onLoadedSync(syncItemUiState: SyncItemUiState) {
         syncItemUiState.run {
-            if(syncResponse.syncStatus.status==1){
+            val syncResponse=syncItemUiState.syncResponse
+            if(syncResponse.syncStatus.source==Source.NETWORK && syncResponse.allToday.isNotEmpty()){
                 prefs.edit().putBoolean(PREF_INITIAL_SYNC, true).apply()
             }
-            //Timber.d(syncItemUiState.allData.dataForView.toString())
             dismiss()
         }
     }

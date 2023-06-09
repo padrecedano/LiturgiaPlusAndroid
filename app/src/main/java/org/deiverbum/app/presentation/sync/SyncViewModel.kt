@@ -12,7 +12,7 @@ import org.deiverbum.app.domain.usecase.GetSyncUseCase
 import javax.inject.Inject
 
 /**
- * <p>ViewModel para la sincronización.</p>
+ * ViewModel para la sincronización.
  *
  * @author A. Cedano
  * @version 2.0
@@ -27,7 +27,12 @@ class SyncViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<SyncUiState>(SyncUiState.Empty)
     val uiState: StateFlow<SyncUiState> = _uiState
 
-    fun initialSync(syncRequest: SyncRequest) {
+    /**
+     * Este método se ocupa de lanzar la sincronización.
+     *
+     * @param syncRequest Es un objeto [SyncRequest] con toda la información de la sincronización que se está solicitando.
+     */
+    fun launchSync(syncRequest: SyncRequest) {
         _uiState.value = SyncUiState.Loading
         viewModelScope.launch(coroutineDispatcherProvider.IO()) {
             try {
