@@ -5,7 +5,7 @@ import androidx.room.ForeignKey.Companion.CASCADE
 import com.google.gson.annotations.SerializedName
 import org.deiverbum.app.model.Biblical
 import org.deiverbum.app.model.MassReading
-import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.util.Constants
 
 /**
  * @author A. Cedano

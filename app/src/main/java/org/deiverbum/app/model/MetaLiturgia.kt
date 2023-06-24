@@ -1,6 +1,6 @@
 package org.deiverbum.app.model
 
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Utils
 @Suppress("unused")
 class MetaLiturgia {
     private var fecha: String? = null

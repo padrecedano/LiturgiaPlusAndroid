@@ -3,8 +3,8 @@ package org.deiverbum.app.model
 import android.text.SpannableStringBuilder
 import androidx.room.Ignore
 import com.google.firebase.firestore.PropertyName
-import org.deiverbum.app.utils.Numerals
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Numerals
+import org.deiverbum.app.util.Utils
 import java.util.*
 
 open class Liturgy {

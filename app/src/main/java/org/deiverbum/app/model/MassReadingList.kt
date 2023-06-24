@@ -2,16 +2,18 @@ package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
 import org.deiverbum.app.domain.model.TodayRequest
-import org.deiverbum.app.utils.ColorUtils
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.ColorUtils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 
 class MassReadingList : Liturgy() {
     @JvmField
     var type = 0
     var lecturas: List<MassReading?>? = null
     private val titulo: SpannableStringBuilder
-        get() = Utils.toH3Red(Utils.toUpper(Constants.TITLE_MASS_READING))
+        get() = Utils.toH3Red(
+            Utils.toUpper(
+                Constants.TITLE_MASS_READING))
     override val tituloForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_MASS_READING)
     val allForView: SpannableStringBuilder

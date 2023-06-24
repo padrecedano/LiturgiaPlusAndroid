@@ -37,7 +37,7 @@ class LHPsalmodyAll {
                 salmosList.add(s)
             }
             theModel.setSalmos(salmosList)
-            theModel.sort()
+            //theModel.sort()
             return theModel
         }
 }

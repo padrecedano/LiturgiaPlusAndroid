@@ -1,9 +1,10 @@
 package org.deiverbum.app.model.crud
 
-import android.util.Log
 import org.deiverbum.app.data.database.dao.TodayDao
 
 /**
+ * Clase para manejar las operaciones de creación, lectura, actualización y borrado de datos.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -54,6 +55,9 @@ class Crud {
     var lastUpdate: String? = null
     @JvmField
     var haveData = false
+    /**
+     * Este método maneja todas las respuestas Crud, sin importar de qué objeto sean.
+     */
     fun doCrud(mTodayDao: TodayDao) {
         try {
             if (crudLiturgy != null) {
@@ -617,7 +621,7 @@ class Crud {
                 }
             }
         } catch (e: Exception) {
-            Log.d("Crud", e.message!!)
+            //Log.d("Crud", e.message!!)
         }
     }
 }

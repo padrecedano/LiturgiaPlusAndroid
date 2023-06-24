@@ -1,10 +1,10 @@
 package org.deiverbum.app.ui.fragments;
 
-import static org.deiverbum.app.utils.Constants.DIALOG_LEGAL_BODY;
-import static org.deiverbum.app.utils.Constants.DIALOG_LEGAL_CANCEL;
-import static org.deiverbum.app.utils.Constants.DIALOG_LEGAL_OK;
-import static org.deiverbum.app.utils.Constants.DIALOG_LEGAL_TITLE;
-import static org.deiverbum.app.utils.Constants.PREF_ACCEPT;
+import static org.deiverbum.app.util.Constants.DIALOG_LEGAL_BODY;
+import static org.deiverbum.app.util.Constants.DIALOG_LEGAL_CANCEL;
+import static org.deiverbum.app.util.Constants.DIALOG_LEGAL_OK;
+import static org.deiverbum.app.util.Constants.DIALOG_LEGAL_TITLE;
+import static org.deiverbum.app.util.Constants.PREF_ACCEPT;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

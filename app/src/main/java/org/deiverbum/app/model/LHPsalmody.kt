@@ -3,8 +3,8 @@ package org.deiverbum.app.model
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import androidx.room.Ignore
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 
 class LHPsalmody {
     var groupFK: Int? = null
@@ -20,10 +20,9 @@ class LHPsalmody {
 
     //@ColumnInfo(name = "salmos")
     @Ignore
-    private var salmos: List<LHPsalm>? = null
+    private var salmos: MutableList<LHPsalm> = mutableListOf()
     fun sort() {
-        salmos?.sortedBy { it.theOrder }
-        //Collections.sort(salmos!!)
+        salmos.sortBy { it.theOrder }
     }
 
     private val salmosForRead: SpannableStringBuilder
@@ -33,7 +32,7 @@ class LHPsalmody {
         return getSalmos(-1)
     }
 
-    fun setSalmos(salmos: List<LHPsalm>?) {
+    fun setSalmos(salmos: MutableList<LHPsalm>) {
         this.salmos = salmos
     }
 

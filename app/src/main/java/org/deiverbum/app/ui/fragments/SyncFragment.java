@@ -1,8 +1,8 @@
 package org.deiverbum.app.ui.fragments;
 
-import static org.deiverbum.app.utils.Constants.PACIENCIA;
-import static org.deiverbum.app.utils.Constants.SYNC_LABEL;
-import static org.deiverbum.app.utils.Constants.SYNC_TAG;
+import static org.deiverbum.app.util.Constants.PACIENCIA;
+import static org.deiverbum.app.util.Constants.SYNC_LABEL;
+import static org.deiverbum.app.util.Constants.SYNC_TAG;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -27,9 +27,8 @@ import com.google.common.util.concurrent.ListenableFuture;
 
 import org.deiverbum.app.R;
 import org.deiverbum.app.databinding.FragmentSyncBinding;
-import org.deiverbum.app.model.SyncStatus;
-import org.deiverbum.app.utils.Utils;
-import org.deiverbum.app.utils.ZoomTextView;
+import org.deiverbum.app.util.Utils;
+import org.deiverbum.app.util.ZoomTextView;
 import org.deiverbum.app.viewmodel.SyncViewModel;
 
 import java.util.List;

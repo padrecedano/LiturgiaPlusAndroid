@@ -1,6 +1,6 @@
 package org.deiverbum.app.repository;
 
-import static org.deiverbum.app.utils.Constants.SYNC_INTERVAL_DAYS;
+import static org.deiverbum.app.util.Constants.SYNC_INTERVAL_DAYS;
 
 import android.content.Context;
 

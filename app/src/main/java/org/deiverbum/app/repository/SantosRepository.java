@@ -1,6 +1,6 @@
 package org.deiverbum.app.repository;
 
-import static org.deiverbum.app.utils.Constants.ERR_REPORT;
+import static org.deiverbum.app.util.Constants.ERR_REPORT;
 
 import androidx.lifecycle.MediatorLiveData;
 

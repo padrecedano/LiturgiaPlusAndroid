@@ -1,7 +1,7 @@
 package org.deiverbum.app.ui.fragments;
 
-import static org.deiverbum.app.utils.Constants.ERR_SUBJECT;
-import static org.deiverbum.app.utils.Constants.VERSION_CODE;
+import static org.deiverbum.app.util.Constants.ERR_SUBJECT;
+import static org.deiverbum.app.util.Constants.VERSION_CODE;
 
 
 import android.content.Intent;
@@ -24,7 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import org.deiverbum.app.databinding.FragmentBugreportBinding;
-import org.deiverbum.app.utils.Configuration;
+import org.deiverbum.app.util.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;

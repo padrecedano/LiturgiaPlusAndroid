@@ -1,8 +1,10 @@
 package org.deiverbum.app.data.entity
 
 import androidx.room.*
+import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.ForeignKey.Companion.RESTRICT
-import org.deiverbum.app.utils.Constants
+import androidx.room.ForeignKey.Companion.SET_DEFAULT
+import org.deiverbum.app.util.Constants
 
 /**
  * @author A. Cedano
@@ -12,220 +14,227 @@ import org.deiverbum.app.utils.Constants
 @Entity(
     tableName = Constants.TODAY_TABLE,
     indices = [Index(
-        value = ["todayDate", "timeID", "liturgyFK", "previousFK", "massReadingFK", "invitatoryFK", "saintFK", "oHymnFK", "oPsalmodyFK", "oVerseFK", "oBiblicalFK", "oPatristicFK", "oPrayerFK", "oTeDeum", "lHymnFK", "lPsalmodyFK", "lBiblicalFK", "lBenedictusFK", "lIntercessionsFK", "lPrayerFK", "tHymnFK", "tPsalmodyFK", "tBiblicalFK", "tPrayerFK", "sHymnFK", "sPsalmodyFK", "sBiblicalFK", "sPrayerFK", "nHymnFK", "nPsalmodyFK", "nBiblicalFK", "nPrayerFK", "vHymnFK", "vPsalmodyFK", "vBiblicalFK", "vMagnificatFK", "vIntercessionsFK", "vPrayerFK"],
+        value = ["todayDate", "timeID", "liturgyFK", "previousFK", "massReadingFK", "invitatoryFK", "saintFK", "oHymnFK", "oPsalmodyFK", "oVerseFK", "oBiblicalFK", "oPatristicFK", "oPrayerFK", "oTeDeum", "lHymnFK", "lPsalmodyFK", "lBiblicalFK", "lBenedictusFK", "lIntercessionsFK", "lPrayerFK", "tHymnFK", "tPsalmodyFK", "tBiblicalFK", "tPrayerFK", "sHymnFK", "sPsalmodyFK", "sBiblicalFK", "sPrayerFK", "nHymnFK", "nPsalmodyFK", "nBiblicalFK", "nPrayerFK", "vHymnFK", "vPsalmodyFK", "vBiblicalFK", "vMagnificatFK", "vIntercessionsFK", "vPrayerFK", "nightPrayerFK"],
         unique = true
     )],
     foreignKeys = [ForeignKey(
         entity = LiturgyEntity::class,
         parentColumns = arrayOf("liturgyID"),
         childColumns = arrayOf("liturgyFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LiturgyEntity::class,
         parentColumns = arrayOf("liturgyID"),
         childColumns = arrayOf("previousFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = MassReadingJoinEntity::class,
         parentColumns = arrayOf("liturgyFK"),
         childColumns = arrayOf("massReadingFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHInvitatoryJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("invitatoryFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHHymnJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("oHymnFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHPsalmodyJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("oPsalmodyFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHOfficeVerseJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("oVerseFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHOfficeBiblicalJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("oBiblicalFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHOfficePatristicJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("oPatristicFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = SaintEntity::class,
         parentColumns = arrayOf("saintID"),
         childColumns = arrayOf("saintFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHPrayerEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("oPrayerFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHHymnJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("lHymnFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHPsalmodyJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("lPsalmodyFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHGospelCanticleEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("lBenedictusFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHReadingShortJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("lBiblicalFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHIntercessionsJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("lIntercessionsFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHPrayerEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("lPrayerFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHHymnJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("tHymnFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHPsalmodyJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("tPsalmodyFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHReadingShortJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("tBiblicalFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHPrayerEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("tPrayerFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHHymnJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("sHymnFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHPsalmodyJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("sPsalmodyFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHReadingShortJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("sBiblicalFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHPrayerEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("sPrayerFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHHymnJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("nHymnFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHPsalmodyJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("nPsalmodyFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHReadingShortJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("nBiblicalFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHPrayerEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("nPrayerFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHHymnJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("vHymnFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHPsalmodyJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("vPsalmodyFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHGospelCanticleEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("vMagnificatFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHReadingShortJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("vBiblicalFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHIntercessionsJoinEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("vIntercessionsFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     ), ForeignKey(
         entity = LHPrayerEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("vPrayerFK"),
-        onDelete = RESTRICT,
-        onUpdate = RESTRICT
-    )]
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    ), ForeignKey(
+        entity = NightPrayerEntity::class,
+        parentColumns = arrayOf("groupID"),
+        childColumns = arrayOf("nightPrayerFK"),
+        onDelete = CASCADE,
+        onUpdate = CASCADE
+    )
+    ]
 )
 class TodayEntity {
     @JvmField
@@ -234,7 +243,7 @@ class TodayEntity {
     var hoy = 0
 
     @JvmField
-    @ColumnInfo(name = "timeID", defaultValue = "1", index = true)
+    @ColumnInfo(name = "timeID", index = true)
     var tiempoId = 1
 
     @JvmField
@@ -242,11 +251,11 @@ class TodayEntity {
     var weekDay = 1
 
     @JvmField
-    @ColumnInfo(name = "liturgyFK", defaultValue = "1", index = true)
+    @ColumnInfo(name = "liturgyFK", index = true)
     var liturgyFK = 1
 
     @JvmField
-    @ColumnInfo(name = "previousFK", defaultValue = "1", index = true)
+    @ColumnInfo(name = "previousFK", index = true)
     var previoId = 1
 
     @JvmField
@@ -286,7 +295,7 @@ class TodayEntity {
     var oPatristicaFK = 0
 
     @JvmField
-    @ColumnInfo(name = "oTeDeum", defaultValue = "0")
+    @ColumnInfo(name = "oTeDeum", index = true)
     var oTeDeum = 0
 
     @JvmField
@@ -388,6 +397,11 @@ class TodayEntity {
     @JvmField
     @ColumnInfo(name = "vPrayerFK", index = true)
     var vOracionFK = 0
-    val teDeum: Boolean
-        get() = oTeDeum == 1
+
+    @JvmField
+    @ColumnInfo(name = "nightPrayerFK", defaultValue = "71", index = true)
+    var nightPrayerFK = 0
+
+    /*val teDeum: Boolean
+        get() = oTeDeum == 1*/
 }

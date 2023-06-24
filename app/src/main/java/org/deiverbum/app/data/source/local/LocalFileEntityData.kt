@@ -5,12 +5,9 @@ import com.google.gson.Gson
 import org.deiverbum.app.data.model.FileResponse
 import org.deiverbum.app.data.source.FileEntityData
 import org.deiverbum.app.domain.model.FileRequest
-import org.deiverbum.app.model.Book
-import org.deiverbum.app.model.OracionSimple
-import org.deiverbum.app.model.Rosario
-import org.deiverbum.app.model.ViaCrucis
+import org.deiverbum.app.model.*
 import org.deiverbum.app.util.AssetProvider
-import org.deiverbum.app.utils.Constants.*
+import org.deiverbum.app.util.Constants.*
 import javax.inject.Inject
 
 /**
@@ -38,6 +35,12 @@ class LocalFileEntityData @Inject constructor(
             } else if (viacrucis.contains(it.fileName)) {
                 val data: ViaCrucis = Gson().fromJson(it.text.toString(), ViaCrucis::class.java)
                 it.text = data.getForView(fileRequest.isNightMode)
+            } else if (it.fileName == "raw/completas.json") {
+                val hora: Completas = Gson().fromJson(it.text.toString(), Completas::class.java)
+                hora.setTypeId(7);
+                //hora.setToday(fileRequest.);
+
+                it.text = hora.getAllForView()
             } else if (it.fileName == FILE_ROSARY) {
                 val data: Rosario = Gson().fromJson(it.text.toString(), Rosario::class.java)
                 data.day = fileRequest.dayOfWeek

@@ -23,13 +23,16 @@
 # -printseeds seeds.txt
 
 #-keep public interface org.deiverbum.app.data.db.dao.TodayDao
--keep class org.deiverbum.app.data.** { *; }
 -keep class org.deiverbum.app.core.** { *; }
+-keep class org.deiverbum.app.data.** { *; }
+-keep class org.deiverbum.app.di.** { *; }
+-keep class org.deiverbum.app.domain.** { *; }
+
 -keep class org.deiverbum.app.model.** { *; }
--keep class org.deiverbum.app.repository.** { *; }
--keep class org.deiverbum.app.ui.** { *; }
--keep class org.deiverbum.app.utils.** { *; }
--keep class org.deiverbum.app.viewmodel.** { *; }
+-keep class org.deiverbum.app.presentation.** { *; }
+#-keep class org.deiverbum.app.ui.** { *; }
+-keep class org.deiverbum.app.util.** { *; }
+#-keep class org.deiverbum.app.viewmodel.** { *; }
 -keep class org.deiverbum.app.workers.** { *; }
 -keep class org.deiverbum.app.BaseApplication
 

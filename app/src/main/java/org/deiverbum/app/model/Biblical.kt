@@ -3,7 +3,7 @@ package org.deiverbum.app.model
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import androidx.room.Ignore
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Utils
 import java.util.*
 
 open class Biblical {

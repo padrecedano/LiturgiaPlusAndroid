@@ -44,6 +44,7 @@ class SyncViewModel @Inject constructor(
         }
     }
 
+
     fun cleanUpYear(syncRequest: SyncRequest) {
         _uiState.value = SyncUiState.Loading
         viewModelScope.launch(coroutineDispatcherProvider.IO()) {

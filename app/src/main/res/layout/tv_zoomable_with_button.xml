@@ -24,7 +24,7 @@
                 android:layout_margin="10dp"
                 android:orientation="vertical">
 
-                <org.deiverbum.app.utils.ZoomTextView
+                <org.deiverbum.app.util.ZoomTextView
                     android:id="@+id/tv_Zoomable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
                     android:paddingTop="0dp"
                     android:paddingBottom="50dp" />
 
-                <org.deiverbum.app.utils.ZoomTextView
+                <org.deiverbum.app.util.ZoomTextView
                     android:id="@+id/tv_bottom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -21,4 +21,7 @@ abstract class TodayModule {
     @Binds
     abstract fun syncRepository(syncRepositoryImpl: SyncRepositoryImpl):
             SyncRepository
+
+
+
 }

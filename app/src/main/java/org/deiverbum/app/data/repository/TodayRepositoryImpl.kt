@@ -6,6 +6,7 @@ import org.deiverbum.app.domain.model.TodayResponse
 import org.deiverbum.app.domain.repository.TodayRepository
 import org.deiverbum.app.util.Source
 import javax.inject.Inject
+
 /**
  *
  * Implementación del Repositorio para el módulo Today.
@@ -19,18 +20,27 @@ class TodayRepositoryImpl @Inject constructor(
 ) : TodayRepository {
 
     override suspend fun getToday(todayRequest: TodayRequest): TodayResponse {
-        val todayResponse=todayFactory.create(Source.NETWORK).getToday(todayRequest)
-        return if(todayResponse.dataForView.isEmpty()){
-            syncToday(todayRequest)
-        }else{
+        val todayResponse = todayFactory.create(Source.LOCAL).getToday(todayRequest)
+        return if (todayResponse.success) {
             todayResponse
-        }
-    }
+        } else
+            todayFactory.create(Source.NETWORK)
+                .getToday(todayRequest)//syncToday(todayRequest)
 
-    private suspend fun syncToday(todayRequest: TodayRequest): TodayResponse {
-        return todayFactory.create(Source.NETWORK).getToday(todayRequest)
-            .also { todayFromNetwork ->
-                todayFactory.create(Source.LOCAL).addToday(todayFromNetwork)
-            }
     }
+    //return todayResponse
+
+
+
+private suspend fun syncTodayy(todayRequest: TodayRequest): TodayResponse {
+    return todayFactory.create(Source.NETWORK).getToday(todayRequest)
+        .also { todayFromNetwork ->
+            todayFactory.create(Source.LOCAL).addToday(todayFromNetwork)
+        }
+}
+
+private suspend fun syncToday(todayRequest: TodayRequest): TodayResponse {
+    val todayResponse = todayFactory.create(Source.NETWORK).getToday(todayRequest)
+    return todayResponse
+}
 }

@@ -3,10 +3,10 @@ package org.deiverbum.app.model
 import android.text.SpannableStringBuilder
 import androidx.room.Ignore
 import org.deiverbum.app.domain.model.TodayRequest
-import org.deiverbum.app.utils.ColorUtils
-import org.deiverbum.app.utils.Utils
-import org.deiverbum.app.utils.Utils.LS2
-import org.deiverbum.app.utils.Utils.normalizeEnd
+import org.deiverbum.app.util.ColorUtils
+import org.deiverbum.app.util.Utils
+import org.deiverbum.app.util.Utils.LS2
+import org.deiverbum.app.util.Utils.normalizeEnd
 
 class Homily {
     var homilyID: Int? = null

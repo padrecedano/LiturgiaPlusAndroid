@@ -1,8 +1,8 @@
 package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 import java.util.*
 
 open class LHResponsoryShort {
@@ -160,7 +160,9 @@ open class LHResponsoryShort {
                 sb.append(Utils.fromHtml(s.toString()))
             }
             else -> {
-                sb.append(Utils.fromHtml(Constants.ERR_RESPONSORIO))
+                sb.append(
+                    Utils.fromHtml(
+                        Constants.ERR_RESPONSORIO))
                 sb.append(Utils.LS)
                 sb.append("Tamaño del responsorio: ")
                 sb.append(respArray.size.toString())

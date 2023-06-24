@@ -2,14 +2,11 @@ package org.deiverbum.app.presentation.home
 
 import android.content.SharedPreferences
 import android.graphics.Color
-import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.preference.PreferenceManager
@@ -19,31 +16,27 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.deiverbum.app.R
 import org.deiverbum.app.databinding.FragmentHomeBinding
-import org.deiverbum.app.domain.model.SyncRequest
 import org.deiverbum.app.presentation.base.BaseFragment
 import org.deiverbum.app.presentation.home.adapter.HomeAdapter
 import org.deiverbum.app.presentation.home.adapter.HomeItem
 import org.deiverbum.app.presentation.sync.SyncItemUiState
 import org.deiverbum.app.presentation.sync.SyncViewModel
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Constants.PREF_INITIAL_SYNC
-import org.deiverbum.app.utils.Constants.PREF_LAST_YEAR_CLEANED
-import org.deiverbum.app.utils.Utils
-import java.text.SimpleDateFormat
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Constants.PREF_INITIAL_SYNC
+import org.deiverbum.app.util.Constants.PREF_LAST_YEAR_CLEANED
+import org.deiverbum.app.util.Utils
 import java.util.*
 
 /**
- * <p>
- * HomeFragment es el primer fragmento que se abre en la aplicación.
- * Contiene un <code>RecyclerView</code> con todas las opciones
+ * Este fragmento es el primero que se abre en la aplicación. Contiene un `RecyclerView` con todas las opciones
  * disponibles para el usuario.
+ *
  * En las versiones anteriores estos elementos se presentaban
- * directamente desde <code>MainActivity</code>.
+ * directamente desde `MainActivity`.
  * Con la implementación de fragmentos adaptamos al código al nuevo
  * estándar conocido como Componentes de Navegación, combinándolo con
  * los Componentes de Arquitectura, creando un código mucho más ligero
  * y mejor organizado.
- * </p>
  *
  * @author A. Cedano
  * @version 2.0
@@ -72,12 +65,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun setConfiguration() {
-        //val mViewModel = ViewModelProvider(this)[SyncViewModel::class.java]
         val isInitialSync = prefs.getBoolean(PREF_INITIAL_SYNC, false)
         val isAccept = prefs.getBoolean(Constants.PREF_ACCEPT, false)
         val theme = prefs.getString("theme", "1")
         if (!isInitialSync && isAccept) {
-            syncViewModel.launchSync(SyncRequest(true, isWorkScheduled = isWorkScheduled))
+            //syncViewModel.launchSync(SyncRequest(true, isWorkScheduled = isWorkScheduled))
             /*syncViewModel.initialSyncStatus.observe(
                 viewLifecycleOwner
             ) { data: Int ->
@@ -86,7 +78,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }*/
         }
         val dayNumber = Utils.getDay(Utils.getHoy()).toInt()
-        if (dayNumber >= 30 || 1==1) {
+        val monthNumber = Utils.getMonth(
+            Utils.getHoy()).toInt()
+
+        /*if (dayNumber >= 29 && (monthNumber == 3 || monthNumber == 6 || monthNumber == 9 || monthNumber == 12)) {
             val lastYearCleaned = prefs.getInt(PREF_LAST_YEAR_CLEANED, 0)
             val systemTime = System.currentTimeMillis()
             val sdfY = SimpleDateFormat("yyyy", Locale("es", "ES"))
@@ -98,29 +93,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 if (mmDD >= 1225 || 1==10) {
                     syncViewModel.cleanUpYear(SyncRequest(false,currentYear - 1, isWorkScheduled=isWorkScheduled))
                     fetchData()
-                    /*syncViewModel.yearClean.observe(
-                        viewLifecycleOwner
-                    ) { data: Int ->
-                        if (data > 0) {
-                            prefs.edit().putInt(PREF_LAST_YEAR_CLEANED, currentYear).apply()
-                        }
-                    }*/
+
                 }
             }
-        }
+        }*/
         prepareItems(theme!!)
     }
 
     private fun pickOutDate() {
         val bundle = arguments
-        val todayDate: String
-        todayDate = if (bundle != null) {
+        val todayDate: String = if (bundle != null) {
             if (bundle.getString("FECHA") == null) Utils.getHoy() else bundle.getString("FECHA")!!
         } else {
             Utils.getHoy()
         }
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
-        Objects.requireNonNull(actionBar)?.subtitle =
+        actionBar?.subtitle =
             Utils.getTitleDate(todayDate)
     }
 

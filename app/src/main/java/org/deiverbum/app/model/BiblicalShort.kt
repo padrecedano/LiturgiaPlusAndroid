@@ -1,15 +1,17 @@
 package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 
 class BiblicalShort : Biblical() {
     //public String forma;
     private var responsorio: LHResponsoryShort? = null
     fun getHeaderLectura(): SpannableStringBuilder {
         //String s=String.format(new Locale("es"),"%s    %s",TITLE_SHORT_READING,getRefBreve());
-        val ssb = SpannableStringBuilder(Utils.formatTitle(Constants.TITLE_SHORT_READING))
+        val ssb = SpannableStringBuilder(
+            Utils.formatTitle(
+                Constants.TITLE_SHORT_READING))
         ssb.append("    ")
         ssb.append(Utils.toRed(getRefBreve()))
         return ssb

@@ -1,11 +1,11 @@
 package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
-import org.deiverbum.app.utils.ColorUtils
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.ColorUtils
+import org.deiverbum.app.util.Utils
 
-class BibleBooks(var id: Int, var name: String?, var description: String?) {
-    var intro: String? = null
+class BibleBooks(var id: Int=0, var name: String="", var description: String="") {
+    var intro: String = ""
 
     fun getForView(isNightMode: Boolean): SpannableStringBuilder {
         ColorUtils.isNightMode = isNightMode

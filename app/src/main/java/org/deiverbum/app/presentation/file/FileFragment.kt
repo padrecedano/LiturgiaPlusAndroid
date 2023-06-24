@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import org.deiverbum.app.databinding.FragmentFileBinding
 import org.deiverbum.app.domain.model.FileRequest
 import org.deiverbum.app.presentation.base.BaseFileFragment
-import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.util.Constants
 import java.util.*
 
 /**

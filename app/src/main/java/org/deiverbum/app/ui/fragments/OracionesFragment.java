@@ -16,7 +16,7 @@ import org.deiverbum.app.R;
 import org.deiverbum.app.presentation.oraciones.adapter.OracionItem;
 import org.deiverbum.app.presentation.oraciones.adapter.OracionesAdapter;
 import org.deiverbum.app.databinding.FragmentOracionesBinding;
-import org.deiverbum.app.utils.Utils;
+import org.deiverbum.app.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

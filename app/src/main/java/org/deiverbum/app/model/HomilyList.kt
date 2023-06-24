@@ -3,8 +3,8 @@ package org.deiverbum.app.model
 import android.text.SpannableStringBuilder
 import androidx.room.Ignore
 import org.deiverbum.app.domain.model.TodayRequest
-import org.deiverbum.app.utils.Constants.LS2
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Constants.LS2
+import org.deiverbum.app.util.Utils
 
 class HomilyList    {
     @Ignore

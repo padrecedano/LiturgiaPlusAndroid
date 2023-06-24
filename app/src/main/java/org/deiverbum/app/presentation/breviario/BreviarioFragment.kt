@@ -11,11 +11,9 @@ import org.deiverbum.app.presentation.base.BaseHomeFragment
 import org.deiverbum.app.presentation.breviario.adapter.BreviarioAdapter
 
 /**
- * <p>
- * Este Fragmento maneja lo relativo al módulo <b>Breviary</b>.
- * Muestra un <code>RecyclerView</code> con las diferentes oraciones
+ * Este Fragmento maneja lo relativo al módulo **Breviario**.
+ * Muestra un `RecyclerView` con las diferentes oraciones
  * de la Liturgia de las Horas.
- * </p>
  *
  * @author A. Cedano
  * @version 2.0

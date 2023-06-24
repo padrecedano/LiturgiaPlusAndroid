@@ -2,8 +2,8 @@ package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
 import android.text.Spanned
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 
 class TeDeum {
     var texto: String? = "<p>Señor, Dios eterno, alegres te cantamos, <br />a ti " +

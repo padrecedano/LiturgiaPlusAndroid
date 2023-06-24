@@ -1,8 +1,8 @@
 package org.deiverbum.app.ui.fragments;
 
-import static org.deiverbum.app.utils.Constants.PACIENCIA;
-import static org.deiverbum.app.utils.Constants.SEPARADOR;
-import static org.deiverbum.app.utils.Constants.VOICE_INI;
+import static org.deiverbum.app.util.Constants.PACIENCIA;
+import static org.deiverbum.app.util.Constants.SEPARADOR;
+import static org.deiverbum.app.util.Constants.VOICE_INI;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
@@ -34,10 +34,10 @@ import androidx.navigation.ui.NavigationUI;
 import org.deiverbum.app.R;
 import org.deiverbum.app.data.wrappers.DataWrapper;
 import org.deiverbum.app.databinding.FragmentSantosBinding;
-import org.deiverbum.app.utils.TextToSpeechCallback;
-import org.deiverbum.app.utils.TtsManager;
-import org.deiverbum.app.utils.Utils;
-import org.deiverbum.app.utils.ZoomTextView;
+import org.deiverbum.app.util.TextToSpeechCallback;
+import org.deiverbum.app.util.TtsManager;
+import org.deiverbum.app.util.Utils;
+import org.deiverbum.app.util.ZoomTextView;
 import org.deiverbum.app.viewmodel.SantosViewModel;
 
 import java.util.Locale;

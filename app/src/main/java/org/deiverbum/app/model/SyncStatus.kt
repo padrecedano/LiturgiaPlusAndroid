@@ -3,9 +3,9 @@ package org.deiverbum.app.model
 import android.text.Spanned
 import androidx.room.Ignore
 import org.deiverbum.app.util.Source
-import org.deiverbum.app.utils.ColorUtils
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.ColorUtils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 
 /**
  *
@@ -45,9 +45,11 @@ class SyncStatus {
     fun getAll(isNightMode: Boolean): String {
         ColorUtils.isNightMode = isNightMode
         //val title=Utils.formatSubTitle(Utils.toRedFont("Informe de Sincronización"))
-        val title=Utils.formatSubTitle(Utils.toRedFont("<b>Informe de Sincronización</b>"))
+        val title=
+            Utils.formatSubTitle(Utils.toRedFont("<b>Informe de Sincronización</b>"))
 
-        val lastYear=if (lastYearCleaned==0)  "" else  String.format("Los datos del año <b>%s</b> fueron limpiados.",Utils.toRedFont(lastYearCleaned.toString()))
+        val lastYear=if (lastYearCleaned==0)  "" else  String.format("Los datos del año <b>%s</b> fueron limpiados.",
+            Utils.toRedFont(lastYearCleaned.toString()))
         return String.format(
             "%s" + "%s" +
                     "Última fecha en el calendario: " +
@@ -60,7 +62,8 @@ class SyncStatus {
             Constants.BRS,
             Utils.toRedFont(tableName),
             Constants.BRS, Constants.BR,
-            Utils.toRedFont(lastUpdate),Constants.BRS,lastYear,
+            Utils.toRedFont(lastUpdate),
+            Constants.BRS,lastYear,
             Constants.BRS, Constants.BR, Constants.BR
         )
     }

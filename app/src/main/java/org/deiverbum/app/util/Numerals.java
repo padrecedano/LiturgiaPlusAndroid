@@ -1,4 +1,4 @@
-package org.deiverbum.app.utils;
+package org.deiverbum.app.util;
 
 /*
  * The MIT License

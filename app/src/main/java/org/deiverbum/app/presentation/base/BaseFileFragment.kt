@@ -17,8 +17,8 @@ import org.deiverbum.app.R
 import org.deiverbum.app.databinding.FragmentTodayBinding
 import org.deiverbum.app.domain.model.TodayRequest
 import org.deiverbum.app.presentation.today.TodayFragmentArgs
-import org.deiverbum.app.utils.Utils
-import org.deiverbum.app.utils.ZoomTextView
+import org.deiverbum.app.util.Utils
+import org.deiverbum.app.util.ZoomTextView
 import java.util.*
 
 /**

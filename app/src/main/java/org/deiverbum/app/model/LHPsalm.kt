@@ -3,9 +3,9 @@ package org.deiverbum.app.model
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import androidx.room.Ignore
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
-import org.deiverbum.app.utils.Utils.replaceByTime
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
+import org.deiverbum.app.util.Utils.replaceByTime
 
 open class LHPsalm : Comparable<LHPsalm> {
     var psalmID = 0
@@ -40,7 +40,9 @@ open class LHPsalm : Comparable<LHPsalm> {
     //Utils.ssbRed((SpannableStringBuilder) Utils.fromHtml(ref));
     val ref: SpannableStringBuilder
         get() = if (quote != null) {
-            SpannableStringBuilder(Utils.toRedHtml(Utils.getFormato(quote))) //Utils.ssbRed((SpannableStringBuilder) Utils.fromHtml(ref));
+            SpannableStringBuilder(
+                Utils.toRedHtml(
+                    Utils.getFormato(quote))) //Utils.ssbRed((SpannableStringBuilder) Utils.fromHtml(ref));
         } else {
             SpannableStringBuilder("")
         }

@@ -1,6 +1,7 @@
 package org.deiverbum.app.presentation.main
 
 import android.content.IntentSender.SendIntentException
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import androidx.activity.OnBackPressedCallback
@@ -9,6 +10,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -34,19 +38,24 @@ import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import org.deiverbum.app.BuildConfig
 import org.deiverbum.app.R
 import org.deiverbum.app.databinding.ActivityMainBinding
 import org.deiverbum.app.domain.model.SyncRequest
 import org.deiverbum.app.presentation.legal.AcceptanceFragmentDialog.Companion.display
+import org.deiverbum.app.presentation.sync.SyncItemUiState
 import org.deiverbum.app.presentation.sync.SyncViewModel
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Constants.PREF_ACCEPT
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Constants.PREF_ACCEPT
+import org.deiverbum.app.util.Utils
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
- * <p>Actividad principal y punto de entrada de la aplicación.</p>
- * <p>Migrada a Kotlin en la versión 2023.1.3</p>
+ * Actividad principal y punto de entrada de la aplicación.
+ *
+ * Migrada a Kotlin en la versión 2023.1.3
  *
  * @author A. Cedano
  */
@@ -58,7 +67,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mAppBarConfiguration: AppBarConfiguration
     private var acceptTerms:Boolean = false
     private val syncViewModel: SyncViewModel by viewModels()
-
+    private val prefs: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(this)
+    }
     private val appUpdateManager by lazy {
         AppUpdateManagerFactory.create(this)
     }
@@ -81,20 +92,15 @@ class MainActivity : AppCompatActivity() {
         bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName)
         bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, screenName)
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle)
-        //Timber.d(screenName)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mUpdateCode = resources.getInteger(R.integer.app_version_code)
         strFechaHoy = Utils.getFecha()
-        /*val syncRequest =
-            SyncRequest(0, 1,false,false)
-*/
-        //syncViewModel.initialSync(syncRequest)
-
         setPrivacy()
         showMain()
+        checkForDataToClean()
         onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (navController.graph.startDestinationId == navController.currentDestination?.id) {
@@ -119,7 +125,8 @@ class MainActivity : AppCompatActivity() {
 
 
     /**
-     * <p>Este método inicializa Firebase AppCheck.</p>
+     * Este método inicializa Firebase AppCheck.
+     *
      * @since 2023.1.3
      */
     private fun appCheck() {
@@ -156,10 +163,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setPrivacy() {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        //editor.putBoolean(Constants.PREF_ACCEPT, false).apply()
-        //editor.putBoolean(Constants.PREF_INITIAL_SYNC, false).apply()
-
          acceptTerms = prefs.getBoolean(PREF_ACCEPT, false)
         val collectData = prefs.getBoolean(Constants.PREF_ANALYTICS, true)
         val collectCrash = prefs.getBoolean(Constants.PREF_CRASHLYTICS, true)
@@ -246,6 +249,60 @@ class MainActivity : AppCompatActivity() {
         snackbar.show()
     }
 
+    /**
+     * Este método verifica si hay datos antiguos para limpiar.
+     *
+     * Se lanzará únicamente a partir del día 29 de los meses de
+     * marzo, junio, septiembre y diciembre. Su propósito es obtener
+     * el valor de la entrada [Constants.PREF_LAST_YEAR_CLEANED] en SharedPreferences,
+     * compararlo con el valor del _año actual menos uno_ (`currentYear - 1`).
+     * Si es menor o igual, significa que habrá que limpiar datos de años anteriores,
+     * lo cual se hará llamando a [SyncViewModel.launchSync].
+     *
+     * @since 2023.1.3
+     */
+    private fun checkForDataToClean() {
+        val dayNumber = Utils.getDay(Utils.getHoy()).toInt()
+        val monthNumber = Utils.getMonth(
+            Utils.getHoy()).toInt()
+        val hasInitialSync = prefs.getBoolean(Constants.PREF_INITIAL_SYNC, false)
+
+        if (hasInitialSync && dayNumber >= 29 && (monthNumber == 3 || monthNumber == 6 || monthNumber == 9 || monthNumber == 12)) {
+            val lastYearCleaned = prefs.getInt(Constants.PREF_LAST_YEAR_CLEANED, 0)
+            val systemTime = System.currentTimeMillis()
+            val sdfY = SimpleDateFormat("yyyy", Locale("es", "ES"))
+            val theDate = Date(systemTime)
+            val currentYear = sdfY.format(theDate).toInt()
+            if (lastYearCleaned == 0 || lastYearCleaned <= currentYear - 1) {
+                    syncViewModel.launchSync(SyncRequest(hasInitialSync=true,currentYear, isWorkScheduled=true))
+                fetchData()
+                }
+            }
+        }
+
+    private fun fetchData() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                syncViewModel.uiState.collect { state ->
+                    when (state) {
+                        is SyncViewModel.SyncUiState.Loaded -> onLoaded(state.itemState)
+                        else -> showLoading()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun onLoaded(syncItemUiState: SyncItemUiState) {
+        syncItemUiState.run {
+            if (syncResponse.syncStatus.lastYearCleaned!=0) {
+                prefs.edit().putInt(Constants.PREF_LAST_YEAR_CLEANED, syncResponse.syncStatus.lastYearCleaned).apply()
+            }
+        }
+    }
+
+    private fun showLoading() {
+    }
 
     private fun unregisterListener() {
         appUpdateManager.unregisterListener(
@@ -264,13 +321,11 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
     }
 
-
     override fun onResume() {
         super.onResume()
         if (acceptTerms) {
             checkNewAppVersionState()
             navController.addOnDestinationChangedListener(navControllerListener)
-
         }
     }
 }

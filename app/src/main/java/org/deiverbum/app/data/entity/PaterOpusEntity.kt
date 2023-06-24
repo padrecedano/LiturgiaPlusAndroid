@@ -2,10 +2,10 @@ package org.deiverbum.app.data.entity
 
 import androidx.room.*
 import androidx.room.ForeignKey.Companion.CASCADE
-import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.util.Constants
 
 /**
- * Entidad que representa a la tabla {@value org.deiverbum.app.utils.Constants#PATER_OPUS}.
+ * Entidad que representa a la tabla {@value org.deiverbum.app.util.Constants#PATER_OPUS}.
  *
  * @author A. Cedano
  * @version 1.0

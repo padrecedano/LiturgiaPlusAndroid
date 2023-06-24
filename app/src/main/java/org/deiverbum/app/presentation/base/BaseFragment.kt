@@ -1,27 +1,19 @@
 package org.deiverbum.app.presentation.base
 
-import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.*
-import android.widget.ProgressBar
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
-import org.deiverbum.app.R
 import org.deiverbum.app.databinding.FragmentTodayBinding
-import org.deiverbum.app.domain.model.TodayRequest
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
-import org.deiverbum.app.utils.ZoomTextView
+import org.deiverbum.app.util.Constants
 import java.util.*
 import java.util.concurrent.ExecutionException
 
 /**
- * <p>Fragmento base para el módulo Today.</p>
+ * Fragmento base para el módulo Today.
  *
  * @author A. Cedano
  * @since 2023.1.3
@@ -30,68 +22,10 @@ import java.util.concurrent.ExecutionException
 abstract class BaseFragment<T> : Fragment() {
 
     private var viewBinding: ViewBinding? = null
-    protected lateinit var todayRequest: TodayRequest
-    protected lateinit var mTextView: ZoomTextView
+    //protected lateinit var todayRequest: TodayRequest
     private var _binding: FragmentTodayBinding? = null
-    //private var binding get() = _binding!!;
-    private var progressBar: ProgressBar? = null
+    //private var progressBar: ProgressBar? = null
     private var mActionModee: ActionMode? = null
-    var mActionMode: ActionMode? = null
-
-    private val mActionModeCallback: ActionMode.Callback = object : ActionMode.Callback {
-        override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
-            val menuItem = item.itemId
-            if (menuItem == R.id.audio_play) {
-                /*readText()
-                audioMenu.findItem(R.id.audio_pause).setVisible(true)
-                audioMenu.findItem(R.id.audio_stop).setVisible(true)*/
-                item.isVisible = false
-                return true
-            }
-            if (menuItem == R.id.audio_pause) {
-                /*mTtsManager.pause()
-                audioMenu.findItem(R.id.audio_resume).setVisible(true)*/
-                item.isVisible = false
-                return true
-            }
-            if (menuItem == R.id.audio_resume) {
-                /*mTtsManager.resume()
-                audioMenu.findItem(R.id.audio_pause).setVisible(true)*/
-                item.isVisible = false
-                return true
-            }
-            if (menuItem == R.id.audio_stop) {
-                /*mTtsManager.stop()
-                audioMenu.findItem(R.id.audio_play).setVisible(true)
-                audioMenu.findItem(R.id.audio_pause).setVisible(false)
-                audioMenu.findItem(R.id.audio_resume).setVisible(false)*/
-                item.isVisible = false
-                return true
-            }
-            return false
-        }
-
-        override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-            mode.menuInflater.inflate(R.menu.contextual_action_bar, menu)
-            //audioMenu = menu
-            @SuppressLint("InflateParams") val view =
-                LayoutInflater.from(context).inflate(R.layout.seekbar, null)
-            mode.customView = view
-            //seekBar = view.findViewById<SeekBar>(R.id.seekbar)
-            return true
-        }
-
-        override fun onDestroyActionMode(mode: ActionMode) {
-            mActionMode = null
-            //cleanTTS()
-            //setPlayerButton()
-        }
-
-        override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
-            return false
-        }
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -99,10 +33,6 @@ abstract class BaseFragment<T> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentTodayBinding.inflate(inflater,container,false)
-
-        //setConfiguration()
-
-
         viewBinding = constructViewBinding()
         viewBinding?.let { init(it) }
         return viewBinding?.root
@@ -111,18 +41,6 @@ abstract class BaseFragment<T> : Fragment() {
     @Suppress("UNCHECKED_CAST")
     fun getViewBinding(): T = viewBinding as T
 
-    private fun pickOutDatec(): Int {
-        val bundle = arguments
-        val mDate = if (bundle != null && bundle.containsKey("FECHA")) {
-            bundle.getInt("FECHA")
-        } else {
-            Utils.getHoy().toInt()
-        }
-        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
-        Objects.requireNonNull<ActionBar?>(actionBar).subtitle =
-            Utils.getTitleDate(mDate.toString())
-        return mDate
-    }
 
     open fun isNightMode(): Boolean {
         val nightModeFlags =
