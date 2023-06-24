@@ -7,12 +7,12 @@ package org.deiverbum.app.domain.model
  * @author A. Cedano
  * @since 2023.1.3
  *
- * @param hasInitial indica si en las preferencias ya hay registrada una sincronización inicial.
+ * @param hasInitialSync indica si en las preferencias ya hay registrada una sincronización inicial.
  * @param yearToClean se pasará un dato distinto de `0` cuando se necesite limpiar datos del año anterior.
 
  */
 class SyncRequest(
-    var hasInitial: Boolean,
+    var hasInitialSync: Boolean,
     var yearToClean: Int =0,
     var isWorkScheduled: Boolean
 )

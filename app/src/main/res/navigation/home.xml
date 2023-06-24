@@ -171,7 +171,7 @@
 
     <fragment
         android:id="@+id/nav_oraciones"
-        android:name="org.deiverbum.app.ui.fragments.OracionesFragment"
+        android:name="org.deiverbum.app.presentation.oraciones.OracionesFragment"
         android:label="@string/title_fragment_oraciones"
         tools:layout="@layout/fragment_oraciones" />
 
@@ -183,13 +183,13 @@
 
     <fragment
         android:id="@+id/nav_biblia"
-        android:name="org.deiverbum.app.ui.fragments.BibliaFragment"
+        android:name="org.deiverbum.app.presentation.biblia.BibliaFragment"
         android:label="@string/title_fragment_biblia"
         tools:layout="@layout/fragment_biblia" />
 
     <fragment
         android:id="@+id/nav_biblia_libros"
-        android:name="org.deiverbum.app.ui.fragments.BibliaDataFragment"
+        android:name="org.deiverbum.app.presentation.biblia.BibliaDataFragment"
         android:label="@string/title_fragment_biblia_libros"
         tools:layout="@layout/fragment_text" />
 
@@ -287,7 +287,7 @@
         android:name="org.deiverbum.app.presentation.today.TodayFragment"
         android:label="@string/title_fragment_completas"
         tools:layout="@layout/fragment_today">
-        <argument
+    <argument
             android:name="hourId"
             android:defaultValue="7"
             app:argType="integer" />

@@ -30,9 +30,9 @@ import org.deiverbum.app.presentation.file.FileViewModel
 import org.deiverbum.app.presentation.sync.SyncItemUiState
 import org.deiverbum.app.presentation.sync.SyncViewModel
 import org.deiverbum.app.util.Source
-import org.deiverbum.app.utils.ColorUtils
-import org.deiverbum.app.utils.Constants.*
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.ColorUtils
+import org.deiverbum.app.util.Constants.*
+import org.deiverbum.app.util.Utils
 
 /**
  *
@@ -44,11 +44,11 @@ import org.deiverbum.app.utils.Utils
  *
  * 1. Cuando el usuario pulse en el botón `Aceptar` se verificará el valor de la entrada [PREF_ACCEPT] de Shared Preferences. Si es `false` se lanzará una sincronización llamando a [SyncViewModel.launchSync].
  *
- * 2. Luego se observará el estado de la sincronización llamando a [fetchDataSync] y posteriormente a [onLoadedSync]. Si el valor del objeto [SyncResponse] devuelto viene de un [Source.NETWORK] y tiene datos,
+ * 2. Luego se observará el estado de la sincronización llamando a [fetchDataSync] y posteriormente a [onLoadedSync]. Si el valor del objeto `SyncResponse` devuelto viene de un [Source.NETWORK] y tiene datos,
  * el valor de la preferencia [PREF_INITIAL_SYNC] se establecerá a `true`. Si por algún error la sincronización inicial no se realiza, el valor de la preferencia [PREF_INITIAL_SYNC] permanecerá en `false` y desde el repositorio
  * se intentará obtener provisionalmente las fechas de los próximos días desde la [Source.FIREBASE].
 
- * 3. Desde el repositorio que llama [SyncViewModel] quedará iniciado [TodayWorker], quien se ocupará de futuras sincornizaciones.
+ * 3. Desde el repositorio que llama [SyncViewModel] quedará iniciado [TodayWorker][org.deiverbum.app.workers.TodayWorker], quien se ocupará de futuras sincornizaciones.
  *
  * @author A. Cedano
  * @version 2.0

@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.deiverbum.app.model.LHResponsory
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 
 /**
  * @author A. Cedano

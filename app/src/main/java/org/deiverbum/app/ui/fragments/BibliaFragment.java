@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.deiverbum.app.presentation.biblia.adapter.BibliaAdapter;
 import org.deiverbum.app.databinding.FragmentBibliaBinding;
 import org.deiverbum.app.model.BibleBooks;
-import org.deiverbum.app.utils.Utils;
+import org.deiverbum.app.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

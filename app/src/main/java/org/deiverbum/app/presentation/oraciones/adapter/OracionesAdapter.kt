@@ -12,7 +12,7 @@ import org.deiverbum.app.R
 /**
  *
  *
- * Esta clase maneja el adaptador de la pantalla `Breviary`,
+ * Esta clase maneja el adaptador de la pantalla `Oraciones`,
  * presentada desde `OracionesFragment`.
  *
  *
@@ -74,11 +74,8 @@ class OracionesAdapter(private val mDataSet: List<OracionItem>) : RecyclerView.A
          */
         fun setData(item: OracionItem) {
             mItem = item
-            //viewIcon.setText(item.letra);
             txtTitle.text = item.title
             txtDescription.text = item.description
-
-            //relativeLayout.setBackgroundColor(item.color);
         }
     }
 }

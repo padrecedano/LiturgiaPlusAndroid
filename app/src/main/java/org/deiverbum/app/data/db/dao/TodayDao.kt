@@ -5,7 +5,7 @@ import androidx.room.*
 import org.deiverbum.app.data.entity.*
 import org.deiverbum.app.data.entity.relation.*
 import org.deiverbum.app.model.*
-import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.util.Constants
 
 /**
  * @author A. Cedano

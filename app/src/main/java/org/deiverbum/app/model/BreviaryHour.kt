@@ -1,8 +1,8 @@
 package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 
 /**
  *
@@ -259,7 +259,9 @@ open class BreviaryHour : Liturgy() {
 
         @JvmStatic
         fun getConclusionHorasMayores(): SpannableStringBuilder {
-            val ssb = SpannableStringBuilder(Utils.formatTitle(Constants.TITLE_CONCLUSION))
+            val ssb = SpannableStringBuilder(
+                Utils.formatTitle(
+                    Constants.TITLE_CONCLUSION))
             ssb.append(Utils.LS2)
             ssb.append(Utils.toRed("V. "))
             ssb.append("El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna.")

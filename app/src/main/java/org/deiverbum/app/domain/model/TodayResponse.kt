@@ -1,15 +1,19 @@
 package org.deiverbum.app.domain.model
 
 import android.text.SpannableStringBuilder
+import org.deiverbum.app.model.Today
+import org.deiverbum.app.util.Source
+
 /**
- * <p>Maneja las respuestas destinadas al módulo Today.</p>
+ * Maneja las respuestas destinadas al módulo Today.
  *
  * @author A. Cedano
  * @since 2023.1.3
  */
 class TodayResponse(
-    var dataForView: SpannableStringBuilder,
-    var dataForRead: StringBuilder?
+    var dataModel: Today,
+    var source: Source,
+    var success: Boolean
 ) {
-    constructor() : this(SpannableStringBuilder(),java.lang.StringBuilder())
+    constructor() : this(Today(),Source.LOCAL,success=true)
 }

@@ -1,12 +1,12 @@
 package org.deiverbum.app.data.source.remote.firebase;
 
-import static org.deiverbum.app.utils.Configuration.BIBLIA_PATH;
-import static org.deiverbum.app.utils.Configuration.CALENDAR_PATH;
-import static org.deiverbum.app.utils.Configuration.FIREBASE_SYNC_PATH;
-import static org.deiverbum.app.utils.Constants.DATA_NOTFOUND;
-import static org.deiverbum.app.utils.Constants.DOC_NOTFOUND;
-import static org.deiverbum.app.utils.Constants.ERR_BIBLIA;
-import static org.deiverbum.app.utils.Constants.FIREBASE_SANTOS;
+import static org.deiverbum.app.util.Configuration.BIBLIA_PATH;
+import static org.deiverbum.app.util.Configuration.CALENDAR_PATH;
+import static org.deiverbum.app.util.Configuration.FIREBASE_SYNC_PATH;
+import static org.deiverbum.app.util.Constants.DATA_NOTFOUND;
+import static org.deiverbum.app.util.Constants.DOC_NOTFOUND;
+import static org.deiverbum.app.util.Constants.ERR_BIBLIA;
+import static org.deiverbum.app.util.Constants.FIREBASE_SANTOS;
 
 import android.util.Log;
 
@@ -25,7 +25,7 @@ import org.deiverbum.app.model.MassReadingList;
 import org.deiverbum.app.model.MetaLiturgia;
 import org.deiverbum.app.model.SaintLife;
 import org.deiverbum.app.model.Today;
-import org.deiverbum.app.utils.Utils;
+import org.deiverbum.app.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

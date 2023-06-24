@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.today.TodayFragment">
-        <org.deiverbum.app.utils.ZoomTextView
+        <org.deiverbum.app.util.ZoomTextView
             android:id="@+id/tv_Zoomable"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

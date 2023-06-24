@@ -7,7 +7,7 @@ import androidx.viewbinding.ViewBinding
 import java.util.*
 
 /**
- * <p>Fragmento base para el manejo de las páginas iniciales.</p>
+ * Fragmento base para el manejo de las páginas iniciales.
  *
  * @author A. Cedano
  * @since 2023.1.3

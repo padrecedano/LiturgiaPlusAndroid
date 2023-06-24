@@ -28,10 +28,10 @@ import org.deiverbum.app.domain.model.FileRequest
 import org.deiverbum.app.presentation.file.FileFragmentArgs
 import org.deiverbum.app.presentation.file.FileItemUiState
 import org.deiverbum.app.presentation.file.FileViewModel
-import org.deiverbum.app.utils.Configuration
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Constants.FILE_PRIVACY
-import org.deiverbum.app.utils.Constants.FILE_TERMS
+import org.deiverbum.app.util.Configuration
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Constants.FILE_PRIVACY
+import org.deiverbum.app.util.Constants.FILE_TERMS
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException

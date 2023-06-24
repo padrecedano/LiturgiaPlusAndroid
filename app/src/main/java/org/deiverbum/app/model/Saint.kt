@@ -3,8 +3,8 @@ package org.deiverbum.app.model
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import androidx.room.Ignore
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 
 class Saint {
     var saintID: Int? = null
@@ -61,14 +61,18 @@ class Saint {
             sb.append(Utils.fromHtml("<hr>"))
             sb.append(Utils.toH3Red("Vida"))
             sb.append(Utils.LS2)
-            sb.append(Utils.fromHtml(vida!!.replace(Constants.OLD_SEPARATOR.toRegex(), "")))
+            sb.append(
+                Utils.fromHtml(vida!!.replace(
+                    Constants.OLD_SEPARATOR.toRegex(), "")))
             return sb
         }
     private val vidaForRead: StringBuilder
         get() {
             val sb = StringBuilder()
             sb.append("VIDA.")
-            sb.append(Utils.fromHtml(vida!!.replace(Constants.OLD_SEPARATOR.toRegex(), "")))
+            sb.append(
+                Utils.fromHtml(vida!!.replace(
+                    Constants.OLD_SEPARATOR.toRegex(), "")))
             return sb
         }
     val forView: SpannableStringBuilder

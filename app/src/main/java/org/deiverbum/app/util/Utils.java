@@ -1,17 +1,17 @@
-package org.deiverbum.app.utils;
+package org.deiverbum.app.util;
 
 import static android.graphics.Typeface.BOLD;
-import static org.deiverbum.app.utils.Constants.BR;
-import static org.deiverbum.app.utils.Constants.BRS;
-import static org.deiverbum.app.utils.Constants.CSS_RED_A;
-import static org.deiverbum.app.utils.Constants.CSS_RED_Z;
-import static org.deiverbum.app.utils.Constants.ERR_REPORT;
-import static org.deiverbum.app.utils.Constants.NBSP_4;
-import static org.deiverbum.app.utils.Constants.NBSP_SALMOS;
-import static org.deiverbum.app.utils.Constants.OBIEN;
-import static org.deiverbum.app.utils.Constants.PRECES_IL;
-import static org.deiverbum.app.utils.Constants.PRECES_R;
-import static org.deiverbum.app.utils.Constants.VERSION_CODE;
+import static org.deiverbum.app.util.Constants.BR;
+import static org.deiverbum.app.util.Constants.BRS;
+import static org.deiverbum.app.util.Constants.CSS_RED_A;
+import static org.deiverbum.app.util.Constants.CSS_RED_Z;
+import static org.deiverbum.app.util.Constants.ERR_REPORT;
+import static org.deiverbum.app.util.Constants.NBSP_4;
+import static org.deiverbum.app.util.Constants.NBSP_SALMOS;
+import static org.deiverbum.app.util.Constants.OBIEN;
+import static org.deiverbum.app.util.Constants.PRECES_IL;
+import static org.deiverbum.app.util.Constants.PRECES_R;
+import static org.deiverbum.app.util.Constants.VERSION_CODE;
 
 import android.text.Html;
 import android.text.Spannable;

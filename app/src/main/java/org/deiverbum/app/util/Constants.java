@@ -1,4 +1,4 @@
-package org.deiverbum.app.utils;
+package org.deiverbum.app.util;
 
 import android.graphics.Color;
 import android.text.style.ForegroundColorSpan;
@@ -163,6 +163,10 @@ public class Constants {
     public static final String SYNC_STATUS = "sync_status";
     public static final String PATER = "pater";
     public static final String PATER_OPUS = "pater_opus";
+    public static final String LH_NIGHT_PRAYER = "lh_night_prayer";
+    public static final String KYRIE = "kyrie";
+    public static final String VIRGIN_ANTIPHON = "virgin_antiphon";
+
     public static final String SYNC_LITURGY_HOMILY_JOIN = "sync_liturgy_homily_join";
     public static final String SYNC_MASS_READING = "sync_mass_reading";
     public static final String TITLE_MIXTO = "Laudes y Oficio";

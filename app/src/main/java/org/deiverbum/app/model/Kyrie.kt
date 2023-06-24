@@ -3,8 +3,8 @@ package org.deiverbum.app.model
 import android.text.SpannableStringBuilder
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 import java.util.*
 
 class Kyrie {

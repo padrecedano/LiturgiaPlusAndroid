@@ -19,8 +19,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
 import androidx.viewbinding.ViewBinding
-import androidx.work.WorkInfo
-import androidx.work.WorkManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.deiverbum.app.R
@@ -28,13 +26,11 @@ import org.deiverbum.app.databinding.FragmentSyncBinding
 import org.deiverbum.app.domain.model.SyncRequest
 import org.deiverbum.app.presentation.base.BaseFragment
 import org.deiverbum.app.util.Source
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Constants.*
-import org.deiverbum.app.utils.Utils
-import org.deiverbum.app.utils.ZoomTextView
-import timber.log.Timber
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Constants.*
+import org.deiverbum.app.util.Utils
+import org.deiverbum.app.util.ZoomTextView
 import java.util.*
-import java.util.concurrent.ExecutionException
 
 /**
  * Este fragmento maneja la lógica de Sincronización, definida del siguiente modo:
@@ -45,7 +41,7 @@ import java.util.concurrent.ExecutionException
  *     - *b*. Seguidamente se llamará al método [AcceptanceFragmentDialog.fetchDataSync] que observa el resultado
  *          de la sincronización en [SyncViewModel].
  *     - *c*. En el método [AcceptanceFragmentDialog.onLoadedSync] se verificará,
- *          si la fuente de sincronización es el servidor remoto y si hay datos,
+ *          si la fuente de sincronización es el servidor remoto ([Source.NETWORK]) y si hay datos,
  *          en cuyo caso se creará una entrada en SharedPreferences
  *          con clave [Constants.PREF_INITIAL_SYNC] y valor true.
  *          Esto indicará que ya ocurrió una sincronización inicial correctamente.
@@ -174,7 +170,7 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
             var syncResponse=syncItemUiState.syncResponse
             syncResponse.syncStatus.lastYearCleaned=prefs.getInt(PREF_LAST_YEAR_CLEANED,0)
             //Timber.d(prefs.getInt(PREF_LAST_YEAR_CLEANED,0).toString())
-if(syncResponse.syncStatus.source==Source.LOCAL && !hasInitial){
+if(syncResponse.syncStatus.source==Source.NETWORK && !hasInitial){
     prefs.edit().putBoolean(PREF_INITIAL_SYNC, true).apply()
 }
             mTextVieww.text = Utils.fromHtml(syncResponse.syncStatus.getAll(isNightMode()))//.dataForView

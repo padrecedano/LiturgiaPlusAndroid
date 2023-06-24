@@ -1,7 +1,7 @@
 package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Utils
 
 class Estacion {
     var titulo: String? = null
@@ -31,7 +31,9 @@ class Estacion {
                     ?.toTypedArray()
             if (textParts != null) {
                 for (part in textParts) {
-                    ssb.append(Utils.fromHtml(Utils.getFormato(part)))
+                    ssb.append(
+                        Utils.fromHtml(
+                            Utils.getFormato(part)))
                     ssb.append(Utils.LS2)
                     ssb.append(Utils.toRed("R/. "))
                     ssb.append(respuestas[r])

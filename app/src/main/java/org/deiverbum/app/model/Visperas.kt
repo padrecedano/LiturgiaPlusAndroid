@@ -1,8 +1,8 @@
 package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 
 class Visperas : BreviaryHour() {
     private var lecturaBreve: BiblicalShort? = null

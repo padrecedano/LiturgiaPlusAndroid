@@ -1,8 +1,8 @@
 package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 
 class PadreNuestro {
     val allForRead: SpannableStringBuilder
@@ -21,7 +21,9 @@ class PadreNuestro {
         val all: SpannableStringBuilder
             get() {
                 val sb = SpannableStringBuilder("")
-                sb.append(Utils.formatTitle(Constants.TITLE_PATER_NOSTER))
+                sb.append(
+                    Utils.formatTitle(
+                        Constants.TITLE_PATER_NOSTER))
                 sb.append(Utils.LS2)
                 sb.append(Utils.fromHtml(texto))
                 return sb

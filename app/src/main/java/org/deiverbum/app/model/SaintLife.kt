@@ -3,9 +3,9 @@ package org.deiverbum.app.model
 import android.text.SpannableStringBuilder
 import androidx.room.Ignore
 import com.google.firebase.firestore.PropertyName
-import org.deiverbum.app.utils.ColorUtils
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.ColorUtils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 
 class SaintLife {
     @get:PropertyName("vida")
@@ -44,14 +44,18 @@ class SaintLife {
             sb.append(Utils.fromHtml("<hr>"))
             sb.append(Utils.toH3Red("Vida"))
             sb.append(Utils.LS2)
-            sb.append(Utils.fromHtml(longLife!!.replace(Constants.OLD_SEPARATOR.toRegex(), "")))
+            sb.append(
+                Utils.fromHtml(longLife!!.replace(
+                    Constants.OLD_SEPARATOR.toRegex(), "")))
             return sb
         }
     private val lifeForRead: StringBuilder
         get() {
             val sb = StringBuilder()
             sb.append("VIDA.")
-            sb.append(Utils.fromHtml(longLife!!.replace(Constants.OLD_SEPARATOR.toRegex(), "")))
+            sb.append(
+                Utils.fromHtml(longLife!!.replace(
+                    Constants.OLD_SEPARATOR.toRegex(), "")))
             return sb
         }
 

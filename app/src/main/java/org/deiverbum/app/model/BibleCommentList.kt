@@ -3,9 +3,9 @@ package org.deiverbum.app.model
 import android.text.SpannableStringBuilder
 import com.google.firebase.firestore.PropertyName
 import org.deiverbum.app.domain.model.TodayRequest
-import org.deiverbum.app.utils.ColorUtils
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.ColorUtils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 
 class BibleCommentList {
     var padre: String? = null
@@ -40,7 +40,9 @@ class BibleCommentList {
                         if (x++ == 1) {
                             sb.append(item?.biblica!!.getAll(type))
                             sb.append(Utils.LS2)
-                            sb.append(Utils.formatTitle(Constants.TITLE_BIBLE_COMMENTS))
+                            sb.append(
+                                Utils.formatTitle(
+                                    Constants.TITLE_BIBLE_COMMENTS))
                             sb.append(Utils.LS2)
                         }
                         sb.append(item?.allForView)
@@ -65,7 +67,9 @@ class BibleCommentList {
                         for (item in subList) {
                             if (x++ == 1) {
                                 sb.append(item?.biblica!!.getAllForRead(type))
-                                sb.append(Utils.pointAtEnd(Constants.TITLE_BIBLE_COMMENTS))
+                                sb.append(
+                                    Utils.pointAtEnd(
+                                        Constants.TITLE_BIBLE_COMMENTS))
                             }
                             sb.append(item?.allForRead)
                         }

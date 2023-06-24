@@ -3,7 +3,7 @@ package org.deiverbum.app.model
 import android.text.Spanned
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Utils
 
 /**
  * @author A. Cedano

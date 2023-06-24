@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import org.deiverbum.app.model.Saint
-import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.util.Constants
 
 /**
  * @author A. Cedano

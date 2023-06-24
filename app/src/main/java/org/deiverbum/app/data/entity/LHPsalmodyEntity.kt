@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.ForeignKey.Companion.SET_NULL
-import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.util.Constants
 
 /**
  * @author A. Cedano

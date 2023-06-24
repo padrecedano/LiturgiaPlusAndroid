@@ -1,8 +1,8 @@
 package org.deiverbum.app.ui.fragments;
 
-import static org.deiverbum.app.utils.Constants.PREF_ACCEPT;
-import static org.deiverbum.app.utils.Constants.PREF_INITIAL_SYNC;
-import static org.deiverbum.app.utils.Constants.PREF_LAST_YEAR_CLEANED;
+import static org.deiverbum.app.util.Constants.PREF_ACCEPT;
+import static org.deiverbum.app.util.Constants.PREF_INITIAL_SYNC;
+import static org.deiverbum.app.util.Constants.PREF_LAST_YEAR_CLEANED;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -24,7 +24,7 @@ import org.deiverbum.app.R;
 import org.deiverbum.app.presentation.home.adapter.HomeAdapter;
 import org.deiverbum.app.databinding.FragmentHomeBinding;
 import org.deiverbum.app.presentation.home.adapter.HomeItem;
-import org.deiverbum.app.utils.Utils;
+import org.deiverbum.app.util.Utils;
 import org.deiverbum.app.viewmodel.SyncViewModel;
 
 import java.text.SimpleDateFormat;

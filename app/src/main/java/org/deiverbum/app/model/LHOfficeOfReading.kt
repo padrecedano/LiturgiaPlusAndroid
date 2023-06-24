@@ -1,8 +1,8 @@
 package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 
 open class LHOfficeOfReading {
     var responsorio: String? = null
@@ -39,7 +39,9 @@ open class LHOfficeOfReading {
             return ssb
         }
     open val header: SpannableStringBuilder?
-        get() = Utils.formatSubTitle(Utils.toLower(Constants.TITLE_OFFICE_OF_READING))
+        get() = Utils.formatSubTitle(
+            Utils.toLower(
+                Constants.TITLE_OFFICE_OF_READING))
     open val headerForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_OFFICE_OF_READING)
 

@@ -2,17 +2,19 @@ package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
 import android.util.SparseIntArray
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 
 @Suppress("unused")
 class Completas : BreviaryHour() {
     var completasHimno: List<CompletasHimno>? = null
     private var ritosIniciales: RitosIniciales? = null
-    private var nuncDimitis: NuncDimitis? = null
+    private var nuncDimitis: LHGospelCanticle? = null
     private var conclusion: Conclusion? = null
     private var completasDias: List<CompletasDia>? = null
     private var responsorio: List<LHResponsoryShort>? = null
+    var biblicalShort: BiblicalShort? = null
+
     fun getResponsorio(): List<LHResponsoryShort>? {
         return responsorio
     }
@@ -33,11 +35,11 @@ class Completas : BreviaryHour() {
         return completasDias!![today?.weekDay!!].oracion
     }
 
-    fun getNuncDimitis(): NuncDimitis? {
+    fun getNuncDimitis(): LHGospelCanticle? {
         return nuncDimitis
     }
 
-    fun setNuncDimitis(nuncDimitis: NuncDimitis?) {
+    fun setNuncDimitis(nuncDimitis: LHGospelCanticle?) {
         this.nuncDimitis = nuncDimitis
     }
 
@@ -133,10 +135,10 @@ class Completas : BreviaryHour() {
             val sb = SpannableStringBuilder()
             val ri = getRitosIniciales()
             val kyrie = ri!!.kyrie
-            himno = getHimno()
-            salmodia = getCompletasDias()!![today?.weekDay!!].salmodia
+            //himno = getHimno()
+            /*salmodia = getCompletasDias()!![today?.weekDay!!].salmodia
             val nuncDimitis = getNuncDimitis()
-            val conclusion = getConclusion()
+            val conclusion = getConclusion()*/
             sb.append(Utils.LS2)
             sb.append(getTituloHora())
             sb.append(Utils.LS2)
@@ -148,13 +150,15 @@ class Completas : BreviaryHour() {
             sb.append(Utils.LS2)
             sb.append(salmodia!!.all)
             sb.append(Utils.LS2)
-            sb.append(getLecturaSpan())
+            //sb.append(getLecturaSpan())
+            sb.append(biblicalShort!!.getAllWithHourCheck(7))
+
             sb.append(Utils.LS2)
-            sb.append(nuncDimitis!!.getAll(today?.timeID!!))
+            sb.append(nuncDimitis!!.getAll(today!!.liturgyDay!!.liturgyTime!!.timeID))
             sb.append(Utils.LS2)
-            sb.append(getOracionByDay()!!.all)
+            sb.append(oracion!!.all)
             sb.append(Utils.LS2)
-            sb.append(conclusion!!.getAll(today?.timeID!!))
+            sb.append(conclusion!!.getAll())
             sb.append(Utils.LS2)
             sb
         } catch (e: Exception) {
@@ -187,7 +191,7 @@ class Completas : BreviaryHour() {
             sb.append(getLecturaForRead())
             sb.append(nuncDimitis!!.allForRead)
             sb.append(getOracionByDay()!!.allForRead)
-            sb.append(conclusion!!.getAllForRead(today?.timeID!!))
+            sb.append(conclusion!!.getAllForRead())
             sb
         } catch (e: Exception) {
             StringBuilder(e.toString())

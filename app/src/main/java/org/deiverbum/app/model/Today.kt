@@ -3,8 +3,8 @@ package org.deiverbum.app.model
 import android.text.SpannableStringBuilder
 import androidx.room.Ignore
 import org.deiverbum.app.domain.model.TodayRequest
-import org.deiverbum.app.utils.ColorUtils
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.ColorUtils
+import org.deiverbum.app.util.Utils
 
 /**
  *
@@ -16,7 +16,7 @@ import org.deiverbum.app.utils.Utils
  * @version 1.0
  * @since 2022.1
  */
-//@SuppressWarnings("SameReturnValue")
+
 class Today {
     var todayDate: Int = 0
 
@@ -68,6 +68,7 @@ class Today {
     var vMagnificatFK: Int? = null
     var vIntercessionsFK: Int? = null
     var vPrayerFK: Int? = null
+    var nightPrayerFK: Int? = null
 
     @JvmField
     @Ignore
@@ -100,23 +101,19 @@ class Today {
 
 
     private fun hasSaintToday(): Boolean {
-        return hasSaint != null && hasSaint == 1 //this.hasSaint == 1;
+        return hasSaint != null && hasSaint == 1
     }
 
-    fun getAllForView(todayRequest:TodayRequest): SpannableStringBuilder {
+     fun getAllForView(todayRequest:TodayRequest): SpannableStringBuilder {
         liturgyDay!!.setHasSaint(hasSaintToday())
         ColorUtils.isNightMode = todayRequest.isNightMode
         val sb = SpannableStringBuilder()
         try {
-            //sb.append(Utils.LS)
             sb.append(fecha)
             sb.append(Utils.LS2)
             sb.append(Utils.toH2(tiempo))
             sb.append(Utils.LS2)
             sb.append(Utils.toH3(titulo))
-            //sb.append(Utils.LS2)
-            //liturgyDay.today.previousFK
-            //sb.append(liturgyDay.getForView(hasInvitatory,previousFK));
 
             if (liturgyDay!!.typeID == 9) {
                 sb.append(liturgyDay?.homilyList?.getAllForView(todayRequest)
@@ -137,16 +134,12 @@ class Today {
                 if (oBiblicalFK == 600010101) {
                     sb.append(bh?.getOficioEaster()?.forView)
                 } else {
-                    /*sb.append(
-                        liturgyDay!!.breviaryHour!!.getMixto()!!
-                            .getForView(liturgyDay!!.liturgyTime, hasSaintToday())
-                    )*/
                     sb.append(
                         bh?.getMixtoForView(
                             liturgyDay!!.liturgyTime!!,
                             hasSaintToday()
                         )
-                    ) //.getForView(liturgyDay.liturgyTime));
+                    )
                 }
             }
             if (liturgyDay!!.typeID == 1) {
@@ -180,16 +173,12 @@ class Today {
             if (liturgyDay!!.typeID == 7) {
                 sb.append(liturgyDay!!.breviaryHour!!.getCompletas()!!.getAllForView())
             }
-
-
         } catch (e: Exception) {
             sb.append(Utils.createErrorMessage(e.message))
         }
         return sb
     }
 
-    //liturgyDay.today.previousFK
-    //sb.append(liturgyDay.getAllForView());
     val singleForView: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()
@@ -200,8 +189,6 @@ class Today {
                 sb.append(Utils.toH2(tiempo))
                 sb.append(Utils.LS2)
                 sb.append(Utils.toH3(titulo))
-                //liturgyDay.today.previousFK
-                //sb.append(liturgyDay.getAllForView());
             } catch (e: Exception) {
                 sb.append(Utils.createErrorMessage(e.message))
             }
@@ -219,7 +206,6 @@ class Today {
                 )
                 return sb
             }
-            //sb.append(liturgyDay.getForRead());
             if (liturgyDay!!.typeID == 0) {
                 if (oBiblicalFK == 600010101) {
                     sb.append(liturgyDay!!.breviaryHour!!.getOficioEaster()?.forRead)
@@ -260,7 +246,6 @@ class Today {
             sb.append(Utils.pointAtEnd(tiempo))
 
             sb.append(tituloForRead)
-            //sb.append(liturgyDay.getForRead());
         } catch (e: Exception) {
             sb.append(Utils.createErrorMessage(e.message))
         }

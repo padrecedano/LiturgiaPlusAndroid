@@ -8,7 +8,6 @@ import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -27,18 +26,15 @@ import org.deiverbum.app.R
 import org.deiverbum.app.databinding.FragmentTodayBinding
 import org.deiverbum.app.domain.model.TodayRequest
 import org.deiverbum.app.presentation.base.BaseFragment
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Constants.PACIENCIA
-import org.deiverbum.app.utils.TtsManager
-import org.deiverbum.app.utils.Utils
-import org.deiverbum.app.utils.ZoomTextView
-import timber.log.Timber
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Constants.PACIENCIA
+import org.deiverbum.app.util.TtsManager
+import org.deiverbum.app.util.Utils
+import org.deiverbum.app.util.ZoomTextView
 import java.util.*
 
 /**
- * <p>
- * Este Fragmento coordina la obtención de la liturgia del día sin importar el módulo, el cual se determinará por el valor de un id proveniente en un argumento y con la ayuda de {@link org.deiverbum.app.util.LiturgyHelper LiturgyHelper}.
- * </p>
+ * Este Fragmento coordina la obtención de la liturgia del día sin importar el módulo, el cual se determinará por el valor de un id proveniente en un argumento y con la ayuda de [org.deiverbum.app.util.LiturgyHelper].
  *
  * @author A. Cedano
  * @version 1.0
@@ -47,23 +43,22 @@ import java.util.*
 
 @AndroidEntryPoint
 class TodayFragment : BaseFragment<FragmentTodayBinding>() {
-    //private var mViewModel: TodayViewModel? = null;
     private val mViewModel: TodayViewModel by viewModels()
-    private lateinit var mTextVieww: ZoomTextView
+    private lateinit var mTextView: ZoomTextView
     private var progressBar: ProgressBar? = null
     private var seekBar: SeekBar? = null
-    private  var isReading = false
-    private  var isVoiceOn = false
-    private  var hasInvitatory = false
+    private var isReading = false
+    private var isVoiceOn = false
+    private var hasInvitatory = false
     private var sbReader: StringBuilder? = null
     private var audioMenu: Menu? = null
     private var voiceItem: MenuItem? = null
     private var mTtsManager: TtsManager? = null
     private var mainMenu: Menu? = null
+    private var mActionMode: ActionMode? = null
+    private lateinit var todayRequest: TodayRequest
 
-
-
-     val mActionModeCallback: ActionMode.Callback = object : ActionMode.Callback {
+    val mActionModeCallback: ActionMode.Callback = object : ActionMode.Callback {
         override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
             val menuItem = item.itemId
             if (menuItem == R.id.audio_play) {
@@ -143,39 +138,33 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
     private fun onLoaded(todayItemUiState: TodayItemUiState) {
         todayItemUiState.run {
             getViewBinding().progressBar.visibility = View.GONE
-            //getViewBinding().include.tvZoomable.text = allData
-            if(allData.dataForRead!=null){
-                sbReader = allData.dataForRead
+            if (todayResponse.success) {
+                mTextView.text = todayResponse.dataModel.getAllForView(todayRequest)
+                if (isVoiceOn) {
+                    sbReader = todayResponse.dataModel.getAllForRead(hasInvitatory)
+                }
+            } else {
+                mTextView.text = "No data"
             }
-            mTextVieww.text = allData.dataForView
-
         }
     }
 
     private fun showLoading() {
-        mTextVieww.text=PACIENCIA
-
+        mTextView.text = PACIENCIA
     }
 
     private fun showError(stringRes: String) {
-        mTextVieww.text=stringRes
+        mTextView.text = stringRes
         Toast.makeText(requireContext(), stringRes, Toast.LENGTH_SHORT).show()
     }
 
-    private fun setMenu(){
+    private fun setMenu() {
         val menuHost: MenuHost = requireActivity()
-        //_binding.inflateroot.inflateMenu(R.menu.sample_menu)
-        // Add menu items without using the Fragment Menu APIs
-        // Note how we can tie the MenuProvider to the viewLifecycleOwner
-        // and an optional Lifecycle.State (here, RESUMED) to indicate when
-        // the menu should be visible
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                // Add menu items here
                 menuInflater.inflate(R.menu.toolbar_menu, menu)
-                mainMenu=menu
+                mainMenu = menu
                 voiceItem = menu.findItem(R.id.item_voz)
-                //mainMenu!!.getItem(R.id.item_voz).isVisible = isVoiceOn
                 voiceItem!!.isVisible = isVoiceOn
                 if (isReading) {
                     voiceItem!!.isVisible = false
@@ -184,11 +173,10 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle the menu selection
-                //return true
                 return when (menuItem.itemId) {
                     android.R.id.home -> {
-                        val navController = NavHostFragment.findNavController(requireParentFragment())
+                        val navController =
+                            NavHostFragment.findNavController(requireParentFragment())
                         navController.popBackStack()
                         true
                     }
@@ -204,7 +192,8 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
                         true
                     }
                     else -> {
-                        val navController = NavHostFragment.findNavController(requireParentFragment())
+                        val navController =
+                            NavHostFragment.findNavController(requireParentFragment())
                         NavigationUI.onNavDestinationSelected(menuItem, navController)
                     }
                 }
@@ -215,12 +204,8 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
 
     private fun setConfiguration() {
         val args: TodayFragmentArgs by navArgs()
-        //Timber.d(args.hourId.toString())
-        Timber.d(args.hourId.toString())
-
-        mTextVieww = getViewBinding().include.tvZoomable
+        mTextView = getViewBinding().include.tvZoomable
         progressBar = getViewBinding().progressBar
-        //val sp = activity?.getPreferences(Context.MODE_PRIVATE)
         val sp = PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
         val fontSize = sp?.getString("font_size", "18")!!.toFloat()
         val fontFamily = String.format(
@@ -229,17 +214,13 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
             sp.getString("font_name", "robotoslab_regular.ttf")
         )
         val tf = Typeface.createFromAsset(requireActivity().assets, fontFamily)
-        mTextVieww.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
-        mTextVieww.typeface = tf
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
+        mTextView.typeface = tf
         hasInvitatory = sp.getBoolean("invitatorio", false)
         isVoiceOn = sp.getBoolean("voice", true)
         todayRequest =
             TodayRequest(pickOutDate(), args.hourId, isNightMode(), isVoiceOn, hasInvitatory)
-
-        //pickOutDate()
     }
-
-
 
     private fun setPlayerButton() {
         voiceItem!!.isVisible = isVoiceOn
@@ -247,7 +228,9 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
 
     private fun readText() {
         mTtsManager = TtsManager(
-            context, sbReader.toString(), Constants.SEPARADOR
+            context,
+            sbReader.toString(),
+            Constants.SEPARADOR
         ) { current: Int, max: Int ->
             seekBar!!.progress = current
             seekBar!!.max = max
@@ -273,14 +256,12 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
     private fun pickOutDate(): Int {
         val bundle = arguments
         val mDate = if (bundle != null && bundle.containsKey("FECHA")) {
-            //Timber.d(bundle.getInt("FECHA").toString())
             bundle.getInt("FECHA")
         } else {
             Utils.getHoy().toInt()
         }
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
-        Objects.requireNonNull<ActionBar?>(actionBar).subtitle =
-            Utils.getTitleDate(mDate.toString())
+        actionBar?.subtitle = Utils.getTitleDate(mDate.toString())
         return mDate
     }
 
@@ -291,7 +272,6 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
             mActionMode!!.finish()
         }
         cleanTTS()
-        //binding = null
     }
 
 }

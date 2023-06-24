@@ -12,6 +12,8 @@ import org.deiverbum.app.data.api.TodayApi
 import org.deiverbum.app.data.database.dao.TodayDao
 
 /**
+ * Esta clase se ocupa de manejar el Worker de sincronización.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -35,14 +37,11 @@ class TodayWorker @AssistedInject constructor(
     }
 
     /**
-     *
-     * <p>
-     *     Este método busca si hay sincronizaciones disponibles en el servidor
-     *     desde la última sincronización.
-     *     Si las hay, actualizará esos datos llamando a [org.deiverbum.app.model.crud.Crud.doCrud]
-     *     y actualizará también la fecha de la última sincronización, que será la actual,
-     *     en la base de datos.
-     * </p>
+     * Este método busca si hay sincronizaciones disponibles en el servidor
+     * desde la última sincronización.
+     * Si las hay, actualizará esos datos llamando al [método `doCrud()`](org.deiverbum.app.model.crud.Crud.doCrud)
+     * y actualizará también la fecha de la última sincronización, que será la actual,
+     * en la base de datos.
      *
      */
     private suspend fun loadCrud() {

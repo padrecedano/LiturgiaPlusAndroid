@@ -14,7 +14,7 @@ import org.deiverbum.app.R
 /**
  *
  *
- * Esta clase maneja el adaptador de la pantalla `Breviary`,
+ * Esta clase maneja el adaptador de la pantalla `Breviario`,
  * presentada desde `BreviarioFragment`.
  *
  *

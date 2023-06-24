@@ -14,8 +14,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.deiverbum.app.core.utils.ConnectivityIntecepter
 import org.deiverbum.app.data.source.remote.network.ApiService
-import org.deiverbum.app.data.source.remote.network.TestService
-import org.deiverbum.app.utils.Configuration
+import org.deiverbum.app.util.Configuration
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -39,9 +38,9 @@ object NetworkModule {
         okHttpClient: OkHttpClient?
     ): Retrofit {
         return Retrofit.Builder().baseUrl(Configuration.URL_API)
-            .addConverterFactory(gsonConverterFactory)
-            .addCallAdapterFactory(rxJava3CallAdapterFactory)
-            .client(okHttpClient)
+            .addConverterFactory(gsonConverterFactory!!)
+            .addCallAdapterFactory(rxJava3CallAdapterFactory!!)
+            .client(okHttpClient!!)
             .build()
     }
 
@@ -55,9 +54,9 @@ object NetworkModule {
     @Singleton
     fun provideHttpClient(application: Context): OkHttpClient {
         val dispatcher = Dispatcher()
-        var logging: HttpLoggingInterceptor = HttpLoggingInterceptor()
+        val logging = HttpLoggingInterceptor()
 //= new HttpLoggingInterceptor()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
         val client =OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
@@ -72,7 +71,7 @@ object NetworkModule {
             chain.proceed(request)
         }
         client.addInterceptor(interceptor)
-        client.interceptors().add(logging);
+        client.interceptors().add(logging)
         return client.build()
     }
 
@@ -99,11 +98,6 @@ object NetworkModule {
     fun provideServicee(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
-
-    @Singleton
-    @Provides
-    fun provideTestService(retrofit: Retrofit): TestService =
-        retrofit.create(TestService::class.java)
 
 
 }

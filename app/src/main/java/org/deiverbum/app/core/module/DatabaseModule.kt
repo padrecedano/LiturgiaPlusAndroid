@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.deiverbum.app.data.db.AppDatabase
+import org.deiverbum.app.data.database.AppDatabase
 import javax.inject.Singleton
 
 /**

@@ -3,8 +3,8 @@ package org.deiverbum.app.model
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import androidx.room.Ignore
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 
 class LHGospelCanticle : LHPsalm() {
     @Ignore
@@ -27,7 +27,8 @@ class LHGospelCanticle : LHPsalm() {
                         "espíritu en Dios, mi salvador;_porque ha mirado la humillación de su esclava.§Desde ahora me felicitarán todas las generaciones,_porque el Poderoso ha hecho obras grandes por mí:_su nombre es santo,_y su misericordia llega a sus fieles_de generación en generación.§Él hace proezas con su brazo:_dispersa a los soberbios de corazón,_derriba del trono a los poderosos y enaltece a los humildes,_a los hambrientos los colma de bienes_y a los ricos los despide vacíos.§Auxilia a Israel, su siervo,_acordándose de la misericordia_—como lo había prometido a nuestros padres—_en favor de Abrahán y su descendencia por siempre."
             }
             else -> {
-                ""
+                "Ahora, Señor, según tu promesa, ~puedes dejar a tu siervo irse en paz, ¦§porque mis ojos han visto a tu Salvador, ~a quien has presentado ante todos los pueblos: ¦~luz para alumbrar a las naciones~y gloria de tu pueblo Israel."
+
             }
         }
     val all: SpannableStringBuilder
@@ -61,4 +62,20 @@ class LHGospelCanticle : LHPsalm() {
             sb.append(antiphon)
             return sb
         }
+
+    internal fun getAll(timeID: Int): SpannableStringBuilder {
+        val sb = SpannableStringBuilder("")
+        val antiphon= "Sálvanos, Señor, despiertos, protégenos mientras dormimos, para que velemos con Cristo y descansemos en paz. Ƥ."
+
+        sb.append(header)
+        sb.append(Utils.LS2)
+        sb.append(Utils.replaceByTime(antiphon,timeID))
+        sb.append(Utils.LS2)
+        sb.append(texto)
+        sb.append(Utils.LS2)
+        sb.append(finSalmo)
+        sb.append(Utils.LS2)
+        sb.append(Utils.replaceByTime(antiphon,timeID))
+        return sb
+    }
 }

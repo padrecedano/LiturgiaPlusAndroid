@@ -18,7 +18,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import org.deiverbum.app.R;
 import org.deiverbum.app.databinding.FragmentCalendarioBinding;
-import org.deiverbum.app.utils.Utils;
+import org.deiverbum.app.util.Utils;
 
 import java.util.Calendar;
 import java.util.Locale;

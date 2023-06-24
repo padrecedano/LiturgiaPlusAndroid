@@ -2,8 +2,8 @@ package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
 import androidx.room.Ignore
-import org.deiverbum.app.utils.Constants
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Utils
 
 class LHOfficeBiblicalEaster : Biblical(), Comparable<LHOfficeBiblicalEaster> {
     var psalm: LHPsalm? = null

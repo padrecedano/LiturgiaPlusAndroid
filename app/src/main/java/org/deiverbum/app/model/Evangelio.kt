@@ -1,7 +1,7 @@
 package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.Utils
 
 class Evangelio : MassReading() {
     var antifona: String? = null

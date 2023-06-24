@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.PrimaryKey
 import org.deiverbum.app.model.SaintLife
-import org.deiverbum.app.utils.Constants
+import org.deiverbum.app.util.Constants
 
 /**
  * @author A. Cedano

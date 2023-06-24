@@ -1,4 +1,4 @@
-package org.deiverbum.app.utils;
+package org.deiverbum.app.util;
 
 import android.graphics.Color;
 import android.text.style.ForegroundColorSpan;

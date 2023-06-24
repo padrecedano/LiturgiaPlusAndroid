@@ -1,8 +1,8 @@
 package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
-import org.deiverbum.app.utils.ColorUtils
-import org.deiverbum.app.utils.Utils
+import org.deiverbum.app.util.ColorUtils
+import org.deiverbum.app.util.Utils
 @Suppress("unused")
 class ViaCrucis {
     private var subTitulo: String? = null
