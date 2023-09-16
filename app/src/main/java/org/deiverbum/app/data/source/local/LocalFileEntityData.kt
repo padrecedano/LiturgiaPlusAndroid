@@ -31,13 +31,13 @@ class LocalFileEntityData @Inject constructor(
         fileResponse.forEach {
             if (books.contains(it.fileName)) {
                 val data: Book = Gson().fromJson(it.text.toString(), Book::class.java)
-                it.text = data.getForView(false)
+                it.text = data.getForView(fileRequest.isNightMode)
             } else if (viacrucis.contains(it.fileName)) {
                 val data: ViaCrucis = Gson().fromJson(it.text.toString(), ViaCrucis::class.java)
                 it.text = data.getForView(fileRequest.isNightMode)
             } else if (it.fileName == "raw/completas.json") {
                 val hora: Completas = Gson().fromJson(it.text.toString(), Completas::class.java)
-                hora.setTypeId(7);
+                hora.setTypeId(7)
                 //hora.setToday(fileRequest.);
 
                 it.text = hora.getAllForView()
@@ -56,6 +56,6 @@ class LocalFileEntityData @Inject constructor(
         return fileResponse
     }
 
-    override suspend fun addFile(homily: String) {
+    override suspend fun addFile(fileName: String) {
     }
 }

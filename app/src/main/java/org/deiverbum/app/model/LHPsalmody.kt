@@ -21,7 +21,8 @@ class LHPsalmody {
     //@ColumnInfo(name = "salmos")
     @Ignore
     private var salmos: MutableList<LHPsalm> = mutableListOf()
-    fun sort() {
+
+    private fun sort() {
         salmos.sortBy { it.theOrder }
     }
 
@@ -37,21 +38,22 @@ class LHPsalmody {
     }
 
     private fun getSalmos(hourIndex: Int): SpannableStringBuilder {
+        sort()
         val sb = SpannableStringBuilder("")
         var salmo: String?
         val preAntifona = "Ant. "
         var antUnica: String?
         if (tipo == 1) {
             sb.append(Utils.toRed(preAntifona))
-            antUnica = salmos!![hourIndex].antiphon
+            antUnica = salmos[hourIndex].antiphon
             sb.append(antUnica)
         }
         if (tipo == 2) {
             sb.append(Utils.toRed(preAntifona))
-            antUnica = salmos!![0].antiphon
+            antUnica = salmos[0].antiphon
             sb.append(antUnica)
         }
-        for (s in salmos!!) {
+        for (s in salmos) {
             val tema = SpannableStringBuilder("")
             val parte = SpannableStringBuilder("")
             val intro = SpannableStringBuilder("")
@@ -69,7 +71,7 @@ class LHPsalmody {
                 intro.append(Utils.fromHtmlSmall(s.epigraph))
                 intro.append(Utils.LS2)
             }
-            if (s.part != "") {
+            if (!s.part.equals("null")) {
                 parte.append(Utils.toRed(s.part))
                 parte.append(Utils.LS2)
             }
@@ -102,14 +104,14 @@ class LHPsalmody {
         if (tipo == 1) {
             sb.append(Utils.LS2)
             sb.append(Utils.toRed(preAntifona))
-            antUnica = getAntifonaLimpia(salmos!![hourIndex].antiphon)
+            antUnica = getAntifonaLimpia(salmos[hourIndex].antiphon)
             sb.append(antUnica)
             sb.append(Utils.LS2)
         }
         if (tipo == 2) {
             sb.append(Utils.LS2)
             sb.append(Utils.toRed(preAntifona))
-            antUnica = getAntifonaLimpia(salmos!![0].antiphon)
+            antUnica = getAntifonaLimpia(salmos[0].antiphon)
             sb.append(antUnica)
             sb.append(Utils.LS2)
         }
@@ -117,11 +119,12 @@ class LHPsalmody {
     }
 
     fun getSalmosByIndex(index: Int): SpannableStringBuilder {
+        sort()
         val sb = SpannableStringBuilder("")
         val preAntifona = "Ant. "
         sb.append(Utils.toRed(preAntifona))
         //sb.append(salmos.get(index).getAntiphon());
-        val s = salmos!![index]
+        val s = salmos[index]
         sb.append(Utils.fromHtml(s.antiphon))
         val tema = SpannableStringBuilder("")
         val parte = SpannableStringBuilder("")
@@ -138,7 +141,7 @@ class LHPsalmody {
             intro.append(Utils.fromHtmlSmall(s.epigraph))
             intro.append(Utils.LS2)
         }
-        if (s.part != "") {
+        if (!s.part.equals("null")) {
             parte.append(Utils.toRed(s.part))
             parte.append(Utils.LS2)
         }
@@ -173,15 +176,15 @@ class LHPsalmody {
         var salmo: String?
         var antUnica = ""
         if (tipo == 1) {
-            antUnica = getAntifonaLimpia(salmos!![hourIndex].antifonaForRead)
+            antUnica = getAntifonaLimpia(salmos[hourIndex].antifonaForRead)
             sb.append(antUnica)
         }
         if (tipo == 2) {
-            antUnica = getAntifonaLimpia(salmos!![0].antifonaForRead)
+            antUnica = getAntifonaLimpia(salmos[0].antifonaForRead)
             //antUnica = salmoCompleto.get(0).getAntifona();
             sb.append(antUnica)
         }
-        for (s in salmos!!) {
+        for (s in salmos) {
             if (tipo == 0) {
                 sb.append(Utils.fromHtml(s.antifonaForRead))
             }
@@ -211,7 +214,7 @@ class LHPsalmody {
     fun getSalmosByIndexForRead(index: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         val salmo: String
-        val s = salmos!![index]
+        val s = salmos[index]
         sb.append(Utils.fromHtml(s.antifonaForRead))
         sb.append(Utils.LS2)
         salmo = Utils.getFormatoForRead(s.psalm)
@@ -328,7 +331,7 @@ class LHPsalmody {
      * @param calendarTime Un entero con el Id del tiempo del calendario
      */
     fun normalizeByTime(calendarTime: Int) {
-        for (s in salmos!!) {
+        for (s in salmos) {
             s.normalizeByTime(calendarTime)
         }
     }

@@ -13,9 +13,17 @@ import org.deiverbum.app.util.Utils
         LHPsalm 66: ID 62
         LHPsalm 23: ID 101
  */
-class LHInvitatory : LHPsalm() {
+class LHInvitatory  {
     @Ignore
     var isMultiple = false
+    var caseID = 1
+    var psalmFK = 315
+    @Ignore var lhPsalm: LHPsalm? = null
+
+    //var psalmID = 0
+    //var readingID = 0
+    //var quote: String? = ""
+
 
     /**
      * Determina si el usuario tiene configurado un invitatorio variable
@@ -28,9 +36,9 @@ class LHInvitatory : LHPsalm() {
         get() {
             val ssb = SpannableStringBuilder()
             if (isMultiple) {
-                ssb.append(ref)
+                //ssb.append(ref)
                 ssb.append(Constants.LS2)
-                ssb.append(Utils.fromHtml(psalm))
+                //ssb.append(Utils.fromHtml(psalm))
             } else {
                 ssb.append(Utils.toRed("Salmo 94."))
                 ssb.append(Constants.LS2)
@@ -50,9 +58,9 @@ class LHInvitatory : LHPsalm() {
         get() {
             val sb = StringBuilder()
             if (isMultiple) {
-                sb.append(Utils.normalizeEnd(ref.toString()))
+                //sb.append(Utils.normalizeEnd(ref.toString()))
                 //sb.append(LS2);
-                sb.append(Utils.getFormatoForRead(psalm))
+                //sb.append(Utils.getFormatoForRead(psalm))
             } else {
                 sb.append("Salmo 94.")
                 sb.append(Utils.getFormatoForRead(unique))
@@ -72,29 +80,33 @@ class LHInvitatory : LHPsalm() {
             sb.append(Utils.formatSubTitleToLower(title))
             sb.append(Utils.LS2)
             sb.append(Utils.toRed("Ant. "))
-            sb.append(antiphon)
+            sb.append(lhPsalm?.antiphon)
             sb.append(Utils.LS2)
             sb.append(textoSpan)
-            sb.append(Utils.LS)
-            sb.append(finSalmo)
+            sb.append(Utils.LS2)
+            sb.append(lhPsalm?.finSalmo)
             sb.append(Utils.LS2)
             sb.append(Utils.toRed("Ant. "))
-            sb.append(antiphon)
+            sb.append(lhPsalm?.antiphon)
+
+            //sb.append(antiphon)
             return sb
         }
     val allForRead: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()
             sb.append(titleForRead)
-            sb.append(antiphon)
+            sb.append(lhPsalm?.antifonaForRead)
             sb.append(textoForRead)
-            sb.append(finSalmo)
-            sb.append(antiphon)
+            sb.append(lhPsalm?.finSalmoForRead)
+            sb.append(lhPsalm?.antifonaForRead)
+
+            //sb.append(antiphon)
             return sb
         }
 
     fun normalizeIsSaint(s: String) {
-        antiphon = antiphon!!.replace("ƞ", s.substring(s.indexOf(" ") + 1))
+        lhPsalm?.antiphon = lhPsalm?.antiphon!!.replace("ƞ", s.substring(s.indexOf(" ") + 1))
     }
 
     val unique: String

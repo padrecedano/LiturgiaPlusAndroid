@@ -4,6 +4,8 @@ import androidx.room.*
 import androidx.room.ForeignKey.Companion.CASCADE
 
 /**
+ * Entidad para la tabla **`liturgy_group`** de la base de datos, que se ocupa de gestionar los grupos de Liturgia.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -19,11 +21,11 @@ import androidx.room.ForeignKey.Companion.CASCADE
         onUpdate = CASCADE
     )]
 )
-class LiturgyGroupEntity {
+data class LiturgyGroupEntity(
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    var groupID = 0
+    val groupID: Int,
 
     @ColumnInfo(name = "liturgyFK")
-    var liturgyFK = 0
-}
+    val liturgyFK: Int
+)

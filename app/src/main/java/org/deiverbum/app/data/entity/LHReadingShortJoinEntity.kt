@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`lh_reading_short_join`** de la base de datos, que se ocupa de gestionar la relación asociativa de las Lecturas Breves de la Liturgia de las Horas.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -28,17 +30,14 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class LHReadingShortJoinEntity {
-    @JvmField
+data class LHReadingShortJoinEntity (
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    var grupoId = 0
+    val grupoId:Int,
 
-    @JvmField
     @ColumnInfo(name = "readingFK", index = true)
-    var lecturaFK = 0
+    val lecturaFK:Int,
 
-    @JvmField
     @ColumnInfo(name = "responsoryFK", index = true)
-    var responsorioFK = 0
-}
+    val responsorioFK:Int
+)

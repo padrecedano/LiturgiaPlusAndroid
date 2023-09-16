@@ -1,8 +1,6 @@
 package org.deiverbum.app.domain.repository
 
 import org.deiverbum.app.domain.model.BibleBookRequest
-import org.deiverbum.app.domain.model.SyncRequest
-import org.deiverbum.app.domain.model.SyncResponse
 import org.deiverbum.app.model.BibleBook
 import org.deiverbum.app.model.BibleBooks
 

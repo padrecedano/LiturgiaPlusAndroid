@@ -7,6 +7,8 @@ import androidx.room.ForeignKey.Companion.CASCADE
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`lh_office_patristic`** de la base de datos, que se ocupa de gestionar las lecturas patrísticas del Oficio de Lectura de la Liturgia de las Horas.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -34,28 +36,22 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class LHOfficePatristicEntity {
-    @JvmField
+data class LHOfficePatristicEntity(
     @ColumnInfo(name = "groupFK", index = true)
-    var grupoFK = 0
+    var grupoFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "homilyFK", index = true)
-    var homiliaFK = 0
+    var homiliaFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "theme")
-    var tema = ""
+    var tema: String,
 
-    @JvmField
     @ColumnInfo(name = "source", defaultValue = "")
-    var fuente = ""
+    var fuente: String,
 
-    @JvmField
     @ColumnInfo(name = "theOrder", defaultValue = "1")
-    var orden = 0
+    var orden: Int,
 
-    @JvmField
     @ColumnInfo(name = "responsoryFK", index = true)
-    var responsorioFK = 0
-}
+    var responsorioFK: Int
+)

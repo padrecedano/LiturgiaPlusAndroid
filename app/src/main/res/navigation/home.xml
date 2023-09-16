@@ -35,12 +35,12 @@
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="org.deiverbum.app.ui.fragments.SettingsFragment"
+        android:name="org.deiverbum.app.presentation.SettingsFragment"
         android:label="@string/title_fragment_settings" />
 
     <fragment
         android:id="@+id/nav_error"
-        android:name="org.deiverbum.app.ui.fragments.BugReportFragment"
+        android:name="org.deiverbum.app.presentation.BugReportFragment"
         android:label="@string/title_fragment_bugreport"
         tools:layout="@layout/fragment_bugreport" />
 
@@ -137,9 +137,14 @@
 
     <fragment
         android:id="@+id/nav_santo"
-        android:name="org.deiverbum.app.ui.fragments.SantosFragment"
+        android:name="org.deiverbum.app.presentation.today.TodayFragment"
         android:label="@string/title_fragment_santos"
-        tools:layout="@layout/fragment_santos" />
+        tools:layout="@layout/fragment_today">
+    <argument
+        android:name="hourId"
+        android:defaultValue="12"
+        app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_lecturas"

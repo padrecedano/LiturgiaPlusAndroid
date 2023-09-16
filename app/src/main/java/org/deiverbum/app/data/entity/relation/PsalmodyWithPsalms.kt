@@ -52,7 +52,7 @@ class PsalmodyWithPsalms {
     val salmoText: String
         get() = if (psalmEntity != null) psalmEntity!!.salmo else ""
     val ref: String
-        get() = if (psalmEntity != null) psalmEntity!!.getSalmoRef() else ""
+        get() = if (psalmEntity != null && !psalmEntity!!.salmoRef.isNullOrEmpty()) psalmEntity!!.salmoRef!! else ""
     val antifona: String
         get() = if (antiphonEntity != null) antiphonEntity!!.antifona else ""
 
@@ -61,7 +61,7 @@ class PsalmodyWithPsalms {
     }
 
     val parte: String
-        get() = salmodia!!.getParte()
+        get() = salmodia!!.parte.toString()
     val orden: String
         get() = if (salmodia != null) salmodia!!.orden.toString() else "0"
 }

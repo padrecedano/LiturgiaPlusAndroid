@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`lh_psalmody_join`** de la base de datos, que se ocupa de gestionar la relación asociativa de la salmodia de la Liturgia de las Horas.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -14,9 +16,9 @@ import org.deiverbum.app.util.Constants
     tableName = Constants.LH_PSALMODY_JOIN,
     indices = [Index(value = ["groupID", "type"], unique = true)]
 )
-class LHPsalmodyJoinEntity {
+data class LHPsalmodyJoinEntity (
     @PrimaryKey
-    var groupID = 0
+    val groupID:Int,
 
-    var type = 0
-}
+    val type:Int
+)

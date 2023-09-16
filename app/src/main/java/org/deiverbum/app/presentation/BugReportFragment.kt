@@ -1,104 +1,101 @@
-package org.deiverbum.app.ui.fragments;
+package org.deiverbum.app.presentation
 
-import static org.deiverbum.app.util.Constants.ERR_SUBJECT;
-import static org.deiverbum.app.util.Constants.VERSION_CODE;
-
-
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Typeface;
-import android.net.Uri;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.TextUtils;
-import android.util.TypedValue;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
-import org.deiverbum.app.databinding.FragmentBugreportBinding;
-import org.deiverbum.app.util.Configuration;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
-
-import dagger.hilt.android.AndroidEntryPoint;
+import android.content.Intent
+import android.content.SharedPreferences
+import android.graphics.Typeface
+import android.net.Uri
+import android.os.Bundle
+import android.text.TextUtils
+import android.util.TypedValue
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.CheckBox
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
+import org.deiverbum.app.databinding.FragmentBugreportBinding
+import org.deiverbum.app.util.Configuration
+import org.deiverbum.app.util.Constants
+import java.util.Locale
+import java.util.Objects
 
 @AndroidEntryPoint
-public class BugReportFragment extends Fragment {
-
-
-    private FragmentBugreportBinding binding;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
-        binding = FragmentBugreportBinding.inflate(inflater, container, false);
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        float fontSize = Float.parseFloat(prefs.getString("font_size", "18"));
-        String fontFamily = String.format(new Locale("es"), "fonts/%s", prefs.getString("font_name", "robotoslab_regular.ttf"));
-        Typeface tf = Typeface.createFromAsset(requireActivity().getAssets(), fontFamily);
-        TextView initialText = binding.textViewId;
-        initialText.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        initialText.setTypeface(tf);
-        TextView finalText = binding.textFinal;
-        finalText.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
-        finalText.setTypeface(tf);
-
-        Button button = binding.btnSend;
-        View root = binding.getRoot();
-        button.setOnClickListener(v -> {
-            LinearLayout left = binding.leftSide;
-            LinearLayout right = binding.rightSide;
-            List<CharSequence> selected = new ArrayList<>();
-            for (int i = 0; i < left.getChildCount(); i++) {
-                CheckBox checkBox = (CheckBox) left.getChildAt(i);
-                if (checkBox.isChecked()) {
-                    selected.add(checkBox.getText());
-                }
-            }
-
-            for (int i = 0; i < right.getChildCount(); i++) {
-                CheckBox checkBox = (CheckBox) right.getChildAt(i);
-                if (checkBox.isChecked()) {
-                    selected.add(checkBox.getText());
-                }
-            }
-
-            String textSelected = TextUtils.join(", ", selected);
-            String msg = String.format("Mensaje: \n\n%s\n\nEn:\n\n%s", Objects.requireNonNull(binding.message.getText()), textSelected);
-            String errSubject=String.format("%s %s",ERR_SUBJECT,VERSION_CODE);
-            composeEmail(new String[]{Configuration.MY_EMAIL}, errSubject, msg);
-        });
-
-        return root;
+class BugReportFragment : Fragment() {
+    private var binding: FragmentBugreportBinding? = null
+    private val prefs: SharedPreferences by lazy {
+        androidx.preference.PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
     }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentBugreportBinding.inflate(inflater, container, false)
+        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
+        actionBar?.subtitle = ""
 
-    public void composeEmail(String[] addresses, String subject, String body) {
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:"));
-        intent.putExtra(Intent.EXTRA_EMAIL, addresses);
-        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        intent.putExtra(Intent.EXTRA_TEXT, body);
-        if (intent.resolveActivity(requireActivity().getPackageManager()) != null) {
-            startActivity(intent);
+        //val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
+        val fontSize = prefs.getString("font_size", "18")!!.toFloat()
+        val fontFamily = String.format(
+            Locale("es"),
+            "fonts/%s",
+            prefs.getString("font_name", "robotoslab_regular.ttf")
+        )
+        val tf = Typeface.createFromAsset(requireActivity().assets, fontFamily)
+        val initialText = binding!!.bugInitial
+        val checkText = binding!!.bugCheck
+        val finalText = binding!!.bugFinal
+        initialText.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
+        initialText.typeface = tf
+        checkText.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
+        checkText.typeface = tf
+        finalText.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
+        finalText.typeface = tf
+        val button: Button = binding!!.btnSend
+        val root: View = binding!!.root
+        button.setOnClickListener { _: View? ->
+            val left = binding!!.leftSide
+            val right = binding!!.rightSide
+            val selected: MutableList<CharSequence?> = ArrayList()
+            for (i in 0 until left.childCount) {
+                val checkBox = left.getChildAt(i) as CheckBox
+                if (checkBox.isChecked) {
+                    selected.add(checkBox.text)
+                }
+            }
+            for (i in 0 until right.childCount) {
+                val checkBox = right.getChildAt(i) as CheckBox
+                if (checkBox.isChecked) {
+                    selected.add(checkBox.text)
+                }
+            }
+            val textSelected = TextUtils.join(", ", selected)
+            val msg = String.format(
+                "Mensaje: \n\n%s\n\nEn:\n\n%s", Objects.requireNonNull(
+                    binding!!.message.text
+                ), textSelected
+            )
+            val errSubject = String.format("%s %s", Constants.ERR_SUBJECT, Constants.VERSION_CODE)
+            composeEmail(arrayOf(Configuration.MY_EMAIL), errSubject, msg)
         }
-        requireActivity().onBackPressed();
+        return root
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    private fun composeEmail(addresses: Array<String?>?, subject: String?, body: String?) {
+        val intent = Intent(Intent.ACTION_SENDTO)
+        intent.data = Uri.parse("mailto:")
+        intent.putExtra(Intent.EXTRA_EMAIL, addresses)
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        intent.putExtra(Intent.EXTRA_TEXT, body)
+        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(intent)
+        }
+        requireActivity().onBackPressed()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 }

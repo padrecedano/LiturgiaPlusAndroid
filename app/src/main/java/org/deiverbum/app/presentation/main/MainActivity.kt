@@ -4,6 +4,7 @@ import android.content.IntentSender.SendIntentException
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -98,6 +99,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mUpdateCode = resources.getInteger(R.integer.app_version_code)
         strFechaHoy = Utils.getFecha()
+        //setTheme(R.style.red_background)
         setPrivacy()
         showMain()
         checkForDataToClean()
@@ -244,7 +246,7 @@ class MainActivity : AppCompatActivity() {
         )
         snackbar.setAction("REINICIAR") { appUpdateManager.completeUpdate() }
         snackbar.setActionTextColor(
-            ContextCompat.getColor(this, R.color.colorAccent)
+            ContextCompat.getColor(this, R.color.colorInAppUpdate)
         )
         snackbar.show()
     }
@@ -286,7 +288,7 @@ class MainActivity : AppCompatActivity() {
                 syncViewModel.uiState.collect { state ->
                     when (state) {
                         is SyncViewModel.SyncUiState.Loaded -> onLoaded(state.itemState)
-                        else -> showLoading()
+                        else -> showNoData()
                     }
                 }
             }
@@ -301,7 +303,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showLoading() {
+    private fun showNoData() {
+        val msgNoData = applicationContext.resources?.getString(R.string.err_no_data)
+        Toast.makeText(applicationContext, msgNoData, Toast.LENGTH_SHORT).show()
+
     }
 
     private fun unregisterListener() {

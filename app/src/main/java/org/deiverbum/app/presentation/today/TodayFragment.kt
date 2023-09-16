@@ -144,7 +144,8 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
                     sbReader = todayResponse.dataModel.getAllForRead(hasInvitatory)
                 }
             } else {
-                mTextView.text = "No data"
+                val msgNoData = activity?.resources?.getString(R.string.err_no_data)
+                mTextView.text = msgNoData
             }
         }
     }
@@ -205,6 +206,7 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
     private fun setConfiguration() {
         val args: TodayFragmentArgs by navArgs()
         mTextView = getViewBinding().include.tvZoomable
+        //mTextView.setthe
         progressBar = getViewBinding().progressBar
         val sp = PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
         val fontSize = sp?.getString("font_size", "18")!!.toFloat()
@@ -247,7 +249,7 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
         mTtsManager!!.start()
     }
 
-    fun onError() {}
+    //fun onError() {}
 
     private fun cleanTTS() {
         mTtsManager?.close()

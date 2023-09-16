@@ -6,7 +6,6 @@ class CompletasHimno {
         return himno
     }
 
-    @Suppress("unused")
     fun setHimno(himno: LHHymn?) {
         this.himno = himno
     }

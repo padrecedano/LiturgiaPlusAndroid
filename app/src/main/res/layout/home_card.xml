@@ -3,8 +3,6 @@
     android:id="@+id/mainCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorSurface"
-
     android:paddingLeft=".5dp"
     android:paddingTop=".5dp"
     android:paddingRight=".5dp"
@@ -15,7 +13,6 @@
         android:layout_height="140dp"
         android:layout_gravity="center"
         android:layout_margin="0.1dp"
-        android:background="@color/colorSurface"
         android:elevation="3dp"
         card_view:cardCornerRadius="@dimen/card_album_radius">
 
@@ -47,7 +44,6 @@
                 android:layout_below="@id/thumbnail"
                 android:gravity="center"
                 android:textColor="@color/colorMainItem"
-
                 android:textStyle="bold"
 
                 />

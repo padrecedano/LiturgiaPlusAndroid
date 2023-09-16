@@ -8,6 +8,8 @@ import org.deiverbum.app.model.MassReading
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`mass_reading`** de la base de datos, que se ocupa de gestionar la las lecturas de la misa.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -29,20 +31,19 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class MassReadingEntity {
-    @JvmField
+data class MassReadingEntity(
     @ColumnInfo(name = "liturgyFK")
-    var groupFK = 0
+    val groupFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "readingFK", index = true)
-    var readingFK = 0
+    val readingFK: Int,
 
     @ColumnInfo(name = "theOrder")
-    var orden = 0
+    val orden: Int,
 
     @ColumnInfo(name = "theme")
-    var tema = ""
+    val tema: String
+) {
     val domainModel: MassReading
         get() {
             val theModel = MassReading()

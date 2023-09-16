@@ -15,44 +15,43 @@ import org.deiverbum.app.model.Today
  * @since 2023.1
  */
 class TodayComentarios {
-    @JvmField
     @Embedded
     var today: TodayEntity? = null
 
-    @JvmField
     @Relation(entity = LiturgyEntity::class, parentColumn = "liturgyFK", entityColumn = "liturgyID")
-    var feria: LiturgyWithTime? = null
+    var feria: LiturgyWithTime = LiturgyWithTime()
 
-    @JvmField
     @Relation(
         entity = MassReadingEntity::class,
         parentColumn = "massReadingFK",
         entityColumn = "liturgyFK"
     )
     var comentarios: List<MisaWithComentarios>? = null
+
     fun getToday(): Today {
         val dm = Today()
-        dm.liturgyDay = feria?.domainModel
+        dm.liturgyDay = feria.domainModel
         //dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
         dm.todayDate = today!!.hoy
         dm.hasSaint = today!!.hasSaint
         return dm
     }
 
-    val domainModel: BibleCommentList
+    val domainModelToday: Today
         get() {
-            val dm = BibleCommentList()
-            dm.setHoy(getToday())
-            var allComentarios: MutableList<List<BibleComment?>> = ArrayList()
-
-            val listModel: MutableList<BibleComment?> = ArrayList()
+            val dm = feria.domainModel
+            val dmToday = getToday()
+            dm.typeID = 11
+            val commentList = BibleCommentList()
+            commentList.setHoy(getToday())
+            val allComentarios: MutableList<List<BibleComment?>> = ArrayList()
             for (item in comentarios!!) {
                 allComentarios+=item.domainModel
-                //allComentarios.add(item.domainModel);
             }
-
-            //allComentarios+=listModel;
-            dm.allComentarios = allComentarios
-            return dm
+            commentList.allComentarios = allComentarios
+            dm.bibleCommentList = commentList
+            dmToday.liturgyDay = dm
+            return dmToday
         }
+
 }

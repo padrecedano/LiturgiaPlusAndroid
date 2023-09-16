@@ -26,21 +26,17 @@ class TodayRepositoryImpl @Inject constructor(
         } else
             todayFactory.create(Source.NETWORK)
                 .getToday(todayRequest)//syncToday(todayRequest)
-
     }
-    //return todayResponse
 
 
+    private suspend fun syncTodayy(todayRequest: TodayRequest): TodayResponse {
+        return todayFactory.create(Source.NETWORK).getToday(todayRequest)
+            .also { todayFromNetwork ->
+                todayFactory.create(Source.LOCAL).addToday(todayFromNetwork)
+            }
+    }
 
-private suspend fun syncTodayy(todayRequest: TodayRequest): TodayResponse {
-    return todayFactory.create(Source.NETWORK).getToday(todayRequest)
-        .also { todayFromNetwork ->
-            todayFactory.create(Source.LOCAL).addToday(todayFromNetwork)
-        }
-}
-
-private suspend fun syncToday(todayRequest: TodayRequest): TodayResponse {
-    val todayResponse = todayFactory.create(Source.NETWORK).getToday(todayRequest)
-    return todayResponse
-}
+    private suspend fun syncToday(todayRequest: TodayRequest): TodayResponse {
+        return todayFactory.create(Source.NETWORK).getToday(todayRequest)
+    }
 }

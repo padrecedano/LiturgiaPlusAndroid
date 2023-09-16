@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Customize your Primary color here. -->
-    <color name="colorPrimary">#1D2430</color>
-    <color name="colorPrimaryDark">@color/md_theme_dark_primary</color>
+
+    <color name="colorPrimary">@color/raisin_black</color>
+    <color name="colorPrimaryVariant">@color/dark_charcoal</color>
+    <color name="colorContainer">@color/dark_charcoal</color>
+    <color name="colorOnContainer">@color/amber_200</color>
+    <color name="colorOutline">@color/amber_200</color>
+
+    <color name="colorPrimaryDark">@color/white</color>
     <color name="colorLink">@color/amber_50</color>
     <color name="colorInput">#FFD600</color>
+    <color name="colorDialogSurface">@color/black_coral</color>
+    <color name="colorTextDialog">@color/amber_50</color>
+    <color name="colorPrimarySwitch">@color/brown_400</color>
+    <color name="colorSurfaceVariantSwitch">@color/gray_400</color>
+    <color name="colorBackgroundBugReport">@color/black_cat</color>
 
-    <color name="colorSurface">@color/md_theme_dark_primary</color>
-    <color name="transparent">@color/md_theme_dark_primary</color>
-    <color name="colorMainIcon">@color/md_theme_dark_outline</color>
     <color name="color_mainrecycler_text">@color/amber_900</color>
 
     <color name="colorOnSurface">#FFD600</color>
-    <color name="colorOnSurfaceVariant">#FFD600</color>
+    <color name="colorOnSurfaceVariant">@color/dark_charcoal</color>
+    <color name="colorBackgroundMain">@color/colorOnSurfaceVariant</color>
 
     <color name="text_color">#B3FFFFFF</color>
     <color name="text_background">#0D0D0D</color>
+    <color name="textBackground">#0D0D0D</color>
+
+<!--
+    <color name="colorSurface">@color/md_theme_dark_primary</color>
+    <color name="transparent">@color/md_theme_dark_primary</color>
+    <color name="colorMainIcon">@color/md_theme_dark_outline</color>
 
     <color name="colorBreviario">@color/md_theme_dark_onSecondary</color>
     <color name="colorMisa">@color/md_theme_dark_onSecondary</color>
@@ -32,6 +47,7 @@
     <color name="colorPadres">@color/md_theme_dark_onSecondary</color>
     <color name="colorSacramentos">@color/md_theme_dark_onSecondary</color>
     <color name="colorMain_img_mas">@color/md_theme_dark_onSecondary</color>
+-->
     <color name="colorMainItem">@color/amber_200</color>
     <color name="color_fondo_grupo2">#373737</color>
     <color name="color_rv_subtitle">@color/amber_200</color>

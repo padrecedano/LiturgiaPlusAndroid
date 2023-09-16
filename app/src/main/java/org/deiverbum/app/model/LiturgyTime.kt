@@ -10,7 +10,7 @@ package org.deiverbum.app.model
  */
 class LiturgyTime {
     var timeID: Int = 0
-    var tiempo: String? = null
+    var timeName: String? = null
     var liturgyName: String? = null
     val allForRead: String?
         get() = liturgyName

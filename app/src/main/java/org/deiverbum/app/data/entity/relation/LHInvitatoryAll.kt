@@ -6,6 +6,7 @@ import org.deiverbum.app.data.entity.LHAntiphonEntity
 import org.deiverbum.app.data.entity.LHInvitatoryEntity
 import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity
 import org.deiverbum.app.model.LHInvitatory
+import org.deiverbum.app.model.LHPsalm
 
 /**
  * @author A. Cedano
@@ -31,9 +32,12 @@ class LHInvitatoryAll {
     val domainModel: LHInvitatory
         get() {
             val dm = LHInvitatory()
-            dm.antiphon = antifona!!.antifona
-            dm.psalm = salmo!!.getSalmo()
-            dm.setRef(salmo!!.salmo!!.getSalmoRef())
+            val psalm = LHPsalm()
+
+            psalm.antiphon = antifona!!.antifona
+            psalm.psalm = salmo!!.getSalmo()
+            psalm.setRef(salmo!!.salmo!!.salmoRef)
+            dm.lhPsalm=psalm
             return dm
         }
 }

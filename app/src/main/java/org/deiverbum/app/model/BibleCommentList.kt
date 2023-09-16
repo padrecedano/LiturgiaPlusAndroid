@@ -5,6 +5,7 @@ import com.google.firebase.firestore.PropertyName
 import org.deiverbum.app.domain.model.TodayRequest
 import org.deiverbum.app.util.ColorUtils
 import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Constants.ERR_NO_COMMENT
 import org.deiverbum.app.util.Utils
 
 class BibleCommentList {
@@ -20,37 +21,38 @@ class BibleCommentList {
     var type = 0
 
 
-    private val titulo: SpannableStringBuilder
-        get() = Utils.toH3Red(Constants.TITLE_BIBLE_COMMENTS)
-    private val tituloForRead: String
-        get() = Utils.pointAtEnd(Constants.TITLE_BIBLE_COMMENTS)
-
     fun getAllForView(todayRequest: TodayRequest): SpannableStringBuilder {
         ColorUtils.isNightMode = todayRequest.isNightMode
         val sb = SpannableStringBuilder()
         try {
-            sb.append(today!!.singleForView)
-            sb.append(Utils.LS2)
-            sb.append(titulo)
-            sb.append(Utils.LS2)
+
+            //sb.append(Utils.LS2)
+
             for (subList in allComentarios) {
                 if (subList.isNotEmpty()) {
                     var x = 1
                     for (item in subList) {
+                        if (item!!.biblica!!.order!! > 39) {
                         if (x++ == 1) {
-                            sb.append(item?.biblica!!.getAll(type))
+                            sb.append(item.biblica!!.getAll(type))
                             sb.append(Utils.LS2)
                             sb.append(
-                                Utils.formatTitle(
+                                Utils.toH1Red(
                                     Constants.TITLE_BIBLE_COMMENTS))
                             sb.append(Utils.LS2)
                         }
-                        sb.append(item?.allForView)
+                        sb.append(item.allForView)
+
                     }
+                    }
+
                 }
             }
         } catch (e: Exception) {
             sb.append(Utils.createErrorMessage(e.message))
+        }
+        if(sb.isEmpty()){
+            sb.append(ERR_NO_COMMENT)
         }
         return sb
     }
@@ -59,8 +61,8 @@ class BibleCommentList {
         get() {
             val sb = StringBuilder()
             try {
-                sb.append(today!!.getSingleForRead())
-                sb.append(tituloForRead)
+                //sb.append(today!!.getSingleForRead())
+                //sb.append(tituloForRead)
                 for (subList in allComentarios) {
                     if (subList.isNotEmpty()) {
                         var x = 1

@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`lh_gospel_canticle`** de la base de datos, que se ocupa de los cánticos evangélicos y sus antífonas.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -22,13 +24,11 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class LHGospelCanticleEntity {
-    @JvmField
+data class LHGospelCanticleEntity(
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    var grupoId = 0
+    var grupoId: Int,
 
-    @JvmField
     @ColumnInfo(name = "antiphonFK", index = true)
-    var antifonaFK = 0
-}
+    var antifonaFK: Int
+)

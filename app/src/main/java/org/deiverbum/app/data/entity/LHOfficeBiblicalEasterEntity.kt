@@ -8,6 +8,8 @@ import org.deiverbum.app.model.LHOfficeBiblicalEaster
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`lh_office_biblical_easter`** de la base de datos, que se ocupa de gestionar el Oficio de Lectura específico del día de Pascua.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -41,34 +43,30 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class LHOfficeBiblicalEasterEntity {
-    @JvmField
+data class LHOfficeBiblicalEasterEntity(
     @ColumnInfo(name = "groupFK", index = true)
-    var groupFK = 0
+    var groupFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "readingFK", index = true)
-    var readingFK = 0
+    var readingFK: Int,
 
     @JvmField
     @ColumnInfo(name = "psalmodyFK", index = true)
-    var psalmodyFK = 0
+    var psalmodyFK: Int,
 
     @JvmField
     @ColumnInfo(name = "prayerFK", index = true)
-    var prayerFK = 0
+    var prayerFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "theme")
-    var theme = ""
+    var theme: String,
 
-    @JvmField
     @ColumnInfo(name = "theOrder", defaultValue = "1")
-    var theOrder = 1
-    val domainModel: LHOfficeBiblicalEaster
-        get() {
-            val dm = LHOfficeBiblicalEaster()
-            dm.theme = theme
-            return dm
-        }
+    var theOrder: Int = 1
+) {
+    fun getDomainModel(): LHOfficeBiblicalEaster {
+        val dm = LHOfficeBiblicalEaster()
+        dm.theme = this.theme
+        return dm
+    }
 }

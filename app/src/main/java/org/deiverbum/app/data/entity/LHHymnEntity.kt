@@ -7,18 +7,18 @@ import androidx.room.PrimaryKey
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`lh_hymn`** de la base de datos, que se ocupa de los Himnos de la Liturgia de las Horas.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
 @Entity(tableName = Constants.LH_HYMN, indices = [Index(value = ["hymn"], unique = true)])
-class LHHymnEntity {
-    @JvmField
+data class LHHymnEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "hymnID")
-    var himnoId = 0
+    var himnoId: Int,
 
-    @JvmField
     @ColumnInfo(name = "hymn")
-    var himno = ""
-}
+    var himno: String
+)

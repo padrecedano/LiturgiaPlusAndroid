@@ -11,10 +11,12 @@ import org.deiverbum.app.util.Utils
  * @since 2023.1
  */
 class BibleBook {
-    var id: Int? = null
-    var name: String? = null
-    var liturgyName: String? = null
+    var bookID: Int? = null
+    var bookType: Int? = null
     var shortName: String? = null
+    var longName: String? = null
+    var liturgyName: String? = null
+    var orderName: String? = null
 
     fun getForRead(): String {
         return Utils.normalizeEnd(liturgyName)

@@ -7,24 +7,24 @@ import org.deiverbum.app.model.Prayer
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`prayer`** de la base de datos, que se ocupa de gestionar las Oraciones.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
 @Entity(tableName = Constants.PRAYER)
-class PrayerEntity {
-    @JvmField
+data class PrayerEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "prayerID")
-    var oracionId = 0
+    val oracionId: Int,
 
-    @JvmField
     @ColumnInfo(name = "prayer")
-    var texto = ""
+    var texto: String,
 
-    @JvmField
     @ColumnInfo(name = "order")
-    var orden = 0
+    var orden: Int
+) {
     val domainModel: Prayer
         get() {
             val dm = Prayer()

@@ -7,6 +7,8 @@ import androidx.room.ForeignKey.Companion.CASCADE
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`bible_homily_theme`** de la base de datos, que se ocupa de los temas de las homilías.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -22,19 +24,15 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class BibleHomilyThemeEntity {
-    @JvmField
+data class BibleHomilyThemeEntity (
     @ColumnInfo(name = "homilyFK")
-    var homilyFK = 0
+    val homilyFK: Int,
 
     @ColumnInfo(name = "theological", defaultValue = "")
-    var theological:String? = ""
+    var theological: String?,
 
-    @JvmField
     @ColumnInfo(name = "biblical", defaultValue = "")
-    var biblical:String? = ""
+    var biblical: String?,
 
-    @JvmField
     @ColumnInfo(name = "reference", defaultValue = "")
-    var reference:String? = ""
-}
+    var reference: String?)

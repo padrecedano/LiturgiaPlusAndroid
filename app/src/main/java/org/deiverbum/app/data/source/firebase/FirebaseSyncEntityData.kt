@@ -34,7 +34,7 @@ class FirebaseSyncEntityData @Inject constructor() : SyncEntityData {
                     "todayDate",
                     Utils.getTodayMinus(1)
                 )
-                .limit(8).get()
+                .limit(30).get()
                 .await().toObjects(Today::class.java)
                     as List<Today>
             val syncStatus=SyncStatus()

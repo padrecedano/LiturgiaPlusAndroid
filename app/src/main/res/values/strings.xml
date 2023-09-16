@@ -50,6 +50,7 @@
 
     <!-- Error Messages -->
     <string name="leer">Leer</string>
+    <string name="err_no_data">No se encontraron datos</string>
 
     <!-- Strings related to Settings -->
     <string name="pref_title_invitatorio">Múltiples Invitatorios</string>
@@ -130,8 +131,9 @@
     <string name="pref_description_brevis">Al desactivar esta opción se mostrará el Santo Rosario con todos los Ave María.</string>
     <string name="pref_title_brevis">Mostrar Rosario abreviado</string>
     <string name="lbl_email">Email</string>
-    <string name="bug_info">Haz una descripción clara del problema y marca el/los lugar(es) donde ocurre:</string>
-    <string name="bug_privacy">Pulsa en el botón de más abajo para enviar el mensaje. Se abrirá tu cliente de correo electrónico, con el mensaje listo para enviar. Deberás pulsar en el botón \"Enviar\" de dicho programa para que el error sea reportado. Como se indica en la Política de Privacidad, tus datos serán usados únicamente con la finalidad de mejorar la aplicación, no serán compartidos con terceros y el mensaje será borrado en cuanto el error reportado sea registrado o resuelto.</string>
+    <string name="bug_info">1. Haz una descripción breve y clara del error:</string>
+    <string name="bug_check">2. Marca la casilla del lugar o los lugares donde ocurre el error:</string>
+    <string name="bug_privacy">3. Pulsa en el botón para enviar el mensaje. Se abrirá tu cliente de correo electrónico, con el mensaje listo para enviar. Deberás pulsar en el botón \"Enviar\" de dicho programa para que el error sea reportado. Como se indica en la Política de Privacidad, tus datos serán usados únicamente con la finalidad de mejorar la aplicación, no serán compartidos con terceros y el mensaje será borrado en cuanto el error reportado sea registrado o resuelto.</string>
     <string name="pref_key_enable_analytics">Permitir Google Analytics</string>
     <string name="pref_key_enable_crashlytics">Permitir reporte de errores</string>
     <string name="pref_description_privacy">Cualquier cambio aquí no tomará efecto hasta que no reinicies la aplicación.</string>

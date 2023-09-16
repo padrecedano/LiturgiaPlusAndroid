@@ -1,7 +1,5 @@
 package org.deiverbum.app.presentation.oraciones
 
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,10 +33,8 @@ class OracionesFragment : BaseHomeFragment<FragmentOracionesBinding>() {
     }
 
     private fun prepareItems() {
-        val colorGrupo1 = ContextCompat.getColor(requireActivity(), R.color.color_fondo_grupo1)
-        val colorGrupo2 = ContextCompat.getColor(
-            requireActivity(), R.color.color_fondo_grupo2
-        )
+        //val colorGrupo1 = ContextCompat.getColor(requireActivity(), R.color.color_fondo_grupo1)
+        //val colorGrupo2 = ContextCompat.getColor(requireActivity(), R.color.color_fondo_grupo2)
         mList = ArrayList()
 
         mList = listOf(

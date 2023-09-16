@@ -23,7 +23,7 @@ class TodayWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted params: WorkerParameters,
     private val apiService: TodayApi,
-    val todayDao: TodayDao
+    private val todayDao: TodayDao
 
 ) : CoroutineWorker(context, params) {
 

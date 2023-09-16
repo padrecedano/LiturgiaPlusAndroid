@@ -13,10 +13,6 @@
          />
 
 
-    <include
-        android:id="@+id/includebis"
-        layout="@layout/tv_clickable_with_button" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

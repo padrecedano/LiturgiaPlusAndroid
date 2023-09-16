@@ -21,6 +21,9 @@ open class Liturgy {
     @Ignore
     var santo: Saint? = null
 
+    @Ignore
+    var saintLife: SaintLife? = null
+
     @JvmField
     @Ignore
     var today: Today? = null
@@ -37,6 +40,9 @@ open class Liturgy {
 
     @Ignore
     var massReadingList: MassReadingList? = null
+
+    @Ignore
+    var bibleCommentList: BibleCommentList? = null
 
     @Ignore
     open var homilyList: HomilyList? = null

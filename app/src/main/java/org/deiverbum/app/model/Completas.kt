@@ -154,7 +154,7 @@ class Completas : BreviaryHour() {
             sb.append(biblicalShort!!.getAllWithHourCheck(7))
 
             sb.append(Utils.LS2)
-            sb.append(nuncDimitis!!.getAll(today!!.liturgyDay!!.liturgyTime!!.timeID))
+            sb.append(nuncDimitis!!.getAll(today!!.liturgyDay.liturgyTime!!.timeID))
             sb.append(Utils.LS2)
             sb.append(oracion!!.all)
             sb.append(Utils.LS2)
@@ -179,18 +179,20 @@ class Completas : BreviaryHour() {
             val sb = StringBuilder()
             val ri = getRitosIniciales()
             val kyrie = ri!!.kyrie
-            himno = getHimno()
-            salmodia = getCompletasDias()!![today?.weekDay!!].salmodia
-            val nuncDimitis = getNuncDimitis()
-            val conclusion = getConclusion()
+            //himno = getHimno()
+            //salmodia = getCompletasDias()!![today?.weekDay!!].salmodia
+            //val nuncDimitis = getNuncDimitis()
+            //val conclusion = getConclusion()
             sb.append(getTituloHoraForRead())
             sb.append(getSaludoDiosMioForRead())
             sb.append(kyrie?.allForRead)
             sb.append(himno!!.allForRead)
             sb.append(salmodia!!.allForRead)
-            sb.append(getLecturaForRead())
+            sb.append(biblicalShort!!.getAllForRead())
+
+            //sb.append(getLecturaForRead())
             sb.append(nuncDimitis!!.allForRead)
-            sb.append(getOracionByDay()!!.allForRead)
+            sb.append(oracion!!.allForRead)
             sb.append(conclusion!!.getAllForRead())
             sb
         } catch (e: Exception) {

@@ -6,16 +6,18 @@ import androidx.room.PrimaryKey
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`db_table`** de la base de datos, que se ocupa de gestionar las versiones de la base de datos.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
 @Entity(tableName = Constants.DB_TABLE)
-class DBTableEntity {
+data class DBTableEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "tableID")
-    var tableID = 0
+    val tableID: Int,
 
     @ColumnInfo(name = "tableName")
-    var tableName = ""
-}
+    val tableName: String
+)

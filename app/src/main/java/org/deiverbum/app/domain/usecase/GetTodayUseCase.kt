@@ -6,7 +6,7 @@ import org.deiverbum.app.domain.repository.TodayRepository
 import javax.inject.Inject
 
 /**
- * <p>Caso de uso Today.</p>
+ * Caso de uso de **`Today`**.
  *
  * @author A. Cedano
  * @since 2023.1.3

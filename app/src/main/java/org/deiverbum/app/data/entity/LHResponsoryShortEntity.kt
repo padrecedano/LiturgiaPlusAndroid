@@ -9,6 +9,8 @@ import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
 /**
+ * Entidad para la tabla **`lh_responsory_short`** de la base de datos, que se ocupa de gestionar los responsorios de las Lecturas Breves de la Liturgia de las Horas.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -17,19 +19,18 @@ import org.deiverbum.app.util.Utils
     tableName = Constants.LH_RESPONSORY_SHORT,
     indices = [Index(value = ["text"], unique = true)]
 )
-class LHResponsoryShortEntity {
-    @JvmField
+data class LHResponsoryShortEntity (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "responsoryID")
-    var responsorioId = 0
+    val responsorioId:Int,
 
-    @JvmField
     @ColumnInfo(name = "text")
-    var texto = ""
+    val texto:String,
 
-    @JvmField
     @ColumnInfo(name = "type")
-    var tipo = 0
+    var tipo:Int
+)
+{
     fun getDomainModel(timeId: Int?): LHResponsoryShort {
         val theModel = LHResponsoryShort()
         theModel.responsoryID = responsorioId

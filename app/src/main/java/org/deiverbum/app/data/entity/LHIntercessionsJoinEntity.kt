@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`lh_intercessions_join`** de la base de datos, que se ocupa de gestionar las relaciones asociativas de los Himnos de la Liturgia de las Horas.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -22,13 +24,11 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class LHIntercessionsJoinEntity {
-    @JvmField
+data class LHIntercessionsJoinEntity(
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    var grupoId = 0
+    var grupoId: Int,
 
-    @JvmField
     @ColumnInfo(name = "intercessionFK", index = true)
-    var precesFK = 0
-}
+    var precesFK: Int
+)

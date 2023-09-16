@@ -6,16 +6,18 @@ import androidx.room.PrimaryKey
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`liturgy_color`** de la base de datos, que se ocupa de gestionar los colores litúrgicos.
+
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
 @Entity(tableName = Constants.LITURGY_COLOR)
-class LiturgyColorEntity {
+data class LiturgyColorEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "colorID")
-    var colorID = 0
+    val colorID: Int,
 
     @ColumnInfo(name = "colorName")
-    var colorName = ""
-}
+    val colorName: String
+)

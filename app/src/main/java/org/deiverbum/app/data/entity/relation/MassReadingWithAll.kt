@@ -23,12 +23,12 @@ class MassReadingWithAll {
         entity = BibleReadingEntity::class
     )
     var lectura: BibleReadingWithBook? = null
-    val domainModel: MassReading?
+    val domainModel: MassReading
         get() {
             val theModel = lectura?.domainModelMisa
             theModel!!.readingID = massReadingEntity!!.readingFK
-            theModel!!.tema = massReadingEntity!!.tema
-            theModel!!.setOrden(massReadingEntity!!.orden)
+            theModel.tema = massReadingEntity!!.tema
+            theModel.setOrden(massReadingEntity!!.orden)
             return theModel
         }
 }

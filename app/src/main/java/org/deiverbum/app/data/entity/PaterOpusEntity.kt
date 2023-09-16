@@ -5,7 +5,7 @@ import androidx.room.ForeignKey.Companion.CASCADE
 import org.deiverbum.app.util.Constants
 
 /**
- * Entidad que representa a la tabla {@value org.deiverbum.app.util.Constants#PATER_OPUS}.
+ * Entidad para la tabla **`pater_opus`** de la base de datos, que se ocupa de gestionar las obras de los Padres de la Iglesia.
  *
  * @author A. Cedano
  * @version 1.0
@@ -22,58 +22,41 @@ import org.deiverbum.app.util.Constants
     )],
     indices = [Index(value = ["opusName", "paterFK", "volume"], unique = true)]
 )
-class PaterOpusEntity {
-    @JvmField
+data class PaterOpusEntity (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "opusID")
-    var obraId = 0
+    val obraId:Int,
 
-    @JvmField
     @ColumnInfo(name = "opusName")
-    var opusName = ""
+    val opusName:String,
 
-    @JvmField
     @ColumnInfo(name = "liturgyName", defaultValue = "")
-    var liturgyName = ""
+    val liturgyName:String,
 
-    //@NonNull
-    @JvmField
     @ColumnInfo(name = "subTitle", defaultValue = "NULL")
-    var subTitle : String? = null
+    var subTitle : String? = null,
 
-    //@NonNull
-    @JvmField
     @ColumnInfo(name = "volume", defaultValue = "NULL")
-    var volumen : Int? = null
+    var volumen : Int? = null,
 
-    @JvmField
     @ColumnInfo(name = "opusDate", defaultValue = "NULL")
-    var opusDate : Int? = null
+    var opusDate : Int? = null,
 
-    //@NonNull
-    @JvmField
     @ColumnInfo(name = "editorial", defaultValue = "NULL")
-    var editorial : String? = null
+    var editorial : String? = null,
 
-    //@NonNull
-    @JvmField
     @ColumnInfo(name = "city", defaultValue = "NULL")
-    var ciudad: String? = null
+    var ciudad: String? = null,
 
-    //@NonNull
-    @JvmField
     @ColumnInfo(name = "opusYear", defaultValue = "NULL")
-    var opusYear: Int? = null
+    var opusYear: Int? = null,
 
-    @JvmField
     @ColumnInfo(name = "paterFK", defaultValue = "0", index = true)
-    var padreFK = 0
+    val padreFK:Int,
 
-    @JvmField
     @ColumnInfo(name = "typeFK", defaultValue = "0")
-    var typeFK = 0
+    var typeFK:Int,
 
-    @JvmField
     @ColumnInfo(name = "collectionFK", defaultValue = "0")
-    var collectionFK = 0
-}
+    var collectionFK:Int
+)

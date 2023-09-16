@@ -7,6 +7,8 @@ import androidx.room.ForeignKey.Companion.CASCADE
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`lh_office_biblical`** de la base de datos, que se ocupa de gestionar las lecturas bíblicas del Oficio de Lectura de la Liturgia de las Horas.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -34,24 +36,19 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class LHOfficeBiblicalEntity {
-    @JvmField
+data class LHOfficeBiblicalEntity(
     @ColumnInfo(name = "groupFK")
-    var groupFK = 0
+    var groupFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "readingFK", index = true)
-    var readingFK = 0
+    var readingFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "responsoryFK", index = true)
-    var responsoryFK = 0
+    var responsoryFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "theme")
-    var theme = ""
+    var theme: String,
 
-    @JvmField
     @ColumnInfo(name = "theOrder", defaultValue = "1")
-    var theOrder = 1
-}
+    var theOrder: Int = 1
+)

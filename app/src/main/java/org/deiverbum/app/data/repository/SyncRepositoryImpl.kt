@@ -56,6 +56,7 @@ class SyncRepositoryImpl @Inject constructor(
     override suspend fun getSync(syncRequest: SyncRequest): SyncResponse {
         var syncResponse: SyncResponse
         if (!syncRequest.hasInitialSync) {
+            //if (!syncRequest.hasInitialSync||true) {
             syncResponse = syncFactory.create(Source.NETWORK).getSync(syncRequest)
             if (syncResponse.allToday.isEmpty()) {
                 syncResponse = syncFactory.create(Source.FIREBASE).getSync(syncRequest)

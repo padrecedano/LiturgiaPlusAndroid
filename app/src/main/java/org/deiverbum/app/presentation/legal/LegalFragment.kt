@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -70,6 +71,8 @@ class LegalFragment : Fragment() {
     }
 
     private fun prepareView() {
+        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
+        actionBar?.subtitle = ""
         acceptLegal = prefs.getBoolean(Constants.PREF_ACCEPT, false)
         val fontSize: Float = prefs.getString("font_size", "18")!!.toFloat()
         val fontFamily = String.format(
@@ -78,20 +81,13 @@ class LegalFragment : Fragment() {
             prefs.getString("font_name", "robotoslab_regular.ttf")
         )
         val tf = Typeface.createFromAsset(requireActivity().assets, fontFamily)
-        //progressBar = binding.progressBar
-        //switchAccept = binding.switchAccept
         binding.switchAccept.isChecked = acceptLegal
         binding.switchAccept.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
             if (!isChecked) {
                 showConfirm()
             }
         }
-        //mTextView = binding.textLegal
-        //mTextView.setMovementMethod(LinkMovementMethod.getInstance())
-        // mTextView.setClickable(true)
-        //textAgree = binding.textAgree
-        //textContacto = binding.textContacto
-        //bottomLayout = binding.bottomLayout
+
         binding.textLegal.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
         binding.textLegal.typeface = tf
         binding.textAgree.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
@@ -122,7 +118,7 @@ class LegalFragment : Fragment() {
                     when (state) {
                         is FileViewModel.FileUiState.Loaded -> onLoaded(state.itemState)
                         is FileViewModel.FileUiState.Error -> showError(state.message)
-                        else -> showLoading()
+                        else -> showNoData()
                     }
                 }
             }
@@ -142,7 +138,9 @@ class LegalFragment : Fragment() {
     }
 
 
-    private fun showLoading() {
+    private fun showNoData() {
+        val msgNoData = activity?.resources?.getString(R.string.err_no_data)
+        binding.textLegal.text = msgNoData
     }
 
     private fun showError(@StringRes stringRes: Int) {

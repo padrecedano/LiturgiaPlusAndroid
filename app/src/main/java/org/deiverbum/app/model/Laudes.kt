@@ -23,7 +23,7 @@ class Laudes : BreviaryHour() {
             // demás horas
             //biblicaBreve.normalizeByTime(metaLiturgia.calendarTime);
             this.hasSaint = hasSaint
-            invitatorio!!.normalizeByTime(liturgyTime.timeID)
+            //invitatorio!!.normalizeByTime(liturgyTime.timeID)
             salmodia!!.normalizeByTime(liturgyTime.timeID)
 
             //sb.append(today.getAllForView());

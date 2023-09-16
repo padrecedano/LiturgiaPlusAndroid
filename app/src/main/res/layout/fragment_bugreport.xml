@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.BugReportFragment">
+    tools:context=".presentation.BugReportFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_view_id"
+                android:id="@+id/bugInitial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bug_info" />
@@ -27,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:hint="@string/error_description">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -41,18 +42,26 @@
                     android:scrollbars="vertical" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/bugCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/bug_check" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
-                android:orientation="horizontal">
-
+                android:orientation="horizontal"
+                style="@style/BugReport">
                 <LinearLayout
                     android:id="@+id/left_side"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    >
 
                     <CheckBox
                         android:layout_width="wrap_content"
@@ -138,12 +147,11 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textFinal"
+                android:id="@+id/bugFinal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/bug_privacy" />
-
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/btnSend"
@@ -151,12 +159,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-
-                android:backgroundTint="@color/colorBreviario"
                 android:text="@string/enviar_email"
-                android:textColor="@color/colorOnSurface"
                 app:icon="@android:drawable/ic_dialog_email"
-                app:iconTint="@color/colorOnSurface" />
+                 />
 
         </LinearLayout>
     </ScrollView>

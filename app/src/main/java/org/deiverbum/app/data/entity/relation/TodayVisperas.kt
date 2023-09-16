@@ -17,7 +17,7 @@ class TodayVisperas {
 
     @JvmField
     @Relation(entity = LiturgyEntity::class, parentColumn = "liturgyFK", entityColumn = "liturgyID")
-    var feria: LiturgyWithTime? = null
+    var feria: LiturgyWithTime = LiturgyWithTime()
 
     @JvmField
     @Relation(
@@ -71,11 +71,11 @@ class TodayVisperas {
     }
 
     //TODO incluir algo como hasPriority en TodayEntity
-    fun getBiblica(): BiblicalShort? {
+    private fun getBiblica(): BiblicalShort {
         return biblica!!.getDomainModel(today!!.tiempoId)
     }
 
-    fun getMagnificat(): LHGospelCanticle? {
+    private fun getMagnificat(): LHGospelCanticle {
         return magnificat!!.getDomainModel(6)
     }
 
@@ -91,8 +91,8 @@ class TodayVisperas {
 
     fun getToday(): Today {
         val dm = Today()
-        dm.liturgyDay = feria?.domainModel
-        dm.liturgyDay!!.typeID = 6
+        dm.liturgyDay = feria.domainModel
+        dm.liturgyDay.typeID = 6
         dm.liturgyPrevious = if (today!!.previoId > 1) previo?.domainModel else null
         dm.todayDate = today!!.hoy
         dm.hasSaint = today!!.hasSaint
@@ -104,24 +104,24 @@ class TodayVisperas {
 
     val domainModelToday: Today
         get() {
-            val dm = feria?.domainModel
+            val dm = feria.domainModel
             val dmToday = getToday()
-            dm!!.typeID = 6
-            dm!!.today = getToday()
+            dm.typeID = 6
+            dm.today = getToday()
             val bh = BreviaryHour()
             val visperas = Visperas()
-            visperas.setIsPrevious(dmToday.previousFK!!)
+            visperas.setIsPrevious(dmToday.previousFK)
             visperas.today = getToday()
             visperas.setHimno(getHimno())
             val psalmody=getSalmodia()
-            psalmody?.sort()
+            //psalmody?.sort()
             visperas.setSalmodia(psalmody)
             visperas.setLecturaBreve(getBiblica())
             visperas.setGospelCanticle(getMagnificat())
             visperas.setPreces(preces)
             visperas.setOracion(oracion)
             bh.setVisperas(visperas)
-            dm!!.breviaryHour = bh
+            dm.breviaryHour = bh
             dmToday.liturgyDay = dm
             return dmToday
         }

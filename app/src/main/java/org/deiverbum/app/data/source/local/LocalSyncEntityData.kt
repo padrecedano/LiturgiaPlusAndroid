@@ -56,7 +56,7 @@ class LocalSyncEntityData @Inject constructor(
             val insertedRows =
                 todayDao.insertAllTodays(syncResponse.allToday)
             if (insertedRows.isNotEmpty()) {
-                todayDao.syncUpdate(Utils.getCurrentTimeStamp())
+                //todayDao.syncUpdate(Utils.getCurrentTimeStamp())
             }
         }
     }

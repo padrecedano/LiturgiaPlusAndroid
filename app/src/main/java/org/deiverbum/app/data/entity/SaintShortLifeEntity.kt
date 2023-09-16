@@ -9,6 +9,8 @@ import org.deiverbum.app.model.SaintLife
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`saint_short_life`** de la base de datos, que se ocupa de gestionar la vida breve de los santos para la Liturgia de las Horas.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -23,15 +25,14 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class SaintShortLifeEntity {
-    @JvmField
+data class SaintShortLifeEntity(
     @PrimaryKey
     @ColumnInfo(name = "saintFK")
-    var saintFK = 0
+    val saintFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "shortLife", defaultValue = "")
-    var shortLife = ""
+    val shortLife: String
+) {
     val domainModel: SaintLife
         get() {
             val theModel = SaintLife()

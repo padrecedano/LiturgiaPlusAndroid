@@ -31,7 +31,7 @@ class LiturgyWithTime {
             dm.name = liturgyEntity!!.nombre
             val t = LiturgyTime()
             t.timeID = tiempo!!.tiempoId
-            t.tiempo = tiempo!!.tiempo
+            t.timeName = tiempo!!.tiempo
             t.liturgyName = tiempo!!.liturgyName
             dm.liturgyTime = t
             return dm

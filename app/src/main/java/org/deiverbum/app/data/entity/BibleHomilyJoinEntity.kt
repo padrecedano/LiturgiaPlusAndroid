@@ -7,6 +7,8 @@ import androidx.room.ForeignKey.Companion.CASCADE
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`bible_homily_join`** de la base de datos, que se ocupa de unir las lecturas bíblicas manejadas desde [BibleReadingEntity] y las homilías relativas a esas lecturas manejadas desde [HomilyEntity].
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -28,12 +30,9 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class BibleHomilyJoinEntity {
-    @JvmField
+data class BibleHomilyJoinEntity (
     @ColumnInfo(name = "readingFK")
-    var readingFK = 0
+    val readingFK:Int,
 
-    @JvmField
     @ColumnInfo(name = "homilyFK", index = true)
-    var homilyFK = 0
-}
+    val homilyFK:Int)

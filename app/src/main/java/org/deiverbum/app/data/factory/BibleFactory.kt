@@ -1,12 +1,7 @@
 package org.deiverbum.app.data.factory
 
 import org.deiverbum.app.data.source.BibleEntityData
-import org.deiverbum.app.data.source.SyncEntityData
 import org.deiverbum.app.data.source.firebase.FirebaseBibleEntityData
-import org.deiverbum.app.data.source.firebase.FirebaseSyncEntityData
-import org.deiverbum.app.data.source.local.LocalSyncEntityData
-import org.deiverbum.app.data.source.network.NetworkSyncEntityData
-import org.deiverbum.app.util.Source
 import javax.inject.Inject
 
 /**
@@ -21,8 +16,8 @@ class BibleFactory @Inject constructor(
 
 ) {
 
-    fun create(source: Source): BibleEntityData {
+    fun create(): BibleEntityData {
         return  firebaseSyncEntityData
-        }
+    }
 
 }

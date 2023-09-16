@@ -1,16 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1e88e5</color>
-    <color name="colorPrimaryDark">#1565c0</color>
-    <color name="colorAccent">#ff4340</color>
-    <color name="colorLink">#ff4340</color>
+<!--
+
+
+
+-->
+    <color name="colorOutline">@color/amber_200</color>
+
 
     <color name="colorOnBackground">#1e88e5</color>
-    <color name="colorSurface">#0D47A1</color>
-    <color name="colorOnSurface">#FFAB40</color>
     <color name="colorOnSurfaceVariant">#FFEA00</color>
 
+    <color name="colorPrimary">@color/blue_900</color>
+    <color name="colorPrimaryVariant">@color/blue_700</color>
+    <color name="colorLink">@color/red_700</color>
+    <color name="colorOnContainer">@color/raisin_black</color>
+    <color name="colorContainer">@color/green_400</color>
+    <color name="colorDialogSurface">@color/amber_50</color>
+    <color name="colorTextDialog">@color/red_700</color>
+
+    <color name="colorPrimarySwitch">@color/green_900</color>
+    <color name="colorOnPrimarySwitch">@color/amber_200</color>
+    <color name="colorSurfaceVariantSwitch">@color/raisin_black</color>
+    <color name="colorOnSurfaceBugReport">@color/red_700</color>
+    <color name="colorBackgroundBugReport">@color/amber_200</color>
+    <color name="colorPrimaryDark">#1565c0</color>
+    <color name="colorSurface">#0D47A1</color>
+    <color name="colorOnSurface">@color/red_700</color>
+    <color name="colorAccent">@color/red_500</color>
+
     <color name="colorError">#1e88e5</color>
+
+    <color name="black_coral">#54626F</color>
+    <color name="dark_charcoal">#333333</color>
+    <color name="black_cat">#413839</color>
+    <color name="midnight">#2B1B17</color>
+    <color name="raisin_black">#242124</color>
+    <color name="red_500">#F44336</color>
+    <color name="blue_100">#BBDEFB</color>
+    <color name="green_400">#66BB6A</color>
+    <color name="green_900">#2E7D32</color>
+    <color name="red_700">#D32F2F</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_600">#757575</color>
+    <color name="brown_400">#8D6E63</color>
+
+    <!--
+        <color name="_00"></color>
+        <color name="_00"></color>
+
+    -->
+
+
+    <color name="colorBackgroundMain">@color/colorPrimaryVariant</color>
+    <color name="colorInAppUpdate">@color/red_500</color>
+
 
     <color name="amber_200">#FFE082</color>
     <color name="amber_50">#FFF8E1</color>
@@ -22,7 +66,7 @@
     <color name="colorMainItem">#FFF59D</color>
 
     <color name="colorBreviario">#3e2723</color>
-    <color name="colorMisa">#bf360c</color>
+    <color name="colorMisa">@color/red_500</color>
 
     <color name="colorHomilias">#c66900</color>
 
@@ -57,26 +101,28 @@
     <color name="navigation_view_background">#B8FFFFFF</color>
 
     <color name="text_background">#f9e3c6</color>
+    <color name="textBackground">#f9e3c6</color>
+
     <color name="text_color">#000000</color>
 
-    <color name="colorInput">#C51162</color>
-    <color name="colorTextInput">#283593</color>
+    <color name="colorInput">@color/red_500</color>
+    <color name="colorTextInput">@color/red_500</color>
     <color name="colorUnchecked">#8E585A6B</color>
-
+<!--
     <color name="md_theme_dark_primary">#464647</color>
     <color name="md_theme_dark_onPrimary">#FBE9E7</color>
-    <color name="md_theme_dark_primaryContainer">#02458E</color>
+    <color name="md_theme_dark_primaryContainer">@color/red_500</color>
     <color name="md_theme_dark_onPrimaryContainer">#D6E3FF</color>
     <color name="md_theme_dark_secondary">#FFCC80</color>
     <color name="md_theme_dark_onSecondary">#283041</color>
     <color name="md_theme_dark_secondaryContainer">#3E4759</color>
     <color name="md_theme_dark_onSecondaryContainer">#DAE2F8</color>
     <color name="md_theme_dark_tertiary">#A0C9FF</color>
-    <color name="md_theme_dark_onTertiary">#00315D</color>
-    <color name="md_theme_dark_tertiaryContainer">#004883</color>
+    <color name="md_theme_dark_onTertiary">@color/red_500</color>
+    <color name="md_theme_dark_tertiaryContainer">@color/red_500</color>
     <color name="md_theme_dark_onTertiaryContainer">#D2E4FF</color>
     <color name="md_theme_dark_error">#FFB4A9</color>
-    <color name="md_theme_dark_errorContainer">#930006</color>
+    <color name="md_theme_dark_errorContainer">@color/red_500</color>
     <color name="md_theme_dark_onError">#680003</color>
     <color name="md_theme_dark_onErrorContainer">#FFDAD4</color>
     <color name="md_theme_dark_background">#1A1C19</color>
@@ -87,7 +133,19 @@
     <color name="md_theme_dark_onSurfaceVariant">#C4C6D0</color>
     <color name="md_theme_dark_outline">#8E9099</color>
     <color name="md_theme_dark_inverseOnSurface">#1A1C19</color>
-    <color name="md_theme_dark_inverseSurface">#E2E3DD</color>
     <color name="md_theme_dark_primaryInverse">#2C5EA7</color>
+-->
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">@color/red_500</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="blue_500">#2196F3</color>
+    <color name="blue_700">#1976D2</color>
+    <color name="blue_900">#0D47A1</color>
+
 
 </resources>

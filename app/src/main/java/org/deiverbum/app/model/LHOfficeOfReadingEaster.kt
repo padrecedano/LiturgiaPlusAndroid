@@ -111,7 +111,4 @@ class LHOfficeOfReadingEaster : LHOfficeOfReading() {
         get() = metaInfoForRead +
                 allBiblicaForRead
 
-    fun sort() {
-        //Collections.sort(biblical)
-    }
 }

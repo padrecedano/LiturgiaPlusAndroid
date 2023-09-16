@@ -5,6 +5,8 @@ import androidx.room.ForeignKey.Companion.CASCADE
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`mass_reading_join`** de la base de datos, que se ocupa de gestionar la relación asociativa de las lecturas de la misa.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -20,13 +22,11 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class MassReadingJoinEntity {
-    @JvmField
+data class MassReadingJoinEntity (
     @PrimaryKey
     @ColumnInfo(name = "liturgyFK")
-    var liturgyFK = 0
+    val liturgyFK:Int,
 
-    @JvmField
     @ColumnInfo(name = "type")
-    var type = 0
-}
+    val type:Int
+)
