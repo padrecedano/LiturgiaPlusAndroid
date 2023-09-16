@@ -1,6 +1,7 @@
 package org.deiverbum.app.model
 
 import android.text.SpannableStringBuilder
+import androidx.room.Ignore
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import org.deiverbum.app.util.Constants
@@ -8,18 +9,24 @@ import org.deiverbum.app.util.Utils
 import java.util.*
 
 class Kyrie {
+    var kyrieID: Int? = null
+
     @SerializedName("introduccion")
     @Expose
+    @Ignore
     private var introduccion: String? = null
 
-    @SerializedName("texto")
+    //@SerializedName("texto")
     @Expose
-    private var texto: String? = null
+    private var kyrie: String? = null
 
     @SerializedName("conclusion")
     @Expose
+    @Ignore
     private var conclusion: String? = null
+    @Ignore
     val tipo: String? = null
+    @Ignore
     private var kyrieType = 0
     private val introduccionForRead: SpannableStringBuilder
         get() {
@@ -35,7 +42,10 @@ class Kyrie {
             return ssb
         }
 
-    private fun getIntroduccion(): SpannableStringBuilder {
+
+
+
+        private fun getIntroduccion(): SpannableStringBuilder {
         val ssb = SpannableStringBuilder()
         ssb.append(Utils.formatTitle(Constants.TITLE_SOUL_SEARCHING))
         ssb.append(Utils.LS2)
@@ -53,19 +63,17 @@ class Kyrie {
         return ssb
     }
 
-    @Suppress("unused")
     fun setIntroduccion(introduccion: String?) {
         this.introduccion = introduccion
     }
 
-    private fun getTexto(): SpannableStringBuilder {
-        kyrieType = Random().nextInt(3)
-        return getKyrie(kyrieType)
+    fun getKyrie(): String? {
+        //kyrieType = Random().nextInt(3)
+        return kyrie //getKyrie(kyrieType)
     }
 
-    @Suppress("unused")
-    fun setTexto(texto: String?) {
-        this.texto = texto
+    fun setKyrie(kyrie: String?) {
+        this.kyrie = kyrie
     }
 
     private val conclusionForRead: String
@@ -85,7 +93,6 @@ class Kyrie {
         return ssb
     }
 
-    @Suppress("unused")
     fun setConclusion(conclusion: String?) {
         this.conclusion = conclusion
     }
@@ -129,7 +136,7 @@ class Kyrie {
             val sb = SpannableStringBuilder()
             sb.append(getIntroduccion())
             sb.append(Utils.LS2)
-            sb.append(getTexto())
+            sb.append(Utils.fromHtml(kyrie))
             sb.append(Utils.LS2)
             sb.append(getConclusion())
             return sb

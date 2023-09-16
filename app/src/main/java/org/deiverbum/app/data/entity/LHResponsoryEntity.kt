@@ -8,28 +8,27 @@ import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
 /**
+ * Entidad para la tabla **`lh_responsory`** de la base de datos, que se ocupa de gestionar los responsorios de la Liturgia de las Horas.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
 @Entity(tableName = Constants.LH_RESPONSORY)
-class LHResponsoryEntity {
-    @JvmField
+data class LHResponsoryEntity (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "responsoryID")
-    var responsorioId = 0
+    val responsorioId:Int,
 
-    @JvmField
     @ColumnInfo(name = "text")
-    var texto = ""
+    val texto:String,
 
-    @JvmField
     @ColumnInfo(name = "source")
-    var fuente = ""
+    val fuente:String,
 
-    @JvmField
     @ColumnInfo(name = "type")
-    var tipo = 0
+    val tipo:Int
+) {
     fun getDomainModel(timeId: Int?): LHResponsory {
         val theModel = LHResponsory()
         theModel.text = Utils.replaceByTime(texto, timeId!!)

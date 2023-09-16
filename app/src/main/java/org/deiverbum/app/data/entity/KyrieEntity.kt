@@ -14,20 +14,18 @@ import org.deiverbum.app.util.Constants
  * @since 2023.1.3
  */
 @Entity(tableName = Constants.KYRIE)
-class KyrieEntity {
-    @JvmField
+data class KyrieEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "kyrieID")
-    var kyrieID = 0
+    var kyrieID: Int,
 
     @JvmField
     @ColumnInfo(name = "kyrie")
-    var kyrie = ""
-
-    val domainModel: Kyrie
-        get() {
-            val dm = Kyrie()
-            dm.setTexto(kyrie)
-            return dm
-        }
+    var kyrie: String
+) {
+    fun getDomainModel(): Kyrie {
+        val dm = Kyrie()
+        dm.setKyrie(kyrie)
+        return dm
+    }
 }

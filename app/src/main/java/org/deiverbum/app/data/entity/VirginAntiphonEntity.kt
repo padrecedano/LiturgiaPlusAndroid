@@ -6,20 +6,18 @@ import androidx.room.PrimaryKey
 import org.deiverbum.app.util.Constants
 
 /**
- * Clase de entidad para la tabla **`virgin_antiphon`**.
+ * Entidad para la tabla **`virgin_antiphon`** de la base de datos, que se ocupa de gestionar las antífonas de la Virgen para Completas.
  *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1.3
  */
 @Entity(tableName = Constants.VIRGIN_ANTIPHON)
-class VirginAntiphonEntity {
-    @JvmField
+data class VirginAntiphonEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "antiphonID")
-    var antiphonID = 0
+    val antiphonID: Int,
 
-    @JvmField
     @ColumnInfo(name = "antiphon")
-    var antiphon = ""
-}
+    val antiphon: String
+)

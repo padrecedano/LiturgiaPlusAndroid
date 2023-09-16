@@ -48,7 +48,7 @@ class Mixto : BreviaryHour() {
         try {
             this.hasSaint = hasSaint
             val invitatory = oficio?.invitatorio
-            invitatory?.normalizeByTime(liturgyTime?.timeID!!)
+            //invitatory?.normalizeByTime(liturgyTime?.timeID!!)
             laudes!!.salmodia?.normalizeByTime(liturgyTime!!.timeID)
             sb.append(Utils.LS2)
             if (santo != null && this.hasSaint) {

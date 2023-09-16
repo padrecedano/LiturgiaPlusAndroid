@@ -5,6 +5,8 @@ import androidx.room.ForeignKey.Companion.CASCADE
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`lh_hymn_join`** de la base de datos, que se ocupa de gestionar la relación asociativa de los Himnos de la Liturgia de las Horas.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -20,13 +22,11 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class LHHymnJoinEntity {
-    @JvmField
+data class LHHymnJoinEntity(
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    var grupoId = 0
+    var grupoId: Int,
 
-    @JvmField
     @ColumnInfo(name = "hymnFK", index = true)
-    var himnoFK = 0
-}
+    var himnoFK: Int
+)

@@ -2,8 +2,6 @@ package org.deiverbum.app.data.entity
 
 import androidx.room.*
 import androidx.room.ForeignKey.Companion.CASCADE
-import androidx.room.ForeignKey.Companion.RESTRICT
-import androidx.room.ForeignKey.Companion.SET_DEFAULT
 import org.deiverbum.app.util.Constants
 
 /**
@@ -228,7 +226,7 @@ import org.deiverbum.app.util.Constants
         onDelete = CASCADE,
         onUpdate = CASCADE
     ), ForeignKey(
-        entity = NightPrayerEntity::class,
+        entity = LHNightPrayerEntity::class,
         parentColumns = arrayOf("groupID"),
         childColumns = arrayOf("nightPrayerFK"),
         onDelete = CASCADE,
@@ -400,7 +398,7 @@ class TodayEntity {
 
     @JvmField
     @ColumnInfo(name = "nightPrayerFK", defaultValue = "71", index = true)
-    var nightPrayerFK = 0
+    var nightPrayerFK = 71
 
     /*val teDeum: Boolean
         get() = oTeDeum == 1*/

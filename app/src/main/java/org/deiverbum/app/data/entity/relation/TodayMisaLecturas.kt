@@ -26,7 +26,7 @@ class TodayMisaLecturas {
         parentColumn = "massReadingFK",
         entityColumn = "liturgyID"
     )
-    var feria: LiturgyWithTime? = null
+    var feria: LiturgyWithTime = LiturgyWithTime()
 
     @JvmField
     @Relation(
@@ -53,10 +53,13 @@ class TodayMisaLecturas {
     var lecturas: List<MassReadingWithAll>? = null
     fun getToday(): Today {
         val dm = Today()
-        dm.liturgyDay = feria?.domainModel
+
+        dm.liturgyDay = feria.domainModel
         dm.liturgyPrevious = if (today!!.previoId > 1) previo?.domainModel else null
         dm.todayDate = today!!.hoy
         dm.hasSaint = today!!.hasSaint
+        //dm.todayDate = hoy
+
         dm.setMLecturasFK(today!!.mLecturasFK)
         return dm
     }
@@ -64,8 +67,8 @@ class TodayMisaLecturas {
     val domainModel: Today
         get() {
             val dmToday = getToday()
-            val dm = feria?.domainModel
-            dm!!.typeID = 10
+            val dm = feria.domainModel
+            dm.typeID = 10
 
             val mr = MassReadingList()
             mr.type = joinTable!!.type
@@ -75,9 +78,10 @@ class TodayMisaLecturas {
             }
             listModel.sortBy { it?.getOrden() }
             mr.lecturas = listModel
-            mr.sort()
+            mr.today=getToday()
+            //mr.sort()
             dmToday.liturgyDay = dm
-            dmToday.liturgyDay!!.massReadingList = mr
+            dmToday.liturgyDay.massReadingList = mr
             return dmToday
         }
 }

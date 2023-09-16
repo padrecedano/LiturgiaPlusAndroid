@@ -8,6 +8,8 @@ import androidx.room.ForeignKey.Companion.SET_NULL
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`lh_psalmody`** de la base de datos, que se ocupa de gestionar la salmodia de la Liturgia de las Horas.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -47,35 +49,25 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class LHPsalmodyEntity {
-    @JvmField
+data class LHPsalmodyEntity (
     @ColumnInfo(name = "groupFK")
-    var grupoFK = 0
+    var grupoFK:Int,
 
-    @JvmField
     @ColumnInfo(name = "readingFK", index = true)
-    var salmoFK = 0
+    var salmoFK:Int,
 
-    @JvmField
     @ColumnInfo(name = "order")
-    var orden = 0
+    var orden:Int,
 
-    @JvmField
     @ColumnInfo(name = "antiphonFK", defaultValue = "0", index = true)
-    var antifonaId: Int = 0
+    var antifonaId: Int,
 
-    @JvmField
     @ColumnInfo(name = "themeFK", defaultValue = "NULL", index = true)
-    var temaFK: Int? = null
+    var temaFK: Int?,
 
-    @JvmField
     @ColumnInfo(name = "epigraphFK", defaultValue = "NULL", index = true)
-    var epigrafeFK: Int? = null
+    var epigrafeFK: Int?,
 
-    @JvmField
     @ColumnInfo(name = "part", defaultValue = "NULL")
-    var parte: Int? = 0
-    fun getParte(): String {
-        return if (parte == null || parte == 0) "" else parte.toString()
-    }
-}
+    var parte: Int?)
+

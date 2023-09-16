@@ -21,7 +21,7 @@ class TodayHomilias {
 
     @JvmField
     @Relation(entity = LiturgyEntity::class, parentColumn = "liturgyFK", entityColumn = "liturgyID")
-    var feria: LiturgyWithTime? = null
+    var feria: LiturgyWithTime = LiturgyWithTime()
 
     @JvmField
     @Relation(
@@ -32,8 +32,8 @@ class TodayHomilias {
     var homilias: List<LiturgiaWithHomilias>? = null
     fun getToday(): Today {
         val dm = Today()
-        dm.liturgyDay = feria?.domainModel
-        dm.liturgyDay?.typeID=9
+        dm.liturgyDay = feria.domainModel
+        dm.liturgyDay.typeID =9
         dm.todayDate = today!!.hoy
         dm.hasSaint = today!!.hasSaint
         return dm
@@ -49,7 +49,7 @@ class TodayHomilias {
                 listModel.add(item.domainModel)
             }
             dm.homilyes = listModel
-            dmToday.liturgyDay?.homilyList=dm
+            dmToday.liturgyDay.homilyList=dm
             return dmToday
         }
 }

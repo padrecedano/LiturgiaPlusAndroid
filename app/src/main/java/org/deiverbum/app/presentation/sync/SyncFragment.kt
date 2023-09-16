@@ -3,20 +3,14 @@ package org.deiverbum.app.presentation.sync
 import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.util.TypedValue
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,12 +19,14 @@ import org.deiverbum.app.R
 import org.deiverbum.app.databinding.FragmentSyncBinding
 import org.deiverbum.app.domain.model.SyncRequest
 import org.deiverbum.app.presentation.base.BaseFragment
+import org.deiverbum.app.util.Constants.PACIENCIA
+import org.deiverbum.app.util.Constants.PREF_INITIAL_SYNC
+import org.deiverbum.app.util.Constants.PREF_LAST_YEAR_CLEANED
+import org.deiverbum.app.util.Constants.SYNC_LABEL
 import org.deiverbum.app.util.Source
-import org.deiverbum.app.util.Constants
-import org.deiverbum.app.util.Constants.*
 import org.deiverbum.app.util.Utils
 import org.deiverbum.app.util.ZoomTextView
-import java.util.*
+import java.util.Locale
 
 /**
  * Este fragmento maneja la lógica de Sincronización, definida del siguiente modo:
@@ -80,26 +76,21 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
 
     override fun init(viewBinding: ViewBinding) {
         setConfiguration()
-        setMenu()
-         hasInitial = prefs.getBoolean(Constants.PREF_INITIAL_SYNC, false)
-        val syncRequest = SyncRequest(hasInitial,isWorkScheduled=isWorkScheduled)
-        //Timber.d(syncRequest.isInitial.toString())
+        //setMenu()
+        hasInitial = prefs.getBoolean(PREF_INITIAL_SYNC, false)
+        val syncRequest = SyncRequest(hasInitial, isWorkScheduled = isWorkScheduled)
         mViewModel.launchSync(syncRequest)
         fetchData()
 
         getViewBinding().include.btnEmail.setOnClickListener {
-            val editor = prefs.edit()
-            //editor.putBoolean(PREF_ACCEPT, true).apply()
-            val hasInitialSync = prefs.getBoolean(PREF_INITIAL_SYNC, false)
-            //val syncRequest = SyncRequest(hasInitialSync,0,false)
-            val syncRequest = SyncRequest(hasInitialSync,isWorkScheduled=isWorkScheduled)
-            //Timber.d(syncRequest.isInitial.toString())
+            //val hasInitialSync = prefs.getBoolean(PREF_INITIAL_SYNC, false)
+            //val syncRequest = SyncRequest(hasInitialSync,isWorkScheduled=isWorkScheduled)
             mViewModel.launchSync(syncRequest)
             fetchData()
         }
 
     }
-
+/*
     private fun setMenu() {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
@@ -126,8 +117,10 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
             }
         }, viewLifecycleOwner)
     }
-
+*/
     private fun setConfiguration() {
+        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
+        actionBar?.subtitle = ""
         mTextVieww = getViewBinding().include.tvZoomable
         progressBar = getViewBinding().progressBar
         val fontSize = prefs.getString("font_size", "18")?.toFloat()
@@ -141,13 +134,6 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
         mTextVieww.typeface = tf
         getViewBinding().include.tvBottom.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
         getViewBinding().include.tvBottom.typeface = tf
-
-
-
-    //syncRequest =
-        //SyncRequest(pickOutDate(), 1, isNightMode(), false)
-
-        //pickOutDate()
     }
 
     private fun fetchData() {
@@ -167,13 +153,13 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
     private fun onLoaded(syncItemUiState: SyncItemUiState) {
         syncItemUiState.run {
             getViewBinding().progressBar.visibility = View.GONE
-            var syncResponse=syncItemUiState.syncResponse
-            syncResponse.syncStatus.lastYearCleaned=prefs.getInt(PREF_LAST_YEAR_CLEANED,0)
-            //Timber.d(prefs.getInt(PREF_LAST_YEAR_CLEANED,0).toString())
-if(syncResponse.syncStatus.source==Source.NETWORK && !hasInitial){
-    prefs.edit().putBoolean(PREF_INITIAL_SYNC, true).apply()
-}
-            mTextVieww.text = Utils.fromHtml(syncResponse.syncStatus.getAll(isNightMode()))//.dataForView
+            val syncResponse = syncItemUiState.syncResponse
+            syncResponse.syncStatus.lastYearCleaned = prefs.getInt(PREF_LAST_YEAR_CLEANED, 0)
+            if (syncResponse.syncStatus.source == Source.NETWORK && !hasInitial) {
+                prefs.edit().putBoolean(PREF_INITIAL_SYNC, true).apply()
+            }
+            mTextVieww.text =
+                Utils.fromHtml(syncResponse.syncStatus.getAll(isNightMode()))//.dataForView
             if (!isWorkScheduled) {
                 getViewBinding().include.btnEmail.visibility = View.VISIBLE
                 getViewBinding().include.btnEmail.setIconResource(R.drawable.ic_refresh_black_24dp)
@@ -187,7 +173,7 @@ if(syncResponse.syncStatus.source==Source.NETWORK && !hasInitial){
     }
 
     private fun showLoading() {
-        mTextVieww.text = Constants.PACIENCIA
+        mTextVieww.text = PACIENCIA
 
     }
 
@@ -195,106 +181,4 @@ if(syncResponse.syncStatus.source==Source.NETWORK && !hasInitial){
         mTextVieww.text = stringRes
         Toast.makeText(requireContext(), stringRes, Toast.LENGTH_SHORT).show()
     }
-
-
-    /*override fun onDestroyView() {
-        super.onDestroyView()
-        if (mActionMode != null) {
-            mActionMode!!.finish()
-        }
-        //_binding = null
-    }*/
 }
-
-/*Fragment() {
-    private var mViewModel: SyncViewModelBis? = null
-    private var binding: FragmentSyncBinding? = null
-    private var mTextView: ZoomTextView? = null
-    private var progressBar: ProgressBar? = null
-    private var mButton: ExtendedFloatingActionButton? = null
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        super.onCreate(savedInstanceState)
-        binding = FragmentSyncBinding.inflate(inflater, container, false)
-        inflater.inflate(R.layout.seekbar, container, false)
-        val root: View = binding!!.root
-        setConfiguration()
-        return root
-    }
-
-    private fun setConfiguration() {
-        mViewModel = ViewModelProvider(this).get(SyncViewModelBis::class.java)
-        mTextView = binding!!.include.tvZoomable
-        progressBar = binding!!.progressBar
-        val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
-        val fontSize = prefs.getString("font_size", "18")!!.toFloat()
-        val fontFamily = String.format(
-            Locale("es"),
-            "fonts/%s",
-            prefs.getString("font_name", "robotoslab_regular.ttf")
-        )
-        val tf = Typeface.createFromAsset(requireActivity().assets, fontFamily)
-        mTextView!!.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
-        mTextView!!.typeface = tf
-        mButton = binding!!.include.btnEmail
-        mButton!!.visibility = View.GONE
-        mButton!!.setOnClickListener { v: View? ->
-            mViewModel!!.launchSyncWorker()
-            mButton!!.visibility = View.GONE
-            observeData()
-        }
-        if (!isWorkScheduled) {
-            progressBar!!.visibility = View.GONE
-            mTextView!!.text = Utils.fromHtml(
-                SyncStatus().getLastUpdate(
-                    isNightMode
-                )
-            )
-            mButton!!.setIconResource(R.drawable.ic_refresh_black_24dp)
-            mButton!!.text = Constants.SYNC_LABEL
-            mButton!!.visibility = View.VISIBLE
-        } else {
-            observeData()
-        }
-    }
-
-    fun observeData() {
-        mTextView!!.text = Constants.PACIENCIA
-        mViewModel!!.observable.observe(
-            viewLifecycleOwner
-        ) { data: SyncStatus? ->
-            progressBar!!.visibility = View.GONE
-            if (data != null) {
-                mTextView!!.text = Utils.fromHtml(data.getAll(isNightMode))
-            } else {
-                mTextView!!.text = Utils.fromHtml(
-                    SyncStatus().getLastUpdate(
-                        isNightMode
-                    )
-                )
-            }
-        }
-    }
-
-
-    val isNightMode: Boolean
-        get() {
-            val nightModeFlags =
-                requireActivity().applicationContext.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-            return nightModeFlags == Configuration.UI_MODE_NIGHT_YES
-        }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        if (mActionMode != null) {
-            mActionMode!!.finish()
-        }
-        binding = null
-    }
-
-    companion object {
-        var mActionMode: ActionMode? = null
-    }
-}*/

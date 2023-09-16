@@ -7,22 +7,21 @@ import androidx.room.PrimaryKey
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`lh_reading_short`** de la base de datos, que se ocupa de gestionar las lecturas breves de la Liturgia de las Horas.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
 @Entity(tableName = Constants.LH_READING_SHORT, indices = [Index(value = ["text"], unique = true)])
-class LHReadingShortEntity {
-    @JvmField
+data class LHReadingShortEntity (
     @PrimaryKey
     @ColumnInfo(name = "readingID")
-    var lecturaId = 0
+    val lecturaId:Int,
 
-    @JvmField
     @ColumnInfo(name = "text")
-    var texto = ""
+    val texto:String,
 
-    @JvmField
     @ColumnInfo(name = "quote")
-    var cita = ""
-}
+    val cita:String
+)

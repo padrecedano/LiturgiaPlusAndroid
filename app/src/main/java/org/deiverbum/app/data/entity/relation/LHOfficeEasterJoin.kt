@@ -40,9 +40,11 @@ class LHOfficeEasterJoin {
             for (item in lstEaster!!) {
                 theList.add(item.domainModel)
             }
+            theList.sortBy { it?.getOrden() }
+
             theModel.setBiblicalE(theList)
             theModel.lhPsalmody = entityPsalmody?.domainModel
-            theModel.sort()
+            //theModel.sort()
             return theModel
         }
 }

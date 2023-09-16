@@ -13,5 +13,5 @@ interface FileEntityData {
 
     suspend fun getFile(fileRequest: FileRequest): MutableList<FileResponse>
 
-    suspend fun addFile(file: String)
+    suspend fun addFile(fileName: String)
 }

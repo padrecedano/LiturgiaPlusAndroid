@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_Clickable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,6 +24,7 @@
             android:paddingTop="0dp"
             android:paddingBottom="40dp"
             android:textIsSelectable="true"
+            android:contentDescription="@string/pref_theme_description"
             android:textSize="@dimen/default_font" />
     </ScrollView>
 

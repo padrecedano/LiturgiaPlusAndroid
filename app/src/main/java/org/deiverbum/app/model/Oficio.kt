@@ -23,7 +23,7 @@ class Oficio : BreviaryHour() {
         val sb = SpannableStringBuilder()
         this.hasSaint = hasSaint
         try {
-            invitatorio!!.normalizeByTime(liturgyTime!!.timeID)
+            invitatorio!!.lhPsalm!!.normalizeByTime(liturgyTime!!.timeID)
             salmodia!!.normalizeByTime(liturgyTime.timeID)
             lhOfficeOfReading!!.normalizeByTime(liturgyTime.timeID)
             sb.append(Utils.LS2)

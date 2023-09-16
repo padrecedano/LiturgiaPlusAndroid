@@ -48,7 +48,9 @@ open class LHPsalm : Comparable<LHPsalm> {
         }
 
     fun setRef(ref: String?) {
-        quote = ref
+        quote = (if(ref.isNullOrEmpty()) {
+            ""
+        } else ref)
     }
 
     /**

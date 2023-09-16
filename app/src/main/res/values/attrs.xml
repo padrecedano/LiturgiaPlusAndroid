@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+
     <attr name="colorSurface" format="reference" />
     <attr name="colorOnSurface" format="reference" />
     <attr name="colorOnRed" format="reference" />
+    <attr name="customTextViewBackAttributeColor" format="color" />
+
     <declare-styleable name="FullscreenAttrs">
         <attr name="fullscreenBackgroundColor" format="color" />
         <attr name="fullscreenTextColor" format="color" />

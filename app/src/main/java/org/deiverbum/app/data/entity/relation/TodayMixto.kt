@@ -17,7 +17,7 @@ class TodayMixto {
 
     @JvmField
     @Relation(entity = LiturgyEntity::class, parentColumn = "liturgyFK", entityColumn = "liturgyID")
-    var feria: LiturgyWithTime? = null
+    var feria: LiturgyWithTime = LiturgyWithTime()
 
     @JvmField
     @Relation(
@@ -130,12 +130,12 @@ class TodayMixto {
     @JvmField
     @Relation(entity = LHPrayerEntity::class, parentColumn = "lPrayerFK", entityColumn = "groupID")
     var lhPrayerAll: LHPrayerAll? = null
-    val evangelios: List<MassReading?>
+    private val evangelios: List<MassReading?>
         get() {
             val listModel: MutableList<MassReading?> = ArrayList()
             for (item in lecturas!!) {
                 if (item.misaLectura!!.orden >= 40) {
-                    listModel.add(item?.domainModel)
+                    listModel.add(item.domainModel)
                 }
             }
             return listModel
@@ -143,7 +143,7 @@ class TodayMixto {
 
     fun getToday(): Today {
         val dm = Today()
-        dm.liturgyDay = feria?.domainModel
+        dm.liturgyDay = feria.domainModel
         dm.liturgyPrevious = if (today!!.previoId > 1) previo?.domainModel else null
         dm.todayDate = today!!.hoy
         dm.hasSaint = today!!.hasSaint
@@ -151,39 +151,39 @@ class TodayMixto {
         return dm
     }
 
-    fun getHimno(): LHHymn? {
+    private fun getHimno(): LHHymn? {
         return himno?.domainModel
     }
 
     //TODO incluir algo como hasPriority en TodayEntity
-    fun getBiblica(): BiblicalShort? {
+    private fun getBiblica(): BiblicalShort {
         return biblica!!.getDomainModel(today!!.tiempoId)
     }
 
-    fun getBenedictus(): LHGospelCanticle? {
+    private fun getBenedictus(): LHGospelCanticle {
         return benedictus!!.getDomainModel(2)
     }
 
     val preces: LHIntercession?
         get() = lhIntercessionsDM?.domainModel
 
-    fun getInvitatorio(): LHInvitatory? {
+    private fun getInvitatorio(): LHInvitatory? {
         return invitatorio?.domainModel
     }
 
-    fun getSalmodia(): LHPsalmody? {
+    private fun getSalmodia(): LHPsalmody? {
         return salmodia?.domainModel
     }
 
     val oracion: Prayer?
         get() = lhPrayerAll?.domainModel
 
-    fun getBiblicas(): List<LHOfficeBiblical?>? {
+    private fun getBiblicas(): List<LHOfficeBiblical?> {
         return biblicas!!.getDomainModel(today!!.tiempoId)
     }
 
 
-    val patristicas: List<LHOfficePatristic?>
+    private val patristicas: List<LHOfficePatristic?>
         get() {
             val theList: MutableList<LHOfficePatristic?> = ArrayList()
             for (item in patristicaOficioWithResponsorio!!) {
@@ -192,17 +192,17 @@ class TodayMixto {
             return theList
         }
 
-    fun getOficioVerso(): String? {
+    private fun getOficioVerso(): String? {
         return oficioVerso?.theEntity?.verse
     }
 
     //mixto.setInvitatorio(getInvitatorio());
     val domainModelToday: Today
         get() {
-            val dm = feria?.domainModel
-            dm!!.typeID = 0
+            val dm = feria.domainModel
+            dm.typeID = 0
             val dmToday = getToday()
-            dm!!.today = dmToday
+            dm.today = dmToday
             val bh = BreviaryHour()
             if (today!!.oBiblicaFK == 600010101) {
                 val oEaster = OficioEaster()
@@ -240,7 +240,7 @@ class TodayMixto {
                 bh.setOficio(oficio)
                 bh.setLaudes(laudes)
             }
-            dm!!.breviaryHour = bh
+            dm.breviaryHour = bh
             dmToday.liturgyDay = dm
             return dmToday
         }

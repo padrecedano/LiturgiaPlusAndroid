@@ -73,19 +73,18 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
+                    <com.google.android.material.materialswitch.MaterialSwitch
                         android:id="@+id/switchAccept"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:checked="false" />
+                        android:checked="false"
+                        style="@style/Widget.App.Switch" />
 
                     <TextView
                         android:id="@+id/textAgree"
-                        style="@style/TextAppearance.AppTheme.DisplayBody"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:layout_margin="10dp" />
                 </LinearLayout>
 
@@ -98,7 +97,6 @@
 
                 <TextView
                     android:id="@+id/textContacto"
-                    style="@style/TextAppearance.AppTheme.DisplayBody"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp" />
@@ -110,7 +108,10 @@
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:visibility="invisible"
-                    android:text="@string/enviar_email" />
+                    android:text="@string/enviar_email"
+                    app:icon="@android:drawable/ic_dialog_email"
+
+                    />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

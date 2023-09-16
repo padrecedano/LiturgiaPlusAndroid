@@ -103,9 +103,11 @@
     </option>
   </component>
   <component name="EntryPointsManager">
-    <list size="2">
+    <list size="4">
       <item index="0" class="java.lang.String" itemvalue="androidx.room.Ignore" />
       <item index="1" class="java.lang.String" itemvalue="com.google.gson.annotations.Expose" />
+      <item index="2" class="java.lang.String" itemvalue="dagger.Binds" />
+      <item index="3" class="java.lang.String" itemvalue="dagger.Module" />
     </list>
   </component>
   <component name="JavadocGenerationManager">
@@ -119,7 +121,7 @@
     <option name="OPTION_DOCUMENT_TAG_VERSION" value="true" />
     <option name="OTHER_OPTIONS" value="-encoding utf8 -docencoding utf8 -charset utf8" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
@@ -128,7 +130,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.011782169032377771" />
+        <option name="scale" value="0.09588682211160597" />
       </ProjectState>
     </option>
   </component>

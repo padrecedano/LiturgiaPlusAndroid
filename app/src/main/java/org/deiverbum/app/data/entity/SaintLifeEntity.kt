@@ -9,6 +9,8 @@ import org.deiverbum.app.model.SaintLife
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`saint_life`** de la base de datos, que se ocupa de gestionar la vida de los santos.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -23,23 +25,20 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class SaintLifeEntity {
-    @JvmField
+data class SaintLifeEntity(
     @PrimaryKey
     @ColumnInfo(name = "saintFK")
-    var saintFK = 0
+    val saintFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "longLife")
-    var longLife = ""
+    var longLife: String,
 
-    @JvmField
     @ColumnInfo(name = "martyrology")
-    var martyrology = ""
+    var martyrology: String,
 
-    @JvmField
     @ColumnInfo(name = "theSource")
-    var theSource = ""
+    var theSource: String
+) {
     val domainModel: SaintLife
         get() {
             val theModel = SaintLife()

@@ -8,48 +8,36 @@ import org.deiverbum.app.model.Saint
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`saint`** de la base de datos, que se ocupa de gestionar los Santos.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
- * CREATE TABLE `santo` (
- * `santoId` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
- * `liturgiaId` INTEGER NOT NULL,
- * `nombre` TEXT NOT NULL,
- * `mes` INTEGER NOT NULL,
- * `dia` INTEGER NOT NULL,
- * `tipoId` INTEGER NOT NULL,
- * `momentoId` INTEGER DEFAULT 0, -- '1:Vigilia 2:Dia',
- * `status` INTEGER DEFAULT 0,   -- '0:HomilyList No, 1:HomilyList Yes',
- * `comunId` INTEGER DEFAULT 0,
- * UNIQUE(`nombre`,`mes`,`dia`)
- * );
  */
 @Entity(
     tableName = Constants.SAINT,
     indices = [Index(value = ["theName", "theMonth", "theDay"], unique = true)]
 )
-class SaintEntity {
-    @JvmField
+data class SaintEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "saintID")
-    var santoId = 0
+    val santoId: Int,
 
     @ColumnInfo(name = "theName")
-    var theName = ""
+    val theName: String,
 
     @ColumnInfo(name = "theMonth")
-    var theMonth = 0
+    val theMonth: Int,
 
     @ColumnInfo(name = "theDay")
-    var theDay = 0
+    val theDay: Int,
 
-    @JvmField
     @ColumnInfo(name = "typeFK", defaultValue = "0")
-    var tipoId = 0
+    val tipoId: Int,
 
-    @JvmField
     @ColumnInfo(name = "commonFK", defaultValue = "0")
-    var comunId = 0
+    var comunId: Int
+) {
     val domainModel: Saint
         get() {
             val theModel = Saint()

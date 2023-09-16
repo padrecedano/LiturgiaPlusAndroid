@@ -7,18 +7,18 @@ import androidx.room.PrimaryKey
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`lh_epigraph`** de la base de datos, que se ocupa de los epígrafes de los salmos en la Liturgia de las Horas.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
 @Entity(tableName = Constants.LH_EPIGRAPH, indices = [Index(value = ["epigraph"], unique = true)])
-class EpigraphEntity {
-    @JvmField
+data class EpigraphEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "epigraphID")
-    var epigrafeId = 0
+    var epigrafeId: Int,
 
-    @JvmField
     @ColumnInfo(name = "epigraph")
-    var epigrafe = ""
-}
+    var epigrafe: String
+)

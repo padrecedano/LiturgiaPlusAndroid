@@ -33,11 +33,11 @@ class MisaWithComentarios {
         entity = BibleReadingEntity::class
     )
     var lecturaOne: BibleReadingWithBook? = null
-    val biblicaMisa: MassReading?
+    private val biblicaMisa: MassReading
         get() {
             val theModel = lecturaOne?.domainModelMisa
             theModel!!.tema = misaLectura!!.tema
-            theModel!!.setOrden(misaLectura!!.orden)
+            theModel.setOrden(misaLectura!!.orden)
             return theModel
         }
     val domainModel: MutableList<BibleComment?>
@@ -47,8 +47,8 @@ class MisaWithComentarios {
                 for (item in lectura!!) {
                     val theModel = item.domainModel
                     val biblica = biblicaMisa
-                    biblica!!.setOrden(misaLectura!!.orden)
-                    theModel!!.biblica = biblica
+                    biblica.setOrden(misaLectura!!.orden)
+                    theModel.biblica = biblica
                     listModel.add(theModel)
                 }
             }

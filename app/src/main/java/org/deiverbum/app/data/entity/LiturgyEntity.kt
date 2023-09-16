@@ -4,6 +4,8 @@ import androidx.room.*
 import androidx.room.ForeignKey.Companion.CASCADE
 
 /**
+ * Entidad para la tabla **`liturgy`** de la base de datos, que se ocupa de gestionar la Liturgia.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -25,33 +27,26 @@ import androidx.room.ForeignKey.Companion.CASCADE
         onUpdate = CASCADE
     )]
 )
-class LiturgyEntity {
-    @JvmField
+data class LiturgyEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "liturgyID")
-    var liturgiaId = 0
+    val liturgiaId: Int,
 
-    @JvmField
     @ColumnInfo(name = "timeFK")
-    var tiempoFK = 0
+    val tiempoFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "typeFK")
-    var tipoFK = 0
+    val tipoFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "week")
-    var semana = 0
+    var semana: Int,
 
-    @JvmField
     @ColumnInfo(name = "day")
-    var dia = 0
+    var dia: Int,
 
-    @JvmField
     @ColumnInfo(name = "colorFK", index = true)
-    var colorFK = 0
+    var colorFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "name")
-    var nombre = ""
-}
+    var nombre: String
+)

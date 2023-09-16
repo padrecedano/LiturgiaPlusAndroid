@@ -7,7 +7,7 @@ import org.deiverbum.app.util.Utils
 /**
  *
  *
- * Reúne aquellos elementos que son comúnes a las diversas horas del Breviary.
+ * Reúne aquellos elementos que son comunes a las diversas horas del Breviary.
  * Las clases de las diferentes horas extienden de ésta,
  * y cada una tendrá aquellos elementos que le sean propios.
  *
@@ -181,7 +181,7 @@ open class BreviaryHour : Liturgy() {
         try {
             this.hasSaint = hasSaint
             val invitatory = oficio?.invitatorio
-            invitatory?.normalizeByTime(liturgyTime.timeID)
+            //invitatory?.normalizeByTime(liturgyTime.timeID)
             laudes!!.salmodia?.normalizeByTime(liturgyTime.timeID)
             sb.append(Utils.LS2)
             if (santo != null && this.hasSaint) {
@@ -275,7 +275,6 @@ open class BreviaryHour : Liturgy() {
          * @return Texto con la conclusión de la hora, formateado para lectura
          * @since 2021.01
          */
-        @JvmStatic
         fun getConclusionHorasMayoresForRead(): String {
             return "El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna. Amén."
         }

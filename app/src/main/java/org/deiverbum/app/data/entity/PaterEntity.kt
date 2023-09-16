@@ -8,23 +8,11 @@ import org.deiverbum.app.model.Pater
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`pater`** de la base de datos, que se ocupa de gestionar los Padres de la Iglesia.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
- *
- *
- * CREATE TABLE `padre` (
- * `padreId` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
- * `padre` TEXT NOT NULL,
- * `liturgyName` TEXT NOT NULL,
- * `lugarFK` INTEGER NOT NULL DEFAULT 0,
- * `tipoFK` INTEGER NOT NULL DEFAULT 0,
- * `tituloFK` INTEGER NOT NULL DEFAULT 0,
- * `misionFK` INTEGER NOT NULL DEFAULT 0,
- * `sexoFK` INTEGER NOT NULL DEFAULT 0,
- * `grupoFK` INTEGER NOT NULL DEFAULT 0,
- * UNIQUE  (`padre`,`lugarFK`,`tipoFK`,`tituloFK`,`misionFK`,`sexoFK`,`grupoFK`)
- * );
  */
 @Entity(
     tableName = Constants.PATER,
@@ -33,46 +21,36 @@ import org.deiverbum.app.util.Constants
         unique = true
     )]
 )
-class PaterEntity {
-    @JvmField
+data class PaterEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "paterID")
-    var padreId = 0
+    val padreId: Int,
 
-    @JvmField
     @ColumnInfo(name = "pater")
-    var padre = ""
+    val padre: String,
 
-    @JvmField
     @ColumnInfo(name = "liturgyName")
-    var liturgyName = ""
+    val liturgyName: String,
 
-    @JvmField
     @ColumnInfo(name = "placeFK", defaultValue = "0")
-    var lugarFK = 0
+    val lugarFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "typeFK", defaultValue = "0")
-    var tipoFK = 0
+    val tipoFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "titleFK", defaultValue = "0")
-    var tituloFK = 0
+    val tituloFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "missionFK", defaultValue = "0")
-    var misionFK = 0
+    var misionFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "sexFK", defaultValue = "0")
-    var sexoFK = 0
+    var sexoFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "groupFK", defaultValue = "0")
-    var grupoFK = 0
-    fun getLiturgyName(): String {
-        return if (liturgyName == "") padre else liturgyName
-    }
+    var grupoFK: Int
+) {
+
 
     val domainModel: Pater
         get() {

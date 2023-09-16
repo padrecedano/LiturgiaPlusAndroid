@@ -37,11 +37,11 @@ class LHOfficeBiblicalWithResponsory {
         entity = LHResponsoryEntity::class
     )
     var lhResponsorio: LHResponsoryEntity? = null
-    fun getDomainModel(tiempoId: Int?): LHOfficeBiblical? {
+    fun getDomainModel(tiempoId: Int?): LHOfficeBiblical {
         val theModel = bibliaLectura?.domainModelOficio
         theModel!!.tema = lhBiblica!!.theme
-        theModel!!.setOrden(lhBiblica!!.theOrder)
-        theModel!!.responsorioLargo = lhResponsorio!!.getDomainModel(tiempoId)
+        theModel.setOrden(lhBiblica!!.theOrder)
+        theModel.responsorioLargo = lhResponsorio!!.getDomainModel(tiempoId)
         return theModel
     }
 }

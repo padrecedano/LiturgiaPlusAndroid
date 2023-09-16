@@ -1,6 +1,5 @@
 package org.deiverbum.app.data.entity.relation
 
-import android.util.Log
 import androidx.room.Embedded
 import androidx.room.Relation
 import org.deiverbum.app.data.entity.HomilyEntity
@@ -38,12 +37,12 @@ class PatristicaOficioWithResponsorio {
         try {
             val theModel = homilyAll?.patristicaDomainModel
             theModel!!.theme = lhPatristica!!.tema
-            theModel!!.source = lhPatristica!!.fuente
-            theModel!!.theOrder = lhPatristica!!.orden
-            theModel!!.responsorioLargo = lhResponsorio!!.getDomainModel(tiempoId)
+            theModel.source = lhPatristica!!.fuente
+            theModel.theOrder = lhPatristica!!.orden
+            theModel.responsorioLargo = lhResponsorio!!.getDomainModel(tiempoId)
             return theModel
         } catch (e: Exception) {
-            Log.e("ERR", e.message!!)
+            //Log.e("ERR", e.message!!)
         }
         return null
     }

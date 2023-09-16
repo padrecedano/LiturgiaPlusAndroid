@@ -7,6 +7,8 @@ import androidx.room.ForeignKey.Companion.CASCADE
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`liturgy_homily_join`** de la base de datos, que se ocupa de gestionar la relación asociativa de las homilías.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -28,16 +30,13 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class LiturgyHomilyJoinEntity {
-    @JvmField
+data class LiturgyHomilyJoinEntity(
     @ColumnInfo(name = "liturgyFK")
-    var liturgiaFK = 0
+    var liturgiaFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "homilyFK", index = true)
-    var homiliaFK = 0
+    var homiliaFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "theme", defaultValue = "")
-    var tema = ""
-}
+    var tema: String
+)

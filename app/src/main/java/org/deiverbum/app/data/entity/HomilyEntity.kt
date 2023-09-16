@@ -5,6 +5,8 @@ import androidx.room.ForeignKey.Companion.SET_DEFAULT
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`homily`** de la base de datos, que se ocupa de las homilías.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -23,49 +25,38 @@ import org.deiverbum.app.util.Constants
         unique = true
     )]
 )
-class HomilyEntity {
-    @JvmField
+class HomilyEntity (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "homilyID")
-    var homiliaId = 0
+    var homiliaId:Int,
 
-    @JvmField
     @ColumnInfo(name = "opusFK", defaultValue = "0")
-    var obraFK = 0
+    var obraFK:Int,
 
-    @JvmField
     @ColumnInfo(name = "date", defaultValue = "0")
-    var fecha = 0
+    var fecha:Int,
 
-    @JvmField
     @ColumnInfo(name = "book", defaultValue = "0")
-    var libro = 0
+    var libro:Int,
 
     @JvmField
     @ColumnInfo(name = "chapter", defaultValue = "0")
-    var capitulo = 0
+    var capitulo:Int,
 
-    @JvmField
     @ColumnInfo(name = "number", defaultValue = "0")
-    var numero = 0
+    var numero:Int,
 
-    @JvmField
     @ColumnInfo(name = "paragraph", defaultValue = "0")
-    var parrafo = 0
+    var parrafo:Int,
 
-    @JvmField
     @ColumnInfo(name = "collectionFK", defaultValue = "0")
-    var coleccionFK = 0
+    var coleccionFK:Int,
 
-    @JvmField
     @ColumnInfo(name = "colNumber", defaultValue = "0")
-    var colDoc = 0
+    var colDoc:Int,
 
-    @JvmField
     @ColumnInfo(name = "colParagraph", defaultValue = "0")
-    var colParrafo = 0
+    var colParrafo:Int,
 
-    @JvmField
     @ColumnInfo(name = "homily")
-    var texto = ""
-}
+    var texto:String)

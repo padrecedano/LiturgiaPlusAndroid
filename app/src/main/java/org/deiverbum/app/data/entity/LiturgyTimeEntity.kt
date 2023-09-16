@@ -6,22 +6,21 @@ import androidx.room.PrimaryKey
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`liturgy_time`** de la base de datos, que se ocupa de gestionar los tiempos litúrgicos.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
 @Entity(tableName = Constants.LITURGY_TIME)
-class LiturgyTimeEntity {
-    @JvmField
+data class LiturgyTimeEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "timeID")
-    var tiempoId = 0
+    val tiempoId: Int,
 
-    @JvmField
     @ColumnInfo(name = "timeName")
-    var tiempo = ""
+    val tiempo: String,
 
-    @JvmField
     @ColumnInfo(name = "liturgyName")
-    var liturgyName = ""
-}
+    var liturgyName: String
+)

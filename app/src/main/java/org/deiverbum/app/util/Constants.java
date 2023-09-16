@@ -49,6 +49,7 @@ public class Constants {
     public static final String ERR_BIBLIA = "Todavía no hay introducción a este libro. <br>Proyecto abierto a la colaboración. <br><a href=\"http://bit.ly/2FInp4n\">Ver los detalles aquí</a>.";
     public static final String ERR_FILE_NOT_FOUND = String.format("%s\n\n%s", "Error: Archivo no encontrado.", ERR_REPORT);
     public static final String ERR_WITH_VERSION = String.format(new Locale("es", "ES"), "Ha ocurrido un error.%n %s %n%n Versión: %d %n%n", ERR_REPORT, Constants.VERSION_CODE);
+    public static final String ERR_NO_COMMENT = String.format(new Locale("es", "ES"), "No hay comentarios para el Evangelio de hoy.\n %s", Constants.ERR_REPORT);
 
     //Otros mensajes
     public static final String PACIENCIA = "\n\nLa paciencia todo lo alcanza. Por favor espere ...";
@@ -165,7 +166,9 @@ public class Constants {
     public static final String PATER_OPUS = "pater_opus";
     public static final String LH_NIGHT_PRAYER = "lh_night_prayer";
     public static final String KYRIE = "kyrie";
+    public static final String LH_KYRIE_JOIN = "lh_kyrie_join";
     public static final String VIRGIN_ANTIPHON = "virgin_antiphon";
+    public static final String LH_VIRGIN_ANTIPHON_JOIN = "lh_virgin_antiphon_join";
 
     public static final String SYNC_LITURGY_HOMILY_JOIN = "sync_liturgy_homily_join";
     public static final String SYNC_MASS_READING = "sync_mass_reading";

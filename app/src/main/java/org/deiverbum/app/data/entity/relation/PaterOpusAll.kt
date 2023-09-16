@@ -20,7 +20,7 @@ class PaterOpusAll {
     @Relation(parentColumn = "paterFK", entityColumn = "paterID", entity = PaterEntity::class)
     var paterEntity: PaterEntity? = null
     fun getPaterEntity(): String {
-        return paterEntity!!.getLiturgyName()
+        return paterEntity!!.liturgyName
     }
 
     val domainModel: PaterOpus

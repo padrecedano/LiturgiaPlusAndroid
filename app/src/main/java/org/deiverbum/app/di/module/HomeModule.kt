@@ -11,7 +11,7 @@ import org.deiverbum.app.presentation.home.adapter.HomeAdapter
 object HomeModule {
 
     @Provides
-    fun providePrayAdapter(): HomeAdapter {
+    fun provideHomeAdapter(): HomeAdapter {
         return HomeAdapter(emptyList(),1)
     }
 }

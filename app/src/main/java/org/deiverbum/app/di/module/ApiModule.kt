@@ -12,6 +12,6 @@ import retrofit2.Retrofit
 object ApiModule {
 
     @Provides
-    fun providePrayApi(retrofit: Retrofit): TodayApi = retrofit.create(TodayApi::class.java)
+    fun provideTodayApi(retrofit: Retrofit): TodayApi = retrofit.create(TodayApi::class.java)
 
 }

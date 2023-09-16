@@ -5,6 +5,8 @@ import androidx.room.ForeignKey.Companion.CASCADE
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`liturgy_saint_join`** de la base de datos, que se ocupa de gestionar la relación asociativa entre las tablas `liturgy` y `saint`.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -26,13 +28,11 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class LiturgySaintJoinEntity {
-    @JvmField
+data class LiturgySaintJoinEntity (
     @PrimaryKey
     @ColumnInfo(name = "liturgyFK")
-    var liturgyFK = 0
+    val liturgyFK:Int,
 
-    @JvmField
     @ColumnInfo(name = "saintFK")
-    var saintFK = 0
-}
+    val saintFK:Int
+)

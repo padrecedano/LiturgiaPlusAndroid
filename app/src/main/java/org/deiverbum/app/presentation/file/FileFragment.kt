@@ -5,6 +5,7 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -18,7 +19,8 @@ import org.deiverbum.app.databinding.FragmentFileBinding
 import org.deiverbum.app.domain.model.FileRequest
 import org.deiverbum.app.presentation.base.BaseFileFragment
 import org.deiverbum.app.util.Constants
-import java.util.*
+import org.deiverbum.app.util.ZoomTextView
+import java.util.Locale
 
 /**
  * <p>
@@ -34,6 +36,7 @@ import java.util.*
 @AndroidEntryPoint
 class FileFragment : BaseFileFragment<FragmentFileBinding>() {
     private val mViewModel: FileViewModel by viewModels()
+    private lateinit var mTextView: ZoomTextView
 
     override fun constructViewBinding(): ViewBinding =
         FragmentFileBinding.inflate(layoutInflater)
@@ -44,8 +47,12 @@ class FileFragment : BaseFileFragment<FragmentFileBinding>() {
     }
 
     private fun setConfiguration() {
+        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
+        actionBar?.subtitle = ""
         val sp = PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
         val args: FileFragmentArgs by navArgs()
+        mTextView = getViewBinding().include.tvZoomable
+
         val filePath = listOf(args.rawPath)
         val fileRequest = FileRequest(filePath, 1, 6, isNightMode(),
             isVoiceOn = true,

@@ -25,9 +25,6 @@ class MassReadingList : Liturgy() {
             return sb
         }
 
-    fun sort() {
-        //Collections.sort(lecturas)
-    }
 
     fun getForView(todayRequest:TodayRequest): SpannableStringBuilder {
         ColorUtils.isNightMode = todayRequest.isNightMode
@@ -53,8 +50,8 @@ class MassReadingList : Liturgy() {
         get() {
             val sb = StringBuilder()
             try {
-                sb.append(today?.getSingleForRead())
-                sb.append(tituloForRead)
+                //sb.append(today?.getSingleForRead())
+                //sb.append(tituloForRead)
                 for (l in lecturas!!) {
                     sb.append(l?.getAllForRead(type))
                 }

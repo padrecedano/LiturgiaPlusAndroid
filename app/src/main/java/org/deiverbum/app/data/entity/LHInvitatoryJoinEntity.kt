@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`lh_invitatory_join`** de la base de datos, que se ocupa de gestionar la relación asociativa de los Invitatorios de la Liturgia de las Horas.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -28,16 +30,14 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class LHInvitatoryJoinEntity {
-    @JvmField
+data class LHInvitatoryJoinEntity(
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    var grupoId = 0
+    var grupoId: Int,
 
     @ColumnInfo(name = "antiphonFK", index = true)
-    var salmoFK = 0
+    var salmoFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "caseFK", index = true)
-    var casoFK = 0
-}
+    var casoFK: Int
+)

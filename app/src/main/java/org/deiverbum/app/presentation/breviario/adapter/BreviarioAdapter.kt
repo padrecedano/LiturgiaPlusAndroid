@@ -95,7 +95,7 @@ class BreviarioAdapter(private val mDataSet: List<BreviarioItem>) :
         }
     }
     @SuppressLint("NotifyDataSetChanged")
-    fun update(newItems: List<BreviarioItem>) {
+    fun update() {
         mDataSet.run {
             //clear()
             //addAll(newItems)

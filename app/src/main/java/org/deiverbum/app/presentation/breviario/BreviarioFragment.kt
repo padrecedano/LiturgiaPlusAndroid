@@ -42,6 +42,7 @@ class BreviarioFragment : BaseHomeFragment<FragmentBreviarioBinding>() {
     }
 
     private fun prepareItems() {
+
         val colorGrupo1 = ContextCompat.getColor(requireActivity(), R.color.color_fondo_grupo1)
         val colorGrupo2 = ContextCompat.getColor(
             requireActivity(), R.color.color_fondo_grupo2

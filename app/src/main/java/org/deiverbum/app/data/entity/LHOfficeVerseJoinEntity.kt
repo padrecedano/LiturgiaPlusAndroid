@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`lh_office_verse_join`** de la base de datos, que se ocupa de gestionar la relación asociativa del versículo inicial del Oficio de Lectura de la Liturgia de las Horas.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
@@ -22,12 +24,11 @@ import org.deiverbum.app.util.Constants
         onUpdate = CASCADE
     )]
 )
-class LHOfficeVerseJoinEntity {
-    @JvmField
+data class LHOfficeVerseJoinEntity (
     @PrimaryKey
     @ColumnInfo(name = "groupID")
-    var grupoId = 0
+    val grupoId:Int,
 
     @ColumnInfo(name = "verseFK", index = true)
-    var responsorioFK = 0
-}
+    val responsorioFK:Int
+)

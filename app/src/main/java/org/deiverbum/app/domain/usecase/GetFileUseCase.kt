@@ -6,7 +6,7 @@ import org.deiverbum.app.domain.repository.FileRepository
 import javax.inject.Inject
 
 /**
- * <p>Caso de uso archivos locales.</p>
+ * Caso de uso archivos locales.
  *
  * @author A. Cedano
  * @since 2023.1.3

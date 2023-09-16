@@ -3,45 +3,26 @@ package org.deiverbum.app.data.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import org.deiverbum.app.model.LHPsalm
 import org.deiverbum.app.util.Constants
 
 /**
+ * Entidad para la tabla **`lh_psalm`** de la base de datos, que se ocupa de los salmos de la Liturgia de las Horas.
+ *
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
 @Entity(tableName = Constants.LH_PSALM)
-class PsalmEntity {
-    @JvmField
+data class PsalmEntity (
     @PrimaryKey
     @ColumnInfo(name = "psalmID")
-    var salmoId = 0
+    val salmoId: Int,
 
-    @JvmField
     @ColumnInfo(name = "psalm")
-    var salmo = ""
+    val salmo: String,
 
-    @JvmField
     @ColumnInfo(name = "readingID")
-    var pericopaId = 0
+    val pericopaId: Int,
 
-    @JvmField
     @ColumnInfo(name = "quote")
-    var salmoRef: String? = null
-    fun getSalmoRef(): String {
-        return if (salmoRef != null) salmoRef!! else ""
-    }
-
-    fun setSalmoRef(salmoRef: String?) {
-        this.salmoRef = salmoRef
-    }
-
-    val domainModel: LHPsalm
-        get() {
-            val dm = LHPsalm()
-            dm.psalm = salmo
-            dm.setRef(getSalmoRef())
-            return dm
-        }
-}
+    val salmoRef: String?)

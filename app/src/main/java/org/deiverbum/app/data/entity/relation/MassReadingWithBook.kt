@@ -3,7 +3,7 @@ package org.deiverbum.app.data.entity.relation
 import androidx.room.Embedded
 import androidx.room.Relation
 import org.deiverbum.app.data.entity.BibleReadingEntity
-import org.deiverbum.app.data.entity.BiblieBookEntity
+import org.deiverbum.app.data.entity.BibleBookEntity
 import org.deiverbum.app.model.MassReading
 
 /**
@@ -17,8 +17,8 @@ class MassReadingWithBook {
     var lectura: BibleReadingEntity? = null
 
     @JvmField
-    @Relation(parentColumn = "bookFK", entityColumn = "bookID", entity = BiblieBookEntity::class)
-    var libro: BiblieBookEntity? = null
+    @Relation(parentColumn = "bookFK", entityColumn = "bookID", entity = BibleBookEntity::class)
+    var libro: BibleBookEntity? = null
     val domainModel: MassReading
         get() {
             val theModel = MassReading()

@@ -30,10 +30,6 @@ object TimeUtil {
         return date.time
     }
 
-    fun getTimestamp(format: String, dateString: String?): Long {
-        val date = SimpleDateFormat(format).parse(dateString) ?: Date(0)
-        return date.time
-    }
 
     @SuppressLint("SimpleDateFormat")
     private fun getTimeMilis(dayTimestamp: String, time: String): Long {

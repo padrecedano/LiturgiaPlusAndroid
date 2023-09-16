@@ -2,7 +2,7 @@
 
     <PreferenceCategory
         android:key="pref_key_general"
-        android:title="General">
+        android:title="GENERAL">
 
         <SwitchPreference
             android:defaultValue="false"
@@ -54,7 +54,7 @@
 
 
         <SwitchPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:enabled="false"
             android:key="textos_biblicos"
             android:summary="@string/pref_description_bible"
@@ -76,7 +76,7 @@
 
     <PreferenceCategory
         android:key="pref_key_privacy_settings"
-        android:title="Privacidad">
+        android:title="PRIVACIDAD">
 
         <SwitchPreference
             android:defaultValue="false"
