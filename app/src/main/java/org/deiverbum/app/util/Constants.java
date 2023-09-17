@@ -14,6 +14,8 @@ public class Constants {
       strings.xml: accept_info
       */
     public static final int VERSION_CODE = 202301003;
+    public static final String VERSION_CODE_FORMATTED = "2023.1.3";
+
     //LAST: 202201004
     public static final int DB_VERSION = 1;
     public static final int SYNC_INTERVAL_DAYS = 7;

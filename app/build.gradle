@@ -147,14 +147,14 @@ dependencies {
     implementation "androidx.work:work-gcm:2.8.1"
     implementation("androidx.startup:startup-runtime:1.1.1")
 
-    implementation 'androidx.hilt:hilt-work:1.0.0'
+    implementation 'androidx.hilt:hilt-work:1.1.0-alpha01'
     implementation 'androidx.work:work-runtime-ktx:2.8.1'
-    annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0'
+    annotationProcessor 'androidx.hilt:hilt-compiler:1.1.0-alpha01'
 
     //implementation "androidx.room:room-runtime:2.5.1"
     implementation 'androidx.room:room-ktx:2.5.2'
     //kapt "androidx.room:room-compiler:2.5.2"
-    ksp ('androidx.room:room-compiler:2.5.2')
+    ksp 'androidx.room:room-compiler:2.5.2'
 
     debugImplementation "androidx.compose.ui:ui-test-manifest:1.5.1"
     ksp "androidx.room:room-testing:2.5.2"
@@ -220,24 +220,24 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.5.2'
     implementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation "androidx.multidex:multidex:2.0.1"
-    implementation 'com.google.dagger:hilt-android:2.47'
+    implementation 'com.google.dagger:hilt-android:2.48'
 
-    ksp 'com.google.dagger:hilt-compiler:2.47'
+    ksp 'com.google.dagger:hilt-compiler:2.48'
     //kapt 'com.google.dagger:hilt-android-compiler:2.47'
 
     // For instrumentation tests
-    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.47'
-    androidTestAnnotationProcessor 'com.google.dagger:hilt-compiler:2.47'
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.48'
+    androidTestAnnotationProcessor 'com.google.dagger:hilt-compiler:2.48'
 
     // For local unit tests
-    testImplementation 'com.google.dagger:hilt-android-testing:2.47'
-    testAnnotationProcessor 'com.google.dagger:hilt-compiler:2.47'
+    testImplementation 'com.google.dagger:hilt-android-testing:2.48'
+    testAnnotationProcessor 'com.google.dagger:hilt-compiler:2.48'
 
     //implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
     implementation 'com.android.support:support-annotations:28.0.0'
 
-    ksp "androidx.hilt:hilt-compiler:1.0.0"
-    ksp "com.google.dagger:hilt-android-compiler:2.47"
+    ksp "androidx.hilt:hilt-compiler:1.1.0-alpha01"
+    ksp "com.google.dagger:hilt-android-compiler:2.48"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:2.7.2"

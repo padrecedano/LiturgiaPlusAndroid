@@ -4,7 +4,6 @@ import org.deiverbum.app.data.database.dao.TodayDao
 import org.deiverbum.app.data.source.TodayEntityData
 import org.deiverbum.app.domain.model.TodayRequest
 import org.deiverbum.app.domain.model.TodayResponse
-import org.deiverbum.app.util.Utils
 import javax.inject.Inject
 
 /**
@@ -20,7 +19,7 @@ class LocalTodayEntityData @Inject constructor(
     override suspend fun getToday(todayRequest: TodayRequest): TodayResponse {
         val todayResponse = TodayResponse()
         try {
-            when (todayRequest.typeID) {
+            /*when (todayRequest.typeID) {
                 0 -> {
                     val dm = todayDao.getMixtoByDate(todayRequest.theDate)?.domainModelToday!!
                     todayResponse.dataModel = dm
@@ -62,7 +61,7 @@ class LocalTodayEntityData @Inject constructor(
                     val monthAndDay= Utils.getMonthAndDay(todayRequest.theDate.toString())
                     todayResponse.dataModel =  todayDao.getSaintByDate(monthAndDay[0],monthAndDay[1])?.domainModelToday!!
                 }
-            }
+            }*/
             return todayResponse
         } catch (e: Exception) {
             todayResponse.success=false

@@ -4,8 +4,8 @@ import org.deiverbum.app.data.database.dao.TodayDao
 import org.deiverbum.app.data.source.SyncEntityData
 import org.deiverbum.app.domain.model.SyncRequest
 import org.deiverbum.app.domain.model.SyncResponse
+import org.deiverbum.app.model.SyncStatus
 import org.deiverbum.app.util.Source
-import org.deiverbum.app.util.Utils
 import javax.inject.Inject
 
 /**
@@ -31,7 +31,7 @@ class LocalSyncEntityData @Inject constructor(
      * @return Un objeto [SyncResponse] con una propiedad [Source.LOCAL].
      */
     override suspend fun getSync(syncRequest: SyncRequest): SyncResponse {
-        val se = todayDao.syncInfo()
+        /*val se = todayDao.syncInfo()
         if (syncRequest.yearToClean != 0) {
             val rowsDeleted = todayDao.deleteLastYear(syncRequest.yearToClean)
             if (rowsDeleted > 0) {
@@ -39,7 +39,8 @@ class LocalSyncEntityData @Inject constructor(
             }
         }
         se?.source = Source.LOCAL
-        return SyncResponse(se!!)
+        return SyncResponse(se!!)*/
+        return SyncResponse(SyncStatus())
     }
 
     /**
@@ -52,12 +53,12 @@ class LocalSyncEntityData @Inject constructor(
      * @param syncResponse Es un objeto [SyncResponse] con los datos a sincronizar.
      */
     override suspend fun addSync(syncResponse: SyncResponse) {
-        if (syncResponse.allToday.isNotEmpty()) {
+        /*if (syncResponse.allToday.isNotEmpty()) {
             val insertedRows =
-                todayDao.insertAllTodays(syncResponse.allToday)
+                todayDao.insertAllTodays(syncResponse.allToday as List<Today>)
             if (insertedRows.isNotEmpty()) {
                 //todayDao.syncUpdate(Utils.getCurrentTimeStamp())
             }
-        }
+        }*/
     }
 }

@@ -11,7 +11,7 @@ import static org.deiverbum.app.util.Constants.NBSP_SALMOS;
 import static org.deiverbum.app.util.Constants.OBIEN;
 import static org.deiverbum.app.util.Constants.PRECES_IL;
 import static org.deiverbum.app.util.Constants.PRECES_R;
-import static org.deiverbum.app.util.Constants.VERSION_CODE;
+import static org.deiverbum.app.util.Constants.VERSION_CODE_FORMATTED;
 
 import android.text.Html;
 import android.text.Spannable;
@@ -691,7 +691,7 @@ public final class Utils {
     }
 
     public static String createErrorMessage(String msg) {
-        return String.format(new Locale("es"), "Ha ocurrido el siguiente error:%s%s %s%s %sVersión de la aplicación: %s", LS2, msg, LS2, ERR_REPORT, LS2, VERSION_CODE);
+        return String.format(new Locale("es"), "Ha ocurrido el siguiente error:%s%s %s%s %sVersión de la aplicación: %s", LS2, msg, LS2, ERR_REPORT, LS2, VERSION_CODE_FORMATTED);
     }
 
     /**

@@ -73,6 +73,7 @@ class Crud {
      */
     fun doCrud(mTodayDao: TodayDao) {
         try {
+            /*
             if (crudLiturgy != null) {
                 val c = crudLiturgy!!.c
                 val u = crudLiturgy!!.u
@@ -773,7 +774,9 @@ class Crud {
                 if (!d.isNullOrEmpty()) {
                     mTodayDao.virginAntiphonDeleteAll(d)
                 }
-            }
+
+
+            }*/
         } catch (e: Exception) {
             //Log.d("Crud", e.message!!)
         }

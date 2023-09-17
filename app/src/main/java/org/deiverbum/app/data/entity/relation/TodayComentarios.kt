@@ -16,7 +16,7 @@ import org.deiverbum.app.model.Today
  */
 class TodayComentarios {
     @Embedded
-    var today: TodayEntity? = null
+    var today: TodayEntity = TodayEntity()
 
     @Relation(entity = LiturgyEntity::class, parentColumn = "liturgyFK", entityColumn = "liturgyID")
     var feria: LiturgyWithTime = LiturgyWithTime()
@@ -26,14 +26,14 @@ class TodayComentarios {
         parentColumn = "massReadingFK",
         entityColumn = "liturgyFK"
     )
-    var comentarios: List<MisaWithComentarios>? = null
+    var comentarios: List<MisaWithComentarios> = emptyList()
 
     fun getToday(): Today {
         val dm = Today()
         dm.liturgyDay = feria.domainModel
         //dm.liturgyPrevious=today.previoId>1?previo.getDomainModel():null;
-        dm.todayDate = today!!.hoy
-        dm.hasSaint = today!!.hasSaint
+        dm.todayDate = today.hoy
+        dm.hasSaint = today.hasSaint
         return dm
     }
 
@@ -44,11 +44,11 @@ class TodayComentarios {
             dm.typeID = 11
             val commentList = BibleCommentList()
             commentList.setHoy(getToday())
-            val allComentarios: MutableList<List<BibleComment?>> = ArrayList()
-            for (item in comentarios!!) {
-                allComentarios+=item.domainModel
+            var allComentarios: MutableList<List<BibleComment>> = ArrayList()
+            for (item in comentarios) {
+                //allComentarios+=item.domainModel
             }
-            commentList.allComentarios = allComentarios
+            commentList.allComentarios = allComentarios.toMutableList()
             dm.bibleCommentList = commentList
             dmToday.liturgyDay = dm
             return dmToday

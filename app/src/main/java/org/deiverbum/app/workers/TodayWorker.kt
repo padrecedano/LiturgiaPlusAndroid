@@ -45,10 +45,10 @@ class TodayWorker @AssistedInject constructor(
      *
      */
     private suspend fun loadCrud() {
-        val crud=apiService.postCrud(todayDao.allSyncStatus)
+        /*val crud=apiService.postCrud(todayDao.allSyncStatus)
         if(crud!!.haveData){
             crud.doCrud(todayDao)
             todayDao.syncUpdate(crud.lastUpdate)
-        }
+        }*/
     }
 }

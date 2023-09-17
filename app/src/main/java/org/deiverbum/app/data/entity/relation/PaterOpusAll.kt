@@ -11,24 +11,22 @@ import org.deiverbum.app.model.PaterOpus
  * @version 1.0
  * @since 2023.1
  */
-class PaterOpusAll {
-    @JvmField
-    @Embedded
-    var paterOpusEntity: PaterOpusEntity? = null
+data class PaterOpusAll(
+    @Embedded val paterOpusEntity: PaterOpusEntity,
 
-    @JvmField
-    @Relation(parentColumn = "paterFK", entityColumn = "paterID", entity = PaterEntity::class)
-    var paterEntity: PaterEntity? = null
+    @Relation(parentColumn = "paterFK", entityColumn = "paterID")
+    val paterEntity: PaterEntity
+) {
     fun getPaterEntity(): String {
-        return paterEntity!!.liturgyName
+        return paterEntity.liturgyName
     }
 
     val domainModel: PaterOpus
         get() {
             val dm = PaterOpus()
-            dm.pater = paterEntity!!.domainModel
-            dm.opusName = paterOpusEntity!!.opusName
-            dm.liturgyName = paterOpusEntity!!.liturgyName
+            dm.pater = paterEntity.domainModel
+            dm.opusName = paterOpusEntity.opusName
+            dm.liturgyName = paterOpusEntity.liturgyName
             return dm
         }
 }
