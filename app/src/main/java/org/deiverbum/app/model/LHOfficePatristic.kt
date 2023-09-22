@@ -20,7 +20,7 @@ class LHOfficePatristic {
     var obra: String? = null
 
     @Ignore
-    var text: String? = null
+    var text: String = ""
 
     @Ignore
     var ref: String? = null
@@ -78,7 +78,7 @@ class LHOfficePatristic {
             val sb = SpannableStringBuilder()
             sb.append(header)
             sb.append(Utils.LS2)
-            sb.append(obraForView)
+            sb.append(paterOpus?.opusForView)
             sb.append(Utils.LS2)
             sb.append(Utils.toSmallSizeRed(source))
             sb.append(Utils.LS2)

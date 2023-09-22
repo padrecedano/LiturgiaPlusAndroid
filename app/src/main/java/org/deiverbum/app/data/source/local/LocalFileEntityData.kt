@@ -5,13 +5,29 @@ import com.google.gson.Gson
 import org.deiverbum.app.data.model.FileResponse
 import org.deiverbum.app.data.source.FileEntityData
 import org.deiverbum.app.domain.model.FileRequest
-import org.deiverbum.app.model.*
+import org.deiverbum.app.model.Book
+import org.deiverbum.app.model.OracionSimple
+import org.deiverbum.app.model.Rosario
+import org.deiverbum.app.model.ViaCrucis
 import org.deiverbum.app.util.AssetProvider
-import org.deiverbum.app.util.Constants.*
+import org.deiverbum.app.util.Constants.DATA_NOTFOUND
+import org.deiverbum.app.util.Constants.FILE_ABOUT
+import org.deiverbum.app.util.Constants.FILE_ANGELUS
+import org.deiverbum.app.util.Constants.FILE_AUTHOR
+import org.deiverbum.app.util.Constants.FILE_HELP
+import org.deiverbum.app.util.Constants.FILE_LITANIES
+import org.deiverbum.app.util.Constants.FILE_NEW
+import org.deiverbum.app.util.Constants.FILE_PRIVACY
+import org.deiverbum.app.util.Constants.FILE_REGINA
+import org.deiverbum.app.util.Constants.FILE_ROSARY
+import org.deiverbum.app.util.Constants.FILE_TERMS
+import org.deiverbum.app.util.Constants.FILE_THANKS
+import org.deiverbum.app.util.Constants.FILE_VIA_CRUCIS_2003
+import org.deiverbum.app.util.Constants.FILE_VIA_CRUCIS_2005
 import javax.inject.Inject
 
 /**
- * <p>Fuente de datos local para los archivos.</p>
+ * Fuente de datos local para los archivos.
  *
  * @author A. Cedano
  * @since 2023.1.3
@@ -35,12 +51,12 @@ class LocalFileEntityData @Inject constructor(
             } else if (viacrucis.contains(it.fileName)) {
                 val data: ViaCrucis = Gson().fromJson(it.text.toString(), ViaCrucis::class.java)
                 it.text = data.getForView(fileRequest.isNightMode)
-            } else if (it.fileName == "raw/completas.json") {
-                val hora: Completas = Gson().fromJson(it.text.toString(), Completas::class.java)
-                hora.setTypeId(7)
-                //hora.setToday(fileRequest.);
+                /*} else if (it.fileName == "raw/completas.json") {
+                    val hora: Completas = Gson().fromJson(it.text.toString(), Completas::class.java)
+                    hora.setTypeId(7)
+                    //hora.setToday(fileRequest.);
 
-                it.text = hora.getAllForView()
+                    it.text = hora.getAllForView()*/
             } else if (it.fileName == FILE_ROSARY) {
                 val data: Rosario = Gson().fromJson(it.text.toString(), Rosario::class.java)
                 data.day = fileRequest.dayOfWeek

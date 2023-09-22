@@ -50,7 +50,7 @@ class Conclusion {
         sb.append(Utils.LS2)
         sb.append(Utils.formatTitle(Constants.TITLE_VIRGIN_ANTIHPON))
         sb.append(Utils.LS2)
-        sb.append(Utils.fromHtml(getAntifonaVirgen()))
+        sb.append(Utils.fromHtml(getAntifonaVirgen()!!))
         return sb
     }
 
@@ -59,7 +59,7 @@ class Conclusion {
         sb.append(getHeaderForRead())
         sb.append(getBendicionForRead())
         sb.append("ANTÍFONA FINAL DE LA SANTÍSIMA VIRGEN.")
-        sb.append(Utils.fromHtml(getAntifonaVirgen()))
+        sb.append(Utils.fromHtml(getAntifonaVirgen()!!))
         return sb
     }
 }

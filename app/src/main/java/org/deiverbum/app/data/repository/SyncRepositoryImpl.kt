@@ -15,7 +15,6 @@ import org.deiverbum.app.domain.model.SyncResponse
 import org.deiverbum.app.domain.repository.SyncRepository
 import org.deiverbum.app.util.Constants.SYNC_TAG
 import org.deiverbum.app.util.Source
-import org.deiverbum.app.workers.SyncWorker
 import org.deiverbum.app.workers.TodayWorker
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -91,7 +90,7 @@ class SyncRepositoryImpl @Inject constructor(
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
         val periodicSyncDataWork =
-            PeriodicWorkRequest.Builder(SyncWorker::class.java, 15, TimeUnit.MINUTES)
+            PeriodicWorkRequest.Builder(TodayWorker::class.java, 15, TimeUnit.MINUTES)
                 .addTag(SYNC_TAG)
                 .setConstraints(constraints)
                 .setBackoffCriteria(
@@ -101,7 +100,7 @@ class SyncRepositoryImpl @Inject constructor(
                 )
                 .build()
         mWorkManager.enqueueUniquePeriodicWork(
-            "SYNC_TODAY", ExistingPeriodicWorkPolicy.UPDATE,
+            "SYNC_TODAY", ExistingPeriodicWorkPolicy.KEEP,
             periodicSyncDataWork
         )
     }

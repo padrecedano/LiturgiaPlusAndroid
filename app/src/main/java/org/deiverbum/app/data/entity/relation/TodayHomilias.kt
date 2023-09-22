@@ -14,42 +14,34 @@ import org.deiverbum.app.model.Today
  * @version 1.0
  * @since 2023.1
  */
-class TodayHomilias {
-    @JvmField
+data class TodayHomilias(
     @Embedded
-    var today: TodayEntity? = null
+    var today: TodayEntity,
 
-    @JvmField
     @Relation(entity = LiturgyEntity::class, parentColumn = "liturgyFK", entityColumn = "liturgyID")
-    var feria: LiturgyWithTime = LiturgyWithTime()
+    var liturgy: LiturgyWithTime,
 
-    @JvmField
     @Relation(
         entity = LiturgyHomilyJoinEntity::class,
         parentColumn = "liturgyFK",
         entityColumn = "liturgyFK"
     )
-    var homilias: List<LiturgiaWithHomilias>? = null
-    fun getToday(): Today {
-        val dm = Today()
-        dm.liturgyDay = feria.domainModel
-        dm.liturgyDay.typeID =9
-        dm.todayDate = today!!.hoy
-        dm.hasSaint = today!!.hasSaint
-        return dm
-    }
-
-    val domainModeToday: Today
+    var homilyes: List<LiturgiaWithHomilias>
+) {
+    val domainModel: Today
         get() {
-            val dmToday : Today = getToday()
-            val dm = HomilyList()
-            dm.today=getToday()
+            val dmToday = Today()
+            dmToday.liturgyDay = liturgy.domainModel
+            dmToday.todayDate = today.todayDate
+            dmToday.hasSaint = today.hasSaint
+            dmToday.liturgyDay.typeID = 9
+            val homilyList = HomilyList()
             val listModel: MutableList<Homily?> = ArrayList()
-            for (item in homilias!!) {
+            for (item in homilyes) {
                 listModel.add(item.domainModel)
             }
-            dm.homilyes = listModel
-            dmToday.liturgyDay.homilyList=dm
+            homilyList.homilyes = listModel
+            dmToday.liturgyDay.homilyList = homilyList
             return dmToday
         }
 }

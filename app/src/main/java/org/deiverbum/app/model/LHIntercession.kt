@@ -4,12 +4,12 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
-import java.util.*
+import java.util.Locale
 
 class LHIntercession {
     var intercessionID: Int? = null
     var intro: String? = null
-    var intercession: String? = null
+    var intercession: String = ""
     val all: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()

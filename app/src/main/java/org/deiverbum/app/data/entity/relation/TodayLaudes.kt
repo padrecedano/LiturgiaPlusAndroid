@@ -2,138 +2,103 @@ package org.deiverbum.app.data.entity.relation
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import org.deiverbum.app.data.entity.*
-import org.deiverbum.app.model.*
+import org.deiverbum.app.data.entity.LHGospelCanticleEntity
+import org.deiverbum.app.data.entity.LHHymnJoinEntity
+import org.deiverbum.app.data.entity.LHIntercessionsJoinEntity
+import org.deiverbum.app.data.entity.LHInvitatoryJoinEntity
+import org.deiverbum.app.data.entity.LHPrayerEntity
+import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity
+import org.deiverbum.app.data.entity.LHReadingShortJoinEntity
+import org.deiverbum.app.data.entity.LiturgyEntity
+import org.deiverbum.app.data.entity.LiturgySaintJoinEntity
+import org.deiverbum.app.data.entity.TodayEntity
+import org.deiverbum.app.model.BreviaryHour
+import org.deiverbum.app.model.Laudes
+import org.deiverbum.app.model.Today
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-class TodayLaudes {
+open class TodayLaudes(
     @Embedded
-    var today: TodayEntity? = null
+    var today: TodayEntity,
 
     @Relation(entity = LiturgyEntity::class, parentColumn = "liturgyFK", entityColumn = "liturgyID")
-    var feria: LiturgyWithTime = LiturgyWithTime()
+    var liturgy: LiturgyWithTime,
 
     @Relation(
         entity = LiturgySaintJoinEntity::class,
         parentColumn = "liturgyFK",
         entityColumn = "liturgyFK"
     )
-    var saint: SaintShortWithAll? = null
+    var saint: SaintShortWithAll?,
 
     @Relation(
         entity = LHInvitatoryJoinEntity::class,
         parentColumn = "invitatoryFK",
         entityColumn = "groupID"
     )
-    var invitatorio: LHInvitatoryAll? = null
+    var invitatory: LHInvitatoryAll,
 
     @Relation(entity = LHHymnJoinEntity::class, parentColumn = "lHymnFK", entityColumn = "groupID")
-    var himno: LHHymnWithAll? = null
-
-    @Relation(
-        entity = LHReadingShortJoinEntity::class,
-        parentColumn = "lBiblicalFK",
-        entityColumn = "groupID"
-    )
-    var biblica: LHReadingShortAll? = null
+    var hymn: LHHymnWithAll,
 
     @Relation(
         entity = LHPsalmodyJoinEntity::class,
         parentColumn = "lPsalmodyFK",
         entityColumn = "groupID"
     )
-    var salmodia: LHPsalmodyAll? = null
+    var psalmody: LHPsalmodyAll,
+
+    @Relation(
+        entity = LHReadingShortJoinEntity::class,
+        parentColumn = "lBiblicalFK",
+        entityColumn = "groupID"
+    )
+    var readingShort: LHReadingShortAll,
 
     @Relation(
         entity = LHIntercessionsJoinEntity::class,
         parentColumn = "lIntercessionsFK",
         entityColumn = "groupID"
     )
-    var lhIntercessionsDM: LHIntercessionsDM? = null
+    var intercessions: LHIntercessionsDM,
 
     @Relation(entity = LHPrayerEntity::class, parentColumn = "lPrayerFK", entityColumn = "groupID")
-    var lhPrayerAll: LHPrayerAll? = null
+    var prayer: LHPrayerAll,
 
     @Relation(
         entity = LHGospelCanticleEntity::class,
         parentColumn = "lBenedictusFK",
         entityColumn = "groupID"
     )
-    var benedictus: LHGospelCanticleWithAntiphon? = null
+    var gospelCanticle: LHGospelCanticleWithAntiphon
+) {
 
-    @Relation(
-        entity = MassReadingEntity::class,
-        parentColumn = "massReadingFK",
-        entityColumn = "liturgyFK"
-    )
-    var lecturas: List<MisaWithLecturas>? = null
-
-    @Relation(
-        entity = MassReadingEntity::class,
-        parentColumn = "massReadingFK",
-        entityColumn = "liturgyFK"
-    )
-    var comentarios: MisaWithComentarios? = null
-    private fun getHimno(): LHHymn? {
-        return himno?.domainModel
-    }
-
-    private fun getBiblica(): BiblicalShort {
-        return biblica!!.getDomainModel(today!!.tiempoId)
-    }
-
-    private fun getBenedictus(): LHGospelCanticle {
-        return benedictus!!.getDomainModel(2)
-    }
-
-    val preces: LHIntercession?
-        get() = lhIntercessionsDM?.domainModel
-
-    private fun getInvitatorio(): LHInvitatory? {
-        return invitatorio?.domainModel
-    }
-
-    private fun getSalmodia(): LHPsalmody? {
-        return salmodia?.domainModel
-    }
-
-    val oracion: Prayer?
-        get() = lhPrayerAll?.domainModel
-
-    fun getToday(): Today {
-        val dm = Today()
-        dm.saintFK = today!!.santoFK
-        dm.liturgyDay = feria.domainModel
-        dm.todayDate = today!!.hoy
-        dm.hasSaint = today!!.hasSaint
-        return dm
-    }
-
-    val domainModelToday: Today
+    val domainModel: Today
         get() {
-            val dmToday = getToday()
-            val dm = feria.domainModel
-            dm.typeID = 2
+            val dmToday = Today()
+            dmToday.saintFK = today.saintFK
+            dmToday.liturgyDay = liturgy.domainModel
+            dmToday.todayDate = today.todayDate
+            dmToday.hasSaint = today.hasSaint
+            dmToday.liturgyDay.typeID = 2
             val bh = BreviaryHour()
             val laudes = Laudes()
-            laudes.setTypeId(2)
-            laudes.invitatorio = getInvitatorio()
+            laudes.invitatorio = invitatory.domainModel
             if (dmToday.hasSaint == 1 && saint != null) {
                 laudes.santo = saint?.domainModel
             }
-            laudes.setHimno(getHimno())
-            laudes.setSalmodia(getSalmodia())
-            laudes.lecturaBreve = getBiblica()
-            laudes.gospelCanticle = getBenedictus()
-            laudes.preces = preces
-            laudes.setOracion(oracion)
+            laudes.setHimno(hymn.domainModel)
+            laudes.setSalmodia(psalmody.domainModel)
+            laudes.lecturaBreve = readingShort.getDomainModel(today.timeID)
+            laudes.gospelCanticle = gospelCanticle.getDomainModel(2)
+            laudes.preces = intercessions.domainModel
+            laudes.setOracion(prayer.domainModel)
             bh.setLaudes(laudes)
-            dm.breviaryHour = bh
-            dmToday.liturgyDay = dm
+            dmToday.liturgyDay.breviaryHour = bh
             return dmToday
         }
 }

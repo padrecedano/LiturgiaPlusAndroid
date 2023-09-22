@@ -51,7 +51,8 @@ import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Constants.PREF_ACCEPT
 import org.deiverbum.app.util.Utils
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 /**
  * Actividad principal y punto de entrada de la aplicación.
@@ -98,7 +99,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mUpdateCode = resources.getInteger(R.integer.app_version_code)
-        strFechaHoy = Utils.getFecha()
+        strFechaHoy = Utils.fecha
         //setTheme(R.style.red_background)
         setPrivacy()
         showMain()
@@ -264,9 +265,10 @@ class MainActivity : AppCompatActivity() {
      * @since 2023.1.3
      */
     private fun checkForDataToClean() {
-        val dayNumber = Utils.getDay(Utils.getHoy()).toInt()
+        val dayNumber = Utils.getDay(Utils.hoy).toInt()
         val monthNumber = Utils.getMonth(
-            Utils.getHoy()).toInt()
+            Utils.hoy
+        ).toInt()
         val hasInitialSync = prefs.getBoolean(Constants.PREF_INITIAL_SYNC, false)
 
         if (hasInitialSync && dayNumber >= 29 && (monthNumber == 3 || monthNumber == 6 || monthNumber == 9 || monthNumber == 12)) {

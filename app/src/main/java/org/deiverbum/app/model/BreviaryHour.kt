@@ -18,8 +18,9 @@ import org.deiverbum.app.util.Utils
  */
 open class BreviaryHour : Liturgy() {
     //protected int typeID;
-    protected var metaInfo: String? = null
-        get() = if (field==null && field !="") "" else "<br><br>$field"
+    protected var metaInfo: String = ""
+        get() = if (field == null && field != "") "" else "<br><br>$field"
+
     //@JvmField
     internal var himno: LHHymn? = null
     //@JvmField
@@ -181,7 +182,6 @@ open class BreviaryHour : Liturgy() {
         try {
             this.hasSaint = hasSaint
             val invitatory = oficio?.invitatorio
-            //invitatory?.normalizeByTime(liturgyTime.timeID)
             laudes!!.salmodia?.normalizeByTime(liturgyTime.timeID)
             sb.append(Utils.LS2)
             if (santo != null && this.hasSaint) {
@@ -191,27 +191,17 @@ open class BreviaryHour : Liturgy() {
             }
             sb.append(mixto!!.tituloHora)
             sb.append(Utils.fromHtmlToSmallRed(metaInfo))
-            sb.append(Utils.LS2)
             sb.append(laudes!!.getSaludoOficio())
-            sb.append(Utils.LS2)
-            sb.append(oficio!!.invitatorio?.all)
-            sb.append(Utils.LS2)
+            sb.append(oficio!!.invitatorio?.getForView(liturgyTime.timeID))
             sb.append(laudes!!.himno!!.all)
-            sb.append(Utils.LS2)
             sb.append(laudes!!.salmodia?.all)
             sb.append(laudes!!.lecturaBreve?.getAllWithHourCheck(2))
-            sb.append(Utils.LS2)
             sb.append(oficio!!.lhOfficeOfReading?.getAll(liturgyTime.timeID))
             sb.append(mixto!!.evangeliosForView)
-            sb.append(Utils.LS)
             sb.append(laudes!!.gospelCanticle?.all)
-            sb.append(Utils.LS2)
             sb.append(laudes!!.preces?.all)
-            sb.append(Utils.LS2)
-            sb.append(PadreNuestro.all)
-            sb.append(Utils.LS2)
+            sb.append(PadreNuestro.allForRead)
             sb.append(laudes!!.oracion?.all)
-            sb.append(Utils.LS2)
             sb.append(getConclusionHorasMayores())
         } catch (e: Exception) {
             sb.append(Utils.createErrorMessage(e.message))
@@ -229,7 +219,7 @@ open class BreviaryHour : Liturgy() {
             sb.append(laudes!!.getSaludoOficioForRead())
             sb.append(oficio!!.invitatorio?.allForRead)
             sb.append(laudes!!.himno?.allForRead)
-            sb.append(laudes!!.salmodia?.all)
+            sb.append(laudes!!.salmodia?.allForRead)
             sb.append(laudes!!.lecturaBreve?.getAllForRead())
             sb.append(oficio!!.lhOfficeOfReading?.allForRead)
             sb.append(mixto!!.evangeliosForRead)

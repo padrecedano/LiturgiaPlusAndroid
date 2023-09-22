@@ -13,41 +13,39 @@ import org.deiverbum.app.model.MassReading
  * @version 1.0
  * @since 2023.1
  */
-class MisaWithComentarios {
-    @JvmField
+data class MisaWithComentarios(
     @Embedded
-    var misaLectura: MassReadingEntity? = null
+    val misaLectura: MassReadingEntity,
 
-    @JvmField
     @Relation(
         parentColumn = "readingFK",
         entityColumn = "readingFK",
         entity = BibleHomilyJoinEntity::class
     )
-    var lectura: List<BibleHomilyWithAll>? = null
+    val lectura: List<BibleHomilyWithAll>,
 
-    @JvmField
     @Relation(
         parentColumn = "readingFK",
         entityColumn = "readingID",
         entity = BibleReadingEntity::class
     )
-    var lecturaOne: BibleReadingWithBook? = null
+    val lecturaOne: BibleReadingWithBook
+) {
     private val biblicaMisa: MassReading
         get() {
-            val theModel = lecturaOne?.domainModelMisa
-            theModel!!.tema = misaLectura!!.tema
-            theModel.setOrden(misaLectura!!.orden)
+            val theModel = lecturaOne.domainModelMisa
+            theModel.tema = misaLectura.tema
+            theModel.setOrden(misaLectura.orden)
             return theModel
         }
-    val domainModel: MutableList<BibleComment?>
+    val domainModel: MutableList<BibleComment>
         get() {
-            val listModel: MutableList<BibleComment?> = ArrayList()
-            if (lectura!!.isNotEmpty()) {
-                for (item in lectura!!) {
+            val listModel: MutableList<BibleComment> = ArrayList()
+            if (lectura.isNotEmpty()) {
+                for (item in lectura) {
                     val theModel = item.domainModel
                     val biblica = biblicaMisa
-                    biblica.setOrden(misaLectura!!.orden)
+                    biblica.setOrden(misaLectura.orden)
                     theModel.biblica = biblica
                     listModel.add(theModel)
                 }

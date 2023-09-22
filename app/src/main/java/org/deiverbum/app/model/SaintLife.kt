@@ -17,7 +17,7 @@ class SaintLife {
     @PropertyName("nombre")
     var name: String? = null
     var saintFK: Int? = null
-    var theSource: String? = ""
+    var theSource: String = ""
 
     @get:PropertyName("martirologio")
     @set:PropertyName("martirologio")

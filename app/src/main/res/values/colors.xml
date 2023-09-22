@@ -5,17 +5,15 @@
 
 
 -->
-    <color name="colorOutline">@color/amber_200</color>
 
 
-    <color name="colorOnBackground">#1e88e5</color>
     <color name="colorOnSurfaceVariant">#FFEA00</color>
 
     <color name="colorPrimary">@color/blue_900</color>
-    <color name="colorPrimaryVariant">@color/blue_700</color>
+    <color name="colorPrimaryVariant">@color/blue_900</color>
     <color name="colorLink">@color/red_700</color>
-    <color name="colorOnContainer">@color/raisin_black</color>
-    <color name="colorContainer">@color/green_400</color>
+    <color name="colorOnContainer">@color/amber_900</color>
+    <color name="colorContainer">@color/blue_700</color>
     <color name="colorDialogSurface">@color/amber_50</color>
     <color name="colorTextDialog">@color/red_700</color>
 
@@ -25,26 +23,24 @@
     <color name="colorOnSurfaceBugReport">@color/red_700</color>
     <color name="colorBackgroundBugReport">@color/amber_200</color>
     <color name="colorPrimaryDark">#1565c0</color>
-    <color name="colorSurface">#0D47A1</color>
-    <color name="colorOnSurface">@color/red_700</color>
-    <color name="colorAccent">@color/red_500</color>
+    <color name="colorText">@color/black</color>
 
-    <color name="colorError">#1e88e5</color>
 
     <color name="black_coral">#54626F</color>
     <color name="dark_charcoal">#333333</color>
     <color name="black_cat">#413839</color>
-    <color name="midnight">#2B1B17</color>
     <color name="raisin_black">#242124</color>
     <color name="red_500">#F44336</color>
-    <color name="blue_100">#BBDEFB</color>
-    <color name="green_400">#66BB6A</color>
     <color name="green_900">#2E7D32</color>
     <color name="red_700">#D32F2F</color>
+    <color name="gray_50">#BDBDBD</color>
+
     <color name="gray_400">#BDBDBD</color>
     <color name="gray_600">#757575</color>
     <color name="brown_400">#8D6E63</color>
-
+    <color name="amber_200">#FFE082</color>
+    <color name="amber_50">#FFF8E1</color>
+    <color name="amber_900">#FFCA28</color>
     <!--
         <color name="_00"></color>
         <color name="_00"></color>
@@ -55,12 +51,6 @@
     <color name="colorBackgroundMain">@color/colorPrimaryVariant</color>
     <color name="colorInAppUpdate">@color/red_500</color>
 
-
-    <color name="amber_200">#FFE082</color>
-    <color name="amber_50">#FFF8E1</color>
-    <color name="amber_900">#FFCA28</color>
-
-    <color name="txt_salterio">#74f7c65d</color>
 
     <color name="transparent">#f8faf9f9</color>
     <color name="colorMainItem">#FFF59D</color>
@@ -87,7 +77,8 @@
 
     <color name="colorMainIcon">#fafafa</color>
 
-    <color name="color_mainrecycler_text">#FFF59D</color>
+    <color name="colorTextBreviario">@color/gray_50</color>
+    <color name="colorIconBreviario">@color/amber_900</color>
 
     <color name="color_nav_start">#8e8e8e</color>
     <color name="color_nav_center">#616161</color>
@@ -96,18 +87,11 @@
     <color name="color_fondo_grupo1">#263238</color>
     <color name="color_fondo_grupo2">#424242</color>
     <color name="color_fondo_rv">#EB424242</color>
-    <color name="background_material_light">#BCFFAB40</color>
     <color name="background_player">#ffddb0</color>
-    <color name="navigation_view_background">#B8FFFFFF</color>
 
-    <color name="text_background">#f9e3c6</color>
     <color name="textBackground">#f9e3c6</color>
 
-    <color name="text_color">#000000</color>
-
-    <color name="colorInput">@color/red_500</color>
     <color name="colorTextInput">@color/red_500</color>
-    <color name="colorUnchecked">#8E585A6B</color>
 <!--
     <color name="md_theme_dark_primary">#464647</color>
     <color name="md_theme_dark_onPrimary">#FBE9E7</color>
@@ -135,15 +119,15 @@
     <color name="md_theme_dark_inverseOnSurface">#1A1C19</color>
     <color name="md_theme_dark_primaryInverse">#2C5EA7</color>
 -->
+    <color name="text_color">#B3FFFFFF</color>
+    <color name="colorInput">#B3FFFFFF</color>
 
     <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">@color/red_500</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="blue_500">#2196F3</color>
     <color name="blue_700">#1976D2</color>
     <color name="blue_900">#0D47A1</color>
 

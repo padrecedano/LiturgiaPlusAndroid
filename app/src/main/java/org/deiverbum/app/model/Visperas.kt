@@ -63,7 +63,7 @@ class Visperas : BreviaryHour() {
             sb.append(Utils.LS2)
             sb.append(preces!!.all)
             sb.append(Utils.LS2)
-            sb.append(PadreNuestro.Companion?.all)
+            sb.append(PadreNuestro.all)
             sb.append(Utils.LS2)
             sb.append(oracion?.all)
             sb.append(Utils.LS2)
@@ -85,7 +85,7 @@ class Visperas : BreviaryHour() {
             sb.append(lecturaBreve!!.getAllForRead())
             sb.append(gospelCanticle!!.allForRead)
             sb.append(preces!!.allForRead)
-            sb.append(PadreNuestro.all)
+            sb.append(PadreNuestro.allForRead)
             sb.append(oracion?.allForRead)
             sb.append(getConclusionHorasMayoresForRead())
         } catch (e: Exception) {

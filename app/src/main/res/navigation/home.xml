@@ -26,6 +26,7 @@
             android:name="rawPath"
             android:defaultValue="raw/help_202201.json"
             app:argType="string" />
+
     </fragment>
 
     <fragment
@@ -53,6 +54,7 @@
             android:name="rawPath"
             android:defaultValue="raw/about_202201.json"
             app:argType="string" />
+
     </fragment>
 
     <fragment
@@ -170,7 +172,7 @@
 
     <fragment
         android:id="@+id/nav_calendario"
-        android:name="org.deiverbum.app.ui.fragments.CalendarioFragment"
+        android:name="org.deiverbum.app.presentation.calendar.CalendarioFragment"
         android:label="@string/title_fragment_calendario"
         tools:layout="@layout/fragment_calendario" />
 
@@ -318,12 +320,12 @@
     <fragment
         android:id="@+id/nav_prayers"
         android:name="org.deiverbum.app.presentation.file.FileFragment"
-        android:label="@string/title_fragment_oraciones_main"
+        android:label="@string/title_fragment_oraciones"
         tools:layout="@layout/fragment_text" />
     <fragment
         android:id="@+id/nav_letanias"
         android:name="org.deiverbum.app.presentation.file.FileFragment"
-        android:label="@string/title_fragment_oraciones_main"
+        android:label="@string/title_fragment_oraciones"
         tools:layout="@layout/fragment_text">
         <argument
             android:name="rawPath"
@@ -334,7 +336,7 @@
     <fragment
         android:id="@+id/nav_angelus"
         android:name="org.deiverbum.app.presentation.file.FileFragment"
-        android:label="@string/title_fragment_oraciones_main"
+        android:label="@string/title_fragment_oraciones"
         tools:layout="@layout/fragment_text">
         <argument
             android:name="rawPath"
@@ -345,7 +347,7 @@
     <fragment
         android:id="@+id/nav_regina"
         android:name="org.deiverbum.app.presentation.file.FileFragment"
-        android:label="@string/title_fragment_oraciones_main"
+        android:label="@string/title_fragment_oraciones"
         tools:layout="@layout/fragment_text">
         <argument
             android:name="rawPath"
@@ -357,7 +359,7 @@
     <fragment
         android:id="@+id/nav_viacrucis2003"
         android:name="org.deiverbum.app.presentation.file.FileFragment"
-        android:label="@string/title_fragment_oraciones_main"
+        android:label="@string/title_fragment_oraciones"
         tools:layout="@layout/fragment_text">
         <argument
             android:name="rawPath"
@@ -368,7 +370,7 @@
     <fragment
         android:id="@+id/nav_viacrucis2005"
         android:name="org.deiverbum.app.presentation.file.FileFragment"
-        android:label="@string/title_fragment_oraciones_main"
+        android:label="@string/title_fragment_oraciones"
         tools:layout="@layout/fragment_text">
         <argument
             android:name="rawPath"

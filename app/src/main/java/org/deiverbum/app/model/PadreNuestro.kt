@@ -5,12 +5,6 @@ import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
 class PadreNuestro {
-    val allForRead: SpannableStringBuilder
-        get() {
-            val sb = SpannableStringBuilder("")
-            sb.append(Utils.fromHtml(texto))
-            return sb
-        }
 
     companion object {
         const val texto = "Padre nuestro,~¦que estás en el cielo,~¦santificado sea tu Nombre;~¦" +
@@ -23,16 +17,16 @@ class PadreNuestro {
                 val sb = SpannableStringBuilder("")
                 sb.append(
                     Utils.formatTitle(
-                        Constants.TITLE_PATER_NOSTER))
+                        Constants.TITLE_PATER_NOSTER
+                    )
+                )
                 sb.append(Utils.LS2)
                 sb.append(Utils.fromHtml(texto))
                 return sb
             }
-
-        fun getTexto(): SpannableStringBuilder {
-            val sb = SpannableStringBuilder("")
-            sb.append(Utils.fromHtml(texto))
-            return sb
-        }
+        val allForRead: SpannableStringBuilder
+            get() {
+                return SpannableStringBuilder(Utils.fromHtml(texto))
+            }
     }
 }

@@ -130,7 +130,7 @@ class Completas : BreviaryHour() {
         return ssb
     }
 
-    fun getAllForView(): SpannableStringBuilder {
+    fun getAllForView(liturgyTime: LiturgyTime): SpannableStringBuilder {
         return try {
             val sb = SpannableStringBuilder()
             val ri = getRitosIniciales()
@@ -154,7 +154,7 @@ class Completas : BreviaryHour() {
             sb.append(biblicalShort!!.getAllWithHourCheck(7))
 
             sb.append(Utils.LS2)
-            sb.append(nuncDimitis!!.getAll(today!!.liturgyDay.liturgyTime!!.timeID))
+            sb.append(nuncDimitis!!.getAll(liturgyTime.timeID))
             sb.append(Utils.LS2)
             sb.append(oracion!!.all)
             sb.append(Utils.LS2)

@@ -1,6 +1,7 @@
 package org.deiverbum.app.presentation.file
 
 import android.graphics.Typeface
+import android.text.method.LinkMovementMethod
 import android.util.TypedValue
 import android.view.View
 import android.widget.Toast
@@ -10,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.navArgs
 import androidx.preference.PreferenceManager
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,18 +48,33 @@ class FileFragment : BaseFileFragment<FragmentFileBinding>() {
 
     private fun setConfiguration() {
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
-        actionBar?.subtitle = ""
+
+        val args = arguments
+        val filePath = args?.getString("rawPath") ?: ""
+        if (filePath == "") {
+            actionBar?.title = args?.getString("title") ?: ""
+            actionBar?.subtitle = ""
+        } else {
+            actionBar?.subtitle = args?.getString("title")
+
+        }
         val sp = PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
-        val args: FileFragmentArgs by navArgs()
+        //val args: FileFragmentArgs by navArgs()
         mTextView = getViewBinding().include.tvZoomable
 
-        val filePath = listOf(args.rawPath)
-        val fileRequest = FileRequest(filePath, 1, 6, isNightMode(),
+        //val filePath = listOf(args.rawPath)
+        //val filePath = if (args?.getString("rawPath") !=null)
+        // val l = b?.length ?: -1
+
+        //val title = listOf(args.title)
+
+        val fileRequest = FileRequest(
+            listOf(filePath), 1, 6, isNightMode(),
             isVoiceOn = true,
             isBrevis = true
         )
 
-        if (args.rawPath == "raw/rosario.json") {
+        if (args?.getString("rawPath") == "raw/rosario.json") {
             fileRequest.dayOfWeek = requireArguments().getInt("id")
             fileRequest.isBrevis = sp.getBoolean("brevis", true)
         }
@@ -72,6 +87,8 @@ class FileFragment : BaseFileFragment<FragmentFileBinding>() {
         val tf = Typeface.createFromAsset(requireActivity().assets, fontFamily)
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
         mTextView.typeface = tf
+        mTextView.movementMethod = LinkMovementMethod.getInstance()
+
         mViewModel.loadData(fileRequest)
     }
 
@@ -93,6 +110,7 @@ class FileFragment : BaseFileFragment<FragmentFileBinding>() {
         fileItemUiState.run {
             allData.forEach {
                 getViewBinding().progressBar.visibility = View.GONE
+
                 getViewBinding().include.tvZoomable.text = it.text
             }
         }
@@ -105,5 +123,10 @@ class FileFragment : BaseFileFragment<FragmentFileBinding>() {
 
     private fun showError(@StringRes stringRes: Int) {
         Toast.makeText(requireContext(), stringRes, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun updateSubTitle() {
+        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
+        actionBar?.subtitle = ""
     }
 }

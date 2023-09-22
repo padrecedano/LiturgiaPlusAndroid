@@ -6,7 +6,7 @@ import org.deiverbum.app.util.Utils
 
 class NuncDimitis : LHPsalm() {
     //private String antiphonEntity;
-    var texto: String? = null
+    var texto: String = ""
         get() = Utils.getFormato(field)
 
     private fun getAntifonaSpan(timeID: Int): SpannableStringBuilder {
@@ -17,7 +17,7 @@ class NuncDimitis : LHPsalm() {
     }
 
     override val antifonaForRead: String
-        get() = antiphon!!
+        get() = antiphon
     val header: SpannableStringBuilder
         get() = Utils.formatTitle(Constants.TITLE_GOSPEL_CANTICLE)
     private val headerForRead: String

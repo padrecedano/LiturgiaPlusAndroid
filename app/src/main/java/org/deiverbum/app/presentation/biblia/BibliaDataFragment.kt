@@ -26,7 +26,6 @@ import org.deiverbum.app.domain.model.BibleBookRequest
 import org.deiverbum.app.presentation.base.BaseFragment
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.TtsManager
-import org.deiverbum.app.util.Utils
 import org.deiverbum.app.util.ZoomTextView
 import java.util.*
 
@@ -246,7 +245,7 @@ class BibliaDataFragment : BaseFragment<FragmentTextBinding>() {
 
     private fun updateSubTitle() {
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
-        actionBar?.subtitle = Utils.getTitleDate("")
+        actionBar?.subtitle = ""
     }
 
     override fun onDestroyView() {

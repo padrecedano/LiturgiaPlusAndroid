@@ -33,10 +33,11 @@ class PatristicaOficioWithResponsorio {
         entity = LHResponsoryEntity::class
     )
     var lhResponsorio: LHResponsoryEntity? = null
-    fun getDomainModelOficio(tiempoId: Int?): LHOfficePatristic? {
+    fun getDomainModelOficio(tiempoId: Int?): LHOfficePatristic {
         try {
             val theModel = homilyAll?.patristicaDomainModel
-            theModel!!.theme = lhPatristica!!.tema
+            theModel!!.paterOpus = homilyAll!!.paterOpusAll!!.domainModel
+            theModel.theme = lhPatristica!!.tema
             theModel.source = lhPatristica!!.fuente
             theModel.theOrder = lhPatristica!!.orden
             theModel.responsorioLargo = lhResponsorio!!.getDomainModel(tiempoId)
@@ -44,6 +45,6 @@ class PatristicaOficioWithResponsorio {
         } catch (e: Exception) {
             //Log.e("ERR", e.message!!)
         }
-        return null
+        return LHOfficePatristic()
     }
 }

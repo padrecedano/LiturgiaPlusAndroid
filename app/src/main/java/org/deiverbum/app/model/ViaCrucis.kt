@@ -3,7 +3,8 @@ package org.deiverbum.app.model
 import android.text.SpannableStringBuilder
 import org.deiverbum.app.util.ColorUtils
 import org.deiverbum.app.util.Utils
-@Suppress("unused")
+@Suppress("unused", "DEPRECATION")
+//@Suppress("")
 class ViaCrucis {
     private var subTitulo: String? = null
     private var fecha: String? = null
@@ -13,11 +14,14 @@ class ViaCrucis {
     private var respuestas: List<String?>? = null
     private var estaciones: List<Estacion>? = null
     private var oracion: String? = null
-    fun getTitulo(): String {
+    private var introitus: Introitus = Introitus()
+    private var conclusionis: RitusConclusionis = RitusConclusionis()
+
+    private fun getTitulo(): String {
         return "Vía Crucis"
     }
 
-    fun getSubTitulo(): String? {
+    private fun getSubTitulo(): String? {
         return subTitulo
     }
 
@@ -25,7 +29,7 @@ class ViaCrucis {
         this.subTitulo = subTitulo
     }
 
-    fun getFecha(): String? {
+    private fun getFecha(): String? {
         return fecha
     }
 
@@ -33,7 +37,7 @@ class ViaCrucis {
         this.fecha = fecha
     }
 
-    fun getAutor(): String? {
+    private fun getAutor(): String? {
         return autor
     }
 
@@ -49,7 +53,7 @@ class ViaCrucis {
         this.introViaCrucis = introViaCrucis
     }
 
-    fun getAdoramus(): SpannableStringBuilder {
+    private fun getAdoramus(): SpannableStringBuilder {
         val textParts =
             adoramus!!.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val sb = SpannableStringBuilder("")
@@ -73,7 +77,7 @@ class ViaCrucis {
         this.respuestas = respuestas
     }
 
-    fun getAllEstaciones(): SpannableStringBuilder {
+    private fun getAllEstaciones(): SpannableStringBuilder {
         val sb = SpannableStringBuilder("")
         for (e in estaciones!!) {
             sb.append(Utils.LS)
@@ -87,11 +91,11 @@ class ViaCrucis {
             sb.append(Utils.LS2)
             sb.append(e.getMeditacionSpan(respuestas!!))
             sb.append(Utils.LS)
-            sb.append(PadreNuestro.getTexto())
+            sb.append(PadreNuestro.allForRead)
             sb.append(Utils.LS2)
             sb.append(Utils.toH4Red("Estrofa del Stabat Mater"))
             sb.append(Utils.LS2)
-            sb.append(Utils.fromHtml(Utils.getFormato(e.canto)))
+            sb.append(Utils.fromHtml(Utils.getFormato(e.canto!!)))
             sb.append(Utils.LS2)
         }
         return sb
@@ -111,9 +115,9 @@ class ViaCrucis {
             sb.append(e.textoBiblico)
             sb.append(".")
             sb.append(e.getMeditacionSpan(respuestas!!))
-            sb.append(PadreNuestro.getTexto())
+            sb.append(PadreNuestro.allForRead)
             sb.append("Estrofa del Stabat Mater.")
-            sb.append(Utils.fromHtml(Utils.getFormato(e.canto)))
+            sb.append(Utils.fromHtml(Utils.getFormato(e.canto!!)))
         }
         return sb
     }
@@ -126,7 +130,7 @@ class ViaCrucis {
         this.estaciones = estaciones
     }
 
-    fun getOracion(): String? {
+    private fun getOracion(): String? {
         return oracion
     }
 
@@ -145,22 +149,26 @@ class ViaCrucis {
         sb.append(Utils.LS)
         sb.append(Utils.toH4Red(getAutor()))
         sb.append(Utils.LS2)
-        sb.append(Utils.getSaludoEnElNombre())
+//        sb.append(Utils.getSaludoEnElNombre())
+        sb.append(introitus.inNomineForView)
+
         sb.append(Utils.LS)
         sb.append(Utils.toH3Red("Preámbulo"))
         sb.append(Utils.LS2)
-        sb.append(Utils.fromHtml(introViaCrucis?.intro))
+        sb.append(Utils.fromHtml(introViaCrucis?.intro!!))
         sb.append(Utils.LS2)
         sb.append(Utils.toH3Red("Oración inicial"))
         sb.append(Utils.LS2)
-        sb.append(Utils.fromHtml(introViaCrucis?.oracion))
+        sb.append(Utils.fromHtml(introViaCrucis?.oracion!!))
         sb.append(Utils.LS2)
         sb.append(getAllEstaciones())
         sb.append(Utils.toH3Red("Oración final"))
         sb.append(Utils.LS2)
-        sb.append(Utils.fromHtml(Utils.getFormato(getOracion())))
+        sb.append(Utils.fromHtml(Utils.getFormato(getOracion()!!)))
         sb.append(Utils.LS2)
-        sb.append(Utils.getConclusionHorasMayores())
+        sb.append(conclusionis.titleForView)
+        sb.append(Utils.LS2)
+        sb.append(conclusionis.horasMayoresForView)
         sb.append(Utils.LS2)
         sb.append(Utils.toRed("Si la celebración la preside un ministro ordenado se concluye con la bendición, como habitualmente."))
         return sb
@@ -174,15 +182,16 @@ class ViaCrucis {
         sb.append(".")
         sb.append(getAutor())
         sb.append(".")
-        sb.append(Utils.getSaludoEnElNombre())
+        sb.append(introitus.inNomineForRead)
         sb.append(Utils.toH3Red("Preámbulo."))
-        sb.append(Utils.fromHtml(introViaCrucis?.intro))
+        sb.append(Utils.fromHtml(introViaCrucis?.intro!!))
         sb.append("Oración inicial.")
-        sb.append(Utils.fromHtml(introViaCrucis?.oracion))
+        sb.append(Utils.fromHtml(introViaCrucis?.oracion!!))
         sb.append(getAllEstaciones())
         sb.append("Oración final.")
-        sb.append(Utils.fromHtml(Utils.getFormato(getOracion())))
-        sb.append(Utils.getConclusionHorasMayores())
+        sb.append(Utils.fromHtml(Utils.getFormato(getOracion()!!)))
+        sb.append(conclusionis.titleForRead)
+        sb.append(conclusionis.horasMayoresForRead)
         return sb
     }
 }

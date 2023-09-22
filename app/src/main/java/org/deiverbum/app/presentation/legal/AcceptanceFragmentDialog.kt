@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.text.SpannableStringBuilder
+import android.text.method.LinkMovementMethod
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -29,9 +30,13 @@ import org.deiverbum.app.presentation.file.FileItemUiState
 import org.deiverbum.app.presentation.file.FileViewModel
 import org.deiverbum.app.presentation.sync.SyncItemUiState
 import org.deiverbum.app.presentation.sync.SyncViewModel
-import org.deiverbum.app.util.Source
 import org.deiverbum.app.util.ColorUtils
-import org.deiverbum.app.util.Constants.*
+import org.deiverbum.app.util.Constants.FILE_PRIVACY
+import org.deiverbum.app.util.Constants.FILE_TERMS
+import org.deiverbum.app.util.Constants.LS2
+import org.deiverbum.app.util.Constants.PREF_ACCEPT
+import org.deiverbum.app.util.Constants.PREF_INITIAL_SYNC
+import org.deiverbum.app.util.Source
 import org.deiverbum.app.util.Utils
 
 /**
@@ -122,6 +127,9 @@ class AcceptanceFragmentDialog : DialogFragment() {
         textPrivacy!!.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
         textTerms!!.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
         textFinal.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
+        textPrivacy!!.movementMethod = LinkMovementMethod.getInstance()
+        textTerms!!.movementMethod = LinkMovementMethod.getInstance()
+
         //val button: Button = binding.btnEmail
         val ssb = SpannableStringBuilder()
         val intro = String.format(

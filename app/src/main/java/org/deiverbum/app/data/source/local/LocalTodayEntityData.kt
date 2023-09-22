@@ -4,6 +4,7 @@ import org.deiverbum.app.data.database.dao.TodayDao
 import org.deiverbum.app.data.source.TodayEntityData
 import org.deiverbum.app.domain.model.TodayRequest
 import org.deiverbum.app.domain.model.TodayResponse
+import org.deiverbum.app.util.Utils
 import javax.inject.Inject
 
 /**
@@ -19,49 +20,62 @@ class LocalTodayEntityData @Inject constructor(
     override suspend fun getToday(todayRequest: TodayRequest): TodayResponse {
         val todayResponse = TodayResponse()
         try {
-            /*when (todayRequest.typeID) {
+            when (todayRequest.typeID) {
                 0 -> {
-                    val dm = todayDao.getMixtoByDate(todayRequest.theDate)?.domainModelToday!!
-                    todayResponse.dataModel = dm
+                    todayResponse.dataModel =
+                        todayDao.getMixtoByDate(todayRequest.theDate).domainModel
                 }
 
                 1 -> {
-                    todayResponse.dataModel = todayDao.getOficioByDate(todayRequest.theDate)?.domainModelToday!!
+                    todayResponse.dataModel =
+                        todayDao.getOficioByDate(todayRequest.theDate).domainModel
                 }
+
                 2 -> {
-                    todayResponse.dataModel = todayDao.getLaudesByDate(todayRequest.theDate)?.domainModelToday!!
+                    todayResponse.dataModel =
+                        todayDao.getLaudesByDate(todayRequest.theDate).domainModel
                 }
+
                 3 -> {
-                    todayResponse.dataModel = todayDao.getTerciaByDate(todayRequest.theDate)?.domainModelToday!!
+                    todayResponse.dataModel =
+                        todayDao.getTerciaByDate(todayRequest.theDate).domainModel
                 }
                 4 -> {
-                    todayResponse.dataModel = todayDao.getSextaByDate(todayRequest.theDate)?.domainModelToday!!
+                    todayResponse.dataModel =
+                        todayDao.getSextaByDate(todayRequest.theDate).domainModel
                 }
                 5 -> {
-                    todayResponse.dataModel = todayDao.getNonaByDate(todayRequest.theDate)?.domainModelToday!!
+                    todayResponse.dataModel =
+                        todayDao.getNonaByDate(todayRequest.theDate).domainModel
                 }
                 6 -> {
-                    todayResponse.dataModel = todayDao.getVisperasByDate(todayRequest.theDate)?.domainModelToday!!
+                    todayResponse.dataModel =
+                        todayDao.getVisperasByDate(todayRequest.theDate).domainModelToday
                 }
                 7 -> {
-                    todayResponse.dataModel = todayDao.getCompletasByDate(todayRequest.theDate)?.domainModelToday!!
+                    todayResponse.dataModel =
+                        todayDao.getCompletasByDate(todayRequest.theDate).domainModel
                 }
-
                 9 -> {
-                    todayResponse.dataModel = todayDao.getHomilyByDate(todayRequest.theDate)?.domainModeToday!!
+                    todayResponse.dataModel =
+                        todayDao.getHomilyByDate(todayRequest.theDate).domainModel
                 }
                 10 -> {
-                    todayResponse.dataModel =  todayDao.getMassReadingByDate(todayRequest.theDate)?.domainModel!!
+                    todayResponse.dataModel =
+                        todayDao.getMassReadingByDate(todayRequest.theDate).domainModel
                 }
                 11 -> {
-                    todayResponse.dataModel =  todayDao.getCommentsByDate(todayRequest.theDate)?.domainModelToday!!
+                    todayResponse.dataModel =
+                        todayDao.getCommentsByDate(todayRequest.theDate).domainModel
                 }
-
                 12 -> {
-                    val monthAndDay= Utils.getMonthAndDay(todayRequest.theDate.toString())
-                    todayResponse.dataModel =  todayDao.getSaintByDate(monthAndDay[0],monthAndDay[1])?.domainModelToday!!
+                    val monthAndDay = Utils.getMonthAndDay(todayRequest.theDate.toString())
+                    todayResponse.dataModel = todayDao.getSaintByDate(
+                        monthAndDay?.get(0),
+                        monthAndDay?.get(1)
+                    )?.domainModel!!
                 }
-            }*/
+            }
             return todayResponse
         } catch (e: Exception) {
             todayResponse.success=false

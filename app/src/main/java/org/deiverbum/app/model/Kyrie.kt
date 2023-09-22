@@ -46,17 +46,20 @@ class Kyrie {
 
 
         private fun getIntroduccion(): SpannableStringBuilder {
-        val ssb = SpannableStringBuilder()
-        ssb.append(Utils.formatTitle(Constants.TITLE_SOUL_SEARCHING))
-        ssb.append(Utils.LS2)
-        val introArray =
-            introduccion!!.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        if (introArray.size == 3) {
-            ssb.append(Utils.toSmallSizeRed(introArray[0]))
+            introduccion =
+                "Es muy de alabar que, después de la invocación inicial, se haga el examen de conciencia, el cual en la celebración comunitaria puede concluirse con un acto penitencial, de la siguiente forma:|Hermanos, habiendo llegado al final de esta jornada que Dios nos ha concedido, reconozcamos sinceramente nuestros pecados.|Todos examinan en silencio su conciencia. Terminando el examen se añade la fórmula penitencial:"
+
+            val ssb = SpannableStringBuilder()
+            ssb.append(Utils.formatTitle(Constants.TITLE_SOUL_SEARCHING))
             ssb.append(Utils.LS2)
-            ssb.append(introArray[1])
-            ssb.append(Utils.LS2)
-            ssb.append(Utils.toSmallSizeRed(introArray[2]))
+            val introArray =
+                introduccion!!.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            if (introArray.size == 3) {
+                ssb.append(Utils.toSmallSizeRed(introArray[0]))
+                ssb.append(Utils.LS2)
+                ssb.append(introArray[1])
+                ssb.append(Utils.LS2)
+                ssb.append(Utils.toSmallSizeRed(introArray[2]))
         } else {
             ssb.append(introduccion)
         }
@@ -136,7 +139,7 @@ class Kyrie {
             val sb = SpannableStringBuilder()
             sb.append(getIntroduccion())
             sb.append(Utils.LS2)
-            sb.append(Utils.fromHtml(kyrie))
+            sb.append(Utils.fromHtml(kyrie!!))
             sb.append(Utils.LS2)
             sb.append(getConclusion())
             return sb

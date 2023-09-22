@@ -1,6 +1,5 @@
 package org.deiverbum.app.domain.model
 
-import android.text.SpannableStringBuilder
 import org.deiverbum.app.model.SyncStatus
 import org.deiverbum.app.model.Today
 
@@ -14,9 +13,9 @@ class SyncResponse(
 
     //var dataForView: SpannableStringBuilder,//1:NetWork, 2:Firebase, 0:Error
     _syncStatus: SyncStatus,
-    _allToday:List<Today?> = emptyList()
+    _allToday: List<Today> = emptyList()
 ) {
     var syncStatus: SyncStatus = _syncStatus
-    var allToday: List<Today?> = _allToday
+    var allToday: List<Today> = _allToday
 
 }

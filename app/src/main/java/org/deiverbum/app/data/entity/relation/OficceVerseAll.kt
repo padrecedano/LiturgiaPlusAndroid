@@ -10,16 +10,14 @@ import org.deiverbum.app.data.entity.LHOfficeVerseJoinEntity
  * @version 1.0
  * @since 2023.1
  */
-class OficceVerseAll {
-    @JvmField
+data class OficceVerseAll(
     @Embedded
-    var theJoin: LHOfficeVerseJoinEntity? = null
+    var theJoin: LHOfficeVerseJoinEntity,
 
-    @JvmField
     @Relation(
         parentColumn = "verseFK",
         entityColumn = "verseID",
         entity = LHOfficeVerseEntity::class
     )
-    var theEntity: LHOfficeVerseEntity? = null
-}
+    var theEntity: LHOfficeVerseEntity
+)

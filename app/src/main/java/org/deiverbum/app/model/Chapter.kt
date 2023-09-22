@@ -51,7 +51,7 @@ class Chapter {
     fun getAllForView(bookType: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         if (bookType == 10) {
-            val chapter = String.format(Locale("es"), "%s. %s", id, Utils.fromHtml(title))
+            val chapter = String.format(Locale("es"), "%s. %s", id, Utils.fromHtml(title!!))
             sb.append(Utils.toH2RedNew(chapter))
             sb.append(Utils.LS2)
         }

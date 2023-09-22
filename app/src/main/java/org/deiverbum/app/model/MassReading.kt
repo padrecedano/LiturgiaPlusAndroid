@@ -4,7 +4,7 @@ import android.text.SpannableStringBuilder
 import org.deiverbum.app.util.Utils
 
 open class MassReading : Biblical(), Comparable<MassReading> {
-    var tema: String? = null
+    var tema: String = ""
     private val temaForRead: String
         get() = Utils.normalizeEnd(tema)
 

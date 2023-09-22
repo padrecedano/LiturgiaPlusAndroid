@@ -15,52 +15,48 @@ import org.deiverbum.app.model.Today
  * @version 1.0
  * @since 2023.1
  */
-class TodayMisaLecturas {
-    @JvmField
+data class TodayMisaLecturas(
     @Embedded
-    var today: TodayEntity? = null
+    var today: TodayEntity,
 
-    @JvmField
     @Relation(
         entity = LiturgyEntity::class,
         parentColumn = "massReadingFK",
         entityColumn = "liturgyID"
     )
-    var feria: LiturgyWithTime = LiturgyWithTime()
+    var feria: LiturgyWithTime,
 
-    @JvmField
     @Relation(
         entity = LiturgyEntity::class,
         parentColumn = "previousFK",
         entityColumn = "liturgyID"
     )
-    var previo: LiturgyWithTime? = null
+    var previo: LiturgyWithTime,
 
-    @JvmField
     @Relation(
         entity = MassReadingJoinEntity::class,
         parentColumn = "massReadingFK",
         entityColumn = "liturgyFK"
     )
-    var joinTable: MassReadingJoinEntity? = null
+    var joinTable: MassReadingJoinEntity,
 
-    @JvmField
     @Relation(
         entity = MassReadingEntity::class,
         parentColumn = "massReadingFK",
         entityColumn = "liturgyFK"
     )
-    var lecturas: List<MassReadingWithAll>? = null
-    fun getToday(): Today {
+    var lecturas: List<MassReadingWithAll>
+) {
+    private fun getToday(): Today {
         val dm = Today()
 
         dm.liturgyDay = feria.domainModel
-        dm.liturgyPrevious = if (today!!.previoId > 1) previo?.domainModel else null
-        dm.todayDate = today!!.hoy
-        dm.hasSaint = today!!.hasSaint
+        dm.liturgyPrevious = if (today.previousFK > 1) previo.domainModel else null
+        dm.todayDate = today.todayDate
+        dm.hasSaint = today.hasSaint
         //dm.todayDate = hoy
 
-        dm.setMLecturasFK(today!!.mLecturasFK)
+        dm.setMLecturasFK(today.massReadingFK)
         return dm
     }
 
@@ -71,9 +67,9 @@ class TodayMisaLecturas {
             dm.typeID = 10
 
             val mr = MassReadingList()
-            mr.type = joinTable!!.type
+            mr.type = joinTable.type
             val listModel: MutableList<MassReading?> = ArrayList()
-            for (item in lecturas!!) {
+            for (item in lecturas) {
                 listModel.add(item.domainModel)
             }
             listModel.sortBy { it?.getOrden() }

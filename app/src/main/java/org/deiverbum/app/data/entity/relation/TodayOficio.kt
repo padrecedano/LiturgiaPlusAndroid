@@ -15,7 +15,6 @@ import org.deiverbum.app.data.entity.TodayEntity
 import org.deiverbum.app.model.BreviaryHour
 import org.deiverbum.app.model.LHOfficeOfReading
 import org.deiverbum.app.model.LHOfficePatristic
-import org.deiverbum.app.model.LHPsalmody
 import org.deiverbum.app.model.Oficio
 import org.deiverbum.app.model.OficioEaster
 import org.deiverbum.app.model.TeDeum
@@ -26,129 +25,111 @@ import org.deiverbum.app.model.Today
  * @version 1.0
  * @since 2023.1
  */
-class TodayOficio {
+data class TodayOficio(
     @Embedded
-    var today: TodayEntity? = null
+    var today: TodayEntity,
 
     @Relation(entity = LiturgyEntity::class, parentColumn = "liturgyFK", entityColumn = "liturgyID")
-    var feria: LiturgyWithTime = LiturgyWithTime()
+    var liturgy: LiturgyWithTime,
 
     @Relation(
         entity = LiturgySaintJoinEntity::class,
         parentColumn = "liturgyFK",
         entityColumn = "liturgyFK"
     )
-    var saint: SaintShortWithAll? = null
+    var saint: SaintShortWithAll?,
 
     @Relation(
         entity = LHInvitatoryJoinEntity::class,
         parentColumn = "invitatoryFK",
         entityColumn = "groupID"
     )
-    var invitatorio: LHInvitatoryAll? = null
+    var invitatory: LHInvitatoryAll,
 
     @Relation(entity = LHHymnJoinEntity::class, parentColumn = "oHymnFK", entityColumn = "groupID")
-    var himno: LHHymnWithAll? = null
+    var hymn: LHHymnWithAll,
 
     @Relation(
         entity = LHPsalmodyJoinEntity::class,
         parentColumn = "oPsalmodyFK",
         entityColumn = "groupID"
     )
-    var salmodia: LHPsalmodyAll? = null
+    var psalmody: LHPsalmodyAll,
 
     @Relation(
         entity = LHOfficeVerseJoinEntity::class,
         parentColumn = "oVerseFK",
         entityColumn = "groupID"
     )
-    var oficioVerso: OficceVerseAll? = null
+    var officeVerse: OficceVerseAll,
 
     @Relation(
         entity = LHOfficeBiblicalJoinEntity::class,
         parentColumn = "oBiblicalFK",
         entityColumn = "groupID"
     )
-    var biblicas: LHOfficeBiblicalAll? = null
+    var officeBiblical: LHOfficeBiblicalAll,
 
     @Relation(
         entity = LHOfficeBiblicalJoinEntity::class,
         parentColumn = "oBiblicalFK",
         entityColumn = "groupID"
     )
-    var biblicasE: LHOfficeEasterJoin? = null
+    var officeBiblicalEaster: LHOfficeEasterJoin,
+
 
     @Relation(
         entity = LHOfficePatristicEntity::class,
         parentColumn = "oPatristicFK",
         entityColumn = "groupFK"
     )
-    var patristica: LHOfficePatristicWithAll? = null
-
-    @Relation(
-        entity = LHOfficePatristicEntity::class,
-        parentColumn = "oPatristicFK",
-        entityColumn = "groupFK"
-    )
-    var patristicaOficioWithResponsorio: List<PatristicaOficioWithResponsorio>? = null
+    var patristic: List<PatristicaOficioWithResponsorio>,
 
     @Relation(entity = LHPrayerEntity::class, parentColumn = "oPrayerFK", entityColumn = "groupID")
-    var lhPrayerAll: LHPrayerAll? = null
+    var prayer: LHPrayerAll
+) {
 
-    private fun getSalmodia(): LHPsalmody? {
-        return salmodia?.domainModel
-    }
-
-    fun getToday(): Today {
-        val dm = Today()
-        dm.liturgyDay = feria.domainModel
-        dm.todayDate = today!!.hoy
-        dm.hasSaint = today!!.hasSaint
-        dm.oBiblicalFK = today!!.oBiblicaFK
-        return dm
-    }
-
-    private val patristicas: List<LHOfficePatristic?>
+    private val getPatristic: List<LHOfficePatristic>
         get() {
-            val theList: MutableList<LHOfficePatristic?> = ArrayList()
-            for (item in patristicaOficioWithResponsorio!!) {
-                theList.add(item.getDomainModelOficio(today!!.tiempoId))
+            val theList: MutableList<LHOfficePatristic> = ArrayList()
+            for (item in patristic) {
+                theList.add(item.getDomainModelOficio(today.timeID))
             }
             return theList
         }
-    val domainModelToday: Today
+    val domainModel: Today
         get() {
-            //getSalmodiaa()
-            val dm = feria.domainModel
-            dm.typeID = 1
-            val dmToday = getToday()
-            dm.today = dmToday
+            val dmToday = Today()
+            dmToday.saintFK = today.saintFK
+            dmToday.liturgyDay = liturgy.domainModel
+            dmToday.todayDate = today.todayDate
+            dmToday.hasSaint = today.hasSaint
+            dmToday.liturgyDay.typeID = 1
             val bh = BreviaryHour()
-            if (today!!.oBiblicaFK == 600010101) {
+            if (today.oBiblicalFK == 600010101) {
                 val oEaster = OficioEaster()
-                oEaster.lhOfficeOfReadingEaster = biblicasE?.domainModel
+                oEaster.lhOfficeOfReadingEaster = officeBiblicalEaster.domainModel
                 bh.setOficioEaster(oEaster)
             } else {
                 val oficio = Oficio()
                 val ol = LHOfficeOfReading()
-                ol.biblica = biblicas!!.getDomainModel(today!!.tiempoId)
-                ol.patristica = patristicas
-                ol.responsorio = oficioVerso?.theEntity?.verse
-                if (dmToday.hasSaint == 1 && saint != null) {
+                ol.biblica = officeBiblical.getDomainModel(today.timeID)
+                ol.patristica = getPatristic
+                ol.responsorio = officeVerse.theEntity.verse
+                if (today.hasSaint == 1) {
                     oficio.santo = saint?.domainModel
                 }
-                oficio.invitatorio = invitatorio?.domainModel
-                oficio.setHimno(himno?.domainModel)
+                oficio.invitatorio = invitatory.domainModel
+                oficio.setHimno(hymn.domainModel)
                 oficio.setOfficeOfReading(ol)
-                oficio.setSalmodia(getSalmodia())
-                if (today!!.oTeDeum == 1) {
+                oficio.setSalmodia(psalmody.domainModel)
+                if (today.oTeDeum == 1) {
                     oficio.teDeum = TeDeum()
                 }
-                oficio.setOracion(lhPrayerAll?.domainModel)
+                oficio.setOracion(prayer.domainModel)
                 bh.setOficio(oficio)
             }
-            dm.breviaryHour = bh
-            dmToday.liturgyDay = dm
+            dmToday.liturgyDay.breviaryHour = bh
             return dmToday
         }
 }

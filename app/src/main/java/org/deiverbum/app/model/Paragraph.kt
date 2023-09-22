@@ -16,14 +16,14 @@ class Paragraph
  */(
     @SerializedName("text")
     @Expose
-    private var text: String?
+    private var text: String = ""
 ) {
 
     fun getText(): Spanned {
         return Utils.fromHtml(text)
     }
 
-    fun setText(text: String?) {
+    fun setText(text: String) {
         this.text = text
     }
 }

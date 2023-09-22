@@ -9,13 +9,18 @@ class AssetProvider @Inject constructor(
     private val context: Context
 ) {
 
-    fun getFiles(filesPath:List<String>): MutableList<FileResponse> {
-        val fileResponses=mutableListOf<FileResponse>()
+    fun getFiles(filesPath: List<String>): MutableList<FileResponse> {
+        val fileResponses = mutableListOf<FileResponse>()
         return try {
-            filesPath.forEach{
-                context.assets.open(it).use { inputStream ->
+            filesPath.forEach {
+                context.assets.open(it.toString()).use { inputStream ->
                     inputStream.reader().use { reader ->
-                        fileResponses.add(FileResponse(SpannableStringBuilder(reader.readText()),it))
+                        fileResponses.add(
+                            FileResponse(
+                                SpannableStringBuilder(reader.readText()),
+                                it.toString()
+                            )
+                        )
                     }
 
                 }

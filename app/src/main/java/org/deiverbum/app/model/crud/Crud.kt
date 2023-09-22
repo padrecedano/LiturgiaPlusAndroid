@@ -64,16 +64,14 @@ class Crud {
     private var crudVirginAntiphon: CrudVirginAntiphon? = null
 
     //public List<Today> today;
-    @JvmField
-    var lastUpdate: String? = null
-    @JvmField
+    var lastUpdate: String = ""
     var haveData = false
     /**
      * Este método maneja todas las respuestas Crud, sin importar de qué objeto sean.
      */
     fun doCrud(mTodayDao: TodayDao) {
         try {
-            /*
+
             if (crudLiturgy != null) {
                 val c = crudLiturgy!!.c
                 val u = crudLiturgy!!.u
@@ -620,6 +618,7 @@ class Crud {
                     mTodayDao.paterOpusUpdateAll(u)
                 }
             }
+
             if (crudToday != null) {
                 val c = crudToday!!.c
                 val u = crudToday!!.u
@@ -776,7 +775,7 @@ class Crud {
                 }
 
 
-            }*/
+            }
         } catch (e: Exception) {
             //Log.d("Crud", e.message!!)
         }

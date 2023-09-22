@@ -8,7 +8,7 @@ import org.deiverbum.app.util.Utils
 class Prayer {
     var prayerID: Int? = null
     var order: Int? = null
-    var prayer: String? = null
+    var prayer: String = ""
     val header: SpannableStringBuilder
         get() = Utils.formatTitle(Constants.TITLE_PRAYER)
     val all: Spanned

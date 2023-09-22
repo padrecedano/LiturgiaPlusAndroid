@@ -4,7 +4,6 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import org.deiverbum.app.data.entity.SaintEntity
 import org.deiverbum.app.data.entity.SaintLifeEntity
-import org.deiverbum.app.model.SaintLife
 import org.deiverbum.app.model.Today
 
 /**
@@ -14,29 +13,21 @@ import org.deiverbum.app.model.Today
  */
 data class TodaySanto(
     @Embedded
-    var saint: SaintEntity? = null,
+    var saint: SaintEntity,
 
     @Relation(entity = SaintLifeEntity::class, parentColumn = "saintID", entityColumn = "saintFK")
-    var saintLife: SaintLife? = null,
+    var saintLife: SaintLifeEntity,
 ) {
-    val domainModel: SaintLife
-        get() {
-            val dm = SaintLife()
-            dm.longLife = saintLife!!.longLife
-            dm.martyrology = saintLife!!.martyrology
-            dm.theSource = saintLife!!.theSource
-            dm.dia = saint!!.theDay.toString()
-            dm.mes = saint!!.theMonth.toString()
-            dm.name = saint!!.theName
-            return dm
-        }
 
-    val domainModelToday: Today
+    val domainModel: Today
         get() {
             val dm = Today()
-            val saintLife=domainModel
-            dm.liturgyDay.typeID=12
-            dm.liturgyDay.saintLife=saintLife
+            dm.liturgyDay.typeID = 12
+            val saintLife = saintLife.domainModel
+            saintLife.dia = saint.theDay.toString()
+            saintLife.mes = saint.theMonth.toString()
+            saintLife.name = saint.theName
+            dm.liturgyDay.saintLife = saintLife
             return dm
         }
 }

@@ -95,7 +95,7 @@ class Today(
     private val tituloForRead: String
         get() = if (liturgyDay.typeID == 6) tituloVisperas else liturgyDay.titleForRead
     val fecha: String
-        get() = Utils.getLongDate(todayDate.toString())
+        get() = Utils.formatDate(todayDate.toString(), "yyyyMMdd", "EEEE d 'de' MMMM 'de' yyyy")
     val tiempo: String?
         get() = if (liturgyDay.typeID == 6 && liturgyPrevious != null) liturgyPrevious!!.liturgyTime!!.liturgyName else liturgyDay.liturgyTime!!.liturgyName
 
@@ -159,7 +159,7 @@ class Today(
                 } else {
                     sb.append(
                         liturgyDay.breviaryHour!!.getOficio(todayRequest.isMultipleInvitatory)!!
-                            .getForView(liturgyDay.liturgyTime, hasSaintToday())
+                            .getForView(liturgyDay.liturgyTime!!, hasSaintToday())
                     )
                 }
             }
@@ -182,7 +182,10 @@ class Today(
                 )
             }
             if (liturgyDay.typeID == 7) {
-                sb.append(liturgyDay.breviaryHour!!.getCompletas()!!.getAllForView())
+                sb.append(
+                    liturgyDay.breviaryHour!!.getCompletas()!!
+                        .getAllForView(liturgyDay.liturgyTime!!)
+                )
             }
 
 

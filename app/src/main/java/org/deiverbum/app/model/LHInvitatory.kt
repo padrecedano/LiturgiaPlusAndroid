@@ -18,7 +18,9 @@ class LHInvitatory  {
     var isMultiple = false
     var caseID = 1
     var psalmFK = 315
-    @Ignore var lhPsalm: LHPsalm? = null
+
+    @Ignore
+    lateinit var lhPsalm: LHPsalm
 
     //var psalmID = 0
     //var readingID = 0
@@ -35,14 +37,20 @@ class LHInvitatory  {
     val textoSpan: Spanned
         get() {
             val ssb = SpannableStringBuilder()
+            ssb.append(Utils.toRed(lhPsalm.ref.toString()))
+            ssb.append(Constants.LS2)
+
+            ssb.append(Utils.fromHtml(lhPsalm.psalm))
+
             if (isMultiple) {
                 //ssb.append(ref)
                 ssb.append(Constants.LS2)
                 //ssb.append(Utils.fromHtml(psalm))
             } else {
-                ssb.append(Utils.toRed("Salmo 94."))
-                ssb.append(Constants.LS2)
-                ssb.append(Utils.fromHtml(unique))
+                //ssb.append(Utils.toRed("Salmo 94."))
+                //ssb.append(Constants.LS2)
+                //ssb.append(Utils.fromHtml(unique))
+                //ssb.append(Utils.fromHtml(lhPsalm?.psalm))
             }
             return ssb
         }//sb.append(LS2);
@@ -71,23 +79,44 @@ class LHInvitatory  {
         get() = Constants.TITLE_INVITATORY
     private val titleForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_INVITATORY)
+
     @Suppress("unused")
     val headerForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_INVITATORY)
+
+    fun getForView(timeID: Int): SpannableStringBuilder {
+        val ssb = SpannableStringBuilder()
+        lhPsalm.antiphon = Utils.replaceByTime(lhPsalm.antiphon, timeID)
+        ssb.append(Utils.formatSubTitleToLower(title))
+        ssb.append(Utils.LS2)
+        ssb.append(Utils.toRed("Ant. "))
+        ssb.append(lhPsalm.antiphon)
+        ssb.append(Utils.LS2)
+        ssb.append(textoSpan)
+        ssb.append(Utils.LS2)
+        ssb.append(lhPsalm.finSalmo)
+        ssb.append(Utils.LS2)
+        ssb.append(Utils.toRed("Ant. "))
+        ssb.append(lhPsalm.antiphon)
+        return ssb
+
+    }
+
     val all: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()
+            //lhPsalm?.antiphon=Utils.replaceByTime(lhPsalm?.antiphon,timeID)
             sb.append(Utils.formatSubTitleToLower(title))
             sb.append(Utils.LS2)
             sb.append(Utils.toRed("Ant. "))
-            sb.append(lhPsalm?.antiphon)
+            sb.append(lhPsalm.antiphon)
             sb.append(Utils.LS2)
             sb.append(textoSpan)
             sb.append(Utils.LS2)
-            sb.append(lhPsalm?.finSalmo)
+            sb.append(lhPsalm.finSalmo)
             sb.append(Utils.LS2)
             sb.append(Utils.toRed("Ant. "))
-            sb.append(lhPsalm?.antiphon)
+            sb.append(lhPsalm.antiphon)
 
             //sb.append(antiphon)
             return sb
@@ -96,17 +125,17 @@ class LHInvitatory  {
         get() {
             val sb = SpannableStringBuilder()
             sb.append(titleForRead)
-            sb.append(lhPsalm?.antifonaForRead)
+            sb.append(lhPsalm.antifonaForRead)
             sb.append(textoForRead)
-            sb.append(lhPsalm?.finSalmoForRead)
-            sb.append(lhPsalm?.antifonaForRead)
+            sb.append(lhPsalm.finSalmoForRead)
+            sb.append(lhPsalm.antifonaForRead)
 
             //sb.append(antiphon)
             return sb
         }
 
     fun normalizeIsSaint(s: String) {
-        lhPsalm?.antiphon = lhPsalm?.antiphon!!.replace("ƞ", s.substring(s.indexOf(" ") + 1))
+        lhPsalm.antiphon = lhPsalm.antiphon.replace("ƞ", s.substring(s.indexOf(" ") + 1))
     }
 
     val unique: String

@@ -4,7 +4,7 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import androidx.room.Ignore
 import org.deiverbum.app.util.Utils
-import java.util.*
+import java.util.Locale
 
 open class Biblical {
      var bookFK = 0
@@ -29,11 +29,11 @@ open class Biblical {
 
 
     val textoSpan: Spanned
-        get() = Utils.fromHtml(text)
+        get() = Utils.fromHtml(text!!)
     val textoForRead: Spanned
         get() = Utils.fromHtml(
             Utils.getFormatoForRead(
-                text
+                text!!
             )
         )
 

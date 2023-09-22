@@ -31,7 +31,7 @@
                 android:layout_centerInParent="true"
                 android:gravity="top|center_horizontal"
                 android:adjustViewBounds="true"
-
+                style="@style/TextAppearance.AppTheme.BreviarioRVIcon"
 
                 />
 
@@ -42,6 +42,8 @@
                 android:layout_below="@+id/tv_Material"
                 android:layout_alignParentBottom="true"
                 android:gravity="bottom|center_horizontal"
+                style="@style/TextAppearance.AppTheme.BreviarioRV"
+
                 />
 
         </RelativeLayout>

@@ -50,10 +50,9 @@ class Homily {
             }
             if(date!=null){
             if (date?.isNotEmpty()!! && date != "0000-00-00" && date != "0") {
-                sb.append(Utils.toRed(date))
+                sb.append(Utils.toRed(Utils.formatDate(date, "yyyyMMdd", "d 'de' MMMM 'de' yyyy")))
                 sb.append(LS2)
             }}
-
 
 
             //sb.append(today!!.singleForView)
@@ -61,9 +60,9 @@ class Homily {
             //sb.append(titulo)
             //sb.append(Utils.LS2)
             //for (h in homilias!!) {
-                //sb.append(h?.allForView)
+            //sb.append(h?.allForView)
             //}
-            sb.append(Utils.fromHtml(homily)) //NETWORK OK - LOCAL OK
+            sb.append(Utils.fromHtml(homily!!)) //NETWORK OK - LOCAL OK
 
         } catch (e: Exception) {
             sb.append(Utils.createErrorMessage(e.message))
@@ -80,7 +79,7 @@ class Homily {
                 if (tema.isNotEmpty()) {
                     sb.append(normalizeEnd(tema))
                 }
-                sb.append(Utils.fromHtml(homily)) //NETWORK OK - LOCAL OK
+                sb.append(Utils.fromHtml(homily!!)) //NETWORK OK - LOCAL OK
 
                 //sb.append(today!!.getSingleForRead())
                 //sb.append(tituloForRead)

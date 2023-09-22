@@ -12,27 +12,26 @@ import org.deiverbum.app.model.LiturgyTime
  * @version 1.0
  * @since 2023.1
  */
-class LiturgyWithTime {
-    @JvmField
+data class LiturgyWithTime(
     @Embedded
-    var liturgyEntity: LiturgyEntity? = null
+    val liturgyEntity: LiturgyEntity,
 
-    @JvmField
-    @Relation(parentColumn = "timeFK", entityColumn = "timeID", entity = LiturgyTimeEntity::class)
-    var tiempo: LiturgyTimeEntity? = null
+    @Relation(parentColumn = "timeFK", entityColumn = "timeID")
+    val liturgyTime: LiturgyTimeEntity
+) {
     val domainModel: Liturgy
         get() {
             val dm = Liturgy()
-            dm.liturgyID = liturgyEntity!!.liturgiaId
-            dm.liturgyID = liturgyEntity!!.liturgiaId
-            dm.semana = liturgyEntity!!.semana
-            dm.dia = liturgyEntity!!.dia
-            dm.colorFK = liturgyEntity!!.colorFK
-            dm.name = liturgyEntity!!.nombre
+            dm.liturgyID = liturgyEntity.liturgiaId
+            dm.liturgyID = liturgyEntity.liturgiaId
+            dm.semana = liturgyEntity.semana
+            dm.dia = liturgyEntity.dia
+            dm.colorFK = liturgyEntity.colorFK
+            dm.name = liturgyEntity.nombre
             val t = LiturgyTime()
-            t.timeID = tiempo!!.tiempoId
-            t.timeName = tiempo!!.tiempo
-            t.liturgyName = tiempo!!.liturgyName
+            t.timeID = liturgyTime.timeID
+            t.timeName = liturgyTime.timeName
+            t.liturgyName = liturgyTime.liturgyName
             dm.liturgyTime = t
             return dm
         }

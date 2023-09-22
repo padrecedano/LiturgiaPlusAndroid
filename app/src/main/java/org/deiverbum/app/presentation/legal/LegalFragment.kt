@@ -7,6 +7,7 @@ import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.text.method.LinkMovementMethod
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -94,6 +95,8 @@ class LegalFragment : Fragment() {
         binding.textAgree.typeface = tf
         binding.textContacto.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
         binding.textContacto.typeface = tf
+        binding.textLegal.movementMethod = LinkMovementMethod.getInstance()
+
         val args: FileFragmentArgs by navArgs()
 
         val fileRequest =
@@ -187,6 +190,7 @@ class LegalFragment : Fragment() {
         val materialAlertDialogBuilder = MaterialAlertDialogBuilder(requireActivity())
         materialAlertDialogBuilder.setTitle(Constants.DIALOG_LEGAL_TITLE)
         materialAlertDialogBuilder.setMessage(Constants.DIALOG_LEGAL_BODY)
+        materialAlertDialogBuilder.setCancelable(false)
         materialAlertDialogBuilder.setPositiveButton(
             Constants.DIALOG_LEGAL_OK
         ) { _: DialogInterface?, _: Int -> closeApp() }

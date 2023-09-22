@@ -71,7 +71,7 @@ class LHPsalmody {
                 intro.append(Utils.fromHtmlSmall(s.epigraph))
                 intro.append(Utils.LS2)
             }
-            if (!s.part.equals("null")) {
+            if (s.part != "") {
                 parte.append(Utils.toRed(s.part))
                 parte.append(Utils.LS2)
             }
@@ -141,7 +141,7 @@ class LHPsalmody {
             intro.append(Utils.fromHtmlSmall(s.epigraph))
             intro.append(Utils.LS2)
         }
-        if (!s.part.equals("null")) {
+        if (s.part != "") {
             parte.append(Utils.toRed(s.part))
             parte.append(Utils.LS2)
         }

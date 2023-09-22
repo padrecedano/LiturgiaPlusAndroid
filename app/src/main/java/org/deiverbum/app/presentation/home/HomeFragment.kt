@@ -58,19 +58,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun pickOutDate() {
         val bundle = arguments
         val todayDate: String = if (bundle != null) {
-            if (bundle.getString("FECHA") == null) Utils.getHoy() else bundle.getString("FECHA")!!
+            if (bundle.getString("FECHA") == null) Utils.hoy else bundle.getString("FECHA")!!
         } else {
-            Utils.getHoy()
+            Utils.hoy
         }
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
         actionBar?.subtitle =
-            Utils.getTitleDate(todayDate)
+            Utils.formatDate(todayDate, "yyyyMMdd", "d '-' MMMM yyyy")
     }
 
     private fun prepareItems(theme:String) {
         mList = ArrayList()
-        //var adapterBgColor: Int
-
         when (theme) {
             "1" -> {
                 //adapterBgColor=R.color.transparent
@@ -94,7 +92,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     ContextCompat.getColor(requireActivity(), R.color.colorSacramentos)
 
                 mList = listOf(
-
                     HomeItem(
                         "Breviario",
                         1,
@@ -214,19 +211,71 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
             else -> {
                 //adapterBgColor=R.color.transparent
+                var colorUnique = ContextCompat.getColor(requireActivity(), R.color.color_nav_start)
 
-                val colorUnique = ContextCompat.getColor(requireActivity(), R.color.color_nav_start)
-                val imageColor = ContextCompat.getColor(requireActivity(), R.color.colorBreviario)
+                if (isNightMode()) {
+                    colorUnique = ContextCompat.getColor(requireActivity(), R.color.raisin_black)
+                }
+                val imageColor = ContextCompat.getColor(requireActivity(), R.color.colorMainIcon)
                 mList = listOf(
 
-                    HomeItem("Breviario", 1, R.drawable.ic_breviario, colorUnique, R.id.nav_breviario, imageColor),
+                    HomeItem(
+                        "Breviario",
+                        1,
+                        R.drawable.ic_breviario,
+                        colorUnique,
+                        R.id.nav_breviario,
+                        imageColor
+                    ),
                     HomeItem("Misa", 2, R.drawable.ic_misa, colorUnique, R.id.nav_misa, imageColor),
-                    HomeItem("Homilías", 3, R.drawable.ic_homilias, colorUnique, R.id.nav_homilias, imageColor),
-                    HomeItem("Santos", 4, R.drawable.ic_santos, colorUnique, R.id.nav_santo, imageColor),
-                    HomeItem("Lecturas", 5, R.drawable.ic_lecturas, colorUnique, R.id.nav_lecturas, imageColor),
-                    HomeItem("Comentarios", 6, R.drawable.ic_comentarios, colorUnique, R.id.nav_comentarios, imageColor),
-                    HomeItem("Calendario", 7, R.drawable.ic_calendario, colorUnique, R.id.nav_calendario, imageColor),
-                    HomeItem("Oraciones", 8, R.drawable.ic_oraciones, colorUnique, R.id.nav_oraciones, imageColor),
+                    HomeItem(
+                        "Homilías",
+                        3,
+                        R.drawable.ic_homilias,
+                        colorUnique,
+                        R.id.nav_homilias,
+                        imageColor
+                    ),
+                    HomeItem(
+                        "Santos",
+                        4,
+                        R.drawable.ic_santos,
+                        colorUnique,
+                        R.id.nav_santo,
+                        imageColor
+                    ),
+                    HomeItem(
+                        "Lecturas",
+                        5,
+                        R.drawable.ic_lecturas,
+                        colorUnique,
+                        R.id.nav_lecturas,
+                        imageColor
+                    ),
+                    HomeItem(
+                        "Comentarios",
+                        6,
+                        R.drawable.ic_comentarios,
+                        colorUnique,
+                        R.id.nav_comentarios,
+                        imageColor
+                    ),
+                    HomeItem(
+                        "Calendario",
+                        7,
+                        R.drawable.ic_calendario,
+                        colorUnique,
+                        R.id.nav_calendario,
+                        imageColor
+                    ),
+                    HomeItem(
+                        "Oraciones",
+                        8,
+                        R.drawable.ic_oraciones,
+                        colorUnique,
+                        R.id.nav_oraciones,
+                        imageColor
+                    ),
                     HomeItem("Biblia", 9, R.drawable.ic_biblia, colorUnique, R.id.nav_biblia, imageColor),
                     HomeItem("Patrística", 10, R.drawable.ic_patristica, colorUnique, R.id.nav_patristica, imageColor),
                     HomeItem("Sacramentos", 11, R.drawable.ic_sacramentos, colorUnique, R.id.nav_sacramentos, imageColor),

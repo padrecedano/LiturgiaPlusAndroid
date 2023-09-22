@@ -120,7 +120,11 @@ class Book {
             sb.append(Utils.toH2(title))
             sb.append(Utils.LS2)
             sb.append("Fecha efectiva: ")
-            val dateString = String.format(Locale("es"), "<b>%s</b>", Utils.getTitleDate(date))
+            val dateString = String.format(
+                Locale("es"),
+                "<b>%s</b>",
+                Utils.formatDate(date, "yyyyMMdd", "d '-' MMMM yyyy")
+            )
             sb.append(Utils.fromHtml(dateString))
             //sb.append(_abstract.getAllForView());
             sb.append(Utils.LS2)
@@ -148,7 +152,11 @@ class Book {
             sb.append(Utils.toH2(title))
             sb.append(Utils.LS2)
             sb.append("Fecha efectiva: ")
-            val dateString = String.format(Locale("es"), "<b>%s</b>", Utils.getTitleDate(date))
+            val dateString = String.format(
+                Locale("es"),
+                "<b>%s</b>",
+                Utils.formatDate(date, "yyyyMMdd", "d '-' MMMM yyyy")
+            )
             sb.append(dateString)
             //sb.append(_abstract.getAllForView());
             sb.append(Utils.LS2)

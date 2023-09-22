@@ -8,19 +8,19 @@ import org.deiverbum.app.util.Utils
 class LHHymn {
     var hymnID: Int? = null
 
-    var hymn: String? = null
+    var hymn: String = ""
 
 
     constructor()
     constructor(hymn: String?) {
-        this.hymn = hymn
+        this.hymn = hymn!!
     }
 
     val textoSpan: Spanned
         get() = Utils.fromHtml(Utils.getFormato(hymn))
     val header: SpannableStringBuilder
         get() = Utils.formatTitle(Constants.TITLE_HYMN)
-    val headerForRead: String
+    private val headerForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_HYMN)
     val all: SpannableStringBuilder
         get() {

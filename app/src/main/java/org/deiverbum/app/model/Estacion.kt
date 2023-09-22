@@ -16,12 +16,12 @@ class Estacion {
         val ssb = SpannableStringBuilder("")
         ssb.append(Utils.toH4Red("Meditación"))
         ssb.append(Utils.LS2)
-        ssb.append(Utils.fromHtml(meditacion!!.texto))
+        ssb.append(Utils.fromHtml(meditacion!!.texto!!))
         if (meditacion!!.tipo == 2) {
             ssb.append(Utils.LS)
             ssb.append(Utils.toH4Red("Oración"))
             ssb.append(Utils.LS2)
-            ssb.append(Utils.fromHtml(meditacion!!.textoPost))
+            ssb.append(Utils.fromHtml(meditacion!!.textoPost!!))
         } else {
             ssb.append(Utils.LS2)
             ssb.append(Utils.toH4Red("Aclamaciones"))
@@ -54,7 +54,7 @@ class Estacion {
             ssb.append(
                 Utils.fromHtml(
                     Utils.getFormato(
-                        textoBiblico!!.texto
+                        textoBiblico!!.texto!!
                     )
                 )
             )

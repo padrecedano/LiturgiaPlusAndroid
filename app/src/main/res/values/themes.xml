@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.LiturgiaPlusNew" parent="Theme.Material3.DayNight">
         <item name="windowActionBar">false</item>
@@ -9,9 +9,14 @@
         <item name="checkboxStyle">@style/Widget.App.CheckBox</item>
         <item name="colorOutline">@color/red_700</item>
 
+        <item name="actionModeStyle">@style/Widget.App.ActionMode</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_baseline_close_24</item>
+
+        <!--    <item name="navigationViewStyle">@style/Widget.App.NavigationView</item>
+    -->
         <item name="android:textViewStyle">@style/Widget.App.TextViewNew</item>
-     <!--   <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
--->
+        <!--   <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
+   -->
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue_900</item>
         <item name="colorPrimaryVariant">@color/blue_700</item>
@@ -46,22 +51,37 @@
     </style>
 
     <style name="ThemeOverlay.App.FloatingActionButton" parent="">
-        <item name="colorContainer">@color/colorContainer</item>
+        <!--    <item name="colorContainer">@color/colorButton</item> -->
+        <!--    <item name="colorOnContainer">@color/colorOnContainer</item> -->
         <item name="colorOnContainer">@color/colorOnContainer</item>
+        <item name="colorContainer">@color/colorContainer</item>
+
     </style>
 
     <style name="Widget.App.TextViewNew" parent="@android:style/Widget.Material.TextView">
         <item name="android:textColorLink">@color/colorLink</item>
+        <item name="android:textColor">@color/colorText</item>
 
     </style>
 
     <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="colorSurface">@color/colorDialogSurface</item>
         <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
-        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.App.Title.Text</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.App.Title.Text
+        </item>
         <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button</item>
         <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button</item>
     </style>
 
+    <style name="Widget.App.ActionMode" parent="Widget.AppCompat.ActionMode">
+        <item name="titleTextStyle">?attr/textAppearanceHeadline6</item>
+        <item name="subtitleTextStyle">?attr/textAppearanceSubtitle1</item>
+        <item name="background">@color/material_grey_900</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_baseline_close_24</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--toolbar, primaryColor en tema claro, surfaceColor en tema oscuro-->
+
+    </style>
 
 </resources>

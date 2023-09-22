@@ -25,8 +25,8 @@ class HomilyAll {
         get() {
             val theModel = LHOfficePatristic()
             theModel.text = homilia!!.texto
-            theModel.padre = paterOpusAll!!.paterEntity!!.padre
-            theModel.obra = paterOpusAll!!.paterOpusEntity!!.opusName
+            theModel.padre = paterOpusAll!!.paterEntity.padre
+            theModel.obra = paterOpusAll!!.paterOpusEntity.opusName
             theModel.paterOpus = paterOpusAll?.domainModel
             theModel.source = homilia!!.numero.toString()
             return theModel

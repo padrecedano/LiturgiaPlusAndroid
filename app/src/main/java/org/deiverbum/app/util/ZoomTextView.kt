@@ -1,106 +1,95 @@
-package org.deiverbum.app.util;
+package org.deiverbum.app.util
 
+import android.content.Context
+import android.util.AttributeSet
+import android.view.MotionEvent
+import android.view.View
+import android.view.View.OnTouchListener
+import androidx.appcompat.widget.AppCompatTextView
+import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.pow
+import kotlin.math.sqrt
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.util.AttributeSet;
-import android.view.MotionEvent;
-import android.view.View;
+/**
+ * Esta clase crea un TextView Zoomable, cuyo contenido se puede agrandar o disminuir juntando o separando los dedos en la pantalla.
+ *
+ * @author A. Cedano
+ * @version 1.0
+ * @since 2018.1
+ */
+class ZoomTextView : AppCompatTextView, OnTouchListener {
+    private var mRatio = 13.0f
+    private var mBaseDist = 0
+    private var mBaseRatio = 0f
 
-import androidx.annotation.NonNull;
-
-// Created by cedano on 19/1/18.
-
-
-public class ZoomTextView extends androidx.appcompat.widget.AppCompatTextView implements View.OnTouchListener {
-    final static float STEP = 200;
-    float mRatio = 13.0f;
-    int mBaseDist;
-    float mBaseRatio;
-
-
-    public ZoomTextView(Context context) {
-        super(context);
-        this.setTextIsSelectable(true);
+    constructor(context: Context?) : super(context!!) {
+        setTextIsSelectable(true)
     }
 
-    public ZoomTextView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        this.setTextIsSelectable(true);
+    constructor(context: Context?, attrs: AttributeSet?) : super(
+        context!!, attrs
+    ) {
+        setTextIsSelectable(true)
     }
 
-    public ZoomTextView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        this.setTextIsSelectable(true);
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context!!, attrs, defStyleAttr
+    ) {
+        setTextIsSelectable(true)
     }
 
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
-
-    public boolean onTouchEvent(@NonNull MotionEvent event) {
-        if (event.getPointerCount() == 2) {
-            int action = event.getAction();
-            int pureaction = action & MotionEvent.ACTION_MASK;
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        if (event.pointerCount == 2) {
+            val action = event.action
+            val pureaction = action and MotionEvent.ACTION_MASK
             if (pureaction == MotionEvent.ACTION_POINTER_DOWN) {
-                mBaseDist = getDistance(event);
-                mBaseRatio = mRatio;
+                mBaseDist = getDistance(event)
+                mBaseRatio = mRatio
             } else {
-                float delta = (getDistance(event) - mBaseDist) / STEP;
-                float multi = (float) Math.pow(2, delta);
-                mRatio = Math.min(1024.0f, Math.max(0.1f, mBaseRatio * multi));
-                this.setTextSize(mRatio + 13);
+                val delta = (getDistance(event) - mBaseDist) / STEP
+                val multi = 2.0.pow(delta.toDouble()).toFloat()
+                mRatio = min(1024.0f, max(0.1f, mBaseRatio * multi))
+                this.textSize = mRatio + 13
             }
         } else {
-            performClick();
+            performClick()
             //return super.onTouchEvent(event);
-            return super.onTouchEvent(event);
+            return super.onTouchEvent(event)
         }
-        return true;
+        return true
     }
 
-    int getDistance(MotionEvent event) {
-        int dx = (int) (event.getX(0) - event.getX(1));
-        int dy = (int) (event.getY(0) - event.getY(1));
-        return (int) (Math.sqrt(dx * dx + dy * dy));
+    private fun getDistance(event: MotionEvent): Int {
+        val dx = (event.getX(0) - event.getX(1)).toInt()
+        val dy = (event.getY(0) - event.getY(1)).toInt()
+        return sqrt((dx * dx + dy * dy).toDouble()).toInt()
     }
 
-    public boolean onTouch(View v, MotionEvent event) {
-        return false;
+    override fun onTouch(v: View, event: MotionEvent): Boolean {
+        return false
     }
 
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+    override fun performClick(): Boolean {
+        super.performClick()
+        return true
     }
 
-
-    @Override
-    public void setTextIsSelectable(boolean selectable) {
-        super.setTextIsSelectable(selectable);
-    }
-
-    @Override
-    public boolean performClick() {
-        super.performClick();
-        return true;
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         // FIXME simple workaround to https://code.google.com/p/android/issues/detail?id=191430
-        int startSelection = getSelectionStart();
-        int endSelection = getSelectionEnd();
+        val startSelection = selectionStart
+        val endSelection = selectionEnd
         if (startSelection != endSelection) {
-            if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                final CharSequence text = getText();
-                setText(null);
-                setText(text);
+            if (event.actionMasked == MotionEvent.ACTION_DOWN) {
+                val text = text
+                setText(null)
+                setText(text)
             }
         }
-        return super.dispatchTouchEvent(event);
+        return super.dispatchTouchEvent(event)
     }
 
-
+    companion object {
+        const val STEP = 200f
+    }
 }

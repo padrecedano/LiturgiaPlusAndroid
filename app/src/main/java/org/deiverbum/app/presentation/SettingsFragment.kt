@@ -1,8 +1,8 @@
 package org.deiverbum.app.presentation
 
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -11,6 +11,10 @@ import org.deiverbum.app.R
 import org.deiverbum.app.util.Constants
 
 class SettingsFragment : PreferenceFragmentCompat() {
+    private val prefs: SharedPreferences by lazy {
+        androidx.preference.PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
+    }
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.pref_general, rootKey)
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
@@ -18,7 +22,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val acceptTerms = findPreference<Preference>(Constants.PREF_ACCEPT)
         if (acceptTerms != null) {
             acceptTerms.onPreferenceClickListener =
-                Preference.OnPreferenceClickListener { arg0: Preference? ->
+                Preference.OnPreferenceClickListener {
                     showConfirm()
                     true
                 }
@@ -31,10 +35,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         materialAlertDialogBuilder.setMessage(Constants.DIALOG_LEGAL_BODY)
         materialAlertDialogBuilder.setPositiveButton(
             Constants.DIALOG_LEGAL_OK
-        ) { dialogInterface: DialogInterface?, i: Int -> closeApp() }
+        ) { _: DialogInterface?, _: Int -> closeApp() }
         materialAlertDialogBuilder.setNegativeButton(
             Constants.DIALOG_LEGAL_CANCEL
-        ) { dialogInterface: DialogInterface?, i: Int -> updatePreference() }
+        ) { _: DialogInterface?, _: Int -> updatePreference() }
         materialAlertDialogBuilder.show()
     }
 
@@ -43,8 +47,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun updatePreference() {
-        val sp = PreferenceManager.getDefaultSharedPreferences(activity)
-        val editor = sp.edit()
+        //prefs = PreferenceManager.getDefaultSharedPreferences(activity)
+        val editor = prefs.edit()
         editor.putBoolean(Constants.PREF_ACCEPT, true)
         editor.apply()
     }

@@ -1,29 +1,26 @@
-package org.deiverbum.app.util;
+package org.deiverbum.app.util
 
-import android.graphics.Color;
-import android.text.style.ForegroundColorSpan;
+import android.graphics.Color
+import android.text.style.ForegroundColorSpan
 
 /**
- * Clase utilitaria que se usa en varias partes de la aplicación
+ * Clase utilitaria para manejar la diferencia de colores en las rúbricas entre el modo noche y modo día.
+ *
+ * @author A. Cedano
+ * @version 1.0
+ * @since 2023.1
  */
-@SuppressWarnings("all")
-public final class ColorUtils {
+object ColorUtils {
+    val LS: String? = System.getProperty("line.separator")
+    private val redDefault = ForegroundColorSpan(Color.parseColor("#A52A2A"))
+    private val redNightMode = ForegroundColorSpan(Color.parseColor("#FFDAB9"))
+    var isNightMode = false
 
-    public static final String LS = System.getProperty("line.separator");
-    private static final ForegroundColorSpan redDefault = new ForegroundColorSpan(Color.parseColor("#A52A2A"));
-    private static final ForegroundColorSpan redNightMode = new ForegroundColorSpan(Color.parseColor("#FFDAB9"));
-    public static boolean isNightMode;
+    @JvmStatic
+    val red: ForegroundColorSpan
+        get() = if (isNightMode) redNightMode else redDefault
 
-    public static void setNightMode(boolean nightMode) {
-        //nightMode=nightMode;
-    }
-
-    public static final ForegroundColorSpan getRed() {
-        return isNightMode ? redNightMode : redDefault;
-    }
-
-    public static final String getRedCode() {
-        return isNightMode ? "#FFDAB9" : "#A52A2A";
-    }
-
+    @JvmStatic
+    val redCode: String
+        get() = if (isNightMode) "#FFDAB9" else "#A52A2A"
 }

@@ -7,7 +7,7 @@ import java.util.*
 
 open class LHResponsoryShort {
     var responsoryID: Int? = null
-    var text: String? = null
+    var text: String = ""
     var type: Int? = null
     @Suppress("unused")
     fun getHeader(hourId: Int): SpannableStringBuilder {
@@ -45,7 +45,7 @@ open class LHResponsoryShort {
      */
     fun getAll(hourId: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
-        val respArray = text!!.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val respArray = text.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val s = StringBuilder()
         if (hourId < 3 || hourId > 5) {
             sb.append(header)
@@ -183,7 +183,7 @@ open class LHResponsoryShort {
     open val allForRead: String
         get() {
             val respArray =
-                text!!.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                text.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             val s = StringBuilder()
             s.append(Utils.pointAtEnd(Constants.TITLE_RESPONSORY_SHORT))
             when (type) {

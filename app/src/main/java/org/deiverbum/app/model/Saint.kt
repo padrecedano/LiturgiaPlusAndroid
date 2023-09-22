@@ -19,7 +19,7 @@ class Saint {
     var theName: String = ""
 
     @Ignore
-    var vida: String? = null
+    var vida: String = ""
 
     //private String martirologio;
     @Ignore
@@ -62,7 +62,8 @@ class Saint {
             sb.append(Utils.toH3Red("Vida"))
             sb.append(Utils.LS2)
             sb.append(
-                Utils.fromHtml(vida!!.replace(
+                Utils.fromHtml(
+                    vida.replace(
                     Constants.OLD_SEPARATOR.toRegex(), "")))
             return sb
         }
@@ -71,7 +72,8 @@ class Saint {
             val sb = StringBuilder()
             sb.append("VIDA.")
             sb.append(
-                Utils.fromHtml(vida!!.replace(
+                Utils.fromHtml(
+                    vida.replace(
                     Constants.OLD_SEPARATOR.toRegex(), "")))
             return sb
         }

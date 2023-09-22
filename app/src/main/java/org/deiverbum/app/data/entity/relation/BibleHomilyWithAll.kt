@@ -12,34 +12,31 @@ import org.deiverbum.app.model.BibleComment
  * @version 1.0
  * @since 2023.1
  */
-class BibleHomilyWithAll {
-    @JvmField
+data class BibleHomilyWithAll(
     @Embedded
-    var bibliaLecturaEntity: BibleHomilyJoinEntity? = null
+    val bibliaLecturaEntity: BibleHomilyJoinEntity,
 
-    @JvmField
     @Relation(
         parentColumn = "homilyFK",
-        entityColumn = "homilyFK",
-        entity = BibleHomilyThemeEntity::class
+        entityColumn = "homilyFK"
     )
-    var themeEntity: BibleHomilyThemeEntity? = null
+    val themeEntity: BibleHomilyThemeEntity,
 
-    @JvmField
     @Relation(parentColumn = "homilyFK", entityColumn = "homilyID", entity = HomilyEntity::class)
-    var homilia: HomilyAll? = null
+    val homilia: HomilyAll
+) {
     val domainModel: BibleComment
         get() {
             val theModel = BibleComment()
-            if (themeEntity != null) {
-                theModel.cita = themeEntity!!.biblical!!
-                theModel.tema = themeEntity!!.theological!!
-                theModel.ref = themeEntity!!.reference!!
-            }
-            theModel.padre = homilia!!.paterOpusAll!!.getPaterEntity()
-            theModel.obra = homilia!!.paterOpusAll!!.paterOpusEntity!!.opusName
-            theModel.texto = homilia!!.homilia!!.texto
-            theModel.fecha = homilia!!.homilia!!.fecha.toString()
+            //if (themeEntity != null) {
+            theModel.cita = themeEntity.biblical!!
+            theModel.tema = themeEntity.theological!!
+            theModel.ref = themeEntity.reference!!
+            //}
+            theModel.padre = homilia.paterOpusAll!!.getPaterEntity()
+            theModel.obra = homilia.paterOpusAll!!.paterOpusEntity.opusName
+            theModel.texto = homilia.homilia!!.texto
+            theModel.fecha = homilia.homilia!!.fecha.toString()
             return theModel
         }
 }

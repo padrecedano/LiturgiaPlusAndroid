@@ -17,13 +17,13 @@ class BibleComment {
     var fecha: String? = null
     var biblica: MassReading? = null
     private val textoForRead: Spanned
-        get() = Utils.fromHtmlForRead(texto)
+        get() = Utils.fromHtmlForRead(texto!!)
     private val citaForRead: String
         get() = if (cita != "") Utils.normalizeEnd(cita) else ""
     private val padreForRead: String
-        get() = if (padre != "") Utils.normalizeEnd(padre) else ""
+        get() = if (padre != "") Utils.normalizeEnd(padre!!) else ""
     private val obraForRead: String
-        get() = if (obra != "") Utils.normalizeEnd(obra) else ""
+        get() = if (obra != "") Utils.normalizeEnd(obra!!) else ""
     private val temaForRead: String
         get() = if (tema != "") Utils.normalizeEnd(tema) else ""
     private val refForRead: String
@@ -53,7 +53,7 @@ class BibleComment {
                 sb.append(Utils.toRed(fecha))
             }
             sb.append(Utils.LS2)
-            sb.append(Utils.fromHtml(texto))
+            sb.append(Utils.fromHtml(texto!!))
             sb.append(Utils.LS2)
             return sb
         }

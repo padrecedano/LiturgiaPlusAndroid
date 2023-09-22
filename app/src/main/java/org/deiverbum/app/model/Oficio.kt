@@ -17,13 +17,13 @@ class Oficio : BreviaryHour() {
         get() = Utils.pointAtEnd(Constants.TITLE_OFICIO)
 
     fun getForView(
-        liturgyTime: LiturgyTime?,
+        liturgyTime: LiturgyTime,
         hasSaint: Boolean
     ): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         this.hasSaint = hasSaint
         try {
-            invitatorio!!.lhPsalm!!.normalizeByTime(liturgyTime!!.timeID)
+            //invitatorio!!.lhPsalm!!.normalizeByTime(liturgyTime!!.timeID)
             salmodia!!.normalizeByTime(liturgyTime.timeID)
             lhOfficeOfReading!!.normalizeByTime(liturgyTime.timeID)
             sb.append(Utils.LS2)
@@ -37,7 +37,7 @@ class Oficio : BreviaryHour() {
             sb.append(Utils.LS2)
             sb.append(getSaludoOficio())
             sb.append(Utils.LS2)
-            sb.append(invitatorio!!.all)
+            sb.append(invitatorio?.getForView(liturgyTime.timeID))
             sb.append(Utils.LS2)
             sb.append(himno!!.all)
             sb.append(Utils.LS2)

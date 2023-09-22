@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-
+<!--
         <item
             android:id="@+id/nav_misa"
-            android:title="@string/lbl_misa_hoy" />
+            android:title="@string/lbl_misa_hoy" /> -->
         <item
             android:id="@+id/nav_homilias"
             android:title="@string/lbl_homilias_hoy" />

@@ -10,39 +10,37 @@ import org.deiverbum.app.util.Utils.replaceByTime
 open class LHPsalm : Comparable<LHPsalm> {
     var psalmID = 0
     var readingID = 0
-    var quote: String? = ""
+    var quote: String = ""
 
     @Ignore
-    var antiphon: String? = null
-    get() = if (field != null) field else ""
+    var antiphon: String = ""
+
     var psalm = ""
 
     @Ignore
-    var theOrder: String? = null
-        get() = if (field != null) field else ""
+    var theOrder: String = ""
 
     @Ignore
-    var theme: String? = null
-        get() = if (field != null) field else ""
+    var theme: String = ""
 
     @Ignore
-    var epigraph: String? = null
-        get() = if (field != null) field else ""
+    var epigraph: String = ""
 
     @Ignore
-    var part: String? = null
-        get() = if (field != null) field else ""
+    var part: String = ""
 
 
-    open val antifonaForRead: String?
-        get() = if (antiphon != null) Utils.normalizeEnd(antiphon) else ""
+    open val antifonaForRead: String
+        get() = if (antiphon != "") Utils.normalizeEnd(antiphon) else ""
 
     //Utils.ssbRed((SpannableStringBuilder) Utils.fromHtml(ref));
     val ref: SpannableStringBuilder
         get() = if (quote != null) {
             SpannableStringBuilder(
                 Utils.toRedHtml(
-                    Utils.getFormato(quote))) //Utils.ssbRed((SpannableStringBuilder) Utils.fromHtml(ref));
+                    Utils.getFormato(quote)
+                )
+            ) //Utils.ssbRed((SpannableStringBuilder) Utils.fromHtml(ref));
         } else {
             SpannableStringBuilder("")
         }
@@ -70,7 +68,7 @@ open class LHPsalm : Comparable<LHPsalm> {
                 + "por los siglos de los siglos. Amén.")
 
     override fun compareTo(other: LHPsalm): Int {
-        return theOrder!!.compareTo(other.theOrder!!)
+        return theOrder.compareTo(other.theOrder)
     }
 
     /**
@@ -79,6 +77,6 @@ open class LHPsalm : Comparable<LHPsalm> {
      * @param calendarTime Un entero con el Id del tiempo del calendario
      */
     fun normalizeByTime(calendarTime: Int) {
-        antiphon = if(antiphon.isNullOrEmpty()) "" else replaceByTime(antiphon, calendarTime)
+        this.antiphon = if (antiphon.isNullOrEmpty()) "" else replaceByTime(antiphon, calendarTime)
     }
 }

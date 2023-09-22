@@ -7,14 +7,14 @@ import org.deiverbum.app.util.Utils
 import java.util.*
 
 class Rosario {
-    private var saludo: String? = null
-    private var padrenuestro: String? = null
-    private var avemaria: String? = null
-    var gloria: String? = null
-    private var letanias: String? = null
-    var oracion: String? = null
-    private var salve: String? = null
-    private var misterios: List<Misterio>? = null
+    private var saludo: String = ""
+    private var padrenuestro: String = ""
+    private var avemaria: String = ""
+    var gloria: String = ""
+    private var letanias: String = ""
+    var oracion: String = ""
+    private var salve: String = ""
+    private var misterios: List<Misterio> = emptyList()
     var day = 0
 
     /*
@@ -91,7 +91,7 @@ class Rosario {
 
     private fun getMisterios(): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
-        val m = misterios!![day - 1]
+        val m = misterios[day - 1]
         sb.append(Utils.LS)
         sb.append(Utils.toH2Red(m.titulo))
         sb.append(Utils.LS2)
@@ -124,14 +124,14 @@ class Rosario {
     }
 
     @Suppress("unused")
-    fun setMisterios(misterios: List<Misterio>?) {
+    fun setMisterios(misterios: List<Misterio>) {
         this.misterios = misterios
     }
 
     private val misteriosBrevis: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()
-            val m = misterios!![day - 1]
+            val m = misterios[day - 1]
             sb.append(Utils.LS)
             sb.append(Utils.toH2Red(m.titulo))
             sb.append(Utils.LS2)
@@ -167,7 +167,7 @@ class Rosario {
     private val misteriosForRead: StringBuilder
         get() {
             val sb = StringBuilder()
-            val m = misterios!![day - 1]
+            val m = misterios[day - 1]
             sb.append(m.titulo)
             sb.append(".")
             for ((x, s) in m.contenido!!.withIndex()) {

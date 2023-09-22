@@ -122,12 +122,12 @@ class BibliaFragment : BaseHomeFragment<FragmentBibliaBinding>() {
     private fun pickOutDate() {
         val bundle = arguments
         val todayDate: String = if (bundle != null) {
-            if (bundle.getString("FECHA") == null) Utils.getHoy() else bundle.getString("FECHA")!!
+            if (bundle.getString("FECHA") == null) Utils.hoy else bundle.getString("FECHA")!!
         } else {
-            Utils.getHoy()
+            Utils.hoy
         }
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
         actionBar?.subtitle =
-            Utils.getTitleDate(todayDate)
+            Utils.formatDate(todayDate, "yyyyMMdd", "d '-' MMMM yyyy")
     }
 }

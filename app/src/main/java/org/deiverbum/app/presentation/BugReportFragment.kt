@@ -76,8 +76,7 @@ class BugReportFragment : Fragment() {
                     binding!!.message.text
                 ), textSelected
             )
-            val errSubject = String.format("%s %s", Constants.ERR_SUBJECT, Constants.VERSION_CODE)
-            composeEmail(arrayOf(Configuration.MY_EMAIL), errSubject, msg)
+            composeEmail(arrayOf(Configuration.MY_EMAIL), Constants.ERR_SUBJECT, msg)
         }
         return root
     }

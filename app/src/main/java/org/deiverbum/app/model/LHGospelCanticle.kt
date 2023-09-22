@@ -36,13 +36,13 @@ class LHGospelCanticle : LHPsalm() {
             val sb = SpannableStringBuilder("")
             sb.append(header)
             sb.append(Utils.LS2)
-            sb.append(antifonaFormatted)
+            sb.append(antiphonFormatted)
             sb.append(Utils.LS2)
             sb.append(texto)
             sb.append(Utils.LS2)
             sb.append(finSalmo)
             sb.append(Utils.LS2)
-            sb.append(antifonaFormatted)
+            sb.append(antiphonFormatted)
             return sb
         }
     val allForRead: SpannableStringBuilder
@@ -55,7 +55,7 @@ class LHGospelCanticle : LHPsalm() {
             sb.append(antiphon)
             return sb
         }
-    private val antifonaFormatted: SpannableStringBuilder
+    private val antiphonFormatted: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder("")
             sb.append(Utils.toRed("Ant. "))
@@ -65,17 +65,16 @@ class LHGospelCanticle : LHPsalm() {
 
     internal fun getAll(timeID: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder("")
-        val antiphon= "Sálvanos, Señor, despiertos, protégenos mientras dormimos, para que velemos con Cristo y descansemos en paz. Ƥ."
-
+        this.antiphon = Utils.replaceByTime(antiphon, timeID)
         sb.append(header)
         sb.append(Utils.LS2)
-        sb.append(Utils.replaceByTime(antiphon,timeID))
+        sb.append(antiphonFormatted)
         sb.append(Utils.LS2)
         sb.append(texto)
         sb.append(Utils.LS2)
         sb.append(finSalmo)
         sb.append(Utils.LS2)
-        sb.append(Utils.replaceByTime(antiphon,timeID))
+        sb.append(antiphonFormatted)
         return sb
     }
 }

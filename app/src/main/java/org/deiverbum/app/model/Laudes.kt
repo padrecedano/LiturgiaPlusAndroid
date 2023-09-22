@@ -38,7 +38,7 @@ class Laudes : BreviaryHour() {
             sb.append(Utils.LS2)
             sb.append(getSaludoOficio())
             sb.append(Utils.LS2)
-            sb.append(invitatorio?.all)
+            sb.append(invitatorio?.getForView(liturgyTime.timeID))
             sb.append(Utils.LS2)
             sb.append(himno?.all)
             sb.append(Utils.LS2)
@@ -78,8 +78,7 @@ class Laudes : BreviaryHour() {
                 sb.append(lecturaBreve!!.getAllForRead())
                 sb.append(gospelCanticle?.allForRead)
                 sb.append(preces?.allForRead)
-                val padreNuestro = PadreNuestro()
-                sb.append(padreNuestro.allForRead)
+                sb.append(PadreNuestro.allForRead)
                 sb.append(oracion!!.allForRead)
                 sb.append(getConclusionHorasMayoresForRead())
             } catch (e: Exception) {

@@ -16,11 +16,13 @@ import org.deiverbum.app.util.Constants
 data class LiturgyTimeEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "timeID")
-    val tiempoId: Int,
+    var timeID: Int,
 
     @ColumnInfo(name = "timeName")
-    val tiempo: String,
+    var timeName: String,
 
     @ColumnInfo(name = "liturgyName")
-    var liturgyName: String
+    var liturgyName: String,
+
+    //@Embedded val address: LiturgyEntity?
 )

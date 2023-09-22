@@ -30,6 +30,14 @@
                 android:id="@+id/textPrivacy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:linksClickable="true" />
+
+
+            <TextView
+                android:id="@+id/textPrivacyY"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp" />
 
             <com.google.android.material.divider.MaterialDivider

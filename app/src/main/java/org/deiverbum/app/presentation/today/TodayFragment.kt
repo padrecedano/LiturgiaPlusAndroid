@@ -260,10 +260,10 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
         val mDate = if (bundle != null && bundle.containsKey("FECHA")) {
             bundle.getInt("FECHA")
         } else {
-            Utils.getHoy().toInt()
+            Utils.hoy.toInt()
         }
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
-        actionBar?.subtitle = Utils.getTitleDate(mDate.toString())
+        actionBar?.subtitle = Utils.formatDate(mDate.toString(), "yyyyMMdd", "d '-' MMMM yyyy")
         return mDate
     }
 

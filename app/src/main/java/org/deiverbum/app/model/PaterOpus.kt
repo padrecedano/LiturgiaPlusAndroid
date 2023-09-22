@@ -22,14 +22,17 @@ class PaterOpus {
     @Ignore
     var pater: Pater? = null
     val opusForView: String
-        get() = if (liturgyName != null && liturgyName != "") liturgyName!! else MessageFormat.format(
-            "{0}, {1}",
-            pater?.pater,
-            opusName
-        )
+        get() =
+            if (liturgyName != null && liturgyName != "") liturgyName!! else MessageFormat.format(
+                "{0}, {1}",
+                paterForView,
+                opusName
+            )
 
     val paterForView: String
-        get() = if (pater?.liturgyName!=null && pater?.liturgyName!="") pater?.liturgyName!! else pater?.pater!!
+        get() =
+
+            if (pater?.liturgyName != null && pater?.liturgyName != "") pater?.liturgyName!! else pater?.pater!!
 
     val singleName: String
         get() = if (opusName != null) opusName!! else ""

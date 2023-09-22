@@ -5,14 +5,14 @@ import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
 open class LHOfficeOfReading {
-    var responsorio: String? = null
+    var responsorio: String = ""
     var biblica: List<LHOfficeBiblical?>? = null
     var patristica: List<LHOfficePatristic?>? = null
     var teDeum: TeDeum? = null
     private val responsorioForRead: String
         get() {
-            val r: String? = if (responsorio!!.contains("|")) {
-                responsorio!!.replace("\\|".toRegex(), "")
+            val r: String = if (responsorio.contains("|")) {
+                responsorio.replace("\\|".toRegex(), "")
             } else {
                 responsorio
             }
@@ -21,8 +21,8 @@ open class LHOfficeOfReading {
     private val responsorioSpan: SpannableStringBuilder
         get() {
             val ssb = SpannableStringBuilder()
-            if (responsorio!!.contains("|")) {
-                val textParts = responsorio!!.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }
+            if (responsorio.contains("|")) {
+                val textParts = responsorio.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }
                     .toTypedArray()
                 if (textParts.size == 2) {
                     ssb.append(Utils.toRed("V. "))

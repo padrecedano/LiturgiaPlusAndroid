@@ -7,7 +7,7 @@ package org.deiverbum.app.domain.model
  * @since 2023.1.3
  */
 class TodayRequest(
-    val theDate: Int?,
+    val theDate: Int,
     val typeID: Int,
     val isNightMode: Boolean,
     val isVoiceOn: Boolean,

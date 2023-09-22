@@ -1,7 +1,11 @@
 package org.deiverbum.app.data.entity
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
+import androidx.room.Index
+import androidx.room.PrimaryKey
 import org.deiverbum.app.util.Constants
 
 /**
@@ -234,172 +238,134 @@ import org.deiverbum.app.util.Constants
     )
     ]
 )
-class TodayEntity {
-    @JvmField
+data class TodayEntity(
     @PrimaryKey
     @ColumnInfo(name = "todayDate")
-    var hoy = 0
+    var todayDate: Int,
 
-    @JvmField
     @ColumnInfo(name = "timeID", index = true)
-    var tiempoId = 1
+    var timeID: Int,
 
-    @JvmField
     @ColumnInfo(name = "weekDay", defaultValue = "1", index = true)
-    var weekDay = 1
+    var weekDay: Int,
 
-    @JvmField
     @ColumnInfo(name = "liturgyFK", index = true)
-    var liturgyFK = 1
+    var liturgyFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "previousFK", index = true)
-    var previoId = 1
+    var previousFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "hasSaint", defaultValue = "0")
-    var hasSaint = 0
+    var hasSaint: Int,
 
-    @JvmField
     @ColumnInfo(name = "massReadingFK", index = true)
-    var mLecturasFK = 0
+    var massReadingFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "invitatoryFK", index = true)
-    var invitatorioFK = 0
+    var invitatoryFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "saintFK", index = true)
-    var santoFK = 1
+    var saintFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "oHymnFK", index = true)
-    var oHimnoFK = 0
+    var oHymnFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "oPsalmodyFK", index = true)
-    var oSalmodiaFK = 0
+    var oPsalmodyFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "oVerseFK", index = true)
-    var oVersoFK = 0
+    var oVerseFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "oBiblicalFK", index = true)
-    var oBiblicaFK = 0
+    var oBiblicalFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "oPatristicFK", index = true)
-    var oPatristicaFK = 0
+    var oPatristicFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "oTeDeum", index = true)
-    var oTeDeum = 0
+    var oTeDeum: Int,
 
-    @JvmField
     @ColumnInfo(name = "oPrayerFK", index = true)
-    var oOracionFK = 0
+    var oPrayerFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "lHymnFK", index = true)
-    var lHimnoFK = 0
+    var lHymnFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "lPsalmodyFK", index = true)
-    var lSalmodiaFK = 0
+    var lPsalmodyFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "lBiblicalFK", index = true)
-    var lBiblicaFK = 0
+    var lBiblicalFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "lBenedictusFK", index = true)
-    var lBenedictusFK = 0
+    var lBenedictusFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "lIntercessionsFK", index = true)
-    var lPrecesFK = 0
+    var lIntercessionsFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "lPrayerFK", index = true)
-    var lOracionFK = 0
+    var lPrayerFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "tHymnFK", index = true)
-    var tHimnoFK = 0
+    var tHymnFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "tPsalmodyFK", index = true)
-    var tSalmodiaFK = 0
+    var tPsalmodyFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "tBiblicalFK", index = true)
-    var tBiblicaFK = 0
+    var tBiblicalFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "tPrayerFK", index = true)
-    var tOracionFK = 0
+    var tPrayerFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "sHymnFK", index = true)
-    var sHimnoFK = 0
+    var sHymnFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "sPsalmodyFK", index = true)
-    var sSalmodiaFK = 0
+    var sPsalmodyFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "sBiblicalFK", index = true)
-    var sBiblicaFK = 0
+    var sBiblicalFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "sPrayerFK", index = true)
-    var sOracionFK = 0
+    var sPrayerFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "nHymnFK", index = true)
-    var nHimnoFK = 0
+    var nHymnFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "nPsalmodyFK", index = true)
-    var nSalmodiaFK = 0
+    var nPsalmodyFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "nBiblicalFK", index = true)
-    var nBiblicaFK = 0
+    var nBiblicalFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "nPrayerFK", index = true)
-    var nOracionFK = 0
+    var nPrayerFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "vHymnFK", index = true)
-    var vHimnoFK = 0
+    var vHymnFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "vPsalmodyFK", index = true)
-    var vSalmodiaFK = 0
+    var vPsalmodyFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "vBiblicalFK", index = true)
-    var vBiblicaFK = 0
+    var vBiblicalFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "vMagnificatFK", index = true)
-    var vMagnificatFK = 0
+    var vMagnificatFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "vIntercessionsFK", index = true)
-    var vPrecesFK = 0
+    var vIntercessionsFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "vPrayerFK", index = true)
-    var vOracionFK = 0
+    var vPrayerFK: Int,
 
-    @JvmField
     @ColumnInfo(name = "nightPrayerFK", defaultValue = "71", index = true)
-    var nightPrayerFK = 71
+    var nightPrayerFK: Int,
 
-    /*val teDeum: Boolean
-        get() = oTeDeum == 1*/
-}
+    //@Embedded var address: LiturgyEntity?
+
+)
+
+/*var teDeum: Boolean
+    get() = oTeDeum == 1*/

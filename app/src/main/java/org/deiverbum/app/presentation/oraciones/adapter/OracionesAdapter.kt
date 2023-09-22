@@ -59,6 +59,8 @@ class OracionesAdapter(private val mDataSet: List<OracionItem>) : RecyclerView.A
                 val bundle = Bundle()
                 bundle.putInt("id", mItem!!.id)
                 bundle.putString("filePath", mItem!!.filePath)
+                bundle.putString("title", mItem!!.title)
+                bundle.putString("description", mItem!!.description)
                 findNavController(v1!!).navigate(mItem!!.navId, bundle)
             }
             txtTitle = v.findViewById(R.id.tv_title)

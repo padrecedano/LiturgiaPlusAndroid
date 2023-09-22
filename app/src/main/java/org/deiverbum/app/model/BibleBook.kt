@@ -19,6 +19,6 @@ class BibleBook {
     var orderName: String? = null
 
     fun getForRead(): String {
-        return Utils.normalizeEnd(liturgyName)
+        return Utils.normalizeEnd(liturgyName!!)
     }
 }

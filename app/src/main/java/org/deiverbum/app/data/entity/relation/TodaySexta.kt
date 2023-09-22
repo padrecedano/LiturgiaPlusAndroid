@@ -2,8 +2,15 @@ package org.deiverbum.app.data.entity.relation
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import org.deiverbum.app.data.entity.*
-import org.deiverbum.app.model.*
+import org.deiverbum.app.data.entity.LHHymnJoinEntity
+import org.deiverbum.app.data.entity.LHPrayerEntity
+import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity
+import org.deiverbum.app.data.entity.LHReadingShortJoinEntity
+import org.deiverbum.app.data.entity.LiturgyEntity
+import org.deiverbum.app.data.entity.TodayEntity
+import org.deiverbum.app.model.BreviaryHour
+import org.deiverbum.app.model.Intermedia
+import org.deiverbum.app.model.Today
 
 /**
  * Obtiene el contenido de la hora **`Sexta`** desde la base de datos.
@@ -13,101 +20,48 @@ import org.deiverbum.app.model.*
  * @since 2023.1
  */
 data class TodaySexta (
-
     @Embedded
-    var today: TodayEntity? = null,
+    var today: TodayEntity,
+
+    @Relation(entity = LiturgyEntity::class, parentColumn = "liturgyFK", entityColumn = "liturgyID")
+    var liturgy: LiturgyWithTime,
 
     @Relation(entity = LHHymnJoinEntity::class, parentColumn = "sHymnFK", entityColumn = "groupID")
-    var himno: LHHymnWithAll? = null,
+    var hymn: LHHymnWithAll,
 
     @Relation(
         entity = LHReadingShortJoinEntity::class,
         parentColumn = "sBiblicalFK",
         entityColumn = "groupID"
     )
-    var biblica: LHReadingShortAll? = null,
+    var readingShort: LHReadingShortAll,
 
     @Relation(
         entity = LHPsalmodyJoinEntity::class,
         parentColumn = "sPsalmodyFK",
         entityColumn = "groupID"
     )
-    var salmodia: LHPsalmodyAll? = null,
-
-    @Relation(
-        entity = LHPsalmodyEntity::class,
-        parentColumn = "sPsalmodyFK",
-        entityColumn = "groupFK"
-    )
-    var salmos: List<PsalmodyWithPsalms>? = null,
+    var psalmody: LHPsalmodyAll,
 
     @Relation(entity = LHPrayerEntity::class, parentColumn = "sPrayerFK", entityColumn = "groupID")
-    var lhPrayerAll: LHPrayerAll? = null,
-
-    @Relation(entity = LiturgyEntity::class, parentColumn = "liturgyFK", entityColumn = "liturgyID")
-    var feria: LiturgyWithTime = LiturgyWithTime(),
-
-    @Relation(
-        entity = LiturgyEntity::class,
-        parentColumn = "previousFK",
-        entityColumn = "liturgyID"
-    )
-    var previo: LiturgyWithTime? = null)
-{
-    fun getToday(): Today {
-        val dm = Today()
-        dm.liturgyDay = feria.domainModel
-        dm.liturgyPrevious = if (today!!.previoId > 1) previo?.domainModel else null
-        dm.todayDate = today!!.hoy
-        return dm
-    }
-
-    val domainModel: Liturgy
+    var prayer: LHPrayerAll,
+) {
+    val domainModel: Today
         get() {
-            val dm = feria.domainModel
+            val dmToday = Today()
+            dmToday.saintFK = today.saintFK
+            dmToday.liturgyDay = liturgy.domainModel
+            dmToday.todayDate = today.todayDate
+            dmToday.hasSaint = today.hasSaint
+            dmToday.liturgyDay.typeID = 4
             val bh = BreviaryHour()
             val hi = Intermedia()
-            dm.typeID = 4
-            dm.today = getToday()
-            hi.today = getToday()
-            hi.setHimno(getHimno())
-            hi.setSalmodia(getSalmodia())
-            hi.lecturaBreve = getBiblica()
-            hi.setOracion(oracion)
+            hi.setHimno(hymn.domainModel)
+            hi.setSalmodia(psalmody.domainModel)
+            hi.lecturaBreve = readingShort.getDomainModel(today.timeID)
+            hi.setOracion(prayer.domainModel)
             bh.setIntermedia(hi)
-            dm.breviaryHour = bh
-            return dm
-        }
-
-    private fun getHimno(): LHHymn? {
-        return himno?.domainModel
-    }
-
-    private fun getBiblica(): BiblicalShort {
-        return biblica!!.getDomainModel(today!!.tiempoId)
-    }
-
-    private fun getSalmodia(): LHPsalmody? {
-        return salmodia?.domainModel
-    }
-
-    val oracion: Prayer?
-        get() = lhPrayerAll?.domainModel
-    val domainModelToday: Today
-        get() {
-            val dm = feria.domainModel
-            val bh = BreviaryHour()
-            val hi = Intermedia()
-            val dmToday = getToday()
-            dm.typeID = 4
-            hi.setTypeId(4)
-            hi.setHimno(getHimno())
-            hi.setSalmodia(getSalmodia())
-            hi.lecturaBreve = getBiblica()
-            hi.setOracion(oracion)
-            bh.setIntermedia(hi)
-            dm.breviaryHour = bh
-            dmToday.liturgyDay = dm
+            dmToday.liturgyDay.breviaryHour = bh
             return dmToday
         }
 }

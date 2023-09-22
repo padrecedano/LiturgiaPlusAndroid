@@ -2,127 +2,84 @@ package org.deiverbum.app.data.entity.relation
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import org.deiverbum.app.data.entity.*
-import org.deiverbum.app.model.*
+import org.deiverbum.app.data.entity.LHGospelCanticleEntity
+import org.deiverbum.app.data.entity.LHHymnJoinEntity
+import org.deiverbum.app.data.entity.LHIntercessionsJoinEntity
+import org.deiverbum.app.data.entity.LHPrayerEntity
+import org.deiverbum.app.data.entity.LHPsalmodyJoinEntity
+import org.deiverbum.app.data.entity.LHReadingShortJoinEntity
+import org.deiverbum.app.data.entity.LiturgyEntity
+import org.deiverbum.app.data.entity.TodayEntity
+import org.deiverbum.app.model.BreviaryHour
+import org.deiverbum.app.model.Today
+import org.deiverbum.app.model.Visperas
 
 /**
  * @author A. Cedano
  * @version 1.0
  * @since 2023.1
  */
-class TodayVisperas {
-    @JvmField
+data class TodayVisperas(
     @Embedded
-    var today: TodayEntity? = null
+    var today: TodayEntity,
 
-    @JvmField
     @Relation(entity = LiturgyEntity::class, parentColumn = "liturgyFK", entityColumn = "liturgyID")
-    var feria: LiturgyWithTime = LiturgyWithTime()
+    var liturgy: LiturgyWithTime,
 
-    @JvmField
-    @Relation(
-        entity = LiturgyEntity::class,
-        parentColumn = "previousFK",
-        entityColumn = "liturgyID"
-    )
-    var previo: LiturgyWithTime? = null
+    @Relation(entity = LHHymnJoinEntity::class, parentColumn = "lHymnFK", entityColumn = "groupID")
+    var hymn: LHHymnWithAll,
 
-    @JvmField
-    @Relation(entity = LHHymnJoinEntity::class, parentColumn = "vHymnFK", entityColumn = "groupID")
-    var himno: LHHymnWithAll? = null
-
-    @JvmField
-    @Relation(
-        entity = LHReadingShortJoinEntity::class,
-        parentColumn = "vBiblicalFK",
-        entityColumn = "groupID"
-    )
-    var biblica: LHReadingShortAll? = null
-
-    @JvmField
     @Relation(
         entity = LHPsalmodyJoinEntity::class,
         parentColumn = "vPsalmodyFK",
         entityColumn = "groupID"
     )
-    var salmodia: LHPsalmodyAll? = null
+    var psalmody: LHPsalmodyAll,
 
-    @JvmField
+    @Relation(
+        entity = LHReadingShortJoinEntity::class,
+        parentColumn = "vBiblicalFK",
+        entityColumn = "groupID"
+    )
+    var readingShort: LHReadingShortAll,
+
     @Relation(
         entity = LHIntercessionsJoinEntity::class,
         parentColumn = "vIntercessionsFK",
         entityColumn = "groupID"
     )
-    var lhIntercessionsDM: LHIntercessionsDM? = null
+    var intercessions: LHIntercessionsDM,
 
-    @JvmField
     @Relation(entity = LHPrayerEntity::class, parentColumn = "vPrayerFK", entityColumn = "groupID")
-    var lhPrayerAll: LHPrayerAll? = null
+    var prayer: LHPrayerAll,
 
-    @JvmField
     @Relation(
         entity = LHGospelCanticleEntity::class,
         parentColumn = "vMagnificatFK",
         entityColumn = "groupID"
     )
-    var magnificat: LHGospelCanticleWithAntiphon? = null
-    fun getHimno(): LHHymn? {
-        return himno?.domainModel
-    }
-
-    //TODO incluir algo como hasPriority en TodayEntity
-    private fun getBiblica(): BiblicalShort {
-        return biblica!!.getDomainModel(today!!.tiempoId)
-    }
-
-    private fun getMagnificat(): LHGospelCanticle {
-        return magnificat!!.getDomainModel(6)
-    }
-
-    val preces: LHIntercession?
-        get() = lhIntercessionsDM?.domainModel
-
-    fun getSalmodia(): LHPsalmody? {
-        return salmodia?.domainModel
-    }
-
-    val oracion: Prayer?
-        get() = lhPrayerAll?.domainModel
-
-    fun getToday(): Today {
-        val dm = Today()
-        dm.liturgyDay = feria.domainModel
-        dm.liturgyDay.typeID = 6
-        dm.liturgyPrevious = if (today!!.previoId > 1) previo?.domainModel else null
-        dm.todayDate = today!!.hoy
-        dm.hasSaint = today!!.hasSaint
-        var previousFK = today!!.previoId
-        previousFK = if (previousFK == 1) 0 else previousFK
-        dm.previousFK = previousFK
-        return dm
-    }
+    var gospelCanticle: LHGospelCanticleWithAntiphon
+) {
 
     val domainModelToday: Today
         get() {
-            val dm = feria.domainModel
-            val dmToday = getToday()
-            dm.typeID = 6
-            dm.today = getToday()
+            val dmToday = Today()
+            dmToday.saintFK = today.saintFK
+            dmToday.liturgyDay = liturgy.domainModel
+            dmToday.todayDate = today.todayDate
+            dmToday.hasSaint = today.hasSaint
+            dmToday.liturgyDay.typeID = 6
             val bh = BreviaryHour()
             val visperas = Visperas()
             visperas.setIsPrevious(dmToday.previousFK)
-            visperas.today = getToday()
-            visperas.setHimno(getHimno())
-            val psalmody=getSalmodia()
-            //psalmody?.sort()
-            visperas.setSalmodia(psalmody)
-            visperas.setLecturaBreve(getBiblica())
-            visperas.setGospelCanticle(getMagnificat())
-            visperas.setPreces(preces)
-            visperas.setOracion(oracion)
+            visperas.setHimno(hymn.domainModel)
+            visperas.setSalmodia(psalmody.domainModel)
+            visperas.setLecturaBreve(readingShort.getDomainModel(today.timeID))
+            visperas.setGospelCanticle(gospelCanticle.getDomainModel(6))
+            visperas.setPreces(intercessions.domainModel)
+            visperas.setOracion(prayer.domainModel)
             bh.setVisperas(visperas)
-            dm.breviaryHour = bh
-            dmToday.liturgyDay = dm
+            dmToday.liturgyDay.breviaryHour = bh
             return dmToday
         }
 }

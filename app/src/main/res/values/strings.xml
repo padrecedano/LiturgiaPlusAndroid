@@ -41,7 +41,6 @@
     <string name="title_fragment_terms">Términos y Condiciones</string>
     <string name="title_fragment_author">Autor</string>
 
-    <string name="lbl_misa_hoy">Misa de hoy</string>
     <string name="lbl_homilias_hoy">Homilías para hoy</string>
     <string name="lbl_comentarios_hoy">Comentarios Evangelio</string>
     <string name="lbl_santo_hoy">Santo del día</string>
@@ -56,7 +55,6 @@
     <string name="pref_title_invitatorio">Múltiples Invitatorios</string>
     <string name="pref_description_invitatorio">Activar para usar el Invitatorio alternando entre los salmos 94, 99, 66 y 23
     </string>
-    <string name="pref_description_theme">Activar para usar en tema monocolor en la pantalla principal</string>
     <string name="pref_title_bible">Textos de la Biblia de Jerusalén *</string>
     <string name="pref_description_bible">Activar para mostrar los textos bíblicos de la Biblia de Jerusalén</string>
     <string name="pref_title_himno">Himnos de Liturgia Horarum traducidos por F. Arocena *</string>
@@ -130,7 +128,6 @@
     <string name="title_fragment_bugreport">Reportar Error</string>
     <string name="pref_description_brevis">Al desactivar esta opción se mostrará el Santo Rosario con todos los Ave María.</string>
     <string name="pref_title_brevis">Mostrar Rosario abreviado</string>
-    <string name="lbl_email">Email</string>
     <string name="bug_info">1. Haz una descripción breve y clara del error:</string>
     <string name="bug_check">2. Marca la casilla del lugar o los lugares donde ocurre el error:</string>
     <string name="bug_privacy">3. Pulsa en el botón para enviar el mensaje. Se abrirá tu cliente de correo electrónico, con el mensaje listo para enviar. Deberás pulsar en el botón \"Enviar\" de dicho programa para que el error sea reportado. Como se indica en la Política de Privacidad, tus datos serán usados únicamente con la finalidad de mejorar la aplicación, no serán compartidos con terceros y el mensaje será borrado en cuanto el error reportado sea registrado o resuelto.</string>
@@ -139,12 +136,8 @@
     <string name="pref_description_privacy">Cualquier cambio aquí no tomará efecto hasta que no reinicies la aplicación.</string>
     <string name="pref_accept_terms">Acepto la Política de Privacidad y los Términos y Condiciones</string>
     <string name="pref_description_accept_terms">Activando esta opción, declaras haber leído y aceptado tanto la Política de Privacidad como los Términos y Condiciones. Sin esta aceptación no podrás hacer uso de la Aplicación.</string>
-    <string name="label_accept">He leído y acepto la Política de Privacidad y los Términos y Condiciones de Uso.</string>
-    <string name="welcome_message">Hello, <font color="{0}">Title</font>! You have new messages.</string>
     <string name="privacy_agree">He leído y ACEPTO esta Política de Privacidad.</string>
     <string name="privacy_disagree">NO ACEPTO esta Política de Privacidad y por tanto no usaré esta aplicación.</string>
-    <string name="terms_agree">He leído y ACEPTO estos Términos y Condiciones de Uso.</string>
-    <string name="terms_disagree">NO ACEPTO estos Términos y Condiciones de Uso y por tanto no usaré esta aplicación.</string>
     <string name="accept_intro">Bienvenido a</string>
     <string name="accept_info">Si estás viendo esta
         pantalla es porque estás instalando por primera vez una nueva versión
@@ -175,7 +168,6 @@
     <string name="title_fragment_acceptance">Aceptación inicial</string>
     <string name="title_acceptance">Aceptación</string>
 
-    <string name="title_fragment_oraciones_main">Oraciones Main</string>
     <string name="help">Ayuda</string>
     <string name="syncronization">Sincronización</string>
     <string name="configuration">Configuración</string>
@@ -196,7 +188,7 @@
     <string name="lbl_nona">Nona</string>
     <string name="lbl_visperas">Vísperas</string>
     <string name="lbl_completas">Completas</string>
-    <string name="title_activity_main">MainActivity</string>
     <string name="title_fragment_rosario">Santo Rosario</string>
+    <string name="label_accept">He leído y acepto la Política de Privacidad y los Términos y Condiciones de Uso.</string>
 
 </resources>

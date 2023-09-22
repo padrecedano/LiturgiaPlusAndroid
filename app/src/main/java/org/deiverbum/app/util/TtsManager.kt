@@ -1,117 +1,113 @@
-package org.deiverbum.app.util;
+package org.deiverbum.app.util
 
-
-import android.content.Context;
-import android.media.AudioManager;
-import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
-import android.speech.tts.UtteranceProgressListener;
-
-import androidx.annotation.Nullable;
-
-import java.util.Locale;
+import android.content.Context
+import android.media.AudioManager
+import android.os.Bundle
+import android.speech.tts.TextToSpeech
+import android.speech.tts.TextToSpeech.OnInitListener
+import android.speech.tts.UtteranceProgressListener
+import java.util.Locale
 
 /**
+ * Esta clase se encarga se manejar la lectura de texto a voz.
+ *
  * @author A. Cedano
  * @version 1.0
- * @since 2021.01
+ * @since 2021.1
  */
-public class TtsManager implements TextToSpeech.OnInitListener {
+class TtsManager(
+    context: Context?,
+    text: String,
+    splitRegex: String,
+    private val mProgressListener: (Int, Int) -> Unit
+) : OnInitListener {
+    private val mTexts: Array<String>
+    private val mTts: TextToSpeech
+    private var mTextProgress = 0
+    private var mIsPlaying = false
 
-    private final String[] mTexts;
-    private final TextToSpeech mTts;
-    private final TextSpeechProgressListener mProgressListener;
-
-    private int mTextProgress = 0;
-    private boolean mIsPlaying;
-
-    public TtsManager(Context context, String text, String splitRegex, @Nullable TextSpeechProgressListener listener) {
-        mTexts = text.split(splitRegex);
-        mProgressListener = listener;
-        mTts = new TextToSpeech(context, this);
-
-        mTts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
-            @Override
-            public void onDone(String utteranceId) {
-                if (!mIsPlaying || mTextProgress == mTexts.length) return;
-                ++mTextProgress;
-                updateProgress(mTextProgress, mTexts.length);
-                speakText();
+    init {
+        mTexts = text.split(splitRegex.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        mTts = TextToSpeech(context, this)
+        mTts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+            override fun onDone(utteranceId: String) {
+                if (!mIsPlaying || mTextProgress == mTexts.size) return
+                ++mTextProgress
+                updateProgress(mTextProgress, mTexts.size)
+                speakText()
             }
 
-            @Override
-            public void onStart(String utteranceId) {
-            }
+            override fun onStart(utteranceId: String) {}
 
-            @Override
-            public void onError(String utteranceId) {
+            @Deprecated("Deprecated in Java")
+            override fun onError(utteranceId: String) {
+                //onError(utteranceId);
             }
-        });
+        })
     }
 
-    private void speakText() {
-        if (mTextProgress >= mTexts.length) return;
+    private fun speakText() {
+        if (mTextProgress >= mTexts.size) return
         //API 21+
-        Bundle bundle = new Bundle();
-        bundle.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM, AudioManager.STREAM_MUSIC);
-        mTts.speak(mTexts[mTextProgress], TextToSpeech.QUEUE_FLUSH, bundle, "TTS_ID");
+        val bundle = Bundle()
+        bundle.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM, AudioManager.STREAM_MUSIC)
+        mTts.speak(mTexts[mTextProgress], TextToSpeech.QUEUE_FLUSH, bundle, "TTS_ID")
     }
 
-    public void start() {
-        mIsPlaying = true;
-        speakText();
+    fun start() {
+        mIsPlaying = true
+        speakText()
     }
 
-    public void pause() {
-        mIsPlaying = false;
-        mTts.stop();
-        updateProgress(mTextProgress, mTexts.length);
+    fun pause() {
+        mIsPlaying = false
+        mTts.stop()
+        updateProgress(mTextProgress, mTexts.size)
     }
 
-    public void resume() {
-        mIsPlaying = false;
-        mTts.stop();
-        start();
-        updateProgress(mTextProgress, mTexts.length);
+    fun resume() {
+        mIsPlaying = false
+        mTts.stop()
+        start()
+        updateProgress(mTextProgress, mTexts.size)
     }
 
-    public void stop() {
-        mIsPlaying = false;
-        mTts.stop();
-        mTextProgress = 0;
-        updateProgress(mTextProgress, mTexts.length);
+    fun stop() {
+        mIsPlaying = false
+        mTts.stop()
+        mTextProgress = 0
+        updateProgress(mTextProgress, mTexts.size)
     }
 
-    private void updateProgress(int current, int max) {
-        if (mProgressListener == null) return;
-        mProgressListener.onProgressChanged(current, max);
+    private fun updateProgress(current: Int, max: Int) {
+        if (mProgressListener == null) return
+        mProgressListener.invoke(current, max)
     }
 
-    public void changeProgress(int progress) {
-        mTextProgress = progress;
-        if (!mIsPlaying) return;
-        pause();
-        start();
+    fun changeProgress(progress: Int) {
+        mTextProgress = progress
+        if (!mIsPlaying) return
+        pause()
+        start()
     }
 
-    @Override
-    public void onInit(int status) {
+    override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            final Locale locSpanish = new Locale("spa", "ESP");
-            int result = mTts.setLanguage(locSpanish);
+            val locSpanish = Locale("spa", "ESP")
+            val result = mTts.setLanguage(locSpanish)
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                return;
+                return
             }
-            changeProgress(1);
+            changeProgress(1)
         }
     }
 
-    public void close() {
-        mTts.stop();
-        mTts.shutdown();
+    fun close() {
+        mTts.stop()
+        mTts.shutdown()
     }
 
-    public interface TextSpeechProgressListener {
-        void onProgressChanged(int current, int max);
+    interface TextSpeechProgressListener {
+        fun onProgressChanged(current: Int, max: Int)
     }
 }
