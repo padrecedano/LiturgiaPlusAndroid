@@ -22,18 +22,9 @@
 # -printusage usage.txt
 # -printseeds seeds.txt
 
-#-keep public interface org.deiverbum.app.data.db.dao.TodayDao
-# -keep class org.deiverbum.app.core.** { *; }
--keep class org.deiverbum.app.data.** { *; }
--keep class org.deiverbum.app.di.** { *; }
+-keep class org.deiverbum.app.core.** { *; }
 -keep class org.deiverbum.app.domain.** { *; }
--keep class org.deiverbum.app.model.** { *; }
--keep class org.deiverbum.app.presentation.** { *; }
--keep class org.deiverbum.app.repository.** { *; }
--keep class org.deiverbum.app.ui.** { *; }
-
 -keep class org.deiverbum.app.util.** { *; }
--keep class org.deiverbum.app.viewmodel.** { *; }
 -keep class org.deiverbum.app.workers.** { *; }
 -keep class org.deiverbum.app.BaseApplication
 
@@ -48,3 +39,30 @@
 # is used.
 -keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
 
+# Moshi
+-dontwarn javax.annotation.**
+
+-keepclasseswithmembers class * {
+    @com.squareup.moshi.* <methods>;
+}
+
+-keep @com.squareup.moshi.JsonQualifier interface *
+
+# Enum field names are used by the integrated EnumJsonAdapter.
+# values() is synthesized by the Kotlin compiler and is used by EnumJsonAdapter indirectly
+# Annotate enums with @JsonClass(generateAdapter = false) to use them with Moshi.
+-keepclassmembers @com.squareup.moshi.JsonClass class * extends java.lang.Enum {
+    <fields>;
+    **[] values();
+}
+
+# Keep helper method to avoid R8 optimisation that would keep all Kotlin Metadata when unwanted
+-keepclassmembers class com.squareup.moshi.internal.Util {
+    private static java.lang.String getKotlinMetadataClassName();
+}
+
+# Keep ToJson/FromJson-annotated methods
+-keepclassmembers class * {
+  @com.squareup.moshi.FromJson <methods>;
+  @com.squareup.moshi.ToJson <methods>;
+}

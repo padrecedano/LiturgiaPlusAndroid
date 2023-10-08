@@ -27,8 +27,8 @@
             tools:node="remove" />
 
         <activity
-            android:name=".presentation.main.MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:name=".core.presentation.main.MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

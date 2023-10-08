@@ -26,53 +26,53 @@ class Numerals
      */
 
     fun toWords(number: Int, ordinal: Boolean = false): String {
-        var number = number
-        if (number == 0) return if (ordinal) "zeroth" else "zero"
+        var newNumber = number
+        if (newNumber == 0) return if (ordinal) "zeroth" else "zero"
         val sb = StringBuilder()
         for (i in HIGHER_BASES.indices) {
             val base = HIGHER_BASES[i]
-            if (number < base) continue
-            sb.append(wordsBelow1000(number / base, false))
+            if (newNumber < base) continue
+            sb.append(wordsBelow1000(newNumber / base, false))
             sb.append(' ').append(HIGHER_NAMES[i])
-            number %= base
-            if (number == 0) {
+            newNumber %= base
+            if (newNumber == 0) {
                 if (ordinal) sb.append("th")
                 return sb.toString()
-            } else if (number >= 100) {
+            } else if (newNumber >= 100) {
                 sb.append(if (useCommas) ", " else " ")
             } else {
                 sb.append(if (useAnd) " and " else " ")
                 break
             }
         }
-        sb.append(wordsBelow1000(number, ordinal))
+        sb.append(wordsBelow1000(newNumber, ordinal))
         return sb.toString()
     }
 
     private fun wordsBelow1000(number: Int, useOrdinals: Boolean): String {
-        var number = number
-        if (number == 0) return ""
+        var newNumber = number
+        if (newNumber == 0) return ""
         val sb = StringBuilder()
-        if (number >= 100) {
-            val h = number / 100 % 10
+        if (newNumber >= 100) {
+            val h = newNumber / 100 % 10
             sb.append(NUMERALS_ES[h])
             sb.append(" hundred")
-            number %= 100
-            if (number == 0) {
+            newNumber %= 100
+            if (newNumber == 0) {
                 if (useOrdinals) sb.append("th")
                 return sb.toString()
             }
             if (useAnd) sb.append(" and ") else sb.append(" ")
         }
         val words = if (useOrdinals) ORDINALS_ES else NUMERALS_ES
-        if (number < 20) return sb.append(words[number]).toString()
-        if (number % 10 == 0) {
-            val word = words[18 + number / 10]
+        if (newNumber < 20) return sb.append(words[newNumber]).toString()
+        if (newNumber % 10 == 0) {
+            val word = words[18 + newNumber / 10]
             return sb.append(word).toString()
         }
-        sb.append(NUMERALS_ES[18 + number / 10])
+        sb.append(NUMERALS_ES[18 + newNumber / 10])
         sb.append(if (useDashes) '-' else ' ')
-        sb.append(words[number % 10])
+        sb.append(words[newNumber % 10])
         return sb.toString()
     }
 

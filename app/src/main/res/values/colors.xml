@@ -24,6 +24,7 @@
     <color name="colorBackgroundBugReport">@color/amber_200</color>
     <color name="colorPrimaryDark">#1565c0</color>
     <color name="colorText">@color/black</color>
+    <color name="colorOnSurface">@color/amber_50</color>
 
 
     <color name="black_coral">#54626F</color>
@@ -50,6 +51,7 @@
 
     <color name="colorBackgroundMain">@color/colorPrimaryVariant</color>
     <color name="colorInAppUpdate">@color/red_500</color>
+    <color name="colorRubrica">@color/red_500</color>
 
 
     <color name="transparent">#f8faf9f9</color>
@@ -128,6 +130,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blue_100">#BBDEFB</color>
+
     <color name="blue_700">#1976D2</color>
     <color name="blue_900">#0D47A1</color>
 

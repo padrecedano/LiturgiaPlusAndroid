@@ -23,4 +23,5 @@ object ColorUtils {
     @JvmStatic
     val redCode: String
         get() = if (isNightMode) "#FFDAB9" else "#A52A2A"
+
 }

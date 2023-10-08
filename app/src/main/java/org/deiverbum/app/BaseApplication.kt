@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
+import io.grpc.android.BuildConfig
 import timber.log.Timber
 import javax.inject.Inject
 

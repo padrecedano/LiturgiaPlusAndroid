@@ -3,15 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.file.FileFragment">
+    tools:context=".core.presentation.file.FileFragment">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/tv_zoomable"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-         />
+        android:background="@color/textBackground">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <org.deiverbum.app.util.ZoomTextView
+                android:id="@+id/tv_Zoomable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:contentDescription="@string/app_name" />
+        </LinearLayout>
+    </ScrollView>
 
     <RelativeLayout
         android:layout_width="match_parent"

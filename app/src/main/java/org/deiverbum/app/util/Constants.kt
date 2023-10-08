@@ -38,9 +38,6 @@ object Constants {
     const val TAB_2 = "\t\t"
 
     //Mensajes de error
-    const val ERR_RESPONSORIO =
-        CSS_RED_A + "¡ERROR! " + CSS_RED_Z + BR + "Hay un error en el responsorio de este día, " +
-                "por favor comunícalo al desarrollador a la dirección siguiente: " + "padre.cedano@gmail.com" + BRS
     const val ERR_REPORT = "\n\nA fin de corregir cuanto antes este error, " +
             "por favor comunícalo al desarrollador a la dirección siguiente: " + "padre.cedano@gmail.com"
     val ERR_SUBJECT = String.format(
@@ -68,7 +65,6 @@ object Constants {
     //Otros mensajes
     const val PACIENCIA = "\n\nLa paciencia todo lo alcanza. Por favor espere ..."
     const val NBSP_SALMOS = "$BR&nbsp;&nbsp;"
-    const val RESP_A = "$CSS_RED_A * $CSS_RED_Z"
     const val DATA_NOTFOUND = "No se encontraron datos"
     const val FIREBASE_SANTOS = "/liturgia/santos/"
     const val DOC_NOTFOUND = "Documento no encontrado"
@@ -137,6 +133,7 @@ object Constants {
     /*
         Room table names
      */
+    const val UNIVERSALIS_TABLE = "universalis"
     const val TODAY_TABLE = "today"
     const val DB_TABLE = "db_table"
     const val BIBLE_BOOK = "bible_book"
@@ -144,6 +141,7 @@ object Constants {
     const val BIBLE_HOMILY_THEME = "bible_homily_theme"
     const val BIBLE_READING = "bible_reading"
     const val HOMILY = "homily"
+    const val LH_ANTIPHON_JOIN = "lh_antiphon_join"
     const val LH_ANTIPHON = "lh_antiphon"
     const val LITURGY = "liturgy"
     const val LITURGY_COLOR = "liturgy_color"
@@ -158,6 +156,7 @@ object Constants {
     const val LH_HYMN_JOIN = "lh_hymn_join"
     const val LH_INTERCESSIONS = "lh_intercessions"
     const val LH_INTERCESSIONS_JOIN = "lh_intercessions_join"
+    const val LH_PSALM_JOIN = "lh_psalm_join"
     const val LH_PSALM = "lh_psalm"
     const val LH_PSALMODY = "lh_psalmody"
     const val LH_PSALMODY_JOIN = "lh_psalmody_join"

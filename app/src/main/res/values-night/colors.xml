@@ -6,6 +6,8 @@
     <color name="colorPrimaryVariant">@color/dark_charcoal</color>
     <color name="colorContainer">@color/dark_charcoal</color>
     <color name="colorOnContainer">@color/amber_200</color>
+    <color name="colorRubrica">@color/amber_200</color>
+
     <!--
     <color name="colorOutline">@color/amber_200</color>
     <color name="colorInput">#FFD600</color>

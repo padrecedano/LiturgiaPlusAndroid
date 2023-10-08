@@ -11,8 +11,12 @@
 
         <item name="actionModeStyle">@style/Widget.App.ActionMode</item>
         <item name="actionModeCloseDrawable">@drawable/ic_baseline_close_24</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="navigationViewStyle">@style/Widget.App.NavigationView</item>
 
-        <!--    <item name="navigationViewStyle">@style/Widget.App.NavigationView</item>
+        <!--
+                <item name="navigationViewStyle">@style/Widget.App.NavigationView</item>
+
     -->
         <item name="android:textViewStyle">@style/Widget.App.TextViewNew</item>
         <!--   <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
@@ -74,14 +78,31 @@
     </style>
 
     <style name="Widget.App.ActionMode" parent="Widget.AppCompat.ActionMode">
-        <item name="titleTextStyle">?attr/textAppearanceHeadline6</item>
-        <item name="subtitleTextStyle">?attr/textAppearanceSubtitle1</item>
-        <item name="background">@color/material_grey_900</item>
-        <item name="actionModeCloseDrawable">@drawable/ic_baseline_close_24</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="background">@color/colorPrimary</item>
         <!--toolbar, primaryColor en tema claro, surfaceColor en tema oscuro-->
-
     </style>
+
+
+    <style name="ThemeOverlay.App.NavigationView" parent="">
+        <!--       <item name="colorOnSurface">@color/amber_900</item>
+               <item name="colorOnSurfaceVariant">@color/amber_900</item>
+               <item name="colorOnSecondaryContainer">@color/amber_900</item>
+               <item name="colorTertiaryContainer">@color/amber_900</item>
+               <item name="colorOnTertiaryContainer">@color/red_500</item>
+               <item name="colorOnSurface">@color/amber_900</item>
+               <item name="colorOnSurfaceVariant">@color/amber_200</item>
+               <item name="colorOutline">@color/green_900</item> -->
+        <item name="colorOnSurface">@color/amber_50</item>
+        <item name="colorOnSurfaceVariant">@color/amber_50</item>
+        <item name="colorSecondaryContainer">@color/blue_100</item>
+        <item name="colorSurface">@color/transparent</item>
+    </style>
+
+    <style name="Widget.App.NavigationView" parent="Widget.Material3.NavigationView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.NavigationView</item>
+        <item name="itemIconTint">@color/black_coral</item>
+        <item name="itemTextColor">@color/black</item>
+    </style>
+
 
 </resources>

@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.LiturgiaPlusNew" parent="Theme.Material3.DayNight">
         <item name="windowActionBar">false</item>
@@ -7,7 +7,9 @@
         <item name="android:textViewStyle">@style/Widget.App.TextViewNew</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
         <!-- FAB -->
-        <item name="extendedFloatingActionButtonStyle">@style/Widget.App.ExtendedFloatingActionButton</item>
+        <item name="extendedFloatingActionButtonStyle">
+            @style/Widget.App.ExtendedFloatingActionButton
+        </item>
         <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
 <!-- Switch -->
         <item name="materialSwitchStyle">@style/Widget.App.Switch</item>
@@ -25,6 +27,9 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/colorPrimaryVariant</item>
         <item name="android:navigationBarColor">@color/colorPrimaryVariant</item>
+
+        <item name="actionModeCloseDrawable">@drawable/ic_baseline_close_24</item>
+        <item name="windowActionModeOverlay">true</item>
 
         <!-- Customize your theme here. -->
     </style>

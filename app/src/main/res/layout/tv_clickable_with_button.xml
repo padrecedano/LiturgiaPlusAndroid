@@ -12,7 +12,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/textBackground">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_Clickable"

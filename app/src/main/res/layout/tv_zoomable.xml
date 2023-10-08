@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_preferences"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.today.TodayFragment">
+    android:background="@color/textBackground"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/textBackground"
+        android:paddingBottom="10dip">
+
         <org.deiverbum.app.util.ZoomTextView
             android:id="@+id/tv_Zoomable"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/text_margin"
             android:contentDescription="@string/app_name"
-            />
-</androidx.core.widget.NestedScrollView>
+            android:layout_margin="@dimen/text_margin"
+            android:text="" />
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,19 +5,22 @@ import retrofit2.HttpException
 
 object ExceptionParser {
 
-    fun getMessage(exception: Exception): Int {
-        return when (exception) {
-            is HttpException -> getHttpErrorMessage(exception)
-            else -> generalError()
-        }
+    fun getMessage(exception: Exception): String {
+        return exception.message.toString()
+        /* if (exception.) {
+            /*is HttpException -> getHttpErrorMessage(exception)*/
+            return "exception.message"
+        }else{
+            return generalError()
+        }*/
     }
 
-    private fun getHttpErrorMessage(exception: HttpException): Int {
+    private fun getHttpErrorMessage(exception: HttpException): String {
         return when (exception.code()) {
-            404 -> R.string.error_description
-            else -> generalError()
+            404 -> R.string.error_description.toString()
+            else -> "generalError()"
         }
     }
 
-    private fun generalError() = R.string.error_reporting
+    private fun generalError(): String = R.string.error_reporting.toString()
 }

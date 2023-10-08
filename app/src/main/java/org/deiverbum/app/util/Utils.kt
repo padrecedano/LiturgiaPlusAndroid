@@ -462,10 +462,8 @@ object Utils {
         return sFormateado
     }
 
-    /*
-        Solución a fromHTML deprecated...
-        ver: http://stackoverflow.com/questions/37904739/html-fromhtml-deprecated-in-android-n
-     */
+
+    @Suppress("DEPRECATION")
     fun fromHtml(s: String): Spanned {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(getFormato(s), Html.FROM_HTML_MODE_LEGACY)
@@ -475,11 +473,7 @@ object Utils {
     }
 
     fun fromHtmlForRead(s: String): Spanned {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Html.fromHtml(getFormatoForRead(s), Html.FROM_HTML_MODE_LEGACY)
-        } else {
-            Html.fromHtml(getFormatoForRead(s))
-        }
+        return fromHtml(getFormatoForRead(s))
     }
 
     fun fromHtmlSmall(s: String): SpannableStringBuilder {
@@ -706,4 +700,73 @@ object Utils {
         ssb.append(spannableString)
         return ssb
     }
+
+    fun toRedX(s: String): SpannableStringBuilder {
+        //val h2 = RelativeSizeSpan(H1)
+        val ssb = SpannableStringBuilder("")
+        val spannableString = SpannableString(s)
+        spannableString.setSpan(
+            red,
+            0,
+            s.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        ssb.append(spannableString)
+        return ssb
+    }
+
+    /**
+     * Convierte números arábigos a romanos
+     *
+     * @since 2023.1.3
+     */
+    fun toRoman(arabicInput: Int?): String {
+        var romanOutput = ""
+        val arabicToRoman = mutableMapOf(
+            Pair(1, "I"),
+            Pair(4, "IV"),
+            Pair(5, "V"),
+            Pair(9, "IX"),
+            Pair(10, "X"),
+            Pair(40, "XL"),
+            Pair(50, "L"),
+            Pair(90, "XC"),
+            Pair(100, "C")
+        )
+
+        val arrayRoman = arrayOf(100, 90, 50, 40, 10, 9, 5, 4, 1)
+        var startCount = 0
+
+        if (arabicInput!! > 100) {
+            romanOutput = ""
+        } else {
+            if (arabicInput > 90) {
+                startCount = 1
+            } else if (arabicInput > 50) {
+                startCount = 2
+            } else if (arabicInput > 40) {
+                startCount = 3
+            } else if (arabicInput > 10) {
+                startCount = 4
+            } else if (arabicInput > 5) {
+                startCount = 5
+            } else if (arabicInput > 4) {
+                startCount = 6
+            } else if (arabicInput > 1) {
+                startCount = 7
+            }
+
+            var num = arabicInput
+            for (i in startCount..<arrayRoman.size) {
+                var count = num / arrayRoman[i]
+                num %= arrayRoman[i]
+                while (count > 0) {
+                    romanOutput += arabicToRoman[arrayRoman[i]]
+                    count--
+                }
+            }
+
+        }
+        return romanOutput
+    }
+
 }

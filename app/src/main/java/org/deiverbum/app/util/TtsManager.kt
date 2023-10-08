@@ -80,7 +80,6 @@ class TtsManager(
     }
 
     private fun updateProgress(current: Int, max: Int) {
-        if (mProgressListener == null) return
         mProgressListener.invoke(current, max)
     }
 

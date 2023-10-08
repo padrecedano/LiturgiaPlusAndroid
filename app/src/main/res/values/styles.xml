@@ -102,6 +102,7 @@
     <style name="TextAppearance.AppTheme.BreviarioRV" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="fontFamily">@font/roboto_bold</item>
         <item name="android:textSize">@dimen/default_font_recycler</item>
+        <item name="android:textColor">@color/colorMainItem</item>
 
     </style>
 

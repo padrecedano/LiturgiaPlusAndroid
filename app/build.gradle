@@ -1,8 +1,9 @@
 plugins {
     id("org.jetbrains.dokka") version "1.8.20"
-    //id 'com.google.devtools.ksp'
+    id 'com.google.devtools.ksp'
     id 'com.google.dagger.hilt.android'
-    id 'kotlin-kapt'
+    // id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.plugin.serialization'
 
 }
 
@@ -15,7 +16,7 @@ apply plugin: "androidx.navigation.safeargs"
 
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+//apply plugin: 'kotlin-kapt'
 
 android {
     //compileSdkVersion 34
@@ -28,11 +29,11 @@ android {
         versionName project.APP_VERSION_AND_NAME
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-        /*ksp {
+        ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
-        }*/
+        }
         hilt {
-            //enableAggregatingTask = true
+            enableAggregatingTask = true
         }
 
         javaCompileOptions {
@@ -69,6 +70,12 @@ android {
         debug {
             minifyEnabled false
 
+            javaCompileOptions {
+                annotationProcessorOptions {
+                    arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+                }
+            }
+
             /*
             shrinkResources false
             proguardFiles(
@@ -79,14 +86,14 @@ android {
     }
     //buildToolsVersion '34'
     compileOptions {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = '17'
+        targetCompatibility = '17'
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     buildFeatures {
         viewBinding true
-        dataBinding true
+        //dataBinding true
         //buildConfig true
         //compose true
 
@@ -97,7 +104,7 @@ android {
     }
     namespace 'org.deiverbum.app'
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     /*
     composeOptions {
@@ -140,8 +147,9 @@ dependencies {
 */
 
     implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0'
 
     //implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.20'
 
@@ -150,16 +158,17 @@ dependencies {
     implementation "androidx.work:work-gcm:2.8.1"
     implementation("androidx.startup:startup-runtime:1.1.1")
 
-    //implementation "androidx.room:room-runtime:2.5.1"
+    implementation "androidx.room:room-runtime:2.5.2"
     implementation 'androidx.room:room-ktx:2.5.2'
-    kapt "androidx.room:room-compiler:2.5.2"
-    //ksp 'androidx.room:room-compiler:2.5.2'
+    implementation 'androidx.hilt:hilt-common:1.0.0'
+    //kapt "androidx.room:room-compiler:2.5.2"
+    ksp 'androidx.room:room-compiler:2.5.2'
 
-    debugImplementation "androidx.compose.ui:ui-test-manifest:1.5.1"
-    //ksp "androidx.room:room-testing:2.5.2"
-    kapt "androidx.room:room-testing:2.5.2"
+    debugImplementation 'androidx.compose.ui:ui-test-manifest:1.5.2'
+    ksp "androidx.room:room-testing:2.5.2"
+    //kapt "androidx.room:room-testing:2.5.2"
 
-    testImplementation "androidx.room:room-testing:2.5.2"
+    //testImplementation "androidx.room:room-testing:2.5.2"
 
     //implementation "androidx.room:room-rxjava2:2.5.2"
 
@@ -215,7 +224,8 @@ dependencies {
  */
     //implementation 'com.google.android.play:core:1.10.3'
     implementation 'com.google.android.play:app-update-ktx:2.1.0'
-    implementation 'com.google.code.gson:gson:2.10.1'
+
+    //implementation 'com.google.code.gson:gson:2.10.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test:runner:1.5.2'
@@ -224,11 +234,14 @@ dependencies {
 
     //Hilt
 
-    kapt 'androidx.hilt:hilt-compiler:1.0.0'
-    kapt 'com.google.dagger:hilt-android-compiler:2.48'
+    //kapt 'androidx.hilt:hilt-compiler:1.0.0'
+    //kapt 'com.google.dagger:hilt-android-compiler:2.48.1'
+    ksp 'com.google.dagger:hilt-compiler:2.48.1'
+    ksp 'androidx.hilt:hilt-compiler:1.0.0'
 
-    implementation 'com.google.dagger:hilt-android:2.48'
-    //ksp 'com.google.dagger:hilt-compiler:2.48'
+    //annotationProcessor 'androidx.hilt:hilt-compiler:1.1.0'
+
+    implementation 'com.google.dagger:hilt-android:2.48.1'
 
     //implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
     implementation 'com.android.support:support-annotations:28.0.0'
@@ -236,7 +249,6 @@ dependencies {
     //ksp "androidx.hilt:hilt-compiler:1.1.0-alpha01"
     implementation 'androidx.hilt:hilt-work:1.1.0-alpha01'
 
-    //annotationProcessor 'androidx.hilt:hilt-compiler:1.1.0-alpha01'
 
     // For instrumentation tests
     //androidTestImplementation 'com.google.dagger:hilt-android-testing:2.48'
@@ -255,11 +267,14 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.10'
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
 
-    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    //implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+    implementation 'com.squareup.moshi:moshi-kotlin:1.15.0'
+
     implementation "com.squareup.retrofit2:adapter-rxjava3:2.9.0"
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.10'
 
-    implementation 'io.reactivex.rxjava3:rxjava:3.1.6'
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.8'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
 
     //Material

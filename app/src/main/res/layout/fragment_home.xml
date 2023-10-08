@@ -5,7 +5,7 @@
     android:id="@+id/homeParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.home.HomeFragment">
+    tools:context=".core.presentation.home.HomeFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_version_code_view"
-        android:textColor="@color/colorMainIcon"
+        android:textColor="@color/colorOnSurface"
         app:layout_constraintEnd_toEndOf="@+id/recyclerView"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
         android:paddingTop="100sp"

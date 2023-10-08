@@ -2,7 +2,7 @@ package org.deiverbum.app.util
 
 import android.content.Context
 import android.text.SpannableStringBuilder
-import org.deiverbum.app.data.model.FileResponse
+import org.deiverbum.app.core.model.FileResponse
 import javax.inject.Inject
 
 class AssetProvider @Inject constructor(
@@ -13,12 +13,12 @@ class AssetProvider @Inject constructor(
         val fileResponses = mutableListOf<FileResponse>()
         return try {
             filesPath.forEach {
-                context.assets.open(it.toString()).use { inputStream ->
+                context.assets.open(it).use { inputStream ->
                     inputStream.reader().use { reader ->
                         fileResponses.add(
                             FileResponse(
                                 SpannableStringBuilder(reader.readText()),
-                                it.toString()
+                                it
                             )
                         )
                     }

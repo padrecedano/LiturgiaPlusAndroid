@@ -15,6 +15,7 @@ import java.io.IOException
  * @version 2.0
  * @since 2022.1
  */
+@Suppress("DEPRECATION")
 class ConnectivityIntecepter(val context: Context) : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -47,12 +48,18 @@ class ConnectivityIntecepter(val context: Context) : Interceptor {
                  val activeNetwork = cm.activeNetworkInfo
                  if (activeNetwork != null) {
                      // connected to the internet
-                     if (activeNetwork.type == ConnectivityManager.TYPE_WIFI) {
-                         result = 2
-                     } else if (activeNetwork.type == ConnectivityManager.TYPE_MOBILE) {
-                         result = 1
-                     } else if (activeNetwork.type == ConnectivityManager.TYPE_VPN) {
-                         result = 3
+                     when (activeNetwork.type) {
+                         ConnectivityManager.TYPE_WIFI -> {
+                             result = 2
+                         }
+
+                         ConnectivityManager.TYPE_MOBILE -> {
+                             result = 1
+                         }
+
+                         ConnectivityManager.TYPE_VPN -> {
+                             result = 3
+                         }
                      }
                  }
              }
