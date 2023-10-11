@@ -17,27 +17,38 @@ import org.deiverbum.app.util.Utils
 class RitusConclusionis {
     companion object {
 
-        var viewDominusnosBenedicat: SpannableStringBuilder = SpannableStringBuilder()
+        var viewTitle = SpannableStringBuilder(Utils.formatTitle("CONCLUSIÓN"))
+        var readTitle = "Conclusión."
 
-        init {
-            val ssb = SpannableStringBuilder("")
-            ssb.append(Utils.toRed("V/. "))
-            ssb.append("El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna.")
-            ssb.append(Utils.LS)
-            ssb.append(Utils.toRed("R/. "))
-            ssb.append("Amén.")
-            ssb.append(Utils.LS2)
-            viewDominusnosBenedicat = ssb
-        }
+        /**
+         * Conclusión de las horas mayores.
+         */
+        var viewDominusNosBenedicat: SpannableStringBuilder =
+            SpannableStringBuilder(Utils.toRed("V/. "))
+                .append("El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna.")
+                .append(Utils.LS)
+                .append(Utils.toRed("R/. "))
+                .append("Amén.")
 
         var readDominusNosBenedicat: String =
             "El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna. Amén."
 
-        var horasMayoresForRead: String =
-            "El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna. Amén."
+        /**
+         * Conclusión de las horas menores.
+         */
 
-        var titleForView = SpannableStringBuilder(Utils.formatTitle("CONCLUSIÓN"))
-        var titleForRead = "Conclusión."
+        var viewBenedicamusDomino: SpannableStringBuilder =
+            SpannableStringBuilder(Utils.toRed("V/. "))
+                .append("Bendigamos al Señor.")
+                .append(Utils.LS)
+                .append(Utils.toRed("R/. "))
+                .append("Demos gracias a Dios.")
+                .append(Utils.LS2)
+
+        var readBenedicamusDomino: String =
+            "Bendigamos al Señor. Demos gracias a Dios."
+
+
     }
 }
 

@@ -24,7 +24,6 @@ data class Oratio(
         }
     }
 
-
     val header: SpannableStringBuilder
         get() = Utils.formatTitle(Constants.TITLE_PRAYER)
 

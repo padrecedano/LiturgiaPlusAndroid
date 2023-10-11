@@ -6,10 +6,10 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.deiverbum.app.core.data.source.FileEntityData
 import org.deiverbum.app.core.model.FileRequest
 import org.deiverbum.app.core.model.FileResponse
-import org.deiverbum.app.core.model.data.Book
 import org.deiverbum.app.core.model.data.OracionSimple
 import org.deiverbum.app.core.model.data.Rosario
 import org.deiverbum.app.core.model.data.ViaCrucis
+import org.deiverbum.app.core.model.data.book.Book
 import org.deiverbum.app.util.AssetProvider
 import org.deiverbum.app.util.Constants.DATA_NOTFOUND
 import org.deiverbum.app.util.Constants.FILE_ABOUT

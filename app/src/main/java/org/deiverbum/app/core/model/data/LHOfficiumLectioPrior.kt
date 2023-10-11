@@ -6,7 +6,7 @@ import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
 class LHOfficiumLectioPrior(
-    var tema: String = "",
+    override var tema: String = "",
     var responsorioLargo: LHResponsorium
 ) : LectioBiblica() {
 
@@ -33,7 +33,7 @@ class LHOfficiumLectioPrior(
         val sb = SpannableStringBuilder()
         sb.append(Utils.formatTitle(getHeader()))
         sb.append(Utils.LS2)
-        sb.append(book?.liturgyName)
+        sb.append(book.liturgyName)
         sb.append("    ")
         sb.append(Utils.toRed(quote))
         sb.append(Utils.LS2)
@@ -55,7 +55,7 @@ class LHOfficiumLectioPrior(
     override fun getAllForRead(): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         sb.append(Utils.pointAtEnd(getHeader()))
-        sb.append(book!!.getForRead())
+        sb.append(book.getForRead())
         sb.append(temaForRead)
         sb.append(textoForRead)
         sb.append(getConclusionForRead())
@@ -66,11 +66,4 @@ class LHOfficiumLectioPrior(
         return sb
     }
 
-    override fun getOrden(): Int? {
-        return order
-    }
-
-    override fun setOrden(orden: Int?) {
-        order = orden
-    }
 }

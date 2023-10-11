@@ -3,7 +3,7 @@ package org.deiverbum.app.core.model.data.crud
 import org.deiverbum.app.core.model.data.LiturgyTime
 
 class CrudLiturgyTime {
-    var c: List<LiturgyTime>? = null
-    var u: List<LiturgyTime>? = null
-    var d: List<LiturgyTime>? = null
+    var c: List<LiturgyTime> = emptyList()
+    var u: List<LiturgyTime> = emptyList()
+    var d: List<LiturgyTime> = emptyList()
 }

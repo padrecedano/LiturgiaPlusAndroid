@@ -7,7 +7,15 @@ import org.deiverbum.app.util.Numerals
 import org.deiverbum.app.util.Utils
 import java.util.*
 
-open class Liturgy {
+open class Liturgy() {
+    /*constructor(data:Int) : this(liturgyType = null){
+        id=data
+    }*/
+    constructor(liturgyType: LiturgiaTypus?, name: String = "", typeID: Int = 0) : this() {
+        this.liturgyType = liturgyType
+        this.name = name
+        this.typeID = typeID
+    }
 
     @JvmField
     @Ignore
@@ -16,6 +24,9 @@ open class Liturgy {
 
     @Ignore
     var liturgyTime: LiturgyTime? = null
+
+    @Ignore
+    var liturgyType: LiturgiaTypus? = null
 
     @Ignore
     var calendarTime = 0
@@ -46,9 +57,10 @@ open class Liturgy {
     var day: Int? = null
     var colorFK: Int? = null
 
-    @Ignore
-    var breviaryHour: BreviaryHour? = null
-
+    /*
+        @Ignore
+        var breviaryHour: BreviaryHour? = null
+    */
     @Ignore
     var massReadingList: MissaeLectionumList? = null
 

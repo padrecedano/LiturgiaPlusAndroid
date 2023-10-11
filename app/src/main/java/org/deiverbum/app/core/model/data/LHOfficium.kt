@@ -13,15 +13,17 @@ import org.deiverbum.app.util.Utils
  * @property officiumLectionis Un objeto [LHOfficiumLectionis] con las lecturas largas.
  * @property oratio Un objeto [LHOratio] con la oración final.
  * @property sanctus Un objeto [LHSanctus] con la vida breve del santo del día cuando aplique.
+ *
+ * @see [Breviarium]
  */
 
 data class LHOfficium(
     var invitatorium: LHInvitatory,
-    var hymnus: LHHymnNew,
+    var hymnus: LHHymn,
     val psalmodia: LHPsalmody,
     var officiumLectionis: LHOfficiumLectionis,
     var oratio: Oratio
-) : BreviariumNew {
+) : Breviarium {
 
     var sanctus: LHSanctus? = null
     var hasSaint: Boolean = false
@@ -30,18 +32,13 @@ data class LHOfficium(
         this.hasSaint = hasSaint
         val ssb = SpannableStringBuilder()
         try {
-            //invitatorio!!.normalizeByTime(calendarTime)
-            //salmodia!!.normalizeByTime(calendarTime)
-            //salmodia!!.sort()
             officiumLectionis.normalizeByTime(calendarTime)
-            ssb.append(Utils.LS2)
             if (sanctus != null && hasSaint) {
                 invitatorium.normalizeIsSaint(sanctus!!.nomen)
                 ssb.append(sanctus!!.vitaBrevis)
                 ssb.append(Constants.LS)
             }
             ssb.append(Utils.toH1Red(Constants.TITLE_OFICIO))
-            //ssb.append(Utils.fromHtmlToSmallRed(metaInfo))
             ssb.append(Utils.LS2)
             ssb.append(Introitus.viewDomineLabiaMeaAperis)
             ssb.append(Utils.LS2)
@@ -52,10 +49,12 @@ data class LHOfficium(
             ssb.append(psalmodia.getAllForView(-1, calendarTime))
             ssb.append(Utils.LS)
             ssb.append(officiumLectionis.allForView)
-            //TEDEUM
+            if (officiumLectionis.hasTeDeum) {
+                ssb.append(TeDeum().all)
+            }
             ssb.append(oratio.all)
             ssb.append(Utils.LS2)
-            ssb.append(RitusConclusionis.viewDominusnosBenedicat)
+            ssb.append(RitusConclusionis.viewDominusNosBenedicat)
         } catch (e: Exception) {
             ssb.append(Utils.createErrorMessage(e.message))
         }
@@ -74,9 +73,9 @@ data class LHOfficium(
             sb.append(hymnus.allForRead)
             sb.append(psalmodia.getAllForRead())
             sb.append(officiumLectionis.allForRead)
-            //TEDEUM
-
-
+            if (officiumLectionis.hasTeDeum) {
+                sb.append(TeDeum().allForRead)
+            }
             sb.append(oratio.allForRead)
             sb.append(RitusConclusionis.readDominusNosBenedicat)
         } catch (e: Exception) {
@@ -85,83 +84,3 @@ data class LHOfficium(
         return sb
     }
 }
-
-/*
-class LHOfficium : BreviaryHour() {
-    var invitatorio: LHInvitatory? = null
-    var teDeum: TeDeum? = null
-    @Ignore
-    var hasTeDeum: Int = 0
-
-    private val tituloHora: SpannableStringBuilder
-        get() = Utils.toH1Red(Constants.TITLE_OFICIO)
-    private val tituloHoraForRead: String
-        get() = Utils.pointAtEnd(Constants.TITLE_OFICIO)
-
-    fun getForView(
-        calendarTimes: Int,
-        hasSaintt: Boolean
-    ): SpannableStringBuilder {
-        val sb = SpannableStringBuilder()
-
-        //thishasSaint //= hasSaint
-        try {
-            //invitatorio!!.normalizeByTime(calendarTime)
-            //salmodia!!.normalizeByTime(calendarTime)
-            //salmodia!!.sort()
-            lhOfficeOfReading!!.normalizeByTime(calendarTime)
-            ssb.append(Utils.LS2)
-            if (santo != null && hasS) {
-                invitatorio!!.normalizeIsSaint(santo!!.theName)
-                ssb.append(santo?.vidaSmall)
-                ssb.append(Constants.LS)
-            }
-            ssb.append(tituloHora)
-            ssb.append(Utils.fromHtmlToSmallRed(metaInfo))
-            ssb.append(Utils.LS2)
-            ssb.append(introAbreMisLabiosView)
-            ssb.append(Utils.LS2)
-            ssb.append(invitatorio!!.getAllForView(-1,calendarTime))
-            ssb.append(Utils.LS2)
-            ssb.append(lhHymn!!.all)
-            ssb.append(Utils.LS2)
-            ssb.append(salmodia!!.getAllForView(-1,calendarTime))
-            ssb.append(Utils.LS)
-            ssb.append(lhOfficeOfReading!!.allForView)
-            if (hasTeDeum!=0) {
-                ssb.append(TeDeum().all)
-            }
-            ssb.append(oracion?.all)
-            ssb.append(Utils.LS2)
-            ssb.append(getConclusionHorasMayores())
-        } catch (e: Exception) {
-            ssb.append(Utils.createErrorMessage(e.message))
-        }
-        return sb
-    }
-
-
-    val forRead: StringBuilder
-        get() {
-            val sb = StringBuilder()
-            try {
-                if (santo != null && hasSaint) {
-                    ssb.append(santo!!.vidaSmall)
-                }
-                ssb.append(tituloHoraForRead)
-                ssb.append(introAbreMisLabiosForRead)
-                ssb.append(invitatorio!!.allForRead)
-                ssb.append(lhHymn!!.allForRead)
-                ssb.append(salmodia!!.getAllForRead())
-                ssb.append(lhOfficeOfReading!!.allForRead)
-                if (teDeum!=null) {
-                    ssb.append(teDeum?.allForRead)
-                }
-                ssb.append(oracion?.allForRead)
-                ssb.append(getConclusionHorasMayoresForRead())
-            } catch (e: Exception) {
-                ssb.append(Utils.createErrorMessage(e.message))
-            }
-            return sb
-        }
-}*/

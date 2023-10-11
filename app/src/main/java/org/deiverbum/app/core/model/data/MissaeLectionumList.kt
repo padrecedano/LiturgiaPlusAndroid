@@ -1,45 +1,39 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import org.deiverbum.app.core.model.TodayRequest
-import org.deiverbum.app.util.ColorUtils
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
-class MissaeLectionumList : Liturgy() {
-    @JvmField
-    var type = 0
-    var lecturas: List<MissaeLectionum?>? = null
+/**
+ * Esta clase contiene todas las lecturas de la misa. Se usa como una propiedad de [Missae].
+ *
+ * @property lectionum Una lista de objetos [MissaeLectionum] con cada lectura.
+ * @property type El tipo de lecturas (columna proveniente del modelo de datos). Sirve para decir a la clase padre cómo debe imprimir la vista.
+ *
+ * @author A. Cedano
+ * @since 2022.1
+ *
+ * @see [Sortable]
+ */
+class MissaeLectionumList(
+    var lectionum: ArrayList<MissaeLectionum?> = ArrayList<MissaeLectionum?>(),
+    var type: Int = 0
+) : Sortable {
+
     private val titulo: SpannableStringBuilder
-        get() = Utils.toH3Red(
-            Utils.toUpper(
-                Constants.TITLE_MASS_READING
-            )
-        )
-    override val tituloForRead: String
+        get() = Utils.toH3Red(Utils.toUpper(Constants.TITLE_MASS_READING))
+
+    private val tituloForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_MASS_READING)
-    val allForView: SpannableStringBuilder
-        get() {
-            val sb = SpannableStringBuilder("")
-            for (b in lecturas!!) {
-                sb.append(b?.getAll())
-            }
-            return sb
-        }
 
-
-    fun getForView(todayRequest: TodayRequest): SpannableStringBuilder {
-        ColorUtils.isNightMode = todayRequest.isNightMode
-
-        val sb = SpannableStringBuilder("")
+    fun getForView(): SpannableStringBuilder {
+        sort()
+        val sb = SpannableStringBuilder(Utils.LS2)
         try {
-            //sb.append(hoy.getForViewMisa());
-            //sb.append(today?.singleForView)
-            sb.append(Utils.LS2)
             sb.append(titulo)
             sb.append(Utils.LS2)
-            for (l in lecturas!!) {
-                sb.append(l?.getAll(type))
+            lectionum.forEach {
+                sb.append(it?.getAll(type))
             }
         } catch (e: Exception) {
             sb.append(Utils.createErrorMessage(e.message))
@@ -47,19 +41,20 @@ class MissaeLectionumList : Liturgy() {
         return sb
     }
 
-    //@Override
     val allForRead: StringBuilder
         get() {
-            val sb = StringBuilder()
+            val sb = StringBuilder(tituloForRead)
             try {
-                //sb.append(today?.getSingleForRead())
-                //sb.append(tituloForRead)
-                for (l in lecturas!!) {
-                    sb.append(l?.getAllForRead(type))
+                lectionum.forEach {
+                    sb.append(it?.getAllForRead(type))
                 }
             } catch (e: Exception) {
                 sb.append(Utils.createErrorMessage(e.message))
             }
             return sb
         }
+
+    override fun sort() {
+        lectionum.sortedBy { it!!.theOrder }
+    }
 }

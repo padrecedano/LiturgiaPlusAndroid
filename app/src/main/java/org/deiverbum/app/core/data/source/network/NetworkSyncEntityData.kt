@@ -1,8 +1,6 @@
 package org.deiverbum.app.core.data.source.network
 
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.flow
 import org.deiverbum.app.core.data.source.SyncEntityData
 import org.deiverbum.app.core.model.SyncRequest
 import org.deiverbum.app.core.model.SyncResponse
@@ -25,14 +23,12 @@ class NetworkSyncEntityData @Inject constructor(
 ) : SyncEntityData {
 
     override suspend fun getSync(syncRequest: SyncRequest): SyncResponse {
-        //val todayAll = todayApi.getTodayAll("all").take(60)
-        val sub = todayApi.getTodayAll("all")//.subList(88,89)
+        val sub = todayApi.getTodayAll("all")
 
         val syncStatus = SyncStatus()
         syncStatus.source = Source.NETWORK
         return SyncResponse(syncStatus, sub)
     }
-
 
     override suspend fun addSync(syncResponse: SyncResponse) {
         TODO("Not yet implemented")
@@ -42,13 +38,10 @@ class NetworkSyncEntityData @Inject constructor(
         TODO("Not yet implemented")
     }
 
+    //TODO "Concluir esto"
     override suspend fun getSyncc(syncRequest: SyncRequest): SyncResponseNew {
-        //val r=SyncResponseNew(Flow<SyncStatus>)
         val todayAll = todayApi.getTodayAllNew("all")//.take(60)
         val syncStatus = SyncStatus("", 1)
-        //syncStatus
-        val latestNews: Flow<SyncStatus> = flow { syncStatus }
-        //val uiState : StateFlow<SyncStatus> = flow{syncStatus}
         val userFlow = MutableSharedFlow<SyncStatus>(replay = 1)
 
         syncStatus.source = Source.NETWORK

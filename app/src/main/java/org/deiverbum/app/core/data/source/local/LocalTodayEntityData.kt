@@ -5,7 +5,7 @@ import org.deiverbum.app.core.database.dao.TodayDao
 import org.deiverbum.app.core.database.model.relation.asExternalModel
 import org.deiverbum.app.core.model.TodayRequest
 import org.deiverbum.app.core.model.UniversalisResponse
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.util.Constants.EASTER_CODE
 import org.deiverbum.app.util.Utils
 import javax.inject.Inject
 
@@ -24,80 +24,61 @@ class LocalTodayEntityData @Inject constructor(
         try {
             when (todayRequest.typeID) {
                 0 -> {
-                    val c = todayDao.getMixtoByDate(todayRequest.theDate)
-                    val u = c.asExternalModel()
-                    todayResponse.dataModel = u
-                    //todayResponse.dataModel =todayDao.getMixtoByDate(todayRequest.theDate).domainModel
+                    todayResponse.dataModel =
+                        todayDao.getMixtumByDate(todayRequest.theDate).asExternalModel()
                 }
 
                 1 -> {
-                    todayResponse.dataModel =
-                        todayDao.getOficioByDate(todayRequest.theDate).asExternalModel()
-                    //todayResponse.dataModel = todayDao.getOficioByDate(todayRequest.theDate).domainModel
+                    val dm = todayDao.getOfficiumByDate(todayRequest.theDate).asExternalModel()
+                    if (dm.oBiblicalFK == EASTER_CODE) {
+                        todayResponse.dataModel =
+                            todayDao.getOfficiumPascuaByDate(EASTER_CODE).asExternalModel()
+                    } else {
+                        todayResponse.dataModel = dm
+                    }
                 }
 
                 2 -> {
                     todayResponse.dataModel =
                         todayDao.getLaudesByDate(todayRequest.theDate).asExternalModel()
-
-                    //todayResponse.dataModel =todayDao.getLaudesByDate(todayRequest.theDate).domainModel
                 }
 
                 3 -> {
                     todayResponse.dataModel =
-                        todayDao.getTerciaByDate(todayRequest.theDate).domainModel
+                        todayDao.getTertiamByDate(todayRequest.theDate).asExternalModel()
                 }
                 4 -> {
                     todayResponse.dataModel =
-                        todayDao.getSextaByDate(todayRequest.theDate).domainModel
+                        todayDao.getSextamByDate(todayRequest.theDate).asExternalModel()
                 }
                 5 -> {
-                    val c = todayDao.getNonaByDate(todayRequest.theDate)
-                    val u = Universalis()
-                    //u.liturgy=c.asExternalModel()
-                    todayResponse.dataModel = u
-                    //todayResponse.dataModel =todayDao.getNonaByDate(todayRequest.theDate).domainModel
+                    todayResponse.dataModel =
+                        todayDao.getNonamByDate(todayRequest.theDate).asExternalModel()
                 }
                 6 -> {
                     todayResponse.dataModel =
-                        todayDao.getVisperasByDate(todayRequest.theDate).domainModel
+                        todayDao.getVesperasByDate(todayRequest.theDate).asExternalModel()
                 }
                 7 -> {
-                    //val u=todayDao.getUniversalisByDate(todayRequest.theDate)
-                    //val h=todayDao.getHymById().map { it.asExternalModel() }
-                    //h.collect(it.)
-                    //h.collect { v -> println(v.toString()+"bbbb") }
-                    val c = todayDao.getCompletasByDate(todayRequest.theDate)
-                    val u = Universalis()
-                    //u.liturgy=c.asExternalModel()
-                    todayResponse.dataModel = u
-                    //todayResponse.dataModel =
-                    //    todayDao.getCompletasByDate(todayRequest.theDate).domainModel
+                    todayResponse.dataModel =
+                        todayDao.getCompletoriumByDate(todayRequest.theDate).asExternalModel()
                 }
                 9 -> {
                     todayResponse.dataModel =
-                        todayDao.getHomilyByDate(todayRequest.theDate).domainModel
+                        todayDao.getHomiliaeByDate(todayRequest.theDate).domainModel
                 }
                 10 -> {
                     todayResponse.dataModel =
-                        todayDao.getMassReadingByDate(todayRequest.theDate).asExternalModel()
+                        todayDao.getMissaeLectionumByDate(todayRequest.theDate).asExternalModel()
                     //todayResponse.dataModel =todayDao.getMassReadingByDate(todayRequest.theDate).domainModel
                 }
                 11 -> {
-
-                    val c = todayDao.getCommentsByDate(todayRequest.theDate)
-                    //c.a
-                    //val b=c.asExternalModel()
-                    //val l=org.deiverbum.app.core.model.data.Liturgy()
-                    //l.lhBreviarium=b
-                    val u = Universalis()
-                    //u.liturgy=c.asExternalModel()
-                    todayResponse.dataModel = u
-                    //todayResponse.dataModel =todayDao.getCommentsByDate(todayRequest.theDate).domainModel
+                    todayResponse.dataModel =
+                        todayDao.getCommentariiByDate(todayRequest.theDate).domainModel
                 }
                 12 -> {
                     val monthAndDay = Utils.getMonthAndDay(todayRequest.theDate.toString())
-                    todayResponse.dataModel = todayDao.getSaintByDate(
+                    todayResponse.dataModel = todayDao.getSanctiByDate(
                         monthAndDay?.get(0),
                         monthAndDay?.get(1)
                     )?.domainModel!!
@@ -109,10 +90,6 @@ class LocalTodayEntityData @Inject constructor(
             return todayResponse
         }
     }
-
-    //fun getTopics(): Flow<LHHymn> = todayDao.getHymById().map{ it.map(LHHymnEntity::asExternalModel) }
-
-
     override suspend fun addToday(today: UniversalisResponse) {
     }
 }

@@ -102,7 +102,7 @@ class ViaCrucis {
             sb.append(Utils.LS2)
             sb.append(Utils.toH4Red("Estrofa del Stabat Mater"))
             sb.append(Utils.LS2)
-            sb.append(Utils.fromHtml(Utils.getFormato(e.canto!!)))
+            sb.append(Utils.fromHtml(e.canto!!))
             sb.append(Utils.LS2)
         }
         return sb
@@ -124,7 +124,7 @@ class ViaCrucis {
             sb.append(e.getMeditacionSpan(respuestas!!))
             sb.append(PadreNuestro.allForRead)
             sb.append("Estrofa del Stabat Mater.")
-            sb.append(Utils.fromHtml(Utils.getFormato(e.canto!!)))
+            sb.append(Utils.fromHtml(e.canto!!))
         }
         return sb
     }
@@ -171,11 +171,11 @@ class ViaCrucis {
         sb.append(getAllEstaciones())
         sb.append(Utils.toH3Red("Oración final"))
         sb.append(Utils.LS2)
-        sb.append(Utils.fromHtml(Utils.getFormato(getOracion()!!)))
+        sb.append(Utils.fromHtml(getOracion()!!))
         sb.append(Utils.LS2)
-        sb.append(RitusConclusionis.titleForView)
+        sb.append(RitusConclusionis.viewTitle)
         sb.append(Utils.LS2)
-        sb.append(RitusConclusionis.viewDominusnosBenedicat)
+        sb.append(RitusConclusionis.viewDominusNosBenedicat)
         //sb.append(Utils.LS2)
         sb.append(Utils.toRed("Si la celebración la preside un ministro ordenado se concluye con la bendición, como habitualmente."))
         return sb
@@ -196,9 +196,9 @@ class ViaCrucis {
         sb.append(Utils.fromHtml(introViaCrucis?.oracion!!))
         sb.append(getAllEstaciones())
         sb.append("Oración final.")
-        sb.append(Utils.fromHtml(Utils.getFormato(getOracion()!!)))
-        sb.append(RitusConclusionis.titleForRead)
-        sb.append(RitusConclusionis.horasMayoresForRead)
+        sb.append(Utils.fromHtml(getOracion()!!))
+        sb.append(RitusConclusionis.readTitle)
+        sb.append(RitusConclusionis.readDominusNosBenedicat)
         return sb
     }
 }

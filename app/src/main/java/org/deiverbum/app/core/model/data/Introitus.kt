@@ -69,7 +69,7 @@ class Introitus {
             }
 
         val introDiosMioForRead: String =
-            "Dios mío, ven en mi auxilio. Señor, date prisa en socorreme. " + LiturgyHelper.endPsalmForRead
+            "Dios mío, ven en mi auxilio. Señor, date prisa en socorrerme. " + LiturgyHelper.endPsalmForRead
 
         val initialInvocationForRead: String =
             "Invocación inicial. " + introDiosMioForRead

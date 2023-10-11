@@ -48,13 +48,6 @@ open class SanctusVita {
     private val martirologio: String
         get() = "" //martirologio;
 
-    fun setDay(dia: String?) {
-        //theDay = dia
-    }
-
-    fun setMonth(mes: String?) {
-        //theMonth = mes
-    }
 
     private val martirologioSpan: SpannableStringBuilder
         get() = Utils.toSmallSize("martirologio")
@@ -126,20 +119,21 @@ open class SanctusVita {
         }
     private val monthName: String
         get() {
-            val monthNames = HashMap<String?, String>()
-            monthNames["01"] = "Enero"
-            monthNames["02"] = "Febrero"
-            monthNames["03"] = "Marzo"
-            monthNames["04"] = "Abril"
-            monthNames["05"] = "Mayo"
-            monthNames["06"] = "Junio"
-            monthNames["07"] = "Julio"
-            monthNames["08"] = "Agosto"
-            monthNames["09"] = "Septiembre"
-            monthNames["10"] = "Octubre"
-            monthNames["11"] = "Noviembre"
-            monthNames["12"] = "Diciembre"
-            return ""//String.format("%s de %s", theDay, monthNames[theMonth])
+            val monthNames = mapOf(
+                1 to "Enero",
+                2 to "Febrero",
+                3 to "Marzo",
+                4 to "Abril",
+                5 to "Mayo",
+                6 to "Junio",
+                7 to "Julio",
+                8 to "Agosto",
+                9 to "Septiembre",
+                10 to "Octubre",
+                11 to "Noviembre",
+                12 to "Diciembre"
+            )
+            return "$theDay de ${monthNames.getValue(theMonth)}"
         }
 
     @Suppress("unused")
@@ -158,6 +152,6 @@ open class SanctusVita {
         monthNames[11] = "Noviembre"
         monthNames[12] = "Diciembre"
         val theMonth = Integer.valueOf(mes!!)
-        return ""//String.format("%s de %s", theDay, monthNames[theMonth])
+        return String.format("%s de %s", theDay, monthNames[theMonth])
     }
 }

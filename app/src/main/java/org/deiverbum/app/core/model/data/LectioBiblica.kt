@@ -6,44 +6,68 @@ import androidx.room.Ignore
 import org.deiverbum.app.util.Utils
 import java.util.Locale
 
-open class LectioBiblica {
-    var bookFK = 0
+open class LectioBiblica(
+    open var quote: String = "",
+    open var text: String = "",
+) {
+
+    constructor(theOrder: Int, tema: String, quote: String, text: String) : this(quote, text) {
+        this.theOrder = theOrder
+        this.tema = tema
+    }
+
+    constructor(book: BibleBook, quote: String, text: String, theOrder: Int) : this(quote, text) {
+        this.book = book
+        this.theOrder = theOrder
+    }
+
+    constructor(theOrder: Int, tema: String, book: BibleBook) : this(tema) {
+        this.book = book
+        this.theOrder = theOrder
+    }
+
+    constructor(book: BibleBook, quote: String, text: String) : this(quote, text) {
+        this.book = book
+    }
+
+    constructor(tema: String, theOrder: Int) : this() {
+        this.tema = tema
+        this.theOrder = theOrder
+    }
 
     @Ignore
-    var book: BibleBook? = null
+    open lateinit var book: BibleBook
 
-    var verseChapter: String? = null
+    @Ignore
+    open var theOrder: Int = 0
+    @Ignore
+    open var tema: String = ""
 
-    var text: String? = null
+    var bookFK = 0
 
+    var verseChapter: String = ""
 
-    //getReferencia();
-     var quote: String? = ""
+    var verseFrom: String = ""
+    var verseTo: String = ""
 
-    //getReferencia();
-    @Ignore var order: Int? = null
-     var readingID: Int? = null
-     var verseFrom: String? = null
-     var verseTo: String? = null
-
-
+    var readingID: Int? = null
 
 
     val textoSpan: Spanned
-        get() = Utils.fromHtml(text!!)
+        get() = Utils.fromHtml(text)
     val textoForRead: Spanned
         get() = Utils.fromHtml(
             Utils.getFormatoForRead(
-                text!!
+                text
             )
         )
 
-    fun setCita(ref: String?) {
+    fun setCita(ref: String) {
         this.quote = ref
     }
 
-    fun getRefBreve(): String? {
-        return if (quote != null) quote else ""
+    fun getRefBreve(): String {
+        return quote
     }
 
     fun getReferencia(): String {
@@ -72,8 +96,10 @@ open class LectioBiblica {
     open fun getAll(): SpannableStringBuilder? {
         val sb = SpannableStringBuilder()
         sb.append(getHeader())
+        //sb.append(Utils.formatTitle(getHeader(type)))
+
         sb.append(Utils.LS2)
-        sb.append(book!!.liturgyName)
+        sb.append(book.liturgyName)
         sb.append("    ")
         //sb.append(Utils.toRed(verseChapter))
         //sb.append(", ")
@@ -98,22 +124,22 @@ open class LectioBiblica {
     open fun getAllForRead(): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         sb.append(Utils.pointAtEnd(getHeader()))
-        sb.append(book!!.getForRead())
+        sb.append(book.getForRead())
         sb.append(textoForRead)
         sb.append(getConclusionForRead())
         sb.append(getResponsorioHeaderForRead())
         return sb
     }
 
+    @Deprecated("Cambiar por propiedad")
     open fun getOrden(): Int? {
-        return order
+        return theOrder
     }
 
-    open fun setOrden(orden: Int?) {
-        order = orden
+    @Deprecated("Cambiar por propiedad")
+    open fun setOrden(theOrder: Int) {
+        //theOrder = theOrder
     }
 
-    fun getLecturaId(): Int? {
-        return readingID
-    }
+
 }

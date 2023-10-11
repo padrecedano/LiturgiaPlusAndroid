@@ -5,25 +5,42 @@ import androidx.room.Ignore
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
-class LHOfficeBiblicalEaster : LectioBiblica(), Comparable<LHOfficeBiblicalEaster> {
+/**
+ * Clase que representa el **`Oficio de Lecturas`** en la capa de datos externa.
+ *
+ * @property bibleBook Un objeto [BibleBook].
+ * @property quote La referencia de la lectura.
+ * @property text El texto de la lectura.
+ * @property theme El tema de la lectura.
+ * @property theOrder El orden de la lectura.
+ *
+ * @see LectioBiblica
+ */
+
+data class LHOfficeBiblicalEaster(
+    var bibleBook: BibleBook,
+    override var quote: String = "",
+    override var text: String = "",
+    var theme: String = "",
+    override var theOrder: Int = 0
+) : LectioBiblica(bibleBook, quote, text, theOrder) {
     var psalm: LHPsalm? = null
-    var theme: String? = null
 
     //public int theOrder;
     @Ignore
     var prayer: Oratio? = null
     override fun getHeader(): String {
         var header = ""
-        if (order == 1) {
+        if (theOrder == 1) {
             header = "PRIMERA LECTURA"
         }
-        if (order == 2) {
+        if (theOrder == 2) {
             header = "SEGUNDA LECTURA"
         }
-        if (order == 3) {
+        if (theOrder == 3) {
             header = "TERCERA LECTURA"
         }
-        if (order == 4) {
+        if (theOrder == 4) {
             header = "CUARTA LECTURA"
         }
         return header
@@ -38,7 +55,7 @@ class LHOfficeBiblicalEaster : LectioBiblica(), Comparable<LHOfficeBiblicalEaste
             val sb = SpannableStringBuilder()
             sb.append(Utils.formatTitle(getHeader()))
             sb.append(Utils.LS2)
-            sb.append(book!!.liturgyName)
+            sb.append(book.liturgyName)
             sb.append("    ")
             sb.append(Utils.toRed(quote))
             sb.append(Utils.LS2)
@@ -55,7 +72,7 @@ class LHOfficeBiblicalEaster : LectioBiblica(), Comparable<LHOfficeBiblicalEaste
             val sb = SpannableStringBuilder()
             sb.append(getHeader())
             sb.append(Utils.LS2)
-            sb.append(book!!.liturgyName)
+            sb.append(book.liturgyName)
             sb.append("    ")
             sb.append(quote)
             sb.append(Utils.LS2)
@@ -79,17 +96,5 @@ class LHOfficeBiblicalEaster : LectioBiblica(), Comparable<LHOfficeBiblicalEaste
         sb.append(Utils.pointAtEnd(getHeader()))
         sb.append(biblicalForRead)
         return sb
-    }
-
-    override fun getOrden(): Int? {
-        return order
-    }
-
-    override fun setOrden(orden: Int?) {
-        order = orden
-    }
-
-    override fun compareTo(other: LHOfficeBiblicalEaster): Int {
-        return getOrden()!!.compareTo(other.getOrden()!!)
     }
 }

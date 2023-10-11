@@ -34,7 +34,7 @@ class LHIntercession {
         }
 
     private fun getIntercessionForView(): Spanned {
-        return Utils.fromHtml(Utils.getFormato(intercession))
+        return Utils.fromHtml(intercession)
     }
 
 

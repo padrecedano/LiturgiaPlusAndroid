@@ -68,7 +68,6 @@ class LHInvitatory(mPsalms: MutableList<LHPsalm>, mAntiphons: MutableList<LHAnti
         ssb.append(Utils.LS2)
         ssb.append(antiphons[0].afterForView)
         return ssb
-
     }
 
     val allForRead: StringBuilder
@@ -85,8 +84,14 @@ class LHInvitatory(mPsalms: MutableList<LHPsalm>, mAntiphons: MutableList<LHAnti
     val unique: String
         get() = "Venid, aclamemos al Señor,_demos vítores a la Roca que nos salva;_entremos a su presencia dándole gracias,_aclamándolo con cantos.§Porque el Señor es un Dios grande,_soberano de todos los dioses,_tiene en su mano las simas de la tierra,_son suyas las cumbres de los montes. _Suyo es el mar, porque él lo hizo,_la tierra firme que modelaron sus manos.§Venid, postrémonos por tierra,_bendiciendo al Señor, creador nuestro. _Porque él es nuestro Dios,_y nosotros su pueblo,_el rebaño que él guía.§Ojalá escuchéis hoy su voz:_«No endurezcáis el corazón como en Meribá, _como el día de Masá en el desierto:_cuando vuestros padres me pusieron a prueba,_y dudaron de mí, aunque habían visto mis obras.§Durante cuarenta años_aquella generación me repugnó, y dije:_“Es un pueblo de corazón extraviado,_que no reconoce mi camino;_por eso he jurado en mi cólera_que no entrarán en mi descanso”»."
 
-
+    /**
+     * Normaliza la antífona del invitatorio, cambiando el marcador ƞ por el nombre del santo.
+     *
+     * @see [LHOfficium]
+     * @see [LHLaudes]
+     * @see [LHMixtus]
+     */
     fun normalizeIsSaint(s: String) {
-        //lhAntiphon!!.antiphon = lhAntiphon!!.antiphon.replace("ƞ", s.substring(s.indexOf(" ") + 1))
+        antiphons[0].antiphon = antiphons[0].antiphon.replace("ƞ", s.substring(s.indexOf(" ") + 1))
     }
 }

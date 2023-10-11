@@ -20,6 +20,8 @@ object Constants {
       */
     const val VERSION_CODE = 202301003
     const val VERSION_CODE_FORMATTED = "2023.1.3"
+    const val EASTER_CODE = 1 //600010101//1
+    const val PASCUA_TIMEID = 6 //600010101//1
 
     //LAST: 202201004
     const val DB_VERSION = 1

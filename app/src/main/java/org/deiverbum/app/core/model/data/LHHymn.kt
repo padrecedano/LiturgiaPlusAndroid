@@ -5,19 +5,12 @@ import android.text.Spanned
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
-class LHHymn {
-    var hymnID: Int? = null
-
+data class LHHymn(
     var hymn: String = ""
-
-
-    constructor()
-    constructor(hymn: String?) {
-        this.hymn = hymn!!
-    }
-
-    val textoSpan: Spanned
-        get() = Utils.fromHtml(Utils.getFormato(hymn))
+) {
+    var hymnID: Int = 0
+    private val textoSpan: Spanned
+        get() = Utils.fromHtml(hymn)
     val header: SpannableStringBuilder
         get() = Utils.formatTitle(Constants.TITLE_HYMN)
     private val headerForRead: String

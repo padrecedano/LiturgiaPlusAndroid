@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data
+package org.deiverbum.app.core.model.data.book
 
 import android.text.Spanned
 import org.deiverbum.app.util.Utils

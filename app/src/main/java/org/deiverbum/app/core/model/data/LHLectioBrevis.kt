@@ -4,7 +4,11 @@ import android.text.SpannableStringBuilder
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
-class LHLectioBrevis : LectioBiblica() {
+data class LHLectioBrevis(
+    //override var book:BibleBook,
+    override var quote: String = "",
+    override var text: String = ""
+) : LectioBiblica(quote, text) {
     //public String forma;
     private var responsorio: LHResponsoriumBrevis? = null
     private fun getHeaderLectura(): SpannableStringBuilder {

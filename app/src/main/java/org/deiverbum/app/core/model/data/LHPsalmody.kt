@@ -12,8 +12,10 @@ import org.deiverbum.app.util.Utils
  * @author A. Cedano
  * @version 2.0
  * @since 2022.1
+ *
+ * @see [Sortable]
  */
-open class LHPsalmody() {
+open class LHPsalmody() : Sortable {
 
     /**
      * Constructor secundario
@@ -33,18 +35,9 @@ open class LHPsalmody() {
     @Ignore
     protected var antiphons: MutableList<LHAntiphon> = mutableListOf()
 
-    fun sort() {
-        psalms.sortBy {
-            it.theOrder
-        }
-        antiphons.sortBy {
-            it.theOrder
-        }
-    }
-
-
     /**
      * Obtiene todos los elementos del salmo formateados para la vista.
+     * Desde aquí se llama a [sort] porque este método se invoca una sola vez.
      *
      * @since 2023.1.3
      *
@@ -54,7 +47,8 @@ open class LHPsalmody() {
      */
     open fun getAllForView(hourIndex: Int, calendarTime: Int): SpannableStringBuilder {
         sort()
-        val sb = SpannableStringBuilder("")
+        val sb = SpannableStringBuilder(header)
+        sb.append(LS2)
         val antUnique = SpannableStringBuilder(Utils.toRed("Ant. "))
 
         if (theType == 1) {
@@ -74,20 +68,19 @@ open class LHPsalmody() {
                     sb.append(LS2)
                 }
 
-                if (s.theme != "") {
+                if (s.theme != null && s.theme != "") {
                     sb.append(Utils.toRed(s.theme))
                     sb.append(LS2)
                 }
-                if (s.epigraph != "") {
+                if ((s.epigraph != null) && (s.epigraph != "")) {
                     sb.append(Utils.fromHtmlSmall(s.epigraph!!))
                     sb.append(LS2)
                 }
-                if (s.thePart != null) {
-                    if (s.thePart != 0) {
-                        sb.append(Utils.toRed(s.partForView))
-                        sb.append(LS2)
-                    }
+                if ((s.thePart != null) && (s.thePart != 0)) {
+                    sb.append(Utils.toRed(s.partForView))
+                    sb.append(LS2)
                 }
+
                 sb.append(s.psalmForView)
                 sb.append(LS2)
             }
@@ -105,15 +98,15 @@ open class LHPsalmody() {
                     sb.append(s.quoteForView)
                     sb.append(LS2)
                 }
-                if (s.theme != "") {
+                if ((s.theme != null) && (s.theme != "")) {
                     sb.append(Utils.toRed(s.theme))
                     sb.append(LS2)
                 }
-                if (s.epigraph != "") {
+                if ((s.epigraph != null) && (s.epigraph != "")) {
                     sb.append(Utils.fromHtmlSmall(s.epigraph!!))
                     sb.append(LS2)
                 }
-                if (s.thePart != 0 && s.thePart != null) {
+                if ((s.thePart != null) && (s.thePart != 0)) {
                     sb.append(Utils.toRed(s.partForView))
                     sb.append(LS2)
                 }
@@ -169,6 +162,7 @@ open class LHPsalmody() {
 
     /**
      * Obtiene un salmo por el índice dado.
+     * No se llama aquí a [sort] porque este método es invocado por cada salmo.
      *
      * @see [LHOfficeOfReadingEaster.getAllBiblica]
 
@@ -177,29 +171,34 @@ open class LHPsalmody() {
         //sort()
         val sb = SpannableStringBuilder("")
         val s = psalms[index]
+
         sb.append(antiphons[index].afterForView)
+        sb.append(LS2)
+
         if (s.quote != "") {
             sb.append(s.quoteForView)
             sb.append(LS2)
         }
-        if (s.theme != "") {
+        if (s.theme != null && s.theme != "") {
             sb.append(Utils.toRed(s.theme))
             sb.append(Utils.LS2)
         }
-        if (s.epigraph != "") {
+        if (s.epigraph != null && s.epigraph != "") {
             sb.append(Utils.fromHtmlSmall(s.epigraph!!))
             sb.append(Utils.LS2)
         }
-        if (s.thePart != 0) {
+        if (s.thePart != null && s.thePart != 0) {
             sb.append(Utils.toRed(s.partForView))
             sb.append(Utils.LS2)
+        } else {
+            //sb.append(Utils.LS2)
         }
 
-        sb.append(Utils.LS2)
+        //sb.append(Utils.LS2)
         sb.append(s.psalmForView)
         sb.append(Utils.LS2)
         sb.append(antiphons[index].afterForView)
-        sb.append(Utils.LS2)
+        //sb.append(Utils.LS2)
         return sb
     }
 
@@ -219,4 +218,20 @@ open class LHPsalmody() {
         get() = Utils.formatTitle(Constants.TITLE_PSALMODY)
     private val headerForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_PSALMODY)
+
+    /**
+     * Ordena los salmos y las antífonas de la salmodia.
+     *
+     * @since 2023.1.3
+     */
+    override fun sort() {
+        psalms.sortBy {
+            it.theOrder
+        }
+        antiphons.sortBy {
+            it.theOrder
+        }
+    }
+
+
 }

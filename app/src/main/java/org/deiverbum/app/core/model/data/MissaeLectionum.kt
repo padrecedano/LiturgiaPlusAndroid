@@ -3,8 +3,21 @@ package org.deiverbum.app.core.model.data
 import android.text.SpannableStringBuilder
 import org.deiverbum.app.util.Utils
 
-open class MissaeLectionum : LectioBiblica(), Comparable<MissaeLectionum> {
-    var tema: String = ""
+class MissaeLectionum : LectioBiblica {
+    constructor() : super()
+
+    constructor (quote: String, text: String) : super(quote, text) /*{
+        this.quote = university
+    }*/
+    constructor (theOrder: Int, tema: String, quote: String, text: String, book: BibleBook) : super(
+        quote,
+        text
+    ) {
+        this.theOrder = theOrder
+        this.tema = tema
+        this.book = book
+    }
+
     private val temaForRead: String
         get() = Utils.normalizeEnd(tema)
 
@@ -17,10 +30,10 @@ open class MissaeLectionum : LectioBiblica(), Comparable<MissaeLectionum> {
      */
     fun getAll(type: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
-        sb.append(Utils.LS)
+        //sb.append(Utils.LS)
         sb.append(Utils.formatTitle(getHeader(type)))
         sb.append(Utils.LS2)
-        sb.append(book?.liturgyName)
+        sb.append(book.liturgyName)
         sb.append("    ")
         sb.append(Utils.toRed(quote))
         sb.append(Utils.LS2)
@@ -44,7 +57,7 @@ open class MissaeLectionum : LectioBiblica(), Comparable<MissaeLectionum> {
     fun getAllForRead(type: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         sb.append(Utils.normalizeEnd(getHeader(type)))
-        sb.append(book?.getForRead())
+        sb.append(book.getForRead())
         sb.append(temaForRead)
         sb.append(textoForRead)
         sb.append(getConclusionByType())
@@ -55,16 +68,16 @@ open class MissaeLectionum : LectioBiblica(), Comparable<MissaeLectionum> {
     private fun getHeader(type: Int): String {
         return if (type == 0) {
             var header = ""
-            if (order!! in 1..19) {
+            if (theOrder in 1..19) {
                 header = "PRIMERA LECTURA"
             }
-            if (order!! in 20..29) {
+            if (theOrder in 20..29) {
                 header = "SALMO RESPONSORIAL"
             }
-            if (order!! in 30..39) {
+            if (theOrder in 30..39) {
                 header = "SEGUNDA LECTURA"
             }
-            if (order!! >= 40) {
+            if (theOrder >= 40) {
                 header = "EVANGELIO"
             }
             header
@@ -105,37 +118,37 @@ open class MissaeLectionum : LectioBiblica(), Comparable<MissaeLectionum> {
          */
         var header = ""
         if (type == 1) {
-            if (order == 1) {
+            if (theOrder == 1) {
                 header = "PRIMERA LECTURA"
             }
-            if (order == 2 || order == 5 || order == 7 || order == 9 || order == 11 || order == 13 || order == 15 || order == 18) {
+            if (theOrder == 2 || theOrder == 5 || theOrder == 7 || theOrder == 9 || theOrder == 11 || theOrder == 13 || theOrder == 15 || theOrder == 18) {
                 header = "SALMO RESPONSORIAL"
             }
-            if (order == 3 || order == 16) {
+            if (theOrder == 3 || theOrder == 16) {
                 header = "O bien: SALMO RESPONSORIAL"
             }
-            if (order == 4) {
+            if (theOrder == 4) {
                 header = "SEGUNDA LECTURA"
             }
-            if (order == 6) {
+            if (theOrder == 6) {
                 header = "TERCERA LECTURA"
             }
-            if (order == 8) {
+            if (theOrder == 8) {
                 header = "CUARTA LECTURA"
             }
-            if (order == 10) {
+            if (theOrder == 10) {
                 header = "QUINTA LECTURA"
             }
-            if (order == 12) {
+            if (theOrder == 12) {
                 header = "SEXTA LECTURA"
             }
-            if (order == 14) {
+            if (theOrder == 14) {
                 header = "SÉPTIMA LECTURA"
             }
-            if (order == 17) {
+            if (theOrder == 17) {
                 header = "EPÍSTOLA"
             }
-            if (order!! >= 40) {
+            if (theOrder >= 40) {
                 header = "EVANGELIO"
             }
         }
@@ -151,23 +164,21 @@ open class MissaeLectionum : LectioBiblica(), Comparable<MissaeLectionum> {
      */
     private fun getConclusionByType(): String {
         var conclusion = ""
-        if ((order!! in (1..19)) || (order!! in (30..39))) {
+        if ((theOrder in (1..19)) || (theOrder in (30..39))) {
             conclusion = "Palabra de Dios. Te alabamos Señor."
         }
-        if (order!! in 20..29) {
+        if (theOrder in 20..29) {
             conclusion = ""
         }
-        /*if (order!! in 30..39) {
+        /*if (theOrder in 30..39) {
             conclusion = "Palabra de Dios."
         }*/
-        if (order!! >= 40) {
+        if (theOrder >= 40) {
             conclusion = "Palabra del Señor. Gloria a ti, Señor, Jesús."
         }
         return conclusion
 
     }
 
-    override fun compareTo(other: MissaeLectionum): Int {
-        return getOrden()!!.compareTo(other.getOrden()!!)
-    }
+
 }

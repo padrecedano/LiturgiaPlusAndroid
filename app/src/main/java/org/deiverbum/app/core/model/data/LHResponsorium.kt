@@ -15,21 +15,17 @@ class LHResponsorium(
     override val header: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()
-            if (source != null) {
-                sb.append(
-                    Utils.toRed(
-                        String.format(
-                            Locale("es"),
-                            "%s%s%s",
-                            Constants.TITLE_RESPONSORY,
-                            "     ",
-                            source
-                        )
+            sb.append(
+                Utils.toRed(
+                    String.format(
+                        Locale("es"),
+                        "%s%s%s",
+                        Constants.TITLE_RESPONSORY,
+                        "     ",
+                        source
                     )
                 )
-            } else {
-                sb.append(Utils.toRed(Constants.TITLE_RESPONSORY))
-            }
+            )
             sb.append(Utils.LS2)
             return sb
         }

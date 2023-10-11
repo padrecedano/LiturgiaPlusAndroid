@@ -20,11 +20,28 @@ import org.deiverbum.app.util.Utils.replaceByTime
 open class LHPsalm(
     @Ignore var theOrder: Int = 0,
     var quote: String = "",
-    @Ignore var theme: String? = null,
-    @Ignore var epigraph: String? = null,
-    @Ignore var thePart: Int? = null,
     var psalm: String = "",
 ) /*: Comparable<LHPsalm>*/ {
+    constructor(
+        theOrder: Int = 0,
+        quote: String = "",
+        theme: String = "",
+        epigraph: String = "",
+        thePart: Int = 0,
+        psalm: String
+    ) : this(theOrder, quote, psalm) {
+        this.theme = theme
+        this.epigraph = epigraph
+        this.thePart = thePart
+    }
+
+    @Ignore
+    var theme: String? = null
+    @Ignore
+    var epigraph: String? = null
+    @Ignore
+    var thePart: Int? = null
+
     var psalmID = 0
     var readingID = 0
     //var psalm = ""
@@ -61,14 +78,6 @@ open class LHPsalm(
 
     val quoteForView: SpannableStringBuilder
         get() = Utils.toRed(quote)
-
-    @Deprecated("Se traslada a LHAntiphon", replaceWith = ReplaceWith("LHAntiphon.forRead"))
-    open val antifonaForRead: String
-        get() = if (lhAntiphon != null && lhAntiphon!!.antiphon != "") Utils.normalizeEnd(lhAntiphon!!.antiphon) else ""
-
-    @Deprecated("Se traslada a LHAntiphon")
-    open val antiphonForView: String
-        get() = if (lhAntiphon != null && lhAntiphon!!.antiphon != "") lhAntiphon!!.antiphon else ""
 
     val ref: SpannableStringBuilder
         get() = if (quote != "") {

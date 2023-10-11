@@ -76,724 +76,722 @@ class Crud<T> {
     /**
      * Este método maneja todas las respuestas Crud, sin importar de qué objeto sean.
      */
-    fun doCrud(mTodayDao: TodayDao) {
+    fun doCrud(todayDao: TodayDao) {
         try {
 
             if (crudLiturgy != null) {
-                val c = crudLiturgy!!.c
-                val u = crudLiturgy!!.u
-                val d = crudLiturgy!!.d
-                if (!c.isNullOrEmpty()) {
-                    mTodayDao.liturgyInsertAll(c)
+                crudLiturgy!!.check()
+                val cr = crudLiturgy!!.c
+                val up = crudLiturgy!!.u
+                val de = crudLiturgy!!.d
+                if (!cr.isNullOrEmpty()) {
+                    todayDao.liturgyInsertAll(cr)
                 }
-                if (!u.isNullOrEmpty()) {
-                    mTodayDao.liturgyUpdateAll(u)
+                if (!up.isNullOrEmpty()) {
+                    todayDao.liturgyUpdateAll(up)
                 }
-                if (!d.isNullOrEmpty()) {
-                    mTodayDao.liturgyDeleteAll(d)
+                if (!de.isNullOrEmpty()) {
+                    todayDao.liturgyDeleteAll(de)
                 }
             }
 
             if (crudLiturgyTime != null) {
-                val c = crudLiturgyTime!!.c
-                val u = crudLiturgyTime!!.u
-                val d = crudLiturgyTime!!.d
-                if (!c.isNullOrEmpty()) {
-                    mTodayDao.liturgyTimeInsertAll(c)
+                val cr = crudLiturgyTime!!.c
+                val up = crudLiturgyTime!!.u
+                val de = crudLiturgyTime!!.d
+                if (!cr.isNullOrEmpty()) {
+                    todayDao.liturgyTimeInsertAll(cr)
                 }
-                if (!u.isNullOrEmpty()) {
-                    mTodayDao.liturgyTimeUpdateAll(u)
+                if (!up.isNullOrEmpty()) {
+                    todayDao.liturgyTimeUpdateAll(up)
                 }
-                if (!d.isNullOrEmpty()) {
-                    mTodayDao.liturgyTimeDeleteAll(d)
+                if (!de.isNullOrEmpty()) {
+                    todayDao.liturgyTimeDeleteAll(de)
                 }
             }
 
             if (crudLiturgyColor != null) {
-                val c = crudLiturgyColor!!.c
-                val u = crudLiturgyColor!!.u
-                val d = crudLiturgyColor!!.d
-                if (!c.isNullOrEmpty()) {
-                    mTodayDao.liturgyColorInsertAll(c)
+                val cr = crudLiturgyColor!!.c
+                val up = crudLiturgyColor!!.u
+                val de = crudLiturgyColor!!.d
+                if (!cr.isNullOrEmpty()) {
+                    todayDao.liturgyColorInsertAll(cr)
                 }
-                if (!u.isNullOrEmpty()) {
-                    mTodayDao.liturgyColorUpdateAll(u)
+                if (!up.isNullOrEmpty()) {
+                    todayDao.liturgyColorUpdateAll(up)
                 }
-                if (!d.isNullOrEmpty()) {
-                    mTodayDao.liturgyColorDeleteAll(d)
+                if (!de.isNullOrEmpty()) {
+                    todayDao.liturgyColorDeleteAll(de)
                 }
             }
 
             if (crudMassReadingJoin != null) {
-                val c = crudMassReadingJoin!!.c
-                val u = crudMassReadingJoin!!.u
-                val d = crudMassReadingJoin!!.d
-                if (!c.isNullOrEmpty()) {
-                    mTodayDao.massReadingJoinInsertAll(c)
+                val cr = crudMassReadingJoin!!.c
+                val up = crudMassReadingJoin!!.u
+                val de = crudMassReadingJoin!!.d
+                if (!cr.isNullOrEmpty()) {
+                    todayDao.massReadingJoinInsertAll(cr)
                 }
-                if (!d.isNullOrEmpty()) {
-                    mTodayDao.massReadingJoinDeleteAll(d)
+                if (!de.isNullOrEmpty()) {
+                    todayDao.massReadingJoinDeleteAll(de)
                 }
-                if (!u.isNullOrEmpty()) {
-                    mTodayDao.massReadingJoinUpdateAll(u)
+                if (!up.isNullOrEmpty()) {
+                    todayDao.massReadingJoinUpdateAll(up)
                 }
             }
 
             if (crudBibleBook != null) {
-                val c = crudBibleBook!!.c
-                val u = crudBibleBook!!.u
-                val d = crudBibleBook!!.d
-                if (!c.isNullOrEmpty()) {
-                    mTodayDao.bibleBookInsertAll(c)
+                val cr = crudBibleBook!!.c
+                val up = crudBibleBook!!.u
+                val de = crudBibleBook!!.d
+                if (!cr.isNullOrEmpty()) {
+                    todayDao.bibleBookInsertAll(cr)
                 }
-                if (!u.isNullOrEmpty()) {
-                    mTodayDao.bibleBookUpdateAll(u)
+                if (!up.isNullOrEmpty()) {
+                    todayDao.bibleBookUpdateAll(up)
                 }
-                if (!d.isNullOrEmpty()) {
-                    mTodayDao.bibleBookDeleteAll(d)
+                if (!de.isNullOrEmpty()) {
+                    todayDao.bibleBookDeleteAll(de)
                 }
             }
 
             if (crudKyrie != null) {
-                val c = crudKyrie!!.c
-                val u = crudKyrie!!.u
-                val d = crudKyrie!!.d
-                if (!c.isNullOrEmpty()) {
-                    mTodayDao.kyrieInsertAll(c)
+                val cr = crudKyrie!!.c
+                val up = crudKyrie!!.u
+                val de = crudKyrie!!.d
+                if (!cr.isNullOrEmpty()) {
+                    todayDao.kyrieInsertAll(cr)
                 }
-                if (!u.isNullOrEmpty()) {
-                    mTodayDao.kyrieUpdateAll(u)
+                if (!up.isNullOrEmpty()) {
+                    todayDao.kyrieUpdateAll(up)
                 }
-                if (!d.isNullOrEmpty()) {
-                    mTodayDao.kyrieDeleteAll(d)
+                if (!de.isNullOrEmpty()) {
+                    todayDao.kyrieDeleteAll(de)
                 }
             }
 
             if (crudVirginAntiphon != null) {
-                val c = crudVirginAntiphon!!.c
-                val u = crudVirginAntiphon!!.u
-                val d = crudVirginAntiphon!!.d
-                if (!c.isNullOrEmpty()) {
-                    mTodayDao.virginAntiphonInsertAll(c)
+                val cr = crudVirginAntiphon!!.c
+                val up = crudVirginAntiphon!!.u
+                val de = crudVirginAntiphon!!.d
+                if (!cr.isNullOrEmpty()) {
+                    todayDao.virginAntiphonInsertAll(cr)
                 }
-                if (!u.isNullOrEmpty()) {
-                    mTodayDao.virginAntiphonUpdateAll(u)
+                if (!up.isNullOrEmpty()) {
+                    todayDao.virginAntiphonUpdateAll(up)
                 }
-                if (!d.isNullOrEmpty()) {
-                    mTodayDao.virginAntiphonDeleteAll(d)
+                if (!de.isNullOrEmpty()) {
+                    todayDao.virginAntiphonDeleteAll(de)
                 }
 
                 if (crudSaint != null) {
-                    //val c = crudSaint!!.c
-                    val u = crudSaint!!.u
-                    val d = crudSaint!!.d
+                    val cr = crudSaint!!.c
+                    val up = crudSaint!!.u
+                    val de = crudSaint!!.d
                     if (!crudSaint!!.c.isNullOrEmpty()) {
-                        mTodayDao.saintInsertAll(crudSaint!!.c!!)
+                        todayDao.saintInsertAll(cr!!)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.saintUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.saintUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.saintDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.saintDeleteAll(de)
                     }
                 }
                 if (crudSaintLife != null) {
-                    val c = crudSaintLife!!.c
-                    val u = crudSaintLife!!.u
-                    val d = crudSaintLife!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.saintLifeInsertAll(c)
+                    val cr = crudSaintLife!!.c
+                    val up = crudSaintLife!!.u
+                    val de = crudSaintLife!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.saintLifeInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.saintLifeUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.saintLifeUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.saintLifeDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.saintLifeDeleteAll(de)
                     }
                 }
                 if (crudSaintShortLife != null) {
-                    val c = crudSaintShortLife!!.c
-                    val u = crudSaintShortLife!!.u
-                    val d = crudSaintShortLife!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.saintShortLifeInsertAll(c)
+                    val cr = crudSaintShortLife!!.c
+                    val up = crudSaintShortLife!!.u
+                    val de = crudSaintShortLife!!.d
+                    if (!crudSaintShortLife!!.c.isNullOrEmpty()) {
+                        todayDao.saintShortLifeInsertAll(crudSaintShortLife!!.c!!)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.saintShortLifeUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.saintShortLifeUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.saintShortLifeDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.saintShortLifeDeleteAll(de)
                     }
                 }
 
                 if (crudLHHymn != null) {
-                    val c = crudLHHymn!!.c
-                    val u = crudLHHymn!!.u
-                    val d = crudLHHymn!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhHymnInsertAll(c)
+                    val cr = crudLHHymn!!.c
+                    val up = crudLHHymn!!.u
+                    val de = crudLHHymn!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhHymnInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhHymnUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhHymnUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhHymnDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhHymnDeleteAll(de)
                     }
                 }
                 if (crudLHHymnJoin != null) {
-                    val c = crudLHHymnJoin!!.c
-                    val u = crudLHHymnJoin!!.u
-                    val d = crudLHHymnJoin!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhHymnJoinInsertAll(c)
+                    val cr = crudLHHymnJoin!!.c
+                    val up = crudLHHymnJoin!!.u
+                    val de = crudLHHymnJoin!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhHymnJoinInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhHymnJoinUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhHymnJoinUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhHymnJoinDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhHymnJoinDeleteAll(de)
                     }
                 }
                 if (crudLHOfficeVerse != null) {
-                    val c = crudLHOfficeVerse!!.c
-                    val u = crudLHOfficeVerse!!.u
-                    val d = crudLHOfficeVerse!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhOfficeVerseInsertAll(c)
+                    val cr = crudLHOfficeVerse!!.c
+                    val up = crudLHOfficeVerse!!.u
+                    val de = crudLHOfficeVerse!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhOfficeVerseInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhOfficeVerseUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhOfficeVerseUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhOfficeVerseDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhOfficeVerseDeleteAll(de)
                     }
                 }
                 if (crudLHOfficeVerseJoin != null) {
-                    val c = crudLHOfficeVerseJoin!!.c
-                    val u = crudLHOfficeVerseJoin!!.u
-                    val d = crudLHOfficeVerseJoin!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhOfficeVerseJoinInsertAll(c)
+                    val cr = crudLHOfficeVerseJoin!!.c
+                    val up = crudLHOfficeVerseJoin!!.u
+                    val de = crudLHOfficeVerseJoin!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhOfficeVerseJoinInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhOfficeVerseJoinUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhOfficeVerseJoinUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhOfficeVerseJoinDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhOfficeVerseJoinDeleteAll(de)
                     }
                 }
 
                 if (crudBibleReading != null) {
-                    val c = crudBibleReading!!.c
-                    val u = crudBibleReading!!.u
-                    val d = crudBibleReading!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.bibleReadingInsertAll(c)
+                    val cr = crudBibleReading!!.c
+                    val up = crudBibleReading!!.u
+                    val de = crudBibleReading!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.bibleReadingInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.bibleReadingUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.bibleReadingUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.bibleReadingDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.bibleReadingDeleteAll(de)
                     }
                 }
                 if (crudMassReading != null) {
-                    val c = crudMassReading!!.c
-                    val u = crudMassReading!!.u
-                    val d = crudMassReading!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.massReadingInsertAll(c)
+                    val cr = crudMassReading!!.c
+                    val up = crudMassReading!!.u
+                    val de = crudMassReading!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.massReadingInsertAll(cr)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.massReadingDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.massReadingDeleteAll(de)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.massReadingUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.massReadingUpdateAll(up)
                     }
                 }
 
                 if (crudLHOfficeBiblical != null) {
-                    val c = crudLHOfficeBiblical!!.c
-                    val u = crudLHOfficeBiblical!!.u
-                    val d = crudLHOfficeBiblical!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhOfficeBiblicalInsertAll(c)
+                    val cr = crudLHOfficeBiblical!!.c
+                    val up = crudLHOfficeBiblical!!.u
+                    val de = crudLHOfficeBiblical!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhOfficeBiblicalInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhOfficeBiblicalUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhOfficeBiblicalUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhOfficeBiblicalDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhOfficeBiblicalDeleteAll(de)
                     }
                 }
                 if (crudLHOfficeBiblicalJoin != null) {
-                    val c = crudLHOfficeBiblicalJoin!!.c
-                    val u = crudLHOfficeBiblicalJoin!!.u
-                    val d = crudLHOfficeBiblicalJoin!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhOfficeBiblicalJoinInsertAll(c)
+                    val cr = crudLHOfficeBiblicalJoin!!.c
+                    val up = crudLHOfficeBiblicalJoin!!.u
+                    val de = crudLHOfficeBiblicalJoin!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhOfficeBiblicalJoinInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhOfficeBiblicalJoinUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhOfficeBiblicalJoinUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhOfficeBiblicalJoinDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhOfficeBiblicalJoinDeleteAll(de)
                     }
                 }
                 if (crudLHResponsory != null) {
-                    val c = crudLHResponsory!!.c
-                    val u = crudLHResponsory!!.u
-                    val d = crudLHResponsory!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhResponsoryInsertAll(c)
+                    val cr = crudLHResponsory!!.c
+                    val up = crudLHResponsory!!.u
+                    val de = crudLHResponsory!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhResponsoryInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhResponsoryUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhResponsoryUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhResponsoryDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhResponsoryDeleteAll(de)
                     }
                 }
 
                 if (crudPater != null) {
-                    val c = crudPater!!.c
-                    val u = crudPater!!.u
-                    val d = crudPater!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.paterInsertAll(c)
+                    val cr = crudPater!!.c
+                    val up = crudPater!!.u
+                    val de = crudPater!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.paterInsertAll(cr)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.paterDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.paterDeleteAll(de)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.paterUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.paterUpdateAll(up)
                     }
                 }
 
                 if (crudPaterOpus != null) {
-                    val c = crudPaterOpus!!.c
-                    val u = crudPaterOpus!!.u
-                    val d = crudPaterOpus!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.paterOpusInsertAll(c)
+                    val cr = crudPaterOpus!!.c
+                    val up = crudPaterOpus!!.u
+                    val de = crudPaterOpus!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.paterOpusInsertAll(cr)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.paterOpusDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.paterOpusDeleteAll(de)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.paterOpusUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.paterOpusUpdateAll(up)
                     }
                 }
 
                 if (crudHomily != null) {
-                    val c = crudHomily!!.c
-                    val u = crudHomily!!.u
-                    val d = crudHomily!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.homilyInsertAll(c)
+                    val cr = crudHomily!!.c
+                    val up = crudHomily!!.u
+                    val de = crudHomily!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.homilyInsertAll(cr)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.homilyDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.homilyDeleteAll(de)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.homilyUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.homilyUpdateAll(up)
                     }
                 }
 
                 if (crudLHOfficePatristic != null) {
-                    val c = crudLHOfficePatristic!!.c
-                    val u = crudLHOfficePatristic!!.u
-                    val d = crudLHOfficePatristic!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhOfficePatristicInsertAll(c)
+                    val cr = crudLHOfficePatristic!!.c
+                    val up = crudLHOfficePatristic!!.u
+                    val de = crudLHOfficePatristic!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhOfficePatristicInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhOfficePatristicUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhOfficePatristicUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhOfficePatristicDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhOfficePatristicDeleteAll(de)
                     }
                 }
                 if (crudLHOfficePatristicJoin != null) {
-                    val c = crudLHOfficePatristicJoin!!.c
-                    val u = crudLHOfficePatristicJoin!!.u
-                    val d = crudLHOfficePatristicJoin!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhOfficePatristicJoinInsertAll(c)
+                    val cr = crudLHOfficePatristicJoin!!.c
+                    val up = crudLHOfficePatristicJoin!!.u
+                    val de = crudLHOfficePatristicJoin!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhOfficePatristicJoinInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhOfficePatristicJoinUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhOfficePatristicJoinUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhOfficePatristicJoinDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhOfficePatristicJoinDeleteAll(de)
                     }
                 }
 
                 if (crudLHPsalmodyJoin != null) {
-                    val c = crudLHPsalmodyJoin!!.c
-                    val u = crudLHPsalmodyJoin!!.u
-                    val d = crudLHPsalmodyJoin!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhPsalmodyJoinInsertAll(c)
+                    val cr = crudLHPsalmodyJoin!!.c
+                    val up = crudLHPsalmodyJoin!!.u
+                    val de = crudLHPsalmodyJoin!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhPsalmodyJoinInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhPsalmodyJoinUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhPsalmodyJoinUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhPsalmodyJoinDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhPsalmodyJoinDeleteAll(de)
                     }
                 }
 
 
                 if (crudLHAntiphon != null) {
-                    val d = crudLHAntiphon!!.d
-                    val c = crudLHAntiphon!!.c
-                    val u = crudLHAntiphon!!.u
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhAntiphonInsertAll(c)
+                    val de = crudLHAntiphon!!.d
+                    val cr = crudLHAntiphon!!.c
+                    val up = crudLHAntiphon!!.u
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhAntiphonInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhAntiphonUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhAntiphonUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhAntiphonDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhAntiphonDeleteAll(de)
                     }
                 }
                 if (crudLHTheme != null) {
-                    val d = crudLHTheme!!.d
-                    val c = crudLHTheme!!.c
-                    val u = crudLHTheme!!.u
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhThemeInsertAll(c)
+                    val de = crudLHTheme!!.d
+                    val cr = crudLHTheme!!.c
+                    val up = crudLHTheme!!.u
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhThemeInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhThemeUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhThemeUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhThemeDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhThemeDeleteAll(de)
                     }
                 }
                 if (crudLHEpigraph != null) {
-                    val d = crudLHEpigraph!!.d
-                    val c = crudLHEpigraph!!.c
-                    val u = crudLHEpigraph!!.u
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhEpigraphInsertAll(c)
+                    if (!crudLHEpigraph!!.d.isNullOrEmpty()) {
+                        todayDao.lhEpigraphInsertAll(crudLHEpigraph!!.c!!)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhEpigraphUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhEpigraphUpdateAll(crudLHEpigraph!!.u!!)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhEpigraphDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhEpigraphDeleteAll(crudLHEpigraph!!.d!!)
                     }
                 }
                 if (crudLHPsalm != null) {
-                    val d = crudLHPsalm!!.d
-                    val c = crudLHPsalm!!.c
-                    val u = crudLHPsalm!!.u
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhPsalmInsertAll(c)
+                    val de = crudLHPsalm!!.d
+                    val cr = crudLHPsalm!!.c
+                    val up = crudLHPsalm!!.u
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhPsalmInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhPsalmUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhPsalmUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhPsalmDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhPsalmDeleteAll(de)
                     }
                 }
                 /*
                                 if (crudLHPsalmody != null) {
-                                    val c = crudLHPsalmody!!.c
-                                    val u = crudLHPsalmody!!.u
-                                    val d = crudLHPsalmody!!.d
-                                    if (!c.isNullOrEmpty()) {
-                                        mTodayDao.lhPsalmodyInsertAll(c)
+                                    val cr = crudLHPsalmody!!.c
+                                    val up = crudLHPsalmody!!.u
+                                    val de = crudLHPsalmody!!.d
+                                    if (!cr.isNullOrEmpty()) {
+                                        mTodayDao.lhPsalmodyInsertAll(cr)
                                     }
-                                    if (!u.isNullOrEmpty()) {
-                                        mTodayDao.lhPsalmodyUpdateAll(u)
+                                    if (!up.isNullOrEmpty()) {
+                                        mTodayDao.lhPsalmodyUpdateAll(up)
                                     }
-                                    if (!d.isNullOrEmpty()) {
-                                        mTodayDao.lhPsalmodyDeleteAll(d)
+                                    if (!de.isNullOrEmpty()) {
+                                        mTodayDao.lhPsalmodyDeleteAll(de)
                                     }
                                 }
                 */
                 if (crudLHInvitatoryJoin != null) {
-                    val c = crudLHInvitatoryJoin!!.c
-                    val u = crudLHInvitatoryJoin!!.u
-                    val d = crudLHInvitatoryJoin!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhInvitatoryJoinInsertAll(c)
+                    val cr = crudLHInvitatoryJoin!!.c
+                    val up = crudLHInvitatoryJoin!!.u
+                    val de = crudLHInvitatoryJoin!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhInvitatoryJoinInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhInvitatoryJoinUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhInvitatoryJoinUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhInvitatoryJoinDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhInvitatoryJoinDeleteAll(de)
                     }
                 }
 
                 if (crudLHReadingShort != null) {
-                    val d = crudLHReadingShort!!.d
-                    val c = crudLHReadingShort!!.c
-                    val u = crudLHReadingShort!!.u
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhReadingShortInsertAll(c)
+                    val de = crudLHReadingShort!!.d
+                    val cr = crudLHReadingShort!!.c
+                    val up = crudLHReadingShort!!.u
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhReadingShortInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhReadingShortUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhReadingShortUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhReadingShortDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhReadingShortDeleteAll(de)
                     }
                 }
                 if (crudLHResponsoryShort != null) {
-                    val d = crudLHResponsoryShort!!.d
-                    val c = crudLHResponsoryShort!!.c
-                    val u = crudLHResponsoryShort!!.u
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhResponsoryShortInsertAll(c)
+                    val de = crudLHResponsoryShort!!.d
+                    val cr = crudLHResponsoryShort!!.c
+                    val up = crudLHResponsoryShort!!.u
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhResponsoryShortInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhResponsoryShortUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhResponsoryShortUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhResponsoryShortDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhResponsoryShortDeleteAll(de)
                     }
                 }
                 if (crudLHReadingShortJoin != null) {
-                    val d = crudLHReadingShortJoin!!.d
-                    val c = crudLHReadingShortJoin!!.c
-                    val u = crudLHReadingShortJoin!!.u
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhReadingShortJoinInsertAll(c)
+                    val de = crudLHReadingShortJoin!!.d
+                    val cr = crudLHReadingShortJoin!!.c
+                    val up = crudLHReadingShortJoin!!.u
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhReadingShortJoinInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhReadingShortJoinUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhReadingShortJoinUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhReadingShortJoinDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhReadingShortJoinDeleteAll(de)
                     }
                 }
                 if (crudPrayer != null) {
-                    val c = crudPrayer!!.c
-                    val u = crudPrayer!!.u
-                    val d = crudPrayer!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.prayerInsertAll(c)
+                    val cr = crudPrayer!!.c
+                    val up = crudPrayer!!.u
+                    val de = crudPrayer!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.prayerInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.prayerUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.prayerUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.prayerDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.prayerDeleteAll(de)
                     }
                 }
                 if (crudLHPrayer != null) {
-                    val c = crudLHPrayer!!.c
-                    val u = crudLHPrayer!!.u
-                    val d = crudLHPrayer!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhPrayerInsertAll(c)
+                    val cr = crudLHPrayer!!.c
+                    val up = crudLHPrayer!!.u
+                    val de = crudLHPrayer!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhPrayerInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhPrayerUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhPrayerUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhPrayerDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhPrayerDeleteAll(de)
                     }
                 }
 
                 if (crudLiturgyHomilyJoin != null) {
-                    val c = crudLiturgyHomilyJoin!!.c
-                    val u = crudLiturgyHomilyJoin!!.u
-                    val d = crudLiturgyHomilyJoin!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.liturgyHomilyJoinInsertAll(c)
+                    val cr = crudLiturgyHomilyJoin!!.c
+                    val up = crudLiturgyHomilyJoin!!.u
+                    val de = crudLiturgyHomilyJoin!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.liturgyHomilyJoinInsertAll(cr)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.liturgyHomilyJoinDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.liturgyHomilyJoinDeleteAll(de)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.liturgyHomilyJoinUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.liturgyHomilyJoinUpdateAll(up)
                     }
                 }
                 if (crudLiturgySaintJoin != null) {
-                    val c = crudLiturgySaintJoin!!.c
-                    val u = crudLiturgySaintJoin!!.u
-                    val d = crudLiturgySaintJoin!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.liturgySaintJoinInsertAll(c)
+                    val cr = crudLiturgySaintJoin!!.c
+                    val up = crudLiturgySaintJoin!!.u
+                    val de = crudLiturgySaintJoin!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.liturgySaintJoinInsertAll(cr)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.liturgySaintJoinDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.liturgySaintJoinDeleteAll(de)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.liturgySaintJoinUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.liturgySaintJoinUpdateAll(up)
                     }
                 }
 
                 if (crudBibleHomilyJoin != null) {
-                    val c = crudBibleHomilyJoin!!.c
-                    val u = crudBibleHomilyJoin!!.u
-                    val d = crudBibleHomilyJoin!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.bibleHomilyJoinInsertAll(c)
+                    val cr = crudBibleHomilyJoin!!.c
+                    val up = crudBibleHomilyJoin!!.u
+                    val de = crudBibleHomilyJoin!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.bibleHomilyJoinInsertAll(cr)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.bibleHomilyJoinDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.bibleHomilyJoinDeleteAll(de)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.bibleHomilyJoinUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.bibleHomilyJoinUpdateAll(up)
                     }
                 }
                 if (crudLHGospelCanticle != null) {
-                    val c = crudLHGospelCanticle!!.c
-                    val u = crudLHGospelCanticle!!.u
-                    val d = crudLHGospelCanticle!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.gospelCanticleInsertAll(c)
+                    val cr = crudLHGospelCanticle!!.c
+                    val up = crudLHGospelCanticle!!.u
+                    val de = crudLHGospelCanticle!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.gospelCanticleInsertAll(cr)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.gospelCanticleDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.gospelCanticleDeleteAll(de)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.gospelCanticleUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.gospelCanticleUpdateAll(up)
                     }
                 }
                 if (crudLHIntercessions != null) {
-                    val c = crudLHIntercessions!!.c
-                    val u = crudLHIntercessions!!.u
-                    val d = crudLHIntercessions!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhIntercessionsInsertAll(c)
+                    val cr = crudLHIntercessions!!.c
+                    val up = crudLHIntercessions!!.u
+                    val de = crudLHIntercessions!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhIntercessionsInsertAll(cr)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhIntercessionsDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhIntercessionsDeleteAll(de)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhIntercessionsUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhIntercessionsUpdateAll(up)
                     }
                 }
                 if (crudLHIntercessionsJoin != null) {
-                    val c = crudLHIntercessionsJoin!!.c
-                    val u = crudLHIntercessionsJoin!!.u
-                    val d = crudLHIntercessionsJoin!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhIntercessionsJoinInsertAll(c)
+                    val cr = crudLHIntercessionsJoin!!.c
+                    val up = crudLHIntercessionsJoin!!.u
+                    val de = crudLHIntercessionsJoin!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhIntercessionsJoinInsertAll(cr)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhIntercessionsJoinDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhIntercessionsJoinDeleteAll(de)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhIntercessionsJoinUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhIntercessionsJoinUpdateAll(up)
                     }
                 }
 
 
                 if (crudBibleHomilyTheme != null) {
-                    val c = crudBibleHomilyTheme!!.c
-                    val u = crudBibleHomilyTheme!!.u
-                    val d = crudBibleHomilyTheme!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.bibleHomilyThemeInsertAll(c)
+                    val cr = crudBibleHomilyTheme!!.c
+                    val up = crudBibleHomilyTheme!!.u
+                    val de = crudBibleHomilyTheme!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.bibleHomilyThemeInsertAll(cr)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.bibleHomilyThemeDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.bibleHomilyThemeDeleteAll(de)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.bibleHomilyThemeUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.bibleHomilyThemeUpdateAll(up)
                     }
                 }
                 if (crudBibleHomilyJoin != null) {
-                    val c = crudBibleHomilyJoin!!.c
-                    val u = crudBibleHomilyJoin!!.u
-                    val d = crudBibleHomilyJoin!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.bibleHomilyJoinInsertAll(c)
+                    val cr = crudBibleHomilyJoin!!.c
+                    val up = crudBibleHomilyJoin!!.u
+                    val de = crudBibleHomilyJoin!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.bibleHomilyJoinInsertAll(cr)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.bibleHomilyJoinDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.bibleHomilyJoinDeleteAll(de)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.bibleHomilyJoinUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.bibleHomilyJoinUpdateAll(up)
                     }
                 }
 
 
                 /*
                             if (crudLHInvitatory != null) {
-                                val c = crudLHInvitatory!!.c
-                                val u = crudLHInvitatory!!.u
-                                val d = crudLHInvitatory!!.d
-                                if (!c.isNullOrEmpty()) {
-                                    mTodayDao.lhInvitatoryInsertAll(c)
+                                val cr = crudLHInvitatory!!.c
+                                val up = crudLHInvitatory!!.u
+                                val de = crudLHInvitatory!!.d
+                                if (!cr.isNullOrEmpty()) {
+                                    mTodayDao.lhInvitatoryInsertAll(cr)
                                 }
-                                if (!u.isNullOrEmpty()) {
-                                    mTodayDao.lhInvitatoryUpdateAll(u)
+                                if (!up.isNullOrEmpty()) {
+                                    mTodayDao.lhInvitatoryUpdateAll(up)
                                 }
-                                if (!d.isNullOrEmpty()) {
-                                    mTodayDao.lhInvitatoryDeleteAll(d)
+                                if (!de.isNullOrEmpty()) {
+                                    mTodayDao.lhInvitatoryDeleteAll(de)
                                 }
                             }
                 */
                 if (crudLHKyrieJoin != null) {
-                    val c = crudLHKyrieJoin!!.c
-                    val u = crudLHKyrieJoin!!.u
-                    val d = crudLHKyrieJoin!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhKyrieJoinInsertAll(c)
+                    val cr = crudLHKyrieJoin!!.c
+                    val up = crudLHKyrieJoin!!.u
+                    val de = crudLHKyrieJoin!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhKyrieJoinInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhKyrieJoinUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhKyrieJoinUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhKyrieJoinDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhKyrieJoinDeleteAll(de)
                     }
                 }
 
                 if (crudLHVirginAntiphonJoin != null) {
-                    val c = crudLHVirginAntiphonJoin!!.c
-                    val u = crudLHVirginAntiphonJoin!!.u
-                    val d = crudLHVirginAntiphonJoin!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhVirginAntiphonJoinInsertAll(c)
+                    val cr = crudLHVirginAntiphonJoin!!.c
+                    val up = crudLHVirginAntiphonJoin!!.u
+                    val de = crudLHVirginAntiphonJoin!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhVirginAntiphonJoinInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhVirginAntiphonJoinUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhVirginAntiphonJoinUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhVirginAntiphonJoinDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhVirginAntiphonJoinDeleteAll(de)
                     }
                 }
 
                 if (crudLHNightPrayer != null) {
-                    val c = crudLHNightPrayer!!.c
-                    val u = crudLHNightPrayer!!.u
-                    val d = crudLHNightPrayer!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.lhNightPrayerInsertAll(c)
+                    val cr = crudLHNightPrayer!!.c
+                    val up = crudLHNightPrayer!!.u
+                    val de = crudLHNightPrayer!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.lhNightPrayerInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.lhNightPrayerUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.lhNightPrayerUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.lhNightPrayerDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.lhNightPrayerDeleteAll(de)
                     }
                 }
 
 
                 if (crudToday != null) {
-                    val c = crudToday!!.c
-                    val u = crudToday!!.u
-                    val d = crudToday!!.d
-                    if (!c.isNullOrEmpty()) {
-                        mTodayDao.todayInsertAll(c)
+                    val cr = crudToday!!.c
+                    val up = crudToday!!.u
+                    val de = crudToday!!.d
+                    if (!cr.isNullOrEmpty()) {
+                        todayDao.todayInsertAll(cr)
                     }
-                    if (!u.isNullOrEmpty()) {
-                        mTodayDao.todayUpdateAll(u)
+                    if (!up.isNullOrEmpty()) {
+                        todayDao.todayUpdateAll(up)
                     }
-                    if (!d.isNullOrEmpty()) {
-                        mTodayDao.todayDeleteAll(d)
+                    if (!de.isNullOrEmpty()) {
+                        todayDao.todayDeleteAll(de)
                     }
                 }
             }

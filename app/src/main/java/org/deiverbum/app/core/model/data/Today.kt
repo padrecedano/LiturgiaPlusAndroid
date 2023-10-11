@@ -4,7 +4,6 @@ import android.text.SpannableStringBuilder
 import androidx.room.Ignore
 import org.deiverbum.app.core.model.TodayRequest
 import org.deiverbum.app.util.ColorUtils
-import org.deiverbum.app.util.Constants.LS2
 import org.deiverbum.app.util.Constants.VOICE_INI
 import org.deiverbum.app.util.Utils
 
@@ -111,7 +110,7 @@ class Today(
         ColorUtils.isNightMode = todayRequest.isNightMode
         val sb = SpannableStringBuilder()
         try {
-
+/*
             if (liturgyDay.typeID == 12) {
                 //sb.append(LS2)
                 sb.append(liturgyDay.saintLife?.getForView(todayRequest.isNightMode))
@@ -177,7 +176,7 @@ class Today(
             if (liturgyDay.typeID == 7) {
                 sb.append(liturgyDay.breviaryHour!!.completas.getAllForView(timeFK))
             }
-
+*/
 
         } catch (e: Exception) {
             sb.append(Utils.createErrorMessage(e.message))
@@ -189,59 +188,58 @@ class Today(
         val sb = StringBuilder(VOICE_INI)
         //sbReader = new StringBuilder(VOICE_INI);
         try {
+            /*
+                        if (liturgyDay.typeID == 12) {
+                            sb.append(liturgyDay.saintLife?.forRead)
+                            return sb
+                        }
 
-            if (liturgyDay.typeID == 12) {
-                sb.append(liturgyDay.saintLife?.forRead)
-                return sb
-            }
+                        sb.append(Utils.pointAtEnd(fecha))
+                        sb.append(tituloForRead)
 
-            sb.append(Utils.pointAtEnd(fecha))
-            sb.append(tituloForRead)
-
-            if (liturgyDay.typeID == 9) {
-                sb.append(liturgyDay.homilyList?.allForRead)
-                return sb
-            }
+                        if (liturgyDay.typeID == 9) {
+                            sb.append(liturgyDay.homilyList?.allForRead)
+                            return sb
+                        }
 
 
 
-            if (liturgyDay.typeID == 0) {
-                if (oBiblicalFK == 600010101) {
-                    sb.append(liturgyDay.breviaryHour!!.getOficioEaster()?.forRead)
-                } else {
-                    //TODO
-                    sb.append(liturgyDay.breviaryHour!!.LHMixtus!!.forRead())
-                }
-            }
-            if (liturgyDay.typeID == 1) {
-                if (oBiblicalFK == 600010101) {
-                    sb.append(liturgyDay.breviaryHour!!.getOficioEaster()?.forRead)
-                } else {
-                    sb.append(liturgyDay.breviaryHour!!.oficio!!.forRead())
-                }
-            }
-            if (liturgyDay.typeID == 2) {
-                //sb.append(liturgyDay.breviaryHour!!.laudes!!.forRead)
-            }
-            if (liturgyDay.typeID == 3 || liturgyDay.typeID == 4 || liturgyDay.typeID == 5) {
-                sb.append(liturgyDay.breviaryHour!!.getIntermedia()!!.forRead)
-            }
-            if (liturgyDay.typeID == 6) {
-                sb.append(liturgyDay.breviaryHour!!.visperas!!.getAllForRead())
-            }
-            if (liturgyDay.typeID == 7) {
-                sb.append(liturgyDay.breviaryHour!!.completas.getForRead())
-            }
-            if (liturgyDay.typeID == 10) {
-                sb.append(liturgyDay.massReadingList!!.allForRead)
-            }
+                        if (liturgyDay.typeID == 0) {
+                            if (oBiblicalFK == 600010101) {
+                                sb.append(liturgyDay.breviaryHour!!.getOficioEaster()?.forRead)
+                            } else {
+                                //TODO
+                                sb.append(liturgyDay.breviaryHour!!.LHMixtus!!.forRead())
+                            }
+                        }
+                        if (liturgyDay.typeID == 1) {
+                            if (oBiblicalFK == 600010101) {
+                                sb.append(liturgyDay.breviaryHour!!.getOficioEaster()?.forRead)
+                            } else {
+                                sb.append(liturgyDay.breviaryHour!!.oficio!!.forRead())
+                            }
+                        }
+                        if (liturgyDay.typeID == 2) {
+                            //sb.append(liturgyDay.breviaryHour!!.laudes!!.forRead)
+                        }
+                        if (liturgyDay.typeID == 3 || liturgyDay.typeID == 4 || liturgyDay.typeID == 5) {
+                            sb.append(liturgyDay.breviaryHour!!.getIntermedia()!!.forRead)
+                        }
+                        if (liturgyDay.typeID == 6) {
+                            sb.append(liturgyDay.breviaryHour!!.visperas!!.getAllForRead())
+                        }
+                        if (liturgyDay.typeID == 7) {
+                            sb.append(liturgyDay.breviaryHour!!.completas.getForRead())
+                        }
+                        if (liturgyDay.typeID == 10) {
+                            sb.append(liturgyDay.massReadingList!!.allForRead)
+                        }
 
-            if (liturgyDay.typeID == 11) {
-                sb.append(LS2)
-                sb.append(liturgyDay.bibleCommentList?.getAllForRead)
-                return sb
-            }
-
+                        if (liturgyDay.typeID == 11) {
+                            sb.append(LS2)
+                            sb.append(liturgyDay.bibleCommentList?.getAllForRead)
+                            return sb
+               */
         } catch (e: Exception) {
             sb.append(Utils.createErrorMessage(e.message))
         }

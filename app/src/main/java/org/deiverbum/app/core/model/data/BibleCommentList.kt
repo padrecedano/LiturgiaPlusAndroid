@@ -28,7 +28,7 @@ class BibleCommentList {
                 if (subList.isNotEmpty()) {
                     var x = 1
                     for (item in subList) {
-                        if (item!!.biblica!!.order!! > 39) {
+                        if (item!!.biblica!!.theOrder > 39) {
                             if (x++ == 1) {
                                 sb.append(item.biblica!!.getAll(type))
                                 sb.append(Utils.LS2)
@@ -63,7 +63,7 @@ class BibleCommentList {
                     if (subList.isNotEmpty()) {
                         var x = 1
                         for (item in subList) {
-                            if (item!!.biblica!!.order!! > 39) {
+                            if (item!!.biblica!!.theOrder > 39) {
                                 if (x++ == 1) {
                                     sb.append(item.biblica!!.getAll(type))
                                     sb.append(Utils.LS2)

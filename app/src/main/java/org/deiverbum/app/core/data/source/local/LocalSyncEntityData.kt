@@ -1,6 +1,5 @@
 package org.deiverbum.app.core.data.source.local
 
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import org.deiverbum.app.core.data.source.SyncEntityData
@@ -8,7 +7,6 @@ import org.deiverbum.app.core.database.dao.TodayDao
 import org.deiverbum.app.core.model.SyncRequest
 import org.deiverbum.app.core.model.SyncResponse
 import org.deiverbum.app.core.model.SyncResponseNew
-import org.deiverbum.app.core.model.data.SyncStatus
 import org.deiverbum.app.util.Source
 import javax.inject.Inject
 
@@ -48,12 +46,6 @@ class LocalSyncEntityData @Inject constructor(
         //return SyncResponse(SyncStatus())
     }
 
-
-    fun getSyncc1(syncRequest: SyncRequest): Flow<SyncStatus> {
-        return todayDao.allSyncStatuss()
-            .map { it }
-            .distinctUntilChanged()
-    }
 
     override suspend fun getSyncc(syncRequest: SyncRequest): SyncResponseNew {
         return SyncResponseNew(todayDao.allSyncStatuss()
