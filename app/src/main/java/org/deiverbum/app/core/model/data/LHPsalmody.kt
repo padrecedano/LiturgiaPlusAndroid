@@ -33,7 +33,7 @@ open class LHPsalmody() : Sortable {
     protected var psalms: MutableList<LHPsalm> = mutableListOf()
 
     @Ignore
-    protected var antiphons: MutableList<LHAntiphon> = mutableListOf()
+    protected open var antiphons: MutableList<LHAntiphon> = mutableListOf()
 
     /**
      * Obtiene todos los elementos del salmo formateados para la vista.
@@ -169,7 +169,8 @@ open class LHPsalmody() : Sortable {
      */
     fun getSalmosByIndex(index: Int): SpannableStringBuilder {
         //sort()
-        val sb = SpannableStringBuilder("")
+        val sb = SpannableStringBuilder(header)
+        sb.append(LS2)
         val s = psalms[index]
 
         sb.append(antiphons[index].afterForView)
@@ -214,7 +215,7 @@ open class LHPsalmody() : Sortable {
         return sb
     }
 
-    val header: SpannableStringBuilder
+    open val header: SpannableStringBuilder
         get() = Utils.formatTitle(Constants.TITLE_PSALMODY)
     private val headerForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_PSALMODY)

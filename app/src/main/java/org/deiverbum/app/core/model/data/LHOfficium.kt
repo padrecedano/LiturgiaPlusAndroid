@@ -35,8 +35,8 @@ data class LHOfficium(
             officiumLectionis.normalizeByTime(calendarTime)
             if (sanctus != null && hasSaint) {
                 invitatorium.normalizeIsSaint(sanctus!!.nomen)
-                ssb.append(sanctus!!.vitaBrevis)
-                ssb.append(Constants.LS)
+                ssb.append(sanctus!!.forViewVitaBrevis)
+                //ssb.append(Constants.LS2)
             }
             ssb.append(Utils.toH1Red(Constants.TITLE_OFICIO))
             ssb.append(Utils.LS2)
@@ -65,7 +65,7 @@ data class LHOfficium(
         val sb = StringBuilder()
         try {
             if (sanctus != null && hasSaint) {
-                sb.append(sanctus!!.vitaBrevis)
+                sb.append(sanctus!!.forReadVitaBrevis)
             }
             sb.append(Utils.pointAtEnd(Constants.TITLE_OFICIO))
             sb.append(Introitus.readDomineLabiaMeaAperis)

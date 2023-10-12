@@ -15,6 +15,7 @@ import org.deiverbum.app.util.Utils
  * @property preces Un objeto [LHIntercession] con las preces.
  * @property oratio Un objeto [Oratio] con la oración final.
  * @property sanctus Un objeto [LHSanctus] con la vida breve del santo del día cuando aplique.
+ * @property isPrimaVesperas Será `true` cuando la celebración sea Primeras Vísperas.
  *
  * @author A. Cedano
  * @see [Breviarium]
@@ -27,7 +28,7 @@ class LHVesperas(
     var canticumEvangelicum: LHGospelCanticle,
     var preces: LHIntercession,
     var oratio: Oratio,
-    //var sanctus: LHSanctus
+    var isPrimaVesperas: Boolean
 ) : Breviarium {
     var sanctus: LHSanctus? = null
     var hasSaint: Boolean = false
@@ -38,15 +39,14 @@ class LHVesperas(
         try {
             if (sanctus != null && hasSaint) {
                 //invitatorium.normalizeIsSaint(sanctus!!.nomen)
-                ssb.append(sanctus!!.vitaBrevis)
-                ssb.append(Constants.LS)
+                //ssb.append(sanctus!!.vitaBrevis)
+                //ssb.append(Constants.LS)
             }
-            ssb.append(Utils.toH1Red(Constants.TITLE_LAUDES))
+            ssb.append(titleForView)
             ssb.append(Utils.LS2)
             ssb.append(Introitus.viewDomineLabiaMeaAperis)
             ssb.append(Utils.LS2)
             //ssb.append(invitatorium.getAllForView(-1, calendarTime))
-            ssb.append(Utils.LS2)
             ssb.append(hymnus.all)
             ssb.append(Utils.LS2)
             ssb.append(psalmodia.getAllForView(-1, calendarTime))
@@ -54,7 +54,7 @@ class LHVesperas(
             ssb.append(Utils.LS)
             ssb.append(lectioBrevis.getAllWithHourCheck(2))
             ssb.append(Utils.LS)
-            ssb.append(canticumEvangelicum.all)
+            ssb.append(canticumEvangelicum.getSalmosByIndex(0))
             ssb.append(Utils.LS2)
             ssb.append(preces.all)
             ssb.append(Utils.LS2)
@@ -75,7 +75,7 @@ class LHVesperas(
             if (sanctus != null && hasSaint) {
                 sb.append(sanctus!!.vitaBrevis)
             }
-            sb.append(Utils.pointAtEnd(Constants.TITLE_LAUDES))
+            sb.append(titleForRead)
             sb.append(Introitus.readDomineLabiaMeaAperis)
             //sb.append(invitatorium.allForRead)
             sb.append(hymnus.allForRead)
@@ -83,7 +83,7 @@ class LHVesperas(
             sb.append(Utils.LS)
             sb.append(lectioBrevis.getAllForRead())
             sb.append(Utils.LS)
-            sb.append(canticumEvangelicum.allForRead)
+            sb.append(canticumEvangelicum.getSalmosByIndexForRead(0))
             sb.append(Utils.LS2)
             sb.append(preces.allForRead)
             sb.append(Utils.LS2)
@@ -96,6 +96,19 @@ class LHVesperas(
         }
         return sb
     }
+
+    val titleForView: SpannableStringBuilder
+        get() =
+            if (isPrimaVesperas) Utils.toH1Red(Constants.TITLE_I_VISPERAS) else Utils.toH1Red(
+                Constants.TITLE_VISPERAS
+            )
+
+    val titleForRead: String
+        get() =
+            if (isPrimaVesperas) Utils.pointAtEnd(Constants.TITLE_I_VISPERAS) else Utils.pointAtEnd(
+                Constants.TITLE_VISPERAS
+            )
+
 
 }
 /*

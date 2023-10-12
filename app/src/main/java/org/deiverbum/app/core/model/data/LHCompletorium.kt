@@ -2,13 +2,19 @@ package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
 import org.deiverbum.app.core.model.data.Introitus.Companion.initialInvocationForRead
+import org.deiverbum.app.core.model.data.Introitus.Companion.initialInvocationForView
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
 //@Suppress("unused")
 data class LHCompletorium(
     var kyrie: Kyrie,
-    var hymnus: LHHymn
+    var hymnus: LHHymn,
+    var psalmodia: LHPsalmody,
+    var lectioBrevis: LHLectioBrevis,
+    var canticumEvangelicum: LHGospelCanticle,
+    var oratio: Oratio,
+    var conclusio: Conclusion
 ) : Breviarium {
     /*var ritosIniciales: RitosIniciales? = null,
       var nuncDimitis: LHGospelCanticle? = null,
@@ -16,33 +22,33 @@ data class LHCompletorium(
       var biblicalShort: LHLectioBrevis? = null */
 
 
-    fun getAllForView(calendarTime: Int): SpannableStringBuilder {
+    override fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
         return try {
-            val sb = SpannableStringBuilder()/*
-            biblicalShort!!.normalizeByTime(calendarTime)
-            nuncDimitis!!.normalizeByTime(calendarTime)
+            val sb = SpannableStringBuilder()
+            lectioBrevis.normalizeByTime(calendarTime)
+            //canticumEvangelicum!!.normalizeByTime(calendarTime)
 
-            val ri = getRitosIniciales()
-            val kyrie = ri!!.kyrie
+            val ri = RitosIniciales()
+            //val kyrie = ri!!.kyrie
             sb.append(Utils.LS2)
             sb.append(getTituloHora())
             sb.append(Utils.LS2)
             sb.append(initialInvocationForView)
             sb.append(Utils.LS2)
-            sb.append(kyrie?.all)
-            sb.append(Utils.LS2)*/
-            /*sb.append(lhHymn!!.all)
+            sb.append(kyrie.all)
             sb.append(Utils.LS2)
-            sb.append(salmodia!!.getAllForView(-1, calendarTime))
+            sb.append(hymnus.all)
+            sb.append(Utils.LS2)
+            sb.append(psalmodia.getAllForView(-1, calendarTime))
             sb.append(Utils.LS)
-            sb.append(biblicalShort!!.getAllWithHourCheck(7))
+            sb.append(lectioBrevis.getAllWithHourCheck(7))
             sb.append(Utils.LS)
-            sb.append(nuncDimitis!!.all)
+            sb.append(canticumEvangelicum.all)
             sb.append(Utils.LS2)
-            sb.append(oracion!!.all)
+            sb.append(oratio.all)
             sb.append(Utils.LS2)
-            sb.append(conclusion!!.getAll())
-            sb.append(Utils.LS2)*/
+            sb.append(conclusio.getAll())
+            sb.append(Utils.LS2)
             sb
         } catch (e: Exception) {
             SpannableStringBuilder(e.toString())

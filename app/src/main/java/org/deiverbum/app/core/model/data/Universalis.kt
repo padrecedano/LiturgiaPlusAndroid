@@ -115,7 +115,6 @@ class Universalis(
     fun getAllForView(todayRequest: TodayRequest): SpannableStringBuilder {
 
         ColorUtils.isNightMode = todayRequest.isNightMode
-        //ContextCompat.getColor(requireActivity().applicationContext, R.color.colorRubrica)
         val ssb = SpannableStringBuilder()
         try {
             ssb.append(fecha)

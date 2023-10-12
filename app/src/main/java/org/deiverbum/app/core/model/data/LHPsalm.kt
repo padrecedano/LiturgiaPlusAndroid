@@ -5,7 +5,6 @@ import androidx.room.Ignore
 import org.deiverbum.app.util.LiturgyHelper.Companion.endPsalmForRead
 import org.deiverbum.app.util.LiturgyHelper.Companion.endPsalmForView
 import org.deiverbum.app.util.Utils
-import org.deiverbum.app.util.Utils.replaceByTime
 
 /**
  * Representa un salmo para la capa de datos externa.
@@ -21,7 +20,7 @@ open class LHPsalm(
     @Ignore var theOrder: Int = 0,
     var quote: String = "",
     var psalm: String = "",
-) /*: Comparable<LHPsalm>*/ {
+) {
     constructor(
         theOrder: Int = 0,
         quote: String = "",
@@ -35,10 +34,28 @@ open class LHPsalm(
         this.thePart = thePart
     }
 
+    constructor(
+        theOrder: Int = 0,
+        quote: String = "",
+        theme: String = "",
+        psalm: String
+    ) : this(theOrder, quote, psalm) {
+        this.theme = theme
+    }
+
+    init {
+        if (this.quote.contains("¦")) {
+            this.quote = this.quote.replace("¦", "  ")
+        }
+
+    }
+
     @Ignore
     var theme: String? = null
+
     @Ignore
     var epigraph: String? = null
+
     @Ignore
     var thePart: Int? = null
 
@@ -49,19 +66,6 @@ open class LHPsalm(
     @Deprecated("")
     @Ignore
     var lhAntiphon: LHAntiphon? = null
-
-    //@Ignore
-    //var theOrder: Int = 0
-
-
-    //@Ignore
-    //var theme: String = ""
-
-    //@Ignore
-    //var epigraph: String = ""
-
-    //@Ignore
-    //var part: Int = 0
 
     @Ignore
     var quotee = ""
@@ -112,22 +116,6 @@ open class LHPsalm(
             ).append(endPsalmForRead)
         }
 
-
-    /**
-     * Método que normaliza el contenido de las antífonas según el tiempo litúrgico del calendario.
-     * No se traslada este método a la fuente local (entidades de la base de datos), porque debe resolverse en el modelo,
-     * ya sea que los datos vengan de una fuente local, remota u otra.
-     *
-     * @param calendarTime Un entero con el Id del tiempo del calendario
-     */
-    open fun normalizeByTime(calendarTime: Int) {
-        this.lhAntiphon!!.antiphon =
-            if (this.lhAntiphon!!.antiphon.isEmpty()) "" else replaceByTime(
-                this.lhAntiphon!!.antiphon,
-                calendarTime
-            )
-    }
-
     /**
      * @return La rúbrica cuando no se dice Gloria en los salmos.
      * @since 2022.01
@@ -137,6 +125,4 @@ open class LHPsalm(
             val sb = SpannableStringBuilder("No se dice Gloria")
             return Utils.toRedNew(sb)
         }
-
-
 }

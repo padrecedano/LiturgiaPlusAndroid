@@ -8,7 +8,6 @@ import androidx.viewbinding.ViewBinding
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import org.deiverbum.app.databinding.FragmentTodayBinding
-import org.deiverbum.app.util.ColorUtils
 import org.deiverbum.app.util.Constants
 import java.util.*
 import java.util.concurrent.ExecutionException
@@ -85,18 +84,4 @@ abstract class BaseFragment<T> : Fragment() {
                 false
             }
         }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        when (newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO -> {
-                ColorUtils.isNightMode = false
-            }
-
-            Configuration.UI_MODE_NIGHT_YES -> {
-                ColorUtils.isNightMode = true
-            }
-        }
-    }
-
 }

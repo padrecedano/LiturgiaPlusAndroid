@@ -94,9 +94,11 @@ data class LHAntiphon(
         get() = SpannableStringBuilder(Utils.toRed("Ant. ")).append(antiphon)
 
     /**
-     * Normaliza el contenido de las antífonas según el tiempo litúrgico del calendario
+     * Método que normaliza el contenido de las antífonas según el tiempo litúrgico del calendario.
+     * No se traslada este método a la fuente local (entidades de la base de datos), porque debe resolverse en el modelo,
+     * ya sea que los datos vengan de una fuente local, remota u otra.
      *
-     * @param calendarTime Un entero con el Id del tiempo litúrgico del calendario
+     * @param calendarTime Un entero con el Id del tiempo del calendario
      */
     fun normalizeByTime(calendarTime: Int) {
         this.antiphon = if (antiphon.isEmpty()) "" else Utils.replaceByTime(antiphon, calendarTime)

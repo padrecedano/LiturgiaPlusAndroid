@@ -35,8 +35,8 @@ data class LHLaudes(
         try {
             if (sanctus != null && hasSaint) {
                 invitatorium.normalizeIsSaint(sanctus!!.nomen)
-                ssb.append(sanctus!!.vitaBrevis)
-                ssb.append(Constants.LS)
+                ssb.append(sanctus!!.forViewVitaBrevis)
+                //ssb.append(Constants.LS)
             }
             ssb.append(Utils.toH1Red(Constants.TITLE_LAUDES))
             ssb.append(Utils.LS2)
@@ -51,7 +51,7 @@ data class LHLaudes(
             ssb.append(Utils.LS)
             ssb.append(lectioBrevis.getAllWithHourCheck(2))
             ssb.append(Utils.LS)
-            ssb.append(canticumEvangelicum.all)
+            ssb.append(canticumEvangelicum.getSalmosByIndex(0))
             ssb.append(Utils.LS2)
             ssb.append(preces.all)
             ssb.append(Utils.LS2)
@@ -70,7 +70,7 @@ data class LHLaudes(
         val sb = StringBuilder()
         try {
             if (sanctus != null && hasSaint) {
-                sb.append(sanctus!!.vitaBrevis)
+                sb.append(sanctus!!.forReadVitaBrevis)
             }
             sb.append(Utils.pointAtEnd(Constants.TITLE_LAUDES))
             sb.append(Introitus.readDomineLabiaMeaAperis)
@@ -80,7 +80,7 @@ data class LHLaudes(
             sb.append(Utils.LS)
             sb.append(lectioBrevis.getAllForRead())
             sb.append(Utils.LS)
-            sb.append(canticumEvangelicum.allForRead)
+            sb.append(canticumEvangelicum.getSalmosByIndexForRead(0))
             sb.append(Utils.LS2)
             sb.append(preces.allForRead)
             sb.append(Utils.LS2)
