@@ -1,56 +1,29 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import android.text.Spanned
 import androidx.room.Ignore
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
-open class Sanctus {
+open class Sanctus(
+    var theMonth: Int = 0,
+    var theDay: Int = 0,
+    var theName: String = "",
+    @Ignore val martirologio: String = "",
+    @Ignore
+    var vida: String = ""
+) {
     var saintID: Int? = null
 
     @Ignore
     var liturgyFK: Int? = null
     var typeFK: Int? = null
-    var theDay: String? = null
-    var theMonth: String? = null
 
-    //@Ignore
-    var theName: String = ""
-
-    @Ignore
-    var vida: String = ""
-
-    //private String martirologio;
     @Ignore
     var crg = false
-    val vidaSmall: Spanned
-        get() = if (vida != "") {
-            Utils.fromHtml("<p><small>$vida</small></p>")
-        } else {
-            Utils.fromHtml("")
-        }
-
-    @Suppress("unused")
-    fun getVidaForView(): Spanned {
-        return Utils.fromHtml(vida)
-    }
-
-
-    //martirologio;
-    private val martirologio: String
-        get() = "" //martirologio;
-
-    fun setDay(dia: String?) {
-        theDay = dia
-    }
-
-    fun setMonth(mes: String?) {
-        theMonth = mes
-    }
 
     private val martirologioSpan: SpannableStringBuilder
-        get() = Utils.toSmallSize("martirologio")
+        get() = Utils.toSmallSize(martirologio)
     private val martirologioTitleSpan: SpannableStringBuilder
         get() = Utils.toSmallSize("(Martirologio Romano)")
     private val martirologioTitleForRead: String
@@ -117,40 +90,24 @@ open class Sanctus {
             }
             return sb
         }
+
     private val monthName: String
         get() {
-            val monthNames = HashMap<String?, String>()
-            monthNames["01"] = "Enero"
-            monthNames["02"] = "Febrero"
-            monthNames["03"] = "Marzo"
-            monthNames["04"] = "Abril"
-            monthNames["05"] = "Mayo"
-            monthNames["06"] = "Junio"
-            monthNames["07"] = "Julio"
-            monthNames["08"] = "Agosto"
-            monthNames["09"] = "Septiembre"
-            monthNames["10"] = "Octubre"
-            monthNames["11"] = "Noviembre"
-            monthNames["12"] = "Diciembre"
-            return String.format("%s de %s", theDay, monthNames[theMonth])
+            val monthNames = mapOf(
+                1 to "Enero",
+                2 to "Febrero",
+                3 to "Marzo",
+                4 to "Abril",
+                5 to "Mayo",
+                6 to "Junio",
+                7 to "Julio",
+                8 to "Agosto",
+                9 to "Septiembre",
+                10 to "Octubre",
+                11 to "Noviembre",
+                12 to "Diciembre"
+            )
+            return "$theDay de ${monthNames.getValue(theMonth)}"
         }
 
-    @Suppress("unused")
-    fun getMonthName(mes: String?): String {
-        val monthNames = HashMap<Int, String>()
-        monthNames[1] = "Enero"
-        monthNames[2] = "Febrero"
-        monthNames[3] = "Marzo"
-        monthNames[4] = "Abril"
-        monthNames[5] = "Mayo"
-        monthNames[6] = "Junio"
-        monthNames[7] = "Julio"
-        monthNames[8] = "Agosto"
-        monthNames[9] = "Septiembre"
-        monthNames[10] = "Octubre"
-        monthNames[11] = "Noviembre"
-        monthNames[12] = "Diciembre"
-        val theMonth = Integer.valueOf(mes!!)
-        return String.format("%s de %s", theDay, monthNames[theMonth])
-    }
 }

@@ -4,6 +4,9 @@ import android.text.SpannableStringBuilder
 import org.deiverbum.app.util.ColorUtils
 import org.deiverbum.app.util.Utils
 
+/**
+ * Esta clase maneja los libros de la Biblia.
+ */
 class BibleBooks(var id: Int=0, var name: String="", var description: String="") {
     var intro: String = ""
 

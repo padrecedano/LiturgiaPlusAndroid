@@ -7,13 +7,29 @@ import org.deiverbum.app.util.Numerals
 import org.deiverbum.app.util.Utils
 import java.util.*
 
-open class Liturgy() {
-    /*constructor(data:Int) : this(liturgyType = null){
-        id=data
-    }*/
-    constructor(liturgyType: LiturgiaTypus?, name: String = "", typeID: Int = 0) : this() {
+open class Liturgy(var name: String) {
+    constructor(week: Int = 0, day: Int = 0, colorFK: Int = 0, name: String) : this(name) {
+        this.week = week
+        this.day = day
+        this.colorFK = colorFK
+    }
+
+    constructor(
+        week: Int = 0,
+        day: Int = 0,
+        colorFK: Int = 0,
+        name: String,
+        liturgyTime: LiturgyTime
+    ) : this(name) {
+        this.week = week
+        this.day = day
+        this.colorFK = colorFK
+        this.liturgyTime = liturgyTime
+
+    }
+
+    constructor(liturgyType: LiturgiaTypus?, name: String = "", typeID: Int = 0) : this(name) {
         this.liturgyType = liturgyType
-        this.name = name
         this.typeID = typeID
     }
 
@@ -53,9 +69,9 @@ open class Liturgy() {
     @JvmField
     @Ignore
     protected var hasSaint = false
-    var week: Int? = null
-    var day: Int? = null
-    var colorFK: Int? = null
+    var week: Int = 0
+    var day: Int = 0
+    var colorFK: Int = 0
 
     /*
         @Ignore
@@ -74,21 +90,21 @@ open class Liturgy() {
     var typeFK: Int? = null
     var timeFK: Int = 0
 
-    var name: String = ""
-    var dia: Int?
+    //var name: String = ""
+    /*var dia: Int?
         get() = day
         set(dia) {
             day = dia
-        }
-    var semana: Int?
+        }*/
+    /*var semana: Int?
         get() = week
         set(semana) {
             week = semana
-        }
+        }*/
     val titleForRead: String
         get() = try {
             timeFK = liturgyTime?.timeID!!
-            if (timeFK >= 8 || timeFK == 1 && day!! > 16 || timeFK == 2 || timeFK == 3 && week == 0 || timeFK == 4 || timeFK == 5 || week!! >= 35 || timeFK == 6 && week == 6 && typeFK!! < 4 || timeFK == 6 && week == 1 && day != 1 || day == 0) {
+            if (timeFK >= 8 || timeFK == 1 && day > 16 || timeFK == 2 || timeFK == 3 && week == 0 || timeFK == 4 || timeFK == 5 || week >= 35 || timeFK == 6 && week == 6 && typeFK!! < 4 || timeFK == 6 && week == 1 && day != 1 || day == 0) {
                 timeWithTitleForRead
             } else {
                 timeWithWeekAndDay
@@ -111,9 +127,9 @@ open class Liturgy() {
                 "%s. %s de la %s semana.",
                 liturgyTime?.liturgyName,
                 Utils.getDayName(
-                    day!!
+                    day
                 ),
-                ns.toWords(week!!, true)
+                ns.toWords(week, true)
             )
         }
     private val timeWithTitleForRead: String

@@ -7,10 +7,11 @@ import org.deiverbum.app.util.Utils
 data class LHLectioBrevis(
     //override var book:BibleBook,
     override var quote: String = "",
-    override var text: String = ""
+    override var text: String = "",
+    var responsorium: LHResponsoriumBrevis
 ) : LectioBiblica(quote, text) {
     //public String forma;
-    private var responsorio: LHResponsoriumBrevis? = null
+    //private var responsorio: LHResponsoriumBrevis? = null
     private fun getHeaderLectura(): SpannableStringBuilder {
         //String s=String.format(new Locale("es"),"%s    %s",TITLE_SHORT_READING,getRefBreve());
         val ssb = SpannableStringBuilder(
@@ -28,7 +29,6 @@ data class LHLectioBrevis(
     }
 
     fun setResponsorio(responsorio: LHResponsoriumBrevis?) {
-        this.responsorio = responsorio
     }
 
     fun getAllWithHourCheck(hourId: Int): SpannableStringBuilder {
@@ -37,7 +37,7 @@ data class LHLectioBrevis(
         sb.append(Utils.LS2)
         sb.append(textoSpan)
         sb.append(Utils.LS2)
-        sb.append(responsorio!!.getAll(hourId))
+        sb.append(responsorium.getAll(hourId))
         //sb.append(getResponsorio().getAll());
         return sb
     }
@@ -46,7 +46,7 @@ data class LHLectioBrevis(
         val sb = SpannableStringBuilder()
         sb.append(getHeaderForRead())
         sb.append(textoForRead)
-        sb.append(responsorio!!.allForRead)
+        sb.append(responsorium.allForRead)
         //sb.append(getResponsorioForRead());
         return sb
     }
@@ -57,6 +57,6 @@ data class LHLectioBrevis(
      * @param calendarTime Un entero con el Id del tiempo del calendario
      */
     fun normalizeByTime(calendarTime: Int) {
-        responsorio!!.text = Utils.replaceByTime(responsorio!!.text, calendarTime)
+        responsorium.text = Utils.replaceByTime(responsorium.text, calendarTime)
     }
 }

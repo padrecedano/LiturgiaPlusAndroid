@@ -65,7 +65,7 @@ class LocalTodayEntityData @Inject constructor(
                 }
                 9 -> {
                     todayResponse.dataModel =
-                        todayDao.getHomiliaeByDate(todayRequest.theDate).domainModel
+                        todayDao.getHomiliaeByDate(todayRequest.theDate).asExternalModel()
                 }
                 10 -> {
                     todayResponse.dataModel =
@@ -74,14 +74,14 @@ class LocalTodayEntityData @Inject constructor(
                 }
                 11 -> {
                     todayResponse.dataModel =
-                        todayDao.getCommentariiByDate(todayRequest.theDate).domainModel
+                        todayDao.getCommentariiByDate(todayRequest.theDate).asExternalModel()
                 }
                 12 -> {
                     val monthAndDay = Utils.getMonthAndDay(todayRequest.theDate.toString())
                     todayResponse.dataModel = todayDao.getSanctiByDate(
                         monthAndDay?.get(0),
                         monthAndDay?.get(1)
-                    )?.domainModel!!
+                    ).asExternalModel()
                 }
             }
             return todayResponse

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
@@ -102,11 +103,12 @@
     </option>
   </component>
   <component name="EntryPointsManager">
-    <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="androidx.room.Ignore" />
-      <item index="1" class="java.lang.String" itemvalue="com.google.gson.annotations.Expose" />
-      <item index="2" class="java.lang.String" itemvalue="dagger.Binds" />
-      <item index="3" class="java.lang.String" itemvalue="dagger.Module" />
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="androidx.room.Embedded" />
+      <item index="1" class="java.lang.String" itemvalue="androidx.room.Ignore" />
+      <item index="2" class="java.lang.String" itemvalue="com.google.gson.annotations.Expose" />
+      <item index="3" class="java.lang.String" itemvalue="dagger.Binds" />
+      <item index="4" class="java.lang.String" itemvalue="dagger.Module" />
     </list>
   </component>
   <component name="JavadocGenerationManager">

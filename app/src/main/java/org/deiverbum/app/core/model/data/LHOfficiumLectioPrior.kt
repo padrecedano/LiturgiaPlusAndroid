@@ -6,10 +6,17 @@ import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
 class LHOfficiumLectioPrior(
+    override var book: BibleBook,
+    override var quote: String,
+    override var text: String,
     override var tema: String = "",
-    var responsorioLargo: LHResponsorium
-) : LectioBiblica() {
+    override var theOrder: Int = 1,
 
+    var responsorium: LHResponsorium
+) : LectioBiblica(book, quote, text, tema, theOrder) {
+
+
+    //var responsorioLargo: LHResponsorium?=null
     @get:Ignore
     private val temaForRead: String
         get() = "$tema."
@@ -41,7 +48,7 @@ class LHOfficiumLectioPrior(
         sb.append(Utils.LS2)
         sb.append(textoSpan)
         //sb.append(Utils.LS)
-        sb.append(responsorioLargo.all)
+        sb.append(responsorium.all)
         return sb
     }
 
@@ -62,7 +69,7 @@ class LHOfficiumLectioPrior(
         //sb.append(getResponsorioHeaderForRead())
         //sb.append(book!!.getForRead())
         sb.append("Responsorio.")
-        sb.append(responsorioLargo.allForRead)
+        sb.append(responsorium.allForRead)
         return sb
     }
 

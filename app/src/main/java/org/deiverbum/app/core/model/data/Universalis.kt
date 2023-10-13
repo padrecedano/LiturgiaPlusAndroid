@@ -71,7 +71,7 @@ class Universalis(
     var nightPrayerFK: Int = 71,
 
     @Ignore
-    var liturgyDay: Liturgy = Liturgy(),
+    var liturgyDay: Liturgy = Liturgy(""),
 
     //@Ignore
     //var liturgy: LiturgiaNew? = null,
@@ -117,12 +117,14 @@ class Universalis(
         ColorUtils.isNightMode = todayRequest.isNightMode
         val ssb = SpannableStringBuilder()
         try {
-            ssb.append(fecha)
-            ssb.append(Utils.LS2)
-            ssb.append(Utils.toH2(tiempo))
-            ssb.append(Utils.LS2)
-            ssb.append(Utils.toH3(titulo))
-            ssb.append(Utils.LS2)
+            if (liturgyDay.typeID != 11) {
+                ssb.append(fecha)
+                ssb.append(Utils.LS2)
+                ssb.append(Utils.toH2(tiempo))
+                ssb.append(Utils.LS2)
+                ssb.append(Utils.toH3(titulo))
+                ssb.append(Utils.LS2)
+            }
             ssb.append(liturgyDay.liturgyType?.forView(timeFK, hasSaint == 1))
         } catch (e: Exception) {
             ssb.append(Utils.createErrorMessage(e.message))

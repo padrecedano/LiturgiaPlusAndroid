@@ -11,7 +11,7 @@ open class LHOfficiumLectionis(
     open var responsorio: String = "",
     open var hasTeDeum: Boolean = false
 ) {
-    //var responsorio: String = ""
+
     @get:Ignore
     private val responsorioForRead: String
         get() {
@@ -158,7 +158,7 @@ open class LHOfficiumLectionis(
      */
     fun normalizeByTime(calendarTime: Int) {
         for (oneBiblica in biblica) {
-            oneBiblica.responsorioLargo.normalizeByTime(calendarTime)
+            oneBiblica.responsorium.normalizeByTime(calendarTime)
         }
         responsorio = Utils.replaceByTime(responsorio, calendarTime)
     }

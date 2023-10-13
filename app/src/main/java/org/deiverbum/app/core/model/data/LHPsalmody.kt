@@ -23,8 +23,8 @@ open class LHPsalmody() : Sortable {
      * @param mAntiphons Lista con las antífonas
      */
     constructor(mPsalms: MutableList<LHPsalm>, mAntiphons: MutableList<LHAntiphon>) : this() {
-        psalms = mPsalms
-        antiphons = mAntiphons
+        this.psalms = mPsalms
+        this.antiphons = mAntiphons
     }
 
     var theType = 0
@@ -164,15 +164,15 @@ open class LHPsalmody() : Sortable {
      * Obtiene un salmo por el índice dado.
      * No se llama aquí a [sort] porque este método es invocado por cada salmo.
      *
-     * @see [LHOfficeOfReadingEaster.getAllBiblica]
+     * @see [LHOfficiumPascua.forView]
 
      */
-    fun getSalmosByIndex(index: Int): SpannableStringBuilder {
+    fun getSalmosByIndex(index: Int, calendarTime: Int): SpannableStringBuilder {
         //sort()
         val sb = SpannableStringBuilder(header)
         sb.append(LS2)
         val s = psalms[index]
-
+        antiphons[index].normalizeByTime(calendarTime)
         sb.append(antiphons[index].afterForView)
         sb.append(LS2)
 
@@ -195,29 +195,24 @@ open class LHPsalmody() : Sortable {
             //sb.append(Utils.LS2)
         }
 
-        //sb.append(Utils.LS2)
         sb.append(s.psalmForView)
         sb.append(Utils.LS2)
         sb.append(antiphons[index].afterForView)
-        //sb.append(Utils.LS2)
         return sb
     }
 
-
-    fun getSalmosByIndexForRead(index: Int): SpannableStringBuilder {
-        val sb = SpannableStringBuilder()
+    fun getSalmosByIndexForRead(index: Int): StringBuilder {
+        val sb = StringBuilder(headerForRead)
         val s = psalms[index]
         sb.append(antiphons[index].antiphon)
         sb.append(s.psalmForRead)
-        sb.append(Utils.LS2)
         sb.append(antiphons[index].antiphon)
-        sb.append(Utils.LS2)
         return sb
     }
 
     open val header: SpannableStringBuilder
         get() = Utils.formatTitle(Constants.TITLE_PSALMODY)
-    private val headerForRead: String
+    open val headerForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_PSALMODY)
 
     /**

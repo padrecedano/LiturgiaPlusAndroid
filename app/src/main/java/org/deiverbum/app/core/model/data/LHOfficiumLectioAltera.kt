@@ -7,27 +7,15 @@ import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
 class LHOfficiumLectioAltera(
-
-
-    //@Ignore
-    //var padre: String? = null
-
-    //@Ignore
-    //var obra: String? = null
-
     var source: String? = null,
-
     var theme: String? = null,
     @Ignore
     var text: String = "",
-
-    @Ignore
-    var ref: String? = null,
-
+    /*@Ignore
+    var ref: String? = null,*/
     @JvmField
     @Ignore
     var paterOpus: PaterOpus? = null,
-
     @Ignore
     var responsorioLargo: LHResponsorium? = null,
     var theOrder: Int? = null

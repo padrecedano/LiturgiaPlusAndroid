@@ -10,26 +10,47 @@ import org.deiverbum.app.util.Utils
  */
 
 data class Missae(
-    var lectionumList: MissaeLectionumList
+    var calendarTime: Int = 0
 ) : Sacramentis {
+
+    constructor(calendarTime: Int = 0, homiliaeList: HomilyList?) : this(calendarTime) {
+        this.homiliaeList = homiliaeList
+    }
+
+    constructor(calendarTime: Int = 0, lectionumList: MissaeLectionumList) : this(calendarTime) {
+        this.lectionumList = lectionumList
+    }
+
+    var homiliaeList: HomilyList? = null
+    var lectionumList: MissaeLectionumList? = null
+
     var sanctus: LHSanctus? = null
     var hasSaint: Boolean = false
     override fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
-        lectionumList.lectionum.sortBy { it!!.theOrder }
-        this.hasSaint = hasSaint
         val ssb = SpannableStringBuilder()
-        try {
-            ssb.append(lectionumList.getForView())
-        } catch (e: Exception) {
-            ssb.append(Utils.createErrorMessage(e.message))
+
+        if (lectionumList != null) {
+            lectionumList?.lectionum?.sortBy { it!!.theOrder }
+            this.hasSaint = hasSaint
+            try {
+                ssb.append(lectionumList?.getForView())
+            } catch (e: Exception) {
+                ssb.append(Utils.createErrorMessage(e.message))
+            }
+            return ssb
+        } else if (homiliaeList != null) {
+            ssb.append(homiliaeList!!.getAllForView())
+        } else {
+            ssb.append("No hay datos para mostrar en este día.")
         }
+
         return ssb
     }
 
     override fun forRead(): StringBuilder {
         val sb = StringBuilder()
         try {
-            sb.append(lectionumList.allForRead)
+            sb.append(lectionumList?.allForRead)
         } catch (e: Exception) {
             sb.append(Utils.createErrorMessage(e.message))
         }

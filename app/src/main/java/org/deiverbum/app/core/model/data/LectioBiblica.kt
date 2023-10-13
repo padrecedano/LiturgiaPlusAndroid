@@ -11,20 +11,29 @@ open class LectioBiblica(
     open var text: String = "",
 ) {
 
-    constructor(theOrder: Int, tema: String, quote: String, text: String) : this(quote, text) {
+    /*constructor(theOrder: Int, tema: String, quote: String, text: String) : this(quote, text) {
         this.theOrder = theOrder
         this.tema = tema
-    }
+    }*/
 
     constructor(book: BibleBook, quote: String, text: String, theOrder: Int) : this(quote, text) {
         this.book = book
         this.theOrder = theOrder
     }
 
-    constructor(theOrder: Int, tema: String, book: BibleBook) : this(tema) {
+    constructor(book: BibleBook, quote: String, text: String, tema: String, theOrder: Int) : this(
+        quote,
+        text
+    ) {
         this.book = book
         this.theOrder = theOrder
+        this.tema = tema
     }
+    /*
+        constructor(theOrder: Int, tema: String, book: BibleBook) : this(tema) {
+            this.book = book
+            this.theOrder = theOrder
+        }*/
 
     constructor(book: BibleBook, quote: String, text: String) : this(quote, text) {
         this.book = book

@@ -54,7 +54,7 @@ class LHVesperas(
             ssb.append(Utils.LS)
             ssb.append(lectioBrevis.getAllWithHourCheck(2))
             ssb.append(Utils.LS)
-            ssb.append(canticumEvangelicum.getSalmosByIndex(0))
+            ssb.append(canticumEvangelicum.getSalmosByIndex(0, calendarTime))
             ssb.append(Utils.LS2)
             ssb.append(preces.all)
             ssb.append(Utils.LS2)

@@ -4,11 +4,9 @@ import android.text.SpannableStringBuilder
 
 /**
  *
- *
  * Reúne aquellos elementos que son comunes a las diversas horas del Breviario.
  * Las clases de las diferentes horas extienden de ésta,
  * y cada una tendrá aquellos elementos que le sean propios.
- *
  *
  * @author A. Cedano
  * @version 1.0

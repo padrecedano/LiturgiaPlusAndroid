@@ -1,73 +1,35 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import android.text.Spanned
 import org.deiverbum.app.util.Constants
-import org.deiverbum.app.util.LiturgyHelper.Companion.endPsalmForRead
-import org.deiverbum.app.util.LiturgyHelper.Companion.endPsalmForView
 import org.deiverbum.app.util.Utils
 
 class LHGospelCanticle(var typeID: Int = 0, override var antiphons: MutableList<LHAntiphon>) :
     LHPsalmody() {
-    //constructor() : super()
-    /*
-        constructor(
-            mPsalms: MutableList<LHPsalm>,
-            mAntiphons: MutableList<LHAntiphon>,
-            typeID: Int = 0
-        ) : this(typeID)*/
 
     init {
-        //val emList: MutableList<LHPsalm> = mutableListOf(getPsalmus(typeID))
-        //emList.add(getPsalmus(typeID))
         psalms.add(getPsalmus(typeID))
-        //this.psalms=
-
     }
-    //this.typeID=typeID
-
-    //@Ignore
-    //var typeID = 0
 
     override val header: SpannableStringBuilder
         get() = Utils.formatTitle(Constants.TITLE_GOSPEL_CANTICLE)
-    private val headerForRead: String
+    override val headerForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_GOSPEL_CANTICLE)
-    val texto: Spanned
-        get() = Utils.fromHtml("text")
 
-    val all: SpannableStringBuilder
-        get() {
-            val sb = SpannableStringBuilder(header)
-            sb.append(Utils.LS2)
-            sb.append(antiphonFormatted)
-            sb.append(Utils.LS2)
-            sb.append(texto)
-            sb.append(Utils.LS2)
-            sb.append(endPsalmForView)
-            sb.append(Utils.LS2)
-            sb.append(antiphonFormatted)
-            return sb
-        }
-    val allForRead: StringBuilder
-        get() {
-            val sb = StringBuilder(headerForRead)
-            //sb.append(headerForRead)
-            //sb.append(lhAntiphon!!.antiphon)
-            sb.append(texto)
-            sb.append(endPsalmForRead)
-            //sb.append(lhAntiphon!!.antiphon)
-            return sb
-        }
-    private val antiphonFormatted: SpannableStringBuilder
-        get() {
-            val sb = SpannableStringBuilder(Utils.toRed("Ant. "))
-            //sb.append(Utils.toRed("Ant. "))
-            //sb.append(lhAntiphon!!.antiphon)
-            return sb
-        }
-
+    /**
+     * Este objeto compañero devolverá el salmo del Cántico Evangélico
+     * que corresponda según el valor de [typeID].
+     *
+     * @since 2023.1.3
+     */
     companion object {
+        /**
+         * Devuelve el salmo del Cántico Evangélico.
+         *
+         * @param typeID Para determinar el salmo que debe devolverse.
+         *        **`2`** para Laudes, **`6`** para Vísperas y **`7`** para Completas.
+         * @return Un objeto [LHPsalm] con el salmo.
+         */
         fun getPsalmus(typeID: Int): LHPsalm {
             return when (typeID) {
                 2 -> LHPsalm(

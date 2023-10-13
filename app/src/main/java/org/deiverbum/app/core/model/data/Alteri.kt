@@ -2,10 +2,10 @@ package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
 
-sealed interface Traditio : LiturgiaTypus {
-    data class Comment(val comments: BibleCommentList) : Traditio {
+interface Alteri : LiturgiaTypus {
+    data class Sancti(val sanctus: Sanctus) : Alteri {
         override fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
-            return SpannableStringBuilder(comments.getAllForView())
+            return SpannableStringBuilder(sanctus.forView)
         }
     }
 

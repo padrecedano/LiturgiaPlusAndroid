@@ -20,6 +20,7 @@ data class LHOfficiumPascua(
     override fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
         val ssb = SpannableStringBuilder(header)
         try {
+            sort()
             ssb.append(Utils.LS2)
             ssb.append(Utils.toSmallSizeRed(metaInfoForView))
             for ((i, oneBiblica) in officiumLectionis.withIndex()) {
@@ -27,7 +28,7 @@ data class LHOfficiumPascua(
                     ssb.append(Utils.LS2)
                     ssb.append(oneBiblica.biblical)
                     ssb.append(Utils.LS2)
-                    ssb.append(psalmodia.getSalmosByIndex(i))
+                    ssb.append(psalmodia.getSalmosByIndex(i, calendarTime))
                     ssb.append(Utils.LS2)
                     ssb.append(oratio[i].all)
                     ssb.append(Utils.LS)
@@ -36,7 +37,7 @@ data class LHOfficiumPascua(
                     ssb.append(Utils.LS)
                     ssb.append(oneBiblica.biblical)
                     ssb.append(Utils.LS2)
-                    ssb.append(psalmodia.getSalmosByIndex(i))
+                    ssb.append(psalmodia.getSalmosByIndex(i, calendarTime))
                     ssb.append(Utils.LS2)
                     ssb.append(oratio[i].all)
                     ssb.append(Utils.LS2)
@@ -108,6 +109,7 @@ data class LHOfficiumPascua(
      * Ordena la salmodia y las lecturas del oficio.
      * Desde aquí se llama a [LHPsalmody.sort], porque se usa el método [LHPsalmody.getSalmosByIndex]
      * que es llamado varias veces.
+     *
      */
     override fun sort() {
         psalmodia.sort()

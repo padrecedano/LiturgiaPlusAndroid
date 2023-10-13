@@ -6,7 +6,6 @@ import org.deiverbum.app.core.model.data.Introitus.Companion.initialInvocationFo
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
-//@Suppress("unused")
 data class LHCompletorium(
     var kyrie: Kyrie,
     var hymnus: LHHymn,
@@ -16,21 +15,11 @@ data class LHCompletorium(
     var oratio: Oratio,
     var conclusio: Conclusion
 ) : Breviarium {
-    /*var ritosIniciales: RitosIniciales? = null,
-      var nuncDimitis: LHGospelCanticle? = null,
-      var conclusion: Conclusion? = null,
-      var biblicalShort: LHLectioBrevis? = null */
-
 
     override fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
         return try {
             val sb = SpannableStringBuilder()
             lectioBrevis.normalizeByTime(calendarTime)
-            //canticumEvangelicum!!.normalizeByTime(calendarTime)
-
-            val ri = RitosIniciales()
-            //val kyrie = ri!!.kyrie
-            sb.append(Utils.LS2)
             sb.append(getTituloHora())
             sb.append(Utils.LS2)
             sb.append(initialInvocationForView)
@@ -43,7 +32,7 @@ data class LHCompletorium(
             sb.append(Utils.LS)
             sb.append(lectioBrevis.getAllWithHourCheck(7))
             sb.append(Utils.LS)
-            sb.append(canticumEvangelicum.all)
+            sb.append(canticumEvangelicum.getSalmosByIndex(0, calendarTime))
             sb.append(Utils.LS2)
             sb.append(oratio.all)
             sb.append(Utils.LS2)
@@ -63,26 +52,18 @@ data class LHCompletorium(
         return Utils.pointAtEnd(Constants.TITLE_COMPLETAS)
     }
 
-    fun getForRead(): StringBuilder {
+    override fun forRead(): StringBuilder {
         return try {
             val sb = StringBuilder()
-            //val ri = getRitosIniciales()
-            //val kyrie = ri!!.kyrie
-            //himno = getHimno()
-            //salmodia = getCompletasDias()!![today?.weekDay!!].salmodia
-            //val nuncDimitis = getNuncDimitis()
-            //val conclusion = getConclusion()
             sb.append(getTituloHoraForRead())
             sb.append(initialInvocationForRead)
             sb.append(kyrie.allForRead)
-            /*sb.append(lhHymn!!.allForRead)
-            sb.append(salmodia!!.getAllForRead())
-            sb.append(biblicalShort!!.getAllForRead())
-
-            //sb.append(getLecturaForRead())
-            sb.append(nuncDimitis!!.allForRead)
-            sb.append(oracion!!.allForRead)*/
-            //sb.append(conclusion!!.getAllForRead())
+            sb.append(hymnus.allForRead)
+            sb.append(psalmodia.getAllForRead(-1))
+            sb.append(lectioBrevis.getAllForRead())
+            sb.append(canticumEvangelicum.getSalmosByIndexForRead(0))
+            sb.append(oratio.allForRead)
+            sb.append(conclusio.getAllForRead())
             sb
         } catch (e: Exception) {
             StringBuilder(e.toString())

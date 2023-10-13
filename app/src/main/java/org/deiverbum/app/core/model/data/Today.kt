@@ -72,7 +72,7 @@ class Today(
     var nightPrayerFK: Int = 71,
 
     @Ignore
-    var liturgyDay: Liturgy = Liturgy(),
+    var liturgyDay: Liturgy = Liturgy(""),
 
     @Ignore
     var liturgyPrevious: Liturgy? = null,

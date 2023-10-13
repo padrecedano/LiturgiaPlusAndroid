@@ -3,12 +3,20 @@ package org.deiverbum.app.core.model.data
 import androidx.room.Ignore
 import java.text.MessageFormat
 
-class PaterOpus {
+class PaterOpus(
+    var opusName: String = "",
+    var liturgyName: String = ""
+
+) {
+
+    constructor(opusName: String, liturgyName: String, pater: Pater) : this(opusName, liturgyName) {
+        this.pater = pater
+    }
+
     var opusID: Int? = null
-    @JvmField
-    var opusName: String? = null
-    @JvmField
-    var liturgyName: String? = null
+
+    @Ignore
+    var pater: Pater? = null
     var subTitle: String? = null
     var opusDate: String? = null
     var volume: String? = null
@@ -19,11 +27,10 @@ class PaterOpus {
     var typeFK: Int? = null
     var collectionFK: Int? = null
 
-    @Ignore
-    var pater: Pater? = null
+
     val opusForView: String
         get() =
-            if (liturgyName != null && liturgyName != "") liturgyName!! else MessageFormat.format(
+            if (liturgyName != "") liturgyName else MessageFormat.format(
                 "{0}, {1}",
                 paterForView,
                 opusName
@@ -34,5 +41,5 @@ class PaterOpus {
             if (pater?.liturgyName != null && pater?.liturgyName != "") pater?.liturgyName!! else pater?.pater!!
 
     val singleName: String
-        get() = if (opusName != null) opusName!! else ""
+        get() = opusName
 }

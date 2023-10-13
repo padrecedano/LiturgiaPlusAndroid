@@ -2,15 +2,16 @@ package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
 import com.google.firebase.firestore.PropertyName
-import org.deiverbum.app.core.model.TodayRequest
-import org.deiverbum.app.util.ColorUtils
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Constants.ERR_NO_COMMENT
 import org.deiverbum.app.util.Utils
 
+/**
+ * Esta clase maneja una lista de comentarios bíblicos.
+ */
 class BibleCommentList {
     var padre: String? = null
-    var allComentarios: MutableList<List<BibleComment?>> = ArrayList()
+    var commentarii: MutableList<List<BibleComment?>> = ArrayList()
 
     @get:PropertyName("comentarios")
     @set:PropertyName("comentarios")
@@ -20,11 +21,11 @@ class BibleCommentList {
     var biblica: MissaeLectionum? = null
     var type = 0
 
-    fun getAllForView(todayRequest: TodayRequest): SpannableStringBuilder {
-        ColorUtils.isNightMode = todayRequest.isNightMode
+    fun getAllForView(): SpannableStringBuilder {
+        //ColorUtils.isNightMode = todayRequest.isNightMode
         val sb = SpannableStringBuilder()
         try {
-            for (subList in allComentarios) {
+            for (subList in commentarii) {
                 if (subList.isNotEmpty()) {
                     var x = 1
                     for (item in subList) {
@@ -59,7 +60,7 @@ class BibleCommentList {
         get() {
             val sb = StringBuilder()
             try {
-                for (subList in allComentarios) {
+                for (subList in commentarii) {
                     if (subList.isNotEmpty()) {
                         var x = 1
                         for (item in subList) {

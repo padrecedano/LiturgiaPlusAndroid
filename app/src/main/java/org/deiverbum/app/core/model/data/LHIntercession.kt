@@ -6,17 +6,19 @@ import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 import java.util.Locale
 
-class LHIntercession {
-    var intercessionID: Int? = null
-    var intro: String? = null
+class LHIntercession(
+    var intro: String = "",
     var intercession: String = ""
+) {
+    var intercessionID: Int? = null
+
     val all: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()
             sb.append(header)
             sb.append(Utils.LS2)
             val introArray =
-                intro!!.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                intro.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             if (introArray.size == 3) {
                 sb.append(introArray[0])
                 sb.append(Utils.LS2)
@@ -48,7 +50,7 @@ class LHIntercession {
             sb.append(headerForRead)
             sb.append(Utils.LS2)
             val introArray =
-                intro!!.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                intro.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             if (introArray.size == 3) {
                 sb.append(introArray[0])
                 sb.append(introArray[1])

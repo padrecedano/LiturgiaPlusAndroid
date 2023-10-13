@@ -6,10 +6,9 @@ import org.deiverbum.app.util.Utils
 class MissaeLectionum : LectioBiblica {
     constructor() : super()
 
-    constructor (quote: String, text: String) : super(quote, text) /*{
-        this.quote = university
-    }*/
-    constructor (theOrder: Int, tema: String, quote: String, text: String, book: BibleBook) : super(
+    constructor (quote: String, text: String) : super(quote, text)
+
+    constructor (book: BibleBook, quote: String, tema: String, text: String, theOrder: Int) : super(
         quote,
         text
     ) {
