@@ -1,6 +1,8 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
@@ -15,14 +17,19 @@ import org.deiverbum.app.util.Utils
  *
  * @see [Sortable]
  */
+@JsonClass(generateAdapter = true)
 class MissaeLectionumList(
-    var lectionum: ArrayList<MissaeLectionum?> = ArrayList<MissaeLectionum?>(),
+    //var lectionum= mutableListOf<MissaeLectionum?>(),
+    val lectionum: MutableList<MissaeLectionum?> = mutableListOf<MissaeLectionum?>(),
+
     var type: Int = 0
 ) : Sortable {
 
+    @Json(ignore = true)
     private val titulo: SpannableStringBuilder
         get() = Utils.toH3Red(Utils.toUpper(Constants.TITLE_MASS_READING))
 
+    @Json(ignore = true)
     private val tituloForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_MASS_READING)
 
@@ -41,6 +48,7 @@ class MissaeLectionumList(
         return sb
     }
 
+    @Json(ignore = true)
     val allForRead: StringBuilder
         get() {
             val sb = StringBuilder(tituloForRead)

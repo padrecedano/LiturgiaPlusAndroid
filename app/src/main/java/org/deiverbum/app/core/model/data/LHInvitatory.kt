@@ -17,24 +17,24 @@ class LHInvitatory(mPsalms: MutableList<LHPsalm>, mAntiphons: MutableList<LHAnti
     val allForView: SpannableStringBuilder
         get() {
             val ssb = SpannableStringBuilder()
-            val s = psalms[0]
+            val s = psalmus[0]
             if (!isMultiple) {
-                s.psalm = unique
-                s.quote = "Salmo 94"
+                s.psalmus = unique
+                s.pericopa = "Salmo 94"
             }
             ssb.append(Utils.formatSubTitleToLower(Constants.TITLE_INVITATORY))
             ssb.append(Utils.LS2)
             //ssb.append(Utils.toRed("Ant. "))
-            ssb.append(antiphons[0].getBeforeForView(false))
+            ssb.append(antiphonae[0].getBeforeForView(false))
             ssb.append(Utils.LS2)
-            ssb.append(Utils.toRed(s.quote))
+            ssb.append(Utils.toRed(s.pericopa))
             ssb.append(Constants.LS2)
             ssb.append(s.psalmForView)
             //ssb.append(Utils.LS2)
             //ssb.append(thePsalm.)
             ssb.append(Utils.LS2)
             //ssb.append(Utils.toRed("Ant. "))
-            ssb.append(antiphons[0].afterForView)
+            ssb.append(antiphonae[0].afterForView)
             return ssb
         }
 
@@ -51,22 +51,22 @@ class LHInvitatory(mPsalms: MutableList<LHPsalm>, mAntiphons: MutableList<LHAnti
 
     override fun getAllForView(hourIndex: Int, calendarTime: Int): SpannableStringBuilder {
         val ssb = SpannableStringBuilder()
-        val s = psalms[0]
-        antiphons[0].normalizeByTime(calendarTime)
+        val s = psalmus[0]
+        antiphonae[0].normalizeByTime(calendarTime)
 
         if (!isMultiple) {
-            s.psalm = unique
-            s.quote = "Salmo 94"
+            s.psalmus = unique
+            s.pericopa = "Salmo 94"
         }
         ssb.append(Utils.formatSubTitleToLower(Constants.TITLE_INVITATORY))
         ssb.append(Utils.LS2)
-        ssb.append(antiphons[0].getBeforeForView(false))
+        ssb.append(antiphonae[0].getBeforeForView(false))
         ssb.append(Utils.LS2)
-        ssb.append(Utils.toRed(s.quote))
+        ssb.append(Utils.toRed(s.pericopa))
         ssb.append(Constants.LS2)
         ssb.append(s.psalmForView)
         ssb.append(Utils.LS2)
-        ssb.append(antiphons[0].afterForView)
+        ssb.append(antiphonae[0].afterForView)
         return ssb
     }
 
@@ -74,11 +74,11 @@ class LHInvitatory(mPsalms: MutableList<LHPsalm>, mAntiphons: MutableList<LHAnti
         get() {
             val sb = StringBuilder()
             sb.append(Utils.pointAtEnd(Constants.TITLE_INVITATORY))
-            sb.append(antiphons[0].antiphon)
-            sb.append(Utils.normalizeEnd(psalms[0].quote))
-            sb.append(psalms[0].psalmForRead)
+            sb.append(antiphonae[0].antiphon)
+            sb.append(Utils.normalizeEnd(psalmus[0].pericopa))
+            sb.append(psalmus[0].psalmForRead)
             //sb.append(endPsalmForRead)
-            sb.append(antiphons[0].antiphon)
+            sb.append(antiphonae[0].antiphon)
             return sb
         }
     val unique: String
@@ -92,6 +92,7 @@ class LHInvitatory(mPsalms: MutableList<LHPsalm>, mAntiphons: MutableList<LHAnti
      * @see [LHMixtus]
      */
     fun normalizeIsSaint(s: String) {
-        antiphons[0].antiphon = antiphons[0].antiphon.replace("ƞ", s.substring(s.indexOf(" ") + 1))
+        antiphonae[0].antiphon =
+            antiphonae[0].antiphon.replace("ƞ", s.substring(s.indexOf(" ") + 1))
     }
 }

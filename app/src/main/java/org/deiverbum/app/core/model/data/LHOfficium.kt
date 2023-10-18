@@ -22,8 +22,10 @@ data class LHOfficium(
     var hymnus: LHHymn,
     val psalmodia: LHPsalmody,
     var officiumLectionis: LHOfficiumLectionis,
-    var oratio: Oratio
-) : Breviarium {
+    var oratio: Oratio,
+    override var typus: String = "officium"
+    //, override var tempore: LiturgyTime
+) : Breviarium(typus) {
 
     var sanctus: LHSanctus? = null
     var hasSaint: Boolean = false

@@ -2,13 +2,16 @@ package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
 import android.text.Spanned
+import androidx.room.ColumnInfo
 import androidx.room.Ignore
 import org.deiverbum.app.util.Utils
 import java.util.Locale
 
 open class LectioBiblica(
-    open var quote: String = "",
-    open var text: String = "",
+    @ColumnInfo(name = "quote")
+    open var pericopa: String = "",
+    @ColumnInfo(name = "text")
+    open var biblica: String = "",
 ) {
 
     /*constructor(theOrder: Int, tema: String, quote: String, text: String) : this(quote, text) {
@@ -16,14 +19,23 @@ open class LectioBiblica(
         this.tema = tema
     }*/
 
-    constructor(book: BibleBook, quote: String, text: String, theOrder: Int) : this(quote, text) {
+    constructor(book: BibleBook, pericopa: String, biblica: String, theOrder: Int) : this(
+        pericopa,
+        biblica
+    ) {
         this.book = book
         this.theOrder = theOrder
     }
 
-    constructor(book: BibleBook, quote: String, text: String, tema: String, theOrder: Int) : this(
-        quote,
-        text
+    constructor(
+        book: BibleBook,
+        pericopa: String,
+        biblica: String,
+        tema: String,
+        theOrder: Int
+    ) : this(
+        pericopa,
+        biblica
     ) {
         this.book = book
         this.theOrder = theOrder
@@ -35,7 +47,7 @@ open class LectioBiblica(
             this.theOrder = theOrder
         }*/
 
-    constructor(book: BibleBook, quote: String, text: String) : this(quote, text) {
+    constructor(book: BibleBook, pericopa: String, biblica: String) : this(pericopa, biblica) {
         this.book = book
     }
 
@@ -63,20 +75,20 @@ open class LectioBiblica(
 
 
     val textoSpan: Spanned
-        get() = Utils.fromHtml(text)
+        get() = Utils.fromHtml(biblica)
     val textoForRead: Spanned
         get() = Utils.fromHtml(
             Utils.getFormatoForRead(
-                text
+                biblica
             )
         )
 
     fun setCita(ref: String) {
-        this.quote = ref
+        this.pericopa = ref
     }
 
     fun getRefBreve(): String {
-        return quote
+        return pericopa
     }
 
     fun getReferencia(): String {
@@ -113,7 +125,7 @@ open class LectioBiblica(
         //sb.append(Utils.toRed(verseChapter))
         //sb.append(", ")
         //sb.append(Utils.toRed(verseFrom))
-        sb.append(Utils.toRed(quote))
+        sb.append(Utils.toRed(pericopa))
         sb.append(Utils.LS2)
         //sb.append(Utils.toRed(getTema()));
         sb.append(Utils.LS2)

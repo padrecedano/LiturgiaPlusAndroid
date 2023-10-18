@@ -13,8 +13,11 @@ data class LHCompletorium(
     var lectioBrevis: LHLectioBrevis,
     var canticumEvangelicum: LHGospelCanticle,
     var oratio: Oratio,
-    var conclusio: Conclusion
-) : Breviarium {
+    var conclusio: Conclusion,
+    override var typus: String = "completorium"
+    //, override var tempore: LiturgyTime
+
+) : Breviarium(typus) {
 
     override fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
         return try {

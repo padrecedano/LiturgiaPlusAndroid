@@ -2,12 +2,14 @@ package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
 import android.text.Spanned
+import androidx.room.ColumnInfo
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
 data class Oratio(
     var prayerID: Int = 0,
-    var prayer: String,
+    @ColumnInfo(name = "prayer")
+    var oratio: String,
     var order: Int = 0
 ) {
 
@@ -19,8 +21,8 @@ data class Oratio(
      * TODO("Normalizar en la base de datos")
      */
     init {
-        if (prayer.contains("*")) {
-            prayer.replace("*", "")
+        if (oratio.contains("*")) {
+            oratio.replace("*", "")
         }
     }
 
@@ -32,10 +34,10 @@ data class Oratio(
             val sb = SpannableStringBuilder("")
             sb.append(header)
             sb.append(Utils.LS2)
-            sb.append(Utils.fromHtml(prayer))
+            sb.append(Utils.fromHtml(oratio))
             return sb
         }
     val allForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_PRAYER) +
-                Utils.fromHtml(prayer)
+                Utils.fromHtml(oratio)
 }

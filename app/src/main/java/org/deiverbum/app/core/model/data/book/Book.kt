@@ -16,40 +16,42 @@ import java.util.*
 class Book {
     //@SerializedName("author")
     //@Expose
-    private var author: String? = null
+    var author: String = ""
 
     //@SerializedName("title")
     //@Expose
-    private var title: String? = null
+    var title: String = ""
 
     //@SerializedName("date")
     //@Expose
-    private var date: String? = null
+    var date: String? = null
 
     //@SerializedName("intro")
     //@Expose
-    private var intro: Intro? = null
+    var intro: Intro? = null
 
     //@SerializedName("bookType")
     //@Expose
-    private var bookType = 0
+    var bookType = 0
 
     //@SerializedName("chapters")
     //@Expose
-    private var chapters: List<Chapter>? = null
+    var chapters: List<Chapter>? = null
 
     //@SerializedName("agreeYes")
     // @Expose
-    private var agreeYes: String? = null
+    var agreeYes: String? = null
 
     //@SerializedName("agreeNot")
     //@Expose
-    private var agreeNot: String? = null
+    var agreeNot: String? = null
+
+    /*
     fun getAuthor(): String? {
         return author
     }
 
-    fun setAuthor(author: String?) {
+    fun setAuthor(author: String) {
         this.author = author
     }
 
@@ -57,7 +59,7 @@ class Book {
         return title
     }
 
-    fun setTitle(title: String?) {
+    fun setTitle(title: String) {
         this.title = title
     }
 
@@ -108,7 +110,7 @@ class Book {
     fun setAgreeNot(agreeNot: String?) {
         this.agreeNot = agreeNot
     }
-
+*/
     fun getForView(isNightMode: Boolean): SpannableStringBuilder {
         ColorUtils.isNightMode = isNightMode
         val sb = SpannableStringBuilder()

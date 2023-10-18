@@ -1,14 +1,18 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import org.deiverbum.app.util.Utils
 
-class MissaeLectionum : LectioBiblica {
-    constructor() : super()
+@JsonClass(generateAdapter = true)
+class MissaeLectionum(override var pericopa: String = "", override var biblica: String = "") :
+    LectioBiblica(pericopa, biblica) {
+    //constructor() : super()
 
-    constructor (quote: String, text: String) : super(quote, text)
+    //constructor (quote: String, text: String) : super(quote, text)
 
-    constructor (book: BibleBook, quote: String, tema: String, text: String, theOrder: Int) : super(
+    constructor (book: BibleBook, quote: String, tema: String, text: String, theOrder: Int) : this(
         quote,
         text
     ) {
@@ -17,6 +21,7 @@ class MissaeLectionum : LectioBiblica {
         this.book = book
     }
 
+    @Json(ignore = true)
     private val temaForRead: String
         get() = Utils.normalizeEnd(tema)
 
@@ -34,7 +39,7 @@ class MissaeLectionum : LectioBiblica {
         sb.append(Utils.LS2)
         sb.append(book.liturgyName)
         sb.append("    ")
-        sb.append(Utils.toRed(quote))
+        sb.append(Utils.toRed(pericopa))
         sb.append(Utils.LS2)
         if (tema != "") {
             sb.append(Utils.toRed(tema))

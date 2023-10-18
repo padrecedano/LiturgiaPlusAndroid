@@ -3,7 +3,11 @@ package org.deiverbum.app.core.model.data
 import android.text.SpannableStringBuilder
 import org.deiverbum.app.util.Utils
 
-data class LHMixtus(var hymnus: LHHymn) : Breviarium {
+data class LHMixtus(
+    var hymnus: LHHymn,
+    override var typus: String = "mixtum"
+    //,override var tempore: LiturgyTime
+) : Breviarium(typus) {
     override fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
         val ssb = SpannableStringBuilder()
         ssb.append(Utils.LS2)

@@ -26,14 +26,12 @@ class TodayRepositoryImpl @Inject constructor(
 
      */
     override suspend fun getToday(todayRequest: TodayRequest): UniversalisResponse {
-
         //val todayResponse = todayFactory.create(Source.NETWORK).getToday(todayRequest)
         val todayResponse = todayFactory.create(Source.LOCAL).getToday(todayRequest)
-
+        //val todayResponse=UniversalisResponse(Universalis(),Source.NETWORK,true)
         return if (todayResponse.success) {
             todayResponse
         } else
-            todayFactory.create(Source.NETWORK)
-                .getToday(todayRequest)
+            todayFactory.create(Source.NETWORK).getToday(todayRequest)
     }
 }

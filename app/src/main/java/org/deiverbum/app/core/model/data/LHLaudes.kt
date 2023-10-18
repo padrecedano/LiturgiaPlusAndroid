@@ -25,8 +25,9 @@ data class LHLaudes(
     var lectioBrevis: LHLectioBrevis,
     var canticumEvangelicum: LHGospelCanticle,
     var preces: LHIntercession,
-    var oratio: Oratio
-) : Breviarium {
+    var oratio: Oratio, override var typus: String = "laudes"
+    //, override var tempore: LiturgyTime
+) : Breviarium(typus) {
     var sanctus: LHSanctus? = null
     var hasSaint: Boolean = false
     override fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {

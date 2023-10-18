@@ -47,7 +47,6 @@ class Homily(
                 sb.append(Utils.toRed(tema))
                 sb.append(LS2)
             }
-            if (date != null) {
                 if (date != 0) {
                     sb.append(
                         Utils.toRed(
@@ -60,7 +59,7 @@ class Homily(
                     )
                     sb.append(LS2)
                 }
-            }
+
             sb.append(Utils.fromHtml(homily))
 
         } catch (e: Exception) {

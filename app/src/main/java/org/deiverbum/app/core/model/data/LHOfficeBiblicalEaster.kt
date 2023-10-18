@@ -9,8 +9,8 @@ import org.deiverbum.app.util.Utils
  * Clase que representa el **`Oficio de Lecturas`** en la capa de datos externa.
  *
  * @property bibleBook Un objeto [BibleBook].
- * @property quote La referencia de la lectura.
- * @property text El texto de la lectura.
+ * @property pericopa La referencia de la lectura.
+ * @property biblica El texto de la lectura.
  * @property theme El tema de la lectura.
  * @property theOrder El orden de la lectura.
  *
@@ -19,11 +19,11 @@ import org.deiverbum.app.util.Utils
 
 data class LHOfficeBiblicalEaster(
     var bibleBook: BibleBook,
-    override var quote: String = "",
-    override var text: String = "",
+    override var pericopa: String = "",
+    override var biblica: String = "",
     var theme: String = "",
     override var theOrder: Int = 0
-) : LectioBiblica(bibleBook, quote, text, theOrder) {
+) : LectioBiblica(bibleBook, pericopa, biblica, theOrder) {
     var psalm: LHPsalm? = null
 
     //public int theOrder;
@@ -57,7 +57,7 @@ data class LHOfficeBiblicalEaster(
             sb.append(Utils.LS2)
             sb.append(book.liturgyName)
             sb.append("    ")
-            sb.append(Utils.toRed(quote))
+            sb.append(Utils.toRed(pericopa))
             sb.append(Utils.LS2)
             sb.append(Utils.toRed(theme))
             sb.append(Utils.LS2)
@@ -74,7 +74,7 @@ data class LHOfficeBiblicalEaster(
             sb.append(Utils.LS2)
             sb.append(book.liturgyName)
             sb.append("    ")
-            sb.append(quote)
+            sb.append(pericopa)
             sb.append(Utils.LS2)
             sb.append(theme)
             sb.append(Utils.LS2)

@@ -22,18 +22,18 @@ open class LHPsalmody() : Sortable {
      * @param mPsalms Lista con los salmos
      * @param mAntiphons Lista con las antífonas
      */
-    constructor(mPsalms: MutableList<LHPsalm>, mAntiphons: MutableList<LHAntiphon>) : this() {
-        this.psalms = mPsalms
-        this.antiphons = mAntiphons
+    constructor(psalmus: MutableList<LHPsalm>, antiphonae: MutableList<LHAntiphon>) : this() {
+        this.psalmus = psalmus
+        this.antiphonae = antiphonae
     }
 
     var theType = 0
 
     @Ignore
-    protected var psalms: MutableList<LHPsalm> = mutableListOf()
+    protected var psalmus: MutableList<LHPsalm> = mutableListOf()
 
     @Ignore
-    protected open var antiphons: MutableList<LHAntiphon> = mutableListOf()
+    protected open var antiphonae: MutableList<LHAntiphon> = mutableListOf()
 
     /**
      * Obtiene todos los elementos del salmo formateados para la vista.
@@ -52,18 +52,18 @@ open class LHPsalmody() : Sortable {
         val antUnique = SpannableStringBuilder(Utils.toRed("Ant. "))
 
         if (theType == 1) {
-            if (psalms.size == antiphons.size) {
-                antiphons[hourIndex].normalizeByTime(calendarTime)
-                antUnique.append(antiphons[hourIndex].antiphon)
+            if (psalmus.size == antiphonae.size) {
+                antiphonae[hourIndex].normalizeByTime(calendarTime)
+                antUnique.append(antiphonae[hourIndex].antiphon)
 
             } else {
-                antiphons[0].normalizeByTime(calendarTime)
-                antUnique.append(antiphons[0].antiphon)
+                antiphonae[0].normalizeByTime(calendarTime)
+                antUnique.append(antiphonae[0].antiphon)
             }
             sb.append(antUnique)
             sb.append(LS2)
-            for (s in psalms) {
-                if (s.quote != "") {
+            for (s in psalmus) {
+                if (s.pericopa != "") {
                     sb.append(s.quoteForView)
                     sb.append(LS2)
                 }
@@ -89,12 +89,12 @@ open class LHPsalmody() : Sortable {
             sb.append(LS2)
         }
 
-        if (theType == 0 && psalms.size == antiphons.size) {
-            for (s in psalms) {
-                antiphons[s.theOrder - 1].normalizeByTime(calendarTime)
-                sb.append(antiphons[s.theOrder - 1].getBeforeForView())
+        if (theType == 0 && psalmus.size == antiphonae.size) {
+            for (s in psalmus) {
+                antiphonae[s.theOrder - 1].normalizeByTime(calendarTime)
+                sb.append(antiphonae[s.theOrder - 1].getBeforeForView())
                 sb.append(LS2)
-                if (s.quote != "") {
+                if (s.pericopa != "") {
                     sb.append(s.quoteForView)
                     sb.append(LS2)
                 }
@@ -112,7 +112,7 @@ open class LHPsalmody() : Sortable {
                 }
                 sb.append(s.psalmForView)
                 sb.append(LS2)
-                sb.append(antiphons[s.theOrder - 1].afterForView)
+                sb.append(antiphonae[s.theOrder - 1].afterForView)
                 sb.append(LS2)
             }
         }
@@ -137,24 +137,24 @@ open class LHPsalmody() : Sortable {
         val sb = StringBuilder(headerForRead)
         val uniqueAnt: String
         if (theType == 1) {
-            uniqueAnt = if (psalms.size == antiphons.size) {
-                antiphons[hourIndex].antiphon
+            uniqueAnt = if (psalmus.size == antiphonae.size) {
+                antiphonae[hourIndex].antiphon
 
             } else {
-                antiphons[0].antiphon
+                antiphonae[0].antiphon
             }
             sb.append(uniqueAnt)
-            for (s in psalms) {
+            for (s in psalmus) {
                 sb.append(s.psalmForRead)
             }
             sb.append(uniqueAnt)
         }
 
-        if (theType == 0 && psalms.size == antiphons.size) {
-            for (s in psalms) {
-                sb.append(antiphons[s.theOrder - 1].antiphon)
+        if (theType == 0 && psalmus.size == antiphonae.size) {
+            for (s in psalmus) {
+                sb.append(antiphonae[s.theOrder - 1].antiphon)
                 sb.append(s.psalmForRead)
-                sb.append(antiphons[s.theOrder - 1].antiphon)
+                sb.append(antiphonae[s.theOrder - 1].antiphon)
             }
         }
         return sb
@@ -171,12 +171,12 @@ open class LHPsalmody() : Sortable {
         //sort()
         val sb = SpannableStringBuilder(header)
         sb.append(LS2)
-        val s = psalms[index]
-        antiphons[index].normalizeByTime(calendarTime)
-        sb.append(antiphons[index].afterForView)
+        val s = psalmus[index]
+        antiphonae[index].normalizeByTime(calendarTime)
+        sb.append(antiphonae[index].afterForView)
         sb.append(LS2)
 
-        if (s.quote != "") {
+        if (s.pericopa != "") {
             sb.append(s.quoteForView)
             sb.append(LS2)
         }
@@ -197,16 +197,16 @@ open class LHPsalmody() : Sortable {
 
         sb.append(s.psalmForView)
         sb.append(Utils.LS2)
-        sb.append(antiphons[index].afterForView)
+        sb.append(antiphonae[index].afterForView)
         return sb
     }
 
     fun getSalmosByIndexForRead(index: Int): StringBuilder {
         val sb = StringBuilder(headerForRead)
-        val s = psalms[index]
-        sb.append(antiphons[index].antiphon)
+        val s = psalmus[index]
+        sb.append(antiphonae[index].antiphon)
         sb.append(s.psalmForRead)
-        sb.append(antiphons[index].antiphon)
+        sb.append(antiphonae[index].antiphon)
         return sb
     }
 
@@ -221,10 +221,10 @@ open class LHPsalmody() : Sortable {
      * @since 2023.1.3
      */
     override fun sort() {
-        psalms.sortBy {
+        psalmus.sortBy {
             it.theOrder
         }
-        antiphons.sortBy {
+        antiphonae.sortBy {
             it.theOrder
         }
     }

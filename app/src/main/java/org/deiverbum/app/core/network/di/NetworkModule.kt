@@ -1,18 +1,14 @@
 package org.deiverbum.app.core.network.di
 
-import android.app.Application
-import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
+import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.deiverbum.app.BuildConfig
-import org.deiverbum.app.util.Configuration
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
-import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 /**
@@ -20,9 +16,40 @@ import javax.inject.Singleton
  * @version 1.0
  * @since 2022.1
  */
+
+
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+
+    @Provides
+    @Singleton
+    fun providesNetworkJson(): Json = Json {
+        ignoreUnknownKeys = true
+    }
+
+
+    @Provides
+    @Singleton
+    fun okHttpCallFactory(): Call.Factory = OkHttpClient.Builder()
+        .addInterceptor(
+            HttpLoggingInterceptor()
+                .apply {
+                    if (BuildConfig.DEBUG) {
+                        setLevel(HttpLoggingInterceptor.Level.BODY)
+                    }
+                },
+        )
+        .build()
+
+
+}
+
+
+/*
+@Module
+@InstallIn(SingletonComponent::class)
+object NetworkModules {
     /*
         @Provides
         @Singleton
@@ -38,17 +65,26 @@ object NetworkModule {
                 .build()
         }
     */
+
+    private val moshi = Moshi.Builder()
+        //.addLast(KotlinJsonAdapterFactory())
+        .build()
+
+/*
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
+    fun provideRetrofitt(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
         //.addConverterFactory(GsonConverterFactory.create())
-        .addConverterFactory(MoshiConverterFactory.create().asLenient())
+        //.addConverterFactory(MoshiConverterFactory.create().asLenient())
+        //.addConverterFactory(MoshiConverterFactory.create())
+        //.addConverterFactory(MoshiConverterFactory.create(moshi))
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
 
         .baseUrl(Configuration.URL_API)
         .client(okHttpClient)
         .build()
 
-
+*/
     @Provides
     @Singleton
     fun provideContext(application: Application): Context {
@@ -81,7 +117,7 @@ object NetworkModule {
             return client.build()
         }
     */
-
+/*
     @Singleton
     @Provides
     fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
@@ -94,7 +130,7 @@ object NetworkModule {
         OkHttpClient
             .Builder()
             .build()
-    }
+    }*/
 
     /*
         @Provides
@@ -118,4 +154,4 @@ object NetworkModule {
 
 
 
-}
+}*/

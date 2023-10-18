@@ -1,14 +1,23 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import androidx.room.ColumnInfo
 import androidx.room.Ignore
 import com.google.firebase.firestore.PropertyName
+import com.squareup.moshi.JsonClass
 import org.deiverbum.app.util.Numerals
 import org.deiverbum.app.util.Utils
 import java.util.*
 
-open class Liturgy(var name: String) {
-    constructor(week: Int = 0, day: Int = 0, colorFK: Int = 0, name: String) : this(name) {
+@JsonClass(generateAdapter = true)
+open class Liturgy(
+    //@Json(ignore = true)
+    @ColumnInfo(name = "name")
+    var liturgyName: String = ""
+) {
+    constructor(week: Int = 0, day: Int = 0, colorFK: Int = 0, liturgyName: String) : this(
+        liturgyName
+    ) {
         this.week = week
         this.day = day
         this.colorFK = colorFK
@@ -17,20 +26,32 @@ open class Liturgy(var name: String) {
     constructor(
         week: Int = 0,
         day: Int = 0,
-        colorFK: Int = 0,
-        name: String,
-        liturgyTime: LiturgyTime
-    ) : this(name) {
+        liturgyName: String,
+        tempore: LiturgyTime
+    ) : this(liturgyName) {
         this.week = week
         this.day = day
-        this.colorFK = colorFK
-        this.liturgyTime = liturgyTime
+        this.tempore = tempore
 
     }
 
-    constructor(liturgyType: LiturgiaTypus?, name: String = "", typeID: Int = 0) : this(name) {
-        this.liturgyType = liturgyType
-        this.typeID = typeID
+    constructor(
+        week: Int = 0,
+        day: Int = 0,
+        liturgyName: String,
+        tempore: LiturgyTime,
+        typus: LiturgiaTypus?
+    ) : this(liturgyName) {
+        this.week = week
+        this.day = day
+        this.tempore = tempore
+        this.typus = typus
+
+    }
+
+    constructor(liturgyName: String = "", typus: LiturgiaTypus?) : this(liturgyName) {
+        this.typus = typus
+        //this.typeID = typeID
     }
 
     @JvmField
@@ -39,10 +60,10 @@ open class Liturgy(var name: String) {
     var typeID = 0
 
     @Ignore
-    var liturgyTime: LiturgyTime? = null
+    var tempore: LiturgyTime? = null
 
     @Ignore
-    var liturgyType: LiturgiaTypus? = null
+    var typus: LiturgiaTypus? = null
 
     @Ignore
     var calendarTime = 0
@@ -56,8 +77,7 @@ open class Liturgy(var name: String) {
 
     //protected val hasSaint
 
-    protected open val hasS: Boolean
-        get() = saintFK == 1
+
 
     @Ignore
     var saintLife: LHSanctus? = null
@@ -68,7 +88,7 @@ open class Liturgy(var name: String) {
 
     @JvmField
     @Ignore
-    protected var hasSaint = false
+    var hasSaint = false
     var week: Int = 0
     var day: Int = 0
     var colorFK: Int = 0
@@ -103,7 +123,7 @@ open class Liturgy(var name: String) {
         }*/
     val titleForRead: String
         get() = try {
-            timeFK = liturgyTime?.timeID!!
+            timeFK = tempore?.timeID!!
             if (timeFK >= 8 || timeFK == 1 && day > 16 || timeFK == 2 || timeFK == 3 && week == 0 || timeFK == 4 || timeFK == 5 || week >= 35 || timeFK == 6 && week == 6 && typeFK!! < 4 || timeFK == 6 && week == 1 && day != 1 || day == 0) {
                 timeWithTitleForRead
             } else {
@@ -114,29 +134,29 @@ open class Liturgy(var name: String) {
         }
 
     override fun toString(): String {
-        return String.format(Locale("es"), "Liturgy:%n%d\t%s", liturgyID, name)
+        return String.format(Locale("es"), "Liturgy:%n%d\t%s", liturgyID, liturgyName)
     }
 
     open val tituloForRead: String?
-        get() = String.format(Locale("es"), "%s%s", name, ".")
-    private val timeWithWeekAndDay: String
+        get() = String.format(Locale("es"), "%s%s", liturgyName, ".")
+    val timeWithWeekAndDay: String
         get() {
             val ns = Numerals(false, false, false)
             return String.format(
                 Locale("es"),
                 "%s. %s de la %s semana.",
-                liturgyTime?.liturgyName,
+                tempore?.liturgyName,
                 Utils.getDayName(
                     day
                 ),
                 ns.toWords(week, true)
             )
         }
-    private val timeWithTitleForRead: String
+    val timeWithTitleForRead: String
         get() = String.format(
             Locale("es"),
             "%s. %s",
-            liturgyTime?.liturgyName,
+            tempore?.liturgyName,
             tituloForRead
         )
 

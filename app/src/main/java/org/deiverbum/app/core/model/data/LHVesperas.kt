@@ -28,8 +28,9 @@ class LHVesperas(
     var canticumEvangelicum: LHGospelCanticle,
     var preces: LHIntercession,
     var oratio: Oratio,
-    var isPrimaVesperas: Boolean
-) : Breviarium {
+    var isPrimaVesperas: Boolean, override var typus: String = "vesperas",
+    //override var tempore: LiturgyTime
+) : Breviarium(typus) {
     var sanctus: LHSanctus? = null
     var hasSaint: Boolean = false
 

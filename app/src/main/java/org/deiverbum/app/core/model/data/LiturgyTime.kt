@@ -1,5 +1,7 @@
 package org.deiverbum.app.core.model.data
 
+import com.squareup.moshi.JsonClass
+
 /**
  *
  * Clase para expresar los tiempos litúrgicos.
@@ -8,6 +10,7 @@ package org.deiverbum.app.core.model.data
  * @version 1.0
  * @since 2023.1
  */
+@JsonClass(generateAdapter = true)
 data class LiturgyTime(
     val timeID: Int = 0,
     val timeName: String? = null,

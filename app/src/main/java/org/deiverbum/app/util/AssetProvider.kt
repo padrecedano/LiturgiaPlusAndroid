@@ -2,11 +2,14 @@ package org.deiverbum.app.util
 
 import android.content.Context
 import android.text.SpannableStringBuilder
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.deiverbum.app.core.model.FileResponse
 import javax.inject.Inject
 
 class AssetProvider @Inject constructor(
-    private val context: Context
+    @ApplicationContext val context: Context
+
+    //private val context: Context
 ) {
 
     fun getFiles(filesPath: List<String>): MutableList<FileResponse> {

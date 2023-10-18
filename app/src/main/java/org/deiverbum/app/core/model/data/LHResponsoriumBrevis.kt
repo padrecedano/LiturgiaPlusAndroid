@@ -1,6 +1,7 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import androidx.room.ColumnInfo
 import androidx.room.Ignore
 import org.deiverbum.app.util.Configuration
 import org.deiverbum.app.util.Constants
@@ -8,8 +9,10 @@ import org.deiverbum.app.util.Utils
 import org.deiverbum.app.util.Utils.LS
 
 open class LHResponsoriumBrevis(
-    open var text: String = "",
-    open var type: Int = 0
+    @ColumnInfo(name = "text")
+    open var responsorium: String = "",
+    @ColumnInfo(name = "type")
+    open var typus: Int = 0
 ) {
 
     var responsoryID: Int = 0
@@ -17,7 +20,7 @@ open class LHResponsoriumBrevis(
 
     @get:Ignore
     open val header: SpannableStringBuilder
-        get() = if (type > 0) {
+        get() = if (typus > 0) {
             Utils.formatTitle(Constants.TITLE_RESPONSORY_SHORT)
         } else {
             Utils.toRed("En lugar del responsorio breve, se dice la siguiente antífona:")
@@ -33,18 +36,20 @@ open class LHResponsoriumBrevis(
      */
     fun getAll(hourId: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
-        val respArray = text.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val respArray =
+            responsorium.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val s = StringBuilder()
         if (hourId < 3 || hourId > 5) {
             sb.append(header)
             s.append(Constants.BRS)
         }
-        when (type) {
+        when (typus) {
             0 -> {
                 sb.append(Constants.LS2)
-                sb.append(text)
+                sb.append(responsorium)
                 sb.append(LS)
             }
+
             1 -> if (respArray.size == 3) {
                 s.append(Utils.toRedFont("R. "))
                 s.append(respArray[0])
@@ -153,7 +158,7 @@ open class LHResponsoriumBrevis(
                 sb.append("Tamaño del responsorio: ")
                 sb.append(respArray.size.toString())
                 sb.append(" Código forma: ")
-                sb.append(type.toString())
+                sb.append(typus.toString())
                 sb.append(LS)
             }
         }
@@ -171,17 +176,18 @@ open class LHResponsoriumBrevis(
     open val allForRead: String
         get() {
             val respArray =
-                text.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                responsorium.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             val s = StringBuilder()
             s.append(Utils.pointAtEnd(Constants.TITLE_RESPONSORY_SHORT))
-            when (type) {
-                0 -> s.append(text)
+            when (typus) {
+                0 -> s.append(responsorium)
                 1 -> if (respArray.size == 3) {
                     s.append(respArray[0])
                     s.append(respArray[1])
                     s.append(respArray[2])
                     s.append(respArray[1])
                 }
+
                 2 -> {
                     s.append(respArray[0])
                     s.append(respArray[1])
@@ -231,7 +237,7 @@ open class LHResponsoriumBrevis(
      * @param calendarTime Un entero con el Id del tiempo del calendario
      */
     fun normalizeByTime(calendarTime: Int) {
-        text = Utils.replaceByTime(text, calendarTime)
+        responsorium = Utils.replaceByTime(responsorium, calendarTime)
     }
 
     protected fun getErrorMessage(): SpannableStringBuilder {

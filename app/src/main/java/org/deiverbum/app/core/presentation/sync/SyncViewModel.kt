@@ -3,11 +3,12 @@ package org.deiverbum.app.core.presentation.sync
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.deiverbum.app.core.model.SyncRequest
-import org.deiverbum.app.core.network.CoroutineDispatcherProvider
+import org.deiverbum.app.core.network.di.IODispatcher
 import org.deiverbum.app.domain.GetSyncUseCase
 import javax.inject.Inject
 
@@ -21,7 +22,9 @@ import javax.inject.Inject
 @HiltViewModel
 class SyncViewModel @Inject constructor(
     private val getSyncUseCase: GetSyncUseCase,
-    private val coroutineDispatcherProvider: CoroutineDispatcherProvider
+    //private val coroutineDispatcherProvider: CoroutineDispatcherProvider
+    @IODispatcher private val dispatcherIO: CoroutineDispatcher
+
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<SyncUiState>(SyncUiState.Empty)
@@ -34,7 +37,7 @@ class SyncViewModel @Inject constructor(
      */
     fun launchSync(syncRequest: SyncRequest) {
         _uiState.value = SyncUiState.Loading
-        viewModelScope.launch(coroutineDispatcherProvider.IO()) {
+        viewModelScope.launch(dispatcherIO) {
             try {
                 val result = getSyncUseCase.execute(syncRequest)
                 //val resultt = getSyncUseCase.executee(syncRequest)

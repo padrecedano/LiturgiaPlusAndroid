@@ -3,11 +3,12 @@ package org.deiverbum.app.core.presentation.today
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.deiverbum.app.core.model.TodayRequest
-import org.deiverbum.app.core.network.CoroutineDispatcherProvider
+import org.deiverbum.app.core.network.di.IODispatcher
 import org.deiverbum.app.domain.GetTodayUseCase
 import javax.inject.Inject
 
@@ -20,7 +21,9 @@ import javax.inject.Inject
 @HiltViewModel
 class TodayViewModel @Inject constructor(
     private val getTodayUseCase: GetTodayUseCase,
-    private val coroutineDispatcherProvider: CoroutineDispatcherProvider
+    //private val coroutineDispatcherProvider: CoroutineDispatcher
+    @IODispatcher private val dispatcherIO: CoroutineDispatcher
+
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<TodayUiState>(TodayUiState.Empty)
@@ -28,7 +31,7 @@ class TodayViewModel @Inject constructor(
 
     fun loadData(todayRequest: TodayRequest) {
         _uiState.value = TodayUiState.Loading
-        viewModelScope.launch(coroutineDispatcherProvider.IO()) {
+        viewModelScope.launch(dispatcherIO) {
             try {
                 val result = getTodayUseCase.execute(todayRequest)
                 _uiState.value = TodayUiState.Loaded(TodayItemUiState(result))

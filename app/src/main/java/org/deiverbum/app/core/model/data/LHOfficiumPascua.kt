@@ -15,8 +15,10 @@ import org.deiverbum.app.util.Utils
 data class LHOfficiumPascua(
     val psalmodia: LHPsalmody,
     var officiumLectionis: MutableList<LHOfficeBiblicalEaster>,
-    var oratio: MutableList<Oratio>
-) : Breviarium, Sortable {
+    var oratio: MutableList<Oratio>,
+    override var typus: String = "officiumPascua"
+    //, override var tempore: LiturgyTime
+) : Breviarium(typus), Sortable {
     override fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
         val ssb = SpannableStringBuilder(header)
         try {

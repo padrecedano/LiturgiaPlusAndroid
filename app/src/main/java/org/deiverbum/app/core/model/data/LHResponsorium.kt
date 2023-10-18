@@ -7,10 +7,10 @@ import org.deiverbum.app.util.Utils
 import java.util.Locale
 
 class LHResponsorium(
-    override var text: String = "",
-    override var type: Int = 0,
+    override var responsorium: String = "",
+    override var typus: Int = 0,
     var source: String = ""
-) : LHResponsoriumBrevis(text, type) {
+) : LHResponsoriumBrevis(responsorium, typus) {
     @get:Ignore
     override val header: SpannableStringBuilder
         get() {
@@ -42,10 +42,10 @@ class LHResponsorium(
         get() {
             val sb = SpannableStringBuilder()
             val respArray =
-                text.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                responsorium.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             val s = StringBuilder()
             sb.append(header)
-            when (type) {
+            when (typus) {
                 1 -> if (respArray.size == 3) {
                     s.append(Utils.toRedFont("R. "))
                     s.append(respArray[0])
@@ -162,7 +162,7 @@ class LHResponsorium(
                     sb.append(respArray.size.toString())
                     sb.append(Utils.LS2)
                     sb.append(" Código forma: ")
-                    sb.append(type.toString())
+                    sb.append(typus.toString())
                     sb.append(Utils.LS2)
                 }
             }
@@ -178,9 +178,9 @@ class LHResponsorium(
     override val allForRead: String
         get() {
             val respArray =
-                text.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                responsorium.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             val s = StringBuilder()
-            when (type) {
+            when (typus) {
                 1 -> if (respArray.size == 3) {
                     s.append(respArray[0])
                     s.append(respArray[1])

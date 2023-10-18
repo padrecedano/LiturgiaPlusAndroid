@@ -1,5 +1,6 @@
 package org.deiverbum.app.core.data.source.network
 
+import android.util.Log
 import org.deiverbum.app.core.data.source.TodayEntityData
 import org.deiverbum.app.core.model.TodayRequest
 import org.deiverbum.app.core.model.UniversalisResponse
@@ -24,11 +25,16 @@ class NetworkTodayEntityData @Inject constructor(
                         //Timber.tag("bbb").d(u!!.liturgyDay.breviaryHour!!.oficio!!.himno!!.hymn)
                         Timber.tag("bbb").d(u.fake)
             */
-            val apiResponse = todayApi.getToday(endPoint, todayRequest.theDate.toString())
-            todayResponse.dataModel = apiResponse!!
+            val apiResponsee = todayApi.getTest(todayRequest.theDate.toString())
+            Log.d("ax13", apiResponsee.todayDate.toString())
+
+            //val apiResponse = todayApi.getToday(endPoint, todayRequest.theDate.toString())
+            todayResponse.dataModel = apiResponsee
+
             todayResponse
 
         } catch (e: Exception) {
+            Log.d("xyz", e.message.toString())
             UniversalisResponse(Universalis(), Source.NETWORK, false)
         }
     }

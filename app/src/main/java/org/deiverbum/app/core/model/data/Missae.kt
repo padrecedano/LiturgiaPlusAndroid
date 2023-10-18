@@ -7,22 +7,38 @@ import org.deiverbum.app.util.Utils
  * Clase que representa los **`Laudes`** en la capa de datos externa.
  *
  * @property lectionumList Un objeto [MissaeLectionumList] con la lista de lecturas ordenada.
+ * @property typus Una cadena para identificar el tipo de celebración. Con este valor
+ * si indica al adapter qué clase debe usarse para mapear los datos procedentes de la red.
+ *
+ *  @author A. Cedano
+ * @version 1.0
+ * @since 2023.1.3
+ *
+ * @see [Sacramentis]
  */
 
 data class Missae(
-    var calendarTime: Int = 0
-) : Sacramentis {
+    var calendarTime: Int = 0,
+    override var typus: String = "missae"
+) : Sacramentis(typus) {
 
-    constructor(calendarTime: Int = 0, homiliaeList: HomilyList?) : this(calendarTime) {
+    constructor(calendarTime: Int = 0, typus: String = "missae", homiliaeList: HomilyList?) : this(
+        calendarTime,
+        typus
+    ) {
         this.homiliaeList = homiliaeList
     }
 
-    constructor(calendarTime: Int = 0, lectionumList: MissaeLectionumList) : this(calendarTime) {
+    constructor(
+        calendarTime: Int = 0,
+        typus: String = "missae",
+        lectionumList: MissaeLectionumList
+    ) : this(calendarTime, typus) {
         this.lectionumList = lectionumList
     }
 
-    var homiliaeList: HomilyList? = null
-    var lectionumList: MissaeLectionumList? = null
+    private var homiliaeList: HomilyList? = null
+    private var lectionumList: MissaeLectionumList? = null
 
     var sanctus: LHSanctus? = null
     var hasSaint: Boolean = false

@@ -87,18 +87,18 @@ class Today(
 
     private val tituloVisperas: String
         get() = if (liturgyPrevious != null) {
-            liturgyPrevious!!.name.replace(" I Vísperas.| I Vísperas".toRegex(), "")
+            liturgyPrevious!!.liturgyName.replace(" I Vísperas.| I Vísperas".toRegex(), "")
         } else {
-            liturgyDay.name
+            liturgyDay.liturgyName
         }
     val titulo: String
-        get() = if (liturgyDay.typeID == 6) tituloVisperas else liturgyDay.name
+        get() = if (liturgyDay.typeID == 6) tituloVisperas else liturgyDay.liturgyName
     private val tituloForRead: String
         get() = if (liturgyDay.typeID == 6) tituloVisperas else liturgyDay.titleForRead
     val fecha: String
         get() = Utils.formatDate(todayDate.toString(), "yyyyMMdd", "EEEE d 'de' MMMM 'de' yyyy")
     val tiempo: String?
-        get() = if (liturgyDay.typeID == 6 && liturgyPrevious != null) liturgyPrevious!!.liturgyTime!!.liturgyName else liturgyDay.liturgyTime!!.liturgyName
+        get() = if (liturgyDay.typeID == 6 && liturgyPrevious != null) liturgyPrevious!!.tempore!!.liturgyName else liturgyDay.tempore!!.liturgyName
 
 
     private fun hasSaintToday(): Boolean {

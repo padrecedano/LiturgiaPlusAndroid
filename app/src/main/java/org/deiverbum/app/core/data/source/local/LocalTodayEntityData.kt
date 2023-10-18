@@ -9,6 +9,7 @@ import org.deiverbum.app.util.Constants.EASTER_CODE
 import org.deiverbum.app.util.Utils
 import javax.inject.Inject
 
+
 /**
  * <p>Fuente de datos local para el módulo Today.</p>
  *
@@ -76,6 +77,7 @@ class LocalTodayEntityData @Inject constructor(
                     todayResponse.dataModel =
                         todayDao.getCommentariiByDate(todayRequest.theDate).asExternalModel()
                 }
+
                 12 -> {
                     val monthAndDay = Utils.getMonthAndDay(todayRequest.theDate.toString())
                     todayResponse.dataModel = todayDao.getSanctiByDate(
@@ -84,11 +86,10 @@ class LocalTodayEntityData @Inject constructor(
                     ).asExternalModel()
                 }
             }
-            return todayResponse
         } catch (e: Exception) {
             todayResponse.success = false
-            return todayResponse
         }
+        return todayResponse
     }
     override suspend fun addToday(today: UniversalisResponse) {
     }

@@ -143,7 +143,7 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
                 //mTextView.text = todayResponse.dataModel.getAllForView(false,false)
 
                 if (isVoiceOn) {
-                    sbReader = todayResponse.dataModel.getAllForRead(hasInvitatory)
+                    sbReader = todayResponse.dataModel.getAllForRead()
                 }
             } else {
                 val msgNoData = activity?.resources?.getString(R.string.err_no_data)

@@ -7,13 +7,13 @@ import org.deiverbum.app.util.Utils
 
 class LHOfficiumLectioPrior(
     override var book: BibleBook,
-    override var quote: String,
-    override var text: String,
+    override var pericopa: String,
+    override var biblica: String,
     override var tema: String = "",
     override var theOrder: Int = 1,
 
     var responsorium: LHResponsorium
-) : LectioBiblica(book, quote, text, tema, theOrder) {
+) : LectioBiblica(book, pericopa, biblica, tema, theOrder) {
 
 
     //var responsorioLargo: LHResponsorium?=null
@@ -42,7 +42,7 @@ class LHOfficiumLectioPrior(
         sb.append(Utils.LS2)
         sb.append(book.liturgyName)
         sb.append("    ")
-        sb.append(Utils.toRed(quote))
+        sb.append(Utils.toRed(pericopa))
         sb.append(Utils.LS2)
         sb.append(Utils.toRed(tema))
         sb.append(Utils.LS2)

@@ -2,6 +2,8 @@ package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
 import androidx.room.Ignore
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import org.deiverbum.app.core.model.TodayRequest
 import org.deiverbum.app.util.ColorUtils
 import org.deiverbum.app.util.Constants.VOICE_INI
@@ -18,8 +20,9 @@ import org.deiverbum.app.util.Utils
  * @since 2023.1.3
  */
 
-class Universalis(
-    var todayDate: Int = 0,
+@JsonClass(generateAdapter = true)
+data class Universalis(
+    @Json(name = "todayDate") var todayDate: Int = 0,
     var timeFK: Int = 0,
     @Ignore
     var weekDayFK: Int = 0,
@@ -71,7 +74,7 @@ class Universalis(
     var nightPrayerFK: Int = 71,
 
     @Ignore
-    var liturgyDay: Liturgy = Liturgy(""),
+    var liturgia: Liturgy? = null,
 
     //@Ignore
     //var liturgy: LiturgiaNew? = null,
@@ -89,43 +92,34 @@ class Universalis(
         this.timeFK = timeFK
     }
 
-    private val tituloVisperas: String
-        get() = if (liturgyPrevious != null) {
-            liturgyPrevious!!.name.replace(" I Vísperas.| I Vísperas".toRegex(), "")
-        } else {
-            liturgyDay.name
-        }
-    val titulo: String
-        get() =
-            if (liturgyDay.typeID == 6) tituloVisperas else liturgyDay.name
+    constructor(todayDate: Int, timeFK: Int, liturgia: Liturgy) : this() {
+        this.todayDate = todayDate
+        this.timeFK = timeFK
+        this.liturgia = liturgia
+    }
 
-    private val tituloForRead: String
-        get() = if (liturgyDay.typeID == 6) tituloVisperas else liturgyDay.titleForRead
+    constructor(liturgia: Liturgy) : this() {
+        this.liturgia = liturgia
+    }
 
     val fecha: String
         get() = Utils.formatDate(todayDate.toString(), "yyyyMMdd", "EEEE d 'de' MMMM 'de' yyyy")
 
-    val tiempo: String?
-        get() = if (liturgyDay.typeID == 6 && liturgyPrevious != null) liturgyPrevious!!.liturgyTime!!.liturgyName else liturgyTime?.liturgyName
-
-    private fun hasSaintToday(): Boolean {
-        return hasSaint == 1
-    }
 
     fun getAllForView(todayRequest: TodayRequest): SpannableStringBuilder {
 
         ColorUtils.isNightMode = todayRequest.isNightMode
         val ssb = SpannableStringBuilder()
         try {
-            if (liturgyDay.typeID != 11) {
+            if (liturgia?.typus?.typus != "sancti") {
                 ssb.append(fecha)
                 ssb.append(Utils.LS2)
-                ssb.append(Utils.toH2(tiempo))
+                ssb.append(Utils.toH2(liturgia?.tempore?.liturgyName))
                 ssb.append(Utils.LS2)
-                ssb.append(Utils.toH3(titulo))
+                ssb.append(Utils.toH3(liturgia?.liturgyName))
                 ssb.append(Utils.LS2)
             }
-            ssb.append(liturgyDay.liturgyType?.forView(timeFK, hasSaint == 1))
+            ssb.append(liturgia?.typus?.forView(timeFK, hasSaint == 1))
         } catch (e: Exception) {
             ssb.append(Utils.createErrorMessage(e.message))
         }
@@ -135,12 +129,14 @@ class Universalis(
 
     }
 
-    fun getAllForRead(hasInvitatory: Boolean): StringBuilder {
+    fun getAllForRead(): StringBuilder {
         val sb = StringBuilder(VOICE_INI)
-        sb.append(Utils.pointAtEnd(fecha))
-        sb.append(Utils.pointAtEnd(tiempo))
-        sb.append(Utils.pointAtEnd(titulo))
-        sb.append(liturgyDay.liturgyType!!.forRead())
+        if (liturgia?.typeID != 11) {
+            sb.append(Utils.pointAtEnd(fecha))
+            sb.append(Utils.pointAtEnd(liturgia?.tempore?.liturgyName))
+            sb.append(Utils.pointAtEnd(liturgia?.liturgyName))
+        }
+        sb.append(liturgia?.typus!!.forRead())
 
         return sb
 

@@ -22,6 +22,9 @@ interface TodayApi {
         @Path("dateString") dateString: String?
     ): Universalis?
 
+    @GET("test/{dateString}")
+    //suspend fun getTest(@Path("dateString") dateString: String?): Universalis
+    suspend fun getTest(@Path("dateString") dateString: String?): Universalis
 
     @GET("today/{thePath}")
     suspend fun getTodayAll(@Path("thePath") thePath: String?): List<Today>
