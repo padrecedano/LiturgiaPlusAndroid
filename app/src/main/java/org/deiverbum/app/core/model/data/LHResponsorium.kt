@@ -49,7 +49,7 @@ class LHResponsorium(
                 1 -> if (respArray.size == 3) {
                     s.append(Utils.toRedFont("R. "))
                     s.append(respArray[0])
-                    s.append(Utils.toRed(" * "))
+                    s.append(Utils.toRedFont(" * "))
                     s.append(respArray[1])
                     s.append(Constants.BRS)
                     s.append(Utils.toRedFont("V. "))
@@ -65,7 +65,7 @@ class LHResponsorium(
                 2 -> {
                     s.append(Utils.toRedFont("R. "))
                     s.append(respArray[0])
-                    s.append(Utils.toRed(" * "))
+                    s.append(Utils.toRedFont(" * "))
                     s.append(respArray[1])
                     s.append(Constants.BRS)
                     s.append(Utils.toRedFont("V. "))

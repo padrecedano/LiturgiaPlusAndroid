@@ -9,19 +9,19 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.deiverbum.app.core.model.SyncRequest
 import org.deiverbum.app.core.network.di.IODispatcher
-import org.deiverbum.app.domain.GetSyncUseCase
+import org.deiverbum.app.domain.GetInitialSyncUseCase
 import javax.inject.Inject
 
 /**
- * ViewModel para la sincronización.
+ * ViewModel para la sincronización inicial.
  *
  * @author A. Cedano
- * @version 2.0
- * @since 2022.2
+ * @version 1.0
+ * @since 2023.1.3
  */
 @HiltViewModel
-class SyncViewModel @Inject constructor(
-    private val getSyncUseCase: GetSyncUseCase,
+class InitialSyncViewModel @Inject constructor(
+    private val getInitialSyncUseCase: GetInitialSyncUseCase,
     //private val coroutineDispatcherProvider: CoroutineDispatcherProvider
     @IODispatcher private val dispatcherIO: CoroutineDispatcher
 
@@ -39,7 +39,7 @@ class SyncViewModel @Inject constructor(
         _uiState.value = SyncUiState.Loading
         viewModelScope.launch(dispatcherIO) {
             try {
-                val result = getSyncUseCase.execute(syncRequest)
+                val result = getInitialSyncUseCase.execute(syncRequest)
                 //val resultt = getSyncUseCase.executee(syncRequest)
                 /*resultt.syncStatus.collect { model ->
                     //Log.d("bbb",model.tableName+"Lorem ipsum")

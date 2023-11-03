@@ -19,7 +19,7 @@ data class LHCompletorium(
 
 ) : Breviarium(typus) {
 
-    override fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
+    override fun forView(calendarTime: Int): SpannableStringBuilder {
         return try {
             val sb = SpannableStringBuilder()
             lectioBrevis.normalizeByTime(calendarTime)

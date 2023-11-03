@@ -26,7 +26,7 @@ class LocalTodayEntityData @Inject constructor(
             when (todayRequest.typeID) {
                 0 -> {
                     todayResponse.dataModel =
-                        todayDao.getMixtumByDate(todayRequest.theDate).asExternalModel()
+                        todayDao.getMixtusByDate(todayRequest.theDate).asExternalModel()
                 }
 
                 1 -> {

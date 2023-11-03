@@ -1,6 +1,7 @@
 package org.deiverbum.app.workers
 
 import android.content.Context
+import android.util.Log
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
@@ -27,11 +28,17 @@ class TodayWorker @AssistedInject constructor(
 
 ) : CoroutineWorker(context, params) {
 
+
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         return@withContext try {
-             loadCrud()
+            loadCrud()
             Result.success()
         } catch (error: Throwable) {
+            Log.e(
+                "WKerr",
+                "applicationContext.resources.getString(R.string.error_applying_blur)",
+                error
+            )
             Result.failure()
         }
     }
@@ -47,8 +54,8 @@ class TodayWorker @AssistedInject constructor(
     private suspend fun loadCrud() {
         val crud = apiService.postCrud(todayDao.allSyncStatus)
         if(crud!!.haveData) {
-            //crud.doCrud(todayDao)
-            //todayDao.syncUpdate(crud.lastUpdate)
+            crud.doCrud(todayDao)
+            todayDao.syncUpdate(crud.lastUpdate)
         }
     }
 }

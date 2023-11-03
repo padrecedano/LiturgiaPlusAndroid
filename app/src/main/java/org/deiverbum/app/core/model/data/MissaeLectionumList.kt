@@ -19,15 +19,19 @@ import org.deiverbum.app.util.Utils
  */
 @JsonClass(generateAdapter = true)
 class MissaeLectionumList(
-    //var lectionum= mutableListOf<MissaeLectionum?>(),
-    val lectionum: MutableList<MissaeLectionum?> = mutableListOf<MissaeLectionum?>(),
-
+    var lectionum: MutableList<MissaeLectionum?> = mutableListOf(),
     var type: Int = 0
 ) : Sortable {
 
     @Json(ignore = true)
     private val titulo: SpannableStringBuilder
-        get() = Utils.toH3Red(Utils.toUpper(Constants.TITLE_MASS_READING))
+        get() {
+            return if (type == -1) {
+                Utils.formatTitle("EVANGELIO")
+            } else {
+                Utils.toH3Red(Utils.toUpper(Constants.TITLE_MASS_READING))
+            }
+        }
 
     @Json(ignore = true)
     private val tituloForRead: String
@@ -35,10 +39,12 @@ class MissaeLectionumList(
 
     fun getForView(): SpannableStringBuilder {
         sort()
-        val sb = SpannableStringBuilder(Utils.LS2)
+        val sb = SpannableStringBuilder()
         try {
-            sb.append(titulo)
-            sb.append(Utils.LS2)
+            if (type == -1) {
+                sb.append(Utils.LS)
+                sb.append(Utils.formatTitle("EVANGELIO DE LA MISA"))
+            }
             lectionum.forEach {
                 sb.append(it?.getAll(type))
             }

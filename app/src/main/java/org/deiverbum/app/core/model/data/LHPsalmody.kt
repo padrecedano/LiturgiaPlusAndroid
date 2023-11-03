@@ -15,16 +15,18 @@ import org.deiverbum.app.util.Utils
  *
  * @see [Sortable]
  */
-open class LHPsalmody() : Sortable {
+open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>) : Sortable {
 
     /**
      * Constructor secundario
      * @param mPsalms Lista con los salmos
      * @param mAntiphons Lista con las antífonas
      */
-    constructor(psalmus: MutableList<LHPsalm>, antiphonae: MutableList<LHAntiphon>) : this() {
+    constructor(psalmus: MutableList<LHPsalm>, antiphonae: MutableList<LHAntiphon>) : this(
+        antiphonae
+    ) {
         this.psalmus = psalmus
-        this.antiphonae = antiphonae
+        //this.antiphonae = antiphonae
     }
 
     var theType = 0
@@ -32,8 +34,8 @@ open class LHPsalmody() : Sortable {
     @Ignore
     protected var psalmus: MutableList<LHPsalm> = mutableListOf()
 
-    @Ignore
-    protected open var antiphonae: MutableList<LHAntiphon> = mutableListOf()
+    //@Ignore
+    //protected open var antiphonae: MutableList<LHAntiphon> = mutableListOf()
 
     /**
      * Obtiene todos los elementos del salmo formateados para la vista.

@@ -19,7 +19,7 @@ data class LHOfficiumPascua(
     override var typus: String = "officiumPascua"
     //, override var tempore: LiturgyTime
 ) : Breviarium(typus), Sortable {
-    override fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
+    override fun forView(calendarTime: Int): SpannableStringBuilder {
         val ssb = SpannableStringBuilder(header)
         try {
             sort()

@@ -9,7 +9,7 @@ import org.deiverbum.app.core.model.SyncResponse
  * @author A. Cedano
  * @since 2023.1.3
  */
-interface SyncRepository {
+interface InitialSyncRepository {
     /**
      * Este método obtiene la sincronización.
      *
@@ -18,6 +18,5 @@ interface SyncRepository {
      * @return Un objeto [SyncResponse] con la sincronización que se haya realizado.
      */
     suspend fun getSync(syncRequest: SyncRequest): SyncResponse
-
 
 }

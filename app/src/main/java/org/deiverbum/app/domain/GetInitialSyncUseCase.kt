@@ -1,5 +1,6 @@
 package org.deiverbum.app.domain
 
+import org.deiverbum.app.core.data.repository.InitialSyncRepository
 import org.deiverbum.app.core.data.repository.SyncRepository
 import org.deiverbum.app.core.model.SyncRequest
 import org.deiverbum.app.core.model.SyncResponse
@@ -11,8 +12,8 @@ import javax.inject.Inject
  * @author A. Cedano
  * @since 2023.1.3
  */
-class GetSyncUseCase @Inject constructor(
-    private val mRepository: SyncRepository
+class GetInitialSyncUseCase @Inject constructor(
+    private val mRepository: InitialSyncRepository
 ) {
     /**
      * Obtiene la respuesta de sincronización desde el repositorio, llamando a [SyncRepository.getSync].
@@ -22,6 +23,4 @@ class GetSyncUseCase @Inject constructor(
     suspend fun execute(syncRequest: SyncRequest): SyncResponse {
         return mRepository.getSync(syncRequest)
     }
-
-
 }

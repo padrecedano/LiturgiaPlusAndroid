@@ -27,14 +27,14 @@ interface TodayApi {
     suspend fun getTest(@Path("dateString") dateString: String?): Universalis
 
     @GET("today/{thePath}")
-    suspend fun getTodayAll(@Path("thePath") thePath: String?): List<Today>
+    suspend fun getTodayAll(@Path("thePath") thePath: String?): List<Universalis>
 
     @GET("today/{thePath}")
     suspend fun getTodayAllNew(@Path("thePath") thePath: String?): List<Today>
 
 
     @POST("crud/")
-    suspend fun postCrud(@Body syncStatus: SyncStatus?): Crud<Any?>?
+    suspend fun postCrud(@Body syncStatus: SyncStatus?): Crud
 
 
     @POST("crud/")

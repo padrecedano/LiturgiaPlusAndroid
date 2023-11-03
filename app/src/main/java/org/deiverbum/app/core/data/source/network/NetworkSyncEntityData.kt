@@ -34,12 +34,12 @@ class NetworkSyncEntityData @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun addSyncc(syncResponse: SyncResponseNew) {
-        TODO("Not yet implemented")
-    }
+     suspend fun addSyncc(syncResponse: SyncResponseNew) {
+         TODO("Not yet implemented")
+     }
 
     //TODO "Concluir esto"
-    override suspend fun getSyncc(syncRequest: SyncRequest): SyncResponseNew {
+    suspend fun getSyncc(syncRequest: SyncRequest): SyncResponseNew {
         val todayAll = todayApi.getTodayAllNew("all")//.take(60)
         val syncStatus = SyncStatus("", 1)
         val userFlow = MutableSharedFlow<SyncStatus>(replay = 1)

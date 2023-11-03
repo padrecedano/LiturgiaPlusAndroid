@@ -2,6 +2,7 @@ package org.deiverbum.app.core.model
 
 import org.deiverbum.app.core.model.data.SyncStatus
 import org.deiverbum.app.core.model.data.Today
+import org.deiverbum.app.core.model.data.Universalis
 
 /**
  * Maneja las respuestas destinadas al módulo de Sincronización.
@@ -16,9 +17,9 @@ class SyncResponse(
 
     //var dataForView: SpannableStringBuilder,//1:NetWork, 2:Firebase, 0:Error
     _syncStatus: SyncStatus,
-    _allToday: List<Today> = emptyList()
+    _allToday: List<Universalis> = emptyList()
 ) {
     var syncStatus: SyncStatus = _syncStatus
-    var allToday: List<Today> = _allToday
+    var allToday: List<Universalis> = _allToday
 
 }

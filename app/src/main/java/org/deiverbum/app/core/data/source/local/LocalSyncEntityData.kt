@@ -47,11 +47,7 @@ class LocalSyncEntityData @Inject constructor(
     }
 
 
-    override suspend fun getSyncc(syncRequest: SyncRequest): SyncResponseNew {
-        return SyncResponseNew(todayDao.allSyncStatuss()
-            .map { it }
-            .distinctUntilChanged())
-    }
+
 
 
     /**
@@ -67,21 +63,11 @@ class LocalSyncEntityData @Inject constructor(
         if (syncResponse.allToday.isNotEmpty()) {
             //syncResponse.allToday=syncResponse.allToday.take(3)
             val insertedRows =
-                todayDao.todayInsertAll(syncResponse.allToday)
+                todayDao.universalisInsertAll(syncResponse.allToday)
             if (insertedRows.isNotEmpty()) {
                 //todayDao.syncUpdate(Utils.getCurrentTimeStamp())
             }
         }
     }
 
-    override suspend fun addSyncc(syncResponse: SyncResponseNew) {
-        if (syncResponse.allToday.isNotEmpty()) {
-            //syncResponse.allToday=syncResponse.allToday.take(3)
-            val insertedRows =
-                todayDao.todayInsertAll(syncResponse.allToday)
-            if (insertedRows.isNotEmpty()) {
-                //todayDao.syncUpdate(Utils.getCurrentTimeStamp())
-            }
-        }
-    }
 }

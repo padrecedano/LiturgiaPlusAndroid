@@ -1,5 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
+import android.util.Log
 import org.deiverbum.app.core.database.dao.TodayDao
 import org.deiverbum.app.core.model.data.LHPsalmodyJoin
 
@@ -10,7 +11,7 @@ import org.deiverbum.app.core.model.data.LHPsalmodyJoin
  * @version 1.0
  * @since 2023.1
  */
-class Crud<T> {
+class Crud {
     private var crudBibleBook: CrudBibleBook? = null
     private var crudBibleHomilyJoin: CrudBibleHomilyJoin? = null
     private var crudBibleHomilyTheme: CrudBibleHomilyTheme? = null
@@ -39,6 +40,9 @@ class Crud<T> {
     private var crudLHPsalm: CrudLHPsalm? = null
     private var crudLHPsalmody: CrudLHPsalmody? = null
     private var crudLHPsalmodyJoin: CrudLHPsalmodyJoin? = null
+    private var crudLHPsalmJoin: CrudLHPsalmJoin? = null
+    private var crudLHAntiphonJoin: CrudLHAntiphonJoin? = null
+
     private var crudLHReadingShort: CrudLHReadingShort? = null
     private var crudLHReadingShortJoin: CrudLHReadingShortJoin? = null
     private var crudLHResponsory: CrudLHResponsory? = null
@@ -60,7 +64,7 @@ class Crud<T> {
     private var crudSaint: CrudSaint? = null
     private var crudSaintLife: CrudSaintLife? = null
     private var crudSaintShortLife: CrudSaintShortLife? = null
-    private var crudToday: CrudToday? = null
+    private var crudUniversalis: CrudUniversalis? = null
     private var crudVirginAntiphon: CrudVirginAntiphon? = null
 
     //public List<Today> today;
@@ -68,9 +72,9 @@ class Crud<T> {
     var haveData = false
 
     //lateinit var crud : List<T>
-    val crud: List<T> = emptyList()
-    val create: List<LHPsalmodyJoin> = emptyList()
-    val createe: List<T> = emptyList()
+    //val crud: List<T> = emptyList()
+    //val create: List<LHPsalmodyJoin> = emptyList()
+    //val createe: List<T> = emptyList()
     val lhPsalmodyJoin: List<LHPsalmodyJoin> = emptyList()
 
     /**
@@ -183,6 +187,7 @@ class Crud<T> {
                 if (!de.isNullOrEmpty()) {
                     todayDao.virginAntiphonDeleteAll(de)
                 }
+            }
 
                 if (crudSaint != null) {
                     val cr = crudSaint!!.c
@@ -430,21 +435,6 @@ class Crud<T> {
                     }
                 }
 
-                if (crudLHPsalmodyJoin != null) {
-                    val cr = crudLHPsalmodyJoin!!.c
-                    val up = crudLHPsalmodyJoin!!.u
-                    val de = crudLHPsalmodyJoin!!.d
-                    if (!cr.isNullOrEmpty()) {
-                        todayDao.lhPsalmodyJoinInsertAll(cr)
-                    }
-                    if (!up.isNullOrEmpty()) {
-                        todayDao.lhPsalmodyJoinUpdateAll(up)
-                    }
-                    if (!de.isNullOrEmpty()) {
-                        todayDao.lhPsalmodyJoinDeleteAll(de)
-                    }
-                }
-
 
                 if (crudLHAntiphon != null) {
                     val de = crudLHAntiphon!!.d
@@ -475,6 +465,9 @@ class Crud<T> {
                     }
                 }
                 if (crudLHEpigraph != null) {
+                    val de = crudLHEpigraph!!.d
+                    val cr = crudLHEpigraph!!.c
+                    val up = crudLHEpigraph!!.u
                     if (!crudLHEpigraph!!.d.isNullOrEmpty()) {
                         todayDao.lhEpigraphInsertAll(crudLHEpigraph!!.c!!)
                     }
@@ -499,31 +492,67 @@ class Crud<T> {
                         todayDao.lhPsalmDeleteAll(de)
                     }
                 }
-                /*
-                                if (crudLHPsalmody != null) {
-                                    val cr = crudLHPsalmody!!.c
-                                    val up = crudLHPsalmody!!.u
-                                    val de = crudLHPsalmody!!.d
-                                    if (!cr.isNullOrEmpty()) {
-                                        mTodayDao.lhPsalmodyInsertAll(cr)
-                                    }
-                                    if (!up.isNullOrEmpty()) {
-                                        mTodayDao.lhPsalmodyUpdateAll(up)
-                                    }
-                                    if (!de.isNullOrEmpty()) {
-                                        mTodayDao.lhPsalmodyDeleteAll(de)
-                                    }
-                                }
-                */
-                if (crudLHInvitatoryJoin != null) {
-                    val cr = crudLHInvitatoryJoin!!.c
-                    val up = crudLHInvitatoryJoin!!.u
-                    val de = crudLHInvitatoryJoin!!.d
-                    if (!cr.isNullOrEmpty()) {
-                        todayDao.lhInvitatoryJoinInsertAll(cr)
-                    }
-                    if (!up.isNullOrEmpty()) {
-                        todayDao.lhInvitatoryJoinUpdateAll(up)
+            /*
+                //TODO ¿Esto debería ir antes o después de las
+                entidades como LHPsalm, LHTheme, etc?
+             */
+            if (crudLHPsalmodyJoin != null) {
+                val cr = crudLHPsalmodyJoin!!.c
+                val up = crudLHPsalmodyJoin!!.u
+                val de = crudLHPsalmodyJoin!!.d
+                if (!cr.isNullOrEmpty()) {
+                    todayDao.lhPsalmodyJoinInsertAll(cr)
+                }
+                if (!up.isNullOrEmpty()) {
+                    todayDao.lhPsalmodyJoinUpdateAll(up)
+                }
+                if (!de.isNullOrEmpty()) {
+                    todayDao.lhPsalmodyJoinDeleteAll(de)
+                }
+            }
+
+            if (crudLHAntiphonJoin != null) {
+                val cr = crudLHAntiphonJoin!!.c
+                val up = crudLHAntiphonJoin!!.u
+                val de = crudLHAntiphonJoin!!.d
+                if (!cr.isNullOrEmpty()) {
+                    todayDao.lhAntiphonJoinInsertAll(cr)
+                }
+                if (!up.isNullOrEmpty()) {
+                    todayDao.lhAntiphonJoinUpdateAll(up)
+                }
+                if (!de.isNullOrEmpty()) {
+                    todayDao.lhAntiphonJoinDeleteAll(de)
+                }
+            }
+
+            if (crudLHPsalmJoin != null) {
+                val cr = crudLHPsalmJoin!!.c
+                val up = crudLHPsalmJoin!!.u
+                val de = crudLHPsalmJoin!!.d
+                if (!cr.isNullOrEmpty()) {
+                    todayDao.lhPsalmJoinInsertAll(cr)
+                }
+                if (!up.isNullOrEmpty()) {
+                    val t = todayDao.lhPsalmJoinUpdateAll(up)
+                    println("kkk: $t")
+                }
+                if (!de.isNullOrEmpty()) {
+                    val t = todayDao.lhPsalmJoinDeleteAll(de)
+                    println("kkk: $t")
+
+                }
+            }
+
+            if (crudLHInvitatoryJoin != null) {
+                val cr = crudLHInvitatoryJoin!!.c
+                val up = crudLHInvitatoryJoin!!.u
+                val de = crudLHInvitatoryJoin!!.d
+                if (!cr.isNullOrEmpty()) {
+                    todayDao.lhInvitatoryJoinInsertAll(cr)
+                }
+                if (!up.isNullOrEmpty()) {
+                    todayDao.lhInvitatoryJoinUpdateAll(up)
                     }
                     if (!de.isNullOrEmpty()) {
                         todayDao.lhInvitatoryJoinDeleteAll(de)
@@ -779,24 +808,25 @@ class Crud<T> {
                     }
                 }
 
+            if (crudUniversalis != null) {
 
-                if (crudToday != null) {
-                    val cr = crudToday!!.c
-                    val up = crudToday!!.u
-                    val de = crudToday!!.d
-                    if (!cr.isNullOrEmpty()) {
-                        todayDao.todayInsertAll(cr)
-                    }
-                    if (!up.isNullOrEmpty()) {
-                        todayDao.todayUpdateAll(up)
-                    }
-                    if (!de.isNullOrEmpty()) {
-                        todayDao.todayDeleteAll(de)
-                    }
+                val cr = crudUniversalis!!.c
+                val up = crudUniversalis!!.u
+                val de = crudUniversalis!!.d
+                if (!cr.isNullOrEmpty()) {
+                    todayDao.universalisInsertAll(cr)
+                }
+                if (!up.isNullOrEmpty()) {
+                    todayDao.universalisUpdateAll(up)
+                }
+                if (!de.isNullOrEmpty()) {
+                    todayDao.universalisDeleteAll(de)
                 }
             }
+
+
         } catch (e: Exception) {
-            //Log.d("Crud", e.message!!)
+            Log.d("CrudError", e.message!!)
         }
     }
 }

@@ -6,7 +6,7 @@ import org.deiverbum.app.util.Utils
 import java.util.*
 
 class Conclusion {
-    private var antVirgen: String? = null
+    private var antiphonaMariam: String? = null
 
     //@SerializedName("bendicion")
     //@Expose
@@ -35,11 +35,11 @@ class Conclusion {
     }
 
     fun setAntifonaVirgen(antVirgen: String?) {
-        this.antVirgen = antVirgen
+        this.antiphonaMariam = antVirgen
     }
 
     private fun getAntifonaVirgen(): String? {
-        return antVirgen
+        return antiphonaMariam
     }
 
     fun getAll(): SpannableStringBuilder {

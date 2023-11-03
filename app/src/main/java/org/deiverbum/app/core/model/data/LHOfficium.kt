@@ -18,6 +18,7 @@ import org.deiverbum.app.util.Utils
  */
 
 data class LHOfficium(
+    var hasSaint: Boolean = false,
     var invitatorium: LHInvitatory,
     var hymnus: LHHymn,
     val psalmodia: LHPsalmody,
@@ -28,10 +29,9 @@ data class LHOfficium(
 ) : Breviarium(typus) {
 
     var sanctus: LHSanctus? = null
-    var hasSaint: Boolean = false
 
-    override fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
-        this.hasSaint = hasSaint
+    override fun forView(calendarTime: Int): SpannableStringBuilder {
+        //this.hasSaint = hasSaint
         val ssb = SpannableStringBuilder()
         try {
             officiumLectionis.normalizeByTime(calendarTime)

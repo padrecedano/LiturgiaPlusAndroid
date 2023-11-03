@@ -39,7 +39,7 @@ data class LHIntermedia(
     val tituloHoraForView: SpannableStringBuilder
         get() = Utils.toH1Red(tituloHora)
 
-    override fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
+    override fun forView(calendarTime: Int): SpannableStringBuilder {
         //this.typeID = typeID
         val sb = SpannableStringBuilder(tituloHoraForView)
         sb.append(Utils.LS2)
@@ -52,10 +52,10 @@ data class LHIntermedia(
             //sb.append(tituloHoraForView)
             sb.append(initialInvocationForView)
             sb.append(Utils.LS2)
-            sb.append(Utils.LS)
+            //sb.append(Utils.LS)
             sb.append(hymnus.all)
             sb.append(Utils.LS2)
-            sb.append(Utils.LS)
+            //sb.append(Utils.LS)
             sb.append(psalmodia.getAllForView(hourIndex, calendarTime))
             sb.append(Utils.LS)
             sb.append(lectioBrevis.getAllWithHourCheck(typusID))

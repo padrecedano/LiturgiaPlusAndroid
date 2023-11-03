@@ -21,7 +21,7 @@ abstract class LiturgiaTypus
         return SpannableStringBuilder()
     }
 
-    open fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
+    open fun forView(calendarTime: Int): SpannableStringBuilder {
         return SpannableStringBuilder()
     }
 

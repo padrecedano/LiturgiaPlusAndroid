@@ -1,20 +1,22 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import androidx.room.ColumnInfo
 import androidx.room.Ignore
 import org.deiverbum.app.util.Utils
 import org.deiverbum.app.util.Utils.LS2
 import org.deiverbum.app.util.Utils.normalizeEnd
 
 class Homily(
-    var homily: String = "",
+    @ColumnInfo(name = "homily")
+    var homilia: String = "",
     var date: Int = 0,
     @Ignore
     var paterOpus: PaterOpus
 
 ) {
-    constructor(homily: String, date: Int, paterOpus: PaterOpus, tema: String)
-            : this(homily, date, paterOpus) {
+    constructor(homilia: String, date: Int, paterOpus: PaterOpus, tema: String)
+            : this(homilia, date, paterOpus) {
         this.tema = tema
     }
 
@@ -32,13 +34,12 @@ class Homily(
     @Ignore
     var tema = ""
 
-    @Ignore
-    private var today: Today? = null
-
     fun getAllForView(): SpannableStringBuilder {
         //ColorUtils.isNightMode = todayRequest!!.isNightMode
         val sb = SpannableStringBuilder()
         try {
+            sb.append(LS2)
+
             sb.append(Utils.toH3Red(paterOpus.paterForView))
             sb.append(LS2)
             sb.append(Utils.toH4Red(paterOpus.singleName))
@@ -47,7 +48,7 @@ class Homily(
                 sb.append(Utils.toRed(tema))
                 sb.append(LS2)
             }
-                if (date != 0) {
+            if (date != 0) {
                     sb.append(
                         Utils.toRed(
                             Utils.formatDate(
@@ -60,7 +61,7 @@ class Homily(
                     sb.append(LS2)
                 }
 
-            sb.append(Utils.fromHtml(homily))
+            sb.append(Utils.fromHtml(homilia))
 
         } catch (e: Exception) {
             sb.append(Utils.createErrorMessage(e.message))
@@ -77,7 +78,7 @@ class Homily(
                 if (tema.isNotEmpty()) {
                     sb.append(normalizeEnd(tema))
                 }
-                sb.append(Utils.fromHtml(homily))
+                sb.append(Utils.fromHtml(homilia))
             } catch (e: Exception) {
                 sb.append(Utils.createErrorMessage(e.message))
             }

@@ -2,13 +2,15 @@ package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
 import android.text.Spanned
+import androidx.room.ColumnInfo
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 import java.util.Locale
 
 class LHIntercession(
     var intro: String = "",
-    var intercession: String = ""
+    @ColumnInfo(name = "intercession")
+    var preces: String = ""
 ) {
     var intercessionID: Int? = null
 
@@ -36,7 +38,7 @@ class LHIntercession(
         }
 
     private fun getIntercessionForView(): Spanned {
-        return Utils.fromHtml(intercession)
+        return Utils.fromHtml(preces)
     }
 
 

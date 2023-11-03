@@ -22,12 +22,12 @@ abstract class Alteri(typus: String) : LiturgiaTypus(typus) {
         val sanctus: Sanctus,
         override var typus: String = "sancti"
     ) : Alteri(typus) {
-        override fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
+        override fun forView(calendarTime: Int): SpannableStringBuilder {
             return SpannableStringBuilder(sanctus.forView)
         }
     }
 
-    override fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
+    override fun forView(calendarTime: Int): SpannableStringBuilder {
         return SpannableStringBuilder("")
     }
 }

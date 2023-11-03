@@ -2,33 +2,38 @@ package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
 import androidx.room.Ignore
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
+@JsonClass(generateAdapter = true)
 open class LHOfficiumLectionis(
-    open var biblica: MutableList<LHOfficiumLectioPrior>,
-    open var patristica: MutableList<LHOfficiumLectioAltera>,
-    open var responsorio: String = "",
+    open var lectioPrior: MutableList<LHOfficiumLectioPrior>,
+    open var lectioAltera: MutableList<LHOfficiumLectioAltera>,
+    open var responsorium: String = "",
     open var hasTeDeum: Boolean = false
 ) {
 
+    @Json(ignore = true)
     @get:Ignore
     private val responsorioForRead: String
         get() {
-            val r: String = if (responsorio.contains("|")) {
-                responsorio.replace("\\|".toRegex(), "")
+            val r: String = if (responsorium.contains("|")) {
+                responsorium.replace("\\|".toRegex(), "")
             } else {
-                responsorio
+                responsorium
             }
             return Utils.pointAtEnd(r)
         }
 
+    @Json(ignore = true)
     @get:Ignore
     private val responsorioSpan: SpannableStringBuilder
         get() {
             val ssb = SpannableStringBuilder()
-            if (responsorio.contains("|")) {
-                val textParts = responsorio.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }
+            if (responsorium.contains("|")) {
+                val textParts = responsorium.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }
                     .toTypedArray()
                 if (textParts.size == 2) {
                     ssb.append(Utils.toRed("V. "))
@@ -37,14 +42,15 @@ open class LHOfficiumLectionis(
                     ssb.append(Utils.toRed("R. "))
                     ssb.append(textParts[1])
                 } else {
-                    ssb.append(responsorio)
+                    ssb.append(responsorium)
                 }
             } else {
-                ssb.append(responsorio)
+                ssb.append(responsorium)
             }
             return ssb
         }
 
+    @Json(ignore = true)
     @get:Ignore
     open val header: SpannableStringBuilder?
         get() = Utils.formatSubTitle(
@@ -53,6 +59,7 @@ open class LHOfficiumLectionis(
             )
         )
 
+    @Json(ignore = true)
     @get:Ignore
     open val headerForRead: String
         get() = Utils.pointAtEnd(Constants.TITLE_OFFICE_OF_READING)
@@ -68,6 +75,7 @@ open class LHOfficiumLectionis(
         return sb
     }
 
+    @Json(ignore = true)
     @get:Ignore
     val allForView: SpannableStringBuilder
         get() {
@@ -85,11 +93,12 @@ open class LHOfficiumLectionis(
             return sb
         }
 
+    @Json(ignore = true)
     @get:Ignore
     open val allBiblicaForView: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()
-            for (oneBiblica in biblica) {
+            for (oneBiblica in lectioPrior) {
                 //oneBiblica?.responsorioLargo?.all
                 sb.append(oneBiblica.getAll())
             }
@@ -98,28 +107,30 @@ open class LHOfficiumLectionis(
 
     open fun getAllBiblica(calendarTime: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
-        for (oneBiblica in biblica) {
+        for (oneBiblica in lectioPrior) {
             //oneBiblica?.responsorioLargo?.normalizeByTime(calendarTime)
             sb.append(oneBiblica.getAll())
         }
         return sb
     }
 
+    @Json(ignore = true)
     @get:Ignore
     open val allBiblicaForRead: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()
-            for (oneBiblica in biblica) {
+            for (oneBiblica in lectioPrior) {
                 sb.append(oneBiblica.getAllForRead())
             }
             return sb
         }
 
+    @Json(ignore = true)
     @get:Ignore
     private val allPatristicaForView: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()
-            for (theModel in patristica) {
+            for (theModel in lectioAltera) {
                 sb.append(theModel.all)
             }
             return sb
@@ -127,23 +138,25 @@ open class LHOfficiumLectionis(
 
     private fun getAllPatristica(calendarTime: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
-        for (theModel in patristica) {
-            theModel.responsorioLargo?.normalizeByTime(calendarTime)
+        for (theModel in lectioAltera) {
+            theModel.responsorium?.normalizeByTime(calendarTime)
             sb.append(theModel.all)
         }
         return sb
     }
 
+    @Json(ignore = true)
     @get:Ignore
     private val allPatristicaForRead: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()
-            for (theModel in patristica) {
+            for (theModel in lectioAltera) {
                 sb.append(theModel.allForRead)
             }
             return sb
         }
 
+    @Json(ignore = true)
     @get:Ignore
     open val allForRead: String
         get() = headerForRead +
@@ -157,9 +170,9 @@ open class LHOfficiumLectionis(
      * @param calendarTime Un entero con el Id del tiempo del calendario
      */
     fun normalizeByTime(calendarTime: Int) {
-        for (oneBiblica in biblica) {
+        for (oneBiblica in lectioPrior) {
             oneBiblica.responsorium.normalizeByTime(calendarTime)
         }
-        responsorio = Utils.replaceByTime(responsorio, calendarTime)
+        responsorium = Utils.replaceByTime(responsorium, calendarTime)
     }
 }

@@ -119,7 +119,7 @@ data class Universalis(
                 ssb.append(Utils.toH3(liturgia?.liturgyName))
                 ssb.append(Utils.LS2)
             }
-            ssb.append(liturgia?.typus?.forView(timeFK, hasSaint == 1))
+            ssb.append(liturgia?.typus?.forView(timeFK))
         } catch (e: Exception) {
             ssb.append(Utils.createErrorMessage(e.message))
         }
@@ -131,10 +131,10 @@ data class Universalis(
 
     fun getAllForRead(): StringBuilder {
         val sb = StringBuilder(VOICE_INI)
-        if (liturgia?.typeID != 11) {
+        if (liturgia?.typus?.typus != "sancti") {
             sb.append(Utils.pointAtEnd(fecha))
-            sb.append(Utils.pointAtEnd(liturgia?.tempore?.liturgyName))
-            sb.append(Utils.pointAtEnd(liturgia?.liturgyName))
+            //sb.append(Utils.pointAtEnd(liturgia?.tempore?.liturgyName))
+            sb.append(Utils.pointAtEnd(liturgia?.titleForRead))
         }
         sb.append(liturgia?.typus!!.forRead())
 

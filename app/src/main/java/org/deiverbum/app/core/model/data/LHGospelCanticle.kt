@@ -5,7 +5,7 @@ import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
 class LHGospelCanticle(var typeID: Int = 0, override var antiphonae: MutableList<LHAntiphon>) :
-    LHPsalmody() {
+    LHPsalmody(antiphonae) {
 
     init {
         psalmus.add(getPsalmus(typeID))

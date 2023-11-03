@@ -12,6 +12,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import org.deiverbum.app.core.data.factory.SyncFactory
 import org.deiverbum.app.core.model.SyncRequest
 import org.deiverbum.app.core.model.SyncResponse
+import org.deiverbum.app.core.model.data.SyncStatus
 import org.deiverbum.app.util.Constants.SYNC_TAG
 import org.deiverbum.app.util.Source
 import org.deiverbum.app.workers.TodayWorker
@@ -29,11 +30,11 @@ import javax.inject.Inject
  * @since 2023.1
  */
 
-class SyncRepositoryImpl @Inject constructor(
+class InitialSyncRepositoryImpl @Inject constructor(
     private val syncFactory: SyncFactory,
     @ApplicationContext val context: Context
 
-) : SyncRepository {
+) : InitialSyncRepository {
 
     /**
      * Este método obtiene el estado de la sincronización, según los datos
@@ -61,30 +62,30 @@ class SyncRepositoryImpl @Inject constructor(
      * @return un objeto [SyncResponse]
      */
     override suspend fun getSync(syncRequest: SyncRequest): SyncResponse {
-        if (!syncRequest.isWorkScheduled || true) {
+        var syncResponse: SyncResponse
+        //launchSyncWorker()
+        syncResponse = SyncResponse(SyncStatus(), emptyList())
+        //return syncResponse
+
+        //if (!syncRequest.hasInitialSync) {
+        //if (!syncRequest.hasInitialSync||true) {
+        syncResponse = syncFactory.create(Source.NETWORK).getSync(syncRequest)
+        if (syncResponse.allToday.isEmpty()) {
+            syncResponse = syncFactory.create(Source.FIREBASE).getSync(syncRequest)
+        }
+        if (syncResponse.allToday.isNotEmpty()) {
+            syncFactory.create(Source.LOCAL).addSync(syncResponse)
+        }
+        if (!syncRequest.isWorkScheduled) {
             launchSyncWorker()
         }
-        var syncResponse: SyncResponse
-        //syncResponse = SyncResponse(SyncStatus(), emptyList())
-        //return syncResponse
-        //TODO "Quitar código temporal ^"
 
-        if (!syncRequest.hasInitialSync) {
-            //if (!syncRequest.hasInitialSync||true) {
-            syncResponse = syncFactory.create(Source.NETWORK).getSync(syncRequest)
-            if (syncResponse.allToday.isEmpty()) {
-                syncResponse = syncFactory.create(Source.FIREBASE).getSync(syncRequest)
-            }
-            if (syncResponse.allToday.isNotEmpty()) {
-                syncFactory.create(Source.LOCAL).addSync(syncResponse)
-            }
-            return syncResponse
-        }
+        return syncResponse
+        //}
 
-        return syncFactory.create(Source.LOCAL).getSync(syncRequest)
+
+        //return syncFactory.create(Source.LOCAL).getSync(syncRequest)
     }
-
-
 
 
     /**

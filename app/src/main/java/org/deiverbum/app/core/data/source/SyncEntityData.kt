@@ -2,7 +2,6 @@ package org.deiverbum.app.core.data.source
 
 import org.deiverbum.app.core.model.SyncRequest
 import org.deiverbum.app.core.model.SyncResponse
-import org.deiverbum.app.core.model.SyncResponseNew
 
 /**
  * Interfaz para manejar las fuentes de datos en la sincronización.
@@ -27,7 +26,5 @@ interface SyncEntityData {
      * @param syncResponse Es un objeto [SyncResponse] con los datos a sincronizar.
      */
     suspend fun addSync(syncResponse: SyncResponse)
-    suspend fun addSyncc(syncResponse: SyncResponseNew)
 
-    suspend fun getSyncc(syncRequest: SyncRequest): SyncResponseNew
 }

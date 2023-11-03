@@ -22,6 +22,7 @@ import org.deiverbum.app.util.Utils
  */
 
 class LHVesperas(
+    var hasSaint: Boolean = false,
     var hymnus: LHHymn,
     var psalmodia: LHPsalmody,
     var lectioBrevis: LHLectioBrevis,
@@ -32,10 +33,9 @@ class LHVesperas(
     //override var tempore: LiturgyTime
 ) : Breviarium(typus) {
     var sanctus: LHSanctus? = null
-    var hasSaint: Boolean = false
 
-    override fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
-        this.hasSaint = hasSaint
+    override fun forView(calendarTime: Int): SpannableStringBuilder {
+        //this.hasSaint = hasSaint
         val ssb = SpannableStringBuilder()
         try {
             if (sanctus != null && hasSaint) {
@@ -52,7 +52,7 @@ class LHVesperas(
             ssb.append(Utils.LS2)
             ssb.append(psalmodia.getAllForView(-1, calendarTime))
             ssb.append(Utils.LS)
-            ssb.append(Utils.LS)
+            //ssb.append(Utils.LS)
             ssb.append(lectioBrevis.getAllWithHourCheck(2))
             ssb.append(Utils.LS)
             ssb.append(canticumEvangelicum.getSalmosByIndex(0, calendarTime))

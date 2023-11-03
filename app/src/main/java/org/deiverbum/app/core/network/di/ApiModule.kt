@@ -10,8 +10,15 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.deiverbum.app.BuildConfig
+import org.deiverbum.app.core.model.data.Commentarii
+import org.deiverbum.app.core.model.data.LHCompletorium
 import org.deiverbum.app.core.model.data.LHIntermedia
+import org.deiverbum.app.core.model.data.LHLaudes
+import org.deiverbum.app.core.model.data.LHMixtus
+import org.deiverbum.app.core.model.data.LHOfficium
+import org.deiverbum.app.core.model.data.LHVesperas
 import org.deiverbum.app.core.model.data.LiturgiaTypus
+import org.deiverbum.app.core.model.data.Missae
 import org.deiverbum.app.core.network.api.TodayApi
 import org.deiverbum.app.util.Configuration
 import retrofit2.Retrofit
@@ -43,7 +50,16 @@ object ApiModule {
     private val moshi = Moshi.Builder()
         .add(
             PolymorphicJsonAdapterFactory.of(LiturgiaTypus::class.java, "typus")
+                .withSubtype(LHMixtus::class.java, "mixtus")
+                .withSubtype(LHOfficium::class.java, "officium")
+                .withSubtype(LHLaudes::class.java, "laudes")
                 .withSubtype(LHIntermedia::class.java, "intermedia")
+                .withSubtype(LHVesperas::class.java, "vesperas")
+                .withSubtype(LHCompletorium::class.java, "completorium")
+                .withSubtype(Missae::class.java, "missae")
+                .withSubtype(Commentarii::class.java, "commentarii")
+
+
             //.withDefaultValue(LiturgiaTypus.Unknown)
 
         )

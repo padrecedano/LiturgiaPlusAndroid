@@ -5,8 +5,20 @@ import androidx.room.Ignore
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
-class LHInvitatory(mPsalms: MutableList<LHPsalm>, mAntiphons: MutableList<LHAntiphon>) :
-    LHPsalmody(mPsalms, mAntiphons) {
+class LHInvitatory(override var antiphonae: MutableList<LHAntiphon>) :
+    LHPsalmody(antiphonae) {
+
+    constructor(antiphonae: MutableList<LHAntiphon>, psalmus: MutableList<LHPsalm>) : this(
+        antiphonae
+    ) {
+        this.psalmus = psalmus
+    }
+
+    init {
+        if (psalmus.isEmpty()) {
+            psalmus.add(LHPsalm(0, "Salmo 94", unique))
+        }
+    }
 
     @Ignore
     var isMultiple = false

@@ -2,6 +2,7 @@ package org.deiverbum.app.core.model.data
 
 import android.text.Spanned
 import androidx.room.Ignore
+import com.squareup.moshi.JsonClass
 import org.deiverbum.app.util.ColorUtils
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Source
@@ -17,54 +18,64 @@ import org.deiverbum.app.util.Utils
  * @version 1.0
  * @since 2023.1
  */
-class SyncStatus {
+@JsonClass(generateAdapter = true)
+data class SyncStatus(
+    var lastUpdate: String = "",
+    var version: Int = 1,
 
-    // class SyncStatus : Flow<SyncStatus> {
+    var lastDate: Int = 0
+) {
+    @Ignore
     var tableName = ""
 
-    var versionDB = 1
-    var lastUpdate = ""
+    @Ignore
+    var lastYearCleaned: Int = 0
 
     @Ignore
-    var lastYearCleaned = 0
-
-    @Ignore
-    var isWorkScheduled = true
+    var isWorkScheduled: Boolean = true
 
     @Ignore
     var source: Source = Source.LOCAL //0=red, 1=firebase
 
-    constructor()
+    //constructor()
 
-    @Ignore
-    constructor(lastUpdate: String, lastYearCleaned: Int) {
-        this.lastUpdate = lastUpdate
+    //@Ignore
+
+    constructor(lastUpdate: String, lastYearCleaned: Int) : this(lastUpdate = lastUpdate) {
+        //this.lastUpdate = lastUpdate
         this.lastYearCleaned = lastYearCleaned
     }
+
 
     fun getAll(isNightMode: Boolean): String {
         ColorUtils.isNightMode = isNightMode
         val title = Utils.formatSubTitle(Utils.toRedFont("<b>Informe de Sincronización</b>"))
-        this.tableName = Utils.formatDate(tableName, "yyyyMMdd", "yyyy-MM-dd")
+
+
+        val stringDate = Utils.formatDate(lastDate.toString(), "yyyyMMdd", "yyyy-MM-dd")
 
         val lastYear = if (lastYearCleaned == 0) "" else String.format(
             "Los datos del año <b>%s</b> fueron limpiados.",
             Utils.toRedFont(lastYearCleaned.toString())
         )
+
+        val stringLastUpdate = if (lastUpdate == "") "" else String.format(
+            "%sÚltima sincronización: %s<b>%s</b>",
+            Constants.BRS, Constants.BR,
+            Utils.toRedFont(lastUpdate)
+        )
         return String.format(
             "%s" + "%s" +
                     "Última fecha en el calendario: " +
                     "<b>%s</b> (*)" +
-                    "%sÚltima sincronización: %s" +
-                    "<b>%s</b>" +
+                    "%s" +
                     "%s" +
                     "%s%s<small>..............%s%s(*) El calendario se sincroniza periódicamente cuando tienes conexión a internet.</small>",
             title,
             Constants.BRS,
-            Utils.toRedFont(tableName),
-            Constants.BRS, Constants.BR,
-            Utils.toRedFont(lastUpdate),
-            Constants.BRS,lastYear,
+            Utils.toRedFont(stringDate),
+            stringLastUpdate,
+            Constants.BRS, lastYear,
             Constants.BRS, Constants.BR, Constants.BR
         )
     }

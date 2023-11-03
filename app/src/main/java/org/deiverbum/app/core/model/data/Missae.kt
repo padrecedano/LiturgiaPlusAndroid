@@ -18,48 +18,60 @@ import org.deiverbum.app.util.Utils
  */
 
 data class Missae(
+    var hasSaint: Boolean = false,
     var calendarTime: Int = 0,
     override var typus: String = "missae"
 ) : Sacramentis(typus) {
 
-    constructor(calendarTime: Int = 0, typus: String = "missae", homiliaeList: HomilyList?) : this(
+    constructor(
+        hasSaint: Boolean = false,
+        calendarTime: Int = 0,
+        typus: String = "missae",
+        homiliae: MutableList<Homily>
+    ) : this(
+        hasSaint,
         calendarTime,
         typus
     ) {
-        this.homiliaeList = homiliaeList
+        this.homiliae = homiliae
     }
 
     constructor(
+        hasSaint: Boolean = false,
         calendarTime: Int = 0,
         typus: String = "missae",
         lectionumList: MissaeLectionumList
-    ) : this(calendarTime, typus) {
+    ) : this(hasSaint, calendarTime, typus) {
         this.lectionumList = lectionumList
     }
 
-    private var homiliaeList: HomilyList? = null
+    var homiliae: MutableList<Homily>? = null
+    //var homilyes: MutableList<Homily> = ArrayList()
+
     private var lectionumList: MissaeLectionumList? = null
 
     var sanctus: LHSanctus? = null
-    var hasSaint: Boolean = false
-    override fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
+    override fun forView(calendarTime: Int): SpannableStringBuilder {
         val ssb = SpannableStringBuilder()
 
         if (lectionumList != null) {
             lectionumList?.lectionum?.sortBy { it!!.theOrder }
-            this.hasSaint = hasSaint
             try {
+                ssb.append(Utils.toH1Red("Lecturas de la Misa"))
+
                 ssb.append(lectionumList?.getForView())
             } catch (e: Exception) {
                 ssb.append(Utils.createErrorMessage(e.message))
             }
             return ssb
-        } else if (homiliaeList != null) {
-            ssb.append(homiliaeList!!.getAllForView())
+        } else if (homiliae != null) {
+            ssb.append(Utils.toH1Red("Homilías"))
+            homiliae?.forEach {
+                ssb.append(it?.getAllForView())
+            }
         } else {
             ssb.append("No hay datos para mostrar en este día.")
         }
-
         return ssb
     }
 

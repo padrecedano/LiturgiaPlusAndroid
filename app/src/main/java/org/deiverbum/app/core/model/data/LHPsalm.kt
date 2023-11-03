@@ -81,7 +81,7 @@ open class LHPsalm(
         }
 
     val partForView: String
-        get() = ""//if (part != 0) Utils.toRoman(part) else ""
+        get() = Utils.toRoman(thePart)
 
     val quoteForView: SpannableStringBuilder
         get() = Utils.toRed(pericopa)

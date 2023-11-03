@@ -26,6 +26,7 @@ import org.deiverbum.app.core.model.FileRequest
 import org.deiverbum.app.core.model.SyncRequest
 import org.deiverbum.app.core.presentation.file.FileItemUiState
 import org.deiverbum.app.core.presentation.file.FileViewModel
+import org.deiverbum.app.core.presentation.sync.InitialSyncViewModel
 import org.deiverbum.app.core.presentation.sync.SyncItemUiState
 import org.deiverbum.app.core.presentation.sync.SyncItemUiStateNew
 import org.deiverbum.app.core.presentation.sync.SyncViewModel
@@ -84,7 +85,7 @@ import org.deiverbum.app.util.Utils
 @AndroidEntryPoint
 class AcceptanceFragmentDialog : DialogFragment() {
     private val mViewModel: FileViewModel by viewModels()
-    private val syncViewModel: SyncViewModel by viewModels()
+    private val syncViewModel: InitialSyncViewModel by viewModels()
     private var textPrivacy: TextView? = null
     private var textTerms: TextView? = null
     private val prefs: SharedPreferences by lazy {
@@ -157,16 +158,16 @@ class AcceptanceFragmentDialog : DialogFragment() {
             binding.btnEmail.isEnabled = false
             val editor = prefs.edit()
             editor.putBoolean(PREF_ACCEPT, true).apply()
-            hasInitialSync = prefs.getBoolean(PREF_INITIAL_SYNC, false)
-            if (!hasInitialSync) {
-                val syncRequest = SyncRequest(hasInitialSync, 0, false)
-                lifecycleScope.launch(Dispatchers.IO) {
-                    syncViewModel.launchSync(syncRequest)
-                    fetchDataSync()
-                }
-            } else {
-                dismiss()
+            //hasInitialSync = prefs.getBoolean(PREF_INITIAL_SYNC, false)
+            //if (!hasInitialSync) {
+            val syncRequest = SyncRequest(hasInitialSync, 0, false)
+            lifecycleScope.launch(Dispatchers.IO) {
+                syncViewModel.launchSync(syncRequest)
+                fetchDataSync()
             }
+            //} else {
+            //dismiss()
+            //}
         }
     }
 
@@ -203,8 +204,8 @@ class AcceptanceFragmentDialog : DialogFragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 syncViewModel.uiState.collect { state ->
                     when (state) {
-                        is SyncViewModel.SyncUiState.Loaded -> onLoadedSync(state.itemState)
-                        is SyncViewModel.SyncUiState.Error -> showError(state.message)
+                        is InitialSyncViewModel.SyncUiState.Loaded -> onLoadedSync(state.itemState)
+                        is InitialSyncViewModel.SyncUiState.Error -> showError(state.message)
                         else -> showLoading()
                     }
                 }

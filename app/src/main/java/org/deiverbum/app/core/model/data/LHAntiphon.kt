@@ -25,7 +25,7 @@ data class LHAntiphon(
 
         if (antiphon.contains("†")) {
             haveSymbol = true
-            antiphon.replace("†", "")
+            antiphon = antiphon.replace("†", "")
         }
     }
 

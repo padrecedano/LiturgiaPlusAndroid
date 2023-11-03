@@ -34,9 +34,11 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
      */
     fun getAll(type: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
-        //sb.append(Utils.LS)
-        sb.append(Utils.formatTitle(getHeader(type)))
         sb.append(Utils.LS2)
+        if (type != -1) {
+            sb.append(Utils.formatTitle(getHeader(type)))
+            sb.append(Utils.LS2)
+        }
         sb.append(book.liturgyName)
         sb.append("    ")
         sb.append(Utils.toRed(pericopa))
@@ -45,8 +47,8 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
             sb.append(Utils.toRed(tema))
             sb.append(Utils.LS2)
         }
-        sb.append(textoSpan)
-        sb.append(Utils.LS2)
+        sb.append(Utils.fromHtml(biblica))
+        sb.append(Utils.LS)
         return sb
     }
 
@@ -99,6 +101,8 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
      */
     private fun getHeaderByType(type: Int): String {
         /*
+            type -1 es para el módulo Mixto del Breviario //TODO
+
             type 1 es la Vigilia Pascual, con el siguiente esquema:
             1. 1ª Lectura
             2. Salmo

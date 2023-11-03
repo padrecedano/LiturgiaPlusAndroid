@@ -25,11 +25,11 @@ class NetworkTodayEntityData @Inject constructor(
                         //Timber.tag("bbb").d(u!!.liturgyDay.breviaryHour!!.oficio!!.himno!!.hymn)
                         Timber.tag("bbb").d(u.fake)
             */
-            val apiResponsee = todayApi.getTest(todayRequest.theDate.toString())
-            Log.d("ax13", apiResponsee.todayDate.toString())
+            val apiResponsee = todayApi.getUniversalis(endPoint, todayRequest.theDate.toString())
+            Log.d("ax13", apiResponsee?.todayDate.toString())
 
             //val apiResponse = todayApi.getToday(endPoint, todayRequest.theDate.toString())
-            todayResponse.dataModel = apiResponsee
+            todayResponse.dataModel = apiResponsee!!
 
             todayResponse
 

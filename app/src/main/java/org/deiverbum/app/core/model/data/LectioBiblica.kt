@@ -129,7 +129,7 @@ open class LectioBiblica(
         sb.append(Utils.LS2)
         //sb.append(Utils.toRed(getTema()));
         sb.append(Utils.LS2)
-        sb.append(textoSpan)
+        sb.append(Utils.fromHtml(biblica))
         sb.append(Utils.LS)
         //sb.append(responsorio.getAll());
         return sb

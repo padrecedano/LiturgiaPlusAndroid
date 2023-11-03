@@ -2,22 +2,25 @@ package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
 import android.text.Spanned
+import androidx.room.ColumnInfo
 import androidx.room.Ignore
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
 class LHOfficiumLectioAltera(
-    var source: String? = null,
-    var theme: String? = null,
+    @ColumnInfo(name = "source")
+    var theSource: String? = null,
+    @ColumnInfo(name = "theme")
+    var tema: String? = null,
     @Ignore
-    var text: String = "",
+    var homilia: String = "",
     /*@Ignore
     var ref: String? = null,*/
     @JvmField
     @Ignore
     var paterOpus: PaterOpus? = null,
     @Ignore
-    var responsorioLargo: LHResponsorium? = null,
+    var responsorium: LHResponsorium? = null,
     var theOrder: Int? = null
 ) {
 
@@ -26,9 +29,9 @@ class LHOfficiumLectioAltera(
     var responsoryFK: Int? = null
 
     private val textForRead: Spanned
-        get() = Utils.fromHtmlForRead(text)
+        get() = Utils.fromHtmlForRead(homilia)
     private val textoSpan: Spanned
-        get() = Utils.fromHtml(text)
+        get() = Utils.fromHtml(homilia)
     val header: SpannableStringBuilder
         get() = Utils.formatTitle("SEGUNDA LECTURA")
     private val responsorioHeaderForRead: String
@@ -48,13 +51,13 @@ class LHOfficiumLectioAltera(
             val sb = SpannableStringBuilder()
             sb.append(headerForRead)
             sb.append(Utils.normalizeEnd(paterOpus!!.opusForView))
-            if (theme != null && theme != "") {
-                sb.append(Utils.normalizeEnd(theme!!))
+            if (tema != null && tema != "") {
+                sb.append(Utils.normalizeEnd(tema!!))
             }
             sb.append(textForRead)
             sb.append(Utils.normalizeEnd(paterOpus!!.paterForView))
             sb.append(responsorioHeaderForRead)
-            sb.append(responsorioLargo?.allForRead)
+            sb.append(responsorium?.allForRead)
             return sb
         }
     val all: SpannableStringBuilder
@@ -64,13 +67,13 @@ class LHOfficiumLectioAltera(
             sb.append(Utils.LS2)
             sb.append(paterOpus?.opusForView)
             sb.append(Utils.LS2)
-            sb.append(Utils.toSmallSizeRed(source))
+            sb.append(Utils.toSmallSizeRed(theSource))
             sb.append(Utils.LS2)
-            sb.append(Utils.toRed(theme))
+            sb.append(Utils.toRed(tema))
             sb.append(Utils.LS2)
             sb.append(textoSpan)
             //sb.append(Utils.LS)
-            sb.append(responsorioLargo!!.all)
+            sb.append(responsorium!!.all)
             return sb
         }
 }

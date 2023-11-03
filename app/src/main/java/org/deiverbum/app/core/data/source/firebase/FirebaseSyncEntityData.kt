@@ -5,9 +5,8 @@ import kotlinx.coroutines.tasks.await
 import org.deiverbum.app.core.data.source.SyncEntityData
 import org.deiverbum.app.core.model.SyncRequest
 import org.deiverbum.app.core.model.SyncResponse
-import org.deiverbum.app.core.model.SyncResponseNew
 import org.deiverbum.app.core.model.data.SyncStatus
-import org.deiverbum.app.core.model.data.Today
+import org.deiverbum.app.core.model.data.Universalis
 import org.deiverbum.app.util.Configuration
 import org.deiverbum.app.util.Source
 import org.deiverbum.app.util.Utils
@@ -36,8 +35,8 @@ class FirebaseSyncEntityData @Inject constructor() : SyncEntityData {
                     Utils.getTodayMinus(1)
                 )
                 .limit(30).get()
-                .await().toObjects(Today::class.java)
-                    as List<Today>
+                .await().toObjects(Universalis::class.java)
+                    as List<Universalis>
             val syncStatus = SyncStatus()
             syncStatus.source=Source.FIREBASE
             SyncResponse(syncStatus, todayList)
@@ -50,13 +49,5 @@ class FirebaseSyncEntityData @Inject constructor() : SyncEntityData {
         //
     }
 
-    override suspend fun addSyncc(syncResponse: SyncResponseNew) {
-        TODO("Not yet implemented")
-    }
-
-
-    override suspend fun getSyncc(syncRequest: SyncRequest): SyncResponseNew {
-        TODO("Not yet implemented")
-    }
 
 }
