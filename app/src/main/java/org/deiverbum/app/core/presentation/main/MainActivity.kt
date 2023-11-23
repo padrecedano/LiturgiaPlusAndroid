@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +24,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.common.IntentSenderForResultStarter
+import com.google.android.play.core.appupdate.AppUpdateOptions
 import com.google.android.play.core.install.InstallState
 import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
@@ -43,11 +42,13 @@ import org.deiverbum.app.BuildConfig
 import org.deiverbum.app.R
 import org.deiverbum.app.core.model.SyncRequest
 import org.deiverbum.app.core.presentation.legal.AcceptanceFragmentDialog.Companion.display
+import org.deiverbum.app.core.presentation.sync.InitialSyncViewModel
 import org.deiverbum.app.core.presentation.sync.SyncItemUiState
 import org.deiverbum.app.core.presentation.sync.SyncViewModel
 import org.deiverbum.app.databinding.ActivityMainBinding
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Constants.PREF_ACCEPT
+import org.deiverbum.app.util.Constants.PREF_INITIAL_SYNC
 import org.deiverbum.app.util.Utils
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -65,21 +66,29 @@ class MainActivity : AppCompatActivity() {
     private var strFechaHoy: String? = null
     private lateinit var navController: NavController
     private var mUpdateCode = 0
+    private var pastYearsCleaned: Boolean = false
+
     private lateinit var mAppBarConfiguration: AppBarConfiguration
-    private var acceptTerms:Boolean = false
+    private var acceptTerms: Boolean = false
     private val syncViewModel: SyncViewModel by viewModels()
+    private val initialSyncViewModel: InitialSyncViewModel by viewModels()
+
     private val prefs: SharedPreferences by lazy {
         PreferenceManager.getDefaultSharedPreferences(this)
     }
     private val appUpdateManager by lazy {
         AppUpdateManagerFactory.create(this)
     }
-    private val mainBinding by lazy{
+    private val mainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
-    private val mFirebaseAnalytics by lazy{
-        FirebaseAnalytics.getInstance(this)    }
+
+    private val mFirebaseAnalytics by lazy {
+        FirebaseAnalytics.getInstance(this)
+    }
     private var pressedTime: Long = 0
+
+
     private val installStateUpdatedListener: InstallStateUpdatedListener =
         InstallStateUpdatedListener { installState: InstallState ->
             if (installState.installStatus() == InstallStatus.DOWNLOADED) {
@@ -87,13 +96,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    private val navControllerListener = NavController.OnDestinationChangedListener { _, destination, _ ->
-        val bundle = Bundle()
-        val screenName = destination.label.toString()
-        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName)
-        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, screenName)
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle)
-    }
+    private val navControllerListener =
+        NavController.OnDestinationChangedListener { _, destination, _ ->
+            val bundle = Bundle()
+            val screenName = destination.label.toString()
+            bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName)
+            bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, screenName)
+            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle)
+        }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,8 +112,10 @@ class MainActivity : AppCompatActivity() {
         strFechaHoy = Utils.fecha
         setPrivacy()
         showMain()
+        //inAppUpdate = InAppUpdate(this)
+
         checkForDataToClean()
-        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (navController.graph.startDestinationId == navController.currentDestination?.id) {
                     if (pressedTime + 2000 > System.currentTimeMillis()) {
@@ -150,7 +163,7 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
         navController = navHostFragment.navController
-        val appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)
+        val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
         toolbar.setupWithNavController(navController, appBarConfiguration)
         findViewById<NavigationView>(R.id.nav_view)
             .setupWithNavController(navController)
@@ -164,7 +177,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setPrivacy() {
-         acceptTerms = prefs.getBoolean(PREF_ACCEPT, false)
+        acceptTerms = prefs.getBoolean(PREF_ACCEPT, false)
         val collectData = prefs.getBoolean(Constants.PREF_ANALYTICS, true)
         val collectCrash = prefs.getBoolean(Constants.PREF_CRASHLYTICS, true)
         if (!BuildConfig.DEBUG) {
@@ -189,25 +202,36 @@ class MainActivity : AppCompatActivity() {
         display(supportFragmentManager)
     }
 
-    private val updateFlowResultLauncher =
+    private val activityResultLauncher =
         registerForActivityResult(
-            ActivityResultContracts.StartIntentSenderForResult(),
+            ActivityResultContracts.StartIntentSenderForResult()
         ) { result ->
-            if (result.resultCode == RESULT_OK) {
-                popupAlerter()
+            when (val resultCode = result.resultCode) {
+                RESULT_OK -> {
+                    val bundle = Bundle()
+                    bundle.putInt("result_code", resultCode)
+                    mFirebaseAnalytics.logEvent("app_udate", bundle)
+                    popupAlerter()
+                }
+
+                RESULT_CANCELED -> {
+                    val bundle = Bundle()
+                    bundle.putInt("result_code", resultCode)
+                    mFirebaseAnalytics.logEvent("cancel_update", bundle)
+
+                }
+
+                else -> {
+                    val bundle = Bundle()
+                    bundle.putInt("result_code", resultCode)
+                    mFirebaseAnalytics.logEvent("update_fail", bundle)
+                }
             }
         }
 
-    @Suppress("DEPRECATION")
+
     private fun checkAppUpdate() {
-        val starter =
-            IntentSenderForResultStarter { intent, _, fillInIntent, flagsMask, flagsValues, _, _ ->
-                val request = IntentSenderRequest.Builder(intent)
-                    .setFillInIntent(fillInIntent)
-                    .setFlags(flagsValues, flagsMask)
-                    .build()
-                updateFlowResultLauncher.launch(request)
-            }
+
         appUpdateManager.registerListener(installStateUpdatedListener)
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo: AppUpdateInfo ->
@@ -217,9 +241,11 @@ class MainActivity : AppCompatActivity() {
                 try {
                     appUpdateManager.startUpdateFlowForResult(
                         appUpdateInfo,
-                        AppUpdateType.FLEXIBLE,
-                        starter,
-                        mUpdateCode
+                        activityResultLauncher,
+                        AppUpdateOptions.newBuilder(AppUpdateType.FLEXIBLE).build()
+                        //AppUpdateType.FLEXIBLE
+                        //starter,
+                        //mUpdateCode
                     )
                 } catch (e: SendIntentException) {
                     e.printStackTrace()
@@ -256,7 +282,7 @@ class MainActivity : AppCompatActivity() {
      *
      * Se lanzará únicamente a partir del día 29 de los meses de
      * marzo, junio, septiembre y diciembre. Su propósito es obtener
-     * el valor de la entrada [Constants.PREF_LAST_YEAR_CLEANED] en SharedPreferences,
+     * el valor de la entrada [Constants.PREF_PAST_YEARS_CLEANED] en SharedPreferences,
      * compararlo con el valor del _año actual menos uno_ (`currentYear - 1`).
      * Si es menor o igual, significa que habrá que limpiar datos de años anteriores,
      * lo cual se hará llamando a [SyncViewModel.launchSync].
@@ -268,27 +294,36 @@ class MainActivity : AppCompatActivity() {
         val monthNumber = Utils.getMonth(
             Utils.hoy
         ).toInt()
-        val hasInitialSync = prefs.getBoolean(Constants.PREF_INITIAL_SYNC, false)
-
-        if (hasInitialSync && dayNumber >= 29 && (monthNumber == 3 || monthNumber == 6 || monthNumber == 9 || monthNumber == 12)) {
-            val lastYearCleaned = prefs.getInt(Constants.PREF_LAST_YEAR_CLEANED, 0)
-            val systemTime = System.currentTimeMillis()
-            val sdfY = SimpleDateFormat("yyyy", Locale("es", "ES"))
-            val theDate = Date(systemTime)
-            val currentYear = sdfY.format(theDate).toInt()
-            if (lastYearCleaned == 0 || lastYearCleaned <= currentYear - 1) {
-                    syncViewModel.launchSync(SyncRequest(hasInitialSync=true,currentYear, isWorkScheduled=true))
-                fetchData()
-                }
-            }
+        val hasInitialSync = prefs.getBoolean(PREF_INITIAL_SYNC, false)
+        val acceptedTerms = prefs.getBoolean(PREF_ACCEPT, false)
+        if (!hasInitialSync && acceptedTerms) {
+            val syncRequest =
+                SyncRequest(hasInitialSync = false, getCurrentYear() - 1, isWorkScheduled = false)
+            initialSyncViewModel.launchSync(syncRequest)
+            fetchDataInitial()
         }
+        if (hasInitialSync && dayNumber >= 29 && (monthNumber == 3 || monthNumber == 6 || monthNumber == 9 || monthNumber == 12)) {
+            pastYearsCleaned = prefs.getBoolean(Constants.PREF_PAST_YEARS_CLEANED, false)
+            val pastYear = getCurrentYear() - 1
+            //if (!pastYearsCleaned) {
+            syncViewModel.launchSync(
+                SyncRequest(
+                    hasInitialSync = true,
+                    pastYear,
+                    isWorkScheduled = true
+                )
+            )
+            fetchData()
+            //}
+        }
+    }
 
     private fun fetchData() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 syncViewModel.uiState.collect { state ->
                     when (state) {
-                        //is SyncViewModel.SyncUiState.Loaded -> onLoaded(state.itemState)
+                        is SyncViewModel.SyncUiState.Loaded -> onLoaded(state.itemState)
                         else -> showNoData()
                     }
                 }
@@ -299,10 +334,41 @@ class MainActivity : AppCompatActivity() {
     //TODO descomentar o reparar
     private fun onLoaded(syncItemUiState: SyncItemUiState) {
         syncItemUiState.run {
-            /*if (syncResponse.syncStatus.lastYearCleaned!=0) {
-                prefs.edit().putInt(Constants.PREF_LAST_YEAR_CLEANED, syncResponse.syncStatus.lastYearCleaned).apply()
-            }*/
+            if (syncResponse.syncStatus.lastYearCleaned && !pastYearsCleaned) {
+                prefs.edit().putBoolean(Constants.PREF_PAST_YEARS_CLEANED, true).apply()
+            }
         }
+    }
+
+    private fun fetchDataInitial() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                initialSyncViewModel.uiState.collect { state ->
+                    when (state) {
+                        is InitialSyncViewModel.SyncUiState.Loaded -> onLoadedInitial(state.itemState)
+                        else -> showNoData()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun onLoadedInitial(syncItemUiState: SyncItemUiState) {
+        syncItemUiState.run {
+            if (syncResponse.allToday.isNotEmpty()) {
+                prefs.edit().putBoolean(PREF_INITIAL_SYNC, true).apply()
+            }
+            if (syncResponse.syncStatus.lastYearCleaned) {
+                //prefs.edit().putBoolean(Constants.PREF_LAST_YEAR_CLEANED, true).apply()
+            }
+        }
+    }
+
+    private fun getCurrentYear(): Int {
+        val systemTime = System.currentTimeMillis()
+        val sdfY = SimpleDateFormat("yyyy", Locale("es", "ES"))
+        val theDate = Date(systemTime)
+        return sdfY.format(theDate).toInt()
     }
 
     private fun showNoData() {

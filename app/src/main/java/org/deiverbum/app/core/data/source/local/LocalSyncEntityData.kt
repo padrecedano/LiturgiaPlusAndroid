@@ -1,12 +1,9 @@
 package org.deiverbum.app.core.data.source.local
 
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
 import org.deiverbum.app.core.data.source.SyncEntityData
 import org.deiverbum.app.core.database.dao.TodayDao
 import org.deiverbum.app.core.model.SyncRequest
 import org.deiverbum.app.core.model.SyncResponse
-import org.deiverbum.app.core.model.SyncResponseNew
 import org.deiverbum.app.util.Source
 import javax.inject.Inject
 
@@ -36,12 +33,13 @@ class LocalSyncEntityData @Inject constructor(
     override suspend fun getSync(syncRequest: SyncRequest): SyncResponse {
         val se = todayDao.syncInfo()
         if (syncRequest.yearToClean != 0) {
-            val rowsDeleted = todayDao.deleteLastYear(syncRequest.yearToClean)
+            val rowsDeleted = todayDao.deletePastYear(syncRequest.yearToClean)
             if (rowsDeleted > 0) {
-                se.lastYearCleaned = syncRequest.yearToClean - 1
+                se.lastYearCleaned = true
             }
         }
         se.source = Source.LOCAL
+
         return SyncResponse(se)
         //return SyncResponse(SyncStatus())
     }
@@ -64,10 +62,11 @@ class LocalSyncEntityData @Inject constructor(
             //syncResponse.allToday=syncResponse.allToday.take(3)
             val insertedRows =
                 todayDao.universalisInsertAll(syncResponse.allToday)
-            if (insertedRows.isNotEmpty()) {
-                //todayDao.syncUpdate(Utils.getCurrentTimeStamp())
+            if (insertedRows.isNotEmpty() && syncResponse.syncStatus.lastUpdate != "") {
+                todayDao.syncUpdate(syncResponse.syncStatus.lastUpdate)
             }
         }
+
     }
 
 }

@@ -518,12 +518,12 @@ class Crud {
                 if (!cr.isNullOrEmpty()) {
                     todayDao.lhAntiphonJoinInsertAll(cr)
                 }
-                if (!up.isNullOrEmpty()) {
-                    todayDao.lhAntiphonJoinUpdateAll(up)
+                /*if (!up.isNullOrEmpty()) {
+                    todayDao.updateLHAntiphonJoinAll(up)
                 }
                 if (!de.isNullOrEmpty()) {
-                    todayDao.lhAntiphonJoinDeleteAll(de)
-                }
+                    todayDao.deleteLHAntiphonJoinAll(de)
+                }*/
             }
 
             if (crudLHPsalmJoin != null) {
@@ -533,15 +533,14 @@ class Crud {
                 if (!cr.isNullOrEmpty()) {
                     todayDao.lhPsalmJoinInsertAll(cr)
                 }
-                if (!up.isNullOrEmpty()) {
+                /*if (!up.isNullOrEmpty()) {
                     val t = todayDao.lhPsalmJoinUpdateAll(up)
                     println("kkk: $t")
                 }
                 if (!de.isNullOrEmpty()) {
                     val t = todayDao.lhPsalmJoinDeleteAll(de)
                     println("kkk: $t")
-
-                }
+                }*/
             }
 
             if (crudLHInvitatoryJoin != null) {

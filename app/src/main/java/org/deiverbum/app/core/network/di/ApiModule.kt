@@ -10,6 +10,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.deiverbum.app.BuildConfig
+import org.deiverbum.app.core.model.data.Alteri
 import org.deiverbum.app.core.model.data.Commentarii
 import org.deiverbum.app.core.model.data.LHCompletorium
 import org.deiverbum.app.core.model.data.LHIntermedia
@@ -54,10 +55,15 @@ object ApiModule {
                 .withSubtype(LHOfficium::class.java, "officium")
                 .withSubtype(LHLaudes::class.java, "laudes")
                 .withSubtype(LHIntermedia::class.java, "intermedia")
+                .withSubtype(LHIntermedia::class.java, "tertiam")
+                .withSubtype(LHIntermedia::class.java, "sextam")
+                .withSubtype(LHIntermedia::class.java, "nonam")
                 .withSubtype(LHVesperas::class.java, "vesperas")
                 .withSubtype(LHCompletorium::class.java, "completorium")
-                .withSubtype(Missae::class.java, "missae")
+                .withSubtype(Missae::class.java, "lectionum")
+                .withSubtype(Missae::class.java, "homiliae")
                 .withSubtype(Commentarii::class.java, "commentarii")
+                .withSubtype(Alteri.Sancti::class.java, "sanctii")
 
 
             //.withDefaultValue(LiturgiaTypus.Unknown)

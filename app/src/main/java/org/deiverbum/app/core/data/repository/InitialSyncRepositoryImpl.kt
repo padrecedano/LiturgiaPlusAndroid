@@ -66,7 +66,6 @@ class InitialSyncRepositoryImpl @Inject constructor(
         //launchSyncWorker()
         syncResponse = SyncResponse(SyncStatus(), emptyList())
         //return syncResponse
-
         //if (!syncRequest.hasInitialSync) {
         //if (!syncRequest.hasInitialSync||true) {
         syncResponse = syncFactory.create(Source.NETWORK).getSync(syncRequest)

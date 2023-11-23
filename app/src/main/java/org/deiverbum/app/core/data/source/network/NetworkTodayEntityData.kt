@@ -6,7 +6,7 @@ import org.deiverbum.app.core.model.TodayRequest
 import org.deiverbum.app.core.model.UniversalisResponse
 import org.deiverbum.app.core.model.data.Universalis
 import org.deiverbum.app.core.network.api.TodayApi
-import org.deiverbum.app.util.LiturgyHelper.Companion.liturgyByType
+import org.deiverbum.app.util.LiturgyHelper.Companion.liturgyByTypeLatin
 import org.deiverbum.app.util.Source
 import javax.inject.Inject
 
@@ -15,7 +15,7 @@ class NetworkTodayEntityData @Inject constructor(
 ) : TodayEntityData {
 
     override suspend fun getToday(todayRequest: TodayRequest): UniversalisResponse {
-        val endPoint = liturgyByType(todayRequest.typeID)
+        val endPoint = liturgyByTypeLatin(todayRequest.typeID)
         return try {
             val todayResponse = UniversalisResponse()
             /*
@@ -25,6 +25,7 @@ class NetworkTodayEntityData @Inject constructor(
                         //Timber.tag("bbb").d(u!!.liturgyDay.breviaryHour!!.oficio!!.himno!!.hymn)
                         Timber.tag("bbb").d(u.fake)
             */
+
             val apiResponsee = todayApi.getUniversalis(endPoint, todayRequest.theDate.toString())
             Log.d("ax13", apiResponsee?.todayDate.toString())
 

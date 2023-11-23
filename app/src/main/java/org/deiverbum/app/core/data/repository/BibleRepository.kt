@@ -14,7 +14,7 @@ interface BibleRepository {
     /**
      * Este método obtiene el libro de la Biblia.
      *
-     * Es implementado en [org.deiverbum.app.core.data.repository.SyncRepositoryImpl.getSync]
+     * Es implementado en [org.deiverbum.app.core.data.repository.BibleRepositoryImpl.getBibleBook]
      * @param bibleBookRequest Un objeto [BibleBookRequest] con la solicitud.
      * @return Un objeto [BibleBook] con el libro obtenido.
      */

@@ -23,6 +23,7 @@ import org.deiverbum.app.util.Constants.OBIEN
 import org.deiverbum.app.util.Constants.PRECES_IL
 import org.deiverbum.app.util.Constants.PRECES_R
 import org.deiverbum.app.util.Constants.VERSION_CODE_FORMATTED
+import java.sql.Timestamp
 import java.text.DateFormat
 import java.text.DateFormatSymbols
 import java.text.ParseException
@@ -33,6 +34,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.Objects
+
 
 /**
  * Clase utilitaria que se usa en varias partes de la aplicación
@@ -768,5 +770,19 @@ object Utils {
         }
         return romanOutput
     }
+
+    /**
+     * Método que devuelve la fecha y hora actual en formato yyyy-MM-dd HH:mm:ss
+     *
+     * @return Una cadena con la fecha
+     */
+    fun getCurrentTimeStamp(): String {
+        val stamp = Timestamp(System.currentTimeMillis())
+        val date = Date(stamp.time)
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        return sdf.format(date)
+
+    }
+
 
 }

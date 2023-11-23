@@ -1,5 +1,6 @@
 package org.deiverbum.app.core.data.source.network
 
+import android.util.Log
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.deiverbum.app.core.data.source.SyncEntityData
 import org.deiverbum.app.core.model.SyncRequest
@@ -23,20 +24,27 @@ class NetworkSyncEntityData @Inject constructor(
 ) : SyncEntityData {
 
     override suspend fun getSync(syncRequest: SyncRequest): SyncResponse {
-        val sub = todayApi.getTodayAll("all")
 
         val syncStatus = SyncStatus()
-        syncStatus.source = Source.NETWORK
-        return SyncResponse(syncStatus, sub)
+
+        try {
+            val sub = todayApi.getUniversalisSync()
+            syncStatus.source = Source.NETWORK
+            syncStatus.lastUpdate = sub.lastUpdate
+            return SyncResponse(syncStatus, sub.data)
+        } catch (e: Exception) {
+            Log.d("xyz", e.message.toString())
+            return SyncResponse(syncStatus, emptyList())
+        }
     }
 
     override suspend fun addSync(syncResponse: SyncResponse) {
         TODO("Not yet implemented")
     }
 
-     suspend fun addSyncc(syncResponse: SyncResponseNew) {
-         TODO("Not yet implemented")
-     }
+    suspend fun addSyncc(syncResponse: SyncResponseNew) {
+        TODO("Not yet implemented")
+    }
 
     //TODO "Concluir esto"
     suspend fun getSyncc(syncRequest: SyncRequest): SyncResponseNew {

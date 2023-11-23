@@ -1,17 +1,22 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import androidx.room.ColumnInfo
 import androidx.room.Ignore
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
 open class Sanctus(
-    var theMonth: Int = 0,
-    var theDay: Int = 0,
-    var theName: String = "",
-    @Ignore val martirologio: String = "",
+    @ColumnInfo(name = "theMonth")
+    var mensis: Int = 0,
+    @ColumnInfo(name = "theDay")
+    var dies: Int = 0,
+    @ColumnInfo(name = "theName")
+    var nomen: String = "",
+    @ColumnInfo(name = "martirologio")
+    @Ignore val martyrologyum: String = "",
     @Ignore
-    var vida: String = ""
+    var vita: String = ""
 ) {
     var saintID: Int? = null
 
@@ -23,7 +28,7 @@ open class Sanctus(
     var crg = false
 
     private val martirologioSpan: SpannableStringBuilder
-        get() = Utils.toSmallSize(martirologio)
+        get() = Utils.toSmallSize(martyrologyum)
     private val martirologioTitleSpan: SpannableStringBuilder
         get() = Utils.toSmallSize("(Martirologio Romano)")
     private val martirologioTitleForRead: String
@@ -36,7 +41,7 @@ open class Sanctus(
             sb.append(Utils.LS2)
             sb.append(
                 Utils.fromHtml(
-                    vida.replace(
+                    vita.replace(
                         Constants.OLD_SEPARATOR.toRegex(), ""
                     )
                 )
@@ -49,7 +54,7 @@ open class Sanctus(
             sb.append("VIDA.")
             sb.append(
                 Utils.fromHtml(
-                    vida.replace(
+                    vita.replace(
                         Constants.OLD_SEPARATOR.toRegex(), ""
                     )
                 )
@@ -62,7 +67,7 @@ open class Sanctus(
             try {
                 sb.append(Utils.toH3Red(monthName))
                 sb.append(Utils.LS2)
-                sb.append(Utils.toH2Red(theName))
+                sb.append(Utils.toH2Red(nomen))
                 sb.append(Utils.LS2)
                 sb.append(martirologioSpan)
                 sb.append(Utils.LS)
@@ -80,9 +85,9 @@ open class Sanctus(
             try {
                 sb.append(monthName)
                 sb.append(".")
-                sb.append(theName)
+                sb.append(nomen)
                 sb.append(".")
-                sb.append(martirologio)
+                sb.append(martyrologyum)
                 sb.append(martirologioTitleForRead)
                 sb.append(vidaForRead)
             } catch (e: Exception) {
@@ -107,7 +112,7 @@ open class Sanctus(
                 11 to "Noviembre",
                 12 to "Diciembre"
             )
-            return "$theDay de ${monthNames.getValue(theMonth)}"
+            return "$dies de ${monthNames.getValue(mensis)}"
         }
 
 }

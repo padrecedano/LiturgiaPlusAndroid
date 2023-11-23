@@ -20,7 +20,7 @@ abstract class Alteri(typus: String) : LiturgiaTypus(typus) {
 
     data class Sancti(
         val sanctus: Sanctus,
-        override var typus: String = "sancti"
+        override var typus: String = "sanctii"
     ) : Alteri(typus) {
         override fun forView(calendarTime: Int): SpannableStringBuilder {
             return SpannableStringBuilder(sanctus.forView)

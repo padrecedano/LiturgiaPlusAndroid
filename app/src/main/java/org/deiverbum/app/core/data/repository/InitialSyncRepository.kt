@@ -13,7 +13,7 @@ interface InitialSyncRepository {
     /**
      * Este método obtiene la sincronización.
      *
-     * Es implementado en [SyncRepositoryImpl.getSync][org.deiverbum.app.core.data.repository.SyncRepositoryImpl.getSync]
+     * Es implementado en [SyncRepositoryImpl.getSync][org.deiverbum.app.core.data.repository.InitialSyncRepositoryImpl.getSync]
      * @param syncRequest Un objeto [SyncRequest] con la sincronización requerida.
      * @return Un objeto [SyncResponse] con la sincronización que se haya realizado.
      */

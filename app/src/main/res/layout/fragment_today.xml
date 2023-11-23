@@ -6,13 +6,15 @@
     tools:context=".core.presentation.today.TodayFragment">
 
     <ScrollView
+        android:id="@+id/todayScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/textBackground">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants">
 
             <org.deiverbum.app.util.ZoomTextView
                 android:id="@+id/tv_Zoomable"

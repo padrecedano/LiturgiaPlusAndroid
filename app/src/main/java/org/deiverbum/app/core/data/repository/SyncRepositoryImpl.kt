@@ -61,7 +61,8 @@ class SyncRepositoryImpl @Inject constructor(
      * @return un objeto [SyncResponse]
      */
     override suspend fun getSync(syncRequest: SyncRequest): SyncResponse {
-        if (!syncRequest.isWorkScheduled || true) {
+        if (!syncRequest.isWorkScheduled) {
+//        if (!syncRequest.isWorkScheduled || true) {
             launchSyncWorker()
         }
         var syncResponse: SyncResponse
@@ -69,7 +70,7 @@ class SyncRepositoryImpl @Inject constructor(
         //return syncResponse
         //TODO "Quitar código temporal ^"
 
-        if (!syncRequest.hasInitialSync) {
+        /*if (!syncRequest.hasInitialSync) {
             //if (!syncRequest.hasInitialSync||true) {
             syncResponse = syncFactory.create(Source.NETWORK).getSync(syncRequest)
             if (syncResponse.allToday.isEmpty()) {
@@ -79,7 +80,7 @@ class SyncRepositoryImpl @Inject constructor(
                 syncFactory.create(Source.LOCAL).addSync(syncResponse)
             }
             return syncResponse
-        }
+        }*/
 
         return syncFactory.create(Source.LOCAL).getSync(syncRequest)
     }

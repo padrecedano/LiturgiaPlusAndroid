@@ -1,7 +1,6 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import org.deiverbum.app.core.model.data.Introitus.Companion.initialInvocationForRead
 import org.deiverbum.app.core.model.data.Introitus.Companion.initialInvocationForView
@@ -25,7 +24,8 @@ data class LHIntermedia(
     var lectioBrevis: LHLectioBrevis,
     var oratio: Oratio,
     var typusID: Int = 0,
-    @Json(ignore = true) override var typus: String = "intermedia"
+    //@Json(ignore = true)
+    override var typus: String = "intermedia"
 ) : Breviarium(typus) {
     val tituloHora: String
         get() = when (typusID) {

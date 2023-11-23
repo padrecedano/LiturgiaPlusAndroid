@@ -20,7 +20,7 @@ import org.deiverbum.app.core.presentation.base.BaseFragment
 import org.deiverbum.app.databinding.FragmentSyncBinding
 import org.deiverbum.app.util.Constants.PACIENCIA
 import org.deiverbum.app.util.Constants.PREF_INITIAL_SYNC
-import org.deiverbum.app.util.Constants.PREF_LAST_YEAR_CLEANED
+import org.deiverbum.app.util.Constants.PREF_PAST_YEARS_CLEANED
 import org.deiverbum.app.util.Source
 import org.deiverbum.app.util.Utils
 import org.deiverbum.app.util.ZoomTextView
@@ -112,7 +112,8 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
         syncItemUiState.run {
             getViewBinding().progressBar.visibility = View.GONE
             val syncResponse = syncItemUiState.syncResponse
-            syncResponse.syncStatus.lastYearCleaned = prefs.getInt(PREF_LAST_YEAR_CLEANED, 0)
+            syncResponse.syncStatus.lastYearCleaned =
+                prefs.getBoolean(PREF_PAST_YEARS_CLEANED, false)
             if (syncResponse.syncStatus.source == Source.NETWORK && !hasInitial) {
                 prefs.edit().putBoolean(PREF_INITIAL_SYNC, true).apply()
             }
@@ -131,7 +132,7 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
         syncItemUiState.run {
             getViewBinding().progressBar.visibility = View.GONE
             syncResponse.syncStatus.collect { it ->
-                it.lastYearCleaned = prefs.getInt(PREF_LAST_YEAR_CLEANED, 0)
+                //it.lastYearCleaned = prefs.getInt(PREF_LAST_YEAR_CLEANED, 0)
                 if (it.source == Source.NETWORK && !hasInitial) {
                     prefs.edit().putBoolean(PREF_INITIAL_SYNC, true).apply()
                 }

@@ -2,7 +2,6 @@ package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
@@ -17,7 +16,6 @@ import org.deiverbum.app.util.Utils
  *
  * @see [Sortable]
  */
-@JsonClass(generateAdapter = true)
 class MissaeLectionumList(
     var lectionum: MutableList<MissaeLectionum?> = mutableListOf(),
     var type: Int = 0

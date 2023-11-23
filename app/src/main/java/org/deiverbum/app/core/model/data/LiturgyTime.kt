@@ -1,5 +1,6 @@
 package org.deiverbum.app.core.model.data
 
+import androidx.room.ColumnInfo
 import com.squareup.moshi.JsonClass
 
 /**
@@ -13,9 +14,11 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class LiturgyTime(
     val timeID: Int = 0,
-    val timeName: String? = null,
-    val liturgyName: String? = null
+    @ColumnInfo(name = "timeName")
+    val nomen: String? = null,
+    @ColumnInfo(name = "liturgyName")
+    val externus: String? = null
 ) {
     val allForRead: String?
-        get() = liturgyName
+        get() = externus
 }

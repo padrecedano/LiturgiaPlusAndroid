@@ -45,7 +45,6 @@ class FileFragment : BaseFileFragment<FragmentFileBinding>() {
 
     private fun setConfiguration() {
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
-
         val args = arguments
         val filePath = args?.getString("rawPath") ?: ""
         if (filePath == "") {

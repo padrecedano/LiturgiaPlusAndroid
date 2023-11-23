@@ -6,6 +6,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import org.deiverbum.app.core.model.TodayRequest
 import org.deiverbum.app.util.ColorUtils
+import org.deiverbum.app.util.Constants.LS2
 import org.deiverbum.app.util.Constants.VOICE_INI
 import org.deiverbum.app.util.Utils
 
@@ -25,7 +26,7 @@ data class Universalis(
     @Json(name = "todayDate") var todayDate: Int = 0,
     var timeFK: Int = 0,
     @Ignore
-    var weekDayFK: Int = 0,
+    var info: String? = null,
     var liturgyFK: Int = 0,
     var previousFK: Int = 0,
     var massReadingFK: Int = 0,
@@ -46,7 +47,7 @@ data class Universalis(
     var lAntiphonFK: Int = 0,
     var lPsalmFK: Int = 0,
     var lBiblicalFK: Int = 0,
-    var lBenedictusFK: Int = 0,
+    var lCanticumFK: Int = 0,
     var lIntercessionsFK: Int = 0,
     var lPrayerFK: Int = 0,
     var tHymnFK: Int = 0,
@@ -68,7 +69,7 @@ data class Universalis(
     var vAntiphonFK: Int = 0,
     var vPsalmFK: Int = 0,
     var vBiblicalFK: Int = 0,
-    var vMagnificatFK: Int = 0,
+    var vCanticumFK: Int = 0,
     var vIntercessionsFK: Int = 0,
     var vPrayerFK: Int = 0,
     var nightPrayerFK: Int = 71,
@@ -83,19 +84,25 @@ data class Universalis(
     @Ignore
     var liturgyPrevious: Liturgy? = null,
 
-    @Ignore
-    var liturgyTime: LiturgyTime? = null
+    //@Ignore
+    //var tempus: LiturgyTime? = null
 ) {
-    constructor(todayDate: Int, liturgyTime: LiturgyTime?, timeFK: Int) : this() {
+    /*constructor(todayDate: Int, liturgyTime: LiturgyTime?, timeFK: Int) : this() {
         this.todayDate = todayDate
         this.liturgyTime = liturgyTime
         this.timeFK = timeFK
+    }*/
+
+    constructor(todayDate: Int, liturgia: Liturgy, info: String) : this() {
+        this.todayDate = todayDate
+        this.liturgia = liturgia
+        this.info = info
     }
 
-    constructor(todayDate: Int, timeFK: Int, liturgia: Liturgy) : this() {
+    constructor(todayDate: Int, liturgia: Liturgy) : this() {
         this.todayDate = todayDate
-        this.timeFK = timeFK
         this.liturgia = liturgia
+        //this.info = info
     }
 
     constructor(liturgia: Liturgy) : this() {
@@ -110,16 +117,20 @@ data class Universalis(
 
         ColorUtils.isNightMode = todayRequest.isNightMode
         val ssb = SpannableStringBuilder()
+        if (info != null) {
+            ssb.append(Utils.toH3Red(info!!))
+            ssb.append(LS2)
+        }
         try {
-            if (liturgia?.typus?.typus != "sancti") {
+            if (liturgia?.liturgiaTypus?.typus != "sanctii") {
                 ssb.append(fecha)
                 ssb.append(Utils.LS2)
-                ssb.append(Utils.toH2(liturgia?.tempore?.liturgyName))
+                ssb.append(Utils.toH2(liturgia?.tempus?.externus))
                 ssb.append(Utils.LS2)
-                ssb.append(Utils.toH3(liturgia?.liturgyName))
+                ssb.append(Utils.toH3(liturgia?.nomen))
                 ssb.append(Utils.LS2)
             }
-            ssb.append(liturgia?.typus?.forView(timeFK))
+            ssb.append(liturgia?.liturgiaTypus?.forView(timeFK))
         } catch (e: Exception) {
             ssb.append(Utils.createErrorMessage(e.message))
         }
@@ -131,13 +142,17 @@ data class Universalis(
 
     fun getAllForRead(): StringBuilder {
         val sb = StringBuilder(VOICE_INI)
-        if (liturgia?.typus?.typus != "sancti") {
-            sb.append(Utils.pointAtEnd(fecha))
-            //sb.append(Utils.pointAtEnd(liturgia?.tempore?.liturgyName))
-            sb.append(Utils.pointAtEnd(liturgia?.titleForRead))
-        }
-        sb.append(liturgia?.typus!!.forRead())
+        try {
 
+            if (liturgia?.liturgiaTypus?.typus != "sanctii") {
+                sb.append(Utils.pointAtEnd(fecha))
+                //sb.append(Utils.pointAtEnd(liturgia?.tempore?.liturgyName))
+                sb.append(Utils.pointAtEnd(liturgia?.titleForRead))
+            }
+            sb.append(liturgia?.liturgiaTypus!!.forRead())
+        } catch (e: Exception) {
+            sb.append(Utils.createErrorMessage(e.message))
+        }
         return sb
 
     }

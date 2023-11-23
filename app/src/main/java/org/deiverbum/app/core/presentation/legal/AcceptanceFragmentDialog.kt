@@ -39,6 +39,9 @@ import org.deiverbum.app.util.Constants.PREF_ACCEPT
 import org.deiverbum.app.util.Constants.PREF_INITIAL_SYNC
 import org.deiverbum.app.util.Source
 import org.deiverbum.app.util.Utils
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 /**
  *
@@ -49,18 +52,17 @@ import org.deiverbum.app.util.Utils
  * Desde el evento de escucha del botón se lanza la sincronización, siguiendo los criterios siguientes:
 
  * * 1 . Cuando se instala por primera vez la aplicación, desde [AcceptanceFragmentDialog][org.deiverbum.app.core.presentation.legal.AcceptanceFragmentDialog]:
- *     * *a)*. Se invocará al método [SyncViewModel.launchSync] cuando el usuario pulse en el botón de aceptación.
- *     * *b)*. Seguidamente se llamará al método [fetchDataSync]
- *     que observa el resultado de la sincronización en [SyncViewModel].
- *     * *c)*. En el método [onLoadedSync] se verificará si la fuente de sincronización es el servidor remoto ([Source.NETWORK]) y si hay datos, en cuyo caso se creará una entrada en SharedPreferences con clave [PREF_INITIAL_SYNC] y valor `true`.
- *             Esto indicará que ya ocurrió una sincronización inicial correctamente. Si ha ocurrido algún error y no se sincronizaron los datos desde el servidor remoto, el código deberá insertar en la base de datos el contenido de una semana, obtenido de Firebase. Para ello se llamará al método `getSync` de la clase `FirebaseSyncEntityData. En este caso no se indicará en las preferencias que hay una sincronización iniciada.
- * * 2 . En lo adelante, cada vez que se inicie la aplicación, se verificará desde el método [HomeFragment.setConfiguration()][org.deiverbum.app.core.presentation.home.HomeFragment] el estado de [PREF_INITIAL_SYNC] en SharedPreferences.
+ *   * *a)*. Se invocará al método [InitialSyncViewModel.launchSync] cuando el usuario pulse en el botón de aceptación.
+ *   * *b)*. Seguidamente se llamará al método [fetchDataSync]
+ *     que observa el resultado de la sincronización en [InitialSyncViewModel].
+ *   * *c)*. En el método [onLoadedSync] se verificará si la fuente de sincronización es el servidor remoto ([Source.NETWORK]) y si hay datos, en cuyo caso se creará una entrada en SharedPreferences con clave [PREF_INITIAL_SYNC] y valor `true`.
+ *   Esto indicará que ya ocurrió una sincronización inicial correctamente. Si ha ocurrido algún error y no se sincronizaron los datos desde el servidor remoto, el código deberá insertar en la base de datos el contenido de una semana, obtenido de Firebase. Para ello se llamará al método [org.deiverbum.app.core.data.source.firebase.FirebaseSyncEntityData.getSync]. En este caso no se indicará en las preferencias que hay una sincronización iniciada.
+ * * 2 . En lo adelante, cada vez que se inicie la aplicación, se verificará desde el método [org.deiverbum.app.core.presentation.home.HomeFragment.setConfiguration] el estado de [PREF_INITIAL_SYNC] en SharedPreferences.
  *
  *    Si es false:
+ *   * *a*. Se llamará a [InitialSyncViewModel.launchSync].
  *
- *    * *a*. Se llamará a [SyncViewModel.launchSync].
- *
- *    * *b*. Se observará a [getInitialSyncStatus] y si devuelve un valor mayor que `0`
+ *   * *b*. Se observará a [getInitialSyncStatus] y si devuelve un valor mayor que `0`
  *         se actualizará la entrada [PREF_INITIAL_SYNC] de SharedPreferences a `true`.
  *
  * * 3 . En el repositorio de sincronización existe también un método getFromFirebase
@@ -160,7 +162,11 @@ class AcceptanceFragmentDialog : DialogFragment() {
             editor.putBoolean(PREF_ACCEPT, true).apply()
             //hasInitialSync = prefs.getBoolean(PREF_INITIAL_SYNC, false)
             //if (!hasInitialSync) {
-            val syncRequest = SyncRequest(hasInitialSync, 0, false)
+            val systemTime = System.currentTimeMillis()
+            val sdfY = SimpleDateFormat("yyyy", Locale("es", "ES"))
+            val theDate = Date(systemTime)
+            val currentYear = sdfY.format(theDate).toInt()
+            val syncRequest = SyncRequest(hasInitialSync, currentYear - 1, false)
             lifecycleScope.launch(Dispatchers.IO) {
                 syncViewModel.launchSync(syncRequest)
                 fetchDataSync()

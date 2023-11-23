@@ -7,7 +7,7 @@ class LiturgyHelper {
     companion object {
         private val liturgyMap = hashMapOf(
             0 to "mixto",
-            1 to "oficio",
+            1 to "officium",
             2 to "laudes",
             3 to "tercia",
             4 to "sexta",
@@ -17,11 +17,32 @@ class LiturgyHelper {
             8 to "misa",
             9 to "homilias",
             10 to "lecturas",
-            11 to "comentarios"
+            11 to "comentarios",
+            12 to "sanctii"
+        )
+
+        private val liturgyMapLatin = hashMapOf(
+            0 to "mixtus",
+            1 to "officium",
+            2 to "laudes",
+            3 to "tertiam",
+            4 to "sextam",
+            5 to "nonam",
+            6 to "vesperas",
+            7 to "completorium",
+            8 to "missae",
+            9 to "homiliae",
+            10 to "lectionum",
+            11 to "commentarii",
+            12 to "sanctii"
         )
 
         fun liturgyByType(type: Int): String? {
             return liturgyMap[type]
+        }
+
+        fun liturgyByTypeLatin(type: Int): String? {
+            return liturgyMapLatin[type]
         }
 
         val endPsalmForView: Spanned

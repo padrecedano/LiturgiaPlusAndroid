@@ -48,7 +48,7 @@ data class Missae(
     var homiliae: MutableList<Homily>? = null
     //var homilyes: MutableList<Homily> = ArrayList()
 
-    private var lectionumList: MissaeLectionumList? = null
+    var lectionumList: MissaeLectionumList? = null
 
     var sanctus: LHSanctus? = null
     override fun forView(calendarTime: Int): SpannableStringBuilder {
@@ -67,7 +67,7 @@ data class Missae(
         } else if (homiliae != null) {
             ssb.append(Utils.toH1Red("Homilías"))
             homiliae?.forEach {
-                ssb.append(it?.getAllForView())
+                ssb.append(it.getAllForView())
             }
         } else {
             ssb.append("No hay datos para mostrar en este día.")
@@ -78,7 +78,15 @@ data class Missae(
     override fun forRead(): StringBuilder {
         val sb = StringBuilder()
         try {
-            sb.append(lectionumList?.allForRead)
+            if (lectionumList != null) {
+                sb.append(lectionumList?.allForRead)
+            }
+            if (homiliae != null) {
+                sb.append("Homilías.")
+                homiliae?.forEach {
+                    sb.append(it.getAllForRead)
+                }
+            }
         } catch (e: Exception) {
             sb.append(Utils.createErrorMessage(e.message))
         }

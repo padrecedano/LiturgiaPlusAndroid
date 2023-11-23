@@ -29,7 +29,7 @@ data class SyncStatus(
     var tableName = ""
 
     @Ignore
-    var lastYearCleaned: Int = 0
+    var lastYearCleaned: Boolean = false
 
     @Ignore
     var isWorkScheduled: Boolean = true
@@ -41,7 +41,7 @@ data class SyncStatus(
 
     //@Ignore
 
-    constructor(lastUpdate: String, lastYearCleaned: Int) : this(lastUpdate = lastUpdate) {
+    constructor(lastUpdate: String, lastYearCleaned: Boolean) : this(lastUpdate = lastUpdate) {
         //this.lastUpdate = lastUpdate
         this.lastYearCleaned = lastYearCleaned
     }
@@ -54,16 +54,17 @@ data class SyncStatus(
 
         val stringDate = Utils.formatDate(lastDate.toString(), "yyyyMMdd", "yyyy-MM-dd")
 
-        val lastYear = if (lastYearCleaned == 0) "" else String.format(
-            "Los datos del año <b>%s</b> fueron limpiados.",
-            Utils.toRedFont(lastYearCleaned.toString())
-        )
+        val lastYear = if (!lastYearCleaned) "" else
+            "Los datos de años anteriores fueron limpiados."
 
-        val stringLastUpdate = if (lastUpdate == "") "" else String.format(
-            "%sÚltima sincronización: %s<b>%s</b>",
-            Constants.BRS, Constants.BR,
-            Utils.toRedFont(lastUpdate)
-        )
+
+        val stringLastUpdate =
+            if (lastUpdate == "") ""
+            else String.format(
+                "%sÚltima sincronización: %s<b>%s</b>",
+                Constants.BRS, Constants.BR,
+                Utils.toRedFont(lastUpdate)
+            )
         return String.format(
             "%s" + "%s" +
                     "Última fecha en el calendario: " +

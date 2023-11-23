@@ -116,7 +116,7 @@ object Constants {
     const val PREF_ANALYTICS = "enable_analytics"
     const val PREF_CRASHLYTICS = "enable_crashlytics"
     const val PREF_INITIAL_SYNC = "initial_sync"
-    const val PREF_LAST_YEAR_CLEANED = "last_year_cleaned"
+    const val PREF_PAST_YEARS_CLEANED = "past_years_cleaned"
     const val SYNC_TAG = "TAG_SYNC_DATA"
     const val MSG_LEGAL = "Si tienes alguna duda, puedes " +
             "pulsar en el botón \"Enviar eMail\" para ponerte en contacto con" +

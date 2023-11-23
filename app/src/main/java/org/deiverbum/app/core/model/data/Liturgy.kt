@@ -13,13 +13,13 @@ import java.util.*
 open class Liturgy(
     //@Json(ignore = true)
     @ColumnInfo(name = "name")
-    var liturgyName: String = ""
+    var nomen: String = ""
 ) {
     constructor(week: Int = 0, day: Int = 0, colorFK: Int = 0, liturgyName: String) : this(
         liturgyName
     ) {
-        this.week = week
-        this.day = day
+        this.hebdomada = week
+        this.dies = day
         this.colorFK = colorFK
     }
 
@@ -29,9 +29,9 @@ open class Liturgy(
         liturgyName: String,
         tempore: LiturgyTime
     ) : this(liturgyName) {
-        this.week = week
-        this.day = day
-        this.tempore = tempore
+        this.hebdomada = week
+        this.dies = day
+        this.tempus = tempore
 
     }
 
@@ -42,15 +42,15 @@ open class Liturgy(
         tempore: LiturgyTime,
         typus: LiturgiaTypus?
     ) : this(liturgyName) {
-        this.week = week
-        this.day = day
-        this.tempore = tempore
-        this.typus = typus
+        this.hebdomada = week
+        this.dies = day
+        this.tempus = tempore
+        this.liturgiaTypus = typus
 
     }
 
     constructor(liturgyName: String = "", typus: LiturgiaTypus?) : this(liturgyName) {
-        this.typus = typus
+        this.liturgiaTypus = typus
         //this.typeID = typeID
     }
 
@@ -60,10 +60,10 @@ open class Liturgy(
     var typeID = 0
 
     @Ignore
-    var tempore: LiturgyTime? = null
+    var tempus: LiturgyTime? = null
 
     @Ignore
-    var typus: LiturgiaTypus? = null
+    var liturgiaTypus: LiturgiaTypus? = null
 
     @Ignore
     var calendarTime = 0
@@ -78,7 +78,6 @@ open class Liturgy(
     //protected val hasSaint
 
 
-
     @Ignore
     var saintLife: LHSanctus? = null
 
@@ -89,8 +88,12 @@ open class Liturgy(
     @JvmField
     @Ignore
     var hasSaint = false
-    var week: Int = 0
-    var day: Int = 0
+
+    @ColumnInfo(name = "week")
+    var hebdomada: Int = 0
+
+    @ColumnInfo(name = "day")
+    var dies: Int = 0
     var colorFK: Int = 0
 
     /*
@@ -123,8 +126,8 @@ open class Liturgy(
         }*/
     val titleForRead: String
         get() = try {
-            timeFK = tempore?.timeID!!
-            if (timeFK >= 8 || timeFK == 1 && day > 16 || timeFK == 2 || timeFK == 3 && week == 0 || timeFK == 4 || timeFK == 5 || week >= 35 || timeFK == 6 && week == 6 && typeFK!! < 4 || timeFK == 6 && week == 1 && day != 1 || day == 0) {
+            timeFK = tempus?.timeID!!
+            if (timeFK >= 8 || timeFK == 1 && dies > 16 || timeFK == 2 || timeFK == 3 && hebdomada == 0 || timeFK == 4 || timeFK == 5 || hebdomada >= 35 || timeFK == 6 && hebdomada == 6 && typeFK!! < 4 || timeFK == 6 && hebdomada == 1 && dies != 1 || dies == 0) {
                 timeWithTitleForRead
             } else {
                 timeWithWeekAndDay
@@ -134,29 +137,29 @@ open class Liturgy(
         }
 
     override fun toString(): String {
-        return String.format(Locale("es"), "Liturgy:%n%d\t%s", liturgyID, liturgyName)
+        return String.format(Locale("es"), "Liturgy:%n%d\t%s", liturgyID, nomen)
     }
 
     open val tituloForRead: String?
-        get() = String.format(Locale("es"), "%s%s", liturgyName, ".")
+        get() = String.format(Locale("es"), "%s%s", nomen, ".")
     val timeWithWeekAndDay: String
         get() {
             val ns = Numerals(false, false, false)
             return String.format(
                 Locale("es"),
                 "%s. %s de la %s semana.",
-                tempore?.liturgyName,
+                tempus?.externus,
                 Utils.getDayName(
-                    day
+                    dies
                 ),
-                ns.toWords(week, true)
+                ns.toWords(hebdomada, true)
             )
         }
     val timeWithTitleForRead: String
         get() = String.format(
             Locale("es"),
             "%s. %s",
-            tempore?.liturgyName,
+            tempus?.externus,
             tituloForRead
         )
 
