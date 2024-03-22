@@ -57,7 +57,7 @@ import java.util.Locale
 /**
  * Actividad principal y punto de entrada de la aplicación.
  *
- * Migrada a Kotlin en la versión 2023.1.3
+ * Migrada a Kotlin en la versión 2024.1
  *
  * @author A. Cedano
  */
@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
         setPrivacy()
         showMain()
         //inAppUpdate = InAppUpdate(this)
-
+        checkForInitialSync()
         checkForDataToClean()
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -141,7 +141,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Este método inicializa Firebase AppCheck.
      *
-     * @since 2023.1.3
+     * @since 2024.1
      */
     private fun appCheck() {
         FirebaseApp.initializeApp(this)
@@ -277,6 +277,24 @@ class MainActivity : AppCompatActivity() {
         snackbar.show()
     }
 
+
+    /**
+     * Este método verifica si se hizo una sincronización inicial.
+     *
+     * @since 2024.1
+     */
+    private fun checkForInitialSync() {
+        val hasInitialSync = prefs.getBoolean(PREF_INITIAL_SYNC, false)
+        val acceptedTerms = prefs.getBoolean(PREF_ACCEPT, false)
+        if (!hasInitialSync && acceptedTerms) {
+            val syncRequest =
+                SyncRequest(hasInitialSync = false, getCurrentYear() - 1, isWorkScheduled = false)
+            initialSyncViewModel.launchSync(syncRequest)
+            fetchDataInitial()
+        }
+    }
+
+
     /**
      * Este método verifica si hay datos antiguos para limpiar.
      *
@@ -287,7 +305,7 @@ class MainActivity : AppCompatActivity() {
      * Si es menor o igual, significa que habrá que limpiar datos de años anteriores,
      * lo cual se hará llamando a [SyncViewModel.launchSync].
      *
-     * @since 2023.1.3
+     * @since 2024.1
      */
     private fun checkForDataToClean() {
         val dayNumber = Utils.getDay(Utils.hoy).toInt()

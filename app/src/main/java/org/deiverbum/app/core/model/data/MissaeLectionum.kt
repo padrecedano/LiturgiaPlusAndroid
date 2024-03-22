@@ -96,34 +96,32 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
      *
      * Obtiene el encabezado de cada lectura según el tipo.
      *
+     *             type -1 es para el módulo Mixto del Breviario
+     *
+     *             type 1 es la Vigilia Pascual, con el siguiente esquema:
+     *             1. 1ª Lectura
+     *             2. Salmo
+     *             3. O bien: Salmo
+     *             4. 1ª Lectura
+     *             5. Salmo
+     *             6. 3ª Lectura
+     *             7. Salmo
+     *             8. 4ª Lectura
+     *             9. Salmo
+     *             10. 5ª Lectura
+     *             11. Salmo
+     *             12. 6ª Lectura
+     *             13. Salmo
+     *             14. 7ª Lectura
+     *             15. Salmo
+     *             16. o bien: Salmo
+     *             17. Epístola
+     *             18. Salmo
+     *             40. Evangelio
      * @return Un objeto [con el contenido.][String]
      * @since 2023.1.2
      */
     private fun getHeaderByType(type: Int): String {
-        /*
-            type -1 es para el módulo Mixto del Breviario //TODO
-
-            type 1 es la Vigilia Pascual, con el siguiente esquema:
-            1. 1ª Lectura
-            2. Salmo
-            3. O bien: Salmo
-            4. 1ª Lectura
-            5. Salmo
-            6. 3ª Lectura
-            7. Salmo
-            8. 4ª Lectura
-            9. Salmo
-            10. 5ª Lectura
-            11. Salmo
-            12. 6ª Lectura
-            13. Salmo
-            14. 7ª Lectura
-            15. Salmo
-            16. o bien: Salmo
-            17. Epístola
-            18. Salmo
-            40. Evangelio
-         */
         var header = ""
         if (type == 1) {
             if (theOrder == 1) {
@@ -168,7 +166,7 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
      * Obtiene la conclusión de cada lectura según el tipo.
      *
      * @return Una cadena con la conclusión.
-     * @since 2023.1.3
+     * @since 2024.1
      */
     private fun getConclusionByType(): String {
         var conclusion = ""
@@ -187,6 +185,4 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
         return conclusion
 
     }
-
-
 }

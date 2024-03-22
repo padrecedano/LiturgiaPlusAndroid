@@ -6,9 +6,4 @@ class CrudLiturgy {
     var c: List<Liturgy> = emptyList()
     var u: List<Liturgy>? = null
     var d: List<Liturgy>? = null
-
-    fun check() {
-        //TODO
-    }
-
 }

@@ -14,7 +14,7 @@ import java.util.*
  * <p>Fragmento base para el manejo de archivos.</p>
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 abstract class BaseFileFragment<T> : Fragment() {
 

@@ -27,6 +27,9 @@ class NetworkTodayEntityData @Inject constructor(
             */
 
             val apiResponsee = todayApi.getUniversalis(endPoint, todayRequest.theDate.toString())
+            //val apiTest = todayApi.getToday("lecturas", todayRequest.theDate.toString())
+//apiTest?.liturgyDay?.titleForRead
+            //Log.d("kkk",apiTest?.fecha.toString())
             Log.d("ax13", apiResponsee?.todayDate.toString())
 
             //val apiResponse = todayApi.getToday(endPoint, todayRequest.theDate.toString())

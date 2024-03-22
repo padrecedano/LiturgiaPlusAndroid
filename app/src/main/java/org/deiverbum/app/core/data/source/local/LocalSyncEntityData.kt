@@ -11,7 +11,7 @@ import javax.inject.Inject
  * Fuente de datos local para la sincronización.
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 
 class LocalSyncEntityData @Inject constructor(

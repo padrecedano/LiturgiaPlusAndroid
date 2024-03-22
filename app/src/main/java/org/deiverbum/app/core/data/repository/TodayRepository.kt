@@ -7,7 +7,7 @@ import org.deiverbum.app.core.model.UniversalisResponse
  * Interfaz para el repositorio del módulo Today.
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 interface TodayRepository {
 

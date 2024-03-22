@@ -11,7 +11,7 @@ import com.squareup.moshi.JsonClass
  *
  * @author A. Cedano
  * @version 1.0
- * @since 2023.1.3
+ * @since 2024.1
  *
  * @see MissaeLectionum
  * @see Homily

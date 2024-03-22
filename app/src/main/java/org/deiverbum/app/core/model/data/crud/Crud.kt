@@ -41,6 +41,8 @@ class Crud {
     private var crudLHPsalmody: CrudLHPsalmody? = null
     private var crudLHPsalmodyJoin: CrudLHPsalmodyJoin? = null
     private var crudLHPsalmJoin: CrudLHPsalmJoin? = null
+    private var crudLHPsalmJoinList: CrudLHPsalmJoinList? = null
+    private var crudLHAntiphonJoinList: CrudLHAntiphonJoinList? = null
     private var crudLHAntiphonJoin: CrudLHAntiphonJoin? = null
 
     private var crudLHReadingShort: CrudLHReadingShort? = null
@@ -84,7 +86,6 @@ class Crud {
         try {
 
             if (crudLiturgy != null) {
-                crudLiturgy!!.check()
                 val cr = crudLiturgy!!.c
                 val up = crudLiturgy!!.u
                 val de = crudLiturgy!!.d
@@ -492,10 +493,7 @@ class Crud {
                         todayDao.lhPsalmDeleteAll(de)
                     }
                 }
-            /*
-                //TODO ¿Esto debería ir antes o después de las
-                entidades como LHPsalm, LHTheme, etc?
-             */
+
             if (crudLHPsalmodyJoin != null) {
                 val cr = crudLHPsalmodyJoin!!.c
                 val up = crudLHPsalmodyJoin!!.u
@@ -541,6 +539,24 @@ class Crud {
                     val t = todayDao.lhPsalmJoinDeleteAll(de)
                     println("kkk: $t")
                 }*/
+            }
+
+            if (crudLHPsalmJoinList != null) {
+                if (!crudLHPsalmJoinList!!.u.isNullOrEmpty()) {
+                    todayDao.updateLHPsalmJoinAll(crudLHPsalmJoinList!!.u!!)
+                }
+                if (!crudLHPsalmJoinList!!.d.isNullOrEmpty()) {
+                    todayDao.deleteLHPsalmJoinAll(crudLHPsalmJoinList!!.d!!)
+                }
+            }
+
+            if (crudLHAntiphonJoinList != null) {
+                if (!crudLHAntiphonJoinList!!.u.isNullOrEmpty()) {
+                    todayDao.updateLHAntiphonJoinAll(crudLHAntiphonJoinList!!.u!!)
+                }
+                if (!crudLHAntiphonJoinList!!.d.isNullOrEmpty()) {
+                    todayDao.deleteLHAntiphonJoinAll(crudLHAntiphonJoinList!!.d!!)
+                }
             }
 
             if (crudLHInvitatoryJoin != null) {

@@ -8,7 +8,7 @@ import javax.inject.Inject
  * <p>Factory para el módulo que lee archivos locales. Fuente de datos única.</p>
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 
 class FileFactory @Inject constructor(

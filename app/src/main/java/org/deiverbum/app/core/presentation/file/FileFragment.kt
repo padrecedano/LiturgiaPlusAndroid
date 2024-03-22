@@ -47,6 +47,8 @@ class FileFragment : BaseFileFragment<FragmentFileBinding>() {
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
         val args = arguments
         val filePath = args?.getString("rawPath") ?: ""
+        //val filePath= Constants.FILE_BAPTISMUS
+
         if (filePath == "") {
             actionBar?.title = args?.getString("title") ?: ""
             actionBar?.subtitle = ""

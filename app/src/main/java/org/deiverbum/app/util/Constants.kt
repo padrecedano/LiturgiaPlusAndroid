@@ -19,7 +19,7 @@ object Constants {
       strings.xml: accept_info
       */
     const val VERSION_CODE = 202301003
-    const val VERSION_CODE_FORMATTED = "2023.1.3"
+    const val VERSION_CODE_FORMATTED = "2024.1"
     const val EASTER_CODE = 1 //600010101//1
     const val PASCUA_TIMEID = 6 //600010101//1
 
@@ -112,6 +112,13 @@ object Constants {
     const val FILE_LITANIES = "raw/letanias.json"
     const val FILE_ROSARY = "raw/rosario.json"
     const val FILE_NIGHT_PRAYER = "raw/completas.json"
+    const val FILE_BAPTISMUS = "raw/sacramentum/baptismus.json"
+    const val CIC_BAPTISMUS = "raw/sacramentum/cic_baptismus.json"
+    const val CIC_UNCTIONIS = "raw/sacramentum/cic_unctionis.json"
+    const val UNCTIONIS_ORDINARIUM = "raw/sacramentum/unctionis_ordinarium.json"
+    const val FILE_UNCTIONIS_ARTICULO_MORTIS = "raw/sacramentum/unctionis_articulo_mortis.json"
+    const val FILE_VIATICUM = "raw/sacramentum/viaticum.json"
+
     const val PREF_ACCEPT = "accept_terms"
     const val PREF_ANALYTICS = "enable_analytics"
     const val PREF_CRASHLYTICS = "enable_crashlytics"
@@ -222,5 +229,11 @@ object Constants {
     const val TITLE_BIBLE_COMMENTS = "Comentarios"
     const val PRECES_IL = "Se pueden añadir algunas intenciones libres."
     const val OBIEN = BRS + CSS_RED_A + "O bien:" + CSS_RED_Z + BRS
-    const val PRECES_R = "–"
+    const val PRECES_R = "– "
+    const val CHAR_R = "℟. "
+    const val CHAR_V = "℣. "
+    const val CHAR_N = "⊓"
+    const val CHAR_CROSS = "†"
+
+
 }

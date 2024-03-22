@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutionException
  * Fragmento base para el módulo Today.
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 
 abstract class BaseFragment<T> : Fragment() {

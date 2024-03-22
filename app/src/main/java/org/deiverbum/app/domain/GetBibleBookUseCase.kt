@@ -9,7 +9,7 @@ import javax.inject.Inject
  * Caso de uso para libros de la Biblia.
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 class GetBibleBookUseCase @Inject constructor(
     private val mRepository: BibleRepository

@@ -15,7 +15,7 @@ interface TodayApi {
     suspend fun getToday(
         @Path("endPoint") endPoint: String?,
         @Path("dateString") dateString: String?
-    ): Universalis?
+    ): Today?
 
     @GET("{endPoint}/{dateString}")
     suspend fun getUniversalis(

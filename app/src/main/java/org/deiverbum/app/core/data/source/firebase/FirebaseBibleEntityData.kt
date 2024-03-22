@@ -12,7 +12,7 @@ import javax.inject.Inject
  * Fuente de datos de Firebase para el módulo `Biblia`.
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 class FirebaseBibleEntityData @Inject constructor() : BibleEntityData {
     private val firebaseFirestore = FirebaseFirestore.getInstance()

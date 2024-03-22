@@ -17,7 +17,7 @@ import javax.inject.Inject
  * Se llama a esta fuente de datos si falla la llamada a [org.deiverbum.app.core.data.source.network.NetworkSyncEntityData].
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 class FirebaseSyncEntityData @Inject constructor() : SyncEntityData {
     private val firebaseFirestore = FirebaseFirestore.getInstance()
@@ -34,7 +34,7 @@ class FirebaseSyncEntityData @Inject constructor() : SyncEntityData {
                     "todayDate",
                     Utils.getTodayMinus(1)
                 )
-                .limit(30).get()
+                .limit(50).get()
                 .await().toObjects(Universalis::class.java)
                     as List<Universalis>
             val syncStatus = SyncStatus()

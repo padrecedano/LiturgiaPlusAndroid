@@ -15,21 +15,26 @@ import org.deiverbum.app.util.Utils
  *
  * @see [Sortable]
  */
-open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>) : Sortable {
+open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>, var typus: Int) :
+    Sortable {
 
     /**
      * Constructor secundario
      * @param mPsalms Lista con los salmos
      * @param mAntiphons Lista con las antífonas
      */
-    constructor(psalmus: MutableList<LHPsalm>, antiphonae: MutableList<LHAntiphon>) : this(
-        antiphonae
+    constructor(
+        psalmus: MutableList<LHPsalm>,
+        antiphonae: MutableList<LHAntiphon>,
+        typus: Int
+    ) : this(
+        antiphonae, typus
     ) {
         this.psalmus = psalmus
         //this.antiphonae = antiphonae
     }
 
-    var theType = 0
+    //var typus = 0
 
     @Ignore
     protected var psalmus: MutableList<LHPsalm> = mutableListOf()
@@ -41,7 +46,7 @@ open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>) : So
      * Obtiene todos los elementos del salmo formateados para la vista.
      * Desde aquí se llama a [sort] porque este método se invoca una sola vez.
      *
-     * @since 2023.1.3
+     * @since 2024.1
      *
      * @param hourIndex El identificador de la hora, para los casos de la Hora Intermedia.
      * @param calendarTime El tiempo litúrgico, para hacer los reemplazos correspondientes en las antífonas llamando a [LHAntiphon.normalizeByTime].
@@ -51,18 +56,21 @@ open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>) : So
         sort()
         val sb = SpannableStringBuilder(header)
         sb.append(LS2)
-        val antUnique = SpannableStringBuilder(Utils.toRed("Ant. "))
+        val antiphonBefore = SpannableStringBuilder()
+        val antiphonAfter = SpannableStringBuilder()
 
-        if (theType == 1) {
+        if (typus == 1) {
             if (psalmus.size == antiphonae.size) {
                 antiphonae[hourIndex].normalizeByTime(calendarTime)
-                antUnique.append(antiphonae[hourIndex].antiphon)
+                antiphonBefore.append(antiphonae[hourIndex].getBeforeForView(false))
+                antiphonAfter.append(antiphonae[hourIndex].afterForView)
 
             } else {
                 antiphonae[0].normalizeByTime(calendarTime)
-                antUnique.append(antiphonae[0].antiphon)
+                antiphonBefore.append(antiphonae[0].getBeforeForView())
+                antiphonAfter.append(antiphonae[0].afterForView)
             }
-            sb.append(antUnique)
+            sb.append(antiphonBefore)
             sb.append(LS2)
             for (s in psalmus) {
                 if (s.pericopa != "") {
@@ -86,12 +94,12 @@ open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>) : So
                 sb.append(s.psalmForView)
                 sb.append(LS2)
             }
-            sb.append(Utils.toRed("Ant. "))
-            sb.append(antUnique)
+            //sb.append(Utils.toRed("Ant. "))
+            sb.append(antiphonAfter)
             sb.append(LS2)
         }
 
-        if (theType == 0 && psalmus.size == antiphonae.size) {
+        if (typus == 0 && psalmus.size == antiphonae.size) {
             for (s in psalmus) {
                 antiphonae[s.theOrder - 1].normalizeByTime(calendarTime)
                 sb.append(antiphonae[s.theOrder - 1].getBeforeForView())
@@ -133,12 +141,14 @@ open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>) : So
      * Para las otras horas, se llamará a este método con el valor -1
      * @return Un [StringBuilder] con el contenido.
      * @since 2022.01
-     * @version 2023.1.3
+     * @version 2024.1
      */
     fun getAllForRead(hourIndex: Int = -1): StringBuilder {
         val sb = StringBuilder(headerForRead)
         val uniqueAnt: String
-        if (theType == 1) {
+        if (typus == 1) {
+
+
             uniqueAnt = if (psalmus.size == antiphonae.size) {
                 antiphonae[hourIndex].antiphon
 
@@ -152,7 +162,7 @@ open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>) : So
             sb.append(uniqueAnt)
         }
 
-        if (theType == 0 && psalmus.size == antiphonae.size) {
+        if (typus == 0 && psalmus.size == antiphonae.size) {
             for (s in psalmus) {
                 sb.append(antiphonae[s.theOrder - 1].antiphon)
                 sb.append(s.psalmForRead)
@@ -220,7 +230,7 @@ open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>) : So
     /**
      * Ordena los salmos y las antífonas de la salmodia.
      *
-     * @since 2023.1.3
+     * @since 2024.1
      */
     override fun sort() {
         psalmus.sortBy {

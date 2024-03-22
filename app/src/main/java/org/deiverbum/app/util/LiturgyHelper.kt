@@ -74,7 +74,7 @@ class LiturgyHelper {
          * Obtiene la conclusión de los salmos y de algunos saludos iniciales para presentar en pantalla.
          *
          * @return Un objeto [Spanned] con el texto.
-         * @since 2023.1.3
+         * @since 2024.1
          */
         val endPsalmForView: Spanned
             get() {
@@ -88,7 +88,7 @@ class LiturgyHelper {
          * Obtiene la conclusión de los salmos y de algunos saludos iniciales para la lectura de voz.
          *
          * @return Un objeto [String] con el texto.
-         * @since 2023.1.3
+         * @since 2024.1
          */
         val endPsalmForRead: String
             get() = "Gloria al Padre, y al Hijo, y al Espíritu Santo. Como era en el principio ahora y siempre, por los siglos de los siglos. Amén."

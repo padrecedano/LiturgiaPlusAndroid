@@ -7,7 +7,7 @@ package org.deiverbum.app.core.presentation.home
  *
  * @author A. Cedano
  * @version 1.0
- * @since 2023.1.3
+ * @since 2024.1
  */
 data class HomeItemUiState(
     val title: String,

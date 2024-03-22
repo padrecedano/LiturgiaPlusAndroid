@@ -18,7 +18,6 @@ data class Oratio(
      * El setter verifica si la misma contiene el símbolo *
      * para extraerlo de la cadena. Este símbolo permanece en aquellas
      * oraciones que no han sido pasadas a la nueva versión del Misal Romano (año 2016).
-     * TODO("Normalizar en la base de datos")
      */
     init {
         if (oratio.contains("*")) {

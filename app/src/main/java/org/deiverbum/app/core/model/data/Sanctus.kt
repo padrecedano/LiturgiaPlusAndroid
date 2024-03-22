@@ -115,4 +115,9 @@ open class Sanctus(
             return "$dies de ${monthNames.getValue(mensis)}"
         }
 
+    fun forRead(): StringBuilder {
+        val sb = StringBuilder("Lorem")
+        return sb
+    }
+
 }

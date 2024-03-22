@@ -10,7 +10,7 @@ import java.util.*
  * Fragmento base para el manejo de las páginas iniciales.
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 abstract class BaseHomeFragment<T> : Fragment() {
     private var viewBinding: ViewBinding? = null

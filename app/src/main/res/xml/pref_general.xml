@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
         android:key="pref_key_general"
@@ -30,6 +31,7 @@
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:summary="Selecciona el tipo de letra por defecto"
+            app:useSimpleSummaryProvider="true"
             android:title="@string/pref_title_font" />
 
         <ListPreference
@@ -40,6 +42,7 @@
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:summary="Selecciona el tamaño de letra por defecto"
+            app:useSimpleSummaryProvider="true"
             android:title="@string/pref_title_font_size" />
 
         <ListPreference
@@ -50,6 +53,7 @@
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:summary="@string/pref_theme_description"
+            app:useSimpleSummaryProvider="true"
             android:title="@string/pref_title_theme" />
 
 
@@ -95,7 +99,5 @@
             android:defaultValue="true"
             android:key="enable_crashlytics"
             android:title="@string/pref_key_enable_crashlytics" />
-
-
     </PreferenceCategory>
 </PreferenceScreen>

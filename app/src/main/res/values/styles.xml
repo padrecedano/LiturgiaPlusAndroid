@@ -3,8 +3,12 @@
     <!-- Base application theme. -->
 
 
-
     <style name="TextAppearance.App.Body2" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="TextAppearance.App.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="fontFamily">@font/roboto_regular</item>
         <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
@@ -121,6 +125,17 @@
         <item name="android:textColorLink">@color/colorLink</item>
     </style>
 
+    <style name="TextAppearance.AppTheme.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/colorLink</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="TextAppearance.AppTheme.ListItem" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/black_cat</item>
+    </style>
+
     <style name="Widget.App.CheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.CheckBox</item>
     </style>
@@ -129,7 +144,6 @@
         <item name="colorOnSurface">@color/colorOnSurfaceBugReport</item>
         <item name="colorSecondary">@color/colorTextInput</item>
     </style>
-
 
 
     <style name="MaterialAlertDialog.App" parent="MaterialAlertDialog.Material3">

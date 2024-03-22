@@ -7,7 +7,7 @@ import org.deiverbum.app.core.model.SyncResponse
  * Interfaz para el repositorio del módulo de Sincronización.
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 interface SyncRepository {
     /**

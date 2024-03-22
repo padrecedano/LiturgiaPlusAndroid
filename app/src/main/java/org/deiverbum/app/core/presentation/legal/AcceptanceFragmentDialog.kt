@@ -87,7 +87,7 @@ import java.util.Locale
 @AndroidEntryPoint
 class AcceptanceFragmentDialog : DialogFragment() {
     private val mViewModel: FileViewModel by viewModels()
-    private val syncViewModel: InitialSyncViewModel by viewModels()
+    private val initialSyncViewModel: InitialSyncViewModel by viewModels()
     private var textPrivacy: TextView? = null
     private var textTerms: TextView? = null
     private val prefs: SharedPreferences by lazy {
@@ -168,7 +168,7 @@ class AcceptanceFragmentDialog : DialogFragment() {
             val currentYear = sdfY.format(theDate).toInt()
             val syncRequest = SyncRequest(hasInitialSync, currentYear - 1, false)
             lifecycleScope.launch(Dispatchers.IO) {
-                syncViewModel.launchSync(syncRequest)
+                initialSyncViewModel.launchSync(syncRequest)
                 fetchDataSync()
             }
             //} else {
@@ -208,7 +208,7 @@ class AcceptanceFragmentDialog : DialogFragment() {
     private fun fetchDataSync() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                syncViewModel.uiState.collect { state ->
+                initialSyncViewModel.uiState.collect { state ->
                     when (state) {
                         is InitialSyncViewModel.SyncUiState.Loaded -> onLoadedSync(state.itemState)
                         is InitialSyncViewModel.SyncUiState.Error -> showError(state.message)
@@ -248,6 +248,7 @@ class AcceptanceFragmentDialog : DialogFragment() {
 
     private fun showError(stringRes: String) {
         Toast.makeText(requireContext(), stringRes, Toast.LENGTH_SHORT).show()
+        dismiss()
     }
 
     val isNightMode: Boolean

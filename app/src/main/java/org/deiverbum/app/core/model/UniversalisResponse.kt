@@ -7,7 +7,7 @@ import org.deiverbum.app.util.Source
  * Maneja las respuestas destinadas al módulo Today.
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 class UniversalisResponse(
     var dataModel: Universalis,

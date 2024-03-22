@@ -11,7 +11,7 @@ import android.text.SpannableStringBuilder
  *
  * @author A. Cedano
  * @version 1.0
- * @since 2023.1.3
+ * @since 2024.1
  *
  * @see [LiturgiaTypus]
  *
@@ -24,6 +24,10 @@ abstract class Alteri(typus: String) : LiturgiaTypus(typus) {
     ) : Alteri(typus) {
         override fun forView(calendarTime: Int): SpannableStringBuilder {
             return SpannableStringBuilder(sanctus.forView)
+        }
+
+        override fun forRead(): StringBuilder {
+            return StringBuilder(sanctus.forRead)
         }
     }
 

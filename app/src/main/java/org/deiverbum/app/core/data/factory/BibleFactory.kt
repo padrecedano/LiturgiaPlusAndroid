@@ -7,7 +7,7 @@ import javax.inject.Inject
  * Factory para el  módulo `Biblia`.</p>
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 
 class BibleFactory @Inject constructor(

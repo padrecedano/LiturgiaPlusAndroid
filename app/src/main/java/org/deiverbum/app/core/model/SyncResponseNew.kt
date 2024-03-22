@@ -8,7 +8,7 @@ import org.deiverbum.app.core.model.data.Today
  * <p>Maneja las respuestas destinadas al módulo de Sincronización.</p>
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 class SyncResponseNew(
 

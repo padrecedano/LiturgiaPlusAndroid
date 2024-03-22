@@ -7,7 +7,7 @@ import org.deiverbum.app.core.model.FileResponse
  * Interfaz para manejar las fuentes de datos de archivos.
  **
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 interface FileEntityData {
 

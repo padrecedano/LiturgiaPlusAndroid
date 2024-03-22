@@ -71,6 +71,7 @@ class InitialSyncRepositoryImpl @Inject constructor(
         syncResponse = syncFactory.create(Source.NETWORK).getSync(syncRequest)
         if (syncResponse.allToday.isEmpty()) {
             syncResponse = syncFactory.create(Source.FIREBASE).getSync(syncRequest)
+            syncResponse.syncStatus.source = Source.FIREBASE
         }
         if (syncResponse.allToday.isNotEmpty()) {
             syncFactory.create(Source.LOCAL).addSync(syncResponse)

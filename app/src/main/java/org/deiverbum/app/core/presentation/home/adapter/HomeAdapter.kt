@@ -72,7 +72,7 @@ class HomeAdapter(private val mDataSet: List<HomeItem>, private var bgColor: Int
             cardView.setBackgroundColor(bgColor)
             v.setOnClickListener { v1: View? ->
                 val itemId = mItem!!.itemId
-                if (itemId == 2 || itemId > 9) {
+                if (itemId == 2 || itemId == 10 || itemId == 12) {
                     val snackbar = Snackbar
                         .make(
                             v1!!, "Este módulo está pendiente de " +

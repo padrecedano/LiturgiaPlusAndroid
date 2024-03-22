@@ -5,7 +5,7 @@ package org.deiverbum.app.core.model
  * Recoge los parámetros que son enviados a las peticiones para el módulo de Sincronización.
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  *
  * @param bookId Id del libro que se solicita.
 

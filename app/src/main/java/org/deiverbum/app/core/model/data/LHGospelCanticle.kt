@@ -5,7 +5,7 @@ import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
 class LHGospelCanticle(var typeID: Int = 0, override var antiphonae: MutableList<LHAntiphon>) :
-    LHPsalmody(antiphonae) {
+    LHPsalmody(antiphonae, 0) {
 
     init {
         psalmus.add(getPsalmus(typeID))
@@ -20,7 +20,7 @@ class LHGospelCanticle(var typeID: Int = 0, override var antiphonae: MutableList
      * Este objeto compañero devolverá el salmo del Cántico Evangélico
      * que corresponda según el valor de [typeID].
      *
-     * @since 2023.1.3
+     * @since 2024.1
      */
     companion object {
         /**

@@ -183,6 +183,12 @@
         tools:layout="@layout/fragment_oraciones" />
 
     <fragment
+        android:id="@+id/nav_sacramentos"
+        android:name="org.deiverbum.app.core.presentation.sacramentos.SacramentosFragment"
+        android:label="@string/title_fragment_sacramentos"
+        tools:layout="@layout/fragment_sacramentos" />
+
+    <fragment
         android:id="@+id/nav_mas"
         android:name="org.deiverbum.app.core.presentation.file.FileFragment"
         android:label="@string/title_fragment_main_mas"
@@ -206,11 +212,7 @@
         android:label="@string/title_fragment_patristica"
         tools:layout="@layout/fragment_text" />
 
-    <fragment
-        android:id="@+id/nav_sacramentos"
-        android:name="org.deiverbum.app.core.presentation.file.FileFragment"
-        android:label="@string/title_fragment_sacramentos"
-        tools:layout="@layout/fragment_file" />
+
 
     <fragment
         android:id="@+id/nav_mixto"
@@ -317,6 +319,11 @@
             app:argType="string" />
     </fragment>
 
+    <fragment
+        android:id="@+id/nav_sacramentum"
+        android:name="org.deiverbum.app.core.presentation.file.FileFragment"
+        android:label="Sacramentos"
+        tools:layout="@layout/fragment_text" />
     <fragment
         android:id="@+id/nav_prayers"
         android:name="org.deiverbum.app.core.presentation.file.FileFragment"

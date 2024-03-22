@@ -63,6 +63,29 @@ object Utils {
         return ssb
     }
 
+    fun toRedBold(sOrigen: String): SpannableStringBuilder {
+        val ssb = SpannableStringBuilder(sOrigen)
+        ssb.setSpan(CharacterStyle.wrap(red), 0, ssb.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ssb.setSpan(
+            CharacterStyle.wrap(StyleSpan(Typeface.BOLD)),
+            0,
+            ssb.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        return ssb
+    }
+
+    fun toBold(sOrigen: String): SpannableStringBuilder {
+        val ssb = SpannableStringBuilder(getFormato(sOrigen))
+        ssb.setSpan(
+            CharacterStyle.wrap(StyleSpan(Typeface.BOLD)),
+            0,
+            ssb.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        return ssb
+    }
+
     fun formatSubTitle(sOrigen: String?): SpannableStringBuilder {
         val ssb = SpannableStringBuilder(sOrigen)
         val textSize = RelativeSizeSpan(H3)
@@ -309,6 +332,10 @@ object Utils {
         return String.format("<font color=\"%s\">%s</font>", redCode, s)
     }
 
+    fun toBlackFont(s: String?): String {
+        return String.format("<font color=\"%s\">%s</font>", "#000000", s)
+    }
+
     fun toRedNew(sOrigen: SpannableStringBuilder): SpannableStringBuilder {
         sOrigen.setSpan(
             CharacterStyle.wrap(red),
@@ -381,6 +408,9 @@ object Utils {
             .replace("⊟", toRedFont("S. "))
             .replace("[rubrica]", CSS_RED_A)
             .replace("[/rubrica]", CSS_RED_Z)
+            .replace("%cssBlackOn", "<font color=\"#000000\">")
+            .replace("%cssBlackOff", "</font>")
+
     }
 
     /**
@@ -474,6 +504,17 @@ object Utils {
         }
     }
 
+    @Suppress("DEPRECATION")
+    fun fromHtmlWithOutFormat(s: String): Spanned {
+
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(s, Html.FROM_HTML_MODE_LEGACY)
+        } else {
+            Html.fromHtml(s)
+        }
+    }
+
+
     fun fromHtmlForRead(s: String): Spanned {
         return fromHtml(getFormatoForRead(s))
     }
@@ -564,7 +605,7 @@ object Utils {
     /**
      * Método que devuelve una fecha dada en un determinado formato
      *
-     * @since 2023.1.3
+     * @since 2024.1
      *
      * @param theDate La cadena con la fecha a formatear
      * @param inputFormat El formato original de la fecha
@@ -719,7 +760,7 @@ object Utils {
     /**
      * Convierte números arábigos a romanos
      *
-     * @since 2023.1.3
+     * @since 2024.1
      */
     fun toRoman(arabicInput: Int?): String {
         var romanOutput = ""

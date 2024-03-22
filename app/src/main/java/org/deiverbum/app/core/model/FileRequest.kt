@@ -3,7 +3,7 @@ package org.deiverbum.app.core.model
  * <p>Recoge los parámetros que son enviados a las peticiones para el módulo File.</p>
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 class FileRequest(
     var fileName: List<String>,

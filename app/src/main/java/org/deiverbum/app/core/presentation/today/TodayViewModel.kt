@@ -16,7 +16,7 @@ import javax.inject.Inject
  * <p>ViewModel para el contenido litúrgico de la fecha dada.</p>
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 @HiltViewModel
 class TodayViewModel @Inject constructor(

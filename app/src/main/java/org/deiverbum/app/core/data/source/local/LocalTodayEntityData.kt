@@ -14,7 +14,7 @@ import javax.inject.Inject
  * <p>Fuente de datos local para el módulo Today.</p>
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 class LocalTodayEntityData @Inject constructor(
     private val todayDao: TodayDao

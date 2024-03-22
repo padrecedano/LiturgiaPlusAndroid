@@ -64,7 +64,7 @@ data class LHAntiphon(
      *
      * @param withOrder Para determinar si se requiere el orden de la antífona.
      * @return Un [SpannableStringBuilder] con la antífona preparada.
-     * @since 2023.1.3
+     * @since 2024.1
      */
 
     fun getBeforeForView(withOrder: Boolean = true): SpannableStringBuilder {
@@ -88,7 +88,7 @@ data class LHAntiphon(
      * y no llevan el número de orden.
      *
      * @return Un [SpannableStringBuilder] con la antífona preparada.
-     * @since 2023.1.3
+     * @since 2024.1
      */
     val afterForView: SpannableStringBuilder
         get() = SpannableStringBuilder(Utils.toRed("Ant. ")).append(antiphon)

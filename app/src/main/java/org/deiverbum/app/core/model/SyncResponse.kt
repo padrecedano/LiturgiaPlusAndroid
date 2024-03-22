@@ -8,7 +8,7 @@ import org.deiverbum.app.core.model.data.Universalis
  * Maneja las respuestas destinadas al módulo de Sincronización.
  *
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  *
  * @param [_syncStatus] Un objeto [SyncStatus] con el estado de la sincronización.
  * @param [_allToday] Una lista de objetos [Today] con eventuales fechas a sincronizar.

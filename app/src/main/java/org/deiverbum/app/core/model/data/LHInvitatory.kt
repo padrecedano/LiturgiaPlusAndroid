@@ -6,7 +6,7 @@ import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
 class LHInvitatory(override var antiphonae: MutableList<LHAntiphon>) :
-    LHPsalmody(antiphonae) {
+    LHPsalmody(antiphonae, 0) {
 
     constructor(antiphonae: MutableList<LHAntiphon>, psalmus: MutableList<LHPsalm>) : this(
         antiphonae

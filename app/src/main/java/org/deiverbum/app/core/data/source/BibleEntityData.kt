@@ -8,7 +8,7 @@ import org.deiverbum.app.core.model.data.BibleBooks
  * Interfaz para manejar las fuentes de datos del módulo `Biblia`.
  **
  * @author A. Cedano
- * @since 2023.1.3
+ * @since 2024.1
  */
 interface BibleEntityData {
 
