@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_file">
         <argument
             android:name="rawPath"
-            android:defaultValue="raw/help_202201.json"
+            android:defaultValue="raw/menu/help_202201.json"
             app:argType="string" />
 
     </fragment>
@@ -52,7 +52,7 @@
         tools:layout="@layout/fragment_file">
         <argument
             android:name="rawPath"
-            android:defaultValue="raw/about_202201.json"
+            android:defaultValue="raw/menu/about_202201.json"
             app:argType="string" />
 
     </fragment>
@@ -64,7 +64,7 @@
         tools:layout="@layout/fragment_text">
         <argument
             android:name="rawPath"
-            android:defaultValue="raw/author_202201.json"
+            android:defaultValue="raw/menu/author_202201.json"
             app:argType="string" />
     </fragment>
 
@@ -75,7 +75,7 @@
         tools:layout="@layout/fragment_nobuttom">
         <argument
             android:name="rawPath"
-            android:defaultValue="raw/thanks_202201.json"
+            android:defaultValue="raw/menu/thanks_202201.json"
             app:argType="string" />
     </fragment>
 
@@ -86,7 +86,7 @@
         tools:layout="@layout/fragment_file">
         <argument
             android:name="rawPath"
-            android:defaultValue="raw/new_202301.json"
+            android:defaultValue="raw/menu/new_202301.json"
             app:argType="string" />
     </fragment>
 
@@ -97,7 +97,7 @@
         tools:layout="@layout/fragment_legal">
         <argument
             android:name="rawPath"
-            android:defaultValue="raw/privacy_202301.json"
+            android:defaultValue="raw/menu/privacy_202301.json"
             app:argType="string" />
     </fragment>
 
@@ -108,7 +108,7 @@
         tools:layout="@layout/fragment_legal">
         <argument
             android:name="rawPath"
-            android:defaultValue="raw/terms_202301.json"
+            android:defaultValue="raw/menu/terms_202301.json"
             app:argType="string" />
     </fragment>
 
@@ -315,7 +315,7 @@
         tools:layout="@layout/fragment_text">
         <argument
             android:name="rawPath"
-            android:defaultValue="raw/rosario.json"
+            android:defaultValue="raw/oratio/rosario.json"
             app:argType="string" />
     </fragment>
 
@@ -336,7 +336,7 @@
         tools:layout="@layout/fragment_text">
         <argument
             android:name="rawPath"
-            android:defaultValue="raw/letanias.json"
+            android:defaultValue="raw/oratio/letanias.json"
             app:argType="string" />
     </fragment>
 
@@ -347,7 +347,7 @@
         tools:layout="@layout/fragment_text">
         <argument
             android:name="rawPath"
-            android:defaultValue="raw/angelus.json"
+            android:defaultValue="raw/oratio/angelus.json"
             app:argType="string" />
     </fragment>
 
@@ -358,7 +358,7 @@
         tools:layout="@layout/fragment_text">
         <argument
             android:name="rawPath"
-            android:defaultValue="raw/regina.json"
+            android:defaultValue="raw/oratio/regina.json"
             app:argType="string" />
     </fragment>
 
@@ -370,7 +370,7 @@
         tools:layout="@layout/fragment_text">
         <argument
             android:name="rawPath"
-            android:defaultValue="raw/viacrucis2003.json"
+            android:defaultValue="raw/oratio/viacrucis2003.json"
             app:argType="string" />
     </fragment>
 
@@ -381,7 +381,7 @@
         tools:layout="@layout/fragment_text">
         <argument
             android:name="rawPath"
-            android:defaultValue="raw/viacrucis2005.json"
+            android:defaultValue="raw/oratio/viacrucis2005.json"
             app:argType="string" />
     </fragment>
 

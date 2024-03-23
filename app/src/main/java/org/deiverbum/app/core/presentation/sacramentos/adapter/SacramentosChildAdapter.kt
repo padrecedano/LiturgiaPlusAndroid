@@ -46,8 +46,8 @@ class SacramentosChildAdapter(private val itemsList: List<SacramentoItem>) :
         }
 
 
-        fun bind(paymentBean: SacramentoItem) {
-            itemBinding.name.text = paymentBean.subTitle
+        fun bind(sacramentoItem: SacramentoItem) {
+            itemBinding.name.text = sacramentoItem.subTitle
         }
     }
 }
