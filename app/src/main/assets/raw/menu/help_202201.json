@@ -1,0 +1,32 @@
+{
+  "author": "A. Cedano",
+  "title": "Ayuda",
+  "date": "",
+  "bookType": 2,
+  "chapters": [
+    {
+      "id": 1,
+      "title": "Ver en línea",
+      "content": [
+        {
+          "type": 1,
+          "text": [
+            "Liturgia+ ha sido pensada de modo que su uso sea sencillo: desde la pantalla inicial se pude acceder a los distintos módulos de que dispone la Aplicación.",
+            "Por defecto se abrirá <b>el contenido de la fecha del día</b> en cualquiera de los módulos que selecciones. Y si quieres acceder al contenido de una fecha distinta, puedes hacerlo desde el <b>Calendario</b>, que aparece tanto como una opción en la pantalla inicial, como en la barra superior de todos los módulos. Al ir al <b>Calendario</b> verás el mes actual, y te puedes mover hacia meses pasados o futuros. Al tocar sobre el dia deseado, se abrirá un menú contextual desde el cual puedes elegir el módulo que quieres abrir.",
+            "Ten en cuenta que aún la Aplicación no dispone de un calendario perpetuo, por lo que es posible que no encuentres contenidos de fechas muy futuras. Por el momento el calendario se va agregando para la presente semana o para los próximos quince días aproximadamente.",
+            "La Aplicación dispone también de la funcionalidad conocida como «pinch to zoom» (pellizcar para ampliar), significa que desde cualquier contenido puedes acercar/alejar los dedos para aumentar/disminuir el tamaño del texto.",
+            "Desde el menú de <b>Configuración</b>, al cual puedes acceder activando el menú principal (tres barras horizontales pequeñas en la parte superior izquierda de la pantalla inicial), puedes establecer algunas configuraciones de la Aplicación, como un tamaño de letra por defecto para todo el contenido y otras opciones.",
+            "La Aplicación dispone también de una opción de lectura de texto, que se activa en la barra superior, pulsando sobre el icono que está al lado del calendario. Desde la versión 2022.1 puedes pausar / detener / reanudar la lectura de voz desde una barra que se activa cuando empieza la reproducción.",
+            "<b>IMPORTANTE:</b> Si en tu dispositivo la lectura de voz va muy rápida, no es algo que dependa de la Aplicación. La velocidad de la lectura de voz es una configuración propia del dispositivo, y debes regularla en la configuración del dispositivo."
+          ]
+        },
+        {
+          "type": 1,
+          "text": [
+            "Para más detalles sobre el funcionamiento de la Aplicación, incluyendo imágenes, consulta el siguiente enlace: </p><a href=\"https://www.liturgiaplus.app/ayuda\">Ayuda en línea</a>."
+          ]
+        }
+      ]
+    }
+  ]
+}

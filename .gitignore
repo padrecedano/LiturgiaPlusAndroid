@@ -8,8 +8,9 @@
 /build
 /captures
 .externalNativeBuild
-*.json
-!app/src/main/res/raw/*.json
-assets/*/
+/captures
+google-services.json
+# !app/src/main/res/raw/*.json
+assets/database/*/
 
 

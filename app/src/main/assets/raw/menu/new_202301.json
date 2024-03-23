@@ -1,0 +1,151 @@
+{
+  "author": "A. Cedano",
+  "title": "Novedades",
+  "date": "20230403",
+  "bookType": 10,
+  "chapters": [
+    {
+      "id": 1,
+      "title": "Datos de la versión",
+      "content": [
+        {
+          "type": 10,
+          "item": "Fecha de publicación:",
+          "text": [
+            "<i>3 de Abril de 2023</i>"
+          ]
+        },
+        {
+          "type": 10,
+          "item": "Número de versión mayor:",
+          "text": [
+            "2023.1"
+          ]
+        },
+        {
+          "type": 10,
+          "item": "Nombre de la versión:",
+          "text": [
+            "<i>Iudicum</i>"
+          ]
+        },
+        {
+          "type": 10,
+          "item": "Codigo de versión:",
+          "text": [
+            "202301000"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Novedades de la versión mayor",
+      "content": [
+        {
+          "type": 13,
+          "text": [
+            "A partir de esta versión el contenido viene integrado en la aplicación, por tanto, ya no es necesario tener conexión a internet para acceder a él.",
+            "Se incorpora código de sincronización, para actualizar el calendario periódicamente, así como para corregir posible contenido erróneo o incluir posible contenido faltante.",
+            "Se agrega la liturgia específica de Oficio y Laudes para el día de Pascua",
+            "Existen ahora tres tipos de tema para la pantalla inicial: el tema de colores de siempre, un tema monocolor oscuro y un tema monocolor claro. Se puede elegir el que prefieras en la configuración.",
+            "Posibilidad de tres tipos de letra para el contenido (ver Configuración).",
+            "Pequeños cambios en la Política de Privacidad y en los Términos y Condiciones de Uso.",
+            "Correcciones y optimizaciones menores en el código.",
+            "Corrección de errores varios en algunos textos (lecturas, homilías, antífonas, etc)."
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Versiones menores",
+      "content": [
+        {
+          "type": 4,
+          "title": "2023.1.1"
+        },
+        {
+          "type": 10,
+          "item": "Fecha de publicación:",
+          "text": [
+            "<i>5 de Abril de 2023</i>"
+          ]
+        },
+        {
+          "type": 10,
+          "item": "Codigo de versión:",
+          "text": [
+            "202301001"
+          ]
+        },
+        {
+          "type": 13,
+          "text": [
+            "En algunos dispositivos con tamaño de fuente más grande del habitual el texto del contenido no se veía bien o quedaba truncado. El error queda corregido en esta versión menor.",
+            "La R. y la V. en los responsorios del Oficio de Lectura no aparecían en rojo. Error corregido.",
+            "Un error que ocurría en el módulo Biblia fue corregido.",
+            "Un error en la página de Configuración fue corregido."
+          ]
+        },
+        {
+          "type": 4,
+          "title": "2023.1.2"
+        },
+        {
+          "type": 10,
+          "item": "Fecha de publicación:",
+          "text": [
+            "<i>10 de Abril de 2023</i>"
+          ]
+        },
+        {
+          "type": 10,
+          "item": "Codigo de versión:",
+          "text": [
+            "202301002"
+          ]
+        },
+        {
+          "type": 13,
+          "text": [
+            "Algunas actualizaciones de la versión mayor 2023.1 no eran compatibles con dispositivos antiguos. Queda corregido ese problema y los usuarios afectados podrán ahora instalar la nueva versión de la aplicación.",
+            "En las lecturas de la Vigilia Pascual se repetía siempre en el título PRIMERA LECTURA. El error fue corregido.",
+            "Se mejoró la lectura de voz de los salmos.",
+            "Se optimizó el código para que la aplicación ocupe menos espacio (10 MB menos con respecto a versiones anteriores).",
+            "Correcciones menores de problemas reportados."
+          ]
+        },
+        {
+          "type": 4,
+          "title": "2024.1"
+        },
+        {
+          "type": 10,
+          "item": "Fecha de publicación:",
+          "text": [
+            "<i>... de 2023</i>"
+          ]
+        },
+        {
+          "type": 10,
+          "item": "Codigo de versión:",
+          "text": [
+            "202301003"
+          ]
+        },
+        {
+          "type": 13,
+          "text": [
+            "Se corrigieron varios errores en las Completas del miércoles.",
+            "Se corrigió un error de formato en las Preces de Vísperas.",
+            "Se corrigió un error en el título del Evangelio en el módulo Breviario > Mixto.",
+            "Se corrigió un error en el título del Evangelio en el módulo Comentarios.",
+            "Se agregó contenido que faltaba: algunas lecturas de la misa y homilías."
+
+          ]
+        }
+      ]
+    }
+  ]
+}

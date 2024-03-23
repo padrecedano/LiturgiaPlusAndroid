@@ -1,0 +1,950 @@
+{
+  "title":"Orden que se ha de seguir para dar los sacramentos al enfermo que se halla en inmediato peligro de muerte.",
+  "sections":[
+    {
+      "title":"Rito continuo de la Penitencia, Unción y Viático.",
+      "level": 2,
+      "numbers":[
+        {
+          "n":201,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Si el enfermo quisiera confesarse (para lo que el sacerdote debe estar siempre solícito) hágalo, a ser posible, antes de recibir la Unción y el Viático. Si se confiesa dentro de la misma celebración, lo hará al comienzo del rito antes de la Unción. De lo contrario, y también en el caso de que haya otros enfermos que quieran comulgar, hágase oportunamente el acto penitencial."
+              ]
+            }
+          ]
+        },
+        {
+          "n":202,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Cuando urge el peligro de muerte, hágase pronto una sola Unción sobre el enfermo y désele a continuación el Viático. Si el peligro de muerte es inminente, se administrará inmediatamente el Viático, tal como se establece en el n. 30, de forma que el enfermo, fortalecido con el Cuerpo de Cristo en su tránsito de esta vida, se vea protegido por la prenda de la resurrección. Los fieles que se hallan en peligro de muerte tienen la obligación de recibir la Sagrada Comunión."
+              ]
+            }
+          ]
+        },
+        {
+          "n":203,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "En cuanto sea posible, no se deben dar en un rito continuo la Confirmación en peligro de muerte y la Unción de los enfermos, pues al haber en ambas una unción pueden confundirse dos sacramentos que son diferentes. Pero, en caso de necesidad, se conferirá la Confirmación inmediatamente antes de la bendición del óleo de los enfermos, omitiendo la imposición de manos que pertenece al rito de la Unción."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title":"Ritos iniciales",
+      "subTitle":"Saludo",
+      "numbers":[
+        {
+          "n":204,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "El sacerdote, vestido cual conviene al sagrado ministerio que va a realizar, llega al enfermo y, con sencillas y afectuosas palabras, saluda al enfermo y a cuantos están con él. Puede decir, si le parece, este saludo:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":["La paz del Señor a esta casa y a todos los aquí presentes."]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "O bien:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "La paz del Señor sea con vosotros (contigo)."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "Otras fórmulas de saludo:"
+              ]
+            }
+          ]
+        },
+        {
+          "n":205,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "O bien:"
+              ]
+            },
+            {
+              "type":"vr",
+              "items":[
+                {
+                  "v":"La gracia de nuestro Señor Jesucristo, el amor del Padre y la comunión del Espíritu Santo estén con todos vosotros.",
+                  "r":"Y con tu espíritu."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "n":206,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "O bien:"
+              ]
+            },
+            {
+              "type":"vr",
+              "items":[
+                {
+                  "v":"La gracia y la paz de parte de Dios, nuestro Padre, y de Jesucristo, el Señor, estén con todos vosotros.",
+                  "r":"Bendito sea Dios, Padre de nuestro Señor Jesucristo."
+                }
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "O bien:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "℟Y con tu espíritu."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":["Una vez colocado el Sacramento sobre la mesa, lo adora junto con los presentes."]
+            }
+          ]
+        },
+        {
+          "n":207,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Luego, si es oportuno, rocía con agua bendita (si hay que bendecir el agua, se hace con la oración propuesta en el n. 259) al enfermo y a la habitación, diciendo esta fórmula:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "Que esta agua nos recuerde nuestro bautismo en Cristo, que nos redimió con su muerte y resurrección."
+              ]
+            }
+          ]
+        },
+        {
+          "n":208,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Si parece conveniente, el sacerdote trate de preparar, con palabras fraternales, al enfermo a la celebración de los sacramentos, leyendo, según las circunstancias, un texto breve del Evangelio que invite a la penitencia y al amor de Dios."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "Puede servirse de la siguiente monición o de otra más apropiada a la situación del enfermo:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "Queridos hermanos, nuestros Señor Jesucristo está siempre entre nosotros, ayudándonos con la gracia de sus sacramentos. El es quien, por el ministerio de los sacerdotes, perdona los pecados a los penitentes, fortalece con la Unción santa a los enfermos y, por medio del Viático de su Cuerpo, sostiene en la esperanza de la vida eterna a cuantos esperan su retorno. Dispongámonos, pues, a ayudar con nuestra oración a este hermano nuestro, que ha pedido recibir estos sacramentos."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title":"Penitencia",
+      "numbers":[
+        {
+          "n":209,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Si fuera necesario, el sacerdote acoge la confesión sacramental del enfermo, la cual puede hacerse de modo genérico si no se puede hacer de otro modo."
+              ]
+            }
+          ]
+        },
+        {
+          "n":210,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Si el enfermo no hace confesión sacramental o hay otros que quieren comulgar, el sacerdote invita a todos al acto penitencial:"
+              ]
+            }
+          ]
+        },
+        {
+          "n":211,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Primera fórmula"
+              ],
+              "bold":true
+            },
+            {
+              "type":"r",
+              "txt":[
+                "El sacerdote invita a los fieles a la penitencia:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "Hermanos: para participar con fruto en esta celebración, comencemos por reconocer nuestros pecados."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "Se hace una breve pausa en silencio. Después, todos juntos, hacen la confesión:"
+              ]
+            },
+
+
+            {
+              "type":"p",
+              "txt":[
+                "Yo confieso ante Dios todopoderoso y ante vosotros, hermanos, que he pecado mucho de pensamiento, palabra, obra y omisión."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "Dándose golpes de pecho añaden:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "Por mi culpa, por mi culpa, por mi gran culpa."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "Y a continuación:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "Por eso ruego a Santa María, siempre Virgen, a los ángeles, a los santos y a vosotros, hermanos, que intercedáis por mí ante Dios, nuestro Señor."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "El sacerdote concluye:"
+              ]
+            },
+            {
+              "type":"oratio",
+              "txt":[
+                "Dios todopoderoso tenga misericordia de nosotros, perdone nuestros pecados y nos lleve a la vida eterna."
+              ],
+              "responsum":"Amén."
+            }
+
+
+          ]
+        },
+        {
+          "n":212,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Segunda fórmula"
+              ],
+              "bold":true
+            },
+            {
+              "type":"r",
+              "txt":[
+                "El sacerdote invita a los fieles a la penitencia:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "Hermanos: para participar con fruto en esta celebración, comencemos por reconocer nuestros pecados."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "Se hace una breve pausa en silencio. Después el sacerdote dice:"
+              ]
+            },
+            {
+              "type":"vr",
+              "items":[
+                {
+                  "v":"Señor, ten misericordia de nosotros.",
+                  "r":"Porque hemos pecado contra ti."
+                },
+                {
+                  "v":"Muéstranos, Señor, tu misericordia.",
+                  "r":"Y danos tu salvación."
+                }
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "El sacerdote concluye:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "Dios todopoderoso tenga misericordia de nosotros, perdone nuestros pecados y nos lleve a la vida eterna."
+              ],
+              "response":"Amén."
+            }
+          ]
+        },
+        {
+          "n":213,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Tercera fórmula"
+              ],
+              "bold":true
+            },
+            {
+              "type":"r",
+              "txt":[
+                "El sacerdote invita a los fieles a la penitencia:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "Hermanos: para participar con fruto en esta celebración, comencemos por reconocer nuestros pecados."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "Se hace una breve pausa en silencio.",
+                "Después el sacerdote, o uno de los presentes; hace las siguientes u otras invocaciones con el Señor, ten piedad."
+              ]
+            },
+            {
+              "type":"vr",
+              "items":[
+                {
+                  "v":"Tú que por el misterio pascual nos has obtenido la salvación: Señor, ten piedad.",
+                  "r":"Señor, ten piedad."
+                },
+                {
+                  "v":"Tú que no cesas de actualizar entre nosotros las maravillas de tu pasión: Cristo, ten piedad.",
+                  "r":"Cristo, ten piedad."
+                },
+                {
+                  "v":"Tú que por la comunión de tu cuerpo nos haces participar del sacrificio pascual: Señor, ten piedad.",
+                  "r":"Señor, ten piedad."
+                }
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "El sacerdote concluye:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "Dios todopoderoso tenga misericordia de nosotros, perdone nuestros pecados y nos lleve a la vida eterna."
+              ],
+              "response":"Amén."
+            }
+          ]
+        },
+        {
+          "n":214,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "El sacramento de la Penitencia o el acto penitencial pueden concluirse con la indulgencia plenaria, en peligro de muerte, que el sacerdote otorgará al enfermo de esta manera:"
+              ]
+            },
+            {
+              "type":"oratio",
+              "responsum":"Amén.",
+              "txt":[
+                "En nombre de nuestro santo Padre el Papa ⊓, te concedo indulgencia plenaria y el perdón de todos los pecados. En el nombre del Padre y del Hijo † y del Espíritu Santo."
+              ]
+            }
+          ]
+        },
+        {
+          "n":215,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "O bien:"
+              ]
+            },
+            {
+              "type":"oratio",
+              "responsum":"Amén.",
+              "txt":[
+                "Que Dios todopoderoso, por la muerte y resurrección de Cristo, te perdone todas las penas de esta vida y de la otra, te abra las puertas del paraíso y te lleve a los gozos eternos."
+              ]
+            }
+          ]
+        },
+        {
+          "n":216,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Luego, si las condiciones del enfermo lo permiten, se hace la profesión de fe bautismal (n. 188):"
+              ]
+            }]},
+        {
+          "n":188,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Para la profesión de fe bautismal, si es oportuno hacerla, el sacerdote, después de crear con palabras adecuadas un ambiente propicio, preguntará al enfermo:"
+              ]
+            },
+            {
+              "type":"preces",
+              "preces":[
+                "¿Crees en Dios, Padre todopoderoso, creador del cielo y de la tierra?",
+                "¿Crees en Jesucristo, su único Hijo, nuestro Señor, que nació de santa María Virgen, murió, fue sepultado, resucitó de entre los muertos y está sentado a la derecha del Padre?",
+                "¿Crees en el Espíritu Santo, en la santa Iglesia católica, en la comunión de los santos, en el perdón de los pecados, en la resurrección de la carne y en la vida eterna?"
+              ],
+              "responsum":"Sí, creo."
+            },
+            {
+              "type":"r",
+              "txt":[
+                "Luego, se hace una breve letanía, respondiendo el enfermo, si puede, y todos los presentes:",
+                "Las fórmulas que siguen pueden adaptarse de forma que ayuden a expresar mejor la oración del enfermo y de los presentes."
+              ]
+            },
+            {
+              "type":"preces",
+              "intro":"Oremos por nuestro hermano ⊓, e invoquemos al Señor que ahora lo va a reconfortar con sus sacramentos.",
+              "responsum":"Te rogamos, óyenos.",
+              "preces":[
+                "Para que lo sostenga y conserve en su amor, roguemos al Señor.",
+                "Para que le conceda su fuerza y su paz, roguemos al Señor."
+              ]
+            }
+          ]
+        },
+        {
+          "n":217,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Si hay que conferir el sacramento de la Confirmación dentro del rito continuo, el sacerdote procede como se indica más abajo en los nn. 231-233. Luego, omitida la imposición de manos de la que se habla en el n. 218, bendice el óleo, si es necesario, y hace la Unción, tal como se describe en los nn. 219-221."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title":"La Confirmación en peligro de muerte",
+      "numbers":[
+        {
+          "n":231,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Siempre que lo permitan las circunstancias se observará el rito íntegro, tal como se describe en el ritual de la Confirmación. En caso de necesidad se procede así:",
+                "El sacerdote impone las manos sobre el enfermo mientras dice esta oración:"
+              ]
+            },
+            {
+              "type":"oratio",
+              "responsum":"Amén.",
+              "txt":[
+                "Dios todopoderoso, Padre de nuestro Señor Jesucristo, que regeneraste, por el agua y el Espíritu Santo, a este siervo tuyo y lo libraste del pecado, escucha nuestra oración y envía sobre él el Espíritu Santo Defensor; llénalo de espíritu de sabiduría y de inteligencia, de espíritu de consejo y de fortaleza, de espíritu de ciencia y de piedad; y cólmalo del espíritu de tu santo temor.",
+                "Por Jesucristo, nuestro Señor."
+              ]
+            }
+          ]
+        },
+        {
+          "n":232,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Después, con la extremidad del dedo pulgar de su mano derecha empapado de Crisma, hace la señal de la cruz en la frente del confirmando diciendo:"
+              ]
+            },
+            {
+              "type":"p",
+              "bold": true,
+              "txt":[
+                "⊓, recibe por esta señal el Don del Espíritu Santo."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "El confirmado, si puede, responde:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "Amén."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "Según los casos, y teniendo en cuenta todas las circunstancias pueden añadirse otros elementos de preparación y conclusión tal como se proponen en el Ritual de la Confirmación."
+              ]
+            }
+          ]
+        },
+        {
+          "n":233,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "En caso de extrema necesidad basta con que el sacerdote haga la crismación y diga la fórmula sacramental:"
+              ]
+            },
+            {
+              "type":"p",
+              "bold": true,
+              "txt":[
+                "⊓, recibe por esta señal el Don del Espíritu Santo."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title":"Santa Unción",
+      "numbers":[
+        {
+          "n":218,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "El sacerdote impone en silencio las manos sobre la cabeza del enfermo. Si previamente ha habido Confirmación esta imposición de manos se omite."
+              ]
+            }
+          ]
+        },
+        {
+          "n":219,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Si hay que bendecir el óleo, lo hace ahora."
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "Bendice, † Señor, este óleo y también al enfermo que con él será ungido."
+              ]
+            }
+          ]
+        },
+        {
+          "n":220,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Pero si el óleo ya está bendecido, puede decir la oración de gracias sobre dicho óleo:"
+              ]
+            },
+            {
+              "type":"preces",
+              "responsum":"Bendito seas por siempre, Señor.",
+              "preces":[
+                "Bendito seas, Dios, Padre todopoderoso, que por nosotros y por nuestra salvación enviaste tu Hijo al mundo.",
+                "Bendito seas, Dios, Hijo unigénito, que te has rebajado haciéndote hombre como nosotros, para curar nuestras enfermedades.",
+                "Bendito seas, Dios, Espíritu Santo Defensor, que con tu poder fortaleces la debilidad de nuestro cuerpo."
+              ]
+            },
+            {
+              "type":"oratio",
+              "txt":[
+                "Mitiga, Señor, los dolores de este hijo tuyo, a quien ahora, llenos de fe, vamos a ungir con el óleo santo; haz que se sienta confortado en su enfermedad y aliviado en sus sufrimientos. Por Jesucristo, nuestro Señor."
+              ],
+              "responsum":"Amén."
+            }
+          ]
+        },
+        {
+          "n":221,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "El sacerdote toma el santo óleo y unge al enfermo en la frente y en las manos, diciendo una sola vez:"
+              ]
+            },
+            {
+              "type":"oratio",
+              "txt":[
+                "<b>Por esta santa Unción y por su bondadosa misericordia, te ayude el Señor con la gracia del Espíritu Santo.</b>"
+              ],
+              "responsum":"Amén."
+            },
+            {
+              "type":"oratio",
+              "txt":[
+                "<b>Para que, libre de tus pecados, te conceda la salvación y te conforte en tu enfermedad.</b>"
+              ],
+              "responsum":"Amén."
+            }
+          ]
+        },
+        {
+          "n":222,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "El sacerdote introduce la oración dominical con estas o parecidas palabras:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "Y ahora, todos juntos, invoquemos a Dios con la oración que el mismo Cristo nos enseñó:"
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "Y todos juntos dicen:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "Padre nuestro, que estás en el cielo, santificado sea tu Nombre; venga a nosotros tu reino; hágase tu voluntad en la tierra como en el cielo. Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title":"Viático",
+      "numbers":[
+        {
+          "n":223,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "El sacerdote muestra el Santísimo Sacramento, diciendo:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "Éste es el Cordero de Dios, que quita el pecado del mundo. Dichosos los invitados a la cena del Señor."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "El enfermo, si puede, y los que van a comulgar dicen una sola vez:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "Señor, no soy digno de que entres en mi casa, pero una palabra tuya bastará para sanarme."
+              ]
+            }
+          ]
+        },
+        {
+          "n":224,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "El sacerdote se acerca al enfermo y, mostrándole el Sacramento, dice:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "El Cuerpo de Cristo (o la Sangre de Cristo)."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "El enfermo responde:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "Amén."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "Y ahora, o después de dar la comunión, añade el sacerdote:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "El mismo te guarde y te lleve a la vida eterna."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "El enfermo responde:"
+              ]
+            },
+            {
+              "type":"p",
+              "txt":[
+                "Amén."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "Los presentes que deseen comulgar reciben el Sacramento en la forma acostumbrada."
+              ]
+            }
+          ]
+        },
+        {
+          "n":225,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Una vez distribuida la comunión, el ministro purifica los vasos sagrados. Pueden seguir unos momentos de silencio."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title":"Conclusión del rito",
+      "numbers":[
+        {
+          "n":226,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "El sacerdote dice la oración final."
+              ]
+            },
+            {
+              "type":"oratio",
+              "txt":[
+                "Oremos.",
+                "Dios todopoderoso, cuyo Hijo es para nosotros el camino, la verdad y la vida, mira con piedad a tu siervo ⊓, y concédele que, confiando en tus promesas y fortalecido con el Cuerpo y la Sangre de tu Hijo, llegue en paz a tu reino.",
+                "Por Jesucristo, nuestro Señor."
+              ],
+              "responsum":"Amén."
+            },
+            {
+              "type":"r",
+              "txt":[
+                "Otras oraciones en los nn. 195-196:"
+              ]
+            }
+          ]
+        },
+        {
+          "n":195,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "O bien:"
+              ]
+            },
+            {
+              "type":"oratio",
+              "txt":[
+                "Señor, tú que eres la salvación eterna de los que creen en ti, concede a tu hijo ⊓, que, fortalecido con el pan y el vino del Viático, llegue seguro a tu reino de luz y de vida.",
+                "Por Jesucristo, nuestro Señor."
+              ],
+              "responsum":"Amén."
+            }
+          ]
+        },
+        {
+          "n":196,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "O bien:"
+              ]
+            },
+            {
+              "type":"oratio",
+              "txt":[
+                "Señor, Padre Santo, Dios todopoderoso y eterno, te suplicamos con fe viva que el Cuerpo (la Sangre) de nuestro Señor Jesucristo, tu Hijo, que nuestro hermano (nuestra hermana) acaba de recibir, le conceda la salud corporal y la salvación eterna.",
+                "Por Jesucristo, nuestro Señor."
+              ],
+              "responsum":"Amén."
+            }
+          ]
+        },
+        {
+          "n":227,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "Y bendice al enfermo y a los presentes."
+              ]
+            },
+            {
+              "type":"oratio",
+              "responsum":"Amén.",
+              "txt":[
+                "La bendición de Dios todopoderoso, Padre, Hijo † y Espíritu Santo, descienda sobre vosotros y os acompañe siempre."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "Otras fórmulas de bendición en los nn. 197-198."
+              ]
+            }
+          ]
+        },
+        {
+          "n":197,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "O bien:"
+              ]
+            },
+            {
+              "type":"preces",
+              "responsum":"Amén.",
+              "preces":[
+                "Que Dios Padre te bendiga.",
+                "Que el Hijo de Dios te devuelva la salud.",
+                "Que el Espíritu Santo te ilumine.",
+                "Que el Señor proteja tu cuerpo y salve tu alma.",
+                "Que haga brillar su rostro sobre ti y te lleve a la vida eterna.",
+                "(Y a todos vosotros, que estáis aquí presentes, os bendiga Dios todopoderoso, Padre, Hijo † y Espíritu Santo.)"
+              ]
+            }
+          ]
+        },
+        {
+          "n":198,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "O bien:"
+              ]
+            },
+            {
+              "type":"preces",
+              "responsum":"Amén.",
+              "preces":[
+                "Jesucristo, el Señor, esté siempre a tu lado para defenderte.",
+                "Que él vaya delante de ti para guiarte y vaya tras de ti para guardarte.",
+                "Que él vele por ti, te sostenga y te bendiga.",
+                "(Y a todos vosotros, que estáis aquí presentes, os bendiga Dios todopoderoso, Padre, Hijo † y Espíritu Santo.)"
+              ]
+            }
+          ]
+        },
+        {
+          "n":199,
+          "content":[
+            {
+              "type":"r",
+              "txt":[
+                "O bien:"
+              ]
+            },
+            {
+              "type":"oratio",
+              "responsum":"Amén.",
+              "txt":[
+                "La bendición de Dios todopoderoso, Padre, Hijo † y Espíritu Santo, descienda sobre vosotros y os acompañe siempre."
+              ]
+            },
+            {
+              "type":"r",
+              "txt":[
+                "Finalmente, tanto el sacerdote como los presentes pueden dar la paz al enfermo."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

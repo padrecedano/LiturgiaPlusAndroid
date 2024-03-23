@@ -12,9 +12,10 @@
 utils/Configuration.java
 Configuration.java
 /release
+/schemas
 
 # /assets/database/
-assets/*/
+assets/datase/*/
 
 
 
