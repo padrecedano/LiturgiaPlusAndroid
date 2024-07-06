@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="deleteThisString">deleteThisString</string>
+
     <string name="app_name">Liturgia+</string>
     <string name="app_version_code_view">v. 2024.1</string>
     <string name="app_version_and_name">2024.1 [Iudicum]</string>
@@ -193,5 +195,9 @@
     <string name="lbl_completas">Completas</string>
     <string name="title_fragment_rosario">Santo Rosario</string>
     <string name="label_accept">He leído y acepto la Política de Privacidad y los Términos y Condiciones de Uso.</string>
+    <string name="universalis">universalis</string>
+    <string name="start">start</string>
+    <string name="title_designsystem">Desing System</string>
+    <string name="title_convention">Module Title</string>
 
 </resources>

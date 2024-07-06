@@ -1,6 +1,11 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.room.Ignore
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -111,6 +116,17 @@ data class Universalis(
 
     val fecha: String
         get() = Utils.formatDate(todayDate.toString(), "yyyyMMdd", "EEEE d 'de' MMMM 'de' yyyy")
+
+    fun getAllForView(): AnnotatedString {
+
+        val annotatedString = buildAnnotatedString {
+            withStyle(style = SpanStyle(color = Color.Red)) {
+                append("Hello, ")
+            }
+            append("World!")
+        }
+        return annotatedString
+    }
 
 
     fun getAllForView(todayRequest: TodayRequest): SpannableStringBuilder {

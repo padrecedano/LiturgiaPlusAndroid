@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
+import org.deiverbum.app.data.AppContainer
+import org.deiverbum.app.data.AppContainerImpl
 import javax.inject.Inject
 
 /**
@@ -36,4 +38,17 @@ class BaseApplication : Application(), Configuration.Provider {
             .setWorkerFactory(workerFactory)
             //.setMinimumLoggingLevel(android.util.Log.VERBOSE)
             .build()
+
+    companion object {
+        const val JETNEWS_APP_URI = "https://developer.android.com/jetnews"
+    }
+
+    // AppContainer instance used by the rest of classes to obtain dependencies
+    lateinit var container: AppContainer
+
+    override fun onCreate() {
+        super.onCreate()
+        container = AppContainerImpl(this)
+    }
+
 }

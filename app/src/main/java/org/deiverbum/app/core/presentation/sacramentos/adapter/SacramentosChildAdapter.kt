@@ -38,7 +38,7 @@ class SacramentosChildAdapter(private val itemsList: List<SacramentoItem>) :
             itemBinding.root.setOnClickListener {
                 val item = membersList[bindingAdapterPosition]
                 val bundle = Bundle()
-                bundle.putString("title", item.title)
+                bundle.putString("title", "${item.title}: ${item.subTitle}")
                 bundle.putString("subTitle", item.subTitle)
                 bundle.putString("rawPath", item.rawPath)
                 Navigation.findNavController(it!!).navigate(R.id.nav_sacramentum, bundle)

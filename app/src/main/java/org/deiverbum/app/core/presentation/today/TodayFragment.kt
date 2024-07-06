@@ -3,7 +3,12 @@ package org.deiverbum.app.core.presentation.today
 import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.util.TypedValue
-import android.view.*
+import android.view.ActionMode
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
@@ -16,7 +21,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
 import androidx.viewbinding.ViewBinding
@@ -31,7 +35,7 @@ import org.deiverbum.app.util.Constants.PACIENCIA
 import org.deiverbum.app.util.TtsManager
 import org.deiverbum.app.util.Utils
 import org.deiverbum.app.util.ZoomTextView
-import java.util.*
+import java.util.Locale
 
 /**
  * Este Fragmento coordina la obtención de la liturgia del día sin importar el módulo, el cual se determinará por el valor de un id proveniente en un argumento y con la ayuda de [org.deiverbum.app.util.LiturgyHelper].
@@ -206,7 +210,7 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
     }
 
     private fun setConfiguration() {
-        val args: TodayFragmentArgs by navArgs()
+        //val args: TodayFragmentArgs by navArgs()
         mTextView = getViewBinding().tvZoomable
         progressBar = getViewBinding().progressBar
         val sp = PreferenceManager.getDefaultSharedPreferences(requireActivity().applicationContext)
@@ -222,7 +226,7 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
         hasInvitatory = sp.getBoolean("invitatorio", false)
         isVoiceOn = sp.getBoolean("voice", true)
         todayRequest =
-            TodayRequest(pickOutDate(), args.hourId, isNightMode(), hasInvitatory)
+            TodayRequest(pickOutDate(), 1, isNightMode(), hasInvitatory)
     }
 
     private fun setPlayerButton() {

@@ -1,16 +1,11 @@
 package org.deiverbum.app.core.presentation.file
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import org.deiverbum.app.core.model.FileRequest
-import org.deiverbum.app.core.network.di.IODispatcher
 import org.deiverbum.app.domain.GetFileUseCase
-import org.deiverbum.app.util.ExceptionParser
 import javax.inject.Inject
 
 /**
@@ -24,7 +19,7 @@ import javax.inject.Inject
 class FileViewModel @Inject constructor(
     private val getFileUseCase: GetFileUseCase,
     //private val coroutineDispatcherProvider: CoroutineDispatcherProvider
-    @IODispatcher private val dispatcherIO: CoroutineDispatcher
+    //@IODispatcher private val dispatcherIO: CoroutineDispatcher
 
 ) : ViewModel() {
 
@@ -33,14 +28,14 @@ class FileViewModel @Inject constructor(
 
     fun loadData(fileRequest: FileRequest) {
         _uiState.value = FileUiState.Loading
-        viewModelScope.launch(dispatcherIO) {
+        /*viewModelScope.launch(dispatcherIO) {
             try {
                 val result = getFileUseCase.execute(fileRequest)
                 _uiState.value = FileUiState.Loaded(FileItemUiState(result))
             } catch (error: Exception) {
                 _uiState.value = FileUiState.Error(ExceptionParser.getMessage(error))
             }
-        }
+        }*/
     }
 
     sealed class FileUiState {

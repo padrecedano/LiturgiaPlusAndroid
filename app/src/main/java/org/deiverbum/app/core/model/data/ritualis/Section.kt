@@ -17,16 +17,19 @@ data class Section(
 ) {
     fun getForView(isNightMode: Boolean): SpannableStringBuilder {
         val ssb = SpannableStringBuilder()
-        if (level != null && level == 2) {
-            ssb.append(Utils.toH2Red(title))
-        } else {
-            ssb.append(Utils.toH3Red(title))
-        }
+        if (title != "") {
+            if (level != null && level == 2) {
+                ssb.append(Utils.toH2Red(title))
+            } else {
+                ssb.append(Utils.toH3Red(title))
+            }
 
-        ssb.append(Constants.LS2)
-        if (subTitle != null) {
-            ssb.append(Utils.toH4(subTitle))
             ssb.append(Constants.LS2)
+
+            if (subTitle != null) {
+                ssb.append(Utils.toH4(subTitle))
+                ssb.append(Constants.LS2)
+            }
         }
         for (i in numbers) {
             ssb.append(i.getForView())

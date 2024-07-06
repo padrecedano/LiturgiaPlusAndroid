@@ -25,7 +25,7 @@ data class Biblical(
 ) : Content(type) {
     override fun forView(): SpannableStringBuilder {
         val ssb = SpannableStringBuilder()
-        ssb.append(book)
+        ssb.append(Utils.fromHtmlWithOutFormat("<b>${book}</b>"))
         ssb.append(" ")
         ssb.append(Utils.toRed(pericopa))
         ssb.append(Constants.LS2)

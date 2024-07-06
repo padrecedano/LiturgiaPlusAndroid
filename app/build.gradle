@@ -4,7 +4,7 @@ plugins {
     id 'com.google.dagger.hilt.android'
     // id 'kotlin-kapt'
     id 'org.jetbrains.kotlin.plugin.serialization'
-
+    id "com.google.protobuf" version "0.9.3"
 
 }
 
@@ -37,11 +37,11 @@ android {
             enableAggregatingTask = true
         }
 
-        javaCompileOptions {
+        /*javaCompileOptions {
             annotationProcessorOptions {
                 arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
-        }
+        }*/
         vectorDrawables {
             useSupportLibrary true
         }
@@ -65,7 +65,7 @@ android {
                     "proguard-rules.pro"
             )
 
-            ndk {debugSymbolLevel  'FULL' }
+            ndk { debugSymbolLevel 'FULL' }
 
         }
         debug {
@@ -87,25 +87,26 @@ android {
     }
     //buildToolsVersion '34'
     compileOptions {
-        sourceCompatibility = '17'
-        targetCompatibility = '17'
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = '19'
+        targetCompatibility = '19'
+        sourceCompatibility JavaVersion.VERSION_19
+        targetCompatibility JavaVersion.VERSION_19
     }
     buildFeatures {
         viewBinding true
         //dataBinding true
         //buildConfig true
-        //compose true
+        compose true
 
-/*        composeOptions {
-            kotlinCompilerExtensionVersion '1.3.2'
+        composeOptions {
+            kotlinCompilerExtensionVersion = "1.5.11"
         }
-*/
+        buildConfig true
+
     }
     namespace 'org.deiverbum.app'
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = '19'
     }
     /*
     composeOptions {
@@ -117,40 +118,83 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    compileSdk 34
+    dynamicFeatures = [':core:designsystem']
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.2"
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                register("java") {
+                    option("lite")
+                }
+                register("kotlin") {
+                    option("lite")
+                }
+            }
+        }
+    }
 }
 
 dependencies {
-
+    implementation "androidx.datastore:datastore:1.1.1"
+    implementation "com.google.protobuf:protobuf-kotlin-lite:3.25.2"
+    implementation 'com.google.protobuf:protobuf-javalite:3.25.2'
+    implementation 'androidx.lifecycle:lifecycle-runtime-compose-android:2.8.2'
+    implementation 'com.google.firebase:firebase-messaging-ktx:24.0.0'
+    implementation 'androidx.compose.material3.adaptive:adaptive-android:1.0.0-beta04'
+    implementation 'androidx.compose.material3.adaptive:adaptive-navigation-android:1.0.0-beta04'
     // Compose
-/*
-    def composeBom = platform('androidx.compose:compose-bom:2022.10.00')
+
+    def composeBom = platform('androidx.compose:compose-bom:2024.02.02')
+    //def nav_version = "2.7.7"
+    //implementation "androidx.navigation:navigation-compose:$nav_version"
     implementation(composeBom)
     androidTestImplementation(composeBom)
 
-    implementation "io.coil-kt:coil-compose:2.0.0"
+    implementation "io.coil-kt:coil-compose:2.6.0"
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
+    implementation "androidx.metrics:metrics-performance:1.0.0-beta01"
+    implementation "androidx.compose.ui:ui-tooling-preview:1.6.8"
+    implementation "androidx.compose.ui:ui-viewbinding:1.6.8"
+    implementation 'com.google.accompanist:accompanist-swiperefresh:0.35.0-alpha'
 
-    implementation "androidx.compose.ui:ui-tooling-preview:1.4.2"
-    implementation 'androidx.compose.material3:material3:1.1.0-rc01'
-    implementation "androidx.navigation:navigation-compose:2.6.0-alpha09"
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.4.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-datetime:0.6.0"
+    implementation "androidx.tracing:tracing:1.2.0"
+    implementation "androidx.core:core-splashscreen:1.0.1"
+    //runtimeOnly 'androidx.browser:browser:1.8.0'
+    implementation "androidx.browser:browser:1.8.0"
+
+    implementation "com.google.accompanist:accompanist-permissions:0.35.1-alpha"
+
+    implementation 'androidx.compose.material3:material3:1.3.0-beta04'
+    implementation 'androidx.compose.material:material-icons-extended:1.6.8'
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.6.8"
+    implementation "androidx.compose.material3:material3-window-size-class:1.2.1"
+    implementation "androidx.tracing:tracing-ktx:1.3.0-alpha02"
 
     debugImplementation "androidx.customview:customview:1.2.0-alpha02"
     debugImplementation "androidx.customview:customview-poolingcontainer:1.0.0"
 
     implementation "androidx.compose.runtime:runtime"
     implementation "androidx.compose.ui:ui"
-    implementation "androidx.compose.foundation:foundation"
+    implementation "androidx.compose.foundation:foundation:1.7.0-beta01"
     implementation "androidx.compose.foundation:foundation-layout"
-    implementation "androidx.compose.material:material"
+    //implementation "androidx.compose.material:material"
     implementation "androidx.compose.runtime:runtime-livedata"
     implementation "androidx.compose.ui:ui-tooling"
     implementation "com.google.accompanist:accompanist-themeadapter-material:0.28.0"
-*/
+    //implementation("com.squareup:javapoet:1.13.0") // <-- added this
 
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3'
-    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0'
+
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3'
 
     //implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.20'
 
@@ -164,7 +208,7 @@ dependencies {
     //kapt "androidx.room:room-compiler:2.5.2"
     ksp 'androidx.room:room-compiler:2.6.1'
 
-    debugImplementation 'androidx.compose.ui:ui-test-manifest:1.6.3'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest:1.6.8'
     ksp "androidx.room:room-testing:2.6.1"
     //kapt "androidx.room:room-testing:2.5.2"
 
@@ -182,44 +226,49 @@ dependencies {
     //implementation "androidx.room:room-paging:$room_version"
 
     implementation "androidx.preference:preference-ktx:1.2.1"
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.8.2'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2"
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.2'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.2"
 
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.7.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.8.2"
 
-    implementation 'androidx.annotation:annotation:1.7.1'
+    implementation 'androidx.annotation:annotation:1.8.0'
 
-    implementation "androidx.fragment:fragment-ktx:1.6.2"
-    implementation 'androidx.activity:activity-compose:1.8.2'
+    implementation "androidx.fragment:fragment-ktx:1.8.1"
+    implementation "androidx.activity:activity-compose:1.9.0"
+    implementation "androidx.activity:activity-ktx:1.9.0"
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
 
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
 
-    implementation platform('com.google.firebase:firebase-bom:32.3.1')
+    implementation platform('com.google.firebase:firebase-bom:33.1.1')
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
     implementation 'com.google.firebase:firebase-appcheck-playintegrity'
-    implementation 'com.google.firebase:firebase-appcheck-debug:17.1.2'
-    implementation 'com.google.firebase:firebase-installations:17.2.0'
+    implementation 'com.google.firebase:firebase-appcheck-debug:18.0.0'
+    implementation 'com.google.firebase:firebase-installations:18.0.0'
     implementation 'com.google.android.play:integrity:1.3.0'
 
     // Declare the dependency for the Cloud Firestore library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.google.firebase:firebase-core:21.1.1'
-    implementation 'com.google.firebase:firebase-database:20.3.1'
-    implementation 'com.google.firebase:firebase-inappmessaging-display:20.4.0'
+    implementation 'com.google.firebase:firebase-database:21.0.0'
+    implementation 'com.google.firebase:firebase-inappmessaging-display:21.0.0'
 
 /*
-    implementation 'com.google.firebase:firebase-core:20.0.0'
-    implementation 'com.google.firebase:firebase-database:20.0.2'
-    implementation 'com.google.firebase:firebase-inappmessaging-display:20.1.1'
-    implementation 'com.google.firebase:firebase-firestore:24.0.0'
+	implementation 'com.google.firebase:firebase-core:20.0.0'
+	implementation 'com.google.firebase:firebase-database:20.0.2'
+	implementation 'com.google.firebase:firebase-inappmessaging-display:20.1.1'
+	implementation 'com.google.firebase:firebase-firestore:24.0.0'
 
  */
     //implementation 'com.google.android.play:core:1.10.3'
@@ -227,27 +276,23 @@ dependencies {
 
     //implementation 'com.google.code.gson:gson:2.10.1'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test:runner:1.5.2'
-    implementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.0'
+    androidTestImplementation 'androidx.test:runner:1.6.0'
+    implementation 'androidx.test.espresso:espresso-core:3.6.0'
     implementation "androidx.multidex:multidex:2.0.1"
 
     //Hilt
 
-    //kapt 'androidx.hilt:hilt-compiler:1.0.0'
-    //kapt 'com.google.dagger:hilt-android-compiler:2.48.1'
-    implementation 'androidx.hilt:hilt-common:1.2.0'
 
-    ksp 'com.google.dagger:hilt-compiler:2.48.1'
+    ksp 'com.google.dagger:hilt-compiler:2.51'
     ksp 'androidx.hilt:hilt-compiler:1.2.0'
-    //ksp "androidx.hilt:hilt-compiler:1.1.0-alpha01"
-    implementation 'androidx.hilt:hilt-work:1.2.0'
+    implementation 'androidx.hilt:hilt-common:1.2.0'
+    implementation "androidx.hilt:hilt-navigation-compose:1.2.0"
+    implementation "androidx.hilt:hilt-work:1.2.0"
 
-    //annotationProcessor 'androidx.hilt:hilt-compiler:1.1.0'
 
-    implementation 'com.google.dagger:hilt-android:2.48.1'
+    implementation 'com.google.dagger:hilt-android:2.51'
 
-    //implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
     implementation 'com.android.support:support-annotations:28.0.0'
 
 
@@ -260,9 +305,12 @@ dependencies {
     //testAnnotationProcessor 'com.google.dagger:hilt-compiler:2.48'
 
     // Navigation
+    implementation "androidx.navigation:navigation-common-ktx:2.7.7"
+    implementation "androidx.navigation:navigation-compose:2.7.7"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.7.7"
     implementation "androidx.navigation:navigation-fragment-ktx:2.7.7"
     implementation "androidx.navigation:navigation-ui-ktx:2.7.7"
-    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.7.7")
+    implementation "androidx.navigation:navigation-runtime-ktx:2.7.7"
 
     //   Retrofit
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.10'
@@ -283,7 +331,7 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
 
     //Material
-    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'com.google.android.material:material:1.12.0'
 
     implementation "com.jakewharton.timber:timber:5.0.1"
 

@@ -338,7 +338,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialiconsround/people_alt/round_people_alt_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/arrow_right/baseline_arrow_right_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -349,7 +349,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="f7f4f4" />
-                            <entry key="outputName" value="has_saint_24" />
+                            <entry key="outputName" value="baseline_arrow_right_24" />
                             <entry key="sourceFile" value="$USER_HOME$/Downloads/2443148.svg" />
                           </map>
                         </option>

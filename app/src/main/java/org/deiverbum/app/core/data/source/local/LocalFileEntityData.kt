@@ -18,6 +18,7 @@ import org.deiverbum.app.core.model.data.ritualis.BiblicalShort
 import org.deiverbum.app.core.model.data.ritualis.Content
 import org.deiverbum.app.core.model.data.ritualis.Oratio
 import org.deiverbum.app.core.model.data.ritualis.Paragraphus
+import org.deiverbum.app.core.model.data.ritualis.ParagraphusList
 import org.deiverbum.app.core.model.data.ritualis.ParagraphusRubrica
 import org.deiverbum.app.core.model.data.ritualis.Preces
 import org.deiverbum.app.core.model.data.ritualis.Ritualis
@@ -32,6 +33,7 @@ import org.deiverbum.app.util.Constants.FILE_ABOUT
 import org.deiverbum.app.util.Constants.FILE_ANGELUS
 import org.deiverbum.app.util.Constants.FILE_AUTHOR
 import org.deiverbum.app.util.Constants.FILE_BAPTISMUS
+import org.deiverbum.app.util.Constants.FILE_COMMENDATIONE_MORIENTIUM
 import org.deiverbum.app.util.Constants.FILE_HELP
 import org.deiverbum.app.util.Constants.FILE_LITANIES
 import org.deiverbum.app.util.Constants.FILE_NEW
@@ -41,6 +43,8 @@ import org.deiverbum.app.util.Constants.FILE_ROSARY
 import org.deiverbum.app.util.Constants.FILE_TERMS
 import org.deiverbum.app.util.Constants.FILE_THANKS
 import org.deiverbum.app.util.Constants.FILE_UNCTIONIS_ARTICULO_MORTIS
+import org.deiverbum.app.util.Constants.FILE_UNCTIONIS_IN_DUBIO
+import org.deiverbum.app.util.Constants.FILE_UNCTIONIS_SINE_VIATICUM
 import org.deiverbum.app.util.Constants.FILE_VIATICUM
 import org.deiverbum.app.util.Constants.FILE_VIA_CRUCIS_2003
 import org.deiverbum.app.util.Constants.FILE_VIA_CRUCIS_2005
@@ -70,7 +74,11 @@ class LocalFileEntityData @Inject constructor(
     private val ritualis = listOf(
         UNCTIONIS_ORDINARIUM,
         FILE_VIATICUM,
-        FILE_UNCTIONIS_ARTICULO_MORTIS
+        FILE_UNCTIONIS_ARTICULO_MORTIS,
+        FILE_UNCTIONIS_SINE_VIATICUM,
+        FILE_UNCTIONIS_IN_DUBIO,
+        FILE_COMMENDATIONE_MORIENTIUM
+
     )
     private val viacrucis = listOf(FILE_VIA_CRUCIS_2003, FILE_VIA_CRUCIS_2005)
     private val pray = listOf(FILE_ANGELUS, FILE_REGINA, FILE_LITANIES)
@@ -87,7 +95,7 @@ class LocalFileEntityData @Inject constructor(
                     .withSubtype(Titulus::class.java, "t")
                     //.withSubtype(Dupla::class.java, "dupla")
                     .withSubtype(Biblical::class.java, "biblical")
-                    //.withSubtype(DuplaParagraphusRubrica::class.java, "pr")
+                    .withSubtype(ParagraphusList::class.java, "pl")
                     .withSubtype(VersiculusEtResponsum::class.java, "vr")
                     .withSubtype(ParagraphusRubrica::class.java, "pr")
 

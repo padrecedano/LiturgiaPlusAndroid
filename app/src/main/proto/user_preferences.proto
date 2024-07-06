@@ -1,0 +1,41 @@
+/*
+ * Copyright (C) 2022 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+syntax = "proto3";
+
+//import "com/google/samples/apps/nowinandroid/data/dark_theme_config.proto";
+//import "com/google/samples/apps/nowinandroid/data/theme_brand.proto";
+//import "org/deiverbum/app/core/datastore/dark_theme_config.proto";
+
+//option java_package = "com.google.samples.apps.nowinandroid.core.datastore";
+option java_package = "org.deiverbum.app.core.datastore";
+option java_multiple_files = true;
+
+message UserPreferences {
+  bool onboardingShown = 1;
+  DarkThemeConfigProto dark_theme_config = 2;
+  map<string, bool> followed_topic_ids = 3;
+  bool should_hide_onboarding = 4;
+  map<string, bool> bookmarked_news_resource_ids = 5;
+  map<string, bool> viewed_news_resource_ids = 6;
+  // NEXT AVAILABLE ID: 21
+}
+enum DarkThemeConfigProto {
+  DARK_THEME_CONFIG_UNSPECIFIED = 0;
+  DARK_THEME_CONFIG_FOLLOW_SYSTEM = 1;
+  DARK_THEME_CONFIG_LIGHT = 2;
+  DARK_THEME_CONFIG_DARK = 3;
+}

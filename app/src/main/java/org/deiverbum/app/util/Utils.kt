@@ -75,16 +75,6 @@ object Utils {
         return ssb
     }
 
-    fun toBold(sOrigen: String): SpannableStringBuilder {
-        val ssb = SpannableStringBuilder(getFormato(sOrigen))
-        ssb.setSpan(
-            CharacterStyle.wrap(StyleSpan(Typeface.BOLD)),
-            0,
-            ssb.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        return ssb
-    }
 
     fun formatSubTitle(sOrigen: String?): SpannableStringBuilder {
         val ssb = SpannableStringBuilder(sOrigen)

@@ -5,7 +5,7 @@ import android.text.Spanned
 
 class LiturgyHelper {
     companion object {
-        private val liturgyMap = hashMapOf(
+        val liturgyMap = hashMapOf(
             0 to "mixto",
             1 to "officium",
             2 to "laudes",

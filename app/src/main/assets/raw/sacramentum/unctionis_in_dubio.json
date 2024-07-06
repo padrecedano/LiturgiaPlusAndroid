@@ -1,0 +1,137 @@
+{
+  "title": "La Unción cuando se duda si el enfermo vive.",
+  "sections": [
+    {
+      "title": "",
+      "numbers": [
+        {
+          "n": 229,
+          "content": [
+            {
+              "type": "r",
+              "txt": [
+                "Cuando el sacerdote duda si el enfermo vive, ha de conferir la Unción de esta manera:",
+                "Acercándose al enfermo, si hay tiempo, dice en primer lugar:"
+              ]
+            },
+            {
+              "type": "oratio",
+              "responsum": "Te rogamos, óyenos.",
+              "txt": [
+                "Con humildad y confianza invoquemos al Señor en favor de ⊓, nuestro hermano, para que lo visite con su misericordia y lo conforte con la santa Unción."
+              ]
+            }
+          ]
+        },
+        {
+          "n": 230,
+          "content": [
+            {
+              "type": "r",
+              "txt": [
+                "E inmediatamente toma el santo óleo y unge al enfermo en la frente y en las manos, diciendo una sola vez:"
+              ]
+            },
+            {
+              "type": "oratio",
+              "txt": [
+                "<b>Por esta santa Unción y por su bondadosa misericordia, te ayude el Señor con la gracia del Espíritu Santo.</b>"
+              ],
+              "responsum": "Amén."
+            },
+            {
+              "type": "oratio",
+              "txt": [
+                "<b>Para que, libre de tus pecados, te conceda la salvación y te conforte en tu enfermedad.</b>"
+              ],
+              "responsum": "Amén."
+            },
+            {
+              "type": "r",
+              "txt": [
+                "Según los casos puede añadir una oración apropiada a la situación del enfermo (nn. 146-149)."
+              ]
+            }
+          ]
+        },
+        {
+          "n": 146,
+          "content": [
+            {
+              "type": "r",
+              "txt": [
+                "Para un anciano."
+              ]
+            },
+            {
+              "type": "oratio",
+              "responsum": "Amén.",
+              "txt": [
+                "Señor, mira con bondad a nuestro hermano que, sintiéndose débil por el peso de sus años, pide recibirla gracia de la santa Unción para bien de su cuerpo y de su alma; concédele que, confortado con el don del Espíritu Santo, permanezca en la fe y en la esperanza, dé a todos ejemplo de paciencia y así manifieste el consuelo de tu amor.",
+                "Por Jesucristo, nuestro Señor."
+              ]
+            }
+          ]
+        },
+        {
+          "n": 147,
+          "content": [
+            {
+              "type": "r",
+              "txt": [
+                "Para uno que está en peligro grave."
+              ]
+            },
+            {
+              "type": "oratio",
+              "responsum": "Amén.",
+              "txt": [
+                "Señor Jesucristo, Redentor de los hombres, que en tu Pasión quisiste soportar nuestros sufrimientos y aguantar nuestros dolores, te pedimos por nuestro hermano ⊓, que está enfermo; tú, que lo has redimido, aviva en él la esperanza de su salvación y conforta su cuerpo y su alma.",
+                "Tú que vives y reinas por los siglos de los siglos."
+              ]
+            }
+          ]
+        },
+        {
+          "n": 148,
+          "content": [
+            {
+              "type": "r",
+              "txt": [
+                "Para cuando se administran conjuntamente la Unción y el Viático."
+              ]
+            },
+            {
+              "type": "oratio",
+              "responsum": "Amén.",
+              "txt": [
+                "Padre de misericordia y Dios de todo consuelo, mira con amor a tu hijo ⊓, que en su angustia pone en ti toda su esperanza; alivíalo con la gracia de la santa Unción y reanímalo con el Cuerpo y la Sangre de tu Hijo, Viático para la vida eterna.",
+                "Por Jesucristo, nuestro Señor."
+              ]
+            }
+          ]
+        },
+        {
+          "n": 149,
+          "content": [
+            {
+              "type": "r",
+              "txt": [
+                "Para uno que está en agonía."
+              ]
+            },
+            {
+              "type": "oratio",
+              "responsum": "Amén.",
+              "txt": [
+                "Padre misericordioso, tú que conoces hasta dónde llega la buena voluntad del hombre, tú que siempre estás dispuesto a olvidar nuestras culpas, tú que nunca niegas el perdón a los que acuden a ti, compadécete de tu hijo ⊓, que se debate en la agonía.",
+                "Te pedimos que, ungido con el óleo santo y ayudado por la oración de nuestra fe, se vea aliviado en su cuerpo y en su alma, obtenga el perdón de sus pecados y sienta la fortaleza de tu amor.",
+                "Por Jesucristo, tu Hijo, que venció a la muerte y nos abrió las puertas de la vida y contigo vive y reina por los siglos de los siglos."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

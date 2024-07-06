@@ -1,13 +1,16 @@
 package org.deiverbum.app.core.network.retrofit
 
+import androidx.tracing.trace
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 import okhttp3.Call
-import org.deiverbum.app.core.model.data.Universalis
 import org.deiverbum.app.core.network.NiaNetworkDataSource
-import org.deiverbum.app.util.Configuration
+import org.deiverbum.app.core.network.model.NetworkChangeList
+import org.deiverbum.app.core.network.model.NetworkNewsResource
+import org.deiverbum.app.core.network.model.NetworkTopic
 import retrofit2.Retrofit
 import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Query
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -15,34 +18,28 @@ import javax.inject.Singleton
  * Retrofit API declaration for NIA Network API
  */
 private interface RetrofitNiaNetworkApi {
-    /*    @GET(value = "topics")
-        suspend fun getTopics(
-            @Query("id") ids: List<String>?,
-        ): NetworkResponse<List<NetworkTopic>>
+    @GET(value = "topics")
+    suspend fun getTopics(
+        @Query("id") ids: List<String>?,
+    ): NetworkResponse<List<NetworkTopic>>
 
-        @GET(value = "newsresources")
-        suspend fun getNewsResources(
-            @Query("id") ids: List<String>?,
-        ): NetworkResponse<List<NetworkNewsResource>>
+    @GET(value = "newsresources")
+    suspend fun getNewsResources(
+        @Query("id") ids: List<String>?,
+    ): NetworkResponse<List<NetworkNewsResource>>
 
-        @GET(value = "changelists/topics")
-        suspend fun getTopicChangeList(
-            @Query("after") after: Int?,
-        ): List<NetworkChangeList>
+    @GET(value = "changelists/topics")
+    suspend fun getTopicChangeList(
+        @Query("after") after: Int?,
+    ): List<NetworkChangeList>
 
-        @GET("{endPoint}/{dateString}")
-        suspend fun getToday(
-            @Path("endPoint") endPoint: String?,
-            @Path("dateString") dateString: String?
-        ): Universalis?*/
-
-    @GET(value = "tercia/{dateString}")
+    @GET(value = "changelists/newsresources")
     suspend fun getNewsResourcesChangeList(
-        @Path("dateString") dateString: Int?,
-    ): Universalis
+        @Query("after") after: Int?,
+    ): List<NetworkChangeList>
 }
 
-private const val NIA_BASE_URL = Configuration.URL_API
+private const val NIA_BASE_URL = "http://example.com"//BuildConfig.BACKEND_URL
 
 /**
  * Wrapper for data provided from the [NIA_BASE_URL]
@@ -56,30 +53,33 @@ private data class NetworkResponse<T>(
  * [Retrofit] backed [NiaNetworkDataSource]
  */
 @Singleton
-class RetrofitNiaNetwork @Inject constructor(
-    //networkJson: Json,
-    okhttpCallFactory: Call.Factory,
+internal class RetrofitNiaNetwork @Inject constructor(
+    networkJson: Json,
+    okhttpCallFactory: dagger.Lazy<Call.Factory>,
 ) : NiaNetworkDataSource {
 
-    private val networkApi = Retrofit.Builder()
-        .baseUrl(NIA_BASE_URL)
-        .callFactory(okhttpCallFactory)
-        /*.addConverterFactory(
-            networkJson.asConverterFactory("application/json".toMediaType()),
-        )*/
-        .build()
-        .create(RetrofitNiaNetworkApi::class.java)
+    private val networkApi = trace("RetrofitNiaNetwork") {
+        Retrofit.Builder()
+            .baseUrl(NIA_BASE_URL)
+            // We use callFactory lambda here with dagger.Lazy<Call.Factory>
+            // to prevent initializing OkHttp on the main thread.
+            .callFactory { okhttpCallFactory.get().newCall(it) }
+            /*.addConverterFactory(
+                networkJson.asConverterFactory("application/json".toMediaType()),
+            )*/
+            .build()
+            .create(RetrofitNiaNetworkApi::class.java)
+    }
 
-    /*
-        override suspend fun getTopics(ids: List<String>?): List<NetworkTopic> =
-            networkApi.getTopics(ids = ids).data
+    override suspend fun getTopics(ids: List<String>?): List<NetworkTopic> =
+        networkApi.getTopics(ids = ids).data
 
-        override suspend fun getNewsResources(ids: List<String>?): List<NetworkNewsResource> =
-            networkApi.getNewsResources(ids = ids).data
+    override suspend fun getNewsResources(ids: List<String>?): List<NetworkNewsResource> =
+        networkApi.getNewsResources(ids = ids).data
 
-        override suspend fun getTopicChangeList(after: Int?): List<NetworkChangeList> =
-            networkApi.getTopicChangeList(after = after)
-    */
-    override suspend fun getNewsResourceChangeList(after: Int?): Universalis =
-        networkApi.getNewsResourcesChangeList(after)
+    override suspend fun getTopicChangeList(after: Int?): List<NetworkChangeList> =
+        networkApi.getTopicChangeList(after = after)
+
+    override suspend fun getNewsResourceChangeList(after: Int?): List<NetworkChangeList> =
+        networkApi.getNewsResourcesChangeList(after = after)
 }

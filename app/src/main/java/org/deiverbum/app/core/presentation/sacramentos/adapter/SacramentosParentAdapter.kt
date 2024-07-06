@@ -2,6 +2,11 @@ package org.deiverbum.app.core.presentation.sacramentos.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +40,14 @@ class SacramentosParentAdapter(private val parentList: List<SacramentosParent>) 
 
     class SacramentosParentHolder(private val itemBinding: ItemRowParentBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
+
+        @Composable
+        fun ListItem(data: SacramentosParent, modifier: Modifier = Modifier) {
+            Row(modifier.fillMaxWidth()) {
+                Text(text = data.name)
+                // … other composables required for displaying `data`
+            }
+        }
 
         fun bind(sacramentosParent: SacramentosParent) {
             itemBinding.contentTitle.text = sacramentosParent.name

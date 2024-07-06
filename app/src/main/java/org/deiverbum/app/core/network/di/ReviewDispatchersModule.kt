@@ -10,15 +10,16 @@ import javax.inject.Qualifier
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DispatcherModule {
-
-    @DefaultDispatcher
+object ReviewDispatchersModule {
+    /*
     @Provides
-    fun providesDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
+    @Dispatcher(NiaDispatchers.IO)
+    fun providesIODispatcherReview(): CoroutineDispatcher = Dispatchers.IO
 
-    @IODispatcher
     @Provides
-    fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
+    @Dispatcher(NiaDispatchers.Default)
+    fun providesDefaultDispatcherReview(): CoroutineDispatcher = Dispatchers.Default
+*/
 
     @MainDispatcher
     @Provides

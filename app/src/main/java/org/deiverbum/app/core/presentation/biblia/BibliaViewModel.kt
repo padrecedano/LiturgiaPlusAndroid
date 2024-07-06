@@ -1,14 +1,10 @@
 package org.deiverbum.app.core.presentation.biblia
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import org.deiverbum.app.core.model.BibleBookRequest
-import org.deiverbum.app.core.network.di.IODispatcher
 import org.deiverbum.app.domain.GetBibleBookUseCase
 import javax.inject.Inject
 
@@ -22,8 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class BibliaViewModel @Inject constructor(
     private val getBibleBookUseCase: GetBibleBookUseCase,
-    //private val coroutineDispatcherProvider: CoroutineDispatcherProvider
-    @IODispatcher private val dispatcherIO: CoroutineDispatcher
+    //private val dispatcherIO: CoroutineDispatcherProvider
+    //@IODispatcher private val dispatcherIO: CoroutineDispatcher
 
 ) : ViewModel() {
 
@@ -37,6 +33,7 @@ class BibliaViewModel @Inject constructor(
      */
     fun loadData(bookRequest: BibleBookRequest) {
         _uiState.value = BibliaUiState.Loading
+        /*
         viewModelScope.launch(dispatcherIO) {
             try {
                 val result = getBibleBookUseCase.execute(bookRequest)
@@ -45,6 +42,7 @@ class BibliaViewModel @Inject constructor(
                 _uiState.value = BibliaUiState.Error(error.message.toString())
             }
         }
+        */
     }
 
 

@@ -52,7 +52,7 @@ import java.util.Locale
 @AndroidEntryPoint
 class SyncFragment : BaseFragment<FragmentSyncBinding>() {
     private val mViewModel: SyncViewModel by viewModels()
-    private lateinit var mTextVieww: ZoomTextView
+    private lateinit var mTextView: ZoomTextView
     private var hasInitial: Boolean = false
 
     private var progressBar: ProgressBar? = null
@@ -79,7 +79,7 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
     private fun setConfiguration() {
         val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
         actionBar?.subtitle = ""
-        mTextVieww = getViewBinding().include.tvZoomable
+        mTextView = getViewBinding().include.tvZoomable
         progressBar = getViewBinding().progressBar
         val fontSize = prefs.getString("font_size", "18")?.toFloat()
         val fontFamily = String.format(
@@ -88,8 +88,8 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
             prefs.getString("font_name", "robotoslab_regular.ttf")
         )
         val tf = Typeface.createFromAsset(requireActivity().assets, fontFamily)
-        mTextVieww.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize!!)
-        mTextVieww.typeface = tf
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize!!)
+        mTextView.typeface = tf
         getViewBinding().include.tvBottom.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
         getViewBinding().include.tvBottom.typeface = tf
     }
@@ -117,7 +117,7 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
             if (syncResponse.syncStatus.source == Source.NETWORK && !hasInitial) {
                 prefs.edit().putBoolean(PREF_INITIAL_SYNC, true).apply()
             }
-            mTextVieww.text =
+            mTextView.text =
                 Utils.fromHtml(syncResponse.syncStatus.getAll(isNightMode()))//.dataForView
             if (!isWorkScheduled) {
                 getViewBinding().include.tvBottom.text =
@@ -139,7 +139,7 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
                 //println(it.lastUpdate)
                 //println(it.tableName)
                 //it.isWorkScheduled=isWorkScheduled
-                mTextVieww.text =
+                mTextView.text =
                     Utils.fromHtml(it.getAll(isNightMode()))//.dataForView
 
                 if (!isWorkScheduled) {
@@ -194,11 +194,11 @@ class SyncFragment : BaseFragment<FragmentSyncBinding>() {
     }
 
     private fun showLoading() {
-        mTextVieww.text = PACIENCIA
+        mTextView.text = PACIENCIA
     }
 
     private fun showError(stringRes: String) {
-        mTextVieww.text = stringRes
+        mTextView.text = stringRes
         Toast.makeText(requireContext(), stringRes, Toast.LENGTH_SHORT).show()
     }
 }
