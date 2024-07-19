@@ -1,8 +1,6 @@
 package org.deiverbum.app.ui
 
 import NiaIcons
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
@@ -24,6 +22,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -45,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
+import org.deiverbum.app.R
 import org.deiverbum.app.core.designsystem.component.NiaBackground
 import org.deiverbum.app.core.designsystem.component.NiaGradientBackground
 import org.deiverbum.app.core.designsystem.component.NiaNavigationBar
@@ -59,7 +59,8 @@ import org.deiverbum.app.navigation.NiaNavHost
 import org.deiverbum.app.navigation.TopLevelDestination
 import org.deiverbum.app.ui.settings.SettingsDialog
 
-@RequiresApi(Build.VERSION_CODES.O)
+
+@ExperimentalMaterial3AdaptiveApi
 @OptIn(
     ExperimentalMaterial3Api::class,
     ExperimentalComposeUiApi::class,
@@ -67,7 +68,7 @@ import org.deiverbum.app.ui.settings.SettingsDialog
 @Composable
 fun NiaApp(appState: NiaAppState) {
     val shouldShowGradientBackground =
-        appState.currentTopLevelDestination == TopLevelDestination.HOME
+        appState.currentTopLevelDestination == TopLevelDestination.FOR_YOU
     var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
 
     NiaBackground {
@@ -83,7 +84,7 @@ fun NiaApp(appState: NiaAppState) {
             val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
             // If user is not connected to the internet show a snack bar to inform them.
-            val notConnectedMessage = "not_connected"
+            val notConnectedMessage = stringResource(R.string.not_connected)
             LaunchedEffect(isOffline) {
                 if (isOffline) {
                     snackbarHostState.showSnackbar(
@@ -151,18 +152,19 @@ fun NiaApp(appState: NiaAppState) {
                             NiaTopAppBar(
                                 titleRes = destination.titleTextId,
                                 navigationIcon = NiaIcons.Search,
-                                navigationIconContentDescription = "feature_settings_top_app_bar_navigation_icon_description",
-
+                                navigationIconContentDescription = stringResource(
+                                    id = R.string.feature_settings_top_app_bar_navigation_icon_description,
+                                ),
                                 actionIcon = NiaIcons.Settings,
-                                actionIconContentDescription = "feature_settings_top_app_bar_action_icon_description",
-
+                                actionIconContentDescription = stringResource(
+                                    id = R.string.feature_settings_top_app_bar_action_icon_description,
+                                ),
                                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                                     containerColor = Color.Transparent,
                                 ),
                                 onActionClick = { showSettingsDialog = true },
                                 onNavigationClick = { appState.navigateToSearch() },
-
-                                )
+                            )
                         }
 
                         NiaNavHost(

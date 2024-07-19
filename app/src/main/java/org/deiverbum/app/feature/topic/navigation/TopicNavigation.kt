@@ -24,7 +24,7 @@ import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import org.deiverbum.app.feature.topic.TopicRoute
+import org.deiverbum.app.feature.topic.TopicRouteUniversalis
 import java.net.URLDecoder
 import java.net.URLEncoder
 import kotlin.text.Charsets.UTF_8
@@ -37,7 +37,12 @@ const val TOPIC_ROUTE = "topic_route"
 
 internal class TopicArgs(val topicId: String) {
     constructor(savedStateHandle: SavedStateHandle) :
-        this(URLDecoder.decode(checkNotNull(savedStateHandle[TOPIC_ID_ARG]), URL_CHARACTER_ENCODING))
+            this(
+                URLDecoder.decode(
+                    checkNotNull(savedStateHandle[TOPIC_ID_ARG]),
+                    URL_CHARACTER_ENCODING
+                )
+            )
 }
 
 fun NavController.navigateToTopic(topicId: String, navOptions: NavOptionsBuilder.() -> Unit = {}) {
@@ -59,7 +64,7 @@ fun NavGraphBuilder.topicScreen(
             navArgument(TOPIC_ID_ARG) { type = NavType.StringType },
         ),
     ) {
-        TopicRoute(
+        TopicRouteUniversalis(
             showBackButton = showBackButton,
             onBackClick = onBackClick,
             onTopicClick = onTopicClick,

@@ -124,7 +124,10 @@ data class Universalis(
                 append("Hello, ")
             }
             append("World!")
+            //append(getAllForView(TodayRequest(1, 1, true, true)))
+
         }
+
         return annotatedString
     }
 

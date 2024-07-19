@@ -6,7 +6,6 @@ import NiaIcons
 import android.net.Uri
 import android.os.Build
 import androidx.activity.compose.ReportDrawnWhen
-import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -64,6 +63,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
@@ -82,14 +82,16 @@ import org.deiverbum.app.core.designsystem.component.scrollbar.DecorativeScrollb
 import org.deiverbum.app.core.designsystem.component.scrollbar.DraggableScrollbar
 import org.deiverbum.app.core.designsystem.component.scrollbar.rememberDraggableScroller
 import org.deiverbum.app.core.designsystem.component.scrollbar.scrollbarState
+import org.deiverbum.app.core.designsystem.theme.NiaTheme
 import org.deiverbum.app.core.model.data.UserNewsResource
+import org.deiverbum.app.core.ui.DevicePreviews
 import org.deiverbum.app.core.ui.NewsFeedUiState
 import org.deiverbum.app.core.ui.TrackScreenViewEvent
 import org.deiverbum.app.core.ui.TrackScrollJank
+import org.deiverbum.app.core.ui.UserNewsResourcePreviewParameterProvider
 import org.deiverbum.app.core.ui.launchCustomChromeTab
 import org.deiverbum.app.core.ui.newsFeed
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 internal fun ForYouRoute(
     onTopicClick: (String) -> Unit,
@@ -100,7 +102,7 @@ internal fun ForYouRoute(
     val feedState by viewModel.feedState.collectAsStateWithLifecycle()
     val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
     val deepLinkedUserNewsResource by viewModel.deepLinkedNewsResource.collectAsStateWithLifecycle()
-//viewModel.updateTopicSelection("1",true)
+
     ForYouScreen(
         isSyncing = isSyncing,
         onboardingUiState = onboardingUiState,
@@ -116,7 +118,6 @@ internal fun ForYouRoute(
     )
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 internal fun ForYouScreen(
     isSyncing: Boolean,
@@ -133,8 +134,6 @@ internal fun ForYouScreen(
 ) {
     val isOnboardingLoading = onboardingUiState is OnboardingUiState.Loading
     val isFeedLoading = feedState is NewsFeedUiState.Loading
-
-    //HomeScreenBody(onNextButtonClicked = onTopicClick)
 
     // This code should be called when the UI is ready for use and relates to Time To Full Display.
     ReportDrawnWhen { !isSyncing && !isOnboardingLoading && !isFeedLoading }
@@ -204,7 +203,7 @@ internal fun ForYouScreen(
                 targetOffsetY = { fullHeight -> -fullHeight },
             ) + fadeOut(),
         ) {
-            val loadingContentDescription = stringResource(id = R.string.lbl_nona)
+            val loadingContentDescription = stringResource(id = R.string.feature_foryou_loading)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -259,7 +258,7 @@ private fun LazyStaggeredGridScope.onboarding(
             item(span = StaggeredGridItemSpan.FullLine, contentType = "onboarding") {
                 Column(modifier = interestsItemModifier) {
                     Text(
-                        text = stringResource(R.string.lbl_mixto),
+                        text = stringResource(R.string.feature_foryou_onboarding_guidance_title),
                         textAlign = TextAlign.Center,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -267,7 +266,7 @@ private fun LazyStaggeredGridScope.onboarding(
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Text(
-                        text = stringResource(R.string.lbl_laudes),
+                        text = stringResource(R.string.feature_foryou_onboarding_guidance_subtitle),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 8.dp, start = 24.dp, end = 24.dp),
@@ -293,7 +292,7 @@ private fun LazyStaggeredGridScope.onboarding(
                                 .fillMaxWidth(),
                         ) {
                             Text(
-                                text = stringResource(R.string.lbl_lecturas),
+                                text = stringResource(R.string.feature_foryou_done),
                             )
                         }
                     }
@@ -422,7 +421,7 @@ fun TopicIcon(
     modifier: Modifier = Modifier,
 ) {
     DynamicAsyncImage(
-        placeholder = painterResource(R.drawable.ic_lecturas),
+        placeholder = painterResource(R.drawable.feature_foryou_ic_icon_placeholder),
         imageUrl = imageUrl,
         // decorative
         contentDescription = null,
@@ -487,4 +486,122 @@ private fun feedItemsSize(
         is OnboardingUiState.Shown -> 1
     }
     return feedSize + onboardingSize
+}
+
+@DevicePreviews
+@Composable
+fun ForYouScreenPopulatedFeed(
+    @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
+    userNewsResources: List<UserNewsResource>,
+) {
+    NiaTheme {
+        ForYouScreen(
+            isSyncing = false,
+            onboardingUiState = OnboardingUiState.NotShown,
+            feedState = NewsFeedUiState.Success(
+                feed = userNewsResources,
+            ),
+            deepLinkedUserNewsResource = null,
+            onTopicCheckedChanged = { _, _ -> },
+            saveFollowedTopics = {},
+            onNewsResourcesCheckedChanged = { _, _ -> },
+            onNewsResourceViewed = {},
+            onTopicClick = {},
+            onDeepLinkOpened = {},
+        )
+    }
+}
+
+@DevicePreviews
+@Composable
+fun ForYouScreenOfflinePopulatedFeed(
+    @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
+    userNewsResources: List<UserNewsResource>,
+) {
+    NiaTheme {
+        ForYouScreen(
+            isSyncing = false,
+            onboardingUiState = OnboardingUiState.NotShown,
+            feedState = NewsFeedUiState.Success(
+                feed = userNewsResources,
+            ),
+            deepLinkedUserNewsResource = null,
+            onTopicCheckedChanged = { _, _ -> },
+            saveFollowedTopics = {},
+            onNewsResourcesCheckedChanged = { _, _ -> },
+            onNewsResourceViewed = {},
+            onTopicClick = {},
+            onDeepLinkOpened = {},
+        )
+    }
+}
+
+@DevicePreviews
+@Composable
+fun ForYouScreenTopicSelection(
+    @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
+    userNewsResources: List<UserNewsResource>,
+) {
+    NiaTheme {
+        ForYouScreen(
+            isSyncing = false,
+            onboardingUiState = OnboardingUiState.Shown(
+                topics = userNewsResources.flatMap { news -> news.followableTopics }
+                    .distinctBy { it.topic.id },
+            ),
+            feedState = NewsFeedUiState.Success(
+                feed = userNewsResources,
+            ),
+            deepLinkedUserNewsResource = null,
+            onTopicCheckedChanged = { _, _ -> },
+            saveFollowedTopics = {},
+            onNewsResourcesCheckedChanged = { _, _ -> },
+            onNewsResourceViewed = {},
+            onTopicClick = {},
+            onDeepLinkOpened = {},
+        )
+    }
+}
+
+@DevicePreviews
+@Composable
+fun ForYouScreenLoading() {
+    NiaTheme {
+        ForYouScreen(
+            isSyncing = false,
+            onboardingUiState = OnboardingUiState.Loading,
+            feedState = NewsFeedUiState.Loading,
+            deepLinkedUserNewsResource = null,
+            onTopicCheckedChanged = { _, _ -> },
+            saveFollowedTopics = {},
+            onNewsResourcesCheckedChanged = { _, _ -> },
+            onNewsResourceViewed = {},
+            onTopicClick = {},
+            onDeepLinkOpened = {},
+        )
+    }
+}
+
+@DevicePreviews
+@Composable
+fun ForYouScreenPopulatedAndLoading(
+    @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
+    userNewsResources: List<UserNewsResource>,
+) {
+    NiaTheme {
+        ForYouScreen(
+            isSyncing = true,
+            onboardingUiState = OnboardingUiState.Loading,
+            feedState = NewsFeedUiState.Success(
+                feed = userNewsResources,
+            ),
+            deepLinkedUserNewsResource = null,
+            onTopicCheckedChanged = { _, _ -> },
+            saveFollowedTopics = {},
+            onNewsResourcesCheckedChanged = { _, _ -> },
+            onNewsResourceViewed = {},
+            onTopicClick = {},
+            onDeepLinkOpened = {},
+        )
+    }
 }

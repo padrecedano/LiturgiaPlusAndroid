@@ -1,7 +1,5 @@
 package org.deiverbum.app.feature.foryou.navigation
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -18,7 +16,6 @@ private const val DEEP_LINK_URI_PATTERN =
 
 fun NavController.navigateToForYou(navOptions: NavOptions) = navigate(FOR_YOU_ROUTE, navOptions)
 
-@RequiresApi(Build.VERSION_CODES.O)
 fun NavGraphBuilder.forYouScreen(onTopicClick: (String) -> Unit) {
     composable(
         route = FOR_YOU_ROUTE,
@@ -29,9 +26,6 @@ fun NavGraphBuilder.forYouScreen(onTopicClick: (String) -> Unit) {
             navArgument(LINKED_NEWS_RESOURCE_ID) { type = NavType.StringType },
         ),
     ) {
-        //MainScreen(onTopicClick)
-//MainCompose()
         ForYouRoute(onTopicClick)
-
     }
 }

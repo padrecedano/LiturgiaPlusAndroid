@@ -96,8 +96,6 @@ class ForYouViewModel @Inject constructor(
     fun updateTopicSelection(topicId: String, isChecked: Boolean) {
         viewModelScope.launch {
             userDataRepository.setTopicIdFollowed(topicId, isChecked)
-            //userDataRepository.setTopicIdFollowed("1", true)
-
         }
     }
 

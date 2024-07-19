@@ -1,8 +1,5 @@
 package org.deiverbum.app.feature.interests
 
-import org.deiverbum.app.core.designsystem.component.NiaLoadingWheel
-import org.deiverbum.app.core.ui.TrackScreenViewEvent
-
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
@@ -13,6 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import org.deiverbum.app.R
+import org.deiverbum.app.core.designsystem.component.NiaBackground
+import org.deiverbum.app.core.designsystem.component.NiaLoadingWheel
+import org.deiverbum.app.core.designsystem.theme.NiaTheme
+import org.deiverbum.app.core.ui.DevicePreviews
+import org.deiverbum.app.core.ui.TrackScreenViewEvent
 
 @Composable
 fun InterestsRoute(
@@ -51,7 +54,7 @@ internal fun InterestsScreen(
             InterestsUiState.Loading ->
                 NiaLoadingWheel(
                     modifier = modifier,
-                    contentDesc = "feature_interests_loading"
+                    contentDesc = stringResource(id = R.string.feature_interests_loading),
                 )
 
             is InterestsUiState.Interests ->
@@ -72,6 +75,34 @@ internal fun InterestsScreen(
 
 @Composable
 private fun InterestsEmptyScreen() {
-    Text(text = "stringResource(id = R.string.feature_interests_empty_header)")
+    Text(text = stringResource(id = R.string.feature_interests_empty_header))
 }
 
+
+@DevicePreviews
+@Composable
+fun InterestsScreenLoading() {
+    NiaTheme {
+        NiaBackground {
+            InterestsScreen(
+                uiState = InterestsUiState.Loading,
+                followTopic = { _, _ -> },
+                onTopicClick = {},
+            )
+        }
+    }
+}
+
+@DevicePreviews
+@Composable
+fun InterestsScreenEmpty() {
+    NiaTheme {
+        NiaBackground {
+            InterestsScreen(
+                uiState = InterestsUiState.Empty,
+                followTopic = { _, _ -> },
+                onTopicClick = {},
+            )
+        }
+    }
+}

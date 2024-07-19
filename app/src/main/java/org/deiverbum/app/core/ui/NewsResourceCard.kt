@@ -1,8 +1,6 @@
 package org.deiverbum.app.core.ui
 
 import NiaIcons
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.horizontalScroll
@@ -62,7 +60,7 @@ import java.util.Locale
  * [NewsResource] card used on the following screens: For You, Saved
  */
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 fun NewsResourceCardExpanded(
     userNewsResource: UserNewsResource,
@@ -225,7 +223,7 @@ fun NotificationDot(
     )
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 fun dateFormatted(publishDate: Instant): String = DateTimeFormatter
     .ofLocalizedDate(FormatStyle.MEDIUM)
@@ -233,7 +231,7 @@ fun dateFormatted(publishDate: Instant): String = DateTimeFormatter
     .withZone(LocalTimeZone.current.toJavaZoneId())
     .format(publishDate.toJavaInstant())
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 fun NewsResourceMetaData(
     publishDate: Instant,
@@ -316,7 +314,7 @@ private fun BookmarkButtonBookmarkedPreview() {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Preview("NewsResourceCardExpanded")
 @Composable
 private fun ExpandedNewsResourcePreview(

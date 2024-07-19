@@ -17,8 +17,6 @@
 package org.deiverbum.app.core.ui
 
 import android.net.Uri
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
@@ -35,7 +33,7 @@ import org.deiverbum.app.core.model.data.UserNewsResource
  * [onToggleBookmark] defines the action invoked when a user wishes to bookmark an item
  * When a news resource card is tapped it will open the news resource URL in a Chrome Custom Tab.
  */
-@RequiresApi(Build.VERSION_CODES.O)
+
 fun LazyListScope.userNewsResourceCardItems(
     items: List<UserNewsResource>,
     onToggleBookmark: (item: UserNewsResource) -> Unit,

@@ -23,6 +23,7 @@ import org.deiverbum.app.core.designsystem.component.scrollbar.DraggableScrollba
 import org.deiverbum.app.core.designsystem.component.scrollbar.rememberDraggableScroller
 import org.deiverbum.app.core.designsystem.component.scrollbar.scrollbarState
 import org.deiverbum.app.core.model.data.FollowableTopic
+import org.deiverbum.app.core.ui.InterestsItem
 
 @Composable
 fun TopicsTabContent(
@@ -49,8 +50,8 @@ fun TopicsTabContent(
             topics.forEach { followableTopic ->
                 val topicId = followableTopic.topic.id
                 item(key = topicId) {
-                    val isSelected = true //highlightSelectedTopic && topicId == selectedTopicId
-                    /*InterestsItem(
+                    val isSelected = highlightSelectedTopic && topicId.toString() == selectedTopicId
+                    InterestsItem(
                         name = followableTopic.topic.name,
                         following = followableTopic.isFollowed,
                         description = followableTopic.topic.shortDescription,
@@ -58,7 +59,7 @@ fun TopicsTabContent(
                         onClick = { onTopicClick(topicId) },
                         onFollowButtonClick = { onFollowButtonClick(topicId, it) },
                         isSelected = isSelected,
-                    )*/
+                    )
                 }
             }
 

@@ -2,6 +2,7 @@ package org.deiverbum.app.core.datastore
 
 import android.util.Log
 import androidx.datastore.core.DataStore
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import org.deiverbum.app.core.model.data.DarkThemeConfig
 import org.deiverbum.app.core.model.data.ThemeBrand
@@ -18,15 +19,15 @@ class NiaPreferencesDataSource @Inject constructor(
                 bookmarkedNewsResources = it.bookmarkedNewsResourceIdsMap.keys,
                 viewedNewsResources = it.viewedNewsResourceIdsMap.keys,
                 followedTopics = it.followedTopicIdsMap.keys,
-                themeBrand = ThemeBrand.DEFAULT,
-                /*when (it.themeBrand) {
-                                    null,
-                                    ThemeBrandProto.THEME_BRAND_UNSPECIFIED,
-                                    ThemeBrandProto.UNRECOGNIZED,
-                                    ThemeBrandProto.THEME_BRAND_DEFAULT,
-                                    -> ThemeBrand.DEFAULT
-                                    ThemeBrandProto.THEME_BRAND_ANDROID -> ThemeBrand.ANDROID
-                                }*/
+                themeBrand = when (it.themeBrand) {
+                    null,
+                    ThemeBrandProto.THEME_BRAND_UNSPECIFIED,
+                    ThemeBrandProto.UNRECOGNIZED,
+                    ThemeBrandProto.THEME_BRAND_DEFAULT,
+                    -> ThemeBrand.DEFAULT
+
+                    ThemeBrandProto.THEME_BRAND_ANDROID -> ThemeBrand.ANDROID
+                },
                 darkThemeConfig = when (it.darkThemeConfig) {
                     null,
                     DarkThemeConfigProto.DARK_THEME_CONFIG_UNSPECIFIED,
@@ -34,13 +35,11 @@ class NiaPreferencesDataSource @Inject constructor(
                     DarkThemeConfigProto.DARK_THEME_CONFIG_FOLLOW_SYSTEM,
                     ->
                         DarkThemeConfig.FOLLOW_SYSTEM
-
                     DarkThemeConfigProto.DARK_THEME_CONFIG_LIGHT ->
                         DarkThemeConfig.LIGHT
-
                     DarkThemeConfigProto.DARK_THEME_CONFIG_DARK -> DarkThemeConfig.DARK
                 },
-                useDynamicColor = true,//it.useDynamicColor,
+                useDynamicColor = it.useDynamicColor,
                 shouldHideOnboarding = it.shouldHideOnboarding,
             )
         }
@@ -75,23 +74,23 @@ class NiaPreferencesDataSource @Inject constructor(
             Log.e("NiaPreferences", "Failed to update user preferences", ioException)
         }
     }
-    /*
-        suspend fun setThemeBrand(themeBrand: ThemeBrand) {
-            userPreferences.updateData {
-                it.copy {
-                    this.darkThemeConfig = when (themeBrand) {
-                        DarkThemeConfig.DARK -> ThemeBrand.DEFAULT
-                        ThemeBrand.ANDROID -> ThemeBrand.ANDROID
-                    }
+
+    suspend fun setThemeBrand(themeBrand: ThemeBrand) {
+        userPreferences.updateData {
+            it.copy {
+                this.themeBrand = when (themeBrand) {
+                    ThemeBrand.DEFAULT -> ThemeBrandProto.THEME_BRAND_DEFAULT
+                    ThemeBrand.ANDROID -> ThemeBrandProto.THEME_BRAND_ANDROID
                 }
             }
         }
-    */
-    /*suspend fun setDynamicColorPreference(useDynamicColor: Boolean) {
+    }
+
+    suspend fun setDynamicColorPreference(useDynamicColor: Boolean) {
         userPreferences.updateData {
             it.copy { this.useDynamicColor = useDynamicColor }
         }
-    }*/
+    }
 
     suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
         userPreferences.updateData {
@@ -99,7 +98,6 @@ class NiaPreferencesDataSource @Inject constructor(
                 this.darkThemeConfig = when (darkThemeConfig) {
                     DarkThemeConfig.FOLLOW_SYSTEM ->
                         DarkThemeConfigProto.DARK_THEME_CONFIG_FOLLOW_SYSTEM
-
                     DarkThemeConfig.LIGHT -> DarkThemeConfigProto.DARK_THEME_CONFIG_LIGHT
                     DarkThemeConfig.DARK -> DarkThemeConfigProto.DARK_THEME_CONFIG_DARK
                 }
@@ -141,7 +139,6 @@ class NiaPreferencesDataSource @Inject constructor(
         }
     }
 
-    /*
     suspend fun getChangeListVersions() = userPreferences.data
         .map {
             ChangeListVersions(
@@ -150,11 +147,10 @@ class NiaPreferencesDataSource @Inject constructor(
             )
         }
         .firstOrNull() ?: ChangeListVersions()
-*/
+
     /**
      * Update the [ChangeListVersions] using [update].
      */
-    /*
     suspend fun updateChangeListVersion(update: ChangeListVersions.() -> ChangeListVersions) {
         try {
             userPreferences.updateData { currentPreferences ->
@@ -174,7 +170,7 @@ class NiaPreferencesDataSource @Inject constructor(
             Log.e("NiaPreferences", "Failed to update user preferences", ioException)
         }
     }
-*/
+
     suspend fun setShouldHideOnboarding(shouldHideOnboarding: Boolean) {
         userPreferences.updateData {
             it.copy { this.shouldHideOnboarding = shouldHideOnboarding }
@@ -183,7 +179,7 @@ class NiaPreferencesDataSource @Inject constructor(
 }
 
 private fun UserPreferencesKt.Dsl.updateShouldHideOnboardingIfNecessary() {
-    /*if (followedTopicIds.isEmpty() && followedAuthorIds.isEmpty()) {
+    if (followedTopicIds.isEmpty() && followedAuthorIds.isEmpty()) {
         shouldHideOnboarding = false
-    }*/
+    }
 }

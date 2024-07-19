@@ -1,17 +1,9 @@
 package org.deiverbum.app
 
-import android.app.Application
-import androidx.hilt.work.HiltWorkerFactory
-import androidx.work.Configuration
-import dagger.hilt.android.HiltAndroidApp
-import org.deiverbum.app.data.AppContainer
-import org.deiverbum.app.data.AppContainerImpl
-import javax.inject.Inject
-
 /**
  * Created by A. Cedano on 11,November,2021
  */
-@HiltAndroidApp
+/*@HiltAndroidApp
 class BaseApplication : Application(), Configuration.Provider {
     /*
     override fun onCreate() {
@@ -44,11 +36,11 @@ class BaseApplication : Application(), Configuration.Provider {
     }
 
     // AppContainer instance used by the rest of classes to obtain dependencies
-    lateinit var container: AppContainer
+    //lateinit var container: AppContainer
 
     override fun onCreate() {
         super.onCreate()
-        container = AppContainerImpl(this)
+        //container = AppContainerImpl(this)
     }
 
-}
+}*/

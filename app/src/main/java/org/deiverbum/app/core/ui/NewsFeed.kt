@@ -27,9 +27,7 @@ import org.deiverbum.app.core.model.data.UserNewsResource
 */
 import android.content.Context
 import android.net.Uri
-import android.os.Build
 import androidx.annotation.ColorInt
-import androidx.annotation.RequiresApi
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.layout.padding
@@ -48,7 +46,7 @@ import org.deiverbum.app.core.model.data.UserNewsResource
  * An extension on [LazyListScope] defining a feed with news resources.
  * Depending on the [feedState], this might emit no items.
  */
-@RequiresApi(Build.VERSION_CODES.O)
+
 fun LazyStaggeredGridScope.newsFeed(
     feedState: NewsFeedUiState,
     onNewsResourcesCheckedChanged: (String, Boolean) -> Unit,
@@ -131,7 +129,7 @@ sealed interface NewsFeedUiState {
     ) : NewsFeedUiState
 }
 /*
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Preview
 @Composable
 private fun NewsFeedLoadingPreview() {
@@ -147,7 +145,7 @@ private fun NewsFeedLoadingPreview() {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Preview
 @Preview(device = Devices.TABLET)
 @Composable

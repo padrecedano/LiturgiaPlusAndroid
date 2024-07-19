@@ -34,9 +34,8 @@ import org.deiverbum.app.core.data.repository.UserNewsResourceRepository
 import org.deiverbum.app.core.model.data.FollowableTopic
 import org.deiverbum.app.core.model.data.Topic
 import org.deiverbum.app.core.model.data.UserNewsResource
-import org.deiverbum.app.core.result.asResult
 import org.deiverbum.app.core.result.Result
-
+import org.deiverbum.app.core.result.asResult
 import org.deiverbum.app.feature.topic.navigation.TopicArgs
 import javax.inject.Inject
 

@@ -1,6 +1,5 @@
 package org.deiverbum.app.core.presentation.main
 
-//import org.deiverbum.app.core.presentation.today.TodayViewModel
 import android.content.IntentSender.SendIntentException
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -11,17 +10,12 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.annotation.StringRes
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.preference.PreferenceManager
 import com.google.android.play.core.appupdate.AppUpdateInfo
@@ -40,15 +34,11 @@ import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.launch
-import org.deiverbum.app.BaseApplication
-import org.deiverbum.app.R
 import org.deiverbum.app.core.model.SyncRequest
 import org.deiverbum.app.core.presentation.sync.InitialSyncViewModel
 import org.deiverbum.app.core.presentation.sync.SyncItemUiState
 import org.deiverbum.app.core.presentation.sync.SyncViewModel
 import org.deiverbum.app.core.presentation.today.TodayViewModel
-import org.deiverbum.app.core.presentation.ui.ProvideAppBarAction
-import org.deiverbum.app.core.presentation.ui.ProvideAppBarTitle
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Constants.PREF_ACCEPT
 import org.deiverbum.app.util.Constants.PREF_INITIAL_SYNC
@@ -116,7 +106,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        val appContainer = (application as BaseApplication).container
         val mainViewModel: TodayViewModel by viewModels()
         strFechaHoy = Utils.fecha
         /*
@@ -128,341 +117,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             //MainCompose()
         }
-        /*setContent {
-            CupcakeTheme {
 
-                }
-
-                CupcakeApp(theDate= Utils.hoy.toInt())
-
-        }*/
-        /*
-                setContent {
-                    UnscrambleTheme {
-                        // A surface container using the 'background' color from the theme
-                        Surface(
-                            modifier = Modifier.fillMaxSize(),
-                            color = MaterialTheme.colorScheme.background
-                        ) {
-                            val counter by mainViewModel.counter.collectAsStateWithLifecycle()
-
-                            FlowExample(counter = counter,
-                                onAdd = {
-                                    mainViewModel.loadData(TodayRequest(20240303,3,false,false))
-                                },
-                                onRemove = {
-                                    //mainViewModel.decrementCounter()
-                                })
-                        }
-                    }
-                }
-
-        */
-        /*setContent {
-            UnscrambleTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                ) {
-                    GameScreen()
-                }
-            }
-        }*/
-
-        /**/
-        /*
-                setContent {
-                    CupcakeTheme {
-                        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-                        val scope = rememberCoroutineScope()
-                        LiturgiaApp()
-                    }
-                    /*
-                    CupcakeTheme {
-                        val navController = rememberNavController()
-                        val backStackEntry by navController.currentBackStackEntryAsState()
-
-                        /*var currentScreen = CupcakeScreenn.valueOf(
-                            backStackEntry?.destination?.route ?: CupcakeScreenn.Start.name
-                        )*/
-                        var canNavigateBack = navController.previousBackStackEntry != null
-                        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-                        val scope = rememberCoroutineScope()
-
-                        ModalNavigationDrawer(
-                            drawerState = drawerState,
-                            drawerContent = {
-                                ModalDrawerSheet {
-                                    Text("Drawer title", modifier = Modifier.padding(16.dp))
-                                    Divider()
-                                    NavigationDrawerItem(
-                                        label = { Text(text = "Drawer Item") },
-                                        selected = false,
-                                        onClick = { /*TODO*/ }
-                                    )
-                                    // ...other drawer items
-                                }
-                            }
-                        ) {
-
-                            Surface(
-                                modifier = Modifier.fillMaxSize(),
-                                color = MaterialTheme.colorScheme.background
-                            ) {
-                                var appBarState by remember {
-                                    mutableStateOf(AppBarState())
-                                }
-
-                                Scaffold(
-
-                                    floatingActionButton = {
-                                        ExtendedFloatingActionButton(
-                                            text = { Text("Show drawer") },
-                                            icon = { Icon(Icons.Filled.Add, contentDescription = "") },
-                                            onClick = {
-                                                scope.launch {
-                                                    drawerState.apply {
-                                                        if (isClosed) open() else close()
-                                                    }
-                                                }
-                                            }
-                                        )
-                                    },
-                                    topBar = {
-                                        MyTopAppBar(navController,
-                                            canNavigateBack = navController.previousBackStackEntry != null
-                                        )
-                                        ProvideAppBarAction {
-                                            Button(onClick = { /*TODO*/ }) {
-                                                Text(text = "action1")
-
-                                            }
-
-                                        }
-
-                                        /*                            TopAppBar(
-
-                                                                        title = {
-                                                                            Text(text = appBarState.title)
-                                                                        },
-
-                                                                        navigationIcon =
-
-                                                                        {
-                                                                            if(canNavigateBack){
-                                                                            IconButton(onClick = { /* do something */ }) {
-                                                                                Icon(
-                                                                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                                                                    contentDescription = "Localized description"
-                                                                                )
-                                                                            }
-                                                                        }},
-
-                                                                        actions = {
-                                                                            appBarState.actions?.invoke(this)
-                                                                        }
-                                                                    )*/
-                                    }
-                                ) { values ->
-                                    NavHost(
-                                        navController = navController,
-                                        startDestination = CupcakeScreen.Start.name,
-                                        modifier = Modifier.padding(
-                                            values
-                                        )
-                                    ) {
-                                        composable(
-                                            "example/{ui}/{theDate}",
-                                            arguments = listOf(navArgument("ui") {
-                                                type = NavType.StringType
-                                            }, navArgument("theDate") { type = NavType.IntType })
-                                        ) { backStackEntry ->
-                                            // Creates a ViewModel from the current BackStackEntry
-                                            // Available in the androidx.hilt:hilt-navigation-compose artifact
-                                            val viewModel = hiltViewModel<TodayViewModel>()
-                                            val idUI = backStackEntry.arguments?.getString("ui")
-                                            val theDate = backStackEntry.arguments?.getInt("theDate")
-                                            ProvideAppBarAction {
-                                                IconButton(onClick = {
-                                                    scope.launch {
-                                                        drawerState.apply {
-                                                            if (isClosed) open() else close()
-                                                        }
-                                                    }
-                                                }) {
-                                                    Icon(
-                                                        Icons.Filled.CalendarMonth,
-                                                        contentDescription = "Calendario"
-                                                    )
-                                                }
-                                            }
-
-
-                                            if (idUI != null && theDate != null) {
-                                                ProvideAppBarTitle { Text(idUI.toString()) }
-                                                MyScreen(viewModel, theDate)
-
-                                            }
-                                            theDate?.let {
-
-                                                //CarScreen(carId = it.toInt())
-                                            }
-
-                                        }
-
-                                        composable("screen_a") {
-
-                                            ScreenA(
-                                                /* onComposing = {
-                                                     appBarState = it
-                                                 },*/
-                                                canNavigateBack = true,
-                                                navController = navController
-                                            )
-                                            ProvideAppBarTitle { Text("Lorem ipsum*") }
-
-                                        }
-                                        composable("screen_c") {
-                                            ScreenB(
-                                                /*onComposing = {
-                                                    appBarState = it
-                                                },*/
-                                                navController = navController
-                                            )
-                                            ProvideAppBarTitle { Text("Lorem ipsum") }
-
-                                        }
-                                        composable(route = CupcakeScreen.Start.name) {
-                                            var title: String = ""
-                                            ProvideAppBarAction {
-                                                IconButton(onClick = {
-                                                    scope.launch {
-                                                        drawerState.apply {
-                                                            if (isClosed) open() else close()
-                                                        }
-                                                    }
-                                                }) {
-                                                    Icon(
-                                                        Icons.Filled.Menu,
-                                                        contentDescription = "Menú principal"
-                                                    )
-                                                }
-                                            }
-                                            MainScreen(
-                                                onNextButtonClicked = {
-                                                    val fecha = (20240301..20240321).random()
-                                                    //title= LiturgyHelper.liturgyByType(it)!!
-                                                    //ProvideAppBarTitle{ Text("lllllllll") }
-
-                                                    //viewModel.loadData(TodayRequest(fecha, it, false, false))
-        //currentScreen="LLLL"
-                                                    //viewModel.loadData(TodayRequest(20240325, 3, false, false))
-        //viewModel.uiState.value
-                                                    //Log.d("dfg",viewModel.uiState.value.toString())
-                                                    val args = Bundle().apply {
-                                                        putString("emailId", "emailId")
-                                                        putString("password", "password")
-                                                    }
-                                                    navController.navigate("example/${it}/${fecha}")
-
-                                                    //navController.navigate("${CupcakeScreen.Universalis.name}/${it}")
-                                                }
-                                            )
-                                        }
-                                        /*
-                                        composable(route = CupcakeScreen.Universalis.name) {
-
-                                            TestScreen(
-                                                viewModel,
-                                                quantityOptions = DataSource.quantityOptions,
-                                                onNextButtonClicked = {
-                                                    val fecha = (20240301..20240321).random()
-                                                    viewModel.loadData(TodayRequest(fecha, it, false, false))
-                                                },
-                                                modifier = Modifier
-                                                    .fillMaxSize()
-                                                    .padding(dimensionResource(R.dimen.padding_medium)),
-
-                                                )
-                                            //ProvideAppBarTitle{ Text(title) }
-
-                                        }
-                                        */
-                                        composable(route = "universalis/{id}") { backStackEntry ->
-                                            ProvideAppBarAction {
-                                                IconButton(onClick = {
-                                                    scope.launch {
-                                                        drawerState.apply {
-                                                            if (isClosed) open() else close()
-                                                        }
-                                                    }
-                                                }) {
-                                                    Icon(
-                                                        Icons.Filled.CalendarMonth,
-                                                        contentDescription = "Calendario"
-                                                    )
-                                                }
-                                            }
-
-                                            TestScreen(
-                                                backStackEntry,
-                                                //viewModel,
-                                                onNextButtonClicked = {
-                                                    val fecha = (20240301..20240321).random()
-                                                    //viewModel.loadData(TodayRequest(fecha, it, false, false))
-                                                },
-                                                modifier = Modifier
-                                                    .fillMaxSize()
-                                                    .padding(dimensionResource(R.dimen.padding_medium)),
-
-                                                )
-                                            //ProvideAppBarTitle{ Text(title) }
-
-                                        }
-                                        /*
-                                                                    composable(route = "laudes") {
-
-                                                                        TestScreen(
-                                                                            viewModel,
-                                                                            quantityOptions = DataSource.quantityOptions,
-                                                                            onNextButtonClicked = {
-                                                                                val fecha = (20240301..20240321).random()
-                                                                                viewModel.loadData(TodayRequest(fecha, it, false, false))
-                                                                            },
-                                                                            modifier = Modifier
-                                                                                .fillMaxSize()
-                                                                                .padding(dimensionResource(R.dimen.padding_medium)),
-
-                                                                            )
-                                                                        ProvideAppBarTitle{ Text("Laudes") }
-
-                                                                    }
-                                        */
-                                        composable("profile/{userId}") { backStackEntry ->
-                                            Profile(
-                                                navController,
-                                                backStackEntry.arguments?.getString("userId")
-                                            )
-                                        }
-        //buildGraph()
-
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    */
-                }
-        */
-
-        /*setContent { // In here, we can call composables!
-            MaterialTheme {
-                MainScreen(initialSyncViewModel)
-            }
-        }*/
-        //mUpdateCode = resources.getInteger(R.integer.app_version_code)
-        //setPrivacy()
-        //showMain()
-        //inAppUpdate = InAppUpdate(this)
         checkForInitialSync()
         checkForDataToClean()
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
@@ -487,36 +142,6 @@ class MainActivity : ComponentActivity() {
 
     }
 
-    fun NavGraphBuilder.buildGraph() {
-        composable(route = "start1") {
-            ProvideAppBarTitle { Text("1") }
-            ProvideAppBarAction {
-                Button(onClick = { /*TODO*/ }) {
-                    Text(text = "action1")
-                }
-                Button(onClick = { /*TODO*/ }) {
-                    Text(text = "action2")
-                }
-                Button(onClick = { /*TODO*/ }) {
-                    Text(text = "action3")
-                }
-            }
-        }
-        composable(route = "start2") {
-            ProvideAppBarTitle { Text("2") }
-            ProvideAppBarAction {
-                Button(onClick = { /*TODO*/ }) {
-                    Text(text = "action1")
-                }
-                Button(onClick = { /*TODO*/ }) {
-                    Text(text = "action2")
-                }
-                Button(onClick = { /*TODO*/ }) {
-                    Text(text = "action3")
-                }
-            }
-        }
-    }
 
     /**
      * Este método inicializa Firebase AppCheck.
@@ -812,12 +437,4 @@ class MainActivity : ComponentActivity() {
             navController.addOnDestinationChangedListener(navControllerListener)
         }
     }
-}
-
-enum class CupcakeScreen(@StringRes val title: Int) {
-    Start(title = R.string.start),
-    Flavor(title = R.string.lbl_tercia),
-    Pickup(title = R.string.lbl_sexta),
-    Universalis(title = R.string.universalis),
-    Nona(title = R.string.lbl_nona)
 }

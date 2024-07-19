@@ -15,29 +15,36 @@ enum class TopLevelDestination(
     val iconTextId: Int,
     val titleTextId: Int,
 ) {
+    INTERESTS(
+        selectedIcon = NiaIcons.Home,
+        unselectedIcon = NiaIcons.HomeBorder,
+        iconTextId = R.string.feature_home_title,
+        titleTextId = R.string.app_name,
+    ),
     HOME(
         selectedIcon = NiaIcons.Upcoming,
         unselectedIcon = NiaIcons.UpcomingBorder,
-        iconTextId = R.string.accept,
+        iconTextId = R.string.feature_home_title,
         titleTextId = R.string.app_name,
     ),
     FOR_YOU(
         selectedIcon = NiaIcons.Upcoming,
         unselectedIcon = NiaIcons.UpcomingBorder,
-        iconTextId = R.string.accept,
+        iconTextId = R.string.feature_foryou_title,
         titleTextId = R.string.app_name,
     ),
     BOOKMARKS(
         selectedIcon = NiaIcons.Bookmarks,
         unselectedIcon = NiaIcons.BookmarksBorder,
-        iconTextId = R.string.accept,
-        titleTextId = R.string.accept,
+        iconTextId = R.string.feature_bookmarks_title,
+        titleTextId = R.string.feature_bookmarks_title,
     ),
-    INTERESTS(
+
+    /*UNIVERSALIS(
         selectedIcon = NiaIcons.Grid3x3,
         unselectedIcon = NiaIcons.Grid3x3,
         iconTextId = R.string.accept,
         titleTextId = R.string.accept,
-    ),
+    ),*/
 }
 

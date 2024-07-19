@@ -1,7 +1,6 @@
 package org.deiverbum.app.navigation
 
-import android.os.Build
-import androidx.annotation.RequiresApi
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -9,8 +8,8 @@ import com.google.samples.apps.nowinandroid.feature.search.navigation.searchScre
 import org.deiverbum.app.core.presentation.ui.NiaAppState
 import org.deiverbum.app.feature.bookmarks.navigation.bookmarksScreen
 import org.deiverbum.app.feature.foryou.navigation.forYouScreen
-import org.deiverbum.app.feature.home.navigation.HOME_ROUTE
 import org.deiverbum.app.feature.home.navigation.homeScreen
+import org.deiverbum.app.feature.interests.navigation.INTERESTS_ROUTE
 import org.deiverbum.app.feature.interests.navigation.navigateToInterests
 import org.deiverbum.app.ui.interests2pane.interestsListDetailScreen
 
@@ -21,13 +20,16 @@ import org.deiverbum.app.ui.interests2pane.interestsListDetailScreen
  * The navigation graph defined in this file defines the different top level routes. Navigation
  * within each route is handled using state and Back Handlers.
  */
-@RequiresApi(Build.VERSION_CODES.O)
+@ExperimentalMaterial3AdaptiveApi
+
 @Composable
 fun NiaNavHost(
     appState: NiaAppState,
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
-    startDestination: String = HOME_ROUTE,
+    startDestination: String = INTERESTS_ROUTE,
+    //startDestination: String = HOME_ROUTE,
+
 ) {
     val navController = appState.navController
     NavHost(
@@ -35,9 +37,10 @@ fun NiaNavHost(
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        homeScreen(onTopicClick = navController::navigateToInterests)
-
         forYouScreen(onTopicClick = navController::navigateToInterests)
+        homeScreen(onTopicClick = navController::navigateToInterests)
+        //homeScreen(onTopicClick = navController::navigateToHome,onBackClick = navController::popBackStack)
+
         bookmarksScreen(
             onTopicClick = navController::navigateToInterests,
             onShowSnackbar = onShowSnackbar,

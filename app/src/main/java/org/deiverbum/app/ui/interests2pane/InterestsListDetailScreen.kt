@@ -44,6 +44,7 @@ import org.deiverbum.app.feature.topic.navigation.topicScreen
 
 private const val DETAIL_PANE_NAVHOST_ROUTE = "detail_pane_route"
 
+
 fun NavGraphBuilder.interestsListDetailScreen() {
     composable(
         route = INTERESTS_ROUTE,
@@ -59,6 +60,7 @@ fun NavGraphBuilder.interestsListDetailScreen() {
     }
 }
 
+
 @Composable
 internal fun InterestsListDetailScreen(
     viewModel: Interests2PaneViewModel = hiltViewModel(),
@@ -70,18 +72,22 @@ internal fun InterestsListDetailScreen(
     )
 }
 
+
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
 internal fun InterestsListDetailScreen(
     selectedTopicId: String?,
     onTopicClick: (String) -> Unit,
 ) {
+    val nestedNavController = rememberNavController()
+
     val listDetailNavigator = rememberListDetailPaneScaffoldNavigator<Nothing>()
     BackHandler(listDetailNavigator.canNavigateBack()) {
         listDetailNavigator.navigateBack()
+        nestedNavController.navigateUp()
     }
 
-    val nestedNavController = rememberNavController()
+    //val nestedNavController = rememberNavController()
 
     fun onTopicClickShowDetailPane(topicId: String) {
         onTopicClick(topicId)
@@ -108,7 +114,9 @@ internal fun InterestsListDetailScreen(
             ) {
                 topicScreen(
                     showBackButton = !listDetailNavigator.isListPaneVisible(),
+                    //onBackClick = nestedNavController::popBackStack,
                     onBackClick = listDetailNavigator::navigateBack,
+
                     onTopicClick = ::onTopicClickShowDetailPane,
                 )
                 composable(route = TOPIC_ROUTE) {

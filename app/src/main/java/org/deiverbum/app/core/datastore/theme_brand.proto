@@ -18,9 +18,9 @@ syntax = "proto3";
 
 option java_package = "org.deiverbum.app.core.datastore";
 option java_multiple_files = true;
-
+/*
 enum ThemeBrandProto {
   THEME_BRAND_UNSPECIFIED = 0;
   THEME_BRAND_DEFAULT = 1;
   THEME_BRAND_ANDROID = 2;
-}
+}*/

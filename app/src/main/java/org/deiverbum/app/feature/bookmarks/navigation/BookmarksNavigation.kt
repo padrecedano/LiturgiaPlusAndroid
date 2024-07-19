@@ -27,6 +27,7 @@ const val BOOKMARKS_ROUTE = "bookmarks_route"
 fun NavController.navigateToBookmarks(navOptions: NavOptions) =
     navigate(BOOKMARKS_ROUTE, navOptions)
 
+
 fun NavGraphBuilder.bookmarksScreen(
     onTopicClick: (String) -> Unit,
     onShowSnackbar: suspend (String, String?) -> Boolean,

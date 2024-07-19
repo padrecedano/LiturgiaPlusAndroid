@@ -16,8 +16,8 @@
 
 syntax = "proto3";
 
-import "org/deiverbum/app/core/datastore/dark_theme_config.proto";
-import "org/deiverbum/app/core/datastore/theme_brand.proto";
+//import "org/deiverbum/app/core/datastore/dark_theme_config.proto";
+//import "org/deiverbum/app/core/datastore/theme_brand.proto";
 
 option java_package = "org.deiverbum.app.core.datastore";
 option java_multiple_files = true;

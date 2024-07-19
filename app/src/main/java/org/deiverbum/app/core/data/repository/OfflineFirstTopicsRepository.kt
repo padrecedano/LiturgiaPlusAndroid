@@ -28,7 +28,7 @@ class OfflineFirstTopicsRepository @Inject constructor(
             .map { it.map(TopicEntity::asExternalModel) }
 
     override fun getTopic(id: String): Flow<Topic> =
-        topicDao.getTopicEntity(id).map { it.asExternalModel() }
+        topicDao.getTopicEntity("1").map { it.asExternalModel() }
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean =
         synchronizer.changeListSync(

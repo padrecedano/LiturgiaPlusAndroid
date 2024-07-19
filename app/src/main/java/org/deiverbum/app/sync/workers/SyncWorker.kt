@@ -16,8 +16,9 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import org.deiverbum.app.core.analytics.AnalyticsHelper
 import org.deiverbum.app.core.data.Synchronizer
-import org.deiverbum.app.core.data.repository.NewsRepository
+import org.deiverbum.app.core.data.repository.SearchContentsRepository
 import org.deiverbum.app.core.data.repository.TopicsRepository
+import org.deiverbum.app.core.data.repository.UniversalisRepositoryy
 import org.deiverbum.app.core.datastore.ChangeListVersions
 import org.deiverbum.app.core.datastore.NiaPreferencesDataSource
 import org.deiverbum.app.core.network.Dispatcher
@@ -36,8 +37,8 @@ internal class SyncWorker @AssistedInject constructor(
     @Assisted workerParams: WorkerParameters,
     private val niaPreferences: NiaPreferencesDataSource,
     private val topicRepository: TopicsRepository,
-    private val newsRepository: NewsRepository,
-    //private val searchContentsRepository: SearchContentsRepository,
+    private val newsRepository: UniversalisRepositoryy,
+    private val searchContentsRepository: SearchContentsRepository,
     @Dispatcher(NiaDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
     private val analyticsHelper: AnalyticsHelper,
     private val syncSubscriber: SyncSubscriber,
@@ -54,14 +55,14 @@ internal class SyncWorker @AssistedInject constructor(
 
             // First sync the repositories in parallel
             val syncedSuccessfully = awaitAll(
-                async { topicRepository.sync() },
+                //async { topicRepository.sync() },
                 async { newsRepository.sync() },
             ).all { it }
 
             analyticsHelper.logSyncFinished(syncedSuccessfully)
 
             if (syncedSuccessfully) {
-                //searchContentsRepository.populateFtsData()
+                searchContentsRepository.populateFtsData()
                 Result.success()
             } else {
                 Result.retry()
@@ -69,22 +70,13 @@ internal class SyncWorker @AssistedInject constructor(
         }
     }
 
-    override suspend fun getChangeListVersions(): ChangeListVersions {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getChangeListVersions(): ChangeListVersions =
+        niaPreferences.getChangeListVersions()
 
-    override suspend fun updateChangeListVersions(update: ChangeListVersions.() -> ChangeListVersions) {
-        TODO("Not yet implemented")
-    }
+    override suspend fun updateChangeListVersions(
+        update: ChangeListVersions.() -> ChangeListVersions,
+    ) = niaPreferences.updateChangeListVersion(update)
 
-    /*
-        override suspend fun getChangeListVersions(): ChangeListVersions =
-            niaPreferences.getChangeListVersions()
-
-        override suspend fun updateChangeListVersions(
-            update: ChangeListVersions.() -> ChangeListVersions,
-        ) = niaPreferences.updateChangeListVersion(update)
-    */
     companion object {
         /**
          * Expedited one time work to sync data on app startup
@@ -95,5 +87,4 @@ internal class SyncWorker @AssistedInject constructor(
             .setInputData(SyncWorker::class.delegatedData())
             .build()
     }
-
 }

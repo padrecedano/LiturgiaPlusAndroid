@@ -16,26 +16,64 @@
 
 syntax = "proto3";
 
-//import "com/google/samples/apps/nowinandroid/data/dark_theme_config.proto";
-//import "com/google/samples/apps/nowinandroid/data/theme_brand.proto";
-//import "org/deiverbum/app/core/datastore/dark_theme_config.proto";
-
-//option java_package = "com.google.samples.apps.nowinandroid.core.datastore";
+//import "org/deiverbum/app/src/main/proto/dark_theme_config.proto";
+//import "org/deiverbum/app/core/datastore/theme_brand.proto";
+///Users/cedano/StudioProjects/LiturgiaPlusAndroid/app/src/main/proto
 option java_package = "org.deiverbum.app.core.datastore";
 option java_multiple_files = true;
 
 message UserPreferences {
-  bool onboardingShown = 1;
+  reserved 2;
+  repeated int32 deprecated_int_followed_topic_ids = 1;
+  int32 topicChangeListVersion = 3;
+  int32 authorChangeListVersion = 4;
+  int32 newsResourceChangeListVersion = 6;
+  repeated int32 deprecated_int_followed_author_ids = 7;
+  bool has_done_int_to_string_id_migration = 8;
+  repeated string deprecated_followed_topic_ids = 9;
+  repeated string deprecated_followed_author_ids = 10;
+  repeated string deprecated_bookmarked_news_resource_ids = 11;
+  bool has_done_list_to_map_migration = 12;
+
+  // Each map is used to store a set of string IDs. The bool has no meaning, but proto3 doesn't
+  // have a Set type so this is the closest we can get to a Set.
+  map<string, bool> followed_topic_ids = 13;
+  map<string, bool> followed_author_ids = 14;
+  map<string, bool> bookmarked_news_resource_ids = 15;
+  map<string, bool> viewed_news_resource_ids = 20;
+
+  ThemeBrandProto theme_brand = 16;
+  DarkThemeConfigProto dark_theme_config = 17;
+
+  bool should_hide_onboarding = 18;
+
+  bool use_dynamic_color = 19;
+
+  // NEXT AVAILABLE ID: 21
+  /*bool onboardingShown = 1;
   DarkThemeConfigProto dark_theme_config = 2;
   map<string, bool> followed_topic_ids = 3;
   bool should_hide_onboarding = 4;
   map<string, bool> bookmarked_news_resource_ids = 5;
-  map<string, bool> viewed_news_resource_ids = 6;
+  map<string, bool> viewed_news_resource_ids = 6;*/
   // NEXT AVAILABLE ID: 21
 }
+/*enum DarkThemeConfigProto {
+  DARK_THEME_CONFIG_UNSPECIFIED = 0;
+  DARK_THEME_CONFIG_FOLLOW_SYSTEM = 1;
+  DARK_THEME_CONFIG_LIGHT = 2;
+  DARK_THEME_CONFIG_DARK = 3;
+}*/
+
 enum DarkThemeConfigProto {
   DARK_THEME_CONFIG_UNSPECIFIED = 0;
   DARK_THEME_CONFIG_FOLLOW_SYSTEM = 1;
   DARK_THEME_CONFIG_LIGHT = 2;
   DARK_THEME_CONFIG_DARK = 3;
+}
+
+enum ThemeBrandProto {
+  THEME_BRAND_UNSPECIFIED = 0;
+  THEME_BRAND_DEFAULT = 1;
+  THEME_BRAND_ANDROID = 2;
 }

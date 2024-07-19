@@ -8,13 +8,19 @@ import org.deiverbum.app.core.data.repository.DefaultRecentSearchRepository
 import org.deiverbum.app.core.data.repository.DefaultSearchContentsRepository
 import org.deiverbum.app.core.data.repository.NewsRepository
 import org.deiverbum.app.core.data.repository.OfflineFirstNewsRepository
+import org.deiverbum.app.core.data.repository.OfflineFirstTodayRepository
 import org.deiverbum.app.core.data.repository.OfflineFirstTopicsRepository
+import org.deiverbum.app.core.data.repository.OfflineFirstUniversalisRepository
+import org.deiverbum.app.core.data.repository.OfflineFirstUniversalisRepositoryy
 import org.deiverbum.app.core.data.repository.OfflineFirstUserDataRepository
 import org.deiverbum.app.core.data.repository.RecentSearchRepository
 import org.deiverbum.app.core.data.repository.SearchContentsRepository
 import org.deiverbum.app.core.data.repository.TodayRepository
 import org.deiverbum.app.core.data.repository.TodayRepositoryImpl
+import org.deiverbum.app.core.data.repository.TodaysRepository
 import org.deiverbum.app.core.data.repository.TopicsRepository
+import org.deiverbum.app.core.data.repository.UniversalisRepository
+import org.deiverbum.app.core.data.repository.UniversalisRepositoryy
 import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.data.util.ConnectivityManagerNetworkMonitor
 import org.deiverbum.app.core.data.util.NetworkMonitor
@@ -37,6 +43,17 @@ interface DataModule {
     ): TopicsRepository
 
     @Binds
+    fun bindsUniversalisRepositoryy(
+        topicsRepository: OfflineFirstUniversalisRepositoryy,
+    ): UniversalisRepositoryy
+
+    @Binds
+    fun bindsTodayNewRepository(
+        topicsRepository: OfflineFirstTodayRepository,
+    ): TodaysRepository
+
+
+    @Binds
     fun bindsUserDataRepository(
         userDataRepository: OfflineFirstUserDataRepository,
     ): UserDataRepository
@@ -45,6 +62,11 @@ interface DataModule {
     fun bindsNewsResourceRepository(
         newsRepository: OfflineFirstNewsRepository,
     ): NewsRepository
+
+    @Binds
+    fun bindsUniversalisResourceRepository(
+        newsRepository: OfflineFirstUniversalisRepository,
+    ): UniversalisRepository
 
     @Binds
     fun bindsRecentSearchRepository(
@@ -56,6 +78,13 @@ interface DataModule {
         searchContentsRepository: DefaultSearchContentsRepository,
     ): SearchContentsRepository
 
+    /*
+
+    @Binds
+    fun bindsUserUniversalisResourceRepository(
+        userUniversalisResourceRepository: UserUniversalisResourceRepository,
+    ): UserUniversalisResourceRepository
+    */
 
     @Binds
     fun bindsNetworkMonitor(

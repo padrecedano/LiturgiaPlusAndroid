@@ -16,8 +16,6 @@
 
 package org.deiverbum.app.feature.bookmarks
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.Orientation
@@ -52,7 +50,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -79,7 +76,6 @@ import org.deiverbum.app.core.ui.UserNewsResourcePreviewParameterProvider
 import org.deiverbum.app.core.ui.newsFeed
 
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 internal fun BookmarksRoute(
     onTopicClick: (String) -> Unit,
@@ -104,7 +100,7 @@ internal fun BookmarksRoute(
 /**
  * Displays the user's bookmarked articles. Includes support for loading and empty states.
  */
-@RequiresApi(Build.VERSION_CODES.O)
+
 @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
 @Composable
 internal fun BookmarksScreen(
@@ -165,7 +161,7 @@ private fun LoadingState(modifier: Modifier = Modifier) {
     )
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 private fun BookmarksGrid(
     feedState: NewsFeedUiState,
@@ -269,7 +265,7 @@ private fun LoadingStatePreview() {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Preview
 @Composable
 private fun BookmarksGridPreview(

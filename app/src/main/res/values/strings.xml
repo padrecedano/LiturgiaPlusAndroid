@@ -1,5 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="feature_foryou_title">For you</string>
+    <string name="feature_foryou_done">Done</string>
+    <string name="feature_foryou_loading">Loading for you…</string>
+    <string name="feature_foryou_navigate_up">Navigate up</string>
+    <string name="feature_foryou_onboarding_guidance_title">What are you interested in?</string>
+    <string name="feature_foryou_onboarding_guidance_subtitle">Updates from topics you follow will appear here. Follow some things to get started.</string>
+    <string name="not_connected">⚠️ You aren’t connected to the internet</string>
+
+    <string name="feature_settings_top_app_bar_action_icon_description">Settings</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">Search</string>
+    <string name="feature_settings_title">Settings</string>
+    <string name="feature_settings_loading">Loading…</string>
+    <string name="feature_settings_privacy_policy">Privacy policy</string>
+    <string name="feature_settings_licenses">Licenses</string>
+    <string name="feature_settings_brand_guidelines">Brand Guidelines</string>
+    <string name="feature_settings_feedback">Feedback</string>
+    <string name="feature_settings_theme">Theme</string>
+    <string name="feature_settings_brand_default">Default</string>
+    <string name="feature_settings_brand_android">Android</string>
+    <string name="feature_settings_dark_mode_preference">Dark mode preference</string>
+    <string name="feature_settings_dark_mode_config_system_default">System default</string>
+    <string name="feature_settings_dark_mode_config_light">Light</string>
+    <string name="feature_settings_dark_mode_config_dark">Dark</string>
+    <string name="feature_settings_dynamic_color_preference">Use Dynamic Color</string>
+    <string name="feature_settings_dynamic_color_yes">Yes</string>
+    <string name="feature_settings_dynamic_color_no">No</string>
+    <string name="feature_settings_dismiss_dialog_button_text">OK</string>
+
+    <string name="feature_interests_title">Interests</string>
+    <string name="feature_interests_loading">Loading data</string>
+    <string name="feature_interests_empty_header">"No available data"</string>
+
+    <string name="feature_home_title">Inicio</string>
+
+    <string name="feature_bookmarks_title">Saved</string>
+    <string name="feature_bookmarks_loading">Loading saved…</string>
+    <string name="feature_bookmarks_empty_error">No saved updates</string>
+    <string name="feature_bookmarks_empty_description">Updates you save will be stored here\nto read later</string>
+    <string name="feature_bookmarks_removed">Bookmark removed</string>
+    <string name="feature_bookmarks_undo">UNDO</string>
+
+
+    <string name="feature_search_title">Search</string>
+    <string name="feature_search_clear_search_text_content_desc">Clear search text</string>
+    <string name="feature_search_result_not_found">Sorry, there is no content found for your search \"%1$s\"</string>
+    <string name="feature_search_not_ready">Sorry, we are still processing the search index. Please come back later</string>
+    <string name="feature_search_try_another_search">Try another search or explorer </string>
+    <string name="feature_search_interests">Interests</string>
+    <string name="feature_search_to_browse_topics"> to browse topics</string>
+    <string name="feature_search_topics">Topics</string>
+    <string name="feature_search_updates">Updates</string>
+    <string name="feature_search_recent_searches">Recent searches</string>
+    <string name="feature_search_clear_recent_searches_content_desc">Clear searches</string>
+
+
     <string name="deleteThisString">deleteThisString</string>
 
     <string name="app_name">Liturgia+</string>

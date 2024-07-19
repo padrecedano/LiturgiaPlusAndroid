@@ -13,6 +13,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import androidx.tracing.trace
 import com.google.samples.apps.nowinandroid.feature.search.navigation.navigateToSearch
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
@@ -38,6 +39,8 @@ import org.deiverbum.app.navigation.TopLevelDestination.BOOKMARKS
 import org.deiverbum.app.navigation.TopLevelDestination.FOR_YOU
 import org.deiverbum.app.navigation.TopLevelDestination.HOME
 import org.deiverbum.app.navigation.TopLevelDestination.INTERESTS
+
+//import org.deiverbum.app.navigation.TopLevelDestination.UNIVERSALIS
 
 @Composable
 fun rememberNiaAppState(
@@ -83,11 +86,10 @@ class NiaAppState(
 
     val currentTopLevelDestination: TopLevelDestination?
         @Composable get() = when (currentDestination?.route) {
+            HOME_ROUTE -> HOME
             FOR_YOU_ROUTE -> FOR_YOU
             BOOKMARKS_ROUTE -> BOOKMARKS
             INTERESTS_ROUTE -> INTERESTS
-            HOME_ROUTE -> HOME
-
             else -> null
         }
 
@@ -143,7 +145,7 @@ class NiaAppState(
      * @param topLevelDestination: The destination the app needs to navigate to.
      */
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
-        androidx.tracing.trace("Navigation: ${topLevelDestination.name}") {
+        trace("Navigation: ${topLevelDestination.name}") {
             val topLevelNavOptions = navOptions {
                 // Pop up to the start destination of the graph to
                 // avoid building up a large stack of destinations
@@ -159,10 +161,10 @@ class NiaAppState(
             }
 
             when (topLevelDestination) {
+                HOME -> navController.navigateToHome(topLevelNavOptions)
                 FOR_YOU -> navController.navigateToForYou(topLevelNavOptions)
                 BOOKMARKS -> navController.navigateToBookmarks(topLevelNavOptions)
                 INTERESTS -> navController.navigateToInterests(null, topLevelNavOptions)
-                HOME -> navController.navigateToHome(topLevelNavOptions)
             }
         }
     }
