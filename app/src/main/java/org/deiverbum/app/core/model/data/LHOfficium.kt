@@ -1,6 +1,10 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.AnnotatedString
+import org.deiverbum.app.core.designsystem.component.getRubricColor
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
@@ -30,9 +34,45 @@ data class LHOfficium(
 
     var sanctus: LHSanctus? = null
 
+    @Composable
+    override fun allForView(calendarTime: Int, userData: UserDataDynamic): AnnotatedString {
+        val ssb = AnnotatedString.Builder()
+        val rubricColor = getRubricColor(userData = userData)
+        if (1 == 2) {
+            val introitus = Introitus()
+            ContentTitle(
+                text = Constants.TITLE_INITIAL_INVOCATION.uppercase(),
+                level = 2,
+                userData = userData
+            ).getComposable()
+            Text(text = introitus.composableDomineLabia(rubricColor))
+            officiumLectionis.normalizeByTime(calendarTime)
+            if (sanctus != null && hasSaint) {
+                invitatorium.normalizeIsSaint(sanctus!!.nomen)
+                Text(text = sanctus!!.getComposable())
+            }
+
+            Text(text = invitatorium.getComposable(-1, calendarTime, userData))
+            ssb.append(Utils.LS2)
+            Text(text = hymnus.getComposable(userData = userData))
+            ssb.append(Utils.LS2)
+            Text(text = psalmodia.getComposable(-1, calendarTime, userData))
+        }
+        Text(text = officiumLectionis.getComposable(userData = userData))
+
+        Text(text = oratio.getComposable(userData))
+        //ssb.append(oratio.all)
+        //ssb.append(Utils.LS2)
+        ssb.append(RitusConclusionis.viewDominusNosBenedicat)
+        //} catch (e: Exception) {
+        //   ssb.append(Utils.createErrorMessage(e.message))
+        //}
+        return ssb.toAnnotatedString()
+    }
+
     override fun forView(calendarTime: Int): SpannableStringBuilder {
         //this.hasSaint = hasSaint
-        val ssb = SpannableStringBuilder()
+        val ssb = AnnotatedString.Builder()
         try {
             officiumLectionis.normalizeByTime(calendarTime)
             if (sanctus != null && hasSaint) {
@@ -40,8 +80,8 @@ data class LHOfficium(
                 ssb.append(sanctus!!.forViewVitaBrevis)
                 //ssb.append(Constants.LS2)
             }
-            ssb.append(Utils.toH1Red(Constants.TITLE_OFICIO))
-            ssb.append(Utils.LS2)
+            //ssb.append(Utils.toH1Red(Constants.TITLE_OFICIO))
+            //ssb.append(Utils.LS2)
             ssb.append(Introitus.viewDomineLabiaMeaAperis)
             ssb.append(Utils.LS2)
             ssb.append(invitatorium.getAllForView(-1, calendarTime))
@@ -60,7 +100,7 @@ data class LHOfficium(
         } catch (e: Exception) {
             ssb.append(Utils.createErrorMessage(e.message))
         }
-        return ssb
+        return SpannableStringBuilder(ssb.toAnnotatedString())
     }
 
     override fun forRead(): StringBuilder {

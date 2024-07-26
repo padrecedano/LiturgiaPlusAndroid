@@ -28,11 +28,11 @@ class CompositeUserUniversalisResourceRepository @Inject constructor(
     /**
      * Returns available news resources (joined with user data) matching the given query.
      */
-    val q = UniversalisResourceQuery(setOf("20240202"), null)
+    val q = UniversalisResourceQuery(setOf(20240202), 0)
     override fun observeAll(
         query: UniversalisResourceQuery,
     ): Flow<List<UserUniversalisResource>> =
-        newsRepository.getNewsResources(query)
+        newsRepository.getUniversalisByDate(query)
             .combine(userDataRepository.userData) { newsResources, userData ->
                 newsResources.mapToUserUniversalisResources(userData)
             }
@@ -46,7 +46,7 @@ class CompositeUserUniversalisResourceRepository @Inject constructor(
             .flatMapLatest { followedTopics ->
                 when {
                     followedTopics.isEmpty() -> flowOf(emptyList())
-                    else -> observeAll(UniversalisResourceQuery(filterTopicIds = followedTopics))
+                    else -> observeAll(UniversalisResourceQuery(filterTopicIds = setOf(1)/*followedTopics*/))
                 }
             }
 

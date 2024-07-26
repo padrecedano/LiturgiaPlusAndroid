@@ -1,7 +1,14 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import com.squareup.moshi.JsonClass
+import org.deiverbum.app.core.designsystem.component.getRubricColor
 import org.deiverbum.app.core.model.data.Introitus.Companion.initialInvocationForRead
 import org.deiverbum.app.core.model.data.Introitus.Companion.initialInvocationForView
 import org.deiverbum.app.util.Constants
@@ -38,6 +45,76 @@ data class LHIntermedia(
         get() = Utils.pointAtEnd(tituloHora)
     val tituloHoraForView: SpannableStringBuilder
         get() = Utils.toH1Red(tituloHora)
+
+    @Composable
+    override fun allForView(calendarTime: Int, userData: UserDataDynamic): AnnotatedString {
+        val content = IntroitusNew.createIntroitus()
+        val rubricColor = getRubricColor(userData = userData)
+        val introitus = Introitus()
+        ContentTitle(
+            text = Constants.TITLE_INITIAL_INVOCATION.uppercase(),
+            level = 2,
+            userData = userData
+        ).getComposable()
+        Text(text = introitus.composableDeusInAdiutorium(rubricColor))
+
+//append(hymnus.getComposable(userData = userData))
+        Text(text = hymnus.getComposable(userData = userData))
+
+//VerseContent(text = hymnus.hymnus, userData =userData )
+//            ContentHead(text= Constants.TITLE_RESPONSORY,level=2,userData=userData).getComposable()
+//            VerseContent(text = oratio.oratio, userData =userData )
+        Text(text = psalmodia.getComposable(hourIndex, calendarTime, userData))
+
+        //ContentTitle(text= Constants.TITLE_SHORT_READING.uppercase(),level=2,userData=userData).getComposable()
+        Text(text = lectioBrevis.getComposable(hourIndex, userData))
+
+
+        ContentTitle(
+            text = Constants.TITLE_PRAYER.uppercase(),
+            level = 2,
+            userData = userData
+        ).getComposable()
+        Text(text = oratio.getComposable(userData))
+
+        val data = listOf(Pair(content.placeHolder, SpanStyle(color = Color.Red)), content.content)
+        return buildAnnotatedString {
+            //append(annotateRecursivelyNew())
+            /*append(annotateRecursively(
+                    listOf(Pair(content.placeHolder, SpanStyle(color = Color.Red))),
+                    content.content
+                )*/
+            //)
+            //append(Introitus.stuffDone(a = Introitus(), userData = userData))
+//        ContentHead(text ="Level 1", level =1).getComposable()
+//            ContentHead(text ="Level 2", level =2, userData =userData).getComposable()
+            //ContentHead(text= Constants.TITLE_HYMN,level=2,userData=userData).getComposable()
+//append(hymnus.getComposable(userData = userData))
+            //Text(text=hymnus.getComposable(userData = userData))
+
+//VerseContent(text = hymnus.hymnus, userData =userData )
+//            ContentHead(text= Constants.TITLE_RESPONSORY,level=2,userData=userData).getComposable()
+//            VerseContent(text = oratio.oratio, userData =userData )
+            //Text(text=psalmodia.getComposable(hourIndex, calendarTime,userData))
+            //ContentTitle(text= Constants.TITLE_SHORT_READING.uppercase(),level=2,userData=userData).getComposable()
+
+            //Text(text=lectioBrevis.getComposable(hourIndex,userData))
+
+
+            //hymnus.ViewContent(userData=userData)
+        }
+        /*val annotatedString = buildAnnotatedString {
+
+            //append(initialInvocation)
+        append(stuffDone(Introitus(),userData))
+
+        //h3Rubric(text = liturgia?.nomen!!, userData = userData)
+        //TextBody(text = fecha, useLineBreak =true )
+        //TextBody(text = liturgia?.tempus?.externus!!, useLineBreak =true )
+
+    }*/
+        //return annotatedString
+    }
 
     override fun forView(calendarTime: Int): SpannableStringBuilder {
         //this.typeID = typeID

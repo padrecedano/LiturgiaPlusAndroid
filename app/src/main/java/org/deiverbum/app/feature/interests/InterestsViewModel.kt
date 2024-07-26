@@ -22,6 +22,7 @@ class InterestsViewModel @Inject constructor(
     val userDataRepository: UserDataRepository,
     getFollowableTopics: GetFollowableTopicsUseCase,
 ) : ViewModel() {
+    private var topicIdd = savedStateHandle.get<String>("topicId") ?: ""
 
     val selectedTopicId: StateFlow<String?> = savedStateHandle.getStateFlow(TOPIC_ID_ARG, null)
 

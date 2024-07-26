@@ -7,9 +7,11 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import org.deiverbum.app.core.model.data.DarkThemeConfig
 import org.deiverbum.app.core.model.data.NewsResource
+import org.deiverbum.app.core.model.data.RubricColorConfig
 import org.deiverbum.app.core.model.data.ThemeBrand
 import org.deiverbum.app.core.model.data.Topic
 import org.deiverbum.app.core.model.data.UserData
+import org.deiverbum.app.core.model.data.UserDataDynamic
 import org.deiverbum.app.core.model.data.UserNewsResource
 import org.deiverbum.app.core.ui.PreviewParameterData.newsResources
 
@@ -29,9 +31,14 @@ object PreviewParameterData {
         viewedNewsResources = setOf("1", "2", "4"),
         followedTopics = emptySet(),
         themeBrand = ThemeBrand.ANDROID,
-        darkThemeConfig = DarkThemeConfig.DARK,
         shouldHideOnboarding = true,
+        dynamic = UserDataDynamic(
+            darkThemeConfig = DarkThemeConfig.DARK,
         useDynamicColor = false,
+            rubricColor = RubricColorConfig.LIGHT,
+            useVoiceReader = true,
+            useMultipleInvitatory = true
+        )
     )
 
     val topics = listOf(

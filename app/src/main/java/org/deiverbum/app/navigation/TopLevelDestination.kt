@@ -24,7 +24,7 @@ enum class TopLevelDestination(
     HOME(
         selectedIcon = NiaIcons.Upcoming,
         unselectedIcon = NiaIcons.UpcomingBorder,
-        iconTextId = R.string.feature_home_title,
+        iconTextId = R.string.feature_interests_title,
         titleTextId = R.string.app_name,
     ),
     FOR_YOU(

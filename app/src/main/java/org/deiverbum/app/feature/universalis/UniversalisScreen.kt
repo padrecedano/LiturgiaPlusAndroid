@@ -62,9 +62,7 @@ import org.deiverbum.app.core.designsystem.component.NiaLoadingWheel
 import org.deiverbum.app.core.designsystem.component.scrollbar.DraggableScrollbar
 import org.deiverbum.app.core.designsystem.component.scrollbar.rememberDraggableScroller
 import org.deiverbum.app.core.designsystem.component.scrollbar.scrollbarState
-import org.deiverbum.app.core.model.TodayRequest
 import org.deiverbum.app.core.model.data.UserUniversalisResource
-import org.deiverbum.app.core.ui.InterestsItem
 import org.deiverbum.app.core.ui.TrackScreenViewEvent
 import org.deiverbum.app.core.ui.TrackScrollJank
 import org.deiverbum.app.feature.interests.InterestsUiState
@@ -302,32 +300,32 @@ fun UniversalisTabContent(
             state = scrollableState,
         ) {
             //Text("lll")
+            /*
+                        topics.forEach { item ->
+                            item.followableTopics.forEach { followableTopic ->
+                                val currentTopic = followableTopic.topic
+                                val topicId = followableTopic.topic.todayDate
+                                item(key = topicId) {
+                                    val isSelected = true//highlightSelectedTopic && topicId == selectedTopicId
+                                    InterestsItem(
+                                        name = currentTopic.todayDate.toString(),
+                                        following = followableTopic.isFollowed,
+                                        description = followableTopic.topic.fecha,
+                                        topicImageUrl = followableTopic.topic.fecha,
+                                        onClick = { /*onTopicClick(topicId)*/ },
+                                        onFollowButtonClick = { /*onFollowButtonClick(topicId, it)*/ },
+                                        isSelected = isSelected,
+                                    )
+                                }
+                            }
 
-            topics.forEach { item ->
-                item.followableTopics.forEach { followableTopic ->
-                    val currentTopic = followableTopic.topic
-                    val topicId = followableTopic.topic.todayDate
-                    item(key = topicId) {
-                        val isSelected = true//highlightSelectedTopic && topicId == selectedTopicId
-                        InterestsItem(
-                            name = currentTopic.todayDate.toString(),
-                            following = followableTopic.isFollowed,
-                            description = followableTopic.topic.fecha,
-                            topicImageUrl = followableTopic.topic.fecha,
-                            onClick = { /*onTopicClick(topicId)*/ },
-                            onFollowButtonClick = { /*onFollowButtonClick(topicId, it)*/ },
-                            isSelected = isSelected,
-                        )
-                    }
-                }
-
-                /*if (withBottomSpacer) {
-                    item {
-                        Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
-                    }
-                }*/
-            }
-
+                            /*if (withBottomSpacer) {
+                                item {
+                                    Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
+                                }
+                            }*/
+                        }
+            */
 
         }
         val scrollbarState = scrollableState.scrollbarState(
@@ -579,13 +577,13 @@ fun BoxScope.topicsSingleContent(
             contentPadding = PaddingValues(vertical = 16.dp),
             state = scrollableState,
         ) {
-            topics.forEach { item ->
+            /*topics.forEach { item ->
                 item.followableTopics.forEach { followableTopic ->
                     val currentTopic = followableTopic.topic
                     val topicId = followableTopic.topic.todayDate
                     item(key = topicId) {
                         val isSelected = true//highlightSelectedTopic && topicId == selectedTopicId
-                        InterestsItem(
+                        /*InterestsItem(
                             name = currentTopic.todayDate.toString(),
                             following = followableTopic.isFollowed,
                             description = followableTopic.topic.fecha,
@@ -593,7 +591,7 @@ fun BoxScope.topicsSingleContent(
                             onClick = { /*onTopicClick(topicId)*/ },
                             onFollowButtonClick = { /*onFollowButtonClick(topicId, it)*/ },
                             isSelected = isSelected,
-                        )
+                        )*/
                     }
                 }
 
@@ -602,7 +600,7 @@ fun BoxScope.topicsSingleContent(
                         Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
                     }
                 }*/
-            }
+            }*/
             /*val scrollbarState = scrollableState.scrollbarState(
                 itemsAvailable = topics.size,
             )
@@ -948,17 +946,17 @@ private fun BoxScope.universalisContent(
             contentPadding = PaddingValues(vertical = 16.dp),
             state = scrollableState,
         ) {*/
-        topics.forEach { items ->
-            items.followableTopics.forEach { followableTopic ->
+        /*topics.forEach { items ->
+            items.data.forEach { followableTopic ->
 
                 val topicId = 1//followableTopic.topic.todayDate
                 //item(key = topicId) {
                 //val isSelected = highlightSelectedTopic && topicId == selectedTopicId
-                Text(
+                /*Text(
                     followableTopic.topic.getAllForView(TodayRequest(1, 1, true, true)).toString()
-                )
+                )*/
             }
-        }
+        }*/
     }
 
     /*if (withBottomSpacer) {

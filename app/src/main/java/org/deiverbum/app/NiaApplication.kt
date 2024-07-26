@@ -21,7 +21,6 @@ import android.app.Application
 import coil.ImageLoader
 import coil.ImageLoaderFactory
 import dagger.hilt.android.HiltAndroidApp
-import org.deiverbum.app.sync.initializers.Sync
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -43,7 +42,7 @@ class NiaApplication : Application(), ImageLoaderFactory {
             Timber.plant(Timber.DebugTree())
         }
         // Initialize Sync; the system responsible for keeping data in the app up to date.
-        Sync.initialize(context = this)
+        //Sync.initialize(context = this)
         //profileVerifierLogger()
     }
 

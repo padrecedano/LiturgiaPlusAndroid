@@ -1,4 +1,4 @@
-package org.deiverbum.app.feature.interests
+package org.deiverbum.app.feature.home
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -18,26 +18,30 @@ import org.deiverbum.app.util.Utils
 import javax.inject.Inject
 
 @HiltViewModel
-class InterestsViewModelNew @Inject constructor(
+class InterestsViewModelInHome @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     val userDataRepository: UserDataRepository,
     getFollowableTopics: GetFollowableUniversalisUseCase,
 ) : ViewModel() {
 
-    val selectedTopicId: StateFlow<String?> = savedStateHandle.getStateFlow(TOPIC_ID_ARG, null)
+    //var property = selectedTopicId.
+    private var topicIdd = savedStateHandle.get<String>("topicId") ?: ""
 
-    val uiState: StateFlow<InterestsUiStateNew> = combine(
+    val selectedTopicId: StateFlow<String?> =
+        savedStateHandle.getStateFlow(TOPIC_ID_ARG, "1") //TODO: Poner null como initialValue
+
+    val uiState: StateFlow<InterestsUiStateInHome> = combine(
         selectedTopicId,
         getFollowableTopics.invoke(
             sortBy = UniversalisSortField.NAME,
             date = Utils.hoy.toInt(),
-            topicId = 0
+            topicId = topicIdd.toInt()
         ),
-        InterestsUiStateNew::Interests,
+        InterestsUiStateInHome::InterestsInHome,
     ).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = InterestsUiStateNew.Loading,
+        initialValue = InterestsUiStateInHome.Loading,
     )
 
     fun followTopic(followedTopicId: String, followed: Boolean) {
@@ -48,16 +52,19 @@ class InterestsViewModelNew @Inject constructor(
 
     fun onTopicClick(topicId: String?) {
         savedStateHandle[TOPIC_ID_ARG] = topicId
+        topicIdd = topicId!!
     }
 }
 
-sealed interface InterestsUiStateNew {
-    data object Loading : InterestsUiStateNew
+sealed interface InterestsUiStateInHome {
+    data object Loading : InterestsUiStateInHome
+    data object Error : InterestsUiStateInHome
+    //data class Success(val followableTopic: FollowableTopic) : InterestsUiStateInHome
 
-    data class Interests(
+    data class InterestsInHome(
         val selectedTopicId: String?,
         val topics: List<TopicRequest>,
-    ) : InterestsUiStateNew
+    ) : InterestsUiStateInHome
 
-    data object Empty : InterestsUiStateNew
+    data object Empty : InterestsUiStateInHome
 }

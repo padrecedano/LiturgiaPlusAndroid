@@ -55,9 +55,9 @@ import org.deiverbum.app.core.designsystem.component.NiaTopAppBar
 import org.deiverbum.app.core.designsystem.theme.GradientColors
 import org.deiverbum.app.core.designsystem.theme.LocalGradientColors
 import org.deiverbum.app.core.presentation.ui.NiaAppState
+import org.deiverbum.app.feature.settings.SettingsDialog
 import org.deiverbum.app.navigation.NiaNavHost
 import org.deiverbum.app.navigation.TopLevelDestination
-import org.deiverbum.app.ui.settings.SettingsDialog
 
 
 @ExperimentalMaterial3AdaptiveApi
@@ -68,7 +68,7 @@ import org.deiverbum.app.ui.settings.SettingsDialog
 @Composable
 fun NiaApp(appState: NiaAppState) {
     val shouldShowGradientBackground =
-        appState.currentTopLevelDestination == TopLevelDestination.FOR_YOU
+        appState.currentTopLevelDestination == TopLevelDestination.HOME
     var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
 
     NiaBackground {

@@ -19,9 +19,10 @@ fun LazyListScope.userUniversalisResourceCardItems(
     itemModifier: Modifier = Modifier,
 ) = items(
     items = items,
-    key = { it.todayDate },
+    key = { 0 },
     itemContent = { userNewsResource ->
-        UniversalisResourceCardExpanded(
+
+    UniversalisResourceCardExpanded(
             isBookmarked = false,
             userNewsResource = userNewsResource,
             onToggleBookmark = { /*onToggleBookmark(userNewsResource)*/ },

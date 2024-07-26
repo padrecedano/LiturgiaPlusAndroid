@@ -65,6 +65,10 @@ interface UserDataRepository {
      */
     suspend fun setDynamicColorPreference(useDynamicColor: Boolean)
 
+    suspend fun setVoiceReaderPreference(useVoiceReader: Boolean)
+
+    suspend fun setMultipleInvitatoryPreference(useMultipleInvitatory: Boolean)
+
     /**
      * Sets whether the user has completed the onboarding process.
      */

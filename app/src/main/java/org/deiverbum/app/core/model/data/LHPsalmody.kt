@@ -1,7 +1,10 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.AnnotatedString
 import androidx.room.Ignore
+import org.deiverbum.app.core.designsystem.component.getRubricColor
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Constants.LS2
 import org.deiverbum.app.util.Utils
@@ -127,6 +130,98 @@ open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>, var 
             }
         }
         return sb
+    }
+
+    @Composable
+    open fun getComposable(
+        hourIndex: Int,
+        calendarTime: Int,
+        userData: UserDataDynamic
+    ): AnnotatedString {
+        val rubricColor = getRubricColor(userData = userData)
+        sort()
+        ContentTitle(
+            text = Constants.TITLE_PSALMODY.uppercase(),
+            level = 2,
+            userData = userData
+        ).getComposable()
+
+        val sb = AnnotatedString.Builder()
+        //SpannableStringBuilder(header)
+        //sb.append(LS2)
+        val antiphonBefore = AnnotatedString.Builder()
+        val antiphonAfter = AnnotatedString.Builder()
+
+        if (typus == 1) {
+            if (psalmus.size == antiphonae.size) {
+                antiphonae[hourIndex].normalizeByTime(calendarTime)
+                antiphonBefore.append(antiphonae[hourIndex].getComposableBefore(false, rubricColor))
+                antiphonAfter.append(antiphonae[hourIndex].getComposableAfter(rubricColor))
+
+            } else {
+                antiphonae[0].normalizeByTime(calendarTime)
+                antiphonBefore.append(antiphonae[0].getComposableBefore(rubricColor = rubricColor))
+                antiphonAfter.append(antiphonae[0].getComposableAfter(rubricColor))
+            }
+            sb.append(antiphonBefore.toAnnotatedString())
+            sb.append(LS2)
+            for (s in psalmus) {
+                if (s.pericopa != "") {
+                    // sb.append(s.quoteComposable(rubricColor))
+                    sb.append(s.pericopaComposable(rubricColor))
+                    sb.append(LS2)
+                }
+
+                if (s.theme != null && s.theme != "") {
+                    sb.append(s.themeComposable(rubricColor))
+                    sb.append(LS2)
+                }
+                if ((s.epigraph != null) && (s.epigraph != "")) {
+                    sb.append(s.epigraphComposable())
+                    sb.append(LS2)
+                }
+                if ((s.thePart != null) && (s.thePart != 0)) {
+                    sb.append(s.thePartComposable(rubricColor))
+                    sb.append(LS2)
+                }
+
+                sb.append(s.psalmComposable())
+                sb.append(LS2)
+            }
+            //sb.append(Utils.toRed("Ant. "))
+            sb.append(antiphonAfter.toAnnotatedString())
+            //sb.append(LS2)
+        }
+
+        if (typus == 0 && psalmus.size == antiphonae.size) {
+            for (s in psalmus) {
+                antiphonae[s.theOrder - 1].normalizeByTime(calendarTime)
+                sb.append(antiphonae[s.theOrder - 1].getComposableBefore(rubricColor = rubricColor))
+                sb.append(LS2)
+                if (s.pericopa != "") {
+                    sb.append(s.pericopaComposable(rubricColor))
+                    sb.append(LS2)
+                }
+                if ((s.theme != null) && (s.theme != "")) {
+                    sb.append(s.themeComposable(rubricColor))
+                    sb.append(LS2)
+                }
+                if ((s.epigraph != null) && (s.epigraph != "")) {
+                    sb.append(s.epigraphComposable())
+                    sb.append(LS2)
+                }
+                if ((s.thePart != null) && (s.thePart != 0)) {
+                    sb.append(s.thePartComposable(rubricColor = rubricColor))
+                    sb.append(LS2)
+                }
+                sb.append(s.psalmComposable())
+                sb.append(LS2)
+                sb.append(antiphonae[s.theOrder - 1].getComposableAfter(rubricColor))
+                sb.append(LS2)
+            }
+        }
+        //Text(text = sb.toAnnotatedString())
+        return sb.toAnnotatedString()
     }
 
 

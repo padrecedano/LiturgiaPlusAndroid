@@ -31,7 +31,7 @@ import org.deiverbum.app.core.data.repository.TodaysRepository
 import org.deiverbum.app.core.data.repository.UniversalisResourceQuery
 import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.data.repository.UserUniversalisResourceRepository
-import org.deiverbum.app.core.model.data.FollowableUniversalis
+import org.deiverbum.app.core.model.data.TopicRequest
 import org.deiverbum.app.core.model.data.Universalis
 import org.deiverbum.app.core.model.data.UserUniversalisResource
 import org.deiverbum.app.core.result.Result
@@ -127,14 +127,16 @@ private fun todayNewUiState(
         .map { followedTopicToTopicResult ->
             when (followedTopicToTopicResult) {
                 is Result.Success -> {
+                    TODO()/*
                     val (followedTopics, topic) = followedTopicToTopicResult.data
                     TodayNewUiState.Success(
-                        followableTopic = FollowableUniversalis(
-                            topic = topic,
-                            content = topic.getAllForView(),
-                            isFollowed = false,//topicId in followedTopics,
+                        followableTopic = TopicRequest(
+                            date = 1,
+                            resource = "",
+                            data = listOf(topic),
+                            useMultipleInvitatory = false,
                         ),
-                    )
+                    )*/
                 }
 
                 is Result.Loading -> TodayNewUiState.Loading
@@ -150,7 +152,7 @@ private fun universalisNewUiState(
 ): Flow<UniversalisNewUiState> {
     // Observe news
     val newsStream: Flow<List<UserUniversalisResource>> = userNewsResourceRepository.observeAll(
-        UniversalisResourceQuery(filterTopicIds = setOf(element = topicId)),
+        UniversalisResourceQuery(filterTopicIds = setOf(element = 1)),
     )
 
     // Observe bookmarks
@@ -171,7 +173,7 @@ private fun universalisNewUiState(
 
 sealed interface TodayNewUiState {
     data class Success(
-        val followableTopic: FollowableUniversalis
+        val followableTopic: TopicRequest
     ) : TodayNewUiState
 
     data object Error : TodayNewUiState

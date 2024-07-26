@@ -17,6 +17,7 @@
 package org.deiverbum.app.feature.topic.navigation
 
 import androidx.annotation.VisibleForTesting
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -24,7 +25,7 @@ import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import org.deiverbum.app.feature.topic.TopicRouteUniversalis
+import org.deiverbum.app.feature.home.InterestsRouteInHome
 import java.net.URLDecoder
 import java.net.URLEncoder
 import kotlin.text.Charsets.UTF_8
@@ -53,6 +54,7 @@ fun NavController.navigateToTopic(topicId: String, navOptions: NavOptionsBuilder
     }
 }
 
+@ExperimentalMaterial3AdaptiveApi
 fun NavGraphBuilder.topicScreen(
     showBackButton: Boolean,
     onBackClick: () -> Unit,
@@ -64,7 +66,12 @@ fun NavGraphBuilder.topicScreen(
             navArgument(TOPIC_ID_ARG) { type = NavType.StringType },
         ),
     ) {
-        TopicRouteUniversalis(
+        /*HomeRoute(
+            showBackButton = showBackButton,
+            onBackClick = onBackClick,
+            onTopicClick = onTopicClick,
+        )*/
+        InterestsRouteInHome(
             showBackButton = showBackButton,
             onBackClick = onBackClick,
             onTopicClick = onTopicClick,

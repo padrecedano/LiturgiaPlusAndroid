@@ -5,6 +5,8 @@ import android.text.Spanned
 
 class LiturgyHelper {
     companion object {
+        const val V = "V./"
+        const val R = "R./"
         val liturgyMap = hashMapOf(
             0 to "mixto",
             1 to "officium",
@@ -51,6 +53,13 @@ class LiturgyHelper {
                         + Constants.NBSP_SALMOS + "Como era en el principio ahora y siempre, "
                         + Constants.NBSP_SALMOS + "por los siglos de los siglos. Amén.")
                 return Utils.fromHtml(fin)
+            }
+        val endPsalm: String
+            get() {
+                val fin = ("Gloria al Padre, y al Hijo, y al Espíritu Santo." + Constants.BR
+                        + Constants.NBSP_SALMOS + "Como era en el principio ahora y siempre, "
+                        + Constants.NBSP_SALMOS + "por los siglos de los siglos. Amén.")
+                return Utils.fromHtml(fin).toString()
             }
 
         val endPsalmForRead: String

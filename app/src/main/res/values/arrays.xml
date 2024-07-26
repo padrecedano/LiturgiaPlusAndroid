@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="ui_items">
+        <item>@array/group_breviario</item>
+        <item>@array/group_misa</item>
+    </array>
+    <array name="group_breviario">
+        <item>Laudes con Lecturas del Oficio</item>
+        <item>Oficio</item>
+        <item>Laudes</item>
+        <item>Tercia</item>
+        <item>Sexta</item>
+        <item>Nona</item>
+        <item>Vísperas</item>
+        <item>Completas</item>
+    </array>
+    <array name="group_misa">
+        <item>Liturgia</item>
+        <item>Lecturas</item>
+        <item>Comentarios Evangelio</item>
+        <item>Homilías</item>
+    </array>
+</resources>

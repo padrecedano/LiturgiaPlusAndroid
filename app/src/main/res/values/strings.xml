@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="core_ui_back">Volver</string>
+
     <string name="feature_foryou_title">For you</string>
     <string name="feature_foryou_done">Done</string>
     <string name="feature_foryou_loading">Loading for you…</string>
@@ -8,29 +10,36 @@
     <string name="feature_foryou_onboarding_guidance_subtitle">Updates from topics you follow will appear here. Follow some things to get started.</string>
     <string name="not_connected">⚠️ You aren’t connected to the internet</string>
 
-    <string name="feature_settings_top_app_bar_action_icon_description">Settings</string>
-    <string name="feature_settings_top_app_bar_navigation_icon_description">Search</string>
-    <string name="feature_settings_title">Settings</string>
-    <string name="feature_settings_loading">Loading…</string>
-    <string name="feature_settings_privacy_policy">Privacy policy</string>
-    <string name="feature_settings_licenses">Licenses</string>
-    <string name="feature_settings_brand_guidelines">Brand Guidelines</string>
-    <string name="feature_settings_feedback">Feedback</string>
-    <string name="feature_settings_theme">Theme</string>
-    <string name="feature_settings_brand_default">Default</string>
+    <string name="feature_settings_top_app_bar_action_icon_description">Configuración</string>
+    <string name="feature_settings_top_app_bar_navigation_icon_description">Buscar</string>
+    <string name="feature_settings_title">Configuración</string>
+    <string name="feature_settings_loading">Cargando…</string>
+    <string name="feature_settings_privacy_policy">Política de Privacidad</string>
+    <string name="feature_settings_licenses">Licencias</string>
+    <string name="feature_settings_brand_guidelines">Términos y Condiciones</string>
+    <string name="feature_settings_feedback">Reportar Error</string>
+    <string name="feature_settings_theme">Tema</string>
+    <string name="feature_settings_brand_default">Por defecto</string>
     <string name="feature_settings_brand_android">Android</string>
-    <string name="feature_settings_dark_mode_preference">Dark mode preference</string>
-    <string name="feature_settings_dark_mode_config_system_default">System default</string>
-    <string name="feature_settings_dark_mode_config_light">Light</string>
-    <string name="feature_settings_dark_mode_config_dark">Dark</string>
-    <string name="feature_settings_dynamic_color_preference">Use Dynamic Color</string>
-    <string name="feature_settings_dynamic_color_yes">Yes</string>
+    <string name="feature_settings_dark_mode_preference">Modo oscuro</string>
+    <string name="feature_settings_dark_mode_config_system_default">Por defecto del sistema</string>
+    <string name="feature_settings_dark_mode_config_light">Claro</string>
+    <string name="feature_settings_dark_mode_config_dark">Oscuro</string>
+    <string name="feature_settings_dynamic_color_preference">Usar Color Dinámico</string>
+    <string name="feature_settings_dynamic_color_yes">Sí</string>
     <string name="feature_settings_dynamic_color_no">No</string>
     <string name="feature_settings_dismiss_dialog_button_text">OK</string>
+
+    <string name="feature_settings_invitatory_preference">Múltiples Invitatorios</string>
+    <string name="feature_settings_reader_preference">Usar lector de voz</string>
+
+    <string name="generic_yes">Sí</string>
+    <string name="generic_no">No</string>
 
     <string name="feature_interests_title">Interests</string>
     <string name="feature_interests_loading">Loading data</string>
     <string name="feature_interests_empty_header">"No available data"</string>
+    <string name="generic_loading">Cargando ...</string>
 
     <string name="feature_home_title">Inicio</string>
 

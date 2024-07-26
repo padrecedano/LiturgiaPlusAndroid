@@ -10,6 +10,14 @@ import android.text.Spanned
 import android.text.style.CharacterStyle
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.sp
+import org.deiverbum.app.core.designsystem.component.ParagraphStyleSmall
 import org.deiverbum.app.util.ColorUtils.red
 import org.deiverbum.app.util.ColorUtils.redCode
 import org.deiverbum.app.util.Constants.BR
@@ -318,6 +326,15 @@ object Utils {
         return SpannableStringBuilder(s)
     }
 
+    fun toRedCompose(text: String?, rubricColor: Color): AnnotatedString {
+        return buildAnnotatedString {
+            withStyle(style = SpanStyle(color = rubricColor)) {
+                append(text)
+            }
+            //append(antiphon)
+        }
+    }
+
     fun toRedFont(s: String?): String {
         return String.format("<font color=\"%s\">%s</font>", redCode, s)
     }
@@ -512,6 +529,21 @@ object Utils {
     fun fromHtmlSmall(s: String): SpannableStringBuilder {
         val ssb = SpannableStringBuilder(fromHtml(s))
         return toSmallSizes(ssb)
+    }
+
+    fun composeSmallText(text: String): AnnotatedString {
+        return buildAnnotatedString {
+            //withStyle(style = ParagraphStyle(lineHeight = 20.sp)) {
+            withStyle(style = SpanStyle(fontSize = 12.sp)) {
+                append(fromHtml(text))
+            }
+            //}
+        }
+    }
+
+    @Composable
+    fun composeSmallTextt(text: String) {
+        ParagraphStyleSmall(text = fromHtml(text))
     }
 
     /**

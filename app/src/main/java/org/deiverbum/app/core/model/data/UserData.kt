@@ -25,7 +25,19 @@ data class UserData(
     val viewedNewsResources: Set<String>,
     val followedTopics: Set<String>,
     val themeBrand: ThemeBrand,
+    val shouldHideOnboarding: Boolean,
+    val dynamic: UserDataDynamic
+    /*val darkThemeConfig: DarkThemeConfig,
+    val useDynamicColor: Boolean,
+    val useVoiceReader:Boolean,
+    val useMultipleInvitatory:Boolean,*/
+
+)
+
+data class UserDataDynamic(
     val darkThemeConfig: DarkThemeConfig,
     val useDynamicColor: Boolean,
-    val shouldHideOnboarding: Boolean,
+    val useVoiceReader: Boolean,
+    val useMultipleInvitatory: Boolean,
+    val rubricColor: RubricColorConfig,
 )

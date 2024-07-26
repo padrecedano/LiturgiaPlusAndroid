@@ -45,7 +45,7 @@ interface DataModule {
     @Binds
     fun bindsUniversalisRepositoryy(
         topicsRepository: OfflineFirstUniversalisRepositoryy,
-    ): UniversalisRepositoryy
+    ): UniversalisRepository
 
     @Binds
     fun bindsTodayNewRepository(
@@ -66,7 +66,7 @@ interface DataModule {
     @Binds
     fun bindsUniversalisResourceRepository(
         newsRepository: OfflineFirstUniversalisRepository,
-    ): UniversalisRepository
+    ): UniversalisRepositoryy
 
     @Binds
     fun bindsRecentSearchRepository(

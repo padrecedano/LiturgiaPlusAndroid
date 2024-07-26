@@ -2,7 +2,11 @@ package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
 import android.text.Spanned
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.buildAnnotatedString
 import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Constants.TITLE_TEDEUM
 import org.deiverbum.app.util.Utils
 
 class TeDeum {
@@ -11,6 +15,18 @@ class TeDeum {
 
     private var isStatus: Boolean = true
 
+    @Composable
+    fun getComposable(userData: UserDataDynamic): AnnotatedString {
+        ContentTitle(
+            text = TITLE_TEDEUM.uppercase(),
+            level = 2,
+            userData = userData
+        ).getComposable()
+        return buildAnnotatedString {
+            append(Utils.LS2)
+            append(Utils.fromHtml(texto))
+        }
+    }
 
     val all: Spanned
         get() {
@@ -21,6 +37,9 @@ class TeDeum {
             return sb
         }
 
+    /**
+     * @return Contenido del TeDeum
+     */
     /**
      * @return Contenido del TeDeum
      */

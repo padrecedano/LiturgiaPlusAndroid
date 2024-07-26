@@ -1,7 +1,11 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.room.Ignore
+import org.deiverbum.app.core.designsystem.component.getRubricColor
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
@@ -52,6 +56,32 @@ class LHOfficiumLectioPrior(
         return sb
     }
 
+    @Composable
+    fun getComposable(userData: UserDataDynamic): AnnotatedString {
+        return buildAnnotatedString {
+            ContentTitle(
+                text = "PRIMERA LECTURA",
+                level = 2,
+                userData = userData
+            ).getComposable()
+            append(book.liturgyName)
+            append("    ")
+            append(Utils.toRedCompose(pericopa, getRubricColor(userData = userData)))
+            append(Utils.LS2)
+            append(Utils.toRedCompose(tema, getRubricColor(userData = userData)))
+            append(Utils.LS2)
+            append(textoSpan)
+            //sb.append(Utils.LS)
+            append(responsorium.getComposable(rubricColor = getRubricColor(userData = userData)))
+        }
+    }
+    /**
+     *
+     * Obtiene la lectura bíblica completa formateada para la lectura de voz.
+     *
+     * @return Un objeto [con el contenido.][SpannableStringBuilder]
+     * @since 2022.01
+     */
     /**
      *
      * Obtiene la lectura bíblica completa formateada para la lectura de voz.

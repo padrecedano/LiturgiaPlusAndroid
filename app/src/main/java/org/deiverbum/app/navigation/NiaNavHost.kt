@@ -38,8 +38,11 @@ fun NiaNavHost(
         modifier = modifier,
     ) {
         forYouScreen(onTopicClick = navController::navigateToInterests)
-        homeScreen(onTopicClick = navController::navigateToInterests)
-        //homeScreen(onTopicClick = navController::navigateToHome,onBackClick = navController::popBackStack)
+        //homeScreen(onTopicClick = navController::navigateToInterests)
+        homeScreen(
+            onTopicClick = navController::navigateToInterests,
+            onBackClick = navController::popBackStack
+        )
 
         bookmarksScreen(
             onTopicClick = navController::navigateToInterests,
@@ -52,4 +55,5 @@ fun NiaNavHost(
         )
         interestsListDetailScreen()
     }
+
 }

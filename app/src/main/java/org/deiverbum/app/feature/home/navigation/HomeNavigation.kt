@@ -8,6 +8,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
+import org.deiverbum.app.feature.home.InterestsRouteInHome
 
 const val LINKED_NEWS_RESOURCE_ID = "linkedNewsResourceId"
 //const val LINKED_NEWS_RESOURCE_ID = "20240319"
@@ -27,7 +28,7 @@ fun NavController.navigateToHome(navOptions: NavOptions) = navigate(HOME_ROUTE, 
 
 fun NavGraphBuilder.homeScreen(
     onTopicClick: (String) -> Unit,
-    //onBackClick: () -> Unit,
+    onBackClick: () -> Unit,
 ) {
     composable(
         route = HOME_ROUTE,
@@ -39,7 +40,17 @@ fun NavGraphBuilder.homeScreen(
         ),
     ) {
         //MainScreen(onTopicClick)
-//MainCompose()
+        InterestsRouteInHome(
+            onTopicClick = onTopicClick,
+            onBackClick = onBackClick,
+            showBackButton = true
+        )
+        //MainCompose()
+        /*       HomeRoute(
+           showBackButton = true,
+           onBackClick = {},
+           onTopicClick = onTopicClick,
+       )*/
         //HomeRoute(onTopicClick)
         //InterestsRouteNew(onTopicClick = onTopicClick)
         //TopicRoute(showBackButton = true, onBackClick =onBackClick, onTopicClick = onTopicClick)

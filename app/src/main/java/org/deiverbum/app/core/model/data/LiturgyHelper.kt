@@ -14,7 +14,11 @@ package org.deiverbum.app.core.model.data
  */
 class LiturgyHelper {
     //var myMap: Map<Int, String>? = null
+
+
     companion object {
+        const val VDEPRECATED = "V./"
+        const val RDEPRECATED = "R./"
 
         fun getMap(theKey: Int): String? {
             val myMap:HashMap<Int,String> = HashMap<Int,String>() //define empty hashmap

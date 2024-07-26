@@ -1,6 +1,11 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.room.Ignore
 import org.deiverbum.app.util.Utils
 
@@ -82,6 +87,20 @@ data class LHAntiphon(
         return ssb
     }
 
+    fun getComposableBefore(withOrder: Boolean = true, rubricColor: Color): AnnotatedString {
+        return buildAnnotatedString {
+            if (withOrder) {
+                append(Utils.toRedCompose("Ant. ${theOrder} ", rubricColor))
+            } else {
+                append(Utils.toRedCompose("Ant. ", rubricColor))
+            }
+            append(antiphon)
+            if (haveSymbol) {
+                append(Utils.toRedCompose(" †", rubricColor))
+            }
+        }
+    }
+
     /**
      * Prepara para la vista la antífona después del salmo.
      * En la salmodia, las antífonas que van después del salmo se presentan precedidas de la palabra "Ant. "
@@ -92,6 +111,15 @@ data class LHAntiphon(
      */
     val afterForView: SpannableStringBuilder
         get() = SpannableStringBuilder(Utils.toRed("Ant. ")).append(antiphon)
+
+    fun getComposableAfter(rubricColor: Color): AnnotatedString {
+        return buildAnnotatedString {
+            withStyle(style = SpanStyle(color = rubricColor)) {
+                append("Ant. ")
+            }
+            append(antiphon)
+        }
+    }
 
     /**
      * Método que normaliza el contenido de las antífonas según el tiempo litúrgico del calendario.

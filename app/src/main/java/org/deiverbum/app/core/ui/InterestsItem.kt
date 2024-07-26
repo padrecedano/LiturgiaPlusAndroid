@@ -4,7 +4,6 @@ import NiaIcons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
@@ -35,9 +34,9 @@ fun InterestsItem(
     isSelected: Boolean = false,
 ) {
     ListItem(
-        leadingContent = {
+        /*leadingContent = {
             InterestsIcon(topicImageUrl, iconModifier.size(64.dp))
-        },
+        },*/
         headlineContent = {
             Text(text = name)
         },

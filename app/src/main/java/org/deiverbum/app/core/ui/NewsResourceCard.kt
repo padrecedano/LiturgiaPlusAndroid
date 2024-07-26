@@ -38,6 +38,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -242,7 +243,7 @@ fun NewsResourceMetaData(
         if (resourceType.isNotBlank()) {
             stringResource(R.string.label_accept, formattedDate, resourceType)
         } else {
-            formattedDate
+            "formattedDate"
         },
         style = MaterialTheme.typography.labelSmall,
     )
@@ -253,6 +254,24 @@ fun NewsResourceShortDescription(
     newsResourceShortDescription: String,
 ) {
     Text(newsResourceShortDescription, style = MaterialTheme.typography.bodyLarge)
+}
+
+@Composable
+fun NewsResourceShortDescriptionNew(
+    newsResourceShortDescription: AnnotatedString,
+) {
+    Text(newsResourceShortDescription, style = MaterialTheme.typography.bodyLarge)
+}
+
+
+@Composable
+fun UniversalisResourceMetaData(
+    content: String,
+) {
+    Text(
+        text = content,
+        style = MaterialTheme.typography.titleMedium,
+    )
 }
 
 @Composable

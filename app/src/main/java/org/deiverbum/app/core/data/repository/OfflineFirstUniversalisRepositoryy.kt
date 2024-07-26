@@ -7,6 +7,7 @@ import org.deiverbum.app.core.data.changeListSync
 import org.deiverbum.app.core.database.dao.nia.UniversalisDao
 import org.deiverbum.app.core.database.model.entity.UniversalisEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
+import org.deiverbum.app.core.database.model.nia.PopulatedOfficiumResource
 import org.deiverbum.app.core.database.model.nia.PopulatedUniversalisResource
 import org.deiverbum.app.core.database.model.nia.asExternalModel
 import org.deiverbum.app.core.datastore.ChangeListVersions
@@ -22,28 +23,52 @@ import javax.inject.Inject
 class OfflineFirstUniversalisRepositoryy @Inject constructor(
     private val topicDao: UniversalisDao,
     private val network: NiaNetworkDataSource,
-) : UniversalisRepositoryy {
+) : UniversalisRepository {
 
-    override fun getUniversalisList(): Flow<List<Universalis>> =
+    fun getUniversalisList(): Flow<List<Universalis>> =
         topicDao.getUniversalisList()
             .map { it.map(UniversalisEntity::asExternalModel) }
 
 
-    override fun getUniversalisById(id: String): Flow<Universalis> =
+    fun getUniversalisById(id: String): Flow<Universalis> =
         topicDao.getUniversalisByDate(id.toInt()).map { it.asExternalModel() }
 
-    override fun getNewsResources(
+    override fun getUniversalisByDate(
         query: UniversalisResourceQuery,
+    ): Flow<List<UniversalisResource>> =
+        when (query.filterNewsIds) {
+            1 -> topicDao.getOfficiumByDate(
+                filterTopicIds = query.filterTopicIds!! ?: emptySet(),
+            )
+                .map {
+                    it.map(PopulatedOfficiumResource::asExternalModel)
+                }
 
-        ): Flow<List<UniversalisResource>> = topicDao.getUniversalisByDate(
-        filterTopicIds = query.filterTopicIds ?: emptySet(),
+            else -> topicDao.getUniversalisByDate(
+                filterTopicIds = query.filterTopicIds!! ?: emptySet(),
+            )
+                .map {
+                    it.map(PopulatedUniversalisResource::asExternalModel)
+                }
+
+        }
+    //topicDao.getUniversalisByDate(
+    //filterTopicIds = query.filterTopicIds!! ?: emptySet(),
         //filterNewsIds = query.filterNewsIds ?: emptySet(),
         //todayDate=20240319
 
-    )
-        .map {
-            it.map(PopulatedUniversalisResource::asExternalModel)
-        }
+    //)
+    //    .map {
+    /*when(query.filterNewsIds){
+        //1->it.map(it.asExternalModel())
+        //3->it.map(PopulatedUniversalisResource::asExternalModel)
+
+        //else -> {it.map(PopulatedUniversalisResource::asExternalModel)}
+    }*/
+    //        it.map(PopulatedLiturgiaTypus::asExternalModel())
+    //    }
+
+
 
 
     /*
@@ -70,3 +95,8 @@ class OfflineFirstUniversalisRepositoryy @Inject constructor(
             },
         )
 }
+
+
+
+
+

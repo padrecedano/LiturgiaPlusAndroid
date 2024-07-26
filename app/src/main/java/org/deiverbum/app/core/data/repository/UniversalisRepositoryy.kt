@@ -13,7 +13,7 @@ interface UniversalisRepositoryy : Syncable {
     fun getNewsResources(
         query: UniversalisResourceQuery = UniversalisResourceQuery(
             filterTopicIds = null,
-            filterNewsIds = null,
+            filterNewsIds = 0,
         ),
     ): Flow<List<UniversalisResource>>
 

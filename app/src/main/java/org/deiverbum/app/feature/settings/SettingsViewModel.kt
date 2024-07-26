@@ -1,26 +1,9 @@
-package org.deiverbum.app.ui.settings
-
-/*
- * Copyright 2022 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
+package org.deiverbum.app.feature.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -28,27 +11,28 @@ import kotlinx.coroutines.launch
 import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.model.data.DarkThemeConfig
 import org.deiverbum.app.core.model.data.ThemeBrand
+import org.deiverbum.app.core.model.data.UserDataDynamic
+import org.deiverbum.app.feature.settings.SettingsUiState.Success
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
 @HiltViewModel
-class SettingsViewModelNIA @Inject constructor(
+class SettingsViewModel @Inject constructor(
     private val userDataRepository: UserDataRepository,
 ) : ViewModel() {
     val settingsUiState: StateFlow<SettingsUiState> =
         userDataRepository.userData
             .map { userData ->
-                SettingsUiState.Success(
+                Success(
                     settings = UserEditableSettings(
                         brand = userData.themeBrand,
-                        useDynamicColor = userData.useDynamicColor,
-                        darkThemeConfig = userData.darkThemeConfig,
+                        dynamic = userData.dynamic
                     ),
                 )
             }
             .stateIn(
                 scope = viewModelScope,
-                started = WhileSubscribed(5.seconds.inWholeMilliseconds),
+                started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
                 initialValue = SettingsUiState.Loading,
             )
 
@@ -69,6 +53,18 @@ class SettingsViewModelNIA @Inject constructor(
             userDataRepository.setDynamicColorPreference(useDynamicColor)
         }
     }
+
+    fun updateVoiceReaderPreference(useVoiceReader: Boolean) {
+        viewModelScope.launch {
+            userDataRepository.setVoiceReaderPreference(useVoiceReader)
+        }
+    }
+
+    fun updateMultipleInvitatoryPreference(useMultipleInvitatory: Boolean) {
+        viewModelScope.launch {
+            userDataRepository.setMultipleInvitatoryPreference(useMultipleInvitatory)
+        }
+    }
 }
 
 /**
@@ -76,8 +72,11 @@ class SettingsViewModelNIA @Inject constructor(
  */
 data class UserEditableSettings(
     val brand: ThemeBrand,
-    val useDynamicColor: Boolean,
+    val dynamic: UserDataDynamic
+    /*val useDynamicColor: Boolean,
     val darkThemeConfig: DarkThemeConfig,
+    val useVoiceReader:Boolean,
+    val useMultipleInvitatory:Boolean,*/
 )
 
 sealed interface SettingsUiState {

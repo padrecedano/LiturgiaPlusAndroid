@@ -58,10 +58,14 @@ fun UniversalisResourceCardExpanded(
                         }*/
                         //NewsResourceMetaData(userNewsResource.todayDate, userNewsResource.type)
                     }
-                    UniversalisResourceContent(
+                    /*UniversalisResourceContent(
                         userNewsResource.followableTopics[0].topic.getAllForView(
                             TodayRequest(1, 1, true, true)
                         ).toString()
+                    )*/
+                    UniversalisResourceContent(
+                        userNewsResource.data[0].getAllForView(TodayRequest(1, 1, false, false))
+                            .toString()
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                 }
@@ -70,6 +74,12 @@ fun UniversalisResourceCardExpanded(
     }
 }
 
+@Composable
+fun UniversalisResourceContentNew(
+    newsResourceShortDescription: String,
+) {
+    Text(newsResourceShortDescription, style = MaterialTheme.typography.bodyLarge)
+}
 
 @Composable
 fun UniversalisResourceContent(

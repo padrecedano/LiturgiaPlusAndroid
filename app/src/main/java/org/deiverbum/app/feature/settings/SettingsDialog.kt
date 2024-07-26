@@ -1,24 +1,6 @@
 @file:Suppress("ktlint:standard:max-line-length")
 
-package org.deiverbum.app.ui.settings
-
-/*
- * Copyright 2022 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-
+package org.deiverbum.app.feature.settings
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
@@ -47,20 +29,24 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import org.deiverbum.app.R
+import org.deiverbum.app.core.designsystem.component.NiaTextButton
+import org.deiverbum.app.core.designsystem.theme.supportsDynamicTheming
 import org.deiverbum.app.core.model.data.DarkThemeConfig
 import org.deiverbum.app.core.model.data.ThemeBrand
+import org.deiverbum.app.core.ui.TrackScreenViewEvent
 
 @Composable
 fun SettingsDialog(
     onDismiss: () -> Unit,
-    viewModel: SettingsViewModelNIA = hiltViewModel(),
+    viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val settingsUiState by viewModel.settingsUiState.collectAsStateWithLifecycle()
     SettingsDialog(
@@ -68,6 +54,8 @@ fun SettingsDialog(
         settingsUiState = settingsUiState,
         onChangeThemeBrand = viewModel::updateThemeBrand,
         onChangeDynamicColorPreference = viewModel::updateDynamicColorPreference,
+        onChangeVoiceReaderPreference = viewModel::updateVoiceReaderPreference,
+        onChangeMultipleInvitatoryPreference = viewModel::updateMultipleInvitatoryPreference,
         onChangeDarkThemeConfig = viewModel::updateDarkThemeConfig,
     )
 }
@@ -75,10 +63,12 @@ fun SettingsDialog(
 @Composable
 fun SettingsDialog(
     settingsUiState: SettingsUiState,
-    supportDynamicColor: Boolean = true,//supportsDynamicTheming(),
+    supportDynamicColor: Boolean = supportsDynamicTheming(),
     onDismiss: () -> Unit,
     onChangeThemeBrand: (themeBrand: ThemeBrand) -> Unit,
     onChangeDynamicColorPreference: (useDynamicColor: Boolean) -> Unit,
+    onChangeVoiceReaderPreference: (useVoiceReader: Boolean) -> Unit,
+    onChangeMultipleInvitatoryPreference: (useMultipleInvitatory: Boolean) -> Unit,
     onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
 ) {
     val configuration = LocalConfiguration.current
@@ -93,12 +83,10 @@ fun SettingsDialog(
     AlertDialog(
         properties = DialogProperties(usePlatformDefaultWidth = false),
         modifier = Modifier.widthIn(max = configuration.screenWidthDp.dp - 80.dp),
-        onDismissRequest = {
-            onDismiss()
-        },
+        onDismissRequest = { onDismiss() },
         title = {
             Text(
-                text = "stringResource(string.feature_settings_title)",
+                text = stringResource(R.string.feature_settings_title),
                 style = MaterialTheme.typography.titleLarge,
             )
         },
@@ -108,9 +96,7 @@ fun SettingsDialog(
                 when (settingsUiState) {
                     SettingsUiState.Loading -> {
                         Text(
-                            //text = stringResource(string.feature_settings_loading),
-                            text = "stringResource(string.feature_settings_loading)",
-
+                            text = stringResource(R.string.feature_settings_loading),
                             modifier = Modifier.padding(vertical = 16.dp),
                         )
                     }
@@ -121,6 +107,9 @@ fun SettingsDialog(
                             supportDynamicColor = supportDynamicColor,
                             onChangeThemeBrand = onChangeThemeBrand,
                             onChangeDynamicColorPreference = onChangeDynamicColorPreference,
+                            onChangeVoiceReaderPreference = onChangeVoiceReaderPreference,
+                            onChangeMultipleInvitatoryPreference = onChangeMultipleInvitatoryPreference,
+
                             onChangeDarkThemeConfig = onChangeDarkThemeConfig,
                         )
                     }
@@ -128,11 +117,11 @@ fun SettingsDialog(
                 HorizontalDivider(Modifier.padding(top = 8.dp))
                 LinksPanel()
             }
-            //TrackScreenViewEvent(screenName = "Settings")
+            TrackScreenViewEvent(screenName = "Settings")
         },
         confirmButton = {
             Text(
-                text = "Dismiss",
+                text = stringResource(R.string.feature_settings_dismiss_dialog_button_text),
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
@@ -150,58 +139,77 @@ private fun ColumnScope.SettingsPanel(
     supportDynamicColor: Boolean,
     onChangeThemeBrand: (themeBrand: ThemeBrand) -> Unit,
     onChangeDynamicColorPreference: (useDynamicColor: Boolean) -> Unit,
+    onChangeVoiceReaderPreference: (useVoiceReader: Boolean) -> Unit,
+    onChangeMultipleInvitatoryPreference: (useMultipleInvitatory: Boolean) -> Unit,
     onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
 ) {
-    SettingsDialogSectionTitle(text = "Tema")
+    SettingsDialogSectionTitle(text = stringResource(R.string.feature_settings_theme))
     Column(Modifier.selectableGroup()) {
         SettingsDialogThemeChooserRow(
-            text = "default)",
+            text = stringResource(R.string.feature_settings_brand_default),
             selected = settings.brand == ThemeBrand.DEFAULT,
             onClick = { onChangeThemeBrand(ThemeBrand.DEFAULT) },
         )
         SettingsDialogThemeChooserRow(
-            text = "android)",
+            text = stringResource(R.string.feature_settings_brand_android),
             selected = settings.brand == ThemeBrand.ANDROID,
-            onClick = {
-                onChangeThemeBrand(ThemeBrand.ANDROID)
-            },
+            onClick = { onChangeThemeBrand(ThemeBrand.ANDROID) },
         )
     }
     AnimatedVisibility(visible = settings.brand == ThemeBrand.DEFAULT && supportDynamicColor) {
         Column {
-            SettingsDialogSectionTitle(text = "Pref Dynamic Color")
+            SettingsDialogSectionTitle(text = stringResource(R.string.feature_settings_dynamic_color_preference))
             Column(Modifier.selectableGroup()) {
                 SettingsDialogThemeChooserRow(
-                    text = "Sí",
-                    selected = settings.useDynamicColor,
+                    text = stringResource(R.string.feature_settings_dynamic_color_yes),
+                    selected = settings.dynamic.useDynamicColor,
                     onClick = { onChangeDynamicColorPreference(true) },
                 )
                 SettingsDialogThemeChooserRow(
-                    text = "No",
-                    selected = !settings.useDynamicColor,
+                    text = stringResource(R.string.feature_settings_dynamic_color_no),
+                    selected = !settings.dynamic.useDynamicColor,
                     onClick = { onChangeDynamicColorPreference(false) },
                 )
             }
         }
     }
-    SettingsDialogSectionTitle(text = "dark_mode_preference")
+
+
+    Column {
+        SettingsDialogSectionTitle(text = stringResource(R.string.feature_settings_reader_preference))
+        Column(Modifier.selectableGroup()) {
+            SettingsDialogThemeChooserRow(
+                text = stringResource(R.string.generic_yes),
+                selected = settings.dynamic.useVoiceReader,
+                onClick = { onChangeVoiceReaderPreference(true) },
+            )
+            SettingsDialogThemeChooserRow(
+                text = stringResource(R.string.generic_no),
+                selected = !settings.dynamic.useVoiceReader,
+                onClick = { onChangeVoiceReaderPreference(false) },
+            )
+        }
+    }
+
+    SettingsDialogSectionTitle(text = stringResource(R.string.feature_settings_dark_mode_preference))
     Column(Modifier.selectableGroup()) {
         SettingsDialogThemeChooserRow(
-            text = "default",
-            selected = settings.darkThemeConfig == DarkThemeConfig.FOLLOW_SYSTEM,
+            text = stringResource(R.string.feature_settings_dark_mode_config_system_default),
+            selected = settings.dynamic.darkThemeConfig == DarkThemeConfig.FOLLOW_SYSTEM,
             onClick = { onChangeDarkThemeConfig(DarkThemeConfig.FOLLOW_SYSTEM) },
         )
         SettingsDialogThemeChooserRow(
-            text = "light",
-            selected = settings.darkThemeConfig == DarkThemeConfig.LIGHT,
+            text = stringResource(R.string.feature_settings_dark_mode_config_light),
+            selected = settings.dynamic.darkThemeConfig == DarkThemeConfig.LIGHT,
             onClick = { onChangeDarkThemeConfig(DarkThemeConfig.LIGHT) },
         )
         SettingsDialogThemeChooserRow(
-            text = "dark",
-            selected = settings.darkThemeConfig == DarkThemeConfig.DARK,
+            text = stringResource(R.string.feature_settings_dark_mode_config_dark),
+            selected = settings.dynamic.darkThemeConfig == DarkThemeConfig.DARK,
             onClick = { onChangeDarkThemeConfig(DarkThemeConfig.DARK) },
         )
     }
+
 }
 
 @Composable
@@ -250,32 +258,31 @@ private fun LinksPanel() {
         modifier = Modifier.fillMaxWidth(),
     ) {
         val uriHandler = LocalUriHandler.current
-        /*NiaTextButton(
+        NiaTextButton(
             onClick = { uriHandler.openUri(PRIVACY_POLICY_URL) },
         ) {
-            Text(text = "stringResource(string.feature_settings_privacy_policy)")
-        }*/
-        val context = LocalContext.current
-        /*NiaTextButton(
+            Text(text = stringResource(R.string.feature_settings_privacy_policy))
+        }
+        /*val context = LocalContext.current
+        NiaTextButton(
             onClick = {
                 context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
             },
         ) {
-            Text(text = stringResource(string.feature_settings_licenses))
-        }
+            Text(text = stringResource(R.string.feature_settings_licenses))
+        }*/
         NiaTextButton(
             onClick = { uriHandler.openUri(BRAND_GUIDELINES_URL) },
         ) {
-            Text(text = stringResource(string.feature_settings_brand_guidelines))
+            Text(text = stringResource(R.string.feature_settings_brand_guidelines))
         }
         NiaTextButton(
             onClick = { uriHandler.openUri(FEEDBACK_URL) },
         ) {
-            Text(text = stringResource(string.feature_settings_feedback))
-        }*/
+            Text(text = stringResource(R.string.feature_settings_feedback))
+        }
     }
 }
-
 /*
 @Preview
 @Composable
@@ -283,11 +290,13 @@ private fun PreviewSettingsDialog() {
     NiaTheme {
         SettingsDialog(
             onDismiss = {},
-            settingsUiState = Success(
+            settingsUiState = SettingsUiState.Success(
                 UserEditableSettings(
-                    brand = DEFAULT,
-                    darkThemeConfig = FOLLOW_SYSTEM,
+                    brand = ThemeBrand.DEFAULT,
+                    darkThemeConfig = DarkThemeConfig.FOLLOW_SYSTEM,
                     useDynamicColor = false,
+                    useMultipleInvitatory = false,
+                    useReader = true,
                 ),
             ),
             onChangeThemeBrand = {},
@@ -303,7 +312,7 @@ private fun PreviewSettingsDialogLoading() {
     NiaTheme {
         SettingsDialog(
             onDismiss = {},
-            settingsUiState = Loading,
+            settingsUiState = SettingsUiState.Loading,
             onChangeThemeBrand = {},
             onChangeDynamicColorPreference = {},
             onChangeDarkThemeConfig = {},
@@ -311,7 +320,6 @@ private fun PreviewSettingsDialogLoading() {
     }
 }
 */
-private const val PRIVACY_POLICY_URL = "https://policies.google.com/privacy"
-private const val BRAND_GUIDELINES_URL =
-    "https://developer.android.com/distribute/marketing-tools/brand-guidelines"
-private const val FEEDBACK_URL = "https://goo.gle/nia-app-feedback"
+private const val PRIVACY_POLICY_URL = "https://liturgiaplus.app/privacy"
+private const val BRAND_GUIDELINES_URL = "https://liturgiaplus.app/terms"
+private const val FEEDBACK_URL = "https://liturgiaplus.app/bug-report"

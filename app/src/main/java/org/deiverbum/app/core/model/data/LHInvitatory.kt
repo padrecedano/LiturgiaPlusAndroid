@@ -1,7 +1,11 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.room.Ignore
+import org.deiverbum.app.core.designsystem.component.getRubricColor
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
@@ -61,6 +65,35 @@ class LHInvitatory(override var antiphonae: MutableList<LHAntiphon>) :
      * @see [LHLaudes.getForView]
      */
 
+    @Composable
+    override fun getComposable(
+        hourIndex: Int,
+        calendarTime: Int,
+        userData: UserDataDynamic
+    ): AnnotatedString {
+        val rubricColor = getRubricColor(userData = userData)
+        SectionTitle(text = Constants.TITLE_INVITATORY.lowercase(), level = 1).getComposable()
+
+        val s = psalmus[0]
+        antiphonae[0].normalizeByTime(calendarTime)
+        if (!userData.useMultipleInvitatory) {
+            s.psalmus = unique
+            s.pericopa = "Salmo 94"
+        }
+        return buildAnnotatedString {
+//SectionTitle(Constants.TITLE_INVITATORY.lowercase(),1)
+            //append(Utils.formatSubTitleToLower(Constants.TITLE_INVITATORY))
+            //append(Utils.LS2)
+            append(antiphonae[0].getComposableBefore(false, rubricColor))
+            append(Utils.LS2)
+            append(s.pericopaComposable(rubricColor))
+            append(Constants.LS2)
+            append(s.psalmForView)
+            append(Utils.LS2)
+            append(antiphonae[0].getComposableAfter(rubricColor))
+        }
+
+    }
     override fun getAllForView(hourIndex: Int, calendarTime: Int): SpannableStringBuilder {
         val ssb = SpannableStringBuilder()
         val s = psalmus[0]

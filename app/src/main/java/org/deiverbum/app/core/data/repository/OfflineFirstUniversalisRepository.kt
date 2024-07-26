@@ -8,6 +8,7 @@ import org.deiverbum.app.core.database.dao.nia.UniversalisDao
 import org.deiverbum.app.core.database.model.nia.PopulatedUniversalisResource
 import org.deiverbum.app.core.database.model.nia.asExternalModel
 import org.deiverbum.app.core.datastore.NiaPreferencesDataSource
+import org.deiverbum.app.core.model.data.Universalis
 import org.deiverbum.app.core.model.data.UniversalisResource
 import org.deiverbum.app.core.network.NiaNetworkDataSource
 import org.deiverbum.app.core.notifications.Notifier
@@ -27,10 +28,10 @@ class OfflineFirstUniversalisRepository @Inject constructor(
     private val topicDao: TopicDao,
     private val network: NiaNetworkDataSource,
     private val notifier: Notifier,
-) : UniversalisRepository {
+) : UniversalisRepositoryy {
 
 
-    override fun getNewsResources(
+    fun getUniversalisByDate(
         query: UniversalisResourceQuery,
 
         ): Flow<List<UniversalisResource>> = newsResourceDao.getUniversalisByDate(
@@ -42,6 +43,18 @@ class OfflineFirstUniversalisRepository @Inject constructor(
         .map {
             it.map(PopulatedUniversalisResource::asExternalModel)
         }
+
+    override fun getNewsResources(query: UniversalisResourceQuery): Flow<List<UniversalisResource>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getUniversalisList(): Flow<List<Universalis>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getUniversalisById(id: String): Flow<Universalis> {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
         TODO("Not yet implemented")

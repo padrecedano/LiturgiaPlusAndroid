@@ -1,6 +1,10 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.room.Ignore
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
@@ -51,14 +55,14 @@ class LHResponsorium(
                     s.append(respArray[0])
                     s.append(Utils.toRedFont(" * "))
                     s.append(respArray[1])
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     s.append(Utils.toRedFont("V. "))
                     s.append(respArray[2])
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     s.append(Utils.toRedFont("R. "))
                     s.append(respArray[1][0].uppercaseChar())
                     s.append(respArray[1].substring(1))
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     sb.append(Utils.fromHtml(s.toString()))
                 }
 
@@ -67,14 +71,14 @@ class LHResponsorium(
                     s.append(respArray[0])
                     s.append(Utils.toRedFont(" * "))
                     s.append(respArray[1])
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     s.append(Utils.toRedFont("V. "))
                     s.append(respArray[2])
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     s.append(Utils.toRedFont("R. "))
                     s.append(respArray[1][0].uppercaseChar())
                     s.append(respArray[1].substring(1))
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     sb.append(Utils.fromHtml(s.toString()))
                 }
 
@@ -84,19 +88,19 @@ class LHResponsorium(
                     s.append(Constants.BR)
                     s.append(Utils.toRedFont("R. "))
                     s.append(respArray[0])
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     s.append(Utils.toRedFont("V. "))
                     s.append(respArray[1])
                     s.append(Constants.BR)
                     s.append(Utils.toRedFont("R. "))
                     s.append(respArray[2])
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     s.append(Utils.toRedFont("V. "))
                     s.append(respArray[3])
                     s.append(Constants.BR)
                     s.append(Utils.toRedFont("R. "))
                     s.append(respArray[0])
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     sb.append(Utils.fromHtml(s.toString()))
                 }
 
@@ -106,19 +110,19 @@ class LHResponsorium(
                     s.append(Constants.BR)
                     s.append(Utils.toRedFont("R. "))
                     s.append(respArray[0])
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     s.append(Utils.toRedFont("V. "))
                     s.append(respArray[1])
                     s.append(Constants.BR)
                     s.append(Utils.toRedFont("R. "))
                     s.append(respArray[0])
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     s.append(Utils.toRedFont("V. "))
                     s.append(respArray[2])
                     s.append(Constants.BR)
                     s.append(Utils.toRedFont("R. "))
                     s.append(respArray[0])
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     sb.append(Utils.fromHtml(s.toString()))
                 }
 
@@ -128,19 +132,19 @@ class LHResponsorium(
                     s.append(Constants.BR)
                     s.append(Utils.toRedFont("R. "))
                     s.append(respArray[0])
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     s.append(Utils.toRedFont("V. "))
                     s.append(respArray[1])
                     s.append(Constants.BR)
                     s.append(Utils.toRedFont("R. "))
                     s.append(respArray[0])
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     s.append(Utils.toRedFont("V. "))
                     s.append(respArray[2])
                     s.append(Constants.BR)
                     s.append(Utils.toRedFont("R. "))
                     s.append(respArray[0])
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     sb.append(Utils.fromHtml(s.toString()))
                 }
 
@@ -150,7 +154,7 @@ class LHResponsorium(
                     s.append(Constants.BR)
                     s.append(Utils.toRedFont("R. "))
                     s.append(respArray[1])
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     sb.append(Utils.fromHtml(s.toString()))
                 }
 
@@ -169,6 +173,143 @@ class LHResponsorium(
             return sb
         }
 
+    @Composable
+    fun getComposable(rubricColor: Color): AnnotatedString {
+        return buildAnnotatedString {
+            val respArray =
+                responsorium.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            append(Utils.toRedCompose("${Constants.TITLE_RESPONSORY}     $source", rubricColor))
+            append(Constants.LS2)
+
+            when (typus) {
+                1 -> if (respArray.size == 3) {
+                    append(Utils.toRedCompose("R. ", rubricColor))
+                    append(respArray[0])
+                    append(Utils.toRedCompose(" * ", rubricColor))
+                    append(respArray[1])
+                    append(Constants.LS2)
+                    append(Utils.toRedCompose("V. ", rubricColor))
+                    append(respArray[2])
+                    append(Constants.LS2)
+                    append(Utils.toRedCompose("R. ", rubricColor))
+                    append(respArray[1][0].uppercaseChar())
+                    append(respArray[1].substring(1))
+                    append(Constants.LS2)
+                    //append(Utils.fromHtml(s.toString()))
+                }
+
+                2 -> {
+                    append(Utils.toRedCompose("R. ", rubricColor))
+                    append(respArray[0])
+                    append(Utils.toRedCompose(" * ", rubricColor))
+                    append(respArray[1])
+                    append(Constants.LS2)
+                    append(Utils.toRedCompose("V. ", rubricColor))
+                    append(respArray[2])
+                    append(Constants.LS2)
+                    append(Utils.toRedCompose("R. ", rubricColor))
+                    append(respArray[1][0].uppercaseChar())
+                    append(respArray[1].substring(1))
+                    append(Constants.LS2)
+                    //append(Utils.fromHtml(s.toString()))
+                }
+
+                6001230 -> if (respArray.size == 4) {
+                    append(Utils.toRedCompose("V. ", rubricColor))
+                    append(respArray[0])
+                    append(Constants.BR)
+                    append(Utils.toRedCompose("R. ", rubricColor))
+                    append(respArray[0])
+                    append(Constants.LS2)
+                    append(Utils.toRedCompose("V. ", rubricColor))
+                    append(respArray[1])
+                    append(Constants.BR)
+                    append(Utils.toRedCompose("R. ", rubricColor))
+                    append(respArray[2])
+                    append(Constants.LS2)
+                    append(Utils.toRedCompose("V. ", rubricColor))
+                    append(respArray[3])
+                    append(Constants.BR)
+                    append(Utils.toRedCompose("R. ", rubricColor))
+                    append(respArray[0])
+                    append(Constants.LS2)
+                    //append(Utils.fromHtml(s.toString()))
+                }
+
+                6001020 -> if (respArray.size == 3) {
+                    append(Utils.toRedCompose("V. ", rubricColor))
+                    append(respArray[0])
+                    append(Constants.BR)
+                    append(Utils.toRedCompose("R. ", rubricColor))
+                    append(respArray[0])
+                    append(Constants.LS2)
+                    append(Utils.toRedCompose("V. ", rubricColor))
+                    append(respArray[1])
+                    append(Constants.BR)
+                    append(Utils.toRedCompose("R. ", rubricColor))
+                    append(respArray[0])
+                    append(Constants.LS2)
+                    append(Utils.toRedCompose("V. ", rubricColor))
+                    append(respArray[2])
+                    append(Constants.BR)
+                    append(Utils.toRedCompose("R. ", rubricColor))
+                    append(respArray[0])
+                    append(Constants.LS2)
+                    //append(Utils.fromHtml(s.toString()))
+                }
+
+                4 -> {
+                    append(Utils.toRedCompose("V. ", rubricColor))
+                    append(respArray[0])
+                    append(Constants.BR)
+                    append(Utils.toRedCompose("R. ", rubricColor))
+                    append(respArray[0])
+                    append(Constants.LS2)
+                    append(Utils.toRedCompose("V. ", rubricColor))
+                    append(respArray[1])
+                    append(Constants.BR)
+                    append(Utils.toRedCompose("R. ", rubricColor))
+                    append(respArray[0])
+                    append(Constants.LS2)
+                    append(Utils.toRedCompose("V. ", rubricColor))
+                    append(respArray[2])
+                    append(Constants.BR)
+                    append(Utils.toRedCompose("R. ", rubricColor))
+                    append(respArray[0])
+                    append(Constants.LS2)
+                    //append(Utils.fromHtml(s.toString()))
+                }
+
+                201 -> {
+                    append(Utils.toRedCompose("V. ", rubricColor))
+                    append(respArray[0])
+                    append(Constants.BR)
+                    append(Utils.toRedCompose("R. ", rubricColor))
+                    append(respArray[1])
+                    append(Constants.LS2)
+                    //append(Utils.fromHtml(s.toString()))
+                }
+
+                else -> {
+
+
+                    append(getErrorMessage())
+                    append("Tamaño del responsorio: ")
+                    append(respArray.size.toString())
+                    append(Utils.LS2)
+                    append(" Código forma: ")
+                    append(typus.toString())
+                    append(Utils.LS2)
+                }
+            }
+        }
+    }
+
+    /**
+     * Método que crea la cadena completa de un responsorio dado destinado a la lectura de voz
+     *
+     * @return Una cadena con el responsorio completo, con sus respectivos V. y R.
+     */
     /**
      * Método que crea la cadena completa de un responsorio dado destinado a la lectura de voz
      *
@@ -191,9 +332,9 @@ class LHResponsorium(
                 2 -> {
                     s.append(respArray[0])
                     s.append(respArray[1])
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     s.append(respArray[2])
-                    s.append(Constants.BRS)
+                    s.append(Constants.LS2)
                     s.append(respArray[1])
                 }
 

@@ -1,6 +1,8 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
 import androidx.room.ColumnInfo
 import androidx.room.Ignore
 import org.deiverbum.app.util.LiturgyHelper.Companion.endPsalmForRead
@@ -83,19 +85,39 @@ open class LHPsalm(
     val partForView: String
         get() = Utils.toRoman(thePart)
 
+    fun thePartComposable(rubricColor: Color): AnnotatedString {
+        return Utils.toRedCompose(Utils.toRoman(thePart), rubricColor)
+    }
+
     val quoteForView: SpannableStringBuilder
         get() = Utils.toRed(pericopa)
 
-    val ref: SpannableStringBuilder
-        get() = if (pericopa != "") {
-            SpannableStringBuilder(
-                Utils.toRedHtml(
-                    Utils.getFormato(pericopa)
-                )
-            )
+    fun pericopaComposable(rubricColor: Color): AnnotatedString {
+        return Utils.toRedCompose(pericopa, rubricColor)
+    }
+
+    fun themeComposable(rubricColor: Color): AnnotatedString {
+        return Utils.toRedCompose(theme, rubricColor)
+    }
+
+    fun epigraphComposable(): AnnotatedString {
+        return Utils.composeSmallText(epigraph!!)
+    }
+
+
+    fun psalmComposable(): AnnotatedString {
+        val asb = AnnotatedString.Builder()
+        if (psalmus.endsWith("∸")) {
+            asb.append(
+                Utils.fromHtml(psalmus)
+            ).append(noGloria)
         } else {
-            SpannableStringBuilder("")
+            asb.append(Utils.fromHtml(psalmus))
+            asb.append(Utils.LS2)
+            asb.append(endPsalmForView)
         }
+        return asb.toAnnotatedString()
+    }
 
     val psalmForView: SpannableStringBuilder
         get() = if (psalmus.endsWith("∸")) {
@@ -107,6 +129,7 @@ open class LHPsalm(
                 Utils.fromHtml(psalmus)
             ).append(Utils.LS2).append(endPsalmForView)
         }
+
 
     val psalmForRead: SpannableStringBuilder
         get() = if (psalmus.endsWith("∸")) {
