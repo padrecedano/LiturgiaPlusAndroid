@@ -32,7 +32,7 @@ class GetFollowableTopicsUseCase @Inject constructor(
                     )
                 }
             when (sortBy) {
-                TopicSortField.NAME -> followedTopics.sortedBy { it.topic.name }
+                TopicSortField.ID -> followedTopics.sortedBy { it.topic.id }
                 else -> followedTopics
             }
         }
@@ -40,5 +40,5 @@ class GetFollowableTopicsUseCase @Inject constructor(
 
 enum class TopicSortField {
     NONE,
-    NAME,
+    ID,
 }

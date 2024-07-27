@@ -106,7 +106,7 @@ private fun topicUiState(
     // Observe topic information
     val topicStream: Flow<List<UniversalisResource>> = topicsRepository.getUniversalisByDate(
         //Utils.hoy.toInt()
-        UniversalisResourceQuery(filterTopicIds = setOf(Utils.hoy.toInt())),//topicId,
+        UniversalisResourceQuery(filterDates = setOf(Utils.hoy.toInt())),//topicId,
     )
     return combine(
         followedTopicIds,
@@ -143,7 +143,7 @@ private fun newsUiState(
 ): Flow<UniversalisUiState> {
     // Observe news
     val newsStream: Flow<List<UserUniversalisResource>> = userNewsResourceRepository.observeAll(
-        UniversalisResourceQuery(filterTopicIds = setOf(element = topicId.length)),
+        UniversalisResourceQuery(filterDates = setOf(element = topicId.length)),
     )
 
     // Observe bookmarks

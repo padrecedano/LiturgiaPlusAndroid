@@ -24,6 +24,7 @@ data class LHHymn(
     @ColumnInfo(name = "hymn")
     var hymnus: String = ""
 ) {
+
     var hymnID: Int = 0
 
     @Json(ignore = true)

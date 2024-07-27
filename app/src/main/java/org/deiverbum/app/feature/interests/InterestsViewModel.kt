@@ -28,7 +28,7 @@ class InterestsViewModel @Inject constructor(
 
     val uiState: StateFlow<InterestsUiState> = combine(
         selectedTopicId,
-        getFollowableTopics(sortBy = TopicSortField.NAME),
+        getFollowableTopics(sortBy = TopicSortField.ID),
         InterestsUiState::Interests,
     ).stateIn(
         scope = viewModelScope,

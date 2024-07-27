@@ -14,8 +14,8 @@ interface UserUniversalisResourceRepository {
 
     fun observeAll(
         query: UniversalisResourceQuery = UniversalisResourceQuery(
-            filterTopicIds = null,
-            filterNewsIds = 0,
+            filterDates = null,
+            filterTopicsIds = 0,
         ),
     ): Flow<List<UserUniversalisResource>>
 

@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.map
 import org.deiverbum.app.core.data.Synchronizer
 import org.deiverbum.app.core.database.dao.nia.TopicDao
 import org.deiverbum.app.core.database.dao.nia.UniversalisDao
-import org.deiverbum.app.core.database.model.nia.PopulatedUniversalisResource
+import org.deiverbum.app.core.database.model.nia.PopulatedSextamResource
 import org.deiverbum.app.core.database.model.nia.asExternalModel
 import org.deiverbum.app.core.datastore.NiaPreferencesDataSource
 import org.deiverbum.app.core.model.data.Universalis
@@ -35,13 +35,13 @@ class OfflineFirstUniversalisRepository @Inject constructor(
         query: UniversalisResourceQuery,
 
         ): Flow<List<UniversalisResource>> = newsResourceDao.getUniversalisByDate(
-        filterTopicIds = query.filterTopicIds ?: emptySet(),
+        filterDates = query.filterDates ?: emptySet(),
         //filterNewsIds = query.filterNewsIds ?: emptySet(),
         //todayDate=20240319
 
     )
         .map {
-            it.map(PopulatedUniversalisResource::asExternalModel)
+            it.map(PopulatedSextamResource::asExternalModel)
         }
 
     override fun getNewsResources(query: UniversalisResourceQuery): Flow<List<UniversalisResource>> {

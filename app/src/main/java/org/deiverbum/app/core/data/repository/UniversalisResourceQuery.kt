@@ -12,24 +12,25 @@ data class UniversalisResourceQuery(
     /**
      * Topic ids to filter for. Null means any topic id will match.
      */
-    val filterTopicIds: Set<Int>? = null,
+    val filterDates: Set<Int>? = null,
     /**
      * News ids to filter for. Null means any news id will match.
      */
-    val filterNewsIds: Int = 0,
+    val filterTopicsIds: Int = 0,
 )
 
 /**
  * Data layer implementation for [NewsResource]
  */
 interface UniversalisRepository : Syncable {
+
     /**
      * Returns available news resources that match the specified [query].
      */
     fun getUniversalisByDate(
         query: UniversalisResourceQuery = UniversalisResourceQuery(
-            filterTopicIds = null,
-            filterNewsIds = 1,
+            filterDates = null,
+            filterTopicsIds = 1,
         ),
     ): Flow<List<UniversalisResource>>
 }

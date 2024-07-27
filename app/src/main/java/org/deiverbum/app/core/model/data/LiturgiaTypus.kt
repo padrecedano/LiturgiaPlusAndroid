@@ -1,10 +1,7 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.buildAnnotatedString
 
 /**
  *
@@ -30,16 +27,17 @@ abstract class LiturgiaTypus
     }
 
     @Composable
-    open fun allForView(calendarTime: Int, userData: UserDataDynamic): AnnotatedString {
-        return buildAnnotatedString {
-            Text(text = "")
-        }
+    open fun allForView(calendarTime: Int, userData: UserDataDynamic) {
+
     }
 
     open fun forRead(): StringBuilder {
         return StringBuilder("")
     }
 
+    open fun getTypus(): Any {
+        return TODO("Provide the return value")
+    }
 }
 
 /*

@@ -58,12 +58,13 @@ class LHOfficiumLectioPrior(
 
     @Composable
     fun getComposable(userData: UserDataDynamic): AnnotatedString {
+        ContentTitle(
+            text = "PRIMERA LECTURA",
+            level = 2,
+            userData = userData
+        ).getComposable()
         return buildAnnotatedString {
-            ContentTitle(
-                text = "PRIMERA LECTURA",
-                level = 2,
-                userData = userData
-            ).getComposable()
+
             append(book.liturgyName)
             append("    ")
             append(Utils.toRedCompose(pericopa, getRubricColor(userData = userData)))

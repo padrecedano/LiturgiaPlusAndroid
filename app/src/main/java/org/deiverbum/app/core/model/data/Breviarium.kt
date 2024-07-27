@@ -1,10 +1,7 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.buildAnnotatedString
 
 /**
  *
@@ -32,19 +29,17 @@ abstract class Breviarium(typus: String) :
     }
 
     @Composable
-    override fun allForView(calendarTime: Int, userData: UserDataDynamic): AnnotatedString {
-        return buildAnnotatedString {
+    override fun allForView(calendarTime: Int, userData: UserDataDynamic) {
 
-            Text(text = "")
-
-            //h3Rubric(text = liturgia?.nomen!!, userData = userData)
-            //TextBody(text = fecha, useLineBreak =true )
-            //TextBody(text = liturgia?.tempus?.externus!!, useLineBreak =true )
-
-        }
     }
 
     @Composable
     open fun allForVieww(calendarTime: Int, userData: UserDataDynamic) {
+    }
+
+    override fun getTypus(): Any {
+        //return this
+        //return Any
+        return TODO("Provide the return value")
     }
 }

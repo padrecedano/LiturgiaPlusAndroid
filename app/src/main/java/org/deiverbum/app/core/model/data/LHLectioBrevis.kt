@@ -21,6 +21,8 @@ data class LHLectioBrevis(
         this.book = book
     }
 
+    val contentTitle: String get() = Constants.TITLE_SHORT_READING
+
     private fun getHeaderLectura(): SpannableStringBuilder {
         val ssb = SpannableStringBuilder(
             Utils.formatTitle(
@@ -38,11 +40,11 @@ data class LHLectioBrevis(
 
     @Composable
     fun getComposable(hourIndex: Int, userData: UserDataDynamic): AnnotatedString {
-        ContentTitle(
+        /*ContentTitle(
             text = Constants.TITLE_SHORT_READING.uppercase(),
             level = 2,
             userData = userData
-        ).getComposable()
+        ).getComposable()*/
         return buildAnnotatedString {
             append(textoSpan)
         }

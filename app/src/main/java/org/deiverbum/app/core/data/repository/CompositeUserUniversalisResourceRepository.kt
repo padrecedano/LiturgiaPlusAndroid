@@ -46,7 +46,7 @@ class CompositeUserUniversalisResourceRepository @Inject constructor(
             .flatMapLatest { followedTopics ->
                 when {
                     followedTopics.isEmpty() -> flowOf(emptyList())
-                    else -> observeAll(UniversalisResourceQuery(filterTopicIds = setOf(1)/*followedTopics*/))
+                    else -> observeAll(UniversalisResourceQuery(filterDates = setOf(1)/*followedTopics*/))
                 }
             }
 

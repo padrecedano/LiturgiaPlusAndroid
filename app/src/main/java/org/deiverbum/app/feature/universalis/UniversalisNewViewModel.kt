@@ -152,7 +152,7 @@ private fun universalisNewUiState(
 ): Flow<UniversalisNewUiState> {
     // Observe news
     val newsStream: Flow<List<UserUniversalisResource>> = userNewsResourceRepository.observeAll(
-        UniversalisResourceQuery(filterTopicIds = setOf(element = 1)),
+        UniversalisResourceQuery(filterDates = setOf(element = 1)),
     )
 
     // Observe bookmarks

@@ -71,6 +71,9 @@ object Utils {
         return ssb
     }
 
+    fun capitalize(s: String): String {
+        return s.replaceFirstChar { it.uppercase() }
+    }
     fun toRedBold(sOrigen: String): SpannableStringBuilder {
         val ssb = SpannableStringBuilder(sOrigen)
         ssb.setSpan(CharacterStyle.wrap(red), 0, ssb.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)

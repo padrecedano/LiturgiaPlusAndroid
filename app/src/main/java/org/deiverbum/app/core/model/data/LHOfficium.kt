@@ -34,40 +34,36 @@ data class LHOfficium(
 
     var sanctus: LHSanctus? = null
 
+    override fun getTypus(): LHOfficium {
+        return this
+    }
     @Composable
-    override fun allForView(calendarTime: Int, userData: UserDataDynamic): AnnotatedString {
+    override fun allForView(calendarTime: Int, userData: UserDataDynamic)/*: AnnotatedString*/ {
         val ssb = AnnotatedString.Builder()
         val rubricColor = getRubricColor(userData = userData)
-        if (1 == 2) {
-            val introitus = Introitus()
-            ContentTitle(
-                text = Constants.TITLE_INITIAL_INVOCATION.uppercase(),
-                level = 2,
-                userData = userData
-            ).getComposable()
-            Text(text = introitus.composableDomineLabia(rubricColor))
-            officiumLectionis.normalizeByTime(calendarTime)
-            if (sanctus != null && hasSaint) {
-                invitatorium.normalizeIsSaint(sanctus!!.nomen)
-                Text(text = sanctus!!.getComposable())
-            }
-
-            Text(text = invitatorium.getComposable(-1, calendarTime, userData))
-            ssb.append(Utils.LS2)
-            Text(text = hymnus.getComposable(userData = userData))
-            ssb.append(Utils.LS2)
-            Text(text = psalmodia.getComposable(-1, calendarTime, userData))
+        val introitus = Introitus()
+        ContentTitle(
+            text = Constants.TITLE_INITIAL_INVOCATION.uppercase(),
+            level = 2,
+            userData = userData
+        ).getComposable()
+        //Text(text = introitus.composableDomineLabia(rubricColor))
+        officiumLectionis.normalizeByTime(calendarTime)
+        if (sanctus != null && hasSaint) {
+            invitatorium.normalizeIsSaint(sanctus!!.nomen)
+            Text(text = sanctus!!.getComposable())
         }
-        Text(text = officiumLectionis.getComposable(userData = userData))
 
+        Text(text = invitatorium.getComposable(-1, calendarTime, userData))
+        ssb.append(Utils.LS2)
+        Text(text = hymnus.getComposable(userData = userData))
+        ssb.append(Utils.LS2)
+        Text(text = psalmodia.getComposable(-1, calendarTime, userData))
+
+        Text(text = officiumLectionis.getComposable(userData = userData))
         Text(text = oratio.getComposable(userData))
-        //ssb.append(oratio.all)
-        //ssb.append(Utils.LS2)
-        ssb.append(RitusConclusionis.viewDominusNosBenedicat)
-        //} catch (e: Exception) {
-        //   ssb.append(Utils.createErrorMessage(e.message))
-        //}
-        return ssb.toAnnotatedString()
+        Text(text = RitusConclusionis.getComposableDominusNosBenedicat(userData))
+        //return ssb.toAnnotatedString()
     }
 
     override fun forView(calendarTime: Int): SpannableStringBuilder {

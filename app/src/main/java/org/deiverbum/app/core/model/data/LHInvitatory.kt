@@ -81,9 +81,6 @@ class LHInvitatory(override var antiphonae: MutableList<LHAntiphon>) :
             s.pericopa = "Salmo 94"
         }
         return buildAnnotatedString {
-//SectionTitle(Constants.TITLE_INVITATORY.lowercase(),1)
-            //append(Utils.formatSubTitleToLower(Constants.TITLE_INVITATORY))
-            //append(Utils.LS2)
             append(antiphonae[0].getComposableBefore(false, rubricColor))
             append(Utils.LS2)
             append(s.pericopaComposable(rubricColor))
@@ -92,8 +89,8 @@ class LHInvitatory(override var antiphonae: MutableList<LHAntiphon>) :
             append(Utils.LS2)
             append(antiphonae[0].getComposableAfter(rubricColor))
         }
-
     }
+
     override fun getAllForView(hourIndex: Int, calendarTime: Int): SpannableStringBuilder {
         val ssb = SpannableStringBuilder()
         val s = psalmus[0]

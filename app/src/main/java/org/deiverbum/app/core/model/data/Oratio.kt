@@ -31,6 +31,9 @@ data class Oratio(
     val header: SpannableStringBuilder
         get() = Utils.formatTitle(Constants.TITLE_PRAYER)
 
+    //    @Json(ignore = true)
+//    @get:Ignore
+    val sectionTitle: String get() = Constants.TITLE_PRAYER
     @Composable
     fun getComposable(userData: UserDataDynamic?): AnnotatedString {
         //ContentTitle(text= Constants.TITLE_SHORT_READING.uppercase(),level=2,userData=userData).getComposable()

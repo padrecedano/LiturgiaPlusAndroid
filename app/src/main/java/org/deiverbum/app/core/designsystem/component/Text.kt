@@ -29,6 +29,10 @@ import org.deiverbum.app.core.model.data.IntroitusNew
 import org.deiverbum.app.core.model.data.RubricColorConfig
 import org.deiverbum.app.core.model.data.SectionTitle
 import org.deiverbum.app.core.model.data.UserDataDynamic
+import org.deiverbum.app.feature.universalis.SpaceNormal
+import org.deiverbum.app.util.LiturgyHelper.Companion.R
+import org.deiverbum.app.util.LiturgyHelper.Companion.V
+import org.deiverbum.app.util.Utils
 
 @Composable
 fun ViewText(
@@ -54,6 +58,20 @@ fun RedText(text: String) {
 @Composable
 fun YellowText(text: String) {
     Text(text, color = Color.Yellow)
+}
+
+@Composable
+fun TextSanctus(text: String) {
+    TextSmall(text = text)
+    SpaceNormal()
+}
+
+@Composable
+fun TextSmall(text: String) {
+    Text(
+        text = text,
+        style = NiaTypography.bodySmall,
+    )
 }
 
 @Composable
@@ -88,16 +106,47 @@ fun TextWithLineBreak(text: String) {
 
 
 @Composable
-fun TextRubric(text: String, userData: UserDataDynamic) {
-    var rubricColor = userData.rubricColor.value
-    if (userData.darkThemeConfig.name == "FOLLOW_SYSTEM") {
-        rubricColor = when (isSystemInDarkTheme()) {
-            true -> Color.Yellow
-            false -> Color.Red
-        }
-    }
+fun TextRubric(text: String, rubricColor: Color) {
     Text(text = text, color = rubricColor)
 }
+
+@Composable
+fun TextFromHtml(text: String) {
+    Text(text = stringFromHtml(text))
+}
+
+fun stringFromHtml(text: String): String {
+    return Utils.fromHtml(text).toString()
+}
+
+@Composable
+fun TextMultiColor(texts: List<String>, color: Color) {
+    Text(buildAnnotatedString {
+        append(texts[0])
+        append("   ")
+        withStyle(style = SpanStyle(color = color)) {
+            append(texts[1])
+        }
+    })
+}
+
+@Composable
+fun TextVR(texts: List<String>, rubricColor: Color) {
+    Text(buildAnnotatedString {
+        withStyle(style = SpanStyle(color = rubricColor)) {
+            append(V)
+        }
+        append(" ${texts[0]}")
+    })
+    Text(buildAnnotatedString {
+        withStyle(style = SpanStyle(color = rubricColor)) {
+            append(R)
+        }
+        append(" ${texts[1]}")
+    })
+
+}
+
 
 @Composable
 fun getRubricColor(userData: UserDataDynamic): Color {

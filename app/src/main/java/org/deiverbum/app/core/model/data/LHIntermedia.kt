@@ -4,7 +4,6 @@ import android.text.SpannableStringBuilder
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import com.squareup.moshi.JsonClass
@@ -47,7 +46,7 @@ data class LHIntermedia(
         get() = Utils.toH1Red(tituloHora)
 
     @Composable
-    override fun allForView(calendarTime: Int, userData: UserDataDynamic): AnnotatedString {
+    override fun allForView(calendarTime: Int, userData: UserDataDynamic) {
         val content = IntroitusNew.createIntroitus()
         val rubricColor = getRubricColor(userData = userData)
         val introitus = Introitus()
@@ -56,7 +55,7 @@ data class LHIntermedia(
             level = 2,
             userData = userData
         ).getComposable()
-        Text(text = introitus.composableDeusInAdiutorium(rubricColor))
+        //Text(text = introitus.composableDeusInAdiutorium(rubricColor))
 
 //append(hymnus.getComposable(userData = userData))
         Text(text = hymnus.getComposable(userData = userData))
@@ -78,7 +77,7 @@ data class LHIntermedia(
         Text(text = oratio.getComposable(userData))
 
         val data = listOf(Pair(content.placeHolder, SpanStyle(color = Color.Red)), content.content)
-        return buildAnnotatedString {
+        buildAnnotatedString {
             //append(annotateRecursivelyNew())
             /*append(annotateRecursively(
                     listOf(Pair(content.placeHolder, SpanStyle(color = Color.Red))),

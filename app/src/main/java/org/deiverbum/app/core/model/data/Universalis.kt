@@ -161,6 +161,8 @@ data class Universalis(
 
     @Composable
     fun getAllForVieww(userData: UserDataDynamic): AnnotatedString {
+        //UniversalisScreenView(this, "1", userNewsResource[0].dynamic)
+        return buildAnnotatedString {}
         val annotatedString = buildAnnotatedString {
 
             if (info != null) {

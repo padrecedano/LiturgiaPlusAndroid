@@ -3,7 +3,6 @@ package org.deiverbum.app.feature.home
 
 import NiaIcons
 import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,11 +21,9 @@ import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -42,7 +39,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -52,21 +48,18 @@ import org.deiverbum.app.R
 import org.deiverbum.app.core.analytics.LocalAnalyticsHelper
 import org.deiverbum.app.core.designsystem.component.NiaFilterChip
 import org.deiverbum.app.core.designsystem.component.NiaLoadingWheel
-import org.deiverbum.app.core.designsystem.component.NiaTopicTag
 import org.deiverbum.app.core.designsystem.component.scrollbar.DraggableScrollbar
 import org.deiverbum.app.core.designsystem.component.scrollbar.rememberDraggableScroller
 import org.deiverbum.app.core.designsystem.component.scrollbar.scrollbarState
-import org.deiverbum.app.core.model.data.FollowableTopic
 import org.deiverbum.app.core.model.data.TopicRequest
-import org.deiverbum.app.core.model.data.UserUniversalisResource
 import org.deiverbum.app.core.ui.BookmarkButton
-import org.deiverbum.app.core.ui.NewsResourceShortDescriptionNew
 import org.deiverbum.app.core.ui.NewsResourceTitle
 import org.deiverbum.app.core.ui.NotificationDot
-import org.deiverbum.app.core.ui.UniversalisResourceContentNew
 import org.deiverbum.app.core.ui.UniversalisResourceMetaData
 import org.deiverbum.app.core.ui.logNewsResourceOpened
-import java.util.Locale
+import org.deiverbum.app.feature.universalis.UniversalisScreenView
+import org.deiverbum.app.util.LiturgyHelper
+import org.deiverbum.app.util.Utils
 
 @ExperimentalMaterial3AdaptiveApi
 @Composable
@@ -78,7 +71,6 @@ fun InterestsRouteInHome(
     viewModel: InterestsViewModelInHome = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
 
     InterestsScreenInHome(
         uiState = uiState,
@@ -105,7 +97,6 @@ internal fun InterestsScreenInHome(
     ) {
     val state = rememberLazyListState()
 
-
     Box(
         modifier = modifier,
     ) {
@@ -116,39 +107,6 @@ internal fun InterestsScreenInHome(
             item {
                 Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
             }
-            /*when (uiState) {
-                InterestsUiStateInHome.Loading -> item {
-                    NiaLoadingWheel(
-                        modifier = modifier,
-                        contentDesc = "stringResource(id = string.feature_topic_loading)",
-                    )
-                }
-
-                //InterestsUiStateInHome.Error -> Timber.e("ERRR TopicScreenUniversalis")
-                is InterestsUiStateInHome.InterestsInHome -> {
-                    item {
-                        //Text(uiState.topics[0].topic.longDescription)
-                        TopicToolbarUniversalisNew(
-                            //uiState=uiState,
-                            showBackButton = true,
-                            onBackClick = onBackClick,
-                            //onBackClick = listDetailNavigator::navigateBack,
-
-                            //onFollowClick = {},
-                            modifier=modifier,
-                        )
-
-                    }
-                    topicBody("kkk",uiState.topics[0].topic.shortDescription,
-                        uiState.topics)
-                        /*topicBodyy(
-                            name = "Laudes",
-                            description = "uiState.topics"
-                        )*/
-                }
-
-                InterestsUiStateInHome.Empty -> TODO()
-            }*/
             when (uiState) {
                 InterestsUiStateInHome.Loading -> item {
                     NiaLoadingWheel(
@@ -160,7 +118,6 @@ internal fun InterestsScreenInHome(
                 InterestsUiStateInHome.Error -> TODO()
                 is InterestsUiStateInHome.InterestsInHome -> {
                     item {
-
                         TopicToolbar(
                             showBackButton = true,
                             onBackClick = onBackClick,
@@ -171,8 +128,8 @@ internal fun InterestsScreenInHome(
                     }
                     if (uiState.topics.isNotEmpty()) {
 
-                        topicBodyNew(
-                            name = "Laudes",
+                        topicBody(
+                            name = Utils.capitalize(LiturgyHelper.liturgyByType(uiState.selectedTopicId!!.toInt())),
                             description = uiState.topics[0].data[0].fecha,
                             news = uiState,
                             onTopicClick = onTopicClick,
@@ -211,219 +168,10 @@ internal fun InterestsScreenInHome(
             ),
         )
     }
-
-    /*{
-        Column(
-            modifier = modifier,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            when (uiState) {
-                InterestsUiStateInHome.Loading ->
-                    NiaLoadingWheel(
-                        modifier = modifier,
-                        contentDesc = stringResource(id = R.string.feature_interests_loading),
-                    )
-
-                is InterestsUiStateInHome.InterestsInHome ->
-                    //Text(uiState.topics[0].topic.longDescription)
-                    TopicsTabContent(
-                        topics = uiState.topics,
-                        onTopicClick = {},
-                        onFollowButtonClick = followTopic,
-                        selectedTopicId = uiState.selectedTopicId,
-                        highlightSelectedTopic = true,
-                        modifier = modifier,
-                    )
-                topicBody("","")
-
-                is InterestsUiStateInHome.Empty -> InterestsEmptyScreenInHome()
-            }
-        }
-        TrackScreenViewEvent(screenName = "Interests")
-    }*/
-    /*
-        @Composable
-        fun TopicToolbar(
-            showBackButton: Any,
-            onBackClick: () -> Unit,
-            onFollowClick: Any,
-            uiState: List<FollowableTopic>,
-            modifier: Modifier) {
-
-        }*/
-
-    @Composable
-    fun LazyItemScope.topicToolbar(
-        uiState: List<FollowableTopic>,
-        modifier: Modifier = Modifier,
-        showBackButton: Boolean = true,
-        onBackClick: () -> Unit = {},
-        onFollowClick: (Boolean) -> Unit = {},
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(bottom = 32.dp),
-        ) {
-            if (showBackButton) {
-                IconButton(onClick = { onBackClick() }) {
-                    Icon(
-                        imageVector = NiaIcons.ArrowBack,
-                        contentDescription = stringResource(
-                            id = R.string.core_ui_back,
-                        ),
-                    )
-                }
-            } else {
-                // Keeps the NiaFilterChip aligned to the end of the Row.
-                Spacer(modifier = Modifier.width(1.dp))
-            }
-            val selected = true//uiState.isFollowed
-            NiaFilterChip(
-                selected = selected,
-                onSelectedChange = onFollowClick,
-                modifier = Modifier.padding(end = 24.dp),
-            ) {
-                if (selected) {
-                    Text("FOLLOWING")
-                } else {
-                    Text("NOT FOLLOWING")
-                }
-            }
-        }
-    }
-
-    @Composable
-    fun InterestsEmptyScreen() {
-        Text(text = stringResource(id = R.string.feature_interests_empty_header))
-    }
-
-    @Composable
-    fun LazyItemScope.TopicToolbarUniversalisNew(
-        modifier: Modifier = Modifier,
-        showBackButton: Boolean = true,
-        onBackClick: () -> Unit = {},
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(bottom = 32.dp),
-        ) {
-            if (showBackButton) {
-                IconButton(onClick = { onBackClick() }) {
-                    Icon(
-                        imageVector = NiaIcons.ArrowBack,
-                        contentDescription = "com.google.samples.apps.nowinandroid.core.ui.R.string.core_ui_back",
-                    )
-                }
-            } else {
-                // Keeps the NiaFilterChip aligned to the end of the Row.
-                Spacer(modifier = Modifier.width(1.dp))
-            }
-            val selected = true//uiState.isFollowed
-            /*NiaFilterChip(
-                selected = selected,
-                onSelectedChange = onFollowClick,
-                modifier = Modifier.padding(end = 24.dp),
-            ) {
-                if (selected) {
-                    Text("FOLLOWING")
-                } else {
-                    Text("NOT FOLLOWING")
-                }
-            }*/
-        }
-    }
-
-
-    fun LazyListScope.topicBodyy(
-        name: String,
-        description: String,
-        /*news: UniversalisUiState,
-        onBookmarkChanged: (String, Boolean) -> Unit,
-        onNewsResourceViewed: (String) -> Unit,
-        onTopicClick: (String) -> Unit,*/
-    ) {
-        item {
-            //UniversalisHeader(name, description)
-        }
-
-        //userUniversalisResourceCards(news, onBookmarkChanged, onNewsResourceViewed, onTopicClick)
-    }
-
-    @Composable
-    fun UniversalisHeader(name: String, description: String) {
-        Column(
-            modifier = Modifier.padding(horizontal = 24.dp),
-        ) {
-            Text(name, style = MaterialTheme.typography.displayMedium)
-            if (description.isNotEmpty()) {
-                Text(
-                    description,
-                    modifier = Modifier.padding(top = 24.dp),
-                    style = MaterialTheme.typography.bodyLarge,
-                )
-            }
-        }
-    }
-
-    @Composable
-    fun InterestsEmptyScreenInHome() {
-        Text(text = stringResource(id = R.string.feature_interests_empty_header))
-    }
-
-    @Composable
-    fun LazyItemScope.TopicToolbarUniversalisNeww(
-        modifier: Modifier = Modifier,
-        showBackButton: Boolean = true,
-        onBackClick: () -> Unit = {},
-        onFollowClick: (Boolean) -> Unit = {},
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(bottom = 32.dp),
-        ) {
-            if (showBackButton) {
-                IconButton(onClick = { onBackClick() }) {
-                    Icon(
-                        imageVector = NiaIcons.ArrowBack,
-                        contentDescription = "com.google.samples.apps.nowinandroid.core.ui.R.string.core_ui_back",
-                    )
-                }
-            } else {
-                // Keeps the NiaFilterChip aligned to the end of the Row.
-                Spacer(modifier = Modifier.width(1.dp))
-            }
-            val selected = true//uiState.isFollowed
-            NiaFilterChip(
-                selected = selected,
-                onSelectedChange = onFollowClick,
-                modifier = Modifier.padding(end = 24.dp),
-            ) {
-                if (selected) {
-                    Text("FOLLOWING")
-                } else {
-                    Text("NOT FOLLOWING")
-                }
-            }
-        }
-    }
 }
 
-@Composable
-fun InterestsEmptyScreen() {
-    Text(text = stringResource(id = R.string.feature_interests_empty_header))
 
-}
-
-private fun LazyListScope.topicBodyNew(
+private fun LazyListScope.topicBody(
     name: String,
     description: String,
     news: InterestsUiStateInHome.InterestsInHome,
@@ -487,20 +235,7 @@ fun TopicToolbar(
 }
 
 
-fun LazyListScope.topicBody(
-    name: String,
-    description: String,
-    data: List<FollowableTopic>
 
-) {
-    item {
-        UniversalisHeaderNew(name, description)
-    }
-
-    //userUniversalisResourceCards(news, onBookmarkChanged, onNewsResourceViewed, onTopicClick)
-    userUniversalisResourceCardsNew(data, {}, {})
-
-}
 
 // TODO: Could/should this be replaced with [LazyGridScope.newsFeed]?
 private fun LazyListScope.userNewsResourceCards(
@@ -513,6 +248,7 @@ private fun LazyListScope.userNewsResourceCards(
         is InterestsUiStateInHome.InterestsInHome -> {
             userNewsResourceCardItemsNew(
                 items = news.topics,
+                topicId = news.selectedTopicId,
                 //userData=news.userData,
                 /*onToggleBookmark = { onBookmarkChanged(it.id, !it.isSaved) },
                 onNewsResourceViewed = onNewsResourceViewed,
@@ -538,6 +274,7 @@ fun LazyListScope.userNewsResourceCardItemsNew(
     onNewsResourceViewed: (String) -> Unit,
     onTopicClick: (String) -> Unit,*/
     itemModifier: Modifier = Modifier,
+    topicId: String?,
 ) = items(
     items = items,
     key = { it.data[0].liturgyFK },
@@ -548,6 +285,7 @@ fun LazyListScope.userNewsResourceCardItemsNew(
         val analyticsHelper = LocalAnalyticsHelper.current
 
         NewsResourceCardExpandedNew(
+            topicId = topicId,
             userNewsResource = items,
             isBookmarked = true,//userNewsResource.isSaved,
             hasBeenViewed = true,//userNewsResource.hasBeenViewed,
@@ -574,6 +312,7 @@ fun NewsResourceCardExpandedNew(
     onClick: () -> Unit,
     onTopicClick: (String) -> Unit,
     modifier: Modifier = Modifier,
+    topicId: String?,
 ) {
     val clickActionLabel = "stringResource(R.string.core_ui_card_tap_action)"
     Card(
@@ -618,156 +357,24 @@ fun NewsResourceCardExpandedNew(
                     }
                     Spacer(modifier = Modifier.height(14.dp))
                     var data = userNewsResource[0].data[0]
-                    NewsResourceShortDescriptionNew(
-                        data.getAllForVieww(
-                            userNewsResource[0].dynamic
-                            /*UserDataDynamic(
-                                DarkThemeConfig.LIGHT,
-                                false,
-                                false,
-                                false,
-                                RubricColorConfig.DARK)*/
-                        )
 
+                    UniversalisScreenView(
+                        data = data,
+                        topicId = topicId,
+                        userNewsResource[0].dynamic,
+                        modifier = modifier
                     )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    NewsResourceTopicsNew(
+
+                    /*NewsResourceShortDescriptionNew(
+                        UniversalisScreenView(flower = data)
+                        //data.getAllForVieww(userNewsResource[0].dynamic)
+
+                    )*/
+                    //Spacer(modifier = Modifier.height(12.dp))
+                    /*NewsResourceTopicsNew(
                         topics = userNewsResource,
                         onTopicClick = onTopicClick,
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun NewsResourceTopicsNew(
-    topics: List<TopicRequest>,
-    onTopicClick: (String) -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Row(
-        // causes narrow chips
-        modifier = modifier.horizontalScroll(rememberScrollState()),
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
-    ) {
-        for (followableTopic in topics) {
-            NiaTopicTag(
-                followed = true,//followableTopic.isFollowed,
-                onClick = { /*onTopicClick(followableTopic.topic.id)*/ },
-                text = {
-                    val contentDescription = "****desc"/*if (followableTopic.isFollowed) {
-                        stringResource(
-                            R.string.lbl_nona,
-                            followableTopic.topic.longDescription,
-                        )
-                    } else {
-                        stringResource(
-                            R.string.audio_stop,
-                            followableTopic.topic.longDescription,
-                        )
-                    }*/
-                    Text(
-                        text = followableTopic.data[0].fecha.uppercase(Locale.getDefault()),
-                        modifier = Modifier.semantics {
-                            this.contentDescription = contentDescription
-                        },
-                    )
-                },
-            )
-        }
-    }
-}
-
-fun LazyListScope.userUniversalisResourceCardsNew(
-    //universalis: UniversalisUiState,
-    data: List<FollowableTopic>,
-    //onBookmarkChanged: (String, Boolean) -> Unit,
-    onNewsResourceViewed: (String) -> Unit,
-    onTopicClick: (String) -> Unit,
-) {
-    //when (universalis) {
-    //    is UniversalisUiState.Success -> {
-
-    userUniversalisResourceCardItemsNew(
-        items = data,
-        onToggleBookmark = { /*onBookmarkChanged(it.id, !it.isSaved)*/ },
-        itemModifier = Modifier.padding(24.dp),
-    )
-}
-
-/*is UniversalisUiState.Loading -> item {
-    NiaLoadingWheel(contentDesc = "Loading news") // TODO
-}
-
-else -> item {
-    Text("Error") // TODO
-}*/
-//}
-//}
-
-fun LazyListScope.userUniversalisResourceCardItemsNew(
-    items: List<FollowableTopic>,
-    //InterestsUiStateInHome
-    onToggleBookmark: (item: UserUniversalisResource) -> Unit,
-    itemModifier: Modifier = Modifier,
-) = items(
-    items = items,
-    key = { 0 },
-    itemContent = { userNewsResource ->
-
-        UniversalisResourceCardExpandedNew(
-            isBookmarked = false,
-            userNewsResource = userNewsResource,
-            onToggleBookmark = { /*onToggleBookmark(userNewsResource)*/ },
-            modifier = itemModifier,
-        )
-    },
-)
-
-@Composable
-fun UniversalisResourceCardExpandedNew(
-    userNewsResource: FollowableTopic,
-    isBookmarked: Boolean,
-    onToggleBookmark: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Card(
-        onClick = {},
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        modifier = modifier,
-    ) {
-        Column {
-            Box(
-                modifier = Modifier.padding(16.dp),
-            ) {
-                Column {
-                    Row {
-                        Spacer(modifier = Modifier.weight(1f))
-                        BookmarkButton(isBookmarked, onToggleBookmark)
-                    }
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        //TODO: Poner color litúrgico
-                        /*if (!hasBeenViewed) {
-                            NotificationDot(
-                                color = MaterialTheme.colorScheme.tertiary,
-                                modifier = Modifier.size(8.dp),
-                            )
-                            Spacer(modifier = Modifier.size(6.dp))
-                        }*/
-                        //NewsResourceMetaData(userNewsResource.todayDate, userNewsResource.type)
-                    }
-                    /*UniversalisResourceContent(
-                        userNewsResource.followableTopics[0].topic.getAllForView(
-                            TodayRequest(1, 1, true, true)
-                        ).toString()
                     )*/
-                    UniversalisResourceContentNew(
-                        userNewsResource.topic.longDescription//.getAllForView(TodayRequest(1,1,false,false)).toString()
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
                 }
             }
         }
@@ -787,49 +394,6 @@ private fun UniversalisHeaderNew(name: String, description: String) {
                 style = MaterialTheme.typography.bodyLarge,
             )
         }
-    }
-}
-
-
-@Composable
-fun TopicToolbarUniversalisNew(
-    showBackButton: Boolean,
-    onBackClick: () -> Unit,
-    modifier: Modifier
-) {
-//Text("aaaaa")
-    Row(
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(bottom = 32.dp),
-    ) {
-        if (showBackButton) {
-            IconButton(onClick = {
-                onBackClick()
-            }) {
-                Icon(
-                    imageVector = NiaIcons.ArrowBack,
-                    contentDescription = "com.google.samples.apps.nowinandroid.core.ui.R.string.core_ui_back",
-                )
-            }
-        } else {
-            // Keeps the NiaFilterChip aligned to the end of the Row.
-            Spacer(modifier = Modifier.width(1.dp))
-        }
-        val selected = true//uiState.isFollowed
-        /*NiaFilterChip(
-            selected = selected,
-            onSelectedChange = onFollowClick,
-            modifier = Modifier.padding(end = 24.dp),
-        ) {
-            if (selected) {
-                Text("FOLLOWING")
-            } else {
-                Text("NOT FOLLOWING")
-            }
-        }*/
     }
 }
 
