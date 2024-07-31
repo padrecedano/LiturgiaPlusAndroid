@@ -1,9 +1,10 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.buildAnnotatedString
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
-import java.util.*
 
 class Conclusion {
     private var antiphonaMariam: String? = null
@@ -21,7 +22,7 @@ class Conclusion {
         return Utils.pointAtEnd(Constants.TITLE_CONCLUSION)
     }
 
-    private fun getBendicion(): String {
+    fun getBendicion(): String {
         return bendicion
     }
 
@@ -38,7 +39,7 @@ class Conclusion {
         this.antiphonaMariam = antVirgen
     }
 
-    private fun getAntifonaVirgen(): String? {
+    fun getAntifonaVirgen(): String? {
         return antiphonaMariam
     }
 
@@ -53,6 +54,30 @@ class Conclusion {
         sb.append(Utils.fromHtml(getAntifonaVirgen()!!))
         return sb
     }
+
+    fun getComposeBendicion(): AnnotatedString {
+        //val sb = SpannableStringBuilder()
+        return buildAnnotatedString {
+            //sb.append(getHeader())
+            //sb.append(Utils.LS2)
+            append(bendicion)
+            append(Utils.LS2)
+        }
+    }
+
+    fun getComposeVirginAntiphona(): AnnotatedString {
+        //val sb = SpannableStringBuilder()
+        return buildAnnotatedString {
+            //sb.append(getHeader())
+            //sb.append(Utils.LS2)
+            append(Utils.fromHtml(antiphonaMariam!!))
+            //append(Utils.LS2)
+        }
+    }
+
+
+    //return sb
+
 
     fun getAllForRead(): SpannableStringBuilder {
         val sb = SpannableStringBuilder()

@@ -10,7 +10,7 @@ import org.deiverbum.app.core.network.NiaNetworkDataSource
 import javax.inject.Inject
 
 /**
- * Disk storage backed implementation of the [TopicsRepository].
+ * Disk storage backed implementation of the [TodaysRepository].
  * Reads are exclusively from local storage to support offline access.
  */
 class OfflineFirstTodayRepository @Inject constructor(

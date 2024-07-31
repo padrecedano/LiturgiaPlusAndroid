@@ -4,7 +4,8 @@ package org.deiverbum.app.feature.foryou
 
 import NiaIcons
 import android.net.Uri
-import android.os.Build
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import androidx.activity.compose.ReportDrawnWhen
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -71,8 +72,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.tracing.trace
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.PermissionStatus
+import com.google.accompanist.permissions.PermissionStatus.Denied
 import com.google.accompanist.permissions.rememberPermissionState
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.deiverbum.app.R
 import org.deiverbum.app.core.designsystem.component.DynamicAsyncImage
 import org.deiverbum.app.core.designsystem.component.NiaButton
@@ -92,6 +94,7 @@ import org.deiverbum.app.core.ui.UserNewsResourcePreviewParameterProvider
 import org.deiverbum.app.core.ui.launchCustomChromeTab
 import org.deiverbum.app.core.ui.newsFeed
 
+@ExperimentalCoroutinesApi
 @Composable
 internal fun ForYouRoute(
     onTopicClick: (String) -> Unit,
@@ -437,13 +440,13 @@ private fun NotificationPermissionEffect() {
     // Permission requests should only be made from an Activity Context, which is not present
     // in previews
     if (LocalInspectionMode.current) return
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
+    if (VERSION.SDK_INT < VERSION_CODES.TIRAMISU) return
     val notificationsPermissionState = rememberPermissionState(
         android.Manifest.permission.POST_NOTIFICATIONS,
     )
     LaunchedEffect(notificationsPermissionState) {
         val status = notificationsPermissionState.status
-        if (status is PermissionStatus.Denied && !status.shouldShowRationale) {
+        if (status is Denied && !status.shouldShowRationale) {
             notificationsPermissionState.launchPermissionRequest()
         }
     }

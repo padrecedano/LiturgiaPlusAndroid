@@ -13,7 +13,7 @@ data class LHCompletorium(
     var lectioBrevis: LHLectioBrevis,
     var canticumEvangelicum: LHGospelCanticle,
     var oratio: Oratio,
-    var conclusio: Conclusion,
+    var conclusio: ConclusioCompletorium,
     override var typus: String = "completorium"
     //, override var tempore: LiturgyTime
 
@@ -39,7 +39,7 @@ data class LHCompletorium(
             sb.append(Utils.LS2)
             sb.append(oratio.all)
             sb.append(Utils.LS2)
-            sb.append(conclusio.getAll())
+            //sb.append(conclusio.getAll())
             sb.append(Utils.LS2)
             sb
         } catch (e: Exception) {
@@ -66,7 +66,7 @@ data class LHCompletorium(
             sb.append(lectioBrevis.getAllForRead())
             sb.append(canticumEvangelicum.getSalmosByIndexForRead(0))
             sb.append(oratio.allForRead)
-            sb.append(conclusio.getAllForRead())
+            //sb.append(conclusio.getAllForRead())
             sb
         } catch (e: Exception) {
             StringBuilder(e.toString())

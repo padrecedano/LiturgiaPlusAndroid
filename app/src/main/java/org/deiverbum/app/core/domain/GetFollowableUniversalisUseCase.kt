@@ -1,7 +1,8 @@
-package org.deiverbum.app.domain
+package org.deiverbum.app.core.domain
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
 import org.deiverbum.app.core.data.repository.UniversalisRepository
 import org.deiverbum.app.core.data.repository.UniversalisResourceQuery
 import org.deiverbum.app.core.data.repository.UserDataRepository
@@ -21,37 +22,32 @@ class GetFollowableUniversalisUseCase @Inject constructor(
      * @param sortBy - the field used to sort the topics. Default NONE = no sorting.
      */
     operator fun invoke(
-        sortBy: UniversalisSortField = UniversalisSortField.NONE,
+        sortBy: HomeSortField = HomeSortField.NONE,
         date: Int,
         topicId: Int
-    ): Flow<List<TopicRequest>> =
-    //var userDataa=userDataRepository.userData
-    //var topicss=topicsRepository.getUniversalisByDate(UniversalisResourceQuery(setOf("20240303"),null))
-        //TopicRequest()
-        combine(
+    ): Flow<List<TopicRequest>> {
+        return combine(
             userDataRepository.userData,
             topicsRepository.getUniversalisByDate(UniversalisResourceQuery(setOf(date), topicId)),
-            //topicsRepository.getUniversalisById("20240719"),
 
-        ) { userData, topics ->
-            val followedTopics = topics
-                .map { topic ->
-                    TopicRequest(
-                        date = topics[0].data[0].todayDate, //TODO:Este flujo se repite ¿?
-                        resource = "",
-                        name = "",
-                        data = topic.data,
-                        dynamic = userData.dynamic
-                    )
-                }
+            ) { userData, topics ->
+            if (topics.isEmpty() || topics[0].data.isEmpty()) {
+                topicsRepository.insertFromRemote(UniversalisResourceQuery(setOf(date), topicId))
+            }
+            val followedTopics = topics.map { topic ->
+                TopicRequest(
+                    date = topics[0].data[0].todayDate, //TODO:Este flujo se repite ¿?
+                    resource = "",
+                    name = "",
+                    id = 1,
+                    data = topic.data,
+                    dynamic = userData.dynamic
+                )
+            }.sortedBy { it.date }
             when (sortBy) {
-                UniversalisSortField.NAME -> followedTopics.sortedBy { it.date }
+                HomeSortField.ID -> followedTopics.sortedBy { it.id }
                 else -> followedTopics
             }
-        }
-}
-
-enum class UniversalisSortField {
-    NONE,
-    NAME,
+        }.filterNotNull()
+    }
 }

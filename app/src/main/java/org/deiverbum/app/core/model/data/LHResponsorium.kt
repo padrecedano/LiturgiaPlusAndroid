@@ -1,7 +1,6 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
@@ -173,8 +172,8 @@ class LHResponsorium(
             return sb
         }
 
-    @Composable
-    fun getComposable(rubricColor: Color): AnnotatedString {
+    //@Composable
+    override fun getComposable(rubricColor: Color): AnnotatedString {
         return buildAnnotatedString {
             val respArray =
                 responsorium.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()

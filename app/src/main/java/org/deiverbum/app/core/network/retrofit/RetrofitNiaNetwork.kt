@@ -37,7 +37,7 @@ private interface RetrofitNiaNetworkApi {
     suspend fun getUniversalisResources(
         //@Query("id") ids: List<String>?,
         @Path("dateString") dateString: String?
-    ): NetworkResponse<NetworkUniversalisResource>
+    ): NetworkUniversalisResource
 
     @GET(value = "universalisresources/{dateString}")
     suspend fun getUniversalisResourcesList(
@@ -101,8 +101,8 @@ class RetrofitNiaNetwork @Inject constructor(
         networkApi.getTopics(ids = ids).data
 
 
-    override suspend fun getUniversalis(ids: List<String>?): NetworkUniversalisResource =
-        networkApi.getUniversalisResources(dateString = "20230101").data
+    override suspend fun getUniversalis(ids: List<Int>): NetworkUniversalisResource =
+        networkApi.getUniversalisResources(dateString = ids[0].toString())
 
     fun getUniversalisOld(ids: String?, req: String): Universalis =
         Universalis()

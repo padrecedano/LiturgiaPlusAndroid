@@ -5,6 +5,7 @@ package org.deiverbum.app.core.model.data
  */
 data class TopicRequest(
     val date: Int,
+    val id: Int,
     val name: String,
     val resource: String,
     val dynamic: UserDataDynamic,

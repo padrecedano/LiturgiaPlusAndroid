@@ -1,17 +1,12 @@
 package org.deiverbum.app.core.network.model
 
-import kotlinx.serialization.Serializable
+import org.deiverbum.app.core.model.data.Universalis
 
 /**
  * Network representation of [Topic]
  */
-@Serializable
+//@Serializable
 data class NetworkUniversalis(
-    val id: String,
-    val name: String = "",
-    val shortDescription: String = "",
-    val longDescription: String = "",
-    val url: String = "",
-    val imageUrl: String = "",
-    val followed: Boolean = false,
+    val lastUpdate: String,
+    val data: List<Universalis>
 )

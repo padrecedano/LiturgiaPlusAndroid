@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data
 
-class VirginAntiphon {
-    var antiphonID = 0
-    var antiphon = ""
-}
+data class VirginAntiphon(
+    var antiphonID: Int = 0,
+    var antiphon: String = ""
+)

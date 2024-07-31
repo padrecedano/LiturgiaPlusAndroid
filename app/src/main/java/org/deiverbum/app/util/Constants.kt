@@ -220,6 +220,8 @@ object Constants {
     const val TITLE_PSALMODY = "Salmodia"
     const val TITLE_TEDEUM = "Te Deum"
     const val TITLE_CONCLUSION = "Conclusión"
+    const val TITLE_MASS_GOSPEL = "Evangelio de la Misa"
+
     const val TITLE_GOSPEL_CANTICLE = "Cántico Evangélico"
     const val TITLE_SHORT_READING = "Lectura Breve"
     const val TITLE_INITIAL_INVOCATION = "Invocación Inicial"

@@ -12,6 +12,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.room.Ignore
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import org.deiverbum.app.core.database.model.entity.UniversalisEntity
 import org.deiverbum.app.core.designsystem.component.TextH2
 import org.deiverbum.app.core.designsystem.component.h3Rubric
 import org.deiverbum.app.core.model.TodayRequest
@@ -226,3 +227,52 @@ data class Universalis(
     }
 
 }
+
+fun Universalis.asEntity() = UniversalisEntity(
+    todayDate = todayDate,
+    timeFK = timeFK,
+    liturgyFK = liturgyFK,
+    previousFK = previousFK,
+    massReadingFK = massReadingFK,
+    invitatoryFK = invitatoryFK,
+    hasSaint = hasSaint,
+    saintFK = saintFK,
+    oHymnFK = oHymnFK,
+    oPsalmFK = oPsalmFK,
+    oAntiphonFK = oAntiphonFK,
+    oVerseFK = oVerseFK,
+    oBiblicalFK = oBiblicalFK,
+    oPatristicFK = oPatristicFK,
+    oPrayerFK = oPrayerFK,
+    oTeDeum = oTeDeum,
+    lHymnFK = lHymnFK,
+    lPsalmFK = lPsalmFK,
+    lAntiphonFK = lAntiphonFK,
+    lBiblicalFK = lBiblicalFK,
+    lCanticumFK = lCanticumFK,
+    lIntercessionsFK = lIntercessionsFK,
+    lPrayerFK = lPrayerFK,
+    tHymnFK = tHymnFK,
+    tAntiphonFK = tAntiphonFK,
+    tPsalmFK = tPsalmFK,
+    tBiblicalFK = tBiblicalFK,
+    tPrayerFK = tBiblicalFK,
+    sHymnFK = sHymnFK,
+    sAntiphonFK = sAntiphonFK,
+    sPsalmFK = sPsalmFK,
+    sBiblicalFK = sBiblicalFK,
+    sPrayerFK = sPrayerFK,
+    nHymnFK = nHymnFK,
+    nAntiphonFK = nAntiphonFK,
+    nPsalmFK = nPsalmFK,
+    nBiblicalFK = nBiblicalFK,
+    nPrayerFK = nPrayerFK,
+    vHymnFK = vHymnFK,
+    vAntiphonFK = vAntiphonFK,
+    vPsalmFK = vPsalmFK,
+    vBiblicalFK = vBiblicalFK,
+    vCanticumFK = vCanticumFK,
+    vIntercessionsFK = vIntercessionsFK,
+    vPrayerFK = vPrayerFK,
+    nightPrayerFK = nightPrayerFK
+)

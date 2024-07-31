@@ -30,6 +30,40 @@ sealed interface OnboardingUiState {
         /**
          * True if the onboarding can be dismissed.
          */
-        val isDismissable: Boolean get() = topics.any { it.isFollowed }
+        val isDismissable: Boolean
+            get() =
+                topics.any { it.isFollowed }
+    }
+
+}
+
+sealed interface OnboardingUiStatee {
+    /**
+     * The onboarding state is loading.
+     */
+    data object Loading : OnboardingUiStatee
+
+    /**
+     * The onboarding state was unable to load.
+     */
+    data object LoadFailed : OnboardingUiStatee
+
+    /**
+     * There is no onboarding state.
+     */
+    data object NotShown : OnboardingUiStatee
+
+    /**
+     * There is a onboarding state, with the given lists of topics.
+     */
+    data class Shown(
+        val topics: List<FollowableTopic>,
+    ) : OnboardingUiStatee {
+        /**
+         * True if the onboarding can be dismissed.
+         */
+        val isDismissable: Boolean
+            get() =
+                topics.any { it.isFollowed }
     }
 }

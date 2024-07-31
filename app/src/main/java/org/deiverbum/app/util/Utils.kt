@@ -544,6 +544,7 @@ object Utils {
         }
     }
 
+
     @Composable
     fun composeSmallTextt(text: String) {
         ParagraphStyleSmall(text = fromHtml(text))

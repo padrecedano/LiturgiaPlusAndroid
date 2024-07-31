@@ -39,8 +39,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.onClick
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -69,11 +67,15 @@ fun InterestsRouteInHome(
     onTopicClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: InterestsViewModelInHome = hiltViewModel(),
-) {
+
+    ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    //val onboardingUiState by viewModel.onboardingUiState.collectAsStateWithLifecycle()
 
     InterestsScreenInHome(
         uiState = uiState,
+        //onboardingUiState = onboardingUiState,
+
         modifier = modifier,
         followTopic = viewModel::followTopic,
         onBackClick = onBackClick,//listDetailNavigator::navigateBack,
@@ -93,6 +95,7 @@ internal fun InterestsScreenInHome(
     followTopic: (String, Boolean) -> Unit,
     onBackClick: () -> Unit,
     onTopicClick: (String) -> Unit,
+    //onboardingUiState: OnboardingUiState,
 
     ) {
     val state = rememberLazyListState()
@@ -107,6 +110,24 @@ internal fun InterestsScreenInHome(
             item {
                 Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
             }
+            /*
+                        when (onboardingUiState) {
+                            OnboardingUiState.Loading,
+                            OnboardingUiState.LoadFailed,
+                            OnboardingUiState.NotShown,
+                            -> Unit
+
+                            is OnboardingUiState.Shown -> {
+                                TODO("")
+                        }
+
+                            is OnboardingUiState.Shownn ->
+                            {
+                                TODO()
+                            }
+                        }
+            */
+
             when (uiState) {
                 InterestsUiStateInHome.Loading -> item {
                     NiaLoadingWheel(
@@ -130,6 +151,7 @@ internal fun InterestsScreenInHome(
 
                         topicBody(
                             name = Utils.capitalize(LiturgyHelper.liturgyByType(uiState.selectedTopicId!!.toInt())),
+                            //name = "***",
                             description = uiState.topics[0].data[0].fecha,
                             news = uiState,
                             onTopicClick = onTopicClick,
@@ -145,6 +167,7 @@ internal fun InterestsScreenInHome(
 
 
                 InterestsUiStateInHome.Empty -> TODO()
+                is InterestsUiStateInHome.InterestsInHome -> TODO()
             }
 
             item {
@@ -152,6 +175,7 @@ internal fun InterestsScreenInHome(
             }
         }
         val itemsAvailable = 1//topicItemsSize(topicUiState, newsUiState)
+
         val scrollbarState = state.scrollbarState(
             itemsAvailable = itemsAvailable,
         )
@@ -279,7 +303,6 @@ fun LazyListScope.userNewsResourceCardItemsNew(
     items = items,
     key = { it.data[0].liturgyFK },
     itemContent = { userNewsResource ->
-        val resourceUrl = "Uri.parse(userNewsResource.url)"
         val backgroundColor = MaterialTheme.colorScheme.background.toArgb()
         val context = LocalContext.current
         val analyticsHelper = LocalAnalyticsHelper.current
@@ -292,7 +315,7 @@ fun LazyListScope.userNewsResourceCardItemsNew(
             onToggleBookmark = { /*onToggleBookmark(userNewsResource)*/ },
             onClick = {
                 analyticsHelper.logNewsResourceOpened(
-                    newsResourceId = userNewsResource.data[0].fecha,
+                    newsResourceId = userNewsResource.data[0].liturgyFK.toString(),
                 )
                 //launchCustomChromeTab(context, resourceUrl, backgroundColor)
                 //onNewsResourceViewed(userNewsResource.id)
@@ -314,16 +337,15 @@ fun NewsResourceCardExpandedNew(
     modifier: Modifier = Modifier,
     topicId: String?,
 ) {
-    val clickActionLabel = "stringResource(R.string.core_ui_card_tap_action)"
     Card(
         onClick = onClick,
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         // Use custom label for accessibility services to communicate button's action to user.
         // Pass null for action to only override the label and not the actual action.
-        modifier = modifier.semantics {
+        /*modifier = modifier.semantics {
             onClick(label = clickActionLabel, action = null)
-        },
+        },*/
     ) {
         Column {
             /*if (!userNewsResource.headerImageUrl.isNullOrEmpty()) {
@@ -357,7 +379,7 @@ fun NewsResourceCardExpandedNew(
                     }
                     Spacer(modifier = Modifier.height(14.dp))
                     var data = userNewsResource[0].data[0]
-
+//Text(data.getAllForView())
                     UniversalisScreenView(
                         data = data,
                         topicId = topicId,

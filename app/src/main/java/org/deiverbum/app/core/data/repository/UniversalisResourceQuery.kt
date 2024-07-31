@@ -33,4 +33,13 @@ interface UniversalisRepository : Syncable {
             filterTopicsIds = 1,
         ),
     ): Flow<List<UniversalisResource>>
+
+    suspend fun insertFromRemote(
+        query: UniversalisResourceQuery = UniversalisResourceQuery(
+            filterDates = null,
+            filterTopicsIds = 1,
+        ),
+    )
+
+
 }

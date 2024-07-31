@@ -147,6 +147,20 @@ fun TextVR(texts: List<String>, rubricColor: Color) {
 
 }
 
+@Composable
+fun TextSpaced(texts: List<String>) {
+    val paragraphStyle = ParagraphStyle(textIndent = TextIndent(restLine = 12.sp))
+    Text(
+        buildAnnotatedString {
+            texts.forEach {
+                withStyle(style = paragraphStyle) {
+                    append(it)
+                }
+            }
+        }
+    )
+}
+
 
 @Composable
 fun getRubricColor(userData: UserDataDynamic): Color {

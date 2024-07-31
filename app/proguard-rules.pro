@@ -26,7 +26,7 @@
 -keep class org.deiverbum.app.domain.** { *; }
 -keep class org.deiverbum.app.util.** { *; }
 -keep class org.deiverbum.app.workers.** { *; }
--keep class org.deiverbum.app.BaseApplication
+# -keep class org.deiverbum.app.BaseApplication
 
 -keepdirectories assets/*
 
@@ -77,4 +77,9 @@
 
 -keepclassmembers class androidx.compose.ui.platform.AndroidComposeView {
     android.view.View findViewByAccessibilityIdTraversal(int);
+}
+
+# https://github.com/google/dagger/issues/4309
+-keepclasseswithmembers,includedescriptorclasses class * {
+   @dagger.internal.KeepFieldType <fields>;
 }

@@ -22,12 +22,12 @@ import androidx.compose.ui.unit.dp
 import org.deiverbum.app.core.designsystem.component.scrollbar.DraggableScrollbar
 import org.deiverbum.app.core.designsystem.component.scrollbar.rememberDraggableScroller
 import org.deiverbum.app.core.designsystem.component.scrollbar.scrollbarState
-import org.deiverbum.app.core.model.data.FollowableTopic
+import org.deiverbum.app.core.model.data.FollowableUITopic
 import org.deiverbum.app.core.ui.InterestsItem
 
 @Composable
 fun TopicsTabContent(
-    topics: List<FollowableTopic>,
+    topics: List<FollowableUITopic>,
     onTopicClick: (String) -> Unit,
     onFollowButtonClick: (String, Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -54,10 +54,10 @@ fun TopicsTabContent(
                     InterestsItem(
                         name = followableTopic.topic.name,
                         following = followableTopic.isFollowed,
-                        description = followableTopic.topic.shortDescription,
-                        topicImageUrl = followableTopic.topic.imageUrl,
-                        onClick = { onTopicClick(topicId) },
-                        onFollowButtonClick = { onFollowButtonClick(topicId, it) },
+                        description = followableTopic.topic.description,
+                        topicImageUrl = "followableTopic.topic.imageUrl",
+                        onClick = { onTopicClick(topicId.toString()) },
+                        onFollowButtonClick = { onFollowButtonClick(topicId.toString(), it) },
                         isSelected = isSelected,
                     )
                 }

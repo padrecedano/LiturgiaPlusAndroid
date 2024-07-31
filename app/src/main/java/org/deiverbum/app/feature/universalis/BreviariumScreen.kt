@@ -1,21 +1,23 @@
 package org.deiverbum.app.feature.universalis
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.buildAnnotatedString
 import org.deiverbum.app.core.designsystem.component.TextFromHtml
 import org.deiverbum.app.core.designsystem.component.TextMultiColor
 import org.deiverbum.app.core.designsystem.component.TextRubric
 import org.deiverbum.app.core.designsystem.component.TextSanctus
+import org.deiverbum.app.core.designsystem.component.TextSpaced
 import org.deiverbum.app.core.designsystem.component.TextVR
 import org.deiverbum.app.core.designsystem.component.getRubricColor
+import org.deiverbum.app.core.model.data.Breviarium
 import org.deiverbum.app.core.model.data.Introitus
+import org.deiverbum.app.core.model.data.Kyrie
 import org.deiverbum.app.core.model.data.LHCompletorium
 import org.deiverbum.app.core.model.data.LHHymn
+import org.deiverbum.app.core.model.data.LHIntercession
 import org.deiverbum.app.core.model.data.LHIntermedia
 import org.deiverbum.app.core.model.data.LHInvitatory
 import org.deiverbum.app.core.model.data.LHLaudes
@@ -26,17 +28,32 @@ import org.deiverbum.app.core.model.data.LHOfficiumLectioAltera
 import org.deiverbum.app.core.model.data.LHOfficiumLectioPrior
 import org.deiverbum.app.core.model.data.LHOfficiumLectionis
 import org.deiverbum.app.core.model.data.LHPsalmody
+import org.deiverbum.app.core.model.data.LHResponsoriumBrevis
 import org.deiverbum.app.core.model.data.LHVesperas
+import org.deiverbum.app.core.model.data.MissaeLectionumList
 import org.deiverbum.app.core.model.data.Oratio
+import org.deiverbum.app.core.model.data.PadreNuestro
 import org.deiverbum.app.core.model.data.RitusConclusionis
 import org.deiverbum.app.core.model.data.UserDataDynamic
 import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.LiturgyHelper
+import org.deiverbum.app.util.Utils
+import java.util.Locale
+
+/**
+ * Pantallas para  [LHMixtus]
+ *
+ * @since 2024.1
+ *
+ * @see [Breviarium]
+ */
 
 @Composable
 fun MixtusScreen(
     data: LHMixtus,
     userData: UserDataDynamic,
-    calendarTime: Int
+    calendarTime: Int,
+    hourId: Int
 ) {
     val rubricColor = getRubricColor(userData = userData)
     Column {
@@ -51,9 +68,26 @@ fun MixtusScreen(
         Hymnus(data = data.hymnus, rubricColor = rubricColor)
         SpaceSmall()
         Psalmodia(data.psalmodia, -1, calendarTime, userData)
+        SpaceNormal()
+        LectioBrevis(data = data.lectioBrevis, hourId = hourId, rubricColor = rubricColor)
+        SpaceNormal()
         OfficiumLectionis(officiumLectionis = data.officiumLectionis, rubricColor = rubricColor)
-        Oratio(data = data.oratio, rubricColor = rubricColor)
+
+        MissaeLectionum(lectionum = data.lectionumList, rubricColor = rubricColor)
+        SpaceNormal()
+        CanticumEvangelicum(
+            psalmodia = data.canticumEvangelicum,
+            i = 0,
+            calendarTime = calendarTime,
+            rubricColor = rubricColor
+        )
         SpaceSmall()
+        Preces(preces = data.preces, rubricColor = rubricColor)
+        SpaceSmall()
+        PaterNoster(rubricColor = rubricColor)
+        SpaceNormal()
+        Oratio(data = data.oratio, rubricColor = rubricColor)
+        SpaceNormal()
         RitusConclusionisMaior(rubricColor = rubricColor)
     }
 
@@ -63,7 +97,8 @@ fun MixtusScreen(
 fun OfficiumScreen(
     data: LHOfficium,
     userData: UserDataDynamic,
-    calendarTime: Int
+    calendarTime: Int,
+    hourId: Int
 ) {
     val rubricColor = getRubricColor(userData = userData)
     Column {
@@ -94,7 +129,8 @@ fun OfficiumScreen(
 fun LaudesScreen(
     data: LHLaudes,
     userData: UserDataDynamic,
-    calendarTime: Int
+    calendarTime: Int,
+    hourId: Int
 ) {
     val rubricColor = getRubricColor(userData = userData)
     Column {
@@ -108,9 +144,22 @@ fun LaudesScreen(
         Hymnus(data = data.hymnus, rubricColor = rubricColor)
         SpaceSmall()
         Psalmodia(data.psalmodia, -1, calendarTime, userData)
-        LectioBrevis(data = data.lectioBrevis, rubricColor = rubricColor)
-        Oratio(data = data.oratio, rubricColor = rubricColor)
+        SpaceNormal()
+        LectioBrevis(data = data.lectioBrevis, hourId = hourId, rubricColor = rubricColor)
+        SpaceNormal()
+        CanticumEvangelicum(
+            psalmodia = data.canticumEvangelicum,
+            i = 0,
+            calendarTime = calendarTime,
+            rubricColor = rubricColor
+        )
         SpaceSmall()
+        Preces(preces = data.preces, rubricColor = rubricColor)
+        SpaceSmall()
+        PaterNoster(rubricColor = rubricColor)
+        SpaceNormal()
+        Oratio(data = data.oratio, rubricColor = rubricColor)
+        SpaceNormal()
         RitusConclusionisMaior(rubricColor = rubricColor)
     }
 }
@@ -119,7 +168,8 @@ fun LaudesScreen(
 fun IntermediaScreen(
     data: LHIntermedia,
     userData: UserDataDynamic,
-    calendarTime: Int
+    calendarTime: Int,
+    hourId: Int
 ) {
     val rubricColor = getRubricColor(userData = userData)
     Column {
@@ -128,9 +178,11 @@ fun IntermediaScreen(
         Hymnus(data.hymnus, rubricColor)
         SpaceSmall()
         Psalmodia(data.psalmodia, data.hourIndex, calendarTime, userData)
-
-        LectioBrevis(data = data.lectioBrevis, rubricColor = rubricColor)
+        SpaceNormal()
+        LectioBrevis(data = data.lectioBrevis, hourId = hourId, rubricColor = rubricColor)
+        SpaceNormal()
         Oratio(data = data.oratio, rubricColor = rubricColor)
+        //SpaceNormal()
         SpaceSmall()
         RitusConclusionisMinor(rubricColor = rubricColor)
     }
@@ -141,7 +193,8 @@ fun IntermediaScreen(
 fun VesperasScreen(
     data: LHVesperas,
     userData: UserDataDynamic,
-    calendarTime: Int
+    calendarTime: Int,
+    hourId: Int
 ) {
     val rubricColor = getRubricColor(userData = userData)
     IntroitusMaior(rubricColor = rubricColor)
@@ -149,9 +202,22 @@ fun VesperasScreen(
     Hymnus(data = data.hymnus, rubricColor = rubricColor)
     SpaceSmall()
     Psalmodia(data.psalmodia, -1, calendarTime, userData)
-    LectioBrevis(data = data.lectioBrevis, rubricColor = rubricColor)
-    Oratio(data = data.oratio, rubricColor = rubricColor)
+    SpaceNormal()
+    LectioBrevis(data = data.lectioBrevis, hourId = hourId, rubricColor = rubricColor)
+    SpaceNormal()
+    CanticumEvangelicum(
+        psalmodia = data.canticumEvangelicum,
+        i = 0,
+        calendarTime = calendarTime,
+        rubricColor = rubricColor
+    )
     SpaceSmall()
+    Preces(preces = data.preces, rubricColor = rubricColor)
+    SpaceSmall()
+    PaterNoster(rubricColor = rubricColor)
+    SpaceNormal()
+    Oratio(data = data.oratio, rubricColor = rubricColor)
+    SpaceNormal()
     RitusConclusionisMaior(rubricColor = rubricColor)
 }
 
@@ -159,20 +225,69 @@ fun VesperasScreen(
 fun CompletoriumScreen(
     data: LHCompletorium,
     userData: UserDataDynamic,
-    calendarTime: Int
+    calendarTime: Int,
+    hourId: Int
 ) {
+    data.lectioBrevis.normalizeByTime(calendarTime)
     val rubricColor = getRubricColor(userData = userData)
     IntroitusMinor(rubricColor = rubricColor)
     SpaceSmall()
-    Hymnus(data.hymnus, rubricColor)
+    CompletoriumKyrie(data = data.kyrie, rubricColor = rubricColor)
+    SpaceNormal()
+
+    Hymnus(data = data.hymnus, rubricColor = rubricColor)
     SpaceSmall()
     Psalmodia(data.psalmodia, -1, calendarTime, userData)
-
-    LectioBrevis(data = data.lectioBrevis, rubricColor = rubricColor)
-    Oratio(data = data.oratio, rubricColor = rubricColor)
+    SpaceNormal()
+    LectioBrevis(data = data.lectioBrevis, hourId = hourId, rubricColor = rubricColor)
+    SpaceNormal()
+    CanticumEvangelicum(
+        psalmodia = data.canticumEvangelicum,
+        i = 0,
+        calendarTime = calendarTime,
+        rubricColor = rubricColor
+    )
     SpaceSmall()
-    RitusConclusionisMinor(rubricColor = rubricColor)
+    PaterNoster(rubricColor = rubricColor)
+    SpaceNormal()
+    Oratio(data = data.oratio, rubricColor = rubricColor)
+    SpaceNormal()
+    RitusConclusionisCompletorium(data = data, rubricColor = rubricColor)
+
 }
+
+@Composable
+fun RitusConclusionisCompletorium(rubricColor: Color, data: LHCompletorium) {
+    ContentTitle(
+        text = Constants.TITLE_CONCLUSION,
+        level = 2,
+        rubricColor = rubricColor
+    )
+    SpaceNormal()
+    TextVR(texts = data.conclusio.benedictio, rubricColor)
+    SpaceNormal()
+    ContentTitle(
+        text = Constants.TITLE_VIRGIN_ANTIHPON,
+        level = 2,
+        rubricColor = rubricColor
+    )
+    //SpaceNormal()
+
+    //Text(text=data.conclusio.getComposeVirginAntiphona())
+    TextFromHtml(text = data.conclusio.antiphon.antiphon)
+}
+
+
+@Composable
+fun CompletoriumKyrie(data: Kyrie, rubricColor: Color) {
+    ContentTitle(
+        text = Constants.TITLE_SOUL_SEARCHING,
+        level = 2,
+        rubricColor = rubricColor
+    )
+    Text(text = data.getIntroduccionComposable(rubricColor))
+}
+
 
 @Composable
 fun IntroitusMaior(rubricColor: Color) {
@@ -182,6 +297,8 @@ fun IntroitusMaior(rubricColor: Color) {
         rubricColor = rubricColor
     )
     TextVR(texts = listOf(Introitus().txtDomineLabia, Introitus().txtEtOsMeum), rubricColor)
+    SpaceNormal()
+    FinisPsalmus()
 }
 
 @Composable
@@ -195,6 +312,19 @@ fun IntroitusMinor(rubricColor: Color) {
         texts = listOf(Introitus().txtDeusInAdiutorium, Introitus().txtDomineAdAdiuvandum),
         rubricColor
     )
+    SpaceNormal()
+    FinisPsalmus()
+}
+
+@Composable
+fun FinisPsalmus() {
+    TextSpaced(texts = LiturgyHelper.finisPsalmus)
+}
+
+
+@Composable
+fun Invitatorium(invitatorium: LHInvitatory, i: Int, calendarTime: Int, userData: UserDataDynamic) {
+    Text(text = invitatorium.getComposable(i, calendarTime, userData))
 }
 
 @Composable
@@ -205,12 +335,6 @@ fun Hymnus(data: LHHymn, rubricColor: Color) {
         rubricColor = rubricColor
     )
     TextFromHtml(text = data.hymnus)
-}
-
-
-@Composable
-fun Invitatorium(invitatorium: LHInvitatory, i: Int, calendarTime: Int, userData: UserDataDynamic) {
-    Text(text = invitatorium.getComposable(i, calendarTime, userData))
 }
 
 @Composable
@@ -230,6 +354,7 @@ fun OfficiumLectionis(officiumLectionis: LHOfficiumLectionis, rubricColor: Color
     SpaceSmall()
 }
 
+
 @Composable
 fun LectioPrior(lectioPrior: MutableList<LHOfficiumLectioPrior>, rubricColor: Color) {
     for (item in lectioPrior) {
@@ -246,7 +371,7 @@ fun LectioPrior(lectioPrior: MutableList<LHOfficiumLectioPrior>, rubricColor: Co
             TextFromHtml(item.biblica)
             Text(
                 item.responsorium.getComposable(rubricColor = rubricColor),
-                modifier = Modifier.padding(0.dp)
+                //modifier = Modifier.padding(0.dp)
             )
         }
     }
@@ -274,13 +399,115 @@ fun LectioAltera(lectioAltera: MutableList<LHOfficiumLectioAltera>, rubricColor:
 }
 
 @Composable
-fun LectioBrevis(data: LHLectioBrevis, rubricColor: Color) {
+fun LectioBrevis(data: LHLectioBrevis, hourId: Int, rubricColor: Color) {
     ContentTitle(
         text = Constants.TITLE_SHORT_READING,
         level = 2,
         rubricColor = rubricColor
     )
     TextFromHtml(text = data.biblica)
+    SpaceNormal()
+    ResponsoriumBrevis(data = data.responsorium, hourId = hourId, rubricColor = rubricColor)
+}
+
+@Composable
+fun ResponsoriumBrevisTitle(typus: Int, rubricColor: Color) {
+    if (typus > 0) {
+        ContentTitle(
+            text = Constants.TITLE_RESPONSORY_SHORT,
+            level = 2,
+            rubricColor = rubricColor
+        )
+    } else {
+        TextRubric("En lugar del responsorio breve, se dice la siguiente antífona:", rubricColor)
+    }
+}
+
+@Composable
+fun ResponsoriumBrevis(data: LHResponsoriumBrevis, hourId: Int, rubricColor: Color) {
+    ResponsoriumBrevisTitle(typus = data.typus, rubricColor = rubricColor)
+    Text(text = data.getComposable(rubricColor))
+}
+
+
+@Composable
+fun MissaeLectionum(lectionum: MissaeLectionumList, rubricColor: Color) {
+    for (item in lectionum.lectionum) {
+        Column {
+            ContentTitle(
+                text = "EVANGELIO",
+                level = 2,
+                rubricColor = rubricColor
+            )
+            TextMultiColor(listOf(item!!.book.liturgyName, item.pericopa), rubricColor)
+            SpaceSmall()
+            TextRubric(item.tema, rubricColor)
+            SpaceSmall()
+            TextFromHtml(item.biblica)
+            /*Text(
+                item.responsorium.getComposable(rubricColor = rubricColor),
+                modifier = Modifier.padding(0.dp)
+            )*/
+        }
+    }
+}
+
+@Composable
+fun CanticumEvangelicum(psalmodia: LHPsalmody, i: Int, calendarTime: Int, rubricColor: Color) {
+    ContentTitle(
+        text = Constants.TITLE_GOSPEL_CANTICLE,
+        level = 2,
+        rubricColor = rubricColor
+    )
+    Text(text = psalmodia.getComposableByIndex(i, calendarTime, rubricColor))
+}
+
+@Composable
+fun Preces(preces: LHIntercession, rubricColor: Color) {
+    ContentTitle(
+        text = Constants.TITLE_INTERCESSIONS,
+        level = 2,
+        rubricColor = rubricColor
+    )
+    val introArray =
+        preces.intro.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+    Text(
+        buildAnnotatedString {
+            if (introArray.size == 3) {
+                append(introArray[0])
+                append(Utils.LS2)
+                append(Utils.fromHtml(String.format(Locale("es"), "<i>%s</i>", introArray[1])))
+                append(Utils.LS2)
+                append(Utils.fromHtml(preces.preces))
+                append(introArray[2])
+                //append(Utils.LS2)
+            } else {
+                append(preces.intro)
+                append(Utils.LS2)
+                append(Utils.fromHtml(preces.preces))
+            }
+        }
+    )
+}
+
+@Composable
+fun PaterNoster(rubricColor: Color) {
+    ContentTitle(
+        text = Constants.TITLE_PATER_NOSTER,
+        level = 2,
+        rubricColor = rubricColor
+    )
+    TextFromHtml(PadreNuestro.texto)
+}
+
+@Composable
+fun Oratio(data: Oratio, rubricColor: Color) {
+    ContentTitle(
+        text = Constants.TITLE_PRAYER,
+        level = 2,
+        rubricColor = rubricColor
+    )
+    TextFromHtml(data.oratio)
 }
 
 @Composable
@@ -310,12 +537,3 @@ fun RitusConclusionisMaior(rubricColor: Color) {
     )
 }
 
-@Composable
-fun Oratio(data: Oratio, rubricColor: Color) {
-    ContentTitle(
-        text = Constants.TITLE_PRAYER,
-        level = 2,
-        rubricColor = rubricColor
-    )
-    TextFromHtml(data.oratio)
-}

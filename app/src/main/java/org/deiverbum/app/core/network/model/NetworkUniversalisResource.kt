@@ -1,9 +1,12 @@
 package org.deiverbum.app.core.network.model
 
+import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
+import org.deiverbum.app.core.database.model.entity.UniversalisEntity
 import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.data.asEntity
 
 /**
  * Network representation of [NewsResource] when fetched from /newsresources
@@ -11,9 +14,22 @@ import org.deiverbum.app.core.model.data.Universalis
 //@Serializable
 @JsonClass(generateAdapter = true)
 data class NetworkUniversalisResource(
-    val lastUpdate: String,
-    val data: List<Universalis> = listOf(),
+    @Json(name = "lastUpdate") val lastUpdate: String,
+    @Json(name = "data") val data: List<Universalis> = listOf(),
 )
+
+fun NetworkUniversalisResource.asEntity(): ArrayList<UniversalisEntity> {
+    var newData = ArrayList<UniversalisEntity>()
+    data.forEach { newData.add(it.asEntity()) }
+    return newData
+
+}
+
+
+/**
+ * Network representation of [NewsResource] when fetched from /newsresources/{id}
+ */
+
 
 /**
  * Network representation of [NewsResource] when fetched from /newsresources/{id}

@@ -1,8 +1,14 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import org.deiverbum.app.core.designsystem.theme.NiaTypography
 import org.deiverbum.app.util.Utils
 
 @JsonClass(generateAdapter = true)
@@ -51,6 +57,41 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
         sb.append(Utils.LS)
         return sb
     }
+
+    fun getComposable(type: Int, rubricColor: Color): AnnotatedString {
+        return buildAnnotatedString {
+            append(Utils.LS2)
+            if (type != -1) {
+                withStyle(
+                    SpanStyle(
+                        fontSize = NiaTypography.titleMedium.fontSize,
+                        color = rubricColor
+                    )
+                ) {
+                    append(getHeader(type))
+                }
+                append(Utils.LS2)
+            }
+            append(book.liturgyName)
+            append("    ")
+            withStyle(SpanStyle(color = rubricColor)) {
+
+                append(pericopa)
+            }
+            append(Utils.LS2)
+            if (tema != "") {
+                withStyle(SpanStyle(color = rubricColor)) {
+
+                    append(tema)
+                }
+                append(Utils.LS2)
+            }
+            append(Utils.fromHtml(biblica))
+            append(Utils.LS)
+        }
+
+    }
+
 
     /**
      *

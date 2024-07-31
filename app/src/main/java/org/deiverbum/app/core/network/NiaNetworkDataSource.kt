@@ -10,7 +10,7 @@ import org.deiverbum.app.core.network.model.NetworkUniversalisResource
  */
 interface NiaNetworkDataSource {
     suspend fun getTopics(ids: List<String>? = null): List<NetworkTopic>
-    suspend fun getUniversalis(ids: List<String>? = null): NetworkUniversalisResource
+    suspend fun getUniversalis(ids: List<Int> = emptyList()): NetworkUniversalisResource
 
     suspend fun getNewsResources(ids: List<String>? = null): List<NetworkNewsResource>
 

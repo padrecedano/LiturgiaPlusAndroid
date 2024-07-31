@@ -6,7 +6,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.deiverbum.app.core.data.repository.DefaultRecentSearchRepository
 import org.deiverbum.app.core.data.repository.DefaultSearchContentsRepository
+import org.deiverbum.app.core.data.repository.HomeTopicsRepository
 import org.deiverbum.app.core.data.repository.NewsRepository
+import org.deiverbum.app.core.data.repository.OfflineFirstHomeTopicsRepository
 import org.deiverbum.app.core.data.repository.OfflineFirstNewsRepository
 import org.deiverbum.app.core.data.repository.OfflineFirstTodayRepository
 import org.deiverbum.app.core.data.repository.OfflineFirstTopicsRepository
@@ -29,7 +31,6 @@ import org.deiverbum.app.core.data.util.TimeZoneMonitor
 
 @Module
 @InstallIn(SingletonComponent::class)
-//@InstallIn(ViewModelComponent::class)
 interface DataModule {
 
     @Binds
@@ -42,6 +43,7 @@ interface DataModule {
         topicsRepository: OfflineFirstTopicsRepository,
     ): TopicsRepository
 
+
     @Binds
     fun bindsUniversalisRepositoryy(
         topicsRepository: OfflineFirstUniversalisRepositoryy,
@@ -52,7 +54,17 @@ interface DataModule {
         topicsRepository: OfflineFirstTodayRepository,
     ): TodaysRepository
 
+    @Binds
+    fun bindsHomeRepository(
+        topicsRepository: OfflineFirstHomeTopicsRepository,
+    ): HomeTopicsRepository
 
+    /*
+        @Binds
+        fun bindsHomeTopicRepository(
+            topicsRepository: OfflineFirstHomeTopicsRepository,
+        ): HomeTopicsRepository
+        */
     @Binds
     fun bindsUserDataRepository(
         userDataRepository: OfflineFirstUserDataRepository,
@@ -78,13 +90,6 @@ interface DataModule {
         searchContentsRepository: DefaultSearchContentsRepository,
     ): SearchContentsRepository
 
-    /*
-
-    @Binds
-    fun bindsUserUniversalisResourceRepository(
-        userUniversalisResourceRepository: UserUniversalisResourceRepository,
-    ): UserUniversalisResourceRepository
-    */
 
     @Binds
     fun bindsNetworkMonitor(

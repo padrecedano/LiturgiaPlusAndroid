@@ -1,7 +1,13 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import com.squareup.moshi.Json
+import org.deiverbum.app.core.designsystem.theme.NiaTypography
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
@@ -51,6 +57,34 @@ class MissaeLectionumList(
         }
         return sb
     }
+
+    fun getComposable(rubricColor: Color): AnnotatedString {
+        sort()
+        return try {
+            buildAnnotatedString {
+                if (type == -1) {
+                    append(Utils.LS)
+                    withStyle(
+                        SpanStyle(
+                            fontSize = NiaTypography.titleMedium.fontSize,
+                            color = rubricColor
+                        )
+                    ) {
+                        append(Constants.TITLE_MASS_GOSPEL)
+                    }
+                }
+                lectionum.forEach {
+                    append(it?.getComposable(type, rubricColor))
+                }
+            }
+        } catch (e: Exception) {
+            buildAnnotatedString {
+                append(Utils.createErrorMessage(e.message))
+            }
+        }
+        //return sb
+    }
+
 
     @Json(ignore = true)
     val allForRead: StringBuilder

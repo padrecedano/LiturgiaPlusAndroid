@@ -1,5 +1,6 @@
 package org.deiverbum.app.feature.foryou.navigation
 
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -16,6 +17,7 @@ private const val DEEP_LINK_URI_PATTERN =
 
 fun NavController.navigateToForYou(navOptions: NavOptions) = navigate(FOR_YOU_ROUTE, navOptions)
 
+@ExperimentalMaterial3AdaptiveApi
 fun NavGraphBuilder.forYouScreen(onTopicClick: (String) -> Unit) {
     composable(
         route = FOR_YOU_ROUTE,
@@ -27,5 +29,10 @@ fun NavGraphBuilder.forYouScreen(onTopicClick: (String) -> Unit) {
         ),
     ) {
         ForYouRoute(onTopicClick)
+        /*InterestsRouteInHome(
+            onTopicClick = onTopicClick,
+            onBackClick = {},
+            showBackButton = true
+        )*/
     }
 }

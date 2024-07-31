@@ -36,7 +36,7 @@ private val URL_CHARACTER_ENCODING = UTF_8.name()
 internal const val TOPIC_ID_ARG = "topicId"
 const val TOPIC_ROUTE = "topic_route"
 
-internal class TopicArgs(val topicId: String) {
+internal class TopicArgs(var topicId: String) {
     constructor(savedStateHandle: SavedStateHandle) :
             this(
                 URLDecoder.decode(

@@ -2,6 +2,7 @@ package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.room.Ignore
 import org.deiverbum.app.core.designsystem.component.getRubricColor
@@ -194,7 +195,12 @@ open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>, var 
         }
 
         if (typus == 0 && psalmus.size == antiphonae.size) {
-            for (s in psalmus) {
+            val lastIndex = psalmus.lastIndex
+            psalmus.forEachIndexed { index, s ->
+                // ...
+
+
+                //for (s in psalmus) {
                 antiphonae[s.theOrder - 1].normalizeByTime(calendarTime)
                 sb.append(antiphonae[s.theOrder - 1].getComposableBefore(rubricColor = rubricColor))
                 sb.append(LS2)
@@ -217,7 +223,9 @@ open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>, var 
                 sb.append(s.psalmComposable())
                 sb.append(LS2)
                 sb.append(antiphonae[s.theOrder - 1].getComposableAfter(rubricColor))
+                if (index != lastIndex) {
                 sb.append(LS2)
+                }
             }
         }
         //Text(text = sb.toAnnotatedString())
@@ -306,6 +314,40 @@ open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>, var 
         sb.append(Utils.LS2)
         sb.append(antiphonae[index].afterForView)
         return sb
+    }
+
+    fun getComposableByIndex(index: Int, calendarTime: Int, rubricColor: Color): AnnotatedString {
+        //sort()
+        val sb = AnnotatedString.Builder()
+        //sb.append(LS2)
+        val s = psalmus[index]
+        antiphonae[index].normalizeByTime(calendarTime)
+        sb.append(antiphonae[index].getComposableAfter(rubricColor))
+        sb.append(LS2)
+
+        if (s.pericopa != "") {
+            sb.append(s.pericopaComposable(rubricColor))
+            sb.append(LS2)
+        }
+        if (s.theme != null && s.theme != "") {
+            sb.append(s.themeComposable(rubricColor))
+            sb.append(Utils.LS2)
+        }
+        if (s.epigraph != null && s.epigraph != "") {
+            sb.append(s.epigraphComposable())
+            sb.append(Utils.LS2)
+        }
+        if (s.thePart != null && s.thePart != 0) {
+            sb.append(s.thePartComposable(rubricColor))
+            sb.append(Utils.LS2)
+        } else {
+            //sb.append(Utils.LS2)
+        }
+
+        sb.append(s.psalmComposable())
+        sb.append(Utils.LS2)
+        sb.append(antiphonae[index].getComposableAfter(rubricColor))
+        return sb.toAnnotatedString()
     }
 
     fun getSalmosByIndexForRead(index: Int): StringBuilder {

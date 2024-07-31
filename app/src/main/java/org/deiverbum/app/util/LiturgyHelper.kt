@@ -5,8 +5,8 @@ import android.text.Spanned
 
 class LiturgyHelper {
     companion object {
-        const val V = "V./"
-        const val R = "R./"
+        const val V = "V./ "
+        const val R = "R./ "
         val liturgyMap = hashMapOf(
             1 to "mixto",
             2 to "oficio",
@@ -46,6 +46,19 @@ class LiturgyHelper {
         fun liturgyByTypeLatin(type: Int): String? {
             return liturgyMapLatin[type]
         }
+        fun getValue(): List<String> {
+
+            return listOf("Test String")
+
+        }
+
+        val finisPsalmus: List<String>
+            get() = listOf(
+                "Gloria al Padre, y al Hijo, y al Espíritu Santo.",
+                "Como era en el principio ahora y siempre, por los siglos de los siglos. Amén."
+            )
+
+        //val endPsalm: List<String> get(){return listOf("")}
 
         val endPsalmForView: Spanned
             get() {

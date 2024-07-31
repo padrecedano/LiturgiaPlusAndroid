@@ -10,9 +10,9 @@ import org.deiverbum.app.core.data.model.topicCrossReferences
 import org.deiverbum.app.core.data.model.topicEntityShells
 import org.deiverbum.app.core.database.dao.nia.NewsResourceDao
 import org.deiverbum.app.core.database.dao.nia.TopicDao
-import org.deiverbum.app.core.database.model.nia.PopulatedNewsResource
+import org.deiverbum.app.core.database.model.external.PopulatedNewsResource
+import org.deiverbum.app.core.database.model.external.asExternalModel
 import org.deiverbum.app.core.database.model.nia.TopicEntity
-import org.deiverbum.app.core.database.model.nia.asExternalModel
 import org.deiverbum.app.core.datastore.ChangeListVersions
 import org.deiverbum.app.core.datastore.NiaPreferencesDataSource
 import org.deiverbum.app.core.model.data.NewsResource

@@ -14,7 +14,7 @@ buildscript {
 apply plugin: 'net.vivin.gradle-semantic-build-versioning'
 
 //include ':core'
-include ':core:datastore-proto'
+//include ':core:datastore-proto'
 /*include ':core:designsystem'
 include ':build-logic'
 include ':build-logic:convention'

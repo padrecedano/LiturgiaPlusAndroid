@@ -1,8 +1,14 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.room.Ignore
 import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.LiturgyHelper
 import org.deiverbum.app.util.Utils
 
 data class Kyrie(
@@ -46,6 +52,57 @@ data class Kyrie(
             ssb.append(introduccion)
         }
         return ssb
+    }
+
+    fun getIntroduccionComposable(rubricColor: Color): AnnotatedString {
+
+        val introArray =
+            introduccion.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        return buildAnnotatedString {
+            if (introArray.size == 3) {
+                //ssb.append(Utils.toSmallSizeRed(introArray[0]))
+                withStyle(style = SpanStyle(color = rubricColor/*,fontSize = 10.sp*/)) {
+                    append(introArray[0])
+                }
+                append(Utils.LS2)
+                append(introArray[1])
+                append(Utils.LS2)
+                withStyle(style = SpanStyle(color = rubricColor/*,fontSize = 10.sp*/)) {
+                    append(introArray[2])
+                }
+                //append(Utils.toSmallSizeRed(introArray[2]))
+            } else {
+                //ssb.append(introduccion)
+                //introduccion
+                withStyle(style = SpanStyle(color = rubricColor/*,fontSize = 10.sp*/)) {
+                    append(introduccion)
+                }
+            }
+            append(Utils.LS2)
+            append(Utils.fromHtml(kyrie))
+            append(Utils.LS2)
+            withStyle(style = SpanStyle(color = rubricColor)) {
+                append("Pueden usarse otras invocaciones penitenciales.")
+            }
+
+            append(Utils.LS2)
+
+            withStyle(style = SpanStyle(color = rubricColor)) {
+                append("Si preside la celebración un ministro, él solo dice la absolución siguiente; en caso de lo contrario la dicen todos:")
+            }
+            append(Utils.LS2)
+            withStyle(style = SpanStyle(color = rubricColor)) {
+                append(LiturgyHelper.V)
+            }
+            append("El Señor todopoderoso tenga misericordia de nosotros, perdone nuestros pecados y nos lleve a la vida eterna.")
+            append(Utils.LS2)
+            withStyle(style = SpanStyle(color = rubricColor)) {
+                append(LiturgyHelper.R)
+            }
+
+            append("Amén.")
+        }
+        //return ssb
     }
 
 

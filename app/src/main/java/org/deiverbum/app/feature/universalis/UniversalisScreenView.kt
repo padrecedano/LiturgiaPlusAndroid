@@ -15,6 +15,7 @@ import org.deiverbum.app.core.model.data.LHLaudes
 import org.deiverbum.app.core.model.data.LHMixtus
 import org.deiverbum.app.core.model.data.LHOfficium
 import org.deiverbum.app.core.model.data.LHVesperas
+import org.deiverbum.app.core.model.data.Missae
 import org.deiverbum.app.core.model.data.Universalis
 import org.deiverbum.app.core.model.data.UserDataDynamic
 
@@ -30,39 +31,53 @@ fun UniversalisScreenView(
 
 @Composable
 fun Universalis(data: Universalis, topicId: String?, userData: UserDataDynamic) {
-    when (topicId!!.toInt()) {
+    val itemId = topicId!!.toInt()
+    when (itemId) {
         1 -> MixtusScreen(
             data = data.liturgia!!.liturgiaTypus as LHMixtus,
+            hourId = itemId,
             calendarTime = data.timeFK,
             userData = userData
         )
 
         2 -> OfficiumScreen(
             data = data.liturgia!!.liturgiaTypus as LHOfficium,
+            hourId = itemId,
             calendarTime = data.timeFK,
             userData = userData
         )
 
         3 -> LaudesScreen(
             data = data.liturgia!!.liturgiaTypus as LHLaudes,
+            hourId = itemId,
             calendarTime = data.timeFK,
             userData = userData
         )
 
         4, 5, 6 -> IntermediaScreen(
             data = data.liturgia!!.liturgiaTypus as LHIntermedia,
+            hourId = itemId,
             calendarTime = data.timeFK,
             userData = userData
         )
 
         7 -> VesperasScreen(
             data = data.liturgia!!.liturgiaTypus as LHVesperas,
+            hourId = itemId,
             calendarTime = data.timeFK,
             userData = userData
         )
 
         8 -> CompletoriumScreen(
             data = data.liturgia!!.liturgiaTypus as LHCompletorium,
+            hourId = itemId,
+            calendarTime = data.timeFK,
+            userData = userData
+        )
+
+        11 -> MissaeLectionumScreen(
+            data = data.liturgia!!.liturgiaTypus as Missae,
+            hourId = itemId,
             calendarTime = data.timeFK,
             userData = userData
         )
