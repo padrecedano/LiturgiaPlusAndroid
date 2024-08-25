@@ -1,7 +1,6 @@
 package org.deiverbum.app.util
 
 import android.graphics.Typeface
-import android.os.Build
 import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
@@ -10,14 +9,12 @@ import android.text.Spanned
 import android.text.style.CharacterStyle
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
-import org.deiverbum.app.core.designsystem.component.ParagraphStyleSmall
 import org.deiverbum.app.util.ColorUtils.red
 import org.deiverbum.app.util.ColorUtils.redCode
 import org.deiverbum.app.util.Constants.BR
@@ -53,12 +50,95 @@ import java.util.Objects
  */
 //@SuppressWarnings("all")
 object Utils {
-    val LS: String? = System.getProperty("line.separator")
+    val LS: String? = System.lineSeparator()
     val LS2 = LS + LS
     private const val H1 = 2.2f
     private const val H2 = 1.7f
     private const val H3 = 1.4f
     private const val H4 = 1.1f
+
+    /**
+     * Formatea el texto litúrgico según la convención de marcado.
+     * Método adaptado para Jetpack Compose.
+     *
+     * @since 2024.1
+     */
+
+    fun transformText(text: String, rubricColor: Color) = buildAnnotatedString {
+        text.forEach { c ->
+            when (c) {
+                '℣', '℟' -> withStyle(SpanStyle(color = rubricColor)) { append(c) }
+                '¦' -> append("\t")
+                '≀' -> append("\n\t\t")
+                '§' -> append("\n\n")
+                else -> append(c)
+            }
+        }
+    }
+
+    /**
+     * Formatea el texto litúrgico según la convención de marcado.
+     * Método adaptado para Jetpack Compose.
+     *
+     * @since 2024.1
+     */
+
+    fun transformBodyText(text: String, rubricColor: Color) = buildAnnotatedString {
+        text.forEach { c ->
+            when (c) {
+                //'℣', '℟' -> withStyle(SpanStyle(color = rubricColor)) { append(c) }
+                '¦' -> append("\t")
+                '≀' -> append("\n\t\t")
+                '§' -> append("\n\n")
+                '~' -> append("\n")
+                '⊣' -> append("\n\t\t")
+                '≠' -> {
+                    append("\n\t\t")
+                    withStyle(SpanStyle(color = rubricColor)) { append(PRECES_R) }
+                }
+
+                '∞' -> {
+                    append("\n\n")
+                    withStyle(SpanStyle(color = rubricColor)) { append(PRECES_IL) }
+                    append("\n\n")
+                }
+
+                else -> append(c)
+                /*
+                 .replace("_", NBSP_SALMOS)
+            .replace("§", BRS)
+            .replace("~", BR)
+            .replace("¦", NBSP_4)
+            .replace("⊣", BR + NBSP_4)
+            .replace("≠", String.format("%s %s ", NBSP_SALMOS, toRedFont(PRECES_R)))
+            .replace("∞", String.format("%s%s%s", BRS, toRedFont(PRECES_IL), BRS))
+            .replace("⊚", OBIEN)
+            .replace("†", toRedFont(" † "))
+            .replace("⊓", toRedFont(" N. "))
+            .replace("Ɽ", toRedFont(" R. "))
+            .replace("⟨", toRedFont("("))
+            .replace("⟩", toRedFont(")"))
+            .replace("ⱱ", toRedFont("V/."))
+            .replace("ⱴ", toRedFont("R/."))
+            .replace("Ʀ", toRedFont(" R/. ") + BRS) //NEW
+            .replace("℟", toRedFont("℟.")) //.replace("℟",  toRed("℟") )
+            .replace("℣", toRedFont("℣."))
+            .replace("≀", BR + NBSP_4 + NBSP_4)
+            .replace("~", BR)
+            .replace("§", BRS)
+            .replace("∸", BRS)
+            .replace("⊞", toRedFont("✚. "))
+            .replace("⊝", toRedFont("C. "))
+            .replace("⊟", toRedFont("S. "))
+            .replace("[rubrica]", CSS_RED_A)
+            .replace("[/rubrica]", CSS_RED_Z)
+            .replace("%cssBlackOn", "<font color=\"#000000\">")
+            .replace("%cssBlackOff", "</font>")
+                * */
+            }
+        }
+    }
+
     fun formatTitle(sOrigen: String): SpannableStringBuilder {
         val ssb = SpannableStringBuilder(toUpper(sOrigen))
         ssb.setSpan(CharacterStyle.wrap(red), 0, ssb.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -74,6 +154,7 @@ object Utils {
     fun capitalize(s: String): String {
         return s.replaceFirstChar { it.uppercase() }
     }
+
     fun toRedBold(sOrigen: String): SpannableStringBuilder {
         val ssb = SpannableStringBuilder(sOrigen)
         ssb.setSpan(CharacterStyle.wrap(red), 0, ssb.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -155,27 +236,6 @@ object Utils {
         val smallSizeText = RelativeSizeSpan(0.8f)
         val ssb = SpannableStringBuilder("")
         val spannableString = SpannableString(sOrigen)
-        spannableString.setSpan(
-            CharacterStyle.wrap(smallSizeText),
-            0,
-            spannableString.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        spannableString.setSpan(
-            CharacterStyle.wrap(red),
-            0,
-            spannableString.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        ssb.append(spannableString)
-        return ssb
-    }
-
-    fun fromHtmlToSmallRed(sOrigen: String): SpannableStringBuilder {
-        val s = fromHtml(sOrigen)
-        val smallSizeText = RelativeSizeSpan(0.8f)
-        val ssb = SpannableStringBuilder("")
-        val spannableString = SpannableString(s)
         spannableString.setSpan(
             CharacterStyle.wrap(smallSizeText),
             0,
@@ -342,10 +402,6 @@ object Utils {
         return String.format("<font color=\"%s\">%s</font>", redCode, s)
     }
 
-    fun toBlackFont(s: String?): String {
-        return String.format("<font color=\"%s\">%s</font>", "#000000", s)
-    }
-
     fun toRedNew(sOrigen: SpannableStringBuilder): SpannableStringBuilder {
         sOrigen.setSpan(
             CharacterStyle.wrap(red),
@@ -356,7 +412,7 @@ object Utils {
         return sOrigen
     }
 
-    fun toRedHtml(sOrigen: String): SpannableStringBuilder {
+    private fun toRedHtml(sOrigen: String): SpannableStringBuilder {
         val s = SpannableString(fromHtml(sOrigen))
         s.setSpan(CharacterStyle.wrap(red), 0, s.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         return SpannableStringBuilder(s)
@@ -422,6 +478,7 @@ object Utils {
             .replace("%cssBlackOff", "</font>")
 
     }
+
 
     /**
      *
@@ -505,23 +562,12 @@ object Utils {
     }
 
 
-    @Suppress("DEPRECATION")
     fun fromHtml(s: String): Spanned {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Html.fromHtml(getFormato(s), Html.FROM_HTML_MODE_LEGACY)
-        } else {
-            Html.fromHtml(getFormato(s))
-        }
+        return Html.fromHtml(getFormato(s), Html.FROM_HTML_MODE_LEGACY)
     }
 
-    @Suppress("DEPRECATION")
     fun fromHtmlWithOutFormat(s: String): Spanned {
-
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Html.fromHtml(s, Html.FROM_HTML_MODE_LEGACY)
-        } else {
-            Html.fromHtml(s)
-        }
+        return Html.fromHtml(s, Html.FROM_HTML_MODE_LEGACY)
     }
 
 
@@ -544,11 +590,6 @@ object Utils {
         }
     }
 
-
-    @Composable
-    fun composeSmallTextt(text: String) {
-        ParagraphStyleSmall(text = fromHtml(text))
-    }
 
     /**
      * Este método es un ayudador para la lectura de voz,
@@ -604,17 +645,9 @@ object Utils {
      * @return Un número con la fecha
      */
     fun getTodayMinus(minusDays: Int): Int {
-        val df = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val today = LocalDate.now().minusDays(minusDays.toLong())
-                .format(DateTimeFormatter.ofPattern("yyyyMMdd"))
-            return today.toInt()
-        }
-        val cal = Calendar.getInstance()
-        cal.time = Date()
-        cal.add(Calendar.DATE, -minusDays)
-        val s = df.format(cal.time)
-        return s.toInt()
+        val today = LocalDate.now().minusDays(minusDays.toLong())
+            .format(DateTimeFormatter.ofPattern("yyyyMMdd"))
+        return today.toInt()
     }
 
     val hoy: String
@@ -765,19 +798,6 @@ object Utils {
             0,
             spannableString.length,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        ssb.append(spannableString)
-        return ssb
-    }
-
-    fun toRedX(s: String): SpannableStringBuilder {
-        //val h2 = RelativeSizeSpan(H1)
-        val ssb = SpannableStringBuilder("")
-        val spannableString = SpannableString(s)
-        spannableString.setSpan(
-            red,
-            0,
-            s.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         ssb.append(spannableString)
         return ssb

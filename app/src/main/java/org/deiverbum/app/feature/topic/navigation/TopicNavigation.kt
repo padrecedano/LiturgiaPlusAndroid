@@ -25,7 +25,7 @@ import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import org.deiverbum.app.feature.home.InterestsRouteInHome
+import org.deiverbum.app.feature.universalis.UniversalisRoute
 import java.net.URLDecoder
 import java.net.URLEncoder
 import kotlin.text.Charsets.UTF_8
@@ -71,7 +71,7 @@ fun NavGraphBuilder.topicScreen(
             onBackClick = onBackClick,
             onTopicClick = onTopicClick,
         )*/
-        InterestsRouteInHome(
+        UniversalisRoute(
             showBackButton = showBackButton,
             onBackClick = onBackClick,
             onTopicClick = onTopicClick,

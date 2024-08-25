@@ -59,7 +59,7 @@ class MissaeLectionumList(
     }
 
     fun getComposable(rubricColor: Color): AnnotatedString {
-        sort()
+        //sort()
         return try {
             buildAnnotatedString {
                 if (type == -1) {
@@ -74,6 +74,7 @@ class MissaeLectionumList(
                     }
                 }
                 lectionum.forEach {
+                    append(it?.theOrder.toString())
                     append(it?.getComposable(type, rubricColor))
                 }
             }
@@ -101,6 +102,6 @@ class MissaeLectionumList(
         }
 
     override fun sort() {
-        lectionum.sortedBy { it!!.theOrder }
+        lectionum = lectionum.sortedBy { it!!.theOrder } as MutableList<MissaeLectionum?>
     }
 }

@@ -14,7 +14,7 @@ import org.deiverbum.app.core.database.model.external.PopulatedNewsResource
 import org.deiverbum.app.core.database.model.external.asExternalModel
 import org.deiverbum.app.core.database.model.nia.TopicEntity
 import org.deiverbum.app.core.datastore.ChangeListVersions
-import org.deiverbum.app.core.datastore.NiaPreferencesDataSource
+import org.deiverbum.app.core.datastore.PreferencesDataSource
 import org.deiverbum.app.core.model.data.NewsResource
 import org.deiverbum.app.core.network.NiaNetworkDataSource
 import org.deiverbum.app.core.network.model.NetworkNewsResource
@@ -30,7 +30,7 @@ private const val SYNC_BATCH_SIZE = 40
  * Reads are exclusively from local storage to support offline access.
  */
 class OfflineFirstNewsRepository @Inject constructor(
-    private val niaPreferencesDataSource: NiaPreferencesDataSource,
+    private val niaPreferencesDataSource: PreferencesDataSource,
     private val newsResourceDao: NewsResourceDao,
     private val topicDao: TopicDao,
     private val network: NiaNetworkDataSource,

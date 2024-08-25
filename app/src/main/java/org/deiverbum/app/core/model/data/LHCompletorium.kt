@@ -19,7 +19,7 @@ data class LHCompletorium(
 
 ) : Breviarium(typus) {
 
-    override fun forView(calendarTime: Int): SpannableStringBuilder {
+    fun forView(calendarTime: Int): SpannableStringBuilder {
         return try {
             val sb = SpannableStringBuilder()
             lectioBrevis.normalizeByTime(calendarTime)
@@ -71,5 +71,9 @@ data class LHCompletorium(
         } catch (e: Exception) {
             StringBuilder(e.toString())
         }
+    }
+
+    override fun sort() {
+        psalmodia.sort()
     }
 }

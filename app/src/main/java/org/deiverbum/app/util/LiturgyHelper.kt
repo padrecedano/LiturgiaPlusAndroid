@@ -20,23 +20,25 @@ class LiturgyHelper {
             10 to "homilias",
             11 to "lecturas",
             12 to "comentarios",
-            13 to "santos"
+            13 to "homilías",
+            20 to "santos"
         )
 
         private val liturgyMapLatin = hashMapOf(
-            0 to "mixtus",
-            1 to "officium",
-            2 to "laudes",
-            3 to "tertiam",
-            4 to "sextam",
-            5 to "nonam",
-            6 to "vesperas",
-            7 to "completorium",
-            8 to "missae",
-            9 to "homiliae",
-            10 to "lectionum",
-            11 to "commentarii",
-            12 to "sanctii"
+            1 to "mixtus",
+            2 to "officium",
+            3 to "laudes",
+            4 to "tertiam",
+            5 to "sextam",
+            6 to "nonam",
+            7 to "vesperas",
+            8 to "completorium",
+            // to "missae",
+            11 to "lectionum",
+            12 to "commentarii",
+            13 to "homiliae",
+
+            20 to "sanctii"
         )
 
         fun liturgyByType(type: Int): String {

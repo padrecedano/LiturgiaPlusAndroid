@@ -51,7 +51,7 @@ data class Missae(
     var lectionumList: MissaeLectionumList? = null
 
     var sanctus: LHSanctus? = null
-    override fun forView(calendarTime: Int): SpannableStringBuilder {
+    fun forView(calendarTime: Int): SpannableStringBuilder {
         val ssb = SpannableStringBuilder()
 
         if (lectionumList != null) {
@@ -91,5 +91,12 @@ data class Missae(
             sb.append(Utils.createErrorMessage(e.message))
         }
         return sb
+    }
+
+    override fun sort() {
+        if (this.lectionumList != null) {
+            this.lectionumList!!.sort()
+        }
+
     }
 }

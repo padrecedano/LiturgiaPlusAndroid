@@ -1,7 +1,5 @@
 package org.deiverbum.app.core.model.data
 
-import android.text.SpannableStringBuilder
-
 /**
  *
  * Reúne elementos varios de la liturgia, fuera de los habituales.
@@ -22,16 +20,15 @@ abstract class Alteri(typus: String) : LiturgiaTypus(typus) {
         val sanctus: Sanctus,
         override var typus: String = "sanctii"
     ) : Alteri(typus) {
-        override fun forView(calendarTime: Int): SpannableStringBuilder {
-            return SpannableStringBuilder(sanctus.forView)
-        }
+
 
         override fun forRead(): StringBuilder {
             return StringBuilder(sanctus.forRead)
         }
+
+        override fun sort() {
+        }
     }
 
-    override fun forView(calendarTime: Int): SpannableStringBuilder {
-        return SpannableStringBuilder("")
-    }
+
 }

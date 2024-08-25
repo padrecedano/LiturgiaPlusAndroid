@@ -36,7 +36,7 @@ data class LHMixtus(
     var sanctus: LHSanctus? = null
 
     //var hasSaint: Boolean = false
-    override fun forView(calendarTime: Int): SpannableStringBuilder {
+    fun forView(calendarTime: Int): SpannableStringBuilder {
         //this.hasSaint = hasSaint
         val ssb = SpannableStringBuilder()
         try {
@@ -104,43 +104,10 @@ data class LHMixtus(
         }
         return sb
     }
+
+    override fun sort() {
+        psalmodia.sort()
+        officiumLectionis.sort()
+        lectionumList.sort()
+    }
 }
-
-/*
-    override fun getLaudes(): Laudes? {
-        return laudes
-    }
-
-    override fun setLaudes(laudes: Laudes?) {
-        this.laudes = laudes
-    }
-
-    override fun getOficio(): Oficio? {
-        return oficio
-    }
-
-    override fun setOficio(oficio: Oficio?) {
-        this.oficio = oficio
-    }
-
-    val tituloHora: SpannableStringBuilder
-        get() = Utils.toH1Red(Constants.TITLE_MIXTO)
-    val tituloHoraForRead: String
-        get() = Utils.pointAtEnd(Constants.TITLE_MIXTO)
-    val evangeliosForView: SpannableStringBuilder
-        get() {
-            val ssb = SpannableStringBuilder()
-            for (item in misaLecturas!!) {
-                ssb.append(item?.getAll(0))
-            }
-            return ssb
-        }
-    val evangeliosForRead: StringBuilder
-        get() {
-            val sb = StringBuilder()
-            for (item in misaLecturas!!) {
-                sb.append(item?.getAllForRead())
-            }
-            return sb
-        }
-}*/

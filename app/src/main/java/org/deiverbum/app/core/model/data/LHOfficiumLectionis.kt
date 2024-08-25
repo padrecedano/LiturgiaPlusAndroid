@@ -232,4 +232,8 @@ open class LHOfficiumLectionis(
         }
         responsorium = Utils.replaceByTime(responsorium, calendarTime)
     }
+    fun sort() {
+        lectioPrior = lectioPrior.sortedBy { it.theOrder } as MutableList<LHOfficiumLectioPrior>
+        lectioAltera = lectioAltera.sortedBy { it.theOrder } as MutableList<LHOfficiumLectioAltera>
+    }
 }

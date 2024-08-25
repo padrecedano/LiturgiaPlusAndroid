@@ -22,7 +22,7 @@ data class UniversalisResourceQuery(
 /**
  * Data layer implementation for [NewsResource]
  */
-interface UniversalisRepository : Syncable {
+interface UniversalisRepositoryy : Syncable {
 
     /**
      * Returns available news resources that match the specified [query].
@@ -42,4 +42,44 @@ interface UniversalisRepository : Syncable {
     )
 
 
+}
+
+interface UniversalisRepository : Syncable {
+    /**
+     * Returns available news resources that match the specified [query].
+     */
+    fun getUniversalisByDate(
+        query: UniversalisResourceQuery = UniversalisResourceQuery(
+            filterDates = null,
+            filterTopicsIds = 1,
+        ),
+    ): Flow<List<UniversalisResource>>
+
+    //fun getNewsResources(todayDate:Int): Universalis
+    /**
+     * Returns available news resources that match the specified [query].
+     */
+    /*fun getNewsResources(
+        query: UniversalisResourceQuery = UniversalisResourceQuery(
+            filterDates = null,
+            filterTopicsIds = 0,
+        ),
+    ): Flow<List<UniversalisResource>>*/
+
+    /**
+     * Gets the available topics as a stream
+     */
+    //fun getUniversalisList(): Flow<List<Universalis>>
+
+    /**
+     * Gets data for a specific topic
+     */
+    //fun getUniversalisById(id: String): Flow<Universalis>
+
+    suspend fun insertFromRemote(
+        query: UniversalisResourceQuery = UniversalisResourceQuery(
+            filterDates = null,
+            filterTopicsIds = 1,
+        ),
+    )
 }

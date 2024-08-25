@@ -7,10 +7,11 @@ import androidx.navigation.compose.NavHost
 import com.google.samples.apps.nowinandroid.feature.search.navigation.searchScreen
 import org.deiverbum.app.core.presentation.ui.NiaAppState
 import org.deiverbum.app.feature.bookmarks.navigation.bookmarksScreen
+import org.deiverbum.app.feature.calendar.navigation.calendarScreen
 import org.deiverbum.app.feature.foryou.navigation.forYouScreen
 import org.deiverbum.app.feature.home.navigation.homeScreen
-import org.deiverbum.app.feature.interests.navigation.INTERESTS_ROUTE
-import org.deiverbum.app.feature.interests.navigation.navigateToInterests
+import org.deiverbum.app.feature.today.navigation.INTERESTS_ROUTE
+import org.deiverbum.app.feature.today.navigation.navigateToTodays
 import org.deiverbum.app.ui.interests2pane.interestsListDetailScreen
 
 /**
@@ -37,21 +38,25 @@ fun NiaNavHost(
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        forYouScreen(onTopicClick = navController::navigateToInterests)
+        forYouScreen(onTopicClick = navController::navigateToTodays)
         //homeScreen(onTopicClick = navController::navigateToInterests)
         homeScreen(
-            onTopicClick = navController::navigateToInterests,
-            onBackClick = navController::popBackStack
+            onTopicClick = navController::navigateToTodays,
+            //onBackClick = navController::popBackStack
         )
 
         bookmarksScreen(
-            onTopicClick = navController::navigateToInterests,
+            onTopicClick = navController::navigateToTodays,
             onShowSnackbar = onShowSnackbar,
+        )
+        calendarScreen(
+            onDateSelected = {},
+            //onShowSnackbar = onShowSnackbar,
         )
         searchScreen(
             onBackClick = navController::popBackStack,
             onInterestsClick = { appState.navigateToTopLevelDestination(TopLevelDestination.INTERESTS) },
-            onTopicClick = navController::navigateToInterests,
+            onTopicClick = navController::navigateToTodays,
         )
         interestsListDetailScreen()
     }

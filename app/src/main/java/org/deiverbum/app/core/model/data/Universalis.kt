@@ -1,10 +1,7 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color.Companion.Red
-import androidx.compose.ui.graphics.Color.Companion.Yellow
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -13,8 +10,6 @@ import androidx.room.Ignore
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import org.deiverbum.app.core.database.model.entity.UniversalisEntity
-import org.deiverbum.app.core.designsystem.component.TextH2
-import org.deiverbum.app.core.designsystem.component.h3Rubric
 import org.deiverbum.app.core.model.TodayRequest
 import org.deiverbum.app.util.ColorUtils
 import org.deiverbum.app.util.Constants.LS2
@@ -138,49 +133,6 @@ data class Universalis(
         return annotatedString
     }
 
-    @Composable
-    fun getAllForView(userData: UserDataDynamic): AnnotatedString {
-        var rubricColor = userData.rubricColor.value
-        if (userData.darkThemeConfig.name == "FOLLOW_SYSTEM") {
-            rubricColor = when (isSystemInDarkTheme()) {
-                true -> Yellow
-                false -> Red
-            }
-        }
-
-        val annotatedString = buildAnnotatedString {
-            withStyle(style = SpanStyle(color = rubricColor)) {
-                append("Hello, ")
-            }
-            append("World!")
-            //append(getAllForView(TodayRequest(1, 1, true, true)))
-
-        }
-
-        return annotatedString
-    }
-
-    @Composable
-    fun getAllForVieww(userData: UserDataDynamic): AnnotatedString {
-        //UniversalisScreenView(this, "1", userNewsResource[0].dynamic)
-        return buildAnnotatedString {}
-        val annotatedString = buildAnnotatedString {
-
-            if (info != null) {
-                h3Rubric(text = info!!, userData)
-            }
-            TextH2(liturgia?.nomen!!)
-            //h3Rubric(text = liturgia?.nomen!!, userData = userData)
-            //TextBody(text = fecha, useLineBreak =true )
-            //TextBody(text = liturgia?.tempus?.externus!!, useLineBreak =true )
-            //append(liturgia?.liturgiaTypus?.allForView(timeFK,userData))
-
-        }
-        liturgia?.liturgiaTypus?.allForView(timeFK, userData)
-
-        return annotatedString
-    }
-
 
     fun getAllForView(todayRequest: TodayRequest): SpannableStringBuilder {
 
@@ -199,7 +151,7 @@ data class Universalis(
                 ssb.append(Utils.toH3(liturgia?.nomen))
                 ssb.append(Utils.LS2)
             }
-            ssb.append(liturgia?.liturgiaTypus?.forView(timeFK))
+            //ssb.append(liturgia?.liturgiaTypus?.forView(timeFK))
         } catch (e: Exception) {
             ssb.append(Utils.createErrorMessage(e.message))
         }

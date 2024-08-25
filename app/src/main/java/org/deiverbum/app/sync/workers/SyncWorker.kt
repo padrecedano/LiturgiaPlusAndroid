@@ -18,9 +18,9 @@ import org.deiverbum.app.core.analytics.AnalyticsHelper
 import org.deiverbum.app.core.data.Synchronizer
 import org.deiverbum.app.core.data.repository.SearchContentsRepository
 import org.deiverbum.app.core.data.repository.TopicsRepository
-import org.deiverbum.app.core.data.repository.UniversalisRepositoryy
+import org.deiverbum.app.core.data.repository.UniversalisRepository
 import org.deiverbum.app.core.datastore.ChangeListVersions
-import org.deiverbum.app.core.datastore.NiaPreferencesDataSource
+import org.deiverbum.app.core.datastore.PreferencesDataSource
 import org.deiverbum.app.core.network.Dispatcher
 import org.deiverbum.app.core.network.NiaDispatchers
 import org.deiverbum.app.sync.initializers.SyncConstraints
@@ -35,9 +35,9 @@ import org.deiverbum.app.sync.status.SyncSubscriber
 internal class SyncWorker @AssistedInject constructor(
     @Assisted private val appContext: Context,
     @Assisted workerParams: WorkerParameters,
-    private val niaPreferences: NiaPreferencesDataSource,
+    private val niaPreferences: PreferencesDataSource,
     private val topicRepository: TopicsRepository,
-    private val newsRepository: UniversalisRepositoryy,
+    private val newsRepository: UniversalisRepository,
     private val searchContentsRepository: SearchContentsRepository,
     @Dispatcher(NiaDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
     private val analyticsHelper: AnalyticsHelper,

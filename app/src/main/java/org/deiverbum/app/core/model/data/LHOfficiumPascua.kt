@@ -19,7 +19,7 @@ data class LHOfficiumPascua(
     override var typus: String = "officiumPascua"
     //, override var tempore: LiturgyTime
 ) : Breviarium(typus), Sortable {
-    override fun forView(calendarTime: Int): SpannableStringBuilder {
+    fun forView(calendarTime: Int): SpannableStringBuilder {
         val ssb = SpannableStringBuilder(header)
         try {
             sort()
@@ -115,6 +115,10 @@ data class LHOfficiumPascua(
      */
     override fun sort() {
         psalmodia.sort()
-        officiumLectionis.sortBy { it.theOrder }
+        //officiumLectionis.sortBy { it.theOrder }
+        officiumLectionis =
+            officiumLectionis.sortedBy { it.theOrder } as MutableList<LHOfficeBiblicalEaster>
+
+
     }
 }

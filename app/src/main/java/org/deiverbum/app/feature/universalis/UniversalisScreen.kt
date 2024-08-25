@@ -1,368 +1,185 @@
-/*
- * Copyright 2021 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package org.deiverbum.app.feature.universalis
 
 import NiaIcons
-import android.text.SpannableStringBuilder
-import android.util.Log
-import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import org.deiverbum.app.R
 import org.deiverbum.app.core.designsystem.component.NiaFilterChip
-import org.deiverbum.app.core.designsystem.component.NiaIconToggleButton
 import org.deiverbum.app.core.designsystem.component.NiaLoadingWheel
 import org.deiverbum.app.core.designsystem.component.scrollbar.DraggableScrollbar
 import org.deiverbum.app.core.designsystem.component.scrollbar.rememberDraggableScroller
 import org.deiverbum.app.core.designsystem.component.scrollbar.scrollbarState
-import org.deiverbum.app.core.model.data.UserUniversalisResource
-import org.deiverbum.app.core.ui.TrackScreenViewEvent
-import org.deiverbum.app.core.ui.TrackScrollJank
-import org.deiverbum.app.feature.interests.InterestsUiState
-import org.deiverbum.app.feature.interests.InterestsViewModel
-import org.deiverbum.app.ui.home.HomeScreenBody
+import org.deiverbum.app.core.model.data.UniversalisRequest
+import org.deiverbum.app.core.ui.universalisResourceCardItems
+import org.deiverbum.app.util.LiturgyHelper
+import org.deiverbum.app.util.Utils
 
-
+@OptIn(ExperimentalMaterial3Api::class)
+@ExperimentalMaterial3AdaptiveApi
 @Composable
-internal fun UniversalisRoute(
+fun UniversalisRoute(
     showBackButton: Boolean,
     onBackClick: () -> Unit,
     onTopicClick: (String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: UniversalisNewViewModel = hiltViewModel(),
-    viewModelInterests: InterestsViewModel = hiltViewModel(),
+    viewModel: UniversalisViewModel = hiltViewModel(),
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    //val onboardingUiState by viewModel.onboardingUiState.collectAsStateWithLifecycle()
 
-    ) {
-    val topicUiState: TodayNewUiState by viewModel.todayNewUiState.collectAsStateWithLifecycle()
-    val newsUiState: UniversalisNewUiState by viewModel.universalisNewUiState.collectAsStateWithLifecycle()
-    val uiState by viewModelInterests.uiState.collectAsStateWithLifecycle()
+    var query by remember { mutableStateOf("") }
+//SearchBarSample()
+    //  return
 
-    TrackScreenViewEvent(screenName = "Topic: ${viewModel.topicId}")
 
-    //HomeScreenBody(onNextButtonClicked= onTopicClick)
-    HomeScreenBody(onNextButtonClicked = {
-        viewModel.onTopicClick(it)
-        onTopicClick(it)
-    })
+
+
     UniversalisScreen(
-        topicUiState = topicUiState,
-        newsUiState = newsUiState,
         uiState = uiState,
-        modifier = modifier.testTag("topic:${viewModel.topicId}"),
-        showBackButton = showBackButton,
-        onBackClick = onBackClick,
-        onFollowClick = viewModel::followTopicToggle,
-        onBookmarkChanged = viewModel::bookmarkNews,
-        onNewsResourceViewed = { viewModel.setNewsResourceViewed(it, true) },
-        onTopicClick = onTopicClick,
+        //onboardingUiState = onboardingUiState,
+        modifier = modifier,
+        followTopic = viewModel::followTopic,
+        onBackClick = onBackClick,//listDetailNavigator::navigateBack,
+        //onTopicClick=onTopicClick
+        onTopicClick = {
+            viewModel.onTopicClick(it)
+            onTopicClick(it)
+        },
     )
 }
 
 
-@VisibleForTesting
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun UniversalisScreen(
-    topicUiState: TodayNewUiState,
-    newsUiState: UniversalisNewUiState,
-    uiState: InterestsUiState,
-    showBackButton: Boolean,
-    onBackClick: () -> Unit,
-    onFollowClick: (Boolean) -> Unit,
-    onTopicClick: (String) -> Unit,
-    onBookmarkChanged: (String, Boolean) -> Unit,
-    onNewsResourceViewed: (String) -> Unit,
-    modifier: Modifier = Modifier,
-) {
+fun SearchBarSample() {
+    var text by rememberSaveable { mutableStateOf("") }
+    var expanded by rememberSaveable { mutableStateOf(false) }
 
-    val state = rememberLazyListState()
-    TrackScrollJank(scrollableState = state, stateName = "topic:screen")
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    )
-    {
-
-        when (uiState) {
-            InterestsUiState.Loading ->
-                Log.d("a", "a")
-
-            is InterestsUiState.Interests ->
-                //Text(uiState.topics[0].topic.longDescription)
-                //Log.d("a","aaaaaaa")
-//Text("Lorem")
-                TODO()
-            /*TopicsTabContent(
-                topics = uiState.topics,
-                onTopicClick = onTopicClick,
-                onFollowButtonClick = onBookmarkChanged,
-                selectedTopicId = uiState.selectedTopicId,
-                highlightSelectedTopic = true,
-                modifier = modifier,
-            )*/
-
-
-
-            is InterestsUiState.Empty ->
-                //Log.d("a","a")
-
-                InterestsEmptyScreen()
+    Box(
+        Modifier
+            .fillMaxSize()
+            .semantics { isTraversalGroup = true }) {
+        SearchBar(
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .semantics { traversalIndex = 0f },
+            inputField = {
+                SearchBarDefaults.InputField(
+                    query = text,
+                    onQueryChange = { text = it },
+                    onSearch = { expanded = false },
+                    expanded = expanded,
+                    onExpandedChange = { expanded = it },
+                    placeholder = { Text("Escriba el texto") },
+                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+                    trailingIcon = { Icon(Icons.Default.MoreVert, contentDescription = null) },
+                )
+            },
+            expanded = expanded,
+            onExpandedChange = { expanded = it },
+        ) {
+            Column(Modifier.verticalScroll(rememberScrollState())) {
+                repeat(4) { idx ->
+                    val resultText = "Suggestion $idx"
+                    ListItem(
+                        headlineContent = { Text(resultText) },
+                        supportingContent = { Text("Additional info") },
+                        leadingContent = { Icon(Icons.Filled.Star, contentDescription = null) },
+                        colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+                        modifier =
+                        Modifier
+                            .clickable {
+                                text = resultText
+                                expanded = false
+                            }
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 4.dp)
+                    )
+                }
+            }
         }
-
-        when (newsUiState) {
-
-
-            UniversalisNewUiState.Loading -> {
-                NiaLoadingWheel(
-                    modifier = modifier,
-                    contentDesc = "stringResource(id = string.feature_topic_loading)",
+        LazyColumn(
+            contentPadding = PaddingValues(start = 16.dp, top = 72.dp, end = 16.dp, bottom = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.semantics { traversalIndex = 1f },
+        ) {
+            val list = List(100) { "Text $it" }
+            items(count = list.size) {
+                Text(
+                    text = list[it],
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
                 )
             }
-
-            UniversalisNewUiState.Error ->
-                Log.e("ERRR", "UniversalisNewUiState.Error")
-
-            is UniversalisNewUiState.Success ->
-                UniversalisTabContent(topics = newsUiState.news)
-            /*UniversalisToolbar(
-                showBackButton = showBackButton,
-                onBackClick = onBackClick,
-                //onFollowClick = onFollowClick,
-                //uiState = newsUiState.news,
-            )*/
-            //UniversalisContent(topics =newsUiState.news )
-
         }
-        //universalisContent(topics =newsUiState.news )
-        /*universalisBody(
-            //name = topicUiState.followableTopic.topic.todayDate.toString(),
-            //content =topicUiState.followableTopic.topic.getAllForView(TodayRequest(1,1,true,true)),
-            //content=topicUiState.followableTopic.topic.
-            name="newsUiState.news[0].todayDate.toString()",
-            content=newsUiState.news[0].followableTopics[0].topic.getAllForView(
-                TodayRequest(1,1,true,true)
-            ),
-            //content= SpannableStringBuilder("Lorem ipsum"),
-            news = newsUiState,
-
-            /*description = topicUiState.followableTopic.topic.longDescription,
-            news = newsUiState,
-            imageUrl = topicUiState.followableTopic.topic.imageUrl,
-            onBookmarkChanged = onBookmarkChanged,
-            onNewsResourceViewed = onNewsResourceViewed,*/
-            onTopicClick = onTopicClick,
-        )*/
-    }
-
-}
-/*item {
-    Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
-}*/
-//}
-//val itemsAvailable = universalisItemsSize(topicUiState, newsUiState)
-/*val scrollbarState = state.scrollbarState(
-    itemsAvailable = itemsAvailable as Int,
-)*/
-/*state.DraggableScrollbar(
-    modifier = Modifier
-        .fillMaxHeight()
-        .windowInsetsPadding(WindowInsets.systemBars)
-        .padding(horizontal = 2.dp)
-        .align(Alignment.CenterEnd),
-    state = scrollbarState,
-    orientation = Orientation.Vertical,
-    onThumbMoved = state.rememberDraggableScroller(
-        itemsAvailable = itemsAvailable,
-    ),
-)*/
-//}
-//}
-
-
-@Composable
-fun UniversalisItem(
-    name: String,
-    following: Boolean,
-    topicImageUrl: String,
-    onClick: () -> Unit,
-    onFollowButtonClick: (Boolean) -> Unit,
-    modifier: Modifier = Modifier,
-    iconModifier: Modifier = Modifier,
-    description: String = "",
-    isSelected: Boolean = false,
-) {
-    ListItem(
-        leadingContent = {
-            //InterestsIcon(topicImageUrl, iconModifier.size(64.dp))
-        },
-        headlineContent = {
-            Text(text = name)
-        },
-        supportingContent = {
-            Text(text = description)
-        },
-        trailingContent = {
-            NiaIconToggleButton(
-                checked = following,
-                onCheckedChange = onFollowButtonClick,
-                icon = {
-                    Icon(
-                        imageVector = NiaIcons.Add,
-                        contentDescription = "stringResource(string.core_ui_interests_card_follow_button_content_desc)",
-                    )
-                },
-                checkedIcon = {
-                    Icon(
-                        imageVector = NiaIcons.Check,
-                        contentDescription = "stringResource(string.core_ui_interests_card_unfollow_button_content_desc,)",
-                    )
-                },
-            )
-        },
-        colors = ListItemDefaults.colors(
-            containerColor = if (isSelected) {
-                MaterialTheme.colorScheme.surfaceVariant
-            } else {
-                Color.Transparent
-            },
-        ),
-        modifier = modifier
-            .semantics(mergeDescendants = true) {
-                selected = isSelected
-            }
-            .clickable(enabled = true, onClick = onClick),
-    )
-}
-
-
-@Composable
-fun UniversalisTabContent(
-    topics: List<UserUniversalisResource>,
-    modifier: Modifier = Modifier,
-
-    ) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth(),
-    ) {
-        val scrollableState = rememberLazyListState()
-        LazyColumn(
-            modifier = Modifier
-                .padding(horizontal = 24.dp)
-                .testTag("interests:topics"),
-            contentPadding = PaddingValues(vertical = 16.dp),
-            state = scrollableState,
-        ) {
-            //Text("lll")
-            /*
-                        topics.forEach { item ->
-                            item.followableTopics.forEach { followableTopic ->
-                                val currentTopic = followableTopic.topic
-                                val topicId = followableTopic.topic.todayDate
-                                item(key = topicId) {
-                                    val isSelected = true//highlightSelectedTopic && topicId == selectedTopicId
-                                    InterestsItem(
-                                        name = currentTopic.todayDate.toString(),
-                                        following = followableTopic.isFollowed,
-                                        description = followableTopic.topic.fecha,
-                                        topicImageUrl = followableTopic.topic.fecha,
-                                        onClick = { /*onTopicClick(topicId)*/ },
-                                        onFollowButtonClick = { /*onFollowButtonClick(topicId, it)*/ },
-                                        isSelected = isSelected,
-                                    )
-                                }
-                            }
-
-                            /*if (withBottomSpacer) {
-                                item {
-                                    Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
-                                }
-                            }*/
-                        }
-            */
-
-        }
-        val scrollbarState = scrollableState.scrollbarState(
-            itemsAvailable = topics.size,
-        )
-        scrollableState.DraggableScrollbar(
-            modifier = Modifier
-                .fillMaxHeight()
-                .windowInsetsPadding(WindowInsets.systemBars)
-                .padding(horizontal = 2.dp)
-                .align(Alignment.CenterEnd),
-            state = scrollbarState,
-            orientation = Orientation.Vertical,
-            onThumbMoved = scrollableState.rememberDraggableScroller(
-                itemsAvailable = topics.size,
-            ),
-        )
     }
 }
 
-
-@VisibleForTesting
 @Composable
-internal fun UniversalisScreenn(
-    topicUiState: TodayNewUiState,
-    newsUiState: UniversalisNewUiState,
-    uiState: InterestsUiState,
-    showBackButton: Boolean,
+internal fun UniversalisScreen(
+    uiState: InterestsUiStateInHome,
+    modifier: Modifier = Modifier,
+    followTopic: (String, Boolean) -> Unit,
     onBackClick: () -> Unit,
-    onFollowClick: (Boolean) -> Unit,
     onTopicClick: (String) -> Unit,
-    onBookmarkChanged: (String, Boolean) -> Unit,
-    onNewsResourceViewed: (String) -> Unit,
-    modifier: Modifier = Modifier,
+    //onboardingUiState: OnboardingUiState,
+
 ) {
     val state = rememberLazyListState()
-    TrackScrollJank(scrollableState = state, stateName = "topic:screen")
+
     Box(
         modifier = modifier,
     ) {
@@ -370,77 +187,57 @@ internal fun UniversalisScreenn(
             state = state,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            /*item {
+            item {
                 Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
-            }*/
-
-
-            when (uiState) {
-                InterestsUiState.Loading ->
-                    Log.d("a", "a")
-
-                is InterestsUiState.Interests ->
-                    Log.d("a", "aaaaaaa")
-
-                is InterestsUiState.Empty ->
-                    Log.d("a", "a")
-
-                //InterestsEmptyScreen()
             }
 
-            when (newsUiState) {
-
-
-                UniversalisNewUiState.Loading -> item {
+            when (uiState) {
+                InterestsUiStateInHome.Loading -> item {
                     NiaLoadingWheel(
                         modifier = modifier,
-                        contentDesc = "stringResource(id = string.feature_topic_loading)",
+                        contentDesc = stringResource(id = R.string.generic_loading),
                     )
                 }
 
-                UniversalisNewUiState.Error ->
-                    Log.e("ERRR", "UniversalisScreen UniversalisNewUiState.Error")
-
-                is UniversalisNewUiState.Success -> {
+                is InterestsUiStateInHome.InterestsInHome -> {
                     item {
-                        /*UniversalisToolbar(
-                            showBackButton = showBackButton,
+                        UniversalisToolbar(
+                            showBackButton = true,
                             onBackClick = onBackClick,
-                            //onFollowClick = onFollowClick,
-                            //uiState = newsUiState.news,
-                        )*/
-                        universalisContent(topics = newsUiState.news)
-
+                            onFollowClick = {},
+                            uiState = uiState.topics,
+                            modifier = modifier,
+                        )
                     }
-                    //universalisContent(topics =newsUiState.news )
-                    /*universalisBody(
-                        //name = topicUiState.followableTopic.topic.todayDate.toString(),
-                        //content =topicUiState.followableTopic.topic.getAllForView(TodayRequest(1,1,true,true)),
-                        //content=topicUiState.followableTopic.topic.
-                        name="newsUiState.news[0].todayDate.toString()",
-                        content=newsUiState.news[0].followableTopics[0].topic.getAllForView(
-                            TodayRequest(1,1,true,true)
-                        ),
-                        //content= SpannableStringBuilder("Lorem ipsum"),
-                        news = newsUiState,
+                    if (uiState.topics.isNotEmpty()) {
 
-                        /*description = topicUiState.followableTopic.topic.longDescription,
-                        news = newsUiState,
-                        imageUrl = topicUiState.followableTopic.topic.imageUrl,
-                        onBookmarkChanged = onBookmarkChanged,
-                        onNewsResourceViewed = onNewsResourceViewed,*/
-                        onTopicClick = onTopicClick,
-                    )*/
+                        universalisBody(
+                            name = Utils.capitalize(LiturgyHelper.liturgyByType(uiState.selectedTopicId!!.toInt())),
+                            //name = "***",
+                            description = uiState.topics[0].data[0].fecha,
+                            universalis = uiState,
+                            onTopicClick = onTopicClick,
+
+                            )
+                    } else {
+                        //TODO
+                        //InterestsEmptyScreen()
+                    }
                 }
 
+                InterestsUiStateInHome.Empty -> TODO()
+                InterestsUiStateInHome.Error -> TODO()
+
             }
-            /*item {
+
+            item {
                 Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
-            }*/
+            }
         }
-        val itemsAvailable = universalisItemsSize(topicUiState, newsUiState)
+        val itemsAvailable = 1//topicItemsSize(topicUiState, newsUiState)
+
         val scrollbarState = state.scrollbarState(
-            itemsAvailable = itemsAvailable as Int,
+            itemsAvailable = itemsAvailable,
         )
         state.DraggableScrollbar(
             modifier = Modifier
@@ -457,56 +254,91 @@ internal fun UniversalisScreenn(
     }
 }
 
-private fun universalisItemsSize(
-    topicUiState: TodayNewUiState,
-    newsUiState: UniversalisNewUiState,
-) = when (topicUiState) {
-    TodayNewUiState.Error -> 0 // Nothing
-    TodayNewUiState.Loading -> 1 // Loading bar
-    is TodayNewUiState.Success -> when (newsUiState) {
-        UniversalisNewUiState.Error -> 0 // Nothing
-        UniversalisNewUiState.Loading -> 1 // Loading bar
-        is UniversalisNewUiState.Success -> 2 + newsUiState.news.size // Toolbar, header
-        else -> {}
-    }
-
-    else -> {}
-}
-
-
 private fun LazyListScope.universalisBody(
     name: String,
-    content: SpannableStringBuilder,
-    /*description: String,*/
-    news: UniversalisNewUiState,
-    /*imageUrl: String,
-    onBookmarkChanged: (String, Boolean) -> Unit,
-    onNewsResourceViewed: (String) -> Unit,*/
+    description: String,
+    universalis: InterestsUiStateInHome.InterestsInHome,
     onTopicClick: (String) -> Unit,
-) {
-    item {
-        UniversalisHeader(name, "description", "imageUrl")
-        Text(text = content.toString())
-    }
 
-    /*userNewsResourceCards(news,
-       // onBookmarkChanged, onNewsResourceViewed,
-        onTopicClick)*/
+    ) {
+    item {
+        UniversalisHeader(name, description)
+    }
+    universalisResourceCards(universalis)
 }
 
 @Composable
-private fun UniversalisHeader(name: String, description: String, imageUrl: String) {
+fun UniversalisToolbar(
+    //showBackButton: Boolean, onBackClick: () -> Unit, onFollowClick: () -> Unit, uiState: List<FollowableTopic>, modifier: Modifier) {
+    uiState: List<UniversalisRequest>,
+    modifier: Modifier = Modifier,
+    showBackButton: Boolean = true,
+    onBackClick: () -> Unit = {},
+    onFollowClick: (Boolean) -> Unit = {},
+) {
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(bottom = 32.dp),
+    ) {
+        if (showBackButton) {
+            IconButton(onClick = { onBackClick() }) {
+                Icon(
+                    imageVector = NiaIcons.ArrowBack,
+                    contentDescription = stringResource(
+                        id = R.string.core_ui_back,
+                    ),
+                )
+            }
+        } else {
+            // Keeps the NiaFilterChip aligned to the end of the Row.
+            Spacer(modifier = Modifier.width(1.dp))
+        }
+        val selected = true//uiState.isFollowed
+        NiaFilterChip(
+            selected = selected,
+            onSelectedChange = onFollowClick,
+            modifier = Modifier.padding(end = 24.dp),
+        ) {
+            if (selected) {
+                Text("FOLLOWING")
+            } else {
+                Text("NOT FOLLOWING")
+            }
+        }
+    }
+}
+
+// TODO: Could/should this be replaced with [LazyGridScope.newsFeed]?
+private fun LazyListScope.universalisResourceCards(
+    universalis: InterestsUiStateInHome,
+) {
+    when (universalis) {
+        is InterestsUiStateInHome.InterestsInHome -> {
+            universalisResourceCardItems(
+                items = universalis.topics,
+                topicId = universalis.selectedTopicId,
+                itemModifier = Modifier.padding(24.dp),
+            )
+        }
+
+        is InterestsUiStateInHome.Loading -> item {
+            NiaLoadingWheel(contentDesc = "Loading news") // TODO
+        }
+
+        else -> item {
+            Text("Error") // TODO
+        }
+    }
+}
+
+@Composable
+private fun UniversalisHeader(name: String, description: String) {
     Column(
         modifier = Modifier.padding(horizontal = 24.dp),
     ) {
-        /*DynamicAsyncImage(
-            imageUrl = imageUrl,
-            contentDescription = null,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .size(216.dp)
-                .padding(bottom = 12.dp),
-        )*/
         Text(name, style = MaterialTheme.typography.displayMedium)
         if (description.isNotEmpty()) {
             Text(
@@ -516,474 +348,4 @@ private fun UniversalisHeader(name: String, description: String, imageUrl: Strin
             )
         }
     }
-}
-
-@Composable
-
-private fun BoxScope.userNewsResourceCards(
-    news: UniversalisNewUiState,
-    //onBookmarkChanged: (String, Boolean) -> Unit,
-    //onNewsResourceViewed: (String) -> Unit,
-    onTopicClick: (String) -> Unit,
-) {
-    when (news) {
-        is UniversalisNewUiState.Success -> {
-            topicsSingleContent(
-                topics = news.news,
-                //onTopicClick = onTopicClick,
-                //onFollowButtonClick = followTopic,
-                //selectedTopicId = uiState.selectedTopicId,
-                //highlightSelectedTopic = highlightSelectedTopic,
-                //modifier = modifier,
-            )
-
-
-            /*userUniversalisResourceCardItems(
-                items = news.news,
-                //onToggleBookmark = { onBookmarkChanged(it.id, !it.isSaved) },
-                //onNewsResourceViewed = onNewsResourceViewed,
-                //onTopicClick = onTopicClick,
-                itemModifier = Modifier.padding(24.dp)
-            )*/
-        }
-
-        is UniversalisNewUiState.Loading -> {
-            //NiaLoadingWheel(contentDesc = "Loading news")
-        }
-
-        else -> {
-            //Text("Error")
-        }
-    }
-}
-
-
-@Composable
-fun BoxScope.topicsSingleContent(
-    topics: List<UserUniversalisResource>,
-    //onTopicClick: (String) -> Unit,
-    //onFollowButtonClick: (String, Boolean) -> Unit,
-    //modifier: Modifier = Modifier,
-    /*withBottomSpacer: Boolean = true,
-    selectedTopicId: String? = null,
-    highlightSelectedTopic: Boolean = false,*/
-) {
-    Box {
-        val scrollableState = rememberLazyListState()
-        LazyColumn(
-            modifier = Modifier
-                .padding(horizontal = 24.dp)
-                .testTag("interests:topics"),
-            contentPadding = PaddingValues(vertical = 16.dp),
-            state = scrollableState,
-        ) {
-            /*topics.forEach { item ->
-                item.followableTopics.forEach { followableTopic ->
-                    val currentTopic = followableTopic.topic
-                    val topicId = followableTopic.topic.todayDate
-                    item(key = topicId) {
-                        val isSelected = true//highlightSelectedTopic && topicId == selectedTopicId
-                        /*InterestsItem(
-                            name = currentTopic.todayDate.toString(),
-                            following = followableTopic.isFollowed,
-                            description = followableTopic.topic.fecha,
-                            topicImageUrl = followableTopic.topic.fecha,
-                            onClick = { /*onTopicClick(topicId)*/ },
-                            onFollowButtonClick = { /*onFollowButtonClick(topicId, it)*/ },
-                            isSelected = isSelected,
-                        )*/
-                    }
-                }
-
-                /*if (withBottomSpacer) {
-                    item {
-                        Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
-                    }
-                }*/
-            }*/
-            /*val scrollbarState = scrollableState.scrollbarState(
-                itemsAvailable = topics.size,
-            )
-            scrollableState.DraggableScrollbar(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .windowInsetsPadding(WindowInsets.systemBars)
-                    .padding(horizontal = 2.dp)
-                    .align(Alignment.CenterEnd),
-                state = scrollbarState,
-                orientation = Orientation.Vertical,
-                onThumbMoved = scrollableState.rememberDraggableScroller(
-                    itemsAvailable = topics.size,
-                ),
-            )*/
-        }
-    }
-
-
-
-    /*
-
-
-
-
-
-
-
-    @Composable
-    internal fun TopicRoute(
-        showBackButton: Boolean,
-        onBackClick: () -> Unit,
-        onTopicClick: (String) -> Unit,
-        modifier: Modifier = Modifier,
-        viewModel: UniversalisNewViewModel = hiltViewModel(),
-    ) {
-        val topicUiState: TodayNewUiState by viewModel.todayNewUiState.collectAsStateWithLifecycle()
-        val newsUiState: UniversalisNewUiState by viewModel.universalisNewUiState.collectAsStateWithLifecycle()
-
-        TrackScreenViewEvent(screenName = "Topic: ${viewModel.topicId}")
-        TopicScreen(
-            topicUiState = topicUiState,
-            newsUiState = newsUiState,
-            modifier = modifier.testTag("topic:${viewModel.topicId}"),
-            showBackButton = showBackButton,
-            onBackClick = onBackClick,
-            onFollowClick = viewModel::followTopicToggle,
-            onBookmarkChanged = viewModel::bookmarkNews,
-            onNewsResourceViewed = { viewModel.setNewsResourceViewed(it, true) },
-            onTopicClick = onTopicClick,
-        )
-    }
-
-
-    @VisibleForTesting
-    @Composable
-    internal fun TopicScreen(
-        topicUiState: TodayNewUiState,
-        newsUiState: UniversalisNewUiState,
-        showBackButton: Boolean,
-        onBackClick: () -> Unit,
-        onFollowClick: (Boolean) -> Unit,
-        onTopicClick: (String) -> Unit,
-        onBookmarkChanged: (String, Boolean) -> Unit,
-        onNewsResourceViewed: (String) -> Unit,
-        modifier: Modifier = Modifier,
-    ) {
-        val state = rememberLazyListState()
-        TrackScrollJank(scrollableState = state, stateName = "topic:screen")
-        Box(
-            modifier = modifier,
-        ) {
-            LazyColumn(
-                state = state,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                item {
-                    Spacer(Modifier.windowInsetsTopHeight(WindowInsets.safeDrawing))
-                }
-                when (topicUiState) {
-                    TodayNewUiState.Loading -> item {
-                        NiaLoadingWheel(
-                            modifier = modifier,
-                            contentDesc = "stringResource(id = string.feature_topic_loading)",
-                        )
-                    }
-
-                    TodayNewUiState.Error ->
-                        Log.d("ERRR", TodayNewUiState.Error.toString())
-
-                    is TodayNewUiState.Success -> {
-                        item {
-                            TopicToolbar(
-                                showBackButton = showBackButton,
-                                onBackClick = onBackClick,
-                                onFollowClick = onFollowClick,
-                                uiState = topicUiState.followableTopic,
-                            )
-                        }
-                        topicBody(
-                            name = topicUiState.followableTopic.topic.fecha,
-                            description = topicUiState.followableTopic.topic.getAllForView().text,
-                            news = newsUiState,
-                            imageUrl = topicUiState.followableTopic.topic.fecha,
-                            onBookmarkChanged = onBookmarkChanged,
-                            onNewsResourceViewed = onNewsResourceViewed,
-                            onTopicClick = onTopicClick,
-                        )
-                    }
-
-                    else -> {}
-                }
-                item {
-                    Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
-                }
-            }
-            val itemsAvailable = topicItemsSize(topicUiState, newsUiState)
-            val scrollbarState = state.scrollbarState(
-                itemsAvailable = itemsAvailable as Int,
-            )
-            state.DraggableScrollbar(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .windowInsetsPadding(WindowInsets.systemBars)
-                    .padding(horizontal = 2.dp)
-                    .align(Alignment.CenterEnd),
-                state = scrollbarState,
-                orientation = Orientation.Vertical,
-                onThumbMoved = state.rememberDraggableScroller(
-                    itemsAvailable = itemsAvailable as Int,
-                ),
-            )
-        }
-    }
-
-    private fun topicItemsSize(
-        topicUiState: TodayNewUiState,
-        newsUiState: UniversalisNewUiState,
-    ) = when (topicUiState) {
-        TodayNewUiState.Error -> 0 // Nothing
-        TodayNewUiState.Loading -> 1 // Loading bar
-        is TodayNewUiState.Success -> when (newsUiState) {
-            UniversalisNewUiState.Error -> 0 // Nothing
-            UniversalisNewUiState.Loading -> 1 // Loading bar
-            is UniversalisNewUiState.Success -> 2 + newsUiState.news.size // Toolbar, header
-            else -> {}
-        }
-
-        else -> {}
-    }
-
-
-    private fun LazyListScope.topicBody(
-        name: String,
-        description: String,
-        news: UniversalisNewUiState,
-        imageUrl: String,
-        onBookmarkChanged: (String, Boolean) -> Unit,
-        onNewsResourceViewed: (String) -> Unit,
-        onTopicClick: (String) -> Unit,
-    ) {
-        item {
-            TopicHeader(name, description, imageUrl)
-        }
-
-        userNewsResourceCards(news, onBookmarkChanged, onNewsResourceViewed, onTopicClick)
-    }
-
-    @Composable
-    private fun TopicHeader(name: String, description: String, imageUrl: String) {
-        Column(
-            modifier = Modifier.padding(horizontal = 24.dp),
-        ) {
-            DynamicAsyncImage(
-                imageUrl = imageUrl,
-                contentDescription = null,
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .size(216.dp)
-                    .padding(bottom = 12.dp),
-            )
-            Text(name, style = MaterialTheme.typography.displayMedium)
-            if (description.isNotEmpty()) {
-                Text(
-                    description,
-                    modifier = Modifier.padding(top = 24.dp),
-                    style = MaterialTheme.typography.bodyLarge,
-                )
-            }
-        }
-    }
-
-
-    private fun LazyListScope.userNewsResourceCards(
-        news: UniversalisNewUiState,
-        onBookmarkChanged: (String, Boolean) -> Unit,
-        onNewsResourceViewed: (String) -> Unit,
-        onTopicClick: (String) -> Unit,
-    ) {
-        when (news) {
-            is UniversalisNewUiState.Success -> {
-                userNewsResourceCardItems(
-                    items = news.news,
-                    onToggleBookmark = { onBookmarkChanged(it.id, !it.isSaved) },
-                    onNewsResourceViewed = onNewsResourceViewed,
-                    onTopicClick = onTopicClick,
-                    itemModifier = Modifier.padding(24.dp),
-                )
-            }
-
-            is UniversalisNewUiState.Loading -> item {
-                NiaLoadingWheel(contentDesc = "Loading news")
-            }
-
-            else -> item {
-                Text("Error")
-            }
-        }
-    }
-    */
-    /*
-
-    @Preview
-    @Composable
-    private fun TopicBodyPreview() {
-        NiaTheme {
-            LazyColumn {
-                universalisBody(
-                    name = "Jetpack Compose",
-                    //description = "Lorem ipsum maximum",
-                    news = UniversalisNewUiState.Success(emptyList()),
-                    /*imageUrl = "",
-                    onBookmarkChanged = { _, _ -> },
-                    onNewsResourceViewed = {},*/
-                    onTopicClick = {},
-                )
-            }
-        }
-    }
-    */
-    @Composable
-    fun UniversalisToolbar(
-        //uiState: FollowableUniversalis,
-        modifier: Modifier = Modifier,
-        showBackButton: Boolean = true,
-        onBackClick: () -> Unit = {},
-        //onFollowClick: (Boolean) -> Unit = {},
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(bottom = 32.dp),
-        ) {
-            if (showBackButton) {
-                IconButton(onClick = { onBackClick() }) {
-                    Icon(
-                        imageVector = NiaIcons.ArrowBack,
-                        contentDescription = "com.google.samples.apps.nowinandroid.core.ui.R.string.core_ui_back",
-                    )
-                }
-            } else {
-                // Keeps the NiaFilterChip aligned to the end of the Row.
-                Spacer(modifier = Modifier.width(1.dp))
-            }
-            val selected = true//uiState.isFollowed
-            NiaFilterChip(
-                selected = selected,
-                onSelectedChange = {},//onFollowClick,
-                modifier = Modifier.padding(end = 24.dp),
-            ) {
-                if (selected) {
-                    Text("FOLLOWING")
-                } else {
-                    Text("NOT FOLLOWING")
-                }
-            }
-        }
-    }
-}
-/*
-
-@DevicePreviews
-@Composable
-fun TopicScreenPopulated(
-    @PreviewParameter(UserNewsResourcePreviewParameterProvider::class)
-    userNewsResources: List<UserNewsResource>,
-) {
-    NiaTheme {
-        NiaBackground {
-            TopicScreen(
-                topicUiState = TodayNewUiState.Success(userNewsResources[0].followableTopics[0]),
-                newsUiState = UniversalisNewUiState.Success(userNewsResources),
-                showBackButton = true,
-                onBackClick = {},
-                onFollowClick = {},
-                onBookmarkChanged = { _, _ -> },
-                onNewsResourceViewed = {},
-                onTopicClick = {},
-            )
-        }
-    }
-}
-
-
-@DevicePreviews
-@Composable
-fun TopicScreenLoading() {
-    NiaTheme {
-        NiaBackground {
-            TopicScreen(
-                topicUiState = TodayNewUiState.Loading,
-                newsUiState = UniversalisNewUiState.Loading,
-                showBackButton = true,
-                onBackClick = {},
-                onFollowClick = {},
-                onBookmarkChanged = { _, _ -> },
-                onNewsResourceViewed = {},
-                onTopicClick = {},
-            )
-        }
-    }
-}
-*/
-
-@Composable
-private fun BoxScope.universalisContent(
-    topics: List<UserUniversalisResource>,
-    /*onTopicClick: (String) -> Unit,
-    onFollowButtonClick: (String, Boolean) -> Unit,
-    modifier: Modifier = Modifier,
-    withBottomSpacer: Boolean = true,
-    selectedTopicId: String? = null,
-    highlightSelectedTopic: Boolean = false,*/
-) {
-    Box {
-        rememberLazyListState()
-        /*LazyColumn(
-            modifier = Modifier
-                .padding(horizontal = 24.dp)
-                .testTag("interests:topics"),
-            contentPadding = PaddingValues(vertical = 16.dp),
-            state = scrollableState,
-        ) {*/
-        /*topics.forEach { items ->
-            items.data.forEach { followableTopic ->
-
-                val topicId = 1//followableTopic.topic.todayDate
-                //item(key = topicId) {
-                //val isSelected = highlightSelectedTopic && topicId == selectedTopicId
-                /*Text(
-                    followableTopic.topic.getAllForView(TodayRequest(1, 1, true, true)).toString()
-                )*/
-            }
-        }*/
-    }
-
-    /*if (withBottomSpacer) {
-        item {
-            Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
-        }
-    }*/
-}
-
-/*val scrollbarState = scrollableState.scrollbarState(
-    itemsAvailable = topics.size,
-)
-scrollableState.DraggableScrollbar(
-    modifier = Modifier
-        .fillMaxHeight()
-        .windowInsetsPadding(WindowInsets.systemBars)
-        .padding(horizontal = 2.dp)
-        .align(Alignment.CenterEnd),
-    state = scrollbarState,
-    orientation = Orientation.Vertical,
-    onThumbMoved = scrollableState.rememberDraggableScroller(
-        itemsAvailable = topics.size,
-    ),
-)*/
-//}
-//}
-@Composable
-private fun InterestsEmptyScreen() {
-    Text(text = "stringResource(id = R.string.feature_interests_empty_header)")
 }

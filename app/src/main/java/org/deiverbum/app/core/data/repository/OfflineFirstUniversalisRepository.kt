@@ -2,16 +2,28 @@ package org.deiverbum.app.core.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEmpty
 import org.deiverbum.app.core.data.Synchronizer
-import org.deiverbum.app.core.database.dao.nia.TopicDao
+import org.deiverbum.app.core.data.changeListSync
 import org.deiverbum.app.core.database.dao.nia.UniversalisDao
+import org.deiverbum.app.core.database.model.external.CommentariiExternal
+import org.deiverbum.app.core.database.model.external.CompletoriumExternal
+import org.deiverbum.app.core.database.model.external.HomiliaeExternal
+import org.deiverbum.app.core.database.model.external.LaudesExternal
+import org.deiverbum.app.core.database.model.external.MissaeLectionumExternal
+import org.deiverbum.app.core.database.model.external.MixtusExternal
+import org.deiverbum.app.core.database.model.external.NonamExternal
+import org.deiverbum.app.core.database.model.external.OfficiumExternal
+import org.deiverbum.app.core.database.model.external.PopulatedVesperasResource
+import org.deiverbum.app.core.database.model.external.SanctiiExternal
+import org.deiverbum.app.core.database.model.external.SextamExternal
+import org.deiverbum.app.core.database.model.external.TertiamExternal
 import org.deiverbum.app.core.database.model.external.UniversalisExternal
 import org.deiverbum.app.core.database.model.external.asExternalModel
-import org.deiverbum.app.core.datastore.NiaPreferencesDataSource
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.datastore.ChangeListVersions
 import org.deiverbum.app.core.model.data.UniversalisResource
 import org.deiverbum.app.core.network.NiaNetworkDataSource
-import org.deiverbum.app.core.notifications.Notifier
+import org.deiverbum.app.util.Utils
 import javax.inject.Inject
 
 // Heuristic value to optimize for serialization and deserialization cost on client and server
@@ -19,130 +31,111 @@ import javax.inject.Inject
 private const val SYNC_BATCH_SIZE = 40
 
 /**
- * Disk storage backed implementation of the [NewsRepository].
- * Reads are exclusively from local storage to support offline access.
+ * Implementación del backend de almacenamiento en disco de [UniversalisRepository].
+ * Las lecturas se realizan exclusivamente desde el almacenamiento local para admitir el acceso sin conexión.
+ *
+ * @since 2024.1
  */
 class OfflineFirstUniversalisRepository @Inject constructor(
-    private val niaPreferencesDataSource: NiaPreferencesDataSource,
-    private val newsResourceDao: UniversalisDao,
-    private val topicDao: TopicDao,
+    private val universalisDao: UniversalisDao,
     private val network: NiaNetworkDataSource,
-    private val notifier: Notifier,
-) : UniversalisRepositoryy {
+) : UniversalisRepository {
 
-
-    fun getUniversalisByDate(
+    override fun getUniversalisByDate(
         query: UniversalisResourceQuery,
+    ): Flow<List<UniversalisResource>> {
+        val r = when (query.filterTopicsIds) {
+            1 -> universalisDao.getMixtusByDate(
+                filterDates = query.filterDates!!,
+            ).map {
+                it.map(MixtusExternal::asExternalModel)
+            }
 
-        ): Flow<List<UniversalisResource>> = newsResourceDao.getUniversalisByDate(
-        filterDates = query.filterDates ?: emptySet(),
-        //filterNewsIds = query.filterNewsIds ?: emptySet(),
-        //todayDate=20240319
+            2 -> universalisDao.getOfficiumByDate(
+                filterDates = query.filterDates!!,
+            ).map { it.map(OfficiumExternal::asExternalModel) }
 
-    )
-        .map {
-            it.map(UniversalisExternal::asExternalModel)
+            3 -> universalisDao.getLaudesByDate(
+                filterDates = query.filterDates!!,
+            ).map { it.map(LaudesExternal::asExternalModel) }
+
+            4 -> universalisDao.getTertiamByDate(
+                filterDates = query.filterDates!!,
+            ).map { it.map(TertiamExternal::asExternalModel) }
+
+            5 -> universalisDao.getSextamByDate(
+                filterDates = query.filterDates!!,
+            ).map {
+                it.map(SextamExternal::asExternalModel)
+            }
+
+            6 -> universalisDao.getNonamByDate(
+                filterDates = query.filterDates!!,
+            ).map { it.map(NonamExternal::asExternalModel) }
+
+            7 -> universalisDao.getVesperasByDate(
+                filterDates = query.filterDates!!,
+            ).map { it.map(PopulatedVesperasResource::asExternalModel) }
+
+            8 -> universalisDao.getCompletoriumByDate(
+                filterDates = query.filterDates!!,
+            ).map { it.map(CompletoriumExternal::asExternalModel) }
+
+            11 -> universalisDao.getMissaeLectionumByDate(
+                filterDates = query.filterDates!!,
+            ).map { it.map(MissaeLectionumExternal::asExternalModel) }
+
+            12 -> universalisDao.getCommentariiByDate(
+                filterDates = query.filterDates!!,
+            ).map { it.map(CommentariiExternal::asExternalModel) }
+
+            13 -> universalisDao.getHomiliaeByDate(
+                filterDates = query.filterDates!!,
+            ).map { it.map(HomiliaeExternal::asExternalModel) }
+
+            20 -> {
+                val monthAndDay = Utils.getMonthAndDay(query.filterDates!!.elementAt(0).toString())
+
+                universalisDao.getSanctiiByDate(
+                    monthAndDay?.get(0),
+                    monthAndDay?.get(1)
+                ).map { it.map(SanctiiExternal::asExternalModel) }
+            }
+
+            else -> universalisDao.getUniversalisByDate(
+                filterDates = query.filterDates!!,
+            ).onEmpty {
+                println("Vacío")
+            }.map {
+                it.map(UniversalisExternal::asExternalModel)
+            }
         }
-
-    override fun getNewsResources(query: UniversalisResourceQuery): Flow<List<UniversalisResource>> {
-        TODO("Not yet implemented")
-    }
-
-    override fun getUniversalisList(): Flow<List<Universalis>> {
-        TODO("Not yet implemented")
-    }
-
-    override fun getUniversalisById(id: String): Flow<Universalis> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
-        TODO("Not yet implemented")
+        return r
     }
 
 
-    //    .map { it.map(PopulatedUniversalisResource::asExternalModel) }
+    override suspend fun insertFromRemote(query: UniversalisResourceQuery) {
+        val networkUniversalis = network.getUniversalis(query.filterDates!!.toList())
+        universalisDao.upsertUniversaliss(networkUniversalis.data)
+    }
 
-    /*
-    override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
-        var isFirstSync = false
-        return synchronizer.changeListSync(
-            versionReader = ChangeListVersions::newsResourceVersion,
+
+    override suspend fun syncWith(synchronizer: Synchronizer): Boolean =
+        synchronizer.changeListSync(
+            versionReader = ChangeListVersions::topicVersion,
             changeListFetcher = { currentVersion ->
-                isFirstSync = currentVersion <= 0
-                network.getNewsResourceChangeList(after = currentVersion)
+                network.getTopicChangeList(after = currentVersion)
             },
             versionUpdater = { latestVersion ->
-                copy(newsResourceVersion = latestVersion)
+                copy(topicVersion = latestVersion)
             },
-            modelDeleter = newsResourceDao::deleteNewsResources,
+            modelDeleter = universalisDao::deleteUniversalis,
             modelUpdater = { changedIds ->
-                val userData = niaPreferencesDataSource.userData.first()
-                val hasOnboarded = userData.shouldHideOnboarding
-                val followedTopicIds = userData.followedTopics
-
-                val existingNewsResourceIdsThatHaveChanged = when {
-                    hasOnboarded -> newsResourceDao.getNewsResourceIds(
-                        useFilterTopicIds = true,
-                        filterTopicIds = followedTopicIds,
-                        useFilterNewsIds = true,
-                        filterNewsIds = changedIds.toSet(),
-                    )
-                        .first()
-                        .toSet()
-                    // No need to retrieve anything if notifications won't be sent
-                    else -> emptySet()
-                }
-
-                if (isFirstSync) {
-                    // When we first retrieve news, mark everything viewed, so that we aren't
-                    // overwhelmed with all historical news.
-                    niaPreferencesDataSource.setNewsResourcesViewed(changedIds, true)
-                }
-
-                // Obtain the news resources which have changed from the network and upsert them locally
-                changedIds.chunked(SYNC_BATCH_SIZE).forEach { chunkedIds ->
-                    val networkNewsResources = network.getNewsResources(ids = chunkedIds)
-
-                    // Order of invocation matters to satisfy id and foreign key constraints!
-
-                    topicDao.insertOrIgnoreTopics(
-                        topicEntities = networkNewsResources
-                            .map(NetworkNewsResource::topicEntityShells)
-                            .flatten()
-                            .distinctBy(TopicEntity::id),
-                    )
-                    newsResourceDao.upsertNewsResources(
-                        newsResourceEntities = networkNewsResources.map(
-                            NetworkNewsResource::asEntity,
-                        ),
-                    )
-                    newsResourceDao.insertOrIgnoreTopicCrossRefEntities(
-                        newsResourceTopicCrossReferences = networkNewsResources
-                            .map(NetworkNewsResource::topicCrossReferences)
-                            .distinct()
-                            .flatten(),
-                    )
-                }
-
-                if (hasOnboarded) {
-                    /*val addedNewsResources = newsResourceDao.getNewsResources(
-                        useFilterTopicIds = true,
-                        filterTopicIds = followedTopicIds,
-                        useFilterNewsIds = true,
-                        filterNewsIds = changedIds.toSet() - existingNewsResourceIdsThatHaveChanged,
-                    )
-                        .first()
-                        .map(PopulatedNewsResource::asExternalModel)
-
-                    if (addedNewsResources.isNotEmpty()) {
-                        notifier.postNewsNotifications(
-                            newsResources = addedNewsResources,
-                        )
-                    }*/
-                }
+                val networkTopics = network.getTopics(ids = changedIds)
+                universalisDao.upsertUniversalis(
+                    TODO()
+                    //entities = networkTopics.map(NetworkUniversalis::asEntity),
+                )
             },
         )
-    }
-*/
 }

@@ -1,4 +1,4 @@
-package org.deiverbum.app.feature.home
+package org.deiverbum.app.feature.universalis
 
 import org.deiverbum.app.core.model.data.FollowableTopic
 

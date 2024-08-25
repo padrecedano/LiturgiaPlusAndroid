@@ -31,7 +31,7 @@ data class LHLaudes(
 ) : Breviarium(typus) {
     var sanctus: LHSanctus? = null
 
-    override fun forView(calendarTime: Int): SpannableStringBuilder {
+    fun forView(calendarTime: Int): SpannableStringBuilder {
         //this.hasSaint = hasSaint
         val ssb = SpannableStringBuilder()
         try {
@@ -93,5 +93,9 @@ data class LHLaudes(
             sb.append(Utils.createErrorMessage(e.message))
         }
         return sb
+    }
+
+    override fun sort() {
+        psalmodia.sort()
     }
 }

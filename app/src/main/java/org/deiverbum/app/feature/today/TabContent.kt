@@ -1,4 +1,4 @@
-package org.deiverbum.app.feature.interests
+package org.deiverbum.app.feature.today
 
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Box
@@ -23,13 +23,13 @@ import org.deiverbum.app.core.designsystem.component.scrollbar.DraggableScrollba
 import org.deiverbum.app.core.designsystem.component.scrollbar.rememberDraggableScroller
 import org.deiverbum.app.core.designsystem.component.scrollbar.scrollbarState
 import org.deiverbum.app.core.model.data.FollowableUITopic
-import org.deiverbum.app.core.ui.InterestsItem
+import org.deiverbum.app.core.ui.TodayItem
 
 @Composable
 fun TopicsTabContent(
     topics: List<FollowableUITopic>,
     onTopicClick: (String) -> Unit,
-    onFollowButtonClick: (String, Boolean) -> Unit,
+    //onFollowButtonClick: (String, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     withBottomSpacer: Boolean = true,
     selectedTopicId: String? = null,
@@ -51,13 +51,16 @@ fun TopicsTabContent(
                 val topicId = followableTopic.topic.id
                 item(key = topicId) {
                     val isSelected = highlightSelectedTopic && topicId.toString() == selectedTopicId
-                    InterestsItem(
+                    TodayItem(
                         name = followableTopic.topic.name,
                         following = followableTopic.isFollowed,
                         description = followableTopic.topic.description,
                         topicImageUrl = "followableTopic.topic.imageUrl",
                         onClick = { onTopicClick(topicId.toString()) },
-                        onFollowButtonClick = { onFollowButtonClick(topicId.toString(), it) },
+                        onFollowButtonClick = {
+                            //Botón +  en Today
+                            /*onFollowButtonClick(topicId.toString(), it) */
+                        },
                         isSelected = isSelected,
                     )
                 }

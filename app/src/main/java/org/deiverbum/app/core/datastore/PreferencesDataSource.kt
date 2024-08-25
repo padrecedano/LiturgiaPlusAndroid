@@ -1,6 +1,5 @@
 package org.deiverbum.app.core.datastore
 
-import android.util.Log
 import androidx.datastore.core.DataStore
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
@@ -9,10 +8,11 @@ import org.deiverbum.app.core.model.data.RubricColorConfig
 import org.deiverbum.app.core.model.data.ThemeBrand
 import org.deiverbum.app.core.model.data.UserData
 import org.deiverbum.app.core.model.data.UserDataDynamic
+import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
-class NiaPreferencesDataSource @Inject constructor(
+class PreferencesDataSource @Inject constructor(
     private val userPreferences: DataStore<UserPreferences>,
 ) {
     val userData = userPreferences.data
@@ -73,7 +73,7 @@ class NiaPreferencesDataSource @Inject constructor(
                 }
             }
         } catch (ioException: IOException) {
-            Log.e("NiaPreferences", "Failed to update user preferences", ioException)
+            Timber.d("NiaPreferences", "Failed to update user preferences", ioException)
         }
     }
 
@@ -90,7 +90,7 @@ class NiaPreferencesDataSource @Inject constructor(
                 }
             }
         } catch (ioException: IOException) {
-            Log.e("NiaPreferences", "Failed to update user preferences", ioException)
+            Timber.e("NiaPreferences", "Failed to update user preferences", ioException)
         }
     }
 
@@ -137,7 +137,7 @@ class NiaPreferencesDataSource @Inject constructor(
         setRubricColorConfig(darkThemeConfig)
     }
 
-    suspend fun setRubricColorConfig(darkThemeConfig: DarkThemeConfig) {
+    private suspend fun setRubricColorConfig(darkThemeConfig: DarkThemeConfig) {
         userPreferences.updateData {
             it.copy {
                 this.rubricColor = when (darkThemeConfig) {
@@ -164,7 +164,7 @@ class NiaPreferencesDataSource @Inject constructor(
                 }
             }
         } catch (ioException: IOException) {
-            Log.e("NiaPreferences", "Failed to update user preferences", ioException)
+            Timber.tag("NiaPreferences").e(ioException, "Failed to update user preferences")
         }
     }
 
@@ -214,7 +214,7 @@ class NiaPreferencesDataSource @Inject constructor(
                 }
             }
         } catch (ioException: IOException) {
-            Log.e("NiaPreferences", "Failed to update user preferences", ioException)
+            Timber.tag("NiaPreferences").e(ioException, "Failed to update user preferences")
         }
     }
 

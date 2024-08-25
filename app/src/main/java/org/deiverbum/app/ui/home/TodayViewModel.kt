@@ -25,7 +25,7 @@ import javax.inject.Inject
  * This is derived from [HomeViewModelNewState], but split into two possible subclasses to more
  * precisely represent the state available to render the UI.
  */
-sealed interface TodayUiState {
+sealed interface TodayUiState_OldVersion {
 
     val isLoading: Boolean
     val errorMessages: List<ErrorMessage>
@@ -41,7 +41,7 @@ sealed interface TodayUiState {
         override val isLoading: Boolean,
         override val errorMessages: List<ErrorMessage>,
         override val searchInput: String
-    ) : TodayUiState
+    ) : TodayUiState_OldVersion
 
     /**
      * There are posts to render, as contained in [postsFeed].
@@ -56,7 +56,7 @@ sealed interface TodayUiState {
         override val isLoading: Boolean,
         override val errorMessages: List<ErrorMessage>,
         override val searchInput: String
-    ) : TodayUiState
+    ) : TodayUiState_OldVersion
 }
 
 
@@ -77,15 +77,15 @@ private data class TodayViewModelState(
      * Converts this [HomeViewModelNewState] into a more strongly typed [HomeNewUiState] for driving
      * the ui.
      */
-    fun toUiState(): TodayUiState =
+    fun toUiState(): TodayUiState_OldVersion =
         if (postsFeed == null) {
-            TodayUiState.NoPosts(
+            TodayUiState_OldVersion.NoPosts(
                 isLoading = isLoading,
                 errorMessages = errorMessages,
                 searchInput = searchInput
             )
         } else {
-            TodayUiState.HasPosts(
+            TodayUiState_OldVersion.HasPosts(
                 //postsFeed = postsFeed,
                 // Determine the selected post. This will be the post the user last selected.
                 // If there is none (or that post isn't in the current feed), default to the
@@ -197,8 +197,9 @@ class TodayViewModel @Inject constructor(
     }
 
 
-    private val _uiState = MutableStateFlow<TodayUiState>(TodayUiState.Empty)
-    val uiState: StateFlow<TodayUiState> = _uiState
+    private val _uiState =
+        MutableStateFlow<TodayUiStateAnotherOldVersion>(TodayUiStateAnotherOldVersion.Empty)
+    val uiState: StateFlow<TodayUiStateAnotherOldVersion> = _uiState
 
     fun refreshPostss(todayRequest: TodayRequest) {
         // Ui state is refreshing
@@ -228,7 +229,7 @@ class TodayViewModel @Inject constructor(
 
 
     fun loadData(todayRequest: TodayRequest) {
-        _uiState.value = TodayUiState.Loading
+        _uiState.value = TodayUiStateAnotherOldVersion.Loading
         /*
         viewModelScope.launch(dispatcherIO) {
             try {
@@ -267,13 +268,13 @@ class TodayViewModel @Inject constructor(
         */
     }
 
-    sealed class TodayUiState {
-        object Empty : TodayUiState()
-        object Loading : TodayUiState()
+    sealed class TodayUiStateAnotherOldVersion {
+        object Empty : TodayUiStateAnotherOldVersion()
+        object Loading : TodayUiStateAnotherOldVersion()
 
         //object Universalis
-        class Loaded(val itemState: TodayItemUiState) : TodayUiState()
-        class Error(val message: String) : TodayUiState()
+        class Loaded(val itemState: TodayItemUiState) : TodayUiStateAnotherOldVersion()
+        class Error(val message: String) : TodayUiStateAnotherOldVersion()
     }
 }
 

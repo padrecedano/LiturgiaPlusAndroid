@@ -96,7 +96,7 @@ open class Sanctus(
             return sb
         }
 
-    private val monthName: String
+    val monthName: String
         get() {
             val monthNames = mapOf(
                 1 to "Enero",

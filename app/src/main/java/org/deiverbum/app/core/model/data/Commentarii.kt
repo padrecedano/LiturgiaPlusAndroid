@@ -13,8 +13,8 @@ data class Commentarii(
     override var typus: String = "commentarii"
     //,override var tempore: LiturgyTime
 ) : Traditio(typus) {
-    override fun forView(calendarTime: Int): SpannableStringBuilder {
-        var ssb = SpannableStringBuilder();
+    fun forView(calendarTime: Int): SpannableStringBuilder {
+        var ssb = SpannableStringBuilder()
         ssb.append(Utils.toH1Red(Constants.TITLE_BIBLE_COMMENTS))
         //ssb.append(Utils.LS2)
         biblicaWithComments.forEach {
@@ -29,5 +29,13 @@ data class Commentarii(
 
 
         return ssb
+    }
+
+    override fun sort() {
+        biblicaWithComments.forEach {
+            if (it.homiliae.isNotEmpty()) {
+                it.sort()
+            }
+        }
     }
 }

@@ -1,8 +1,5 @@
 package org.deiverbum.app.core.model.data
 
-import android.text.SpannableStringBuilder
-import androidx.compose.runtime.Composable
-
 /**
  *
  * Reúne aquellos elementos que son comunes a las diversas horas del Breviario.
@@ -24,22 +21,14 @@ import androidx.compose.runtime.Composable
 
 abstract class Breviarium(typus: String) :
     LiturgiaTypus(typus) {
-    fun forView(): SpannableStringBuilder {
-        return super.getHeaders()
-    }
+    /* fun forView(): SpannableStringBuilder {
+         return super.getHeaders()
+     }
 
-    @Composable
-    override fun allForView(calendarTime: Int, userData: UserDataDynamic) {
 
-    }
-
-    @Composable
-    open fun allForVieww(calendarTime: Int, userData: UserDataDynamic) {
-    }
-
-    override fun getTypus(): Any {
-        //return this
-        //return Any
-        return TODO("Provide the return value")
-    }
+     override fun getTypus(): Any {
+         //return this
+         //return Any
+         return TODO("Provide the return value")
+     }*/
 }

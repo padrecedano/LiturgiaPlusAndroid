@@ -3,7 +3,7 @@ package org.deiverbum.app.core.model.data
 /**
  * Recoge la información para la petición.
  */
-data class TopicRequest(
+data class UniversalisRequest(
     val date: Int,
     val id: Int,
     val name: String,

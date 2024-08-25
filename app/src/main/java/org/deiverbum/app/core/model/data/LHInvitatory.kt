@@ -1,11 +1,9 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.room.Ignore
-import org.deiverbum.app.core.designsystem.component.getRubricColor
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
@@ -65,14 +63,14 @@ class LHInvitatory(override var antiphonae: MutableList<LHAntiphon>) :
      * @see [LHLaudes.getForView]
      */
 
-    @Composable
+    //@Composable
     override fun getComposable(
         hourIndex: Int,
         calendarTime: Int,
         userData: UserDataDynamic
     ): AnnotatedString {
-        val rubricColor = getRubricColor(userData = userData)
-        SectionTitle(text = Constants.TITLE_INVITATORY.lowercase(), level = 1).getComposable()
+        val rubricColor = userData.rubricColor.value
+        //SectionTitle(text = Constants.TITLE_INVITATORY.lowercase(), level = 1).getComposable()
 
         val s = psalmus[0]
         antiphonae[0].normalizeByTime(calendarTime)

@@ -34,9 +34,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import org.deiverbum.app.feature.interests.InterestsRoute
-import org.deiverbum.app.feature.interests.navigation.INTERESTS_ROUTE
-import org.deiverbum.app.feature.interests.navigation.TOPIC_ID_ARG
+import org.deiverbum.app.feature.today.TodayRoute
+import org.deiverbum.app.feature.today.navigation.INTERESTS_ROUTE
+import org.deiverbum.app.feature.today.navigation.TOPIC_ID_ARG
 import org.deiverbum.app.feature.topic.TopicDetailPlaceholder
 import org.deiverbum.app.feature.topic.navigation.TOPIC_ROUTE
 import org.deiverbum.app.feature.topic.navigation.navigateToTopic
@@ -95,7 +95,7 @@ internal fun InterestsListDetailScreen(
         value = listDetailNavigator.scaffoldValue,
         directive = listDetailNavigator.scaffoldDirective,
         listPane = {
-            InterestsRoute(
+            TodayRoute(
                 onTopicClick = ::onTopicClickShowDetailPane,
                 highlightSelectedTopic = listDetailNavigator.isDetailPaneVisible(),
             )

@@ -1,11 +1,9 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.room.Ignore
-import org.deiverbum.app.core.designsystem.component.getRubricColor
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Constants.LS2
 import org.deiverbum.app.util.Utils
@@ -133,19 +131,19 @@ open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>, var 
         return sb
     }
 
-    @Composable
+    //@Composable
     open fun getComposable(
         hourIndex: Int,
         calendarTime: Int,
         userData: UserDataDynamic
     ): AnnotatedString {
-        val rubricColor = getRubricColor(userData = userData)
-        sort()
-        ContentTitle(
+        val rubricColor = userData.rubricColor.value// getRubricColor(userData = userData)
+        //sort()
+        /*ContentTitle(
             text = Constants.TITLE_PSALMODY.uppercase(),
             level = 2,
             userData = userData
-        ).getComposable()
+        ).getComposable()*/
 
         val sb = AnnotatedString.Builder()
         //SpannableStringBuilder(header)
@@ -370,12 +368,9 @@ open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>, var 
      * @since 2024.1
      */
     override fun sort() {
-        psalmus.sortBy {
-            it.theOrder
-        }
-        antiphonae.sortBy {
-            it.theOrder
-        }
+        psalmus = psalmus.sortedBy { it.theOrder } as MutableList<LHPsalm>
+        antiphonae = antiphonae.sortedBy { it.theOrder } as MutableList<LHAntiphon>
+        //antiphonae.sortBy { it.theOrder }
     }
 
 

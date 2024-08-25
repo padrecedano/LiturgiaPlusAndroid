@@ -33,9 +33,16 @@ enum class TopLevelDestination(
         iconTextId = R.string.feature_foryou_title,
         titleTextId = R.string.app_name,
     ),
-    BOOKMARKS(
+
+    /*BOOKMARKS(
         selectedIcon = NiaIcons.Bookmarks,
         unselectedIcon = NiaIcons.BookmarksBorder,
+        iconTextId = R.string.feature_bookmarks_title,
+        titleTextId = R.string.feature_bookmarks_title,
+    ),*/
+    CALENDAR(
+        selectedIcon = NiaIcons.Add,
+        unselectedIcon = NiaIcons.UpcomingBorder,
         iconTextId = R.string.feature_bookmarks_title,
         titleTextId = R.string.feature_bookmarks_title,
     ),

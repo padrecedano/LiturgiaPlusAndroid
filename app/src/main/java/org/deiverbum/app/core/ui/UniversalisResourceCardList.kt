@@ -3,29 +3,33 @@ package org.deiverbum.app.core.ui
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.Modifier
-import org.deiverbum.app.core.model.data.UserUniversalisResource
+import org.deiverbum.app.core.analytics.LocalAnalyticsHelper
+import org.deiverbum.app.core.model.data.UniversalisRequest
 
-/**
- * Función de extensión para mostrar una [List] de [UniversalisResourceCardExpanded] respaldada por una lista de
- * [UserUniversalisResource]s.
- *
- * [onToggleBookmark] servirá para cambiar entre una celebración y otra,
- * por ejemplo en el caso de ferias y memorias libres.
- */
-
-fun LazyListScope.userUniversalisResourceCardItems(
-    items: List<UserUniversalisResource>,
-    onToggleBookmark: (item: UserUniversalisResource) -> Unit,
+fun LazyListScope.universalisResourceCardItems(
+    items: List<UniversalisRequest>,
     itemModifier: Modifier = Modifier,
+    topicId: String?,
 ) = items(
     items = items,
-    key = { 0 },
-    itemContent = { userNewsResource ->
+    key = { it.data[0].liturgyFK },
+    itemContent = { universalisResource ->
+        val analyticsHelper = LocalAnalyticsHelper.current
 
-    UniversalisResourceCardExpanded(
-            isBookmarked = false,
-            userNewsResource = userNewsResource,
+        UniversalisResourceCardExpanded(
+            topicId = topicId,
+            universalisResource = items,
+            isBookmarked = true,//userNewsResource.isSaved,
+            hasBeenViewed = true,//userNewsResource.hasBeenViewed,
             onToggleBookmark = { /*onToggleBookmark(userNewsResource)*/ },
+            onClick = {
+                analyticsHelper.logNewsResourceOpened(
+                    newsResourceId = universalisResource.data[0].liturgyFK.toString(),
+                )
+                //launchCustomChromeTab(context, resourceUrl, backgroundColor)
+                //onNewsResourceViewed(userNewsResource.id)
+            },
+            onTopicClick = {},
             modifier = itemModifier,
         )
     },

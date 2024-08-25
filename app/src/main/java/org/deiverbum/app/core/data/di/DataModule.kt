@@ -13,7 +13,6 @@ import org.deiverbum.app.core.data.repository.OfflineFirstNewsRepository
 import org.deiverbum.app.core.data.repository.OfflineFirstTodayRepository
 import org.deiverbum.app.core.data.repository.OfflineFirstTopicsRepository
 import org.deiverbum.app.core.data.repository.OfflineFirstUniversalisRepository
-import org.deiverbum.app.core.data.repository.OfflineFirstUniversalisRepositoryy
 import org.deiverbum.app.core.data.repository.OfflineFirstUserDataRepository
 import org.deiverbum.app.core.data.repository.RecentSearchRepository
 import org.deiverbum.app.core.data.repository.SearchContentsRepository
@@ -22,7 +21,6 @@ import org.deiverbum.app.core.data.repository.TodayRepositoryImpl
 import org.deiverbum.app.core.data.repository.TodaysRepository
 import org.deiverbum.app.core.data.repository.TopicsRepository
 import org.deiverbum.app.core.data.repository.UniversalisRepository
-import org.deiverbum.app.core.data.repository.UniversalisRepositoryy
 import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.data.util.ConnectivityManagerNetworkMonitor
 import org.deiverbum.app.core.data.util.NetworkMonitor
@@ -43,12 +41,12 @@ interface DataModule {
         topicsRepository: OfflineFirstTopicsRepository,
     ): TopicsRepository
 
-
-    @Binds
-    fun bindsUniversalisRepositoryy(
-        topicsRepository: OfflineFirstUniversalisRepositoryy,
-    ): UniversalisRepository
-
+    /*
+        @Binds
+        fun bindsUniversalisRepositoryy(
+            topicsRepository: OfflineFirstUniversalisRepositoryy,
+        ): UniversalisRepository
+    */
     @Binds
     fun bindsTodayNewRepository(
         topicsRepository: OfflineFirstTodayRepository,
@@ -78,7 +76,7 @@ interface DataModule {
     @Binds
     fun bindsUniversalisResourceRepository(
         newsRepository: OfflineFirstUniversalisRepository,
-    ): UniversalisRepositoryy
+    ): UniversalisRepository
 
     @Binds
     fun bindsRecentSearchRepository(

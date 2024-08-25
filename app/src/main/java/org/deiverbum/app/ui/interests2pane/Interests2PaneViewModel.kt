@@ -20,7 +20,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
-import org.deiverbum.app.feature.interests.navigation.TOPIC_ID_ARG
+import org.deiverbum.app.feature.today.navigation.TOPIC_ID_ARG
 import javax.inject.Inject
 
 @HiltViewModel

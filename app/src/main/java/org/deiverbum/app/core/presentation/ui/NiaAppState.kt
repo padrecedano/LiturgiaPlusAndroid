@@ -26,16 +26,16 @@ import org.deiverbum.app.core.data.repository.UserNewsResourceRepository
 import org.deiverbum.app.core.data.util.NetworkMonitor
 import org.deiverbum.app.core.data.util.TimeZoneMonitor
 import org.deiverbum.app.core.ui.TrackDisposableJank
-import org.deiverbum.app.feature.bookmarks.navigation.BOOKMARKS_ROUTE
-import org.deiverbum.app.feature.bookmarks.navigation.navigateToBookmarks
+import org.deiverbum.app.feature.calendar.navigation.CALENDAR_ROUTE
+import org.deiverbum.app.feature.calendar.navigation.navigateToCalendar
 import org.deiverbum.app.feature.foryou.navigation.FOR_YOU_ROUTE
 import org.deiverbum.app.feature.foryou.navigation.navigateToForYou
 import org.deiverbum.app.feature.home.navigation.HOME_ROUTE
 import org.deiverbum.app.feature.home.navigation.navigateToHome
-import org.deiverbum.app.feature.interests.navigation.INTERESTS_ROUTE
-import org.deiverbum.app.feature.interests.navigation.navigateToInterests
+import org.deiverbum.app.feature.today.navigation.INTERESTS_ROUTE
+import org.deiverbum.app.feature.today.navigation.navigateToTodays
 import org.deiverbum.app.navigation.TopLevelDestination
-import org.deiverbum.app.navigation.TopLevelDestination.BOOKMARKS
+import org.deiverbum.app.navigation.TopLevelDestination.CALENDAR
 import org.deiverbum.app.navigation.TopLevelDestination.FOR_YOU
 import org.deiverbum.app.navigation.TopLevelDestination.HOME
 import org.deiverbum.app.navigation.TopLevelDestination.INTERESTS
@@ -88,7 +88,9 @@ class NiaAppState(
         @Composable get() = when (currentDestination?.route) {
             HOME_ROUTE -> HOME
             FOR_YOU_ROUTE -> FOR_YOU
-            BOOKMARKS_ROUTE -> BOOKMARKS
+            CALENDAR_ROUTE -> CALENDAR
+
+            //BOOKMARKS_ROUTE -> BOOKMARKS
             INTERESTS_ROUTE -> INTERESTS
             else -> null
         }
@@ -121,7 +123,7 @@ class NiaAppState(
             .combine(userNewsResourceRepository.observeAllBookmarked()) { forYouNewsResources, bookmarkedNewsResources ->
                 setOfNotNull(
                     FOR_YOU.takeIf { forYouNewsResources.any { !it.hasBeenViewed } },
-                    BOOKMARKS.takeIf { bookmarkedNewsResources.any { !it.hasBeenViewed } },
+                    //BOOKMARKS.takeIf { bookmarkedNewsResources.any { !it.hasBeenViewed } },
                 )
             }
             .stateIn(
@@ -163,8 +165,9 @@ class NiaAppState(
             when (topLevelDestination) {
                 HOME -> navController.navigateToHome(topLevelNavOptions)
                 FOR_YOU -> navController.navigateToForYou(topLevelNavOptions)
-                BOOKMARKS -> navController.navigateToBookmarks(topLevelNavOptions)
-                INTERESTS -> navController.navigateToInterests(null, topLevelNavOptions)
+                //BOOKMARKS -> navController.navigateToBookmarks(topLevelNavOptions)
+                INTERESTS -> navController.navigateToTodays(null, topLevelNavOptions)
+                CALENDAR -> navController.navigateToCalendar(topLevelNavOptions)
             }
         }
     }

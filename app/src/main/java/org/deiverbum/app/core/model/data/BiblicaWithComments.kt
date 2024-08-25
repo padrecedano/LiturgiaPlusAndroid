@@ -33,4 +33,17 @@ data class BiblicaWithComments(
         this.homiliae = homiliae
     }
 
+    fun sort() {
+        //homiliae=homiliae.sortedBy { it.theOrder } as MutableList<LHOfficiumLectioPrior>
+        //lectioAltera=lectioAltera.sortedBy { it.theOrder } as MutableList<LHOfficiumLectioAltera>
+        homiliae = homiliae.sortedWith(
+            compareBy({ it!!.paterOpus.pater!!.typeFK },
+                { it!!.date },
+                { it!!.book },
+                { it!!.chapter },
+                { it!!.colParagraph },
+                { it!!.colNumber })
+        ) as MutableList<Homily?>
+
+    }
 }

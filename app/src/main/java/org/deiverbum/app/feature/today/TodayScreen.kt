@@ -1,4 +1,4 @@
-package org.deiverbum.app.feature.interests
+package org.deiverbum.app.feature.today
 
 
 import androidx.compose.foundation.layout.Column
@@ -18,19 +18,19 @@ import org.deiverbum.app.core.ui.DevicePreviews
 import org.deiverbum.app.core.ui.TrackScreenViewEvent
 
 @Composable
-fun InterestsRoute(
+fun TodayRoute(
     onTopicClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     highlightSelectedTopic: Boolean = false,
-    viewModel: InterestsViewModel = hiltViewModel(),
+    viewModel: TodayViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    InterestsScreen(
+    TodayScreen(
         uiState = uiState,
-        followTopic = viewModel::followTopic,
+        //followTopic = {},//viewModel::followTopic,
         onTopicClick = {
-            viewModel.onTopicClick(it)
+            //viewModel.onTopicClick(it)
             onTopicClick(it)
         },
         highlightSelectedTopic = highlightSelectedTopic,
@@ -39,9 +39,9 @@ fun InterestsRoute(
 }
 
 @Composable
-internal fun InterestsScreen(
-    uiState: InterestsUiState,
-    followTopic: (String, Boolean) -> Unit,
+internal fun TodayScreen(
+    uiState: TodayUiState,
+    //followTopic: (String, Boolean) -> Unit,
     onTopicClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     highlightSelectedTopic: Boolean = false,
@@ -51,42 +51,42 @@ internal fun InterestsScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         when (uiState) {
-            InterestsUiState.Loading ->
+            TodayUiState.Loading ->
                 NiaLoadingWheel(
                     modifier = modifier,
                     contentDesc = stringResource(id = R.string.feature_interests_loading),
                 )
 
-            is InterestsUiState.Interests ->
+            is TodayUiState.Todays ->
                 TopicsTabContent(
                     topics = uiState.topics,
                     onTopicClick = onTopicClick,
-                    onFollowButtonClick = followTopic,
+                    //onFollowButtonClick = followTopic,
                     selectedTopicId = uiState.selectedTopicId,
                     highlightSelectedTopic = highlightSelectedTopic,
                     modifier = modifier,
                 )
 
-            is InterestsUiState.Empty -> InterestsEmptyScreen()
+            is TodayUiState.Empty -> TodayEmptyScreen()
         }
     }
-    TrackScreenViewEvent(screenName = "Interests")
+    TrackScreenViewEvent(screenName = "Today")
 }
 
 @Composable
-private fun InterestsEmptyScreen() {
+private fun TodayEmptyScreen() {
     Text(text = stringResource(id = R.string.feature_interests_empty_header))
 }
 
 
 @DevicePreviews
 @Composable
-fun InterestsScreenLoading() {
+fun TodayScreenLoading() {
     NiaTheme {
         NiaBackground {
-            InterestsScreen(
-                uiState = InterestsUiState.Loading,
-                followTopic = { _, _ -> },
+            TodayScreen(
+                uiState = TodayUiState.Loading,
+                //followTopic = { _, _ -> },
                 onTopicClick = {},
             )
         }
@@ -95,12 +95,12 @@ fun InterestsScreenLoading() {
 
 @DevicePreviews
 @Composable
-fun InterestsScreenEmpty() {
+fun TodayScreenEmpty() {
     NiaTheme {
         NiaBackground {
-            InterestsScreen(
-                uiState = InterestsUiState.Empty,
-                followTopic = { _, _ -> },
+            TodayScreen(
+                uiState = TodayUiState.Empty,
+                //followTopic = { _, _ -> },
                 onTopicClick = {},
             )
         }

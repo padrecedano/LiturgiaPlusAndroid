@@ -2,13 +2,11 @@ package org.deiverbum.app.core.data.repository
 
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import org.deiverbum.app.core.model.data.UserUniversalisResource
-import org.deiverbum.app.core.model.data.mapToUserUniversalisResources
 import javax.inject.Inject
 
 /**
@@ -16,7 +14,7 @@ import javax.inject.Inject
  * [UserDataRepository].
  */
 class CompositeUserUniversalisResourceRepository @Inject constructor(
-    val newsRepository: UniversalisRepository,
+    val newsRepository: UniversalisRepositoryy,
     val userDataRepository: UserDataRepository,
 ) : UserUniversalisResourceRepository {
 
@@ -29,14 +27,17 @@ class CompositeUserUniversalisResourceRepository @Inject constructor(
      * Returns available news resources (joined with user data) matching the given query.
      */
     val q = UniversalisResourceQuery(setOf(20240202), 0)
-    override fun observeAll(
+    override fun observeAll(query: UniversalisResourceQuery): Flow<List<UserUniversalisResource>> {
+        TODO("Not yet implemented")
+    }
+    /*override fun observeAll(
         query: UniversalisResourceQuery,
     ): Flow<List<UserUniversalisResource>> =
         newsRepository.getUniversalisByDate(query)
             .combine(userDataRepository.userData) { newsResources, userData ->
                 newsResources.mapToUserUniversalisResources(userData)
             }
-
+*/
 
     /**
      * Returns available news resources (joined with user data) for the followed topics.

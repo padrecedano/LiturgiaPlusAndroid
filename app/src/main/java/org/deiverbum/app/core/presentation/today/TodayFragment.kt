@@ -130,8 +130,8 @@ class TodayFragment : BaseFragment<FragmentTodayBinding>() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mViewModel.uiState.collect { state ->
                     when (state) {
-                        is TodayViewModel.TodayUiState.Loaded -> onLoaded(state.itemState)
-                        is TodayViewModel.TodayUiState.Error -> showError(state.message)
+                        is TodayViewModel.TodayUiStateOldVersion.Loaded -> onLoaded(state.itemState)
+                        is TodayViewModel.TodayUiStateOldVersion.Error -> showError(state.message)
                         else -> showLoading()
                     }
                 }

@@ -15,6 +15,7 @@
  */
 
 syntax = "proto3";
+import "user_preferences.proto";
 
 //import "org/deiverbum/app/core/datastore/dark_theme_config.proto";
 //import "org/deiverbum/app/core/datastore/theme_brand.proto";
@@ -22,7 +23,7 @@ syntax = "proto3";
 option java_package = "org.deiverbum.app.core.datastore";
 option java_multiple_files = true;
 
-message UserPreferences {
+/*message UserPreferences {
   reserved 2;
   repeated int32 deprecated_int_followed_topic_ids = 1;
   int32 topicChangeListVersion = 3;
@@ -50,4 +51,4 @@ message UserPreferences {
   bool use_dynamic_color = 19;
 
   // NEXT AVAILABLE ID: 21
-}
+}*/

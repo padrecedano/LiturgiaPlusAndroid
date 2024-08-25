@@ -1,4 +1,4 @@
-package org.deiverbum.app.feature.interests
+package org.deiverbum.app.feature.today
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -8,16 +8,15 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.domain.GetHomeTopicsUseCase
 import org.deiverbum.app.core.domain.HomeSortField
 import org.deiverbum.app.core.model.data.FollowableUITopic
-import org.deiverbum.app.feature.interests.navigation.TOPIC_ID_ARG
+import org.deiverbum.app.feature.today.navigation.TOPIC_ID_ARG
 import javax.inject.Inject
 
 @HiltViewModel
-class InterestsViewModel @Inject constructor(
+class TodayViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     val userDataRepository: UserDataRepository,
     getFollowableTopics: GetHomeTopicsUseCase,
@@ -26,34 +25,34 @@ class InterestsViewModel @Inject constructor(
 
     val selectedTopicId: StateFlow<String?> = savedStateHandle.getStateFlow(TOPIC_ID_ARG, null)
 
-    val uiState: StateFlow<InterestsUiState> = combine(
+    val uiState: StateFlow<TodayUiState> = combine(
         selectedTopicId,
         getFollowableTopics(sortBy = HomeSortField.ID),
-        InterestsUiState::Interests,
+        TodayUiState::Todays,
     ).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = InterestsUiState.Loading,
+        initialValue = TodayUiState.Loading,
     )
-
-    fun followTopic(followedTopicId: String, followed: Boolean) {
-        viewModelScope.launch {
-            userDataRepository.setTopicIdFollowed(followedTopicId, followed)
+    /*
+        fun followTopic(followedTopicId: String, followed: Boolean) {
+            viewModelScope.launch {
+                userDataRepository.setTopicIdFollowed(followedTopicId, followed)
+            }
         }
-    }
-
-    fun onTopicClick(topicId: String?) {
+    */
+    /*fun onTopicClick(topicId: String?) {
         //savedStateHandle[TOPIC_ID_ARG] = topicId
-    }
+    }*/
 }
 
-sealed interface InterestsUiState {
-    data object Loading : InterestsUiState
+sealed interface TodayUiState {
+    data object Loading : TodayUiState
 
-    data class Interests(
+    data class Todays(
         val selectedTopicId: String?,
         val topics: List<FollowableUITopic>,
-    ) : InterestsUiState
+    ) : TodayUiState
 
-    data object Empty : InterestsUiState
+    data object Empty : TodayUiState
 }

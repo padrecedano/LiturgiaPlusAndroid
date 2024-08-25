@@ -1,7 +1,5 @@
 package org.deiverbum.app.core.model.data
 
-import android.text.SpannableStringBuilder
-
 /**
  *
  * Reúne aquellos elementos que son comunes a los Sacramentos.
@@ -18,11 +16,7 @@ import android.text.SpannableStringBuilder
  */
 
 abstract class Sacramentis(typus: String) :
-    LiturgiaTypus(typus) {
-    fun forView(): SpannableStringBuilder {
-        return super.getHeaders()
-    }
-}
+    LiturgiaTypus(typus)
 
 /*
 sealed interface Sacramentis : LiturgiaTypus {

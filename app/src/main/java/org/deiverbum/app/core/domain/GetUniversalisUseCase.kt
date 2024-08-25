@@ -6,13 +6,15 @@ import kotlinx.coroutines.flow.filterNotNull
 import org.deiverbum.app.core.data.repository.UniversalisRepository
 import org.deiverbum.app.core.data.repository.UniversalisResourceQuery
 import org.deiverbum.app.core.data.repository.UserDataRepository
-import org.deiverbum.app.core.model.data.TopicRequest
+import org.deiverbum.app.core.model.data.UniversalisRequest
 import javax.inject.Inject
 
 /**
- * A use case which obtains a list of topics with their followed state.
+ * Este caso de uso obtiene los Universalis de la fecha dada.
+ * Si no los encuentra en la base de datos local, llama al método de inserción
+ * en la fuente de datos remota.
  */
-class GetFollowableUniversalisUseCase @Inject constructor(
+class GetUniversalisUseCase @Inject constructor(
     private val topicsRepository: UniversalisRepository,
     private val userDataRepository: UserDataRepository,
 ) {
@@ -25,7 +27,7 @@ class GetFollowableUniversalisUseCase @Inject constructor(
         sortBy: HomeSortField = HomeSortField.NONE,
         date: Int,
         topicId: Int
-    ): Flow<List<TopicRequest>> {
+    ): Flow<List<UniversalisRequest>> {
         return combine(
             userDataRepository.userData,
             topicsRepository.getUniversalisByDate(UniversalisResourceQuery(setOf(date), topicId)),
@@ -35,7 +37,7 @@ class GetFollowableUniversalisUseCase @Inject constructor(
                 topicsRepository.insertFromRemote(UniversalisResourceQuery(setOf(date), topicId))
             }
             val followedTopics = topics.map { topic ->
-                TopicRequest(
+                UniversalisRequest(
                     date = topics[0].data[0].todayDate, //TODO:Este flujo se repite ¿?
                     resource = "",
                     name = "",

@@ -3,7 +3,7 @@ package org.deiverbum.app.core.data.repository
 import androidx.annotation.VisibleForTesting
 import kotlinx.coroutines.flow.Flow
 import org.deiverbum.app.core.analytics.AnalyticsHelper
-import org.deiverbum.app.core.datastore.NiaPreferencesDataSource
+import org.deiverbum.app.core.datastore.PreferencesDataSource
 import org.deiverbum.app.core.model.data.DarkThemeConfig
 import org.deiverbum.app.core.model.data.RubricColorConfig
 import org.deiverbum.app.core.model.data.ThemeBrand
@@ -11,7 +11,7 @@ import org.deiverbum.app.core.model.data.UserData
 import javax.inject.Inject
 
 class OfflineFirstUserDataRepository @Inject constructor(
-    private val niaPreferencesDataSource: NiaPreferencesDataSource,
+    private val niaPreferencesDataSource: PreferencesDataSource,
     private val analyticsHelper: AnalyticsHelper,
 ) : UserDataRepository {
 

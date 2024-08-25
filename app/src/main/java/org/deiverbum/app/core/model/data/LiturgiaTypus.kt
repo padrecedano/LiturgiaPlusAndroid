@@ -1,7 +1,6 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import androidx.compose.runtime.Composable
 
 /**
  *
@@ -17,26 +16,17 @@ import androidx.compose.runtime.Composable
  */
 
 abstract class LiturgiaTypus
-    (open val typus: String) {
+    (open val typus: String) : Sortable {
     open fun getHeaders(): SpannableStringBuilder {
         return SpannableStringBuilder()
     }
 
-    open fun forView(calendarTime: Int): SpannableStringBuilder {
-        return SpannableStringBuilder()
-    }
-
-    @Composable
-    open fun allForView(calendarTime: Int, userData: UserDataDynamic) {
-
-    }
 
     open fun forRead(): StringBuilder {
         return StringBuilder("")
     }
 
-    open fun getTypus(): Any {
-        return TODO("Provide the return value")
+    override fun sort() {
     }
 }
 

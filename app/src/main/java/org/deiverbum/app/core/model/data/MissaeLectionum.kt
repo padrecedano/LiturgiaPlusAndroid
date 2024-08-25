@@ -86,7 +86,8 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
                 }
                 append(Utils.LS2)
             }
-            append(Utils.fromHtml(biblica))
+            //append(Utils.fromHtml(biblica))
+            append(Utils.transformText(biblica, rubricColor))
             append(Utils.LS)
         }
 

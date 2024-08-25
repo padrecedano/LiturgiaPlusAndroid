@@ -75,11 +75,11 @@ class TodayViewModel @Inject constructor(
         // Treat selecting a detail as simply interacting with it
     }
 
-    private val _uiState = MutableStateFlow<TodayUiState>(TodayUiState.Empty)
-    val uiState: StateFlow<TodayUiState> = _uiState
+    private val _uiState = MutableStateFlow<TodayUiStateOldVersion>(TodayUiStateOldVersion.Empty)
+    val uiState: StateFlow<TodayUiStateOldVersion> = _uiState
 
     fun loadData(todayRequest: TodayRequest) {
-        _uiState.value = TodayUiState.Loading
+        _uiState.value = TodayUiStateOldVersion.Loading
 
     }
 
@@ -88,13 +88,13 @@ class TodayViewModel @Inject constructor(
 
     }
 
-    sealed class TodayUiState {
-        object Empty : TodayUiState()
-        object Loading : TodayUiState()
+    sealed class TodayUiStateOldVersion {
+        object Empty : TodayUiStateOldVersion()
+        object Loading : TodayUiStateOldVersion()
 
         //object Universalis
-        class Loaded(val itemState: TodayItemUiState) : TodayUiState()
-        class Error(val message: String) : TodayUiState()
+        class Loaded(val itemState: TodayItemUiState) : TodayUiStateOldVersion()
+        class Error(val message: String) : TodayUiStateOldVersion()
     }
 }
 
