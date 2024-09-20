@@ -106,7 +106,6 @@ fun OfficiumScreen(
 ) {
     val rubricColor = getRubricColor(userData = userData)
 
-
     Column {
         val asb = AnnotatedString.Builder()
         data.officiumLectionis.normalizeByTime(calendarTime)

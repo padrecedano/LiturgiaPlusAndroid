@@ -55,6 +55,10 @@ interface UniversalisRepository : Syncable {
         ),
     ): Flow<List<UniversalisResource>>
 
+    fun getReader(): String {
+        return TODO("Provide the return value")
+    }
+
     //fun getNewsResources(todayDate:Int): Universalis
     /**
      * Returns available news resources that match the specified [query].

@@ -1,17 +1,15 @@
 package org.deiverbum.app.feature.universalis
 
-import NiaIcons
-import androidx.compose.foundation.clickable
+import LPlusIcons
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -23,35 +21,23 @@ import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SearchBar
-import androidx.compose.material3.SearchBarDefaults
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.isTraversalGroup
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -62,122 +48,83 @@ import org.deiverbum.app.core.designsystem.component.scrollbar.DraggableScrollba
 import org.deiverbum.app.core.designsystem.component.scrollbar.rememberDraggableScroller
 import org.deiverbum.app.core.designsystem.component.scrollbar.scrollbarState
 import org.deiverbum.app.core.model.data.UniversalisRequest
+import org.deiverbum.app.core.ui.ReaderButton
 import org.deiverbum.app.core.ui.universalisResourceCardItems
-import org.deiverbum.app.util.LiturgyHelper
+import org.deiverbum.app.feature.tts.TextToSpeechScreenB
 import org.deiverbum.app.util.Utils
 
-@OptIn(ExperimentalMaterial3Api::class)
+/**
+ * Es llamada desde la pantalla inicial para obtener el contenido
+ * del tópico que haya sido elegido.
+ *
+ * Se encarga de obtener el estado del ViewModel.
+ *
+ **
+ * @param onBackClick Lambda para manejar la navegación hacia atrás.
+ * @param onTopicClick Lambda para manejar el tópico específico que fue seleccionado.
+ * @param modifier El modificador.
+ * @param viewModel Un objeto [UniversalisViewModel] para conectar con el repositorio.
+ *
+ *
+ */
+
+@ExperimentalFoundationApi
 @ExperimentalMaterial3AdaptiveApi
 @Composable
-fun UniversalisRoute(
-    showBackButton: Boolean,
-    onBackClick: () -> Unit,
-    onTopicClick: (String) -> Unit,
+fun UniversalisFromHomeScreen(
+    //showBackButton: Boolean,
+    //onBackClick: () -> Unit,
+    //onTopicClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: UniversalisViewModel = hiltViewModel(),
+    onReaderClick: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    //val onboardingUiState by viewModel.onboardingUiState.collectAsStateWithLifecycle()
 
-    var query by remember { mutableStateOf("") }
-//SearchBarSample()
-    //  return
-
-
-
-
-    UniversalisScreen(
+    UniversalisFromHomeScreen(
         uiState = uiState,
-        //onboardingUiState = onboardingUiState,
         modifier = modifier,
         followTopic = viewModel::followTopic,
-        onBackClick = onBackClick,//listDetailNavigator::navigateBack,
+        //onReaderClick = onReaderClick,
+        onReaderClick = viewModel::onReaderClick,
+        onBackClick = {},//listDetailNavigator::navigateBack,
         //onTopicClick=onTopicClick
         onTopicClick = {
-            viewModel.onTopicClick(it)
-            onTopicClick(it)
+            //viewModel.onTopicClick(it)
+            //onTopicClick(it)
         },
     )
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun SearchBarSample() {
-    var text by rememberSaveable { mutableStateOf("") }
-    var expanded by rememberSaveable { mutableStateOf(false) }
+/**
+ * Función interna de la pantalla para objetos **`Universalis`**.
+ *
+ * Aquí se verificar el estado de la UI para mostrar el contenido.
+ *
+ * Los elementos se organizan del modo siguiente:
+ * 1. [UniversalisToolbar] es la barra superior de  la pantalla.
+ * 2. [universalisBody] crea el contenido de la pantalla.
+ *
+ **
+ * @param uiState Un objeto [UniversalisUiState] con el estado en el ViewModel.
+ * @param modifier El modificador.
+ * @param onBackClick Para manejar la navegación hacia atrás.
+ *
+ *
+ */
 
-    Box(
-        Modifier
-            .fillMaxSize()
-            .semantics { isTraversalGroup = true }) {
-        SearchBar(
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .semantics { traversalIndex = 0f },
-            inputField = {
-                SearchBarDefaults.InputField(
-                    query = text,
-                    onQueryChange = { text = it },
-                    onSearch = { expanded = false },
-                    expanded = expanded,
-                    onExpandedChange = { expanded = it },
-                    placeholder = { Text("Escriba el texto") },
-                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-                    trailingIcon = { Icon(Icons.Default.MoreVert, contentDescription = null) },
-                )
-            },
-            expanded = expanded,
-            onExpandedChange = { expanded = it },
-        ) {
-            Column(Modifier.verticalScroll(rememberScrollState())) {
-                repeat(4) { idx ->
-                    val resultText = "Suggestion $idx"
-                    ListItem(
-                        headlineContent = { Text(resultText) },
-                        supportingContent = { Text("Additional info") },
-                        leadingContent = { Icon(Icons.Filled.Star, contentDescription = null) },
-                        colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-                        modifier =
-                        Modifier
-                            .clickable {
-                                text = resultText
-                                expanded = false
-                            }
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 4.dp)
-                    )
-                }
-            }
-        }
-        LazyColumn(
-            contentPadding = PaddingValues(start = 16.dp, top = 72.dp, end = 16.dp, bottom = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.semantics { traversalIndex = 1f },
-        ) {
-            val list = List(100) { "Text $it" }
-            items(count = list.size) {
-                Text(
-                    text = list[it],
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                )
-            }
-        }
-    }
-}
-
+@ExperimentalFoundationApi
 @Composable
-internal fun UniversalisScreen(
-    uiState: InterestsUiStateInHome,
+internal fun UniversalisFromHomeScreen(
+    uiState: UniversalisUiState,
     modifier: Modifier = Modifier,
     followTopic: (String, Boolean) -> Unit,
     onBackClick: () -> Unit,
+    onReaderClick: () -> Unit,
     onTopicClick: (String) -> Unit,
-    //onboardingUiState: OnboardingUiState,
 
-) {
+    ) {
     val state = rememberLazyListState()
 
     Box(
@@ -192,41 +139,36 @@ internal fun UniversalisScreen(
             }
 
             when (uiState) {
-                InterestsUiStateInHome.Loading -> item {
+                UniversalisUiState.Loading -> item {
                     NiaLoadingWheel(
                         modifier = modifier,
                         contentDesc = stringResource(id = R.string.generic_loading),
                     )
                 }
 
-                is InterestsUiStateInHome.InterestsInHome -> {
+                is UniversalisUiState.UniversalisData -> {
                     item {
                         UniversalisToolbar(
                             showBackButton = true,
                             onBackClick = onBackClick,
-                            onFollowClick = {},
+                            onReaderClick = onReaderClick,
                             uiState = uiState.topics,
                             modifier = modifier,
                         )
                     }
+
                     if (uiState.topics.isNotEmpty()) {
-
                         universalisBody(
-                            name = Utils.capitalize(LiturgyHelper.liturgyByType(uiState.selectedTopicId!!.toInt())),
-                            //name = "***",
-                            description = uiState.topics[0].data[0].fecha,
                             universalis = uiState,
-                            onTopicClick = onTopicClick,
-
-                            )
+                            onReaderClick = onReaderClick
+                        )
                     } else {
-                        //TODO
-                        //InterestsEmptyScreen()
+                        universalisEmpty()
                     }
                 }
 
-                InterestsUiStateInHome.Empty -> TODO()
-                InterestsUiStateInHome.Error -> TODO()
+                UniversalisUiState.Empty -> universalisEmpty()
+                UniversalisUiState.Error -> universalisError()
 
             }
 
@@ -234,7 +176,7 @@ internal fun UniversalisScreen(
                 Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
             }
         }
-        val itemsAvailable = 1//topicItemsSize(topicUiState, newsUiState)
+        val itemsAvailable = 1
 
         val scrollbarState = state.scrollbarState(
             itemsAvailable = itemsAvailable,
@@ -254,19 +196,61 @@ internal fun UniversalisScreen(
     }
 }
 
+/**
+ * Muestra el cuerpo del contenido, con la ayuda de [universalisResourceCards].
+ *
+ **
+ * @param name Es el nombre del `Universalis`.
+ * @param description La fecha.
+ * @param universalis Los datos, obtenidos desde el objeto `UniversalisData`.
+ *
+ * @see [UniversalisHeader]
+ * @see [universalisResourceCards]
+ *
+ */
+
 private fun LazyListScope.universalisBody(
-    name: String,
-    description: String,
-    universalis: InterestsUiStateInHome.InterestsInHome,
-    onTopicClick: (String) -> Unit,
+    universalis: UniversalisUiState.UniversalisData,
+    onReaderClick: () -> Unit,
 
     ) {
     item {
-        UniversalisHeader(name, description)
+        UniversalisHeader(universalis.selectedTopicId!!, universalis.topics[0].date)
     }
-    universalisResourceCards(universalis)
+    universalisResourceCardItems(
+        items = universalis.topics,
+        topicId = universalis.selectedTopicId!!,
+        itemModifier = Modifier.padding(24.dp),
+        onReaderClick = onReaderClick
+    )
+    //universalisResourceCards(universalis, onReaderClick)
 }
 
+private fun LazyListScope.universalisEmpty() {
+    item {
+        UniversalisEmptyScreen()
+    }
+}
+
+private fun LazyListScope.universalisError() {
+    item {
+        UniversalisErrorScreen()
+    }
+}
+
+/**
+ * Barra superior de la pantalla.
+ * Maneja la navegación hacia atrás y la lectura de voz.
+ **
+ *
+ * @param uiState Un objeto [UniversalisUiState] con el estado en el ViewModel.
+ * @param modifier El modificador.
+ * @param onBackClick Para manejar la navegación hacia atrás.
+ *
+ *
+ */
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UniversalisToolbar(
     //showBackButton: Boolean, onBackClick: () -> Unit, onFollowClick: () -> Unit, uiState: List<FollowableTopic>, modifier: Modifier) {
@@ -274,8 +258,13 @@ fun UniversalisToolbar(
     modifier: Modifier = Modifier,
     showBackButton: Boolean = true,
     onBackClick: () -> Unit = {},
+    onReaderClick: () -> Unit = {},
+
     onFollowClick: (Boolean) -> Unit = {},
 ) {
+    val sheetState = rememberModalBottomSheetState()
+    val scope = rememberCoroutineScope()
+    var showBottomSheet by remember { mutableStateOf(false) }
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
@@ -286,7 +275,7 @@ fun UniversalisToolbar(
         if (showBackButton) {
             IconButton(onClick = { onBackClick() }) {
                 Icon(
-                    imageVector = NiaIcons.ArrowBack,
+                    imageVector = LPlusIcons.ArrowBack,
                     contentDescription = stringResource(
                         id = R.string.core_ui_back,
                     ),
@@ -296,56 +285,133 @@ fun UniversalisToolbar(
             // Keeps the NiaFilterChip aligned to the end of the Row.
             Spacer(modifier = Modifier.width(1.dp))
         }
-        val selected = true//uiState.isFollowed
+        val selected = uiState[0].dynamic.useVoiceReader//true//uiState.isFollowed
+        //showBottomSheet = uiState[0].dynamic.useVoiceReader//true//uiState.isFollowed
+
+        ReaderButton(true, onClick = {
+            showBottomSheet = true
+        })
+
         NiaFilterChip(
             selected = selected,
-            onSelectedChange = onFollowClick,
+            onSelectedChange = {
+                showBottomSheet = true
+            },
             modifier = Modifier.padding(end = 24.dp),
+            //onClick={}
         ) {
             if (selected) {
                 Text("FOLLOWING")
+
             } else {
                 Text("NOT FOLLOWING")
             }
         }
+
+
+        if (showBottomSheet) {
+            var sb = uiState[0].data[0].getAllForRead()
+            ModalBottomSheet(
+                onDismissRequest = {
+                    showBottomSheet = false
+                },
+                sheetState = sheetState
+            ) {
+                // Sheet content
+                TextToSpeechScreenB(text = sb)
+                //TextToSpeechScreenA(text = sb)
+                /*Button(onClick = {
+                    scope.launch { sheetState.hide() }.invokeOnCompletion {
+                        if (!sheetState.isVisible) {
+                            showBottomSheet = false
+                        }
+                    }
+                }) {
+                    Text("Hide bottom sheet")
+                }*/
+            }
+        }
+
     }
 }
 
 // TODO: Could/should this be replaced with [LazyGridScope.newsFeed]?
 private fun LazyListScope.universalisResourceCards(
-    universalis: InterestsUiStateInHome,
+    universalis: UniversalisUiState,
+    onReaderClick: () -> Unit,
 ) {
     when (universalis) {
-        is InterestsUiStateInHome.InterestsInHome -> {
+        is UniversalisUiState.UniversalisData -> {
             universalisResourceCardItems(
                 items = universalis.topics,
-                topicId = universalis.selectedTopicId,
+                //TODO: Normalizar con respecto a VM y UseCase
+                topicId = universalis.selectedTopicId!!,
                 itemModifier = Modifier.padding(24.dp),
+                onReaderClick = onReaderClick
             )
         }
 
-        is InterestsUiStateInHome.Loading -> item {
-            NiaLoadingWheel(contentDesc = "Loading news") // TODO
+        is UniversalisUiState.Loading -> item {
+            NiaLoadingWheel(contentDesc = stringResource(id = R.string.generic_loading))
         }
 
         else -> item {
-            Text("Error") // TODO
+            Text("Error")
         }
     }
 }
 
+/**
+ * Encabezado de la pantalla.
+ *
+ **
+ *
+ * @param name El nombre del `Universalis`
+ * @param date La fecha.
+ */
 @Composable
-private fun UniversalisHeader(name: String, description: String) {
+private fun UniversalisHeader(name: String, date: Int) {
     Column(
         modifier = Modifier.padding(horizontal = 24.dp),
     ) {
         Text(name, style = MaterialTheme.typography.displayMedium)
-        if (description.isNotEmpty()) {
+        if (date > 0) {
             Text(
-                description,
+                Utils.formatDate(date.toString(), "yyyyMMdd", "EEEE d 'de' MMMM 'de' yyyy"),
                 modifier = Modifier.padding(top = 24.dp),
                 style = MaterialTheme.typography.bodyLarge,
             )
         }
+    }
+}
+
+/**
+ * Se muestra cuando no hay contenido en el estado.
+ */
+
+@Composable
+private fun UniversalisEmptyScreen() {
+    Column(
+        modifier = Modifier.padding(horizontal = 24.dp),
+    ) {
+        Text(
+            text = stringResource(id = R.string.feature_universalis_empty_message),
+            style = MaterialTheme.typography.titleMedium
+        )
+    }
+}
+
+/**
+ * Se muestra cuando hay error en el estado.
+ */
+@Composable
+private fun UniversalisErrorScreen() {
+    Column(
+        modifier = Modifier.padding(horizontal = 24.dp),
+    ) {
+        Text(
+            text = stringResource(id = R.string.feature_universalis_error_message),
+            style = MaterialTheme.typography.titleMedium
+        )
     }
 }

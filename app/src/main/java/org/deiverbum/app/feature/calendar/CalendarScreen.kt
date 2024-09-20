@@ -1,4 +1,4 @@
-package org.deiverbum.app.feature.calendar.navigation
+package org.deiverbum.app.feature.calendar
 
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
@@ -7,8 +7,15 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @ExperimentalCoroutinesApi
 @Composable
@@ -22,14 +29,37 @@ internal fun CalendarRoute(
     val isSyncing by viewModel.isSyncing.collectAsStateWithLifecycle()
     val deepLinkedUserNewsResource by viewModel.deepLinkedNewsResource.collectAsStateWithLifecycle()
 */
-    DatePickerModal(
+    var showModal by remember { mutableStateOf(true) }
+// [END_EXCLUDE]
+    var selectedDate by remember { mutableStateOf<Long?>(null) }
+
+    if (selectedDate != null) {
+        val date = Date(selectedDate!!)
+        val formattedDate = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(date)
+        Text("Selected date: $formattedDate")
+    } else {
+        Text("No date selected")
+    }
+
+    if (showModal) {
+// [END_EXCLUDE]
+        DatePickerModal(
+            onDateSelected = {
+                selectedDate = it
+                showModal = false
+            },
+            onDismiss = { showModal = false }
+        )
+    }
+
+    /*DatePickerModalInput(
         onDateSelected = onDateSelected,
         onDismiss = {}
-    )
+    )*/
 }
 
-
 @OptIn(ExperimentalMaterial3Api::class)
+// [START android_compose_components_datepicker_modal]
 @Composable
 fun DatePickerModal(
     onDateSelected: (Long?) -> Unit,
@@ -56,3 +86,5 @@ fun DatePickerModal(
         DatePicker(state = datePickerState)
     }
 }
+// [END android_compose_components_datepicker_modal]
+

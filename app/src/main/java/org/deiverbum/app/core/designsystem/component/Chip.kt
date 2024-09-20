@@ -16,7 +16,7 @@
 
 package org.deiverbum.app.core.designsystem.component
 
-import NiaIcons
+import LPlusIcons
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.FilterChip
@@ -29,7 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import org.deiverbum.app.core.designsystem.theme.NiaTheme
+import org.deiverbum.app.core.designsystem.theme.LPlusTheme
 
 /**
  * Now in Android filter chip with included leading checked icon as well as text content slot.
@@ -62,7 +62,7 @@ fun NiaFilterChip(
         leadingIcon = if (selected) {
             {
                 Icon(
-                    imageVector = NiaIcons.Check,
+                    imageVector = LPlusIcons.Check,
                     contentDescription = null,
                 )
             }
@@ -109,8 +109,8 @@ fun NiaFilterChip(
 @ThemePreviews
 @Composable
 fun ChipPreview() {
-    NiaTheme {
-        NiaBackground(modifier = Modifier.size(80.dp, 20.dp)) {
+    LPlusTheme {
+        LPlusBackground(modifier = Modifier.size(80.dp, 20.dp)) {
             NiaFilterChip(selected = true, onSelectedChange = {}) {
                 Text("Chip")
             }

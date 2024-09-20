@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.ui
 
-import NiaIcons
+import LPlusIcons
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.horizontalScroll
@@ -50,7 +50,7 @@ import kotlinx.datetime.toJavaZoneId
 import org.deiverbum.app.R
 import org.deiverbum.app.core.designsystem.component.NiaIconToggleButton
 import org.deiverbum.app.core.designsystem.component.NiaTopicTag
-import org.deiverbum.app.core.designsystem.theme.NiaTheme
+import org.deiverbum.app.core.designsystem.theme.LPlusTheme
 import org.deiverbum.app.core.model.data.FollowableTopic
 import org.deiverbum.app.core.model.data.UserNewsResource
 import java.time.format.DateTimeFormatter
@@ -116,10 +116,10 @@ fun NewsResourceCardExpanded(
                     Spacer(modifier = Modifier.height(14.dp))
                     NewsResourceShortDescription(userNewsResource.content)
                     Spacer(modifier = Modifier.height(12.dp))
-                    NewsResourceTopics(
+                    /*NewsResourceTopics(
                         topics = userNewsResource.followableTopics,
                         onTopicClick = onTopicClick,
-                    )
+                    )*/
                 }
             }
         }
@@ -189,17 +189,19 @@ fun BookmarkButton(
 ) {
     NiaIconToggleButton(
         checked = isBookmarked,
-        onCheckedChange = { onClick() },
+        onCheckedChange = {
+            onClick()
+        },
         modifier = modifier,
         icon = {
             Icon(
-                imageVector = NiaIcons.BookmarkBorder,
+                imageVector = LPlusIcons.BookmarkBorder,
                 contentDescription = "stringResource(R.string.core_ui_bookmark)",
             )
         },
         checkedIcon = {
             Icon(
-                imageVector = NiaIcons.Bookmark,
+                imageVector = LPlusIcons.Bookmark,
                 contentDescription = "stringResource(R.string.core_ui_unbookmark)",
             )
         },
@@ -316,7 +318,7 @@ fun NewsResourceTopics(
 @Preview("Bookmark Button")
 @Composable
 private fun BookmarkButtonPreview() {
-    NiaTheme {
+    LPlusTheme {
         Surface {
             BookmarkButton(isBookmarked = false, onClick = { })
         }
@@ -326,7 +328,7 @@ private fun BookmarkButtonPreview() {
 @Preview("Bookmark Button Bookmarked")
 @Composable
 private fun BookmarkButtonBookmarkedPreview() {
-    NiaTheme {
+    LPlusTheme {
         Surface {
             BookmarkButton(isBookmarked = true, onClick = { })
         }
@@ -343,7 +345,7 @@ private fun ExpandedNewsResourcePreview(
     CompositionLocalProvider(
         LocalInspectionMode provides true,
     ) {
-        NiaTheme {
+        LPlusTheme {
             Surface {
                 NewsResourceCardExpanded(
                     userNewsResource = userNewsResources[0],

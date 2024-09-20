@@ -15,7 +15,7 @@ import javax.inject.Inject
  */
 
 class LocalSyncEntityData @Inject constructor(
-    private val todayDao: TodayDao
+    //private val todayDao: TodayDao
 ) : SyncEntityData {
 
     /**
@@ -30,22 +30,15 @@ class LocalSyncEntityData @Inject constructor(
      * @param syncRequest es un objeto [SyncRequest] con la petición de sincronización.
      * @return Un objeto [SyncResponse] con una propiedad [Source.LOCAL].
      */
-    override suspend fun getSync(syncRequest: SyncRequest): SyncResponse {
-        val se = todayDao.syncInfo()
-        if (syncRequest.yearToClean != 0) {
-            val rowsDeleted = todayDao.deletePastYear(syncRequest.yearToClean)
-            if (rowsDeleted > 0) {
-                se.lastYearCleaned = true
-            }
-        }
-        se.source = Source.LOCAL
 
-        return SyncResponse(se)
-        //return SyncResponse(SyncStatus())
+
+    override suspend fun getSync(syncRequest: SyncRequest): SyncResponse {
+        TODO("Not yet implemented")
     }
 
-
-
+    override suspend fun addSync(syncResponse: SyncResponse) {
+        TODO("Not yet implemented")
+    }
 
 
     /**
@@ -57,7 +50,7 @@ class LocalSyncEntityData @Inject constructor(
      *
      * @param syncResponse Es un objeto [SyncResponse] con los datos a sincronizar.
      */
-    override suspend fun addSync(syncResponse: SyncResponse) {
+    /*override suspend fun addSync(syncResponse: SyncResponse) {
         if (syncResponse.allToday.isNotEmpty()) {
             //syncResponse.allToday=syncResponse.allToday.take(3)
             val insertedRows =
@@ -67,6 +60,6 @@ class LocalSyncEntityData @Inject constructor(
             }
         }
 
-    }
+    }*/
 
 }

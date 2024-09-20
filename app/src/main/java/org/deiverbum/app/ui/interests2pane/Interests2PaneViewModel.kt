@@ -20,16 +20,16 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
-import org.deiverbum.app.feature.today.navigation.TOPIC_ID_ARG
+//import org.deiverbum.app.feature.today.navigation.TOPIC_ID_ARG
 import javax.inject.Inject
 
 @HiltViewModel
 class Interests2PaneViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    val selectedTopicId: StateFlow<String?> = savedStateHandle.getStateFlow(TOPIC_ID_ARG, null)
+    val selectedTopicId: StateFlow<String?> = savedStateHandle.getStateFlow("TOPIC_ID_ARG", null)
 
     fun onTopicClick(topicId: String?) {
-        savedStateHandle[TOPIC_ID_ARG] = topicId
+        savedStateHandle["TOPIC_ID_ARG"] = topicId
     }
 }

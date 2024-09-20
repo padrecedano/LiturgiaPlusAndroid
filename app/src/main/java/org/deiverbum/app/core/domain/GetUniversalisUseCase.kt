@@ -13,35 +13,54 @@ import javax.inject.Inject
  * Este caso de uso obtiene los Universalis de la fecha dada.
  * Si no los encuentra en la base de datos local, llama al método de inserción
  * en la fuente de datos remota.
+ *
+ * Se mantiene un modelo de lista,
+ * para poder tener en un futuro varias celebraciones posibles
+ * por ejemplo, cuando hay una celebración de la feria y una memoria.
+ **
+ *
+ * @param universalisRepository Repositorio que obtiene los datos.
+ * @param userDataRepository Repositorio con los datos del usuario.
  */
 class GetUniversalisUseCase @Inject constructor(
-    private val topicsRepository: UniversalisRepository,
+    private val universalisRepository: UniversalisRepository,
     private val userDataRepository: UserDataRepository,
 ) {
     /**
-     * Returns a list of topics with their associated followed state.
+     * Retorna una lista de objetos [UniversalisRequest].
      *
-     * @param sortBy - the field used to sort the topics. Default NONE = no sorting.
+     * @param sortBy El campo usado para filtrar. Por defecto NONE = no filtrar.
      */
     operator fun invoke(
         sortBy: HomeSortField = HomeSortField.NONE,
         date: Int,
-        topicId: Int
+        selectedTopicId: String,
+        title: String
     ): Flow<List<UniversalisRequest>> {
         return combine(
             userDataRepository.userData,
-            topicsRepository.getUniversalisByDate(UniversalisResourceQuery(setOf(date), topicId)),
+            universalisRepository.getUniversalisByDate(
+                UniversalisResourceQuery(
+                    setOf(date),
+                    selectedTopicId.toInt()
+                )
+            ),
 
             ) { userData, topics ->
             if (topics.isEmpty() || topics[0].data.isEmpty()) {
-                topicsRepository.insertFromRemote(UniversalisResourceQuery(setOf(date), topicId))
+                universalisRepository.insertFromRemote(
+                    UniversalisResourceQuery(
+                        setOf(date),
+                        selectedTopicId.toInt()
+                    )
+                )
             }
             val followedTopics = topics.map { topic ->
                 UniversalisRequest(
                     date = topics[0].data[0].todayDate, //TODO:Este flujo se repite ¿?
-                    resource = "",
+                    title = title,
                     name = "",
-                    id = 1,
+                    id = selectedTopicId.toInt(),
                     data = topic.data,
                     dynamic = userData.dynamic
                 )

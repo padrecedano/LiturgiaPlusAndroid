@@ -9,7 +9,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import org.deiverbum.app.core.designsystem.theme.NiaTheme
+import org.deiverbum.app.core.designsystem.theme.LPlusTheme
 
 
 @Composable
@@ -49,7 +49,7 @@ fun NiaTopicTag(
 @ThemePreviews
 @Composable
 fun TagPreview() {
-    NiaTheme {
+    LPlusTheme {
         NiaTopicTag(followed = true, onClick = {}) {
             Text("Topic".uppercase())
         }

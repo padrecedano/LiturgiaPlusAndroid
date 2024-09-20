@@ -16,17 +16,14 @@
 
 package org.deiverbum.app.core.domain
 
-import kotlinx.coroutines.flow.Flow
-import org.deiverbum.app.core.data.model.RecentSearchQuery
-import org.deiverbum.app.core.data.repository.RecentSearchRepository
 import javax.inject.Inject
 
 /**
  * A use case which returns the recent search queries.
  */
 class GetRecentSearchQueriesUseCase @Inject constructor(
-    private val recentSearchRepository: RecentSearchRepository,
+    //private val recentSearchRepository: RecentSearchRepository,
 ) {
-    operator fun invoke(limit: Int = 10): Flow<List<RecentSearchQuery>> =
-        recentSearchRepository.getRecentSearchQueries(limit)
+    //operator fun invoke(limit: Int = 10): Flow<List<RecentSearchQuery>> =
+    //   recentSearchRepository.getRecentSearchQueries(limit)
 }

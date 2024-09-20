@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEmpty
 import org.deiverbum.app.core.data.Synchronizer
 import org.deiverbum.app.core.data.changeListSync
-import org.deiverbum.app.core.database.dao.nia.UniversalisDao
+import org.deiverbum.app.core.database.dao.UniversalisDao
 import org.deiverbum.app.core.database.model.external.CommentariiExternal
 import org.deiverbum.app.core.database.model.external.CompletoriumExternal
 import org.deiverbum.app.core.database.model.external.HomiliaeExternal
@@ -40,6 +40,10 @@ class OfflineFirstUniversalisRepository @Inject constructor(
     private val universalisDao: UniversalisDao,
     private val network: NiaNetworkDataSource,
 ) : UniversalisRepository {
+
+    override fun getReader(): String {
+        return "Lorem ipsum"
+    }
 
     override fun getUniversalisByDate(
         query: UniversalisResourceQuery,
@@ -87,7 +91,9 @@ class OfflineFirstUniversalisRepository @Inject constructor(
 
             12 -> universalisDao.getCommentariiByDate(
                 filterDates = query.filterDates!!,
-            ).map { it.map(CommentariiExternal::asExternalModel) }
+            ).map {
+                it.map(CommentariiExternal::asExternalModel)
+            }
 
             13 -> universalisDao.getHomiliaeByDate(
                 filterDates = query.filterDates!!,

@@ -41,7 +41,7 @@ class TtsManager(
 
             @Deprecated("Deprecated in Java")
             override fun onError(utteranceId: String) {
-                //onError(utteranceId);
+                onError(utteranceId)
             }
         })
     }

@@ -5,11 +5,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.Modifier
 import org.deiverbum.app.core.analytics.LocalAnalyticsHelper
 import org.deiverbum.app.core.model.data.UniversalisRequest
+import timber.log.Timber
 
 fun LazyListScope.universalisResourceCardItems(
     items: List<UniversalisRequest>,
     itemModifier: Modifier = Modifier,
     topicId: String?,
+    onReaderClick: () -> Unit,
 ) = items(
     items = items,
     key = { it.data[0].liturgyFK },
@@ -21,7 +23,7 @@ fun LazyListScope.universalisResourceCardItems(
             universalisResource = items,
             isBookmarked = true,//userNewsResource.isSaved,
             hasBeenViewed = true,//userNewsResource.hasBeenViewed,
-            onToggleBookmark = { /*onToggleBookmark(userNewsResource)*/ },
+            onToggleBookmark = onReaderClick,//{ /*onToggleBookmark(userNewsResource)*/ },
             onClick = {
                 analyticsHelper.logNewsResourceOpened(
                     newsResourceId = universalisResource.data[0].liturgyFK.toString(),
@@ -31,6 +33,11 @@ fun LazyListScope.universalisResourceCardItems(
             },
             onTopicClick = {},
             modifier = itemModifier,
+            onReaderClick = {
+                Timber.d("axy")
+            }
+
+            //onReaderClick
         )
     },
 )

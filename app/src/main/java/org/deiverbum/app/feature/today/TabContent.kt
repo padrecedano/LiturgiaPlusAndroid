@@ -19,10 +19,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import org.deiverbum.app.core.designsystem.component.scrollbar.DraggableScrollbar
 import org.deiverbum.app.core.designsystem.component.scrollbar.rememberDraggableScroller
 import org.deiverbum.app.core.designsystem.component.scrollbar.scrollbarState
 import org.deiverbum.app.core.model.data.FollowableUITopic
+import org.deiverbum.app.core.ui.AssistChipExample
 import org.deiverbum.app.core.ui.TodayItem
 
 @Composable
@@ -35,6 +37,8 @@ fun TopicsTabContent(
     selectedTopicId: String? = null,
     highlightSelectedTopic: Boolean = false,
 ) {
+    val nestedNavController = rememberNavController()
+
     Box(
         modifier = modifier
             .fillMaxWidth(),
@@ -51,6 +55,9 @@ fun TopicsTabContent(
                 val topicId = followableTopic.topic.id
                 item(key = topicId) {
                     val isSelected = highlightSelectedTopic && topicId.toString() == selectedTopicId
+                    AssistChipExample(onTopicClick = topicId.toString())
+                    //AssistChipExample()
+
                     TodayItem(
                         name = followableTopic.topic.name,
                         following = followableTopic.isFollowed,

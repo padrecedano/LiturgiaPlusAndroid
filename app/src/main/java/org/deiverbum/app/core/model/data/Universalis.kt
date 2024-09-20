@@ -6,6 +6,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.room.Ignore
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -120,12 +121,14 @@ data class Universalis(
 
 
     fun getAllForView(): AnnotatedString {
-
+        var s = LoremIpsum(5)
         val annotatedString = buildAnnotatedString {
             withStyle(style = SpanStyle(color = Red)) {
                 append("Hello, ")
             }
             append("World!")
+            append(s.values.last())
+            append(liturgia!!.liturgiaTypus!!.typus)
             //append(getAllForView(TodayRequest(1, 1, true, true)))
 
         }

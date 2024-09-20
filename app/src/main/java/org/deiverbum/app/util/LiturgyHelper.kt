@@ -8,13 +8,30 @@ class LiturgyHelper {
         const val V = "V./ "
         const val R = "R./ "
         val liturgyMap = hashMapOf(
+            1 to "Laudes + Lecturas Oficio",
+            2 to "Oficio",
+            3 to "Laudes",
+            4 to "Tercia",
+            5 to "Sexta",
+            6 to "Nona",
+            7 to "Vísperas",
+            8 to "Completas",
+            9 to "Misa",
+            10 to "Homilías",
+            11 to "Lecturas",
+            12 to "Comentarios",
+            13 to "Homilías",
+            20 to "Santos"
+        )
+
+        val liturgyName = hashMapOf(
             1 to "mixto",
             2 to "oficio",
             3 to "laudes",
             4 to "tercia",
             5 to "sexta",
             6 to "nona",
-            7 to "visperas",
+            7 to "vísperas",
             8 to "completas",
             9 to "misa",
             10 to "homilias",
@@ -43,6 +60,11 @@ class LiturgyHelper {
 
         fun liturgyByType(type: Int): String {
             return liturgyMap[type]!!
+        }
+
+        fun liturgyByName(name: String): Int {
+            val keys = liturgyMap.filterValues { it == name }.keys
+            return keys.first()
         }
 
         fun liturgyByTypeLatin(type: Int): String? {

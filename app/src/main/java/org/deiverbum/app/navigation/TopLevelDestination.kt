@@ -1,8 +1,12 @@
 package org.deiverbum.app.navigation
 
-import NiaIcons
+import LPlusIcons
 import androidx.compose.ui.graphics.vector.ImageVector
 import org.deiverbum.app.R
+import org.deiverbum.app.feature.calendar.navigation.CalendarRoute
+import org.deiverbum.app.feature.home.navigation.HomeRoute
+import org.deiverbum.app.feature.home.navigation.ListOfBooks
+import kotlin.reflect.KClass
 
 /**
  * Type for the top level destinations in the application. Each of these destinations
@@ -14,38 +18,58 @@ enum class TopLevelDestination(
     val unselectedIcon: ImageVector,
     val iconTextId: Int,
     val titleTextId: Int,
-) {
-    INTERESTS(
-        selectedIcon = NiaIcons.Home,
-        unselectedIcon = NiaIcons.HomeBorder,
+    val route: KClass<*>,
+
+    ) {
+    /*TOPIC(
+        selectedIcon = LPlusIcons.Home,
+        unselectedIcon = LPlusIcons.HomeBorder,
         iconTextId = R.string.feature_home_title,
         titleTextId = R.string.app_name,
-    ),
+        route = TopicRoute::class,
+
+        ),*/
     HOME(
-        selectedIcon = NiaIcons.Upcoming,
-        unselectedIcon = NiaIcons.UpcomingBorder,
-        iconTextId = R.string.feature_interests_title,
+        selectedIcon = LPlusIcons.Home,
+        unselectedIcon = LPlusIcons.HomeBorder,
+        iconTextId = R.string.feature_home_title,
         titleTextId = R.string.app_name,
-    ),
-    FOR_YOU(
-        selectedIcon = NiaIcons.Upcoming,
-        unselectedIcon = NiaIcons.UpcomingBorder,
-        iconTextId = R.string.feature_foryou_title,
+        route = HomeRoute::class,
+
+
+        ),
+    LIST_OF_BOOKS(
+        selectedIcon = LPlusIcons.Home,
+        unselectedIcon = LPlusIcons.HomeBorder,
+        iconTextId = R.string.feature_home_title,
         titleTextId = R.string.app_name,
+        route = ListOfBooks::class,
     ),
 
-    /*BOOKMARKS(
+    /*
+    FOR_YOU(
+        selectedIcon = LPlusIcons.Upcoming,
+        unselectedIcon = LPlusIcons.UpcomingBorder,
+        iconTextId = R.string.feature_foryou_title,
+        titleTextId = R.string.app_name,
+        route = ForYouRoute::class,
+
+        ),
+
+    BOOKMARKS(
         selectedIcon = NiaIcons.Bookmarks,
         unselectedIcon = NiaIcons.BookmarksBorder,
         iconTextId = R.string.feature_bookmarks_title,
         titleTextId = R.string.feature_bookmarks_title,
     ),*/
     CALENDAR(
-        selectedIcon = NiaIcons.Add,
-        unselectedIcon = NiaIcons.UpcomingBorder,
+        selectedIcon = LPlusIcons.Add,
+        unselectedIcon = LPlusIcons.UpcomingBorder,
         iconTextId = R.string.feature_bookmarks_title,
         titleTextId = R.string.feature_bookmarks_title,
-    ),
+        route = CalendarRoute::class,
+
+        ),
 
     /*UNIVERSALIS(
         selectedIcon = NiaIcons.Grid3x3,

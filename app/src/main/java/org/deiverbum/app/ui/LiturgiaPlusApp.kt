@@ -1,6 +1,6 @@
 package org.deiverbum.app.ui
 
-import NiaIcons
+import LPlusIcons
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
@@ -12,10 +12,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -23,11 +28,13 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -44,19 +51,23 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
+import kotlinx.coroutines.launch
 import org.deiverbum.app.R
-import org.deiverbum.app.core.designsystem.component.NiaBackground
-import org.deiverbum.app.core.designsystem.component.NiaGradientBackground
+import org.deiverbum.app.core.designsystem.component.LPlusBackground
+import org.deiverbum.app.core.designsystem.component.LPlusGradientBackground
+import org.deiverbum.app.core.designsystem.component.LPlusNavigationRail
+import org.deiverbum.app.core.designsystem.component.LPlusNavigationRailItem
+import org.deiverbum.app.core.designsystem.component.LPlusTopAppBar
 import org.deiverbum.app.core.designsystem.component.NiaNavigationBar
 import org.deiverbum.app.core.designsystem.component.NiaNavigationBarItem
-import org.deiverbum.app.core.designsystem.component.NiaNavigationRail
-import org.deiverbum.app.core.designsystem.component.NiaNavigationRailItem
-import org.deiverbum.app.core.designsystem.component.NiaTopAppBar
+import org.deiverbum.app.core.designsystem.component.PlayButton
 import org.deiverbum.app.core.designsystem.theme.GradientColors
 import org.deiverbum.app.core.designsystem.theme.LocalGradientColors
-import org.deiverbum.app.core.presentation.ui.NiaAppState
+import org.deiverbum.app.core.presentation.ui.LPlusAppState
 import org.deiverbum.app.feature.settings.SettingsDialog
-import org.deiverbum.app.navigation.NiaNavHost
+import org.deiverbum.app.feature.tts.TextToSpeechScreen
+import org.deiverbum.app.feature.tts.TextToSpeechScreenn
+import org.deiverbum.app.navigation.LPlusNavHost
 import org.deiverbum.app.navigation.TopLevelDestination
 
 
@@ -65,14 +76,20 @@ import org.deiverbum.app.navigation.TopLevelDestination
     ExperimentalMaterial3Api::class,
     ExperimentalComposeUiApi::class,
 )
+
 @Composable
-fun NiaApp(appState: NiaAppState) {
+fun LPlusApp(appState: LPlusAppState, onReaderClick: () -> Unit) {
+    val sheetState = rememberModalBottomSheetState()
+    val scope = rememberCoroutineScope()
+    var showBottomSheet by remember { mutableStateOf(false) }
+    val (fabOnClick, setFabOnClick) = remember { mutableStateOf<(() -> Unit)?>(null) }
+
     val shouldShowGradientBackground =
         appState.currentTopLevelDestination == TopLevelDestination.HOME
     var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
 
-    NiaBackground {
-        NiaGradientBackground(
+    LPlusBackground {
+        LPlusGradientBackground(
             gradientColors = if (shouldShowGradientBackground) {
                 LocalGradientColors.current
             } else {
@@ -100,8 +117,6 @@ fun NiaApp(appState: NiaAppState) {
                 )
             }
 
-            val unreadDestinations by appState.topLevelDestinationsWithUnreadResources.collectAsStateWithLifecycle()
-
             Scaffold(
                 modifier = Modifier.semantics {
                     testTagsAsResourceId = true
@@ -110,18 +125,52 @@ fun NiaApp(appState: NiaAppState) {
                 contentColor = MaterialTheme.colorScheme.onBackground,
                 contentWindowInsets = WindowInsets(0, 0, 0, 0),
                 snackbarHost = { SnackbarHost(snackbarHostState) },
+                floatingActionButton =
+                {
+                    SmallFloatingActionButton(
+                        onClick = onReaderClick
+                    )
+                    { Icon(Icons.Filled.PlayArrow, contentDescription = "") }
+
+                },
                 bottomBar = {
                     if (appState.shouldShowBottomBar) {
-                        NiaBottomBar(
+                        LPlusBottomBar(
                             destinations = appState.topLevelDestinations,
-                            destinationsWithUnreadResources = unreadDestinations,
+                            //destinationsWithUnreadResources = unreadDestinations,
                             onNavigateToDestination = appState::navigateToTopLevelDestination,
                             currentDestination = appState.currentDestination,
-                            modifier = Modifier.testTag("NiaBottomBar"),
+                            modifier = Modifier.testTag("LPlusBottomBar"),
                         )
                     }
                 },
-            ) { padding ->
+
+                ) { padding ->
+
+                if (showBottomSheet) {
+                    ModalBottomSheet(
+                        onDismissRequest = {
+                            showBottomSheet = false
+                        },
+                        sheetState = sheetState
+                    ) {
+                        // Sheet content
+                        //SliderReader()
+                        TextToSpeechScreen()
+                        TextToSpeechScreenn(text = StringBuilder("Lorem ipsum."))
+                        PlayButton(isBookmarked = true, onClick = { /*TODO*/ })
+                        Button(onClick = {
+                            scope.launch { sheetState.hide() }.invokeOnCompletion {
+                                if (!sheetState.isVisible) {
+                                    showBottomSheet = false
+                                }
+                            }
+                        }) {
+                            //Text("Hide bottom sheet")
+                        }
+                    }
+                }
+
                 Row(
                     Modifier
                         .fillMaxSize()
@@ -134,13 +183,13 @@ fun NiaApp(appState: NiaAppState) {
                         ),
                 ) {
                     if (appState.shouldShowNavRail) {
-                        NiaNavRail(
+                        LPlusNavRail(
                             destinations = appState.topLevelDestinations,
-                            destinationsWithUnreadResources = unreadDestinations,
+                            //destinationsWithUnreadResources = unreadDestinations,
                             onNavigateToDestination = appState::navigateToTopLevelDestination,
                             currentDestination = appState.currentDestination,
                             modifier = Modifier
-                                .testTag("NiaNavRail")
+                                .testTag("LPlusNavRail")
                                 .safeDrawingPadding(),
                         )
                     }
@@ -149,26 +198,40 @@ fun NiaApp(appState: NiaAppState) {
                         // Show the top app bar on top level destinations.
                         val destination = appState.currentTopLevelDestination
                         if (destination != null) {
-                            NiaTopAppBar(
+                            LPlusTopAppBar(
+                                onReaderClick = onReaderClick,
                                 titleRes = destination.titleTextId,
-                                navigationIcon = NiaIcons.Search,
+                                navigationIcon = LPlusIcons.Search,
                                 navigationIconContentDescription = stringResource(
                                     id = R.string.feature_settings_top_app_bar_navigation_icon_description,
                                 ),
-                                actionIcon = NiaIcons.Settings,
+                                actionIcon = LPlusIcons.Settings,
                                 actionIconContentDescription = stringResource(
                                     id = R.string.feature_settings_top_app_bar_action_icon_description,
                                 ),
+                                readerIcon = LPlusIcons.Reader,
+                                calendarIcon = LPlusIcons.Calendar,
+
                                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                                     containerColor = Color.Transparent,
                                 ),
-                                onActionClick = { showSettingsDialog = true },
-                                onNavigationClick = { appState.navigateToSearch() },
-                            )
+                                onActionClick = {
+                                    showSettingsDialog = true
+                                },
+                                //onReaderClick = onReaderClick,
+                                /*onReaderClick = {
+                                    //showBottomSheet = true
+                                                appState.shouldRead
+                                                },*/
+
+                                onNavigationClick = { /*appState.navigateToSearch()*/ },
+
+                                )
                         }
 
-                        NiaNavHost(
+                        LPlusNavHost(
                             appState = appState,
+                            onReaderClick = onReaderClick,
                             onShowSnackbar = { message, action ->
                                 snackbarHostState.showSnackbar(
                                     message = message,
@@ -188,18 +251,18 @@ fun NiaApp(appState: NiaAppState) {
 }
 
 @Composable
-private fun NiaNavRail(
+private fun LPlusNavRail(
     destinations: List<TopLevelDestination>,
-    destinationsWithUnreadResources: Set<TopLevelDestination>,
+    //destinationsWithUnreadResources: Set<TopLevelDestination>,
     onNavigateToDestination: (TopLevelDestination) -> Unit,
     currentDestination: NavDestination?,
     modifier: Modifier = Modifier,
 ) {
-    NiaNavigationRail(modifier = modifier) {
+    LPlusNavigationRail(modifier = modifier) {
         destinations.forEach { destination ->
             val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
-            val hasUnread = destinationsWithUnreadResources.contains(destination)
-            NiaNavigationRailItem(
+            //val hasUnread = destinationsWithUnreadResources.contains(destination)
+            LPlusNavigationRailItem(
                 selected = selected,
                 onClick = { onNavigateToDestination(destination) },
                 icon = {
@@ -215,16 +278,16 @@ private fun NiaNavRail(
                     )
                 },
                 label = { Text(stringResource(destination.iconTextId)) },
-                modifier = if (hasUnread) Modifier.notificationDot() else Modifier,
+                modifier = /*if (hasUnread) Modifier.notificationDot() else*/ Modifier,
             )
         }
     }
 }
 
 @Composable
-private fun NiaBottomBar(
+private fun LPlusBottomBar(
     destinations: List<TopLevelDestination>,
-    destinationsWithUnreadResources: Set<TopLevelDestination>,
+    //destinationsWithUnreadResources: Set<TopLevelDestination>,
     onNavigateToDestination: (TopLevelDestination) -> Unit,
     currentDestination: NavDestination?,
     modifier: Modifier = Modifier,
@@ -233,7 +296,7 @@ private fun NiaBottomBar(
         modifier = modifier,
     ) {
         destinations.forEach { destination ->
-            val hasUnread = destinationsWithUnreadResources.contains(destination)
+            //val hasUnread = destinationsWithUnreadResources.contains(destination)
             val selected = currentDestination.isTopLevelDestinationInHierarchy(destination)
             NiaNavigationBarItem(
                 selected = selected,
@@ -251,7 +314,7 @@ private fun NiaBottomBar(
                     )
                 },
                 label = { Text(stringResource(destination.iconTextId)) },
-                modifier = if (hasUnread) Modifier.notificationDot() else Modifier,
+                modifier = /*if (hasUnread) Modifier.notificationDot() else*/ Modifier,
             )
         }
     }

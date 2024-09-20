@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.designsystem.component
 
-import NiaIcons
+import LPlusIcons
 import androidx.compose.material3.FilledIconToggleButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -9,7 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import org.deiverbum.app.core.designsystem.theme.NiaTheme
+import org.deiverbum.app.core.designsystem.theme.LPlusTheme
 
 /**
  * Now in Android toggle button with icon and checked icon content slots. Wraps Material 3
@@ -58,19 +58,19 @@ fun NiaIconToggleButton(
 @ThemePreviews
 @Composable
 fun IconButtonPreview() {
-    NiaTheme {
+    LPlusTheme {
         NiaIconToggleButton(
             checked = true,
             onCheckedChange = { },
             icon = {
                 Icon(
-                    imageVector = NiaIcons.BookmarkBorder,
+                    imageVector = LPlusIcons.BookmarkBorder,
                     contentDescription = null,
                 )
             },
             checkedIcon = {
                 Icon(
-                    imageVector = NiaIcons.Bookmark,
+                    imageVector = LPlusIcons.Bookmark,
                     contentDescription = null,
                 )
             },
@@ -81,19 +81,19 @@ fun IconButtonPreview() {
 @ThemePreviews
 @Composable
 fun IconButtonPreviewUnchecked() {
-    NiaTheme {
+    LPlusTheme {
         NiaIconToggleButton(
             checked = false,
             onCheckedChange = { },
             icon = {
                 Icon(
-                    imageVector = NiaIcons.BookmarkBorder,
+                    imageVector = LPlusIcons.BookmarkBorder,
                     contentDescription = null,
                 )
             },
             checkedIcon = {
                 Icon(
-                    imageVector = NiaIcons.Bookmark,
+                    imageVector = LPlusIcons.Bookmark,
                     contentDescription = null,
                 )
             },

@@ -3,7 +3,7 @@ package org.deiverbum.app.core.data.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.deiverbum.app.core.data.Synchronizer
-import org.deiverbum.app.core.database.dao.nia.UniversalisDao
+import org.deiverbum.app.core.database.dao.UniversalisDao
 import org.deiverbum.app.core.database.model.UITopicEntity
 import org.deiverbum.app.core.database.model.asExternalModel
 import org.deiverbum.app.core.model.data.Topic

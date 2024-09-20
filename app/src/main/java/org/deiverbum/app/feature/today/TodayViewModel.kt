@@ -12,7 +12,7 @@ import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.domain.GetHomeTopicsUseCase
 import org.deiverbum.app.core.domain.HomeSortField
 import org.deiverbum.app.core.model.data.FollowableUITopic
-import org.deiverbum.app.feature.today.navigation.TOPIC_ID_ARG
+//import org.deiverbum.app.feature.today.navigation.TOPIC_ID_ARG
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,7 +23,7 @@ class TodayViewModel @Inject constructor(
 ) : ViewModel() {
     private var topicIdd = savedStateHandle.get<String>("topicId") ?: ""
 
-    val selectedTopicId: StateFlow<String?> = savedStateHandle.getStateFlow(TOPIC_ID_ARG, null)
+    val selectedTopicId: StateFlow<String?> = savedStateHandle.getStateFlow("TOPIC_ID_ARG", null)
 
     val uiState: StateFlow<TodayUiState> = combine(
         selectedTopicId,

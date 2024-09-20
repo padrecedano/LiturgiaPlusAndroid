@@ -8,7 +8,6 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.deiverbum.app.core.database.dao.TodayDao
 
 /**
  * Esta clase se ocupa de manejar el Worker de sincronización.
@@ -22,7 +21,7 @@ class TodayWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted params: WorkerParameters,
     //private val apiService: TodayApi,
-    private val todayDao: TodayDao
+    //private val todayDao: TodayDao
 
 ) : CoroutineWorker(context, params) {
 

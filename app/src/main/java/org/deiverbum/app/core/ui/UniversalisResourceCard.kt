@@ -1,5 +1,6 @@
 package org.deiverbum.app.core.ui
 
+import LPlusIcons
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,19 +13,21 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.deiverbum.app.core.designsystem.component.NiaIconToggleButton
 import org.deiverbum.app.core.model.data.Alteri
 import org.deiverbum.app.core.model.data.Universalis
 import org.deiverbum.app.core.model.data.UniversalisRequest
 import org.deiverbum.app.core.model.data.UserDataDynamic
 
 /**
- * [UniversalisResourceCardExpanded] card used on the following screens: For You, Saved
+ * [UniversalisResourceCardExpanded] card usada en `UniversalisScreen`
  */
 
 
@@ -39,7 +42,9 @@ fun UniversalisResourceCardExpanded(
     onTopicClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     topicId: String?,
-) {
+    onReaderClick: () -> Unit,
+
+    ) {
     Card(
         onClick = onClick,
         shape = RoundedCornerShape(16.dp),
@@ -58,9 +63,7 @@ fun UniversalisResourceCardExpanded(
                     Spacer(modifier = Modifier.height(12.dp))
                     Row {
                         var title: String
-
-
-                        topicId!!.toInt().let {
+                        universalisResource[0].id.let {
                             title = when {
                                 it == 20 -> {
                                     val sancti =
@@ -69,8 +72,7 @@ fun UniversalisResourceCardExpanded(
                                 }
 
                                 else -> {
-
-
+//"TODO: UniversalisResourceCard 75"
                                     universalisResource[0].data[0].liturgia!!.tempus!!.externus.toString()
 
 
@@ -93,12 +95,22 @@ fun UniversalisResourceCardExpanded(
                             )
                             Spacer(modifier = Modifier.size(6.dp))
                         }
-                        UniversalisResourceMetaData(universalisResource[0].data[0].liturgia!!.nomen)
+                        //UniversalisResourceMetaData(universalisResource[0].data[0].liturgia!!.nomen)
                     }
                     Spacer(modifier = Modifier.height(14.dp))
                     var data = universalisResource[0].data[0]
-                    Universalis(data, topicId = topicId, universalisResource[0].dynamic)
-//Text(data.getAllForView())
+                    Universalis(
+                        data,
+                        topicId = universalisResource[0].id,
+                        universalisResource[0].dynamic,
+                        //onReaderClick
+                    )
+
+
+                    //CommentariiScreenn(onReaderClick = onReaderClick) {
+                    //onReaderClick={}
+
+                    //Text(data.getAllForView())
                     /*UniversalisScreenView(
                         data = data,
                         topicId = topicId,
@@ -120,13 +132,42 @@ fun UniversalisResourceTitle(
     Text(newsResourceTitle, style = MaterialTheme.typography.headlineSmall, modifier = modifier)
 }
 
+@Composable
+fun ReaderButton(
+    isBookmarked: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    NiaIconToggleButton(
+        checked = isBookmarked,
+        onCheckedChange = {
+            onClick()
+        },
+        modifier = modifier,
+        icon = {
+            Icon(
+                imageVector = LPlusIcons.ReaderBorder,
+                contentDescription = "stringResource(R.string.core_ui_bookmark)",
+            )
+        },
+        checkedIcon = {
+            Icon(
+                imageVector = LPlusIcons.Reader,
+                contentDescription = "stringResource(R.string.core_ui_unbookmark)",
+            )
+        },
+    )
+}
+
+
 @ExperimentalMaterial3Api
 @Composable
 fun UniversalisContent(
     data: Universalis,
     topicId: String?,
     userData: UserDataDynamic,
-    modifier: Modifier
+    modifier: Modifier,
+    onReaderClick: () -> Unit
 ) {
     //Box() {
 
@@ -139,6 +180,8 @@ fun UniversalisContent(
     //alert()
     //}
     //TextToSpeechScreen()
-    Universalis(data, topicId = topicId, userData)
+    /*Universalis(
+        data, topicId = topicId, userData,onReaderClick
+    )*/
 }
 

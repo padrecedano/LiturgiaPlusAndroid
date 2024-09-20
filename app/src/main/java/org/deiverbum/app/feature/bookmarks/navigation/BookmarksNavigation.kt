@@ -20,9 +20,12 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import org.deiverbum.app.feature.bookmarks.BookmarksRoute
+import kotlinx.serialization.Serializable
 
 const val BOOKMARKS_ROUTE = "bookmarks_route"
+
+@Serializable
+data object BookMarksRoute
 
 fun NavController.navigateToBookmarks(navOptions: NavOptions) =
     navigate(BOOKMARKS_ROUTE, navOptions)
@@ -33,6 +36,6 @@ fun NavGraphBuilder.bookmarksScreen(
     onShowSnackbar: suspend (String, String?) -> Boolean,
 ) {
     composable(route = BOOKMARKS_ROUTE) {
-        BookmarksRoute(onTopicClick, onShowSnackbar)
+        //BookmarksRoute(onTopicClick, onShowSnackbar)
     }
 }

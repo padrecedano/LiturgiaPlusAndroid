@@ -17,6 +17,8 @@
 package org.deiverbum.app.ui.interests2pane
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffold
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
@@ -29,23 +31,25 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import androidx.navigation.toRoute
+import org.deiverbum.app.core.model.data.ui.ItemUI
 import org.deiverbum.app.feature.today.TodayRoute
-import org.deiverbum.app.feature.today.navigation.INTERESTS_ROUTE
-import org.deiverbum.app.feature.today.navigation.TOPIC_ID_ARG
 import org.deiverbum.app.feature.topic.TopicDetailPlaceholder
-import org.deiverbum.app.feature.topic.navigation.TOPIC_ROUTE
 import org.deiverbum.app.feature.topic.navigation.navigateToTopic
 import org.deiverbum.app.feature.topic.navigation.topicScreen
 
 private const val DETAIL_PANE_NAVHOST_ROUTE = "detail_pane_route"
 
-fun NavGraphBuilder.interestsListDetailScreen() {
-    composable(
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3AdaptiveApi::class)
+fun NavGraphBuilder.interestsListDetailScreen(onReaderClick: () -> Unit) {
+    composable<ItemUI> { backStackEntry ->
+        val profile: ItemUI = backStackEntry.toRoute()
+        ProfileScreen(profile)
+    }
+    /*composable(
         route = INTERESTS_ROUTE,
         arguments = listOf(
             navArgument(TOPIC_ID_ARG) {
@@ -55,18 +59,36 @@ fun NavGraphBuilder.interestsListDetailScreen() {
             },
         ),
     ) {
-        InterestsListDetailScreen()
-    }
+        //Text(text = "Lipsum")
+        //InterestsListDetailScreen(onReaderClick ={}
+        //TodayRouteNew(onTopicClick = {})
+        UniversalisRouteNew(
+            showBackButton = true,
+            onBackClick = {},
+            onTopicClick = { } ,
+            onReaderClick = { }
+        )
+    }*/
 }
+
+@Composable
+fun ProfileScreen(profile: ItemUI) {
+    Text(profile.title)
+
+}
+
 
 @Composable
 internal fun InterestsListDetailScreen(
     viewModel: Interests2PaneViewModel = hiltViewModel(),
+    onReaderClick: () -> Unit,
 ) {
     val selectedTopicId by viewModel.selectedTopicId.collectAsStateWithLifecycle()
     InterestsListDetailScreen(
         selectedTopicId = selectedTopicId,
         onTopicClick = viewModel::onTopicClick,
+        onReaderClick = onReaderClick
+
     )
 }
 
@@ -75,7 +97,9 @@ internal fun InterestsListDetailScreen(
 internal fun InterestsListDetailScreen(
     selectedTopicId: String?,
     onTopicClick: (String) -> Unit,
-) {
+    onReaderClick: () -> Unit,
+
+    ) {
     val listDetailNavigator = rememberListDetailPaneScaffoldNavigator<Nothing>()
     BackHandler(listDetailNavigator.canNavigateBack()) {
         listDetailNavigator.navigateBack()
@@ -89,6 +113,7 @@ internal fun InterestsListDetailScreen(
             popUpTo(DETAIL_PANE_NAVHOST_ROUTE)
         }
         listDetailNavigator.navigateTo(ListDetailPaneScaffoldRole.Detail)
+
     }
 
     ListDetailPaneScaffold(
@@ -103,15 +128,16 @@ internal fun InterestsListDetailScreen(
         detailPane = {
             NavHost(
                 navController = nestedNavController,
-                startDestination = TOPIC_ROUTE,
+                startDestination = "TOPIC_ROUTE_",
                 route = DETAIL_PANE_NAVHOST_ROUTE,
             ) {
                 topicScreen(
                     showBackButton = !listDetailNavigator.isListPaneVisible(),
                     onBackClick = listDetailNavigator::navigateBack,
-                    onTopicClick = ::onTopicClickShowDetailPane,
+                    onTopicClick = {},//::onTopicClickShowDetailPane,
+                    onReaderClick = onReaderClick,
                 )
-                composable(route = TOPIC_ROUTE) {
+                composable(route = "TOPIC_ROUTE2") {
                     TopicDetailPlaceholder()
                 }
             }
@@ -124,6 +150,7 @@ internal fun InterestsListDetailScreen(
         }
     }
 }
+
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 private fun <T> ThreePaneScaffoldNavigator<T>.isListPaneVisible(): Boolean =

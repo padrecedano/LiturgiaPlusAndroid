@@ -19,9 +19,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.deiverbum.app.core.designsystem.theme.GradientColors
+import org.deiverbum.app.core.designsystem.theme.LPlusTheme
 import org.deiverbum.app.core.designsystem.theme.LocalBackgroundTheme
 import org.deiverbum.app.core.designsystem.theme.LocalGradientColors
-import org.deiverbum.app.core.designsystem.theme.NiaTheme
 import kotlin.math.tan
 
 /**
@@ -32,7 +32,7 @@ import kotlin.math.tan
  * @param content The background content.
  */
 @Composable
-fun NiaBackground(
+fun LPlusBackground(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
@@ -58,7 +58,7 @@ fun NiaBackground(
  * @param content The background content.
  */
 @Composable
-fun NiaGradientBackground(
+fun LPlusGradientBackground(
     modifier: Modifier = Modifier,
     gradientColors: GradientColors = LocalGradientColors.current,
     content: @Composable () -> Unit,
@@ -134,47 +134,47 @@ annotation class ThemePreviews
 @ThemePreviews
 @Composable
 fun BackgroundDefault() {
-    NiaTheme(disableDynamicTheming = true) {
-        NiaBackground(Modifier.size(100.dp), content = {})
+    LPlusTheme(disableDynamicTheming = true) {
+        LPlusBackground(Modifier.size(100.dp), content = {})
     }
 }
 
 @ThemePreviews
 @Composable
 fun BackgroundDynamic() {
-    NiaTheme(disableDynamicTheming = false) {
-        NiaBackground(Modifier.size(100.dp), content = {})
+    LPlusTheme(disableDynamicTheming = false) {
+        LPlusBackground(Modifier.size(100.dp), content = {})
     }
 }
 
 @ThemePreviews
 @Composable
 fun BackgroundAndroid() {
-    NiaTheme(androidTheme = true) {
-        NiaBackground(Modifier.size(100.dp), content = {})
+    LPlusTheme(androidTheme = true) {
+        LPlusBackground(Modifier.size(100.dp), content = {})
     }
 }
 
 @ThemePreviews
 @Composable
 fun GradientBackgroundDefault() {
-    NiaTheme(disableDynamicTheming = true) {
-        NiaGradientBackground(Modifier.size(100.dp), content = {})
+    LPlusTheme(disableDynamicTheming = true) {
+        LPlusGradientBackground(Modifier.size(100.dp), content = {})
     }
 }
 
 @ThemePreviews
 @Composable
 fun GradientBackgroundDynamic() {
-    NiaTheme(disableDynamicTheming = false) {
-        NiaGradientBackground(Modifier.size(100.dp), content = {})
+    LPlusTheme(disableDynamicTheming = false) {
+        LPlusGradientBackground(Modifier.size(100.dp), content = {})
     }
 }
 
 @ThemePreviews
 @Composable
 fun GradientBackgroundAndroid() {
-    NiaTheme(androidTheme = true) {
-        NiaGradientBackground(Modifier.size(100.dp), content = {})
+    LPlusTheme(androidTheme = true) {
+        LPlusGradientBackground(Modifier.size(100.dp), content = {})
     }
 }

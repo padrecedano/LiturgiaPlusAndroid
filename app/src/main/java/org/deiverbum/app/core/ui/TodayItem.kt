@@ -1,9 +1,15 @@
 package org.deiverbum.app.core.ui
 
-import NiaIcons
+import LPlusIcons
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
@@ -17,9 +23,34 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import org.deiverbum.app.core.designsystem.component.DynamicAsyncImage
 import org.deiverbum.app.core.designsystem.component.NiaIconToggleButton
-import org.deiverbum.app.core.designsystem.theme.NiaTheme
+import org.deiverbum.app.core.designsystem.theme.LPlusTheme
+import org.deiverbum.app.feature.topic.navigation.navigateToTopic
+
+
+@Composable
+fun AssistChipExample(
+    onTopicClick: String
+) {
+    val nestedNavController = rememberNavController()
+
+    AssistChip(
+        onClick = {
+            Log.d("Assist chip", "hello world" + onTopicClick)
+            nestedNavController.navigateToTopic(onTopicClick)
+        },
+        label = { Text("Assist chip*") },
+        leadingIcon = {
+            Icon(
+                Icons.Filled.Settings,
+                contentDescription = "Localized description",
+                Modifier.size(AssistChipDefaults.IconSize)
+            )
+        }
+    )
+}
 
 @Composable
 fun TodayItem(
@@ -33,6 +64,7 @@ fun TodayItem(
     description: String = "",
     isSelected: Boolean = false,
 ) {
+
     ListItem(
         /*leadingContent = {
             InterestsIcon(topicImageUrl, iconModifier.size(64.dp))
@@ -49,13 +81,13 @@ fun TodayItem(
                 onCheckedChange = onFollowButtonClick,
                 icon = {
                     Icon(
-                        imageVector = NiaIcons.Add,
+                        imageVector = LPlusIcons.Add,
                         contentDescription = "core_ui_interests_card_follow_button_content_desc",
                     )
                 },
                 checkedIcon = {
                     Icon(
-                        imageVector = NiaIcons.Check,
+                        imageVector = LPlusIcons.Check,
                         contentDescription = "core_ui_interests_card_unfollow_button_content_desc",
 
                         )
@@ -84,7 +116,7 @@ private fun TodayIcon(topicImageUrl: String, modifier: Modifier = Modifier) {
             modifier = modifier
                 .background(MaterialTheme.colorScheme.surface)
                 .padding(4.dp),
-            imageVector = NiaIcons.Person,
+            imageVector = LPlusIcons.Person,
             // decorative image
             contentDescription = null,
         )
@@ -100,7 +132,7 @@ private fun TodayIcon(topicImageUrl: String, modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun TodayCardPreview() {
-    NiaTheme {
+    LPlusTheme {
         Surface {
             TodayItem(
                 name = "Compose",
@@ -117,7 +149,7 @@ private fun TodayCardPreview() {
 @Preview
 @Composable
 private fun TodayCardLongNamePreview() {
-    NiaTheme {
+    LPlusTheme {
         Surface {
             TodayItem(
                 name = "This is a very very very very long name",
@@ -134,7 +166,7 @@ private fun TodayCardLongNamePreview() {
 @Preview
 @Composable
 private fun TodayCardLongDescriptionPreview() {
-    NiaTheme {
+    LPlusTheme {
         Surface {
             TodayItem(
                 name = "Compose",
@@ -152,7 +184,7 @@ private fun TodayCardLongDescriptionPreview() {
 @Preview
 @Composable
 private fun TodayCardWithEmptyDescriptionPreview() {
-    NiaTheme {
+    LPlusTheme {
         Surface {
             TodayItem(
                 name = "Compose",
@@ -169,7 +201,7 @@ private fun TodayCardWithEmptyDescriptionPreview() {
 @Preview
 @Composable
 private fun TodayCardSelectedPreview() {
-    NiaTheme {
+    LPlusTheme {
         Surface {
             TodayItem(
                 name = "Compose",

@@ -16,7 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,12 +29,8 @@ import org.deiverbum.app.core.model.data.ui.ItemUI
 import org.deiverbum.app.core.model.data.ui.ItemUICollection
 
 @Composable
-//fun MainScreen(gameViewModel: InitialSyncViewModel = viewModel()) {
 fun HomeScreenBody(
     onNextButtonClicked: (String) -> Unit
-    //onNextButtonClicked: @Composable (Int) -> Unit,
-
-
 ) {
 
     val click = onNextButtonClicked
@@ -67,9 +63,9 @@ fun HomeScreenBody(
     val e = ChildItem(
         "e",
         listOf(
-            ItemUI(8, "Comentarios 8", 2, ""),
-            ItemUI(9, "Homilías 9", 2, ""),
-            ItemUI(10, "Lecturas 10", 2, ""),
+            ItemUI(8, "Comentarios", 2, ""),
+            ItemUI(9, "Homilías", 2, ""),
+            ItemUI(10, "Lecturas", 2, ""),
 
             )
     )
@@ -153,7 +149,7 @@ fun HomeScreenBody(
                         }
                     }
 
-                    Divider()
+                    HorizontalDivider()
                 }
             } else {
 
@@ -174,7 +170,7 @@ fun HomeScreenBody(
                     //    }
 
 
-                    Divider()
+                    HorizontalDivider()
                 }
             }
 
@@ -233,9 +229,8 @@ fun SelectQuantityButton(
 }
 
 
-data class MainItem(var parent: String, var childs: List<ChildItem>) {}
-data class ChildItem(var group: String, var items: List<ItemUI>) {}
-
+data class MainItem(var parent: String, var childs: List<ChildItem>)
+data class ChildItem(var group: String, var items: List<ItemUI>)
 
 
 

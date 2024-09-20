@@ -33,7 +33,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.deiverbum.app.R
-import org.deiverbum.app.core.designsystem.theme.NiaTheme
+import org.deiverbum.app.core.designsystem.theme.LPlusTheme
 
 @Composable
 fun TopicDetailPlaceholder(modifier: Modifier = Modifier) {
@@ -66,7 +66,7 @@ fun TopicDetailPlaceholder(modifier: Modifier = Modifier) {
 @Preview(widthDp = 200, heightDp = 300)
 @Composable
 fun TopicDetailPlaceholderPreview() {
-    NiaTheme {
+    LPlusTheme {
         TopicDetailPlaceholder()
     }
 }

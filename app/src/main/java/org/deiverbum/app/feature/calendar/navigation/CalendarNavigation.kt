@@ -5,28 +5,19 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.serialization.Serializable
+import org.deiverbum.app.feature.calendar.CalendarRoute
 
-const val LINKED_NEWS_RESOURCE_ID = "linkedNewsResourceId"
+@Serializable
+data object CalendarRoute
 
-//const val CALENDAR_ROUTE = "calendar_route/{$LINKED_NEWS_RESOURCE_ID}"
-const val CALENDAR_ROUTE = "calendar_route/"
+fun NavController.navigateToCalendar(navOptions: NavOptions) = navigate(CalendarRoute, navOptions)
 
-private const val DEEP_LINK_URI_PATTERN =
-    "https://www.nowinandroid.apps.samples.google.com/foryou/{$LINKED_NEWS_RESOURCE_ID}"
-
-fun NavController.navigateToCalendar(navOptions: NavOptions) = navigate(CALENDAR_ROUTE, navOptions)
-
+@ExperimentalCoroutinesApi
 @ExperimentalMaterial3AdaptiveApi
 fun NavGraphBuilder.calendarScreen(onDateSelected: (Long?) -> Unit) {
-    composable(
-        route = CALENDAR_ROUTE,
-        /*deepLinks = listOf(
-            navDeepLink { uriPattern = DEEP_LINK_URI_PATTERN },
-        ),
-        arguments = listOf(
-            navArgument(LINKED_NEWS_RESOURCE_ID) { type = NavType.StringType },
-        ),*/
-    ) {
+    composable<CalendarRoute> {
         CalendarRoute(onDateSelected)
         /*InterestsRouteInHome(
             onTopicClick = onTopicClick,

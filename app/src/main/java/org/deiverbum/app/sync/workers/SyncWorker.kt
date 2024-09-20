@@ -11,14 +11,9 @@ import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import org.deiverbum.app.core.analytics.AnalyticsHelper
 import org.deiverbum.app.core.data.Synchronizer
-import org.deiverbum.app.core.data.repository.SearchContentsRepository
-import org.deiverbum.app.core.data.repository.TopicsRepository
-import org.deiverbum.app.core.data.repository.UniversalisRepository
 import org.deiverbum.app.core.datastore.ChangeListVersions
 import org.deiverbum.app.core.datastore.PreferencesDataSource
 import org.deiverbum.app.core.network.Dispatcher
@@ -36,9 +31,9 @@ internal class SyncWorker @AssistedInject constructor(
     @Assisted private val appContext: Context,
     @Assisted workerParams: WorkerParameters,
     private val niaPreferences: PreferencesDataSource,
-    private val topicRepository: TopicsRepository,
-    private val newsRepository: UniversalisRepository,
-    private val searchContentsRepository: SearchContentsRepository,
+    //private val topicRepository: TopicsRepository,
+    //private val newsRepository: UniversalisRepository,
+    //private val searchContentsRepository: SearchContentsRepository,
     @Dispatcher(NiaDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
     private val analyticsHelper: AnalyticsHelper,
     private val syncSubscriber: SyncSubscriber,
@@ -54,15 +49,15 @@ internal class SyncWorker @AssistedInject constructor(
             syncSubscriber.subscribe()
 
             // First sync the repositories in parallel
-            val syncedSuccessfully = awaitAll(
+            /*val syncedSuccessfully = awaitAll(
                 //async { topicRepository.sync() },
-                async { newsRepository.sync() },
+                //async { newsRepository.sync() },
             ).all { it }
+*/
+            //analyticsHelper.logSyncFinished(syncedSuccessfully)
 
-            analyticsHelper.logSyncFinished(syncedSuccessfully)
-
-            if (syncedSuccessfully) {
-                searchContentsRepository.populateFtsData()
+            if (/*syncedSuccessfully*/1 == 1) {
+                //searchContentsRepository.populateFtsData()
                 Result.success()
             } else {
                 Result.retry()

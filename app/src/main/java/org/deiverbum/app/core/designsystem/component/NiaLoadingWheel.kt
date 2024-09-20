@@ -32,7 +32,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import org.deiverbum.app.core.designsystem.theme.NiaTheme
+import org.deiverbum.app.core.designsystem.theme.LPlusTheme
 
 @Composable
 fun NiaLoadingWheel(
@@ -136,7 +136,7 @@ fun NiaOverlayLoadingWheel(
 @ThemePreviews
 @Composable
 fun NiaLoadingWheelPreview() {
-    NiaTheme {
+    LPlusTheme {
         Surface {
             NiaLoadingWheel(contentDesc = "LoadingWheel")
         }
@@ -146,7 +146,7 @@ fun NiaLoadingWheelPreview() {
 @ThemePreviews
 @Composable
 fun NiaOverlayLoadingWheelPreview() {
-    NiaTheme {
+    LPlusTheme {
         Surface {
             NiaOverlayLoadingWheel(contentDesc = "LoadingWheel")
         }

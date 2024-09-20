@@ -30,16 +30,8 @@ import android.net.Uri
 import androidx.annotation.ColorInt
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridScope
-import androidx.compose.foundation.lazy.staggeredgrid.items
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
-import org.deiverbum.app.core.analytics.LocalAnalyticsHelper
 import org.deiverbum.app.core.model.data.UserNewsResource
 
 /**
@@ -48,13 +40,13 @@ import org.deiverbum.app.core.model.data.UserNewsResource
  */
 
 fun LazyStaggeredGridScope.newsFeed(
-    feedState: NewsFeedUiState,
+    //feedState: NewsFeedUiState,
     onNewsResourcesCheckedChanged: (String, Boolean) -> Unit,
     onNewsResourceViewed: (String) -> Unit,
     onTopicClick: (String) -> Unit,
     onExpandedCardClick: () -> Unit = {},
 ) {
-    when (feedState) {
+    /*when (feedState) {
         NewsFeedUiState.Loading -> Unit
         is NewsFeedUiState.Success -> {
             items(
@@ -96,7 +88,7 @@ fun LazyStaggeredGridScope.newsFeed(
                 )
             }
         }
-    }
+    }*/
 }
 
 fun launchCustomChromeTab(context: Context, uri: Uri, @ColorInt toolbarColor: Int) {

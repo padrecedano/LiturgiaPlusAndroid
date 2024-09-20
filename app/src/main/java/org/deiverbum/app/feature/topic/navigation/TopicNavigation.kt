@@ -16,65 +16,156 @@
 
 package org.deiverbum.app.feature.topic.navigation
 
-import androidx.annotation.VisibleForTesting
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
-import androidx.lifecycle.SavedStateHandle
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
 import androidx.navigation.NavOptionsBuilder
-import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import org.deiverbum.app.feature.universalis.UniversalisRoute
-import java.net.URLDecoder
-import java.net.URLEncoder
-import kotlin.text.Charsets.UTF_8
+import androidx.navigation.toRoute
+import kotlinx.serialization.Serializable
+import org.deiverbum.app.feature.home.navigation.Book
+import org.deiverbum.app.feature.home.navigation.BookDetail
+import org.deiverbum.app.feature.home.navigation.BookType
+import org.deiverbum.app.navigation.UniversalisRouteFromHome
+import kotlin.reflect.typeOf
 
-private val URL_CHARACTER_ENCODING = UTF_8.name()
 
-@VisibleForTesting
-internal const val TOPIC_ID_ARG = "topicId"
-const val TOPIC_ROUTE = "topic_route"
+@Serializable
+data class TopicRoute(val id: String)
 
-internal class TopicArgs(var topicId: String) {
-    constructor(savedStateHandle: SavedStateHandle) :
-            this(
-                URLDecoder.decode(
-                    checkNotNull(savedStateHandle[TOPIC_ID_ARG]),
-                    URL_CHARACTER_ENCODING
-                )
-            )
-}
+fun NavController.navigateToTopicc(navOptions: NavOptions) =
+    navigate(route = TopicRoute, navOptions)
 
-fun NavController.navigateToTopic(topicId: String, navOptions: NavOptionsBuilder.() -> Unit = {}) {
-    val encodedId = URLEncoder.encode(topicId, URL_CHARACTER_ENCODING)
-    val newRoute = "$TOPIC_ROUTE/$encodedId"
-    navigate(newRoute) {
+fun NavController.navigateToTopiccc(
+    topicId: String,
+    navOptions: NavOptionsBuilder.() -> Unit = {}
+) {
+    navigate(route = TopicRoute(topicId)) {
         navOptions()
     }
 }
 
+fun NavController.navigateToUniversalisFromHome(
+    topicId: String,
+    navOptions: NavOptionsBuilder.() -> Unit = {}
+) {
+    navigate(route = UniversalisRouteFromHome(topicId)) {
+        navOptions()
+    }
+}
+
+fun NavController.navigateToBook(topicId: String, navOptions: NavOptionsBuilder.() -> Unit = {}) {
+    navigate(route = BookDetail) {
+        navOptions()
+    }
+}
+
+fun NavController.navigateToTopic(topicId: String, navOptions: NavOptionsBuilder.() -> Unit = {}) {
+    navigate("topic_route/1") {
+        navOptions()
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
 @ExperimentalMaterial3AdaptiveApi
-fun NavGraphBuilder.topicScreen(
+fun NavGraphBuilder.topicScreennn(
     showBackButton: Boolean,
     onBackClick: () -> Unit,
     onTopicClick: (String) -> Unit,
 ) {
-    composable(
-        route = "topic_route/{$TOPIC_ID_ARG}",
-        arguments = listOf(
-            navArgument(TOPIC_ID_ARG) { type = NavType.StringType },
-        ),
-    ) {
+    composable<TopicRoute> { backStackEntry ->
+        val user: TopicRoute = backStackEntry.toRoute()
+
+        UserDetailsScreen(user)
         /*HomeRoute(
             showBackButton = showBackButton,
             onBackClick = onBackClick,
             onTopicClick = onTopicClick,
         )*/
-        UniversalisRoute(
+        //val t=LoremIpsum(10)
+        //Text(text = t.values.last())
+    }
+}
+
+@ExperimentalMaterial3AdaptiveApi
+fun NavGraphBuilder.bookScreen(
+
+) {
+    composable<BookDetail>(
+        typeMap = mapOf(typeOf<Book>() to BookType)
+    )
+
+    { backStackEntry ->
+        val user: TopicRoute = backStackEntry.toRoute()
+        val book = backStackEntry.toRoute<BookDetail>().book
+        Text(text = book.title)
+        //UserDetailsScreen(user)
+        /*HomeRoute(
             showBackButton = showBackButton,
             onBackClick = onBackClick,
             onTopicClick = onTopicClick,
-        )
+        )*/
+        //val t=LoremIpsum(10)
+        //Text(text = t.values.last())
+    }
+}
+
+@Composable
+fun UserDetailsScreen(
+    user: TopicRoute
+) {
+    val t = LoremIpsum(10)
+    //Text(text = t.values.last())
+    Text(text = user.id)
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@ExperimentalMaterial3AdaptiveApi
+fun NavGraphBuilder.topicScreen(
+    showBackButton: Boolean,
+    onBackClick: () -> Unit,
+    onReaderClick: () -> Unit,
+    onTopicClick: (String) -> Unit,
+) {
+    composable<TopicRoute> {
+        /*HomeRoute(
+            showBackButton = showBackButton,
+            onBackClick = onBackClick,
+            onTopicClick = onTopicClick,
+        )*/
+        /*UniversalisRoute(
+            showBackButton = showBackButton,
+            onBackClick = onBackClick,
+            onTopicClick = onTopicClick,
+            onReaderClick = onReaderClick
+        )*/
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@ExperimentalMaterial3AdaptiveApi
+fun NavGraphBuilder.topicScreenn(
+    showBackButton: Boolean,
+    onBackClick: () -> Unit,
+    onReaderClick: () -> Unit,
+    onTopicClick: (String) -> Unit,
+) {
+    composable<TopicRoute> {
+        /*HomeRoute(
+            showBackButton = showBackButton,
+            onBackClick = onBackClick,
+            onTopicClick = onTopicClick,
+        )*/
+        /*UniversalisRoute(
+            showBackButton = showBackButton,
+            onBackClick = onBackClick,
+            onTopicClick = onTopicClick,
+            onReaderClick = onReaderClick
+        )*/
     }
 }

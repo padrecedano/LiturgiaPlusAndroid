@@ -13,5 +13,5 @@ data class NewsResource(
     val headerImageUrl: String?,
     val publishDate: Instant,
     val type: String,
-    val topics: List<Topic>,
+    //val topics: List<Topic>,
 )

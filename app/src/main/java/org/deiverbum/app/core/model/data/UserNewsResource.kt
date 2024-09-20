@@ -14,7 +14,7 @@ data class UserNewsResource internal constructor(
     val headerImageUrl: String?,
     val publishDate: Instant,
     val type: String,
-    val followableTopics: List<FollowableTopic>,
+    //val followableTopics: List<FollowableTopic>,
     val isSaved: Boolean,
     val hasBeenViewed: Boolean,
 ) {
@@ -26,16 +26,15 @@ data class UserNewsResource internal constructor(
         headerImageUrl = newsResource.headerImageUrl,
         publishDate = newsResource.publishDate,
         type = newsResource.type,
-        followableTopics = newsResource.topics.map { topic ->
+        /*followableTopics = newsResource.topics.map { topic ->
             FollowableTopic(
                 topic = topic,
                 isFollowed = topic.id in userData.followedTopics,
             )
-        },
+        },*/
         isSaved = newsResource.id in userData.bookmarkedNewsResources,
         hasBeenViewed = newsResource.id in userData.viewedNewsResources,
     )
 }
 
-fun List<NewsResource>.mapToUserNewsResources(userData: UserData): List<UserNewsResource> =
-    map { UserNewsResource(it, userData) }
+

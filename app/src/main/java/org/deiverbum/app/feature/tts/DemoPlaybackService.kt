@@ -27,6 +27,9 @@ import androidx.annotation.OptIn
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.media3.common.AudioAttributes
+import androidx.media3.common.Player
+import androidx.media3.common.Player.STATE_ENDED
+import androidx.media3.common.Player.STATE_READY
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.util.EventLogger
@@ -80,7 +83,7 @@ open class DemoPlaybackService : MediaLibraryService() {
         return DemoMediaLibrarySessionCallback(this)
     }
 
-    @OptIn(UnstableApi::class) // MediaSessionService.setListener
+    @OptIn(UnstableApi::class)
     override fun onCreate() {
         super.onCreate()
         initializeSessionAndPlayer()
@@ -90,9 +93,6 @@ open class DemoPlaybackService : MediaLibraryService() {
     override fun onGetSession(controllerInfo: ControllerInfo): MediaLibrarySession {
         return mediaLibrarySession
     }
-
-    // MediaSession.setSessionActivity
-    // MediaSessionService.clearListener
     @OptIn(UnstableApi::class)
     override fun onDestroy() {
         getBackStackedActivity()?.let { mediaLibrarySession.setSessionActivity(it) }
@@ -110,13 +110,15 @@ open class DemoPlaybackService : MediaLibraryService() {
                 .build()
         player.addAnalyticsListener(EventLogger())
         val playerr = TtsPlayer(Looper.getMainLooper(), this, "")
+        //addListener(playerListener)
+        playerr.addListener(playerListener)
         mediaLibrarySession =
             MediaLibrarySession.Builder(this, playerr, createLibrarySessionCallback())
                 .also { builder -> getSingleTopActivity()?.let { builder.setSessionActivity(it) } }
                 .build()
     }
 
-    @OptIn(UnstableApi::class) // MediaSessionService.Listener
+    @OptIn(UnstableApi::class)
     private inner class MediaSessionServiceListener : Listener {
 
         /**
@@ -151,18 +153,44 @@ open class DemoPlaybackService : MediaLibraryService() {
 
     private fun ensureNotificationChannel(notificationManagerCompat: NotificationManagerCompat) {
         if (
-            Build.VERSION.SDK_INT < 26 ||
             notificationManagerCompat.getNotificationChannel(CHANNEL_ID) != null
         ) {
             return
         }
 
         val channel =
-            NotificationChannel(
-                CHANNEL_ID,
-                getString(R.string.lbl_mixto),
-                NotificationManager.IMPORTANCE_DEFAULT,
-            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel(
+                    CHANNEL_ID,
+                    getString(R.string.lbl_mixto),
+                    NotificationManager.IMPORTANCE_DEFAULT,
+                )
+            } else {
+                TODO("VERSION.SDK_INT < O")
+            }
         notificationManagerCompat.createNotificationChannel(channel)
     }
+
+
+    private val playerListener = object : Player.Listener {
+        override fun onPlaybackStateChanged(playbackState: Int) {
+            super.onPlaybackStateChanged(playbackState)
+            when (playbackState) {
+                STATE_ENDED -> play()//restartPlayer()
+                STATE_READY -> play()
+                //binding.playerView.player = player
+                //play()
+
+
+                Player.STATE_BUFFERING -> play()
+
+                Player.STATE_IDLE -> play()
+            }
+        }
+    }
+
+    private fun play() {
+        //this.
+    }
+
 }

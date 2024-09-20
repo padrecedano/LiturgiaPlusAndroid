@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.designsystem.component
 
-import NiaIcons
+import LPlusIcons
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,17 +8,21 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.deiverbum.app.core.designsystem.theme.NiaTheme
+import org.deiverbum.app.core.designsystem.theme.LPlusTheme
 
 /**
  * Now in Android filled button with generic content slot. Wraps Material 3 [Button].
@@ -125,6 +129,17 @@ fun NiaOutlinedButton(
         contentPadding = contentPadding,
         content = content,
     )
+}
+
+
+@Composable
+fun PlayerButton(onClick: () -> Unit) {
+    SmallFloatingActionButton(
+        onClick = onClick,
+        shape = CircleShape,
+    ) {
+        Icon(Icons.Filled.PlayArrow, "Large floating action button")
+    }
 }
 
 /**
@@ -252,8 +267,8 @@ private fun NiaButtonContent(
 @ThemePreviews
 @Composable
 fun NiaButtonPreview() {
-    NiaTheme {
-        NiaBackground(modifier = Modifier.size(150.dp, 50.dp)) {
+    LPlusTheme {
+        LPlusBackground(modifier = Modifier.size(150.dp, 50.dp)) {
             NiaButton(onClick = {}, text = { Text("Test button") })
         }
     }
@@ -262,8 +277,8 @@ fun NiaButtonPreview() {
 @ThemePreviews
 @Composable
 fun NiaOutlinedButtonPreview() {
-    NiaTheme {
-        NiaBackground(modifier = Modifier.size(150.dp, 50.dp)) {
+    LPlusTheme {
+        LPlusBackground(modifier = Modifier.size(150.dp, 50.dp)) {
             NiaOutlinedButton(onClick = {}, text = { Text("Test button") })
         }
     }
@@ -272,12 +287,12 @@ fun NiaOutlinedButtonPreview() {
 @ThemePreviews
 @Composable
 fun NiaButtonLeadingIconPreview() {
-    NiaTheme {
-        NiaBackground(modifier = Modifier.size(150.dp, 50.dp)) {
+    LPlusTheme {
+        LPlusBackground(modifier = Modifier.size(150.dp, 50.dp)) {
             NiaButton(
                 onClick = {},
                 text = { Text("Test button") },
-                leadingIcon = { Icon(imageVector = NiaIcons.Add, contentDescription = null) },
+                leadingIcon = { Icon(imageVector = LPlusIcons.Add, contentDescription = null) },
             )
         }
     }

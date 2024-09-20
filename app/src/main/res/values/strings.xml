@@ -43,6 +43,10 @@
 
     <string name="feature_home_title">Inicio</string>
 
+    <string name="feature_universalis_empty_message">"No se encontraron datos. Por favor, comprueba el estado de la sincronización."</string>
+    <string name="feature_universalis_error_message">"Hubo un error obteniendo los datos en el módulo Universalis."</string>
+
+
     <string name="feature_bookmarks_title">Saved</string>
     <string name="feature_bookmarks_loading">Loading saved…</string>
     <string name="feature_bookmarks_empty_error">No saved updates</string>

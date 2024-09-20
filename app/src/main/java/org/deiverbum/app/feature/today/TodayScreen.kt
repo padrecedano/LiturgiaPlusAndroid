@@ -11,11 +11,34 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.deiverbum.app.R
-import org.deiverbum.app.core.designsystem.component.NiaBackground
+import org.deiverbum.app.core.designsystem.component.LPlusBackground
 import org.deiverbum.app.core.designsystem.component.NiaLoadingWheel
-import org.deiverbum.app.core.designsystem.theme.NiaTheme
+import org.deiverbum.app.core.designsystem.theme.LPlusTheme
 import org.deiverbum.app.core.ui.DevicePreviews
 import org.deiverbum.app.core.ui.TrackScreenViewEvent
+
+@Composable
+fun TodayRouteNew(
+    onTopicClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    highlightSelectedTopic: Boolean = false,
+    viewModel: TodayViewModel = hiltViewModel(),
+
+    ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    TodayScreenNew(
+        uiState = uiState,
+        //followTopic = {},//viewModel::followTopic,
+        onTopicClick = {
+            //viewModel.onTopicClick(it)
+            onTopicClick(it)
+        },
+        highlightSelectedTopic = highlightSelectedTopic,
+        modifier = modifier,
+    )
+}
+
 
 @Composable
 fun TodayRoute(
@@ -38,6 +61,41 @@ fun TodayRoute(
     )
 }
 
+
+@Composable
+internal fun TodayScreenNew(
+    uiState: TodayUiState,
+    //followTopic: (String, Boolean) -> Unit,
+    onTopicClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    highlightSelectedTopic: Boolean = false,
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        when (uiState) {
+            TodayUiState.Loading ->
+                NiaLoadingWheel(
+                    modifier = modifier,
+                    contentDesc = stringResource(id = R.string.feature_interests_loading),
+                )
+
+            is TodayUiState.Todays ->
+                TopicsTabContent(
+                    topics = uiState.topics,
+                    onTopicClick = onTopicClick,
+                    //onFollowButtonClick = followTopic,
+                    selectedTopicId = uiState.selectedTopicId,
+                    highlightSelectedTopic = highlightSelectedTopic,
+                    modifier = modifier,
+                )
+
+            is TodayUiState.Empty -> TodayEmptyScreen()
+        }
+    }
+    TrackScreenViewEvent(screenName = "Today")
+}
 @Composable
 internal fun TodayScreen(
     uiState: TodayUiState,
@@ -82,8 +140,8 @@ private fun TodayEmptyScreen() {
 @DevicePreviews
 @Composable
 fun TodayScreenLoading() {
-    NiaTheme {
-        NiaBackground {
+    LPlusTheme {
+        LPlusBackground {
             TodayScreen(
                 uiState = TodayUiState.Loading,
                 //followTopic = { _, _ -> },
@@ -96,8 +154,8 @@ fun TodayScreenLoading() {
 @DevicePreviews
 @Composable
 fun TodayScreenEmpty() {
-    NiaTheme {
-        NiaBackground {
+    LPlusTheme {
+        LPlusBackground {
             TodayScreen(
                 uiState = TodayUiState.Empty,
                 //followTopic = { _, _ -> },

@@ -3,9 +3,17 @@ package org.deiverbum.app.core.ui
 import androidx.annotation.OptIn
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -20,6 +28,9 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.media3.common.util.UnstableApi
+import kotlinx.coroutines.launch
+import org.deiverbum.app.core.designsystem.component.PlayButton
+import org.deiverbum.app.core.designsystem.component.PlayerButton
 import org.deiverbum.app.core.designsystem.component.TextZoomable
 import org.deiverbum.app.core.designsystem.theme.NiaTypography
 import org.deiverbum.app.core.model.data.Alteri
@@ -34,8 +45,8 @@ import org.deiverbum.app.core.model.data.Missae
 import org.deiverbum.app.core.model.data.Sortable
 import org.deiverbum.app.core.model.data.Universalis
 import org.deiverbum.app.core.model.data.UserDataDynamic
-import org.deiverbum.app.feature.tts.ExoPlayerView
 import org.deiverbum.app.feature.tts.TextToSpeechScreen
+import org.deiverbum.app.feature.tts.TextToSpeechScreenn
 import org.deiverbum.app.feature.universalis.CompletoriumScreen
 import org.deiverbum.app.feature.universalis.IntermediaScreen
 import org.deiverbum.app.feature.universalis.LaudesScreen
@@ -45,34 +56,78 @@ import org.deiverbum.app.feature.universalis.OfficiumScreen
 import org.deiverbum.app.feature.universalis.VesperasScreen
 import timber.log.Timber
 
-
 @OptIn(UnstableApi::class)
 @ExperimentalMaterial3Api
 @Composable
-fun Universalis(data: Universalis, topicId: String?, userData: UserDataDynamic) {
-    val itemId = topicId!!.toInt()
+fun Universalis(
+    data: Universalis,
+    topicId: Int,
+    userData: UserDataDynamic,
+) {
+    var showBottomSheet by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState()
+    val scope = rememberCoroutineScope()
+    var timeViewState by remember {
+        mutableStateOf(false)
+    }
+    val itemId = topicId.toInt()
     val onTap = { point: Offset -> }
+
     if (data.liturgia!!.liturgiaTypus is Sortable) {
         data.liturgia!!.liturgiaTypus?.sort()
-        Timber.d("AAA", "Sortable")
     }
+
     var sb = StringBuilder()
-    sb.append(data.getAllForRead())
-    sb.append(data.getAllForRead())
-    sb.append(data.getAllForRead())
-    sb.append(data.getAllForRead())
-    sb.append(data.getAllForRead())
-    sb.append(data.getAllForRead())
-    sb.append(data.getAllForRead())
-    sb.append(data.getAllForRead())
-    sb.append(data.getAllForRead())
-    sb.append(data.getAllForRead())
 
-    ExoPlayerView(sb.toString())
-    return
+    sb.append(data.getAllForRead())
+    //ExoPlayerView(sb)
+    //return
+//onReaderClick = {}
+    if (userData.useVoiceReader || 1 == 1) {
 
-    if (userData.useVoiceReader) {
-        TextToSpeechScreen(data.getAllForRead())
+        //TextToSpeechScreenAA(data.getAllForRead())
+        PlayerButton(onClick = {
+            Timber.d("axy")
+            timeViewState = true
+        })
+        if (1 == 2) {
+            ModalBottomSheet(
+                onDismissRequest = {
+                    showBottomSheet = false
+                },
+                sheetState = sheetState
+            ) {
+                // Sheet content
+                //SliderReader()
+                TextToSpeechScreen()
+                TextToSpeechScreenn(text = sb)
+                PlayButton(isBookmarked = true, onClick = { /*TODO*/ })
+                Button(onClick = {
+                    scope.launch { sheetState.hide() }.invokeOnCompletion {
+                        if (!sheetState.isVisible) {
+                            showBottomSheet = false
+                        }
+                    }
+                }) {
+                    //Text("Hide bottom sheet")
+                }
+            }
+        }
+
+        if (timeViewState) {
+            ModalBottomSheet(
+                onDismissRequest = {
+                    showBottomSheet = false
+                },
+                sheetState = sheetState
+            ) {
+                // Sheet content
+                //SliderReader()
+                TextToSpeechScreen()
+
+            }
+        }
+
     }
     when (itemId) {
         1 -> MixtusScreen(
@@ -151,6 +206,46 @@ fun Universalis(data: Universalis, topicId: String?, userData: UserDataDynamic) 
     }
 }
 
+@kotlin.OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ModalBottom() {
+    var showBottomSheet by remember { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState()
+    val scope = rememberCoroutineScope()
+    ModalBottomSheet(
+        onDismissRequest = {
+            showBottomSheet = false
+        },
+        sheetState = sheetState
+    ) {
+        // Sheet content
+        //SliderReader()
+        TextToSpeechScreen()
+
+    }
+}
+
+@Composable
+fun CommentariiScreenn(
+    onReaderClick: () -> Unit,
+    onReaderrClick: () -> Unit,
+
+
+    ) {
+    NiaIconToggleButtonn(
+        onCheckedChange = {
+            onReaderClick()
+        },
+    )
+}
+
+@Composable
+fun NiaIconToggleButtonn(
+    onCheckedChange: (Boolean) -> Unit,
+
+    ) {
+    Text("Lorem ipsum")
+}
 
 @ExperimentalMaterial3Api
 @Composable

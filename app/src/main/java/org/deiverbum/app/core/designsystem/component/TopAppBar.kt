@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.designsystem.component
 
-import NiaIcons
+import LPlusIcons
 import androidx.annotation.StringRes
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,20 +16,28 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import org.deiverbum.app.core.designsystem.theme.NiaTheme
+import org.deiverbum.app.core.designsystem.theme.LPlusTheme
+import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NiaTopAppBar(
+fun LPlusTopAppBar(
     @StringRes titleRes: Int,
     navigationIcon: ImageVector,
     navigationIconContentDescription: String,
     actionIcon: ImageVector,
     actionIconContentDescription: String,
+    readerIcon: ImageVector,
+    calendarIcon: ImageVector,
+
     modifier: Modifier = Modifier,
     colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
     onNavigationClick: () -> Unit = {},
-    onActionClick: () -> Unit = {},
+    onReaderClick: () -> Unit = {},
+
+    onActionClick: () -> Unit = {
+        Timber.d("a", "a")
+    },
 ) {
     CenterAlignedTopAppBar(
         title = { Text(text = stringResource(id = titleRes)) },
@@ -50,6 +58,26 @@ fun NiaTopAppBar(
                     tint = MaterialTheme.colorScheme.onSurface,
                 )
             }
+            IconButton(
+                onClick = onReaderClick
+            ) {
+                Icon(
+                    imageVector = readerIcon,
+                    contentDescription = actionIconContentDescription,
+                    tint = MaterialTheme.colorScheme.onSurface,
+                )
+            }
+            IconButton(onClick =
+            { Timber.d("a", "axy") }
+                //onActionClick
+            ) {
+                Icon(
+                    imageVector = calendarIcon,
+                    contentDescription = actionIconContentDescription,
+                    tint = MaterialTheme.colorScheme.onSurface,
+                )
+            }
+
         },
         colors = colors,
         modifier = modifier.testTag("niaTopAppBar"),
@@ -60,12 +88,15 @@ fun NiaTopAppBar(
 @Preview("Top App Bar")
 @Composable
 private fun NiaTopAppBarPreview() {
-    NiaTheme {
-        NiaTopAppBar(
+    LPlusTheme {
+        LPlusTopAppBar(
             titleRes = android.R.string.untitled,
-            navigationIcon = NiaIcons.Search,
+            navigationIcon = LPlusIcons.Search,
+            readerIcon = LPlusIcons.Reader,
+            calendarIcon = LPlusIcons.Calendar,
+
             navigationIconContentDescription = "Navigation icon",
-            actionIcon = NiaIcons.MoreVert,
+            actionIcon = LPlusIcons.MoreVert,
             actionIconContentDescription = "Action icon",
         )
     }

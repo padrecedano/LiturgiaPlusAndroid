@@ -1,7 +1,9 @@
 package org.deiverbum.app.feature.tts
 
 import android.content.Context
+import android.media.AudioManager
 import android.os.Build
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.speech.tts.TextToSpeech
@@ -14,13 +16,21 @@ import androidx.media3.common.SimpleBasePlayer
 import androidx.media3.common.util.UnstableApi
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
+import org.deiverbum.app.util.Constants
 import java.util.Locale
 
 
 @UnstableApi
 class TtsPlayer(looper: Looper?, context: Context?, text: String) : SimpleBasePlayer(looper!!),
     OnInitListener {
+    private var mTexts: Array<String> = emptyArray()
+
+    //private val mTts: TextToSpeech
+    private var mTextProgress = 0
+    private var mIsPlaying = false
     private val textToSpeech = TextToSpeech(context, this)
+    private val mTts = TextToSpeech(context, this)
+
     private var text: String = ""
     private var state = State.Builder()
         .setAvailableCommands(
@@ -51,6 +61,10 @@ class TtsPlayer(looper: Looper?, context: Context?, text: String) : SimpleBasePl
      * @param looper The [Looper] used to call all methods on.
      */
     init {
+        mTexts =
+            text.split(Constants.SEPARADOR.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        //mTts = TextToSpeech(context, this)
+
         val locSpanish = Locale("spa", "ESP")
         this.text = text
         textToSpeech.setLanguage(locSpanish)
@@ -63,6 +77,10 @@ class TtsPlayer(looper: Looper?, context: Context?, text: String) : SimpleBasePl
             override fun onDone(utteranceId: String) {
                 Log.i(TAG, "onDone")
                 updatePlaybackState(STATE_ENDED, false)
+                if (!mIsPlaying || mTextProgress == mTexts.size) return
+                ++mTextProgress
+                //updateProgress(sliderValue.toInt(), mTexts.size)
+                speakText()
             }
 
             override fun onError(utteranceId: String) {
@@ -70,6 +88,14 @@ class TtsPlayer(looper: Looper?, context: Context?, text: String) : SimpleBasePl
                 updatePlaybackState(STATE_ENDED, false)
             }
         })
+    }
+
+    private fun speakText() {
+        if (mTextProgress >= mTexts.size) return
+        //API 21+
+        val bundle = Bundle()
+        bundle.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM, AudioManager.STREAM_MUSIC)
+        mTts.speak(mTexts[mTextProgress], TextToSpeech.QUEUE_FLUSH, bundle, "TTS_ID")
     }
 
     override fun getState(): State {
@@ -94,13 +120,13 @@ class TtsPlayer(looper: Looper?, context: Context?, text: String) : SimpleBasePl
             val locSpanish = Locale("spa", "ESP")
             textToSpeech.setLanguage(locSpanish)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-
-                textToSpeech.speak(
+                speakText()
+                /*textToSpeech.speak(
                     text,
                     TextToSpeech.QUEUE_FLUSH,
                     null,
                     TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID
-                )
+                )*/
             }
         } else {
             textToSpeech.stop()

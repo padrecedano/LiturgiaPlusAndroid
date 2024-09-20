@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.designsystem.component
 
-import NiaIcons
+import LPlusIcons
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Icon
@@ -16,7 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import org.deiverbum.app.core.designsystem.theme.NiaTheme
+import org.deiverbum.app.core.designsystem.theme.LPlusTheme
 
 
 /**
@@ -54,11 +54,11 @@ fun RowScope.NiaNavigationBarItem(
         label = label,
         alwaysShowLabel = alwaysShowLabel,
         colors = NavigationBarItemDefaults.colors(
-            selectedIconColor = NiaNavigationDefaults.navigationSelectedItemColor(),
-            unselectedIconColor = NiaNavigationDefaults.navigationContentColor(),
-            selectedTextColor = NiaNavigationDefaults.navigationSelectedItemColor(),
-            unselectedTextColor = NiaNavigationDefaults.navigationContentColor(),
-            indicatorColor = NiaNavigationDefaults.navigationIndicatorColor(),
+            selectedIconColor = LPlusNavigationDefaults.navigationSelectedItemColor(),
+            unselectedIconColor = LPlusNavigationDefaults.navigationContentColor(),
+            selectedTextColor = LPlusNavigationDefaults.navigationSelectedItemColor(),
+            unselectedTextColor = LPlusNavigationDefaults.navigationContentColor(),
+            indicatorColor = LPlusNavigationDefaults.navigationIndicatorColor(),
         ),
     )
 }
@@ -77,7 +77,7 @@ fun NiaNavigationBar(
 ) {
     NavigationBar(
         modifier = modifier,
-        contentColor = NiaNavigationDefaults.navigationContentColor(),
+        contentColor = LPlusNavigationDefaults.navigationContentColor(),
         tonalElevation = 0.dp,
         content = content,
     )
@@ -99,7 +99,7 @@ fun NiaNavigationBar(
  * only be shown when this item is selected.
  */
 @Composable
-fun NiaNavigationRailItem(
+fun LPlusNavigationRailItem(
     selected: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -118,11 +118,11 @@ fun NiaNavigationRailItem(
         label = label,
         alwaysShowLabel = alwaysShowLabel,
         colors = NavigationRailItemDefaults.colors(
-            selectedIconColor = NiaNavigationDefaults.navigationSelectedItemColor(),
-            unselectedIconColor = NiaNavigationDefaults.navigationContentColor(),
-            selectedTextColor = NiaNavigationDefaults.navigationSelectedItemColor(),
-            unselectedTextColor = NiaNavigationDefaults.navigationContentColor(),
-            indicatorColor = NiaNavigationDefaults.navigationIndicatorColor(),
+            selectedIconColor = LPlusNavigationDefaults.navigationSelectedItemColor(),
+            unselectedIconColor = LPlusNavigationDefaults.navigationContentColor(),
+            selectedTextColor = LPlusNavigationDefaults.navigationSelectedItemColor(),
+            unselectedTextColor = LPlusNavigationDefaults.navigationContentColor(),
+            indicatorColor = LPlusNavigationDefaults.navigationIndicatorColor(),
         ),
     )
 }
@@ -136,7 +136,7 @@ fun NiaNavigationRailItem(
  * [NavigationRailItem]s.
  */
 @Composable
-fun NiaNavigationRail(
+fun LPlusNavigationRail(
     modifier: Modifier = Modifier,
     header: @Composable (ColumnScope.() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit,
@@ -144,7 +144,7 @@ fun NiaNavigationRail(
     NavigationRail(
         modifier = modifier,
         containerColor = Color.Transparent,
-        contentColor = NiaNavigationDefaults.navigationContentColor(),
+        contentColor = LPlusNavigationDefaults.navigationContentColor(),
         header = header,
         content = content,
     )
@@ -155,17 +155,17 @@ fun NiaNavigationRail(
 fun NiaNavigationBarPreview() {
     val items = listOf("For you", "Saved", "Interests")
     val icons = listOf(
-        NiaIcons.UpcomingBorder,
-        NiaIcons.BookmarksBorder,
-        NiaIcons.Grid3x3,
+        LPlusIcons.UpcomingBorder,
+        LPlusIcons.BookmarksBorder,
+        LPlusIcons.Grid3x3,
     )
     val selectedIcons = listOf(
-        NiaIcons.Upcoming,
-        NiaIcons.Bookmarks,
-        NiaIcons.Grid3x3,
+        LPlusIcons.Upcoming,
+        LPlusIcons.Bookmarks,
+        LPlusIcons.Grid3x3,
     )
 
-    NiaTheme {
+    LPlusTheme {
         NiaNavigationBar {
             items.forEachIndexed { index, item ->
                 NiaNavigationBarItem(
@@ -195,20 +195,20 @@ fun NiaNavigationBarPreview() {
 fun NiaNavigationRailPreview() {
     val items = listOf("For you", "Saved", "Interests")
     val icons = listOf(
-        NiaIcons.UpcomingBorder,
-        NiaIcons.BookmarksBorder,
-        NiaIcons.Grid3x3,
+        LPlusIcons.UpcomingBorder,
+        LPlusIcons.BookmarksBorder,
+        LPlusIcons.Grid3x3,
     )
     val selectedIcons = listOf(
-        NiaIcons.Upcoming,
-        NiaIcons.Bookmarks,
-        NiaIcons.Grid3x3,
+        LPlusIcons.Upcoming,
+        LPlusIcons.Bookmarks,
+        LPlusIcons.Grid3x3,
     )
 
-    NiaTheme {
-        NiaNavigationRail {
+    LPlusTheme {
+        LPlusNavigationRail {
             items.forEachIndexed { index, item ->
-                NiaNavigationRailItem(
+                LPlusNavigationRailItem(
                     icon = {
                         Icon(
                             imageVector = icons[index],
@@ -233,7 +233,7 @@ fun NiaNavigationRailPreview() {
 /**
  * Now in Android navigation default values.
  */
-object NiaNavigationDefaults {
+object LPlusNavigationDefaults {
     @Composable
     fun navigationContentColor() = MaterialTheme.colorScheme.onSurfaceVariant
 

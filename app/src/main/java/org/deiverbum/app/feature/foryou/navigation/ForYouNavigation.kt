@@ -1,17 +1,61 @@
 package org.deiverbum.app.feature.foryou.navigation
 
-import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
-import androidx.navigation.NavType
+import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import androidx.navigation.navDeepLink
-import org.deiverbum.app.feature.foryou.ForYouRoute
+import kotlinx.serialization.Serializable
+import org.deiverbum.app.ui.home.HomeScreenBody
 
+
+@Serializable
+data class TopicRoute(val id: String)
+
+fun NavController.navigateToTopic(topicId: String, navOptions: NavOptionsBuilder.() -> Unit = {}) {
+    navigate(route = TopicRoute(topicId)) {
+        navOptions()
+    }
+}
+
+fun NavGraphBuilder.topicScreenn(
+    //showBackButton: Boolean,
+    //onBackClick: () -> Unit,
+    onTopicClick: (String) -> Unit,
+) {
+    composable<TopicRoute> {
+        TopicScreenn(
+            //showBackButton = showBackButton,
+            //onBackClick = onBackClick,
+            onTopicClick = onTopicClick,
+        )
+    }
+}
+
+@Composable
+fun TopicScreenn(onTopicClick: (String) -> Unit) {
+    Text("TS")
+}
+
+@Serializable
+data object ForYouRoute
+
+fun NavController.navigateToForYou(navOptions: NavOptions) =
+    navigate(route = ForYouRoute, navOptions)
+
+fun NavGraphBuilder.forYouScreen(onTopicClick: (String) -> Unit) {
+    composable<ForYouRoute> {
+        //Text("Lipsum*")
+        //ForYouScreen(onTopicClick)
+        HomeScreenBody(onTopicClick)
+
+    }
+}
+/*
 const val LINKED_NEWS_RESOURCE_ID = "linkedNewsResourceId"
-const val FOR_YOU_ROUTE = "for_you_route/{$LINKED_NEWS_RESOURCE_ID}"
+const val FOR_YOU_ROUTE = "for_you_route"///{$LINKED_NEWS_RESOURCE_ID}"
 private const val DEEP_LINK_URI_PATTERN =
     "https://www.nowinandroid.apps.samples.google.com/foryou/{$LINKED_NEWS_RESOURCE_ID}"
 
@@ -21,18 +65,20 @@ fun NavController.navigateToForYou(navOptions: NavOptions) = navigate(FOR_YOU_RO
 fun NavGraphBuilder.forYouScreen(onTopicClick: (String) -> Unit) {
     composable(
         route = FOR_YOU_ROUTE,
-        deepLinks = listOf(
+        /*deepLinks = listOf(
             navDeepLink { uriPattern = DEEP_LINK_URI_PATTERN },
         ),
         arguments = listOf(
             navArgument(LINKED_NEWS_RESOURCE_ID) { type = NavType.StringType },
-        ),
+        ),*/
     ) {
-        ForYouRoute(onTopicClick)
-        /*InterestsRouteInHome(
-            onTopicClick = onTopicClick,
-            onBackClick = {},
-            showBackButton = true
-        )*/
+        //Text("Lipsum")
+        //TodayRoute(onTopicClick = onTopicClick)
+
+
+        //HomeScreenBody (onTopicClick)
+
+
     }
 }
+*/

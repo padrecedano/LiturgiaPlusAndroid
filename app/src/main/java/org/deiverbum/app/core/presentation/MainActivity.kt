@@ -45,15 +45,15 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.deiverbum.app.core.analytics.AnalyticsHelper
 import org.deiverbum.app.core.analytics.LocalAnalyticsHelper
-import org.deiverbum.app.core.data.repository.UserNewsResourceRepository
+import org.deiverbum.app.core.data.repository.UniversalisRepository
 import org.deiverbum.app.core.data.util.NetworkMonitor
 import org.deiverbum.app.core.data.util.TimeZoneMonitor
-import org.deiverbum.app.core.designsystem.theme.NiaTheme
+import org.deiverbum.app.core.designsystem.theme.LPlusTheme
 import org.deiverbum.app.core.model.data.DarkThemeConfig
 import org.deiverbum.app.core.model.data.ThemeBrand
-import org.deiverbum.app.core.presentation.ui.rememberNiaAppState
+import org.deiverbum.app.core.presentation.ui.rememberLPlusAppState
 import org.deiverbum.app.core.ui.LocalTimeZone
-import org.deiverbum.app.ui.NiaApp
+import org.deiverbum.app.ui.LPlusApp
 import javax.inject.Inject
 
 private const val TAG = "MainActivity"
@@ -78,7 +78,9 @@ class MainActivity : ComponentActivity() {
     lateinit var analyticsHelper: AnalyticsHelper
 
     @Inject
-    lateinit var userNewsResourceRepository: UserNewsResourceRepository
+    lateinit var universalisRepository: UniversalisRepository
+
+    //val universalisViewModel: UniversalisViewModel  by viewModels()
 
     val viewModel: MainActivityViewModel by viewModels()
 
@@ -134,10 +136,11 @@ class MainActivity : ComponentActivity() {
                 onDispose {}
             }
 
-            val appState = rememberNiaAppState(
+            val appState = rememberLPlusAppState(
                 windowSizeClass = calculateWindowSizeClass(this),
                 networkMonitor = networkMonitor,
-                userNewsResourceRepository = userNewsResourceRepository,
+                universalisRepository = universalisRepository,
+                //userNewsResourceRepository = userNewsResourceRepository,
                 timeZoneMonitor = timeZoneMonitor,
             )
 
@@ -147,13 +150,13 @@ class MainActivity : ComponentActivity() {
                 LocalAnalyticsHelper provides analyticsHelper,
                 LocalTimeZone provides currentTimeZone,
             ) {
-                NiaTheme(
+                LPlusTheme(
                     darkTheme = darkTheme,
                     androidTheme = shouldUseAndroidTheme(uiState),
                     disableDynamicTheming = shouldDisableDynamicTheming(uiState),
                 ) {
                     @OptIn(ExperimentalMaterial3AdaptiveApi::class)
-                    NiaApp(appState)
+                    LPlusApp(appState, {})
                 }
             }
         }

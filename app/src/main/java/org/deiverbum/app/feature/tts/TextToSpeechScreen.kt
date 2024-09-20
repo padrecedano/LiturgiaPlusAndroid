@@ -32,11 +32,64 @@ import androidx.compose.ui.unit.dp
 import org.deiverbum.app.R
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.TtsManagerCompose
+import org.deiverbum.app.util.TtsManagerComposee
 import java.util.Locale
 
 
-private var mTtsManager: TtsManagerCompose? = null
+private var mTtsManager: TtsManagerComposeA? = null
+private var mTtsManagerr: TtsManagerComposee? = null
 
+@ExperimentalMaterial3Api
+@Composable
+fun TextToSpeechScreenn(text: StringBuilder) {
+    var isSpeaking by remember { mutableStateOf(false) }
+    var isPaused by remember { mutableStateOf(false) }
+
+    var sliderValue by remember { mutableStateOf(0f) }
+    var sliderMaxValue by remember { mutableStateOf(100f) }
+
+    Column(modifier = Modifier.padding(24.dp)) {
+        // Mostrar un control deslizante para seguir el progreso de la reproducción
+        /*SliderAdvancedExample(sliderValue, sliderMaxValue,isSpeaking,isPaused) { newValue ->
+            // Manejo de cambios en el valor del control deslizante
+            mTtsManager?.changeProgress(newValue.toInt())
+        }*/
+        SliderA(sliderValue, sliderMaxValue) { newValue ->
+            // Manejo de cambios en el valor del control deslizante
+            mTtsManager?.changeProgress(newValue.toInt())
+        }
+
+        // Comprobar si TTS dice
+        if (isSpeaking) {
+            readTextNew(text = text)
+        }
+
+        // Botón para iniciar la reproducción
+        Button(onClick = {
+            isSpeaking = true
+        }) {
+            Image(
+                painterResource(id = R.drawable.ic_play),
+                contentDescription = "Play",
+                modifier = Modifier.size(20.dp)
+            )
+        }
+
+        // Botón para detener la reproducción
+        Button(onClick = {
+            mTtsManagerr?.stop()
+            isSpeaking = false
+        }) {
+            Image(
+                painterResource(id = R.drawable.ic_baseline_stop_circle_24),
+                contentDescription = "Stop",
+                modifier = Modifier.size(20.dp)
+            )
+        }
+
+        //TODO: Buttons for Pause / Resume ...
+    }
+}
 @ExperimentalMaterial3Api
 @Composable
 fun TextToSpeechScreen(text: StringBuilder) {
@@ -79,6 +132,31 @@ fun TextToSpeechScreen(text: StringBuilder) {
 
 
 @Composable
+fun SliderMinimalExamplee(
+    sliderValue: Float,
+    sliderMaxValue: Float,
+    onSliderValueChange: (Float) -> Unit
+) {
+    var sliderPosition by remember { mutableFloatStateOf(0f) }
+
+    Column {
+        Slider(
+            value = sliderValue,
+            valueRange = 0f..sliderMaxValue,
+            onValueChange = { newValue ->
+                // Llamar al controlador cuando se cambia el valor
+                onSliderValueChange(newValue)
+                sliderPosition = newValue
+            }
+        )
+        // Muestra el porcentaje de progreso
+        Text(text = "Progress: ${sliderValue.toInt()}%")
+        Text(text = sliderPosition.toString())
+
+    }
+}
+
+@Composable
 fun SliderMinimalExample(
     sliderValue: Float,
     sliderMaxValue: Float
@@ -116,10 +194,27 @@ fun rememberTextToSpeech(): MutableState<TextToSpeech?> {
 }
 
 @Composable
+private fun readTextNew(text: StringBuilder) {
+    // Inicializar TtsManagerCompose si Aún no se ha inicializado
+    var sliderValue by remember { mutableFloatStateOf(0f) }
+    var sliderMaxValue by remember { mutableFloatStateOf(100f) }
+    if (mTtsManagerr == null) {
+        mTtsManagerr = TtsManagerComposee(
+            LocalContext.current, text,
+            Constants.SEPARADOR,
+        ) { current: Int, max: Int ->
+            // Actualizar los valores del control deslizante
+            sliderValue = current.toFloat() // Update current value
+            sliderMaxValue = max.toFloat() // Update Max value
+        }
+        mTtsManagerr!!.start()
+    }
+}
+@Composable
 private fun readText(text: StringBuilder) {
     var sliderValue by remember { mutableFloatStateOf(0f) }
     var sliderMaxValue by remember { mutableFloatStateOf(100f) }
-    mTtsManager = TtsManagerCompose(
+    mTtsManager = TtsManagerComposeA(
         LocalContext.current, text,
         Constants.SEPARADOR,
     ) { current: Int, max: Int ->
@@ -132,7 +227,7 @@ private fun readText(text: StringBuilder) {
 @Composable
 private fun readTextt(text: StringBuilder) {
 
-    mTtsManager = TtsManagerCompose(
+    mTtsManager = TtsManagerComposeA(
         LocalContext.current, text,
         Constants.SEPARADOR,
     ) { current: Int, max: Int ->
@@ -167,7 +262,7 @@ fun rememberTextToSpeechh(text: StringBuilder): MutableState<TtsManagerCompose?>
 
 @ExperimentalMaterial3Api
 @Composable
-fun SliderMinimalExamplee() {
+fun SliderMinimalExampleee() {
     var sliderValue by remember { mutableFloatStateOf(0f) }
 
     CustomSlider(
