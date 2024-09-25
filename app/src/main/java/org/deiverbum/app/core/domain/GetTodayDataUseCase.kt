@@ -8,7 +8,7 @@ import javax.inject.Inject
  * A use case which obtains a list of topics with their followed state.
  */
 class GetTodayDataUseCase @Inject constructor(
-    private val topicsRepository: UniversalisRepository,
+    private val universalisRepository: UniversalisRepository,
     private val userDataRepository: UserDataRepository,
 ) {
     /**
@@ -28,6 +28,10 @@ class GetTodayDataUseCase @Inject constructor(
 
         //return t
     }
+    /*
+    operator fun invoke(limit: Int = 10): Flow<List<RecentSearchQuery>> =
+        recentSearchRepository.getRecentSearchQueries(limit)
+    * */
 }
 
 

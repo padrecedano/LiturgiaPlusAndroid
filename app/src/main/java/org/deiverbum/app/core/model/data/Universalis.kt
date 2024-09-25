@@ -123,11 +123,23 @@ data class Universalis(
     fun getAllForView(): AnnotatedString {
         var s = LoremIpsum(5)
         val annotatedString = buildAnnotatedString {
+            append("\n")
+            append("\n")
+            append("\n")
+            append("\n")
+            append("\n")
+            append("\n")
+
+            append(fecha)
+            append("\n")
+            append(todayDate.toString())
+            append("\n")
+
             withStyle(style = SpanStyle(color = Red)) {
                 append("Hello, ")
             }
             append("World!")
-            append(s.values.last())
+            //append(s.values.last())
             append(liturgia!!.liturgiaTypus!!.typus)
             //append(getAllForView(TodayRequest(1, 1, true, true)))
 

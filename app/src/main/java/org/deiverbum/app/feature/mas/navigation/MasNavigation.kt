@@ -1,4 +1,4 @@
-package org.deiverbum.app.feature.home.navigation
+package org.deiverbum.app.feature.mas.navigation
 
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
@@ -7,22 +7,28 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
-import org.deiverbum.app.feature.home.HomeScreen
-
+import org.deiverbum.app.feature.mas.MasScreen
 
 @Serializable
-data object HomeRoute
+data class MasRoute(
+    val initialTopicId: String? = null,
+)
 
-fun NavController.navigateToHome(navOptions: NavOptions) = navigate(route = HomeRoute, navOptions)
+fun NavController.navigateToMas(
+    initialTopicId: String? = null,
+    navOptions: NavOptions? = null,
+) {
+    navigate(route = MasRoute(initialTopicId), navOptions)
+}
 
 @ExperimentalLayoutApi
 @ExperimentalMaterial3AdaptiveApi
-fun NavGraphBuilder.homeScreen(
+fun NavGraphBuilder.masScreen(
     onTopicClick: (String) -> Unit,
     //onBackClick: () -> Unit,
 ) {
-    composable<HomeRoute> {
-        HomeScreen(onTopicClick)
+    composable<MasRoute> {
+        MasScreen(onTopicClick = onTopicClick)
     }
 }
 

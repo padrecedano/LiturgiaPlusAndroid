@@ -79,6 +79,7 @@ interface DataModule {
         newsRepository: OfflineFirstUniversalisRepository,
     ): UniversalisRepository
 
+
     @Binds
     fun bindsNetworkMonitor(
         networkMonitor: ConnectivityManagerNetworkMonitor,

@@ -3,8 +3,6 @@ package org.deiverbum.app.core.ui
 import LPlusIcons
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -49,9 +46,7 @@ import kotlinx.datetime.toJavaInstant
 import kotlinx.datetime.toJavaZoneId
 import org.deiverbum.app.R
 import org.deiverbum.app.core.designsystem.component.NiaIconToggleButton
-import org.deiverbum.app.core.designsystem.component.NiaTopicTag
 import org.deiverbum.app.core.designsystem.theme.LPlusTheme
-import org.deiverbum.app.core.model.data.FollowableTopic
 import org.deiverbum.app.core.model.data.UserNewsResource
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -265,55 +260,6 @@ fun NewsResourceShortDescriptionNew(
     Text(newsResourceShortDescription, style = MaterialTheme.typography.bodyLarge)
 }
 
-
-@Composable
-fun UniversalisResourceMetaData(
-    content: String,
-) {
-    Text(
-        text = content,
-        style = MaterialTheme.typography.titleMedium,
-    )
-}
-
-@Composable
-fun NewsResourceTopics(
-    topics: List<FollowableTopic>,
-    onTopicClick: (String) -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Row(
-        // causes narrow chips
-        modifier = modifier.horizontalScroll(rememberScrollState()),
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
-    ) {
-        for (followableTopic in topics) {
-            NiaTopicTag(
-                followed = followableTopic.isFollowed,
-                onClick = { onTopicClick(followableTopic.topic.id) },
-                text = {
-                    val contentDescription = if (followableTopic.isFollowed) {
-                        stringResource(
-                            R.string.lbl_nona,
-                            followableTopic.topic.name,
-                        )
-                    } else {
-                        stringResource(
-                            R.string.audio_stop,
-                            followableTopic.topic.name,
-                        )
-                    }
-                    Text(
-                        text = followableTopic.topic.name.uppercase(Locale.getDefault()),
-                        modifier = Modifier.semantics {
-                            this.contentDescription = contentDescription
-                        },
-                    )
-                },
-            )
-        }
-    }
-}
 
 @Preview("Bookmark Button")
 @Composable

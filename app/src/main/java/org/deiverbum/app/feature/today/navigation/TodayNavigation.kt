@@ -1,6 +1,5 @@
 package org.deiverbum.app.feature.today.navigation
 
-import androidx.compose.material3.Text
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -35,6 +34,6 @@ fun NavGraphBuilder.todayScreen(
     composable<TodayRoute> {
         //TodayRoute(onTopicClick = onTopicClick)
         val t = LoremIpsum()
-        Text(t.values.last())
+        //Text(t.values.last())
     }
 }

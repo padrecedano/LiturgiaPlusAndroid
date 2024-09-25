@@ -22,14 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.deiverbum.app.core.designsystem.component.NiaIconToggleButton
 import org.deiverbum.app.core.model.data.Alteri
-import org.deiverbum.app.core.model.data.Universalis
 import org.deiverbum.app.core.model.data.UniversalisRequest
-import org.deiverbum.app.core.model.data.UserDataDynamic
 
 /**
  * [UniversalisResourceCardExpanded] card usada en `UniversalisScreen`
  */
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -72,10 +69,8 @@ fun UniversalisResourceCardExpanded(
                                 }
 
                                 else -> {
-//"TODO: UniversalisResourceCard 75"
+//"TODO: UniversalisResourceCard 75" ERROR cuando no hay homilías
                                     universalisResource[0].data[0].liturgia!!.tempus!!.externus.toString()
-
-
                                 }
                             }
                         }
@@ -84,7 +79,7 @@ fun UniversalisResourceCardExpanded(
                             modifier = Modifier.fillMaxWidth((.8f)),
                         )
                         Spacer(modifier = Modifier.weight(1f))
-                        BookmarkButton(isBookmarked, onToggleBookmark)
+                        //BookmarkButton(isBookmarked, onToggleBookmark)
                     }
                     Spacer(modifier = Modifier.height(14.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -95,7 +90,7 @@ fun UniversalisResourceCardExpanded(
                             )
                             Spacer(modifier = Modifier.size(6.dp))
                         }
-                        //UniversalisResourceMetaData(universalisResource[0].data[0].liturgia!!.nomen)
+                        UniversalisResourceMetaData(universalisResource[0].data[0].liturgia!!.nomen)
                     }
                     Spacer(modifier = Modifier.height(14.dp))
                     var data = universalisResource[0].data[0]
@@ -105,19 +100,6 @@ fun UniversalisResourceCardExpanded(
                         universalisResource[0].dynamic,
                         //onReaderClick
                     )
-
-
-                    //CommentariiScreenn(onReaderClick = onReaderClick) {
-                    //onReaderClick={}
-
-                    //Text(data.getAllForView())
-                    /*UniversalisScreenView(
-                        data = data,
-                        topicId = topicId,
-                        universalisResource[0].dynamic,
-                        modifier = modifier
-                    )*/
-
                 }
             }
         }
@@ -159,29 +141,13 @@ fun ReaderButton(
     )
 }
 
-
-@ExperimentalMaterial3Api
 @Composable
-fun UniversalisContent(
-    data: Universalis,
-    topicId: String?,
-    userData: UserDataDynamic,
-    modifier: Modifier,
-    onReaderClick: () -> Unit
+fun UniversalisResourceMetaData(
+    content: String,
 ) {
-    //Box() {
-
-
-    //Greeting("Android")
-    //TtsAudioUI()
-    //}        //TtsAudioUI()
-
-    //if(showScreen) {
-    //alert()
-    //}
-    //TextToSpeechScreen()
-    /*Universalis(
-        data, topicId = topicId, userData,onReaderClick
-    )*/
+    Text(
+        text = content,
+        style = MaterialTheme.typography.titleMedium,
+    )
 }
 

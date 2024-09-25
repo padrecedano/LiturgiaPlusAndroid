@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.sp
 import androidx.media3.common.util.UnstableApi
 import kotlinx.coroutines.launch
 import org.deiverbum.app.core.designsystem.component.PlayButton
-import org.deiverbum.app.core.designsystem.component.PlayerButton
 import org.deiverbum.app.core.designsystem.component.TextZoomable
 import org.deiverbum.app.core.designsystem.theme.NiaTypography
 import org.deiverbum.app.core.model.data.Alteri
@@ -54,7 +53,6 @@ import org.deiverbum.app.feature.universalis.MissaeLectionumScreen
 import org.deiverbum.app.feature.universalis.MixtusScreen
 import org.deiverbum.app.feature.universalis.OfficiumScreen
 import org.deiverbum.app.feature.universalis.VesperasScreen
-import timber.log.Timber
 
 @OptIn(UnstableApi::class)
 @ExperimentalMaterial3Api
@@ -70,6 +68,8 @@ fun Universalis(
     var timeViewState by remember {
         mutableStateOf(false)
     }
+
+    //TODO: Limpiar
     val itemId = topicId.toInt()
     val onTap = { point: Offset -> }
 
@@ -86,10 +86,10 @@ fun Universalis(
     if (userData.useVoiceReader || 1 == 1) {
 
         //TextToSpeechScreenAA(data.getAllForRead())
-        PlayerButton(onClick = {
+        /*PlayerButton(onClick = {
             Timber.d("axy")
             timeViewState = true
-        })
+        })*/
         if (1 == 2) {
             ModalBottomSheet(
                 onDismissRequest = {

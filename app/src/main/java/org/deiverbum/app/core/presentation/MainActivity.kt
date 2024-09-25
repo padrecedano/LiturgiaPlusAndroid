@@ -1,21 +1,6 @@
+@file:OptIn(ExperimentalLayoutApi::class)
+
 package org.deiverbum.app.core.presentation
-
-/*
- * Copyright 2022 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -24,9 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
-import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
@@ -40,6 +23,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.metrics.performance.JankStats
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -51,14 +35,14 @@ import org.deiverbum.app.core.data.util.TimeZoneMonitor
 import org.deiverbum.app.core.designsystem.theme.LPlusTheme
 import org.deiverbum.app.core.model.data.DarkThemeConfig
 import org.deiverbum.app.core.model.data.ThemeBrand
-import org.deiverbum.app.core.presentation.ui.rememberLPlusAppState
 import org.deiverbum.app.core.ui.LocalTimeZone
-import org.deiverbum.app.ui.LPlusApp
+import org.deiverbum.app.ui.NiaApp
+import org.deiverbum.app.ui.rememberNiaAppState
 import javax.inject.Inject
 
 private const val TAG = "MainActivity"
 
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
@@ -136,10 +120,8 @@ class MainActivity : ComponentActivity() {
                 onDispose {}
             }
 
-            val appState = rememberLPlusAppState(
-                windowSizeClass = calculateWindowSizeClass(this),
+            val appState = rememberNiaAppState(
                 networkMonitor = networkMonitor,
-                universalisRepository = universalisRepository,
                 //userNewsResourceRepository = userNewsResourceRepository,
                 timeZoneMonitor = timeZoneMonitor,
             )
@@ -155,8 +137,7 @@ class MainActivity : ComponentActivity() {
                     androidTheme = shouldUseAndroidTheme(uiState),
                     disableDynamicTheming = shouldDisableDynamicTheming(uiState),
                 ) {
-                    @OptIn(ExperimentalMaterial3AdaptiveApi::class)
-                    LPlusApp(appState, {})
+                    NiaApp(appState)
                 }
             }
         }

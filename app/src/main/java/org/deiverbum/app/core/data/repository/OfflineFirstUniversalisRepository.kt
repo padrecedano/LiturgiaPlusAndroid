@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.onEmpty
 import org.deiverbum.app.core.data.Synchronizer
 import org.deiverbum.app.core.data.changeListSync
 import org.deiverbum.app.core.database.dao.UniversalisDao
+import org.deiverbum.app.core.database.model.entity.asExternalModel
 import org.deiverbum.app.core.database.model.external.CommentariiExternal
 import org.deiverbum.app.core.database.model.external.CompletoriumExternal
 import org.deiverbum.app.core.database.model.external.HomiliaeExternal
@@ -21,6 +22,7 @@ import org.deiverbum.app.core.database.model.external.TertiamExternal
 import org.deiverbum.app.core.database.model.external.UniversalisExternal
 import org.deiverbum.app.core.database.model.external.asExternalModel
 import org.deiverbum.app.core.datastore.ChangeListVersions
+import org.deiverbum.app.core.model.data.Universalis
 import org.deiverbum.app.core.model.data.UniversalisResource
 import org.deiverbum.app.core.network.NiaNetworkDataSource
 import org.deiverbum.app.util.Utils
@@ -39,7 +41,15 @@ private const val SYNC_BATCH_SIZE = 40
 class OfflineFirstUniversalisRepository @Inject constructor(
     private val universalisDao: UniversalisDao,
     private val network: NiaNetworkDataSource,
-) : UniversalisRepository {
+    val userDataRepository: UserDataRepository,
+
+    ) : UniversalisRepository {
+
+    /**
+     * Returns available news resources (joined with user data) matching the given query.
+     */
+    override fun getUniversalisForTest(id: Int): Flow<Universalis> =
+        universalisDao.getUniversalisByDate(id).map { it.asExternalModel() }
 
     override fun getReader(): String {
         return "Lorem ipsum"
@@ -118,6 +128,11 @@ class OfflineFirstUniversalisRepository @Inject constructor(
         }
         return r
     }
+
+    override fun getOneUniversalisByDate(query: UniversalisResourceQuery): Flow<UniversalisResource> {
+        TODO("Not yet implemented")
+    }
+
 
 
     override suspend fun insertFromRemote(query: UniversalisResourceQuery) {

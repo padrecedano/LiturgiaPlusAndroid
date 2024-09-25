@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="core_ui_back">Volver</string>
+    <string name="feature_other_title">Más...</string>
+
+    <string name="feature_calendar_title">Calendario</string>
 
     <string name="feature_foryou_title">For you</string>
     <string name="feature_foryou_done">Done</string>

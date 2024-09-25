@@ -3,9 +3,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.ShortText
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Bookmarks
+import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Upcoming
+import androidx.compose.material.icons.outlined.ViewDay
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Bookmark
 import androidx.compose.material.icons.rounded.BookmarkBorder
@@ -34,12 +37,17 @@ object LPlusIcons {
     val Bookmarks = Icons.Rounded.Bookmarks
     val BookmarksBorder = Icons.Outlined.Bookmarks
     val Calendar = Icons.Rounded.CalendarMonth
+    val CalendarBorder = Icons.Outlined.CalendarMonth
+
+    val Other = Icons.Rounded.Add
+    val OtherBorder = Icons.Outlined.Add
 
     val Check = Icons.Rounded.Check
     val Close = Icons.Rounded.Close
     val Grid3x3 = Icons.Rounded.Grid3x3
     val Home = Icons.Rounded.Home
     val HomeBorder = Icons.Outlined.Home
+
 
     val MoreVert = Icons.Default.MoreVert
     val Person = Icons.Rounded.Person
@@ -52,4 +60,6 @@ object LPlusIcons {
     val UpcomingBorder = Icons.Outlined.Upcoming
 
     val ViewDay = Icons.Rounded.ViewDay
+    val ViewDayBorder = Icons.Outlined.ViewDay
+
 }

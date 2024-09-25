@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.windowInsetsTopHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -37,18 +38,19 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.deiverbum.app.R
-import org.deiverbum.app.core.designsystem.component.NiaFilterChip
 import org.deiverbum.app.core.designsystem.component.NiaLoadingWheel
 import org.deiverbum.app.core.designsystem.component.scrollbar.DraggableScrollbar
 import org.deiverbum.app.core.designsystem.component.scrollbar.rememberDraggableScroller
 import org.deiverbum.app.core.designsystem.component.scrollbar.scrollbarState
 import org.deiverbum.app.core.model.data.UniversalisRequest
 import org.deiverbum.app.core.ui.ReaderButton
+import org.deiverbum.app.core.ui.TrackScrollJank
 import org.deiverbum.app.core.ui.universalisResourceCardItems
 import org.deiverbum.app.feature.tts.TextToSpeechScreenB
 import org.deiverbum.app.util.Utils
@@ -80,22 +82,24 @@ fun UniversalisFromHomeScreen(
     onReaderClick: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val state = rememberLazyListState()
 
+    TrackScrollJank(scrollableState = state, stateName = "universalis:screen")
     UniversalisFromHomeScreen(
         uiState = uiState,
         modifier = modifier,
         followTopic = viewModel::followTopic,
         //onReaderClick = onReaderClick,
-        onReaderClick = viewModel::onReaderClick,
+        onReaderClick = {},//viewModel::onReaderClick,
         onBackClick = {},//listDetailNavigator::navigateBack,
         //onTopicClick=onTopicClick
         onTopicClick = {
+            //Timber.d(it.toString())
             //viewModel.onTopicClick(it)
             //onTopicClick(it)
         },
     )
 }
-
 
 /**
  * Función interna de la pantalla para objetos **`Universalis`**.
@@ -140,10 +144,7 @@ internal fun UniversalisFromHomeScreen(
 
             when (uiState) {
                 UniversalisUiState.Loading -> item {
-                    NiaLoadingWheel(
-                        modifier = modifier,
-                        contentDesc = stringResource(id = R.string.generic_loading),
-                    )
+                    LoadingState(modifier = modifier)
                 }
 
                 is UniversalisUiState.UniversalisData -> {
@@ -169,7 +170,6 @@ internal fun UniversalisFromHomeScreen(
 
                 UniversalisUiState.Empty -> universalisEmpty()
                 UniversalisUiState.Error -> universalisError()
-
             }
 
             item {
@@ -212,30 +212,11 @@ internal fun UniversalisFromHomeScreen(
 private fun LazyListScope.universalisBody(
     universalis: UniversalisUiState.UniversalisData,
     onReaderClick: () -> Unit,
-
     ) {
     item {
         UniversalisHeader(universalis.selectedTopicId!!, universalis.topics[0].date)
     }
-    universalisResourceCardItems(
-        items = universalis.topics,
-        topicId = universalis.selectedTopicId!!,
-        itemModifier = Modifier.padding(24.dp),
-        onReaderClick = onReaderClick
-    )
-    //universalisResourceCards(universalis, onReaderClick)
-}
-
-private fun LazyListScope.universalisEmpty() {
-    item {
-        UniversalisEmptyScreen()
-    }
-}
-
-private fun LazyListScope.universalisError() {
-    item {
-        UniversalisErrorScreen()
-    }
+    universalisResourceCards(universalis, onReaderClick)
 }
 
 /**
@@ -288,26 +269,13 @@ fun UniversalisToolbar(
         val selected = uiState[0].dynamic.useVoiceReader//true//uiState.isFollowed
         //showBottomSheet = uiState[0].dynamic.useVoiceReader//true//uiState.isFollowed
 
-        ReaderButton(true, onClick = {
-            showBottomSheet = true
-        })
-
-        NiaFilterChip(
-            selected = selected,
-            onSelectedChange = {
+        ReaderButton(
+            true,
+            onClick = {
                 showBottomSheet = true
             },
             modifier = Modifier.padding(end = 24.dp),
-            //onClick={}
-        ) {
-            if (selected) {
-                Text("FOLLOWING")
-
-            } else {
-                Text("NOT FOLLOWING")
-            }
-        }
-
+        )
 
         if (showBottomSheet) {
             var sb = uiState[0].data[0].getAllForRead()
@@ -317,7 +285,6 @@ fun UniversalisToolbar(
                 },
                 sheetState = sheetState
             ) {
-                // Sheet content
                 TextToSpeechScreenB(text = sb)
                 //TextToSpeechScreenA(text = sb)
                 /*Button(onClick = {
@@ -334,6 +301,7 @@ fun UniversalisToolbar(
 
     }
 }
+
 
 // TODO: Could/should this be replaced with [LazyGridScope.newsFeed]?
 private fun LazyListScope.universalisResourceCards(
@@ -414,4 +382,27 @@ private fun UniversalisErrorScreen() {
             style = MaterialTheme.typography.titleMedium
         )
     }
+}
+
+private fun LazyListScope.universalisEmpty() {
+    item {
+        UniversalisEmptyScreen()
+    }
+}
+
+private fun LazyListScope.universalisError() {
+    item {
+        UniversalisErrorScreen()
+    }
+}
+
+@Composable
+private fun LoadingState(modifier: Modifier = Modifier) {
+    NiaLoadingWheel(
+        modifier = modifier
+            .fillMaxWidth()
+            .wrapContentSize()
+            .testTag("universalis:loading"),
+        contentDesc = stringResource(id = R.string.generic_loading),
+    )
 }

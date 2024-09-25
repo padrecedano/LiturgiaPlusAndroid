@@ -17,53 +17,45 @@
 package org.deiverbum.app.feature.topic.navigation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
 import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.composable
-import androidx.navigation.toRoute
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.serialization.Serializable
-import org.deiverbum.app.feature.home.navigation.Book
-import org.deiverbum.app.feature.home.navigation.BookDetail
-import org.deiverbum.app.feature.home.navigation.BookType
-import org.deiverbum.app.navigation.UniversalisRouteFromHome
-import kotlin.reflect.typeOf
+import org.deiverbum.app.feature.calendar.navigation.CalendarRoute
+import org.deiverbum.app.feature.home.HomeScreen
 
 
 @Serializable
 data class TopicRoute(val id: String)
 
-fun NavController.navigateToTopicc(navOptions: NavOptions) =
-    navigate(route = TopicRoute, navOptions)
-
-fun NavController.navigateToTopiccc(
-    topicId: String,
-    navOptions: NavOptionsBuilder.() -> Unit = {}
+@ExperimentalLayoutApi
+@ExperimentalCoroutinesApi
+@ExperimentalMaterial3AdaptiveApi
+fun NavGraphBuilder.calendarScreen(
+    //onTopicClick: () -> Unit,
+    onDateSelected: (Long) -> Unit,
+    onTopicClick: (String?) -> Unit
 ) {
-    navigate(route = TopicRoute(topicId)) {
-        navOptions()
+    composable<CalendarRoute> {
+        val t = LoremIpsum()
+        //Text(t.values.last())
+        //(Text("Calendar Navigation\nUniversalisRouteFromHome")
+        HomeScreen(onTopicClick)
+        //CalendarScreen(onTopicClick = onTopicClick,onDateSelected={})
+        //DatePickerDocked(onValueChange=onTopicClick)
+        /*InterestsRouteInHome(
+            onTopicClick = onTopicClick,
+            onBackClick = {},
+            showBackButton = true
+        )*/
     }
 }
 
-fun NavController.navigateToUniversalisFromHome(
-    topicId: String,
-    navOptions: NavOptionsBuilder.() -> Unit = {}
-) {
-    navigate(route = UniversalisRouteFromHome(topicId)) {
-        navOptions()
-    }
-}
-
-fun NavController.navigateToBook(topicId: String, navOptions: NavOptionsBuilder.() -> Unit = {}) {
-    navigate(route = BookDetail) {
-        navOptions()
-    }
-}
 
 fun NavController.navigateToTopic(topicId: String, navOptions: NavOptionsBuilder.() -> Unit = {}) {
     navigate("topic_route/1") {
@@ -71,58 +63,8 @@ fun NavController.navigateToTopic(topicId: String, navOptions: NavOptionsBuilder
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
-@ExperimentalMaterial3AdaptiveApi
-fun NavGraphBuilder.topicScreennn(
-    showBackButton: Boolean,
-    onBackClick: () -> Unit,
-    onTopicClick: (String) -> Unit,
-) {
-    composable<TopicRoute> { backStackEntry ->
-        val user: TopicRoute = backStackEntry.toRoute()
 
-        UserDetailsScreen(user)
-        /*HomeRoute(
-            showBackButton = showBackButton,
-            onBackClick = onBackClick,
-            onTopicClick = onTopicClick,
-        )*/
-        //val t=LoremIpsum(10)
-        //Text(text = t.values.last())
-    }
-}
 
-@ExperimentalMaterial3AdaptiveApi
-fun NavGraphBuilder.bookScreen(
-
-) {
-    composable<BookDetail>(
-        typeMap = mapOf(typeOf<Book>() to BookType)
-    )
-
-    { backStackEntry ->
-        val user: TopicRoute = backStackEntry.toRoute()
-        val book = backStackEntry.toRoute<BookDetail>().book
-        Text(text = book.title)
-        //UserDetailsScreen(user)
-        /*HomeRoute(
-            showBackButton = showBackButton,
-            onBackClick = onBackClick,
-            onTopicClick = onTopicClick,
-        )*/
-        //val t=LoremIpsum(10)
-        //Text(text = t.values.last())
-    }
-}
-
-@Composable
-fun UserDetailsScreen(
-    user: TopicRoute
-) {
-    val t = LoremIpsum(10)
-    //Text(text = t.values.last())
-    Text(text = user.id)
-}
 
 @OptIn(ExperimentalFoundationApi::class)
 @ExperimentalMaterial3AdaptiveApi

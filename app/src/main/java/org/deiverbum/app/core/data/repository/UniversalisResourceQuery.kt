@@ -3,6 +3,7 @@ package org.deiverbum.app.core.data.repository
 import kotlinx.coroutines.flow.Flow
 import org.deiverbum.app.core.data.Syncable
 import org.deiverbum.app.core.model.data.NewsResource
+import org.deiverbum.app.core.model.data.Universalis
 import org.deiverbum.app.core.model.data.UniversalisResource
 
 /**
@@ -12,7 +13,7 @@ data class UniversalisResourceQuery(
     /**
      * Topic ids to filter for. Null means any topic id will match.
      */
-    val filterDates: Set<Int>? = null,
+    var filterDates: Set<Int>? = null,
     /**
      * News ids to filter for. Null means any news id will match.
      */
@@ -55,6 +56,13 @@ interface UniversalisRepository : Syncable {
         ),
     ): Flow<List<UniversalisResource>>
 
+    fun getOneUniversalisByDate(
+        query: UniversalisResourceQuery = UniversalisResourceQuery(
+            filterDates = null,
+            filterTopicsIds = 1,
+        ),
+    ): Flow<UniversalisResource>
+
     fun getReader(): String {
         return TODO("Provide the return value")
     }
@@ -86,4 +94,6 @@ interface UniversalisRepository : Syncable {
             filterTopicsIds = 1,
         ),
     )
+
+    fun getUniversalisForTest(id: Int): Flow<Universalis>
 }

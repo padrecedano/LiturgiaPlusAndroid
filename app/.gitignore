@@ -16,7 +16,4 @@ Configuration.java
 
 # /assets/database/
 assets/datase/*/
-
-
-
-
+/src/main/assets/database/

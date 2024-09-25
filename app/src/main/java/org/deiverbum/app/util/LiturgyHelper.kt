@@ -8,7 +8,7 @@ class LiturgyHelper {
         const val V = "V./ "
         const val R = "R./ "
         val liturgyMap = hashMapOf(
-            1 to "Laudes + Lecturas Oficio",
+            1 to "Mixto",
             2 to "Oficio",
             3 to "Laudes",
             4 to "Tercia",
