@@ -2,13 +2,11 @@
 
 package org.deiverbum.app.feature.calendar
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -36,10 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -49,7 +44,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.deiverbum.app.R
 import org.deiverbum.app.core.designsystem.component.NiaLoadingWheel
-import org.deiverbum.app.core.designsystem.theme.LocalTintTheme
 import org.deiverbum.app.feature.home.HomeScreenCalendarFinal
 import timber.log.Timber
 import java.text.SimpleDateFormat
@@ -301,9 +295,9 @@ fun convertMillisToDate(millis: Long): String {
     return formatter.format(Date(millis))
 }
 
-
+//TODO: Reubicar
 @Composable
-private fun EmptyState(modifier: Modifier = Modifier) {
+fun EmptyState(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(16.dp)
@@ -312,15 +306,7 @@ private fun EmptyState(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        val iconTint = LocalTintTheme.current.iconTint
-        Image(
-            modifier = Modifier.fillMaxWidth(),
-            painter = painterResource(id = R.drawable.ic_misa),
-            colorFilter = if (iconTint != Color.Unspecified) ColorFilter.tint(iconTint) else null,
-            contentDescription = null,
-        )
 
-        Spacer(modifier = Modifier.height(48.dp))
 
         Text(
             text = stringResource(id = R.string.feature_bookmarks_empty_error),
@@ -330,19 +316,36 @@ private fun EmptyState(modifier: Modifier = Modifier) {
             fontWeight = FontWeight.Bold,
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = stringResource(id = R.string.feature_bookmarks_empty_description),
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.bodyMedium,
-        )
     }
 }
 
+//TODO: Reubicar
 @Composable
-private fun LoadingState(modifier: Modifier = Modifier) {
+fun ErrorState(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .padding(16.dp)
+            .fillMaxSize()
+            .testTag("bookmarks:empty"),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+
+
+        Text(
+            text = stringResource(id = R.string.feature_bookmarks_empty_error),
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold,
+        )
+
+    }
+}
+
+
+@Composable
+fun LoadingState(modifier: Modifier = Modifier) {
     NiaLoadingWheel(
         modifier = modifier
             .fillMaxWidth()

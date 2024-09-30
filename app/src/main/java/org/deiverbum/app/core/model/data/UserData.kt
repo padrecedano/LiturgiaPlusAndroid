@@ -37,7 +37,7 @@ data class UserData(
 data class UserDataDynamic(
     val darkThemeConfig: DarkThemeConfig,
     val useDynamicColor: Boolean,
-    val useVoiceReader: Boolean,
+    val useVoiceReader: Boolean = true,
     val useMultipleInvitatory: Boolean,
     val rubricColor: RubricColorConfig,
 )

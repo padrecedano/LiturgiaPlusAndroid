@@ -15,7 +15,7 @@ import org.deiverbum.app.core.model.SyncResponse
 import org.deiverbum.app.core.model.data.SyncStatus
 import org.deiverbum.app.util.Constants.SYNC_TAG
 import org.deiverbum.app.util.Source
-import org.deiverbum.app.workers.TodayWorker
+import org.deiverbum.app.workersold.TodayWorker
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

@@ -70,7 +70,7 @@ import java.util.Locale
  *        Es un método alternativo, para usar en caso de que la llamada a [SyncViewModel.launchSync] falle
  *        por algún motivo: el servidor está offline en ese momento, u otro.
  *
- *  * 4 . Desde el repositorio que llama [SyncViewModel] quedará iniciado [TodayWorker][org.deiverbum.app.workers.TodayWorker], quien se ocupará de futuras sincronizaciones.
+ *  * 4 . Desde el repositorio que llama [SyncViewModel] quedará iniciado [TodayWorker][org.deiverbum.app.workersold.TodayWorker], quien se ocupará de futuras sincronizaciones.
  *
  * 1. Cuando el usuario pulse en el botón `Aceptar` se verificará el valor de la entrada [PREF_ACCEPT] de Shared Preferences. Si es `false` se lanzará una sincronización llamando a [SyncViewModel.launchSync].
  *
@@ -78,7 +78,7 @@ import java.util.Locale
  * el valor de la preferencia [PREF_INITIAL_SYNC] se establecerá a `true`. Si por algún error la sincronización inicial no se realiza, el valor de la preferencia [PREF_INITIAL_SYNC] permanecerá en `false` y desde el repositorio
  * se intentará obtener provisionalmente las fechas de los próximos días desde la [Source.FIREBASE].
 
- * 3. Desde el repositorio que llama [SyncViewModel] quedará iniciado [TodayWorker][org.deiverbum.app.workers.TodayWorker], quien se ocupará de futuras sincornizaciones.
+ * 3. Desde el repositorio que llama [SyncViewModel] quedará iniciado [TodayWorker][org.deiverbum.app.workersold.TodayWorker], quien se ocupará de futuras sincornizaciones.
  *
  * @author A. Cedano
  * @version 2.0

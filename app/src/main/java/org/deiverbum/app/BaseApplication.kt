@@ -1,46 +1,30 @@
 package org.deiverbum.app
 
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
+
 /**
  * Created by A. Cedano on 11,November,2021
  */
-/*@HiltAndroidApp
-class BaseApplication : Application(), Configuration.Provider {
+@HiltAndroidApp
+class BaseApplication : Application() {
+    //@Inject
+    //lateinit var imageLoader: dagger.Lazy<ImageLoader>
+
     /*
+        @Inject
+        lateinit var profileVerifierLogger: ProfileVerifierLogger
+    */
     override fun onCreate() {
         super.onCreate()
-
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
-    }
-*/
-
-    @Inject
-    lateinit var workerFactory: HiltWorkerFactory
-
-    /*
-        override fun getWorkManagerConfiguration() =
-            Configuration.Builder()
-                .setWorkerFactory(workerFactory)
-                //.setMinimumLoggingLevel(android.util.Log.VERBOSE)
-                .build()
-    */
-    override val workManagerConfiguration: Configuration
-        get() = Configuration.Builder()
-            .setWorkerFactory(workerFactory)
-            //.setMinimumLoggingLevel(android.util.Log.VERBOSE)
-            .build()
-
-    companion object {
-        const val JETNEWS_APP_URI = "https://developer.android.com/jetnews"
+        // Initialize Sync; the system responsible for keeping data in the app up to date.
+        //Sync.initialize(context = this)
+        //profileVerifierLogger()
     }
 
-    // AppContainer instance used by the rest of classes to obtain dependencies
-    //lateinit var container: AppContainer
-
-    override fun onCreate() {
-        super.onCreate()
-        //container = AppContainerImpl(this)
-    }
-
-}*/
+    //override fun newImageLoader(): ImageLoader = imageLoader.get()
+}

@@ -80,7 +80,7 @@ class FileFragment : BaseFileFragment<FragmentFileBinding>() {
         mTextView.movementMethod = LinkMovementMethod.getInstance()
         getViewBinding().progressBar.visibility = View.VISIBLE
 
-        mViewModel.loadData(fileRequest)
+        //mViewModel.loadData(fileRequest)
     }
 
     private fun fetchData() {
@@ -101,7 +101,6 @@ class FileFragment : BaseFileFragment<FragmentFileBinding>() {
         fileItemUiState.run {
             allData.forEach {
                 getViewBinding().progressBar.visibility = View.GONE
-
                 getViewBinding().tvZoomable.text = it.text
             }
         }

@@ -52,7 +52,7 @@ class OfflineFirstUniversalisRepository @Inject constructor(
         universalisDao.getUniversalisByDate(id).map { it.asExternalModel() }
 
     override fun getReader(): String {
-        return "Lorem ipsum"
+        return "Lorem ipsum" + userDataRepository.userData
     }
 
     override fun getUniversalisByDate(

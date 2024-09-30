@@ -30,7 +30,7 @@ class AssetProvider @Inject constructor(
             }
             fileResponses
         } catch (ex: Exception) {
-            fileResponses.add(FileResponse(SpannableStringBuilder(),""))
+            fileResponses.add(FileResponse(SpannableStringBuilder(ex.message), ""))
             fileResponses
         }
     }

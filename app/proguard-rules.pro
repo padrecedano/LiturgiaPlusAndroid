@@ -25,7 +25,7 @@
 -keep class org.deiverbum.app.core.** { *; }
 -keep class org.deiverbum.app.domain.** { *; }
 -keep class org.deiverbum.app.util.** { *; }
--keep class org.deiverbum.app.workers.** { *; }
+-keep class org.deiverbum.app.workersold.** { *; }
 # -keep class org.deiverbum.app.BaseApplication
 
 -keepdirectories assets/*

@@ -396,8 +396,9 @@ private fun LazyListScope.universalisError() {
     }
 }
 
+//TODO: Trasladar a otra carpeta
 @Composable
-private fun LoadingState(modifier: Modifier = Modifier) {
+fun LoadingState(modifier: Modifier = Modifier) {
     NiaLoadingWheel(
         modifier = modifier
             .fillMaxWidth()

@@ -28,7 +28,7 @@ import javax.inject.Inject
 /**
  * A use case which returns the searched contents matched with the search query.
  */
-class GetSearchContentsUseCase @Inject constructor(
+class xGetSearchContentsUseCase @Inject constructor(
     //private val searchContentsRepository: SearchContentsRepository,
     //private val userDataRepository: UserDataRepository,
 ) {
@@ -57,3 +57,4 @@ private fun Flow<SearchResult>.mapToUserSearchResult(userDataStream: Flow<UserDa
             },
         )
     }
+
