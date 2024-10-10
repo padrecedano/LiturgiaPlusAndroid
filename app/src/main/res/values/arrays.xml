@@ -20,4 +20,15 @@
         <item>Comentarios Evangelio</item>
         <item>Homilías</item>
     </array>
+    <array name="bug_report">
+        <item>Breviario</item>
+        <item>Lecturas</item>
+        <item>Comentarios</item>
+        <item>Homilías</item>
+        <item>Santos</item>
+        <item>Oraciones</item>
+        <item>Calendario</item>
+        <item>Sacramentos</item>
+        <item>Otro</item>
+    </array>
 </resources>

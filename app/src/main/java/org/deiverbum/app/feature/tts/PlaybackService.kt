@@ -5,9 +5,11 @@ import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.app.PendingIntent.getActivity
 import android.content.Intent
 import android.os.Build
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.core.app.TaskStackBuilder
 import org.deiverbum.app.core.presentation.MainActivity
 
+@ExperimentalFoundationApi
 class PlaybackService : DemoPlaybackService() {
 
     companion object {

@@ -146,7 +146,7 @@ class AcceptanceFragmentDialog : DialogFragment() {
         textInitial.text = ssb
 
         val fileRequest = FileRequest(listOf(FILE_TERMS,FILE_PRIVACY), 1, 6, isNightMode, isVoiceOn = false, false)
-        mViewModel.loadData(fileRequest)
+        //mViewModel.loadData(fileRequest)
         fetchFileData()
 
         val sb = SpannableStringBuilder()
@@ -194,10 +194,10 @@ class AcceptanceFragmentDialog : DialogFragment() {
     private fun onFileLoaded(fileItemUiState: FileItemUiState) {
         fileItemUiState.run {
             allData.forEach{
-                if(it.fileName==FILE_TERMS){
+                if (it.title == FILE_TERMS) {
                     binding.textTerms.text = it.text
                 }
-                if(it.fileName==FILE_PRIVACY){
+                if (it.title == FILE_PRIVACY) {
                     binding.textPrivacy.text = it.text
                 }
             }

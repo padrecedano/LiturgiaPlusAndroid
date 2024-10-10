@@ -18,10 +18,9 @@ data class UniversalisRoute(
 
 @OptIn(ExperimentalFoundationApi::class)
 @ExperimentalMaterial3AdaptiveApi
-fun NavGraphBuilder.universalisFromHome(
-) {
+fun NavGraphBuilder.universalisFromHome(onBackClick: () -> Unit) {
     composable<UniversalisRoute> {
-        UniversalisFromHomeScreen(onReaderClick = {})
+        UniversalisFromHomeScreen(onBackClick = onBackClick)
     }
 }
 

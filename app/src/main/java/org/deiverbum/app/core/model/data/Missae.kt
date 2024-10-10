@@ -27,6 +27,19 @@ data class Missae(
         hasSaint: Boolean = false,
         calendarTime: Int = 0,
         typus: String = "missae",
+        homiliae: Homilieae
+    ) : this(
+        hasSaint,
+        calendarTime,
+        typus
+    ) {
+    }
+
+
+    constructor(
+        hasSaint: Boolean = false,
+        calendarTime: Int = 0,
+        typus: String = "missae",
         homiliae: MutableList<Homily>
     ) : this(
         hasSaint,
@@ -47,6 +60,7 @@ data class Missae(
 
     var homiliae: MutableList<Homily>? = null
     //var homilyes: MutableList<Homily> = ArrayList()
+    var homilieae: Homilieae? = null
 
     var lectionumList: MissaeLectionumList? = null
 

@@ -187,6 +187,38 @@ fun NiaOutlinedButton(
  * @param content The button content.
  */
 @Composable
+fun MenuButton(
+    onClick: () -> Unit,
+    onDismiss: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    content: @Composable() (RowScope.() -> Unit),
+) {
+    TextButton(
+        onClick = {
+            onDismiss()
+            onClick()
+        },
+        modifier = modifier,
+        enabled = enabled,
+        colors = ButtonDefaults.textButtonColors(
+            contentColor = MaterialTheme.colorScheme.onBackground,
+        ),
+        content = content,
+    )
+}
+
+
+/**
+ * Now in Android text button with generic content slot. Wraps Material 3 [TextButton].
+ *
+ * @param onClick Will be called when the user clicks the button.
+ * @param modifier Modifier to be applied to the button.
+ * @param enabled Controls the enabled state of the button. When `false`, this button will not be
+ * clickable and will appear disabled to accessibility services.
+ * @param content The button content.
+ */
+@Composable
 fun NiaTextButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,

@@ -1,6 +1,7 @@
 package org.deiverbum.app.ui
 
 import NiaNavigationSuiteScaffold
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -56,11 +57,14 @@ import org.deiverbum.app.core.designsystem.component.NiaTopAppBar
 import org.deiverbum.app.core.designsystem.icon.NiaIcons
 import org.deiverbum.app.core.designsystem.theme.GradientColors
 import org.deiverbum.app.core.designsystem.theme.LocalGradientColors
+import org.deiverbum.app.feature.menu.MainMenuDialog
+import org.deiverbum.app.feature.menu.navigation.navigateToMenu
 import org.deiverbum.app.feature.settings.SettingsDialog
 import org.deiverbum.app.navigation.NiaNavHost
 import org.deiverbum.app.navigation.TopLevelDestination
 import kotlin.reflect.KClass
 
+@ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
 @ExperimentalLayoutApi
 @Composable
@@ -72,6 +76,7 @@ fun NiaApp(
     val shouldShowGradientBackground =
         appState.currentTopLevelDestination == TopLevelDestination.HOME
     var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
+    var showMainMenu by rememberSaveable { mutableStateOf(false) }
 
     LPlusBackground(modifier = modifier) {
         LPlusGradientBackground(
@@ -100,14 +105,19 @@ fun NiaApp(
                 appState = appState,
                 snackbarHostState = snackbarHostState,
                 showSettingsDialog = showSettingsDialog,
+                showMainMenu = showMainMenu,
+
                 onSettingsDismissed = { showSettingsDialog = false },
+                onMainMenuDismissed = { showMainMenu = false },
                 onTopAppBarActionClick = { showSettingsDialog = true },
+                onMainMenuActionClick = { showMainMenu = true },
                 windowAdaptiveInfo = windowAdaptiveInfo,
             )
         }
     }
 }
 
+@ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
 @ExperimentalLayoutApi
 @Composable
@@ -121,7 +131,11 @@ internal fun NiaApp(
     snackbarHostState: SnackbarHostState,
     showSettingsDialog: Boolean,
     onSettingsDismissed: () -> Unit,
+    showMainMenu: Boolean,
+    onMainMenuDismissed: () -> Unit,
     onTopAppBarActionClick: () -> Unit,
+    onMainMenuActionClick: () -> Unit,
+
     modifier: Modifier = Modifier,
     windowAdaptiveInfo: WindowAdaptiveInfo = currentWindowAdaptiveInfo(),
 ) {
@@ -135,10 +149,25 @@ internal fun NiaApp(
         )
     }
 
+    if (showMainMenu) {
+        MainMenuDialog(
+            onDismiss = {
+                onMainMenuDismissed()
+            },
+            onClick = appState.navController::navigateToMenu
+        )
+        /*SettingsDialog(
+            onDismiss = { onSettingsDismissed() },
+        )*/
+        /*ModalNavigationDrawerSample(
+            //onDismiss = { onMainMenuDismissed() },
+        )*/
+    }
+
     NiaNavigationSuiteScaffold(
         navigationSuiteItems = {
             appState.topLevelDestinations.forEach { destination ->
-                val hasUnread = true//unreadDestinations.contains(destination)
+                val hasUnread = false//unreadDestinations.contains(destination)
                 val selected = currentDestination
                     .isRouteInHierarchy(destination.route)
                 item(
@@ -194,7 +223,7 @@ internal fun NiaApp(
                     shouldShowTopAppBar = true
                     NiaTopAppBar(
                         titleRes = destination.titleTextId,
-                        navigationIcon = NiaIcons.Search,
+                        navigationIcon = NiaIcons.Menu,
                         navigationIconContentDescription = stringResource(
                             id = R.string.feature_settings_top_app_bar_navigation_icon_description,
                         ),
@@ -206,7 +235,10 @@ internal fun NiaApp(
                             containerColor = Color.Transparent,
                         ),
                         onActionClick = { onTopAppBarActionClick() },
-                        onNavigationClick = { appState.navigateToSearch() },
+                        onNavigationClick = {
+                            onMainMenuActionClick()
+                            /*appState.navigateToSearch()*/
+                        },
                     )
                 }
 

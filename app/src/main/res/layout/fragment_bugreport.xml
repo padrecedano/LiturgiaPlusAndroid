@@ -20,7 +20,7 @@
                 android:id="@+id/bugInitial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/bug_info" />
+                android:text="@string/bug_description" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/messageTextInputLayout"
@@ -151,7 +151,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="@string/bug_privacy" />
+                android:text="@string/bug_send" />
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/btnSend"

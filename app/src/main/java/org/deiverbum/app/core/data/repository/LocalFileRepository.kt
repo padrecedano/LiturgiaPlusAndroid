@@ -4,7 +4,9 @@ import android.text.SpannableStringBuilder
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import org.deiverbum.app.core.model.FileRequest
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
+import org.deiverbum.app.core.model.FileRequestt
 import org.deiverbum.app.core.model.FileResponse
 import org.deiverbum.app.core.model.data.OracionSimple
 import org.deiverbum.app.core.model.data.Rosario
@@ -24,6 +26,8 @@ import org.deiverbum.app.core.model.data.ritualis.Ritualis
 import org.deiverbum.app.core.model.data.ritualis.Rubrica
 import org.deiverbum.app.core.model.data.ritualis.Titulus
 import org.deiverbum.app.core.model.data.ritualis.VersiculusEtResponsum
+import org.deiverbum.app.core.network.Dispatcher
+import org.deiverbum.app.core.network.NiaDispatchers
 import org.deiverbum.app.util.AssetProvider
 import org.deiverbum.app.util.Constants.CIC_BAPTISMUS
 import org.deiverbum.app.util.Constants.CIC_UNCTIONIS
@@ -57,6 +61,8 @@ import javax.inject.Inject
  * @since 2024.1
  */
 class LocalFileRepository @Inject constructor(
+    @Dispatcher(NiaDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
+
     private val assetProvider: AssetProvider
 ) : FileRepository {
     private val books = listOf(
@@ -82,61 +88,60 @@ class LocalFileRepository @Inject constructor(
     private val viacrucis = listOf(FILE_VIA_CRUCIS_2003, FILE_VIA_CRUCIS_2005)
     private val pray = listOf(FILE_ANGELUS, FILE_REGINA, FILE_LITANIES)
 
-    override suspend fun getFile(fileRequest: FileRequest): MutableList<FileResponse> {
-        val fileResponse = assetProvider.getFiles(fileRequest.fileName)
+    private val moshi = Moshi.Builder()
+        .add(
+            PolymorphicJsonAdapterFactory.of(Content::class.java, "type")
+                .withSubtype(Paragraphus::class.java, "p")
+                .withSubtype(Rubrica::class.java, "r")
+                .withSubtype(Titulus::class.java, "t")
+                .withSubtype(Biblical::class.java, "biblical")
+                .withSubtype(ParagraphusList::class.java, "pl")
+                .withSubtype(VersiculusEtResponsum::class.java, "vr")
+                .withSubtype(ParagraphusRubrica::class.java, "pr")
+                .withSubtype(Preces::class.java, "preces")
+                .withSubtype(Oratio::class.java, "oratio")
+                .withSubtype(BiblicalShort::class.java, "biblicalShort")
+        )
+        .add(KotlinJsonAdapterFactory())
+        .build()
 
+    override suspend fun getFile(fileRequest: FileRequestt): List<FileResponse> =
+        withContext(ioDispatcher) {
+            val fileResponse = assetProvider.getFiles(fileRequest.fileName)
 
-        val moshi = Moshi.Builder()
-            .add(
-                PolymorphicJsonAdapterFactory.of(Content::class.java, "type")
-                    .withSubtype(Paragraphus::class.java, "p")
-                    .withSubtype(Rubrica::class.java, "r")
-                    .withSubtype(Titulus::class.java, "t")
-                    //.withSubtype(Dupla::class.java, "dupla")
-                    .withSubtype(Biblical::class.java, "biblical")
-                    .withSubtype(ParagraphusList::class.java, "pl")
-                    .withSubtype(VersiculusEtResponsum::class.java, "vr")
-                    .withSubtype(ParagraphusRubrica::class.java, "pr")
-
-                    .withSubtype(Preces::class.java, "preces")
-                    .withSubtype(Oratio::class.java, "oratio")
-                    .withSubtype(BiblicalShort::class.java, "biblicalShort")
-
-
-                //.withDefaultValue(LiturgiaTypus.Unknown)
-
-            )
-            .add(KotlinJsonAdapterFactory())
-            .build()
-        fileResponse.forEach {
-            if (books.contains(it.fileName)) {
-                it.text = moshi.adapter(Book::class.java).fromJson(it.text.toString())!!
-                    .getForView(fileRequest.isNightMode)
-            } else if (viacrucis.contains(it.fileName)) {
-                it.text = moshi.adapter(ViaCrucis::class.java).fromJson(it.text.toString())!!
-                    .getForView(fileRequest.isNightMode)
-            } else if (it.fileName == FILE_ROSARY) {
-                val data: Rosario =
-                    moshi.adapter(Rosario::class.java).fromJson(it.text.toString())!!
-                data.day = fileRequest.dayOfWeek
-                it.text = data.getForView(fileRequest.isBrevis, fileRequest.isNightMode)
-            } else if (pray.contains(it.fileName)) {
-                it.text = moshi.adapter(OracionSimple::class.java).fromJson(it.text.toString())!!
-                    .getForView(fileRequest.isNightMode)
-            } else if (sacramentum.contains(it.fileName)) {
-                it.text = moshi.adapter(BookSacramentum::class.java).fromJson(it.text.toString())!!
-                    .getForView(fileRequest.isNightMode)
-            } else if (ritualis.contains(it.fileName)) {
-                it.text = moshi.adapter(Ritualis::class.java).fromJson(it.text.toString())!!
-                    .getForView(fileRequest.isNightMode)
-            } else if (cic.contains(it.fileName)) {
-                it.text = moshi.adapter(IurisCanonici::class.java).fromJson(it.text.toString())!!
-                    .getForView(fileRequest.isNightMode)
-            } else {
-                it.text = SpannableStringBuilder(DATA_NOTFOUND)
+            fileResponse.forEach {
+                if (books.contains(it.fileName)) {
+                    it.text = moshi.adapter(Book::class.java).fromJson(it.text.toString())!!
+                        .getForView(fileRequest.isNightMode)
+                } else if (viacrucis.contains(it.title)) {
+                    it.text = moshi.adapter(ViaCrucis::class.java).fromJson(it.text.toString())!!
+                        .getForView(fileRequest.isNightMode)
+                } else if (it.title == FILE_ROSARY) {
+                    val data: Rosario =
+                        moshi.adapter(Rosario::class.java).fromJson(it.text.toString())!!
+                    data.day = fileRequest.dayOfWeek
+                    it.text = data.getForView(fileRequest.isBrevis, fileRequest.isNightMode)
+                } else if (pray.contains(it.title)) {
+                    it.text =
+                        moshi.adapter(OracionSimple::class.java).fromJson(it.text.toString())!!
+                            .getForView(fileRequest.isNightMode)
+                } else if (sacramentum.contains(it.title)) {
+                    it.text =
+                        moshi.adapter(BookSacramentum::class.java).fromJson(it.text.toString())!!
+                            .getForView(fileRequest.isNightMode)
+                } else if (ritualis.contains(it.title)) {
+                    it.text = moshi.adapter(Ritualis::class.java).fromJson(it.text.toString())!!
+                        .getForView(fileRequest.isNightMode)
+                } else if (cic.contains(it.title)) {
+                    it.text =
+                        moshi.adapter(IurisCanonici::class.java).fromJson(it.text.toString())!!
+                            .getForView(fileRequest.isNightMode)
+                } else {
+                    it.text = SpannableStringBuilder(DATA_NOTFOUND)
+                }
             }
+            fileResponse
+
         }
-        return fileResponse
-    }
 
 }

@@ -12,20 +12,19 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.CompoundButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.deiverbum.app.R
 import org.deiverbum.app.core.model.FileRequest
-import org.deiverbum.app.core.presentation.file.FileFragmentArgs
 import org.deiverbum.app.core.presentation.file.FileItemUiState
 import org.deiverbum.app.core.presentation.file.FileViewModel
 import org.deiverbum.app.databinding.FragmentLegalBinding
@@ -36,7 +35,7 @@ import org.deiverbum.app.util.Constants.FILE_TERMS
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.util.*
+import java.util.Locale
 
 /**
  *
@@ -96,13 +95,13 @@ class LegalFragment : Fragment() {
         binding.textContacto.typeface = tf
         binding.textLegal.movementMethod = LinkMovementMethod.getInstance()
 
-        val args: FileFragmentArgs by navArgs()
+        //val args: FileFragmentArgs by navArgs()
 
         val fileRequest =
-            FileRequest(listOf(args.rawPath), 1, 6, isNightMode, isVoiceOn = false, false)
+            FileRequest(listOf("args.rawPath"), 1, 6, isNightMode, isVoiceOn = false, false)
         //binding.progressBar.visibility = View.VISIBLE
 
-        mViewModel.loadData(fileRequest)
+        //mViewModel.loadData(fileRequest)
         fetchData()
 
         binding.btnEmail.setOnClickListener {
@@ -133,7 +132,7 @@ class LegalFragment : Fragment() {
         fileItemUiState.run {
             allData.forEach {
                 binding.textLegal.text = it.text
-                setAcceptText(it.fileName)
+                setAcceptText(it.title)
             }
         }
         binding.progressBar.visibility = View.GONE

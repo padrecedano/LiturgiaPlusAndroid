@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.systemBars
@@ -21,7 +22,11 @@ import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -34,7 +39,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,14 +48,15 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.deiverbum.app.R
+import org.deiverbum.app.core.designsystem.component.NiaIconToggleButton
 import org.deiverbum.app.core.designsystem.component.NiaLoadingWheel
 import org.deiverbum.app.core.designsystem.component.scrollbar.DraggableScrollbar
 import org.deiverbum.app.core.designsystem.component.scrollbar.rememberDraggableScroller
 import org.deiverbum.app.core.designsystem.component.scrollbar.scrollbarState
+import org.deiverbum.app.core.model.data.Alteri
 import org.deiverbum.app.core.model.data.UniversalisRequest
-import org.deiverbum.app.core.ui.ReaderButton
 import org.deiverbum.app.core.ui.TrackScrollJank
-import org.deiverbum.app.core.ui.universalisResourceCardItems
+import org.deiverbum.app.core.ui.Universalis
 import org.deiverbum.app.feature.tts.TextToSpeechScreenB
 import org.deiverbum.app.util.Utils
 
@@ -63,7 +68,6 @@ import org.deiverbum.app.util.Utils
  *
  **
  * @param onBackClick Lambda para manejar la navegación hacia atrás.
- * @param onTopicClick Lambda para manejar el tópico específico que fue seleccionado.
  * @param modifier El modificador.
  * @param viewModel Un objeto [UniversalisViewModel] para conectar con el repositorio.
  *
@@ -74,12 +78,9 @@ import org.deiverbum.app.util.Utils
 @ExperimentalMaterial3AdaptiveApi
 @Composable
 fun UniversalisFromHomeScreen(
-    //showBackButton: Boolean,
-    //onBackClick: () -> Unit,
-    //onTopicClick: (String) -> Unit,
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: UniversalisViewModel = hiltViewModel(),
-    onReaderClick: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val state = rememberLazyListState()
@@ -88,16 +89,9 @@ fun UniversalisFromHomeScreen(
     UniversalisFromHomeScreen(
         uiState = uiState,
         modifier = modifier,
-        followTopic = viewModel::followTopic,
-        //onReaderClick = onReaderClick,
-        onReaderClick = {},//viewModel::onReaderClick,
-        onBackClick = {},//listDetailNavigator::navigateBack,
-        //onTopicClick=onTopicClick
-        onTopicClick = {
-            //Timber.d(it.toString())
-            //viewModel.onTopicClick(it)
-            //onTopicClick(it)
-        },
+        //onReaderClick = {},
+        onBackClick = onBackClick,
+
     )
 }
 
@@ -123,14 +117,11 @@ fun UniversalisFromHomeScreen(
 internal fun UniversalisFromHomeScreen(
     uiState: UniversalisUiState,
     modifier: Modifier = Modifier,
-    followTopic: (String, Boolean) -> Unit,
     onBackClick: () -> Unit,
-    onReaderClick: () -> Unit,
-    onTopicClick: (String) -> Unit,
+    //onReaderClick: () -> Unit,
 
     ) {
     val state = rememberLazyListState()
-
     Box(
         modifier = modifier,
     ) {
@@ -152,7 +143,7 @@ internal fun UniversalisFromHomeScreen(
                         UniversalisToolbar(
                             showBackButton = true,
                             onBackClick = onBackClick,
-                            onReaderClick = onReaderClick,
+                            //onReaderClick = onReaderClick,
                             uiState = uiState.topics,
                             modifier = modifier,
                         )
@@ -161,7 +152,7 @@ internal fun UniversalisFromHomeScreen(
                     if (uiState.topics.isNotEmpty()) {
                         universalisBody(
                             universalis = uiState,
-                            onReaderClick = onReaderClick
+                            //onReaderClick = onReaderClick
                         )
                     } else {
                         universalisEmpty()
@@ -211,12 +202,11 @@ internal fun UniversalisFromHomeScreen(
 
 private fun LazyListScope.universalisBody(
     universalis: UniversalisUiState.UniversalisData,
-    onReaderClick: () -> Unit,
     ) {
     item {
         UniversalisHeader(universalis.selectedTopicId!!, universalis.topics[0].date)
     }
-    universalisResourceCards(universalis, onReaderClick)
+    universalisResourceCards(universalis)
 }
 
 /**
@@ -234,17 +224,12 @@ private fun LazyListScope.universalisBody(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UniversalisToolbar(
-    //showBackButton: Boolean, onBackClick: () -> Unit, onFollowClick: () -> Unit, uiState: List<FollowableTopic>, modifier: Modifier) {
     uiState: List<UniversalisRequest>,
     modifier: Modifier = Modifier,
     showBackButton: Boolean = true,
     onBackClick: () -> Unit = {},
-    onReaderClick: () -> Unit = {},
-
-    onFollowClick: (Boolean) -> Unit = {},
 ) {
     val sheetState = rememberModalBottomSheetState()
-    val scope = rememberCoroutineScope()
     var showBottomSheet by remember { mutableStateOf(false) }
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -306,16 +291,15 @@ fun UniversalisToolbar(
 // TODO: Could/should this be replaced with [LazyGridScope.newsFeed]?
 private fun LazyListScope.universalisResourceCards(
     universalis: UniversalisUiState,
-    onReaderClick: () -> Unit,
 ) {
     when (universalis) {
         is UniversalisUiState.UniversalisData -> {
             universalisResourceCardItems(
                 items = universalis.topics,
                 //TODO: Normalizar con respecto a VM y UseCase
-                topicId = universalis.selectedTopicId!!,
-                itemModifier = Modifier.padding(24.dp),
-                onReaderClick = onReaderClick
+                //topicId = universalis.selectedTopicId!!,
+                //itemModifier = Modifier.padding(24.dp),
+                //onReaderClick = onReaderClick
             )
         }
 
@@ -407,3 +391,125 @@ fun LoadingState(modifier: Modifier = Modifier) {
         contentDesc = stringResource(id = R.string.generic_loading),
     )
 }
+
+
+/**
+ * [UniversalisResourceCardExpanded] card usada en `UniversalisScreen`
+ */
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun UniversalisResourceCardExpanded(
+    universalisResource: List<UniversalisRequest>,
+
+    ) {
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+    ) {
+        Column {
+            Box(
+                modifier = Modifier.padding(16.dp),
+            ) {
+                Column {
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Row {
+                        var title: String
+                        universalisResource[0].id.let {
+                            title = when {
+                                it == 20 -> {
+                                    val sancti =
+                                        universalisResource[0].data[0].liturgia!!.liturgiaTypus as Alteri.Sancti
+                                    sancti.sanctus.monthName
+                                }
+
+                                else -> {
+//"TODO: UniversalisResourceCard 75" ERROR cuando no hay homilías
+                                    val l = universalisResource[0].data[0].liturgia
+                                    if (l == null) {
+                                        "Aún no hay datos para esta fecha."
+                                    } else {
+                                        universalisResource[0].data[0].liturgia!!.tempus!!.externus.toString()
+                                    }
+                                }
+                            }
+                        }
+                        UniversalisResourceTitle(
+                            title,
+                            modifier = Modifier.fillMaxWidth((.8f)),
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                    }
+                    Spacer(modifier = Modifier.height(14.dp))
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        UniversalisResourceMetaData(universalisResource[0].data[0].liturgia!!.nomen)
+                    }
+                    Spacer(modifier = Modifier.height(14.dp))
+                    Universalis(
+                        universalisResource[0].data[0],
+                        topicId = universalisResource[0].id,
+                        universalisResource[0].dynamic,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun UniversalisResourceTitle(
+    newsResourceTitle: String,
+    modifier: Modifier = Modifier,
+) {
+    Text(newsResourceTitle, style = MaterialTheme.typography.headlineSmall, modifier = modifier)
+}
+
+@Composable
+fun ReaderButton(
+    isBookmarked: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    NiaIconToggleButton(
+        checked = isBookmarked,
+        onCheckedChange = {
+            onClick()
+        },
+        modifier = modifier,
+        icon = {
+            Icon(
+                imageVector = LPlusIcons.ReaderBorder,
+                contentDescription = "stringResource(R.string.core_ui_bookmark)",
+            )
+        },
+        checkedIcon = {
+            Icon(
+                imageVector = LPlusIcons.Reader,
+                contentDescription = "stringResource(R.string.core_ui_unbookmark)",
+            )
+        },
+    )
+}
+
+@Composable
+fun UniversalisResourceMetaData(
+    content: String,
+) {
+    Text(
+        text = content,
+        style = MaterialTheme.typography.titleMedium,
+    )
+}
+
+fun LazyListScope.universalisResourceCardItems(
+    items: List<UniversalisRequest>,
+) = items(
+    items = items,
+    key = { it.data[0].liturgyFK },
+    itemContent = {
+        UniversalisResourceCardExpanded(
+            universalisResource = items,
+        )
+    },
+)
+

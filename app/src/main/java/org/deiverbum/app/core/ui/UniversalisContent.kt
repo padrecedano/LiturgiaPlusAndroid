@@ -65,31 +65,23 @@ fun Universalis(
     var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
     val scope = rememberCoroutineScope()
-    var timeViewState by remember {
+    val timeViewState by remember {
         mutableStateOf(false)
     }
 
     //TODO: Limpiar
-    val itemId = topicId.toInt()
+    val itemId = topicId
     val onTap = { point: Offset -> }
 
     if (data.liturgia!!.liturgiaTypus is Sortable) {
         data.liturgia!!.liturgiaTypus?.sort()
     }
 
-    var sb = StringBuilder()
+    val sb = StringBuilder()
 
     sb.append(data.getAllForRead())
-    //ExoPlayerView(sb)
-    //return
-//onReaderClick = {}
-    if (userData.useVoiceReader || 1 == 1) {
 
-        //TextToSpeechScreenAA(data.getAllForRead())
-        /*PlayerButton(onClick = {
-            Timber.d("axy")
-            timeViewState = true
-        })*/
+    if (userData.useVoiceReader || 1 == 1) {
         if (1 == 2) {
             ModalBottomSheet(
                 onDismissRequest = {
@@ -97,9 +89,8 @@ fun Universalis(
                 },
                 sheetState = sheetState
             ) {
-                // Sheet content
-                //SliderReader()
-                TextToSpeechScreen()
+
+            TextToSpeechScreen()
                 TextToSpeechScreenn(text = sb)
                 PlayButton(isBookmarked = true, onClick = { /*TODO*/ })
                 Button(onClick = {
@@ -109,7 +100,6 @@ fun Universalis(
                         }
                     }
                 }) {
-                    //Text("Hide bottom sheet")
                 }
             }
         }
@@ -121,10 +111,7 @@ fun Universalis(
                 },
                 sheetState = sheetState
             ) {
-                // Sheet content
-                //SliderReader()
                 TextToSpeechScreen()
-
             }
         }
 
@@ -206,46 +193,6 @@ fun Universalis(
     }
 }
 
-@kotlin.OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ModalBottom() {
-    var showBottomSheet by remember { mutableStateOf(false) }
-    val sheetState = rememberModalBottomSheetState()
-    val scope = rememberCoroutineScope()
-    ModalBottomSheet(
-        onDismissRequest = {
-            showBottomSheet = false
-        },
-        sheetState = sheetState
-    ) {
-        // Sheet content
-        //SliderReader()
-        TextToSpeechScreen()
-
-    }
-}
-
-@Composable
-fun CommentariiScreenn(
-    onReaderClick: () -> Unit,
-    onReaderrClick: () -> Unit,
-
-
-    ) {
-    NiaIconToggleButtonn(
-        onCheckedChange = {
-            onReaderClick()
-        },
-    )
-}
-
-@Composable
-fun NiaIconToggleButtonn(
-    onCheckedChange: (Boolean) -> Unit,
-
-    ) {
-    Text("Lorem ipsum")
-}
 
 @ExperimentalMaterial3Api
 @Composable
@@ -273,7 +220,9 @@ fun HomiliaeScreen(
 ) {
     //Text(data.forView(1).toString())
     TextZoomable(
-        onTap = onTap, text = buildAnnotatedString { append(data.forView(1)) }
+        onTap = onTap, text = buildAnnotatedString {
+            append(data.forView(1))
+        }
     )
 }
 
@@ -317,7 +266,6 @@ fun contentTitle(text: String, level: Int, rubricColor: Color): AnnotatedString 
     }
     return buildAnnotatedString {
         withStyle(style = paragraphStyle) {
-
             withStyle(
                 SpanStyle(
                     fontWeight = FontWeight.Bold,
@@ -386,24 +334,6 @@ fun sectionTitle(text: String, level: Int): AnnotatedString {
     }
 }
 
-@Composable
-fun SectionTitle(text: String, level: Int) {
-    val textStyle: TextStyle = when (level) {
-        1 -> NiaTypography.titleLarge
-        2 -> NiaTypography.titleMedium
-        3 -> NiaTypography.titleSmall
-        else -> NiaTypography.bodyLarge
-    }
-    //Spacer(modifier = Modifier.height(16.dp))
-
-    Text(text = text.lowercase(), style = textStyle)
-    //Spacer(modifier = Modifier.height(16.dp))
-}
-
-@Composable
-fun SpaceSmall() {
-    Spacer(modifier = Modifier.height(16.dp))
-}
 
 @Composable
 fun SpaceNormal() {

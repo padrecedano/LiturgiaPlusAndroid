@@ -1,7 +1,7 @@
 package org.deiverbum.app.core.domain
 
 import org.deiverbum.app.core.data.repository.LocalFileRepository
-import org.deiverbum.app.core.model.FileRequest
+import org.deiverbum.app.core.model.FileRequestt
 import org.deiverbum.app.core.model.FileResponse
 import javax.inject.Inject
 
@@ -15,6 +15,6 @@ class GetFileUseCase @Inject constructor(
     private val fileRepository: LocalFileRepository
 ) {
 
-    suspend operator fun invoke(fileRequest: FileRequest): MutableList<FileResponse> =
+    suspend operator fun invoke(fileRequest: FileRequestt): List<FileResponse> =
         fileRepository.getFile(fileRequest)
 }

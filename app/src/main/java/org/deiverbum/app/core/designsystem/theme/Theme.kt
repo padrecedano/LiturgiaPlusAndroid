@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
  */
 @VisibleForTesting
 val LightDefaultColorScheme = lightColorScheme(
-    primary = primaryLight,//Purple40,
+    primary = Purple40,
     onPrimary = Color.White,
     primaryContainer = Purple90,
     onPrimaryContainer = Purple10,

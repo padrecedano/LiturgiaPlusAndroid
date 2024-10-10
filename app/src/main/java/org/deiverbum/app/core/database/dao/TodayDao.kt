@@ -56,6 +56,8 @@ import org.deiverbum.app.core.database.model.entity.SaintLifeEntity
 import org.deiverbum.app.core.database.model.entity.SaintShortLifeEntity
 import org.deiverbum.app.core.database.model.entity.UniversalisEntity
 import org.deiverbum.app.core.database.model.entity.VirginAntiphonEntity
+import org.deiverbum.app.core.database.model.external.CompletoriumExternal
+import org.deiverbum.app.core.database.model.external.MissaeLectionumExternal
 import org.deiverbum.app.core.database.model.relation.CommentariiLocal
 import org.deiverbum.app.core.database.model.relation.HomiliaeLocal
 import org.deiverbum.app.core.database.model.relation.LHLaudesLocal
@@ -198,7 +200,7 @@ interface TodayDao {
 
     @Transaction
     @Query(universalisByDate)
-    fun getCompletoriumByDate(theDate: Int?): PopulatedCompletoriumResource
+    fun getCompletoriumByDate(theDate: Int?): CompletoriumExternal
 
     @Transaction
     @Query(universalisByDate)

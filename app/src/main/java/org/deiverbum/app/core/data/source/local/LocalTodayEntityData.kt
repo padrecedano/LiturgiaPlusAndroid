@@ -2,11 +2,8 @@ package org.deiverbum.app.core.data.source.local
 
 import org.deiverbum.app.core.data.source.TodayEntityData
 import org.deiverbum.app.core.database.dao.TodayDao
-import org.deiverbum.app.core.database.model.relation.asExternalModel
 import org.deiverbum.app.core.model.TodayRequest
 import org.deiverbum.app.core.model.UniversalisResponse
-import org.deiverbum.app.util.Constants.EASTER_CODE
-import org.deiverbum.app.util.Utils
 import javax.inject.Inject
 
 
@@ -23,7 +20,7 @@ class LocalTodayEntityData @Inject constructor(
     override suspend fun getToday(todayRequest: TodayRequest): UniversalisResponse {
         val todayResponse = UniversalisResponse()
         try {
-            when (todayRequest.typeID) {
+            /*when (todayRequest.typeID) {
                 0 -> {
                     todayResponse.dataModel =
                         todayDao.getMixtusByDate(todayRequest.theDate).asExternalModel()
@@ -85,7 +82,7 @@ class LocalTodayEntityData @Inject constructor(
                         monthAndDay?.get(1)
                     ).asExternalModel()
                 }
-            }
+            }*/
         } catch (e: Exception) {
             todayResponse.success = false
         }

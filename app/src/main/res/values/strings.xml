@@ -13,6 +13,16 @@
     <string name="feature_foryou_onboarding_guidance_subtitle">Updates from topics you follow will appear here. Follow some things to get started.</string>
     <string name="not_connected">⚠️ You aren’t connected to the internet</string>
 
+    <string name="feature_menu_title">Menú</string>
+    <string name="feature_menu_help">Ayuda</string>
+    <string name="feature_menu_sync">Sincronización</string>
+    <string name="feature_menu_settings">Configuración</string>
+    <string name="feature_menu_bugs">Reportar Error</string>
+    <string name="feature_menu_about">Sobre Liturgia+</string>
+    <string name="feature_menu_author">Autor</string>
+    <string name="feature_menu_thanks">Agradecimientos</string>
+    <string name="feature_menu_new">Novedades</string>
+
     <string name="feature_settings_top_app_bar_action_icon_description">Configuración</string>
     <string name="feature_settings_top_app_bar_navigation_icon_description">Buscar</string>
     <string name="feature_settings_title">Configuración</string>
@@ -204,9 +214,14 @@
     <string name="title_fragment_bugreport">Reportar Error</string>
     <string name="pref_description_brevis">Al desactivar esta opción se mostrará el Santo Rosario con todos los Ave María.</string>
     <string name="pref_title_brevis">Mostrar Rosario abreviado</string>
-    <string name="bug_info">1. Haz una descripción breve y clara del error:</string>
+    <string name="bug_intro">Para reportar un error, sigue los siguientes pasos:</string>
+
+    <string name="bug_description">1. Haz una descripción breve y clara del error:</string>
+
     <string name="bug_check">2. Marca la casilla del lugar o los lugares donde ocurre el error:</string>
-    <string name="bug_privacy">3. Pulsa en el botón para enviar el mensaje. Se abrirá tu cliente de correo electrónico, con el mensaje listo para enviar. Deberás pulsar en el botón \"Enviar\" de dicho programa para que el error sea reportado. Como se indica en la Política de Privacidad, tus datos serán usados únicamente con la finalidad de mejorar la aplicación, no serán compartidos con terceros y el mensaje será borrado en cuanto el error reportado sea registrado o resuelto.</string>
+    <string name="bug_send">3. Pulsa en el botón para enviar el mensaje. Se abrirá tu cliente de correo electrónico, con el mensaje listo para enviar. Deberás pulsar en el botón \"Enviar\" de dicho programa para que el error sea reportado.</string>
+    <string name="bug_label">Describe el error:</string>
+
     <string name="pref_key_enable_analytics">Permitir Google Analytics</string>
     <string name="pref_key_enable_crashlytics">Permitir reporte de errores</string>
     <string name="pref_description_privacy">Cualquier cambio aquí no tomará efecto hasta que no reinicies la aplicación.</string>
@@ -271,4 +286,8 @@
     <string name="title_designsystem">Desing System</string>
     <string name="title_convention">Module Title</string>
 
+    <plurals name="runtime_format">
+        <item quantity="one">%1$d minute</item>
+        <item quantity="other">%1$d minutes</item>
+    </plurals>
 </resources>
