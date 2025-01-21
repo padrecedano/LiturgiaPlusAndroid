@@ -82,7 +82,6 @@ class UniversalisViewModel @Inject constructor(
 
 sealed interface UniversalisUiState {
     data object Loading : UniversalisUiState
-    data object Error : UniversalisUiState
 
     data class UniversalisData(
         val selectedTopicId: String?,
@@ -91,4 +90,5 @@ sealed interface UniversalisUiState {
         val topics: List<UniversalisRequest>,
     ) : UniversalisUiState
     data object Empty : UniversalisUiState
+
 }

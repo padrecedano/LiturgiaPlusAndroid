@@ -3,6 +3,7 @@ package org.deiverbum.app.navigation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -31,6 +32,7 @@ import org.deiverbum.app.ui.NiaAppState
  * de alto nivel. La navegación a cada ruta es manejada usando
  * State y Back Handlers.
  */
+@ExperimentalMaterial3Api
 @ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
 @ExperimentalLayoutApi

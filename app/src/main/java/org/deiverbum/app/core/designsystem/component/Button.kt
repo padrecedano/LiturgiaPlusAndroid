@@ -21,8 +21,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import org.deiverbum.app.core.designsystem.theme.LPlusTheme
+import org.deiverbum.app.util.Constants.PLAY_STORE_URL
 
 /**
  * Now in Android filled button with generic content slot. Wraps Material 3 [Button].
@@ -178,13 +180,12 @@ fun NiaOutlinedButton(
 }
 
 /**
- * Now in Android text button with generic content slot. Wraps Material 3 [TextButton].
- *
- * @param onClick Will be called when the user clicks the button.
- * @param modifier Modifier to be applied to the button.
- * @param enabled Controls the enabled state of the button. When `false`, this button will not be
- * clickable and will appear disabled to accessibility services.
- * @param content The button content.
+ * Botón de texto del menú para opciones que no son URLs. Envuelve el material 3 [TextButton].
+ * @param onClick Será llamado cuando el usuario haga click en el botón.
+ * @param modifier Modificador que será aplicado al botón.
+ * @param enabled Controla el estado habilitado del botón. Cuando es `false`, no se podrá hacer clic en este botón
+ * y aparecerá como deshabilitado para los servicios de accesibilidad.
+ * @param content El contenido del botón.
  */
 @Composable
 fun MenuButton(
@@ -208,6 +209,34 @@ fun MenuButton(
     )
 }
 
+/**
+ * Botón de texto del menú para opciones que son URLs. Envuelve el material 3 [TextButton].
+ * No posee un parámetro `onClick`, porque al hacer click se abrirá la URL externa.
+ * @param modifier Modificador que será aplicado al botón.
+ * @param enabled Controla el estado habilitado del botón. Cuando es `false`, no se podrá hacer clic en este botón
+ * y aparecerá como deshabilitado para los servicios de accesibilidad.
+ * @param content El contenido del botón.
+ */
+@Composable
+fun MenuButton(
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    content: @Composable() (RowScope.() -> Unit),
+) {
+    val uriHandler = LocalUriHandler.current
+
+    TextButton(
+        onClick = {
+            uriHandler.openUri(PLAY_STORE_URL)
+        },
+        modifier = modifier,
+        enabled = enabled,
+        colors = ButtonDefaults.textButtonColors(
+            contentColor = MaterialTheme.colorScheme.onBackground,
+        ),
+        content = content,
+    )
+}
 
 /**
  * Now in Android text button with generic content slot. Wraps Material 3 [TextButton].

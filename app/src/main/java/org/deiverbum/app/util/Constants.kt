@@ -237,6 +237,7 @@ object Constants {
     const val CHAR_V = "℣. "
     const val CHAR_N = "⊓"
     const val CHAR_CROSS = "†"
+    const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=org.deiverbum.app"
 
 
 }

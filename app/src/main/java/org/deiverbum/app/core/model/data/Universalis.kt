@@ -14,7 +14,6 @@ import org.deiverbum.app.core.database.model.entity.UniversalisEntity
 import org.deiverbum.app.core.model.TodayRequest
 import org.deiverbum.app.util.ColorUtils
 import org.deiverbum.app.util.Constants.LS2
-import org.deiverbum.app.util.Constants.VOICE_INI
 import org.deiverbum.app.util.Utils
 
 /**
@@ -177,7 +176,7 @@ data class Universalis(
     }
 
     fun getAllForRead(): StringBuilder {
-        val sb = StringBuilder(VOICE_INI)
+        val sb = StringBuilder()
         try {
 
             if (liturgia?.liturgiaTypus?.typus != "sanctii") {

@@ -2,7 +2,6 @@
 
 package org.deiverbum.app.feature.settings
 
-import LPlusIcons
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,9 +11,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
@@ -23,23 +20,12 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalDrawerSheet
-import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.NavigationDrawerItem
-import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -50,7 +36,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import kotlinx.coroutines.launch
 import org.deiverbum.app.R
 import org.deiverbum.app.core.designsystem.component.NiaTextButton
 import org.deiverbum.app.core.designsystem.theme.supportsDynamicTheming
@@ -290,7 +275,7 @@ private fun LinksPanel() {
         NiaTextButton(
             onClick = { uriHandler.openUri(BRAND_GUIDELINES_URL) },
         ) {
-            Text(text = stringResource(R.string.feature_settings_brand_guidelines))
+            Text(text = stringResource(R.string.feature_settings_terms))
         }
         NiaTextButton(
             onClick = { uriHandler.openUri(FEEDBACK_URL) },
@@ -340,52 +325,3 @@ private const val PRIVACY_POLICY_URL = "https://liturgiaplus.app/privacy"
 private const val BRAND_GUIDELINES_URL = "https://liturgiaplus.app/terms"
 private const val FEEDBACK_URL = "https://liturgiaplus.app/bug-report"
 
-
-@Composable
-fun ModalNavigationDrawerSample() {
-    val drawerState = rememberDrawerState(DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
-    // icons to mimic drawer destinations
-    val items =
-        listOf(
-            LPlusIcons.Home,
-            LPlusIcons.Add,
-            LPlusIcons.Bookmark,
-            LPlusIcons.Calendar,
-        )
-    val selectedItem = remember { mutableStateOf(items[0]) }
-    ModalNavigationDrawer(
-        drawerState = drawerState,
-        drawerContent = {
-            ModalDrawerSheet(drawerState) {
-                Column(Modifier.verticalScroll(rememberScrollState())) {
-                    Spacer(Modifier.height(12.dp))
-                    items.forEach { item ->
-                        NavigationDrawerItem(
-                            icon = { Icon(item, contentDescription = null) },
-                            label = { Text(item.name.substringAfterLast(".")) },
-                            selected = item == selectedItem.value,
-                            onClick = {
-                                scope.launch { drawerState.close() }
-                                selectedItem.value = item
-                            },
-                            modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
-                        )
-                    }
-                }
-            }
-        },
-        content = {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = if (drawerState.isClosed) ">>> Swipe >>>" else "<<< Swipe <<<")
-                Spacer(Modifier.height(20.dp))
-                Button(onClick = { scope.launch { drawerState.open() } }) { Text("Click to open") }
-            }
-        }
-    )
-}

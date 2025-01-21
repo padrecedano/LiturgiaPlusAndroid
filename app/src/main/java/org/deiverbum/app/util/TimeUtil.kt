@@ -2,7 +2,9 @@ package org.deiverbum.app.util
 
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 object TimeUtil {
 
@@ -23,6 +25,7 @@ object TimeUtil {
         c.add(Calendar.DATE, plusDay)
         return c.time.time
     }
+
 
     @SuppressLint("SimpleDateFormat")
     fun getTimestamp(dateString: String): Long {

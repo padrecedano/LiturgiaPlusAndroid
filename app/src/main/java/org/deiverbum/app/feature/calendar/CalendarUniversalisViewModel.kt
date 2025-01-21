@@ -16,7 +16,7 @@ import org.deiverbum.app.core.domain.GetUniversalisFromCalendarUseCase
 import org.deiverbum.app.core.domain.GetUniversalisUseCase
 import org.deiverbum.app.core.domain.HomeSortField
 import org.deiverbum.app.core.model.data.UniversalisRequest
-import org.deiverbum.app.feature.interests.navigation.InterestsRoute
+import org.deiverbum.app.feature.calendar.navigation.CalendarRoute
 import org.deiverbum.app.util.LiturgyHelper
 import org.deiverbum.app.util.Utils
 import timber.log.Timber
@@ -35,7 +35,7 @@ class CalendarUniversalisViewModel @Inject constructor(
     private val selectedDateKey = "selectedDateKey"
 
     //private val route: CalendarRoute = savedStateHandle.toRoute()
-    private val route: InterestsRoute = savedStateHandle.toRoute()
+    private val route: CalendarRoute = savedStateHandle.toRoute()
 
     val selectedTopicIdd: StateFlow<String?> = savedStateHandle.getStateFlow(
         key = selectedTopicIdKey,

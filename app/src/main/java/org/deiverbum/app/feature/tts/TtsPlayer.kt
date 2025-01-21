@@ -17,17 +17,23 @@ import androidx.media3.common.util.UnstableApi
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import org.deiverbum.app.util.Constants
+import timber.log.Timber
 import java.util.Locale
 
 
 @UnstableApi
-class TtsPlayer(looper: Looper?, context: Context?, text: String) : SimpleBasePlayer(looper!!),
+class TtsPlayer(
+    looper: Looper?, context: Context?, text: String,
+    private val mProgressListener: (Int, Int) -> Unit
+
+    //private var mProgressListener: (Int, Int) -> Unit
+) : SimpleBasePlayer(looper!!),
     OnInitListener {
     private var mTexts: Array<String> = emptyArray()
 
     //private val mTts: TextToSpeech
-    private var mTextProgress = 0
-    private var mIsPlaying = false
+    var mTextProgress = 0
+    var mIsPlaying = false
     private val textToSpeech = TextToSpeech(context, this)
     private val mTts = TextToSpeech(context, this)
 
@@ -49,7 +55,7 @@ class TtsPlayer(looper: Looper?, context: Context?, text: String) : SimpleBasePl
         //.setAudioAttributes(PlaybackService.Companion.getDEFAULT_AUDIO_ATTRIBUTES())
         .setPlaylist(listOf<MediaItemData>(MediaItemData.Builder("test").build()))
         .setPlaylistMetadata(
-            MediaMetadata.Builder().setMediaType(MediaMetadata.MEDIA_TYPE_PLAYLIST)
+            MediaMetadata.Builder().setMediaType(MediaMetadata.MEDIA_TYPE_MUSIC)
                 .setTitle("TTS test").build()
         )
         .setCurrentMediaItemIndex(0)
@@ -71,15 +77,15 @@ class TtsPlayer(looper: Looper?, context: Context?, text: String) : SimpleBasePl
         textToSpeech.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onStart(utteranceId: String) {
                 Log.i(TAG, "onStart")
-                updatePlaybackState(STATE_READY, true)
+                //updatePlaybackState(STATE_READY, true)
             }
 
             override fun onDone(utteranceId: String) {
                 Log.i(TAG, "onDone")
-                updatePlaybackState(STATE_ENDED, false)
+                //updatePlaybackState(STATE_READY, true)
                 if (!mIsPlaying || mTextProgress == mTexts.size) return
                 ++mTextProgress
-                //updateProgress(sliderValue.toInt(), mTexts.size)
+                updateProgress(mTextProgress, mTexts.size)
                 speakText()
             }
 
@@ -90,12 +96,30 @@ class TtsPlayer(looper: Looper?, context: Context?, text: String) : SimpleBasePl
         })
     }
 
+    fun setContent(text: String) {
+        this.text = text
+        this.mTexts = text.split(".").toTypedArray()
+        Timber.d("xyz-1", mTexts.size)
+    }
+
+    private fun updateProgress(current: Int, max: Int) {
+        mProgressListener.invoke(current, max)
+    }
     private fun speakText() {
         if (mTextProgress >= mTexts.size) return
         //API 21+
         val bundle = Bundle()
         bundle.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM, AudioManager.STREAM_MUSIC)
-        mTts.speak(mTexts[mTextProgress], TextToSpeech.QUEUE_FLUSH, bundle, "TTS_ID")
+        //mTts.speak(mTexts[mTextProgress], TextToSpeech.QUEUE_ADD, bundle, "TTS_ID")
+        textToSpeech.speak(mTexts[mTextProgress], TextToSpeech.QUEUE_ADD, bundle, "TTS_ID")
+
+    }
+
+    fun pauseTts() {
+        mIsPlaying = false
+        textToSpeech.stop()
+        updateProgress(mTextProgress, mTexts.size)
+        //textToSpeech.setSpeechRate(1.3f)
     }
 
     override fun getState(): State {

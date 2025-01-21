@@ -21,6 +21,7 @@ data class MenuRoute(
     val menuItem: String? = "-1",
 )
 
+//@Composable
 fun NavController.navigateToMenu(
     menuItem: String? = null,
     navOptions: NavOptions? = null,

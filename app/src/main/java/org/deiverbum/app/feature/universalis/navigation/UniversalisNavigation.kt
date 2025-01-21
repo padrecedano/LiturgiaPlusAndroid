@@ -1,6 +1,7 @@
 package org.deiverbum.app.feature.universalis.navigation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -16,17 +17,20 @@ data class UniversalisRoute(
     var date: Int? = Utils.hoy.toInt()
 )
 
+@ExperimentalMaterial3Api
 @OptIn(ExperimentalFoundationApi::class)
 @ExperimentalMaterial3AdaptiveApi
 fun NavGraphBuilder.universalisFromHome(onBackClick: () -> Unit) {
     composable<UniversalisRoute> {
-        UniversalisFromHomeScreen(onBackClick = onBackClick)
+        UniversalisFromHomeScreen(
+            onBackClick = onBackClick
+        )
     }
 }
 
 fun NavController.navigateToUniversalis(
     topicId: String,
-    navOptions: NavOptionsBuilder.() -> Unit = {}
+    navOptions: NavOptionsBuilder.() -> Unit = {},
 ) {
     navigate(route = UniversalisRoute(topicId)) { navOptions() }
 }

@@ -27,7 +27,6 @@ import androidx.navigation.compose.rememberNavController
 import org.deiverbum.app.core.designsystem.component.DynamicAsyncImage
 import org.deiverbum.app.core.designsystem.component.NiaIconToggleButton
 import org.deiverbum.app.core.designsystem.theme.LPlusTheme
-import org.deiverbum.app.feature.topic.navigation.navigateToTopic
 
 
 @Composable
@@ -39,7 +38,7 @@ fun AssistChipExample(
     AssistChip(
         onClick = {
             Log.d("Assist chip", "hello world" + onTopicClick)
-            nestedNavController.navigateToTopic(onTopicClick)
+            //nestedNavController.navigateToTopic(onTopicClick)
         },
         label = { Text("Assist chip*") },
         leadingIcon = {

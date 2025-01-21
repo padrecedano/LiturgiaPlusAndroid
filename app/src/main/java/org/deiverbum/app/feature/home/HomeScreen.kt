@@ -32,7 +32,6 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import org.deiverbum.app.core.model.data.ui.ItemUI
 import org.deiverbum.app.core.model.data.ui.ItemUICollection
-import org.deiverbum.app.feature.calendar.CalendarUiState
 
 fun populateData(): List<MainItem> {
     var breviariumItems = listOf(ItemUI(0, "Laudes + Lecturas Oficio", 1, ""))
@@ -95,38 +94,38 @@ fun populateData(): List<MainItem> {
 fun HomeScreenCalendarFinal(
     selectedDate: Int,
     onTopicClick: (String) -> Unit,
-    uiState: CalendarUiState,
+    //uiState: CalendarUiState,
 ) {
 
     var showTopics by remember { mutableStateOf(false) }
+    /*
+        when (uiState) {
+            CalendarUiState.Loading -> {
+                Text(
+                    "\n\n\n" +
+                            "\n\n" +
+                            "\nLoad"
+                )
+                Text("\t\t\t\t\t\t$selectedDate")
+                showTopics = true
+            }
 
-    when (uiState) {
-        CalendarUiState.Loading -> {
-            Text(
-                "\n\n\n" +
-                        "\n\n" +
-                        "\nLoad"
-            )
-            Text("\t\t\t\t\t\t$selectedDate")
-            showTopics = true
+            is CalendarUiState.CalendarData -> {
+                showTopics = true
+                Text(
+                    "\n" +
+                            "\n\n" +
+                            "\n\n" +
+                            "\nData:${uiState.topics.fecha}"
+                )
+                //Text(text = uiState.topics.fecha)
+
+            }
+
+            CalendarUiState.Empty -> TODO()
+            CalendarUiState.Error -> TODO()
         }
-
-        is CalendarUiState.CalendarData -> {
-            showTopics = true
-            Text(
-                "\n" +
-                        "\n\n" +
-                        "\n\n" +
-                        "\nData:${uiState.topics.fecha}"
-            )
-            //Text(text = uiState.topics.fecha)
-
-        }
-
-        CalendarUiState.Empty -> TODO()
-        CalendarUiState.Error -> TODO()
-    }
-
+    */
     if (showTopics) {
         val chipModifier = Modifier
             .padding(4.dp)

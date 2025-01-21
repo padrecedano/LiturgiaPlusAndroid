@@ -41,7 +41,9 @@ class GetUniversalisUseCase @Inject constructor(
             userDataRepository.userData,
             universalisRepository.getUniversalisByDate(
                 UniversalisResourceQuery(
-                    setOf(date),
+                    setOf(date), //TODO: Quitar fijo
+                    //setOf(20241132),
+
                     selectedTopicId.toInt()
                 )
             ),

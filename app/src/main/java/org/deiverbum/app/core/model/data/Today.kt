@@ -4,7 +4,6 @@ import android.text.SpannableStringBuilder
 import androidx.room.Ignore
 import org.deiverbum.app.core.model.TodayRequest
 import org.deiverbum.app.util.ColorUtils
-import org.deiverbum.app.util.Constants.VOICE_INI
 import org.deiverbum.app.util.Utils
 
 /**
@@ -185,7 +184,7 @@ class Today(
     }
 
     fun getAllForRead(hasInvitatory: Boolean): StringBuilder {
-        val sb = StringBuilder(VOICE_INI)
+        val sb = StringBuilder()
         //sbReader = new StringBuilder(VOICE_INI);
         try {
             /*

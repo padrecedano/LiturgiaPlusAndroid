@@ -18,7 +18,7 @@ import org.deiverbum.app.core.model.data.Universalis
  * @version 1.0
  * @since 2023.1
  */
-@Deprecated("Desde 2024.1.", ReplaceWith("MissaeLectionumExternal"))
+//@Deprecated("Desde 2024.1.", ReplaceWith("MissaeLectionumExternal"))
 data class MissaeLectionumLocal(
     @Embedded
     var universalis: UniversalisEntity,
@@ -52,7 +52,7 @@ data class MissaeLectionumLocal(
     var lectionum: List<MassReadingWithAll>
 )
 
-fun MissaeLectionumExternal.asExternalModel(): Universalis {
+fun MissaeLectionumLocal.asExternalModel(): Universalis {
     val emList = ArrayList<MissaeLectionum?>()
     for (item in lectionum) {
         emList.add(item.asExternalModel())

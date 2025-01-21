@@ -69,6 +69,10 @@ class LiturgyHelper {
         fun liturgyByTypeLatin(type: Int): String? {
             return liturgyMapLatin[type]
         }
+        fun liturgyByNameLatin(name: String): Int {
+            val keys = liturgyMapLatin.filterValues { it == name }.keys
+            return keys.first()
+        }
         fun getValue(): List<String> {
 
             return listOf("Test String")

@@ -16,7 +16,8 @@ import org.deiverbum.app.core.model.data.Universalis
  * @version 1.0
  * @since 2023.1
  */
-@Deprecated("Desde 2024.1.", ReplaceWith("PopulatedCompletoriumResource"))
+
+//@Deprecated("Desde 2024.1.", ReplaceWith("PopulatedCompletoriumResource"))
 
 data class LHCompletoriumLocal(
     @Embedded
@@ -34,7 +35,7 @@ data class LHCompletoriumLocal(
 
     )
 
-fun PopulatedCompletoriumResource.asExternalModel(): Universalis {
+fun LHCompletoriumLocal.asExternalModel(): Universalis {
     val conclusion = ConclusioCompletorium(nightPrayer.virgin.virginEntity.asExternalModel())
     //conclusion.setAntifonaVirgen(nightPrayer.virgin.virginEntity.antiphon)
     val breviarium = LHCompletorium(

@@ -41,7 +41,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.deiverbum.app.R
 import org.deiverbum.app.core.designsystem.component.NiaLoadingWheel
 import org.deiverbum.app.feature.home.HomeScreenCalendarFinal
@@ -55,7 +54,7 @@ import java.util.Locale
 internal fun CalendarScreen(
     onTopicClick: (String) -> Unit,
     onDateSelected: (Long?) -> Unit,
-    //viewModel: CalendarViewModel = hiltViewModel()
+    viewModel: CalendarUniversalisViewModel = hiltViewModel()
 ) {
     //val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     //val selectedTopicId by viewModel.selectedTopicIdd.collectAsStateWithLifecycle()
@@ -78,18 +77,18 @@ fun CalendarScreen(
     onTopicClick: (String) -> Unit,
 
     //uiState: CalendarUiState
-    viewModel: CalendarViewModel = hiltViewModel(),
+    //viewModel: CalendarViewModel = hiltViewModel(),
     //viewModell: CalendarUniversalisViewModel = hiltViewModel()
 
 
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    //val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     //val universalisState by viewModell.universalisState.collectAsStateWithLifecycle()
 
     //viewModel.onDateSelected(selectedDate)
     HomeScreenCalendarFinal(
         selectedDate = selectedDate,
-        uiState = uiState,
+        //uiState = uiState,
         //universalisUiState=universalisState,
         onTopicClick = onTopicClick,
         /* onTopicClick = {

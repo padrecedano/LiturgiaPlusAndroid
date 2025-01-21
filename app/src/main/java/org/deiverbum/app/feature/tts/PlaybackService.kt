@@ -6,6 +6,7 @@ import android.app.PendingIntent.getActivity
 import android.content.Intent
 import android.os.Build
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.core.app.TaskStackBuilder
 import org.deiverbum.app.core.presentation.MainActivity
 
@@ -17,6 +18,7 @@ class PlaybackService : DemoPlaybackService() {
             if (Build.VERSION.SDK_INT >= 23) PendingIntent.FLAG_IMMUTABLE else 0
     }
 
+    @ExperimentalLayoutApi
     override fun getSingleTopActivity(): PendingIntent? {
         return getActivity(
             this,
@@ -26,6 +28,7 @@ class PlaybackService : DemoPlaybackService() {
         )
     }
 
+    @ExperimentalLayoutApi
     override fun getBackStackedActivity(): PendingIntent? {
         return TaskStackBuilder.create(this).run {
             addNextIntent(Intent(this@PlaybackService, MainActivity::class.java))

@@ -9,6 +9,7 @@ import android.speech.tts.TextToSpeech
 import android.speech.tts.TextToSpeech.OnInitListener
 import android.speech.tts.UtteranceProgressListener
 import androidx.media3.common.MediaMetadata
+import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Player
 import androidx.media3.common.SimpleBasePlayer
 import androidx.media3.common.util.UnstableApi
@@ -45,6 +46,8 @@ class TtsPlayerCompose(
             Player.Commands.Builder().addAll(
                 COMMAND_PLAY_PAUSE,
                 COMMAND_STOP,
+                COMMAND_SET_SPEED_AND_PITCH,
+                COMMAND_GET_TIMELINE,
                 COMMAND_SEEK_BACK,
                 COMMAND_SEEK_FORWARD,
                 COMMAND_SET_SHUFFLE_MODE,
@@ -56,7 +59,7 @@ class TtsPlayerCompose(
         //.setAudioAttributes(PlaybackService.Companion.getDEFAULT_AUDIO_ATTRIBUTES())
         .setPlaylist(listOf<MediaItemData>(MediaItemData.Builder("test").build()))
         .setPlaylistMetadata(
-            MediaMetadata.Builder().setMediaType(MediaMetadata.MEDIA_TYPE_PLAYLIST)
+            MediaMetadata.Builder().setMediaType(MediaMetadata.MEDIA_TYPE_MUSIC)
                 .setTitle("TTS test").build()
         )
         .setCurrentMediaItemIndex(0)
@@ -65,10 +68,13 @@ class TtsPlayerCompose(
     init {
         mTexts = text.split(splitRegex.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         mTts = TextToSpeech(context, this)
-        mTexts = listOf("Uno. Dos. Tres.").toTypedArray()
+        //mTexts = listOf("Uno. Dos. Tres.").toTypedArray()
+        //mTexts= text.toString().split("-")
+
         mTts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onDone(utteranceId: String) {
-                if (!mIsPlaying || mTextProgress == mTexts.size) return
+                updatePlaybackState(STATE_ENDED, false)
+                //    if (!mIsPlaying || mTextProgress == mTexts.size) return
                 ++mTextProgress
                 speakText()
             }
@@ -85,15 +91,15 @@ class TtsPlayerCompose(
     }
 
     private fun speakText() {
-        if (mTextProgress >= mTexts.size) return
+        // if (mTextProgress >= mTexts.size) return
         //API 21+
         val bundle = Bundle()
         bundle.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM, AudioManager.STREAM_MUSIC)
-        for (name in mTexts) {
-            //mTts.speak(mTexts[mTextProgress], TextToSpeech.QUEUE_FLUSH, bundle, "TTS_ID")
-            mTts.speak(name, TextToSpeech.QUEUE_FLUSH, bundle, "TTS_ID")
+        //for (name in mTexts) {
+        mTts.speak(mTexts[mTextProgress], TextToSpeech.QUEUE_FLUSH, bundle, "TTS_ID")
+        //mTts.speak(name, TextToSpeech.QUEUE_FLUSH, bundle, "TTS_ID")
 
-        }
+        //}
         //stop()
     }
 
@@ -111,7 +117,7 @@ class TtsPlayerCompose(
 
     fun start() {
         mIsPlaying = true
-        //updatePlaybackState(STATE_READY, true)
+        updatePlaybackState(STATE_READY, true)
 
         speakText()
     }
@@ -127,6 +133,12 @@ class TtsPlayerCompose(
         return state
     }
 
+
+    override fun handleSetPlaybackParameters(playbackParameters: PlaybackParameters): ListenableFuture<*> {
+        //setPlaybackSpeed(playbackParameters.speed)
+        changeSpeechRate(playbackParameters)
+        return Futures.immediateVoidFuture()
+    }
     override fun handleSeek(
         mediaItemIndex: Int,
         positionMs: Long,
@@ -135,6 +147,7 @@ class TtsPlayerCompose(
         val targetTextIndex = (positionMs * mTexts.size / durationMs).toInt()
         mTextProgress = targetTextIndex.coerceIn(0, mTexts.size - 1)
         currentPositionMs = positionMs
+        changeProgress(targetTextIndex + 1)
 
         if (mIsPlaying) {
             mTts.stop()
@@ -153,6 +166,7 @@ class TtsPlayerCompose(
                 .setPlayWhenReady(playWhenReady, PLAY_WHEN_READY_CHANGE_REASON_USER_REQUEST)
                 .setContentPositionMs(currentPositionMs)
                 //.setTotalBufferedDurationMs (durationMs)
+
                 .setTotalBufferedDurationMs(PositionSupplier.getConstant(durationMs))
                 .build()
             invalidateState()
@@ -205,6 +219,12 @@ class TtsPlayerCompose(
         if (!mIsPlaying) return
         pause()
         start()
+    }
+
+    fun changeSpeechRate(playbackParameters: PlaybackParameters) {
+        mTts.setSpeechRate(playbackParameters.speed)
+        //state.
+        //updatePlaybackState(playbackParameters.speed)
     }
 
     override fun onInit(status: Int) {

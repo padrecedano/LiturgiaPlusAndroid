@@ -3,6 +3,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Without this entry the folders will remain in-accessible in Android-10, even if WRITE_EXTERNAL_STORAGE as above is present. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
 
     <queries>
         <intent>
@@ -50,6 +52,10 @@
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="true" />
+
+        <service
+            android:name=".core.media.service.TtsMediaService"
+            android:foregroundServiceType="mediaPlayback" />
     </application>
 
 </manifest>

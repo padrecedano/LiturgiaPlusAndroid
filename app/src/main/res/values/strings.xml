@@ -11,7 +11,7 @@
     <string name="feature_foryou_navigate_up">Navigate up</string>
     <string name="feature_foryou_onboarding_guidance_title">What are you interested in?</string>
     <string name="feature_foryou_onboarding_guidance_subtitle">Updates from topics you follow will appear here. Follow some things to get started.</string>
-    <string name="not_connected">⚠️ You aren’t connected to the internet</string>
+    <string name="not_connected">⚠️ No hay conexión a internet</string>
 
     <string name="feature_menu_title">Menú</string>
     <string name="feature_menu_help">Ayuda</string>
@@ -22,6 +22,8 @@
     <string name="feature_menu_author">Autor</string>
     <string name="feature_menu_thanks">Agradecimientos</string>
     <string name="feature_menu_new">Novedades</string>
+    <string name="feature_menu_play_store">Ver en Play Store</string>
+    <string name="feature_menu_share">Compartir</string>
 
     <string name="feature_settings_top_app_bar_action_icon_description">Configuración</string>
     <string name="feature_settings_top_app_bar_navigation_icon_description">Buscar</string>
@@ -29,7 +31,7 @@
     <string name="feature_settings_loading">Cargando…</string>
     <string name="feature_settings_privacy_policy">Política de Privacidad</string>
     <string name="feature_settings_licenses">Licencias</string>
-    <string name="feature_settings_brand_guidelines">Términos y Condiciones</string>
+    <string name="feature_settings_terms">Términos y Condiciones</string>
     <string name="feature_settings_feedback">Reportar Error</string>
     <string name="feature_settings_theme">Tema</string>
     <string name="feature_settings_brand_default">Por defecto</string>

@@ -10,6 +10,8 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="30" />
     <!-- Without this entry the folders will remain in-accessible in Android-10, even if WRITE_EXTERNAL_STORAGE as above is present. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
 
     <application
         android:name="BaseApplication"
@@ -50,6 +52,9 @@
             android:name="firebase_crashlytics_collection_enabled"
             android:value="true" />
 
+        <service
+            android:name=".core.media.service.TtsMediaService"
+            android:foregroundServiceType="mediaPlayback" />
     </application>
     <queries>
         <intent>

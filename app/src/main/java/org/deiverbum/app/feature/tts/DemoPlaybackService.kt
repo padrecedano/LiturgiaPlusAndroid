@@ -22,7 +22,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.pm.PackageManager
 import android.os.Build
-import android.os.Looper
 import androidx.annotation.OptIn
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -109,11 +108,11 @@ open class DemoPlaybackService : MediaLibraryService() {
                 .setAudioAttributes(AudioAttributes.DEFAULT, /* handleAudioFocus= */ true)
                 .build()
         player.addAnalyticsListener(EventLogger())
-        val playerr = TtsPlayer(Looper.getMainLooper(), this, "")
+        //val playerr = TtsPlayer(Looper.getMainLooper(), this, "",{1})
         //addListener(playerListener)
-        playerr.addListener(playerListener)
+        //playerr.addListener(playerListener)
         mediaLibrarySession =
-            MediaLibrarySession.Builder(this, playerr, createLibrarySessionCallback())
+            MediaLibrarySession.Builder(this, player, createLibrarySessionCallback())
                 .also { builder -> getSingleTopActivity()?.let { builder.setSessionActivity(it) } }
                 .build()
     }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.Icon
@@ -49,7 +50,7 @@ fun AppDrawer(
         )
         NavigationDrawerItem(
             label = { Text(stringResource(id = R.string.title_fragment_misa)) },
-            icon = { Icon(Icons.AutoMirrored.Filled.ListAlt, null) },
+            icon = { Icon(Icons.AutoMirrored.Filled.ArrowBack, null) },
             selected = currentRoute == "interests",
             onClick = {
                 //navigateToInterests();

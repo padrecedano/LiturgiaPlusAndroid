@@ -57,7 +57,7 @@ import org.deiverbum.app.feature.universalis.VesperasScreen
 @OptIn(UnstableApi::class)
 @ExperimentalMaterial3Api
 @Composable
-fun Universalis(
+fun UniversalisBody(
     data: Universalis,
     topicId: Int,
     userData: UserDataDynamic,

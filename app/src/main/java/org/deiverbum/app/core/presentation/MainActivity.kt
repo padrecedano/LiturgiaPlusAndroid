@@ -2,15 +2,19 @@
 
 package org.deiverbum.app.core.presentation
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
@@ -22,7 +26,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.media3.common.util.UnstableApi
 import androidx.metrics.performance.JankStats
+import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -34,17 +40,21 @@ import org.deiverbum.app.core.data.repository.UniversalisRepository
 import org.deiverbum.app.core.data.util.NetworkMonitor
 import org.deiverbum.app.core.data.util.TimeZoneMonitor
 import org.deiverbum.app.core.designsystem.theme.LPlusTheme
+import org.deiverbum.app.core.media.service.SimpleMediaService
+import org.deiverbum.app.core.media.service.TtsMediaService
 import org.deiverbum.app.core.model.data.DarkThemeConfig
 import org.deiverbum.app.core.model.data.ThemeBrand
 import org.deiverbum.app.core.ui.LocalTimeZone
+import org.deiverbum.app.feature.tts.SimpleMediaViewModel
+import org.deiverbum.app.feature.tts.TtsMediaViewModel
 import org.deiverbum.app.ui.NiaApp
 import org.deiverbum.app.ui.rememberNiaAppState
 import javax.inject.Inject
+import kotlin.system.exitProcess
 
 private const val TAG = "MainActivity"
 
-@ExperimentalFoundationApi
-@ExperimentalCoroutinesApi
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
@@ -69,8 +79,17 @@ class MainActivity : ComponentActivity() {
     //val universalisViewModel: UniversalisViewModel  by viewModels()
 
     val viewModel: MainActivityViewModel by viewModels()
+    private val viewModelSimpleMedia: SimpleMediaViewModel by viewModels()
+    private val viewModelTts: TtsMediaViewModel by viewModels()
+
+    private var isServiceRunning = false
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    @OptIn(
+        ExperimentalFoundationApi::class, ExperimentalCoroutinesApi::class,
+        ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
@@ -102,6 +121,23 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
+            //HomeScreenSong(viewModelSong, ::startService)
+            //startService()
+            //HomeScreenParent(viewModelPlayer)
+            val navController = rememberNavController()
+            /*
+                        SimpleMediaScreen(
+                            vm = viewModelSimpleMedia,
+                            navController = navController,
+                            startService = ::startService
+                        )
+            */
+            //startServiceTts()
+            /*TtsMediaScreen(
+                vm = viewModelTts,
+                navController = navController,
+                startServiceTts = ::startServiceTts
+            )*/
             val darkTheme = shouldUseDarkTheme(uiState)
 
             // Update the edge to edge configuration to match the theme
@@ -139,7 +175,7 @@ class MainActivity : ComponentActivity() {
                     androidTheme = shouldUseAndroidTheme(uiState),
                     disableDynamicTheming = shouldDisableDynamicTheming(uiState),
                 ) {
-                    NiaApp(appState)
+                    NiaApp(appState = appState, startServiceTts = ::startServiceTts)
                 }
             }
         }
@@ -154,6 +190,60 @@ class MainActivity : ComponentActivity() {
         super.onPause()
         lazyStats.get().isTrackingEnabled = false
     }
+
+    private fun startService() {
+        if (!isServiceRunning) {
+            val intent = Intent(this, SimpleMediaService::class.java)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(intent)
+            }
+            isServiceRunning = true
+        }
+    }
+
+
+    @androidx.annotation.OptIn(UnstableApi::class)
+    private fun stopService() {
+        if (isServiceRunning) {
+            val intent = Intent(this, SimpleMediaService::class.java)
+            stopService(intent)
+            android.os.Process.killProcess(android.os.Process.myPid())
+            exitProcess(1)
+        }
+    }
+
+
+    @androidx.annotation.OptIn(UnstableApi::class)
+    private fun startServiceTts() {
+        if (!isServiceRunning) {
+            val intent = Intent(this, TtsMediaService::class.java)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(intent)
+            }
+            isServiceRunning = true
+        }
+    }
+
+    @androidx.annotation.OptIn(UnstableApi::class)
+    private fun stopServiceTts() {
+        if (isServiceRunning) {
+            val intent = Intent(this, TtsMediaService::class.java)
+            stopService(intent)
+            android.os.Process.killProcess(android.os.Process.myPid())
+            exitProcess(1)
+        }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        //stopService(Intent(this, SimpleMediaService::class.java))
+        isServiceRunning = false
+//TODO: Compare this
+        stopServiceTts()
+    }
+
+
 }
 
 /**

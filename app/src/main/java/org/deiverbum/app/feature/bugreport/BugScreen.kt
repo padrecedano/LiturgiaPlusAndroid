@@ -81,6 +81,8 @@ fun BugScreen(
         Column(
             modifier = modifier
                 .fillMaxSize()
+                .padding(10.dp)
+                .padding(10.dp)
                 .verticalScroll(rememberScrollState())
         ) {
 
@@ -97,7 +99,11 @@ fun BugScreen(
             )
             Spacer(modifier = Modifier.weight(1f))
             if (!messageSent) {
-                Text(text = stringResource(id = R.string.bug_intro))
+                Text(
+                    text = stringResource(id = R.string.bug_intro),
+                    modifier = Modifier.padding(10.dp)
+                )
+
                 Text(text = stringResource(id = R.string.bug_description))
                 TextFieldBugDescription(
                     message = message.value,
@@ -129,7 +135,11 @@ fun BugScreen(
                         }
                     }
                 )
-                Text(text = stringResource(id = R.string.bug_send))
+                Text(
+                    text = stringResource(id = R.string.bug_send),
+                    modifier = Modifier.padding(10.dp)
+                )
+
                 Row(
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier.fillMaxWidth(),

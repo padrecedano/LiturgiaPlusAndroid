@@ -72,6 +72,7 @@ fun NiaApp(
     appState: NiaAppState,
     modifier: Modifier = Modifier,
     windowAdaptiveInfo: WindowAdaptiveInfo = currentWindowAdaptiveInfo(),
+    startServiceTts: () -> Unit,
 ) {
     val shouldShowGradientBackground =
         appState.currentTopLevelDestination == TopLevelDestination.HOME
@@ -93,6 +94,7 @@ fun NiaApp(
             // If user is not connected to the internet show a snack bar to inform them.
             val notConnectedMessage = stringResource(R.string.not_connected)
             LaunchedEffect(isOffline) {
+                startServiceTts()
                 if (isOffline) {
                     snackbarHostState.showSnackbar(
                         message = notConnectedMessage,
