@@ -8,6 +8,7 @@ import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.model.data.DarkThemeConfig
 import org.deiverbum.app.core.model.data.ThemeBrand
 import org.deiverbum.app.core.model.data.UserDataDynamic
+import org.deiverbum.app.core.model.data.VoiceReaderConfig
 import javax.inject.Inject
 
 @HiltViewModel
@@ -49,7 +50,7 @@ class MenuViewModel @Inject constructor(
         }
     }
 
-    fun updateVoiceReaderPreference(useVoiceReader: Boolean) {
+    fun updateVoiceReaderPreference(useVoiceReader: VoiceReaderConfig) {
         viewModelScope.launch {
             userDataRepository.setVoiceReaderPreference(useVoiceReader)
         }

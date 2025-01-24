@@ -33,11 +33,11 @@ data class UserCalendarResource internal constructor(
         followableTopics = newsResource.topics.map { topic ->
             FollowableTopic(
                 topic = topic,
-                isFollowed = topic.id in userData.followedTopics,
+                isFollowed = true,//topic.id in userData.followedTopics,
             )
         },
-        isSaved = newsResource.id in userData.bookmarkedNewsResources,
-        hasBeenViewed = newsResource.id in userData.viewedNewsResources,
+        isSaved = true,//newsResource.id in userData.bookmarkedNewsResources,
+        hasBeenViewed = true//newsResource.id in userData.viewedNewsResources,
     )
 }
 

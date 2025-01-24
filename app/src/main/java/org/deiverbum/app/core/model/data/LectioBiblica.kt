@@ -1,10 +1,8 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import android.text.Spanned
 import androidx.room.ColumnInfo
 import androidx.room.Ignore
-import org.deiverbum.app.util.Utils
 import java.util.Locale
 
 open class LectioBiblica(
@@ -74,14 +72,14 @@ open class LectioBiblica(
     var readingID: Int? = null
 
 
-    val textoSpan: Spanned
+    /*val textoSpan: Spanned
         get() = Utils.fromHtml(biblica)
     val textoForRead: Spanned
         get() = Utils.fromHtml(
             Utils.getFormatoForRead(
                 biblica
             )
-        )
+        )*/
 
     fun setCita(ref: String) {
         this.pericopa = ref
@@ -116,7 +114,7 @@ open class LectioBiblica(
      */
     open fun getAll(): SpannableStringBuilder? {
         val sb = SpannableStringBuilder()
-        sb.append(getHeader())
+        /*sb.append(getHeader())
         //sb.append(Utils.formatTitle(getHeader(type)))
 
         sb.append(Utils.LS2)
@@ -131,7 +129,7 @@ open class LectioBiblica(
         sb.append(Utils.LS2)
         sb.append(Utils.fromHtml(biblica))
         sb.append(Utils.LS)
-        //sb.append(responsorio.getAll());
+        //sb.append(responsorio.getAll());*/
         return sb
     }
 
@@ -144,11 +142,11 @@ open class LectioBiblica(
      */
     open fun getAllForRead(): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
-        sb.append(Utils.pointAtEnd(getHeader()))
+        /*sb.append(Utils.pointAtEnd(getHeader()))
         sb.append(book.getForRead())
         sb.append(textoForRead)
         sb.append(getConclusionForRead())
-        sb.append(getResponsorioHeaderForRead())
+        sb.append(getResponsorioHeaderForRead())*/
         return sb
     }
 

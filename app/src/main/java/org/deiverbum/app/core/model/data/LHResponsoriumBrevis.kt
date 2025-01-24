@@ -474,4 +474,3 @@ open class LHResponsoriumBrevis(
         }
     }
 }
-

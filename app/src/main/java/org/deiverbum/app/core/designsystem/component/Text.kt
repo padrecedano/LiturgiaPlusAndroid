@@ -103,8 +103,6 @@ fun textRubric(text: String, rubricColor: Color): AnnotatedString {
             append(text)
         }
     }
-
-
 }
 
 @Composable

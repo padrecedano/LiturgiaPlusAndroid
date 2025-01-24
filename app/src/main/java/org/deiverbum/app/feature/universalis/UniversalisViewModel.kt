@@ -60,13 +60,13 @@ class UniversalisViewModel @Inject constructor(
 
     fun followTopic(followedTopicId: String, followed: Boolean) {
         viewModelScope.launch {
-            userDataRepository.setTopicIdFollowed(followedTopicId, followed)
+            //userDataRepository.setTopicIdFollowed(followedTopicId, followed)
         }
     }
 
 
     fun onTopicClick(topicId: String?) {
-        savedStateHandle.toRoute<UniversalisRoute>().initialTopicId = topicId
+        //savedStateHandle.toRoute<UniversalisRoute>().initialTopicId = topicId
         savedStateHandle[selectedTopicIdKey] = topicId
     }
 

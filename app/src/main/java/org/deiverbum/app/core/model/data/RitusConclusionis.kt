@@ -1,15 +1,9 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.room.Ignore
 import com.squareup.moshi.Json
-import org.deiverbum.app.core.designsystem.component.getRubricColor
 import org.deiverbum.app.util.Constants
-import org.deiverbum.app.util.Constants.LS2
-import org.deiverbum.app.util.LiturgyHelper
 import org.deiverbum.app.util.Utils
 
 /**
@@ -70,21 +64,7 @@ class RitusConclusionis {
          * Conclusión de las horas menores.
          */
 
-        @Composable
-        fun getComposableDominusNosBenedicat(userData: UserDataDynamic): AnnotatedString {
-            ContentTitle(
-                text = "CONCLUSIÓN",
-                level = 2,
-                userData = userData
-            ).getComposable()
-            val rubricColor = getRubricColor(userData = userData)
-            return buildAnnotatedString {
-                append(txtDominusNosBenedicat)
-                append(LS2)
-                append(Utils.toRedCompose(LiturgyHelper.R, rubricColor = rubricColor))
-                append(" $txtAmen")
-            }
-        }
+
         var viewBenedicamusDomino: SpannableStringBuilder =
             SpannableStringBuilder(Utils.toRed("V/. "))
                 .append("Bendigamos al Señor.")

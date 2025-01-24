@@ -1,14 +1,8 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.withStyle
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import org.deiverbum.app.core.designsystem.theme.NiaTypography
 import org.deiverbum.app.util.Utils
 
 @JsonClass(generateAdapter = true)
@@ -27,6 +21,7 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
         this.book = book
     }
 
+    @OptIn(ExperimentalStdlibApi::class)
     @Json(ignore = true)
     private val temaForRead: String
         get() = Utils.normalizeEnd(tema)
@@ -58,40 +53,7 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
         return sb
     }
 
-    fun getComposable(type: Int, rubricColor: Color): AnnotatedString {
-        return buildAnnotatedString {
-            append(Utils.LS2)
-            if (type != -1) {
-                withStyle(
-                    SpanStyle(
-                        fontSize = NiaTypography.titleMedium.fontSize,
-                        color = rubricColor
-                    )
-                ) {
-                    append(getHeader(type))
-                }
-                append(Utils.LS2)
-            }
-            append(book.liturgyName)
-            append("    ")
-            withStyle(SpanStyle(color = rubricColor)) {
 
-                append(pericopa)
-            }
-            append(Utils.LS2)
-            if (tema != "") {
-                withStyle(SpanStyle(color = rubricColor)) {
-
-                    append(tema)
-                }
-                append(Utils.LS2)
-            }
-            //append(Utils.fromHtml(biblica))
-            append(Utils.transformText(biblica, rubricColor))
-            append(Utils.LS)
-        }
-
-    }
 
 
     /**
@@ -107,14 +69,21 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
         sb.append(Utils.normalizeEnd(getHeader(type)))
         sb.append(book.getForRead())
         sb.append(temaForRead)
-        sb.append(textoForRead)
+        //sb.append(textoForRead)
         sb.append(getConclusionByType())
 
         return sb
     }
 
-    private fun getHeader(type: Int): String {
-        return if (type == 0) {
+    fun getHeader(type: Int): String {
+        return when (theOrder) {
+            in 1..19 -> "PRIMERA LECTURA"
+            in 20..29 -> "SALMO RESPONSORIAL"
+            in 30..39 -> "SEGUNDA LECTURA"
+            in 40..49 -> "EVANGELIO"
+            else -> "LECTURA"
+        }
+        /*return if (type == 0) {
             var header = ""
             if (theOrder in 1..19) {
                 header = "PRIMERA LECTURA"
@@ -131,7 +100,7 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
             header
         } else {
             getHeaderByType(type)
-        }
+        }*/
     }
 
     /**
@@ -163,7 +132,7 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
      * @return Un objeto [con el contenido.][String]
      * @since 2023.1.2
      */
-    private fun getHeaderByType(type: Int): String {
+    fun getHeaderByType(type: Int): String {
         var header = ""
         if (type == 1) {
             if (theOrder == 1) {
@@ -199,6 +168,8 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
             if (theOrder >= 40) {
                 header = "EVANGELIO"
             }
+        } else {
+            getHeader(type)
         }
         return header
     }

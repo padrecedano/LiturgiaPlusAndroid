@@ -46,7 +46,7 @@ data class LHLectioBrevis(
             userData = userData
         ).getComposable()*/
         return buildAnnotatedString {
-            append(textoSpan)
+            append("textoSpan")
         }
     }
 
@@ -54,7 +54,7 @@ data class LHLectioBrevis(
         val sb = SpannableStringBuilder()
         sb.append(getHeaderLectura())
         sb.append(Utils.LS2)
-        sb.append(textoSpan)
+        sb.append("textoSpan")
         sb.append(Utils.LS2)
         sb.append(responsorium.getAll(hourId))
         return sb
@@ -63,7 +63,7 @@ data class LHLectioBrevis(
     override fun getAllForRead(): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         sb.append(getHeaderForRead())
-        sb.append(textoForRead)
+        sb.append("textoForRead")
         sb.append(responsorium.allForRead)
         return sb
     }

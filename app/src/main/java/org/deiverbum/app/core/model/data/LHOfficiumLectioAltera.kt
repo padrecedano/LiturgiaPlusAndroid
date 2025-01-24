@@ -65,6 +65,9 @@ class LHOfficiumLectioAltera(
             return sb
         }
 
+    fun getHtmlTest(): String {
+        return homilia
+    }
     @Composable
     fun getComposable(userData: UserDataDynamic): AnnotatedString {
         ContentTitle(
@@ -76,13 +79,14 @@ class LHOfficiumLectioAltera(
         return buildAnnotatedString {
             append(paterOpus?.opusForView)
             append(Utils.LS2)
-            append(Utils.toRedCompose(theSource, rubricColor))
+            //append(Utils.toRedCompose(theSource, rubricColor))
             append(Utils.LS2)
-            append(Utils.toRedCompose(tema, rubricColor))
+            //append(Utils.toRedCompose(tema, rubricColor))
             append(Utils.LS2)
             append(textoSpan)
+            append(homilia)
             //sb.append(Utils.LS)
-            append(responsorium!!.getComposable(rubricColor = rubricColor))
+            //append(responsorium!!.getComposable(rubricColor = rubricColor))
         }
     }
     val all: SpannableStringBuilder

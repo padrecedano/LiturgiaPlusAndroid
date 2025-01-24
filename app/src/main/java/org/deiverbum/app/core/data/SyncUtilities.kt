@@ -10,9 +10,8 @@ import kotlin.coroutines.cancellation.CancellationException
  * source for a [Syncable].
  */
 interface Synchronizer {
-    suspend fun getChangeListVersions(): ChangeListVersions
 
-    suspend fun updateChangeListVersions(update: ChangeListVersions.() -> ChangeListVersions)
+    //suspend fun updateChangeListVersions(update: ChangeListVersions.() -> ChangeListVersions)
 
     /**
      * Syntactic sugar to call [Syncable.syncWith] while omitting the synchronizer argument
@@ -68,7 +67,7 @@ suspend fun Synchronizer.changeListSync(
     modelUpdater: suspend (List<String>) -> Unit,
 ) = suspendRunCatching {
     // Fetch the change list since last sync (akin to a git fetch)
-    val currentVersion = versionReader(getChangeListVersions())
+    val currentVersion = 1//TODO:versionReader(getChangeListVersions())
     val changeList = changeListFetcher(currentVersion)
     if (changeList.isEmpty()) return@suspendRunCatching true
 
@@ -82,7 +81,7 @@ suspend fun Synchronizer.changeListSync(
 
     // Update the last synced version (akin to updating local git HEAD)
     val latestVersion = changeList.last().changeListVersion
-    updateChangeListVersions {
+    /*updateChangeListVersions {
         versionUpdater(latestVersion)
-    }
+    }*/
 }.isSuccess

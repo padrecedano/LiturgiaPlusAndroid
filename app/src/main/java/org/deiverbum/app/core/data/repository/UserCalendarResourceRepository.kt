@@ -17,13 +17,5 @@ interface UserCalendarResourceRepository {
         ),
     ): Flow<List<UserCalendarResource>>
 
-    /**
-     * Returns available news resources for the user's followed topics as a stream.
-     */
-    fun observeAllForFollowedTopics(): Flow<List<UserCalendarResource>>
 
-    /**
-     * Returns the user's bookmarked news resources as a stream.
-     */
-    fun observeAllBookmarked(): Flow<List<UserCalendarResource>>
 }

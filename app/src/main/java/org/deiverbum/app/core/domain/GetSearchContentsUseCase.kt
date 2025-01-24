@@ -46,7 +46,7 @@ private fun Flow<SearchResult>.mapToUserSearchResult(userDataStream: Flow<UserDa
             topics = searchResult.topics.map { topic ->
                 FollowableTopic(
                     topic = topic,
-                    isFollowed = topic.id in userData.followedTopics,
+                    isFollowed = true,//topic.id in userData.followedTopics,
                 )
             },
             newsResources = searchResult.newsResources.map { news ->

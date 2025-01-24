@@ -14,7 +14,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -67,6 +70,7 @@ import org.deiverbum.app.util.Utils
  *
  */
 
+@ExperimentalStdlibApi
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi
 @ExperimentalMaterial3AdaptiveApi
@@ -103,6 +107,7 @@ fun UniversalisFromHomeScreen(
  *
  */
 
+@ExperimentalStdlibApi
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi
 @Composable
@@ -274,6 +279,7 @@ fun LoadingState(modifier: Modifier = Modifier) {
  * [UniversalisResourceCardExpanded] card usada en `UniversalisScreen`
  */
 
+@ExperimentalStdlibApi
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UniversalisResourceCardExpanded(
@@ -349,6 +355,7 @@ fun UniversalisResourceCardExpanded(
  * [UniversalisResourceCardExpanded] card usada en `UniversalisScreen`
  */
 
+@ExperimentalStdlibApi
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UniversalisResourceData(
@@ -386,20 +393,31 @@ fun UniversalisResourceData(
             )
         },
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .verticalScroll(state = scrollState),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
 
+        Card(
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         ) {
-            UniversalisResourceCardExpanded(
-                data = universalis,
-                typusId = typusId,
-                userData = userData
-            )
-        }
+            Column {
+                Box(
+                    modifier = Modifier.padding(16.dp),
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .verticalScroll(state = scrollState),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
 
+                    ) {
+                        UniversalisResourceCardExpanded(
+                            data = universalis,
+                            typusId = typusId,
+                            userData = userData
+                        )
+                    }
+                }
+            }
+        }
         if (showBottomSheet) {
             val sb = universalis.getAllForRead()
             viewModelTts.loadData(

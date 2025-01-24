@@ -37,6 +37,7 @@ import org.deiverbum.app.core.designsystem.component.NiaTextButton
 import org.deiverbum.app.core.designsystem.theme.supportsDynamicTheming
 import org.deiverbum.app.core.model.data.DarkThemeConfig
 import org.deiverbum.app.core.model.data.ThemeBrand
+import org.deiverbum.app.core.model.data.VoiceReaderConfig
 import org.deiverbum.app.core.model.data.ui.MenuItem
 import org.deiverbum.app.core.ui.TrackScreenViewEvent
 import org.deiverbum.app.feature.settings.SettingsUiState
@@ -72,7 +73,7 @@ fun MainMenuDialog(
     onClick: (String) -> Unit,
     onChangeThemeBrand: (themeBrand: ThemeBrand) -> Unit,
     onChangeDynamicColorPreference: (useDynamicColor: Boolean) -> Unit,
-    onChangeVoiceReaderPreference: (useVoiceReader: Boolean) -> Unit,
+    onChangeVoiceReaderPreference: (useVoiceReader: VoiceReaderConfig) -> Unit,
     onChangeMultipleInvitatoryPreference: (useMultipleInvitatory: Boolean) -> Unit,
     onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
 ) {
@@ -138,7 +139,7 @@ private fun MenuPanel(
     supportDynamicColor: Boolean,
     onChangeThemeBrand: (themeBrand: ThemeBrand) -> Unit,
     onChangeDynamicColorPreference: (useDynamicColor: Boolean) -> Unit,
-    onChangeVoiceReaderPreference: (useVoiceReader: Boolean) -> Unit,
+    onChangeVoiceReaderPreference: (useVoiceReader: VoiceReaderConfig) -> Unit,
     onChangeMultipleInvitatoryPreference: (useMultipleInvitatory: Boolean) -> Unit,
     onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
     onClick: (String) -> Unit,

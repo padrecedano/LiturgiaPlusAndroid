@@ -38,11 +38,10 @@ import org.deiverbum.app.core.database.model.external.SanctiiExternal
 import org.deiverbum.app.core.database.model.external.SextamExternal
 import org.deiverbum.app.core.database.model.external.TertiamExternal
 import org.deiverbum.app.core.database.model.external.UniversalisExternal
-import org.deiverbum.app.core.database.model.nia.NewsResourceEntity
 import org.deiverbum.app.core.model.data.Universalis
 
 /**
- * DAO for [NewsResource] and [NewsResourceEntity] access
+ * DAO para acceder a [UniversalisEntity]
  */
 @Dao
 interface UniversalisDao {
@@ -56,13 +55,6 @@ interface UniversalisDao {
     @Query(value = "SELECT * FROM ui_topic")
     fun getTopicEntities(): Flow<List<UITopicEntity>>
 
-    @Query(
-        value = """
-        SELECT * FROM ui_topic
-        WHERE id = :id
-    """,
-    )
-    fun getTopicEntityy(id: Int): Flow<UITopicEntity>
 
     /**
      * Fetches news resources that match the query parameters

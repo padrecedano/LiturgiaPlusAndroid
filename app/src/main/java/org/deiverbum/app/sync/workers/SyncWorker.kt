@@ -14,7 +14,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.deiverbum.app.core.analytics.AnalyticsHelper
 import org.deiverbum.app.core.data.Synchronizer
-import org.deiverbum.app.core.datastore.ChangeListVersions
 import org.deiverbum.app.core.datastore.PreferencesDataSource
 import org.deiverbum.app.core.network.Dispatcher
 import org.deiverbum.app.core.network.NiaDispatchers
@@ -65,12 +64,7 @@ internal class SyncWorker @AssistedInject constructor(
         }
     }
 
-    override suspend fun getChangeListVersions(): ChangeListVersions =
-        niaPreferences.getChangeListVersions()
 
-    override suspend fun updateChangeListVersions(
-        update: ChangeListVersions.() -> ChangeListVersions,
-    ) = niaPreferences.updateChangeListVersion(update)
 
     companion object {
         /**

@@ -41,6 +41,7 @@ import org.deiverbum.app.core.designsystem.component.NiaTextButton
 import org.deiverbum.app.core.designsystem.theme.supportsDynamicTheming
 import org.deiverbum.app.core.model.data.DarkThemeConfig
 import org.deiverbum.app.core.model.data.ThemeBrand
+import org.deiverbum.app.core.model.data.VoiceReaderConfig
 import org.deiverbum.app.core.ui.TrackScreenViewEvent
 
 
@@ -68,7 +69,7 @@ fun SettingsDialog(
     onDismiss: () -> Unit,
     onChangeThemeBrand: (themeBrand: ThemeBrand) -> Unit,
     onChangeDynamicColorPreference: (useDynamicColor: Boolean) -> Unit,
-    onChangeVoiceReaderPreference: (useVoiceReader: Boolean) -> Unit,
+    onChangeVoiceReaderPreference: (useVoiceReader: VoiceReaderConfig) -> Unit,
     onChangeMultipleInvitatoryPreference: (useMultipleInvitatory: Boolean) -> Unit,
     onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
 ) {
@@ -140,7 +141,7 @@ private fun ColumnScope.SettingsPanel(
     supportDynamicColor: Boolean,
     onChangeThemeBrand: (themeBrand: ThemeBrand) -> Unit,
     onChangeDynamicColorPreference: (useDynamicColor: Boolean) -> Unit,
-    onChangeVoiceReaderPreference: (useVoiceReader: Boolean) -> Unit,
+    onChangeVoiceReaderPreference: (useVoiceReader: VoiceReaderConfig) -> Unit,
     onChangeMultipleInvitatoryPreference: (useMultipleInvitatory: Boolean) -> Unit,
     onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
 ) {
@@ -181,13 +182,13 @@ private fun ColumnScope.SettingsPanel(
         Column(Modifier.selectableGroup()) {
             SettingsDialogThemeChooserRow(
                 text = stringResource(R.string.generic_yes),
-                selected = settings.dynamic.useVoiceReader,
-                onClick = { onChangeVoiceReaderPreference(true) },
+                selected = settings.dynamic.useVoiceReader == VoiceReaderConfig.ON,
+                onClick = { onChangeVoiceReaderPreference(VoiceReaderConfig.ON) },
             )
             SettingsDialogThemeChooserRow(
                 text = stringResource(R.string.generic_no),
-                selected = !settings.dynamic.useVoiceReader,
-                onClick = { onChangeVoiceReaderPreference(false) },
+                selected = settings.dynamic.useVoiceReader == VoiceReaderConfig.OFF,
+                onClick = { onChangeVoiceReaderPreference(VoiceReaderConfig.OFF) },
             )
         }
     }

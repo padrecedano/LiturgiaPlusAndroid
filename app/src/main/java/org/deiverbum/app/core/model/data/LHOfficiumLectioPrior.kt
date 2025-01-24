@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.room.Ignore
-import org.deiverbum.app.core.designsystem.component.getRubricColor
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
@@ -50,7 +49,7 @@ class LHOfficiumLectioPrior(
         sb.append(Utils.LS2)
         sb.append(Utils.toRed(tema))
         sb.append(Utils.LS2)
-        sb.append(textoSpan)
+        sb.append("textoSpan")
         //sb.append(Utils.LS)
         sb.append(responsorium.all)
         return sb
@@ -67,13 +66,13 @@ class LHOfficiumLectioPrior(
 
             append(book.liturgyName)
             append("    ")
-            append(Utils.toRedCompose(pericopa, getRubricColor(userData = userData)))
+            //append(Utils.toRedCompose(pericopa, getRubricColor(userData = userData)))
             append(Utils.LS2)
-            append(Utils.toRedCompose(tema, getRubricColor(userData = userData)))
+            //append(Utils.toRedCompose(tema, getRubricColor(userData = userData)))
             append(Utils.LS2)
-            append(textoSpan)
+            append("textoSpan")
             //sb.append(Utils.LS)
-            append(responsorium.getComposable(rubricColor = getRubricColor(userData = userData)))
+            //append(responsorium.getComposable(rubricColor = getRubricColor(userData = userData)))
         }
     }
     /**
@@ -95,7 +94,7 @@ class LHOfficiumLectioPrior(
         sb.append(Utils.pointAtEnd(getHeader()))
         sb.append(book.getForRead())
         sb.append(temaForRead)
-        sb.append(textoForRead)
+        sb.append("textoForRead")
         sb.append(getConclusionForRead())
         //sb.append(getResponsorioHeaderForRead())
         //sb.append(book!!.getForRead())

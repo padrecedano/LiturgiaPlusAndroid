@@ -1,7 +1,5 @@
 package org.deiverbum.app.core.model.data
 
-import android.text.SpannableStringBuilder
-import androidx.compose.ui.text.AnnotatedString
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
@@ -35,38 +33,6 @@ data class LHOfficium(
         return this
     }
 
-    fun forView(calendarTime: Int): SpannableStringBuilder {
-        //this.hasSaint = hasSaint
-        val ssb = AnnotatedString.Builder()
-        try {
-            officiumLectionis.normalizeByTime(calendarTime)
-            if (sanctus != null && hasSaint) {
-                invitatorium.normalizeIsSaint(sanctus!!.nomen)
-                ssb.append(sanctus!!.forViewVitaBrevis)
-                //ssb.append(Constants.LS2)
-            }
-            //ssb.append(Utils.toH1Red(Constants.TITLE_OFICIO))
-            //ssb.append(Utils.LS2)
-            ssb.append(Introitus.viewDomineLabiaMeaAperis)
-            ssb.append(Utils.LS2)
-            ssb.append(invitatorium.getAllForView(-1, calendarTime))
-            ssb.append(Utils.LS2)
-            ssb.append(hymnus.all)
-            ssb.append(Utils.LS2)
-            ssb.append(psalmodia.getAllForView(-1, calendarTime))
-            ssb.append(Utils.LS)
-            ssb.append(officiumLectionis.allForView)
-            if (officiumLectionis.hasTeDeum) {
-                ssb.append(TeDeum().all)
-            }
-            ssb.append(oratio.all)
-            ssb.append(Utils.LS2)
-            ssb.append(RitusConclusionis.viewDominusNosBenedicat)
-        } catch (e: Exception) {
-            ssb.append(Utils.createErrorMessage(e.message))
-        }
-        return SpannableStringBuilder(ssb.toAnnotatedString())
-    }
 
     override fun forRead(): StringBuilder {
         val sb = StringBuilder()

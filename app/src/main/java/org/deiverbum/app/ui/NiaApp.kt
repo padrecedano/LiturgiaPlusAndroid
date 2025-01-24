@@ -64,6 +64,7 @@ import org.deiverbum.app.navigation.NiaNavHost
 import org.deiverbum.app.navigation.TopLevelDestination
 import kotlin.reflect.KClass
 
+@ExperimentalStdlibApi
 @ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
 @ExperimentalLayoutApi
@@ -119,6 +120,7 @@ fun NiaApp(
     }
 }
 
+@ExperimentalStdlibApi
 @ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
 @ExperimentalLayoutApi

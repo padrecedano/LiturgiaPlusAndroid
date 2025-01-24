@@ -1,7 +1,10 @@
 package org.deiverbum.app.util
 
 import android.graphics.Color
+import android.os.Build
 import android.text.style.ForegroundColorSpan
+import androidx.annotation.RequiresApi
+import androidx.compose.ui.graphics.toArgb
 import org.deiverbum.app.core.designsystem.theme.Red40
 
 /**
@@ -9,9 +12,9 @@ import org.deiverbum.app.core.designsystem.theme.Red40
  *
  * @author A. Cedano
  * @version 1.0
- * @since 2023.1
+ * @since 2025.1
  */
-object ColorUtils {
+object ComposeColorUtil {
     val LS: String? = System.getProperty("line.separator")
     private val redDefault = ForegroundColorSpan(Color.parseColor("#A52A2A"))
     private val redNightMode = ForegroundColorSpan(Color.parseColor("#FFDAB9"))
@@ -21,9 +24,16 @@ object ColorUtils {
     val red: ForegroundColorSpan
         get() = if (isNightMode) redNightMode else redDefault
 
+    @OptIn(ExperimentalStdlibApi::class)
     @JvmStatic
     val redCode: String
-        get() = if (isNightMode) "#FFDAB9" else "#A52A2A"
+        get() = rubricColor.toArgb().toHexString(HexFormat.UpperCase).takeLast(6)
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    @OptIn(ExperimentalStdlibApi::class)
+    fun getHexColor(rubricColor: androidx.compose.ui.graphics.Color): String {
+        return rubricColor.toArgb().toHexString(HexFormat.UpperCase).takeLast(6)
+    }
 
     var rubricColor: androidx.compose.ui.graphics.Color = Red40
 

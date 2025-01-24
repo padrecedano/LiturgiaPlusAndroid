@@ -35,19 +35,19 @@ data class Kyrie(
             return ssb
         }
 
-        private fun getIntroduccion(): SpannableStringBuilder {
+    private fun getIntroduccion(): SpannableStringBuilder {
 
-            val ssb = SpannableStringBuilder()
-            ssb.append(Utils.formatTitle(Constants.TITLE_SOUL_SEARCHING))
+        val ssb = SpannableStringBuilder()
+        ssb.append(Utils.formatTitle(Constants.TITLE_SOUL_SEARCHING))
+        ssb.append(Utils.LS2)
+        val introArray =
+            introduccion.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        if (introArray.size == 3) {
+            ssb.append(Utils.toSmallSizeRed(introArray[0]))
             ssb.append(Utils.LS2)
-            val introArray =
-                introduccion.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-            if (introArray.size == 3) {
-                ssb.append(Utils.toSmallSizeRed(introArray[0]))
-                ssb.append(Utils.LS2)
-                ssb.append(introArray[1])
-                ssb.append(Utils.LS2)
-                ssb.append(Utils.toSmallSizeRed(introArray[2]))
+            ssb.append(introArray[1])
+            ssb.append(Utils.LS2)
+            ssb.append(Utils.toSmallSizeRed(introArray[2]))
         } else {
             ssb.append(introduccion)
         }

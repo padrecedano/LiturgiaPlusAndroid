@@ -32,6 +32,7 @@ import org.deiverbum.app.ui.NiaAppState
  * de alto nivel. La navegación a cada ruta es manejada usando
  * State y Back Handlers.
  */
+@ExperimentalStdlibApi
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi
 @ExperimentalCoroutinesApi

@@ -45,7 +45,6 @@ import org.deiverbum.app.core.media.service.TtsMediaService
 import org.deiverbum.app.core.model.data.DarkThemeConfig
 import org.deiverbum.app.core.model.data.ThemeBrand
 import org.deiverbum.app.core.ui.LocalTimeZone
-import org.deiverbum.app.feature.tts.SimpleMediaViewModel
 import org.deiverbum.app.feature.tts.TtsMediaViewModel
 import org.deiverbum.app.ui.NiaApp
 import org.deiverbum.app.ui.rememberNiaAppState
@@ -55,6 +54,7 @@ import kotlin.system.exitProcess
 private const val TAG = "MainActivity"
 
 
+@ExperimentalStdlibApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
@@ -79,7 +79,6 @@ class MainActivity : ComponentActivity() {
     //val universalisViewModel: UniversalisViewModel  by viewModels()
 
     val viewModel: MainActivityViewModel by viewModels()
-    private val viewModelSimpleMedia: SimpleMediaViewModel by viewModels()
     private val viewModelTts: TtsMediaViewModel by viewModels()
 
     private var isServiceRunning = false

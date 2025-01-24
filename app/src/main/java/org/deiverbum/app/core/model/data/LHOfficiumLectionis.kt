@@ -1,16 +1,13 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.room.Ignore
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import org.deiverbum.app.core.designsystem.component.getRubricColor
 import org.deiverbum.app.util.Constants
-import org.deiverbum.app.util.Constants.TITLE_TEDEUM
 import org.deiverbum.app.util.LiturgyHelper.Companion.R
 import org.deiverbum.app.util.LiturgyHelper.Companion.V
 import org.deiverbum.app.util.Utils
@@ -106,32 +103,6 @@ open class LHOfficiumLectionis(
         return sb
     }
 
-    @Composable
-    fun getComposable(userData: UserDataDynamic): AnnotatedString {
-        val rubricColor = getRubricColor(userData = userData)
-        /*SectionTitle(
-            text = Constants.TITLE_OFFICE_OF_READING.lowercase(),
-            level = 1
-        ).getComposable()*/
-        return buildAnnotatedString {
-            append(getComposableIntro(rubricColor))
-            append(Utils.LS2)
-            for (oneBiblica in lectioPrior) {
-                append(oneBiblica.getComposable(userData))
-            }
-            for (theModel in lectioAltera) {
-                append(theModel.getComposable(userData))
-            }
-            if (hasTeDeum) {
-                ContentTitle(
-                    text = TITLE_TEDEUM.uppercase(),
-                    level = 2,
-                    userData = userData
-                ).getComposable()
-                append(TeDeum().getComposable(userData = userData))
-            }
-        }
-    }
     @Json(ignore = true)
     @get:Ignore
     val allForView: SpannableStringBuilder

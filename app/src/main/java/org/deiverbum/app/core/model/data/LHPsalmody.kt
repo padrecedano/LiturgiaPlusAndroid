@@ -39,7 +39,7 @@ open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>, var 
     //var typus = 0
 
     @Ignore
-    protected var psalmus: MutableList<LHPsalm> = mutableListOf()
+    open var psalmus: MutableList<LHPsalm> = mutableListOf()
 
     //@Ignore
     //protected open var antiphonae: MutableList<LHAntiphon> = mutableListOf()
@@ -222,7 +222,7 @@ open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>, var 
                 sb.append(LS2)
                 sb.append(antiphonae[s.theOrder - 1].getComposableAfter(rubricColor))
                 if (index != lastIndex) {
-                sb.append(LS2)
+                    sb.append(LS2)
                 }
             }
         }

@@ -12,6 +12,7 @@ import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.model.data.DarkThemeConfig
 import org.deiverbum.app.core.model.data.ThemeBrand
 import org.deiverbum.app.core.model.data.UserDataDynamic
+import org.deiverbum.app.core.model.data.VoiceReaderConfig
 import org.deiverbum.app.feature.settings.SettingsUiState.Success
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
@@ -54,7 +55,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun updateVoiceReaderPreference(useVoiceReader: Boolean) {
+    fun updateVoiceReaderPreference(useVoiceReader: VoiceReaderConfig) {
         viewModelScope.launch {
             userDataRepository.setVoiceReaderPreference(useVoiceReader)
         }

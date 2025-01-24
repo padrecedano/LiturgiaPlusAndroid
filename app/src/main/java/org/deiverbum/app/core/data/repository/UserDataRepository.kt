@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.Flow
 import org.deiverbum.app.core.model.data.DarkThemeConfig
 import org.deiverbum.app.core.model.data.ThemeBrand
 import org.deiverbum.app.core.model.data.UserData
+import org.deiverbum.app.core.model.data.VoiceReaderConfig
 
 
 interface UserDataRepository {
@@ -29,27 +30,27 @@ interface UserDataRepository {
      * Stream of [UserData]
      */
     val userData: Flow<UserData>
+    /*
+        /**
+         * Sets the user's currently followed topics
+         */
+        suspend fun setFollowedTopicIds(followedTopicIds: Set<String>)
 
-    /**
-     * Sets the user's currently followed topics
-     */
-    suspend fun setFollowedTopicIds(followedTopicIds: Set<String>)
+        /**
+         * Sets the user's newly followed/unfollowed topic
+         */
+        suspend fun setTopicIdFollowed(followedTopicId: String, followed: Boolean)
 
-    /**
-     * Sets the user's newly followed/unfollowed topic
-     */
-    suspend fun setTopicIdFollowed(followedTopicId: String, followed: Boolean)
+        /**
+         * Updates the bookmarked status for a news resource
+         */
+        suspend fun setNewsResourceBookmarked(newsResourceId: String, bookmarked: Boolean)
 
-    /**
-     * Updates the bookmarked status for a news resource
-     */
-    suspend fun setNewsResourceBookmarked(newsResourceId: String, bookmarked: Boolean)
-
-    /**
-     * Updates the viewed status for a news resource
-     */
-    suspend fun setNewsResourceViewed(newsResourceId: String, viewed: Boolean)
-
+        /**
+         * Updates the viewed status for a news resource
+         */
+        suspend fun setNewsResourceViewed(newsResourceId: String, viewed: Boolean)
+    */
     /**
      * Sets the desired theme brand.
      */
@@ -65,7 +66,7 @@ interface UserDataRepository {
      */
     suspend fun setDynamicColorPreference(useDynamicColor: Boolean)
 
-    suspend fun setVoiceReaderPreference(useVoiceReader: Boolean)
+    suspend fun setVoiceReaderPreference(useVoiceReader: VoiceReaderConfig)
 
     suspend fun setMultipleInvitatoryPreference(useMultipleInvitatory: Boolean)
 

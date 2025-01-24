@@ -61,7 +61,7 @@ data class LHOfficeBiblicalEaster(
             sb.append(Utils.LS2)
             sb.append(Utils.toRed(theme))
             sb.append(Utils.LS2)
-            sb.append(textoSpan)
+            sb.append("textoSpan")
             sb.append(Utils.LS)
             return sb
         }
@@ -78,7 +78,7 @@ data class LHOfficeBiblicalEaster(
             sb.append(Utils.LS2)
             sb.append(theme)
             sb.append(Utils.LS2)
-            sb.append(textoSpan)
+            sb.append("textoSpan")
             sb.append(Utils.LS)
             //sb.append(responsorioLargo.getAll());
             return sb

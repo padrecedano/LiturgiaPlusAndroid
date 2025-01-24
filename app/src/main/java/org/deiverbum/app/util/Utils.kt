@@ -1,6 +1,7 @@
 package org.deiverbum.app.util
 
 import android.graphics.Typeface
+import android.os.Build
 import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
@@ -9,14 +10,17 @@ import android.text.Spanned
 import android.text.style.CharacterStyle
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
+import androidx.annotation.RequiresApi
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
 import org.deiverbum.app.util.ColorUtils.red
-import org.deiverbum.app.util.ColorUtils.redCode
+import org.deiverbum.app.util.ColorUtils.rubricColor
 import org.deiverbum.app.util.Constants.BR
 import org.deiverbum.app.util.Constants.BRS
 import org.deiverbum.app.util.Constants.CSS_RED_A
@@ -24,9 +28,13 @@ import org.deiverbum.app.util.Constants.CSS_RED_Z
 import org.deiverbum.app.util.Constants.ERR_REPORT
 import org.deiverbum.app.util.Constants.NBSP_4
 import org.deiverbum.app.util.Constants.NBSP_SALMOS
+import org.deiverbum.app.util.Constants.NEWBIS
+import org.deiverbum.app.util.Constants.NEWONE
 import org.deiverbum.app.util.Constants.OBIEN
 import org.deiverbum.app.util.Constants.PRECES_IL
 import org.deiverbum.app.util.Constants.PRECES_R
+import org.deiverbum.app.util.Constants.TABBIS
+import org.deiverbum.app.util.Constants.TABTRI
 import org.deiverbum.app.util.Constants.VERSION_CODE_FORMATTED
 import java.sql.Timestamp
 import java.text.DateFormat
@@ -49,6 +57,7 @@ import java.util.Objects
  * @since 2018.1
  */
 //@SuppressWarnings("all")
+//@ExperimentalStdlibApi
 object Utils {
     val LS: String? = System.lineSeparator()
     val LS2 = LS + LS
@@ -64,14 +73,37 @@ object Utils {
      * @since 2024.1
      */
 
-    fun transformText(text: String, rubricColor: Color) = buildAnnotatedString {
-        text.forEach { c ->
-            when (c) {
-                '℣', '℟' -> withStyle(SpanStyle(color = rubricColor)) { append(c) }
-                '¦' -> append("\t")
-                '≀' -> append("\n\t\t")
-                '§' -> append("\n\n")
-                else -> append(c)
+    //@RequiresApi(Build.VERSION_CODES.O)
+    fun transformTextHtml(text: String, rubricColor: Color): AnnotatedString {
+        return buildAnnotatedString {
+            text.forEach { c ->
+                when (c) {
+                    '℣', '℟' -> withStyle(SpanStyle(color = rubricColor)) { append(c) }
+                    '¦' -> append("\t")
+                    '≀' -> append("\n\t\t")
+                    '§' -> append("\n\n")
+                    else -> append(c)
+                }
+            }
+        }
+    }
+
+    fun transformTextHtmll(text: String, rubricColor: Color): AnnotatedString {
+        var tmp = AnnotatedString.fromHtml(getFormato(text, Color.Red))
+        //tmp= replaceHtmlTags(tmp)
+        var tmq = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)//.toAnnotatedString()
+        val ssb = SpannableStringBuilder()
+
+        return tmp
+        return buildAnnotatedString {
+            tmp.forEach { c ->
+                when (c) {
+                    '℣', '℟' -> withStyle(SpanStyle(color = rubricColor)) { append(c) }
+                    '¦' -> append("\t")
+                    '≀' -> append("\n\t\t")
+                    '§' -> append("\n\n")
+                    else -> append(c)
+                }
             }
         }
     }
@@ -83,10 +115,30 @@ object Utils {
      * @since 2024.1
      */
 
+    fun transformText(text: String, rubricColor: Color) = buildAnnotatedString {
+        text.forEach { c ->
+            when (c) {
+                '℣', '℟' -> withStyle(SpanStyle(color = rubricColor)) { append(c) }
+                '¦' -> append("\t")
+                '≀' -> append("\n\t\t")
+                '_' -> append("\n\t\t")
+
+                '§' -> append("\n\n")
+                else -> append(c)
+            }
+        }
+    }
+
+    /**
+     * Formatea el texto litúrgico según la convención de marcado.
+     * Método adaptado para Jetpack Compose.
+     *
+     * @since 2025.1
+     */
+
     fun transformBodyText(text: String, rubricColor: Color) = buildAnnotatedString {
         text.forEach { c ->
             when (c) {
-                //'℣', '℟' -> withStyle(SpanStyle(color = rubricColor)) { append(c) }
                 '¦' -> append("\t")
                 '≀' -> append("\n\t\t")
                 '§' -> append("\n\n")
@@ -399,7 +451,20 @@ object Utils {
     }
 
     fun toRedFont(s: String?): String {
-        return String.format("<font color=\"%s\">%s</font>", redCode, s)
+        return String.format("<font color=\"%s\">%s</font>", rubricColor, s)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun toRedFontCompose(s: String, rubricColor: Color): String {
+        var color = "#" + rubricColor.toArgb()
+        //#ffff0000
+        //val str = rubricColor.toArgb().toHexString(HexFormat.UpperCase).takeLast(6)
+
+        return String.format(
+            "<font color=\"#%s\">%s</font>",
+            ComposeColorUtil.getHexColor(rubricColor),
+            s
+        )
     }
 
     fun toRedNew(sOrigen: SpannableStringBuilder): SpannableStringBuilder {
@@ -411,6 +476,7 @@ object Utils {
         )
         return sOrigen
     }
+
 
     private fun toRedHtml(sOrigen: String): SpannableStringBuilder {
         val s = SpannableString(fromHtml(sOrigen))
@@ -469,6 +535,73 @@ object Utils {
             .replace("~", BR)
             .replace("§", BRS)
             .replace("∸", BRS)
+            .replace("</p>", BRS, true)
+            .replace("<p>", "", true)
+
+            .replace("⊞", toRedFont("✚. "))
+            .replace("⊝", toRedFont("C. "))
+            .replace("⊟", toRedFont("S. "))
+            .replace("[rubrica]", CSS_RED_A)
+            .replace("[/rubrica]", CSS_RED_Z)
+            .replace("%cssBlackOn", "<font color=\"#000000\">")
+            .replace("%cssBlackOff", "</font>")
+
+    }
+
+    /**
+     *
+     * Sustituye y/o formatea determinados caracteres según una convención de marcado ideada por mí mismo.
+     *
+     * La convención es la siguiente:
+     *
+     *  *
+     *
+     *
+     * @param sOrigen Cadena original para hacer el reemplazo
+     * @return La cadena formateada
+     */
+    //@RequiresApi(Build.VERSION_CODES.O)
+    fun getFormato(sOrigen: String, rubricColor: Color): String {
+        /*
+        u2220: ∠ ∡ ∢ ∣ ∤ ∥ ∦ ∧ ∨ ∩ ∪ ∫  ∭ ∮ ∯ ∰ ∱ ∲ ∳ ∴ ∵ ∶ ∷ ∸ ∹ ∺ ∻ ∼ ∽ ∾ ∿
+        u2240: ≀ ≁ ≂ ≃ ≄ ≅ ≆ ≇ ≈ ≉ ≊ ≋ ≌ ≍ ≎ ≏ ≐ ≑ ≒ ≓ ≔ ≕ ≖ ≗ ≘ ≙ ≚ ≛ ≜ ≝ ≞ ≟
+        u2260: ≠ ≡ ≢ ≣ ≤ ≥ ≦ ≧ ≨ ≩ ≪ ≫ ≬ ≭ ≮ ≯ ≰ ≱ ≲ ≳ ≴ ≵ ≶ ≷ ≸ ≹ ≺ ≻ ≼ ≽ ≾ ≿
+        u2280: ⊀ ⊁ ⊂ ⊃ ⊄ ⊅ ⊆ ⊇ ⊈ ⊉ ⊊ ⊋ ⊌ ⊍ ⊎ ⊏ ⊐ ⊑ ⊒ ⊓ ⊔ ⊕ ⊖ ⊗ ⊘ ⊙ ⊚ ⊛ ⊜ ⊝ ⊞ ⊟
+        u22A0: ⊠ ⊡ ⊢ ⊣ ⊤ ⊥ ⊦ ⊧ ⊨ ⊩ ⊪ ⊫ ⊬ ⊭ ⊮ ⊯ ⊰ ⊱ ⊲ ⊳ ⊴ ⊵ ⊶ ⊷ ⊸ ⊹ ⊺ ⊻ ⊼ ⊽ ⊾ ⊿
+
+        Nuevos valores desde v. 2022.01.01:
+            ⊞ en lugar de τ ...  ✚.
+            ⊝ en lugar de ν ...  C.
+            ⊟ en lugar de ς ...  S.
+            ⊓  en lugar de ƞ ... N.
+            ⊚  en lugar de ℇ ... O bien
+        */
+        return sOrigen
+            .replace("_", TABTRI)
+            .replace("§", NEWBIS)
+            .replace("~", NEWONE)
+            .replace("¦", TABBIS)
+            .replace("⊣", NEWONE + TABTRI)
+            .replace("≠", String.format("%s %s ", TABTRI, toRedFont(PRECES_R)))
+            .replace("∞", String.format("%s%s%s", NEWBIS, toRedFont(PRECES_IL), NEWBIS))
+            .replace("⊚", OBIEN)
+            .replace("†", toRedFont(" † "))
+            .replace("⊓", toRedFont(" N. "))
+            .replace("Ɽ", toRedFont(" R. "))
+            .replace("⟨", toRedFont("("))
+            .replace("⟩", toRedFont(")"))
+            .replace("ⱱ", toRedFont("V/."))
+            .replace("ⱴ", toRedFont("R/."))
+            .replace("Ʀ", toRedFont(" R/. ") + NEWBIS) //NEW
+            //.replace("℟", toRedFontCompose("℟.",rubricColor)) //.replace("℟",  toRed("℟") )
+            //.replace("℣", toRedFontCompose("℣.",rubricColor))
+            .replace("≀", NEWONE + TABTRI + TABTRI)
+            .replace("~", NEWONE)
+            .replace("§", NEWBIS)
+            .replace("∸", NEWBIS)
+            .replace("</p>", NEWBIS, true)
+            .replace("<p>", "", true)
+
             .replace("⊞", toRedFont("✚. "))
             .replace("⊝", toRedFont("C. "))
             .replace("⊟", toRedFont("S. "))
@@ -625,6 +758,38 @@ object Utils {
             .replace("⊓", " ")
         return sFormateado.trim { it <= ' ' }
     }
+
+    /**
+     * Este método cambia las <p></p> por \n,
+     *
+     * @param sOrigen Cadena original
+     * @return La cadena sin las comillas
+     */
+    fun replaceHtmlTags(sOrigen: String): String {
+        val sFormateado: String = sOrigen
+            .replace("</p>", BRS, true)
+            .replace("<p>", "", true)
+            .replace("¦", "\t")
+            .replace("≀", "\n\t\t")
+            .replace("§", "\n\n")
+
+
+        return sFormateado.trim { it <= ' ' }
+    }
+
+    /**
+     * Este método cambia las <p></p> por \n,
+     *
+     * @param sOrigen Cadena original
+     * @return La cadena sin las comillas
+     */
+    fun tagsHtmlToSystem(sOrigen: String): String {
+        val sFormateado: String = sOrigen
+            .replace("</p>", LS2, true)
+            .replace("<p>", "", true)
+        return sFormateado.trim { it <= ' ' }
+    }
+
 
     /**
      * Este método es un ayudador para la lectura de voz,

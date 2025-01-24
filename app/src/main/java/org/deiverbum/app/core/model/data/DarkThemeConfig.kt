@@ -22,3 +22,8 @@ enum class DarkThemeConfig {
     LIGHT,
     DARK,
 }
+
+enum class VoiceReaderConfig {
+    ON,
+    OFF,
+}

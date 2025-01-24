@@ -90,7 +90,7 @@ data class LHAntiphon(
     fun getComposableBefore(withOrder: Boolean = true, rubricColor: Color): AnnotatedString {
         return buildAnnotatedString {
             if (withOrder) {
-                append(Utils.toRedCompose("Ant. ${theOrder} ", rubricColor))
+                append(Utils.toRedCompose("Ant. $theOrder ", rubricColor))
             } else {
                 append(Utils.toRedCompose("Ant. ", rubricColor))
             }

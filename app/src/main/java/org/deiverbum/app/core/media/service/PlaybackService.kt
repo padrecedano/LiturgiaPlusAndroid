@@ -19,6 +19,7 @@ import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaSessionService
 import org.deiverbum.app.core.presentation.MainActivity
 
+@ExperimentalStdlibApi
 @ExperimentalLayoutApi
 @ExperimentalFoundationApi
 @UnstableApi

@@ -37,7 +37,12 @@ object Constants {
     const val BRS = "<br /><br />"
     const val BR = "<br />"
     const val NBSP_4 = " &nbsp;&nbsp;&nbsp;&nbsp;"
-    const val TAB_2 = "\t\t"
+    const val TABBIS = "\t\t"
+    const val TABTRI = "\t\t\t"
+
+    const val NEWBIS = "\n\n"
+    const val NEWONE = "\n"
+
 
     //Mensajes de error
     const val ERR_REPORT = "\n\nA fin de corregir cuanto antes este error, " +

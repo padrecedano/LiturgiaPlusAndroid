@@ -173,7 +173,7 @@ fun UniversalisTopAppBar(
                     tint = MaterialTheme.colorScheme.onSurface,
                 )
             }
-            if (userData.useVoiceReader) {
+            if (userData.useVoiceReader.name == "ON") {
                 IconButton(
                     onClick = onReaderClick
                 ) {
