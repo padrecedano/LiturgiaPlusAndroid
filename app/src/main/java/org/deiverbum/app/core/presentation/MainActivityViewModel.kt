@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.model.data.UserData
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig
 import org.deiverbum.app.core.presentation.MainActivityUiState.Loading
 import org.deiverbum.app.core.presentation.MainActivityUiState.Success
 import javax.inject.Inject
@@ -38,6 +39,12 @@ class MainActivityViewModel @Inject constructor(
             true
         }
     }
+
+
+    private val _fontSizeChoice =
+        MutableStateFlow(FontSizeConfig.getFontPrefFromKey("L"))
+    val fontSizeChoices: StateFlow<FontSizeConfig> = _fontSizeChoice
+
 
 }
 

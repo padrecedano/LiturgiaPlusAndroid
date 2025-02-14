@@ -112,7 +112,7 @@ object Utils {
      * Formatea el texto litúrgico según la convención de marcado.
      * Método adaptado para Jetpack Compose.
      *
-     * @since 2024.1
+     * @since 2025.1
      */
 
     fun transformText(text: String, rubricColor: Color) = buildAnnotatedString {
@@ -120,9 +120,7 @@ object Utils {
             when (c) {
                 '℣', '℟' -> withStyle(SpanStyle(color = rubricColor)) { append(c) }
                 '¦' -> append("\t")
-                '≀' -> append("\n\t\t")
-                '_' -> append("\n\t\t")
-
+                '≀', '~', '_' -> append("\n\t\t")
                 '§' -> append("\n\n")
                 else -> append(c)
             }

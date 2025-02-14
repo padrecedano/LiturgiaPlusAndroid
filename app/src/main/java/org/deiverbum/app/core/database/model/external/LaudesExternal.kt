@@ -29,7 +29,6 @@ import org.deiverbum.app.core.model.data.LHLaudes
 import org.deiverbum.app.core.model.data.LHPsalmody
 import org.deiverbum.app.core.model.data.Liturgy
 import org.deiverbum.app.core.model.data.Universalis
-import org.deiverbum.app.core.model.data.UniversalisResource
 
 /**
  * Representación de Laudes para la capa de datos externa.
@@ -103,7 +102,7 @@ data class LaudesExternal(
     var canticumEvangelicum: LHGospelCanticleWithAntiphon
 )
 
-fun LaudesExternal.asExternalModel(): UniversalisResource {
+fun LaudesExternal.asExternalModel(): Universalis {
     val breviarium = LHLaudes(
         universalis.hasSaint == 1,
         invitatorium.asExternalModel(),
@@ -118,19 +117,16 @@ fun LaudesExternal.asExternalModel(): UniversalisResource {
     if (universalis.hasSaint == 1) {
         breviarium.sanctus = sanctus!!.asExternalModel()
     }
-    return UniversalisResource(
-        data = listOf(
-            Universalis(
-                universalis.todayDate,
-                //universalis.timeFK,
-                Liturgy(
-                    liturgia.parent.semana,
-                    liturgia.parent.dia,
-                    liturgia.parent.nombre,
-                    liturgia.entity.asExternalModel(),
-                    breviarium
-                )
-            )
+    return Universalis(
+        universalis.todayDate,
+        //universalis.timeFK,
+        Liturgy(
+            liturgia.parent.semana,
+            liturgia.parent.dia,
+            liturgia.parent.nombre,
+            liturgia.entity.asExternalModel(),
+            breviarium
         )
     )
+
 }

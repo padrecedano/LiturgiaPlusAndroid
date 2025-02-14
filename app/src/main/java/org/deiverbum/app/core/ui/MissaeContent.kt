@@ -1,7 +1,9 @@
 package org.deiverbum.app.core.ui
 
+import android.text.Spanned
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -10,20 +12,25 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.withStyle
+import androidx.core.text.parseAsHtml
 import org.deiverbum.app.core.designsystem.component.TextZoomable
 import org.deiverbum.app.core.designsystem.component.getRubricColor
+import org.deiverbum.app.core.designsystem.component.textParagraph
 import org.deiverbum.app.core.designsystem.component.textRubric
+import org.deiverbum.app.core.designsystem.component.textSpaced
+import org.deiverbum.app.core.designsystem.component.textSpan
 import org.deiverbum.app.core.designsystem.theme.NiaTypography
 import org.deiverbum.app.core.model.data.Commentarii
 import org.deiverbum.app.core.model.data.Homily
 import org.deiverbum.app.core.model.data.Missae
 import org.deiverbum.app.core.model.data.MissaeLectionum
 import org.deiverbum.app.core.model.data.MissaeLectionumList
+import org.deiverbum.app.core.model.data.UserData
 import org.deiverbum.app.core.model.data.UserDataDynamic
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
-import org.deiverbum.app.util.Utils.getFormato
 
 /**
  * Pantallas para las lecturas de la Misa.
@@ -43,17 +50,17 @@ import org.deiverbum.app.util.Utils.getFormato
 @Composable
 fun MissaeLectionumScreen(
     data: Missae,
-    userData: UserDataDynamic,
+    userData: UserData,
     onTap: (Offset) -> Unit
 ) {
 
-    val rubricColor = getRubricColor(userData = userData)
+    val rubricColor = getRubricColor(userData = userData.dynamic)
     val asb = AnnotatedString.Builder()
     Column {
         val onTap = { point: Offset -> }
         if (data.lectionumList != null) {
             data.lectionumList!!.sort()
-            asb.append(lectionumList(data.lectionumList!!, rubricColor))
+            asb.append(lectionumList(data.lectionumList!!, userData.dynamic, rubricColor))
             TextZoomable(
                 onTap = onTap,
                 text = asb.toAnnotatedString()
@@ -62,7 +69,7 @@ fun MissaeLectionumScreen(
     }
 }
 
-private fun AnnotatedString.Builder.appendStyledContent(
+private fun AnnotatedString.Builder.appendStyledContentt(
     content: String,
     shouldAddSpacing: Boolean,
     rubricColor: Color
@@ -75,7 +82,6 @@ private fun AnnotatedString.Builder.appendStyledContent(
         append(newContent)
         return
     }
-
     matches.forEach { match ->
         val matchStart = match.range.first
         if (matchStart > currentIndex) {
@@ -100,7 +106,11 @@ private fun AnnotatedString.Builder.appendStyledContent(
 }
 
 @ExperimentalStdlibApi
-fun lectionumList(lectionumList: MissaeLectionumList, rubricColor: Color): AnnotatedString {
+fun lectionumList(
+    lectionumList: MissaeLectionumList,
+    userData: UserDataDynamic,
+    rubricColor: Color
+): AnnotatedString {
     return try {
         buildAnnotatedString {
             if (lectionumList.type == -1) {
@@ -118,6 +128,7 @@ fun lectionumList(lectionumList: MissaeLectionumList, rubricColor: Color): Annot
                 append(
                     lectioSimplex(
                         data = it!!,
+                        userData = userData,
                         rubricColor = rubricColor,
                         type = lectionumList.type
                     )
@@ -163,34 +174,48 @@ fun lectioMetadata(
 fun lectioSimplex(
     data: MissaeLectionum,
     type: Int,
+    userData: UserDataDynamic,
     rubricColor: Color
 ): AnnotatedString {
+    var text = AnnotatedString("")
     return buildAnnotatedString {
         if (type == 0) {
-            withStyle(
-                SpanStyle(
-                    fontSize = NiaTypography.titleMedium.fontSize,
-                    color = rubricColor
-                )
-            ) {
-                append(data.getHeader(type))
-            }
-            append(Utils.LS2)
-            append(lectioMetadata(data, rubricColor))
+            text += contentTitle(data.getHeader(type), 2, userData, rubricColor)
+            text += lectioMetadata(data, rubricColor)
+
             when (data.theOrder) {
-                in 20..29 -> {
-                    append(Utils.transformText(data.biblica, rubricColor))
-                    append(Utils.LS)
+                in 1..19 -> {
+                    text += textFromHtml(data.biblica)
+                    text += textSpan(data.getConclusio())
                 }
 
-                else -> appendStyledContent(
-                    getFormato(data.biblica, rubricColor),
-                    true,
-                    rubricColor
-                )
+                in 20..29 -> {
+                    text += Utils.transformText(data.biblica, rubricColor)
+                    text += contentSpace(10)
+                }
+
+                in 30..39 -> {
+                    text += textFromHtml(data.biblica)
+                    //text += textParagraph(data.getConclusio())
+                    text += textSpan(data.getConclusio())
+
+                }
+
+                in 40..49 -> {
+                    text += textFromHtml(data.biblica)
+                    text += textParagraph(data.getConclusio())
+                }
+
+                else -> {
+                    text += textFromHtml(data.biblica)
+                    text += textParagraph(data.getConclusio())
+                }
             }
-            append(Utils.LS2)
+        } else {
+            text += textFromHtml(data.biblica)
+            text += textSpaced(listOf(data.getConclusio()))
         }
+        return text
     }
 }
 
@@ -202,22 +227,77 @@ fun lectioSimplex(
  * @param data Objeto del tipo [Missae]
  * @param userData Objeto [UserDataDynamic] con las preferencias del usuario
  */
-@ExperimentalStdlibApi
+//@ExperimentalStdlibApi
 @ExperimentalMaterial3Api
 @Composable
 fun HomiliaeScreen(
     data: Missae,
-    userData: UserDataDynamic,
+    userData: UserData,
     onTap: (Offset) -> Unit
 ) {
-    val rubricColor = getRubricColor(userData = userData)
+    val rubricColor = getRubricColor(userData = userData.dynamic)
     val asb = AnnotatedString.Builder()
-    asb.append(homiliaeList(data.homiliae, rubricColor = rubricColor))
-    TextZoomable(
+    var aString = AnnotatedString("")
+    var final = asb.toAnnotatedString()
+    data.homiliae!!.forEach {
+        aString += homiliaeMetadata(it, rubricColor)
+        aString += homiliaeHtml(it)
+    }
+
+    Text(text = aString)
+
+    /*TextZoomable(
         onTap = onTap, text = asb.toAnnotatedString()
-    )
+    )*/
 }
 
+fun homiliaeHtml(data: Homily): AnnotatedString {
+    return AnnotatedString.fromHtml(Utils.getFormato(data.homilia))
+}
+
+
+fun homiliaeMetadata(data: Homily, rubricColor: Color): AnnotatedString {
+    return try {
+        buildAnnotatedString {
+            append(contentTitleForHomily(data.paterOpus.paterForView, 3, rubricColor))
+            append(data.paterOpus.singleName)
+            if (data.tema.isNotEmpty() && data.date > 0) {
+                append(Utils.LS2)
+                append(textRubric(data.tema, rubricColor))
+                append(Utils.LS2)
+                append(metaDate(data.date.toString(), rubricColor))
+                append(Utils.LS2)
+            }
+            if (data.tema.isNotEmpty() && data.date <= 0) {
+                append(Utils.LS2)
+                append(textRubric(data.tema, rubricColor))
+                append(Utils.LS2)
+            }
+            if (data.tema.isEmpty() && data.date > 0) {
+                append(metaDate(data.date.toString(), rubricColor))
+                append(Utils.LS2)
+            }
+            if (data.tema.isEmpty() && data.date <= 0) {
+                append(Utils.LS2)
+            }
+        }
+    } catch (e: Exception) {
+        buildAnnotatedString {
+            append(Utils.createErrorMessage(e.message))
+        }
+    }
+}
+
+fun metaDate(data: String, rubricColor: Color): AnnotatedString {
+    return textRubric(
+        Utils.formatDate(
+            data,
+            "yyyyMMdd",
+            "EEEE d 'de' MMMM 'de' yyyy"
+        ), rubricColor
+    )
+
+}
 /**
  * Prepara el contenido de la lista de homilías.
  *
@@ -227,33 +307,27 @@ fun HomiliaeScreen(
  * @param rubricColor Color para las rúbricas según la configuración del usuario
  * @return Un [AnnotatedString] con todas las homilías
  */
-@ExperimentalStdlibApi
+//@ExperimentalStdlibApi
 fun homiliaeList(
     homiliaeList: MutableList<Homily>?,
+    userData: UserDataDynamic,
     rubricColor: Color
 ): AnnotatedString {
     val asb = AnnotatedString.Builder()
-    for (item in homiliaeList!!) {
-        asb.append(contentTitle(item.paterOpus.pater!!.liturgyName, 3, rubricColor))
-        asb.append(item.paterOpus.singleName)
-        asb.append(Utils.LS2)
-        asb.append(textRubric(item.tema, rubricColor))
-        if (item.date > 0) {
-            asb.append(Utils.LS2)
-            asb.append(
-                textRubric(
-                    Utils.formatDate(
-                        item.date.toString(),
-                        "yyyyMMdd",
-                        "EEEE d 'de' MMMM 'de' yyyy"
-                    ), rubricColor
-                )
-            )
+
+    return try {
+        buildAnnotatedString {
+            append(homiliaeSimplex(homiliaeList!![1], userData, rubricColor))
+
+            for (item in homiliaeList) {
+                //append(homiliaeSimplex(item, rubricColor))
+            }
         }
-        asb.append(Utils.LS2)
-        //asb.append(annotatedStringFromHtml(item.homilia))
+    } catch (e: Exception) {
+        buildAnnotatedString {
+            append(Utils.createErrorMessage(e.message))
+        }
     }
-    return asb.toAnnotatedString()
 }
 
 /**
@@ -268,11 +342,62 @@ fun homiliaeList(
 @Composable
 fun CommentariiScreen(
     data: Commentarii,
-    userData: UserDataDynamic,
+    userData: UserData,
     onTap: (Offset) -> Unit
 ) {
     //Text(data.forView(1).toString())
+    val asb = AnnotatedString.Builder()
+    val rubricColor = getRubricColor(userData.dynamic)
+    var aString = AnnotatedString("")
+    data.biblicaWithComments.forEach {
+        if (it.homiliae.isNotEmpty()) {
+            //asb.append(it.biblica.getAll(0))
+            it.homiliae.forEach {
+                aString += homiliaeMetadata(it!!, rubricColor)
+                aString += homiliaeHtml(it)
+            }
+            // asb.append(AnnotatedString.fromHtml(it!!.homilia).toString())
+            //asb.append(homiliaeSimplex(it!!, rubricColor = rubricColor))
+        }
+    }
+
     TextZoomable(
-        onTap = onTap, text = buildAnnotatedString { append(data.forView(1)) }
+        onTap = onTap, text = aString
     )
+}
+
+fun homiliaeSimplex(data: Homily, userData: UserDataDynamic, rubricColor: Color): AnnotatedString {
+    return try {
+        buildAnnotatedString {
+            append(contentTitle(data.paterOpus.paterForView, 3, userData, rubricColor))
+            append(data.paterOpus.singleName)
+            if (data.tema !== "") {
+                append(Utils.LS2)
+                append(textRubric(data.tema, rubricColor))
+            }
+            if (data.date > 0) {
+                append(Utils.LS2)
+                append(
+                    textRubric(
+                        Utils.formatDate(
+                            data.date.toString(),
+                            "yyyyMMdd",
+                            "EEEE d 'de' MMMM 'de' yyyy"
+                        ), rubricColor
+                    )
+                )
+            }
+            //append(Utils.LS2)
+            //append(fromHtml(data.homilia))
+
+            val target: Spanned = data.homilia.parseAsHtml()
+
+            appendStyledContent(data.homilia, true, rubricColor)
+
+        }
+    } catch (e: Exception) {
+        buildAnnotatedString {
+            append(Utils.createErrorMessage(e.message))
+        }
+    }
 }

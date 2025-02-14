@@ -19,6 +19,5 @@ import org.deiverbum.app.util.Constants
 data class LHPsalmodyJoinEntity(
     @PrimaryKey
     val groupID: Int,
-
     val theType: Int
 )

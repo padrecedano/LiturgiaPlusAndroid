@@ -17,7 +17,6 @@ import org.deiverbum.app.core.model.data.Commentarii
 import org.deiverbum.app.core.model.data.Liturgy
 import org.deiverbum.app.core.model.data.Missae
 import org.deiverbum.app.core.model.data.Universalis
-import org.deiverbum.app.core.model.data.UniversalisResource
 
 /**
  * Representación de los Comentarios Bíblicos para la capa de datos externa.
@@ -43,7 +42,7 @@ data class CommentariiExternal(
     var comments: List<MassReadingWithComments>
 )
 
-fun CommentariiExternal.asExternalModel(): UniversalisResource {
+fun CommentariiExternal.asExternalModel(): Universalis {
     val emList = BibleCommentList()
     val allComentarios: MutableList<List<BibleComment>> = ArrayList()
     for (item in comments) {
@@ -60,19 +59,16 @@ fun CommentariiExternal.asExternalModel(): UniversalisResource {
         biblicaWithComments,
         "commentarii"
     )
-    return UniversalisResource(
-        data = listOf(
-            Universalis(
-                universalis.todayDate,
-                Liturgy(
-                    liturgia.parent.semana,
-                    liturgia.parent.dia,
-                    liturgia.parent.nombre,
-                    liturgia.entity.asExternalModel(),
-                    typus
-                )
-            )
+    return Universalis(
+        universalis.todayDate,
+        Liturgy(
+            liturgia.parent.semana,
+            liturgia.parent.dia,
+            liturgia.parent.nombre,
+            liturgia.entity.asExternalModel(),
+            typus
         )
     )
+
 }
 

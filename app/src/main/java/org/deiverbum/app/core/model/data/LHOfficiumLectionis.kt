@@ -1,15 +1,10 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.room.Ignore
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import org.deiverbum.app.util.Constants
-import org.deiverbum.app.util.LiturgyHelper.Companion.R
-import org.deiverbum.app.util.LiturgyHelper.Companion.V
 import org.deiverbum.app.util.Utils
 
 @JsonClass(generateAdapter = true)
@@ -36,25 +31,6 @@ open class LHOfficiumLectionis(
             return Utils.pointAtEnd(r)
         }
 
-    private fun getComposableIntro(rubricColor: Color): AnnotatedString {
-        return buildAnnotatedString {
-            if (responsorium.contains("|")) {
-                val textParts = responsorium.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }
-                    .toTypedArray()
-                if (textParts.size == 2) {
-                    append(Utils.toRedCompose(V, rubricColor = rubricColor))
-                    append(textParts[0])
-                    append(Utils.LS)
-                    append(Utils.toRedCompose(R, rubricColor = rubricColor))
-                    append(textParts[1])
-                } else {
-                    append(responsorium)
-                }
-            } else {
-                append(responsorium)
-            }
-        }
-    }
     @Json(ignore = true)
     @get:Ignore
     private val responsorioSpan: SpannableStringBuilder

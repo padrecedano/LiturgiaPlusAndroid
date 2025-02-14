@@ -15,6 +15,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig
 
 /**
  * Light default theme color scheme
@@ -46,6 +47,7 @@ val LightDefaultColorScheme = lightColorScheme(
     inverseSurface = DarkPurpleGray20,
     inverseOnSurface = DarkPurpleGray95,
     outline = PurpleGray50,
+
 )
 
 /**
@@ -178,6 +180,7 @@ fun LPlusTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     androidTheme: Boolean = false,
     disableDynamicTheming: Boolean = true,
+    fontSize: FontSizeConfig = FontSizeConfig.DEFAULT,
     content: @Composable () -> Unit,
 ) {
     // Color scheme
@@ -216,15 +219,22 @@ fun LPlusTheme(
         !disableDynamicTheming && supportsDynamicTheming() -> TintTheme(colorScheme.primary)
         else -> TintTheme()
     }
+
+    val customColorsPalette =
+        if (darkTheme) DarkCustomColorsPalette
+        else LightCustomColorsPalette
     // Composition locals
     CompositionLocalProvider(
         LocalGradientColors provides gradientColors,
         LocalBackgroundTheme provides backgroundTheme,
         LocalTintTheme provides tintTheme,
+        LocalCustomColorsPalette provides customColorsPalette
     ) {
         MaterialTheme(
             colorScheme = colorScheme,
-            typography = NiaTypography,
+            //typography = NiaTypography,
+            typography = getPersonalizedTypography(fontSize),
+
             content = content,
         )
     }

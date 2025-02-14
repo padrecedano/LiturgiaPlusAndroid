@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import org.deiverbum.app.core.data.repository.UniversalisRepository
 import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.model.data.Universalis
-import org.deiverbum.app.core.model.data.UniversalisRequest
+import org.deiverbum.app.core.model.data.UniversalisResource
 import javax.inject.Inject
 
 /**
@@ -22,7 +22,7 @@ class GetUniversalisFromCalendarUseCase @Inject constructor(
     private val userDataRepository: UserDataRepository,
 ) {
     /**
-     * Retorna un objeto [UniversalisRequest].
+     * Retorna un objeto [UniversalisResource].
      *
      * @param sortBy El campo usado para filtrar. Por defecto NONE = no filtrar.
      */

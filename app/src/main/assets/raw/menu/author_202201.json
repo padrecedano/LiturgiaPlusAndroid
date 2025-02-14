@@ -1,8 +1,9 @@
 {
   "author": "A. Cedano",
   "title": "Autor",
+  "shortTitle": "Autor",
   "date": "",
-  "bookType": 2,
+  "bookType": 3,
   "chapters": [
     {
       "id": 1,
@@ -16,9 +17,35 @@
             "Liturgia+ es ofrecida de forma gratuita y no contiene publicidad. Detrás de ella hay muchos años de recopilación, organización, corrección de errores ortográficos, etc, del contenido, que no es sólo el Breviario o la Misa. El +  significa mucho más contenido recogido durante años (homilías, comentarios de los padres de la Iglesia, oraciones...) y significa también más gente que ha colaborado conmigo en módulos concretos o revisando el contenido.",
             "<i>La paciencia todo lo alcanza</i>. Sigo trabajando en esta aplicación en la medida en que el tiempo me lo permite, para irla mejorando cada día. Si tienes alguna sugerencia o duda sobre cualquier aspecto de Liturgia+ puedes ponerte en contacto conmigo por correo electrónico pulsando el botón que aparece en la parte inferior derecha de esta pantalla o a través de mi cuenta de <a href=\"https://twitter.com/padrecedano/\">Twitter</a>.",
             "Gracias por usar esta aplicación, esperando que te sea de ayuda. Eso sí, puedes pagarme el esfuerzo con una oración.... Eso se nota, cuando alguien ora por ti. Gracias y que Dios te bendiga a ti y a los tuyos.",
-            "- <a href=\"https://www.liturgiaplus.app/\">Página web de Liturgia+</a>",
-            "- <a href=\"https://www.deiverbum.org/\">Mi primer amor online (desde 2013).",
-            "- <a href=\"https://twitter.com/padrecedano/\">Twitter (@padrecedano)</a>"
+            "Algunos enlaces:"
+          ]
+        },
+        {
+          "type": 31,
+          "item": "Página web de Liturgia+",
+          "text": [
+            "https://www.liturgiaplus.app"
+          ]
+        },
+        {
+          "type": 31,
+          "item": "Mi \"primer amor\" online (desde 2013).",
+          "text": [
+            "https://www.deiverbum.org/"
+          ]
+        },
+        {
+          "type": 31,
+          "item": "X (@padrecedano)",
+          "text": [
+            "https://x.com/padrecedano/"
+          ]
+        },
+        {
+          "type": 20,
+          "title": "Contacto",
+          "text": [
+            "Puedes ponerte en contacto conmigo para cualquier asunto relativo a la Aplicación mediante el botón de Correo Electrónico, que aparece en la parte inferior derecha de esta pantalla."
           ]
         }
       ]

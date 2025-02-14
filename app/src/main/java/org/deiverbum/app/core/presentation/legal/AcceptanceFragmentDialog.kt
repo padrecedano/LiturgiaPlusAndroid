@@ -193,7 +193,7 @@ class AcceptanceFragmentDialog : DialogFragment() {
 
     private fun onFileLoaded(fileItemUiState: FileItemUiState) {
         fileItemUiState.run {
-            allData.forEach{
+            /*allData.forEach{
                 if (it.title == FILE_TERMS) {
                     binding.textTerms.text = it.text
                 }
@@ -201,7 +201,7 @@ class AcceptanceFragmentDialog : DialogFragment() {
                     binding.textPrivacy.text = it.text
                 }
             }
-            binding.btnEmail.visibility=View.VISIBLE
+            binding.btnEmail.visibility=View.VISIBLE*/
         }
     }
 

@@ -9,11 +9,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
+import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.domain.GetFileUseCase
 import org.deiverbum.app.core.model.FileItem
 import org.deiverbum.app.core.model.FileRequestt
@@ -31,15 +31,13 @@ import javax.inject.Inject
 @HiltViewModel
 class FileViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val getFileUseCase: GetFileUseCase,
-    //@Dispatcher(NiaDispatchers.IO) private val ioDispatcher: CoroutineDispatcher,
-    ) : ViewModel() {
+    val userDataRepository: UserDataRepository,
 
-    //private val file : FileRoute = savedStateHandle.toRoute()
+    private val getFileUseCase: GetFileUseCase,
+    ) : ViewModel() {
 
     private val fileTitleKey = "fileTitleKey"
     private val fileNameKey = "fileNameKey"
-
     private val route: FileRoute = savedStateHandle.toRoute()
 
     private val fileName = savedStateHandle.getStateFlow(
@@ -53,7 +51,6 @@ class FileViewModel @Inject constructor(
     private val fileRequest = MutableStateFlow<FileRequestt?>(
         FileRequestt(listOf(FileItem(fileName.value!!, fileTitle.value!!)), 1, 1, true, true, true)
     )
-
 
     val uiState: StateFlow<FileUiState> = fileRequest
         .flatMapLatest {
@@ -79,27 +76,6 @@ class FileViewModel @Inject constructor(
         this.fileRequest.value = fileRequest
     }
 
-    fun setFileRequestt(fileName: String?) {
-        this.fileRequest.value =
-            FileRequestt(listOf(FileItem(fileName!!, "")), 1, 1, true, true, true)
-    }
-
-    private val _uiState = MutableStateFlow<FileUiState>(FileUiState.Loading)
-    val uiStatee: StateFlow<FileUiState> = _uiState.asStateFlow()
-
-    /*
-        fun loadData(fileRequest: FileRequest) {
-            _uiState.value = FileUiState.Loading
-            viewModelScope.launch(ioDispatcher) {
-                try {
-                    val result = getFileUseCase(fileRequest)
-                    _uiState.value = FileUiState.Loaded(FileItemUiState(result))
-                } catch (error: Exception) {
-                    _uiState.value = FileUiState.Error(ExceptionParser.getMessage(error))
-                }
-            }
-        }
-    */
     sealed class FileUiState {
         data object Empty : FileUiState()
         data object Loading : FileUiState()

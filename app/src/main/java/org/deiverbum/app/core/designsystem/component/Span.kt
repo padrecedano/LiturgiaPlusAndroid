@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 
 @Composable
-fun SpanRubric(rubricColor: Color): SpanStyle {
+fun spanRubric(rubricColor: Color): SpanStyle {
     return SpanStyle(
         color = rubricColor,
         //fontSize = NiaTypography.titleMedium.fontSize,

@@ -9,6 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.deiverbum.app.R
+import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.model.data.BugItem
 import org.deiverbum.app.util.Configuration
 import org.deiverbum.app.util.Constants
@@ -23,8 +24,10 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class BugViewModel @Inject constructor(
-    @ApplicationContext private val context: Context
-) : ViewModel() {
+    @ApplicationContext private val context: Context,
+    val userDataRepository: UserDataRepository,
+
+    ) : ViewModel() {
 
     private val _bugItems = MutableStateFlow<List<BugItem>>(emptyList())
     val bugItems: StateFlow<List<BugItem>> get() = _bugItems

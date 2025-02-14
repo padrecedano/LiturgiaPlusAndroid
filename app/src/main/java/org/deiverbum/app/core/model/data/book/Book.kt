@@ -4,113 +4,30 @@ import android.text.SpannableStringBuilder
 import com.squareup.moshi.JsonClass
 import org.deiverbum.app.util.ColorUtils
 import org.deiverbum.app.util.Utils
-import java.util.*
+import java.util.Locale
 
 /**
+ * Clase de datos para preparar contenido proveniente de archivos locales en forma de libro.
+ *
  * @author A. Cedano
- * @version 1.0
- * @since 2022.1
+ * @version 2.0
+ * @since 2025.1
  */
 @Suppress("unused")
 @JsonClass(generateAdapter = true)
-class Book {
-    //@SerializedName("author")
-    //@Expose
-    var author: String = ""
-
-    //@SerializedName("title")
-    //@Expose
-    var title: String = ""
-
-    //@SerializedName("date")
-    //@Expose
-    var date: String? = null
-
-    //@SerializedName("intro")
-    //@Expose
-    var intro: Intro? = null
-
-    //@SerializedName("bookType")
-    //@Expose
-    var bookType = 0
-
-    //@SerializedName("chapters")
-    //@Expose
-    var chapters: List<Chapter>? = null
-
-    //@SerializedName("agreeYes")
-    // @Expose
-    var agreeYes: String? = null
-
-    //@SerializedName("agreeNot")
-    //@Expose
+data class Book(
+    var author: String = "",
+    var title: String = "",
+    var shortTitle: String = "",
+    var date: String? = null,
+    var intro: Intro? = null,
+    var bookType: Int = 0,
+    var chapters: List<Chapter>? = null,
+    var agreeYes: String? = null,
     var agreeNot: String? = null
+) {
 
-    /*
-    fun getAuthor(): String? {
-        return author
-    }
 
-    fun setAuthor(author: String) {
-        this.author = author
-    }
-
-    fun getTitle(): String? {
-        return title
-    }
-
-    fun setTitle(title: String) {
-        this.title = title
-    }
-
-    fun getDate(): String? {
-        return date
-    }
-
-    fun setDate(date: String?) {
-        this.date = date
-    }
-
-    fun getBookType(): Int {
-        return bookType
-    }
-
-    fun setBookType(bookType: Int) {
-        this.bookType = bookType
-    }
-
-    fun getIntro(): Intro? {
-        return intro
-    }
-
-    fun setIntro(intro: Intro?) {
-        this.intro = intro
-    }
-
-    fun getChapters(): List<Chapter>? {
-        return chapters
-    }
-
-    fun setChapters(chapters: List<Chapter>?) {
-        this.chapters = chapters
-    }
-
-    fun getAgreeYes(): String? {
-        return agreeYes
-    }
-
-    fun setAgreeYes(agreeYes: String?) {
-        this.agreeYes = agreeYes
-    }
-
-    fun getAgreeNot(): String? {
-        return agreeNot
-    }
-
-    fun setAgreeNot(agreeNot: String?) {
-        this.agreeNot = agreeNot
-    }
-*/
     fun getForView(isNightMode: Boolean): SpannableStringBuilder {
         ColorUtils.isNightMode = isNightMode
         val sb = SpannableStringBuilder()

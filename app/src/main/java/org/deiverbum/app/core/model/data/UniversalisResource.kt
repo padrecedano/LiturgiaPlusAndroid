@@ -1,9 +1,20 @@
 package org.deiverbum.app.core.model.data
 
 /**
- * External data layer representation of a fully populated NiA news resource
+ * Representación de un recurso del tipo **`Universalis`** para la capa de datos externa.
+ *
+ * @author A. Cedano
+ * @since 2025.1
+ * @version 1.0
+ *
+ * @see [Universalis]
+ * @see [Liturgy]
  */
 data class UniversalisResource(
-    //val todayDate: Int,
-    val data: List<Universalis>,
+    val date: Int,
+    val id: Int,
+    val name: String,
+    val title: String,
+    val dynamic: UserData,
+    val data: Universalis
 )

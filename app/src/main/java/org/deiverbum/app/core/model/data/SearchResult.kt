@@ -19,5 +19,8 @@ package org.deiverbum.app.core.model.data
 /** An entity that holds the search result */
 data class SearchResult(
     val topics: List<Topic> = emptyList(),
+    val userData: UserData,
+    val universalis: Universalis,
+
     val newsResources: List<NewsResource> = emptyList(),
 )

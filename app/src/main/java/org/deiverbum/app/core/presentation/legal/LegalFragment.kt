@@ -130,10 +130,10 @@ class LegalFragment : Fragment() {
 
     private fun onLoaded(fileItemUiState: FileItemUiState) {
         fileItemUiState.run {
-            allData.forEach {
+            /*allData.forEach {
                 binding.textLegal.text = it.text
                 setAcceptText(it.title)
-            }
+            }*/
         }
         binding.progressBar.visibility = View.GONE
         binding.btnEmail.visibility = View.VISIBLE

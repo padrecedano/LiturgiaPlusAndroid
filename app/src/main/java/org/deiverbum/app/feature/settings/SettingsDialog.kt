@@ -2,6 +2,7 @@
 
 package org.deiverbum.app.feature.settings
 
+import LPlusIcons
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,12 +21,17 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -37,11 +43,15 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.deiverbum.app.R
+import org.deiverbum.app.core.designsystem.component.LPlusSwitch
 import org.deiverbum.app.core.designsystem.component.NiaTextButton
+import org.deiverbum.app.core.designsystem.component.UniversalisSingleAppBar
+import org.deiverbum.app.core.designsystem.theme.NiaTypography
 import org.deiverbum.app.core.designsystem.theme.supportsDynamicTheming
-import org.deiverbum.app.core.model.data.DarkThemeConfig
-import org.deiverbum.app.core.model.data.ThemeBrand
-import org.deiverbum.app.core.model.data.VoiceReaderConfig
+import org.deiverbum.app.core.model.data.configuration.DarkThemeConfig
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig
+import org.deiverbum.app.core.model.data.configuration.ThemeBrand
+import org.deiverbum.app.core.model.data.configuration.VoiceReaderConfig
 import org.deiverbum.app.core.ui.TrackScreenViewEvent
 
 
@@ -89,7 +99,7 @@ fun SettingsDialog(
         title = {
             Text(
                 text = stringResource(R.string.feature_settings_title),
-                style = MaterialTheme.typography.titleLarge,
+                style = NiaTypography.titleLarge,
             )
         },
         text = {
@@ -111,7 +121,6 @@ fun SettingsDialog(
                             onChangeDynamicColorPreference = onChangeDynamicColorPreference,
                             onChangeVoiceReaderPreference = onChangeVoiceReaderPreference,
                             onChangeMultipleInvitatoryPreference = onChangeMultipleInvitatoryPreference,
-
                             onChangeDarkThemeConfig = onChangeDarkThemeConfig,
                         )
                     }
@@ -124,7 +133,7 @@ fun SettingsDialog(
         confirmButton = {
             Text(
                 text = stringResource(R.string.feature_settings_dismiss_dialog_button_text),
-                style = MaterialTheme.typography.labelLarge,
+                style = NiaTypography.labelLarge,
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
@@ -175,8 +184,6 @@ private fun ColumnScope.SettingsPanel(
             }
         }
     }
-
-
     Column {
         SettingsDialogSectionTitle(text = stringResource(R.string.feature_settings_reader_preference))
         Column(Modifier.selectableGroup()) {
@@ -210,15 +217,20 @@ private fun ColumnScope.SettingsPanel(
             selected = settings.dynamic.darkThemeConfig == DarkThemeConfig.DARK,
             onClick = { onChangeDarkThemeConfig(DarkThemeConfig.DARK) },
         )
+        //MinimalDropdownMenu()
+        SettingsDialogSectionTitle(text = stringResource(R.string.feature_settings_default_font_preference))
+
+
     }
 
 }
+
 
 @Composable
 private fun SettingsDialogSectionTitle(text: String) {
     Text(
         text = text,
-        style = MaterialTheme.typography.titleMedium,
+        style = NiaTypography.titleMedium,
         modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
     )
 }
@@ -245,9 +257,10 @@ fun SettingsDialogThemeChooserRow(
             onClick = null,
         )
         Spacer(Modifier.width(8.dp))
-        Text(text)
+        Text(text, style = NiaTypography.bodyLarge)
     }
 }
+
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -263,7 +276,10 @@ private fun LinksPanel() {
         NiaTextButton(
             onClick = { uriHandler.openUri(PRIVACY_POLICY_URL) },
         ) {
-            Text(text = stringResource(R.string.feature_settings_privacy_policy))
+            Text(
+                text = stringResource(R.string.feature_settings_privacy_policy),
+                style = NiaTypography.bodyLarge
+            )
         }
         /*val context = LocalContext.current
         NiaTextButton(
@@ -276,53 +292,99 @@ private fun LinksPanel() {
         NiaTextButton(
             onClick = { uriHandler.openUri(BRAND_GUIDELINES_URL) },
         ) {
-            Text(text = stringResource(R.string.feature_settings_terms))
+            Text(
+                text = stringResource(R.string.feature_settings_terms),
+                style = NiaTypography.bodyLarge
+            )
         }
         NiaTextButton(
-            onClick = { uriHandler.openUri(FEEDBACK_URL) },
+            onClick = { uriHandler.openUri(PLAYSTORE_URL) },
         ) {
-            Text(text = stringResource(R.string.feature_settings_feedback))
+            Text(
+                text = stringResource(R.string.feature_menu_play_store),
+                style = NiaTypography.bodyLarge
+            )
         }
-    }
-}
-/*
-@Preview
-@Composable
-private fun PreviewSettingsDialog() {
-    NiaTheme {
-        SettingsDialog(
-            onDismiss = {},
-            settingsUiState = SettingsUiState.Success(
-                UserEditableSettings(
-                    brand = ThemeBrand.DEFAULT,
-                    darkThemeConfig = DarkThemeConfig.FOLLOW_SYSTEM,
-                    useDynamicColor = false,
-                    useMultipleInvitatory = false,
-                    useReader = true,
-                ),
-            ),
-            onChangeThemeBrand = {},
-            onChangeDynamicColorPreference = {},
-            onChangeDarkThemeConfig = {},
-        )
     }
 }
 
-@Preview
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun PreviewSettingsDialogLoading() {
-    NiaTheme {
-        SettingsDialog(
-            onDismiss = {},
-            settingsUiState = SettingsUiState.Loading,
-            onChangeThemeBrand = {},
-            onChangeDynamicColorPreference = {},
-            onChangeDarkThemeConfig = {},
-        )
+fun SettingsScreen(
+    onChangeFontSize: (fontSize: FontSizeConfig) -> Unit,
+    settingsUiState: SettingsUiState,
+    onBackClick: () -> Unit,
+
+    ) {
+    Scaffold(
+        topBar = {
+            UniversalisSingleAppBar(
+                title = stringResource(R.string.feature_settings_title),
+                navigationIcon = LPlusIcons.ArrowBack,
+                readerIcon = LPlusIcons.Reader,
+                calendarIcon = LPlusIcons.Calendar,
+                navigationIconContentDescription = "Navigation icon",
+                actionIcon = LPlusIcons.MoreVert,
+                actionIconContentDescription = "Action icon",
+                onNavigationClick = { onBackClick() }
+            )
+        },
+
+        ) { innerPadding ->
+        Column(
+            Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(innerPadding)
+                .fillMaxWidth()
+                .padding(20.dp)
+        ) {
+            when (settingsUiState) {
+                SettingsUiState.Loading -> {
+                    Text(
+                        text = stringResource(R.string.feature_settings_loading),
+                        modifier = Modifier.padding(vertical = 16.dp),
+                    )
+                }
+
+                is SettingsUiState.Success -> {
+                    var selectedIndex by remember { mutableIntStateOf(settingsUiState.settings.dynamic.fontSize.ordinal) }
+                    val fontSizes = FontSizeConfig.entries
+
+                    LargeDropdownMenu(
+                        items = fontSizes,
+                        selectedIndex = selectedIndex,
+                        onItemSelected = { index, _ ->
+                            selectedIndex = index
+                            onChangeFontSize(fontSizes[index])
+                        },
+                    )
+
+                    LPlusSwitch(label = stringResource(R.string.pref_title_brevis))
+                    //SwitchWithLabel("Rosario forma breve",true,{})
+                }
+            }
+        }
     }
 }
-*/
+
+//@Preview
+@ExperimentalMaterial3Api
+@Composable
+fun SettingsScreen(
+    viewModel: SettingsViewModel = hiltViewModel(),
+    onBackClick: () -> Unit,
+) {
+    val settingsUiState by viewModel.settingsUiState.collectAsStateWithLifecycle()
+
+    SettingsScreen(
+        settingsUiState = settingsUiState,
+        onChangeFontSize = viewModel::updateFontSizePreference,
+        onBackClick = onBackClick
+    )
+}
+
 private const val PRIVACY_POLICY_URL = "https://liturgiaplus.app/privacy"
 private const val BRAND_GUIDELINES_URL = "https://liturgiaplus.app/terms"
-private const val FEEDBACK_URL = "https://liturgiaplus.app/bug-report"
+private const val PLAYSTORE_URL = "https://play.google.com/store/apps/details?id=org.deiverbum.app"
 

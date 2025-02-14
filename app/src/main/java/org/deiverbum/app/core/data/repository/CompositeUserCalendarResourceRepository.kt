@@ -7,7 +7,7 @@ import org.deiverbum.app.core.model.data.mapToUserCalendarResources
 import javax.inject.Inject
 
 /**
- * Implements a [UserNewsResourceRepository] by combining a [NewsRepository] with a
+ * Implements a [UserCalendarResourceRepository] by combining a [CalendarRepository] with a
  * [UserDataRepository].
  */
 class CompositeUserCalendarResourceRepository @Inject constructor(

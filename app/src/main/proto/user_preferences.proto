@@ -18,6 +18,8 @@ message UserPreferences {
   VoiceReaderProto use_voice_reader = 6;
   bool use_multiple_invitatory = 7;
   RubricColorProto rubric_color = 8;
+  FontSizeProto font_size = 9;
+
 }
 
 enum DarkThemeConfigProto {
@@ -41,4 +43,26 @@ enum RubricColorProto {
 enum VoiceReaderProto {
   VOICE_ON = 0;
   VOICE_OFF = 1;
+}
+
+enum FontSizeProto {
+  DEFAULT = 0;
+  TEXT2XS = 1;
+  TEXTXS = 2;
+  TEXTSM = 3;
+  TEXTMD = 4;
+  TEXTLG = 5;
+  TEXTXL = 6;
+  TEXT2XL = 7;
+  TEXT3XL = 8;
+  TEXT4XL = 9;
+  TEXT5XL = 10;
+  TEXT6XL = 11;
+  TEXT7XL = 12;
+  TEXT8XL = 13;
+  TEXT9XL = 14;
+  TEXT10XL = 15;
+  TEXT11XL = 16;
+  TEXT12XL = 17;
+
 }

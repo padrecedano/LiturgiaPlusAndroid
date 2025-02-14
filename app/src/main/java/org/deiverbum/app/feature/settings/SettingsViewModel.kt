@@ -9,10 +9,11 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.deiverbum.app.core.data.repository.UserDataRepository
-import org.deiverbum.app.core.model.data.DarkThemeConfig
-import org.deiverbum.app.core.model.data.ThemeBrand
 import org.deiverbum.app.core.model.data.UserDataDynamic
-import org.deiverbum.app.core.model.data.VoiceReaderConfig
+import org.deiverbum.app.core.model.data.configuration.DarkThemeConfig
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig
+import org.deiverbum.app.core.model.data.configuration.ThemeBrand
+import org.deiverbum.app.core.model.data.configuration.VoiceReaderConfig
 import org.deiverbum.app.feature.settings.SettingsUiState.Success
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
@@ -64,6 +65,12 @@ class SettingsViewModel @Inject constructor(
     fun updateMultipleInvitatoryPreference(useMultipleInvitatory: Boolean) {
         viewModelScope.launch {
             userDataRepository.setMultipleInvitatoryPreference(useMultipleInvitatory)
+        }
+    }
+
+    fun updateFontSizePreference(fontSize: FontSizeConfig) {
+        viewModelScope.launch {
+            userDataRepository.setFontSizePreference(fontSize)
         }
     }
 }

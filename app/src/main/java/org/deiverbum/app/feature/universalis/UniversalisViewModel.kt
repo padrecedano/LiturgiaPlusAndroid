@@ -13,8 +13,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.domain.GetUniversalisUseCase
-import org.deiverbum.app.core.domain.HomeSortField
-import org.deiverbum.app.core.model.data.UniversalisRequest
+import org.deiverbum.app.core.model.data.UniversalisResource
 import org.deiverbum.app.feature.universalis.navigation.UniversalisRoute
 import org.deiverbum.app.util.LiturgyHelper
 import org.deiverbum.app.util.Utils
@@ -45,7 +44,7 @@ class UniversalisViewModel @Inject constructor(
     val uiState: StateFlow<UniversalisUiState> = combine(
         selectedTopicId,
         getTopicWithDate.invoke(
-            sortBy = HomeSortField.ID,
+            //sortBy = HomeSortField.ID,
             date = selectedDate.value,
             title = route.initialTopicId!!,
             selectedTopicId = LiturgyHelper.liturgyByName(route.initialTopicId!!)
@@ -87,7 +86,7 @@ sealed interface UniversalisUiState {
         val selectedTopicId: String?,
         //val isReader: Boolean=true,
         //val topicId:Int,
-        val topics: List<UniversalisRequest>,
+        val topics: UniversalisResource,
     ) : UniversalisUiState
     data object Empty : UniversalisUiState
 

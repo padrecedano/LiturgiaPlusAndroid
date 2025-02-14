@@ -2,50 +2,22 @@ package org.deiverbum.app.core.model.data.book
 
 import android.text.SpannableStringBuilder
 import org.deiverbum.app.util.Utils
-import java.util.*
+import java.util.Locale
 
 /**
+ * Clase de datos para **capítulos** proveniente de archivos locales.
+ *
  * @author A. Cedano
- * @version 1.0
+ * @version 2.0
  * @since 2022.1
+ * @see [Book]
+ *
  */
-@Suppress("unused")
-class Chapter {
-    //@SerializedName("id")
-    //@Expose
-    private var id = 0
-
-    //@SerializedName("title")
-    //@Expose
-    private var title: String? = null
-
-    //@SerializedName("content")
-    //@Expose
-    private var content: List<Content>? = null
-    fun getId(): Int {
-        return id
-    }
-
-    fun setId(id: Int) {
-        this.id = id
-    }
-
-    fun getTitle(): String? {
-        return title
-    }
-
-    fun setTitle(title: String?) {
-        this.title = title
-    }
-
-    fun getContent(): List<Content>? {
-        return content
-    }
-
-    fun setContent(content: List<Content>?) {
-        this.content = content
-    }
-
+data class Chapter(
+    var id: Int = 0,
+    var title: String? = null,
+    var content: List<Content>? = null
+) {
     fun getAllForView(bookType: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         if (bookType == 10) {

@@ -16,8 +16,9 @@ import org.deiverbum.app.feature.home.navigation.HomeRoute
 import org.deiverbum.app.feature.home.navigation.homeScreen
 import org.deiverbum.app.feature.mas.navigation.masScreen
 import org.deiverbum.app.feature.mas.navigation.navigateToMas
-import org.deiverbum.app.feature.menu.navigation.menuScreen
-import org.deiverbum.app.feature.menu.navigation.navigateToMenu
+import org.deiverbum.app.feature.search.navigation.navigateToSearch
+import org.deiverbum.app.feature.search.navigation.searchScreen
+import org.deiverbum.app.feature.settings.navigation.settingsScreen
 import org.deiverbum.app.feature.universalis.navigation.navigateToUniversalis
 import org.deiverbum.app.feature.universalis.navigation.navigateToUniversalisFromCalendar
 import org.deiverbum.app.feature.universalis.navigation.universalisFromHome
@@ -32,7 +33,6 @@ import org.deiverbum.app.ui.NiaAppState
  * de alto nivel. La navegación a cada ruta es manejada usando
  * State y Back Handlers.
  */
-@ExperimentalStdlibApi
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
@@ -51,14 +51,21 @@ fun NiaNavHost(
         startDestination = HomeRoute,
         modifier = modifier,
     ) {
+        //homeScreen(onTopicClick = navController::navigateToUniversalis)
         homeScreen(onTopicClick = navController::navigateToUniversalis)
+
         universalisFromHome(onBackClick = navController::navigateUp)
         masScreen(onTopicClick = navController::navigateToMas)
         calendarScreen(onTopicClick = navController::navigateToUniversalisFromCalendar)
-        menuScreen(onTopicClick = navController::navigateToMenu)
-        fileScreen(onFileClick = {})
-        bugReportScreen()
-
+        //menuScreen(onTopicClick = navController::navigateToMenu)
+        fileScreen(onBackClick = navController::navigateToSearch)
+        bugReportScreen(onBackClick = navController::navigateUp)
+        settingsScreen(onBackClick = navController::navigateUp)
+        searchScreen(
+            onBackClick = navController::popBackStack,
+            onInterestsClick = { },
+            onTopicClick = navController::navigateToMas,
+        )
 
     }
 }

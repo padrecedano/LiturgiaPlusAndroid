@@ -9,26 +9,9 @@ package org.deiverbum.app.core.model.data
  *
  * @author A. Cedano
  * @version 1.0
- * @since 2024.1
+ * @since 2025.1
  *
  * @see [LiturgiaTypus]
  *
  */
-abstract class Alteri(typus: String) : LiturgiaTypus(typus) {
-
-    data class Sancti(
-        val sanctus: Sanctus,
-        override var typus: String = "sanctii"
-    ) : Alteri(typus) {
-
-
-        override fun forRead(): StringBuilder {
-            return StringBuilder(sanctus.forRead)
-        }
-
-        override fun sort() {
-        }
-    }
-
-
-}
+abstract class Alteri(typus: String) : LiturgiaTypus(typus)

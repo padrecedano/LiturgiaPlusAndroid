@@ -55,6 +55,10 @@ import org.deiverbum.app.core.database.model.entity.MassReadingJoinEntity
 import org.deiverbum.app.core.database.model.entity.PaterEntity
 import org.deiverbum.app.core.database.model.entity.PaterOpusEntity
 import org.deiverbum.app.core.database.model.entity.PrayerEntity
+import org.deiverbum.app.core.database.model.entity.RosariumMysteriumEntity
+import org.deiverbum.app.core.database.model.entity.RosariumSeriesDiesEntity
+import org.deiverbum.app.core.database.model.entity.RosariumSeriesEntity
+import org.deiverbum.app.core.database.model.entity.RosariumSeriesMysteriumEntity
 import org.deiverbum.app.core.database.model.entity.SaintEntity
 import org.deiverbum.app.core.database.model.entity.SaintLifeEntity
 import org.deiverbum.app.core.database.model.entity.SaintShortLifeEntity
@@ -73,14 +77,18 @@ import org.deiverbum.app.core.database.util.RoomConverter
     entities = [
         LHEasterBiblicalJoinEntity::class, LHEasterBiblicalEntity::class, UniversalisEntity::class, LiturgyEntity::class, LiturgyTimeEntity::class, LiturgySaintJoinEntity::class, SaintEntity::class, SaintLifeEntity::class, SaintShortLifeEntity::class, LHInvitatoryEntity::class, LHInvitatoryJoinEntity::class, LHHymnEntity::class, LHHymnJoinEntity::class, LHPsalmodyJoinEntity::class, LHPsalmJoinEntity::class, LHPsalmEntity::class, LHAntiphonJoinEntity::class, LHAntiphonEntity::class, LHThemeEntity::class, EpigraphEntity::class, LHOfficeVerseEntity::class, LHOfficeVerseJoinEntity::class, LHOfficeBiblicalJoinEntity::class, LHOfficeBiblicalEntity::class, LHOfficePatristicEntity::class, LHOfficePatristicJoinEntity::class, HomilyEntity::class, PaterEntity::class, PaterOpusEntity::class, LHResponsoryEntity::class, LHResponsoryShortEntity::class, BibleBookEntity::class, BibleReadingEntity::class, LHReadingShortEntity::class, LHReadingShortJoinEntity::class, LHGospelCanticleEntity::class, LHIntercessionsEntity::class, LHIntercessionsJoinEntity::class, PrayerEntity::class, LHPrayerEntity::class, LiturgyHomilyJoinEntity::class, BibleHomilyJoinEntity::class, BibleHomilyThemeEntity::class, LiturgyGroupEntity::class, LiturgyColorEntity::class, MassReadingEntity::class, MassReadingJoinEntity::class, SyncStatusEntity::class, DBTableEntity::class,
         KyrieEntity::class, LHKyrieJoinEntity::class, VirginAntiphonEntity::class, LHVirginAntiphonJoinEntity::class, LHNightPrayerEntity::class,
-        UITopicEntity::class, UIGroupEntity::class
+        UITopicEntity::class, UIGroupEntity::class,
+        RosariumSeriesEntity::class,
+        RosariumMysteriumEntity::class,
+        RosariumSeriesMysteriumEntity::class,
+        RosariumSeriesDiesEntity::class,
     ],
     version = 2
 )
 @TypeConverters(RoomConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun todayDao(): TodayDao
-    abstract fun universalisDaoo(): UniversalisDao
+    abstract fun universalisDao(): UniversalisDao
 
 }
 

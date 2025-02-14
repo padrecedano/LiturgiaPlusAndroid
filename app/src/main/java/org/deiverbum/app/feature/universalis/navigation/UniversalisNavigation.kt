@@ -17,7 +17,6 @@ data class UniversalisRoute(
     var date: Int? = Utils.hoy.toInt()
 )
 
-@ExperimentalStdlibApi
 @ExperimentalMaterial3Api
 @OptIn(ExperimentalFoundationApi::class)
 @ExperimentalMaterial3AdaptiveApi
@@ -38,7 +37,6 @@ fun NavController.navigateToUniversalis(
 
 fun NavController.navigateToUniversalisFromCalendar(
     topicId: String,
-    //selectedDate:Int,
     navOptions: NavOptionsBuilder.() -> Unit = {}
 ) {
     navigate(route = UniversalisRoute(topicId)) { navOptions() }

@@ -40,6 +40,7 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
@@ -57,6 +58,7 @@ import org.deiverbum.app.core.designsystem.component.NiaTopAppBar
 import org.deiverbum.app.core.designsystem.icon.NiaIcons
 import org.deiverbum.app.core.designsystem.theme.GradientColors
 import org.deiverbum.app.core.designsystem.theme.LocalGradientColors
+import org.deiverbum.app.core.designsystem.theme.NiaTypography
 import org.deiverbum.app.feature.menu.MainMenuDialog
 import org.deiverbum.app.feature.menu.navigation.navigateToMenu
 import org.deiverbum.app.feature.settings.SettingsDialog
@@ -79,6 +81,8 @@ fun NiaApp(
         appState.currentTopLevelDestination == TopLevelDestination.HOME
     var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
     var showMainMenu by rememberSaveable { mutableStateOf(false) }
+    val density = LocalDensity.current
+    val textSize = with(density) { 15.dp.toSp() }
 
     LPlusBackground(modifier = modifier) {
         LPlusGradientBackground(
@@ -159,6 +163,7 @@ internal fun NiaApp(
                 onMainMenuDismissed()
             },
             onClick = appState.navController::navigateToMenu
+
         )
         /*SettingsDialog(
             onDismiss = { onSettingsDismissed() },
@@ -189,7 +194,12 @@ internal fun NiaApp(
                             contentDescription = null,
                         )
                     },
-                    label = { Text(stringResource(destination.iconTextId)) },
+                    label = {
+                        Text(
+                            stringResource(destination.iconTextId),
+                            style = NiaTypography.labelLarge
+                        )
+                    },
                     modifier =
                     Modifier
                         .testTag("NiaNavItem")
@@ -298,3 +308,4 @@ private fun NavDestination?.isRouteInHierarchy(route: KClass<*>) =
     this?.hierarchy?.any {
         it.hasRoute(route)
     } ?: false
+

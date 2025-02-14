@@ -21,6 +21,10 @@ class Introitus {
     val txtDomineAdAdiuvandum = "Señor, date prisa en socorrerme."
     val txtDomineLabia = "Señor, abre mis labios."
     val txtEtOsMeum = "Y mi boca proclamará tu alabanza."
+    val txtInNomine = "En el nombre del Padre, y del Hijo, y del Espíritu Santo."
+    val txtAmen = "Amén."
+    val maior = listOf(txtDomineLabia, txtEtOsMeum)
+    val minor = listOf(txtDeusInAdiutorium, txtDomineAdAdiuvandum)
 
     companion object {
         val contentTitle: String = Constants.TITLE_INITIAL_INVOCATION

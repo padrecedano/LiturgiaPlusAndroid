@@ -24,7 +24,6 @@ import org.deiverbum.app.core.model.data.LHPsalmody
 import org.deiverbum.app.core.model.data.LHVesperas
 import org.deiverbum.app.core.model.data.Liturgy
 import org.deiverbum.app.core.model.data.Universalis
-import org.deiverbum.app.core.model.data.UniversalisResource
 
 data class PopulatedVesperasResource(
     @Embedded
@@ -82,7 +81,7 @@ data class PopulatedVesperasResource(
     var canticumEvangelicum: LHGospelCanticleWithAntiphon
 )
 
-fun PopulatedVesperasResource.asExternalModel(): UniversalisResource {
+fun PopulatedVesperasResource.asExternalModel(): Universalis {
     val liturgiaAssoc: LiturgyTimeAssoc
     var isPrimaVesperas = false
     if (universalis.previousFK > 1) {
@@ -91,33 +90,30 @@ fun PopulatedVesperasResource.asExternalModel(): UniversalisResource {
     } else {
         liturgiaAssoc = liturgia
     }
-    return UniversalisResource(
-        data = listOf(
-            Universalis(
-                universalis.todayDate,
-                Liturgy(
-                    liturgiaAssoc.parent.semana,
-                    liturgiaAssoc.parent.dia,
-                    liturgiaAssoc.parent.nombre,
-                    liturgiaAssoc.entity.asExternalModel(),
-                    LHVesperas(
-                        universalis.hasSaint == 1,
-                        hymnus.entity.asExternalModel(),
-                        LHPsalmody(
-                            psalmus.asExternalModel(),
-                            antiphonae.asExternalModel(),
-                            psalmus.join.theType
-                        ),
-                        lectioBrevis.asExternalModel(),
-                        canticumEvangelicum.asExternalModel(6),
-                        preces.entity.asExternalModel(),
-                        oratio.asExternalModel(),
-                        isPrimaVesperas,
-                        "vesperas"
-                    )
-                )
+    return Universalis(
+        universalis.todayDate,
+        Liturgy(
+            liturgiaAssoc.parent.semana,
+            liturgiaAssoc.parent.dia,
+            liturgiaAssoc.parent.nombre,
+            liturgiaAssoc.entity.asExternalModel(),
+            LHVesperas(
+                universalis.hasSaint == 1,
+                hymnus.entity.asExternalModel(),
+                LHPsalmody(
+                    psalmus.asExternalModel(),
+                    antiphonae.asExternalModel(),
+                    psalmus.join.theType
+                ),
+                lectioBrevis.asExternalModel(),
+                canticumEvangelicum.asExternalModel(6),
+                preces.entity.asExternalModel(),
+                oratio.asExternalModel(),
+                isPrimaVesperas,
+                "vesperas"
             )
         )
     )
+
 }
 

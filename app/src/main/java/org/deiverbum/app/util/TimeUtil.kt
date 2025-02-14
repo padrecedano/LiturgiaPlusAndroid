@@ -1,7 +1,10 @@
 package org.deiverbum.app.util
 
 import android.annotation.SuppressLint
+import org.deiverbum.app.core.model.data.WeekDays
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -33,6 +36,14 @@ object TimeUtil {
         return date.time
     }
 
+    fun getDayOfWeek(dateInt: Int): Int {
+        val dayOfWeek = LocalDate.parse(
+            dateInt.toString(),
+            DateTimeFormatter.BASIC_ISO_DATE
+        ).dayOfWeek
+        //val dayOfWeek = localDate.getDayOfWeek()
+        return WeekDays.valueOf(dayOfWeek.name).value
+    }
 
     @SuppressLint("SimpleDateFormat")
     private fun getTimeMilis(dayTimestamp: String, time: String): Long {

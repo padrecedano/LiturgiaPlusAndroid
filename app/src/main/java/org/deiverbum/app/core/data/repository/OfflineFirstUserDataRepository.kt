@@ -3,11 +3,12 @@ package org.deiverbum.app.core.data.repository
 import kotlinx.coroutines.flow.Flow
 import org.deiverbum.app.core.analytics.AnalyticsHelper
 import org.deiverbum.app.core.datastore.PreferencesDataSource
-import org.deiverbum.app.core.model.data.DarkThemeConfig
-import org.deiverbum.app.core.model.data.RubricColorConfig
-import org.deiverbum.app.core.model.data.ThemeBrand
 import org.deiverbum.app.core.model.data.UserData
-import org.deiverbum.app.core.model.data.VoiceReaderConfig
+import org.deiverbum.app.core.model.data.configuration.DarkThemeConfig
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig
+import org.deiverbum.app.core.model.data.configuration.RubricColorConfig
+import org.deiverbum.app.core.model.data.configuration.ThemeBrand
+import org.deiverbum.app.core.model.data.configuration.VoiceReaderConfig
 import javax.inject.Inject
 
 class OfflineFirstUserDataRepository @Inject constructor(
@@ -61,6 +62,11 @@ class OfflineFirstUserDataRepository @Inject constructor(
 
     override suspend fun setVoiceReaderPreference(useVoiceReader: VoiceReaderConfig) {
         niaPreferencesDataSource.setVoiceReaderPreference(useVoiceReader)
+        // analyticsHelper.logDynamicColorPreferenceChanged(useVoiceReader)
+    }
+
+    override suspend fun setFontSizePreference(fontSize: FontSizeConfig) {
+        niaPreferencesDataSource.setFontSizePreference(fontSize)
         // analyticsHelper.logDynamicColorPreferenceChanged(useVoiceReader)
     }
 

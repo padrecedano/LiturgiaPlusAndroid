@@ -45,7 +45,6 @@ import org.deiverbum.app.R
 import org.deiverbum.app.core.designsystem.component.NiaButton
 import org.deiverbum.app.core.model.data.BugItem
 import org.deiverbum.app.core.model.data.BugReport
-import org.deiverbum.app.feature.universalis.UniversalisResourceTitle
 import org.deiverbum.app.feature.universalis.UniversalisUiState
 import org.deiverbum.app.util.Configuration
 import org.deiverbum.app.util.Constants
@@ -56,8 +55,11 @@ import timber.log.Timber
 fun BugScreen(
     modifier: Modifier = Modifier,
     bugViewModel: BugViewModel = hiltViewModel(),
+    onBackClick: () -> Unit,
 
     ) {
+    //val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     var messageSent by remember { mutableStateOf(false) }
 
     val launcher = rememberLauncherForActivityResult(
@@ -93,10 +95,11 @@ fun BugScreen(
             )
 
             GenericToolbar(title = "T")
-            UniversalisResourceTitle(
+            /*UniversalisResourceTitle(
                 "Bug Report",
+                userData = userData,
                 modifier = Modifier.fillMaxWidth((.8f)),
-            )
+            )*/
             Spacer(modifier = Modifier.weight(1f))
             if (!messageSent) {
                 Text(
@@ -186,6 +189,61 @@ fun BugScreen(
     }
 }
 
+@ExperimentalFoundationApi
+@Composable
+fun Mail(
+    message: String,
+
+    ) {
+    //val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    var messageSent by remember { mutableStateOf(false) }
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult(),
+        onResult = {
+            Timber.d("aaa", it.resultCode)
+            messageSent = true
+        }
+    )
+
+    val messagee = remember { mutableStateOf("") }
+
+
+
+
+    NiaButton(
+        onClick = //bugViewModel::send
+        {
+
+            val intent = Intent(Intent.ACTION_SENDTO).apply {
+                //addCategory(Intent.CATEGORY_APP_EMAIL)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                data = Uri.parse("mailto:")
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(Configuration.MY_EMAIL))
+                putExtra(Intent.EXTRA_SUBJECT, Constants.ERR_SUBJECT)
+                putExtra(Intent.EXTRA_TEXT, message)
+            }
+
+
+            launcher.launch(intent)
+            //sendEmail(launcher, BugReport(message.value, bugItems))
+        },
+        text = { Text(text = stringResource(R.string.enviar_email)) },
+        leadingIcon = {
+            Icon(
+                imageVector = LPlusIcons.Email,
+                contentDescription = stringResource(R.string.enviar_email)
+            )
+        },
+        modifier = Modifier
+            .padding(horizontal = 24.dp)
+            .widthIn(364.dp)
+            .fillMaxWidth(),
+    )
+}
+
+
 @Composable
 fun TextFieldBugDescription(message: String, onMessageChanged: (String) -> Unit) {
     TextField(
@@ -259,4 +317,5 @@ fun GenericToolbar(
         }
     }
 }
+
 

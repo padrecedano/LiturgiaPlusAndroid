@@ -5,10 +5,10 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.deiverbum.app.core.data.repository.UserDataRepository
-import org.deiverbum.app.core.model.data.DarkThemeConfig
-import org.deiverbum.app.core.model.data.ThemeBrand
 import org.deiverbum.app.core.model.data.UserDataDynamic
-import org.deiverbum.app.core.model.data.VoiceReaderConfig
+import org.deiverbum.app.core.model.data.configuration.DarkThemeConfig
+import org.deiverbum.app.core.model.data.configuration.ThemeBrand
+import org.deiverbum.app.core.model.data.configuration.VoiceReaderConfig
 import javax.inject.Inject
 
 @HiltViewModel

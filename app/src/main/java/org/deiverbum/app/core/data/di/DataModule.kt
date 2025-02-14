@@ -4,10 +4,12 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import org.deiverbum.app.core.data.repository.DefaultSearchContentsRepository
 import org.deiverbum.app.core.data.repository.HomeTopicsRepository
 import org.deiverbum.app.core.data.repository.OfflineFirstHomeTopicsRepository
 import org.deiverbum.app.core.data.repository.OfflineFirstUniversalisRepository
 import org.deiverbum.app.core.data.repository.OfflineFirstUserDataRepository
+import org.deiverbum.app.core.data.repository.SearchContentsRepository
 import org.deiverbum.app.core.data.repository.UniversalisRepository
 import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.data.util.ConnectivityManagerNetworkMonitor
@@ -54,12 +56,12 @@ interface DataModule {
         fun bindsRecentSearchRepository(
             recentSearchRepository: DefaultRecentSearchRepository,
         ): RecentSearchRepository
-
+*/
         @Binds
         fun bindsSearchContentsRepository(
-            searchContentsRepository: DefaultSearchContentsRepository,
+        searchContentsRepository: DefaultSearchContentsRepository,
         ): SearchContentsRepository
-    */
+
     //Pantalla inicial
     @Binds
     fun bindsHomeRepository(
@@ -79,7 +81,12 @@ interface DataModule {
         newsRepository: OfflineFirstUniversalisRepository,
     ): UniversalisRepository
 
-
+    /*
+        @Binds
+        fun bindsFileRepository(
+            fileRepository: OfflineFirstUniversalisRepository,
+        ): UniversalisRepository
+    */
     @Binds
     fun bindsNetworkMonitor(
         networkMonitor: ConnectivityManagerNetworkMonitor,

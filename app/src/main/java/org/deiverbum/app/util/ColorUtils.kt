@@ -12,7 +12,7 @@ import org.deiverbum.app.core.designsystem.theme.Red40
  * @since 2023.1
  */
 object ColorUtils {
-    val LS: String? = System.getProperty("line.separator")
+    val LS: String? = System.lineSeparator()
     private val redDefault = ForegroundColorSpan(Color.parseColor("#A52A2A"))
     private val redNightMode = ForegroundColorSpan(Color.parseColor("#FFDAB9"))
     var isNightMode = false

@@ -35,7 +35,7 @@ internal object DaosModule {
     @Provides
     fun providesUniversalisDao(
         database: AppDatabase,
-    ): UniversalisDao = database.universalisDaoo()
+    ): UniversalisDao = database.universalisDao()
     /*@Provides
     fun providesTopicFtsDao(
         database: NiaDatabase,

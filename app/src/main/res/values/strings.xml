@@ -16,7 +16,7 @@
     <string name="feature_menu_title">Menú</string>
     <string name="feature_menu_help">Ayuda</string>
     <string name="feature_menu_sync">Sincronización</string>
-    <string name="feature_menu_settings">Configuración</string>
+    <string name="feature_menu_settings">Ajustes</string>
     <string name="feature_menu_bugs">Reportar Error</string>
     <string name="feature_menu_about">Sobre Liturgia+</string>
     <string name="feature_menu_author">Autor</string>
@@ -43,6 +43,8 @@
     <string name="feature_settings_dynamic_color_preference">Usar Color Dinámico</string>
     <string name="feature_settings_dynamic_color_yes">Sí</string>
     <string name="feature_settings_dynamic_color_no">No</string>
+    <string name="feature_settings_default_font_preference">Fuente por defecto</string>
+
     <string name="feature_settings_dismiss_dialog_button_text">OK</string>
 
     <string name="feature_settings_invitatory_preference">Múltiples Invitatorios</string>
@@ -81,6 +83,10 @@
     <string name="feature_search_updates">Updates</string>
     <string name="feature_search_recent_searches">Recent searches</string>
     <string name="feature_search_clear_recent_searches_content_desc">Clear searches</string>
+
+    <string name="title_salve">Salve</string>
+    <string name="title_prayer">Oración</string>
+    <string name="title_litanies">Letanías Laureatanas</string>
 
 
     <string name="deleteThisString">deleteThisString</string>

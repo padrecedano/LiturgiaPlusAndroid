@@ -21,7 +21,6 @@ import org.deiverbum.app.core.model.data.LHIntermedia
 import org.deiverbum.app.core.model.data.LHPsalmody
 import org.deiverbum.app.core.model.data.Liturgy
 import org.deiverbum.app.core.model.data.Universalis
-import org.deiverbum.app.core.model.data.UniversalisResource
 
 /**
  * Representación de Sexta para la capa de datos externa.
@@ -67,29 +66,26 @@ data class SextamExternal(
     var oratio: LHPrayerAll,
 )
 
-fun SextamExternal.asExternalModel() = UniversalisResource(
-    data =
-    listOf(
-        Universalis(
-            universalis.todayDate,
-            Liturgy(
-                liturgia.parent.semana,
-                liturgia.parent.dia,
-                liturgia.parent.nombre,
-                liturgia.entity.asExternalModel(),
-                LHIntermedia(
-                    hymnus.entity.asExternalModel(),
-                    LHPsalmody(
-                        psalmus.asExternalModel(),
-                        antiphonae.asExternalModel(),
-                        psalmus.join.theType
-                    ),
-                    lectioBrevis.asExternalModel(),
-                    oratio.asExternalModel(),
-                    5,
-                    "intermedia"
-                )
-            )
+fun SextamExternal.asExternalModel() = Universalis(
+
+
+    universalis.todayDate,
+    Liturgy(
+        liturgia.parent.semana,
+        liturgia.parent.dia,
+        liturgia.parent.nombre,
+        liturgia.entity.asExternalModel(),
+        LHIntermedia(
+            hymnus.entity.asExternalModel(),
+            LHPsalmody(
+                psalmus.asExternalModel(),
+                antiphonae.asExternalModel(),
+                psalmus.join.theType
+            ),
+            lectioBrevis.asExternalModel(),
+            oratio.asExternalModel(),
+            5,
+            "intermedia"
         )
     )
 )

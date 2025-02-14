@@ -1,6 +1,7 @@
 package org.deiverbum.app.core.data.repository
 
 import org.deiverbum.app.core.model.FileRequestt
+import org.deiverbum.app.core.model.FileResource
 import org.deiverbum.app.core.model.FileResponse
 
 /**
@@ -12,4 +13,6 @@ import org.deiverbum.app.core.model.FileResponse
 interface FileRepository {
 
     suspend fun getFile(fileRequest: FileRequestt): List<FileResponse>
+    suspend fun getFileModel(fileRequest: FileRequestt): FileResource
+
 }

@@ -40,7 +40,6 @@ import org.deiverbum.app.core.model.data.Liturgy
 import org.deiverbum.app.core.model.data.MissaeLectionum
 import org.deiverbum.app.core.model.data.MissaeLectionumList
 import org.deiverbum.app.core.model.data.Universalis
-import org.deiverbum.app.core.model.data.UniversalisResource
 import org.deiverbum.app.util.Constants
 
 /**
@@ -145,11 +144,11 @@ data class MixtusExternal(
     var missaeLectionum: List<MassReadingWithAll>,
 )
 
-fun MixtusExternal.asExternalModel(): UniversalisResource {
+fun MixtusExternal.asExternalModel(): Universalis {
     val extModel = universalis.asExternalModel()
     if (universalis.oBiblicalFK == Constants.EASTER_CODE) {
         extModel.oBiblicalFK = universalis.oBiblicalFK
-        return UniversalisResource(data = listOf(extModel))
+        return extModel
     }
     val evangelii: MutableList<MissaeLectionum?> = ArrayList()
     for (item in missaeLectionum) {
@@ -178,19 +177,16 @@ fun MixtusExternal.asExternalModel(): UniversalisResource {
     if (universalis.hasSaint == 1) {
         breviarium.sanctus = sanctus!!.asExternalModel()
     }
-    return UniversalisResource(
-        data = listOf(
-            Universalis(
-                universalis.todayDate,
-                //universalis.timeFK,
-                Liturgy(
-                    liturgia.parent.semana,
-                    liturgia.parent.dia,
-                    liturgia.parent.nombre,
-                    liturgia.entity.asExternalModel(),
-                    breviarium
-                )
-            )
+    return Universalis(
+        universalis.todayDate,
+        //universalis.timeFK,
+        Liturgy(
+            liturgia.parent.semana,
+            liturgia.parent.dia,
+            liturgia.parent.nombre,
+            liturgia.entity.asExternalModel(),
+            breviarium
         )
     )
+
 }

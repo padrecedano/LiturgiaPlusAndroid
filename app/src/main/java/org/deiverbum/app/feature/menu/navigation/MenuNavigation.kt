@@ -1,27 +1,20 @@
-@file:OptIn(ExperimentalLayoutApi::class)
-
 package org.deiverbum.app.feature.menu.navigation
-
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.material3.Text
-import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
-import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
-import androidx.navigation.compose.composable
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.serialization.Serializable
 import org.deiverbum.app.feature.bugreport.navigation.BugRoute
 import org.deiverbum.app.feature.file.navigation.FileRoute
+import org.deiverbum.app.feature.settings.navigation.SettingsRoute
 import org.deiverbum.app.util.FileNameUtil
 
-@Serializable
-data class MenuRoute(
-    val menuItem: String? = "-1",
-)
-
-//@Composable
+/**
+ * Controlador de navegación del menú principal. Los destinos de navegación se deciden
+ * de acuerdo al item que haya sido seleccionado en el menú.
+ *
+ * @author A. Cedano
+ * @version 1.0
+ * @since 2025.1
+ *
+ */
 fun NavController.navigateToMenu(
     menuItem: String? = null,
     navOptions: NavOptions? = null,
@@ -33,26 +26,7 @@ fun NavController.navigateToMenu(
     } else {
         when (menuItem) {
             "Reportar Error" -> navigate(route = BugRoute(menuItem), navOptions)
+            "Ajustes" -> navigate(route = SettingsRoute(menuItem), navOptions)
         }
     }
 }
-
-@ExperimentalLayoutApi
-@ExperimentalCoroutinesApi
-@ExperimentalMaterial3AdaptiveApi
-fun NavGraphBuilder.menuScreen(
-    onTopicClick: (String) -> Unit
-) {
-    composable<MenuRoute> {
-        MenuScreen(onTopicClick = onTopicClick)
-    }
-}
-
-@Composable
-fun MenuScreen(onTopicClick: (String) -> Unit) {
-    val t = onTopicClick::toString
-    //val s=onTopicClick.invoke()
-    Text(t.name)
-}
-
-

@@ -17,7 +17,7 @@ import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.deiverbum.app.BuildConfig
-import org.deiverbum.app.core.model.data.Alteri
+import org.deiverbum.app.core.model.data.AlteriSanctii
 import org.deiverbum.app.core.model.data.Commentarii
 import org.deiverbum.app.core.model.data.LHCompletorium
 import org.deiverbum.app.core.model.data.LHIntermedia
@@ -54,7 +54,7 @@ object NetworkModule {
                 .withSubtype(Missae::class.java, "lectionum")
                 .withSubtype(Missae::class.java, "homiliae")
                 .withSubtype(Commentarii::class.java, "commentarii")
-                .withSubtype(Alteri.Sancti::class.java, "sanctii")
+                .withSubtype(AlteriSanctii::class.java, "sanctii")
             //.withDefaultValue(LiturgiaTypus.Unknown)
         )
         .add(KotlinJsonAdapterFactory())

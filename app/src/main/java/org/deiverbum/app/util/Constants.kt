@@ -203,6 +203,11 @@ object Constants {
     const val LH_KYRIE_JOIN = "lh_kyrie_join"
     const val VIRGIN_ANTIPHON = "virgin_antiphon"
     const val LH_VIRGIN_ANTIPHON_JOIN = "lh_virgin_antiphon_join"
+    const val ROSARIUM_SERIES = "rosarium_series"
+    const val ROSARIUM_MYSTERIUM = "rosarium_mysterium"
+    const val ROSARIUM_SERIES_MYSTERIUM = "rosarium_series_mysterium"
+    const val ROSARIUM_SERIES_DIES = "rosarium_series_dies"
+
     const val SYNC_LITURGY_HOMILY_JOIN = "sync_liturgy_homily_join"
     const val SYNC_MASS_READING = "sync_mass_reading"
     const val TITLE_MIXTO = "Laudes y Oficio"
@@ -226,6 +231,7 @@ object Constants {
     const val TITLE_TEDEUM = "Te Deum"
     const val TITLE_CONCLUSION = "Conclusión"
     const val TITLE_MASS_GOSPEL = "Evangelio de la Misa"
+    const val TITLE_LITANIES = "Letanías de Nuestra Señora"
 
     const val TITLE_GOSPEL_CANTICLE = "Cántico Evangélico"
     const val TITLE_SHORT_READING = "Lectura Breve"
@@ -235,6 +241,8 @@ object Constants {
     const val TITLE_PATER_NOSTER = "Padre Nuestro"
     const val TITLE_PRAYER = "Oración"
     const val TITLE_BIBLE_COMMENTS = "Comentarios"
+    const val TITLE_SALVE = "Salve"
+
     const val PRECES_IL = "Se pueden añadir algunas intenciones libres."
     const val OBIEN = BRS + CSS_RED_A + "O bien:" + CSS_RED_Z + BRS
     const val PRECES_R = "– "

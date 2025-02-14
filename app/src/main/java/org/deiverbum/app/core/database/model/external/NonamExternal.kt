@@ -22,7 +22,6 @@ import org.deiverbum.app.core.model.data.LHIntermedia
 import org.deiverbum.app.core.model.data.LHPsalmody
 import org.deiverbum.app.core.model.data.Liturgy
 import org.deiverbum.app.core.model.data.Universalis
-import org.deiverbum.app.core.model.data.UniversalisResource
 
 /**
  * Representación de Nona para la capa de datos externa.
@@ -91,29 +90,26 @@ fun LHNonamLocal.asExternalModel() = Universalis(
     )
 )
 
-fun NonamExternal.asExternalModel() = UniversalisResource(
-    data =
-    listOf(
-        Universalis(
-            universalis.todayDate,
-            Liturgy(
-                liturgia.parent.semana,
-                liturgia.parent.dia,
-                liturgia.parent.nombre,
-                liturgia.entity.asExternalModel(),
-                LHIntermedia(
-                    hymnus.entity.asExternalModel(),
-                    LHPsalmody(
-                        psalmus.asExternalModel(),
-                        antiphonae.asExternalModel(),
-                        psalmus.join.theType
-                    ),
-                    lectioBrevis.asExternalModel(),
-                    oratio.asExternalModel(),
-                    6,
-                    "intermedia"
-                )
-            )
+fun NonamExternal.asExternalModel() = Universalis(
+
+    universalis.todayDate,
+    Liturgy(
+        liturgia.parent.semana,
+        liturgia.parent.dia,
+        liturgia.parent.nombre,
+        liturgia.entity.asExternalModel(),
+        LHIntermedia(
+            hymnus.entity.asExternalModel(),
+            LHPsalmody(
+                psalmus.asExternalModel(),
+                antiphonae.asExternalModel(),
+                psalmus.join.theType
+            ),
+            lectioBrevis.asExternalModel(),
+            oratio.asExternalModel(),
+            6,
+            "intermedia"
         )
     )
 )
+

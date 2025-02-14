@@ -2,15 +2,52 @@ package org.deiverbum.app.core.datastore
 
 import androidx.datastore.core.DataStore
 import kotlinx.coroutines.flow.map
+import org.deiverbum.app.core.datastore.FontSizeProto.TEXT10XL
+import org.deiverbum.app.core.datastore.FontSizeProto.TEXT11XL
+import org.deiverbum.app.core.datastore.FontSizeProto.TEXT12XL
+import org.deiverbum.app.core.datastore.FontSizeProto.TEXT2XL
+import org.deiverbum.app.core.datastore.FontSizeProto.TEXT2XS
+import org.deiverbum.app.core.datastore.FontSizeProto.TEXT3XL
+import org.deiverbum.app.core.datastore.FontSizeProto.TEXT4XL
+import org.deiverbum.app.core.datastore.FontSizeProto.TEXT5XL
+import org.deiverbum.app.core.datastore.FontSizeProto.TEXT6XL
+import org.deiverbum.app.core.datastore.FontSizeProto.TEXT7XL
+import org.deiverbum.app.core.datastore.FontSizeProto.TEXT8XL
+import org.deiverbum.app.core.datastore.FontSizeProto.TEXT9XL
+
+import org.deiverbum.app.core.datastore.FontSizeProto.TEXTLG
+import org.deiverbum.app.core.datastore.FontSizeProto.TEXTMD
+import org.deiverbum.app.core.datastore.FontSizeProto.TEXTSM
+import org.deiverbum.app.core.datastore.FontSizeProto.TEXTXL
+import org.deiverbum.app.core.datastore.FontSizeProto.TEXTXS
 import org.deiverbum.app.core.datastore.VoiceReaderProto.UNRECOGNIZED
 import org.deiverbum.app.core.datastore.VoiceReaderProto.VOICE_OFF
 import org.deiverbum.app.core.datastore.VoiceReaderProto.VOICE_ON
-import org.deiverbum.app.core.model.data.DarkThemeConfig
-import org.deiverbum.app.core.model.data.RubricColorConfig
-import org.deiverbum.app.core.model.data.ThemeBrand
 import org.deiverbum.app.core.model.data.UserData
 import org.deiverbum.app.core.model.data.UserDataDynamic
-import org.deiverbum.app.core.model.data.VoiceReaderConfig
+import org.deiverbum.app.core.model.data.configuration.DarkThemeConfig
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.DEFAULT
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.LG
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.MD
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.SM
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL10
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL11
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL12
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL2
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL3
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL4
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL5
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL6
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL7
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL8
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL9
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XS
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XS2
+import org.deiverbum.app.core.model.data.configuration.RubricColorConfig
+import org.deiverbum.app.core.model.data.configuration.ThemeBrand
+import org.deiverbum.app.core.model.data.configuration.VoiceReaderConfig
 import javax.inject.Inject
 
 class PreferencesDataSource @Inject constructor(
@@ -19,9 +56,6 @@ class PreferencesDataSource @Inject constructor(
     val userData = userPreferences.data
         .map {
             UserData(
-                //bookmarkedNewsResources = it.bookmarkedNewsResourceIdsMap.keys,
-                //viewedNewsResources = it.viewedNewsResourceIdsMap.keys,
-                //followedTopics = it.followedTopicIdsMap.keys,
                 themeBrand = when (it.themeBrand) {
                     null,
                     ThemeBrandProto.THEME_BRAND_UNSPECIFIED,
@@ -74,13 +108,33 @@ class PreferencesDataSource @Inject constructor(
                         UNRECOGNIZED -> VoiceReaderConfig.ON
                     },
 
-                    //useVoiceReader = VoiceReaderConfig.ON,//it.useVoiceReader,
-                    useMultipleInvitatory = it.useMultipleInvitatory
+                    useMultipleInvitatory = it.useMultipleInvitatory,
+                    fontSize = when (it.fontSize) {
+                        null,
+                        FontSizeProto.UNRECOGNIZED -> SM
+
+                        TEXT2XS -> XS2
+                        TEXTXS -> XS
+                        TEXTSM -> SM
+                        TEXTMD -> MD
+                        TEXTLG -> LG
+                        TEXTXL -> SM
+                        TEXT2XL -> XL2
+                        TEXT3XL -> XL3
+                        TEXT4XL -> XL4
+                        TEXT5XL -> XL5
+                        TEXT6XL -> XL6
+                        TEXT7XL -> XL7
+                        TEXT8XL -> XL8
+                        TEXT9XL -> XL9
+                        TEXT10XL -> XL10
+                        TEXT11XL -> XL11
+                        TEXT12XL -> XL12
+                        FontSizeProto.DEFAULT -> SM
+                    }
                 )
             )
         }
-
-
 
     suspend fun setThemeBrand(themeBrand: ThemeBrand) {
         userPreferences.updateData {
@@ -106,7 +160,36 @@ class PreferencesDataSource @Inject constructor(
                     VoiceReaderConfig.ON -> VOICE_ON
                     VoiceReaderConfig.OFF -> VOICE_OFF
                 }
+            }
+        }
+    }
 
+    suspend fun setFontSizePreference(fontSize: FontSizeConfig) {
+        userPreferences.updateData {
+            it.copy {
+                this.fontSize = when (fontSize) {
+                    //FontSizeConfig.SMALL -> S
+                    //FontSizeConfig.LARGE -> L
+                    //FontSizeConfig.EXTRA_LARGE -> XL
+                    XS2 -> TEXT2XS
+                    XS -> TEXTXS
+                    SM -> TEXTSM
+                    MD -> TEXTMD
+                    LG -> TEXTLG
+                    XL -> TEXTXL
+                    XL2 -> TEXT2XL
+                    XL3 -> TEXT3XL
+                    XL4 -> TEXT4XL
+                    XL5 -> TEXT4XL
+                    XL6 -> TEXT4XL
+                    XL7 -> TEXT4XL
+                    XL8 -> TEXT4XL
+                    XL9 -> TEXT4XL
+                    XL10 -> TEXT10XL
+                    XL11 -> TEXT11XL
+                    XL12 -> TEXT12XL
+                    DEFAULT -> TEXTLG
+                }
             }
         }
     }

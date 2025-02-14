@@ -2,12 +2,8 @@ package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
 import android.text.Spanned
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.room.ColumnInfo
 import androidx.room.Ignore
-import org.deiverbum.app.core.designsystem.component.getRubricColor
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
@@ -65,30 +61,7 @@ class LHOfficiumLectioAltera(
             return sb
         }
 
-    fun getHtmlTest(): String {
-        return homilia
-    }
-    @Composable
-    fun getComposable(userData: UserDataDynamic): AnnotatedString {
-        ContentTitle(
-            text = "SEGUNDA LECTURA",
-            level = 2,
-            userData = userData
-        ).getComposable()
-        val rubricColor = getRubricColor(userData = userData)
-        return buildAnnotatedString {
-            append(paterOpus?.opusForView)
-            append(Utils.LS2)
-            //append(Utils.toRedCompose(theSource, rubricColor))
-            append(Utils.LS2)
-            //append(Utils.toRedCompose(tema, rubricColor))
-            append(Utils.LS2)
-            append(textoSpan)
-            append(homilia)
-            //sb.append(Utils.LS)
-            //append(responsorium!!.getComposable(rubricColor = rubricColor))
-        }
-    }
+
     val all: SpannableStringBuilder
         get() {
             val sb = SpannableStringBuilder()

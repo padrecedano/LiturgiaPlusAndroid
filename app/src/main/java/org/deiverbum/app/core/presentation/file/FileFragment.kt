@@ -99,10 +99,10 @@ class FileFragment : BaseFileFragment<FragmentFileBinding>() {
 
     private fun onLoaded(fileItemUiState: FileItemUiState) {
         fileItemUiState.run {
-            allData.forEach {
+            /*allData.forEach {
                 getViewBinding().progressBar.visibility = View.GONE
                 getViewBinding().tvZoomable.text = it.text
-            }
+            }*/
         }
     }
 

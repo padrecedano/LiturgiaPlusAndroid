@@ -179,9 +179,61 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
      * Obtiene la conclusión de cada lectura según el tipo.
      *
      * @return Una cadena con la conclusión.
-     * @since 2024.1
+     * @since 2025.1
      */
-    private fun getConclusionByType(): String {
+    fun getConclusionByType(): String {
+        var conclusion = ""
+        if ((theOrder in (1..19)) || (theOrder in (30..39))) {
+            conclusion = "Palabra de Dios. Te alabamos Señor."
+        }
+        if (theOrder in 20..29) {
+            conclusion = ""
+        }
+        /*if (theOrder in 30..39) {
+            conclusion = "Palabra de Dios."
+        }*/
+        if (theOrder >= 40) {
+            conclusion = "Palabra del Señor. Gloria a ti, Señor, Jesús."
+        }
+        return conclusion
+
+    }
+
+
+    /**
+     *
+     * Obtiene la conclusión de cada lectura según el tipo.
+     *
+     * @return Una cadena con la conclusión.
+     * @since 2025.1
+     */
+    fun getConclusio(): String {
+        var conclusion = ""
+        if ((theOrder in (1..19)) || (theOrder in (30..39))) {
+            conclusion = "Palabra de Dios."
+        }
+        if (theOrder in 20..29) {
+            conclusion = ""
+        }
+        /*if (theOrder in 30..39) {
+            conclusion = "Palabra de Dios."
+        }*/
+        if (theOrder >= 40) {
+            conclusion = "Palabra del Señor."
+        }
+        return conclusion
+
+    }
+
+
+    /**
+     *
+     * Obtiene la conclusión de cada lectura según el tipo.
+     *
+     * @return Una cadena con la conclusión.
+     * @since 2025.1
+     */
+    fun getConclusioProVoce(): String {
         var conclusion = ""
         if ((theOrder in (1..19)) || (theOrder in (30..39))) {
             conclusion = "Palabra de Dios. Te alabamos Señor."

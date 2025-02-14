@@ -1,7 +1,10 @@
 {
-  "title": "Definiciones",
+  "title": "Sobre Liturgia+",
+  "shortTitle": "Sobre Liturgia+",
+
   "date": "20220308",
   "bookType": 2,
+  "typus": "normalis",
   "chapters": [
     {
       "content": [
@@ -40,13 +43,9 @@
           "type": 20,
           "title": "Misa",
           "text": [
-            "La Aplicación ofrecerá la liturgia de la Eucaristía del día correspondiente. Oraciones, lecturas, prefacios, etc. Se irán incluyendo los textos de la 3ª Edición Típica del Misal Romano, publicada en Octubre de 2016."
-          ]
-        },
-        {
-          "type": 0,
-          "text": [
+            "La Aplicación ofrecerá la liturgia de la Eucaristía del día correspondiente. Oraciones, lecturas, prefacios, etc. Se irán incluyendo los textos de la 3ª Edición Típica del Misal Romano, publicada en Octubre de 2016.",
             "Este módulo está todavía en proyecto. Si te interesa colaborar en él puedes ponerte en contacto conmigo."
+
           ]
         },
         {
@@ -78,11 +77,16 @@
           ]
         },
         {
-          "type": 0,
-          "text": [
-            "En un futuro, Dios mediante, incluiremos aquí también los comentarios de la <i>Catena aurea</i>, gran parte de los cuales ya existen en el sitio web <a href=\"https://wwww.deiverbum.org\">deiverbum.org</a>"
-          ]
+          "type": 32,
+          "link": {
+            "previous": "En un futuro, Dios mediante, incluiremos aquí también los comentarios de la <i>Catena aurea</i>, gran parte de los cuales ya existen en el sitio web",
+            "url": "https://wwww.deiverbum.org",
+            "textus": "deiverbum.org",
+            "posterioris": ".",
+            "haveBreak": true
+          }
         },
+
         {
           "type": 20,
           "title": "Calendario",
@@ -126,10 +130,31 @@
           ]
         },
         {
-          "type": 20,
+          "type": 32,
           "title": "Nota importante",
+          "link": {
+            "previous": "La mayor parte del contenido que maneja la aplicación (sobre todo las homilías y comentarios bíblicos) ha sido recopilado y revisado durante más de 20 años. Gran parte de ese contenido ya existe en el sitio web",
+            "url": "https://www.deiverbum.org",
+            "textus": "deiverbum.org",
+            "posterioris": ". Otro contenido se ha realizado recientemente gracias a algunos colaboradores y queda una gran parte de contenido nuevo en el cual puedes colaborar si lo desearas.",
+            "haveBreak": true
+          }
+        },
+        {
+          "type": 20,
+          "title": "Agradecimientos",
+
           "text": [
-            "La mayor parte del contenido que maneja la aplicación (sobre todo las homilías y comentarios bíblicos) ha sido recopilado y revisado durante más de 20 años. Gran parte de ese contenido ya existe en el sitio web <a href=\"http://www.deiverbum.org\" target=\"_blank\" rel=\"nofollow\">deiverbum.org</a>. Otro contenido se ha realizado recientemente gracias a algunos colaboradores y queda una gran parte de contenido nuevo en el cual puedes colaborar si lo desearas.</p>"
+            "Liturgia+ maneja una gran cantidad de datos. Esta aplicación no se ha creado mediante copiar/pegar o escaneando texto (lo cual supone por lo general muchos errores en el texto). El contenido de la aplicación ha sido revisado e incorporado a una especie de <i>convención de marcado</i> que he creado para poder mostrar el contenido formateado tal y como aparece en los libros litúrgicos.",
+            "Eso supuso un enorme trabajo aparte de comprender la forma correcta de <i>marcar</i> cada contenido según las <i>normas</i> de ese marcado (algo así como aprender un mini lenguaje :)).",
+            "Aquí quiero agradecer a aquellos que me ayudaron, sobre todo en los albores de la Aplicación, cuando el contenido era abrumador y tenía que ser creado día a día o semana a semana muchas veces entre una multitud de ocupaciones.",
+            "- <b>Romualdo Garrido Reyes (Madrid)</b>. Su ayuda fue enorme con respecto a elementos complicados como las preces, los responsorios y otros.",
+            "- <b>Carlos Renato Cengarle</b> (Argentina) se ocupó de revisar casi todas las vidas de los santos durante más de un año.",
+            "- <b>Francisco G. Farfán</b> (Écija). Creó el primer logo que tuvo la aplicación y me orientó y ayudó a crear el nuevo logo con el <i>Ichthys</i>.",
+            "Sin ellos la Aplicación no tendría la calidad de contenido que hoy pueden ustedes disfrutar día a día. Contenido que si Dios quiere espero poder compartir en un repositorio público para que no se pierda... pues nadie es eterno y uno puede morir de un momento a otro.",
+            "Mi agradecimiento también a <b>Alberto Metola</b> (Madrid) por sus sabios consejos y por tener siempre un ojo sobre el contenido y los errores que aparecen en la Aplicación.",
+            "Agradezco también a mucha gente que puntualmente me avisa sobre errores o me sugiere mejoras. Son muchos y no puedo mencionarlos a todos.",
+            "Que conste que no estoy solo en todo este lío en el que me metí hace un par de años y del cual no me arrepiento."
           ]
         },
         {

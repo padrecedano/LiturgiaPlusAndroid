@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import org.deiverbum.app.core.model.data.UserCalendarResource
 
 /**
- * Data layer implementation for [UserNewsResource]
+ * Data layer implementation for [UserCalendarResource]
  */
 interface UserCalendarResourceRepository {
     /**

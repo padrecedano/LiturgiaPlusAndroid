@@ -46,9 +46,10 @@ import org.deiverbum.app.core.designsystem.component.NiaLoadingWheel
 import org.deiverbum.app.core.designsystem.component.UniversalisSingleAppBar
 import org.deiverbum.app.core.designsystem.component.UniversalisTopAppBar
 import org.deiverbum.app.core.designsystem.theme.NiaTypography
-import org.deiverbum.app.core.model.data.Alteri
-import org.deiverbum.app.core.model.data.Universalis
-import org.deiverbum.app.core.model.data.UniversalisRequest
+import org.deiverbum.app.core.designsystem.theme.getPersonalizedTypography
+import org.deiverbum.app.core.model.data.AlteriSanctii
+import org.deiverbum.app.core.model.data.UniversalisResource
+import org.deiverbum.app.core.model.data.UserData
 import org.deiverbum.app.core.model.data.UserDataDynamic
 import org.deiverbum.app.core.ui.TrackScrollJank
 import org.deiverbum.app.core.ui.UniversalisBody
@@ -70,7 +71,7 @@ import org.deiverbum.app.util.Utils
  *
  */
 
-@ExperimentalStdlibApi
+//@ExperimentalStdlibApi
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi
 @ExperimentalMaterial3AdaptiveApi
@@ -107,7 +108,7 @@ fun UniversalisFromHomeScreen(
  *
  */
 
-@ExperimentalStdlibApi
+//@ExperimentalStdlibApi
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi
 @Composable
@@ -126,17 +127,20 @@ internal fun UniversalisFromHomeScreen(
 
         UniversalisUiState.Loading -> LoadingState(modifier = modifier)
         is UniversalisUiState.UniversalisData -> {
-            if (uiState.topics.isNullOrEmpty()) {
+            //TODO: Revisar condicional
+            /*if (uiState.topics.isNullOrEmpty()) {
                 NoDataScaffold(
                     onBackClick = onBackClick,
                     title = uiState.selectedTopicId,
                 )
-            } else {
+            } else {*/
+            //Text(uiState.topics[0].data.rosarium!!.getForView().toString())
+            //return
                 UniversalisResourceData(
                     onBackClick = onBackClick,
-                    universalisResource = uiState.topics
+                    universalisResource = uiState.topics //TODO: Quitar listOf
                 )
-            }
+            //}
         }
     }
 }
@@ -158,7 +162,7 @@ internal fun UniversalisFromHomeScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UniversalisToolbar(
-    uiState: List<UniversalisRequest>,
+    uiState: List<UniversalisResource>,
     modifier: Modifier = Modifier,
     showBackButton: Boolean = true,
     onBackClick: () -> Unit = {},
@@ -197,7 +201,7 @@ fun UniversalisToolbar(
         )
 
         if (showBottomSheet) {
-            val sb = uiState[0].data[0].getAllForRead()
+            val sb = uiState[0].data.getAllForRead()
             //viewModelSimpleMedia.loadData("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3")
             viewModelTts.loadData(
                 "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
@@ -279,13 +283,12 @@ fun LoadingState(modifier: Modifier = Modifier) {
  * [UniversalisResourceCardExpanded] card usada en `UniversalisScreen`
  */
 
-@ExperimentalStdlibApi
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UniversalisResourceCardExpanded(
     typusId: Int,
-    data: Universalis,
-    userData: UserDataDynamic
+    resource: UniversalisResource,
+    userData: UserData
     ) {
 
     Column {
@@ -294,6 +297,34 @@ fun UniversalisResourceCardExpanded(
         ) {
             Column {
                 //Spacer(modifier = Modifier.height(12.dp))
+                var title = ""
+                var meta = ""
+                val data = resource.data
+                typusId.let {
+                    when {
+                        it == 20 -> {
+                            val sancti = data.liturgia!!.liturgiaTypus as AlteriSanctii
+                            title = data.liturgia!!.nomen
+                            meta = sancti.sanctus.monthName
+                        }
+
+                        it == 30 -> {
+
+                            title = "Rosario"
+                            meta = "Viernes"
+                        }
+
+                        else -> {
+                            if (data == null) {
+                                title = "Aún no hay datos para esta fecha."
+                                meta = ""
+                            } else {
+                                title = data.liturgia!!.tempus!!.externus.toString()
+                                meta = data.liturgia!!.nomen
+                            }
+                        }
+                    }
+                }
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     if (data.todayDate > 0) {
                         Text(
@@ -309,43 +340,30 @@ fun UniversalisResourceCardExpanded(
                 }
                 Spacer(modifier = Modifier.height(14.dp))
                 Row {
-                    var title: String
-                    typusId.let {
-                        title = when {
-                            it == 20 -> {
-                                val sancti =
-                                    data.liturgia!!.liturgiaTypus as Alteri.Sancti
-                                sancti.sanctus.monthName
-                            }
 
-                            else -> {
-                                //TODO: "UniversalisResourceCard 75" ERROR cuando no hay homilías
-                                if (data == null) {
-                                    "Aún no hay datos para esta fecha."
-                                } else {
-                                    data.liturgia!!.tempus!!.externus.toString()
-                                }
-                            }
-                        }
-                    }
                     //UniversalisHeader("universalis.selectedTopicId!!", data.todayDate)
                     UniversalisResourceTitle(
                         title,
+                        userData.dynamic,
                         modifier = Modifier.fillMaxWidth((.8f)),
                     )
                     Spacer(modifier = Modifier.weight(1f))
                 }
                 Spacer(modifier = Modifier.height(14.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    UniversalisResourceMetaData(data.liturgia!!.nomen)
+                    UniversalisResourceMetaData(meta)
                 }
                 Spacer(modifier = Modifier.height(14.dp))
+                if (typusId == 301) {
+                    Text("Rosario")
+                } else {
 
                 UniversalisBody(
-                    data = data,
+                    data = resource.data,
                     topicId = typusId,
                     userData = userData,
                 )
+                }
             }
         }
     }
@@ -355,30 +373,39 @@ fun UniversalisResourceCardExpanded(
  * [UniversalisResourceCardExpanded] card usada en `UniversalisScreen`
  */
 
-@ExperimentalStdlibApi
+//@ExperimentalStdlibApi
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UniversalisResourceData(
-    universalisResource: List<UniversalisRequest>,
+    universalisResource: UniversalisResource,
     onBackClick: () -> Unit,
     viewModelTts: TtsMediaViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
     var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
-    val universalis = universalisResource[0].data[0]
-    val typusId = universalisResource[0].id
-    val userData = universalisResource[0].dynamic
+    val universalis = universalisResource.data
+    val typusId = universalisResource.id
+    val userData = universalisResource.dynamic
+    val subTitle = when (universalisResource.id) {
+        20 -> {
+            val sancti = universalisResource.data.liturgia!!.liturgiaTypus as AlteriSanctii
+            sancti.sanctus.monthName
+            //universalisResource.data[0].liturgia.liturgiaTypus
+        }
+
+        else -> Utils.formatDate(
+            universalisResource.date.toString(),
+            "yyyyMMdd",
+            "d '-' MMMM yyyy"
+        )
+    }
     Scaffold(
         topBar = {
             UniversalisTopAppBar(
-                userData = userData,
-                title = universalisResource[0].title,
-                subtitle = Utils.formatDate(
-                    universalisResource[0].date.toString(),
-                    "yyyyMMdd",
-                    "d '-' MMMM yyyy"
-                ),
+                userData = userData.dynamic,
+                title = universalisResource.title,
+                subtitle = subTitle,
                 onReaderClick = {
                     showBottomSheet = true
                 },
@@ -410,7 +437,7 @@ fun UniversalisResourceData(
 
                     ) {
                         UniversalisResourceCardExpanded(
-                            data = universalis,
+                            resource = universalisResource,
                             typusId = typusId,
                             userData = userData
                         )
@@ -472,9 +499,11 @@ fun NoDataScaffold(
 @Composable
 fun UniversalisResourceTitle(
     resourceTitle: String,
+    userData: UserDataDynamic,
     modifier: Modifier = Modifier,
 ) {
-    Text(resourceTitle, style = MaterialTheme.typography.headlineSmall, modifier = modifier)
+    val typography = getPersonalizedTypography(userData.fontSize)
+    Text(resourceTitle, style = typography.headlineSmall, modifier = modifier)
 }
 
 @Composable

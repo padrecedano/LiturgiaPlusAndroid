@@ -38,7 +38,13 @@ fun NiaTopAppBar(
     onActionClick: () -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
-        title = { Text(text = stringResource(id = titleRes)) },
+        title = {
+            Text(
+                text = stringResource(id = titleRes),
+                style = NiaTypography.titleLarge
+                //fontSize = 24.scaledSp()
+            )
+        },
         navigationIcon = {
             IconButton(onClick = onNavigationClick) {
                 Icon(
@@ -84,7 +90,7 @@ fun LPlusTopAppBar(
     },
 ) {
     CenterAlignedTopAppBar(
-        title = { Text(text = stringResource(id = titleRes)) },
+        title = { Text(text = stringResource(id = titleRes), style = NiaTypography.titleLarge) },
         navigationIcon = {
             IconButton(onClick = onNavigationClick) {
                 Icon(
@@ -152,7 +158,7 @@ fun UniversalisTopAppBar(
     TopAppBar(
         title = {
             Column {
-                Text(text = title)
+                Text(text = title, style = NiaTypography.titleLarge)
                 Text(text = subtitle, style = NiaTypography.titleSmall)
             }
         },
@@ -221,7 +227,7 @@ fun UniversalisSingleAppBar(
     },
 ) {
     TopAppBar(
-        title = { Text(title) },
+        title = { Text(title, style = NiaTypography.titleLarge) },
 
         navigationIcon = {
             IconButton(onClick = onNavigationClick) {
@@ -250,7 +256,7 @@ fun UniversalisSingleAppBar(
                 )
             }
             IconButton(onClick =
-            { Timber.d("a", "axy") }
+            { }
                 //onActionClick
             ) {
                 Icon(

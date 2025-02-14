@@ -29,7 +29,7 @@ import org.deiverbum.app.core.model.data.LHOfficium
 import org.deiverbum.app.core.model.data.LHOfficiumLectionis
 import org.deiverbum.app.core.model.data.LHPsalmody
 import org.deiverbum.app.core.model.data.Liturgy
-import org.deiverbum.app.core.model.data.UniversalisResource
+import org.deiverbum.app.core.model.data.Universalis
 import org.deiverbum.app.util.Constants
 
 /**
@@ -104,11 +104,11 @@ data class OfficiumExternal(
     var oratio: LHPrayerAll
 )
 
-fun OfficiumExternal.asExternalModel(): UniversalisResource {
+fun OfficiumExternal.asExternalModel(): Universalis {
     val extModel = universalis.asExternalModel()
     if (universalis.oBiblicalFK == Constants.EASTER_CODE) {
         extModel.oBiblicalFK = universalis.oBiblicalFK
-        return UniversalisResource(data = listOf(extModel))
+        return extModel
     }
     val psalmodia =
         LHPsalmody(psalmus.asExternalModel(), antiphonae.asExternalModel(), psalmus.join.theType)
@@ -136,5 +136,5 @@ fun OfficiumExternal.asExternalModel(): UniversalisResource {
         liturgia.entity.asExternalModel(),
         breviarium
     )
-    return UniversalisResource(data = listOf(extModel))
+    return extModel
 }

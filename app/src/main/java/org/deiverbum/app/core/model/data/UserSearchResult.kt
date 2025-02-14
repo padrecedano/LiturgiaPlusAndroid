@@ -22,5 +22,6 @@ package org.deiverbum.app.core.model.data
  */
 data class UserSearchResult(
     val topics: List<FollowableTopic> = emptyList(),
+    val userData: UserData,
     val newsResources: List<UserNewsResource> = emptyList(),
 )

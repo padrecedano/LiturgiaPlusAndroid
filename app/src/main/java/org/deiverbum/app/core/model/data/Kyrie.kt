@@ -17,8 +17,37 @@ data class Kyrie(
 ) {
 
     @Ignore
-    private val introduccion: String =
-        "Es muy de alabar que, después de la invocación inicial, se haga el examen de conciencia, el cual en la celebración comunitaria puede concluirse con un acto penitencial, de la siguiente forma:|Hermanos, habiendo llegado al final de esta jornada que Dios nos ha concedido, reconozcamos sinceramente nuestros pecados.|Todos examinan en silencio su conciencia. Terminando el examen se añade la fórmula penitencial:"
+    val introduccion: String =
+        "Es muy de alabar que, después de la invocación inicial, " +
+                "se haga el examen de conciencia, el cual en la celebración comunitaria puede concluirse con un acto penitencial, de la siguiente forma:" +
+                "|Hermanos, habiendo llegado al final de esta jornada que Dios nos ha concedido, reconozcamos sinceramente nuestros pecados.|"
+
+
+    @Ignore
+    val primumRubrica: String = "Es muy de alabar que, después de la invocación inicial, " +
+            "se haga el examen de conciencia, el cual en la celebración comunitaria puede concluirse con un acto penitencial, de la siguiente forma:"
+
+    @Ignore
+    val introductio: String =
+        "Hermanos, habiendo llegado al final de esta jornada que Dios nos ha concedido, " +
+                "reconozcamos sinceramente nuestros pecados."
+
+    @Ignore
+    val secundoRubrica: String =
+        "Todos examinan en silencio su conciencia. " +
+                "Terminando el examen se añade la fórmula penitencial:"
+    @Ignore
+    val conclusio: List<String> = listOf(
+        "El Señor todopoderoso tenga misericordia de nosotros, perdone nuestros pecados y nos lleve a la vida eterna.",
+        "Amén."
+    )
+
+    @Ignore
+    val tertiaRubrica: String = "Pueden usarse otras invocaciones penitenciales."
+
+    @Ignore
+    val quartaRubrica: String =
+        "Si preside la celebración un ministro, él solo dice la absolución siguiente; en caso de lo contrario la dicen todos:"
 
     @get:Ignore
     private val introduccionForRead: SpannableStringBuilder

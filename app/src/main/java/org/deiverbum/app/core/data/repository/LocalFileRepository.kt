@@ -7,12 +7,15 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.deiverbum.app.core.model.FileRequestt
+import org.deiverbum.app.core.model.FileResource
 import org.deiverbum.app.core.model.FileResponse
 import org.deiverbum.app.core.model.data.OracionSimple
 import org.deiverbum.app.core.model.data.Rosario
 import org.deiverbum.app.core.model.data.ViaCrucis
 import org.deiverbum.app.core.model.data.book.Book
 import org.deiverbum.app.core.model.data.book.BookSacramentum
+import org.deiverbum.app.core.model.data.book.LiberFileNormalis
+import org.deiverbum.app.core.model.data.book.LiberTypus
 import org.deiverbum.app.core.model.data.cic.IurisCanonici
 import org.deiverbum.app.core.model.data.ritualis.Biblical
 import org.deiverbum.app.core.model.data.ritualis.BiblicalShort
@@ -90,6 +93,7 @@ class LocalFileRepository @Inject constructor(
 
     private val moshi = Moshi.Builder()
         .add(
+
             PolymorphicJsonAdapterFactory.of(Content::class.java, "type")
                 .withSubtype(Paragraphus::class.java, "p")
                 .withSubtype(Rubrica::class.java, "r")
@@ -101,6 +105,10 @@ class LocalFileRepository @Inject constructor(
                 .withSubtype(Preces::class.java, "preces")
                 .withSubtype(Oratio::class.java, "oratio")
                 .withSubtype(BiblicalShort::class.java, "biblicalShort")
+        )
+        .add(
+            PolymorphicJsonAdapterFactory.of(LiberTypus::class.java, "typus")
+                .withSubtype(LiberFileNormalis::class.java, "normalis")
         )
         .add(KotlinJsonAdapterFactory())
         .build()
@@ -143,5 +151,15 @@ class LocalFileRepository @Inject constructor(
             fileResponse
 
         }
+    override suspend fun getFileModel(fileRequest: FileRequestt): FileResource =
+
+        //val fileResource=FileResource()
+        withContext(ioDispatcher) {
+            assetProvider.getFilesNew(fileRequest.fileName)
+
+        }
 
 }
+//return TODO("Provide the return value")
+
+

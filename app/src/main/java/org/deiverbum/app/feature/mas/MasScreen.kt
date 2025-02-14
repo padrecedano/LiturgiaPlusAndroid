@@ -1,7 +1,6 @@
 package org.deiverbum.app.feature.mas
 
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -54,11 +53,11 @@ fun MasScreen(
         is FileViewModel.FileUiState.Error -> ErrorState()
         is FileViewModel.FileUiState.Loaded -> {
             LazyColumn {
-                items(uiState.itemState.allData.size) {
+                /*items(uiState.itemState.allData.size) {
                     uiState.itemState.allData.forEach { file ->
                         Text(file.text.toString())
                     }
-                }
+                }*/
             }
         }
         FileViewModel.FileUiState.Loading -> LoadingState()

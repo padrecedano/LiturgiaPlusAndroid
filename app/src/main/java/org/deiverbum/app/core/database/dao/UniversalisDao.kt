@@ -34,6 +34,7 @@ import org.deiverbum.app.core.database.model.external.MixtusExternal
 import org.deiverbum.app.core.database.model.external.NonamExternal
 import org.deiverbum.app.core.database.model.external.OfficiumExternal
 import org.deiverbum.app.core.database.model.external.PopulatedVesperasResource
+import org.deiverbum.app.core.database.model.external.RosariumExternal
 import org.deiverbum.app.core.database.model.external.SanctiiExternal
 import org.deiverbum.app.core.database.model.external.SextamExternal
 import org.deiverbum.app.core.database.model.external.TertiamExternal
@@ -47,6 +48,8 @@ import org.deiverbum.app.core.model.data.Universalis
 interface UniversalisDao {
     companion object {
         const val universalisByDate = "SELECT * FROM universalis WHERE todayDate IN(:filterDates)"
+        const val universalisByDateNew = "SELECT * FROM universalis WHERE todayDate =:filterDate"
+
     }
 
     @Query(value = "SELECT * FROM universalis WHERE todayDate=20240719")
@@ -55,15 +58,11 @@ interface UniversalisDao {
     @Query(value = "SELECT * FROM ui_topic")
     fun getTopicEntities(): Flow<List<UITopicEntity>>
 
-
-    /**
-     * Fetches news resources that match the query parameters
-     */
     @Transaction
     @Query(universalisByDate)
     fun getUniversalisByDate(
-        filterDates: Set<Int> = emptySet(),
-    ): Flow<List<UniversalisExternal>>
+        filterDates: Int = 0,
+    ): Flow<UniversalisExternal>
 
     @Transaction
     @Query(universalisByDate)
@@ -72,74 +71,92 @@ interface UniversalisDao {
     ): Flow<List<UniversalisExternal>>
 
     /**
-     * Fetches news resources that match the query parameters
+     * Obtiene recursos **`MixtusExternal`** que coinciden con los parámetros de consulta.
      */
 
     @Transaction
-    @Query(universalisByDate)
+    @Query(universalisByDateNew)
     fun getMixtusByDate(
-        filterDates: Set<Int> = emptySet(),
-    ): Flow<List<MixtusExternal>>
+        filterDate: Int = 0,
+    ): Flow<MixtusExternal>
 
     @Transaction
-    @Query(universalisByDate)
+    @Query(universalisByDateNew)
+    fun getMixtusByDateNew(
+        filterDate: Int,
+    ): Flow<MixtusExternal>
+
+    @Transaction
+    @Query(universalisByDateNew)
     fun getOfficiumByDate(
-        filterDates: Set<Int> = emptySet(),
-    ): Flow<List<OfficiumExternal>>
+        filterDate: Int = 0,
+    ): Flow<OfficiumExternal>
 
     @Transaction
-    @Query(universalisByDate)
+    @Query(universalisByDateNew)
     fun getLaudesByDate(
-        filterDates: Set<Int> = emptySet(),
-    ): Flow<List<LaudesExternal>>
+        filterDate: Int,
+    ): Flow<LaudesExternal>
 
     @Transaction
-    @Query(universalisByDate)
+    @Query(universalisByDateNew)
     fun getTertiamByDate(
-        filterDates: Set<Int> = emptySet(),
-    ): Flow<List<TertiamExternal>>
+        filterDate: Int,
+    ): Flow<TertiamExternal>
 
     @Transaction
-    @Query(universalisByDate)
+    @Query(universalisByDateNew)
     fun getSextamByDate(
-        filterDates: Set<Int> = emptySet(),
-    ): Flow<List<SextamExternal>>
+        filterDate: Int,
+    ): Flow<SextamExternal>
 
     @Transaction
-    @Query(universalisByDate)
+    @Query(universalisByDateNew)
     fun getNonamByDate(
-        filterDates: Set<Int> = emptySet(),
-    ): Flow<List<NonamExternal>>
+        filterDate: Int,
+    ): Flow<NonamExternal>
 
     @Transaction
-    @Query(universalisByDate)
-    fun getVesperasByDate(filterDates: Set<Int> = emptySet()): Flow<List<PopulatedVesperasResource>>
+    @Query(universalisByDateNew)
+    fun getVesperasByDate(
+        filterDate: Int,
+    )
+            : Flow<PopulatedVesperasResource>
 
     @Transaction
-    @Query(universalisByDate)
-    fun getCompletoriumByDate(filterDates: Set<Int> = emptySet()): Flow<List<CompletoriumExternal>>
+    @Query(universalisByDateNew)
+    fun getCompletoriumByDate(
+        filterDate: Int,
+    ): Flow<CompletoriumExternal>
 
     @Transaction
-    @Query(universalisByDate)
-    fun getMissaeLectionumByDate(filterDates: Set<Int> = emptySet()): Flow<List<MissaeLectionumExternal>>
+    @Query(universalisByDateNew)
+    fun getMissaeLectionumByDate(
+        filterDate: Int,
+    ): Flow<MissaeLectionumExternal>
 
     @Transaction
-    @Query(universalisByDate)
-    fun getCommentariiByDate(filterDates: Set<Int> = emptySet()): Flow<List<CommentariiExternal>>
+    @Query(universalisByDateNew)
+    fun getCommentariiByDate(
+        filterDate: Int,
+    ): Flow<CommentariiExternal>
 
     @Transaction
     @Query("SELECT * FROM saint WHERE theMonth=:theMonth AND theDay=:theDay")
-    fun getSanctiiByDate(theMonth: Int?, theDay: Int?): Flow<List<SanctiiExternal>>
-
+    fun getSanctiiByDate(theMonth: Int?, theDay: Int?): Flow<SanctiiExternal>
 
     @Transaction
-    @Query(universalisByDate)
-    fun getHomiliaeByDate(filterDates: Set<Int> = emptySet()): Flow<List<HomiliaeExternal>>
+    @Query(universalisByDateNew)
+    fun getHomiliaeByDate(
+        filterDate: Int,
+    ): Flow<HomiliaeExternal>
 
+    @Transaction
+    @Query(
+        "SELECT * FROM rosarium_series_dies WHERE dies=:weekDay"
+    )
+    fun getRosariumByDate(weekDay: Int): Flow<RosariumExternal>
 
-    /**
-     * Fetches news resources that match the query parameters
-     */
     @Transaction
     @Query(
         value = """
@@ -170,7 +187,7 @@ interface UniversalisDao {
                 todayDate IN(:todayDate)
     """,
     )
-    fun getUniversalisByDate(todayDate: Int): Flow<UniversalisEntity>
+    fun getUniversalisByDatee(todayDate: Int): Flow<UniversalisEntity>
 
 
     /**

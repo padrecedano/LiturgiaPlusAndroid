@@ -14,7 +14,6 @@ import org.deiverbum.app.core.database.model.relation.LHHymnAssoc
 import org.deiverbum.app.core.database.model.relation.LHPrayerAll
 import org.deiverbum.app.core.database.model.relation.LHPsalmsAssoc
 import org.deiverbum.app.core.database.model.relation.LHReadingShortAll
-import org.deiverbum.app.core.database.model.relation.LHTertiamLocal
 import org.deiverbum.app.core.database.model.relation.LiturgyTimeAssoc
 import org.deiverbum.app.core.database.model.relation.asExternalModel
 import org.deiverbum.app.core.model.data.Breviarium
@@ -22,7 +21,6 @@ import org.deiverbum.app.core.model.data.LHIntermedia
 import org.deiverbum.app.core.model.data.LHPsalmody
 import org.deiverbum.app.core.model.data.Liturgy
 import org.deiverbum.app.core.model.data.Universalis
-import org.deiverbum.app.core.model.data.UniversalisResource
 
 /**
  * Representación de Tercia para la capa de datos externa.
@@ -68,9 +66,9 @@ data class TertiamExternal(
     var oratio: LHPrayerAll
 )
 
-fun LHTertiamLocal.asExternalModel() = Universalis(
+
+fun TertiamExternal.asExternalModel() = Universalis(
     universalis.todayDate,
-    //universalis.timeFK,
     Liturgy(
         liturgia.parent.semana,
         liturgia.parent.dia,
@@ -87,33 +85,6 @@ fun LHTertiamLocal.asExternalModel() = Universalis(
             oratio.asExternalModel(),
             4,
             "intermedia"
-        )
-    )
-)
-
-fun TertiamExternal.asExternalModel() = UniversalisResource(
-    data =
-    listOf(
-        Universalis(
-            universalis.todayDate,
-            Liturgy(
-                liturgia.parent.semana,
-                liturgia.parent.dia,
-                liturgia.parent.nombre,
-                liturgia.entity.asExternalModel(),
-                LHIntermedia(
-                    hymnus.entity.asExternalModel(),
-                    LHPsalmody(
-                        psalmus.asExternalModel(),
-                        antiphonae.asExternalModel(),
-                        psalmus.join.theType
-                    ),
-                    lectioBrevis.asExternalModel(),
-                    oratio.asExternalModel(),
-                    4,
-                    "intermedia"
-                )
-            )
         )
     )
 )

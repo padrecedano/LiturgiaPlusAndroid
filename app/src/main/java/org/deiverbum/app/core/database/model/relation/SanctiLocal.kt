@@ -5,7 +5,7 @@ import androidx.room.Relation
 import org.deiverbum.app.core.database.model.entity.SaintEntity
 import org.deiverbum.app.core.database.model.entity.SaintLifeEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.Alteri
+import org.deiverbum.app.core.model.data.AlteriSanctii
 import org.deiverbum.app.core.model.data.Liturgy
 import org.deiverbum.app.core.model.data.Universalis
 
@@ -25,7 +25,7 @@ data class SanctiLocal(
 fun SanctiLocal.asExternalModel(): Universalis {
     val extModel = Universalis()
     val alteri =
-        Alteri.Sancti(
+        AlteriSanctii(
             saintLife.asExternalModel(saint.theMonth, saint.theDay, saint.theName),
             "sanctii"
             //LiturgyTime()

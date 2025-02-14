@@ -13,8 +13,7 @@ import org.deiverbum.app.core.data.repository.UniversalisRepository
 import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.domain.GetUniversalisFromCalendarUseCase
 import org.deiverbum.app.core.domain.GetUniversalisUseCase
-import org.deiverbum.app.core.domain.HomeSortField
-import org.deiverbum.app.core.model.data.UniversalisRequest
+import org.deiverbum.app.core.model.data.UniversalisResource
 import org.deiverbum.app.feature.calendar.navigation.CalendarRoute
 import org.deiverbum.app.util.LiturgyHelper
 import org.deiverbum.app.util.Utils
@@ -71,7 +70,7 @@ class CalendarUniversalisViewModel @Inject constructor(
     val universalisState: StateFlow<CalendarUniversalisUiState> = combine(
         selectedTopicId,
         getTopicWithDate.invoke(
-            sortBy = HomeSortField.ID,
+            //sortBy = HomeSortField.ID,
             date = selectedDate.value,
             title = selectedTopicId.value,
             selectedTopicId = LiturgyHelper.liturgyByName(selectedTopicId.value)
@@ -136,7 +135,7 @@ sealed interface CalendarUniversalisUiState {
         val selectedTopicId: String?,
         //val isReader: Boolean=true,
         //val topicId:Int,
-        val topics: List<UniversalisRequest>,
+        val topics: UniversalisResource,
     ) : CalendarUniversalisUiState
 
     data object Empty : CalendarUniversalisUiState

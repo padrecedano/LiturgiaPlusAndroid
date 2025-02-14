@@ -8,9 +8,11 @@ import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.material.icons.outlined.BugReport
+import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.ChecklistRtl
 import androidx.compose.material.icons.outlined.ExposurePlus1
+import androidx.compose.material.icons.outlined.Face
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.NewReleases
@@ -46,11 +48,15 @@ object LPlusIcons {
 
     val Add = Icons.Rounded.Add
     val ArrowBack = Icons.AutoMirrored.Rounded.ArrowBack
+    val Author = Icons.Outlined.Face
+
     val Bookmark = Icons.Rounded.Bookmark
     val BookmarkBorder = Icons.Rounded.BookmarkBorder
     val Bookmarks = Icons.Rounded.Bookmarks
     val BookmarksBorder = Icons.Outlined.Bookmarks
     val Bug = Icons.Outlined.BugReport
+    val Build = Icons.Outlined.Build
+
 
     val Calendar = Icons.Rounded.CalendarMonth
     val CalendarBorder = Icons.Outlined.CalendarMonth

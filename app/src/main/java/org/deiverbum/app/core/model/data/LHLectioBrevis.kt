@@ -1,9 +1,6 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.buildAnnotatedString
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
@@ -36,18 +33,6 @@ data class LHLectioBrevis(
 
     private fun getHeaderForRead(): String {
         return "LECTURA BREVE."
-    }
-
-    @Composable
-    fun getComposable(hourIndex: Int, userData: UserDataDynamic): AnnotatedString {
-        /*ContentTitle(
-            text = Constants.TITLE_SHORT_READING.uppercase(),
-            level = 2,
-            userData = userData
-        ).getComposable()*/
-        return buildAnnotatedString {
-            append("textoSpan")
-        }
     }
 
     fun getAllWithHourCheck(hourId: Int): SpannableStringBuilder {

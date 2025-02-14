@@ -37,13 +37,15 @@ import kotlinx.coroutines.launch
 import org.deiverbum.app.core.analytics.AnalyticsHelper
 import org.deiverbum.app.core.analytics.LocalAnalyticsHelper
 import org.deiverbum.app.core.data.repository.UniversalisRepository
+import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.data.util.NetworkMonitor
 import org.deiverbum.app.core.data.util.TimeZoneMonitor
 import org.deiverbum.app.core.designsystem.theme.LPlusTheme
 import org.deiverbum.app.core.media.service.SimpleMediaService
 import org.deiverbum.app.core.media.service.TtsMediaService
-import org.deiverbum.app.core.model.data.DarkThemeConfig
-import org.deiverbum.app.core.model.data.ThemeBrand
+import org.deiverbum.app.core.model.data.configuration.DarkThemeConfig
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig
+import org.deiverbum.app.core.model.data.configuration.ThemeBrand
 import org.deiverbum.app.core.ui.LocalTimeZone
 import org.deiverbum.app.feature.tts.TtsMediaViewModel
 import org.deiverbum.app.ui.NiaApp
@@ -75,6 +77,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var universalisRepository: UniversalisRepository
+
+    @Inject
+    lateinit var userDataRepository: UserDataRepository
 
     //val universalisViewModel: UniversalisViewModel  by viewModels()
 
@@ -173,6 +178,7 @@ class MainActivity : ComponentActivity() {
                     darkTheme = darkTheme,
                     androidTheme = shouldUseAndroidTheme(uiState),
                     disableDynamicTheming = shouldDisableDynamicTheming(uiState),
+                    fontSize = fontSize(uiState)
                 ) {
                     NiaApp(appState = appState, startServiceTts = ::startServiceTts)
                 }
@@ -285,6 +291,19 @@ private fun shouldUseDarkTheme(
         DarkThemeConfig.DARK -> true
     }
 }
+
+/**
+ * Returns `true` if dark theme should be used, as a function of the [uiState] and the
+ * current system context.
+ */
+
+private fun fontSize(
+    uiState: MainActivityUiState,
+): FontSizeConfig = when (uiState) {
+    MainActivityUiState.Loading -> FontSizeConfig.DEFAULT
+    is MainActivityUiState.Success -> uiState.userData.dynamic.fontSize
+}
+
 
 /**
  * The default light scrim, as defined by androidx and the platform:

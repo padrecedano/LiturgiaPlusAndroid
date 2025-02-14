@@ -11,7 +11,7 @@ class Preamble
 /**
  * No args constructor for use in serialization
  */
-    : Content() {
+{
     //@SerializedName("paragraphs")
     //@Expose
     var paragraphs: List<Paragraph>? = null

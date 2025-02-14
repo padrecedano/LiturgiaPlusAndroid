@@ -4,7 +4,7 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import org.deiverbum.app.util.ColorUtils
 import org.deiverbum.app.util.Utils
-import java.util.*
+import java.util.Locale
 
 class Rosario {
     private var saludo: String = ""
@@ -189,3 +189,4 @@ class Rosario {
     val subTitle: String
         get() = byDay
 }
+

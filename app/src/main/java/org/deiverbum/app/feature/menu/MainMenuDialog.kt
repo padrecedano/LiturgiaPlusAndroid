@@ -25,7 +25,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
@@ -33,17 +32,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.deiverbum.app.R
 import org.deiverbum.app.core.designsystem.component.MenuButton
-import org.deiverbum.app.core.designsystem.component.NiaTextButton
+import org.deiverbum.app.core.designsystem.theme.NiaTypography
 import org.deiverbum.app.core.designsystem.theme.supportsDynamicTheming
-import org.deiverbum.app.core.model.data.DarkThemeConfig
-import org.deiverbum.app.core.model.data.ThemeBrand
-import org.deiverbum.app.core.model.data.VoiceReaderConfig
+import org.deiverbum.app.core.model.data.configuration.DarkThemeConfig
+import org.deiverbum.app.core.model.data.configuration.ThemeBrand
+import org.deiverbum.app.core.model.data.configuration.VoiceReaderConfig
 import org.deiverbum.app.core.model.data.ui.MenuItem
 import org.deiverbum.app.core.ui.TrackScreenViewEvent
-import org.deiverbum.app.feature.settings.SettingsUiState
 import org.deiverbum.app.feature.settings.SettingsViewModel
 import org.deiverbum.app.util.Configuration.MY_EMAIL
-import org.deiverbum.app.util.Constants.PLAY_STORE_URL
 
 
 @Composable
@@ -56,7 +53,7 @@ fun MainMenuDialog(
     MainMenuDialog(
         onDismiss = onDismiss,
         onClick = onClick,
-        settingsUiState = settingsUiState,
+        //settingsUiState = settingsUiState,
         onChangeThemeBrand = viewModel::updateThemeBrand,
         onChangeDynamicColorPreference = viewModel::updateDynamicColorPreference,
         onChangeVoiceReaderPreference = viewModel::updateVoiceReaderPreference,
@@ -67,7 +64,7 @@ fun MainMenuDialog(
 
 @Composable
 fun MainMenuDialog(
-    settingsUiState: SettingsUiState,
+    //settingsUiState: SettingsUiState,
     supportDynamicColor: Boolean = supportsDynamicTheming(),
     onDismiss: () -> Unit,
     onClick: (String) -> Unit,
@@ -93,7 +90,7 @@ fun MainMenuDialog(
         title = {
             Text(
                 text = stringResource(R.string.feature_menu_title),
-                style = MaterialTheme.typography.titleLarge,
+                style = NiaTypography.titleLarge,
             )
         },
         text = {
@@ -115,12 +112,12 @@ fun MainMenuDialog(
                 HorizontalDivider(Modifier.padding(top = 8.dp))
                 AppNamePanel()
             }
-            TrackScreenViewEvent(screenName = "Settings")
+            TrackScreenViewEvent(screenName = "Menu")
         },
         confirmButton = {
             Text(
                 text = stringResource(R.string.feature_settings_dismiss_dialog_button_text),
-                style = MaterialTheme.typography.labelLarge,
+                style = NiaTypography.labelLarge,
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .padding(horizontal = 8.dp)
@@ -146,37 +143,43 @@ private fun MenuPanel(
     onDismiss: () -> Unit,
 ) {
     val menuItems = listOf(
-        MenuItem(title = stringResource(R.string.feature_menu_about), icon = LPlusIcons.About, 1),
+        MenuItem(title = stringResource(R.string.feature_menu_about), icon = LPlusIcons.About, 10),
+        MenuItem(
+            title = stringResource(R.string.feature_menu_author),
+            icon = LPlusIcons.Author,
+            11
+        ),
+        MenuItem(title = stringResource(R.string.feature_menu_new), icon = LPlusIcons.News, 12),
 
-        MenuItem(title = stringResource(R.string.feature_menu_share), icon = LPlusIcons.Share, 1),
         //TODO: Fusionar contenido con
         // About y ¿Autor? y ¿Agradecimientos?
         // MenuItem(title = stringResource(R.string.feature_menu_help), icon = LPlusIcons.Help, 1),
-        MenuItem(title = stringResource(R.string.feature_menu_sync), icon = LPlusIcons.Sync, 1),
+        MenuItem(title = stringResource(R.string.feature_menu_sync), icon = LPlusIcons.Sync, 2),
         MenuItem(
             title = stringResource(R.string.feature_menu_settings),
-            icon = LPlusIcons.Settings,
-            1
+            icon = LPlusIcons.Build,
+            21
         ),
-        MenuItem(title = stringResource(R.string.feature_menu_bugs), icon = LPlusIcons.Bug, 1),
+        MenuItem(title = stringResource(R.string.feature_menu_bugs), icon = LPlusIcons.Bug, 22),
         //MenuItem(title = stringResource(R.string.feature_menu_author), icon = LPlusIcons.Person, 1),
         //MenuItem(title = stringResource(R.string.feature_menu_thanks), icon = LPlusIcons.Thanks, 1),
-        MenuItem(title = stringResource(R.string.feature_menu_new), icon = LPlusIcons.News, 1),
+        MenuItem(title = stringResource(R.string.feature_menu_share), icon = LPlusIcons.Share, 3),
+        MenuItem(
+            title = stringResource(R.string.feature_menu_play_store),
+            icon = LPlusIcons.PlayStore,
+            31
+        ),
         MenuItem(
             title = stringResource(R.string.feature_settings_privacy_policy),
             icon = LPlusIcons.Privacy,
-            1
+            4
         ),
         MenuItem(
             title = stringResource(R.string.feature_settings_terms),
             icon = LPlusIcons.Terms,
-            1
+            41
         ),
-        MenuItem(
-            title = stringResource(R.string.feature_menu_play_store),
-            icon = LPlusIcons.PlayStore,
-            1
-        ),
+
 
         )
     Column(
@@ -184,18 +187,16 @@ private fun MenuPanel(
         verticalArrangement = Arrangement.spacedBy(1.dp, Alignment.Bottom)
     ) {
         menuItems.forEach {
-            if (it.group == 1) {
+            if (it.group < 5) {
+                HorizontalDivider()
                 //MenuDialogItemRow(item = it, onClick = onClick)
-                MenuDialogItemRow(
-                    item = it,
-                    onClick = { onClick(it.title) },
-                    onDismiss = onDismiss
-
-                )
-
-            } else {
-
             }
+            MenuDialogItemRow(
+                item = it,
+                onClick = { onClick(it.title) },
+                onDismiss = onDismiss
+
+            )
         }
 
     }
@@ -222,14 +223,14 @@ fun MenuDialogItemRow(
         )
         if (item.title == "Ver en Play Store") {
             MenuButton {
-                Text(text = item.title)
+                Text(text = item.title, style = NiaTypography.bodyLarge)
             }
         } else {
             MenuButton(
                 onClick = onClick,
                 onDismiss = onDismiss
             ) {
-                Text(text = item.title)
+                Text(text = item.title, style = NiaTypography.bodyLarge)
             }
         }
     }
@@ -253,15 +254,16 @@ private fun AppNamePanel() {
                 append("\n")
                 append(MY_EMAIL)
             },
-            style = MaterialTheme.typography.labelLarge,
+            style = NiaTypography.bodyMedium,
+            //fontSize = 16.scaledSp(),
         )
 
-        val uriHandler = LocalUriHandler.current
+        /*val uriHandler = LocalUriHandler.current
         NiaTextButton(
             onClick = { uriHandler.openUri(PLAY_STORE_URL) },
         ) {
             Text(text = stringResource(R.string.feature_settings_privacy_policy))
-        }
+        }*/
 
     }
 }

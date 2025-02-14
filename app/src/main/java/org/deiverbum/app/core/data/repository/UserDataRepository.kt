@@ -18,10 +18,11 @@ package org.deiverbum.app.core.data.repository
 
 
 import kotlinx.coroutines.flow.Flow
-import org.deiverbum.app.core.model.data.DarkThemeConfig
-import org.deiverbum.app.core.model.data.ThemeBrand
 import org.deiverbum.app.core.model.data.UserData
-import org.deiverbum.app.core.model.data.VoiceReaderConfig
+import org.deiverbum.app.core.model.data.configuration.DarkThemeConfig
+import org.deiverbum.app.core.model.data.configuration.FontSizeConfig
+import org.deiverbum.app.core.model.data.configuration.ThemeBrand
+import org.deiverbum.app.core.model.data.configuration.VoiceReaderConfig
 
 
 interface UserDataRepository {
@@ -69,6 +70,8 @@ interface UserDataRepository {
     suspend fun setVoiceReaderPreference(useVoiceReader: VoiceReaderConfig)
 
     suspend fun setMultipleInvitatoryPreference(useMultipleInvitatory: Boolean)
+
+    suspend fun setFontSizePreference(fontSize: FontSizeConfig)
 
     /**
      * Sets whether the user has completed the onboarding process.

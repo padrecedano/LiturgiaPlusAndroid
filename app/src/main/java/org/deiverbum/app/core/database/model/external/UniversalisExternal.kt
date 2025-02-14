@@ -4,7 +4,6 @@ import androidx.room.Embedded
 import org.deiverbum.app.core.database.model.entity.UniversalisEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
 import org.deiverbum.app.core.model.data.Universalis
-import org.deiverbum.app.core.model.data.UniversalisResource
 
 /**
  * Representación de Universalis para la capa de datos externa.
@@ -19,9 +18,7 @@ data class UniversalisExternal(
     var universalis: UniversalisEntity,
 )
 
-fun UniversalisExternal.asExternalModel() = UniversalisResource(
-    data =
-    listOf(
-        universalis.asExternalModel()
-    )
-)
+
+fun UniversalisExternal.asExternalModel(): Universalis {
+    return universalis.asExternalModel()
+}

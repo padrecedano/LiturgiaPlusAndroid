@@ -16,7 +16,5 @@ class HomeViewModel @Inject constructor(
 
     //val searchQuery = savedStateHandle.getStateFlow(key = SEARCH_QUERY, initialValue = "")
 
-    fun getToday(): String {
-        return universalisRepository.getReader()
-    }
+
 }

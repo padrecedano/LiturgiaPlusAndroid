@@ -1,6 +1,7 @@
 package org.deiverbum.app.feature.home
 
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -11,9 +12,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedCard
@@ -24,12 +28,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
+import org.deiverbum.app.core.designsystem.theme.NiaTypography
 import org.deiverbum.app.core.model.data.ui.ItemUI
 import org.deiverbum.app.core.model.data.ui.ItemUICollection
 
@@ -122,8 +128,8 @@ fun HomeScreenCalendarFinal(
 
             }
 
-            CalendarUiState.Empty -> TODO()
-            CalendarUiState.Error -> TODO()
+            CalendarUiState.Empty ->
+            CalendarUiState.Error ->
         }
     */
     if (showTopics) {
@@ -134,11 +140,10 @@ fun HomeScreenCalendarFinal(
         val rowModifier = Modifier
             .padding(horizontal = 8.dp, vertical = 12.dp)
             .heightIn(max = 500.dp)
+
             .clip(RoundedCornerShape(8.dp))
 
-        Box(
-            modifier = Modifier,
-        ) {
+        Box {
 
             LazyColumn(modifier = rowModifier) {
                 item {
@@ -151,10 +156,26 @@ fun HomeScreenCalendarFinal(
                 items(populateData()) { item ->
 
                     if (item.parent == "Breviario") {
-                        Text(item.parent, fontSize = 26.sp)
+                        Text(item.parent)
                         item.childs.forEach { it ->
                             if (it.group == "a") {
-                                FlowRow(modifier = rowModifier) {
+                                FlowRow(
+                                    modifier = Modifier
+                                        .safeDrawingPadding()
+                                        .fillMaxWidth(1f)
+                                        // .padding(16.dp)
+
+                                        //.wrapContentHeight(align = Alignment.Center)
+                                        .verticalScroll(rememberScrollState()),
+                                    verticalArrangement = Arrangement.spacedBy(14.dp),
+                                    horizontalArrangement = Arrangement.spacedBy(
+                                        48.dp,
+                                        Alignment.CenterHorizontally
+                                    ),
+                                    //modifier = rowModifier,
+                                    //verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically)
+
+                                ) {
                                     it.items.forEach {
                                         HomeButton(it) {
                                             onTopicClick(it.id.toString())
@@ -231,7 +252,7 @@ fun HomeScreen(
         modifier = Modifier,
     ) {
 
-        LazyColumn(modifier = rowModifier) {
+        LazyColumn(modifier = rowModifier, horizontalAlignment = Alignment.CenterHorizontally) {
             item {
                 //TimedLayout()
                 //OutlinedCardExample()
@@ -246,7 +267,15 @@ fun HomeScreen(
                     Text(item.parent, fontSize = 26.sp)
                     item.childs.forEach {
                         if (it.group == "a") {
-                            FlowRow(modifier = rowModifier) {
+                            FlowRow(
+                                modifier = rowModifier,
+                                verticalArrangement = Arrangement.spacedBy(8.dp),
+                                horizontalArrangement = Arrangement.spacedBy(
+                                    8.dp,
+                                    Alignment.CenterHorizontally
+                                ),
+
+                                ) {
                                 it.items.forEach {
                                     HomeButton(it) {
                                         //onNextButtonClicked(it.id.toString())
@@ -256,7 +285,18 @@ fun HomeScreen(
                             }
                         }
                         if (it.group == "b") {
-                            FlowRow(modifier = rowModifier) {
+                            FlowRow(
+                                //modifier = rowModifier,
+                                verticalArrangement = Arrangement.spacedBy(
+                                    8.dp,
+                                    Alignment.CenterVertically
+                                ),
+                                horizontalArrangement = Arrangement.spacedBy(
+                                    8.dp,
+                                    Alignment.CenterHorizontally
+                                ),
+
+                                ) {
                                 it.items.forEach {
                                     HomeButton(it) { onNextButtonClicked(it.title) }
                                     Spacer(modifier = chipModifier)
@@ -308,9 +348,22 @@ fun HomeButton(
     itemUI: ItemUI,
     onClick: () -> Unit
 ) {
+
     AssistChip(
-        onClick = { onClick() },
-        label = { Text(itemUI.title) }
+        onClick = {
+            onClick()
+        },
+        label = {
+            Text(
+                itemUI.title,
+                //fontSize = 16.scaledSp(),
+                style = NiaTypography.bodyLarge,
+                textAlign = TextAlign.Center,
+                //modifier =Modifier
+                //    .
+                //textAlign = TextAlign.Center
+            )
+        }
     )
 }
 

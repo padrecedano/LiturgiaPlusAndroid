@@ -3,40 +3,43 @@ package org.deiverbum.app.feature.file.navigation
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
 import org.deiverbum.app.feature.file.FileScreen
 
+/**
+ * Ruta para archivos locales.
+ *
+ * @author A. Cedano
+ * @version 1.0
+ * @since 2025.1
+ *
+ */
 @Serializable
 data class FileRoute(
     val fileTitle: String? = null,
     val fileName: String? = null,
 )
 
-fun NavController.navigateToFile(
-    fileName: String? = null,
-    navOptions: NavOptions? = null,
-) {
-    navigate(route = FileRoute(fileName), navOptions)
-}
-
+/**
+ * Navegador para archivos locales.
+ *
+ * @author A. Cedano
+ * @version 1.0
+ * @since 2025.1
+ *
+ */
 @ExperimentalFoundationApi
 @ExperimentalLayoutApi
 @ExperimentalMaterial3AdaptiveApi
 fun NavGraphBuilder.fileScreen(
-    onFileClick: (String) -> Unit,
-    //onBackClick: () -> Unit,
+    onBackClick: () -> Unit,
 ) {
     composable<FileRoute> {
-        val file = route
         FileScreen(
-            onFileClick = onFileClick,
-            fileName = route
+            onBackClick = onBackClick,
         )
-        //FileRequest(fileName = listOf(route!!),1,1,true,true,true))
     }
 }
 

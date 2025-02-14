@@ -3,63 +3,25 @@ package org.deiverbum.app.core.model.data.book
 import android.text.SpannableStringBuilder
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
-import java.util.*
+import java.util.Locale
 
 /**
+ * Clase de datos para contenido proveniente de archivos locales.
+ *
  * @author A. Cedano
- * @version 1.0
+ * @version 2.0
  * @since 2022.1
+ * @see [Book]
+ *
  */
-open class Content {
-    //@SerializedName("type")
-    //@Expose
-    private var type = 0
 
-    //@SerializedName("item")
-    //@Expose
-    private var item: String? = null
-
-    //@SerializedName("text")
-    //@Expose
-    private var text: List<String>? = null
-
-    //@SerializedName("title")
-    //@Expose
-    private var title: String? = null
-    fun getType(): Int {
-        return type
-    }
-
-    fun setType(type: Int) {
-        this.type = type
-    }
-
-    @Suppress("unused")
-    fun getItem(): String? {
-        return item
-    }
-
-    @Suppress("unused")
-    fun setItem(item: String?) {
-        this.item = item
-    }
-
-    fun getText(): List<String>? {
-        return text
-    }
-
-    fun setText(text: List<String>?) {
-        this.text = text
-    }
-
-    private fun getTitle(): String? {
-        return title
-    }
-
-    @Suppress("unused")
-    fun setTitle(title: String?) {
-        this.title = title
-    }
+data class Content(
+    var type: Int = 0,
+    var item: String? = null,
+    var text: List<String>? = null,
+    var title: String? = null,
+    var link: BookLink? = null
+) {
 
     fun getByType(): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
@@ -75,33 +37,41 @@ open class Content {
                 sb.append(txt)
                 sb.append(Utils.LS2)
             }
+
             2 -> {
                 sb.append(Utils.toH3(title))
                 sb.append(Utils.LS2)
                 sb.append(getTextForView())
             }
+
             3 -> {
                 sb.append(Utils.toH4(title))
                 sb.append(Utils.LS2)
                 sb.append(getTextForView())
             }
+
             4 -> {
                 sb.append(Utils.toH3Red(title))
                 sb.append(Utils.LS2)
             }
+
             5 -> {
                 sb.append(Utils.toH4Red(title))
                 sb.append(Utils.LS2)
             }
+
             11 -> {
                 sb.append(getTextForView())
             }
+
             12 -> {
                 sb.append(getTextForView())
             }
+
             13 -> {
                 sb.append(getNumberedList())
             }
+
             else -> {
                 sb.append(getTextForView())
             }
@@ -135,7 +105,7 @@ open class Content {
                 sb.append("\t\t")
             }
             if (type == 20) {
-                sb.append(Utils.toH3Red(getTitle()))
+                sb.append(Utils.toH3Red(title))
                 sb.append(Utils.LS2)
             }
             sb.append(Utils.fromHtml(s))
@@ -185,7 +155,7 @@ open class Content {
                 sb.append("\t\t")
             }
             if (type == 20) {
-                sb.append(Utils.toH3Red(getTitle()))
+                sb.append(Utils.toH3Red(title))
                 sb.append(Utils.LS2)
             }
             sb.append(s)
@@ -194,3 +164,4 @@ open class Content {
         return sb
     }
 }
+
