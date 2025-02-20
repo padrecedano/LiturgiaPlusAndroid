@@ -1,6 +1,7 @@
 package org.deiverbum.app.feature.menu.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import org.deiverbum.app.core.analytics.AnalyticsHelper
 import org.deiverbum.app.feature.bugreport.navigation.BugRoute
 import org.deiverbum.app.feature.file.navigation.FileRoute
 import org.deiverbum.app.feature.settings.navigation.SettingsRoute
@@ -20,13 +21,16 @@ fun NavController.navigateToMenu(
     navOptions: NavOptions? = null,
 ) {
     val fileName = FileNameUtil.fileMap[menuItem]
+    val analyticsHelper: AnalyticsHelper
 
     if (fileName != null) {
         navigate(route = FileRoute(fileTitle = menuItem, fileName = fileName), navOptions)
     } else {
         when (menuItem) {
             "Reportar Error" -> navigate(route = BugRoute(menuItem), navOptions)
-            "Ajustes" -> navigate(route = SettingsRoute(menuItem), navOptions)
+            "Ajustes" -> {
+                navigate(route = SettingsRoute(menuItem), navOptions)
+            }
         }
     }
 }

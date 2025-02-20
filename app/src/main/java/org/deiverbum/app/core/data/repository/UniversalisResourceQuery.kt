@@ -25,4 +25,5 @@ interface UniversalisRepository : Syncable {
     )
 
     fun getUniversalisForTest(id: Int): Flow<Universalis>
+    fun countUniversalis(query: UniversalisResourceQuery): Flow<Int>
 }

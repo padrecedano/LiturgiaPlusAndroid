@@ -60,7 +60,7 @@ class TtsNotificationManager @OptIn(UnstableApi::class)
                     pendingIntent = mediaSession.sessionActivity
                 )
             )
-            .setSmallIconResourceId(R.drawable.has_saint_24)
+            .setSmallIconResourceId(R.drawable.ic_help)
             .build()
             .also {
                 it.setMediaSessionToken(mediaSession.sessionCompatToken)

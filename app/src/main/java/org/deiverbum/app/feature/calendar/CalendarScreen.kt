@@ -7,18 +7,28 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -33,17 +43,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import androidx.hilt.navigation.compose.hiltViewModel
 import org.deiverbum.app.R
 import org.deiverbum.app.core.designsystem.component.NiaLoadingWheel
-import org.deiverbum.app.feature.home.HomeScreenCalendarFinal
+import org.deiverbum.app.feature.home.HomeButton
+import org.deiverbum.app.feature.home.populateData
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -320,7 +333,7 @@ fun EmptyState(modifier: Modifier = Modifier) {
 
 //TODO: Reubicar
 @Composable
-fun ErrorState(modifier: Modifier = Modifier) {
+fun ErrorState(message: String, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(16.dp)
@@ -332,7 +345,7 @@ fun ErrorState(modifier: Modifier = Modifier) {
 
 
         Text(
-            text = stringResource(id = R.string.feature_bookmarks_empty_error),
+            text = message,//stringResource(id = R.string.feature_bookmarks_empty_error),
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium,
@@ -353,3 +366,254 @@ fun LoadingState(modifier: Modifier = Modifier) {
         contentDesc = stringResource(id = R.string.feature_bookmarks_loading),
     )
 }
+
+@ExperimentalLayoutApi
+@Composable
+fun HomeScreenCalendarFinal(
+    selectedDate: Int,
+    onTopicClick: (String) -> Unit,
+    //uiState: CalendarUiState,
+
+) {
+
+    val showTopics by remember { mutableStateOf(false) }
+    if (showTopics) {
+        val chipModifier = Modifier
+            .padding(4.dp)
+            .clip(RoundedCornerShape(8.dp))
+
+        val rowModifier = Modifier
+            .padding(horizontal = 8.dp, vertical = 12.dp)
+            .heightIn(max = 500.dp)
+
+            .clip(RoundedCornerShape(8.dp))
+
+        Box {
+
+            LazyColumn(modifier = rowModifier) {
+                item {
+                    //TimedLayout()
+                    //OutlinedCardExample()
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                }
+
+                items(populateData()) { item ->
+
+                    if (item.parent == "Breviario") {
+                        Text(item.parent)
+                        item.childs.forEach { it ->
+                            if (it.group == "a") {
+                                FlowRow(
+                                    modifier = Modifier
+                                        .safeDrawingPadding()
+                                        .fillMaxWidth(1f)
+                                        // .padding(16.dp)
+
+                                        //.wrapContentHeight(align = Alignment.Center)
+                                        .verticalScroll(rememberScrollState()),
+                                    verticalArrangement = Arrangement.spacedBy(14.dp),
+                                    horizontalArrangement = Arrangement.spacedBy(
+                                        48.dp,
+                                        Alignment.CenterHorizontally
+                                    ),
+                                    //modifier = rowModifier,
+                                    //verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically)
+
+                                ) {
+                                    it.items.forEach {
+                                        HomeButton(it) {
+                                            onTopicClick(it.id.toString())
+
+                                        }
+                                        Spacer(modifier = chipModifier)
+                                    }
+                                }
+                            }
+                            if (it.group == "b") {
+                                FlowRow(modifier = rowModifier) {
+                                    it.items.forEach {
+                                        HomeButton(it) {
+                                            onTopicClick(it.title)
+                                        }
+                                        Spacer(modifier = chipModifier)
+                                    }
+                                }
+                            }
+                            if (it.group == "c") {
+                                FlowRow(modifier = rowModifier) {
+                                    it.items.forEach {
+                                        HomeButton(it) { onTopicClick(it.title) }
+                                        Spacer(modifier = chipModifier)
+                                    }
+                                }
+                            }
+                            if (it.group == "d") {
+                                FlowRow(modifier = rowModifier) {
+                                    it.items.forEach {
+                                        HomeButton(it) { onTopicClick(it.title) }
+                                        Spacer(modifier = chipModifier)
+                                    }
+                                }
+                            }
+
+                            HorizontalDivider()
+                        }
+                    } else {
+                        Text(item.parent, fontSize = 26.sp)
+                        item.childs.forEach {
+                            FlowRow(modifier = rowModifier) {
+                                it.items.forEach {
+                                    HomeButton(it) { onTopicClick(it.title) }
+                                    Spacer(modifier = chipModifier)
+                                }
+                            }
+                            HorizontalDivider()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+}
+/*
+@ExperimentalLayoutApi
+@Composable
+fun HomeScreenCalendarFinal(
+    selectedDate: Int,
+    onTopicClick: (String) -> Unit,
+    //uiState: CalendarUiState,
+) {
+
+    var showTopics by remember { mutableStateOf(false) }
+    /*
+        when (uiState) {
+            CalendarUiState.Loading -> {
+                Text(
+                    "\n\n\n" +
+                            "\n\n" +
+                            "\nLoad"
+                )
+                Text("\t\t\t\t\t\t$selectedDate")
+                showTopics = true
+            }
+
+            is CalendarUiState.CalendarData -> {
+                showTopics = true
+                Text(
+                    "\n" +
+                            "\n\n" +
+                            "\n\n" +
+                            "\nData:${uiState.topics.fecha}"
+                )
+                //Text(text = uiState.topics.fecha)
+
+            }
+
+            CalendarUiState.Empty ->
+            CalendarUiState.Error ->
+        }
+    */
+    if (showTopics) {
+        val chipModifier = Modifier
+            .padding(4.dp)
+            .clip(RoundedCornerShape(8.dp))
+
+        val rowModifier = Modifier
+            .padding(horizontal = 8.dp, vertical = 12.dp)
+            .heightIn(max = 500.dp)
+
+            .clip(RoundedCornerShape(8.dp))
+
+        Box {
+
+            LazyColumn(modifier = rowModifier) {
+                item {
+                    //TimedLayout()
+                    //OutlinedCardExample()
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                }
+
+                items(populateData()) { item ->
+
+                    if (item.parent == "Breviario") {
+                        Text(item.parent)
+                        item.childs.forEach { it ->
+                            if (it.group == "a") {
+                                FlowRow(
+                                    modifier = Modifier
+                                        .safeDrawingPadding()
+                                        .fillMaxWidth(1f)
+                                        // .padding(16.dp)
+
+                                        //.wrapContentHeight(align = Alignment.Center)
+                                        .verticalScroll(rememberScrollState()),
+                                    verticalArrangement = Arrangement.spacedBy(14.dp),
+                                    horizontalArrangement = Arrangement.spacedBy(
+                                        48.dp,
+                                        Alignment.CenterHorizontally
+                                    ),
+                                    //modifier = rowModifier,
+                                    //verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically)
+
+                                ) {
+                                    it.items.forEach {
+                                        HomeButton(it) {
+                                            onTopicClick(it.id.toString())
+
+                                        }
+                                        Spacer(modifier = chipModifier)
+                                    }
+                                }
+                            }
+                            if (it.group == "b") {
+                                FlowRow(modifier = rowModifier) {
+                                    it.items.forEach {
+                                        HomeButton(it) { onTopicClick(it.title) }
+                                        Spacer(modifier = chipModifier)
+                                    }
+                                }
+                            }
+                            if (it.group == "c") {
+                                FlowRow(modifier = rowModifier) {
+                                    it.items.forEach {
+                                        HomeButton(it) { onTopicClick(it.title) }
+                                        Spacer(modifier = chipModifier)
+                                    }
+                                }
+                            }
+                            if (it.group == "d") {
+                                FlowRow(modifier = rowModifier) {
+                                    it.items.forEach {
+                                        HomeButton(it) { onTopicClick(it.title) }
+                                        Spacer(modifier = chipModifier)
+                                    }
+                                }
+                            }
+
+                            HorizontalDivider()
+                        }
+                    } else {
+                        Text(item.parent, fontSize = 26.sp)
+                        item.childs.forEach {
+                            FlowRow(modifier = rowModifier) {
+                                it.items.forEach {
+                                    HomeButton(it) { onTopicClick(it.title) }
+                                    Spacer(modifier = chipModifier)
+                                }
+                            }
+                            HorizontalDivider()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+}
+
+*/

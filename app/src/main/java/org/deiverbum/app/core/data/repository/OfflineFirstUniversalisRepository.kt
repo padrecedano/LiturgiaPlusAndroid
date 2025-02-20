@@ -2,6 +2,7 @@ package org.deiverbum.app.core.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEmpty
 import org.deiverbum.app.core.data.Synchronizer
 import org.deiverbum.app.core.data.changeListSync
 import org.deiverbum.app.core.database.dao.UniversalisDao
@@ -45,9 +46,14 @@ class OfflineFirstUniversalisRepository @Inject constructor(
     val userDataRepository: UserDataRepository,
     ) : UniversalisRepository {
 
+    override fun countUniversalis(query: UniversalisResourceQuery): Flow<Int> {
+        return universalisDao.countUniversalis(query.filterDate)
+    }
     override fun getUniversalisByDate(
         query: UniversalisResourceQuery,
     ): Flow<Universalis> {
+        //val count=universalisDao.countUniversalis(query.filterDate)
+        //count.collect()
         return when (query.filterTopicId) {
             1 -> universalisDao.getMixtusByDate(
                 filterDate = query.filterDate,
@@ -109,8 +115,10 @@ class OfflineFirstUniversalisRepository @Inject constructor(
                 ).map(RosariumExternal::asExternalModel)
 
             else -> universalisDao.getUniversalisByDate(
-                filterDates = query.filterDate,
-            ).map(UniversalisExternal::asExternalModel)
+                filterDates = query.filterDate
+            ).onEmpty {
+                println("Vacío")
+            }.map(UniversalisExternal::asExternalModel)
 
         }
         
@@ -118,7 +126,7 @@ class OfflineFirstUniversalisRepository @Inject constructor(
 
     override suspend fun insertFromRemote(query: UniversalisResourceQuery) {
         val networkUniversalis = network.getUniversalis(listOf(query.filterDate))
-        universalisDao.upsertUniversaliss(networkUniversalis.data)
+        universalisDao.upsertUniversalis(networkUniversalis.data)
     }
 
     override fun getUniversalisForTest(id: Int): Flow<Universalis> {
@@ -137,7 +145,7 @@ class OfflineFirstUniversalisRepository @Inject constructor(
             modelDeleter = universalisDao::deleteUniversalis,
             modelUpdater = { changedIds ->
                 val networkTopics = network.getTopics(ids = changedIds)
-                universalisDao.upsertUniversalis(
+                universalisDao.upsertUniversaliss(
                     TODO()
                     //entities = networkTopics.map(NetworkUniversalis::asEntity),
                 )

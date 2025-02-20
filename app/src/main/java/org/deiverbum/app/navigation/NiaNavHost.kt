@@ -16,8 +16,6 @@ import org.deiverbum.app.feature.home.navigation.HomeRoute
 import org.deiverbum.app.feature.home.navigation.homeScreen
 import org.deiverbum.app.feature.mas.navigation.masScreen
 import org.deiverbum.app.feature.mas.navigation.navigateToMas
-import org.deiverbum.app.feature.search.navigation.navigateToSearch
-import org.deiverbum.app.feature.search.navigation.searchScreen
 import org.deiverbum.app.feature.settings.navigation.settingsScreen
 import org.deiverbum.app.feature.universalis.navigation.navigateToUniversalis
 import org.deiverbum.app.feature.universalis.navigation.navigateToUniversalisFromCalendar
@@ -52,20 +50,16 @@ fun NiaNavHost(
         modifier = modifier,
     ) {
         //homeScreen(onTopicClick = navController::navigateToUniversalis)
-        homeScreen(onTopicClick = navController::navigateToUniversalis)
+        homeScreen(onTopicClick = navController::navigateToUniversalis, appState = appState)
 
         universalisFromHome(onBackClick = navController::navigateUp)
         masScreen(onTopicClick = navController::navigateToMas)
         calendarScreen(onTopicClick = navController::navigateToUniversalisFromCalendar)
         //menuScreen(onTopicClick = navController::navigateToMenu)
-        fileScreen(onBackClick = navController::navigateToSearch)
+        fileScreen(onBackClick = navController::navigateUp)
         bugReportScreen(onBackClick = navController::navigateUp)
         settingsScreen(onBackClick = navController::navigateUp)
-        searchScreen(
-            onBackClick = navController::popBackStack,
-            onInterestsClick = { },
-            onTopicClick = navController::navigateToMas,
-        )
+
 
     }
 }

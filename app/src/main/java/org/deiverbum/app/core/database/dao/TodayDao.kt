@@ -459,7 +459,7 @@ interface TodayDao {
     )
 
     @Transaction
-    @Query("")
+    @Delete(entity = LHAntiphonJoinEntity::class)
     fun updateLHAntiphonJoinAll(list: List<LHAntiphonJoinCrud>) {
         for (p in list) {
             updateLHAntiphonJoin(
@@ -491,7 +491,7 @@ interface TodayDao {
     )
 
     @Transaction
-    @Query("")
+    @Update(entity = LHPsalmJoinEntity::class, onConflict = OnConflictStrategy.REPLACE)
     fun updateLHPsalmJoinAll(list: List<LHPsalmJoinCrud>) {
         for (p in list) {
             updateLHPsalmJoin(
@@ -522,7 +522,8 @@ interface TodayDao {
     )
 
     @Transaction
-    @Query("")
+    @Delete(entity = LHPsalmJoinEntity::class)
+
     fun deleteLHPsalmJoinAll(list: List<LHPsalmJoinCrud>) {
         for (p in list) {
             deleteLHPsalmJoin(

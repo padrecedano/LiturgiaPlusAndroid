@@ -29,8 +29,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.deiverbum.app.core.designsystem.component.UniversalisSingleAppBar
 import org.deiverbum.app.core.designsystem.component.ZoomableText
 import org.deiverbum.app.core.designsystem.theme.LocalCustomColorsPalette
-import org.deiverbum.app.core.presentation.file.FileItemUiState
-import org.deiverbum.app.core.presentation.file.FileViewModel
 import org.deiverbum.app.core.ui.bookRender
 import org.deiverbum.app.feature.calendar.EmptyState
 import org.deiverbum.app.feature.calendar.ErrorState
@@ -79,7 +77,7 @@ internal fun FileScreen(
         }
 
         is FileViewModel.FileUiState.Error -> {
-            ErrorState()
+            ErrorState("")
         }
 
         is FileViewModel.FileUiState.Loaded -> {

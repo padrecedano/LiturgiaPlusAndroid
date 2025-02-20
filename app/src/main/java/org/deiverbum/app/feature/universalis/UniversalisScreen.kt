@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -29,20 +30,29 @@ import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.media3.common.util.UnstableApi
 import org.deiverbum.app.R
+import org.deiverbum.app.core.analytics.AnalyticsHelper
+import org.deiverbum.app.core.analytics.LocalAnalyticsHelper
+import org.deiverbum.app.core.data.repository.logUniversalisTtsEvent
 import org.deiverbum.app.core.designsystem.component.NiaIconToggleButton
 import org.deiverbum.app.core.designsystem.component.NiaLoadingWheel
+import org.deiverbum.app.core.designsystem.component.NiaTab
+import org.deiverbum.app.core.designsystem.component.NiaTabRow
 import org.deiverbum.app.core.designsystem.component.UniversalisSingleAppBar
 import org.deiverbum.app.core.designsystem.component.UniversalisTopAppBar
 import org.deiverbum.app.core.designsystem.theme.NiaTypography
@@ -53,6 +63,7 @@ import org.deiverbum.app.core.model.data.UserData
 import org.deiverbum.app.core.model.data.UserDataDynamic
 import org.deiverbum.app.core.ui.TrackScrollJank
 import org.deiverbum.app.core.ui.UniversalisBody
+import org.deiverbum.app.feature.calendar.ErrorState
 import org.deiverbum.app.feature.tts.ScreenTtsPlayer
 import org.deiverbum.app.feature.tts.TtsMediaViewModel
 import org.deiverbum.app.util.Utils
@@ -82,12 +93,14 @@ fun UniversalisFromHomeScreen(
     viewModel: UniversalisViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     val state = rememberLazyListState()
     TrackScrollJank(scrollableState = state, stateName = "universalis:screen")
     UniversalisFromHomeScreen(
         uiState = uiState,
         modifier = modifier,
-        onBackClick = onBackClick
+        onBackClick = onBackClick,
+        //analyticsHelper=analyticsHelper
     )
 }
 
@@ -117,13 +130,15 @@ internal fun UniversalisFromHomeScreen(
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit,
 ) {
+    val analyticsHelper = LocalAnalyticsHelper.current
+
     when (uiState) {
-        UniversalisUiState.Empty -> {
+        /*UniversalisUiState.Empty -> {
             NoDataScaffold(
                 onBackClick = onBackClick,
                 title = "Vacío",
             )
-        }
+        }*/
 
         UniversalisUiState.Loading -> LoadingState(modifier = modifier)
         is UniversalisUiState.UniversalisData -> {
@@ -138,9 +153,19 @@ internal fun UniversalisFromHomeScreen(
             //return
                 UniversalisResourceData(
                     onBackClick = onBackClick,
-                    universalisResource = uiState.topics //TODO: Quitar listOf
+                    universalisResource = uiState.topics,
+                    analyticsHelper = analyticsHelper
                 )
             //}
+        }
+
+        is UniversalisUiState.UniversalisError -> {
+            NoDataScaffold(
+                onBackClick = onBackClick,
+                title = "Error",
+                uiState = uiState,
+                //ErrorState(uiState.message)
+            )
         }
     }
 }
@@ -199,6 +224,18 @@ fun UniversalisToolbar(
             },
             modifier = Modifier.padding(end = 24.dp),
         )
+
+        var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
+        val titles = listOf("Topics", "People")
+        NiaTabRow(selectedTabIndex = selectedTabIndex) {
+            titles.forEachIndexed { index, title ->
+                NiaTab(
+                    selected = selectedTabIndex == index,
+                    onClick = { selectedTabIndex = index },
+                    text = { Text(text = title) },
+                )
+            }
+        }
 
         if (showBottomSheet) {
             val sb = uiState[0].data.getAllForRead()
@@ -315,7 +352,7 @@ fun UniversalisResourceCardExpanded(
                         }
 
                         else -> {
-                            if (data == null) {
+                            if (data.todayDate == 0) {
                                 title = "Aún no hay datos para esta fecha."
                                 meta = ""
                             } else {
@@ -379,7 +416,8 @@ fun UniversalisResourceCardExpanded(
 fun UniversalisResourceData(
     universalisResource: UniversalisResource,
     onBackClick: () -> Unit,
-    viewModelTts: TtsMediaViewModel = hiltViewModel()
+    viewModelTts: TtsMediaViewModel = hiltViewModel(),
+    analyticsHelper: AnalyticsHelper
 ) {
     val scrollState = rememberScrollState()
     var showBottomSheet by remember { mutableStateOf(false) }
@@ -388,6 +426,9 @@ fun UniversalisResourceData(
     val typusId = universalisResource.id
     val userData = universalisResource.dynamic
     val subTitle = when (universalisResource.id) {
+        -1 -> {
+            "Error"
+        }
         20 -> {
             val sancti = universalisResource.data.liturgia!!.liturgiaTypus as AlteriSanctii
             sancti.sanctus.monthName
@@ -436,16 +477,21 @@ fun UniversalisResourceData(
                         verticalArrangement = Arrangement.spacedBy(16.dp)
 
                     ) {
+                        if (universalisResource.id == -1) {
+                            ErrorState("")
+                        } else {
                         UniversalisResourceCardExpanded(
                             resource = universalisResource,
                             typusId = typusId,
                             userData = userData
                         )
+                        }
                     }
                 }
             }
         }
         if (showBottomSheet) {
+            analyticsHelper.logUniversalisTtsEvent(universalisResource.title)
             val sb = universalis.getAllForRead()
             viewModelTts.loadData(
                 "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
@@ -466,7 +512,8 @@ fun UniversalisResourceData(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NoDataScaffold(
-    title: String?,
+    title: String,
+    uiState: UniversalisUiState.UniversalisError,
     onBackClick: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
@@ -474,7 +521,7 @@ fun NoDataScaffold(
     Scaffold(
         topBar = {
             UniversalisSingleAppBar(
-                title = title!!,
+                title = title,
                 navigationIcon = LPlusIcons.ArrowBack,
                 readerIcon = LPlusIcons.Reader,
                 calendarIcon = LPlusIcons.Calendar,
@@ -488,10 +535,57 @@ fun NoDataScaffold(
         Column(
             modifier = Modifier
                 .padding(innerPadding)
-                .verticalScroll(state = scrollState),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(30.dp)
+                .fillMaxSize()
+                .testTag("universalis:empty"),
+            //verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            UniversalisEmptyScreen()
+            //UniversalisEmptyScreen()
+            //val text=uiState.
+            Text(
+                text = stringResource(id = R.string.error_title),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = uiState.message,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+            Text(
+                text = "Fecha: ${uiState.date}",//"" ,//stringResource(id = R.string.feature_bookmarks_empty_error),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(5.dp),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+            Text(
+                text = "Localización: ${uiState.topic}",//"" ,//stringResource(id = R.string.feature_bookmarks_empty_error),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(5.dp),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+            Text(
+                text = "${stringResource(id = R.string.version)}: ${stringResource(id = R.string.app_version_and_name)}",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(5.dp),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = FontWeight.Bold
+            )
+
         }
     }
 }

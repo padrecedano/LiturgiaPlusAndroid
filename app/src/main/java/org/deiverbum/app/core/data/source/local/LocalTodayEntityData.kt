@@ -1,7 +1,6 @@
 package org.deiverbum.app.core.data.source.local
 
 import org.deiverbum.app.core.data.source.TodayEntityData
-import org.deiverbum.app.core.database.dao.TodayDao
 import org.deiverbum.app.core.model.TodayRequest
 import org.deiverbum.app.core.model.UniversalisResponse
 import javax.inject.Inject
@@ -14,7 +13,7 @@ import javax.inject.Inject
  * @since 2024.1
  */
 class LocalTodayEntityData @Inject constructor(
-    private val todayDao: TodayDao
+    //private val todayDao: TodayDao
 ) : TodayEntityData {
 
     override suspend fun getToday(todayRequest: TodayRequest): UniversalisResponse {

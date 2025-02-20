@@ -8,21 +8,25 @@ import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
+import org.deiverbum.app.core.analytics.AnalyticsEvent
+import org.deiverbum.app.core.analytics.AnalyticsHelper
 import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.domain.GetUniversalisUseCase
 import org.deiverbum.app.core.model.data.UniversalisResource
+import org.deiverbum.app.feature.universalis.UniversalisUiState.Loading
 import org.deiverbum.app.feature.universalis.navigation.UniversalisRoute
 import org.deiverbum.app.util.LiturgyHelper
 import org.deiverbum.app.util.Utils
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class UniversalisViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
+    private val analyticsHelper: AnalyticsHelper,
+
     val userDataRepository: UserDataRepository,
     getTopicWithDate: GetUniversalisUseCase,
 ) : ViewModel() {
@@ -31,6 +35,8 @@ class UniversalisViewModel @Inject constructor(
     private val selectedTopicIdKey = "selectedTopicIdKey"
     private var _isReading = mutableStateOf(false)
     private val route: UniversalisRoute = savedStateHandle.toRoute()
+    private var a: String = LiturgyHelper.liturgyByName(route.initialTopicId!!)
+        .toString()
 
     private val selectedTopicId = savedStateHandle.getStateFlow(
         key = selectedTopicIdKey,
@@ -41,53 +47,72 @@ class UniversalisViewModel @Inject constructor(
         initialValue = Utils.hoy.toInt(),
     )
 
+
     val uiState: StateFlow<UniversalisUiState> = combine(
         selectedTopicId,
         getTopicWithDate.invoke(
-            //sortBy = HomeSortField.ID,
             date = selectedDate.value,
             title = route.initialTopicId!!,
             selectedTopicId = LiturgyHelper.liturgyByName(route.initialTopicId!!)
-                .toString()//selectedTopicId.value!!,
+                .toString()
         ),
         UniversalisUiState::UniversalisData,
-    ).stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = UniversalisUiState.Loading,
     )
-
-    fun followTopic(followedTopicId: String, followed: Boolean) {
-        viewModelScope.launch {
-            //userDataRepository.setTopicIdFollowed(followedTopicId, followed)
+        .catch<UniversalisUiState> {
+            val error = UniversalisUiState.UniversalisError(
+                route.initialTopicId!!,
+                selectedDate.value,
+                it.message!!
+            )
+            analyticsHelper.logUniversalisErrorEvent(error)
+            emit(error)
         }
-    }
-
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = Loading,
+        )
 
     fun onTopicClick(topicId: String?) {
-        //savedStateHandle.toRoute<UniversalisRoute>().initialTopicId = topicId
         savedStateHandle[selectedTopicIdKey] = topicId
     }
 
-    fun onReaderClick(): String {
-        Timber.d("aaa", "LEER")
-        _isReading.value = true
-
-        return "Lorem ipsum"
-        //savedStateHandle[TOPIC_ID_ARG] = topicId
-        // topicIdd = topicId!!
-    }
 }
 
 sealed interface UniversalisUiState {
     data object Loading : UniversalisUiState
 
     data class UniversalisData(
-        val selectedTopicId: String?,
-        //val isReader: Boolean=true,
-        //val topicId:Int,
+        val selectedTopicId: String,
         val topics: UniversalisResource,
     ) : UniversalisUiState
-    data object Empty : UniversalisUiState
+
+    data class UniversalisError(
+        val topic: String,
+        val date: Int,
+        val message: String
+    ) : UniversalisUiState {
+
+        override fun toString(): String {
+            return "Topic: ${topic}, Date: ${date} Msg: ${message}"
+        }
+    }
+
 
 }
+
+private fun AnalyticsHelper.logUniversalisErrorEvent(error: UniversalisUiState.UniversalisError) =
+    logEvent(
+        event = AnalyticsEvent(
+            type = ERROR_EVENT,
+            extras = listOf(
+                element = AnalyticsEvent.Param(
+                    key = ERROR_EVENT,
+                    value = error.toString()
+                )
+            ),
+        ),
+
+        )
+
+private const val ERROR_EVENT = "errorEvent"

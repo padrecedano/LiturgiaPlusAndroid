@@ -8,7 +8,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
 import org.deiverbum.app.core.designsystem.component.TextZoomable
-import org.deiverbum.app.core.designsystem.component.ZoomableBox
 import org.deiverbum.app.core.designsystem.component.stringFromHtml
 import org.deiverbum.app.core.designsystem.component.textMultiColor
 import org.deiverbum.app.core.designsystem.component.textRubric
@@ -266,8 +265,8 @@ fun VesperasScreen(
     text += paterNoster(userData.dynamic, rubricColor)
     text += oratio(data = data.oratio, userData = userData.dynamic, rubricColor = rubricColor)
     text += conclusionisMaior(userData = userData.dynamic, rubricColor = rubricColor)
-    //TextZoomable(onTap = onTap, text = text)
-    ZoomableBox(text)
+    TextZoomable(onTap = onTap, text = text)
+    //ZoomableBox(text)
 }
 
 /**

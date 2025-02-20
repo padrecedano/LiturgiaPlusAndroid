@@ -38,7 +38,6 @@ import org.deiverbum.app.core.model.SyncRequest
 import org.deiverbum.app.core.presentation.sync.InitialSyncViewModel
 import org.deiverbum.app.core.presentation.sync.SyncItemUiState
 import org.deiverbum.app.core.presentation.sync.SyncViewModel
-import org.deiverbum.app.core.presentation.today.TodayViewModel
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Constants.PREF_ACCEPT
 import org.deiverbum.app.util.Constants.PREF_INITIAL_SYNC
@@ -106,7 +105,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        val mainViewModel: TodayViewModel by viewModels()
         strFechaHoy = Utils.fecha
         /*
                 setContent {
@@ -187,9 +185,9 @@ class MainActivity : ComponentActivity() {
         val collectCrash = prefs.getBoolean(Constants.PREF_CRASHLYTICS, true)
         if (!BuildConfig.DEBUG) {
             mFirebaseAnalytics.setAnalyticsCollectionEnabled(collectData)
-            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(collectCrash)
+            FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = collectCrash
         } else {
-            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(false)
+            FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = false
         }
     }
 

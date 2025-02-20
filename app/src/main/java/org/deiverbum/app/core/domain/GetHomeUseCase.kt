@@ -1,11 +1,17 @@
 package org.deiverbum.app.core.domain
 
+import android.net.ParseException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import org.deiverbum.app.core.data.repository.UniversalisRepository
 import org.deiverbum.app.core.data.repository.UserDataRepository
+import org.deiverbum.app.core.model.data.HomeResource
+import org.deiverbum.app.core.model.data.Universalis
 import org.deiverbum.app.core.model.data.UniversalisResource
 import org.deiverbum.app.core.model.data.UniversalisResourceQuery
+import java.text.SimpleDateFormat
+import java.util.Locale
 import javax.inject.Inject
 
 /**
@@ -21,55 +27,48 @@ import javax.inject.Inject
  * @param universalisRepository Repositorio que obtiene los datos.
  * @param userDataRepository Repositorio con los datos del usuario.
  */
-class GetUniversalisUseCase @Inject constructor(
+class GetHomeUseCase @Inject constructor(
     private val universalisRepository: UniversalisRepository,
     private val userDataRepository: UserDataRepository,
 ) {
     /**
      * Retorna una lista de objetos [UniversalisResource].
      *
+     * @param sortBy El campo usado para filtrar. Por defecto NONE = no filtrar.
      */
     operator fun invoke(
         date: Int,
-        selectedTopicId: String,
-        title: String
-    ): Flow<UniversalisResource> {
+    ): Flow<HomeResource> {
         return combine(
             userDataRepository.userData,
-            universalisRepository.getUniversalisByDate(
-                UniversalisResourceQuery(
-                    filterDate = date,
-                    selectedTopicId.toInt()
-                )
-            ),
-        ) { userData, universalis ->
-            if (universalis.todayDate == 0 && selectedTopicId != "30") {
-                universalisRepository.insertFromRemote(
-                    UniversalisResourceQuery(
-                        date,
-                        selectedTopicId.toInt()
-                    )
-                )
+            universalisRepository.countUniversalis(UniversalisResourceQuery(date)),
+        ) { userData, count ->
+            var newData = Universalis(date)
+            if (count == 0 && date.isDateValid()) {
+                universalisRepository.insertFromRemote(UniversalisResourceQuery(date))
+                newData = universalisRepository.getUniversalisByDate(UniversalisResourceQuery(date))
+                    .first()
             }
-            UniversalisResource(
-                date = universalis.todayDate,
-                title = title,
-                name = "",
-                id = selectedTopicId.toInt(),
-                data = universalis,
+            HomeResource(
+                date = date,
+                data = newData,
                 dynamic = userData
             )
         }
-        /*.catch {
-            emit(UniversalisResource(
-                date = date,
-                title = title,
-                name = "",
-                id = -1,
-                data = Universalis(),
-                dynamic = userDataRepository.userData.first()
-            ))
-        }*/
+        //}.catch {
+        //    it.message
+        //}
+    }
+
+    fun Int.isDateValid(): Boolean {
+        val dateFormat = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+        dateFormat.isLenient = false
+        return try {
+            dateFormat.parse(this.toString())
+            true
+        } catch (e: ParseException) {
+            false
+        }
     }
 }
 

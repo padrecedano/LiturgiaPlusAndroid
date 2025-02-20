@@ -83,7 +83,7 @@ import org.deiverbum.app.core.database.util.RoomConverter
         RosariumSeriesMysteriumEntity::class,
         RosariumSeriesDiesEntity::class,
     ],
-    version = 2
+    version = 3
 )
 @TypeConverters(RoomConverter::class)
 abstract class AppDatabase : RoomDatabase() {

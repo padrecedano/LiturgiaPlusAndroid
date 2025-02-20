@@ -18,3 +18,19 @@ data class UniversalisResource(
     val dynamic: UserData,
     val data: Universalis
 )
+
+/**
+ * Representación de un recurso del tipo **`Universalis`** para la capa de datos externa.
+ *
+ * @author A. Cedano
+ * @since 2025.1
+ * @version 1.0
+ *
+ * @see [Universalis]
+ * @see [Liturgy]
+ */
+data class HomeResource(
+    val date: Int,
+    val dynamic: UserData,
+    val data: Universalis
+)

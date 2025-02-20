@@ -8,9 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.deiverbum.app.core.model.FileRequestt
-import org.deiverbum.app.core.presentation.file.FileViewModel
 import org.deiverbum.app.feature.calendar.EmptyState
 import org.deiverbum.app.feature.calendar.ErrorState
+import org.deiverbum.app.feature.file.FileViewModel
 import org.deiverbum.app.feature.universalis.LoadingState
 
 @Composable
@@ -50,7 +50,7 @@ fun MasScreen(
 ) {
     when (uiState) {
         FileViewModel.FileUiState.Empty -> EmptyState()
-        is FileViewModel.FileUiState.Error -> ErrorState()
+        is FileViewModel.FileUiState.Error -> ErrorState("")
         is FileViewModel.FileUiState.Loaded -> {
             LazyColumn {
                 /*items(uiState.itemState.allData.size) {

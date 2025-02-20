@@ -1,36 +1,25 @@
-<resources>
-    <!-- Base application theme. -->
-    <style name="Theme.LiturgiaPlusNew" parent="Theme.Material3.DayNight">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="customTextViewBackAttributeColor">@color/black</item>
-        <item name="android:textViewStyle">@style/Widget.App.TextViewNew</item>
-        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
-        <!-- FAB -->
-        <item name="extendedFloatingActionButtonStyle">
-            @style/Widget.App.ExtendedFloatingActionButton
-        </item>
-        <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
-<!-- Switch -->
-        <item name="materialSwitchStyle">@style/Widget.App.Switch</item>
+<?xml version="1.0" encoding="utf-8"?><!--
+     Copyright 2021 The Android Open Source Project
 
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/raisin_black</item>
-      <!--  <item name="colorPrimaryVariant">@color/colorBreviario</item> -->
-        <item name="colorPrimaryVariant">@color/black_coral</item>
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
 
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/amber_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/colorPrimaryVariant</item>
-        <item name="android:navigationBarColor">@color/colorPrimaryVariant</item>
+          http://www.apache.org/licenses/LICENSE-2.0
 
-        <item name="actionModeCloseDrawable">@drawable/ic_baseline_close_24</item>
-        <item name="windowActionModeOverlay">true</item>
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-        <!-- Customize your theme here. -->
+    <style name="NightAdjusted.Theme.LiturgiaPlusNew" parent="android:Theme.Material.NoActionBar" />
+
+    <style name="NightAdjusted.Theme.Splash" parent="Theme.SplashScreen">
+        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
     </style>
+
 </resources>

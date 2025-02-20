@@ -31,6 +31,7 @@ import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Grid3x3
 import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material.icons.rounded.PauseCircle
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.PlayArrow
@@ -70,6 +71,7 @@ object LPlusIcons {
 
     val Home = Icons.Rounded.Home
     val HomeBorder = Icons.Outlined.Home
+    val Menu = Icons.Rounded.Menu
 
 
     val MoreVert = Icons.Default.MoreVert

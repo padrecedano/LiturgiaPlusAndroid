@@ -234,7 +234,6 @@ fun LPlusTheme(
             colorScheme = colorScheme,
             //typography = NiaTypography,
             typography = getPersonalizedTypography(fontSize),
-
             content = content,
         )
     }

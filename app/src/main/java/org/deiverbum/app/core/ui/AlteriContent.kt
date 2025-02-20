@@ -71,6 +71,7 @@ fun RosariumScreen(
     userData: UserData,
     onTap: (Offset) -> Unit
 ) {
+
     val rubricColor = getRubricColor(userData = userData.dynamic)
     var text = AnnotatedString("")
     text += contentTitle(

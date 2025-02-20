@@ -1,139 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright 2021 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
 <resources>
-<!--
-
-
-
--->
-
-
-    <color name="colorOnSurfaceVariant">#FFEA00</color>
-
-    <color name="colorPrimary">@color/blue_900</color>
-    <color name="colorPrimaryVariant">@color/blue_900</color>
-    <color name="colorLink">@color/red_700</color>
-    <color name="colorOnContainer">@color/amber_900</color>
-    <color name="colorContainer">@color/blue_700</color>
-    <color name="colorDialogSurface">@color/amber_50</color>
-    <color name="colorTextDialog">@color/red_700</color>
-
-    <color name="colorPrimarySwitch">@color/green_900</color>
-    <color name="colorOnPrimarySwitch">@color/amber_200</color>
-    <color name="colorSurfaceVariantSwitch">@color/raisin_black</color>
-    <color name="colorOnSurfaceBugReport">@color/red_700</color>
-    <color name="colorBackgroundBugReport">@color/amber_200</color>
-    <color name="colorPrimaryDark">#1565c0</color>
-    <color name="colorText">@color/black</color>
-    <color name="colorOnSurface">@color/amber_50</color>
-
-
-    <color name="black_coral">#54626F</color>
-    <color name="dark_charcoal">#333333</color>
-    <color name="black_cat">#413839</color>
-    <color name="raisin_black">#242124</color>
-    <color name="red_500">#F44336</color>
-    <color name="green_900">#2E7D32</color>
-    <color name="red_700">#D32F2F</color>
-    <color name="gray_50">#BDBDBD</color>
-
-    <color name="gray_400">#BDBDBD</color>
-    <color name="gray_600">#757575</color>
-    <color name="brown_400">#8D6E63</color>
-    <color name="amber_200">#FFE082</color>
-    <color name="amber_50">#FFF8E1</color>
-    <color name="amber_900">#FFCA28</color>
-    <!--
-        <color name="_00"></color>
-        <color name="_00"></color>
-
-    -->
-
-
-    <color name="colorBackgroundMain">@color/colorPrimaryVariant</color>
-    <color name="colorInAppUpdate">@color/red_500</color>
-    <color name="colorRubrica">@color/red_500</color>
-
-
-    <color name="transparent">#f8faf9f9</color>
-    <color name="colorMainItem">#FFF59D</color>
-
-    <color name="colorBreviario">#3e2723</color>
-    <color name="colorMisa">@color/red_500</color>
-
-    <color name="colorHomilias">#c66900</color>
-
-    <color name="colorSantos">#29434e</color>
-    <color name="colorMain_lecturas_img">#087f23</color>
-    <color name="colorMain_evangelio_img">#880e4f</color>
-
-    <color name="colorBiblia">#00867d</color>
-    <color name="colorPadres">#c8a600</color>
-    <color name="colorSacramentos">#373737</color>
-
-    <color name="colorCalendario">#524c00</color>
-    <color name="colorOraciones">#4d2c91</color>
-    <color name="colorMain_img_mas">#c96f53</color>
-
-    <color name="color_rv_oraciones">#c8a600</color>
-    <color name="color_rv_subtitle">#c8a600</color>
-
-    <color name="colorMainIcon">#fafafa</color>
-
-    <color name="colorTextBreviario">@color/gray_50</color>
-    <color name="colorIconBreviario">@color/amber_900</color>
-
-    <color name="color_nav_start">#8e8e8e</color>
-    <color name="color_nav_center">#616161</color>
-    <color name="color_nav_end">#373737</color>
-
-    <color name="color_fondo_grupo1">#263238</color>
-    <color name="color_fondo_grupo2">#424242</color>
-    <color name="color_fondo_rv">#EB424242</color>
-    <color name="background_player">#ffddb0</color>
-
-    <color name="textBackground">#f9e3c6</color>
-
-    <color name="colorTextInput">@color/red_500</color>
-<!--
-    <color name="md_theme_dark_primary">#464647</color>
-    <color name="md_theme_dark_onPrimary">#FBE9E7</color>
-    <color name="md_theme_dark_primaryContainer">@color/red_500</color>
-    <color name="md_theme_dark_onPrimaryContainer">#D6E3FF</color>
-    <color name="md_theme_dark_secondary">#FFCC80</color>
-    <color name="md_theme_dark_onSecondary">#283041</color>
-    <color name="md_theme_dark_secondaryContainer">#3E4759</color>
-    <color name="md_theme_dark_onSecondaryContainer">#DAE2F8</color>
-    <color name="md_theme_dark_tertiary">#A0C9FF</color>
-    <color name="md_theme_dark_onTertiary">@color/red_500</color>
-    <color name="md_theme_dark_tertiaryContainer">@color/red_500</color>
-    <color name="md_theme_dark_onTertiaryContainer">#D2E4FF</color>
-    <color name="md_theme_dark_error">#FFB4A9</color>
-    <color name="md_theme_dark_errorContainer">@color/red_500</color>
-    <color name="md_theme_dark_onError">#680003</color>
-    <color name="md_theme_dark_onErrorContainer">#FFDAD4</color>
-    <color name="md_theme_dark_background">#1A1C19</color>
-    <color name="md_theme_dark_onBackground">#E2E3DD</color>
-    <color name="md_theme_dark_surface">#1A1C19</color>
-    <color name="md_theme_dark_onSurface">#464647</color>
-    <color name="md_theme_dark_surfaceVariant">#44474F</color>
-    <color name="md_theme_dark_onSurfaceVariant">#C4C6D0</color>
-    <color name="md_theme_dark_outline">#8E9099</color>
-    <color name="md_theme_dark_inverseOnSurface">#1A1C19</color>
-    <color name="md_theme_dark_primaryInverse">#2C5EA7</color>
--->
-    <color name="text_color">#B3FFFFFF</color>
-    <color name="colorInput">#B3FFFFFF</color>
-
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_700">@color/red_500</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="blue_100">#BBDEFB</color>
-
-    <color name="blue_700">#1976D2</color>
-    <color name="blue_900">#0D47A1</color>
-
-
+    <color name="ic_launcher_background_tint">#000000</color>
+    <color name="ic_launcher_foreground_tint">#FCFCFC</color>
 </resources>

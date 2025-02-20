@@ -31,6 +31,9 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.deiverbum.app.R
+import org.deiverbum.app.core.analytics.AnalyticsHelper
+import org.deiverbum.app.core.analytics.LocalAnalyticsHelper
+import org.deiverbum.app.core.data.repository.logMainMenuOptionOpened
 import org.deiverbum.app.core.designsystem.component.MenuButton
 import org.deiverbum.app.core.designsystem.theme.NiaTypography
 import org.deiverbum.app.core.designsystem.theme.supportsDynamicTheming
@@ -50,6 +53,7 @@ fun MainMenuDialog(
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val settingsUiState by viewModel.settingsUiState.collectAsStateWithLifecycle()
+
     MainMenuDialog(
         onDismiss = onDismiss,
         onClick = onClick,
@@ -75,6 +79,7 @@ fun MainMenuDialog(
     onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
 ) {
     val configuration = LocalConfiguration.current
+    val analyticsHelper = LocalAnalyticsHelper.current
 
     /**
      * usePlatformDefaultWidth = false is use as a temporary fix to allow
@@ -105,8 +110,8 @@ fun MainMenuDialog(
                     onChangeMultipleInvitatoryPreference = onChangeMultipleInvitatoryPreference,
                     onChangeDarkThemeConfig = onChangeDarkThemeConfig,
                     onClick = onClick,
-
                     onDismiss = onDismiss,
+                    analyticsHelper = analyticsHelper
                 )
 
                 HorizontalDivider(Modifier.padding(top = 8.dp))
@@ -141,6 +146,7 @@ private fun MenuPanel(
     onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
     onClick: (String) -> Unit,
     onDismiss: () -> Unit,
+    analyticsHelper: AnalyticsHelper
 ) {
     val menuItems = listOf(
         MenuItem(title = stringResource(R.string.feature_menu_about), icon = LPlusIcons.About, 10),
@@ -193,7 +199,10 @@ private fun MenuPanel(
             }
             MenuDialogItemRow(
                 item = it,
-                onClick = { onClick(it.title) },
+                onClick = {
+                    analyticsHelper.logMainMenuOptionOpened(it.title)
+                    onClick(it.title)
+                },
                 onDismiss = onDismiss
 
             )

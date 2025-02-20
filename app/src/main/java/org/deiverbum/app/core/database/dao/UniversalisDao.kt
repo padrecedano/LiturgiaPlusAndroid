@@ -55,6 +55,9 @@ interface UniversalisDao {
     @Query(value = "SELECT * FROM universalis WHERE todayDate=20240719")
     fun getUniversalisList(): Flow<List<UniversalisEntity>>
 
+    @Query(value = "SELECT COUNT(*) FROM universalis WHERE todayDate=:filterDate")
+    fun countUniversalis(filterDate: Int = 0): Flow<Int>
+
     @Query(value = "SELECT * FROM ui_topic")
     fun getTopicEntities(): Flow<List<UITopicEntity>>
 
@@ -200,10 +203,10 @@ interface UniversalisDao {
      * Inserts or updates [entities] in the db under the specified primary keys
      */
     @Upsert
-    suspend fun upsertUniversalis(entities: List<UniversalisEntity>)
+    suspend fun upsertUniversaliss(entities: List<UniversalisEntity>)
 
     @Upsert(entity = UniversalisEntity::class)
-    suspend fun upsertUniversaliss(entities: List<Universalis>)
+    suspend fun upsertUniversalis(entities: List<Universalis>)
 
     /**
      * Deletes rows in the db matching the specified [ids]

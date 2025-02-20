@@ -8,6 +8,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
 import org.deiverbum.app.feature.home.HomeScreen
+import org.deiverbum.app.ui.NiaAppState
 
 
 @Serializable
@@ -19,10 +20,11 @@ fun NavController.navigateToHome(navOptions: NavOptions) = navigate(route = Home
 @ExperimentalMaterial3AdaptiveApi
 fun NavGraphBuilder.homeScreen(
     onTopicClick: (String) -> Unit,
+    appState: NiaAppState,
     //onBackClick: () -> Unit,
 ) {
     composable<HomeRoute> {
-        HomeScreen(onTopicClick)
+        HomeScreen(onNextButtonClicked = onTopicClick, appState = appState)
     }
 }
 

@@ -1,71 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+     Copyright 2021 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
 <resources>
-    <!-- Customize your Primary color here. -->
-
-    <color name="colorPrimary">@color/raisin_black</color>
-    <color name="colorPrimaryVariant">@color/dark_charcoal</color>
-    <color name="colorContainer">@color/dark_charcoal</color>
-    <color name="colorOnContainer">@color/amber_200</color>
-    <color name="colorRubrica">@color/amber_200</color>
-
-    <!--
-    <color name="colorOutline">@color/amber_200</color>
-    <color name="colorInput">#FFD600</color>
-    <color name="colorOnSurface">#FFD600</color>
-    <color name="text_color">#B3FFFFFF</color>
-    <color name="text_background">#0D0D0D</color>
-    <color name="txt_salterio">@color/color_fondo_rv</color>
--->
-    <color name="colorPrimaryDark">@color/white</color>
-    <color name="colorLink">@color/amber_50</color>
-    <color name="colorDialogSurface">@color/black_coral</color>
-    <color name="colorTextDialog">@color/amber_50</color>
-    <color name="colorPrimarySwitch">@color/brown_400</color>
-    <color name="colorSurfaceVariantSwitch">@color/gray_400</color>
-    <color name="colorBackgroundBugReport">@color/black_cat</color>
-    <color name="colorText">@color/gray_50</color>
-
-    <color name="colorTextBreviario">@color/gray_600</color>
-    <color name="colorIconBreviario">@color/gray_400</color>
-
-    <color name="colorOnSurfaceVariant">@color/dark_charcoal</color>
-    <color name="colorBackgroundMain">@color/colorOnSurfaceVariant</color>
-
-    <color name="textBackground">#0D0D0D</color>
-
-
-    <!--
-        <color name="colorSurface">@color/md_theme_dark_primary</color>
-        <color name="transparent">@color/md_theme_dark_primary</color>
--->
-    <color name="colorBreviario">@color/raisin_black</color>
-    <color name="colorMisa">@color/raisin_black</color>
-    <color name="colorHomilias">@color/raisin_black</color>
-
-    <color name="colorSantos">@color/raisin_black</color>
-    <color name="colorMain_lecturas_img">@color/raisin_black</color>
-    <color name="colorMain_evangelio_img">@color/raisin_black</color>
-
-    <color name="colorCalendario">@color/raisin_black</color>
-    <color name="colorOraciones">@color/raisin_black</color>
-    <color name="colorBiblia">@color/raisin_black</color>
-
-    <color name="colorPadres">@color/raisin_black</color>
-    <color name="colorSacramentos">@color/raisin_black</color>
-    <color name="colorMain_img_mas">@color/raisin_black</color>
-    <color name="colorMainIcon">@color/gray_600</color>
-
-    <color name="colorMainItem">@color/gray_400</color>
-    <color name="color_fondo_grupo2">#373737</color>
-    <color name="color_rv_subtitle">@color/amber_200</color>
-    <color name="color_rv_oraciones">@color/amber_50</color>
-
-
-    <!-- Customize your icon here.
-    <color name="ico">#ff7285a3</color>
-    <color name="iconToolBarTint">#fff5f6fa</color>
--->
-    <!-- Customize your text here.
-    <color name="tabTextColor">#fff5f6fa</color>
-    -->
+    <color name="ic_launcher_background_tint">#FCFCFC</color>
+    <color name="ic_launcher_foreground_tint">#000000</color>
 </resources>

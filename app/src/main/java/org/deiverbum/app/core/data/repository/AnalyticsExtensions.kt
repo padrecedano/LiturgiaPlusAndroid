@@ -3,30 +3,34 @@ package org.deiverbum.app.core.data.repository
 import org.deiverbum.app.core.analytics.AnalyticsEvent
 import org.deiverbum.app.core.analytics.AnalyticsHelper
 
-internal fun AnalyticsHelper.logNewsResourceBookmarkToggled(
-    newsResourceId: String,
-    isBookmarked: Boolean
-) {
-    val eventType = if (isBookmarked) "news_resource_saved" else "news_resource_unsaved"
-    val paramKey = if (isBookmarked) "saved_news_resource_id" else "unsaved_news_resource_id"
+fun AnalyticsHelper.logUniversalisResourceOpened(universalisResourceId: String) {
     logEvent(
-        AnalyticsEvent(
-            type = eventType,
+        event = AnalyticsEvent(
+            type = "universalis_resource_opened",
             extras = listOf(
-                AnalyticsEvent.Param(key = paramKey, value = newsResourceId),
+                AnalyticsEvent.Param("opened_universalis_resource", universalisResourceId),
             ),
         ),
     )
 }
 
-internal fun AnalyticsHelper.logTopicFollowToggled(followedTopicId: String, isFollowed: Boolean) {
-    val eventType = if (isFollowed) "topic_followed" else "topic_unfollowed"
-    val paramKey = if (isFollowed) "followed_topic_id" else "unfollowed_topic_id"
+fun AnalyticsHelper.logUniversalisTtsEvent(universalisResourceId: String) {
     logEvent(
-        AnalyticsEvent(
-            type = eventType,
+        event = AnalyticsEvent(
+            type = "universalis_tts_event",
             extras = listOf(
-                AnalyticsEvent.Param(key = paramKey, value = followedTopicId),
+                AnalyticsEvent.Param("opened_universalis_tts", universalisResourceId),
+            ),
+        ),
+    )
+}
+
+fun AnalyticsHelper.logMainMenuOptionOpened(menuOption: String) {
+    logEvent(
+        event = AnalyticsEvent(
+            type = "main_menu_option_opened",
+            extras = listOf(
+                AnalyticsEvent.Param("opened_main_menu_option", menuOption),
             ),
         ),
     )
@@ -38,6 +42,26 @@ internal fun AnalyticsHelper.logThemeChanged(themeName: String) =
             type = "theme_changed",
             extras = listOf(
                 AnalyticsEvent.Param(key = "theme_name", value = themeName),
+            ),
+        ),
+    )
+
+internal fun AnalyticsHelper.logUseVoiceReaderChanged(themeName: String) =
+    logEvent(
+        AnalyticsEvent(
+            type = "voice_reader_changed",
+            extras = listOf(
+                AnalyticsEvent.Param(key = "status", value = themeName),
+            ),
+        ),
+    )
+
+internal fun AnalyticsHelper.logFontSizeChanged(themeName: String) =
+    logEvent(
+        AnalyticsEvent(
+            type = "font_size_changed",
+            extras = listOf(
+                AnalyticsEvent.Param(key = "font_size_preference", value = themeName),
             ),
         ),
     )
@@ -70,4 +94,5 @@ internal fun AnalyticsHelper.logOnboardingStateChanged(shouldHideOnboarding: Boo
     logEvent(
         AnalyticsEvent(type = eventType),
     )
+
 }
