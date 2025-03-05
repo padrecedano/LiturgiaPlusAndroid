@@ -29,6 +29,7 @@ data class LHInvitatoryWithPsalm(
 
 fun LHInvitatoryWithPsalm.asExternalModel() = LHPsalm(
     theOrder = 0,
+    true,
     psalm.salmoRef!!,
     "",
     "",

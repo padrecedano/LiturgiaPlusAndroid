@@ -55,7 +55,7 @@ data class LHPsalmWithAll(
 }
 
 fun LHPsalmWithAll.asExternalModel() = LHPsalm(
-    theOrder,
+    theOrder, true,
     theQuote,
     theme,
     epigraph,

@@ -32,103 +32,10 @@ open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>, var 
         antiphonae, typus
     ) {
         this.psalmus = psalmus
-        //this.antiphonae = antiphonae
     }
-
-    //var typus = 0
 
     @Ignore
     open var psalmus: MutableList<LHPsalm> = mutableListOf()
-
-    //@Ignore
-    //protected open var antiphonae: MutableList<LHAntiphon> = mutableListOf()
-
-    /**
-     * Obtiene todos los elementos del salmo formateados para la vista.
-     * Desde aquí se llama a [sort] porque este método se invoca una sola vez.
-     *
-     * @since 2024.1
-     *
-     * @param hourIndex El identificador de la hora, para los casos de la Hora Intermedia.
-     * @param calendarTime El tiempo litúrgico, para hacer los reemplazos correspondientes en las antífonas llamando a [LHAntiphon.normalizeByTime].
-     *
-     */
-    open fun getAllForView(hourIndex: Int, calendarTime: Int): SpannableStringBuilder {
-        sort()
-        val sb = SpannableStringBuilder(header)
-        sb.append(LS2)
-        val antiphonBefore = SpannableStringBuilder()
-        val antiphonAfter = SpannableStringBuilder()
-
-        if (typus == 1) {
-            if (psalmus.size == antiphonae.size) {
-                antiphonae[hourIndex].normalizeByTime(calendarTime)
-                antiphonBefore.append(antiphonae[hourIndex].getBeforeForView(false))
-                antiphonAfter.append(antiphonae[hourIndex].afterForView)
-
-            } else {
-                antiphonae[0].normalizeByTime(calendarTime)
-                antiphonBefore.append(antiphonae[0].getBeforeForView())
-                antiphonAfter.append(antiphonae[0].afterForView)
-            }
-            sb.append(antiphonBefore)
-            sb.append(LS2)
-            for (s in psalmus) {
-                if (s.pericopa != "") {
-                    sb.append(s.quoteForView)
-                    sb.append(LS2)
-                }
-
-                if (s.theme != null && s.theme != "") {
-                    sb.append(Utils.toRed(s.theme))
-                    sb.append(LS2)
-                }
-                if ((s.epigraph != null) && (s.epigraph != "")) {
-                    sb.append(Utils.fromHtmlSmall(s.epigraph!!))
-                    sb.append(LS2)
-                }
-                if ((s.thePart != null) && (s.thePart != 0)) {
-                    sb.append(Utils.toRed(s.partForView))
-                    sb.append(LS2)
-                }
-
-                sb.append(s.psalmForView)
-                sb.append(LS2)
-            }
-            //sb.append(Utils.toRed("Ant. "))
-            sb.append(antiphonAfter)
-            sb.append(LS2)
-        }
-
-        if (typus == 0 && psalmus.size == antiphonae.size) {
-            for (s in psalmus) {
-                antiphonae[s.theOrder - 1].normalizeByTime(calendarTime)
-                sb.append(antiphonae[s.theOrder - 1].getBeforeForView())
-                sb.append(LS2)
-                if (s.pericopa != "") {
-                    sb.append(s.quoteForView)
-                    sb.append(LS2)
-                }
-                if ((s.theme != null) && (s.theme != "")) {
-                    sb.append(Utils.toRed(s.theme))
-                    sb.append(LS2)
-                }
-                if ((s.epigraph != null) && (s.epigraph != "")) {
-                    sb.append(Utils.fromHtmlSmall(s.epigraph!!))
-                    sb.append(LS2)
-                }
-                if ((s.thePart != null) && (s.thePart != 0)) {
-                    sb.append(Utils.toRed(s.partForView))
-                    sb.append(LS2)
-                }
-                sb.append(s.psalmForView)
-                sb.append(LS2)
-                sb.append(antiphonae[s.theOrder - 1].afterForView)
-                sb.append(LS2)
-            }
-        }
-        return sb
-    }
 
 
     /**
@@ -244,6 +151,18 @@ open class LHPsalmody(@Ignore open var antiphonae: MutableList<LHAntiphon>, var 
         psalmus = psalmus.sortedBy { it.theOrder } as MutableList<LHPsalm>
         antiphonae = antiphonae.sortedBy { it.theOrder } as MutableList<LHAntiphon>
         //antiphonae.sortBy { it.theOrder }
+    }
+
+    fun normalizeByTime(calendarTime: Int) {
+        antiphonae.forEach {
+            it.normalizeByTime(calendarTime)
+        }
+    }
+
+    fun normalizeText() {
+        antiphonae.forEach {
+            //it.normalizeByTime(calendarTime)
+        }
     }
 
 

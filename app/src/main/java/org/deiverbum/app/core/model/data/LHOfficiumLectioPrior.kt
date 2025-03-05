@@ -48,7 +48,7 @@ class LHOfficiumLectioPrior(
         sb.append(Utils.LS2)
         sb.append("textoSpan")
         //sb.append(Utils.LS)
-        sb.append(responsorium.all)
+        //sb.append(responsorium.all)
         return sb
     }
 
@@ -72,7 +72,7 @@ class LHOfficiumLectioPrior(
         sb.append(Utils.pointAtEnd(getHeader()))
         sb.append(book.getForRead())
         sb.append(temaForRead)
-        sb.append("textoForRead")
+        sb.append(textoForRead)
         sb.append(getConclusionForRead())
         //sb.append(getResponsorioHeaderForRead())
         //sb.append(book!!.getForRead())

@@ -75,7 +75,7 @@ class LHOfficiumLectioAltera(
             sb.append(Utils.LS2)
             sb.append(textoSpan)
             //sb.append(Utils.LS)
-            sb.append(responsorium!!.all)
+            //sb.append(responsorium!!.all)
             return sb
         }
 }

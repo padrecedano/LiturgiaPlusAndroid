@@ -33,7 +33,7 @@ class LHGospelCanticle(var typeID: Int = 0, override var antiphonae: MutableList
         fun getPsalmus(typeID: Int): LHPsalm {
             return when (typeID) {
                 2 -> LHPsalm(
-                    1,
+                    1, true,
                     "Cántico de Zacarías¦Lc 1, 68-79",
                     "El Mesías y su precursor",
                     "Bendito sea el Señor, Dios de Israel,_porque ha " +
@@ -41,7 +41,7 @@ class LHGospelCanticle(var typeID: Int = 0, override var antiphonae: MutableList
                 )
 
                 6 -> LHPsalm(
-                    1,
+                    1, true,
                     "Cántico de la Santísima Virgen María¦Lc 1, 46-55",
                     "Alegría del alma en el Señor",
                     "Proclama mi alma la grandeza del Señor,_se alegra mi " +
@@ -51,6 +51,7 @@ class LHGospelCanticle(var typeID: Int = 0, override var antiphonae: MutableList
                 7 ->
                     LHPsalm(
                         1,
+                        true,
                         "Cántico de Simeón¦Lc 2, 29-32",
                         "Cristo, luz de las naciones y gloria de Israel",
                         "Ahora, Señor, según tu promesa, ~puedes dejar a tu siervo irse en paz, ¦§porque mis ojos han visto a tu Salvador, ~a quien has presentado ante todos los pueblos: ¦~luz para alumbrar a las naciones~y gloria de tu pueblo Israel."

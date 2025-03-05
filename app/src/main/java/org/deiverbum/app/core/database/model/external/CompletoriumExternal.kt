@@ -19,7 +19,7 @@ import org.deiverbum.app.core.model.data.Universalis
  * Representación de la hora de Completas para la capa de datos externa.
  *
  * @author A. Cedano
- * @since 2024.1
+ * @since 2025.1
  * @see LHCompletorium
  */
 data class CompletoriumExternal(
@@ -39,6 +39,7 @@ data class CompletoriumExternal(
     )
 
 fun CompletoriumExternal.asExternalModel(): Universalis {
+    val extModel = universalis.asExternalModel()
     val conclusion = ConclusioCompletorium(nightPrayer.virgin.virginEntity.asExternalModel())
     val breviarium = LHCompletorium(
         nightPrayer.kyrie.entity.asExternalModel(),
@@ -49,8 +50,7 @@ fun CompletoriumExternal.asExternalModel(): Universalis {
         nightPrayer.prayer.asExternalModel(),
         conclusion, "completorium"
     )
-    return Universalis(
-        universalis.todayDate,
+    extModel.liturgia =
         Liturgy(
             liturgia.parent.semana,
             liturgia.parent.dia,
@@ -58,7 +58,5 @@ fun CompletoriumExternal.asExternalModel(): Universalis {
             liturgia.entity.asExternalModel(),
             breviarium
         )
-    )
-
-
+    return extModel
 }

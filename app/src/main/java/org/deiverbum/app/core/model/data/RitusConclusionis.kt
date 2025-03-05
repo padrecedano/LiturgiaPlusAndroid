@@ -18,6 +18,9 @@ import org.deiverbum.app.util.Utils
  */
 
 class RitusConclusionis {
+    val minor = listOf(txtBenedicamusDomino, txtDeoGratias)
+    val maior = listOf(txtDominusNosBenedicat, txtAmen)
+
     companion object {
 
         var viewTitle = SpannableStringBuilder(Utils.formatTitle("CONCLUSIÓN"))

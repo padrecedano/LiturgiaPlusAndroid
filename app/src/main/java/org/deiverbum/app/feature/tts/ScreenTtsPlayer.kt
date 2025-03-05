@@ -11,6 +11,10 @@ import androidx.compose.material.icons.rounded.PlayCircle
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,11 +29,13 @@ import org.deiverbum.app.core.designsystem.component.media.PlayerControlsTts
 @Composable
 fun ScreenTtsPlayer(
     vm: TtsMediaViewModel,
-    text: StringBuilder
+    //text: StringBuilder
 ) {
+    var isSpeaking by remember { mutableStateOf(false) }
+
     BottomPlayerUITts(
         durationString = vm.formatDuration(vm.duration),
-        text = text,
+        //text = text,
         playResourceProvider = {
             if (vm.isPlaying) Icons.Rounded.PauseCircle
             else Icons.Rounded.PlayCircle
@@ -61,7 +67,7 @@ fun ScreenTtsPlayer(
 fun BottomPlayerUITts(
     modifier: Modifier = Modifier,
     durationString: String,
-    text: StringBuilder,
+    //text: StringBuilder,
     playResourceProvider: () -> ImageVector,
     progressProvider: () -> Pair<Float, String>,
     onUiEvent: (UIEventTts) -> Unit

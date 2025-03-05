@@ -35,7 +35,7 @@ import org.deiverbum.app.core.model.data.Universalis
  *
  * @author A. Cedano
  * @version 1.0
- * @since 2024.1
+ * @since 2025.1
  * @see Breviarium
  * @see LHLaudes
  */
@@ -103,6 +103,7 @@ data class LaudesExternal(
 )
 
 fun LaudesExternal.asExternalModel(): Universalis {
+    val extModel = universalis.asExternalModel()
     val breviarium = LHLaudes(
         universalis.hasSaint == 1,
         invitatorium.asExternalModel(),
@@ -117,9 +118,7 @@ fun LaudesExternal.asExternalModel(): Universalis {
     if (universalis.hasSaint == 1) {
         breviarium.sanctus = sanctus!!.asExternalModel()
     }
-    return Universalis(
-        universalis.todayDate,
-        //universalis.timeFK,
+    extModel.liturgia =
         Liturgy(
             liturgia.parent.semana,
             liturgia.parent.dia,
@@ -127,6 +126,5 @@ fun LaudesExternal.asExternalModel(): Universalis {
             liturgia.entity.asExternalModel(),
             breviarium
         )
-    )
-
+    return extModel
 }

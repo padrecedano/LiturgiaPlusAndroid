@@ -14,18 +14,18 @@ import org.deiverbum.app.core.database.model.external.MissaeLectionumExternal
 import org.deiverbum.app.core.database.model.external.MixtusExternal
 import org.deiverbum.app.core.database.model.external.NonamExternal
 import org.deiverbum.app.core.database.model.external.OfficiumExternal
-import org.deiverbum.app.core.database.model.external.PopulatedVesperasResource
 import org.deiverbum.app.core.database.model.external.RosariumExternal
 import org.deiverbum.app.core.database.model.external.SanctiiExternal
 import org.deiverbum.app.core.database.model.external.SextamExternal
 import org.deiverbum.app.core.database.model.external.TertiamExternal
 import org.deiverbum.app.core.database.model.external.UniversalisExternal
+import org.deiverbum.app.core.database.model.external.VesperasExternal
 import org.deiverbum.app.core.database.model.external.asExternalModel
 import org.deiverbum.app.core.datastore.ChangeListVersions
 import org.deiverbum.app.core.model.data.Universalis
 import org.deiverbum.app.core.model.data.UniversalisResourceQuery
 import org.deiverbum.app.core.network.NiaNetworkDataSource
-import org.deiverbum.app.util.TimeUtil
+import org.deiverbum.app.util.DateTimeUtil
 import org.deiverbum.app.util.Utils
 import javax.inject.Inject
 
@@ -81,7 +81,7 @@ class OfflineFirstUniversalisRepository @Inject constructor(
 
             7 -> universalisDao.getVesperasByDate(
                 filterDate = query.filterDate,
-            ).map(PopulatedVesperasResource::asExternalModel)
+            ).map(VesperasExternal::asExternalModel)
 
             8 -> universalisDao.getCompletoriumByDate(
                 filterDate = query.filterDate,
@@ -109,7 +109,7 @@ class OfflineFirstUniversalisRepository @Inject constructor(
 
             30 ->
                 universalisDao.getRosariumByDate(
-                    TimeUtil.getDayOfWeek(
+                    DateTimeUtil.getDayOfWeek(
                         query.filterDate
                     )
                 ).map(RosariumExternal::asExternalModel)
@@ -130,7 +130,9 @@ class OfflineFirstUniversalisRepository @Inject constructor(
     }
 
     override fun getUniversalisForTest(id: Int): Flow<Universalis> {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
+        return universalisDao.getUniversalisByDate(id).map(UniversalisExternal::asExternalModel)
+
     }
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean =

@@ -29,6 +29,7 @@ import org.deiverbum.app.navigation.TopLevelDestination
 import org.deiverbum.app.navigation.TopLevelDestination.CALENDAR
 import org.deiverbum.app.navigation.TopLevelDestination.HOME
 import org.deiverbum.app.navigation.TopLevelDestination.MAS
+import java.time.LocalDateTime
 
 
 @Composable
@@ -95,6 +96,13 @@ class NiaAppState(
             coroutineScope,
             SharingStarted.WhileSubscribed(5_000),
             TimeZone.currentSystemDefault(),
+        )
+
+    val currentDate = timeZoneMonitor.currentDate
+        .stateIn(
+            coroutineScope,
+            SharingStarted.WhileSubscribed(5_000),
+            LocalDateTime.now(),
         )
 
     /**

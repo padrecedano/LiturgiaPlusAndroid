@@ -1,8 +1,6 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.AnnotatedString
 import androidx.room.ColumnInfo
 import androidx.room.Ignore
 import org.deiverbum.app.util.LiturgyHelper.Companion.endPsalmForRead
@@ -21,6 +19,8 @@ import org.deiverbum.app.util.Utils
  */
 open class LHPsalm(
     @Ignore var theOrder: Int = 0,
+    @Ignore var haveGloria: Boolean = true,
+
     @ColumnInfo(name = "quote")
     var pericopa: String = "",
     @ColumnInfo(name = "psalm")
@@ -28,12 +28,13 @@ open class LHPsalm(
 ) {
     constructor(
         theOrder: Int = 0,
+        haveGloria: Boolean = true,
         pericopa: String = "",
         theme: String = "",
         epigraph: String = "",
         thePart: Int = 0,
         psalmus: String
-    ) : this(theOrder, pericopa, psalmus) {
+    ) : this(theOrder, haveGloria, pericopa, psalmus) {
         this.theme = theme
         this.epigraph = epigraph
         this.thePart = thePart
@@ -41,18 +42,24 @@ open class LHPsalm(
 
     constructor(
         theOrder: Int = 0,
+        haveGloria: Boolean = true,
         pericopa: String = "",
         theme: String = "",
         psalmus: String
-    ) : this(theOrder, pericopa, psalmus) {
+    ) : this(theOrder, haveGloria, pericopa, psalmus) {
         this.theme = theme
+        //this.haveGloria=true
     }
 
     init {
         if (this.pericopa.contains("¦")) {
             this.pericopa = this.pericopa.replace("¦", "  ")
         }
-
+        if (psalmus.endsWith("∸")) {
+            this.psalmus = psalmus.replace("∸", "")
+            haveGloria = false
+            //return NormalizeText(psalmus.replace("∸",""),true)
+        }
     }
 
     @Ignore
@@ -66,58 +73,16 @@ open class LHPsalm(
 
     var psalmID = 0
     var readingID = 0
-    //var psalm = ""
 
     @Deprecated("")
     @Ignore
     var lhAntiphon: LHAntiphon? = null
 
-    @Ignore
-    var quotee = ""
-        set(value) {
-            field = if (value.contains("¦")) {
-                value.replace("¦", "  ")
-            } else {
-                value
-            }
-        }
-
     val partForView: String
         get() = Utils.toRoman(thePart)
 
-    fun thePartComposable(rubricColor: Color): AnnotatedString {
-        return Utils.toRedCompose(Utils.toRoman(thePart), rubricColor)
-    }
-
     val quoteForView: SpannableStringBuilder
         get() = Utils.toRed(pericopa)
-
-    fun pericopaComposable(rubricColor: Color): AnnotatedString {
-        return Utils.toRedCompose(pericopa, rubricColor)
-    }
-
-    fun themeComposable(rubricColor: Color): AnnotatedString {
-        return Utils.toRedCompose(theme, rubricColor)
-    }
-
-    fun epigraphComposable(): AnnotatedString {
-        return Utils.composeSmallText(epigraph!!)
-    }
-
-
-    fun psalmComposable(): AnnotatedString {
-        val asb = AnnotatedString.Builder()
-        if (psalmus.endsWith("∸")) {
-            asb.append(
-                Utils.fromHtml(psalmus)
-            ).append(noGloria)
-        } else {
-            asb.append(Utils.fromHtml(psalmus))
-            asb.append(Utils.LS2)
-            asb.append(endPsalmForView)
-        }
-        return asb.toAnnotatedString()
-    }
 
     val psalmForView: SpannableStringBuilder
         get() = if (psalmus.endsWith("∸")) {
@@ -141,6 +106,13 @@ open class LHPsalm(
                 Utils.getFormatoForRead(psalmus)
             ).append(endPsalmForRead)
         }
+
+    fun normalize(): NormalizeText {
+        if (psalmus.endsWith("∸")) {
+            return NormalizeText(psalmus.replace("∸", ""), true)
+        }
+        return NormalizeText(psalmus)
+    }
 
     /**
      * @return La rúbrica cuando no se dice Gloria en los salmos.

@@ -1,17 +1,15 @@
 package org.deiverbum.app.core.domain
 
-import android.net.ParseException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import org.deiverbum.app.core.data.repository.UniversalisRepository
 import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.model.data.HomeResource
-import org.deiverbum.app.core.model.data.Universalis
 import org.deiverbum.app.core.model.data.UniversalisResource
 import org.deiverbum.app.core.model.data.UniversalisResourceQuery
-import java.text.SimpleDateFormat
-import java.util.Locale
+import org.deiverbum.app.util.DateTimeUtil.isDateValid
 import javax.inject.Inject
 
 /**
@@ -43,32 +41,17 @@ class GetHomeUseCase @Inject constructor(
             userDataRepository.userData,
             universalisRepository.countUniversalis(UniversalisResourceQuery(date)),
         ) { userData, count ->
-            var newData = Universalis(date)
             if (count == 0 && date.isDateValid()) {
                 universalisRepository.insertFromRemote(UniversalisResourceQuery(date))
-                newData = universalisRepository.getUniversalisByDate(UniversalisResourceQuery(date))
-                    .first()
             }
+            val newData = universalisRepository.getUniversalisForTest(date).first()
             HomeResource(
                 date = date,
                 data = newData,
+                count = count,
                 dynamic = userData
             )
-        }
-        //}.catch {
-        //    it.message
-        //}
-    }
-
-    fun Int.isDateValid(): Boolean {
-        val dateFormat = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
-        dateFormat.isLenient = false
-        return try {
-            dateFormat.parse(this.toString())
-            true
-        } catch (e: ParseException) {
-            false
-        }
+        }.distinctUntilChanged()
     }
 }
 

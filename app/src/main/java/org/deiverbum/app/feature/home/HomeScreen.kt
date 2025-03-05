@@ -2,13 +2,10 @@ package org.deiverbum.app.feature.home
 
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -17,14 +14,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,44 +27,49 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toJavaZoneId
 import org.deiverbum.app.core.designsystem.theme.NiaTypography
 import org.deiverbum.app.core.model.data.ui.ChildItem
 import org.deiverbum.app.core.model.data.ui.ItemUI
 import org.deiverbum.app.core.model.data.ui.MainItem
+import org.deiverbum.app.core.ui.LocalTimeZone
 import org.deiverbum.app.feature.calendar.EmptyState
 import org.deiverbum.app.feature.universalis.LoadingState
-import org.deiverbum.app.ui.NiaAppState
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+
 
 fun populateData(): List<MainItem> {
-    var breviariumItems = listOf(ItemUI(0, "Laudes + Lecturas Oficio", 1))
-    val a = ChildItem("a", listOf(ItemUI(0, "Mixto", 1)))
-    val b = ChildItem(
-        "b", listOf
+    val a = ChildItem(
+        "a", listOf
             (
             ItemUI(1, "Mixto", 2),
             ItemUI(2, "Oficio", 2),
             ItemUI(3, "Laudes", 2)
         )
     )
-    val c = ChildItem(
-        "c",
+    val b = ChildItem(
+        "b",
         listOf(
             ItemUI(4, "Tercia", 2),
             ItemUI(5, "Sexta", 2),
             ItemUI(6, "Nona", 2)
         )
     )
-    val d = ChildItem(
-        "d",
+    val c = ChildItem(
+        "c",
         listOf(
             ItemUI(7, "Vísperas", 2),
             ItemUI(8, "Completas", 2),
         )
     )
 
-    val e = ChildItem(
-        "e",
+    val d = ChildItem(
+        "d",
         listOf(
             ItemUI(11, "Lecturas", 2),
             ItemUI(12, "Comentarios", 2),
@@ -78,8 +77,8 @@ fun populateData(): List<MainItem> {
 
             )
     )
-    val f = ChildItem(
-        "f",
+    val e = ChildItem(
+        "e",
         listOf(
             ItemUI(20, "Santos", 3),
             ItemUI(21, "Rosario", 3),
@@ -89,9 +88,9 @@ fun populateData(): List<MainItem> {
     )
 
     return listOf(
-        MainItem("Breviario", listOf(b, c, d)),
-        MainItem("Misa", listOf(e)),
-        MainItem("Otros", listOf(f)),
+        MainItem("Breviario", listOf(a, b, c)),
+        MainItem("Misa", listOf(d)),
+        MainItem("Otros", listOf(e)),
 
         )
 
@@ -103,16 +102,34 @@ fun HomeScreen(
     onNextButtonClicked: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
     modifier: Modifier = Modifier,
-    appState: NiaAppState,
-
+    currentTimeZone: StateFlow<TimeZone>,
+    currentDate: StateFlow<LocalDateTime>,
+    //onTopicCheckedChanged: (String, Boolean) -> Unit,
     ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    //val currentTime = viewModel.timer.collectAsState()
+    val ctz = currentTimeZone.collectAsState()
+    val currentDate = currentDate.collectAsState()
+    val test = LocalTimeZone.current.toJavaZoneId()
+    /*LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        // refresh your data
+        viewModel.updateTopicSelection("a",false)
+    }*/
     HomeScreen(
         uiState = uiState,
         modifier = modifier,
         onTopicClick = onNextButtonClicked,
-        appState = appState
+        currentTimeZone = ctz,
+        currentDate = currentDate,
+        //onTopicCheckedChanged = viewModel::updateTopicSelection,
+
     )
+    val z = ZoneId.systemDefault()
+    val zi = ZoneId.of(ctz.value.id)
+
+    val time = ZonedDateTime.now(zi)
+    //val zdt = ZonedDateTime..atZone(z)
+
 
     /*val chipModifier = Modifier
         .padding(4.dp)
@@ -214,20 +231,55 @@ fun HomeScreen(
     }*/
 }
 
-@Composable
-fun Dataa() {
-    TODO("Not yet implemented")
-}
-
 @ExperimentalLayoutApi
 @Composable
 fun HomeScreen(
     uiState: HomeUiState,
     modifier: Modifier,
     onTopicClick: (String) -> Unit,
-    appState: NiaAppState,
+    currentTimeZone: State<TimeZone>,
+    currentDate: State<LocalDateTime>,
+    //onTopicCheckedChanged: (String, Boolean) -> Unit,
 ) {
 
+    when (uiState) {
+        HomeUiState.Empty -> EmptyState(modifier = modifier)
+        is HomeUiState.HomeData -> {
+            HomeItems(
+                uiState = uiState,
+                onTopicClick = onTopicClick,
+                currentTimeZone = currentTimeZone,
+                currentDate = currentDate,
+                modifier = modifier,
+                haveDate = true
+            )
+        }
+
+        HomeUiState.Loading -> LoadingState(modifier = modifier)
+        is HomeUiState.HomeError -> {
+            HomeItems(
+                uiState = uiState,
+                onTopicClick = onTopicClick,
+                currentTimeZone = currentTimeZone,
+                currentDate = currentDate,
+                modifier = modifier,
+                haveDate = false
+            )
+        }
+    }
+}
+
+@ExperimentalLayoutApi
+@Composable
+fun HomeItems(
+    uiState: HomeUiState,
+    onTopicClick: (String) -> Unit,
+    modifier: Modifier,
+    haveDate: Boolean = false,
+    currentTimeZone: State<TimeZone>,
+    currentDate: State<LocalDateTime>
+
+) {
     val chipModifier = Modifier
         .padding(4.dp)
         .clip(RoundedCornerShape(1.dp))
@@ -237,170 +289,50 @@ fun HomeScreen(
         .heightIn(max = 500.dp)
         .clip(RoundedCornerShape(1.dp))
 
-    val isOffline by appState.isOffline.collectAsStateWithLifecycle()
-
-    if (!isOffline) {
-
-        when (uiState) {
-            HomeUiState.Empty -> EmptyState(modifier = modifier)
-            is HomeUiState.HomeData -> {
-                LazyColumn(
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                    modifier = Modifier, horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    item {
-                        //TimedLayout()
-                        //OutlinedCardExample()
-
-                        Text(
-                            text = uiState.topics.data.fecha,
-                            modifier = Modifier
-                                .padding(2.dp),
-                            textAlign = TextAlign.Center,
-                        )
-                    }
-                    item {
-                        Text(
-                            text = uiState.topics.data.liturgia!!.nomen,
-                            modifier = Modifier
-                                .padding(2.dp),
-                            textAlign = TextAlign.Center,
-                        )
-                    }
-                    item {
-
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                    }
-                    items(populateData()) { item ->
-                        //HorizontalDivider()
-                        HorizontalDivider(modifier = Modifier.padding(10.dp, 10.dp))
-
-                        if (item.parent == "Breviario") {
-                            Text(
-                                item.parent, fontSize = 26.sp, modifier = Modifier
-                                    .padding(2.dp)
-                            )
-                            item.childs.forEach {
-                                if (it.group == "a") {
-                                    FlowRow(
-                                        modifier = rowModifier,
-                                        verticalArrangement = Arrangement.spacedBy(14.dp),
-                                        horizontalArrangement = Arrangement.spacedBy(
-                                            48.dp,
-                                            Alignment.CenterHorizontally
-                                        ),
-
-                                        ) {
-                                        it.items.forEach {
-                                            HomeButton(it) {
-                                                //onNextButtonClicked(it.id.toString())
-                                            }
-                                            Spacer(modifier = chipModifier)
-                                        }
-                                    }
-                                }
-                                if (it.group == "b") {
-                                    FlowRow(
-                                        modifier = rowModifier,
-                                        verticalArrangement = Arrangement.spacedBy(
-                                            8.dp,
-                                            Alignment.CenterVertically
-                                        ),
-                                        horizontalArrangement = Arrangement.spacedBy(
-                                            8.dp,
-                                            Alignment.CenterHorizontally
-                                        ),
-
-                                        ) {
-                                        it.items.forEach {
-                                            HomeButton(it) { onTopicClick(it.title) }
-                                            Spacer(modifier = chipModifier)
-                                        }
-                                    }
-                                }
-                                if (it.group == "c") {
-                                    FlowRow(modifier = rowModifier) {
-                                        it.items.forEach {
-                                            HomeButton(it) { onTopicClick(it.title) }
-                                            Spacer(modifier = chipModifier)
-                                        }
-                                    }
-                                }
-                                if (it.group == "d") {
-                                    FlowRow(modifier = rowModifier) {
-                                        it.items.forEach {
-                                            HomeButton(it) { onTopicClick(it.title) }
-                                            Spacer(modifier = chipModifier)
-                                        }
-                                    }
-                                }
-
-                                //HorizontalDivider()
-                            }
-                            //HorizontalDivider()
-
-                        } else {
-                            Text(
-                                item.parent,
-                                fontSize = 26.sp,
-                                modifier = modifier.padding(15.dp, 10.dp)
-                            )
-                            item.childs.forEach {
-                                FlowRow(modifier = rowModifier) {
-                                    it.items.forEach {
-                                        HomeButton(it) { onTopicClick(it.title) }
-                                        Spacer(modifier = chipModifier)
-                                    }
-                                }
-                                //HorizontalDivider(modifier=Modifier.padding(10.dp,10.dp))
-                            }
-                            //HorizontalDivider()
-
-                        }
-                    }
-                }
-
-            }
-
-            HomeUiState.Loading -> LoadingState(modifier = modifier)
-            is HomeUiState.HomeError -> HomeScreenNoDateInfo(
-                onTopicClick,
-                chipModifier,
-                rowModifier,
-                modifier
-            )
-        }
-    } else {
-        HomeScreenNoDateInfo(onTopicClick, chipModifier, rowModifier, modifier)
-    }
-
-
-}
-
-@ExperimentalLayoutApi
-@Composable
-fun HomeScreenNoDateInfo(
-    onTopicClick: (String) -> Unit,
-    chipModifier: Modifier,
-    rowModifier: Modifier,
-    modifier: Modifier
-) {
-
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
         modifier = Modifier, horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        item {
-
-            Spacer(modifier = Modifier.height(10.dp))
-
+        if (haveDate) {
+            val data = uiState as HomeUiState.HomeData
+            val zi = ZoneId.of(currentTimeZone.value.id)
+            val time = ZonedDateTime.now(zi)
+            item {
+                Text("New ${data.selectedDate}")
+            }
+            item {
+                Text(currentTimeZone.value.id)
+            }
+            item {
+                val t = time.format(DateTimeFormatter.ofPattern("dd.MMMM yyyy HH:mm:ss"))
+                Text("This changes always: ${t}")
+            }
+            item {
+                Text(currentDate.value.format(DateTimeFormatter.ofPattern("dd.MMMM yyyy HH:mm:ss")))
+            }
+            item {
+                Text(
+                    text = data.topics.data.fecha,
+                    modifier = Modifier
+                        .padding(2.dp),
+                    textAlign = TextAlign.Center,
+                )
+            }
+            item {
+                Text(
+                    text = data.topics.data.liturgia!!.nomen,
+                    modifier = Modifier
+                        .padding(2.dp),
+                    textAlign = TextAlign.Center,
+                )
+            }
+            item {
+                Spacer(modifier = Modifier.height(10.dp))
+                HorizontalDivider(modifier = Modifier.padding(10.dp, 10.dp))
+            }
         }
         items(populateData()) { item ->
-            //HorizontalDivider()
-            HorizontalDivider(modifier = Modifier.padding(10.dp, 10.dp))
-
             if (item.parent == "Breviario") {
                 Text(
                     item.parent, fontSize = 26.sp, modifier = Modifier
@@ -408,24 +340,6 @@ fun HomeScreenNoDateInfo(
                 )
                 item.childs.forEach {
                     if (it.group == "a") {
-                        FlowRow(
-                            modifier = rowModifier,
-                            verticalArrangement = Arrangement.spacedBy(14.dp),
-                            horizontalArrangement = Arrangement.spacedBy(
-                                48.dp,
-                                Alignment.CenterHorizontally
-                            ),
-
-                            ) {
-                            it.items.forEach {
-                                HomeButton(it) {
-                                    //onNextButtonClicked(it.id.toString())
-                                }
-                                Spacer(modifier = chipModifier)
-                            }
-                        }
-                    }
-                    if (it.group == "b") {
                         FlowRow(
                             modifier = rowModifier,
                             verticalArrangement = Arrangement.spacedBy(
@@ -444,6 +358,14 @@ fun HomeScreenNoDateInfo(
                             }
                         }
                     }
+                    if (it.group == "b") {
+                        FlowRow(modifier = rowModifier) {
+                            it.items.forEach {
+                                HomeButton(it) { onTopicClick(it.title) }
+                                Spacer(modifier = chipModifier)
+                            }
+                        }
+                    }
                     if (it.group == "c") {
                         FlowRow(modifier = rowModifier) {
                             it.items.forEach {
@@ -452,21 +374,13 @@ fun HomeScreenNoDateInfo(
                             }
                         }
                     }
-                    if (it.group == "d") {
-                        FlowRow(modifier = rowModifier) {
-                            it.items.forEach {
-                                HomeButton(it) { onTopicClick(it.title) }
-                                Spacer(modifier = chipModifier)
-                            }
-                        }
-                    }
-
-                    //HorizontalDivider()
                 }
-                //HorizontalDivider()
-
             } else {
-                Text(item.parent, fontSize = 26.sp, modifier = modifier.padding(15.dp, 10.dp))
+                Text(
+                    item.parent,
+                    fontSize = 26.sp,
+                    modifier = modifier.padding(15.dp, 10.dp)
+                )
                 item.childs.forEach {
                     FlowRow(modifier = rowModifier) {
                         it.items.forEach {
@@ -474,16 +388,12 @@ fun HomeScreenNoDateInfo(
                             Spacer(modifier = chipModifier)
                         }
                     }
-                    //HorizontalDivider(modifier=Modifier.padding(10.dp,10.dp))
                 }
-                //HorizontalDivider()
-
             }
         }
     }
-
-
 }
+
 
 /**
  * Botón personalizable que muestra los elementos de la pantalla inicial
@@ -513,37 +423,3 @@ fun HomeButton(
     )
 }
 
-@Composable
-private fun TimedLayout() {
-    var show by remember { mutableStateOf(true) }
-
-    LaunchedEffect(key1 = Unit) {
-        delay(10000)
-        show = false
-    }
-    Column(modifier = Modifier.fillMaxSize()) {
-        //Text("Box showing: $show")
-        if (show) {
-            // OutlinedCardExample()
-        }
-    }
-}
-
-@Composable
-fun OutlinedCardExample() {
-    OutlinedCard(
-        /*colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-        ),*/
-        //border = BorderStroke(1.dp, Color.Gray),
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
-        Text(
-            text = "21 de septiembre 2024\nMiércoles de la XXXIV del Tiempo Ordinario (impar)\nSan Mateo, apóstol",
-            modifier = Modifier
-                .padding(16.dp),
-            textAlign = TextAlign.Left,
-        )
-    }
-}

@@ -8,3 +8,4 @@ import kotlinx.datetime.TimeZone
  * This way, it's not needed to pass every single composable the time zone to show in UI.
  */
 val LocalTimeZone = compositionLocalOf { TimeZone.currentSystemDefault() }
+

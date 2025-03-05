@@ -11,5 +11,4 @@ class LHNightPrayer {
     var prayerFK = 0
     var virginFK = 0
 
-
 }

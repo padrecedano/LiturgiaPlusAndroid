@@ -50,7 +50,11 @@ fun NiaNavHost(
         modifier = modifier,
     ) {
         //homeScreen(onTopicClick = navController::navigateToUniversalis)
-        homeScreen(onTopicClick = navController::navigateToUniversalis, appState = appState)
+        homeScreen(
+            onTopicClick = navController::navigateToUniversalis,
+            appState.currentTimeZone,
+            appState.currentDate
+        )
 
         universalisFromHome(onBackClick = navController::navigateUp)
         masScreen(onTopicClick = navController::navigateToMas)

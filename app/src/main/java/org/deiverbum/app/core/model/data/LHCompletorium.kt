@@ -1,8 +1,6 @@
 package org.deiverbum.app.core.model.data
 
-import android.text.SpannableStringBuilder
 import org.deiverbum.app.core.model.data.Introitus.Companion.initialInvocationForRead
-import org.deiverbum.app.core.model.data.Introitus.Companion.initialInvocationForView
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
@@ -19,37 +17,6 @@ data class LHCompletorium(
 
 ) : Breviarium(typus) {
 
-    fun forView(calendarTime: Int): SpannableStringBuilder {
-        return try {
-            val sb = SpannableStringBuilder()
-            lectioBrevis.normalizeByTime(calendarTime)
-            sb.append(getTituloHora())
-            sb.append(Utils.LS2)
-            sb.append(initialInvocationForView)
-            sb.append(Utils.LS2)
-            sb.append(kyrie.all)
-            sb.append(Utils.LS2)
-            sb.append(hymnus.all)
-            sb.append(Utils.LS2)
-            sb.append(psalmodia.getAllForView(-1, calendarTime))
-            sb.append(Utils.LS)
-            sb.append(lectioBrevis.getAllWithHourCheck(7))
-            sb.append(Utils.LS)
-            sb.append(canticumEvangelicum.getSalmosByIndex(0, calendarTime))
-            sb.append(Utils.LS2)
-            sb.append(oratio.all)
-            sb.append(Utils.LS2)
-            //sb.append(conclusio.getAll())
-            sb.append(Utils.LS2)
-            sb
-        } catch (e: Exception) {
-            SpannableStringBuilder(e.toString())
-        }
-    }
-
-    private fun getTituloHora(): SpannableStringBuilder {
-        return Utils.toH1Red(Constants.TITLE_COMPLETAS)
-    }
 
     private fun getTituloHoraForRead(): String {
         return Utils.pointAtEnd(Constants.TITLE_COMPLETAS)
@@ -75,5 +42,9 @@ data class LHCompletorium(
 
     override fun sort() {
         psalmodia.sort()
+    }
+    override fun normalizeByTime(calendarTime: Int) {
+        psalmodia.normalizeByTime(calendarTime)
+        lectioBrevis.normalizeByTime(calendarTime)
     }
 }

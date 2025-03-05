@@ -5,29 +5,35 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.datetime.TimeZone
 import org.deiverbum.app.core.analytics.AnalyticsEvent
 import org.deiverbum.app.core.analytics.AnalyticsHelper
 import org.deiverbum.app.core.data.repository.UserDataRepository
+import org.deiverbum.app.core.data.util.TimeZoneMonitor
 import org.deiverbum.app.core.domain.GetHomeUseCase
 import org.deiverbum.app.core.model.data.HomeResource
 import org.deiverbum.app.feature.universalis.navigation.UniversalisRoute
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
+    savedStateHandle: SavedStateHandle,
     private val analyticsHelper: AnalyticsHelper,
-
+    timeZoneMonitor: TimeZoneMonitor,
     val userDataRepository: UserDataRepository,
     getHomeUseCase: GetHomeUseCase,
 ) : ViewModel() {
 
-    // Key used to save and retrieve the currently selected topic id from saved state.
     private val selectedTopicIdKey = "selectedTopicIdKey"
     private val route: UniversalisRoute = savedStateHandle.toRoute()
 
@@ -35,13 +41,34 @@ class HomeViewModel @Inject constructor(
         key = selectedTopicIdKey,
         initialValue = route.initialTopicId.toString(),
     )
-    private val selectedDate = savedStateHandle.getStateFlow(
+
+
+    val currentTimeZone = timeZoneMonitor.currentTimeZone
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5_000),
+            TimeZone.currentSystemDefault(),
+        )
+    val zi = ZoneId.of(currentTimeZone.value.id)
+    val time = ZonedDateTime.now(zi)
+    private val newDate = time.format(DateTimeFormatter.ofPattern("yyyyMMdd")).toInt()
+
+    private val _zone = MutableStateFlow<ZoneId>(ZoneId.of(currentTimeZone.value.id))
+    private val _zoneDate = MutableStateFlow<ZonedDateTime>(ZonedDateTime.now(_zone.value))
+    private val newDatee = _zoneDate.value.format(DateTimeFormatter.ofPattern("yyyyMMdd")).toInt()
+    val newD: StateFlow<ZonedDateTime> = _zoneDate
+
+    private var selectedDate = savedStateHandle.getStateFlow(
         key = "date",
-        initialValue = 20251010//Utils.hoy.toInt(),
+        initialValue = newD.value.format(DateTimeFormatter.ofPattern("yyyyMMdd")).toInt(),
     )
 
+    private val _timer =
+        MutableStateFlow<Int>(time.format(DateTimeFormatter.ofPattern("yyyyMMdd")).toInt())
+    val timer: StateFlow<Int> = _timer
     val uiState: StateFlow<HomeUiState> = combine(
         selectedTopicId,
+        selectedDate,
         getHomeUseCase.invoke(
             date = selectedDate.value,
         ),
@@ -53,7 +80,7 @@ class HomeViewModel @Inject constructor(
         )
         analyticsHelper.logHomeErrorEvent(error)
         emit(error)
-    }
+    }.distinctUntilChanged()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
@@ -61,8 +88,9 @@ class HomeViewModel @Inject constructor(
         )
 
     fun onTopicClick(topicId: String?) {
-        savedStateHandle[selectedTopicIdKey] = topicId
+        //savedStateHandle[selectedTopicIdKey] = topicId
     }
+
 }
 
 sealed interface HomeUiState {
@@ -70,6 +98,7 @@ sealed interface HomeUiState {
 
     data class HomeData(
         val selectedTopicId: String?,
+        val selectedDate: Int,
         val topics: HomeResource,
     ) : HomeUiState
 
@@ -79,7 +108,7 @@ sealed interface HomeUiState {
     ) : HomeUiState {
 
         override fun toString(): String {
-            return "Date: ${date} Msg: ${message}"
+            return "Date: $date Msg: $message"
         }
     }
 

@@ -91,6 +91,16 @@ internal fun PlayerControlsTts(
                 .padding(8.dp)
                 .size(56.dp)
         )
+        Image(
+            //painter = painterResource(id = playResourceProvider()),
+            imageVector = playResourceProvider(),
+            contentDescription = "Play/Pause Button",
+            modifier = Modifier
+                .clip(CircleShape)
+                .clickable(onClick = { onUiEvent(UIEventTts.Stop) })
+                .padding(8.dp)
+                .size(56.dp)
+        )
         /*Icon(
             painter = painterResource(android.R.drawable.ic_media_ff),
             contentDescription = "Forward Button",

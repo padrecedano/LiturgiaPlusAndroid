@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -102,7 +101,7 @@ internal fun FileScreen(
  * @since 2025.1
  *
  */
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FileScaffold(
     onBackClick: () -> Unit,
@@ -115,7 +114,6 @@ fun FileScaffold(
             Timber.d("aaa", it.resultCode)
         }
     )
-    val scrollState = rememberScrollState()
     val new = uiState.allData.new.data[0]
     Scaffold(
         topBar = {
@@ -164,7 +162,8 @@ fun FileScaffold(
                         verticalArrangement = Arrangement.spacedBy(16.dp)
 
                     ) {
-                        val text = bookRender(
+
+                    val text = bookRender(
                             new,
                             1,
                             userData = uiState.allData.userData.dynamic,

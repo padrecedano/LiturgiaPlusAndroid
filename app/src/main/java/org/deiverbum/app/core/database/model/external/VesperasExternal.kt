@@ -20,12 +20,22 @@ import org.deiverbum.app.core.database.model.relation.LHPsalmsAssoc
 import org.deiverbum.app.core.database.model.relation.LHReadingShortAll
 import org.deiverbum.app.core.database.model.relation.LiturgyTimeAssoc
 import org.deiverbum.app.core.database.model.relation.asExternalModel
+import org.deiverbum.app.core.model.data.Breviarium
 import org.deiverbum.app.core.model.data.LHPsalmody
 import org.deiverbum.app.core.model.data.LHVesperas
 import org.deiverbum.app.core.model.data.Liturgy
 import org.deiverbum.app.core.model.data.Universalis
 
-data class PopulatedVesperasResource(
+/**
+ * Representación de Vísperas para la capa de datos externa.
+ *
+ * @author A. Cedano
+ * @version 1.0
+ * @since 2025.1
+ * @see Breviarium
+ * @see LHVesperas
+ */
+data class VesperasExternal(
     @Embedded
     var universalis: UniversalisEntity,
 
@@ -81,7 +91,8 @@ data class PopulatedVesperasResource(
     var canticumEvangelicum: LHGospelCanticleWithAntiphon
 )
 
-fun PopulatedVesperasResource.asExternalModel(): Universalis {
+fun VesperasExternal.asExternalModel(): Universalis {
+    val extModel = universalis.asExternalModel()
     val liturgiaAssoc: LiturgyTimeAssoc
     var isPrimaVesperas = false
     if (universalis.previousFK > 1) {
@@ -90,8 +101,7 @@ fun PopulatedVesperasResource.asExternalModel(): Universalis {
     } else {
         liturgiaAssoc = liturgia
     }
-    return Universalis(
-        universalis.todayDate,
+    extModel.liturgia =
         Liturgy(
             liturgiaAssoc.parent.semana,
             liturgiaAssoc.parent.dia,
@@ -113,7 +123,6 @@ fun PopulatedVesperasResource.asExternalModel(): Universalis {
                 "vesperas"
             )
         )
-    )
-
+    return extModel
 }
 

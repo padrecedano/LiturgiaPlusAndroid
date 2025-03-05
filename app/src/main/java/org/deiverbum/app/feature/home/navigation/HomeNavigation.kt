@@ -6,9 +6,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.datetime.TimeZone
 import kotlinx.serialization.Serializable
 import org.deiverbum.app.feature.home.HomeScreen
-import org.deiverbum.app.ui.NiaAppState
+import java.time.LocalDateTime
 
 
 @Serializable
@@ -20,11 +22,16 @@ fun NavController.navigateToHome(navOptions: NavOptions) = navigate(route = Home
 @ExperimentalMaterial3AdaptiveApi
 fun NavGraphBuilder.homeScreen(
     onTopicClick: (String) -> Unit,
-    appState: NiaAppState,
+    currentTimeZone: StateFlow<TimeZone>,
+    currentDate: StateFlow<LocalDateTime>,
     //onBackClick: () -> Unit,
 ) {
     composable<HomeRoute> {
-        HomeScreen(onNextButtonClicked = onTopicClick, appState = appState)
+        HomeScreen(
+            onNextButtonClicked = onTopicClick,
+            currentTimeZone = currentTimeZone,
+            currentDate = currentDate
+        )
     }
 }
 

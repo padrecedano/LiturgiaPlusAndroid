@@ -47,7 +47,7 @@ import org.deiverbum.app.util.Constants
  *
  * @author A. Cedano
  * @version 1.0
- * @since 2024.1
+ * @since 2025.1
  * @see Breviarium
  * @see LHMixtus
  */
@@ -113,7 +113,6 @@ data class MixtusExternal(
     )
     var canticumEvangelicum: LHGospelCanticleWithAntiphon,
 
-
     @Relation(
         entity = LHOfficeVerseJoinEntity::class,
         parentColumn = "oVerseFK",
@@ -134,7 +133,6 @@ data class MixtusExternal(
         entityColumn = "groupID"
     )
     var lectioAltera: LHOfficePatristicAssoc,
-
 
     @Relation(
         entity = MassReadingEntity::class,
@@ -177,16 +175,13 @@ fun MixtusExternal.asExternalModel(): Universalis {
     if (universalis.hasSaint == 1) {
         breviarium.sanctus = sanctus!!.asExternalModel()
     }
-    return Universalis(
-        universalis.todayDate,
-        //universalis.timeFK,
-        Liturgy(
-            liturgia.parent.semana,
-            liturgia.parent.dia,
-            liturgia.parent.nombre,
-            liturgia.entity.asExternalModel(),
-            breviarium
-        )
-    )
 
+    extModel.liturgia = Liturgy(
+        liturgia.parent.semana,
+        liturgia.parent.dia,
+        liturgia.parent.nombre,
+        liturgia.entity.asExternalModel(),
+        breviarium
+    )
+    return extModel
 }

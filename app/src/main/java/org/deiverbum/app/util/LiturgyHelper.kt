@@ -109,7 +109,7 @@ class LiturgyHelper {
             get() = "Gloria al Padre, y al Hijo, y al Espíritu Santo. Como era en el principio ahora y siempre, por los siglos de los siglos. Amén."
 
         val gloriaNonDicitur: String
-            get() = "No se dice Gloria"
+            get() = "No se dice Gloria."
 
         val introAbreMisLabiosView: SpannableStringBuilder =
             SpannableStringBuilder(Utils.formatTitle(Constants.TITLE_INITIAL_INVOCATION))

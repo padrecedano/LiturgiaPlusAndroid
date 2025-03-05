@@ -13,7 +13,4 @@ utils/Configuration.java
 Configuration.java
 /release
 /schemas
-
-# /assets/database/
-assets/datase/*/
-/src/main/assets/database/
+/src/main/assets/**/*.db

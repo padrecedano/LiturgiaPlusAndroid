@@ -7,8 +7,13 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.unit.TextUnit
 import org.deiverbum.app.core.designsystem.component.TextZoomable
 import org.deiverbum.app.core.designsystem.component.stringFromHtml
+import org.deiverbum.app.core.designsystem.component.textDefault
+import org.deiverbum.app.core.designsystem.component.textDefaultItalic
+import org.deiverbum.app.core.designsystem.component.textFromHtml
+import org.deiverbum.app.core.designsystem.component.textLines
 import org.deiverbum.app.core.designsystem.component.textMultiColor
 import org.deiverbum.app.core.designsystem.component.textRubric
 import org.deiverbum.app.core.designsystem.component.textSmall
@@ -17,7 +22,9 @@ import org.deiverbum.app.core.designsystem.component.textSpan
 import org.deiverbum.app.core.designsystem.component.textVR
 import org.deiverbum.app.core.designsystem.component.textWithR
 import org.deiverbum.app.core.designsystem.component.textWithV
+import org.deiverbum.app.core.designsystem.component.transformBodyText
 import org.deiverbum.app.core.designsystem.component.transformEpigraph
+import org.deiverbum.app.core.designsystem.component.transformText
 import org.deiverbum.app.core.model.data.Breviarium
 import org.deiverbum.app.core.model.data.Introitus
 import org.deiverbum.app.core.model.data.Kyrie
@@ -36,6 +43,7 @@ import org.deiverbum.app.core.model.data.LHOfficiumLectioPrior
 import org.deiverbum.app.core.model.data.LHOfficiumLectionis
 import org.deiverbum.app.core.model.data.LHPsalm
 import org.deiverbum.app.core.model.data.LHPsalmody
+import org.deiverbum.app.core.model.data.LHResponsorium
 import org.deiverbum.app.core.model.data.LHResponsoriumBrevis
 import org.deiverbum.app.core.model.data.LHVesperas
 import org.deiverbum.app.core.model.data.MissaeLectionumList
@@ -53,7 +61,7 @@ import org.deiverbum.app.util.LiturgyHelper.Companion.gloriaNonDicitur
 import org.deiverbum.app.util.Utils
 import org.deiverbum.app.util.Utils.toRoman
 import org.deiverbum.app.util.Utils.transformText
-import java.util.Locale
+import org.deiverbum.app.util.splitParts
 
 /**
  * Pantalla para  Mixto: Oficio + Laudes
@@ -74,38 +82,59 @@ fun MixtusScreen(
     userData: UserData,
     rubricColor: Color,
     calendarTime: Int,
-    onTap: (Offset) -> Unit
+    onTap: (Offset) -> Unit,
+    fontSize: TextUnit
 ) {
 
     var text = AnnotatedString("")
 
+
     Column {
-        data.officiumLectionis.normalizeByTime(calendarTime)
+        //data.officiumLectionis.normalizeByTime(calendarTime)
         if (data.sanctus != null && data.hasSaint) {
             data.invitatorium.normalizeIsSaint(data.sanctus!!.nomen)
             text += textSmall(data.sanctus!!.vitaBrevis, userData.dynamic)
         }
-        text += introitusMaior(userData = userData, rubricColor = rubricColor)
-        text += invitatorium(data.invitatorium, calendarTime, userData, rubricColor)
-        text += hymnus(data.hymnus, userData, rubricColor)
-        text += psalmodia(data.psalmodia, -1, calendarTime, userData.dynamic, rubricColor)
-        text += lectioBrevis(data.lectioBrevis, userData.dynamic, rubricColor)
-        text += officiumLectionis(data.officiumLectionis, userData.dynamic, rubricColor)
+        text += introitusPrima(userData = userData, fontSize = fontSize, rubricColor = rubricColor)
+        text += invitatorium(
+            data.invitatorium, calendarTime, userData, rubricColor,
+            fontSize = fontSize
+        )
+        text += hymnus(data.hymnus, userData, rubricColor, fontSize)
+        text += psalmodia(data.psalmodia, -1, calendarTime, userData.dynamic, fontSize, rubricColor)
+        text += lectioBrevis(data.lectioBrevis, userData.dynamic, fontSize, rubricColor)
+        text += officiumLectionis(data.officiumLectionis, userData.dynamic, rubricColor, fontSize)
         text += missaeLectionum(
             lectionum = data.lectionumList,
             userData.dynamic,
-            rubricColor = rubricColor
+            rubricColor = rubricColor,
+            fontSize = fontSize
         )
         text += canticumEvangelicum(
             psalmodia = data.canticumEvangelicum,
             calendarTime = calendarTime,
             userData = userData.dynamic,
+            rubricColor = rubricColor,
+            fontSize = fontSize
+        )
+        text += preces(
+            preces = data.preces,
+            userData = userData.dynamic,
+            fontSize = fontSize,
             rubricColor = rubricColor
         )
-        text += preces(preces = data.preces, userData = userData.dynamic, rubricColor = rubricColor)
-        text += paterNoster(userData.dynamic, rubricColor)
-        text += oratio(data = data.oratio, userData = userData.dynamic, rubricColor = rubricColor)
-        text += conclusionisMaior(userData = userData.dynamic, rubricColor = rubricColor)
+        text += paterNoster(userData.dynamic, fontSize = fontSize, rubricColor = rubricColor)
+        text += oratio(
+            data = data.oratio,
+            userData = userData.dynamic,
+            rubricColor = rubricColor,
+            fontSize = fontSize
+        )
+        text += conclusionisMaior(
+            userData = userData.dynamic,
+            fontSize = fontSize,
+            rubricColor = rubricColor
+        )
         TextZoomable(onTap = onTap, text = text)
     }
 }
@@ -128,23 +157,41 @@ fun OfficiumScreen(
     userData: UserData,
     rubricColor: Color,
     calendarTime: Int,
-    onTap: (Offset) -> Unit
+    onTap: (Offset) -> Unit,
+    fontSize: TextUnit
 ) {
     var text = AnnotatedString("")
 
     Column {
-        data.officiumLectionis.normalizeByTime(calendarTime)
+        //data.officiumLectionis.normalizeByTime(calendarTime)
         if (data.sanctus != null && data.hasSaint) {
             data.invitatorium.normalizeIsSaint(data.sanctus!!.nomen)
             text += textSmall(data.sanctus!!.vitaBrevis, userData.dynamic)
         }
-        text += introitusMaior(userData = userData, rubricColor = rubricColor)
-        text += invitatorium(data.invitatorium, calendarTime, userData, rubricColor)
-        text += hymnus(data.hymnus, userData, rubricColor)
-        text += psalmodia(data.psalmodia, -1, calendarTime, userData.dynamic, rubricColor)
-        text += officiumLectionis(data.officiumLectionis, userData.dynamic, rubricColor)
-        text += oratio(data = data.oratio, rubricColor = rubricColor, userData = userData.dynamic)
-        text += conclusionisMaior(userData = userData.dynamic, rubricColor = rubricColor)
+        text += introitusPrima(userData = userData, fontSize = fontSize, rubricColor = rubricColor)
+        text += invitatorium(
+            data.invitatorium, calendarTime, userData, rubricColor,
+            fontSize = fontSize
+        )
+        text += hymnus(data.hymnus, userData, rubricColor, fontSize)
+        text += psalmodia(data.psalmodia, -1, calendarTime, userData.dynamic, fontSize, rubricColor)
+        text += officiumLectionis(
+            officiumLectionis = data.officiumLectionis,
+            userData = userData.dynamic,
+            fontSize = fontSize,
+            rubricColor = rubricColor
+        )
+        text += oratio(
+            data = data.oratio,
+            fontSize = fontSize,
+            rubricColor = rubricColor,
+            userData = userData.dynamic
+        )
+        text += conclusionisMaior(
+            userData = userData.dynamic,
+            rubricColor = rubricColor,
+            fontSize = fontSize
+        )
         TextZoomable(onTap = onTap, text = text)
     }
 }
@@ -167,7 +214,8 @@ fun LaudesScreen(
     userData: UserData,
     rubricColor: Color,
     calendarTime: Int,
-    onTap: (Offset) -> Unit
+    onTap: (Offset) -> Unit,
+    fontSize: TextUnit
 ) {
     var text = AnnotatedString("")
 
@@ -176,21 +224,44 @@ fun LaudesScreen(
             data.invitatorium.normalizeIsSaint(data.sanctus!!.nomen)
             text += textSmall(data.sanctus!!.vitaBrevis, userData.dynamic)
         }
-        text += introitusMaior(userData = userData, rubricColor = rubricColor)
-        text += invitatorium(data.invitatorium, calendarTime, userData, rubricColor)
-        text += hymnus(data.hymnus, userData, rubricColor)
-        text += psalmodia(data.psalmodia, -1, calendarTime, userData.dynamic, rubricColor)
-        text += lectioBrevis(data.lectioBrevis, userData.dynamic, rubricColor)
+        text += introitusPrima(userData = userData, fontSize = fontSize, rubricColor = rubricColor)
+        text += invitatorium(
+            data.invitatorium, calendarTime, userData, rubricColor,
+            fontSize = fontSize
+        )
+        text += hymnus(
+            data = data.hymnus,
+            userData = userData,
+            fontSize = fontSize,
+            rubricColor = rubricColor
+        )
+        text += psalmodia(data.psalmodia, -1, calendarTime, userData.dynamic, fontSize, rubricColor)
+        text += lectioBrevis(data.lectioBrevis, userData.dynamic, fontSize, rubricColor)
         text += canticumEvangelicum(
             psalmodia = data.canticumEvangelicum,
             calendarTime = calendarTime,
             userData = userData.dynamic,
-            rubricColor = rubricColor
+            rubricColor = rubricColor,
+            fontSize = fontSize
         )
-        text += preces(preces = data.preces, userData = userData.dynamic, rubricColor = rubricColor)
-        text += paterNoster(userData.dynamic, rubricColor)
-        text += oratio(data = data.oratio, userData = userData.dynamic, rubricColor = rubricColor)
-        text += conclusionisMaior(userData = userData.dynamic, rubricColor = rubricColor)
+        text += preces(
+            preces = data.preces,
+            userData = userData.dynamic,
+            rubricColor = rubricColor,
+            fontSize = fontSize
+        )
+        text += paterNoster(userData.dynamic, fontSize = fontSize, rubricColor = rubricColor)
+        text += oratio(
+            data = data.oratio,
+            userData = userData.dynamic,
+            rubricColor = rubricColor,
+            fontSize = fontSize
+        )
+        text += conclusionisMaior(
+            userData = userData.dynamic,
+            rubricColor = rubricColor,
+            fontSize = fontSize
+        )
         TextZoomable(onTap = onTap, text = text)
     }
 }
@@ -214,16 +285,30 @@ fun IntermediaScreen(
     userData: UserData,
     rubricColor: Color,
     calendarTime: Int,
-    onTap: (Offset) -> Unit
+    onTap: (Offset) -> Unit,
+    fontSize: TextUnit
 ) {
     var text = AnnotatedString("")
     Column {
-        text += introitusMinor(userData = userData.dynamic, rubricColor = rubricColor)
-        text += hymnus(data.hymnus, userData, rubricColor)
-        text += psalmodia(data.psalmodia, -1, calendarTime, userData.dynamic, rubricColor)
-        text += lectioBrevis(data.lectioBrevis, userData.dynamic, rubricColor)
-        text += oratio(data = data.oratio, userData = userData.dynamic, rubricColor = rubricColor)
-        text += conclusionisMinor(userData = userData.dynamic, rubricColor = rubricColor)
+        text += introitusAltera(
+            userData = userData.dynamic,
+            rubricColor = rubricColor,
+            fontSize = fontSize
+        )
+        text += hymnus(data.hymnus, userData, rubricColor, fontSize)
+        text += psalmodia(data.psalmodia, -1, calendarTime, userData.dynamic, fontSize, rubricColor)
+        text += lectioBrevis(data.lectioBrevis, userData.dynamic, fontSize, rubricColor)
+        text += oratio(
+            data = data.oratio,
+            userData = userData.dynamic,
+            rubricColor = rubricColor,
+            fontSize = fontSize
+        )
+        text += conclusionisMinor(
+            userData = userData.dynamic,
+            fontSize = fontSize,
+            rubricColor = rubricColor
+        )
         //ZoomableText(text,userData)
         TextZoomable(onTap = onTap, text = text)
 
@@ -248,23 +333,45 @@ fun VesperasScreen(
     userData: UserData,
     rubricColor: Color,
     calendarTime: Int,
-    onTap: (Offset) -> Unit
+    onTap: (Offset) -> Unit,
+    fontSize: TextUnit
 ) {
     var text = AnnotatedString("")
-    text += introitusMaior(userData = userData, rubricColor = rubricColor)
-    text += hymnus(data.hymnus, userData, rubricColor)
-    text += psalmodia(data.psalmodia, -1, calendarTime, userData.dynamic, rubricColor)
-    text += lectioBrevis(data.lectioBrevis, userData.dynamic, rubricColor)
+    text += introitusAltera(
+        userData = userData.dynamic,
+        fontSize = fontSize,
+        rubricColor = rubricColor
+    )
+    text += hymnus(data.hymnus, userData, rubricColor, fontSize)
+    //data.psalmodia.psalmus[0].psalmus=data.psalmodia.psalmus[0].psalmus+"∸"
+
+    text += psalmodia(data.psalmodia, -1, calendarTime, userData.dynamic, fontSize, rubricColor)
+    text += lectioBrevis(data.lectioBrevis, userData.dynamic, fontSize, rubricColor)
     text += canticumEvangelicum(
         psalmodia = data.canticumEvangelicum,
         calendarTime = calendarTime,
         userData = userData.dynamic,
-        rubricColor = rubricColor
+        rubricColor = rubricColor,
+        fontSize = fontSize
     )
-    text += preces(preces = data.preces, userData = userData.dynamic, rubricColor = rubricColor)
-    text += paterNoster(userData.dynamic, rubricColor)
-    text += oratio(data = data.oratio, userData = userData.dynamic, rubricColor = rubricColor)
-    text += conclusionisMaior(userData = userData.dynamic, rubricColor = rubricColor)
+    text += preces(
+        preces = data.preces,
+        userData = userData.dynamic,
+        rubricColor = rubricColor,
+        fontSize = fontSize
+    )
+    text += paterNoster(userData.dynamic, fontSize = fontSize, rubricColor = rubricColor)
+    text += oratio(
+        data = data.oratio,
+        userData = userData.dynamic,
+        rubricColor = rubricColor,
+        fontSize = fontSize
+    )
+    text += conclusionisMaior(
+        userData = userData.dynamic,
+        rubricColor = rubricColor,
+        fontSize = fontSize
+    )
     TextZoomable(onTap = onTap, text = text)
     //ZoomableBox(text)
 }
@@ -286,30 +393,43 @@ fun CompletoriumScreen(
     userData: UserData,
     rubricColor: Color,
     calendarTime: Int,
-    onTap: (Offset) -> Unit
+    onTap: (Offset) -> Unit,
+    fontSize: TextUnit
 ) {
-    data.lectioBrevis.normalizeByTime(calendarTime)
+    //data.lectioBrevis.normalizeByTime(calendarTime)
     var text = AnnotatedString("")
-    text += introitusMinor(userData = userData.dynamic, rubricColor = rubricColor)
+    text += introitusAltera(
+        userData = userData.dynamic,
+        fontSize = fontSize,
+        rubricColor = rubricColor
+    )
     text += completoriumKyrie(
         data = data.kyrie,
         userData = userData.dynamic,
+        fontSize = fontSize,
         rubricColor = rubricColor
     )
-    text += hymnus(data.hymnus, userData, rubricColor)
-    text += psalmodia(data.psalmodia, -1, calendarTime, userData.dynamic, rubricColor)
-    text += lectioBrevis(data.lectioBrevis, userData.dynamic, rubricColor)
+    text += hymnus(data.hymnus, userData, rubricColor, fontSize)
+    text += psalmodia(data.psalmodia, -1, calendarTime, userData.dynamic, fontSize, rubricColor)
+    text += lectioBrevis(data.lectioBrevis, userData.dynamic, fontSize, rubricColor)
     text += canticumEvangelicum(
         psalmodia = data.canticumEvangelicum,
         calendarTime = calendarTime,
         userData = userData.dynamic,
-        rubricColor = rubricColor
+        rubricColor = rubricColor,
+        fontSize = fontSize
     )
-    text += paterNoster(userData.dynamic, rubricColor)
-    text += oratio(data = data.oratio, userData = userData.dynamic, rubricColor = rubricColor)
+    text += paterNoster(userData.dynamic, fontSize = fontSize, rubricColor = rubricColor)
+    text += oratio(
+        data = data.oratio,
+        userData = userData.dynamic,
+        rubricColor = rubricColor,
+        fontSize = fontSize
+    )
     text += conclusionisCompletorium(
         data = data,
         userData = userData.dynamic,
+        fontSize = fontSize,
         rubricColor = rubricColor
     )
     TextZoomable(onTap = onTap, text = text)
@@ -327,12 +447,14 @@ fun CompletoriumScreen(
  * @see [Breviarium]
  */
 
-fun introitusMaior(userData: UserData, rubricColor: Color): AnnotatedString {
+fun introitusPrima(userData: UserData, fontSize: TextUnit, rubricColor: Color): AnnotatedString {
     return buildAnnotatedString {
+        append(textLines(1, fontSize))
         append(contentTitle(Constants.TITLE_INITIAL_INVOCATION, 2, userData.dynamic, rubricColor))
-        append(textVR(texts = Introitus().maior, rubricColor))
-        append(LS)
-        append(finisPsalmus())
+        append(textLines(2, fontSize))
+        append(textVR(texts = Introitus().prima, fontSize = fontSize, rubricColor = rubricColor))
+        append(textLines(1, fontSize))
+        append(finisPsalmus(fontSize, rubricColor))
     }
 }
 
@@ -347,12 +469,24 @@ fun introitusMaior(userData: UserData, rubricColor: Color): AnnotatedString {
  *
  * @see [Breviarium]
  */
-fun introitusMinor(userData: UserDataDynamic, rubricColor: Color): AnnotatedString {
+fun introitusAltera(
+    userData: UserDataDynamic,
+    rubricColor: Color,
+    fontSize: TextUnit
+): AnnotatedString {
     return buildAnnotatedString {
-        append(contentTitle(Constants.TITLE_INITIAL_INVOCATION, 2, userData, rubricColor))
-        append(textVR(texts = Introitus().minor, rubricColor))
-        append(LS)
-        append(finisPsalmus())
+        append(
+            contentTitle(
+                text = Constants.TITLE_INITIAL_INVOCATION,
+                level = 2,
+                userData = userData,
+                rubricColor = rubricColor
+            )
+        )
+        append(textLines(2, fontSize))
+        append(textVR(texts = Introitus().altera, rubricColor, fontSize))
+        append(textLines(1, fontSize))
+        append(finisPsalmus(fontSize, rubricColor, true))
     }
 }
 
@@ -374,11 +508,20 @@ fun invitatorium(
     psalmodia: LHInvitatory,
     calendarTime: Int,
     userData: UserData,
-    rubricColor: Color
+    rubricColor: Color,
+    fontSize: TextUnit
 ): AnnotatedString {
     return buildAnnotatedString {
+        append(textLines(1, fontSize))
         append(sectionTitle(Constants.TITLE_INVITATORY, 1, userData.dynamic))
-        append(psalmodiaUnica(psalmodia, calendarTime, userData.dynamic, rubricColor))
+        append(textLines(2, fontSize))
+        append(
+            psalmodiaUnica(
+                psalmodia, calendarTime, userData.dynamic, rubricColor,
+                fontSize
+            )
+        )
+        append(textLines(2, fontSize))
     }
 }
 
@@ -395,10 +538,17 @@ fun invitatorium(
  *
  * @see [Breviarium]
  */
-fun hymnus(data: LHHymn, userData: UserData, rubricColor: Color): AnnotatedString {
+fun hymnus(
+    data: LHHymn,
+    userData: UserData,
+    rubricColor: Color,
+    fontSize: TextUnit
+): AnnotatedString {
     return buildAnnotatedString {
+        //append(textLines(2,fontSize))
         append(contentTitle(Constants.TITLE_HYMN, 2, userData.dynamic, rubricColor))
-        append(Utils.transformBodyText(data.hymnus, rubricColor))
+        append(textLines(2, fontSize))
+        append(transformBodyText(data.hymnus, rubricColor, fontSize))
     }
 }
 
@@ -423,54 +573,71 @@ fun psalmodia(
     indexHora: Int,
     calendarTime: Int,
     userData: UserDataDynamic,
+    fontSize: TextUnit,
     rubricColor: Color
 ): AnnotatedString {
     var text = AnnotatedString("")
+
     try {
         val antiphonaeAnte = AnnotatedString.Builder()
         val antiphonaePost = AnnotatedString.Builder()
+        text += textLines(2, fontSize)
         text += contentTitle(Constants.TITLE_PSALMODY, 2, userData, rubricColor)
+        text += textLines(2, fontSize)
+
         if (psalmodia.typus == 1) {
             if (psalmodia.psalmus.size == psalmodia.antiphonae.size) {
-                psalmodia.antiphonae[indexHora].normalizeByTime(calendarTime)
+                //psalmodia.antiphonae[indexHora].normalizeByTime(calendarTime)
                 antiphonaeAnte.append(
                     antiphonaeAnte(
                         psalmodia.antiphonae[indexHora],
-                        rubricColor,
+                        rubricColor, fontSize,
                         false
                     )
                 )
             } else {
-                psalmodia.antiphonae[0].normalizeByTime(calendarTime)
+                //psalmodia.antiphonae[0].normalizeByTime(calendarTime)
                 antiphonaeAnte.append(
                     antiphonaeAnte(
                         psalmodia.antiphonae[0],
-                        rubricColor,
+                        rubricColor, fontSize,
                         true
                     )
                 )
-                antiphonaePost.append(antiphonaePost(psalmodia.antiphonae[0], rubricColor))
+                antiphonaePost.append(
+                    antiphonaePost(
+                        psalmodia.antiphonae[0],
+                        fontSize,
+                        rubricColor
+                    )
+                )
             }
             text += antiphonaeAnte.toAnnotatedString()
-            text += contentSpace(10)
+            text += textLines(fontSize = fontSize)
             for (s in psalmodia.psalmus) {
-                text += psalmus(s, userData, rubricColor)
+                text += psalmus(s, userData, rubricColor, fontSize)
             }
-            text += antiphonaePost(psalmodia.antiphonae[indexHora], rubricColor)
+            text += antiphonaePost(psalmodia.antiphonae[indexHora], fontSize, rubricColor)
         }
 
         if (psalmodia.typus == 0 && psalmodia.psalmus.size == psalmodia.antiphonae.size) {
             val lastIndex = psalmodia.psalmus.lastIndex
             psalmodia.psalmus.forEachIndexed { index, s ->
-                psalmodia.antiphonae[s.theOrder - 1].normalizeByTime(calendarTime)
-                text += antiphonaeAnte(psalmodia.antiphonae[s.theOrder - 1], rubricColor, true)
-                text += contentSpace(10)
-                text += psalmus(s, userData, rubricColor)
-                //append(LS)
-                text += contentSpace(5)
-                text += antiphonaePost(psalmodia.antiphonae[s.theOrder - 1], rubricColor)
+                //psalmodia.antiphonae[s.theOrder - 1].normalizeByTime(calendarTime)
+                text += antiphonaeAnte(
+                    psalmodia.antiphonae[s.theOrder - 1],
+                    rubricColor,
+                    fontSize,
+                    true
+                )
+                text += textLines(lines = 2, fontSize = fontSize)
+
+                text += psalmus(s, userData, rubricColor, fontSize)
+                //text += textLines(fontSize = fontSize)
+
+                text += antiphonaePost(psalmodia.antiphonae[s.theOrder - 1], fontSize, rubricColor)
                 if (index != lastIndex) {
-                    text += contentSpace(10)
+                    text += textLines(lines = 3, fontSize = fontSize)
                 }
             }
         }
@@ -478,6 +645,26 @@ fun psalmodia(
     } catch (e: Exception) {
         return AnnotatedString(Utils.createErrorMessage(e.message))
     }
+}
+
+/**
+ * Crea el texto de la Antífona con el tamaño por defecto.
+ *
+ * @param text La antífona
+ * @param fontSize El tamaño de la fuente, según los ajustes del usuario
+ *
+ * @return Un objeto [AnnotatedString] con el texto de la antífona.
+ *
+ * @since 2025.1
+ *
+ * @see [Breviarium]
+ * @see [LHAntiphon]
+ */
+fun antiphonaTextus(
+    text: String,
+    fontSize: TextUnit
+): AnnotatedString {
+    return textDefault(text, fontSize)
 }
 
 /**
@@ -498,15 +685,16 @@ fun psalmodiaUnica(
     psalmodia: LHPsalmody,
     calendarTime: Int,
     userData: UserDataDynamic,
-    rubricColor: Color
+    rubricColor: Color,
+    fontSize: TextUnit
 ): AnnotatedString {
-    psalmodia.antiphonae[0].normalizeByTime(calendarTime)
+    //psalmodia.antiphonae[0].normalizeByTime(calendarTime)
     return antiphonaeEtPsalmus(
         psalmodia.antiphonae[0],
         false,
         psalmodia.psalmus[0],
         calendarTime,
-        userData, rubricColor
+        userData, rubricColor, fontSize
     )
 }
 
@@ -534,15 +722,16 @@ fun antiphonaeEtPsalmus(
     psalmus: LHPsalm,
     calendarTime: Int,
     userData: UserDataDynamic,
-    rubricColor: Color
+    rubricColor: Color,
+    fontSize: TextUnit
 ): AnnotatedString {
-    antiphonae.normalizeByTime(calendarTime)
+    //antiphonae.normalizeByTime(calendarTime)
     return buildAnnotatedString {
-        append(antiphonaeAnte(antiphonae, rubricColor, withOrder))
-        append(LS2)
-        append(psalmus(psalmus, userData, rubricColor))
-        append(LS)
-        append(antiphonaePost(antiphonae, rubricColor))
+        append(antiphonaeAnte(antiphonae, rubricColor, fontSize, withOrder))
+        append(textLines(2, fontSize))
+        append(psalmus(psalmus, userData, rubricColor, fontSize))
+        //append(textLines(1,fontSize))
+        append(antiphonaePost(antiphonae, fontSize, rubricColor))
     }
 }
 
@@ -567,19 +756,20 @@ fun antiphonaeEtPsalmus(
 fun antiphonaeAnte(
     antiphonae: LHAntiphon,
     rubricColor: Color,
+    fontSize: TextUnit,
     withOrder: Boolean = true
 ): AnnotatedString {
     return buildAnnotatedString {
         if (withOrder) {
-            append(textRubric("Ant. ${antiphonae.theOrder}. ", rubricColor))
+            append(textRubric("Ant. ${antiphonae.theOrder}. ", rubricColor, fontSize))
         } else {
-            append(textRubric("Ant. ", rubricColor))
+            append(textRubric("Ant. ", rubricColor, fontSize))
         }
         if (antiphonae.haveSymbol) {
-            append(antiphonae.antiphon)
-            append(textRubric(" † ", rubricColor))
+            append(antiphonaTextus(antiphonae.antiphon, fontSize))
+            append(textRubric(" † ", rubricColor, fontSize))
         } else {
-            append(antiphonae.antiphon)
+            append(antiphonaTextus(antiphonae.antiphon, fontSize))
         }
     }
 }
@@ -599,11 +789,12 @@ fun antiphonaeAnte(
 
 fun antiphonaePost(
     antiphonae: LHAntiphon,
+    fontSize: TextUnit,
     rubricColor: Color,
 ): AnnotatedString {
     return buildAnnotatedString {
-        append(textRubric("Ant. ", rubricColor))
-        append(antiphonae.antiphon)
+        append(textRubric("Ant. ", rubricColor, fontSize))
+        append(antiphonaTextus(antiphonae.antiphon, fontSize))
     }
 }
 
@@ -624,41 +815,40 @@ fun psalmus(
     psalmus: LHPsalm,
     userData: UserDataDynamic,
     rubricColor: Color,
+    fontSize: TextUnit,
 ): AnnotatedString {
     var text = AnnotatedString("")
+    //val normalizeText = psalmus.normalize()
     if (psalmus.pericopa != "") {
-        text += textRubric(psalmus.pericopa, rubricColor)
-        text += contentSpace(10)
+        text += textRubric(psalmus.pericopa, rubricColor, fontSize)
+        text += textLines(2, fontSize)
     }
     if ((psalmus.theme != null) && (psalmus.theme != "")) {
-        text += textRubric(psalmus.theme!!, rubricColor)
-        text += contentSpace(10)
+        text += textRubric(psalmus.theme!!, rubricColor, fontSize)
+        text += textLines(2, fontSize)
     }
     if ((psalmus.epigraph != null) && (psalmus.epigraph != "")) {
         text += transformEpigraph(psalmus.epigraph!!, userData)
-        text += contentSpace(10)
+        text += textLines(2, fontSize)
     }
     if ((psalmus.thePart != null) && (psalmus.thePart != 0)) {
-        text += textRubric(toRoman(psalmus.thePart), rubricColor)
-        text += contentSpace(10)
+        text += textRubric(toRoman(psalmus.thePart), rubricColor, fontSize)
+        text += textLines(2, fontSize)
     }
-    text += transformText(psalmus.psalmus, rubricColor)
-    text += contentSpace(5)
-
-    text += if (psalmus.psalmus.endsWith("∸")) {
-        AnnotatedString(gloriaNonDicitur)
-    } else {
-        finisPsalmus()
-    }
+    text += transformText(text = psalmus.psalmus, fontSize = fontSize, color = rubricColor)
+    text += textLines(1, fontSize)
+    text += finisPsalmus(fontSize, rubricColor, psalmus.haveGloria)
     return text
 }
 
 fun lectioBrevis(
     data: LHLectioBrevis,
     userData: UserDataDynamic,
+    fontSize: TextUnit,
     rubricColor: Color
 ): AnnotatedString {
     return buildAnnotatedString {
+        append(textLines(1, fontSize))
         append(
             contentTitleAndText(
                 listOf(Constants.TITLE_SHORT_READING, data.pericopa),
@@ -667,12 +857,15 @@ fun lectioBrevis(
                 rubricColor
             )
         )
-        append(Utils.transformBodyText(data.biblica, rubricColor))
-        append(LS2)
+        //append(Utils.transformBodyText(data.biblica, rubricColor, fontSize))
+        append(textLines(1, fontSize))
+        append(textDefault(data.biblica, fontSize))
+        append(textLines(2, fontSize))
         append(
             responsoriumBrevis(
                 data = data.responsorium,
                 userData = userData,
+                fontSize = fontSize,
                 rubricColor = rubricColor
             )
         )
@@ -682,99 +875,121 @@ fun lectioBrevis(
 fun responsoriumBrevis(
     data: LHResponsoriumBrevis,
     userData: UserDataDynamic,
+    fontSize: TextUnit,
+
     rubricColor: Color
 ): AnnotatedString {
     return buildAnnotatedString {
-        responsoriumBrevisTitle(typus = data.typus, userData = userData, rubricColor = rubricColor)
-        append(responsoriumBrevisText(data, rubricColor))
+        responsoriumBrevisTitle(
+            typus = data.typus,
+            userData = userData,
+            fontSize,
+            rubricColor = rubricColor
+        )
+        append(responsoriumBrevisText(data, fontSize, rubricColor))
     }
 }
 
-fun responsoriumBrevisText(
-    data: LHResponsoriumBrevis,
+fun responsoriumText(
+    data: LHResponsorium,
+    fontSize: TextUnit,
     rubricColor: Color
 ): AnnotatedString {
     val respArray =
-        data.responsorium.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        data.responsorium.splitParts("\\|")
     return buildAnnotatedString {
         when (data.typus) {
             0 -> {
-                append(LS2)
-                append(data.responsorium)
-                append(LS)
+                append(textLines(2, fontSize))
+                append(textDefault(data.responsorium, fontSize))
+                append(textLines(1, fontSize))
             }
 
             1 -> if (respArray.size == 3) {
-                append(textWithR(respArray[0], rubricColor))
-                append(textRubric(" * ", rubricColor))
-                append(respArray[1])
-                append(LS2)
-                append(textWithV(respArray[2], rubricColor))
-                append(LS2)
-                append(textRubric(LiturgyHelper.R, rubricColor))
-                append(respArray[1][0].uppercaseChar())
-                append(respArray[1].substring(1))
+                append(
+                    textWithR(
+                        text = respArray[0],
+                        fontSize = fontSize,
+                        rubricColor = rubricColor
+                    )
+                )
+                append(textRubric(" * ", rubricColor, fontSize))
+                append(textDefault(respArray[1], fontSize))
+                append(textLines(2, fontSize))
+                append(
+                    textWithV(
+                        text = respArray[2],
+                        fontSize = fontSize,
+                        rubricColor = rubricColor
+                    )
+                )
+                append(textLines(2, fontSize))
+                append(textRubric(LiturgyHelper.R, rubricColor, fontSize))
+                append(textDefault(respArray[1][0].uppercaseChar().toString(), fontSize))
+                append(textDefault(respArray[1].substring(1), fontSize))
             }
 
             2 -> {
-                append(textWithR(respArray[0], rubricColor))
-                append(textRubric(" * ", rubricColor))
-                append(respArray[1])
-                append(LS2)
-                append(textWithV(respArray[2], rubricColor))
-                append(LS2)
-                append(textRubric(LiturgyHelper.R, rubricColor))
-                append(respArray[1][0].uppercaseChar())
-                append(respArray[1].substring(1))
+                append(textWithR(respArray[0], rubricColor, fontSize))
+                append(textRubric(" * ", rubricColor, fontSize))
+                append(textDefault(respArray[1], fontSize))
+                append(textLines(2, fontSize))
+                append(textWithV(respArray[2], rubricColor, fontSize))
+                append(textLines(2, fontSize))
+                append(textRubric(LiturgyHelper.R, rubricColor, fontSize))
+                append(textDefault(respArray[1][0].uppercaseChar().toString(), fontSize))
+                append(textDefault(respArray[1].substring(1), fontSize))
             }
 
             6001230 ->
                 if (respArray.size == 4) {
-                    append(textWithV(respArray[0], rubricColor))
-                    append(LS)
-                    append(textWithR(respArray[0], rubricColor))
-                    append(LS2)
-                    append(textWithV(respArray[1], rubricColor))
-                    append(LS)
-                    append(textWithR(respArray[2], rubricColor))
-                    append(LS2)
-                    append(textWithV(respArray[3], rubricColor))
-                    append(LS)
-                    append(textWithR(respArray[0], rubricColor))
+                    append(textWithV(respArray[0], rubricColor, fontSize))
+                    append(textLines(1, fontSize))
+                    append(textWithR(respArray[0], rubricColor, fontSize))
+                    append(textLines(2, fontSize))
+                    append(textWithV(respArray[1], rubricColor, fontSize))
+                    append(textLines(1, fontSize))
+                    append(textWithR(respArray[2], rubricColor, fontSize))
+                    append(textLines(2, fontSize))
+                    append(textWithV(respArray[3], rubricColor, fontSize))
+                    append(textLines(1, fontSize))
+                    append(textWithR(respArray[0], rubricColor, fontSize))
                 }
 
             6001020 -> if (respArray.size == 3) {
-                append(textWithV(respArray[0], rubricColor))
-                append(LS)
-                append(textWithR(respArray[0], rubricColor))
-                append(LS2)
-                append(textWithV(respArray[1], rubricColor))
-                append(LS)
-                append(textWithR(respArray[0], rubricColor))
-                append(LS2)
-                append(textWithV(respArray[2], rubricColor))
-                append(LS)
-                append(textWithR(respArray[0], rubricColor))
+                append(textWithV(respArray[0], rubricColor, fontSize))
+                append(textLines(1, fontSize))
+                append(textWithR(respArray[0], rubricColor, fontSize))
+                append(textLines(2, fontSize))
+                append(textWithV(respArray[1], rubricColor, fontSize))
+                append(textLines(1, fontSize))
+                append(textWithR(respArray[0], rubricColor, fontSize))
+                append(textLines(2, fontSize))
+                append(textWithV(respArray[2], rubricColor, fontSize))
+                append(textLines(1, fontSize))
+                append(textWithR(respArray[0], rubricColor, fontSize))
             }
 
             4 -> {
-                append(textWithV(respArray[0], rubricColor))
-                append(LS)
-                append(textWithR(respArray[0], rubricColor))
-                append(LS2)
-                append(textWithV(respArray[1], rubricColor))
-                append(LS)
-                append(textWithR(respArray[0], rubricColor))
-                append(LS2)
-                append(textWithV(respArray[2], rubricColor))
-                append(LS)
-                append(textWithR(respArray[0], rubricColor))
+                append(textWithV(respArray[0], rubricColor, fontSize))
+                append(textLines(1, fontSize))
+                append(textWithR(respArray[0], rubricColor, fontSize))
+                append(textLines(2, fontSize))
+                append(textWithV(respArray[1], rubricColor, fontSize))
+                append(textLines(1, fontSize))
+
+                append(textWithR(respArray[0], rubricColor, fontSize))
+                append(textLines(2, fontSize))
+                append(textWithV(respArray[2], rubricColor, fontSize))
+                append(textLines(1, fontSize))
+
+                append(textWithR(respArray[0], rubricColor, fontSize))
             }
 
             201 -> {
-                append(textWithV(respArray[0], rubricColor))
-                append(LS)
-                append(textWithR(respArray[1], rubricColor))
+                append(textWithV(respArray[0], rubricColor, fontSize))
+                append(textLines(1, fontSize))
+                append(textWithR(respArray[1], rubricColor, fontSize))
             }
 
             else -> {
@@ -784,7 +999,125 @@ fun responsoriumBrevisText(
                 append(respArray.size.toString())
                 append(" Código forma: ")
                 append(data.typus.toString())
-                append(LS)
+                append(textLines(1, fontSize))
+
+            }
+        }
+        append("   ")
+        append(textRubric(text = data.source, fontSize = fontSize, rubricColor = rubricColor))
+    }
+}
+
+fun responsoriumBrevisText(
+    data: LHResponsoriumBrevis,
+    fontSize: TextUnit,
+    rubricColor: Color
+): AnnotatedString {
+    val respArray = data.responsorium.splitParts("\\|")
+    return buildAnnotatedString {
+        when (data.typus) {
+            0 -> {
+                append(textLines(2, fontSize))
+                append(textDefault(data.responsorium, fontSize))
+                append(textLines(1, fontSize))
+            }
+
+            1 -> if (respArray.size == 3) {
+                append(
+                    textWithR(
+                        text = respArray[0],
+                        fontSize = fontSize,
+                        rubricColor = rubricColor
+                    )
+                )
+                append(textRubric(" * ", rubricColor, fontSize))
+                append(textDefault(respArray[1], fontSize))
+                append(textLines(2, fontSize))
+                append(
+                    textWithV(
+                        text = respArray[2],
+                        fontSize = fontSize,
+                        rubricColor = rubricColor
+                    )
+                )
+                append(textLines(2, fontSize))
+                append(textRubric(LiturgyHelper.R, rubricColor, fontSize))
+                append(textDefault(respArray[1][0].uppercaseChar().toString(), fontSize))
+                append(textDefault(respArray[1].substring(1), fontSize))
+            }
+
+            2 -> {
+                append(textWithR(respArray[0], rubricColor, fontSize))
+                append(textRubric(" * ", rubricColor, fontSize))
+                append(textDefault(respArray[1], fontSize))
+                append(textLines(2, fontSize))
+                append(textWithV(respArray[2], rubricColor, fontSize))
+                append(textLines(2, fontSize))
+                append(textRubric(LiturgyHelper.R, rubricColor, fontSize))
+                append(textDefault(respArray[1][0].uppercaseChar().toString(), fontSize))
+                append(textDefault(respArray[1].substring(1), fontSize))
+            }
+
+            6001230 ->
+                if (respArray.size == 4) {
+                    append(textWithV(respArray[0], rubricColor, fontSize))
+                    append(textLines(1, fontSize))
+                    append(textWithR(respArray[0], rubricColor, fontSize))
+                    append(textLines(2, fontSize))
+                    append(textWithV(respArray[1], rubricColor, fontSize))
+                    append(textLines(1, fontSize))
+                    append(textWithR(respArray[2], rubricColor, fontSize))
+                    append(textLines(2, fontSize))
+                    append(textWithV(respArray[3], rubricColor, fontSize))
+                    append(textLines(1, fontSize))
+                    append(textWithR(respArray[0], rubricColor, fontSize))
+                }
+
+            6001020 -> if (respArray.size == 3) {
+                append(textWithV(respArray[0], rubricColor, fontSize))
+                append(textLines(1, fontSize))
+                append(textWithR(respArray[0], rubricColor, fontSize))
+                append(textLines(2, fontSize))
+                append(textWithV(respArray[1], rubricColor, fontSize))
+                append(textLines(1, fontSize))
+                append(textWithR(respArray[0], rubricColor, fontSize))
+                append(textLines(2, fontSize))
+                append(textWithV(respArray[2], rubricColor, fontSize))
+                append(textLines(1, fontSize))
+                append(textWithR(respArray[0], rubricColor, fontSize))
+            }
+
+            4 -> {
+                append(textWithV(respArray[0], rubricColor, fontSize))
+                append(textLines(1, fontSize))
+                append(textWithR(respArray[0], rubricColor, fontSize))
+                append(textLines(2, fontSize))
+
+                append(textWithV(respArray[1], rubricColor, fontSize))
+                append(textLines(1, fontSize))
+                append(textWithR(respArray[0], rubricColor, fontSize))
+                append(textLines(2, fontSize))
+
+                append(textWithV(respArray[2], rubricColor, fontSize))
+                append(textLines(1, fontSize))
+                append(textWithR(respArray[0], rubricColor, fontSize))
+            }
+
+            201 -> {
+                append(textWithV(respArray[0], rubricColor, fontSize))
+                append(textLines(1, fontSize))
+                append(textWithR(respArray[1], rubricColor, fontSize))
+            }
+
+            else -> {
+                append(LS2)
+                append(errorMessage(ErrorHelper.RESPONSORIUM, rubricColor))
+                append("Tamaño del responsorio: ")
+                append(respArray.size.toString())
+                append(" Código forma: ")
+                append(data.typus.toString())
+                append(textLines(1, fontSize))
+
             }
         }
     }
@@ -793,6 +1126,8 @@ fun responsoriumBrevisText(
 fun responsoriumBrevisTitle(
     typus: Int,
     userData: UserDataDynamic,
+    fontSize: TextUnit,
+
     rubricColor: Color
 ): AnnotatedString {
     return buildAnnotatedString {
@@ -800,8 +1135,9 @@ fun responsoriumBrevisTitle(
             append(contentTitle(Constants.TITLE_RESPONSORY_SHORT, 2, userData, rubricColor))
         } else {
             textRubric(
-                "En lugar del responsorio breve, se dice la siguiente antífona:",
-                rubricColor
+                Constants.NOT_RESPONSORY,
+                rubricColor,
+                fontSize
             )
         }
     }
@@ -810,38 +1146,44 @@ fun responsoriumBrevisTitle(
 fun officiumLectionis(
     officiumLectionis: LHOfficiumLectionis,
     userData: UserDataDynamic,
-    rubricColor: Color
+    rubricColor: Color,
+    fontSize: TextUnit
 ): AnnotatedString {
     var text = AnnotatedString("")
-    val list =
-        officiumLectionis.responsorium.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }
-            .toList()
-    text += contentSpace(10)
+    val list = officiumLectionis.responsorium.splitParts("\\|").toList()
+    text += textLines(2, fontSize)
+
     text += sectionTitle(Constants.TITLE_OFFICE_OF_READING, 1, userData)
-    text += textVR(list, rubricColor)
-    text += lectioPrior(officiumLectionis.lectioPrior, userData, rubricColor)
-    text += contentSpace(10)
-    text += lectioAltera(officiumLectionis.lectioAltera, userData, rubricColor)
-    text += contentSpace(10)
+    text += textLines(2, fontSize)
+    text += textVR(list, rubricColor, fontSize)
+    //text += textLines(2,fontSize)
+
+    text += lectioPrior(officiumLectionis.lectioPrior, userData, fontSize, rubricColor)
+    text += lectioAltera(officiumLectionis.lectioAltera, userData, fontSize = fontSize, rubricColor)
     return text
 }
 
 fun lectioPrior(
     lectioPrior: MutableList<LHOfficiumLectioPrior>,
     userData: UserDataDynamic,
+    fontSize: TextUnit,
     rubricColor: Color
 ): AnnotatedString {
     var text = AnnotatedString("")
     for (item in lectioPrior) {
+        text += textLines(2, fontSize)
         text += contentTitle("PRIMERA LECTURA", 2, userData, rubricColor)
-        text += textMultiColor(listOf(item.book.liturgyName, item.pericopa), rubricColor)
-        text += contentSpace(10)
-        text += textRubric(item.tema, rubricColor)
-        text += contentSpace(10)
-        text += textFromHtml(item.biblica)
-        text += textRubric("Responsorio ${item.responsorium.source}", rubricColor)
-        text += contentSpace(10)
-        text += responsoriumBrevisText(item.responsorium, rubricColor)
+        text += textLines(2, fontSize)
+        text += textMultiColor(listOf(item.book.liturgyName, item.pericopa), fontSize, rubricColor)
+        text += textLines(2, fontSize)
+        text += textRubric(item.tema, rubricColor, fontSize)
+        text += textLines(2, fontSize)
+        text += textFromHtml(item.biblica, fontSize)
+        //text += AnnotatedString.fromHtml(item.biblica)
+        //text += textLines(2,fontSize)
+        text += textRubric("Responsorio ${item.responsorium.source}", rubricColor, fontSize)
+        text += textLines(2, fontSize)
+        text += responsoriumBrevisText(item.responsorium, fontSize, rubricColor)
     }
     return text
 }
@@ -849,21 +1191,26 @@ fun lectioPrior(
 fun lectioAltera(
     lectioAltera: MutableList<LHOfficiumLectioAltera>,
     userData: UserDataDynamic,
+    fontSize: TextUnit,
+
     rubricColor: Color
 ): AnnotatedString {
     var text = AnnotatedString("")
     for (item in lectioAltera) {
+        text += textLines(2, fontSize)
         text += contentTitle("SEGUNDA LECTURA", 2, userData, rubricColor)
-        text += textSpan(item.paterOpus?.opusForView!!)
-        text += contentSpace(10)
-        text += textRubric(item.theSource!!, rubricColor)
-        text += contentSpace(10)
-        text += textRubric(item.tema!!, rubricColor)
-        text += contentSpace(10)
-        text += textFromHtml(item.homilia)
-        text += textRubric("Responsorio ${item.responsorium!!.source}", rubricColor)
-        text += contentSpace(10)
-        text += responsoriumBrevisText(item.responsorium!!, rubricColor)
+        text += textLines(2, fontSize)
+        text += textSpan(text = item.paterOpus?.opusForView!!, fontSize = fontSize)
+        text += textLines(2, fontSize)
+        text += textRubric(item.theSource!!, rubricColor, fontSize)
+        text += textLines(2, fontSize)
+        text += textRubric(item.tema!!, rubricColor, fontSize)
+        text += textLines(2, fontSize)
+        text += textFromHtml(item.homilia, fontSize)
+        //text += textLines(2,fontSize)
+        text += textRubric("Responsorio ${item.responsorium!!.source}", rubricColor, fontSize)
+        text += textLines(2, fontSize)
+        text += responsoriumBrevisText(item.responsorium!!, fontSize, rubricColor)
     }
     return text
 }
@@ -872,9 +1219,12 @@ fun canticumEvangelicum(
     psalmodia: LHPsalmody,
     calendarTime: Int,
     userData: UserDataDynamic,
-    rubricColor: Color
+    rubricColor: Color,
+    fontSize: TextUnit
 ): AnnotatedString {
     return buildAnnotatedString {
+        append(textLines(2, fontSize))
+
         append(
             contentTitle(
                 Constants.TITLE_GOSPEL_CANTICLE,
@@ -883,64 +1233,137 @@ fun canticumEvangelicum(
                 rubricColor = rubricColor
             )
         )
-        append(psalmodiaUnica(psalmodia, calendarTime, userData, rubricColor))
+        append(textLines(2, fontSize))
+
+        append(psalmodiaUnica(psalmodia, calendarTime, userData, rubricColor, fontSize))
     }
 }
 
 fun missaeLectionum(
     lectionum: MissaeLectionumList,
     userData: UserDataDynamic,
-    rubricColor: Color
+    rubricColor: Color,
+    fontSize: TextUnit
 ): AnnotatedString {
     return buildAnnotatedString {
+        append(textLines(2, fontSize))
         for (item in lectionum.lectionum) {
             append(contentTitle("EVANGELIO", 2, userData, rubricColor))
-            append(textMultiColor(listOf(item!!.book.liturgyName, item.pericopa), rubricColor))
-            append(LS2)
-            append(textRubric(item.tema, rubricColor))
-            append(LS2)
-            append(lectioSimplex(item, -1, userData, rubricColor))
+            append(textLines(2, fontSize))
+
+            append(
+                textMultiColor(
+                    listOf(item!!.book.liturgyName, item.pericopa),
+                    fontSize,
+                    rubricColor
+                )
+            )
+            append(textLines(2, fontSize))
+            append(textRubric(item.tema, rubricColor, fontSize))
+            //append(textLines(2,fontSize))
+            append(lectioSimplex(item, -1, userData, rubricColor, fontSize))
         }
     }
 }
 
-fun preces(preces: LHIntercession, userData: UserDataDynamic, rubricColor: Color): AnnotatedString {
-    val introArray =
-        preces.intro.split("\\|".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-
+fun preces(
+    preces: LHIntercession,
+    userData: UserDataDynamic,
+    rubricColor: Color,
+    fontSize: TextUnit
+): AnnotatedString {
+    val introArray = preces.intro.splitParts("\\|")
+    val listPreces = preces.preces.splitParts("∞")
     return buildAnnotatedString {
+        append(textLines(2, fontSize))
         append(contentTitle(Constants.TITLE_INTERCESSIONS, 2, userData, rubricColor))
-        if (introArray.size == 3) {
-            append(introArray[0])
-            append(LS2)
-            append(Utils.fromHtml(String.format(Locale("es"), "<i>%s</i>", introArray[1])))
-            append(LS2)
-            append(Utils.transformBodyText(preces.preces, rubricColor))
-            append(introArray[2])
+        append(textLines(2, fontSize))
+        if (listPreces.isNotEmpty() && introArray.size == 3) {
+            val response = introArray[1]
+            val firstPart = listPreces[0].splitParts("§")
+            append(textDefault(introArray[0], fontSize))
+            append(textLines(2, fontSize))
+            append(textDefaultItalic(response, fontSize))
+            firstPart.forEach {
+                append(textLines(2, fontSize))
+                append(transformBodyText(it, fontSize = fontSize, rubricColor = rubricColor))
+                append(textLines(2, fontSize))
+                append(textDefaultItalic(response, fontSize))
+            }
+            if (listPreces.size == 2) {
+                append(textLines(2, fontSize))
+                append(
+                    transformBodyText(
+                        listPreces[1],
+                        fontSize = fontSize,
+                        rubricColor = rubricColor
+                    )
+                )
+                append(textLines(2, fontSize))
+                append(textDefaultItalic(response, fontSize))
+            }
+            append(textLines(2, fontSize))
+            append(textDefault(introArray[2], fontSize))
         } else {
-            append(preces.intro)
-            append(LS2)
-            append(Utils.transformBodyText(preces.preces, rubricColor))
+            append(textDefault(preces.intro, fontSize))
+            append(textLines(2, fontSize))
+            append(
+                transformBodyText(
+                    text = preces.preces,
+                    fontSize = fontSize,
+                    rubricColor = rubricColor
+                )
+            )
         }
     }
 }
 
-fun paterNoster(userData: UserDataDynamic, rubricColor: Color): AnnotatedString {
+fun paterNoster(
+    userData: UserDataDynamic,
+    rubricColor: Color,
+    fontSize: TextUnit
+): AnnotatedString {
     return buildAnnotatedString {
+        append(textLines(2, fontSize))
         append(contentTitle(Constants.TITLE_PATER_NOSTER, 2, userData, rubricColor))
-        append(Utils.transformBodyText(PadreNuestro.texto, rubricColor))
+        append(textLines(2, fontSize))
+        append(
+            transformBodyText(
+                text = PadreNuestro.texto,
+                fontSize = fontSize,
+                rubricColor = rubricColor
+            )
+        )
     }
 }
 
-fun oratio(data: Oratio, userData: UserDataDynamic, rubricColor: Color): AnnotatedString {
+fun oratio(
+    data: Oratio,
+    userData: UserDataDynamic,
+    rubricColor: Color,
+    fontSize: TextUnit
+): AnnotatedString {
     return buildAnnotatedString {
+        append(textLines(2, fontSize))
         append(contentTitle(Constants.TITLE_PRAYER, 2, userData, rubricColor))
-        append(Utils.transformBodyText(data.oratio, rubricColor))
+        append(textLines(2, fontSize))
+        append(
+            transformBodyText(
+                text = data.oratio,
+                fontSize = fontSize,
+                rubricColor = rubricColor
+            )
+        )
     }
 }
 
-fun conclusionisTitle(userData: UserDataDynamic, rubricColor: Color): AnnotatedString {
+fun conclusionisTitle(
+    userData: UserDataDynamic,
+    rubricColor: Color,
+    fontSize: TextUnit
+): AnnotatedString {
     return buildAnnotatedString {
+        append(textLines(2, fontSize))
         append(
             contentTitle(
                 text = Constants.TITLE_CONCLUSION,
@@ -949,54 +1372,73 @@ fun conclusionisTitle(userData: UserDataDynamic, rubricColor: Color): AnnotatedS
                 rubricColor = rubricColor
             )
         )
+        append(textLines(2, fontSize))
     }
 }
 
-fun conclusionisMinor(userData: UserDataDynamic, rubricColor: Color): AnnotatedString {
+fun conclusionisMinor(
+    userData: UserDataDynamic,
+    rubricColor: Color,
+    fontSize: TextUnit
+): AnnotatedString {
     return buildAnnotatedString {
-        append(conclusionisTitle(userData, rubricColor))
+        append(conclusionisTitle(userData, rubricColor, fontSize))
         append(
             textVR(
-                texts = listOf(
-                    RitusConclusionis.txtBenedicamusDomino,
-                    RitusConclusionis.txtDeoGratias
-                ),
-                rubricColor = rubricColor
+                texts = RitusConclusionis().minor,
+                rubricColor = rubricColor,
+                fontSize = fontSize
             )
         )
     }
 }
 
-fun conclusionisMaior(userData: UserDataDynamic, rubricColor: Color): AnnotatedString {
+fun conclusionisMaior(
+    userData: UserDataDynamic,
+    rubricColor: Color,
+    fontSize: TextUnit
+): AnnotatedString {
     return buildAnnotatedString {
-        append(conclusionisTitle(userData, rubricColor))
+        append(
+            conclusionisTitle(
+                userData = userData,
+                fontSize = fontSize,
+                rubricColor = rubricColor
+            )
+        )
         append(
             textVR(
-                texts = listOf(RitusConclusionis.txtDominusNosBenedicat, RitusConclusionis.txtAmen),
-                rubricColor = rubricColor
+                texts = RitusConclusionis().maior,
+                rubricColor = rubricColor,
+                fontSize = fontSize
             )
         )
     }
 }
 
-fun completoriumKyrie(data: Kyrie, userData: UserDataDynamic, rubricColor: Color): AnnotatedString {
+fun completoriumKyrie(
+    data: Kyrie,
+    userData: UserDataDynamic,
+    rubricColor: Color,
+    fontSize: TextUnit
+): AnnotatedString {
     return buildAnnotatedString {
         append(contentTitle(Constants.TITLE_SOUL_SEARCHING, 2, userData, rubricColor))
         return buildAnnotatedString {
             append(LS)
-            append(textRubric(data.primumRubrica, rubricColor))
+            append(textRubric(data.primumRubrica, rubricColor, fontSize))
             append(LS2)
             append(data.introductio)
             append(LS2)
-            append(textRubric(data.secundoRubrica, rubricColor))
+            append(textRubric(data.secundoRubrica, rubricColor, fontSize))
             append(LS2)
             append(transformText(data.kyrie, rubricColor))
             append(LS2)
-            append(textRubric(data.tertiaRubrica, rubricColor))
+            append(textRubric(data.tertiaRubrica, rubricColor, fontSize))
             append(LS2)
-            append(textRubric(data.quartaRubrica, rubricColor))
+            append(textRubric(data.quartaRubrica, rubricColor, fontSize))
             append(LS2)
-            append(textVR(data.conclusio, rubricColor))
+            append(textVR(data.conclusio, rubricColor, fontSize))
         }
     }
 }
@@ -1004,16 +1446,38 @@ fun completoriumKyrie(data: Kyrie, userData: UserDataDynamic, rubricColor: Color
 fun conclusionisCompletorium(
     userData: UserDataDynamic,
     rubricColor: Color,
-    data: LHCompletorium
+    data: LHCompletorium,
+    fontSize: TextUnit
 ): AnnotatedString {
     return buildAnnotatedString {
+        append(textLines(2, fontSize))
         append(contentTitle(Constants.TITLE_CONCLUSION, 2, userData, rubricColor))
-        append(textVR(texts = data.conclusio.benedictio, rubricColor = rubricColor))
+        append(textLines(2, fontSize))
+        append(
+            textVR(
+                texts = data.conclusio.benedictio,
+                rubricColor = rubricColor,
+                fontSize = fontSize
+            )
+        )
+        append(textLines(2, fontSize))
         append(contentTitle(Constants.TITLE_VIRGIN_ANTIHPON, 2, userData, rubricColor))
+        append(textLines(2, fontSize))
         append(stringFromHtml(text = data.conclusio.antiphon.antiphon))
     }
 }
 
-fun finisPsalmus(): AnnotatedString {
-    return textSpaced(LiturgyHelper.finisPsalmus)
+fun finisPsalmus(fontSize: TextUnit, color: Color, haveGloria: Boolean = true): AnnotatedString {
+    return if (haveGloria) {
+        textSpaced(texts = LiturgyHelper.finisPsalmus, fontSize = fontSize)
+    } else {
+        buildAnnotatedString {
+            append(textLines(1, fontSize))
+            append(textRubric(text = gloriaNonDicitur, fontSize = fontSize, rubricColor = color))
+            append(textLines(2, fontSize))
+
+        }
+    }
 }
+
+//@Composable

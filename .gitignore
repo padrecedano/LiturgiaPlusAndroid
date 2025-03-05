@@ -11,8 +11,9 @@
 /captures
 google-services.json
 # !app/src/main/res/raw/*.json
-assets/database/*/
+assets/**/*.db
+# doc/**/*.db
 .kotlin
 
 
-/app/src/main/assets/database/
+/app/src/main/assets/**/*.db

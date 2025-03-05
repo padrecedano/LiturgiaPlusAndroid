@@ -3,6 +3,7 @@ package org.deiverbum.app.core.model.data
 import android.text.SpannableStringBuilder
 import androidx.room.ColumnInfo
 import androidx.room.Ignore
+import org.deiverbum.app.util.Utils
 import java.util.Locale
 
 open class LectioBiblica(
@@ -73,13 +74,13 @@ open class LectioBiblica(
 
 
     /*val textoSpan: Spanned
-        get() = Utils.fromHtml(biblica)
-    val textoForRead: Spanned
-        get() = Utils.fromHtml(
+        get() = Utils.fromHtml(biblica)*/
+    val textoForRead: String
+        get() =
             Utils.getFormatoForRead(
                 biblica
             )
-        )*/
+
 
     fun setCita(ref: String) {
         this.pericopa = ref
@@ -142,11 +143,11 @@ open class LectioBiblica(
      */
     open fun getAllForRead(): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
-        /*sb.append(Utils.pointAtEnd(getHeader()))
+        sb.append(Utils.pointAtEnd(getHeader()))
         sb.append(book.getForRead())
         sb.append(textoForRead)
         sb.append(getConclusionForRead())
-        sb.append(getResponsorioHeaderForRead())*/
+        sb.append(getResponsorioHeaderForRead())
         return sb
     }
 

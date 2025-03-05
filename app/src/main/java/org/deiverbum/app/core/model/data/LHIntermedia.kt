@@ -3,7 +3,6 @@ package org.deiverbum.app.core.model.data
 import android.text.SpannableStringBuilder
 import com.squareup.moshi.JsonClass
 import org.deiverbum.app.core.model.data.Introitus.Companion.initialInvocationForRead
-import org.deiverbum.app.core.model.data.Introitus.Companion.initialInvocationForView
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
@@ -24,7 +23,6 @@ data class LHIntermedia(
     var lectioBrevis: LHLectioBrevis,
     var oratio: Oratio,
     var typusID: Int = 0,
-    //@Json(ignore = true)
     override var typus: String = "intermedia"
 ) : Breviarium(typus) {
     val tituloHora: String
@@ -39,38 +37,6 @@ data class LHIntermedia(
     val tituloHoraForView: SpannableStringBuilder
         get() = Utils.toH1Red(tituloHora)
 
-    fun forView(calendarTime: Int): SpannableStringBuilder {
-        //this.typeID = typeID
-        val sb = SpannableStringBuilder(tituloHoraForView)
-        sb.append(Utils.LS2)
-
-        //super.forView()
-        //sb.append(this.li)
-        //sb.append(parent.forView())
-        try {
-            lectioBrevis.normalizeByTime(calendarTime)
-            //sb.append(tituloHoraForView)
-            sb.append(initialInvocationForView)
-            sb.append(Utils.LS2)
-            //sb.append(Utils.LS)
-            sb.append(hymnus.all)
-            sb.append(Utils.LS2)
-            //sb.append(Utils.LS)
-            sb.append(psalmodia.getAllForView(hourIndex, calendarTime))
-            sb.append(Utils.LS)
-            sb.append(lectioBrevis.getAllWithHourCheck(typusID))
-            sb.append(Utils.LS)
-            sb.append(oratio.all)
-            sb.append(Utils.LS2)
-            sb.append(Utils.LS)
-            sb.append(RitusConclusionis.viewBenedicamusDomino)
-        } catch (e: Exception) {
-            sb.append(Utils.createErrorMessage(e.message))
-        }
-        return sb
-    }
-
-    //sb.append(today.getAllForRead());
     override fun forRead(): StringBuilder {
         val sb = StringBuilder()
         try {
@@ -106,4 +72,9 @@ data class LHIntermedia(
             3 -> 0
             else -> 0
         }
+
+    override fun normalizeByTime(calendarTime: Int) {
+        psalmodia.normalizeByTime(calendarTime)
+        lectioBrevis.normalizeByTime(calendarTime)
+    }
 }

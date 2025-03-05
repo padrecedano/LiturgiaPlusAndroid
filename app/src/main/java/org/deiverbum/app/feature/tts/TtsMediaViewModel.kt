@@ -77,6 +77,8 @@ class TtsMediaViewModel @androidx.annotation.OptIn(UnstableApi::class)
                     )
                 )
             }
+
+            UIEventTts.Stop -> simpleMediaServiceHandler.onPlayerEvent(TtsPlayerEvent.Stop)
         }
     }
 
@@ -116,6 +118,8 @@ sealed class UIEventTts {
     object PlayPause : UIEventTts()
     object Backward : UIEventTts()
     object Forward : UIEventTts()
+    object Stop : UIEventTts()
+
     data class UpdateProgress(val newProgress: Float) : UIEventTts()
 }
 

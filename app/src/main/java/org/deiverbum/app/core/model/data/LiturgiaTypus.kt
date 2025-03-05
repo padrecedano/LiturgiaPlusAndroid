@@ -21,6 +21,11 @@ abstract class LiturgiaTypus
         return SpannableStringBuilder()
     }
 
+    open fun getTitle(): String {
+        return ""
+    }
+
+
 
     open fun forRead(): StringBuilder {
         return StringBuilder("")
@@ -28,25 +33,7 @@ abstract class LiturgiaTypus
 
     override fun sort() {
     }
+
+    open fun normalizeByTime(calendarTime: Int) {
+    }
 }
-
-/*
-sealed interface LiturgiaTypus {
-    var typus:String
-    var tempore:LiturgyTime
-
-    fun forView(calendarTime: Int, hasSaint: Boolean): SpannableStringBuilder {
-        return SpannableStringBuilder("")
-    }
-
-    fun forRead(): StringBuilder {
-        return StringBuilder("")
-    }
-/*
-    object Unknown : LiturgiaTypus {
-        override var typus: String
-            get() = ""
-            set(value) {}
-    }*/
-
-}*/

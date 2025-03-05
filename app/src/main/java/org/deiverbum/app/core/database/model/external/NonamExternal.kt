@@ -11,7 +11,6 @@ import org.deiverbum.app.core.database.model.entity.UniversalisEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
 import org.deiverbum.app.core.database.model.relation.LHAntiphonAssoc
 import org.deiverbum.app.core.database.model.relation.LHHymnAssoc
-import org.deiverbum.app.core.database.model.relation.LHNonamLocal
 import org.deiverbum.app.core.database.model.relation.LHPrayerAll
 import org.deiverbum.app.core.database.model.relation.LHPsalmsAssoc
 import org.deiverbum.app.core.database.model.relation.LHReadingShortAll
@@ -28,7 +27,7 @@ import org.deiverbum.app.core.model.data.Universalis
  *
  * @author A. Cedano
  * @version 1.0
- * @since 2024.1
+ * @since 2025.1
  * @see Breviarium
  * @see LHIntermedia
  */
@@ -67,49 +66,27 @@ data class NonamExternal(
     var oratio: LHPrayerAll,
 )
 
-fun LHNonamLocal.asExternalModel() = Universalis(
-    universalis.todayDate,
-    //universalis.timeFK,
-    Liturgy(
-        liturgia.parent.semana,
-        liturgia.parent.dia,
-        liturgia.parent.nombre,
-        liturgia.entity.asExternalModel(),
-        LHIntermedia(
-            hymnus.entity.asExternalModel(),
-            LHPsalmody(
-                psalmus.asExternalModel(),
-                antiphonae.asExternalModel(),
-                psalmus.join.theType
-            ),
-            lectioBrevis.asExternalModel(),
-            oratio.asExternalModel(),
-            6,
-            "nonam"
+fun NonamExternal.asExternalModel(): Universalis {
+    val extModel = universalis.asExternalModel()
+    extModel.liturgia =
+        Liturgy(
+            liturgia.parent.semana,
+            liturgia.parent.dia,
+            liturgia.parent.nombre,
+            liturgia.entity.asExternalModel(),
+            LHIntermedia(
+                hymnus.entity.asExternalModel(),
+                LHPsalmody(
+                    psalmus.asExternalModel(),
+                    antiphonae.asExternalModel(),
+                    psalmus.join.theType
+                ),
+                lectioBrevis.asExternalModel(),
+                oratio.asExternalModel(),
+                6,
+                "intermedia"
+            )
         )
-    )
-)
-
-fun NonamExternal.asExternalModel() = Universalis(
-
-    universalis.todayDate,
-    Liturgy(
-        liturgia.parent.semana,
-        liturgia.parent.dia,
-        liturgia.parent.nombre,
-        liturgia.entity.asExternalModel(),
-        LHIntermedia(
-            hymnus.entity.asExternalModel(),
-            LHPsalmody(
-                psalmus.asExternalModel(),
-                antiphonae.asExternalModel(),
-                psalmus.join.theType
-            ),
-            lectioBrevis.asExternalModel(),
-            oratio.asExternalModel(),
-            6,
-            "intermedia"
-        )
-    )
-)
+    return extModel
+}
 

@@ -5,9 +5,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.unit.TextUnit
 import org.deiverbum.app.R
 import org.deiverbum.app.core.designsystem.component.TextZoomable
 import org.deiverbum.app.core.designsystem.component.getRubricColor
+import org.deiverbum.app.core.designsystem.component.textFromHtml
 import org.deiverbum.app.core.designsystem.component.textFromList
 import org.deiverbum.app.core.designsystem.component.textIndent
 import org.deiverbum.app.core.designsystem.component.textSmall
@@ -36,7 +38,8 @@ import org.deiverbum.app.util.LiturgyHelper
 fun SanctiiScreen(
     data: AlteriSanctii,
     userData: UserData,
-    onTap: (Offset) -> Unit
+    onTap: (Offset) -> Unit,
+    fontSize: TextUnit
 ) {
     val rubricColor = getRubricColor(userData = userData.dynamic)
     var text = AnnotatedString("")
@@ -47,7 +50,8 @@ fun SanctiiScreen(
     text += textFromHtml(
         data.sanctus.vita.replace(
             Constants.OLD_SEPARATOR.toRegex(), ""
-        )
+        ),
+        fontSize
     )
 
     TextZoomable(
@@ -69,7 +73,8 @@ fun SanctiiScreen(
 fun RosariumScreen(
     data: AlteriRosarium,
     userData: UserData,
-    onTap: (Offset) -> Unit
+    onTap: (Offset) -> Unit,
+    fontSize: TextUnit
 ) {
 
     val rubricColor = getRubricColor(userData = userData.dynamic)
@@ -81,9 +86,13 @@ fun RosariumScreen(
         rubricColor
     )
     text += contentTitle(Constants.TITLE_INITIAL_INVOCATION, 2, userData.dynamic, rubricColor)
-    text += textVR(texts = listOf(Introitus().txtInNomine, Introitus().txtAmen), rubricColor)
+    text += textVR(
+        texts = listOf(Introitus().txtInNomine, Introitus().txtAmen),
+        rubricColor,
+        fontSize
+    )
     text += contentSpace(10)
-    text += textVR(texts = Introitus().minor, rubricColor)
+    text += textVR(texts = Introitus().altera, rubricColor, fontSize)
     text += contentSpace(10)
     data.rosarium.mysteriorum.forEach {
         text += contentTitle(
@@ -94,7 +103,7 @@ fun RosariumScreen(
             true
         )
         text += sectionTitle(it.mysterium.mysterium, 1, userData.dynamic, false)
-        text += textFromHtml(PadreNuestro.texto)
+        text += textFromHtml(PadreNuestro.texto, fontSize)
         text += contentSpace(10)
         repeat(10) { index ->
             text += contentTitle(
@@ -104,10 +113,10 @@ fun RosariumScreen(
                 rubricColor,
                 false
             )
-            text += textFromHtml(data.rosarium.aveMaria)
+            text += textFromHtml(data.rosarium.aveMaria, fontSize)
         }
         text += contentSpace(10)
-        text += textSpaced(LiturgyHelper.finisPsalmus)
+        text += textSpaced(LiturgyHelper.finisPsalmus, fontSize)
         text += contentSpace(10)
     }
     text += contentTitle(

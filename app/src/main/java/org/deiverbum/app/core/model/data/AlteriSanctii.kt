@@ -10,6 +10,10 @@ data class AlteriSanctii(
         return StringBuilder(sanctus.forRead)
     }
 
+    override fun getTitle(): String {
+        return sanctus.monthName
+    }
+
     override fun sort() {
     }
 }

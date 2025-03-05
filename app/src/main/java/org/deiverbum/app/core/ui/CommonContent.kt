@@ -28,7 +28,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextDecoration
@@ -38,12 +37,12 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import org.deiverbum.app.core.designsystem.component.normalStyle
 import org.deiverbum.app.core.designsystem.theme.NiaTypography
 import org.deiverbum.app.core.designsystem.theme.getPersonalizedTypography
 import org.deiverbum.app.core.model.data.UserDataDynamic
 import org.deiverbum.app.util.Configuration
 import org.deiverbum.app.util.Utils
-import org.deiverbum.app.util.Utils.getFormato
 
 @Composable
 fun ContentTitle(text: String, level: Int, rubricColor: Color) {
@@ -66,13 +65,6 @@ fun contentTitle(
     uppercase: Boolean = true
 ): AnnotatedString {
     val finalText = if (uppercase) text.uppercase() else text
-    val paragraphStyle = ParagraphStyle(
-        platformStyle = PlatformParagraphStyle(includeFontPadding = false),
-        lineHeightStyle = LineHeightStyle(
-            alignment = LineHeightStyle.Alignment.Bottom,
-            trim = LineHeightStyle.Trim.LastLineBottom
-        )
-    )
     val typography = getPersonalizedTypography(userData.fontSize)
     val fontSize: TextUnit = when (level) {
         1 -> typography.titleLarge.fontSize
@@ -82,19 +74,16 @@ fun contentTitle(
         else -> typography.bodyLarge.fontSize
     }
     return buildAnnotatedString {
-        withStyle(style = paragraphStyle) { }
-        withStyle(style = paragraphStyle) {
-            withStyle(
-                SpanStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = fontSize,
-                    color = rubricColor
-                )
-            ) {
-                append(finalText)
-            }
+        pushStyle(normalStyle(fontSize = fontSize))
+        withStyle(
+            SpanStyle(
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = fontSize,
+                color = rubricColor
+            )
+        ) {
+            append(finalText)
         }
-        withStyle(style = paragraphStyle) { }
     }
 }
 
@@ -157,13 +146,15 @@ fun contentTitleAndText(
         else -> typography.bodyLarge.fontSize
     }
     return buildAnnotatedString {
+        pushStyle(normalStyle(fontSize = fontSize))
+
         withStyle(style = paragraphStyle) {
         }
         withStyle(style = paragraphStyle) {
             withStyle(
                 SpanStyle(
                     fontWeight = FontWeight.Bold,
-                    fontSize = fontSize,
+                    //fontSize = fontSize,
                     color = rubricColor
                 )
             ) {
@@ -190,15 +181,7 @@ fun sectionTitle(
     lower: Boolean = true
 ): AnnotatedString {
     val typography = getPersonalizedTypography(userData.fontSize)
-    val paragraphStylee = ParagraphStyle(lineHeight = 60.sp)
-    val paragraphStyle = ParagraphStyle(
-        //lineHeight = 60.sp,
-        platformStyle = PlatformParagraphStyle(includeFontPadding = false),
-        lineHeightStyle = LineHeightStyle(
-            alignment = LineHeightStyle.Alignment.Bottom,
-            trim = LineHeightStyle.Trim.LastLineBottom
-        )
-    )
+
     val fontSize: TextUnit = when (level) {
         1 -> typography.titleLarge.fontSize
         2 -> typography.titleMedium.fontSize
@@ -206,26 +189,20 @@ fun sectionTitle(
         else -> typography.bodyLarge.fontSize
     }
     return buildAnnotatedString {
-        withStyle(style = paragraphStyle) {
-        }
-        withStyle(style = paragraphStyle) {
+        pushStyle(normalStyle(fontSize = fontSize))
 
-            withStyle(
-                SpanStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = fontSize,
-                )
-            ) {
-                if (lower) {
-                    append(text.lowercase())
-                } else {
-                    append(text)
-                }
-                //append("\n")
-
+        withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+            if (lower) {
+                append(text.lowercase())
+            } else {
+                append(text)
             }
-        }
-        withStyle(style = paragraphStyle) {
+            //append("\n")
+
+            //}
+            //}
+            //withStyle(style = paragraphStyle) {
+            //}
         }
     }
 }
@@ -235,48 +212,6 @@ fun SpaceNormal() {
     Spacer(modifier = Modifier.height(24.dp))
 }
 
-fun AnnotatedString.Builder.appendStyledContent(
-    text: String,
-    shouldAddSpacing: Boolean,
-    rubricColor: Color
-) {
-    val content = getFormato(text, rubricColor)
-    var currentIndex = 0
-    val regex = """<(/?strong|/?em|/?b|/?i|)>""".toRegex()
-    val matches = regex.findAll(text).toList()
-    val newContent = if (shouldAddSpacing) content + "\n" else text
-    try {
-        if (matches.isEmpty()) {
-            append(newContent)
-            return
-        }
-        matches.forEach { match ->
-            val matchStart = match.range.first
-            if (matchStart > currentIndex) {
-                append(newContent.substring(currentIndex, matchStart))
-            }
-
-            currentIndex = match.range.last + 1
-            when (match.value) {
-                "<strong>", "<b>" -> pushStyle(SpanStyle(fontWeight = FontWeight.Bold))
-                "</strong>", "</b>" -> pop()
-                "<em>", "<i>" -> pushStyle(SpanStyle(fontStyle = FontStyle.Italic))
-                "</em>", "</i>" -> pop()
-                /*"℣", "℟" -> {
-                    pushStyle(SpanStyle(color = rubricColor))
-                }*/
-            }
-        }
-
-        if (currentIndex < newContent.length) {
-            append(newContent.substring(currentIndex))
-        }
-    } catch (e: Exception) {
-        buildAnnotatedString {
-            append(Utils.createErrorMessage(e.message))
-        }
-    }
-}
 
 fun errorMessage(msg: String, rubricColor: Color): AnnotatedString {
     return buildAnnotatedString {
@@ -287,6 +222,14 @@ fun errorMessage(msg: String, rubricColor: Color): AnnotatedString {
         append(msg)
         append(Utils.toRed(Configuration.MY_GMAIL))
         append(Utils.LS2)
+    }
+}
+
+fun errorMessageAudio(msg: String): AnnotatedString {
+    return buildAnnotatedString {
+        append(msg)
+        append(Configuration.MY_GMAIL)
+        append(".")
     }
 }
 
@@ -558,9 +501,6 @@ fun contentSpace(lineHeight: Int): AnnotatedString {
     }
 }
 
-fun textFromHtml(data: String): AnnotatedString {
-    return AnnotatedString.fromHtml(getFormato(data))
-}
 
 fun contentBody(text: String, level: Int, rubricColor: Color): AnnotatedString {
     val paragraphStyle = ParagraphStyle(
@@ -598,7 +538,6 @@ fun contentBody(text: String, level: Int, rubricColor: Color): AnnotatedString {
         }
     }
 }
-
 
 
 @Composable

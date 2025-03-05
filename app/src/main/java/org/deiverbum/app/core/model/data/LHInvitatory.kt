@@ -16,7 +16,7 @@ class LHInvitatory(override var antiphonae: MutableList<LHAntiphon>) :
 
     init {
         if (psalmus.isEmpty()) {
-            psalmus.add(LHPsalm(0, "Salmo 94", unique))
+            psalmus.add(LHPsalm(0, true, "Salmo 94", unique))
         }
     }
 
@@ -43,29 +43,6 @@ class LHInvitatory(override var antiphonae: MutableList<LHAntiphon>) :
      * @see [LHLaudes.getForView]
      */
 
-    //@Composable
-
-
-    override fun getAllForView(hourIndex: Int, calendarTime: Int): SpannableStringBuilder {
-        val ssb = SpannableStringBuilder()
-        val s = psalmus[0]
-        antiphonae[0].normalizeByTime(calendarTime)
-
-        if (!isMultiple) {
-            s.psalmus = unique
-            s.pericopa = "Salmo 94"
-        }
-        ssb.append(Utils.formatSubTitleToLower(Constants.TITLE_INVITATORY))
-        ssb.append(Utils.LS2)
-        ssb.append(antiphonae[0].getBeforeForView(false))
-        ssb.append(Utils.LS2)
-        ssb.append(Utils.toRed(s.pericopa))
-        ssb.append(Constants.LS2)
-        ssb.append(s.psalmForView)
-        ssb.append(Utils.LS2)
-        ssb.append(antiphonae[0].afterForView)
-        return ssb
-    }
 
     val allForRead: StringBuilder
         get() {

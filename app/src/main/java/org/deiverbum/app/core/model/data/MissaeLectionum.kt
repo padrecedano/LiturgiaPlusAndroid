@@ -8,10 +8,6 @@ import org.deiverbum.app.util.Utils
 @JsonClass(generateAdapter = true)
 class MissaeLectionum(override var pericopa: String = "", override var biblica: String = "") :
     LectioBiblica(pericopa, biblica) {
-    //constructor() : super()
-
-    //constructor (quote: String, text: String) : super(quote, text)
-
     constructor (book: BibleBook, quote: String, tema: String, text: String, theOrder: Int) : this(
         quote,
         text
@@ -21,7 +17,6 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
         this.book = book
     }
 
-    @OptIn(ExperimentalStdlibApi::class)
     @Json(ignore = true)
     private val temaForRead: String
         get() = Utils.normalizeEnd(tema)
@@ -53,9 +48,6 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
         return sb
     }
 
-
-
-
     /**
      *
      * Obtiene la lectura bíblica completa formateada para la lectura de voz.
@@ -63,15 +55,13 @@ class MissaeLectionum(override var pericopa: String = "", override var biblica: 
      * @return Un objeto [con el contenido.][SpannableStringBuilder]
      * @since 2022.01
      */
-    //@Override
     fun getAllForRead(type: Int): SpannableStringBuilder {
         val sb = SpannableStringBuilder()
         sb.append(Utils.normalizeEnd(getHeader(type)))
         sb.append(book.getForRead())
         sb.append(temaForRead)
-        //sb.append(textoForRead)
+        sb.append(textoForRead)
         sb.append(getConclusionByType())
-
         return sb
     }
 

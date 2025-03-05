@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
@@ -63,10 +64,13 @@ import org.deiverbum.app.core.model.data.UserData
 import org.deiverbum.app.core.model.data.UserDataDynamic
 import org.deiverbum.app.core.ui.TrackScrollJank
 import org.deiverbum.app.core.ui.UniversalisBody
+import org.deiverbum.app.core.ui.universalisBodyForRead
 import org.deiverbum.app.feature.calendar.ErrorState
 import org.deiverbum.app.feature.tts.ScreenTtsPlayer
 import org.deiverbum.app.feature.tts.TtsMediaViewModel
+import org.deiverbum.app.util.DateTimeUtil
 import org.deiverbum.app.util.Utils
+
 
 /**
  * Es llamada desde la pantalla inicial para obtener el contenido
@@ -242,15 +246,46 @@ fun UniversalisToolbar(
             //viewModelSimpleMedia.loadData("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3")
             viewModelTts.loadData(
                 "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                sb.toString()
+                "sb.toString()"
             )
 
             ModalBottomSheet(
                 onDismissRequest = {
                     showBottomSheet = false
                 },
-                sheetState = sheetState
-            ) {
+                sheetState = sheetState,
+                content = {
+
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.Start,
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .offset(y = -12.dp)
+                        ) {
+                            Text(
+                                modifier = Modifier.align(Alignment.TopCenter),
+                                text = "Title of ModalBottomSheet"
+                            )
+                            IconButton(
+                                modifier = Modifier
+                                    .align(Alignment.TopEnd)
+                                    .offset(y = -12.dp),
+                                onClick = { showBottomSheet = false }
+                            ) {
+                                Icon(
+                                    imageVector = LPlusIcons.Reader,
+                                    contentDescription = "item",
+                                )
+                            }
+                        }
+                    }
+
+                }
+            )
 
                 //TextToSpeechScreenB(text = sb)
                 //TextToSpeechScreenA(text = sb)
@@ -259,7 +294,7 @@ fun UniversalisToolbar(
                 //Media3TtsView(sb)
 
                 //ScreenTts(viewModelSimpleMedia,sb)
-                ScreenTtsPlayer(viewModelTts, sb)
+            //ScreenTtsPlayer(viewModelTts, sb)
                 //TtsMediaScreen(viewModelTts,{})
                 /*
                 BottomPlayerTab(
@@ -283,7 +318,7 @@ fun UniversalisToolbar(
         }
 
     }
-}
+
 
 
 /**
@@ -346,9 +381,8 @@ fun UniversalisResourceCardExpanded(
                         }
 
                         it == 30 -> {
-
-                            title = "Rosario"
-                            meta = "Viernes"
+                            title = "Santo Rosario"
+                            meta = DateTimeUtil.dayName(resource.date).uppercase()
                         }
 
                         else -> {
@@ -356,7 +390,7 @@ fun UniversalisResourceCardExpanded(
                                 title = "Aún no hay datos para esta fecha."
                                 meta = ""
                             } else {
-                                title = data.liturgia!!.tempus!!.externus.toString()
+                                title = data.liturgia!!.tempus!!.externus!!
                                 meta = data.liturgia!!.nomen
                             }
                         }
@@ -380,7 +414,7 @@ fun UniversalisResourceCardExpanded(
 
                     //UniversalisHeader("universalis.selectedTopicId!!", data.todayDate)
                     UniversalisResourceTitle(
-                        title,
+                        resource.metaData.tempus,
                         userData.dynamic,
                         modifier = Modifier.fillMaxWidth((.8f)),
                     )
@@ -388,19 +422,17 @@ fun UniversalisResourceCardExpanded(
                 }
                 Spacer(modifier = Modifier.height(14.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    UniversalisResourceMetaData(meta)
+                    UniversalisResourceMetaData(resource.metaData.nomen)
                 }
                 Spacer(modifier = Modifier.height(14.dp))
-                if (typusId == 301) {
-                    Text("Rosario")
-                } else {
+
 
                 UniversalisBody(
                     data = resource.data,
                     topicId = typusId,
                     userData = userData,
                 )
-                }
+
             }
         }
     }
@@ -445,7 +477,7 @@ fun UniversalisResourceData(
         topBar = {
             UniversalisTopAppBar(
                 userData = userData.dynamic,
-                title = universalisResource.title,
+                title = universalisResource.metaData.liturgia,
                 subtitle = subTitle,
                 onReaderClick = {
                     showBottomSheet = true
@@ -480,6 +512,7 @@ fun UniversalisResourceData(
                         if (universalisResource.id == -1) {
                             ErrorState("")
                         } else {
+                            //universalisResource.data.liturgia.liturgiaTypus
                         UniversalisResourceCardExpanded(
                             resource = universalisResource,
                             typusId = typusId,
@@ -492,10 +525,11 @@ fun UniversalisResourceData(
         }
         if (showBottomSheet) {
             analyticsHelper.logUniversalisTtsEvent(universalisResource.title)
-            val sb = universalis.getAllForRead()
+            val read = universalisBodyForRead(universalis, typusId, userData)
+
             viewModelTts.loadData(
                 "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                sb.toString()
+                read.text//sb.toString()
             )
             ModalBottomSheet(
                 onDismissRequest = {
@@ -503,7 +537,9 @@ fun UniversalisResourceData(
                 },
                 sheetState = sheetState
             ) {
-                ScreenTtsPlayer(viewModelTts, sb)
+                //Timber.d("aaa-",plainTextFromHTML.text)
+//Text(plainTextFromHTML.text)
+                ScreenTtsPlayer(viewModelTts)
             }
         }
     }

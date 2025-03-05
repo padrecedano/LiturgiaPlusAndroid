@@ -1,7 +1,6 @@
 package org.deiverbum.app.util
 
 import android.graphics.Typeface
-import android.os.Build
 import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
@@ -10,15 +9,10 @@ import android.text.Spanned
 import android.text.style.CharacterStyle
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
-import androidx.annotation.RequiresApi
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.sp
 import org.deiverbum.app.util.ColorUtils.red
 import org.deiverbum.app.util.ColorUtils.rubricColor
 import org.deiverbum.app.util.Constants.BR
@@ -28,15 +22,10 @@ import org.deiverbum.app.util.Constants.CSS_RED_Z
 import org.deiverbum.app.util.Constants.ERR_REPORT
 import org.deiverbum.app.util.Constants.NBSP_4
 import org.deiverbum.app.util.Constants.NBSP_SALMOS
-import org.deiverbum.app.util.Constants.NEWBIS
-import org.deiverbum.app.util.Constants.NEWONE
 import org.deiverbum.app.util.Constants.OBIEN
 import org.deiverbum.app.util.Constants.PRECES_IL
 import org.deiverbum.app.util.Constants.PRECES_R
-import org.deiverbum.app.util.Constants.TABBIS
-import org.deiverbum.app.util.Constants.TABTRI
 import org.deiverbum.app.util.Constants.VERSION_CODE_FORMATTED
-import java.sql.Timestamp
 import java.text.DateFormat
 import java.text.DateFormatSymbols
 import java.text.ParseException
@@ -70,48 +59,6 @@ object Utils {
      * Formatea el texto litúrgico según la convención de marcado.
      * Método adaptado para Jetpack Compose.
      *
-     * @since 2024.1
-     */
-
-    //@RequiresApi(Build.VERSION_CODES.O)
-    fun transformTextHtml(text: String, rubricColor: Color): AnnotatedString {
-        return buildAnnotatedString {
-            text.forEach { c ->
-                when (c) {
-                    '℣', '℟' -> withStyle(SpanStyle(color = rubricColor)) { append(c) }
-                    '¦' -> append("\t")
-                    '≀' -> append("\n\t\t")
-                    '§' -> append("\n\n")
-                    else -> append(c)
-                }
-            }
-        }
-    }
-
-    fun transformTextHtmll(text: String, rubricColor: Color): AnnotatedString {
-        var tmp = AnnotatedString.fromHtml(getFormato(text, Color.Red))
-        //tmp= replaceHtmlTags(tmp)
-        var tmq = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)//.toAnnotatedString()
-        val ssb = SpannableStringBuilder()
-
-        return tmp
-        return buildAnnotatedString {
-            tmp.forEach { c ->
-                when (c) {
-                    '℣', '℟' -> withStyle(SpanStyle(color = rubricColor)) { append(c) }
-                    '¦' -> append("\t")
-                    '≀' -> append("\n\t\t")
-                    '§' -> append("\n\n")
-                    else -> append(c)
-                }
-            }
-        }
-    }
-
-    /**
-     * Formatea el texto litúrgico según la convención de marcado.
-     * Método adaptado para Jetpack Compose.
-     *
      * @since 2025.1
      */
 
@@ -127,67 +74,6 @@ object Utils {
         }
     }
 
-    /**
-     * Formatea el texto litúrgico según la convención de marcado.
-     * Método adaptado para Jetpack Compose.
-     *
-     * @since 2025.1
-     */
-
-    fun transformBodyText(text: String, rubricColor: Color) = buildAnnotatedString {
-        text.forEach { c ->
-            when (c) {
-                '¦' -> append("\t")
-                '≀' -> append("\n\t\t")
-                '§' -> append("\n\n")
-                '~' -> append("\n")
-                '⊣' -> append("\n\t\t")
-                '≠' -> {
-                    append("\n\t\t")
-                    withStyle(SpanStyle(color = rubricColor)) { append(PRECES_R) }
-                }
-
-                '∞' -> {
-                    append("\n\n")
-                    withStyle(SpanStyle(color = rubricColor)) { append(PRECES_IL) }
-                    append("\n\n")
-                }
-
-                else -> append(c)
-                /*
-                 .replace("_", NBSP_SALMOS)
-            .replace("§", BRS)
-            .replace("~", BR)
-            .replace("¦", NBSP_4)
-            .replace("⊣", BR + NBSP_4)
-            .replace("≠", String.format("%s %s ", NBSP_SALMOS, toRedFont(PRECES_R)))
-            .replace("∞", String.format("%s%s%s", BRS, toRedFont(PRECES_IL), BRS))
-            .replace("⊚", OBIEN)
-            .replace("†", toRedFont(" † "))
-            .replace("⊓", toRedFont(" N. "))
-            .replace("Ɽ", toRedFont(" R. "))
-            .replace("⟨", toRedFont("("))
-            .replace("⟩", toRedFont(")"))
-            .replace("ⱱ", toRedFont("V/."))
-            .replace("ⱴ", toRedFont("R/."))
-            .replace("Ʀ", toRedFont(" R/. ") + BRS) //NEW
-            .replace("℟", toRedFont("℟.")) //.replace("℟",  toRed("℟") )
-            .replace("℣", toRedFont("℣."))
-            .replace("≀", BR + NBSP_4 + NBSP_4)
-            .replace("~", BR)
-            .replace("§", BRS)
-            .replace("∸", BRS)
-            .replace("⊞", toRedFont("✚. "))
-            .replace("⊝", toRedFont("C. "))
-            .replace("⊟", toRedFont("S. "))
-            .replace("[rubrica]", CSS_RED_A)
-            .replace("[/rubrica]", CSS_RED_Z)
-            .replace("%cssBlackOn", "<font color=\"#000000\">")
-            .replace("%cssBlackOff", "</font>")
-                * */
-            }
-        }
-    }
 
     fun formatTitle(sOrigen: String): SpannableStringBuilder {
         val ssb = SpannableStringBuilder(toUpper(sOrigen))
@@ -201,9 +87,6 @@ object Utils {
         return ssb
     }
 
-    fun capitalize(s: String): String {
-        return s.replaceFirstChar { it.uppercase() }
-    }
 
     fun toRedBold(sOrigen: String): SpannableStringBuilder {
         val ssb = SpannableStringBuilder(sOrigen)
@@ -236,23 +119,6 @@ object Utils {
         return ssb
     }
 
-    fun formatSubTitleToLower(sOrigen: String): SpannableStringBuilder {
-        val ssb = SpannableStringBuilder(toLower(sOrigen))
-        val textSize = RelativeSizeSpan(H3)
-        ssb.setSpan(
-            CharacterStyle.wrap(textSize),
-            0,
-            ssb.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        ssb.setSpan(
-            CharacterStyle.wrap(StyleSpan(Typeface.BOLD)),
-            0,
-            ssb.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        return ssb
-    }
 
     fun toSmallSize(sOrigen: String?): SpannableStringBuilder {
         val smallSizeText = RelativeSizeSpan(0.8f)
@@ -439,31 +305,11 @@ object Utils {
         return SpannableStringBuilder(s)
     }
 
-    fun toRedCompose(text: String?, rubricColor: Color): AnnotatedString {
-        return buildAnnotatedString {
-            withStyle(style = SpanStyle(color = rubricColor)) {
-                append(text)
-            }
-            //append(antiphon)
-        }
-    }
 
     fun toRedFont(s: String?): String {
         return String.format("<font color=\"%s\">%s</font>", rubricColor, s)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun toRedFontCompose(s: String, rubricColor: Color): String {
-        var color = "#" + rubricColor.toArgb()
-        //#ffff0000
-        //val str = rubricColor.toArgb().toHexString(HexFormat.UpperCase).takeLast(6)
-
-        return String.format(
-            "<font color=\"#%s\">%s</font>",
-            ComposeColorUtil.getHexColor(rubricColor),
-            s
-        )
-    }
 
     fun toRedNew(sOrigen: SpannableStringBuilder): SpannableStringBuilder {
         sOrigen.setSpan(
@@ -546,69 +392,7 @@ object Utils {
 
     }
 
-    /**
-     *
-     * Sustituye y/o formatea determinados caracteres según una convención de marcado ideada por mí mismo.
-     *
-     * La convención es la siguiente:
-     *
-     *  *
-     *
-     *
-     * @param sOrigen Cadena original para hacer el reemplazo
-     * @return La cadena formateada
-     */
-    //@RequiresApi(Build.VERSION_CODES.O)
-    fun getFormato(sOrigen: String, rubricColor: Color): String {
-        /*
-        u2220: ∠ ∡ ∢ ∣ ∤ ∥ ∦ ∧ ∨ ∩ ∪ ∫  ∭ ∮ ∯ ∰ ∱ ∲ ∳ ∴ ∵ ∶ ∷ ∸ ∹ ∺ ∻ ∼ ∽ ∾ ∿
-        u2240: ≀ ≁ ≂ ≃ ≄ ≅ ≆ ≇ ≈ ≉ ≊ ≋ ≌ ≍ ≎ ≏ ≐ ≑ ≒ ≓ ≔ ≕ ≖ ≗ ≘ ≙ ≚ ≛ ≜ ≝ ≞ ≟
-        u2260: ≠ ≡ ≢ ≣ ≤ ≥ ≦ ≧ ≨ ≩ ≪ ≫ ≬ ≭ ≮ ≯ ≰ ≱ ≲ ≳ ≴ ≵ ≶ ≷ ≸ ≹ ≺ ≻ ≼ ≽ ≾ ≿
-        u2280: ⊀ ⊁ ⊂ ⊃ ⊄ ⊅ ⊆ ⊇ ⊈ ⊉ ⊊ ⊋ ⊌ ⊍ ⊎ ⊏ ⊐ ⊑ ⊒ ⊓ ⊔ ⊕ ⊖ ⊗ ⊘ ⊙ ⊚ ⊛ ⊜ ⊝ ⊞ ⊟
-        u22A0: ⊠ ⊡ ⊢ ⊣ ⊤ ⊥ ⊦ ⊧ ⊨ ⊩ ⊪ ⊫ ⊬ ⊭ ⊮ ⊯ ⊰ ⊱ ⊲ ⊳ ⊴ ⊵ ⊶ ⊷ ⊸ ⊹ ⊺ ⊻ ⊼ ⊽ ⊾ ⊿
-
-        Nuevos valores desde v. 2022.01.01:
-            ⊞ en lugar de τ ...  ✚.
-            ⊝ en lugar de ν ...  C.
-            ⊟ en lugar de ς ...  S.
-            ⊓  en lugar de ƞ ... N.
-            ⊚  en lugar de ℇ ... O bien
-        */
-        return sOrigen
-            .replace("_", TABTRI)
-            .replace("§", NEWBIS)
-            .replace("~", NEWONE)
-            .replace("¦", TABBIS)
-            .replace("⊣", NEWONE + TABTRI)
-            .replace("≠", String.format("%s %s ", TABTRI, toRedFont(PRECES_R)))
-            .replace("∞", String.format("%s%s%s", NEWBIS, toRedFont(PRECES_IL), NEWBIS))
-            .replace("⊚", OBIEN)
-            .replace("†", toRedFont(" † "))
-            .replace("⊓", toRedFont(" N. "))
-            .replace("Ɽ", toRedFont(" R. "))
-            .replace("⟨", toRedFont("("))
-            .replace("⟩", toRedFont(")"))
-            .replace("ⱱ", toRedFont("V/."))
-            .replace("ⱴ", toRedFont("R/."))
-            .replace("Ʀ", toRedFont(" R/. ") + NEWBIS) //NEW
-            //.replace("℟", toRedFontCompose("℟.",rubricColor)) //.replace("℟",  toRed("℟") )
-            //.replace("℣", toRedFontCompose("℣.",rubricColor))
-            .replace("≀", NEWONE + TABTRI + TABTRI)
-            .replace("~", NEWONE)
-            .replace("§", NEWBIS)
-            .replace("∸", NEWBIS)
-            .replace("</p>", NEWBIS, true)
-            .replace("<p>", "", true)
-
-            .replace("⊞", toRedFont("✚. "))
-            .replace("⊝", toRedFont("C. "))
-            .replace("⊟", toRedFont("S. "))
-            .replace("[rubrica]", CSS_RED_A)
-            .replace("[/rubrica]", CSS_RED_Z)
-            .replace("%cssBlackOn", "<font color=\"#000000\">")
-            .replace("%cssBlackOff", "</font>")
-
-    }
+    fun String.removeHtml() = replace("<.*?>".toRegex(), "")
 
 
     /**
@@ -671,25 +455,39 @@ object Utils {
     }
 
     fun replaceByTime(mText: String, timeID: Int): String {
-        val sFormateado: String = if (timeID == 6) {
-            mText
-                .replace("Ƥ. ", "Aleluya. ")
-                .replace(" Ƥ.", " Aleluya.")
-                .replace("Ƥ.", " Aleluya.")
-                .replace("Ƥ".toRegex(), " Aleluya.")
-                .replace("α", " Aleluya.")
-                .replace("αα", " Aleluya, aleluya.")
-        } else {
-            mText
+        return when (timeID) {
+            6 -> {
+                mText
+                    .replace("Ƥ. ", "Aleluya. ")
+                    .replace(" Ƥ.", " Aleluya.")
+                    .replace("Ƥ.", " Aleluya.")
+                    .replace("Ƥ", " Aleluya.")
+                    .replace("α.", " Aleluya.")
+                    .replace("α", " Aleluya.")
+                    .replace("μ", " Aleluya.")
+                    .replace("αα", " Aleluya, aleluya.")
+            }
+
+            3 -> mText
                 .replace("Ƥ. ", "")
                 .replace(" Ƥ.", "")
                 .replace("Ƥ.", "")
-                .replace("Ƥ".toRegex(), "")
+                .replace("Ƥ", "")
+                .replace("α.", "")
+                .replace("α", "")
+                .replace("αα", "")
+                .replace("μ", "")
+
+            else -> mText
+                .replace("μ", " Aleluya.")
+                .replace("Ƥ. ", "")
+                .replace(" Ƥ.", "")
+                .replace("Ƥ.", "")
+                .replace("Ƥ", "")
                 .replace("α.", "")
                 .replace("αα", "")
                 .replace("α", "")
         }
-        return sFormateado
     }
 
 
@@ -698,7 +496,7 @@ object Utils {
     }
 
     fun fromHtmlWithOutFormat(s: String): Spanned {
-        return Html.fromHtml(s, Html.FROM_HTML_MODE_LEGACY)
+        return Html.fromHtml(s)
     }
 
 
@@ -709,16 +507,6 @@ object Utils {
     fun fromHtmlSmall(s: String): SpannableStringBuilder {
         val ssb = SpannableStringBuilder(fromHtml(s))
         return toSmallSizes(ssb)
-    }
-
-    fun composeSmallText(text: String): AnnotatedString {
-        return buildAnnotatedString {
-            //withStyle(style = ParagraphStyle(lineHeight = 20.sp)) {
-            withStyle(style = SpanStyle(fontSize = 12.sp)) {
-                append(fromHtml(text))
-            }
-            //}
-        }
     }
 
 
@@ -757,36 +545,6 @@ object Utils {
         return sFormateado.trim { it <= ' ' }
     }
 
-    /**
-     * Este método cambia las <p></p> por \n,
-     *
-     * @param sOrigen Cadena original
-     * @return La cadena sin las comillas
-     */
-    fun replaceHtmlTags(sOrigen: String): String {
-        val sFormateado: String = sOrigen
-            .replace("</p>", BRS, true)
-            .replace("<p>", "", true)
-            .replace("¦", "\t")
-            .replace("≀", "\n\t\t")
-            .replace("§", "\n\n")
-
-
-        return sFormateado.trim { it <= ' ' }
-    }
-
-    /**
-     * Este método cambia las <p></p> por \n,
-     *
-     * @param sOrigen Cadena original
-     * @return La cadena sin las comillas
-     */
-    fun tagsHtmlToSystem(sOrigen: String): String {
-        val sFormateado: String = sOrigen
-            .replace("</p>", LS2, true)
-            .replace("<p>", "", true)
-        return sFormateado.trim { it <= ' ' }
-    }
 
 
     /**
@@ -821,6 +579,17 @@ object Utils {
          */
         get() {
             val format = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+            return format.format(Date())
+        }
+
+    val hoyTest: String
+        /**
+         * Método que devuelve la fecha del sistema en formato yyyyMMdd
+         *
+         * @return Una cadena con la fecha formateada
+         */
+        get() {
+            val format = SimpleDateFormat("yyyyMMdd HH:mm:ss", Locale.getDefault())
             return format.format(Date())
         }
 
@@ -1021,18 +790,7 @@ object Utils {
         return romanOutput
     }
 
-    /**
-     * Método que devuelve la fecha y hora actual en formato yyyy-MM-dd HH:mm:ss
-     *
-     * @return Una cadena con la fecha
-     */
-    fun getCurrentTimeStamp(): String {
-        val stamp = Timestamp(System.currentTimeMillis())
-        val date = Date(stamp.time)
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        return sdf.format(date)
 
-    }
 
 
 }

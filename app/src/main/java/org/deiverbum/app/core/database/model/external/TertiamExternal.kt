@@ -27,7 +27,7 @@ import org.deiverbum.app.core.model.data.Universalis
  *
  * @author A. Cedano
  * @version 1.0
- * @since 2024.1
+ * @since 2025.1
  * @see Breviarium
  * @see LHIntermedia
  */
@@ -67,24 +67,26 @@ data class TertiamExternal(
 )
 
 
-fun TertiamExternal.asExternalModel() = Universalis(
-    universalis.todayDate,
-    Liturgy(
-        liturgia.parent.semana,
-        liturgia.parent.dia,
-        liturgia.parent.nombre,
-        liturgia.entity.asExternalModel(),
-        LHIntermedia(
-            hymnus.entity.asExternalModel(),
-            LHPsalmody(
-                psalmus.asExternalModel(),
-                antiphonae.asExternalModel(),
-                psalmus.join.theType
-            ),
-            lectioBrevis.asExternalModel(),
-            oratio.asExternalModel(),
-            4,
-            "intermedia"
+fun TertiamExternal.asExternalModel(): Universalis {
+    val extModel = universalis.asExternalModel()
+    extModel.liturgia =
+        Liturgy(
+            liturgia.parent.semana,
+            liturgia.parent.dia,
+            liturgia.parent.nombre,
+            liturgia.entity.asExternalModel(),
+            LHIntermedia(
+                hymnus.entity.asExternalModel(),
+                LHPsalmody(
+                    psalmus.asExternalModel(),
+                    antiphonae.asExternalModel(),
+                    psalmus.join.theType
+                ),
+                lectioBrevis.asExternalModel(),
+                oratio.asExternalModel(),
+                4,
+                "intermedia"
+            )
         )
-    )
-)
+    return extModel
+}

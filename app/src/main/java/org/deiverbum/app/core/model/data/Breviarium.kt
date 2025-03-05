@@ -20,15 +20,4 @@ package org.deiverbum.app.core.model.data
 
 
 abstract class Breviarium(typus: String) :
-    LiturgiaTypus(typus) {
-    /* fun forView(): SpannableStringBuilder {
-         return super.getHeaders()
-     }
-
-
-     override fun getTypus(): Any {
-         //return this
-         //return Any
-         return TODO("Provide the return value")
-     }*/
-}
+    LiturgiaTypus(typus)

@@ -168,6 +168,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
+        //val s=timeZoneMonitor.currentTimeZone.conflate()
         lazyStats.get().isTrackingEnabled = true
     }
 

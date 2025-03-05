@@ -1,15 +1,17 @@
 package org.deiverbum.app.util
 
 import android.annotation.SuppressLint
+import android.net.ParseException
 import org.deiverbum.app.core.model.data.WeekDays
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-object TimeUtil {
+object DateTimeUtil {
 
     fun setTime(dateString: String, time: String): Long {
         return getTimeMilis(dateString, time)
@@ -49,5 +51,29 @@ object TimeUtil {
     private fun getTimeMilis(dayTimestamp: String, time: String): Long {
         val dateTime = dayTimestamp.plus(" ").plus(time)
         return SimpleDateFormat("yyyy-MM-dd hh:mm").parse(dateTime)?.time ?: 0
+    }
+
+    fun Int.isDateValid(): Boolean {
+        val dateFormat = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+        dateFormat.isLenient = false
+        return try {
+            dateFormat.parse(this.toString())
+            true
+        } catch (e: ParseException) {
+            false
+        }
+    }
+
+    fun dayName(givenDate: Int): String {
+        try {
+            val localDate: LocalDate = LocalDate.parse(
+                givenDate.toString(),
+                DateTimeFormatter.ofPattern("yyyyMMdd")
+            )
+            val locale = Locale("es", "ES")
+            return localDate.dayOfWeek.getDisplayName(TextStyle.FULL, locale)
+        } catch (e: ParseException) {
+            return ""
+        }
     }
 }

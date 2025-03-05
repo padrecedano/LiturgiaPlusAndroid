@@ -24,13 +24,17 @@ import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.PlatformParagraphStyle
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import net.engawapg.lib.zoomable.rememberZoomState
 import net.engawapg.lib.zoomable.zoomable
@@ -39,10 +43,14 @@ import org.deiverbum.app.core.designsystem.theme.Red40
 import org.deiverbum.app.core.designsystem.theme.getPersonalizedTypography
 import org.deiverbum.app.core.model.data.UserData
 import org.deiverbum.app.core.model.data.UserDataDynamic
+import org.deiverbum.app.util.AudioHelper
+import org.deiverbum.app.util.Constants.PRECES_IL
 import org.deiverbum.app.util.Constants.PRECES_R
 import org.deiverbum.app.util.LiturgyHelper.Companion.R
 import org.deiverbum.app.util.LiturgyHelper.Companion.V
 import org.deiverbum.app.util.Utils
+import org.deiverbum.app.util.Utils.getFormato
+import org.deiverbum.app.util.replaceChars
 
 fun textSmall(text: String, userData: UserDataDynamic): AnnotatedString {
     val typography = getPersonalizedTypography(userData.fontSize)
@@ -55,20 +63,20 @@ fun textSmall(text: String, userData: UserDataDynamic): AnnotatedString {
     )
     return buildAnnotatedString {
         withStyle(style = paragraphStyle) {
-        withStyle(
-            SpanStyle(
-                fontSize = typography.bodySmall.fontSize
-            )
-        ) {
-            append(text)
-        }
+            withStyle(
+                SpanStyle(
+                    fontSize = typography.bodySmall.fontSize
+                )
+            ) {
+                append(text)
+            }
         }
     }
 }
 
-fun textRubric(text: String, rubricColor: Color): AnnotatedString {
+fun textRubric(text: String, rubricColor: Color, fontSize: TextUnit): AnnotatedString {
     return buildAnnotatedString {
-        withStyle(style = SpanStyle(color = rubricColor)) {
+        withStyle(style = SpanStyle(color = rubricColor, fontSize = fontSize)) {
             append(text)
         }
     }
@@ -100,12 +108,74 @@ fun transformEpigraph(text: String, userData: UserDataDynamic): AnnotatedString 
     }
 }
 
+/**
+ * Formatea el epígrafe de los salmos para audio.
+ *
+ * @since 2025.1
+ */
+
+fun transformEpigraphAudio(text: String): AnnotatedString {
+    return buildAnnotatedString {
+        append(text.replace("~", " "))
+        append(".")
+    }
+}
+
+/**
+ * Formatea el texto litúrgico según la convención de marcado.
+ * Método adaptado para Jetpack Compose.
+ *
+ * @since 2025.1
+ */
+
+fun transformText(text: String, fontSize: TextUnit, color: Color) = buildAnnotatedString {
+    pushStyle(SpanStyle(fontSize = fontSize))
+
+    text.forEach { c ->
+        when (c) {
+            '℣', '℟' -> withStyle(SpanStyle(color = color)) { append(c) }
+            '†' -> {
+                withStyle(SpanStyle(color = color)) { append(c) }
+                append(" ")
+            }
+
+            '⟨' -> {
+                withStyle(SpanStyle(fontSize = fontSize, color = color)) { append("(") }
+            }
+
+            '⟩' -> {
+                withStyle(SpanStyle(fontSize = fontSize, color = color)) { append(")") }
+            }
+
+            'Ɽ' -> {
+                withStyle(SpanStyle(fontSize = fontSize, color = color)) { append("R. ") }
+            }
+
+            '¦' -> append("\t")
+            '≀', '~', '_' -> append("\n\t\t")
+            '§' -> append("\n\n")
+            else -> append(c)
+        }
+    }
+}
+
+fun transformTextMixtus(text: String, fontSize: TextUnit): AnnotatedString {
+    val map = mapOf(
+        "<p>" to "", "<P>" to "", "</p>" to "\n" +
+                "\n", "</P>" to "\n\n"
+    )
+    var result = text
+    map.forEach { t, u -> result = result.replace(t, u) }
+    return (transformText(result, fontSize, Color.Black))
+}
+
 fun stringFromHtml(text: String): String {
     return Utils.fromHtml(text).toString()
 }
 
-fun textMultiColor(texts: List<String>, color: Color): AnnotatedString {
+fun textMultiColor(texts: List<String>, fontSize: TextUnit, color: Color): AnnotatedString {
     return buildAnnotatedString {
+        pushStyle(normalStyle(fontSize = fontSize))
         append(texts[0])
         append("   ")
         withStyle(style = SpanStyle(color = color)) {
@@ -114,22 +184,42 @@ fun textMultiColor(texts: List<String>, color: Color): AnnotatedString {
     }
 }
 
-fun textVR(texts: List<String>, rubricColor: Color): AnnotatedString {
+fun textFromHtml(data: String, fontSize: TextUnit): AnnotatedString {
+    var annotatedString: AnnotatedString = buildAnnotatedString {
+        pushStyle(normalStyle(fontSize = fontSize))
+        append(AnnotatedString.fromHtml(getFormato(data)))
+    }
+    return annotatedString//AnnotatedString.fromHtml(annotatedString)
+}
+
+fun readFromHtml(data: String): AnnotatedString {
+    var annotatedString: AnnotatedString = buildAnnotatedString {
+        append(AnnotatedString.fromHtml(getFormato(data)))
+    }
+    return annotatedString//AnnotatedString.fromHtml(annotatedString)
+}
+
+fun textVR(texts: List<String>, rubricColor: Color, fontSize: TextUnit): AnnotatedString {
     return buildAnnotatedString {
+        pushStyle(SpanStyle(fontSize = fontSize))
+
         withStyle(style = SpanStyle(color = rubricColor)) {
             append(V)
         }
-        append(" ${texts[0]}")
-        append(Utils.LS)
+        append(" ${texts[0]}\n")
+
         withStyle(style = SpanStyle(color = rubricColor)) {
             append(R)
         }
+
         append(" ${texts[1]}")
+
     }
 }
 
-fun textWithV(text: String, rubricColor: Color): AnnotatedString {
+fun textWithV(text: String, rubricColor: Color, fontSize: TextUnit): AnnotatedString {
     return buildAnnotatedString {
+        pushStyle(SpanStyle(fontSize = fontSize))
         withStyle(style = SpanStyle(color = rubricColor)) {
             append(V)
         }
@@ -137,8 +227,10 @@ fun textWithV(text: String, rubricColor: Color): AnnotatedString {
     }
 }
 
-fun textWithR(text: String, rubricColor: Color): AnnotatedString {
+fun textWithR(text: String, rubricColor: Color, fontSize: TextUnit): AnnotatedString {
     return buildAnnotatedString {
+        pushStyle(normalStyle(fontSize = fontSize))
+
         withStyle(style = SpanStyle(color = rubricColor)) {
             append(R)
         }
@@ -146,15 +238,21 @@ fun textWithR(text: String, rubricColor: Color): AnnotatedString {
     }
 }
 
-fun textSpaced(texts: List<String>): AnnotatedString {
+fun textSpaced(texts: List<String>, fontSize: TextUnit): AnnotatedString {
     val paragraphStyle = ParagraphStyle(textIndent = TextIndent(restLine = 12.sp))
     return buildAnnotatedString {
+        pushStyle(normalStyle(fontSize = fontSize))
         texts.forEach {
             withStyle(style = paragraphStyle) {
                 append(it)
+                append("\n")
             }
         }
     }
+}
+
+fun normalStyle(fontSize: TextUnit): SpanStyle {
+    return SpanStyle(fontSize = fontSize)
 }
 
 fun textIndent(first: String, second: String, rubricColor: Color): AnnotatedString {
@@ -176,7 +274,49 @@ fun textParagraph(text: String): AnnotatedString {
     }
 }
 
-fun textSpan(text: String): AnnotatedString {
+fun textDefault(text: String, fontSize: TextUnit): AnnotatedString {
+    return buildAnnotatedString {
+        withStyle(
+            SpanStyle(
+                fontSize = fontSize,
+            )
+        ) {
+            append(text)
+        }
+    }
+}
+
+fun textDefaultItalic(text: String, fontSize: TextUnit): AnnotatedString {
+    return buildAnnotatedString {
+        withStyle(
+            SpanStyle(
+                fontSize = fontSize,
+                fontStyle = FontStyle.Italic
+            )
+        ) {
+            append(text)
+        }
+    }
+}
+
+
+fun textSpan(text: String, fontSize: TextUnit): AnnotatedString {
+    return buildAnnotatedString {
+        pushStyle(normalStyle(fontSize = fontSize))
+        append(text)
+    }
+}
+
+fun textLines(lines: Int = 1, fontSize: TextUnit): AnnotatedString {
+    return buildAnnotatedString {
+        pushStyle(normalStyle(fontSize = fontSize))
+        repeat(lines) {
+            append("\n")
+        }
+    }
+}
+
+fun textBody(text: String): AnnotatedString {
     return buildAnnotatedString {
         //withStyle(style = ParagraphStyle(lineHeight = TextUnit.Unspecified)) {}
         append(text)
@@ -252,10 +392,6 @@ fun getRubricColor(userData: UserDataDynamic): Color {
 }
 
 
-
-
-
-
 @Composable
 fun TextZoomable(text: AnnotatedString, onTap: (Offset) -> Unit) {
     val zoomState = rememberZoomState()
@@ -269,6 +405,7 @@ fun TextZoomable(text: AnnotatedString, onTap: (Offset) -> Unit) {
     ) {
         Text(
             text = text,
+            style = TextStyle.Default
         )
     }
 }
@@ -337,4 +474,110 @@ fun ZoomableBox(text: AnnotatedString) {
             //lineHeight = (textScale * 16).sp  // should be same or more than fontSize
         )
     }
+}
+
+/**
+ * Formatea el texto litúrgico según la convención de marcado.
+ * Método adaptado para Jetpack Compose.
+ *
+ * @since 2025.1
+ */
+
+fun transformBodyText(text: String, rubricColor: Color, fontSize: TextUnit) = buildAnnotatedString {
+    pushStyle(normalStyle(fontSize = fontSize))
+
+    text.forEach { c ->
+
+        when (c) {
+            '¦' -> {
+                withStyle(SpanStyle(fontSize = fontSize)) { append("\t") }
+            }
+
+            '≀', '_' -> {
+                withStyle(SpanStyle(fontSize = fontSize)) { append("\n\t\t") }
+            }
+
+            '§' -> {
+                withStyle(SpanStyle(fontSize = fontSize)) { append("\n\n") }
+            }
+
+            '~' -> {
+                withStyle(SpanStyle(fontSize = fontSize)) { append("\n") }
+            }
+
+            '⊣' -> {
+                withStyle(SpanStyle(fontSize = fontSize)) { append("\n\t\t") }
+            }
+
+            '≠' -> {
+                withStyle(SpanStyle(fontSize = fontSize)) { append("\n\t\t") }
+                withStyle(SpanStyle(fontSize = fontSize, color = rubricColor)) { append(PRECES_R) }
+            }
+
+            'ƞ' -> {
+                append(" ")
+                withStyle(SpanStyle(fontSize = fontSize, color = rubricColor)) { append("N.") }
+                append(" ")
+            }
+
+            '∞' -> {
+                withStyle(SpanStyle(fontSize = fontSize)) { append("\n\n") }
+                withStyle(SpanStyle(color = rubricColor, fontSize = fontSize)) {
+                    append(PRECES_IL)
+                }
+                withStyle(SpanStyle(fontSize = fontSize)) {
+                    append("\n\n")
+                }
+            }
+
+            else ->
+                withStyle(SpanStyle(fontSize = fontSize)) {
+                    append(c)
+                }
+        }
+    }
+}
+
+
+fun textFromListAudio(texts: List<String>): AnnotatedString {
+    return buildAnnotatedString {
+        texts.forEach {
+            append(it)
+        }
+    }
+}
+
+fun textForAudio(text: String): AnnotatedString {
+    return buildAnnotatedString {
+        append(text)
+    }
+}
+
+/**
+ * Formatea el texto litúrgico según la convención de marcado.
+ * Método adaptado para Jetpack Compose.
+ *
+ * @since 2025.1
+ */
+
+fun transformTextAudio(text: String) = buildAnnotatedString {
+    append(
+        text.replaceChars(AudioHelper.charsToReplace)
+        /*text
+            .replace("℣","")
+            .replace("℟","")
+            .replace("†","")
+            .replace("⟨","")
+            .replace("⟩","")
+            .replace("Ɽ","")
+            .replace("¦","")
+            .replace("⟩","")
+            .replace("⟩","")
+            .replace("⟩","")
+            .replace("⟩","")*/
+
+
+    )
+
+
 }

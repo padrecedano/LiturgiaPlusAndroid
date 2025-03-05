@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withLink
 import org.deiverbum.app.core.designsystem.component.textBold
 import org.deiverbum.app.core.designsystem.component.textRubric
+import org.deiverbum.app.core.designsystem.theme.getPersonalizedTypography
 import org.deiverbum.app.core.model.data.UserDataDynamic
 import org.deiverbum.app.core.model.data.book.Book
 import org.deiverbum.app.core.model.data.book.Content
@@ -36,6 +37,8 @@ fun bookRender(
     userData: UserDataDynamic,
     rubricColor: Color
 ): AnnotatedString {
+    val typography = getPersonalizedTypography(userData.fontSize)
+    val fontSize = typography.bodyLarge.fontSize
     val uriHandler = LocalUriHandler.current
     return buildAnnotatedString {
         if (data.bookType == 2 || data.bookType == 3) {
@@ -72,7 +75,7 @@ fun bookRender(
                 }
                 if (data.bookType == 21) {
                     append("\t\t")
-                    append(textRubric("${c.id}.- ", rubricColor))
+                    append(textRubric("${c.id}.- ", rubricColor, fontSize))
                 }
                 append(
                     contentByType(

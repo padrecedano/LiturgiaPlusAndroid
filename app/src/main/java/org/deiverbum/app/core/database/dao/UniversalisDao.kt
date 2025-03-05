@@ -33,12 +33,12 @@ import org.deiverbum.app.core.database.model.external.MissaeLectionumExternal
 import org.deiverbum.app.core.database.model.external.MixtusExternal
 import org.deiverbum.app.core.database.model.external.NonamExternal
 import org.deiverbum.app.core.database.model.external.OfficiumExternal
-import org.deiverbum.app.core.database.model.external.PopulatedVesperasResource
 import org.deiverbum.app.core.database.model.external.RosariumExternal
 import org.deiverbum.app.core.database.model.external.SanctiiExternal
 import org.deiverbum.app.core.database.model.external.SextamExternal
 import org.deiverbum.app.core.database.model.external.TertiamExternal
 import org.deiverbum.app.core.database.model.external.UniversalisExternal
+import org.deiverbum.app.core.database.model.external.VesperasExternal
 import org.deiverbum.app.core.model.data.Universalis
 
 /**
@@ -124,7 +124,7 @@ interface UniversalisDao {
     fun getVesperasByDate(
         filterDate: Int,
     )
-            : Flow<PopulatedVesperasResource>
+            : Flow<VesperasExternal>
 
     @Transaction
     @Query(universalisByDateNew)

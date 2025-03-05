@@ -71,7 +71,7 @@ fun LHOfficeEasterAll.asExternalModelAntiphona() = LHAntiphon(
 )
 
 fun LHOfficeEasterAll.asExternalModelPsalmus() = LHPsalm(
-    entity.theOrder,
+    entity.theOrder, true,
     psalmus!!.salmoRef!!,
     psalmus!!.salmo
 )

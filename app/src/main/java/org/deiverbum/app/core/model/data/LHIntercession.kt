@@ -65,3 +65,12 @@ class LHIntercession(
             return sb
         }
 }
+
+fun LHIntercession.normalizeForRead(): String {
+    return preces
+        //.replace("∞",PRECES_IL)
+        //.replace("§", "")
+        .replace("ƞ", " ")
+        .replace("≠", " ")
+
+}

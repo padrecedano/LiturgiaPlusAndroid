@@ -4,8 +4,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import org.deiverbum.app.core.data.repository.UniversalisRepository
 import org.deiverbum.app.core.data.repository.UserDataRepository
+import org.deiverbum.app.core.model.data.MetaData
 import org.deiverbum.app.core.model.data.UniversalisResource
 import org.deiverbum.app.core.model.data.UniversalisResourceQuery
+import org.deiverbum.app.util.DateTimeUtil
 import javax.inject.Inject
 
 /**
@@ -43,7 +45,7 @@ class GetUniversalisUseCase @Inject constructor(
                 )
             ),
         ) { userData, universalis ->
-            if (universalis.todayDate == 0 && selectedTopicId != "30") {
+            if (universalis.todayDate == 0 && selectedTopicId.toInt() < 19) {
                 universalisRepository.insertFromRemote(
                     UniversalisResourceQuery(
                         date,
@@ -51,25 +53,51 @@ class GetUniversalisUseCase @Inject constructor(
                     )
                 )
             }
+
+            val resourceTitle = when (selectedTopicId) {
+                "7" -> universalis.liturgia!!.liturgiaTypus!!.getTitle()
+                else -> title
+            }
+            val metaData = when (selectedTopicId) {
+                "7" -> MetaData(
+                    liturgia = universalis.liturgia!!.liturgiaTypus!!.getTitle(),
+                    tempus = universalis.liturgia!!.tempus!!.externus!!,
+                    nomen = universalis.liturgia!!.nomen,
+
+                    )
+
+                "20" -> MetaData(
+                    liturgia = title,
+                    tempus = universalis.liturgia!!.nomen,
+                    nomen = universalis.liturgia!!.liturgiaTypus!!.getTitle(),
+
+                    )
+
+                "30" -> MetaData(
+                    liturgia = title,
+                    tempus = "Santo Rosario",//universalis.liturgia!!.liturgiaTypus!!.typus,
+                    nomen = DateTimeUtil.dayName(date).uppercase(),
+
+                    )
+
+                else -> MetaData(
+                    liturgia = title,
+                    tempus = universalis.liturgia!!.tempus!!.externus!!,
+                    nomen = universalis.liturgia!!.nomen,
+
+                    )
+            }
             UniversalisResource(
-                date = universalis.todayDate,
-                title = title,
-                name = "",
+                date = date,
+                title = resourceTitle,
+                meta = "",
+                metaData = metaData,
                 id = selectedTopicId.toInt(),
                 data = universalis,
                 dynamic = userData
             )
         }
-        /*.catch {
-            emit(UniversalisResource(
-                date = date,
-                title = title,
-                name = "",
-                id = -1,
-                data = Universalis(),
-                dynamic = userDataRepository.userData.first()
-            ))
-        }*/
+
     }
 }
 

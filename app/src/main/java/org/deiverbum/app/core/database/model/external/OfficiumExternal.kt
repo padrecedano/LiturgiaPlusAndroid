@@ -37,7 +37,7 @@ import org.deiverbum.app.util.Constants
  *
  * @author A. Cedano
  * @version 1.0
- * @since 2024.1
+ * @since 2025.1
  * @see Breviarium
  * @see LHOfficium
  */

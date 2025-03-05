@@ -1,6 +1,5 @@
 package org.deiverbum.app.core.model.data
 
-import android.text.SpannableStringBuilder
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
@@ -27,45 +26,8 @@ data class LHLaudes(
     var canticumEvangelicum: LHGospelCanticle,
     var preces: LHIntercession,
     var oratio: Oratio, override var typus: String = "laudes"
-    //, override var tempore: LiturgyTime
 ) : Breviarium(typus) {
     var sanctus: LHSanctus? = null
-
-    fun forView(calendarTime: Int): SpannableStringBuilder {
-        //this.hasSaint = hasSaint
-        val ssb = SpannableStringBuilder()
-        try {
-            if (sanctus != null && hasSaint) {
-                invitatorium.normalizeIsSaint(sanctus!!.nomen)
-                ssb.append(sanctus!!.forViewVitaBrevis)
-            }
-            ssb.append(Utils.toH1Red(Constants.TITLE_LAUDES))
-            ssb.append(Utils.LS2)
-            ssb.append(Introitus.viewDomineLabiaMeaAperis)
-            ssb.append(Utils.LS2)
-            ssb.append(invitatorium.getAllForView(-1, calendarTime))
-            ssb.append(Utils.LS2)
-            ssb.append(hymnus.all)
-            ssb.append(Utils.LS2)
-            ssb.append(psalmodia.getAllForView(-1, calendarTime))
-            //ssb.append(Utils.LS)
-            ssb.append(Utils.LS)
-            ssb.append(lectioBrevis.getAllWithHourCheck(2))
-            ssb.append(Utils.LS)
-            ssb.append(canticumEvangelicum.getSalmosByIndex(0, calendarTime))
-            ssb.append(Utils.LS2)
-            ssb.append(preces.all)
-            ssb.append(Utils.LS2)
-            ssb.append(PadreNuestro.all)
-            ssb.append(Utils.LS2)
-            ssb.append(oratio.all)
-            ssb.append(Utils.LS2)
-            ssb.append(RitusConclusionis.viewDominusNosBenedicat)
-        } catch (e: Exception) {
-            ssb.append(Utils.createErrorMessage(e.message))
-        }
-        return ssb
-    }
 
     override fun forRead(): StringBuilder {
         val sb = StringBuilder()
@@ -97,5 +59,10 @@ data class LHLaudes(
 
     override fun sort() {
         psalmodia.sort()
+    }
+    override fun normalizeByTime(calendarTime: Int) {
+        invitatorium.normalizeByTime(calendarTime)
+        psalmodia.normalizeByTime(calendarTime)
+        lectioBrevis.normalizeByTime(calendarTime)
     }
 }

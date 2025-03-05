@@ -35,7 +35,6 @@ class TtsPlayer(
     var mTextProgress = 0
     var mIsPlaying = false
     private val textToSpeech = TextToSpeech(context, this)
-    private val mTts = TextToSpeech(context, this)
 
     private var text: String = ""
     private var state = State.Builder()
@@ -164,8 +163,15 @@ class TtsPlayer(
         return Futures.immediateVoidFuture()
     }
 
+    fun shutDown() {
+        //handleStop()
+        mIsPlaying = false
+        textToSpeech.stop()
+    }
     override fun handleStop(): ListenableFuture<*> {
         textToSpeech.stop()
+        mIsPlaying = false
+        this.stop()
         return Futures.immediateVoidFuture()
     }
 

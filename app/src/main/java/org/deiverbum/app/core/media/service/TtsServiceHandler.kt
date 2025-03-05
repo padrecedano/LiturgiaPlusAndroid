@@ -113,6 +113,10 @@ class TtsServiceHandler @androidx.annotation.OptIn(UnstableApi::class)
     private fun stopProgressUpdate() {
         job?.cancel()
         _simpleMediaState.value = TtsMediaState.Playing(isPlaying = false)
+        //TtsMediaState.Progress(0)
+        //_simpleMediaState.value = TtsMediaState.Progress(0)
+
+        //player.shutDown()
     }
 }
 
