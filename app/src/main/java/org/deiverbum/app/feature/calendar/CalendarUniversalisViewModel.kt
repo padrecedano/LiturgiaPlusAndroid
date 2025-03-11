@@ -13,7 +13,7 @@ import org.deiverbum.app.core.data.repository.UniversalisRepository
 import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.domain.GetUniversalisFromCalendarUseCase
 import org.deiverbum.app.core.domain.GetUniversalisUseCase
-import org.deiverbum.app.core.model.data.UniversalisResource
+import org.deiverbum.app.core.model.universalis.UniversalisResource
 import org.deiverbum.app.feature.calendar.navigation.CalendarRoute
 import org.deiverbum.app.util.LiturgyHelper
 import org.deiverbum.app.util.Utils

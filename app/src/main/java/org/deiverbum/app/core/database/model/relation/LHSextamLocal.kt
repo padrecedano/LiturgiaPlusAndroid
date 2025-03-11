@@ -9,10 +9,10 @@ import org.deiverbum.app.core.database.model.entity.LHReadingShortJoinEntity
 import org.deiverbum.app.core.database.model.entity.LiturgyEntity
 import org.deiverbum.app.core.database.model.entity.UniversalisEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.LHIntermedia
-import org.deiverbum.app.core.model.data.LHPsalmody
-import org.deiverbum.app.core.model.data.Liturgy
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.data.breviarium.BreviariumIntermedia
+import org.deiverbum.app.core.model.data.breviarium.LHPsalmody
+import org.deiverbum.app.core.model.liturgia.Liturgy
+import org.deiverbum.app.core.model.universalis.Universalis
 
 /**
  * Obtiene el contenido de la hora **`Sexta`** desde la base de datos.
@@ -64,7 +64,7 @@ fun LHSextamLocal.asExternalModel() = Universalis(
         liturgia.parent.dia,
         liturgia.parent.nombre,
         liturgia.entity.asExternalModel(),
-        LHIntermedia(
+        BreviariumIntermedia(
             hymnus.entity.asExternalModel(),
             LHPsalmody(
                 psalmus.asExternalModel(),

@@ -4,29 +4,38 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.fromHtml
 import org.deiverbum.app.core.designsystem.component.textForAudio
+import org.deiverbum.app.core.designsystem.component.textFromHtmlAudio
 import org.deiverbum.app.core.designsystem.component.textFromListAudio
 import org.deiverbum.app.core.designsystem.component.transformEpigraphAudio
 import org.deiverbum.app.core.designsystem.component.transformTextAudio
-import org.deiverbum.app.core.model.data.Breviarium
-import org.deiverbum.app.core.model.data.Introitus
-import org.deiverbum.app.core.model.data.LHAntiphon
-import org.deiverbum.app.core.model.data.LHHymn
-import org.deiverbum.app.core.model.data.LHIntercession
-import org.deiverbum.app.core.model.data.LHIntermedia
-import org.deiverbum.app.core.model.data.LHInvitatory
-import org.deiverbum.app.core.model.data.LHLaudes
-import org.deiverbum.app.core.model.data.LHLectioBrevis
-import org.deiverbum.app.core.model.data.LHOfficium
-import org.deiverbum.app.core.model.data.LHPsalm
-import org.deiverbum.app.core.model.data.LHPsalmody
-import org.deiverbum.app.core.model.data.LHResponsoriumBrevis
-import org.deiverbum.app.core.model.data.LHVesperas
-import org.deiverbum.app.core.model.data.Oratio
-import org.deiverbum.app.core.model.data.PadreNuestro
-import org.deiverbum.app.core.model.data.RitusConclusionis
-import org.deiverbum.app.core.model.data.UserData
-import org.deiverbum.app.core.model.data.UserDataDynamic
-import org.deiverbum.app.core.model.data.normalizeForRead
+import org.deiverbum.app.core.model.data.alteri.AlteriRosarium
+import org.deiverbum.app.core.model.data.alteri.AlteriSanctii
+import org.deiverbum.app.core.model.data.breviarium.Breviarium
+import org.deiverbum.app.core.model.data.breviarium.BreviariumCompletorium
+import org.deiverbum.app.core.model.data.breviarium.BreviariumIntermedia
+import org.deiverbum.app.core.model.data.breviarium.BreviariumLaudes
+import org.deiverbum.app.core.model.data.breviarium.BreviariumMixtus
+import org.deiverbum.app.core.model.data.breviarium.BreviariumOfficium
+import org.deiverbum.app.core.model.data.breviarium.BreviariumVesperas
+import org.deiverbum.app.core.model.data.breviarium.LHAntiphon
+import org.deiverbum.app.core.model.data.breviarium.LHHymn
+import org.deiverbum.app.core.model.data.breviarium.LHIntercession
+import org.deiverbum.app.core.model.data.breviarium.LHInvitatory
+import org.deiverbum.app.core.model.data.breviarium.LHLectioBrevis
+import org.deiverbum.app.core.model.data.breviarium.LHOfficiumLectioAltera
+import org.deiverbum.app.core.model.data.breviarium.LHOfficiumLectioPrior
+import org.deiverbum.app.core.model.data.breviarium.LHOfficiumLectionis
+import org.deiverbum.app.core.model.data.breviarium.LHPsalm
+import org.deiverbum.app.core.model.data.breviarium.LHPsalmody
+import org.deiverbum.app.core.model.data.breviarium.LHResponsoriumBrevis
+import org.deiverbum.app.core.model.data.breviarium.LHSanctus
+import org.deiverbum.app.core.model.data.breviarium.normalizeForRead
+import org.deiverbum.app.core.model.data.missae.Missae
+import org.deiverbum.app.core.model.data.traditio.Commentarii
+import org.deiverbum.app.core.model.liturgia.Introitus
+import org.deiverbum.app.core.model.liturgia.Oratio
+import org.deiverbum.app.core.model.liturgia.PadreNuestro
+import org.deiverbum.app.core.model.liturgia.RitusConclusionis
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Constants.LS2
 import org.deiverbum.app.util.ErrorHelper
@@ -36,141 +45,331 @@ import org.deiverbum.app.util.Utils
 import org.deiverbum.app.util.splitParts
 
 /**
- * Devuelve el contenido del Oficio para audio.
+ * Devuelve el contenido de Lecturas del Oficio + Laudes para audio.
  *
- * @param data Un objeto [LHOfficium] con el contenido de la hora
- * @param userData Un objeto [UserData] con las configuraciones del usuario
- * @param calendarTime Un identificador del tiempo litúrgico para algunas normalizaciones
+ * @param data Un objeto [BreviariumMixtus] con el contenido de la hora
  *
  * @return Un objeto [AnnotatedString] con el texto a ser leído.
  *
  * @since 2025.1
  *
- * @see [LHOfficium]
+ * @see [BreviariumMixtus]
  */
 
-fun officiumAudio(
-    data: LHOfficium,
-    userData: UserData,
-    calendarTime: Int,
+fun audioMixtus(
+    data: BreviariumMixtus,
 ): AnnotatedString {
-    var text = AnnotatedString("")
-
-    data.officiumLectionis.normalizeByTime(calendarTime)
-    if (data.sanctus != null && data.hasSaint) {
-        data.invitatorium.normalizeIsSaint(data.sanctus!!.nomen)
-        text += AnnotatedString.fromHtml(data.sanctus!!.vitaBrevis)
+    return buildAnnotatedString {
+        if (data.sanctus != null && data.hasSaint) {
+            //data.invitatorium.normalizeIsSaint(data.sanctus!!.nomen)
+            append(sanctusAudio(data.sanctus!!))
+        }
+        append(introitusPrimaAudio())
+        append(hymnusAudio(data.hymnus))
+        append(psalmodiaAudio(data.psalmodia, -1))
+        append(lectioBrevisAudio(data.lectioBrevis))
+        append(
+            officiumLectionisAudio(
+                officiumLectionis = data.officiumLectionis
+            )
+        )
+        append(
+            canticumEvangelicumAudio(
+                psalmodia = data.canticumEvangelicum
+            )
+        )
+        append(precesAudio(preces = data.preces))
+        append(transformTextAudio(text = PadreNuestro.texto))
+        append(oratioAudio(data = data.oratio))
+        append(conclusionisMaiorAudio())
     }
-    //text += introitusMaiorAudio()
-    //text += invitatoriumAudio(data.invitatorium, calendarTime, userData)
+}
 
-    //text += hymnus(data.hymnus, userData, rubricColor,fontSize)
-    text += psalmodiaAudio(data.psalmodia, -1, calendarTime, userData.dynamic)
-    /*text += officiumLectionis(
-        officiumLectionis = data.officiumLectionis,
-        userData = userData.dynamic,
-        fontSize = fontSize,
-        rubricColor = rubricColor
-    )
-    text += oratio(data = data.oratio, fontSize=fontSize,rubricColor = rubricColor, userData = userData.dynamic)
-    text += conclusionisMaior(
-        userData = userData.dynamic,
-        rubricColor = rubricColor,
-        fontSize = fontSize
-    )*/
-    return text
-    //}
+
+/**
+ * Devuelve el contenido del Oficio para audio.
+ *
+ * @param data Un objeto [BreviariumOfficium] con el contenido de la hora
+ *
+ * @return Un objeto [AnnotatedString] con el texto a ser leído.
+ *
+ * @since 2025.1
+ *
+ * @see [BreviariumOfficium]
+ */
+
+fun audioOfficium(
+    data: BreviariumOfficium,
+): AnnotatedString {
+
+    //data.officiumLectionis.normalizeByTime(calendarTime)
+    return buildAnnotatedString {
+        if (data.sanctus != null && data.hasSaint) {
+            data.invitatorium.normalizeIsSaint(data.sanctus!!.nomen)
+            append(AnnotatedString.fromHtml(data.sanctus!!.vitaBrevis))
+        }
+        append(introitusPrimaAudio())
+        append(invitatoriumAudio(data.invitatorium))
+        append(hymnusAudio(data.hymnus))
+        append(psalmodiaAudio(data.psalmodia, -1))
+        append(
+            officiumLectionisAudio(
+                officiumLectionis = data.officiumLectionis
+            )
+        )
+        append(oratioAudio(data = data.oratio))
+        append(conclusionisMaiorAudio())
+    }
 }
 
 fun audioIntermedia(
-    data: LHIntermedia,
-    userData: UserData,
-    calendarTime: Int,
+    data: BreviariumIntermedia,
 ): AnnotatedString {
-    var text = AnnotatedString("")
-    text += introitusMinorAudio()
-    text += hymnusAudio(data.hymnus, userData)
-    text += psalmodiaAudio(data.psalmodia, -1, calendarTime, userData.dynamic)
-    text += lectioBrevisAudio(data.lectioBrevis, userData.dynamic)
-    text += oratioAudio(data = data.oratio, userData = userData.dynamic)
-    text += conclusionisMinorAudio()
-    return text
+    return buildAnnotatedString {
+        append(introitusAlteraAudio())
+        append(hymnusAudio(data.hymnus))
+        append(
+            psalmodiaAudio(
+                data.psalmodia,
+                LiturgyHelper.psalmodiaIndex(data.typusID)
+            )
+        )
+        append(lectioBrevisAudio(data.lectioBrevis))
+        append(oratioAudio(data = data.oratio))
+        append(conclusionisMinorAudio())
+    }
 }
 
 
 /**
  * Devuelve el contenido de Laudes para audio.
  *
- * @param data Un objeto [LHLaudes] con el contenido de la hora
- * @param userData Un objeto [UserData] con las configuraciones del usuario
- * @param calendarTime Un identificador del tiempo litúrgico para algunas normalizaciones
+ * @param data Un objeto [BreviariumLaudes] con el contenido de la hora
  *
  * @return Un objeto [AnnotatedString] con el texto a ser leído.
  *
  * @since 2025.1
  *
- * @see [LHLaudes]
+ * @see [BreviariumLaudes]
  */
 
 fun audioLaudes(
-    data: LHLaudes,
-    userData: UserData,
-    calendarTime: Int,
+    data: BreviariumLaudes,
 ): AnnotatedString {
-    var text = AnnotatedString("")
-    text += introitusMaiorAudio()
-    text += hymnusAudio(data.hymnus, userData)
-    text += psalmodiaAudio(data.psalmodia, -1, calendarTime, userData.dynamic)
-    text += lectioBrevisAudio(data.lectioBrevis, userData.dynamic)
-    text += canticumEvangelicumAudio(
-        psalmodia = data.canticumEvangelicum,
-        calendarTime = calendarTime,
-        userData = userData.dynamic
-    )
-    text += precesAudio(preces = data.preces, userData = userData.dynamic)
-    text += transformTextAudio(text = PadreNuestro.texto)
-    text += oratioAudio(data = data.oratio, userData = userData.dynamic)
-    text += conclusionisMaiorAudio()
-    return text
+    return buildAnnotatedString {
+        append(introitusPrimaAudio())
+        append(hymnusAudio(data.hymnus))
+        append(psalmodiaAudio(data.psalmodia, -1))
+        append(lectioBrevisAudio(data.lectioBrevis))
+        append(
+            canticumEvangelicumAudio(
+                psalmodia = data.canticumEvangelicum
+            )
+        )
+        append(precesAudio(preces = data.preces))
+        append(transformTextAudio(text = PadreNuestro.texto))
+        append(oratioAudio(data = data.oratio))
+        append(conclusionisMaiorAudio())
+    }
+}
+
+/**
+ * Devuelve el contenido de Vísperas para audio.
+ *
+ * @param data Un objeto [BreviariumVesperas] con el contenido de la hora
+ *
+ * @return Un objeto [AnnotatedString] con el texto a ser leído.
+ *
+ * @since 2025.1
+ *
+ * @see [BreviariumVesperas]
+ */
+
+fun audioVesperas(
+    data: BreviariumVesperas,
+): AnnotatedString {
+    return buildAnnotatedString {
+        append(introitusAlteraAudio())
+        append(hymnusAudio(data.hymnus))
+        append(psalmodiaAudio(data.psalmodia, -1))
+        append(lectioBrevisAudio(data.lectioBrevis))
+        append(
+            canticumEvangelicumAudio(
+                psalmodia = data.canticumEvangelicum
+            )
+        )
+        append(precesAudio(preces = data.preces))
+        append(transformTextAudio(text = PadreNuestro.texto))
+        append(oratioAudio(data = data.oratio))
+        append(conclusionisMaiorAudio())
+    }
+    //}
+}
+
+/**
+ * Devuelve el contenido de Completas para audio.
+ *
+ * @param data Un objeto [BreviariumCompletorium] con el contenido de la hora
+ *
+ * @return Un objeto [AnnotatedString] con el texto a ser leído.
+ *
+ * @since 2025.1
+ *
+ * @see [BreviariumCompletorium]
+ */
+
+fun audioCompletorium(
+    data: BreviariumCompletorium,
+): AnnotatedString {
+    return buildAnnotatedString {
+        append(introitusPrimaAudio())
+        append(hymnusAudio(data.hymnus))
+        append(psalmodiaAudio(data.psalmodia, -1))
+        append(lectioBrevisAudio(data.lectioBrevis))
+        append(
+            canticumEvangelicumAudio(
+                psalmodia = data.canticumEvangelicum
+            )
+        )
+        //append(precesAudio(preces = data.preces, userData = userData.dynamic)
+        append(transformTextAudio(text = PadreNuestro.texto))
+        append(oratioAudio(data = data.oratio))
+        append(conclusionisMaiorAudio())
+    }
+    //}
+}
+
+/**
+ * Devuelve el contenido de la Misa para audio.
+ *
+ * @param data Un objeto [Missae] con el contenido de la hora.
+ * @param id Un valor numérico para diferenciar entre Homilías o Lecturas de la Misa.
+ *
+ * @return Un objeto [AnnotatedString] con el texto a ser leído.
+ *
+ * @since 2025.1
+ *
+ * @see [Missae]
+ */
+
+fun audioMissae(
+    data: Missae,
+    id: Int,
+): AnnotatedString {
+    return buildAnnotatedString {
+        when (id) {
+            11 -> {
+
+            }
+
+            13 -> {
+
+            }
+        }
+
+    }
+    //}
+}
+
+/**
+ * Devuelve el contenido de los comentarios al Evangelio de la Misa para audio.
+ *
+ * @param data Un objeto [Commentarii] con el contenido de los comentarios.
+ *
+ * @return Un objeto [AnnotatedString] con el texto a ser leído.
+ *
+ * @since 2025.1
+ *
+ * @see [Commentarii]
+ */
+
+fun audioCommentarii(
+    data: Commentarii,
+): AnnotatedString {
+    return buildAnnotatedString {
+
+    }
+    //}
+}
+
+/**
+ * Devuelve el contenido de las Homilías para audio.
+ *
+ * @param data Un objeto [Missae] con el contenido de las homilías
+ *
+ * @return Un objeto [AnnotatedString] con el texto a ser leído.
+ *
+ * @since 2025.1
+ *
+ * @see [Missae]
+ */
+
+fun audioHomiliae(
+    data: Missae,
+): AnnotatedString {
+    return buildAnnotatedString {
+
+    }
+    //}
+}
+
+/**
+ * Devuelve el contenido de la vida del Santo de una fecha dada.
+ *
+ * @param data Un objeto [AlteriSanctii] que representa la vida del Santo.
+ *
+ * @return Un objeto [AnnotatedString] con el texto a ser leído.
+ *
+ * @since 2025.1
+ *
+ * @see [AlteriSanctii]
+ */
+
+fun audioSanctii(
+    data: AlteriSanctii,
+): AnnotatedString {
+    return buildAnnotatedString {
+
+    }
+    //}
+}
+
+/**
+ * Devuelve el contenido del Santo Rosario correspondiente al día de la fecha dada.
+ *
+ * @param data Un objeto [AlteriRosarium] que representa el Santo Rosario.
+ *
+ * @return Un objeto [AnnotatedString] con el texto a ser leído.
+ *
+ * @since 2025.1
+ *
+ * @see [AlteriRosarium]
+ */
+
+fun audioRosarium(
+    data: AlteriRosarium,
+): AnnotatedString {
+    return buildAnnotatedString {
+
+    }
     //}
 }
 
 
 /**
- * Devuelve el contenido de Vísperas para audio.
+ * Devuelve la vida breve del Santo del día para audio.
  *
- * @param data Un objeto [LHVesperas] con el contenido de la hora
- * @param userData Un objeto [UserData] con las configuraciones del usuario
- * @param calendarTime Un identificador del tiempo litúrgico para algunas normalizaciones
+ * @param sanctus Un objeto [LHSanctus] que representa el santo del día.
  *
- * @return Un objeto [AnnotatedString] con el texto a ser leído.
+ * @return Un objeto [AnnotatedString] con la introducción.
  *
  * @since 2025.1
  *
- * @see [LHVesperas]
+ * @see [LHSanctus]
  */
 
-fun audioVesperas(
-    data: LHVesperas,
-    userData: UserData,
-    calendarTime: Int,
-): AnnotatedString {
-    var text = AnnotatedString("")
-    /*text += introitusMaiorAudio()
-    text += hymnusAudio(data.hymnus, userData)
-    text += psalmodiaAudio(data.psalmodia, -1, calendarTime, userData.dynamic)
-    text += lectioBrevisAudio(data.lectioBrevis, userData.dynamic)
-    text += canticumEvangelicumAudio(
-        psalmodia = data.canticumEvangelicum,
-        calendarTime = calendarTime,
-        userData = userData.dynamic
-    )*/
-    text += precesAudio(preces = data.preces, userData = userData.dynamic)
-    text += transformTextAudio(text = PadreNuestro.texto)
-    text += oratioAudio(data = data.oratio, userData = userData.dynamic)
-    text += conclusionisMaiorAudio()
-    return text
-    //}
+fun sanctusAudio(sanctus: LHSanctus): AnnotatedString {
+    return AnnotatedString.fromHtml(sanctus.vitaBrevis)
 }
 
 
@@ -184,7 +383,7 @@ fun audioVesperas(
  * @see [Breviarium]
  */
 
-fun introitusMaiorAudio(): AnnotatedString {
+fun introitusPrimaAudio(): AnnotatedString {
     return buildAnnotatedString {
         append(Constants.TITLE_INITIAL_INVOCATION)
         append(".")
@@ -203,7 +402,7 @@ fun introitusMaiorAudio(): AnnotatedString {
  *
  * @see [Breviarium]
  */
-fun introitusMinorAudio(
+fun introitusAlteraAudio(
 ): AnnotatedString {
     return buildAnnotatedString {
         append("${Constants.TITLE_INITIAL_INVOCATION}.")
@@ -216,8 +415,6 @@ fun introitusMinorAudio(
  * Crea el contenido del Invitatorio para audio.
  *
  * @param psalmodia Un objeto [LHInvitatory] con el invitatorio
- * @param calendarTime Identificador del tiempo litúrgico
- * @param userData Un objeto [UserDataDynamic] con los ajustes del usuario
  *
  * @return Un objeto [AnnotatedString] con el invitatorio formateado.
  *
@@ -227,15 +424,13 @@ fun introitusMinorAudio(
  */
 fun invitatoriumAudio(
     psalmodia: LHInvitatory,
-    calendarTime: Int,
-    userData: UserData,
 ): AnnotatedString {
     return buildAnnotatedString {
         append(Constants.TITLE_INVITATORY)
         append(".")
         append(
             psalmodiaUnicaAudio(
-                psalmodia, calendarTime, userData.dynamic
+                psalmodia
             )
         )
     }
@@ -245,7 +440,6 @@ fun invitatoriumAudio(
  * Crea el contenido del Himno para audio.
  *
  * @param data Un objeto [LHHymn] con el Himno
- * @param userData Un objeto [UserDataDynamic] con la configuración del usuario
  *
  * @return Un objeto [AnnotatedString] con el himno formateado.
  *
@@ -255,7 +449,6 @@ fun invitatoriumAudio(
  */
 fun hymnusAudio(
     data: LHHymn,
-    userData: UserData,
 ): AnnotatedString {
     return buildAnnotatedString {
         append(textForAudio("${Constants.TITLE_HYMN}."))
@@ -269,8 +462,6 @@ fun hymnusAudio(
  *
  * @param psalmodia Un objeto [LHPsalmody] con la salmodia
  * @param indexHora El índice de la hora (para el caso de la Hora Intermedia)
- * @param calendarTime Identificador del tiempo litúrgico
- * @param rubricColor El color para las rúbricas según la configuración del usuario
  *
  * @return Un objeto [AnnotatedString] con la salmodia formateada.
  *
@@ -281,61 +472,59 @@ fun hymnusAudio(
  */
 fun psalmodiaAudio(
     psalmodia: LHPsalmody,
-    indexHora: Int,
-    calendarTime: Int,
-    userData: UserDataDynamic
+    indexHora: Int
 ): AnnotatedString {
-    var text = AnnotatedString("")
-
-    try {
+    return try {
         val antiphonaeAnte = AnnotatedString.Builder()
         val antiphonaePost = AnnotatedString.Builder()
-        text += textForAudio("${Constants.TITLE_PSALMODY}.")
+        buildAnnotatedString {
+            append(textForAudio("${Constants.TITLE_PSALMODY}."))
+            if (psalmodia.typus == 1) {
+                if (psalmodia.psalmus.size == psalmodia.antiphonae.size) {
+                    //psalmodia.antiphonae[indexHora].normalizeByTime(calendarTime)
+                    antiphonaeAnte.append(
+                        antiphonaeAnteAudio(
+                            psalmodia.antiphonae[indexHora],
+                            false
+                        )
+                    )
+                } else {
+                    //psalmodia.antiphonae[0].normalizeByTime(calendarTime)
+                    antiphonaeAnte.append(
+                        antiphonaeAnteAudio(
+                            psalmodia.antiphonae[0],
+                            true
+                        )
+                    )
+                    antiphonaePost.append(
+                        antiphonaePostAudio(
+                            psalmodia.antiphonae[0],
+                        )
+                    )
+                }
 
-        if (psalmodia.typus == 1) {
-            if (psalmodia.psalmus.size == psalmodia.antiphonae.size) {
-                psalmodia.antiphonae[indexHora].normalizeByTime(calendarTime)
-                antiphonaeAnte.append(
-                    antiphonaeAnteAudio(
-                        psalmodia.antiphonae[indexHora],
-                        false
-                    )
-                )
-            } else {
-                psalmodia.antiphonae[0].normalizeByTime(calendarTime)
-                antiphonaeAnte.append(
-                    antiphonaeAnteAudio(
-                        psalmodia.antiphonae[0],
-                        true
-                    )
-                )
-                antiphonaePost.append(
-                    antiphonaePostAudio(
-                        psalmodia.antiphonae[0],
-                    )
-                )
+                append(antiphonaeAnte.toAnnotatedString())
+                for (s in psalmodia.psalmus) {
+                    append(psalmusAudio(s))
+                }
+                append(antiphonaePostAudio(psalmodia.antiphonae[indexHora]))
             }
-            text += antiphonaeAnte.toAnnotatedString()
-            for (s in psalmodia.psalmus) {
-                text += psalmusAudio(s, userData)
+
+            if (psalmodia.typus == 0 && psalmodia.psalmus.size == psalmodia.antiphonae.size) {
+                psalmodia.psalmus.lastIndex
+                psalmodia.psalmus.forEach { s ->
+                    //psalmodia.antiphonae[s.theOrder - 1].normalizeByTime(calendarTime)
+                    append(
+                        antiphonaeAnteAudio(
+                            psalmodia.antiphonae[s.theOrder - 1],
+                            true
+                        )
+                    )
+                    append(psalmusAudio(s))
+                    append(antiphonaePostAudio(psalmodia.antiphonae[s.theOrder - 1]))
+                }
             }
-            text += antiphonaePostAudio(psalmodia.antiphonae[indexHora])
         }
-
-        if (psalmodia.typus == 0 && psalmodia.psalmus.size == psalmodia.antiphonae.size) {
-            val lastIndex = psalmodia.psalmus.lastIndex
-            psalmodia.psalmus.forEachIndexed { index, s ->
-                psalmodia.antiphonae[s.theOrder - 1].normalizeByTime(calendarTime)
-                text += antiphonaeAnteAudio(
-                    psalmodia.antiphonae[s.theOrder - 1],
-                    true
-                )
-
-                text += psalmusAudio(s, userData)
-                text += antiphonaePostAudio(psalmodia.antiphonae[s.theOrder - 1])
-            }
-        }
-        return text
     } catch (e: Exception) {
         return AnnotatedString(Utils.createErrorMessage(e.message))
     }
@@ -345,7 +534,6 @@ fun psalmodiaAudio(
  * Crea el contenido de la Salmodia para audio, cuando hay un solo Salmo / Antífona.
  *
  * @param psalmodia Un objeto [LHPsalmody] con la salmodia
- * @param calendarTime Identificador del tiempo litúrgico
  *
  * @return Un objeto [AnnotatedString] con la salmodia formateada.
  *
@@ -356,16 +544,12 @@ fun psalmodiaAudio(
  */
 fun psalmodiaUnicaAudio(
     psalmodia: LHPsalmody,
-    calendarTime: Int,
-    userData: UserDataDynamic,
 ): AnnotatedString {
-    psalmodia.antiphonae[0].normalizeByTime(calendarTime)
+    //psalmodia.antiphonae[0].normalizeByTime(calendarTime)
     return antiphonaeEtPsalmusAudio(
         psalmodia.antiphonae[0],
         false,
-        psalmodia.psalmus[0],
-        calendarTime,
-        userData
+        psalmodia.psalmus[0]
     )
 }
 
@@ -375,7 +559,6 @@ fun psalmodiaUnicaAudio(
  * @param antiphonae Un objeto [LHAntiphon] con la antífona
  * @param withOrder Para indicar si la antífona lleva orden numérico
  * @param psalmus Un objeto [LHPsalm] con el salmo
- * @param calendarTime Identificador del tiempo litúrgico
  *
  * @return Un objeto [AnnotatedString] con la salmodia formateada.
  *
@@ -390,13 +573,11 @@ fun antiphonaeEtPsalmusAudio(
     antiphonae: LHAntiphon,
     withOrder: Boolean,
     psalmus: LHPsalm,
-    calendarTime: Int,
-    userData: UserDataDynamic,
 ): AnnotatedString {
-    antiphonae.normalizeByTime(calendarTime)
+    //antiphonae.normalizeByTime(calendarTime)
     return buildAnnotatedString {
         append(antiphonaeAnteAudio(antiphonae, withOrder))
-        append(psalmusAudio(psalmus, userData))
+        append(psalmusAudio(psalmus))
         append(antiphonaePostAudio(antiphonae))
     }
 }
@@ -411,7 +592,6 @@ fun antiphonaeEtPsalmusAudio(
  * para colocarlo al final de la misma formateado con el color de rúbrica.
  *
  * @param antiphonae antífona representada por un objeto [LHAntiphon].
- * @param rubricColor el color para las rúbricas, según el modo claro u oscuro.
  * @param withOrder Para determinar si se requiere el orden de la antífona.
  *
  * @return Un [AnnotatedString] con la antífona preparada.
@@ -445,7 +625,6 @@ fun antiphonaeAnteAudio(
  * precedidas de la palabra "Ant. " y luego la antífona.
  *
  * @param antiphonae antífona representada por un objeto [LHAntiphon].
- * @param rubricColor el color para las rúbricas, según el modo claro u oscuro.
  *
  * @return Un [AnnotatedString] con la antífona preparada.
  *
@@ -467,7 +646,6 @@ fun antiphonaePostAudio(
  * se omite al final el "Gloria al Padre ..."
  *
  * @param psalmus salmo representado por un objeto [LHPsalm].
- * @param rubricColor el color para las rúbricas, según el modo claro u oscuro.
  *
  * @return Un [AnnotatedString] con la antífona preparada.
  *
@@ -476,23 +654,22 @@ fun antiphonaePostAudio(
 
 fun psalmusAudio(
     psalmus: LHPsalm,
-    userData: UserDataDynamic,
 ): AnnotatedString {
-    var text = AnnotatedString("")
-    //val normalizeText = psalmus.normalize()
-    if (psalmus.pericopa != "") {
-        text += textForAudio("${psalmus.pericopa}.")
-    }
-    if ((psalmus.theme != null) && (psalmus.theme != "")) {
-        text += textForAudio("${psalmus.theme!!}.")
-    }
-    if ((psalmus.epigraph != null) && (psalmus.epigraph != "")) {
-        text += transformEpigraphAudio(psalmus.epigraph!!)
-    }
+    return buildAnnotatedString {
+        //val normalizeText = psalmus.normalize()
+        if (psalmus.pericopa != "") {
+            append(textForAudio("${psalmus.pericopa}."))
+        }
+        if ((psalmus.theme != null) && (psalmus.theme != "")) {
+            append(textForAudio("${psalmus.theme!!}."))
+        }
+        if ((psalmus.epigraph != null) && (psalmus.epigraph != "")) {
+            append(transformEpigraphAudio(psalmus.epigraph!!))
+        }
 
-    text += transformTextAudio(text = psalmus.psalmus)
-    text += finisPsalmusAudio(psalmus.haveGloria)
-    return text
+        append(transformTextAudio(text = psalmus.psalmus))
+        append(finisPsalmusAudio(psalmus.haveGloria))
+    }
 }
 
 fun finisPsalmusAudio(haveGloria: Boolean = true): AnnotatedString {
@@ -507,39 +684,34 @@ fun finisPsalmusAudio(haveGloria: Boolean = true): AnnotatedString {
 }
 
 fun lectioBrevisAudio(
-    data: LHLectioBrevis,
-    userData: UserDataDynamic
+    data: LHLectioBrevis
 ): AnnotatedString {
     return buildAnnotatedString {
         append("${Constants.TITLE_SHORT_READING}.")
         append(textForAudio(data.biblica))
         append(
-            responsoriumBrevisAudio(
+            responsoriumAudio(
                 data = data.responsorium,
-                userData = userData,
 
                 )
         )
     }
 }
 
-fun responsoriumBrevisAudio(
+fun responsoriumAudio(
     data: LHResponsoriumBrevis,
-    userData: UserDataDynamic,
 
     ): AnnotatedString {
     return buildAnnotatedString {
         responsoriumBrevisTitleAudio(
             typus = data.typus,
-            userData = userData,
         )
-        append(responsoriumBrevisTextAudio(data))
+        append(responsoriumTextAudio(data))
     }
 }
 
 fun responsoriumBrevisTitleAudio(
-    typus: Int,
-    userData: UserDataDynamic
+    typus: Int
 ): AnnotatedString {
     return buildAnnotatedString {
         if (typus > 0) {
@@ -550,7 +722,7 @@ fun responsoriumBrevisTitleAudio(
     }
 }
 
-fun responsoriumBrevisTextAudio(
+fun responsoriumTextAudio(
     data: LHResponsoriumBrevis,
 ): AnnotatedString {
     val respArray = data.responsorium.splitParts("\\|")
@@ -626,20 +798,68 @@ fun responsoriumBrevisTextAudio(
     }
 }
 
+
+fun officiumLectionisAudio(
+    officiumLectionis: LHOfficiumLectionis
+): AnnotatedString {
+    return buildAnnotatedString {
+        val list = officiumLectionis.responsorium.splitParts("\\|").toList()
+        return buildAnnotatedString {
+            append(textForAudio("${Constants.TITLE_OFFICE_OF_READING}."))
+            append(textFromListAudio(list))
+            append(lectioPriorAudio(officiumLectionis.lectioPrior))
+            append(lectioAlteraAudio(officiumLectionis.lectioAltera))
+        }
+    }
+}
+
+fun lectioPriorAudio(
+    lectioPrior: MutableList<LHOfficiumLectioPrior>
+): AnnotatedString {
+    return buildAnnotatedString {
+
+        for (item in lectioPrior) {
+            append(textForAudio("${Constants.TITLE_LECTIO_PRIOR}."))
+            append(textForAudio("${item.book.liturgyName}."))
+            //append(textForAudio("${item.pericopa}.")
+            append(textForAudio("${item.tema}."))
+            append(textFromHtmlAudio(item.biblica))
+            append(textForAudio("${item.book.liturgyName}."))
+            append(textForAudio("${Constants.TITLE_RESPONSORY}."))
+            append(responsoriumAudio(item.responsorium))
+        }
+    }
+}
+
+fun lectioAlteraAudio(
+    lectioAltera: MutableList<LHOfficiumLectioAltera>
+): AnnotatedString {
+    return buildAnnotatedString {
+        for (item in lectioAltera) {
+            append(textForAudio("${Constants.TITLE_LECTIO_ALTERA}."))
+            append(textForAudio("${item.paterOpus?.opusForView!!}."))
+            //append(textForAudio("${item.theSource!!}."))
+            append(textForAudio("${item.tema!!}."))
+            append(AnnotatedString.fromHtml(item.homilia))
+            append(textForAudio("${item.paterOpus?.opusForView!!}."))
+
+            append(textForAudio("${Constants.TITLE_RESPONSORY}."))
+            append(responsoriumTextAudio(item.responsorium!!))
+        }
+    }
+}
+
 fun canticumEvangelicumAudio(
-    psalmodia: LHPsalmody,
-    calendarTime: Int,
-    userData: UserDataDynamic
+    psalmodia: LHPsalmody
 ): AnnotatedString {
     return buildAnnotatedString {
         append("${Constants.TITLE_GOSPEL_CANTICLE}.")
-        append(psalmodiaUnicaAudio(psalmodia, calendarTime, userData))
+        append(psalmodiaUnicaAudio(psalmodia))
     }
 }
 
 fun precesAudio(
-    preces: LHIntercession,
-    userData: UserDataDynamic
+    preces: LHIntercession
 ): AnnotatedString {
     val introArray = preces.intro.splitParts("\\|")
     val listPreces = preces.normalizeForRead().splitParts("∞")
@@ -669,7 +889,7 @@ fun precesAudio(
 }
 
 
-fun oratioAudio(data: Oratio, userData: UserDataDynamic): AnnotatedString {
+fun oratioAudio(data: Oratio): AnnotatedString {
     return buildAnnotatedString {
         append("${Constants.TITLE_PRAYER}.")
         append(transformTextAudio(text = data.oratio))

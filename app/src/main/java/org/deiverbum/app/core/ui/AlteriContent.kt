@@ -15,13 +15,13 @@ import org.deiverbum.app.core.designsystem.component.textIndent
 import org.deiverbum.app.core.designsystem.component.textSmall
 import org.deiverbum.app.core.designsystem.component.textSpaced
 import org.deiverbum.app.core.designsystem.component.textVR
-import org.deiverbum.app.core.model.data.AlteriRosarium
-import org.deiverbum.app.core.model.data.AlteriSanctii
-import org.deiverbum.app.core.model.data.Introitus
-import org.deiverbum.app.core.model.data.PadreNuestro
-import org.deiverbum.app.core.model.data.Rosarium
-import org.deiverbum.app.core.model.data.RosariumMysteriumOrdo
 import org.deiverbum.app.core.model.data.UserData
+import org.deiverbum.app.core.model.data.alteri.AlteriRosarium
+import org.deiverbum.app.core.model.data.alteri.AlteriSanctii
+import org.deiverbum.app.core.model.data.alteri.Rosarium
+import org.deiverbum.app.core.model.data.alteri.RosariumMysteriumOrdo
+import org.deiverbum.app.core.model.liturgia.Introitus
+import org.deiverbum.app.core.model.liturgia.PadreNuestro
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.LiturgyHelper
 
@@ -50,8 +50,7 @@ fun SanctiiScreen(
     text += textFromHtml(
         data.sanctus.vita.replace(
             Constants.OLD_SEPARATOR.toRegex(), ""
-        ),
-        fontSize
+        )
     )
 
     TextZoomable(
@@ -87,12 +86,10 @@ fun RosariumScreen(
     )
     text += contentTitle(Constants.TITLE_INITIAL_INVOCATION, 2, userData.dynamic, rubricColor)
     text += textVR(
-        texts = listOf(Introitus().txtInNomine, Introitus().txtAmen),
-        rubricColor,
-        fontSize
+        texts = listOf(Introitus().txtInNomine, Introitus().txtAmen)
     )
     text += contentSpace(10)
-    text += textVR(texts = Introitus().altera, rubricColor, fontSize)
+    text += textVR(texts = Introitus().altera)
     text += contentSpace(10)
     data.rosarium.mysteriorum.forEach {
         text += contentTitle(
@@ -103,7 +100,7 @@ fun RosariumScreen(
             true
         )
         text += sectionTitle(it.mysterium.mysterium, 1, userData.dynamic, false)
-        text += textFromHtml(PadreNuestro.texto, fontSize)
+        text += textFromHtml(PadreNuestro.texto)
         text += contentSpace(10)
         repeat(10) { index ->
             text += contentTitle(
@@ -113,10 +110,10 @@ fun RosariumScreen(
                 rubricColor,
                 false
             )
-            text += textFromHtml(data.rosarium.aveMaria, fontSize)
+            text += textFromHtml(data.rosarium.aveMaria)
         }
         text += contentSpace(10)
-        text += textSpaced(LiturgyHelper.finisPsalmus, fontSize)
+        text += textSpaced(LiturgyHelper.finisPsalmus)
         text += contentSpace(10)
     }
     text += contentTitle(

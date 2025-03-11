@@ -1,7 +1,7 @@
 package org.deiverbum.app.core.data.source
 
-import org.deiverbum.app.core.model.FileRequest
-import org.deiverbum.app.core.model.FileResponse
+import org.deiverbum.app.core.model.data.FileRequest
+import org.deiverbum.app.core.model.data.FileResponse
 
 /**
  * Interfaz para manejar las fuentes de datos de archivos.

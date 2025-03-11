@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import org.deiverbum.app.core.data.repository.UniversalisRepository
 import org.deiverbum.app.core.data.repository.UserDataRepository
-import org.deiverbum.app.core.model.data.HomeResource
-import org.deiverbum.app.core.model.data.UniversalisResource
-import org.deiverbum.app.core.model.data.UniversalisResourceQuery
+import org.deiverbum.app.core.model.universalis.HomeResource
+import org.deiverbum.app.core.model.universalis.UniversalisResource
+import org.deiverbum.app.core.model.universalis.UniversalisResourceQuery
 import org.deiverbum.app.util.DateTimeUtil.isDateValid
 import javax.inject.Inject
 

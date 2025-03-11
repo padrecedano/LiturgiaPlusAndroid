@@ -5,7 +5,7 @@ import androidx.room.Relation
 import org.deiverbum.app.core.database.model.entity.LHInvitatoryEntity
 import org.deiverbum.app.core.database.model.entity.LHInvitatoryJoinEntity
 import org.deiverbum.app.core.database.model.entity.LHPsalmEntity
-import org.deiverbum.app.core.model.data.LHPsalm
+import org.deiverbum.app.core.model.data.breviarium.LHPsalm
 
 /**
  * @author A. Cedano

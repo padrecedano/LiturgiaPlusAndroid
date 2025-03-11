@@ -3,8 +3,8 @@ package org.deiverbum.app.core.data.source.firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import org.deiverbum.app.core.data.source.BibleEntityData
-import org.deiverbum.app.core.model.BibleBookRequest
-import org.deiverbum.app.core.model.data.BibleBooks
+import org.deiverbum.app.core.model.biblia.BibleBookRequest
+import org.deiverbum.app.core.model.biblia.BibleBooks
 import org.deiverbum.app.util.Configuration
 import javax.inject.Inject
 

@@ -18,7 +18,7 @@ import org.deiverbum.app.core.analytics.AnalyticsHelper
 import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.data.util.TimeZoneMonitor
 import org.deiverbum.app.core.domain.GetHomeUseCase
-import org.deiverbum.app.core.model.data.HomeResource
+import org.deiverbum.app.core.model.universalis.HomeResource
 import org.deiverbum.app.feature.universalis.navigation.UniversalisRoute
 import java.time.ZoneId
 import java.time.ZonedDateTime

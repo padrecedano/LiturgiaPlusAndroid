@@ -2,8 +2,8 @@ package org.deiverbum.app.core.data.source.local
 
 import org.deiverbum.app.core.data.source.SyncEntityData
 import org.deiverbum.app.core.database.dao.TodayDao
-import org.deiverbum.app.core.model.SyncRequest
-import org.deiverbum.app.core.model.SyncResponse
+import org.deiverbum.app.core.model.sync.SyncRequest
+import org.deiverbum.app.core.model.sync.SyncResponse
 import org.deiverbum.app.util.Source
 import javax.inject.Inject
 

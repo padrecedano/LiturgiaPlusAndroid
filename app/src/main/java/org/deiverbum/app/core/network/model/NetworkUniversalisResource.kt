@@ -5,8 +5,8 @@ import com.squareup.moshi.JsonClass
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 import org.deiverbum.app.core.database.model.entity.UniversalisEntity
-import org.deiverbum.app.core.model.data.Universalis
-import org.deiverbum.app.core.model.data.asEntity
+import org.deiverbum.app.core.model.universalis.Universalis
+import org.deiverbum.app.core.model.universalis.asEntity
 
 /**
  * Network representation of [NewsResource] when fetched from /newsresources

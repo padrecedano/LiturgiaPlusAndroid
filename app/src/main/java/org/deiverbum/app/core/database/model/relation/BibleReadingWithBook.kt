@@ -5,11 +5,11 @@ import androidx.room.Relation
 import org.deiverbum.app.core.database.model.entity.BibleBookEntity
 import org.deiverbum.app.core.database.model.entity.BibleReadingEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.BibleBook
-import org.deiverbum.app.core.model.data.LHOfficiumLectioPrior
-import org.deiverbum.app.core.model.data.LHResponsorium
-import org.deiverbum.app.core.model.data.LectioBiblica
-import org.deiverbum.app.core.model.data.MissaeLectionum
+import org.deiverbum.app.core.model.biblia.BibleBook
+import org.deiverbum.app.core.model.biblia.LectioBiblica
+import org.deiverbum.app.core.model.data.breviarium.LHOfficiumLectioPrior
+import org.deiverbum.app.core.model.data.breviarium.LHResponsorium
+import org.deiverbum.app.core.model.data.missae.MissaeLectionum
 
 /**
  * @author A. Cedano

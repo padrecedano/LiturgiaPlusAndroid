@@ -16,8 +16,8 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.domain.GetFileUseCase
-import org.deiverbum.app.core.model.FileItem
-import org.deiverbum.app.core.model.FileRequestt
+import org.deiverbum.app.core.model.data.FileItem
+import org.deiverbum.app.core.model.data.FileRequestt
 import org.deiverbum.app.feature.file.navigation.FileRoute
 import org.deiverbum.app.util.ExceptionParser
 import javax.inject.Inject

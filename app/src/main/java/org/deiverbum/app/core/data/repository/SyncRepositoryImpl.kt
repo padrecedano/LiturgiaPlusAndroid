@@ -10,8 +10,8 @@ import androidx.work.WorkManager
 import androidx.work.WorkRequest
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.deiverbum.app.core.data.factory.SyncFactory
-import org.deiverbum.app.core.model.SyncRequest
-import org.deiverbum.app.core.model.SyncResponse
+import org.deiverbum.app.core.model.sync.SyncRequest
+import org.deiverbum.app.core.model.sync.SyncResponse
 import org.deiverbum.app.util.Constants.SYNC_TAG
 import org.deiverbum.app.util.Source
 import org.deiverbum.app.workersold.TodayWorker

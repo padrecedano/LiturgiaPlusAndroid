@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.PrimaryKey
-import org.deiverbum.app.core.model.data.Sanctus
+import org.deiverbum.app.core.model.data.alteri.Sanctus
 import org.deiverbum.app.util.Constants
 
 /**

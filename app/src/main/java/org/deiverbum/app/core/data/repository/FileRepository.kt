@@ -1,8 +1,8 @@
 package org.deiverbum.app.core.data.repository
 
-import org.deiverbum.app.core.model.FileRequestt
-import org.deiverbum.app.core.model.FileResource
-import org.deiverbum.app.core.model.FileResponse
+import org.deiverbum.app.core.model.data.FileRequestt
+import org.deiverbum.app.core.model.data.FileResource
+import org.deiverbum.app.core.model.data.FileResponse
 
 /**
  * <p>Interfaz para el repositorio del módulo de archivos locales.</p>

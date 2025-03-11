@@ -2,7 +2,8 @@ package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
 import androidx.room.Ignore
-import org.deiverbum.app.core.model.TodayRequest
+import org.deiverbum.app.core.model.liturgia.Liturgy
+import org.deiverbum.app.core.model.liturgia.LiturgyTime
 import org.deiverbum.app.util.ColorUtils
 import org.deiverbum.app.util.Utils
 

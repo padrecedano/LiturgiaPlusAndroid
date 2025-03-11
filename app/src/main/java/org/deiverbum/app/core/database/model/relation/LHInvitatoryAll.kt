@@ -6,7 +6,7 @@ import org.deiverbum.app.core.database.model.entity.LHAntiphonEntity
 import org.deiverbum.app.core.database.model.entity.LHInvitatoryEntity
 import org.deiverbum.app.core.database.model.entity.LHInvitatoryJoinEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.LHInvitatory
+import org.deiverbum.app.core.model.data.breviarium.LHInvitatory
 
 /**
  * @author A. Cedano

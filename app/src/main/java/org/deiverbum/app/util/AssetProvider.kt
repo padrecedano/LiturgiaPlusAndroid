@@ -6,9 +6,9 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.hilt.android.qualifiers.ApplicationContext
-import org.deiverbum.app.core.model.FileItem
-import org.deiverbum.app.core.model.FileResource
-import org.deiverbum.app.core.model.FileResponse
+import org.deiverbum.app.core.model.data.FileItem
+import org.deiverbum.app.core.model.data.FileResource
+import org.deiverbum.app.core.model.data.FileResponse
 import org.deiverbum.app.core.model.data.book.Book
 import org.deiverbum.app.core.model.data.ritualis.Biblical
 import org.deiverbum.app.core.model.data.ritualis.BiblicalShort

@@ -2,8 +2,8 @@ package org.deiverbum.app.core.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import org.deiverbum.app.core.data.Syncable
-import org.deiverbum.app.core.model.data.Universalis
-import org.deiverbum.app.core.model.data.UniversalisResourceQuery
+import org.deiverbum.app.core.model.universalis.Universalis
+import org.deiverbum.app.core.model.universalis.UniversalisResourceQuery
 
 
 interface UniversalisRepository : Syncable {

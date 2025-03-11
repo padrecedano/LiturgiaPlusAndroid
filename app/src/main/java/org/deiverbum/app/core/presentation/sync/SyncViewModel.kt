@@ -5,7 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.deiverbum.app.core.domain.GetSyncUseCase
-import org.deiverbum.app.core.model.SyncRequest
+import org.deiverbum.app.core.model.sync.SyncRequest
 import javax.inject.Inject
 
 /**

@@ -16,11 +16,11 @@ import org.deiverbum.app.core.database.model.relation.LHPsalmsAssoc
 import org.deiverbum.app.core.database.model.relation.LHReadingShortAll
 import org.deiverbum.app.core.database.model.relation.LiturgyTimeAssoc
 import org.deiverbum.app.core.database.model.relation.asExternalModel
-import org.deiverbum.app.core.model.data.Breviarium
-import org.deiverbum.app.core.model.data.LHIntermedia
-import org.deiverbum.app.core.model.data.LHPsalmody
-import org.deiverbum.app.core.model.data.Liturgy
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.data.breviarium.Breviarium
+import org.deiverbum.app.core.model.data.breviarium.BreviariumIntermedia
+import org.deiverbum.app.core.model.data.breviarium.LHPsalmody
+import org.deiverbum.app.core.model.liturgia.Liturgy
+import org.deiverbum.app.core.model.universalis.Universalis
 
 /**
  * Representación de Nona para la capa de datos externa.
@@ -29,7 +29,7 @@ import org.deiverbum.app.core.model.data.Universalis
  * @version 1.0
  * @since 2025.1
  * @see Breviarium
- * @see LHIntermedia
+ * @see BreviariumIntermedia
  */
 data class NonamExternal(
     @Embedded
@@ -74,7 +74,7 @@ fun NonamExternal.asExternalModel(): Universalis {
             liturgia.parent.dia,
             liturgia.parent.nombre,
             liturgia.entity.asExternalModel(),
-            LHIntermedia(
+            BreviariumIntermedia(
                 hymnus.entity.asExternalModel(),
                 LHPsalmody(
                     psalmus.asExternalModel(),

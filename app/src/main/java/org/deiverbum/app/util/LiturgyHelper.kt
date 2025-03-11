@@ -1,6 +1,5 @@
 package org.deiverbum.app.util
 
-import android.text.SpannableStringBuilder
 import android.text.Spanned
 
 class LiturgyHelper {
@@ -42,6 +41,28 @@ class LiturgyHelper {
             30 to "rosario"
         )
 
+        val titulusMap = hashMapOf(
+            1 to "Laudes y Lecturas del Oficio",
+            2 to "Oficio",
+            3 to "Laudes",
+            4 to "Hora Intermedia: Tercia",
+            5 to "Hora Intermedia: Sexta",
+            6 to "Hora Intermedia: Nona",
+            7 to "Vísperas",
+            8 to "Completas",
+            //9 to "misa",
+            //10 to "homilias",
+            11 to "Misa: Lecturas",
+            12 to "Mida: Comentarios",
+            13 to "Misa: Homilías",
+            20 to "Santos",
+            30 to "Santo Rosario"
+        )
+
+        fun titulus(type: Int): String {
+            return titulusMap[type]!!
+        }
+
         private val liturgyMapLatin = hashMapOf(
             1 to "mixtus",
             2 to "officium",
@@ -60,6 +81,19 @@ class LiturgyHelper {
 
         )
 
+        /**
+         * Devuelve el índice de la salmodia para la Hora Intermedia.
+         */
+        private val psalmodiaMap = hashMapOf(
+            4 to 0,
+            5 to 1,
+            6 to 2,
+        )
+
+        fun psalmodiaIndex(type: Int): Int {
+            return psalmodiaMap[type]!!
+        }
+
         fun liturgyByType(type: Int): String {
             return liturgyMap[type]!!
         }
@@ -76,11 +110,6 @@ class LiturgyHelper {
             val keys = liturgyMapLatin.filterValues { it == name }.keys
             return keys.first()
         }
-        fun getValue(): List<String> {
-
-            return listOf("Test String")
-
-        }
 
         val finisPsalmus: List<String>
             get() = listOf(
@@ -88,7 +117,6 @@ class LiturgyHelper {
                 "Como era en el principio ahora y siempre, por los siglos de los siglos. Amén."
             )
 
-        //val endPsalm: List<String> get(){return listOf("")}
 
         val endPsalmForView: Spanned
             get() {
@@ -97,13 +125,7 @@ class LiturgyHelper {
                         + Constants.NBSP_SALMOS + "por los siglos de los siglos. Amén.")
                 return Utils.fromHtml(fin)
             }
-        val endPsalm: String
-            get() {
-                val fin = ("Gloria al Padre, y al Hijo, y al Espíritu Santo." + Constants.BR
-                        + Constants.NBSP_SALMOS + "Como era en el principio ahora y siempre, "
-                        + Constants.NBSP_SALMOS + "por los siglos de los siglos. Amén.")
-                return Utils.fromHtml(fin).toString()
-            }
+
 
         val endPsalmForRead: String
             get() = "Gloria al Padre, y al Hijo, y al Espíritu Santo. Como era en el principio ahora y siempre, por los siglos de los siglos. Amén."
@@ -111,16 +133,6 @@ class LiturgyHelper {
         val gloriaNonDicitur: String
             get() = "No se dice Gloria."
 
-        val introAbreMisLabiosView: SpannableStringBuilder =
-            SpannableStringBuilder(Utils.formatTitle(Constants.TITLE_INITIAL_INVOCATION))
-                .append(Utils.LS2)
-                .append(Utils.toRed("V. "))
-                .append("Señor, abre mis labios.")
-                .append(Utils.LS)
-                .append(Utils.toRed("R. "))
-                .append("Y mi boca proclamará tu alabanza.")
-                .append(Utils.LS2)
-                .append(endPsalmForView)
 
     }
 

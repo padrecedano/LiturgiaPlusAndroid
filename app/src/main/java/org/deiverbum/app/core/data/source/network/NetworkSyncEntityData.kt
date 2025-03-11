@@ -1,9 +1,9 @@
 package org.deiverbum.app.core.data.source.network
 
 import org.deiverbum.app.core.data.source.SyncEntityData
-import org.deiverbum.app.core.model.SyncRequest
-import org.deiverbum.app.core.model.SyncResponse
-import org.deiverbum.app.core.model.data.SyncStatus
+import org.deiverbum.app.core.model.sync.SyncRequest
+import org.deiverbum.app.core.model.sync.SyncResponse
+import org.deiverbum.app.core.model.sync.SyncStatus
 import javax.inject.Inject
 
 /**

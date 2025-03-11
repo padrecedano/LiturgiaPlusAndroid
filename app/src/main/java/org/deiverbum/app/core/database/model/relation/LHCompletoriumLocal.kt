@@ -6,10 +6,10 @@ import org.deiverbum.app.core.database.model.entity.LHNightPrayerEntity
 import org.deiverbum.app.core.database.model.entity.LiturgyEntity
 import org.deiverbum.app.core.database.model.entity.UniversalisEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.ConclusioCompletorium
-import org.deiverbum.app.core.model.data.LHCompletorium
-import org.deiverbum.app.core.model.data.Liturgy
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.data.breviarium.BreviariumCompletorium
+import org.deiverbum.app.core.model.data.breviarium.ConclusioCompletorium
+import org.deiverbum.app.core.model.liturgia.Liturgy
+import org.deiverbum.app.core.model.universalis.Universalis
 
 /**
  * @author A. Cedano
@@ -38,7 +38,7 @@ data class LHCompletoriumLocal(
 fun LHCompletoriumLocal.asExternalModel(): Universalis {
     val conclusion = ConclusioCompletorium(nightPrayer.virgin.virginEntity.asExternalModel())
     //conclusion.setAntifonaVirgen(nightPrayer.virgin.virginEntity.antiphon)
-    val breviarium = LHCompletorium(
+    val breviarium = BreviariumCompletorium(
         nightPrayer.kyrie.entity.asExternalModel(),
         nightPrayer.hymnus.himno.asExternalModel(),
         nightPrayer.asExternalModelPsalmodia(),

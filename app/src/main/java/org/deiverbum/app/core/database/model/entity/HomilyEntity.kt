@@ -6,8 +6,8 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.SET_DEFAULT
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import org.deiverbum.app.core.model.data.Homily
-import org.deiverbum.app.core.model.data.PaterOpus
+import org.deiverbum.app.core.model.data.traditio.Homily
+import org.deiverbum.app.core.model.data.traditio.PaterOpus
 import org.deiverbum.app.util.Constants
 
 /**

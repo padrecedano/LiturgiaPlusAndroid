@@ -7,7 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import org.deiverbum.app.core.model.FileRequestt
+import org.deiverbum.app.core.model.data.FileRequestt
 import org.deiverbum.app.feature.calendar.EmptyState
 import org.deiverbum.app.feature.calendar.ErrorState
 import org.deiverbum.app.feature.file.FileViewModel

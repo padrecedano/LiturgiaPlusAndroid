@@ -13,11 +13,11 @@ import org.deiverbum.app.core.database.model.entity.LiturgyEntity
 import org.deiverbum.app.core.database.model.entity.LiturgySaintJoinEntity
 import org.deiverbum.app.core.database.model.entity.UniversalisEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.LHOfficium
-import org.deiverbum.app.core.model.data.LHOfficiumLectionis
-import org.deiverbum.app.core.model.data.LHPsalmody
-import org.deiverbum.app.core.model.data.Liturgy
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.data.breviarium.BreviariumOfficium
+import org.deiverbum.app.core.model.data.breviarium.LHOfficiumLectionis
+import org.deiverbum.app.core.model.data.breviarium.LHPsalmody
+import org.deiverbum.app.core.model.liturgia.Liturgy
+import org.deiverbum.app.core.model.universalis.Universalis
 import org.deiverbum.app.util.Constants.EASTER_CODE
 
 /**
@@ -96,7 +96,7 @@ fun LHOfficiumLocal.asExternalModel(): Universalis {
     }
     val psalmodia =
         LHPsalmody(psalmus.asExternalModel(), antiphonae.asExternalModel(), psalmus.join.theType)
-    val breviarium = LHOfficium(
+    val breviarium = BreviariumOfficium(
         universalis.hasSaint == 1,
         invitatorio.asExternalModel(),
         hymnus.entity.asExternalModel(),

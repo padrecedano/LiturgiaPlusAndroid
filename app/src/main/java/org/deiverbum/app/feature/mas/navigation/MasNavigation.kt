@@ -8,7 +8,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
-import org.deiverbum.app.core.model.FileRequest
+import org.deiverbum.app.core.model.data.FileRequest
 
 @Serializable
 data class MasRoute(

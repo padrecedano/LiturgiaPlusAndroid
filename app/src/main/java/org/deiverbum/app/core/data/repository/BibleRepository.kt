@@ -1,8 +1,8 @@
 package org.deiverbum.app.core.data.repository
 
-import org.deiverbum.app.core.model.BibleBookRequest
-import org.deiverbum.app.core.model.data.BibleBook
-import org.deiverbum.app.core.model.data.BibleBooks
+import org.deiverbum.app.core.model.biblia.BibleBook
+import org.deiverbum.app.core.model.biblia.BibleBookRequest
+import org.deiverbum.app.core.model.biblia.BibleBooks
 
 /**
  * Interfaz para el repositorio del módulo Biblia.

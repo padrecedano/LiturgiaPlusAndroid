@@ -1,7 +1,7 @@
 package org.deiverbum.app.core.domain
 
-import org.deiverbum.app.core.model.TodayRequest
-import org.deiverbum.app.core.model.UniversalisResponse
+import org.deiverbum.app.core.model.data.TodayRequest
+import org.deiverbum.app.core.model.universalis.UniversalisResponse
 import javax.inject.Inject
 
 /**

@@ -1,7 +1,7 @@
 package org.deiverbum.app.core.data.source
 
-import org.deiverbum.app.core.model.SyncRequest
-import org.deiverbum.app.core.model.SyncResponse
+import org.deiverbum.app.core.model.sync.SyncRequest
+import org.deiverbum.app.core.model.sync.SyncResponse
 
 /**
  * Interfaz para manejar las fuentes de datos en la sincronización.

@@ -46,13 +46,15 @@ internal fun getPersonalizedTypography(fontSizePrefs: FontSizeConfig): Typograph
         headlineSmall = TextStyle(
             fontWeight = FontWeight.Normal,
             fontSize = (24 + fontSizePrefs.fontSizeExtra).sp,
-            lineHeight = ((32 + fontSizePrefs.fontSizeExtra) * lineHeightMultiplier).sp,
+            lineHeight = ((26 + fontSizePrefs.fontSizeExtra) * lineHeightMultiplier).sp,
             letterSpacing = 0.sp,
+
             lineHeightStyle = LineHeightStyle(
                 alignment = LineHeightStyle.Alignment.Bottom,
                 trim = LineHeightStyle.Trim.None,
             ),
-        ),
+
+            ),
         titleLarge = TextStyle(
             fontWeight = FontWeight.Bold,
             fontSize = (22 + fontSizePrefs.fontSizeExtra).sp,
@@ -79,7 +81,7 @@ internal fun getPersonalizedTypography(fontSizePrefs: FontSizeConfig): Typograph
         bodyLarge = TextStyle(
             fontWeight = FontWeight.Normal,
             fontSize = (16 + fontSizePrefs.fontSizeExtra).sp,
-            lineHeight = ((24 + fontSizePrefs.fontSizeExtra) * lineHeightMultiplier).sp,
+            lineHeight = ((16 + fontSizePrefs.fontSizeExtra) * lineHeightMultiplier).sp,
             letterSpacing = 0.5.sp,
             lineHeightStyle = LineHeightStyle(
                 alignment = LineHeightStyle.Alignment.Center,

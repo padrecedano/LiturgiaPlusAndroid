@@ -1,61 +1,369 @@
 package org.deiverbum.app.core.ui
 
-import android.graphics.Typeface
-import android.text.Spanned
-import android.text.style.AbsoluteSizeSpan
-import android.text.style.BulletSpan
-import android.text.style.ForegroundColorSpan
-import android.text.style.RelativeSizeSpan
-import android.text.style.StrikethroughSpan
-import android.text.style.StyleSpan
-import android.text.style.SubscriptSpan
-import android.text.style.SuperscriptSpan
-import android.text.style.TypefaceSpan
-import android.text.style.UnderlineSpan
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.PlatformParagraphStyle
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.LineHeightStyle
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import org.deiverbum.app.core.designsystem.component.normalStyle
+import org.deiverbum.app.core.designsystem.component.spanRubric
 import org.deiverbum.app.core.designsystem.theme.NiaTypography
 import org.deiverbum.app.core.designsystem.theme.getPersonalizedTypography
+import org.deiverbum.app.core.model.data.UserData
 import org.deiverbum.app.core.model.data.UserDataDynamic
+import org.deiverbum.app.core.model.universalis.UniversalisResource
 import org.deiverbum.app.util.Configuration
 import org.deiverbum.app.util.Utils
 
 @Composable
-fun ContentTitle(text: String, level: Int, rubricColor: Color) {
+fun ContentHeadd(
+    text: String,
+    level: Int,
+    userData: UserData,
+    fontSize: TextUnit,
+    rubricColor: Color,
+    uppercase: Boolean = true,
+    withColor: Boolean = false
+
+) {
+    val finalText = if (uppercase) text.uppercase() else text
+    val typography = getPersonalizedTypography(userData.dynamic.fontSize)
+
     val textStyle: TextStyle = when (level) {
-        1 -> NiaTypography.titleLarge
-        2 -> NiaTypography.titleMedium
-        3 -> NiaTypography.titleSmall
-        else -> NiaTypography.bodyLarge
+        1 -> typography.headlineLarge
+        2 -> typography.headlineMedium
+        3 -> typography.headlineSmall
+        else -> typography.headlineSmall
     }
-    Spacer(modifier = Modifier.height(16.dp))
-    Text(text = text.uppercase(), style = textStyle, color = rubricColor)
-    Spacer(modifier = Modifier.height(16.dp))
+    val paragraphStyle = ParagraphStyle(
+        lineHeight = textStyle.lineHeight,
+        platformStyle = PlatformParagraphStyle(includeFontPadding = false),
+        lineHeightStyle = LineHeightStyle(
+            alignment = LineHeightStyle.Alignment.Bottom,
+            trim = LineHeightStyle.Trim.LastLineBottom
+        )
+    )
+    val text = buildAnnotatedString {
+        if (withColor) {
+            withStyle(SpanStyle(color = rubricColor)) {
+                append(finalText)
+            }
+        } else {
+            append(finalText)
+
+        }
+
+
+        //append(finalText)
+    }
+
+
+    Text(text = text, style = textStyle)
 }
+
+fun contentHead(
+    text: String,
+    level: Int,
+    userData: UserDataDynamic,
+    fontSize: TextUnit,
+    rubricColor: Color,
+    uppercase: Boolean = true,
+    withColor: Boolean = false
+
+): AnnotatedString {
+    val finalText = if (uppercase) text.uppercase() else text
+    val typography = getPersonalizedTypography(userData.fontSize)
+    val fontSize: TextUnit = when (level) {
+        1 -> typography.headlineLarge.fontSize
+        2 -> typography.headlineMedium.fontSize
+        3 -> typography.headlineSmall.fontSize
+        else -> typography.headlineSmall.fontSize
+    }
+    val textStyle: TextStyle = when (level) {
+        1 -> typography.headlineLarge
+        2 -> typography.headlineMedium
+        3 -> typography.headlineSmall
+        else -> typography.headlineSmall
+    }
+    val paragraphStyle = ParagraphStyle(
+        lineHeight = textStyle.lineHeight,
+        platformStyle = PlatformParagraphStyle(includeFontPadding = false),
+        lineHeightStyle = LineHeightStyle(
+            alignment = LineHeightStyle.Alignment.Bottom,
+            trim = LineHeightStyle.Trim.LastLineBottom
+        )
+    )
+    return buildAnnotatedString {
+        //pushStyle(normalStyle(fontSize = fontSize))
+        //pushStyle(paragraphStyle)
+        withStyle(style = paragraphStyle) {
+
+            withStyle(
+                if (withColor) {
+                    SpanStyle(
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = fontSize,
+                        color = rubricColor
+                    )
+                } else {
+                    SpanStyle(
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = fontSize
+                    )
+                }
+            ) {
+                append(finalText)
+            }
+        }
+    }
+}
+
+@Composable
+fun ContentLabell(
+    resource: UniversalisResource,
+    level: Int,
+    userData: UserDataDynamic,
+    rubricColor: Color,
+    uppercase: Boolean = true,
+    withColor: Boolean = false
+
+) {
+    //val text=resource.data.
+    val date = Utils.formatDate(
+        resource.date.toString(),
+        "yyyyMMdd",
+        "EEEE d 'de' MMMM 'de' yyyy"
+    )
+    val finalText = if (uppercase) date.uppercase() else date
+    val typography = getPersonalizedTypography(userData.fontSize)
+    val fontSize: TextUnit = when (level) {
+        1 -> typography.labelLarge.fontSize
+        2 -> typography.labelMedium.fontSize
+        3 -> typography.labelSmall.fontSize
+        else -> typography.labelSmall.fontSize
+    }
+    val textStyle: TextStyle = when (level) {
+        1 -> typography.headlineLarge
+        2 -> typography.headlineMedium
+        3 -> typography.headlineSmall
+        else -> typography.headlineSmall
+    }
+    val paragraphStyle = ParagraphStyle(
+        //lineHeight = textStyle.lineHeight,
+        platformStyle = PlatformParagraphStyle(includeFontPadding = false),
+        lineHeightStyle = LineHeightStyle(
+            alignment = LineHeightStyle.Alignment.Top,
+            trim = LineHeightStyle.Trim.None
+        )
+    )
+    Row(
+        modifier = Modifier.padding(1.dp),
+        // causes narrow chips
+        //modifier = modifier.horizontalScroll(rememberScrollState()),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+    ) {
+        Column {
+            /*ContentLabell(
+                data = date,
+                level = 1,
+                userData = userData,
+                rubricColor = rubricColor,
+                uppercase = false,
+                withColor = false
+            )
+            Spacer(modifier = Modifier.width(1.dp))
+
+            ContentHeadd(
+                    resource.metaData.tempus,
+                    3,
+                    userData,
+                    fontSize,
+                    rubricColor,
+                    false
+                )
+
+            SectionTitlee(resource.metaData.nomen, 2, resource.dynamic.dynamic, false)
+            ContentHeadd(LiturgyHelper.titulusMap[resource.id].toString() ,1,userData,fontSize,rubricColor,false,true)
+*/
+
+        }
+    }
+    //Text(text = text)
+
+    //Text(text=text,style=textStyle)
+    //Text(text=text,style=textStyle)
+
+
+}
+
+fun contentLabel(
+    text: String,
+    level: Int,
+    userData: UserDataDynamic,
+    rubricColor: Color,
+    uppercase: Boolean = true,
+    withColor: Boolean = false
+
+): AnnotatedString {
+    val finalText = if (uppercase) text.uppercase() else text
+    val typography = getPersonalizedTypography(userData.fontSize)
+    val fontSize: TextUnit = when (level) {
+        1 -> typography.labelLarge.fontSize
+        2 -> typography.labelMedium.fontSize
+        3 -> typography.labelSmall.fontSize
+        else -> typography.labelSmall.fontSize
+    }
+    val textStyle: TextStyle = when (level) {
+        1 -> typography.headlineLarge
+        2 -> typography.headlineMedium
+        3 -> typography.headlineSmall
+        else -> typography.headlineSmall
+    }
+    return buildAnnotatedString {
+        //pushStyle(defaultStyle(textStyle = textStyle))
+        withStyle(
+            if (withColor) {
+                SpanStyle(
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = fontSize,
+                    color = rubricColor
+                )
+            } else {
+                SpanStyle(
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = fontSize
+                )
+            }
+        ) {
+            append(finalText)
+        }
+    }
+}
+
+@Composable
+fun ContentLabell(
+    data: String,
+    level: Int,
+    userData: UserData,
+    rubricColor: Color,
+    uppercase: Boolean = true,
+    withColor: Boolean = false
+
+) {
+    val finalText = if (uppercase) data.uppercase() else data
+    val typography = getPersonalizedTypography(userData.dynamic.fontSize)
+
+    val textStyle: TextStyle = when (level) {
+        1 -> typography.labelLarge
+        2 -> typography.labelMedium
+        3 -> typography.labelSmall
+        else -> typography.labelSmall
+    }
+    val fontSize: TextUnit = when (level) {
+        1 -> typography.titleLarge.fontSize
+        2 -> typography.titleMedium.fontSize
+        3 -> typography.titleSmall.fontSize
+        4 -> typography.bodyLarge.fontSize
+        else -> typography.bodyLarge.fontSize
+    }
+    val text = buildAnnotatedString {
+        if (withColor) {
+            withStyle(
+                SpanStyle(
+                    color = MaterialTheme.colorScheme.error,
+                    fontSize = fontSize,
+                )
+            ) {
+
+                append(finalText)
+            }
+        } else {
+            append(finalText)
+        }
+    }
+
+    Text(text = text, style = textStyle)
+}
+
+@Composable
+fun ContentTitle(
+    data: String,
+    level: Int,
+    userData: UserDataDynamic,
+    uppercase: Boolean = true
+) {
+    val finalText = if (uppercase) data.uppercase() else data
+    val typography = getPersonalizedTypography(userData.fontSize)
+    val style: TextStyle = when (level) {
+        1 -> typography.titleLarge
+        2 -> typography.titleMedium
+        3 -> typography.titleSmall
+        4 -> typography.bodyLarge
+        else -> typography.bodyLarge
+    }
+    val text = buildAnnotatedString {
+        withStyle(spanRubric())
+        {
+            append(finalText)
+        }
+    }
+    Text(text = text, style = style, modifier = Modifier.padding(top = 16.dp, bottom = 8.dp))
+}
+
+@Composable
+fun ContentTitleAndText(
+    texts: List<String>,
+    level: Int,
+    userData: UserDataDynamic,
+    uppercase: Boolean = true,
+    style: TextStyle
+) {
+    val title = if (uppercase) texts[0].uppercase() else texts[0]
+    val typography = getPersonalizedTypography(userData.fontSize)
+    val titleStyle: TextStyle = when (level) {
+        1 -> typography.titleLarge
+        2 -> typography.titleMedium
+        3 -> typography.titleSmall
+        4 -> typography.bodyLarge
+        else -> typography.bodyLarge
+    }
+
+    //Text(text = text, style = style,modifier = Modifier.padding(top = 16.dp, bottom = 8.dp))
+    Row {
+        Text(
+            modifier = Modifier
+                .weight(1f)
+                .padding(top = 16.dp, bottom = 8.dp),
+            text = title,
+            style = titleStyle,
+            color = MaterialTheme.colorScheme.error
+        )
+        Text(
+            modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
+            text = texts[1],
+            color = MaterialTheme.colorScheme.error,
+            style = style
+        )
+    }
+
+}
+
 
 fun contentTitle(
     text: String,
@@ -208,20 +516,45 @@ fun sectionTitle(
 }
 
 @Composable
-fun SpaceNormal() {
-    Spacer(modifier = Modifier.height(24.dp))
+fun SectionTitlee(
+    data: String,
+    level: Int,
+    userData: UserDataDynamic,
+    lower: Boolean = true
+) {
+    val typography = getPersonalizedTypography(userData.fontSize)
+
+    val textStyle: TextStyle = when (level) {
+        1 -> typography.titleLarge
+        2 -> typography.titleMedium
+        3 -> typography.titleSmall
+        else -> typography.titleSmall
+    }
+    val text = buildAnnotatedString {
+
+        if (lower) {
+            append(data.lowercase())
+        } else {
+            append(data)
+        }
+
+
+    }
+    Text(
+        text = text, style = textStyle, modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
+    )
 }
 
 
-fun errorMessage(msg: String, rubricColor: Color): AnnotatedString {
+@Composable
+fun errorMessage(msg: String): AnnotatedString {
     return buildAnnotatedString {
-        withStyle(style = SpanStyle(color = rubricColor)) {
+        withStyle(style = spanRubric()) {
             append("¡ERROR! ")
         }
-        append(Utils.LS2)
+        append("\n\n")
         append(msg)
         append(Utils.toRed(Configuration.MY_GMAIL))
-        append(Utils.LS2)
     }
 }
 
@@ -233,266 +566,14 @@ fun errorMessageAudio(msg: String): AnnotatedString {
     }
 }
 
-fun spannableStringToAnnotatedString(text: CharSequence): AnnotatedString {
-    return if (text is Spanned) {
-        val spanStyles = mutableListOf<AnnotatedString.Range<SpanStyle>>()
-        spanStyles.addAll(text.getSpans(0, text.length, UnderlineSpan::class.java).map {
-            AnnotatedString.Range(
-                SpanStyle(textDecoration = TextDecoration.Underline),
-                text.getSpanStart(it),
-                text.getSpanEnd(it)
-            )
-        })
-        spanStyles.addAll(text.getSpans(0, text.length, StyleSpan::class.java).map {
-            AnnotatedString.Range(
-                SpanStyle(fontWeight = FontWeight.Bold),
-                text.getSpanStart(it),
-                text.getSpanEnd(it)
-            )
-        })
-        AnnotatedString(text.toString(), spanStyles = spanStyles)
-    } else {
-        AnnotatedString(text.toString())
-    }
-}
-
-fun spannableStringToAnnotatedString(
-    text: CharSequence,
-    density: Density
-): AnnotatedString {
-    return if (text is Spanned) {
-        with(density) {
-            buildAnnotatedString {
-                append((text.toString()))
-                text.getSpans(0, text.length, Any::class.java).forEach {
-                    val start = text.getSpanStart(it)
-                    val end = text.getSpanEnd(it)
-                    when (it) {
-                        is StyleSpan -> when (it.style) {
-                            Typeface.NORMAL -> addStyle(
-                                SpanStyle(
-                                    fontWeight = FontWeight.Normal,
-                                    fontStyle = FontStyle.Normal
-                                ),
-                                start,
-                                end
-                            )
-
-                            Typeface.BOLD -> addStyle(
-                                SpanStyle(
-                                    fontWeight = FontWeight.Bold,
-                                    fontStyle = FontStyle.Normal
-                                ),
-                                start,
-                                end
-                            )
-
-                            Typeface.ITALIC -> addStyle(
-                                SpanStyle(
-                                    fontWeight = FontWeight.Normal,
-                                    fontStyle = FontStyle.Italic
-                                ),
-                                start,
-                                end
-                            )
-
-                            Typeface.BOLD_ITALIC -> addStyle(
-                                SpanStyle(
-                                    fontWeight = FontWeight.Bold,
-                                    fontStyle = FontStyle.Italic
-                                ),
-                                start,
-                                end
-                            )
-                        }
-
-                        is TypefaceSpan -> addStyle(
-                            SpanStyle(
-                                fontFamily = when (it.family) {
-                                    FontFamily.SansSerif.name -> FontFamily.SansSerif
-                                    FontFamily.Serif.name -> FontFamily.Serif
-                                    FontFamily.Monospace.name -> FontFamily.Monospace
-                                    FontFamily.Cursive.name -> FontFamily.Cursive
-                                    else -> FontFamily.Default
-                                }
-                            ),
-                            start,
-                            end
-                        )
-
-                        is BulletSpan -> {
-                            //Log.d("StringResources", "BulletSpan not supported yet")
-                            addStyle(SpanStyle(), start, end)
-                        }
-
-                        is AbsoluteSizeSpan -> addStyle(
-                            SpanStyle(fontSize = if (it.dip) it.size.dp.toSp() else it.size.toSp()),
-                            start,
-                            end
-                        )
-
-                        is RelativeSizeSpan -> addStyle(
-                            SpanStyle(fontSize = it.sizeChange.em),
-                            start,
-                            end
-                        )
-
-                        is StrikethroughSpan -> addStyle(
-                            SpanStyle(textDecoration = TextDecoration.LineThrough),
-                            start,
-                            end
-                        )
-
-                        is UnderlineSpan -> addStyle(
-                            SpanStyle(textDecoration = TextDecoration.Underline),
-                            start,
-                            end
-                        )
-
-                        is SuperscriptSpan -> addStyle(
-                            SpanStyle(baselineShift = BaselineShift.Superscript),
-                            start,
-                            end
-                        )
-
-                        is SubscriptSpan -> addStyle(
-                            SpanStyle(baselineShift = BaselineShift.Subscript),
-                            start,
-                            end
-                        )
-
-                        is ForegroundColorSpan -> addStyle(
-                            SpanStyle(color = Color(it.foregroundColor)),
-                            start,
-                            end
-                        )
-
-                        else -> addStyle(SpanStyle(), start, end)
-                    }
-                }
-            }
-        }
-    } else {
-        AnnotatedString(text.toString())
-    }
-}
-
-fun CharSequence.asAnnotatedString(density: Density): AnnotatedString {
-    if (this !is Spanned) return AnnotatedString(this.toString())
-    return buildAnnotatedString {
-        append(this@asAnnotatedString.toString())
-        getSpans(0, length, Any::class.java).forEach {
-            val start = getSpanStart(it)
-            val end = getSpanEnd(it)
-
-            when (it) {
-                is StyleSpan -> when (it.style) {
-                    Typeface.NORMAL -> addStyle(
-                        SpanStyle(
-                            fontWeight = FontWeight.Normal,
-                            fontStyle = FontStyle.Normal
-                        ),
-                        start,
-                        end
-                    )
-
-                    Typeface.BOLD -> addStyle(
-                        SpanStyle(
-                            fontWeight = FontWeight.Bold,
-                            fontStyle = FontStyle.Normal
-                        ),
-                        start,
-                        end
-                    )
-
-                    Typeface.ITALIC -> addStyle(
-                        SpanStyle(
-                            fontWeight = FontWeight.Normal,
-                            fontStyle = FontStyle.Italic
-                        ),
-                        start,
-                        end
-                    )
-
-                    Typeface.BOLD_ITALIC -> addStyle(
-                        SpanStyle(
-                            fontWeight = FontWeight.Bold,
-                            fontStyle = FontStyle.Italic
-                        ),
-                        start,
-                        end
-                    )
-                }
-
-                is TypefaceSpan -> addStyle(
-                    SpanStyle(
-                        fontFamily = when (it.family) {
-                            FontFamily.SansSerif.name -> FontFamily.SansSerif
-                            FontFamily.Serif.name -> FontFamily.Serif
-                            FontFamily.Monospace.name -> FontFamily.Monospace
-                            FontFamily.Cursive.name -> FontFamily.Cursive
-                            else -> FontFamily.Default
-                        }
-                    ),
-                    start,
-                    end
-                )
-
-                is BulletSpan -> {
-                    //Log.d("StringResources", "BulletSpan not supported yet")
-                    addStyle(SpanStyle(), start, end)
-                }
-
-                is RelativeSizeSpan -> addStyle(
-                    SpanStyle(fontSize = it.sizeChange.em),
-                    start,
-                    end
-                )
-
-                is StrikethroughSpan -> addStyle(
-                    SpanStyle(textDecoration = TextDecoration.LineThrough),
-                    start,
-                    end
-                )
-
-                is UnderlineSpan -> addStyle(
-                    SpanStyle(textDecoration = TextDecoration.Underline),
-                    start,
-                    end
-                )
-
-                is SuperscriptSpan -> addStyle(
-                    SpanStyle(baselineShift = BaselineShift.Superscript),
-                    start,
-                    end
-                )
-
-                is SubscriptSpan -> addStyle(
-                    SpanStyle(baselineShift = BaselineShift.Subscript),
-                    start,
-                    end
-                )
-
-                is ForegroundColorSpan -> addStyle(
-                    SpanStyle(color = Color(it.foregroundColor)),
-                    start,
-                    end
-                )
-
-                else -> addStyle(SpanStyle(), start, end)
-            }
-            //buildWithSpan(it, start, end)
-        }
-    }
-}
 
 fun contentSpace(lineHeight: Int): AnnotatedString {
     val paragraphStyle = ParagraphStyle(
         lineHeight = lineHeight.sp,
         platformStyle = PlatformParagraphStyle(includeFontPadding = false),
         lineHeightStyle = LineHeightStyle(
-            alignment = LineHeightStyle.Alignment.Bottom,
-            trim = LineHeightStyle.Trim.LastLineBottom
+            alignment = LineHeightStyle.Alignment.Top,
+            trim = LineHeightStyle.Trim.Both
         )
     )
     return buildAnnotatedString {
@@ -502,50 +583,3 @@ fun contentSpace(lineHeight: Int): AnnotatedString {
 }
 
 
-fun contentBody(text: String, level: Int, rubricColor: Color): AnnotatedString {
-    val paragraphStyle = ParagraphStyle(
-        //lineHeight = 25.sp,
-        platformStyle = PlatformParagraphStyle(includeFontPadding = false),
-        lineHeightStyle = LineHeightStyle(
-            alignment = LineHeightStyle.Alignment.Bottom,
-            trim = LineHeightStyle.Trim.LastLineBottom
-        )
-    )
-
-    val fontSize: TextUnit = when (level) {
-        1 -> NiaTypography.bodyLarge.fontSize
-        2 -> NiaTypography.titleMedium.fontSize
-        3 -> NiaTypography.titleSmall.fontSize
-        4 -> NiaTypography.bodyLarge.fontSize
-        else -> NiaTypography.bodyLarge.fontSize
-    }
-    return buildAnnotatedString {
-        withStyle(style = paragraphStyle) {
-        }
-        withStyle(style = paragraphStyle) {
-            withStyle(
-                SpanStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = fontSize,
-                    color = rubricColor
-                )
-            ) {
-                append(text.uppercase())
-            }
-        }
-
-        withStyle(style = paragraphStyle) {
-        }
-    }
-}
-
-
-@Composable
-fun Int.scaledSp(): TextUnit {
-    val value: Int = this
-    return with(LocalDensity.current) {
-        val fontScale = this.fontScale
-        val textSize = value / fontScale
-        textSize.sp
-    }
-}

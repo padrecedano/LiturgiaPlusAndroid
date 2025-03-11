@@ -8,11 +8,11 @@ import org.deiverbum.app.core.database.model.entity.RosariumSeriesMysteriumEntit
 import org.deiverbum.app.core.database.model.entity.asExternalModel
 import org.deiverbum.app.core.database.model.relation.RosariumSeriesWithMysterium
 import org.deiverbum.app.core.database.model.relation.asExternalModel
-import org.deiverbum.app.core.model.data.AlteriRosarium
-import org.deiverbum.app.core.model.data.Liturgy
-import org.deiverbum.app.core.model.data.Rosarium
-import org.deiverbum.app.core.model.data.RosariumMysteriumOrdo
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.data.alteri.AlteriRosarium
+import org.deiverbum.app.core.model.data.alteri.Rosarium
+import org.deiverbum.app.core.model.data.alteri.RosariumMysteriumOrdo
+import org.deiverbum.app.core.model.liturgia.Liturgy
+import org.deiverbum.app.core.model.universalis.Universalis
 
 /**
  * Representación del Rosario para la capa de datos externa.

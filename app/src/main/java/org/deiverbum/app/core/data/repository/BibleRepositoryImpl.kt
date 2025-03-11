@@ -3,8 +3,8 @@ package org.deiverbum.app.core.data.repository
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.deiverbum.app.core.data.factory.BibleFactory
-import org.deiverbum.app.core.model.BibleBookRequest
-import org.deiverbum.app.core.model.data.BibleBooks
+import org.deiverbum.app.core.model.biblia.BibleBookRequest
+import org.deiverbum.app.core.model.biblia.BibleBooks
 import javax.inject.Inject
 
 /**

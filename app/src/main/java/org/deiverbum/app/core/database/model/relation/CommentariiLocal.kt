@@ -6,13 +6,13 @@ import org.deiverbum.app.core.database.model.entity.LiturgyEntity
 import org.deiverbum.app.core.database.model.entity.MassReadingEntity
 import org.deiverbum.app.core.database.model.entity.UniversalisEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.BibleComment
-import org.deiverbum.app.core.model.data.BibleCommentList
-import org.deiverbum.app.core.model.data.BiblicaWithComments
-import org.deiverbum.app.core.model.data.Commentarii
-import org.deiverbum.app.core.model.data.Homily
-import org.deiverbum.app.core.model.data.Liturgy
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.data.traditio.BibleComment
+import org.deiverbum.app.core.model.data.traditio.BibleCommentList
+import org.deiverbum.app.core.model.data.traditio.BiblicaWithComments
+import org.deiverbum.app.core.model.data.traditio.Commentarii
+import org.deiverbum.app.core.model.data.traditio.Homily
+import org.deiverbum.app.core.model.liturgia.Liturgy
+import org.deiverbum.app.core.model.universalis.Universalis
 
 /**
  * @author A. Cedano

@@ -13,10 +13,10 @@ import org.deiverbum.app.core.database.model.entity.LiturgyEntity
 import org.deiverbum.app.core.database.model.entity.LiturgySaintJoinEntity
 import org.deiverbum.app.core.database.model.entity.UniversalisEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.LHLaudes
-import org.deiverbum.app.core.model.data.LHPsalmody
-import org.deiverbum.app.core.model.data.Liturgy
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.data.breviarium.BreviariumLaudes
+import org.deiverbum.app.core.model.data.breviarium.LHPsalmody
+import org.deiverbum.app.core.model.liturgia.Liturgy
+import org.deiverbum.app.core.model.universalis.Universalis
 
 /**
  * @author A. Cedano
@@ -88,7 +88,7 @@ data class LHLaudesLocal(
 
 fun LHLaudesLocal.asExternalModel(): Universalis {
 
-    val breviarium = LHLaudes(
+    val breviarium = BreviariumLaudes(
         universalis.hasSaint == 1,
         invitatorium.asExternalModel(),
         hymnus.entity.asExternalModel(),

@@ -3,10 +3,10 @@ package org.deiverbum.app.core.data.source.firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import org.deiverbum.app.core.data.source.SyncEntityData
-import org.deiverbum.app.core.model.SyncRequest
-import org.deiverbum.app.core.model.SyncResponse
-import org.deiverbum.app.core.model.data.SyncStatus
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.sync.SyncRequest
+import org.deiverbum.app.core.model.sync.SyncResponse
+import org.deiverbum.app.core.model.sync.SyncStatus
+import org.deiverbum.app.core.model.universalis.Universalis
 import org.deiverbum.app.util.Configuration
 import org.deiverbum.app.util.Source
 import org.deiverbum.app.util.Utils

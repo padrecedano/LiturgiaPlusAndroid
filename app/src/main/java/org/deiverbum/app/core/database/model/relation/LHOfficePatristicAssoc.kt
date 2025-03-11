@@ -4,7 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import org.deiverbum.app.core.database.model.entity.LHOfficePatristicEntity
 import org.deiverbum.app.core.database.model.entity.LHOfficePatristicJoinEntity
-import org.deiverbum.app.core.model.data.LHOfficiumLectioAltera
+import org.deiverbum.app.core.model.data.breviarium.LHOfficiumLectioAltera
 
 /**
  *

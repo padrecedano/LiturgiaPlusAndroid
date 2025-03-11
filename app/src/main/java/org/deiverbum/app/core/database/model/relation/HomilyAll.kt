@@ -5,7 +5,7 @@ import androidx.room.Relation
 import org.deiverbum.app.core.database.model.entity.HomilyEntity
 import org.deiverbum.app.core.database.model.entity.PaterOpusEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.Homily
+import org.deiverbum.app.core.model.data.traditio.Homily
 
 /**
  * @author A. Cedano

@@ -4,9 +4,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import org.deiverbum.app.core.data.repository.UniversalisRepository
 import org.deiverbum.app.core.data.repository.UserDataRepository
-import org.deiverbum.app.core.model.data.MetaData
-import org.deiverbum.app.core.model.data.UniversalisResource
-import org.deiverbum.app.core.model.data.UniversalisResourceQuery
+import org.deiverbum.app.core.model.universalis.MetaData
+import org.deiverbum.app.core.model.universalis.UniversalisResource
+import org.deiverbum.app.core.model.universalis.UniversalisResourceQuery
 import org.deiverbum.app.util.DateTimeUtil
 import javax.inject.Inject
 

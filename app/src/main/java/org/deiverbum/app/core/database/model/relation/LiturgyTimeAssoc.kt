@@ -5,7 +5,7 @@ import androidx.room.Relation
 import org.deiverbum.app.core.database.model.entity.LiturgyEntity
 import org.deiverbum.app.core.database.model.entity.LiturgyTimeEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.LiturgyTime
+import org.deiverbum.app.core.model.liturgia.LiturgyTime
 
 /**
  * @author A. Cedano

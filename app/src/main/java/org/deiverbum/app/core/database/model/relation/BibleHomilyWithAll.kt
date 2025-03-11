@@ -5,8 +5,8 @@ import androidx.room.Relation
 import org.deiverbum.app.core.database.model.entity.BibleHomilyJoinEntity
 import org.deiverbum.app.core.database.model.entity.BibleHomilyThemeEntity
 import org.deiverbum.app.core.database.model.entity.HomilyEntity
-import org.deiverbum.app.core.model.data.BibleComment
-import org.deiverbum.app.core.model.data.Homily
+import org.deiverbum.app.core.model.data.traditio.BibleComment
+import org.deiverbum.app.core.model.data.traditio.Homily
 
 /**
  * @author A. Cedano

@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.deiverbum.app.core.data.repository.FileRepository
 import org.deiverbum.app.core.data.repository.UserDataRepository
-import org.deiverbum.app.core.model.FileResponse
+import org.deiverbum.app.core.model.data.FileResponse
 import org.deiverbum.app.core.model.data.book.BookTest
 import org.deiverbum.app.feature.universalis.navigation.UniversalisRoute
 import org.deiverbum.app.util.Utils

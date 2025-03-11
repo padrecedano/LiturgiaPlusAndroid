@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import org.deiverbum.app.core.model.data.LHIntercession
+import org.deiverbum.app.core.model.data.breviarium.LHIntercession
 import org.deiverbum.app.util.Constants
 
 /**

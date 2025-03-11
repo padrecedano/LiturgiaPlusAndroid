@@ -4,9 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import org.deiverbum.app.core.model.data.BibleBook
-import org.deiverbum.app.core.model.data.LHLectioBrevis
-import org.deiverbum.app.core.model.data.LHResponsoriumBrevis
+import org.deiverbum.app.core.model.biblia.BibleBook
+import org.deiverbum.app.core.model.data.breviarium.LHLectioBrevis
+import org.deiverbum.app.core.model.data.breviarium.LHResponsoriumBrevis
 import org.deiverbum.app.util.Constants
 
 /**

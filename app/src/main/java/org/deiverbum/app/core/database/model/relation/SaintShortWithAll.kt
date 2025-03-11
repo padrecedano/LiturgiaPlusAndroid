@@ -6,7 +6,7 @@ import org.deiverbum.app.core.database.model.entity.LiturgySaintJoinEntity
 import org.deiverbum.app.core.database.model.entity.SaintEntity
 import org.deiverbum.app.core.database.model.entity.SaintLifeEntity
 import org.deiverbum.app.core.database.model.entity.SaintShortLifeEntity
-import org.deiverbum.app.core.model.data.LHSanctus
+import org.deiverbum.app.core.model.data.breviarium.LHSanctus
 
 /**
  * @author A. Cedano

@@ -6,12 +6,11 @@ import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import org.deiverbum.app.core.model.FileRequestt
-import org.deiverbum.app.core.model.FileResource
-import org.deiverbum.app.core.model.FileResponse
-import org.deiverbum.app.core.model.data.OracionSimple
-import org.deiverbum.app.core.model.data.Rosario
-import org.deiverbum.app.core.model.data.ViaCrucis
+import org.deiverbum.app.core.model.data.FileRequestt
+import org.deiverbum.app.core.model.data.FileResource
+import org.deiverbum.app.core.model.data.FileResponse
+import org.deiverbum.app.core.model.data.alteri.Rosario
+import org.deiverbum.app.core.model.data.alteri.ViaCrucis
 import org.deiverbum.app.core.model.data.book.Book
 import org.deiverbum.app.core.model.data.book.BookSacramentum
 import org.deiverbum.app.core.model.data.book.LiberFileNormalis
@@ -29,6 +28,7 @@ import org.deiverbum.app.core.model.data.ritualis.Ritualis
 import org.deiverbum.app.core.model.data.ritualis.Rubrica
 import org.deiverbum.app.core.model.data.ritualis.Titulus
 import org.deiverbum.app.core.model.data.ritualis.VersiculusEtResponsum
+import org.deiverbum.app.core.model.liturgia.OracionSimple
 import org.deiverbum.app.core.network.Dispatcher
 import org.deiverbum.app.core.network.NiaDispatchers
 import org.deiverbum.app.util.AssetProvider

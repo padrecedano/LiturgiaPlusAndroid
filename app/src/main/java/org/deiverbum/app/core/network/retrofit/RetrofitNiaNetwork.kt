@@ -4,7 +4,7 @@ import androidx.tracing.trace
 import com.squareup.moshi.Moshi
 import kotlinx.serialization.Serializable
 import okhttp3.Call
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.universalis.Universalis
 import org.deiverbum.app.core.network.NiaNetworkDataSource
 import org.deiverbum.app.core.network.model.NetworkChangeList
 import org.deiverbum.app.core.network.model.NetworkNewsResource

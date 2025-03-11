@@ -4,7 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import org.deiverbum.app.core.database.model.entity.LHAntiphonJoinEntity
 import org.deiverbum.app.core.database.model.entity.LHPsalmodyJoinEntity
-import org.deiverbum.app.core.model.data.LHAntiphon
+import org.deiverbum.app.core.model.data.breviarium.LHAntiphon
 
 /**
  * Obtiene las antífonas, asociando a [LHAntiphonJoinEntity] con [LHAntiphonJoinEntity]

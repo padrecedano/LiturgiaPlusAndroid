@@ -10,17 +10,17 @@ import org.deiverbum.app.core.database.model.relation.LHNightPrayerAssoc
 import org.deiverbum.app.core.database.model.relation.LiturgyTimeAssoc
 import org.deiverbum.app.core.database.model.relation.asExternalModel
 import org.deiverbum.app.core.database.model.relation.asExternalModelPsalmodia
-import org.deiverbum.app.core.model.data.ConclusioCompletorium
-import org.deiverbum.app.core.model.data.LHCompletorium
-import org.deiverbum.app.core.model.data.Liturgy
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.data.breviarium.BreviariumCompletorium
+import org.deiverbum.app.core.model.data.breviarium.ConclusioCompletorium
+import org.deiverbum.app.core.model.liturgia.Liturgy
+import org.deiverbum.app.core.model.universalis.Universalis
 
 /**
  * Representación de la hora de Completas para la capa de datos externa.
  *
  * @author A. Cedano
  * @since 2025.1
- * @see LHCompletorium
+ * @see BreviariumCompletorium
  */
 data class CompletoriumExternal(
     @Embedded
@@ -41,7 +41,7 @@ data class CompletoriumExternal(
 fun CompletoriumExternal.asExternalModel(): Universalis {
     val extModel = universalis.asExternalModel()
     val conclusion = ConclusioCompletorium(nightPrayer.virgin.virginEntity.asExternalModel())
-    val breviarium = LHCompletorium(
+    val breviarium = BreviariumCompletorium(
         nightPrayer.kyrie.entity.asExternalModel(),
         nightPrayer.hymnus.himno.asExternalModel(),
         nightPrayer.asExternalModelPsalmodia(),

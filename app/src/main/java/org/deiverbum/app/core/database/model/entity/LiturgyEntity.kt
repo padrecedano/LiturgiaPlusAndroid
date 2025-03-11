@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import org.deiverbum.app.core.model.data.Liturgy
+import org.deiverbum.app.core.model.liturgia.Liturgy
 
 /**
  * Entidad para la tabla **`liturgy`** de la base de datos, que se ocupa de gestionar la Liturgia.

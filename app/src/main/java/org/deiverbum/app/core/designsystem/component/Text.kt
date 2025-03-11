@@ -2,12 +2,12 @@ package org.deiverbum.app.core.designsystem.component
 
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,6 +35,7 @@ import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.engawapg.lib.zoomable.rememberZoomState
 import net.engawapg.lib.zoomable.zoomable
@@ -44,13 +45,28 @@ import org.deiverbum.app.core.designsystem.theme.getPersonalizedTypography
 import org.deiverbum.app.core.model.data.UserData
 import org.deiverbum.app.core.model.data.UserDataDynamic
 import org.deiverbum.app.util.AudioHelper
-import org.deiverbum.app.util.Constants.PRECES_IL
 import org.deiverbum.app.util.Constants.PRECES_R
 import org.deiverbum.app.util.LiturgyHelper.Companion.R
 import org.deiverbum.app.util.LiturgyHelper.Companion.V
-import org.deiverbum.app.util.Utils
 import org.deiverbum.app.util.Utils.getFormato
+import org.deiverbum.app.util.marksAndHtml
 import org.deiverbum.app.util.replaceChars
+
+@Composable
+fun TextSmall(text: String, userData: UserDataDynamic, style: TextStyle) {
+    val typography = getPersonalizedTypography(userData.fontSize)
+    val textFinal = buildAnnotatedString {
+        withStyle(SpanStyle(fontSize = typography.bodySmall.fontSize)) {
+            append(text)
+        }
+    }
+    Text(
+        text = textFinal,
+        style = style,
+        fontSize = typography.bodySmall.fontSize,
+        fontWeight = FontWeight.Light
+    )
+}
 
 fun textSmall(text: String, userData: UserDataDynamic): AnnotatedString {
     val typography = getPersonalizedTypography(userData.fontSize)
@@ -74,9 +90,43 @@ fun textSmall(text: String, userData: UserDataDynamic): AnnotatedString {
     }
 }
 
-fun textRubric(text: String, rubricColor: Color, fontSize: TextUnit): AnnotatedString {
+@Composable
+fun textSmalll(text: String, userData: UserDataDynamic) {
+    val typography = getPersonalizedTypography(userData.fontSize)
+    val paragraphStyle = ParagraphStyle(
+        platformStyle = PlatformParagraphStyle(includeFontPadding = false),
+        lineHeightStyle = LineHeightStyle(
+            alignment = LineHeightStyle.Alignment.Bottom,
+            trim = LineHeightStyle.Trim.LastLineBottom
+        )
+    )
+    val text = buildAnnotatedString {
+        withStyle(style = paragraphStyle) {
+            withStyle(
+                SpanStyle(
+                    fontSize = typography.bodySmall.fontSize
+                )
+            ) {
+                append(text)
+            }
+        }
+    }
+    Text(text = text, style = typography.bodySmall)
+}
+
+@Composable
+fun textRubric(text: String): AnnotatedString {
     return buildAnnotatedString {
-        withStyle(style = SpanStyle(color = rubricColor, fontSize = fontSize)) {
+        withStyle(spanRubric()) {
+            append(text)
+        }
+    }
+}
+
+@Composable
+fun textusRubrica(text: String): AnnotatedString {
+    return buildAnnotatedString {
+        withStyle(SpanStyle(color = MaterialTheme.colorScheme.error)) {
             append(text)
         }
     }
@@ -121,131 +171,97 @@ fun transformEpigraphAudio(text: String): AnnotatedString {
     }
 }
 
+
+fun textFromHtml(data: String): AnnotatedString {
+    return buildAnnotatedString {
+        //pushStyle(normalStyle(fontSize = fontSize))
+        append(AnnotatedString.fromHtml(getFormato(data)))
+    }
+}
+
 /**
- * Formatea el texto litúrgico según la convención de marcado.
- * Método adaptado para Jetpack Compose.
- *
- * @since 2025.1
+ * Método específico para aquellos textos que puedan tener
+ * etiquetas HTML o elementos del marcado personalizado,
+ * por ejemplo, la primera lectura del Oficio.
+ * En este caso se sustituyen las etiquetas <p> por saltos de línea.
+ * Aquí no entra el formato, por ejemplo en el caso del Salmo Responsorial
+ * (ver para ese caso [textFromHtml]
  */
-
-fun transformText(text: String, fontSize: TextUnit, color: Color) = buildAnnotatedString {
-    pushStyle(SpanStyle(fontSize = fontSize))
-
-    text.forEach { c ->
-        when (c) {
-            '℣', '℟' -> withStyle(SpanStyle(color = color)) { append(c) }
-            '†' -> {
-                withStyle(SpanStyle(color = color)) { append(c) }
-                append(" ")
-            }
-
-            '⟨' -> {
-                withStyle(SpanStyle(fontSize = fontSize, color = color)) { append("(") }
-            }
-
-            '⟩' -> {
-                withStyle(SpanStyle(fontSize = fontSize, color = color)) { append(")") }
-            }
-
-            'Ɽ' -> {
-                withStyle(SpanStyle(fontSize = fontSize, color = color)) { append("R. ") }
-            }
-
-            '¦' -> append("\t")
-            '≀', '~', '_' -> append("\n\t\t")
-            '§' -> append("\n\n")
-            else -> append(c)
-        }
-    }
+@Composable
+fun TextFromHtmlWithMarks(data: String, style: TextStyle) {
+    Text(text = AnnotatedString.fromHtml(data.marksAndHtml()), style = style)
 }
 
-fun transformTextMixtus(text: String, fontSize: TextUnit): AnnotatedString {
-    val map = mapOf(
-        "<p>" to "", "<P>" to "", "</p>" to "\n" +
-                "\n", "</P>" to "\n\n"
-    )
-    var result = text
-    map.forEach { t, u -> result = result.replace(t, u) }
-    return (transformText(result, fontSize, Color.Black))
-}
-
-fun stringFromHtml(text: String): String {
-    return Utils.fromHtml(text).toString()
-}
-
-fun textMultiColor(texts: List<String>, fontSize: TextUnit, color: Color): AnnotatedString {
+fun textFromHtmlWithMarks(data: String): AnnotatedString {
     return buildAnnotatedString {
-        pushStyle(normalStyle(fontSize = fontSize))
-        append(texts[0])
-        append("   ")
-        withStyle(style = SpanStyle(color = color)) {
-            append(texts[1])
-        }
+        //pushStyle(normalStyle(fontSize = fontSize))
+        append(AnnotatedString.fromHtml(data.marksAndHtml()))
     }
 }
 
-fun textFromHtml(data: String, fontSize: TextUnit): AnnotatedString {
-    var annotatedString: AnnotatedString = buildAnnotatedString {
-        pushStyle(normalStyle(fontSize = fontSize))
-        append(AnnotatedString.fromHtml(getFormato(data)))
-    }
-    return annotatedString//AnnotatedString.fromHtml(annotatedString)
-}
-
-fun readFromHtml(data: String): AnnotatedString {
-    var annotatedString: AnnotatedString = buildAnnotatedString {
-        append(AnnotatedString.fromHtml(getFormato(data)))
-    }
-    return annotatedString//AnnotatedString.fromHtml(annotatedString)
-}
-
-fun textVR(texts: List<String>, rubricColor: Color, fontSize: TextUnit): AnnotatedString {
+fun textFromHtmlAudio(data: String): AnnotatedString {
     return buildAnnotatedString {
-        pushStyle(SpanStyle(fontSize = fontSize))
+        append(AnnotatedString.fromHtml(transformStringAudio(data)))
+    }
+}
 
-        withStyle(style = SpanStyle(color = rubricColor)) {
+@Composable
+fun textVR(texts: List<String>): AnnotatedString {
+    return buildAnnotatedString {
+        withStyle(style = spanRubric()) {
             append(V)
         }
         append(" ${texts[0]}\n")
-
-        withStyle(style = SpanStyle(color = rubricColor)) {
+        withStyle(style = spanRubric()) {
             append(R)
         }
-
         append(" ${texts[1]}")
-
     }
 }
 
-fun textWithV(text: String, rubricColor: Color, fontSize: TextUnit): AnnotatedString {
+@Composable
+fun TextVR(texts: List<String>, style: TextStyle) {
+    val text = buildAnnotatedString {
+        withStyle(style = spanRubric()) {
+            append(V)
+        }
+        append(" ${texts[0]}\n")
+        withStyle(style = spanRubric()) {
+            append(R)
+        }
+        append(" ${texts[1]}")
+    }
+    Text(text = text, style = style)
+}
+
+@Composable
+fun textWithV(text: String): AnnotatedString {
     return buildAnnotatedString {
-        pushStyle(SpanStyle(fontSize = fontSize))
-        withStyle(style = SpanStyle(color = rubricColor)) {
+        withStyle(style = spanRubric()) {
             append(V)
         }
         append(" $text")
     }
 }
 
-fun textWithR(text: String, rubricColor: Color, fontSize: TextUnit): AnnotatedString {
+@Composable
+fun textWithR(text: String): AnnotatedString {
     return buildAnnotatedString {
-        pushStyle(normalStyle(fontSize = fontSize))
-
-        withStyle(style = SpanStyle(color = rubricColor)) {
+        withStyle(style = spanRubric()) {
             append(R)
         }
         append(" $text")
     }
 }
 
-fun textSpaced(texts: List<String>, fontSize: TextUnit): AnnotatedString {
+fun textSpaced(texts: List<String>): AnnotatedString {
     val paragraphStyle = ParagraphStyle(textIndent = TextIndent(restLine = 12.sp))
     return buildAnnotatedString {
-        pushStyle(normalStyle(fontSize = fontSize))
+        //pushStyle(normalStyle(fontSize = fontSize))
         texts.forEach {
             withStyle(style = paragraphStyle) {
                 append(it)
-                append("\n")
+                //append("\n")
             }
         }
     }
@@ -274,8 +290,29 @@ fun textParagraph(text: String): AnnotatedString {
     }
 }
 
+fun textDefaultt(text: String, userData: UserDataDynamic): AnnotatedString {
+    val t = userData.fontSize
+    val typography = getPersonalizedTypography(userData.fontSize)
+    val def = typography.bodyLarge
+
+    return buildAnnotatedString {
+        withStyle(style = ParagraphStyle(lineHeight = def.lineHeight)) {
+
+            withStyle(
+                SpanStyle(
+                    fontSize = def.fontSize,
+                )
+            ) {
+                append(text)
+            }
+        }
+    }
+}
+
 fun textDefault(text: String, fontSize: TextUnit): AnnotatedString {
     return buildAnnotatedString {
+        //withStyle(style = ParagraphStyle(lineHeight = fontSize)) {
+
         withStyle(
             SpanStyle(
                 fontSize = fontSize,
@@ -283,14 +320,15 @@ fun textDefault(text: String, fontSize: TextUnit): AnnotatedString {
         ) {
             append(text)
         }
+        //}
     }
 }
 
-fun textDefaultItalic(text: String, fontSize: TextUnit): AnnotatedString {
+fun textDefaultItalic(text: String): AnnotatedString {
     return buildAnnotatedString {
         withStyle(
             SpanStyle(
-                fontSize = fontSize,
+                //fontSize = fontSize,
                 fontStyle = FontStyle.Italic
             )
         ) {
@@ -300,26 +338,12 @@ fun textDefaultItalic(text: String, fontSize: TextUnit): AnnotatedString {
 }
 
 
-fun textSpan(text: String, fontSize: TextUnit): AnnotatedString {
-    return buildAnnotatedString {
-        pushStyle(normalStyle(fontSize = fontSize))
-        append(text)
-    }
-}
-
 fun textLines(lines: Int = 1, fontSize: TextUnit): AnnotatedString {
     return buildAnnotatedString {
         pushStyle(normalStyle(fontSize = fontSize))
         repeat(lines) {
             append("\n")
         }
-    }
-}
-
-fun textBody(text: String): AnnotatedString {
-    return buildAnnotatedString {
-        //withStyle(style = ParagraphStyle(lineHeight = TextUnit.Unspecified)) {}
-        append(text)
     }
 }
 
@@ -331,19 +355,6 @@ fun textFromList(text: List<String>): AnnotatedString {
         }
         //withStyle(style = ParagraphStyle(lineHeight = TextUnit.Unspecified)) {}
         //append(text)
-    }
-}
-
-fun textSpan(text: AnnotatedString, userData: UserDataDynamic): AnnotatedString {
-    val typography = getPersonalizedTypography(userData.fontSize)
-    return buildAnnotatedString {
-        /*withStyle(
-            SpanStyle(
-                fontSize = typography.bodyLarge.fontSize
-            )
-        ) */
-        append(text)
-
     }
 }
 
@@ -417,125 +428,19 @@ fun ZoomableText(text: AnnotatedString, userData: UserData) {
     val zoomState = rememberTransformableState { zoomChange, _, _ ->
         textScale *= zoomChange
     }
-    var fontSize = userData.dynamic.fontSize.key.toInt()
+    val fontSize = userData.dynamic.fontSize.key.toInt()
     //var fontSizee=userData.dynamic.fontSize.
 
 
     Text(
         modifier = Modifier
             .fillMaxSize()
-            .transformable(state = zoomState, lockRotationOnZoomPan = true)
-            .verticalScroll(rememberScrollState()),
+            .transformable(state = zoomState, lockRotationOnZoomPan = true),
+        //.verticalScroll(rememberScrollState()),
         text = text,//LoremIpsum(2000).values.joinToString(),
         fontSize = (textScale * fontSize).sp,  // set base text size as needed
         lineHeight = (textScale * fontSize).sp  // should be same or more than fontSize
     )
-}
-
-@Composable
-fun ZoomableTextOld(text: AnnotatedString) {
-
-    var textScale by remember { mutableFloatStateOf(1f) }
-    val zoomState = rememberTransformableState { zoomChange, _, _ ->
-        textScale *= zoomChange
-    }
-    val scroll = rememberScrollState(0)
-
-
-    Text(
-        modifier = Modifier
-            .fillMaxSize()
-            .horizontalScroll(scroll)
-
-            .transformable(state = zoomState),
-        text = text,//LoremIpsum(2000).values.joinToString(),
-        fontSize = (textScale * 16).sp,  // set base text size as needed
-        lineHeight = (textScale * 16).sp  // should be same or more than fontSize
-    )
-}
-
-@Composable
-fun ZoomableBox(text: AnnotatedString) {
-    var textScale by remember { mutableFloatStateOf(1f) }
-    val zoomState = rememberTransformableState { zoomChange, _, _ ->
-        textScale *= zoomChange
-    }
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .transformable(state = zoomState)
-    ) {
-        Text(
-            modifier = Modifier
-                .fillMaxSize()
-                .transformable(state = zoomState),
-            text = text,//LoremIpsum(2000).values.joinToString(),
-            fontSize = (textScale * 16).sp,  // set base text size as needed
-            //lineHeight = (textScale * 16).sp  // should be same or more than fontSize
-        )
-    }
-}
-
-/**
- * Formatea el texto litúrgico según la convención de marcado.
- * Método adaptado para Jetpack Compose.
- *
- * @since 2025.1
- */
-
-fun transformBodyText(text: String, rubricColor: Color, fontSize: TextUnit) = buildAnnotatedString {
-    pushStyle(normalStyle(fontSize = fontSize))
-
-    text.forEach { c ->
-
-        when (c) {
-            '¦' -> {
-                withStyle(SpanStyle(fontSize = fontSize)) { append("\t") }
-            }
-
-            '≀', '_' -> {
-                withStyle(SpanStyle(fontSize = fontSize)) { append("\n\t\t") }
-            }
-
-            '§' -> {
-                withStyle(SpanStyle(fontSize = fontSize)) { append("\n\n") }
-            }
-
-            '~' -> {
-                withStyle(SpanStyle(fontSize = fontSize)) { append("\n") }
-            }
-
-            '⊣' -> {
-                withStyle(SpanStyle(fontSize = fontSize)) { append("\n\t\t") }
-            }
-
-            '≠' -> {
-                withStyle(SpanStyle(fontSize = fontSize)) { append("\n\t\t") }
-                withStyle(SpanStyle(fontSize = fontSize, color = rubricColor)) { append(PRECES_R) }
-            }
-
-            'ƞ' -> {
-                append(" ")
-                withStyle(SpanStyle(fontSize = fontSize, color = rubricColor)) { append("N.") }
-                append(" ")
-            }
-
-            '∞' -> {
-                withStyle(SpanStyle(fontSize = fontSize)) { append("\n\n") }
-                withStyle(SpanStyle(color = rubricColor, fontSize = fontSize)) {
-                    append(PRECES_IL)
-                }
-                withStyle(SpanStyle(fontSize = fontSize)) {
-                    append("\n\n")
-                }
-            }
-
-            else ->
-                withStyle(SpanStyle(fontSize = fontSize)) {
-                    append(c)
-                }
-        }
-    }
 }
 
 
@@ -560,24 +465,150 @@ fun textForAudio(text: String): AnnotatedString {
  * @since 2025.1
  */
 
-fun transformTextAudio(text: String) = buildAnnotatedString {
-    append(
-        text.replaceChars(AudioHelper.charsToReplace)
-        /*text
-            .replace("℣","")
-            .replace("℟","")
-            .replace("†","")
-            .replace("⟨","")
-            .replace("⟩","")
-            .replace("Ɽ","")
-            .replace("¦","")
-            .replace("⟩","")
-            .replace("⟩","")
-            .replace("⟩","")
-            .replace("⟩","")*/
+@Composable
+fun transformBodyText(text: String) = buildAnnotatedString {
+    //withStyle(style = ParagraphStyle(lineHeight = fontSize)) {
+    text.forEach { c ->
+        when (c) {
+            '¦' -> {
+                append("\t")
+            }
 
+            '≀', '_', '~', '⊣' -> {
+                append("\n\t\t")
+            }
 
-    )
+            '§' -> {
+                append("\n\n")
+            }
 
+            '≠' -> {
+                append("\n\t\t")
+                withStyle(spanRubric()) { append(PRECES_R) }
+            }
 
+            'ƞ' -> {
+                append(" ")
+                withStyle(spanRubric()) { append("N.") }
+                append(" ")
+            }
+
+            /*'∞' -> {
+                withStyle(SpanStyle(fontSize = fontSize)) { append("\n\n") }
+                withStyle(SpanStyle(color = rubricColor, fontSize = fontSize)) {
+                    append(PRECES_IL)
+                }
+                withStyle(SpanStyle(fontSize = fontSize)) {
+                    append("\n\n")
+                }
+            }*/
+            '℣', '℟' -> withStyle(spanRubric()) { append(c) }
+            '†' -> {
+                withStyle(spanRubric()) { append(c) }
+                append(" ")
+            }
+
+            '⟨' -> {
+                withStyle(spanRubric()) { append("(") }
+            }
+
+            '⟩' -> {
+                withStyle(spanRubric()) { append(")") }
+            }
+
+            'Ɽ' -> {
+                withStyle(spanRubric()) { append("R. ") }
+            }
+
+            else -> {
+                append(c)
+            }
+        }
+    }
+    //}
 }
+
+/**
+ * Crea dos elementos `Text`, el primero pegado al margen izquierdo, y el segundo al margen derecho.
+ * Se usa el parámetro `colorCode` para determinar qué combinación de colores tendrán los textos:
+ * - `0` Ambos en rojo
+ * - `1` Ambos en negro
+ * - `2` El primero en rojo, el segundo en negro
+ * - `3` El primero en negro, el segundo en rojo
+ */
+@Composable
+fun TextLeftRight(texts: List<String>, style: TextStyle, colorCode: Int) {
+    val first = AnnotatedString.Builder()
+    val second = AnnotatedString.Builder()
+    when (colorCode) {
+        0 -> {
+            first.withStyle(spanRubric()) { append(texts[0]) }
+            second.withStyle(spanRubric()) { append(texts[1]) }
+        }
+
+        1 -> {
+            first.append(texts[0])
+            second.append(texts[1])
+        }
+
+        2 -> {
+            first.withStyle(spanRubric()) { append(texts[1]) }
+            second.append(texts[0])
+        }
+
+        3 -> {
+            first.append(texts[0])
+            second.withStyle(spanRubric()) { append(texts[1]) }
+        }
+
+        else -> {
+            first.append(texts[0])
+            second.append(texts[1])
+        }
+    }
+
+    Row {
+        Text(
+            modifier = Modifier
+                .weight(1f)
+                .padding(top = 16.dp, bottom = 8.dp),
+            text = first.toAnnotatedString(),
+            style = style
+        )
+        Text(
+            modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
+            text = second.toAnnotatedString(),
+            style = style
+        )
+    }
+}
+
+/**
+ * Formatea el texto litúrgico según la convención de marcado.
+ * Método adaptado para Jetpack Compose.
+ *
+ * @param text Una cadena con el texto a transformar.
+ * @return Un objeto [AnnotatedString] con el texto transformado.
+ *
+ * @since 2025.1
+ */
+
+fun transformTextAudio(text: String) = buildAnnotatedString {
+    append(text.replaceChars(AudioHelper.charsToReplace))
+}
+
+/**
+ * Formatea el texto litúrgico según la convención de marcado.
+ * Método adaptado para Jetpack Compose.
+ * Se usa para los textos que pueden tener carácteres de marcado,
+ * o bien etiquetas HTML, como las lecturas bíblicas por ejemplo.
+ *
+ * @param text Una cadena con el texto a transformar.
+ * @return Un objeto [String] con el texto transformado.
+ *
+ * @since 2025.1
+ */
+
+fun transformStringAudio(text: String) = text.replaceChars(AudioHelper.charsToReplace)
+
+

@@ -10,13 +10,13 @@ import org.deiverbum.app.core.database.model.relation.LiturgyTimeAssoc
 import org.deiverbum.app.core.database.model.relation.MassReadingWithComments
 import org.deiverbum.app.core.database.model.relation.asExternalModel
 import org.deiverbum.app.core.database.model.relation.asExternalModelNew
-import org.deiverbum.app.core.model.data.BibleComment
-import org.deiverbum.app.core.model.data.BibleCommentList
-import org.deiverbum.app.core.model.data.BiblicaWithComments
-import org.deiverbum.app.core.model.data.Commentarii
-import org.deiverbum.app.core.model.data.Liturgy
-import org.deiverbum.app.core.model.data.Missae
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.data.missae.Missae
+import org.deiverbum.app.core.model.data.traditio.BibleComment
+import org.deiverbum.app.core.model.data.traditio.BibleCommentList
+import org.deiverbum.app.core.model.data.traditio.BiblicaWithComments
+import org.deiverbum.app.core.model.data.traditio.Commentarii
+import org.deiverbum.app.core.model.liturgia.Liturgy
+import org.deiverbum.app.core.model.universalis.Universalis
 
 /**
  * Representación de los Comentarios Bíblicos para la capa de datos externa.

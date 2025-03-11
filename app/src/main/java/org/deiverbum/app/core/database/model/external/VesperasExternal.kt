@@ -20,11 +20,11 @@ import org.deiverbum.app.core.database.model.relation.LHPsalmsAssoc
 import org.deiverbum.app.core.database.model.relation.LHReadingShortAll
 import org.deiverbum.app.core.database.model.relation.LiturgyTimeAssoc
 import org.deiverbum.app.core.database.model.relation.asExternalModel
-import org.deiverbum.app.core.model.data.Breviarium
-import org.deiverbum.app.core.model.data.LHPsalmody
-import org.deiverbum.app.core.model.data.LHVesperas
-import org.deiverbum.app.core.model.data.Liturgy
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.data.breviarium.Breviarium
+import org.deiverbum.app.core.model.data.breviarium.BreviariumVesperas
+import org.deiverbum.app.core.model.data.breviarium.LHPsalmody
+import org.deiverbum.app.core.model.liturgia.Liturgy
+import org.deiverbum.app.core.model.universalis.Universalis
 
 /**
  * Representación de Vísperas para la capa de datos externa.
@@ -33,7 +33,7 @@ import org.deiverbum.app.core.model.data.Universalis
  * @version 1.0
  * @since 2025.1
  * @see Breviarium
- * @see LHVesperas
+ * @see BreviariumVesperas
  */
 data class VesperasExternal(
     @Embedded
@@ -107,7 +107,7 @@ fun VesperasExternal.asExternalModel(): Universalis {
             liturgiaAssoc.parent.dia,
             liturgiaAssoc.parent.nombre,
             liturgiaAssoc.entity.asExternalModel(),
-            LHVesperas(
+            BreviariumVesperas(
                 universalis.hasSaint == 1,
                 hymnus.entity.asExternalModel(),
                 LHPsalmody(

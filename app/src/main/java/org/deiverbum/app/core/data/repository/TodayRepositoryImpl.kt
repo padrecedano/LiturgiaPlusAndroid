@@ -1,8 +1,8 @@
 package org.deiverbum.app.core.data.repository
 
 import org.deiverbum.app.core.data.factory.TodayFactory
-import org.deiverbum.app.core.model.TodayRequest
-import org.deiverbum.app.core.model.UniversalisResponse
+import org.deiverbum.app.core.model.data.TodayRequest
+import org.deiverbum.app.core.model.universalis.UniversalisResponse
 import org.deiverbum.app.util.Source
 import javax.inject.Inject
 

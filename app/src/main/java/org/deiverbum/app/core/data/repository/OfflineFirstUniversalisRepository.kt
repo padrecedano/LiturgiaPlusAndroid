@@ -22,8 +22,8 @@ import org.deiverbum.app.core.database.model.external.UniversalisExternal
 import org.deiverbum.app.core.database.model.external.VesperasExternal
 import org.deiverbum.app.core.database.model.external.asExternalModel
 import org.deiverbum.app.core.datastore.ChangeListVersions
-import org.deiverbum.app.core.model.data.Universalis
-import org.deiverbum.app.core.model.data.UniversalisResourceQuery
+import org.deiverbum.app.core.model.universalis.Universalis
+import org.deiverbum.app.core.model.universalis.UniversalisResourceQuery
 import org.deiverbum.app.core.network.NiaNetworkDataSource
 import org.deiverbum.app.util.DateTimeUtil
 import org.deiverbum.app.util.Utils

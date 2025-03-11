@@ -3,8 +3,8 @@ package org.deiverbum.app.core.domain
 import kotlinx.coroutines.flow.first
 import org.deiverbum.app.core.data.repository.LocalFileRepository
 import org.deiverbum.app.core.data.repository.UserDataRepository
-import org.deiverbum.app.core.model.FileRequestt
-import org.deiverbum.app.core.model.NewFileResponse
+import org.deiverbum.app.core.model.data.FileRequestt
+import org.deiverbum.app.core.model.data.NewFileResponse
 import javax.inject.Inject
 
 /**

@@ -6,7 +6,7 @@ import org.deiverbum.app.core.database.model.entity.RosariumMysteriumEntity
 import org.deiverbum.app.core.database.model.entity.RosariumSeriesEntity
 import org.deiverbum.app.core.database.model.entity.RosariumSeriesMysteriumEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.RosariumMysteriumOrdo
+import org.deiverbum.app.core.model.data.alteri.RosariumMysteriumOrdo
 
 /**
  * @author A. Cedano

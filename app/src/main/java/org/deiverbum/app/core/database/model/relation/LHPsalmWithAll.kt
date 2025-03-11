@@ -6,7 +6,7 @@ import org.deiverbum.app.core.database.model.entity.EpigraphEntity
 import org.deiverbum.app.core.database.model.entity.LHPsalmEntity
 import org.deiverbum.app.core.database.model.entity.LHPsalmJoinEntity
 import org.deiverbum.app.core.database.model.entity.LHThemeEntity
-import org.deiverbum.app.core.model.data.LHPsalm
+import org.deiverbum.app.core.model.data.breviarium.LHPsalm
 
 /**
  * Obtiene todos los componentes del salmo, asociando [LHPsalmJoinEntity] con sus entidades relacionadas

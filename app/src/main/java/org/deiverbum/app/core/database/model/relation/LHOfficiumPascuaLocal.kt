@@ -5,15 +5,15 @@ import androidx.room.Relation
 import org.deiverbum.app.core.database.model.entity.LHEasterBiblicalEntity
 import org.deiverbum.app.core.database.model.entity.LHEasterBiblicalJoinEntity
 import org.deiverbum.app.core.database.model.entity.UniversalisEntity
-import org.deiverbum.app.core.model.data.LHAntiphon
-import org.deiverbum.app.core.model.data.LHOfficeBiblicalEaster
-import org.deiverbum.app.core.model.data.LHOfficiumPascua
-import org.deiverbum.app.core.model.data.LHPsalm
-import org.deiverbum.app.core.model.data.LHPsalmody
-import org.deiverbum.app.core.model.data.Liturgy
-import org.deiverbum.app.core.model.data.LiturgyTime
-import org.deiverbum.app.core.model.data.Oratio
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.data.breviarium.LHAntiphon
+import org.deiverbum.app.core.model.data.breviarium.LHOfficeBiblicalEaster
+import org.deiverbum.app.core.model.data.breviarium.LHOfficiumPascua
+import org.deiverbum.app.core.model.data.breviarium.LHPsalm
+import org.deiverbum.app.core.model.data.breviarium.LHPsalmody
+import org.deiverbum.app.core.model.liturgia.Liturgy
+import org.deiverbum.app.core.model.liturgia.LiturgyTime
+import org.deiverbum.app.core.model.liturgia.Oratio
+import org.deiverbum.app.core.model.universalis.Universalis
 import org.deiverbum.app.util.Constants.PASCUA_TIMEID
 
 /**

@@ -3,8 +3,8 @@ package org.deiverbum.app.core.domain
 import kotlinx.coroutines.flow.Flow
 import org.deiverbum.app.core.data.repository.UniversalisRepository
 import org.deiverbum.app.core.data.repository.UserDataRepository
-import org.deiverbum.app.core.model.data.Universalis
-import org.deiverbum.app.core.model.data.UniversalisResource
+import org.deiverbum.app.core.model.universalis.Universalis
+import org.deiverbum.app.core.model.universalis.UniversalisResource
 import javax.inject.Inject
 
 /**

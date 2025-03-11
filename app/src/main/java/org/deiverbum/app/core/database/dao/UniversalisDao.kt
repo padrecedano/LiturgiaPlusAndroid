@@ -39,7 +39,7 @@ import org.deiverbum.app.core.database.model.external.SextamExternal
 import org.deiverbum.app.core.database.model.external.TertiamExternal
 import org.deiverbum.app.core.database.model.external.UniversalisExternal
 import org.deiverbum.app.core.database.model.external.VesperasExternal
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.universalis.Universalis
 
 /**
  * DAO para acceder a [UniversalisEntity]

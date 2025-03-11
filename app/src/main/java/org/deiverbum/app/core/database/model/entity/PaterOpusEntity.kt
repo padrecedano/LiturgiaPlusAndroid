@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import org.deiverbum.app.core.model.data.PaterOpus
+import org.deiverbum.app.core.model.data.traditio.PaterOpus
 import org.deiverbum.app.util.Constants
 
 /**

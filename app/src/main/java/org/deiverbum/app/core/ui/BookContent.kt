@@ -75,7 +75,7 @@ fun bookRender(
                 }
                 if (data.bookType == 21) {
                     append("\t\t")
-                    append(textRubric("${c.id}.- ", rubricColor, fontSize))
+                    append(textRubric("${c.id}.- "))
                 }
                 append(
                     contentByType(

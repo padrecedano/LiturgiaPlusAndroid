@@ -1,37 +1,36 @@
 package org.deiverbum.app.core.ui
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
+import org.deiverbum.app.core.designsystem.component.TextLeftRight
 import org.deiverbum.app.core.designsystem.component.TextZoomable
 import org.deiverbum.app.core.designsystem.component.getRubricColor
-import org.deiverbum.app.core.designsystem.component.textFromHtml
-import org.deiverbum.app.core.designsystem.component.textLines
-import org.deiverbum.app.core.designsystem.component.textParagraph
+import org.deiverbum.app.core.designsystem.component.textFromHtmlWithMarks
 import org.deiverbum.app.core.designsystem.component.textRubric
-import org.deiverbum.app.core.designsystem.component.textSpaced
-import org.deiverbum.app.core.designsystem.component.textSpan
-import org.deiverbum.app.core.designsystem.component.transformText
-import org.deiverbum.app.core.designsystem.theme.NiaTypography
-import org.deiverbum.app.core.model.data.Commentarii
-import org.deiverbum.app.core.model.data.Homily
-import org.deiverbum.app.core.model.data.Missae
-import org.deiverbum.app.core.model.data.MissaeLectionum
-import org.deiverbum.app.core.model.data.MissaeLectionumList
+import org.deiverbum.app.core.designsystem.component.textusRubrica
+import org.deiverbum.app.core.designsystem.component.transformBodyText
+import org.deiverbum.app.core.designsystem.theme.getPersonalizedTypography
 import org.deiverbum.app.core.model.data.UserData
 import org.deiverbum.app.core.model.data.UserDataDynamic
+import org.deiverbum.app.core.model.data.missae.Missae
+import org.deiverbum.app.core.model.data.missae.MissaeLectionum
+import org.deiverbum.app.core.model.data.missae.MissaeLectionumList
+import org.deiverbum.app.core.model.data.traditio.Commentarii
+import org.deiverbum.app.core.model.data.traditio.Homily
 import org.deiverbum.app.util.Constants
 import org.deiverbum.app.util.Utils
 
@@ -49,198 +48,111 @@ import org.deiverbum.app.util.Utils
  */
 
 
-@OptIn(ExperimentalStdlibApi::class)
-@ExperimentalMaterial3Api
+//@OptIn(ExperimentalStdlibApi::class)
+//@ExperimentalMaterial3Api
 @Composable
-fun MissaeLectionumScreen(
+fun MissaeLectionumContent(
     data: Missae,
     userData: UserData,
-    onTap: (Offset) -> Unit,
     fontSize: TextUnit
 ) {
-
-    val rubricColorr = getRubricColor(userData = userData.dynamic)
     val rubricColor = MaterialTheme.colorScheme.error
-    val asb = AnnotatedString.Builder()
-    Column {
-        val onTap = { point: Offset -> }
+    val typography = getPersonalizedTypography(userData.dynamic.fontSize)
+    val bodyStyle: TextStyle = typography.bodyLarge
+    val text = buildAnnotatedString {
         if (data.lectionumList != null) {
             data.lectionumList!!.sort()
-            //asb.append(contentTitle("Test",1,userData.dynamic,rc,true))
-            asb.append(lectionumList(data.lectionumList!!, userData.dynamic, rubricColor, fontSize))
-            TextZoomable(
-                onTap = onTap,
-                text = asb.toAnnotatedString()
+            append(
+                lectionumList(
+                    data.lectionumList!!,
+                    userData.dynamic,
+                    rubricColor,
+                    bodyStyle
+                )
             )
         }
     }
+    Text(text = text, style = bodyStyle)
 }
 
-private fun AnnotatedString.Builder.appendStyledContentt(
-    content: String,
-    shouldAddSpacing: Boolean,
-    rubricColor: Color
-) {
-    var currentIndex = 0
-    val regex = """<(/?strong|/?em|/?b|/?i|)>""".toRegex()
-    val matches = regex.findAll(content).toList()
-    val newContent = if (shouldAddSpacing) content + "\n" else content
-    if (matches.isEmpty()) {
-        append(newContent)
-        return
-    }
-    matches.forEach { match ->
-        val matchStart = match.range.first
-        if (matchStart > currentIndex) {
-            append(newContent.substring(currentIndex, matchStart))
-        }
-
-        currentIndex = match.range.last + 1
-        when (match.value) {
-            "<strong>", "<b>" -> pushStyle(SpanStyle(fontWeight = FontWeight.Bold))
-            "</strong>", "</b>" -> pop()
-            "<em>", "<i>" -> pushStyle(SpanStyle(fontStyle = FontStyle.Italic))
-            "</em>", "</i>" -> pop()
-            /*"℣", "℟" -> {
-                pushStyle(SpanStyle(color = rubricColor))
-            }*/
-        }
-    }
-
-    if (currentIndex < newContent.length) {
-        append(newContent.substring(currentIndex))
-    }
-}
-
-@ExperimentalStdlibApi
+@Composable
+///@ExperimentalStdlibApi
 fun lectionumList(
     lectionumList: MissaeLectionumList,
     userData: UserDataDynamic,
     rubricColor: Color,
-    fontSize: TextUnit
-): AnnotatedString {
-    return try {
-        buildAnnotatedString {
-            if (lectionumList.type == -1) {
-                append(Utils.LS)
-                withStyle(
-                    SpanStyle(
-                        fontSize = NiaTypography.titleMedium.fontSize,
-                        color = rubricColor
-                    )
-                ) {
-                    append(Constants.TITLE_MASS_GOSPEL)
-                }
-            }
-            lectionumList.lectionum.forEach {
-                append(
-                    lectioSimplex(
-                        data = it!!,
-                        type = lectionumList.type,
-                        userData = userData,
-                        rubricColor = rubricColor,
-                        fontSize = fontSize
-                    )
-                )
-            }
-        }
-    } catch (e: Exception) {
-        buildAnnotatedString {
-            append(Utils.createErrorMessage(e.message))
-        }
-    }
-}
-
-fun lectioMetadata(
-    data: MissaeLectionum,
-    rubricColor: Color,
-    fontSize: TextUnit
+    style: TextStyle
 ): AnnotatedString {
     return buildAnnotatedString {
-        withStyle(
-            SpanStyle(fontSize = fontSize)
-        ) {
-            append(data.book.liturgyName)
-        }
-        append("    ")
-        withStyle(
-            SpanStyle(
-                color = rubricColor,
-                fontSize = fontSize,
-            )
-        ) {
-            append(data.pericopa)
-        }
-        append(textLines(2, fontSize))
-        if (data.tema != "") {
-            withStyle(SpanStyle(color = rubricColor)) {
-                append(data.tema)
+        if (lectionumList.type == -1) {
+            append(contentSpace(2))
+            withStyle(
+                SpanStyle(
+                    color = rubricColor
+                )
+            ) {
+                append(Constants.TITLE_MASS_GOSPEL)
             }
-            append(textLines(2, fontSize))
+        }
+        lectionumList.lectionum.forEach {
+            lectioSimplex(
+                data = it!!,
+                type = lectionumList.type,
+                userData = userData,
+                style = style
+            )
         }
     }
 }
 
+@Composable
+fun lectioMetadata(
+    data: MissaeLectionum,
+    style: TextStyle
+) {
+    TextLeftRight(
+        texts = listOf(data.book.liturgyName, data.pericopa),
+        style = style,
+        colorCode = 3
+    )
+    Text(
+        modifier = Modifier.padding(top = 5.dp, bottom = 5.dp),
+        text = textusRubrica(data.tema),
+        style = style
+    )
+}
+
+@Composable
 fun lectioSimplex(
     data: MissaeLectionum,
     type: Int,
     userData: UserDataDynamic,
-    rubricColor: Color,
-    fontSize: TextUnit
-): AnnotatedString {
-    var text = AnnotatedString("")
-    return buildAnnotatedString {
+    style: TextStyle
+) {
+    val text = buildAnnotatedString {
         if (type == 0) {
-            text += textLines(2, fontSize)
-
-            text += contentTitle(data.getHeader(type), 2, userData, rubricColor)
-            text += textLines(2, fontSize)
-            text += lectioMetadata(data, rubricColor, fontSize)
-
+            ContentTitle(data.getHeader(type), 2, userData)
+            lectioMetadata(data, style)
             when (data.theOrder) {
-                in 1..19 -> {
-                    text += textFromHtml(data.biblica, fontSize)
-                    text += textLines(2, fontSize)
-                    text += textSpan(data.getConclusio(), fontSize)
+                !in 20..29 -> {
+                    //append("\n\n")
+                    append(textFromHtmlWithMarks(data.biblica).trim())
+                    append("\n\n")
+                    append(data.getConclusio())
                 }
-
-                in 20..29 -> {
-                    //text += textLines(2,fontSize)
-
-                    text += transformText(data.biblica, fontSize, rubricColor)
-                    //text += contentSpace(10)
-                    text += textLines(2, fontSize)
-
-                }
-
-                in 30..39 -> {
-                    text += textFromHtml(data.biblica, fontSize)
-                    //text += textParagraph(data.getConclusio())
-                    text += textLines(2, fontSize)
-                    text += textSpan(data.getConclusio(), fontSize)
-
-                }
-
-                in 40..49 -> {
-                    text += textFromHtml(data.biblica, fontSize)
-                    text += textLines(2, fontSize)
-                    text += textParagraph(data.getConclusio())
-                }
-
                 else -> {
-                    text += textFromHtml(data.biblica, fontSize)
-                    text += textLines(2, fontSize)
-                    text += textParagraph(data.getConclusio())
+                    append(transformBodyText(data.biblica).trim())
+                    //append("\n\n")
                 }
             }
         } else {
-            text += textLines(2, fontSize)
-            text += textFromHtml(data.biblica, fontSize)
-            text += textLines(2, fontSize)
-            text += textSpaced(listOf(data.getConclusio()), fontSize)
+            //append("\n")
+            append(textFromHtmlWithMarks(data.biblica).trim())
+            //append("\n\n")
+            append(data.getConclusio())
         }
-        return text
     }
+    Text(text = text, style = style)
 }
 
 /**
@@ -281,58 +193,44 @@ fun homiliaeHtml(data: Homily): AnnotatedString {
 }
 
 
+@Composable
 fun homiliaeMetadata(data: Homily, fontSize: TextUnit, rubricColor: Color): AnnotatedString {
-    return try {
-        buildAnnotatedString {
-            append(contentTitleForHomily(data.paterOpus.paterForView, 3, rubricColor))
-            append(data.paterOpus.singleName)
-            if (data.tema.isNotEmpty() && data.date > 0) {
-                append(Utils.LS2)
-                append(textRubric(data.tema, rubricColor, fontSize))
-                append(Utils.LS2)
-                append(metaDate(data.date.toString(), fontSize, rubricColor))
-                append(Utils.LS2)
-            }
-            if (data.tema.isNotEmpty() && data.date <= 0) {
-                append(Utils.LS2)
-                append(textRubric(data.tema, rubricColor, fontSize))
-                append(Utils.LS2)
-            }
-            if (data.tema.isEmpty() && data.date > 0) {
-                append(metaDate(data.date.toString(), fontSize, rubricColor))
-                append(Utils.LS2)
-            }
-            if (data.tema.isEmpty() && data.date <= 0) {
-                append(Utils.LS2)
-            }
+    return buildAnnotatedString {
+        append(contentTitleForHomily(data.paterOpus.paterForView, 3, rubricColor))
+        append(data.paterOpus.singleName)
+        if (data.tema.isNotEmpty() && data.date > 0) {
+            append(Utils.LS2)
+            append(textRubric(data.tema))
+            append(Utils.LS2)
+            append(metaDate(data.date.toString(), fontSize, rubricColor))
+            append(Utils.LS2)
         }
-    } catch (e: Exception) {
-        buildAnnotatedString {
-            append(Utils.createErrorMessage(e.message))
+        if (data.tema.isNotEmpty() && data.date <= 0) {
+            append(Utils.LS2)
+            append(textRubric(data.tema))
+            append(Utils.LS2)
+        }
+        if (data.tema.isEmpty() && data.date > 0) {
+            append(metaDate(data.date.toString(), fontSize, rubricColor))
+            append(Utils.LS2)
+        }
+        if (data.tema.isEmpty() && data.date <= 0) {
+            append(Utils.LS2)
         }
     }
 }
 
+@Composable
 fun metaDate(data: String, fontSize: TextUnit, rubricColor: Color): AnnotatedString {
     return textRubric(
         Utils.formatDate(
             data,
             "yyyyMMdd",
             "EEEE d 'de' MMMM 'de' yyyy"
-        ), rubricColor, fontSize
+        )
     )
 
 }
-/**
- * Prepara el contenido de la lista de homilías.
- *
- * @since 2025.1
- *
- * @param homiliaeList Lista de objetos [Homily]
- * @param rubricColor Color para las rúbricas según la configuración del usuario
- * @return Un [AnnotatedString] con todas las homilías
- */
-
 
 /**
  * Pantalla para los Comentarios.

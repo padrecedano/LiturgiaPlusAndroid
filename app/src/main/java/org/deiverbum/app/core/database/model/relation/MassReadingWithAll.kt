@@ -4,7 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import org.deiverbum.app.core.database.model.entity.BibleReadingEntity
 import org.deiverbum.app.core.database.model.entity.MassReadingEntity
-import org.deiverbum.app.core.model.data.MissaeLectionum
+import org.deiverbum.app.core.model.data.missae.MissaeLectionum
 
 /**
  * @author A. Cedano

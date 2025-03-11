@@ -15,7 +15,7 @@ import org.deiverbum.app.core.analytics.AnalyticsEvent
 import org.deiverbum.app.core.analytics.AnalyticsHelper
 import org.deiverbum.app.core.data.repository.UserDataRepository
 import org.deiverbum.app.core.domain.GetUniversalisUseCase
-import org.deiverbum.app.core.model.data.UniversalisResource
+import org.deiverbum.app.core.model.universalis.UniversalisResource
 import org.deiverbum.app.feature.universalis.UniversalisUiState.Loading
 import org.deiverbum.app.feature.universalis.navigation.UniversalisRoute
 import org.deiverbum.app.util.LiturgyHelper

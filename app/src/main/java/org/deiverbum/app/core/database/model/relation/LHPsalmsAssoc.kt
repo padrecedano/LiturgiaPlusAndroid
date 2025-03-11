@@ -4,7 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import org.deiverbum.app.core.database.model.entity.LHPsalmJoinEntity
 import org.deiverbum.app.core.database.model.entity.LHPsalmodyJoinEntity
-import org.deiverbum.app.core.model.data.LHPsalm
+import org.deiverbum.app.core.model.data.breviarium.LHPsalm
 
 /**
  * Obtiene la lista de salmos, asociando a [LHPsalmodyJoinEntity] con [LHPsalmWithAll]

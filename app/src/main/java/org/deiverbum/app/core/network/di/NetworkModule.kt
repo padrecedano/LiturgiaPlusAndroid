@@ -17,16 +17,16 @@ import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.deiverbum.app.BuildConfig
-import org.deiverbum.app.core.model.data.AlteriSanctii
-import org.deiverbum.app.core.model.data.Commentarii
-import org.deiverbum.app.core.model.data.LHCompletorium
-import org.deiverbum.app.core.model.data.LHIntermedia
-import org.deiverbum.app.core.model.data.LHLaudes
-import org.deiverbum.app.core.model.data.LHMixtus
-import org.deiverbum.app.core.model.data.LHOfficium
-import org.deiverbum.app.core.model.data.LHVesperas
-import org.deiverbum.app.core.model.data.LiturgiaTypus
-import org.deiverbum.app.core.model.data.Missae
+import org.deiverbum.app.core.model.data.alteri.AlteriSanctii
+import org.deiverbum.app.core.model.data.breviarium.BreviariumCompletorium
+import org.deiverbum.app.core.model.data.breviarium.BreviariumIntermedia
+import org.deiverbum.app.core.model.data.breviarium.BreviariumLaudes
+import org.deiverbum.app.core.model.data.breviarium.BreviariumMixtus
+import org.deiverbum.app.core.model.data.breviarium.BreviariumOfficium
+import org.deiverbum.app.core.model.data.breviarium.BreviariumVesperas
+import org.deiverbum.app.core.model.data.missae.Missae
+import org.deiverbum.app.core.model.data.traditio.Commentarii
+import org.deiverbum.app.core.model.liturgia.LiturgiaTypus
 import javax.inject.Singleton
 
 /**
@@ -42,15 +42,15 @@ object NetworkModule {
     private val moshi = Moshi.Builder()
         .add(
             PolymorphicJsonAdapterFactory.of(LiturgiaTypus::class.java, "typus")
-                .withSubtype(LHMixtus::class.java, "mixtus")
-                .withSubtype(LHOfficium::class.java, "officium")
-                .withSubtype(LHLaudes::class.java, "laudes")
-                .withSubtype(LHIntermedia::class.java, "intermedia")
-                .withSubtype(LHIntermedia::class.java, "tertiam")
-                .withSubtype(LHIntermedia::class.java, "sextam")
-                .withSubtype(LHIntermedia::class.java, "nonam")
-                .withSubtype(LHVesperas::class.java, "vesperas")
-                .withSubtype(LHCompletorium::class.java, "completorium")
+                .withSubtype(BreviariumMixtus::class.java, "mixtus")
+                .withSubtype(BreviariumOfficium::class.java, "officium")
+                .withSubtype(BreviariumLaudes::class.java, "laudes")
+                .withSubtype(BreviariumIntermedia::class.java, "intermedia")
+                .withSubtype(BreviariumIntermedia::class.java, "tertiam")
+                .withSubtype(BreviariumIntermedia::class.java, "sextam")
+                .withSubtype(BreviariumIntermedia::class.java, "nonam")
+                .withSubtype(BreviariumVesperas::class.java, "vesperas")
+                .withSubtype(BreviariumCompletorium::class.java, "completorium")
                 .withSubtype(Missae::class.java, "lectionum")
                 .withSubtype(Missae::class.java, "homiliae")
                 .withSubtype(Commentarii::class.java, "commentarii")

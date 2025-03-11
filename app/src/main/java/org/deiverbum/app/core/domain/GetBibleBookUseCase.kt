@@ -1,8 +1,8 @@
 package org.deiverbum.app.core.domain
 
 import org.deiverbum.app.core.data.repository.BibleRepository
-import org.deiverbum.app.core.model.BibleBookRequest
-import org.deiverbum.app.core.model.data.BibleBooks
+import org.deiverbum.app.core.model.biblia.BibleBookRequest
+import org.deiverbum.app.core.model.biblia.BibleBooks
 import javax.inject.Inject
 
 /**

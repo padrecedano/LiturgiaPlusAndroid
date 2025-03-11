@@ -34,7 +34,7 @@ import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.launch
-import org.deiverbum.app.core.model.SyncRequest
+import org.deiverbum.app.core.model.sync.SyncRequest
 import org.deiverbum.app.core.presentation.sync.InitialSyncViewModel
 import org.deiverbum.app.core.presentation.sync.SyncItemUiState
 import org.deiverbum.app.core.presentation.sync.SyncViewModel

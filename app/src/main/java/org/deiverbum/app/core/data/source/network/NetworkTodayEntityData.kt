@@ -2,9 +2,9 @@ package org.deiverbum.app.core.data.source.network
 
 import android.util.Log
 import org.deiverbum.app.core.data.source.TodayEntityData
-import org.deiverbum.app.core.model.TodayRequest
-import org.deiverbum.app.core.model.UniversalisResponse
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.data.TodayRequest
+import org.deiverbum.app.core.model.universalis.Universalis
+import org.deiverbum.app.core.model.universalis.UniversalisResponse
 import org.deiverbum.app.core.network.retrofit.RetrofitNiaNetwork
 import org.deiverbum.app.util.LiturgyHelper.Companion.liturgyByTypeLatin
 import org.deiverbum.app.util.Source

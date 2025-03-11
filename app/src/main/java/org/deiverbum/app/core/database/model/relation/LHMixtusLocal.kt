@@ -17,13 +17,13 @@ import org.deiverbum.app.core.database.model.entity.LiturgySaintJoinEntity
 import org.deiverbum.app.core.database.model.entity.MassReadingEntity
 import org.deiverbum.app.core.database.model.entity.UniversalisEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.LHMixtus
-import org.deiverbum.app.core.model.data.LHOfficiumLectionis
-import org.deiverbum.app.core.model.data.LHPsalmody
-import org.deiverbum.app.core.model.data.Liturgy
-import org.deiverbum.app.core.model.data.MissaeLectionum
-import org.deiverbum.app.core.model.data.MissaeLectionumList
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.data.breviarium.BreviariumMixtus
+import org.deiverbum.app.core.model.data.breviarium.LHOfficiumLectionis
+import org.deiverbum.app.core.model.data.breviarium.LHPsalmody
+import org.deiverbum.app.core.model.data.missae.MissaeLectionum
+import org.deiverbum.app.core.model.data.missae.MissaeLectionumList
+import org.deiverbum.app.core.model.liturgia.Liturgy
+import org.deiverbum.app.core.model.universalis.Universalis
 
 /**
  * @author A. Cedano
@@ -130,7 +130,7 @@ fun LHMixtusLocal.asExternalModel(): Universalis {
             evangelii.add(item.asExternalModel())
         }
     }
-    val breviarium = LHMixtus(
+    val breviarium = BreviariumMixtus(
         universalis.hasSaint == 1,
         invitatorium.asExternalModel(),
         hymnus.entity.asExternalModel(),

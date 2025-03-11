@@ -11,11 +11,11 @@ import org.deiverbum.app.core.database.model.relation.LiturgyTimeAssoc
 import org.deiverbum.app.core.database.model.relation.LiturgyWithTime
 import org.deiverbum.app.core.database.model.relation.MassReadingWithAll
 import org.deiverbum.app.core.database.model.relation.asExternalModel
-import org.deiverbum.app.core.model.data.Liturgy
-import org.deiverbum.app.core.model.data.Missae
-import org.deiverbum.app.core.model.data.MissaeLectionum
-import org.deiverbum.app.core.model.data.MissaeLectionumList
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.data.missae.Missae
+import org.deiverbum.app.core.model.data.missae.MissaeLectionum
+import org.deiverbum.app.core.model.data.missae.MissaeLectionumList
+import org.deiverbum.app.core.model.liturgia.Liturgy
+import org.deiverbum.app.core.model.universalis.Universalis
 
 /**
  * Representación de las lecturas de la Misa para la capa de datos externa.

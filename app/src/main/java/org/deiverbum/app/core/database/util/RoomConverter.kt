@@ -3,7 +3,7 @@ package org.deiverbum.app.core.database.util
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import com.squareup.moshi.Moshi
-import org.deiverbum.app.core.model.data.Universalis
+import org.deiverbum.app.core.model.universalis.Universalis
 import javax.inject.Inject
 
 @ProvidedTypeConverter
