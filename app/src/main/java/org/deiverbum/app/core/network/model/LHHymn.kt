@@ -1,7 +1,7 @@
 package org.deiverbum.app.core.network.model
 
 import kotlinx.serialization.Serializable
-import org.deiverbum.app.core.model.data.breviarium.LHHymn
+import org.deiverbum.app.core.model.breviarium.LHHymn
 
 
 /**

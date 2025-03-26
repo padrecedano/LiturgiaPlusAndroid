@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.cic
+package org.deiverbum.app.core.model.cic
 
 
 import android.text.SpannableStringBuilder
@@ -8,7 +8,7 @@ import org.deiverbum.app.util.Utils
 data class Chapter(
     var n: Int = 0,
     var txt: String = "",
-    var numbers: List<Canon>,
+    var numbers: List<Canon>? = null,
 
     ) {
     fun getAllForView(): SpannableStringBuilder {
@@ -17,7 +17,7 @@ data class Chapter(
         ssb.append(Constants.LS)
         ssb.append(Utils.toH4Red(txt))
         ssb.append(Constants.LS2)
-        for (n in numbers) {
+        for (n in numbers!!) {
             ssb.append(n.getForView())
         }
         return ssb

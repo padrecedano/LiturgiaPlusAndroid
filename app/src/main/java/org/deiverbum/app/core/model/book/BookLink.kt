@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.book
+package org.deiverbum.app.core.model.book
 
 /**
  * Clase de datos para enlaces.

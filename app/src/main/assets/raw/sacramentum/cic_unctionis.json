@@ -1,1 +1,113 @@
-{"title":"Unción de los Enfermos: Normativa Canónica","titles":[{"n":5,"txt":"Del Sacramento de la Unción de los Enfermos","intro":[{"type":"body","n":998,"txt":["La unción de los enfermos, con la que la Iglesia encomienda los fieles gravemente enfermos al Señor doliente y glorificado, para que los alivie y salve, se administra ungiéndoles con óleo y diciendo las palabras prescritas en los libros litúrgicos."]}],"content":[{"chapters":[{"n":1,"txt":"De la celebración del Sacramento","numbers":[{"n":999,"type":"bodyAndList","txt":["Además del Obispo, pueden bendecir el óleo que se emplea en la unción de los enfermos:"],"list":["quienes por derecho se equiparan al Obispo diocesano;","en caso de necesidad, cualquier presbítero, pero dentro de la celebración del sacramento."]},{"n":1000,"type":"paragraph","txt":["Las unciones han de hacerse cuidadosamente, con las palabras orden y modo prescritos en los libros litúrgicos; sin embargo, en caso de necesidad, basta una sola unción en la frente, o también en otra parte del cuerpo, diciendo la fórmula completa.","El ministro ha de hacer las unciones con la mano, a no ser que una razón grave aconseje el uso de un instrumento."]},{"n":1001,"type":"body","txt":[" Los pastores de almas y los familiares del enfermo deben procurar que sea reconfortado en tiempo oportuno con este sacramento."]},{"n":1002,"type":"body","txt":["La celebración común de la unción de los enfermos para varios enfermos al mismo tiempo, que estén debidamente preparados y rectamente dispuestos, puede hacerse de acuerdo con las prescripciones del Obispo diocesano."]}]},{"n":2,"txt":"Del ministro de la Unción de los Enfermos","numbers":[{"n":1003,"type":"paragraph","txt":["Todo sacerdote, y sólo él, administra válidamente la unción de los enfermos.","Todos los sacerdotes con cura de almas tienen la obligación y el derecho de administrar la unción de los enfermos a los fieles encomendados a su tarea pastoral; pero, por una causa razonable, cualquier otro sacerdote puede administrar este sacramento, con el consentimiento al menos presunto del sacerdote al que antes se hace referencia.","Está permitido a todo sacerdote llevar consigo el óleo bendito, de manera que, en caso de necesidad, pueda administrar el sacramento de la unción de los enfermos."]}]},{"n":3,"txt":"De aquellos a quienes se ha de administrar la Unción de los Enfermos","numbers":[{"n":1004,"type":"paragraph","txt":["Se puede administrar la unción de los enfermos al fiel que, habiendo llegado al uso de razón, comienza a estar en peligro por enfermedad o vejez.","Puede reiterarse este sacramento si el enfermo, una vez recobrada la salud, contrae de nuevo una enfermedad grave, o si, durante la misma enfermedad, el peligro se hace más grave."]},{"n":1005,"type":"body","txt":["En la duda sobre si el enfermo ha alcanzado el uso de razón, sufre una enfermedad grave o ha fallecido ya, adminístresele este sacramento."]},{"n":1006,"type":"body","txt":["Debe administrarse este sacramento a los enfermos que, cuando estaban en posesión de sus facultades, lo hayan pedido al menos de manera implícita."]},{"n":1007,"type":"body","txt":["No se dé la unción de los enfermos a quienes persisten obstinadamente en un pecado grave manifiesto."]}]}]}]}]}
+{
+  "typus": "cic",
+  "title": "Unción de los Enfermos: Normativa Canónica",
+  "shortTitle": "CIC: Unción de Enfermos",
+  "contents": [
+    {
+      "type": "title",
+      "n": 5,
+      "title": "Del Sacramento de la Unción de los Enfermos",
+      "contents": [
+        {
+          "type": "canon",
+          "n": 998,
+          "txt": [
+            "La unción de los enfermos, con la que la Iglesia encomienda los fieles gravemente enfermos al Señor doliente y glorificado, para que los alivie y salve, se administra ungiéndoles con óleo y diciendo las palabras prescritas en los libros litúrgicos."
+          ]
+        },
+        {
+          "type": "chapter",
+          "n": 1,
+          "title": "De la celebración del Sacramento",
+          "contents": [
+            {
+              "n": 999,
+              "type": "canonWithList",
+              "txt": [
+                "Además del Obispo, pueden bendecir el óleo que se emplea en la unción de los enfermos:"
+              ],
+              "list": [
+                "quienes por derecho se equiparan al Obispo diocesano;",
+                "en caso de necesidad, cualquier presbítero, pero dentro de la celebración del sacramento."
+              ]
+            },
+            {
+              "n": 1000,
+              "type": "canon",
+              "txt": [
+                "Las unciones han de hacerse cuidadosamente, con las palabras orden y modo prescritos en los libros litúrgicos; sin embargo, en caso de necesidad, basta una sola unción en la frente, o también en otra parte del cuerpo, diciendo la fórmula completa.",
+                "El ministro ha de hacer las unciones con la mano, a no ser que una razón grave aconseje el uso de un instrumento."
+              ]
+            },
+            {
+              "n": 1001,
+              "type": "canon",
+              "txt": [
+                " Los pastores de almas y los familiares del enfermo deben procurar que sea reconfortado en tiempo oportuno con este sacramento."
+              ]
+            },
+            {
+              "n": 1002,
+              "type": "canon",
+              "txt": [
+                "La celebración común de la unción de los enfermos para varios enfermos al mismo tiempo, que estén debidamente preparados y rectamente dispuestos, puede hacerse de acuerdo con las prescripciones del Obispo diocesano."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "chapter",
+          "n": 2,
+          "title": "Del ministro de la Unción de los Enfermos",
+          "contents": [
+            {
+              "n": 1003,
+              "type": "canon",
+              "txt": [
+                "Todo sacerdote, y sólo él, administra válidamente la unción de los enfermos.",
+                "Todos los sacerdotes con cura de almas tienen la obligación y el derecho de administrar la unción de los enfermos a los fieles encomendados a su tarea pastoral; pero, por una causa razonable, cualquier otro sacerdote puede administrar este sacramento, con el consentimiento al menos presunto del sacerdote al que antes se hace referencia.",
+                "Está permitido a todo sacerdote llevar consigo el óleo bendito, de manera que, en caso de necesidad, pueda administrar el sacramento de la unción de los enfermos."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "chapter",
+          "n": 3,
+          "title": "De aquellos a quienes se ha de administrar la Unción de los Enfermos",
+          "contents": [
+            {
+              "n": 1004,
+              "type": "canon",
+              "txt": [
+                "Se puede administrar la unción de los enfermos al fiel que, habiendo llegado al uso de razón, comienza a estar en peligro por enfermedad o vejez.",
+                "Puede reiterarse este sacramento si el enfermo, una vez recobrada la salud, contrae de nuevo una enfermedad grave, o si, durante la misma enfermedad, el peligro se hace más grave."
+              ]
+            },
+            {
+              "n": 1005,
+              "type": "canon",
+              "txt": [
+                "En la duda sobre si el enfermo ha alcanzado el uso de razón, sufre una enfermedad grave o ha fallecido ya, adminístresele este sacramento."
+              ]
+            },
+            {
+              "n": 1006,
+              "type": "canon",
+              "txt": [
+                "Debe administrarse este sacramento a los enfermos que, cuando estaban en posesión de sus facultades, lo hayan pedido al menos de manera implícita."
+              ]
+            },
+            {
+              "n": 1007,
+              "type": "canon",
+              "txt": [
+                "No se dé la unción de los enfermos a quienes persisten obstinadamente en un pecado grave manifiesto."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

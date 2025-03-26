@@ -1,38 +1,32 @@
 package org.deiverbum.app.core.ui
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.fromHtml
-import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import org.deiverbum.app.core.designsystem.component.TextLeftRight
-import org.deiverbum.app.core.designsystem.component.TextZoomable
-import org.deiverbum.app.core.designsystem.component.getRubricColor
 import org.deiverbum.app.core.designsystem.component.textFromHtmlWithMarks
 import org.deiverbum.app.core.designsystem.component.textRubric
 import org.deiverbum.app.core.designsystem.component.textusRubrica
 import org.deiverbum.app.core.designsystem.component.transformBodyText
 import org.deiverbum.app.core.designsystem.theme.getPersonalizedTypography
-import org.deiverbum.app.core.model.data.UserData
-import org.deiverbum.app.core.model.data.UserDataDynamic
+import org.deiverbum.app.core.model.configuration.UserData
+import org.deiverbum.app.core.model.configuration.UserDataDynamic
 import org.deiverbum.app.core.model.data.missae.Missae
 import org.deiverbum.app.core.model.data.missae.MissaeLectionum
 import org.deiverbum.app.core.model.data.missae.MissaeLectionumList
 import org.deiverbum.app.core.model.data.traditio.Commentarii
 import org.deiverbum.app.core.model.data.traditio.Homily
-import org.deiverbum.app.util.Constants
+import org.deiverbum.app.util.Constants.TITLE_COMMENTARII
+import org.deiverbum.app.util.Constants.TITLE_GOSPEL
 import org.deiverbum.app.util.Utils
+import org.deiverbum.app.util.marksAndHtml
 
 /**
  * Pantallas para las lecturas de la Misa.
@@ -40,73 +34,55 @@ import org.deiverbum.app.util.Utils
  * @author A. Cedano
  * @since 2025.1
  *
- * @param data Objeto del tipo [Missae]
+ * @param data Objeto del tipo [MissaeContent]
  * @param userData Objeto [UserDataDynamic] con las preferencias del usuario
  *
- * @see [Missae]
+ * @see [MissaeContent]
  * @see [MissaeLectionum]
  */
 
-
-//@OptIn(ExperimentalStdlibApi::class)
-//@ExperimentalMaterial3Api
 @Composable
-fun MissaeLectionumContent(
+fun MissaeContent(
     data: Missae,
-    userData: UserData,
-    fontSize: TextUnit
+    typus: Int,
+    userData: UserData
 ) {
-    val rubricColor = MaterialTheme.colorScheme.error
     val typography = getPersonalizedTypography(userData.dynamic.fontSize)
     val bodyStyle: TextStyle = typography.bodyLarge
-    val text = buildAnnotatedString {
-        if (data.lectionumList != null) {
-            data.lectionumList!!.sort()
-            append(
-                lectionumList(
-                    data.lectionumList!!,
-                    userData.dynamic,
-                    rubricColor,
-                    bodyStyle
-                )
-            )
-        }
+    when (typus) {
+        11 -> LectionumList(
+            data.lectionumList!!,
+            userData,
+            bodyStyle
+        )
+
+        13 -> Homiliae(data, userData, bodyStyle)
     }
-    Text(text = text, style = bodyStyle)
 }
 
 @Composable
 ///@ExperimentalStdlibApi
-fun lectionumList(
+fun LectionumList(
     lectionumList: MissaeLectionumList,
-    userData: UserDataDynamic,
-    rubricColor: Color,
+    userData: UserData,
     style: TextStyle
-): AnnotatedString {
-    return buildAnnotatedString {
+) {
+    lectionumList.sort()
         if (lectionumList.type == -1) {
-            append(contentSpace(2))
-            withStyle(
-                SpanStyle(
-                    color = rubricColor
-                )
-            ) {
-                append(Constants.TITLE_MASS_GOSPEL)
-            }
+            ContentTitle(TITLE_GOSPEL, 2, userData)
         }
         lectionumList.lectionum.forEach {
-            lectioSimplex(
+            LectioSimplex(
                 data = it!!,
                 type = lectionumList.type,
                 userData = userData,
                 style = style
             )
-        }
     }
 }
 
 @Composable
-fun lectioMetadata(
+fun LectioMetadata(
     data: MissaeLectionum,
     style: TextStyle
 ) {
@@ -123,16 +99,16 @@ fun lectioMetadata(
 }
 
 @Composable
-fun lectioSimplex(
+fun LectioSimplex(
     data: MissaeLectionum,
     type: Int,
-    userData: UserDataDynamic,
+    userData: UserData,
     style: TextStyle
 ) {
     val text = buildAnnotatedString {
         if (type == 0) {
             ContentTitle(data.getHeader(type), 2, userData)
-            lectioMetadata(data, style)
+            LectioMetadata(data, style)
             when (data.theOrder) {
                 !in 20..29 -> {
                     //append("\n\n")
@@ -140,6 +116,7 @@ fun lectioSimplex(
                     append("\n\n")
                     append(data.getConclusio())
                 }
+
                 else -> {
                     append(transformBodyText(data.biblica).trim())
                     //append("\n\n")
@@ -160,58 +137,53 @@ fun lectioSimplex(
  *
  * @since 2025.1
  *
- * @param data Objeto del tipo [Missae]
+ * @param data Objeto del tipo [MissaeContent]
  * @param userData Objeto [UserDataDynamic] con las preferencias del usuario
  */
 //@ExperimentalStdlibApi
-@ExperimentalMaterial3Api
+//@ExperimentalMaterial3Api
 @Composable
-fun HomiliaeScreen(
+fun Homiliae(
     data: Missae,
     userData: UserData,
-    onTap: (Offset) -> Unit,
-    fontSize: TextUnit
+    bodyStyle: TextStyle
 ) {
-    val rubricColor = getRubricColor(userData = userData.dynamic)
-    val asb = AnnotatedString.Builder()
-    var aString = AnnotatedString("")
-    var final = asb.toAnnotatedString()
     data.homiliae!!.forEach {
-        aString += homiliaeMetadata(it, fontSize, rubricColor)
-        aString += homiliaeHtml(it)
+        HomiliaeMetadata(it, userData, bodyStyle)
+        Text(text = AnnotatedString.fromHtml(it.homilia.marksAndHtml().trim()), style = bodyStyle)
     }
-
-    Text(text = aString)
-
-    /*TextZoomable(
-        onTap = onTap, text = asb.toAnnotatedString()
-    )*/
-}
-
-fun homiliaeHtml(data: Homily): AnnotatedString {
-    return AnnotatedString.fromHtml(Utils.getFormato(data.homilia))
 }
 
 
 @Composable
-fun homiliaeMetadata(data: Homily, fontSize: TextUnit, rubricColor: Color): AnnotatedString {
-    return buildAnnotatedString {
-        append(contentTitleForHomily(data.paterOpus.paterForView, 3, rubricColor))
+fun HomiliaeMetadata(data: Homily, userData: UserData, style: TextStyle) {
+    ContentTitle(
+        data.paterOpus.paterForView,
+        3,
+        userData
+    )
+    Text(text = data.paterOpus.singleName, style = style)
+    buildAnnotatedString {
+        //append(contentTitleForHomily(data.paterOpus.paterForView, 3, rubricColor))
+
         append(data.paterOpus.singleName)
         if (data.tema.isNotEmpty() && data.date > 0) {
             append(Utils.LS2)
+            Text(text = textusRubrica(data.tema), style = style)
             append(textRubric(data.tema))
             append(Utils.LS2)
-            append(metaDate(data.date.toString(), fontSize, rubricColor))
+            MetaDate(data.date, style)
             append(Utils.LS2)
         }
         if (data.tema.isNotEmpty() && data.date <= 0) {
             append(Utils.LS2)
             append(textRubric(data.tema))
+            Text(text = textusRubrica(data.tema), style = style)
+
             append(Utils.LS2)
         }
         if (data.tema.isEmpty() && data.date > 0) {
-            append(metaDate(data.date.toString(), fontSize, rubricColor))
+            //append(metaDate(data.date.toString(), fontSize, rubricColor))
             append(Utils.LS2)
         }
         if (data.tema.isEmpty() && data.date <= 0) {
@@ -221,13 +193,17 @@ fun homiliaeMetadata(data: Homily, fontSize: TextUnit, rubricColor: Color): Anno
 }
 
 @Composable
-fun metaDate(data: String, fontSize: TextUnit, rubricColor: Color): AnnotatedString {
-    return textRubric(
-        Utils.formatDate(
-            data,
-            "yyyyMMdd",
-            "EEEE d 'de' MMMM 'de' yyyy"
-        )
+fun MetaDate(data: Int, style: TextStyle) {
+
+    Text(
+        text = textusRubrica(
+            Utils.formatDate(
+                data.toString(),
+                "yyyyMMdd",
+                "EEEE d 'de' MMMM 'de' yyyy"
+            )
+        ),
+        style = style
     )
 
 }
@@ -240,32 +216,47 @@ fun metaDate(data: String, fontSize: TextUnit, rubricColor: Color): AnnotatedStr
  * @param data Objeto del tipo [Commentarii]
  * @param userData Objeto [UserDataDynamic] con las preferencias del usuario
  */
-@ExperimentalMaterial3Api
+
 @Composable
-fun CommentariiScreen(
+fun CommentariiContent(
     data: Commentarii,
-    userData: UserData,
-    onTap: (Offset) -> Unit,
-    fontSize: TextUnit
+    userData: UserData
+    //onTap: (Offset) -> Unit,
 ) {
-    //Text(data.forView(1).toString())
-    val asb = AnnotatedString.Builder()
-    val rubricColor = getRubricColor(userData.dynamic)
-    var aString = AnnotatedString("")
-    data.biblicaWithComments.forEach {
+    val typography = getPersonalizedTypography(userData.dynamic.fontSize)
+    val bodyStyle: TextStyle = typography.bodyLarge
+
+    HorizontalDivider(
+        thickness = 1.dp, modifier = Modifier
+            .padding(vertical = 5.dp)
+    )
+    data.biblicaWithComments.forEach { it ->
+        if (it.homiliae.size > 0) {
+            LectioSimplex(it.biblica, 0, userData, bodyStyle)
+        }
+
         if (it.homiliae.isNotEmpty()) {
-            //asb.append(it.biblica.getAll(0))
+            HorizontalDivider(
+                thickness = 1.dp, modifier = Modifier
+                    .padding(vertical = 5.dp)
+            )
+            ContentHeadd(
+                text = TITLE_COMMENTARII,
+                level = 2,
+                userData = userData,
+                uppercase = false,
+                withColor = true
+            )
+
             it.homiliae.forEach {
-                aString += homiliaeMetadata(it!!, fontSize, rubricColor)
-                aString += homiliaeHtml(it)
+                HomiliaeMetadata(it!!, userData, bodyStyle)
+                Text(
+                    text = AnnotatedString.fromHtml(it.homilia.marksAndHtml().trim()),
+                    style = bodyStyle
+                )
             }
-            // asb.append(AnnotatedString.fromHtml(it!!.homilia).toString())
-            //asb.append(homiliaeSimplex(it!!, rubricColor = rubricColor))
         }
     }
-
-    TextZoomable(
-        onTap = onTap, text = aString
-    )
 }
+
 

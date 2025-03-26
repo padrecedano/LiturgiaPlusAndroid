@@ -23,7 +23,8 @@ class AudioHelper {
             '§' to ' ',
             '⊣' to ' ',
             '≠' to ' ',
-            '*' to ' '
+            '*' to ' ',
+            '≡' to ' '
         )
     }
 }

@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.breviarium
+package org.deiverbum.app.core.model.breviarium
 
 import org.deiverbum.app.core.model.biblia.BibleBook
 import org.deiverbum.app.core.model.biblia.LectioBiblica

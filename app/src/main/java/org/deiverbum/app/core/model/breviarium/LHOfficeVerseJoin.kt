@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.breviarium
+package org.deiverbum.app.core.model.breviarium
 
 class LHOfficeVerseJoin {
     var groupID = 0

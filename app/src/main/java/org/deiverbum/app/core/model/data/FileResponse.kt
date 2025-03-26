@@ -1,7 +1,9 @@
 package org.deiverbum.app.core.model.data
 
 import android.text.SpannableStringBuilder
-import org.deiverbum.app.core.model.data.book.Book
+import org.deiverbum.app.core.model.book.Book
+import org.deiverbum.app.core.model.book.LiberBase
+import org.deiverbum.app.core.model.configuration.UserData
 
 class FileResponse(
     var text: SpannableStringBuilder = SpannableStringBuilder(),
@@ -14,7 +16,7 @@ class FileResponse(
 data class NewFileResponse(
     val fileResponse: List<FileResponse>,
     val userData: UserData,
-    val new: FileResource
+    val new: FileResourceNew
 )
 
 
@@ -27,3 +29,10 @@ data class FileResource(
 )
 
 
+/**
+ * External data layer representation of a fully populated NiA news resource
+ */
+data class FileResourceNew(
+    //val todayDate: Int,
+    val data: LiberBase,
+)

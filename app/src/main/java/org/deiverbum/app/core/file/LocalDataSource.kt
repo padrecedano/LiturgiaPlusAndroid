@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.file
 
-import org.deiverbum.app.core.model.data.book.BookTest
+import org.deiverbum.app.core.model.book.BookTest
 
 /**
  * Interface representing network calls to the NIA backend

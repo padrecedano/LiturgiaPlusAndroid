@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.breviarium.LHTheme
+import org.deiverbum.app.core.model.breviarium.LHTheme
 
 class CrudLHTheme {
     var c: List<LHTheme>? = null

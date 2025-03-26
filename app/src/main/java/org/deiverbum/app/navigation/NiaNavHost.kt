@@ -15,7 +15,7 @@ import org.deiverbum.app.feature.file.navigation.fileScreen
 import org.deiverbum.app.feature.home.navigation.HomeRoute
 import org.deiverbum.app.feature.home.navigation.homeScreen
 import org.deiverbum.app.feature.mas.navigation.masScreen
-import org.deiverbum.app.feature.mas.navigation.navigateToMas
+import org.deiverbum.app.feature.mas.navigation.navigateToFile
 import org.deiverbum.app.feature.settings.navigation.settingsScreen
 import org.deiverbum.app.feature.universalis.navigation.navigateToUniversalis
 import org.deiverbum.app.feature.universalis.navigation.navigateToUniversalisFromCalendar
@@ -52,12 +52,14 @@ fun NiaNavHost(
         //homeScreen(onTopicClick = navController::navigateToUniversalis)
         homeScreen(
             onTopicClick = navController::navigateToUniversalis,
-            appState.currentTimeZone,
-            appState.currentDate
+            currentTimeZone = appState.currentTimeZone,
+            currentDate = appState.currentDate
         )
 
+        masScreen(onTopicClick = navController::navigateToFile)
+
         universalisFromHome(onBackClick = navController::navigateUp)
-        masScreen(onTopicClick = navController::navigateToMas)
+        //masScreen(onBackClick = navController::navigateUp)
         calendarScreen(onTopicClick = navController::navigateToUniversalisFromCalendar)
         //menuScreen(onTopicClick = navController::navigateToMenu)
         fileScreen(onBackClick = navController::navigateUp)

@@ -20,9 +20,9 @@ import org.deiverbum.app.core.database.model.relation.LHPsalmsAssoc
 import org.deiverbum.app.core.database.model.relation.LHReadingShortAll
 import org.deiverbum.app.core.database.model.relation.LiturgyTimeAssoc
 import org.deiverbum.app.core.database.model.relation.asExternalModel
-import org.deiverbum.app.core.model.data.breviarium.Breviarium
-import org.deiverbum.app.core.model.data.breviarium.BreviariumVesperas
-import org.deiverbum.app.core.model.data.breviarium.LHPsalmody
+import org.deiverbum.app.core.model.breviarium.Breviarium
+import org.deiverbum.app.core.model.breviarium.BreviariumVesperas
+import org.deiverbum.app.core.model.breviarium.LHPsalmody
 import org.deiverbum.app.core.model.liturgia.Liturgy
 import org.deiverbum.app.core.model.universalis.Universalis
 

@@ -39,6 +39,7 @@ import org.deiverbum.app.core.database.model.external.SextamExternal
 import org.deiverbum.app.core.database.model.external.TertiamExternal
 import org.deiverbum.app.core.database.model.external.UniversalisExternal
 import org.deiverbum.app.core.database.model.external.VesperasExternal
+import org.deiverbum.app.core.database.model.relation.LocalOfficiumPascua
 import org.deiverbum.app.core.model.universalis.Universalis
 
 /**
@@ -72,6 +73,13 @@ interface UniversalisDao {
     fun getUniversalisOfToday(
         filterDates: Set<Int> = emptySet(),
     ): Flow<List<UniversalisExternal>>
+
+
+    @Transaction
+    //@Query("SELECT * FROM lh_easter_biblical_join")
+    @Query("SELECT * FROM lh_easter_biblical_join WHERE groupID=:easterCode")
+
+    fun getOfficiumPasqua(easterCode: Int): Flow<LocalOfficiumPascua>
 
     /**
      * Obtiene recursos **`MixtusExternal`** que coinciden con los parámetros de consulta.

@@ -6,7 +6,7 @@ import org.deiverbum.app.core.database.model.entity.HomilyEntity
 import org.deiverbum.app.core.database.model.entity.LHOfficePatristicEntity
 import org.deiverbum.app.core.database.model.entity.LHResponsoryEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.breviarium.LHOfficiumLectioAltera
+import org.deiverbum.app.core.model.breviarium.LHOfficiumLectioAltera
 
 /**
  *

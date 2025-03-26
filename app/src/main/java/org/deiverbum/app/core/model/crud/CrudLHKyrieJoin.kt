@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.breviarium.LHKyrieJoin
+import org.deiverbum.app.core.model.breviarium.LHKyrieJoin
 
 class CrudLHKyrieJoin {
     var c: List<LHKyrieJoin>? = null

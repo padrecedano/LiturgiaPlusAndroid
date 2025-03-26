@@ -5,7 +5,7 @@ import androidx.room.Relation
 import org.deiverbum.app.core.database.model.entity.LHAntiphonEntity
 import org.deiverbum.app.core.database.model.entity.LHGospelCanticleEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.breviarium.LHGospelCanticle
+import org.deiverbum.app.core.model.breviarium.LHGospelCanticle
 
 /**
  * @author A. Cedano

@@ -83,7 +83,8 @@
           "title": "Datos personales",
           "text": [
             "El <i>Servicio</i> no recopila de forma indirecta o automática Datos personales como tu nombre, dirección o número de teléfono.",
-            "Si te pones en contacto con <i>Nosotros</i> por alguno de los medios indicados en diversas partes de la <i>Aplicación</i>, <i>Nosotros</i> recibiremos por ese medio los Datos personales que tengas configurados en esos programas (por ejemplo el correo electrónico) así como aquellos datos que suministres libremente en la redacción del mensaje. Esos datos no serán almacenados, ni compartidos con terceros y serán usados únicamente para responder a eventuales dudas o para resolver errores relativos al funcionamiento del <i>Servicio</i> y serán borrados en un plazo no mayor de 30 días después de que el problema planteado haya sido resuelto o la duda planteada haya sido respondida",
+            "Si te pones en contacto con <i>Nosotros</i> por alguno de los medios indicados en diversas partes de la <i>Aplicación</i>, <i>Nosotros</i> recibiremos por ese medio los Datos personales que tengas configurados en esos programas (por ejemplo el correo electrónico) así como aquellos datos que suministres libremente en la redacción del mensaje.",
+            "Esos datos no serán almacenados, ni compartidos con terceros y serán usados únicamente para responder a eventuales dudas o para resolver errores relativos al funcionamiento del <i>Servicio</i> y serán borrados en un plazo no mayor de 30 días después de que el problema planteado haya sido resuelto o la duda planteada haya sido respondida",
             "<i>Nosotros</i> borraremos inmediatamente cualquier dato personal tuyo en cualquier momento que lo solicites."
           ]
         }
@@ -170,33 +171,30 @@
           ]
         },
         {
-          "type": 31,
-          "item": "Google Play Services",
-          "text": [
-            "https://policies.google.com/privacy?hl=es&gl=es"
-          ]
+          "type": 33,
+          "link": {
+            "textus": "Google Play Services",
+            "url": "https://www.liturgiaplus.app/privacy",
+            "haveBreak": false
+          }
         },
         {
-          "type": 31,
-          "item": "Firebase Analytics",
-          "text": [
-            "https://firebase.google.com/policies/analytics"
-          ]
+          "type": 33,
+          "link": {
+            "textus": "Firebase Analytics",
+            "url": "https://firebase.google.com/policies/analytics",
+            "haveBreak": false
+          }
         },
         {
-          "type": 31,
-          "item": "Firebase Crashlytics",
-          "text": [
-            "https://firebase.google.com/terms/crashlytics-app-distribution-data-processing-terms/?hl=es-419"
-          ]
-        },
-        {
-          "type": 31,
-          "item": "Google Analytics",
-          "text": [
-            "https://www.google.com/policies/privacy/?hl=es"
-          ]
+          "type": 33,
+          "link": {
+            "textus": "Firebase Crashlytics",
+            "url": "https://firebase.google.com/terms/crashlytics-app-distribution-data-processing-terms/?hl=es-419",
+            "haveBreak": true
+          }
         }
+
       ]
     },
     {
@@ -244,7 +242,7 @@
             "url": "https://www.liturgiaplus.app/privacy",
             "textus": "una versión en línea",
             "posterioris": "de esta <b>Política de Privacidad</b> actualizada con la última fecha.",
-            "haveBreak": false
+            "haveBreak": true
           }
         }
       ]

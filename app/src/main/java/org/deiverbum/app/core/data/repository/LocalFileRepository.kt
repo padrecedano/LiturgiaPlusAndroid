@@ -6,29 +6,29 @@ import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import org.deiverbum.app.core.model.alteri.Rosario
+import org.deiverbum.app.core.model.alteri.ViaCrucis
+import org.deiverbum.app.core.model.book.Book
+import org.deiverbum.app.core.model.book.BookSacramentum
+import org.deiverbum.app.core.model.book.LiberFileNormalis
+import org.deiverbum.app.core.model.book.LiberTypus
+import org.deiverbum.app.core.model.cic.IurisCanonici
 import org.deiverbum.app.core.model.data.FileRequestt
-import org.deiverbum.app.core.model.data.FileResource
+import org.deiverbum.app.core.model.data.FileResourceNew
 import org.deiverbum.app.core.model.data.FileResponse
-import org.deiverbum.app.core.model.data.alteri.Rosario
-import org.deiverbum.app.core.model.data.alteri.ViaCrucis
-import org.deiverbum.app.core.model.data.book.Book
-import org.deiverbum.app.core.model.data.book.BookSacramentum
-import org.deiverbum.app.core.model.data.book.LiberFileNormalis
-import org.deiverbum.app.core.model.data.book.LiberTypus
-import org.deiverbum.app.core.model.data.cic.IurisCanonici
-import org.deiverbum.app.core.model.data.ritualis.Biblical
-import org.deiverbum.app.core.model.data.ritualis.BiblicalShort
-import org.deiverbum.app.core.model.data.ritualis.Content
-import org.deiverbum.app.core.model.data.ritualis.Oratio
-import org.deiverbum.app.core.model.data.ritualis.Paragraphus
-import org.deiverbum.app.core.model.data.ritualis.ParagraphusList
-import org.deiverbum.app.core.model.data.ritualis.ParagraphusRubrica
-import org.deiverbum.app.core.model.data.ritualis.Preces
-import org.deiverbum.app.core.model.data.ritualis.Ritualis
-import org.deiverbum.app.core.model.data.ritualis.Rubrica
-import org.deiverbum.app.core.model.data.ritualis.Titulus
-import org.deiverbum.app.core.model.data.ritualis.VersiculusEtResponsum
 import org.deiverbum.app.core.model.liturgia.OracionSimple
+import org.deiverbum.app.core.model.ritualis.Biblical
+import org.deiverbum.app.core.model.ritualis.BiblicalShort
+import org.deiverbum.app.core.model.ritualis.Content
+import org.deiverbum.app.core.model.ritualis.Oratio
+import org.deiverbum.app.core.model.ritualis.Paragraphus
+import org.deiverbum.app.core.model.ritualis.ParagraphusList
+import org.deiverbum.app.core.model.ritualis.ParagraphusRubrica
+import org.deiverbum.app.core.model.ritualis.Preces
+import org.deiverbum.app.core.model.ritualis.Ritualis
+import org.deiverbum.app.core.model.ritualis.Rubrica
+import org.deiverbum.app.core.model.ritualis.Titulus
+import org.deiverbum.app.core.model.ritualis.VersiculusEtResponsum
 import org.deiverbum.app.core.network.Dispatcher
 import org.deiverbum.app.core.network.NiaDispatchers
 import org.deiverbum.app.util.AssetProvider
@@ -115,7 +115,7 @@ class LocalFileRepository @Inject constructor(
 
     override suspend fun getFile(fileRequest: FileRequestt): List<FileResponse> =
         withContext(ioDispatcher) {
-            val fileResponse = assetProvider.getFiles(fileRequest.fileName)
+            val fileResponse = assetProvider.getFiles(listOf(fileRequest.fileName))
 
             fileResponse.forEach {
                 if (books.contains(it.fileName)) {
@@ -151,7 +151,8 @@ class LocalFileRepository @Inject constructor(
             fileResponse
 
         }
-    override suspend fun getFileModel(fileRequest: FileRequestt): FileResource =
+
+    override suspend fun getFileModel(fileRequest: FileRequestt): FileResourceNew =
 
         //val fileResource=FileResource()
         withContext(ioDispatcher) {

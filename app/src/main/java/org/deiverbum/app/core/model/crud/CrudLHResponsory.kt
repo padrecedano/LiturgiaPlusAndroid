@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.breviarium.LHResponsoryTable
+import org.deiverbum.app.core.model.breviarium.LHResponsoryTable
 
 class CrudLHResponsory {
     var c: List<LHResponsoryTable>? = null

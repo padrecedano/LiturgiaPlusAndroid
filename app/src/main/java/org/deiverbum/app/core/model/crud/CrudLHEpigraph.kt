@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.breviarium.LHEpigraph
+import org.deiverbum.app.core.model.breviarium.LHEpigraph
 
 class CrudLHEpigraph {
     var c: List<LHEpigraph>? = null

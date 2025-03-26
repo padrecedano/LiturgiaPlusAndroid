@@ -14,3 +14,16 @@ data class MenuItem(
     var icon: ImageVector,
     var group: Int
 )
+
+/**
+ * Representa los items switch.
+ *
+ * @author A. Cedano
+ * @version 1.0
+ * @since 2025.1
+ */
+data class SwitchItem(
+    var id: Int,
+    var label: String = "",
+    val checked: Boolean,
+)

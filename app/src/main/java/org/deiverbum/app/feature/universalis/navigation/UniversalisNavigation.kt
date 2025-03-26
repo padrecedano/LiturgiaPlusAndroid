@@ -9,12 +9,12 @@ import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
 import org.deiverbum.app.feature.universalis.UniversalisFromHomeScreen
-import org.deiverbum.app.util.Utils
+import org.deiverbum.app.util.DateTimeUtil
 
 @Serializable
 data class UniversalisRoute(
     var initialTopicId: String? = null,
-    var date: Int? = Utils.hoy.toInt()
+    var initialDate: Int = DateTimeUtil.getTodayDate(),//Utils.hoy.toInt(),
 )
 
 @ExperimentalMaterial3Api
@@ -30,14 +30,19 @@ fun NavGraphBuilder.universalisFromHome(onBackClick: () -> Unit) {
 
 fun NavController.navigateToUniversalis(
     topicId: String,
-    navOptions: NavOptionsBuilder.() -> Unit = {},
+    //currentDate:Int,
+
+    navOptions: NavOptionsBuilder.() -> Unit = {}
 ) {
     navigate(route = UniversalisRoute(topicId)) { navOptions() }
 }
 
 fun NavController.navigateToUniversalisFromCalendar(
     topicId: String,
+    currentDate: Int,
     navOptions: NavOptionsBuilder.() -> Unit = {}
 ) {
-    navigate(route = UniversalisRoute(topicId)) { navOptions() }
+    //navigate(route = CalendarRoute(topicId,currentDate)) { navOptions() }
+    navigate(route = UniversalisRoute(topicId, currentDate)) { navOptions() }
+
 }

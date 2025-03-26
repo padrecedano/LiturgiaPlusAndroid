@@ -38,6 +38,7 @@ fun String.marksAndHtml(): String {
         .replace("~", BR)
         .replace("§", BRS)
         .replace("∸", BRS)
+        .replace("≡", "")
         .replace("</p>", BRS, true)
         .replace("<p>", "", true)
 }

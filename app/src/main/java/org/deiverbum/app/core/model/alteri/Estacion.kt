@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.alteri
+package org.deiverbum.app.core.model.alteri
 
 import android.text.SpannableStringBuilder
 import org.deiverbum.app.core.model.biblia.TextoBiblico

@@ -96,3 +96,14 @@ internal fun AnalyticsHelper.logOnboardingStateChanged(shouldHideOnboarding: Boo
     )
 
 }
+
+internal fun AnalyticsHelper.logRosariumConfigChanged(rosariumConfigName: String) =
+    logEvent(
+        AnalyticsEvent(
+            type = "rosarium_mysterium_config_changed",
+            extras = listOf(
+                AnalyticsEvent.Param(key = "rosarium_mysterium_config", value = rosariumConfigName),
+            ),
+        ),
+    )
+

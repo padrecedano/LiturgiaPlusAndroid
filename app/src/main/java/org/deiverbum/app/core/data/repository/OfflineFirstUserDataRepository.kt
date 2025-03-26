@@ -3,12 +3,12 @@ package org.deiverbum.app.core.data.repository
 import kotlinx.coroutines.flow.Flow
 import org.deiverbum.app.core.analytics.AnalyticsHelper
 import org.deiverbum.app.core.datastore.PreferencesDataSource
-import org.deiverbum.app.core.model.data.UserData
-import org.deiverbum.app.core.model.data.configuration.DarkThemeConfig
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig
-import org.deiverbum.app.core.model.data.configuration.RubricColorConfig
-import org.deiverbum.app.core.model.data.configuration.ThemeBrand
-import org.deiverbum.app.core.model.data.configuration.VoiceReaderConfig
+import org.deiverbum.app.core.model.configuration.DarkThemeConfig
+import org.deiverbum.app.core.model.configuration.FontSizeConfig
+import org.deiverbum.app.core.model.configuration.RosariumConfig
+import org.deiverbum.app.core.model.configuration.ThemeBrand
+import org.deiverbum.app.core.model.configuration.UserData
+import org.deiverbum.app.core.model.configuration.VoiceReaderConfig
 import javax.inject.Inject
 
 class OfflineFirstUserDataRepository @Inject constructor(
@@ -25,10 +25,6 @@ class OfflineFirstUserDataRepository @Inject constructor(
     }
 
     override suspend fun setDarkThemeConfig(darkThemeConfig: DarkThemeConfig) {
-        var rubricColor = RubricColorConfig.LIGHT
-        if (darkThemeConfig.name.equals(RubricColorConfig.DARK)) {
-            rubricColor = RubricColorConfig.LIGHT
-        }
         niaPreferencesDataSource.setDarkThemeConfig(darkThemeConfig)
         analyticsHelper.logDarkThemeConfigChanged(darkThemeConfig.name)
     }
@@ -51,6 +47,16 @@ class OfflineFirstUserDataRepository @Inject constructor(
     override suspend fun setMultipleInvitatoryPreference(useMultipleInvitatory: Boolean) {
         niaPreferencesDataSource.setMultipleInvitatoryPreference(useMultipleInvitatory)
         analyticsHelper.logDynamicColorPreferenceChanged(useMultipleInvitatory)
+    }
+
+    override suspend fun setRosariumPreference(
+        rosariumConfig: RosariumConfig,
+        useAnalytics: Boolean
+    ) {
+        niaPreferencesDataSource.setRosariumPreference(rosariumConfig)
+        if (useAnalytics) {
+            analyticsHelper.logRosariumConfigChanged(rosariumConfig.name)
+        }
     }
 
     override suspend fun setShouldHideOnboarding(shouldHideOnboarding: Boolean) {

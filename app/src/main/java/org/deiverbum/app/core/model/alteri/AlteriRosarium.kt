@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.alteri
+package org.deiverbum.app.core.model.alteri
 
 /**
  * Representa los elementos de tipo "rosarium".
@@ -10,13 +10,4 @@ package org.deiverbum.app.core.model.data.alteri
 data class AlteriRosarium(
     val rosarium: Rosarium,
     override var typus: String = "rosarium"
-) : Alteri(typus) {
-
-    override fun forRead(): StringBuilder {
-        return StringBuilder(rosarium.getForView())
-    }
-
-    override fun sort() {
-    }
-
-}
+) : Alteri(typus)

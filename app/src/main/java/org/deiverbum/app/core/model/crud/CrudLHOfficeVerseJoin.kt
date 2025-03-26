@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.breviarium.LHOfficeVerseJoin
+import org.deiverbum.app.core.model.breviarium.LHOfficeVerseJoin
 
 class CrudLHOfficeVerseJoin {
     var c: List<LHOfficeVerseJoin>? = null

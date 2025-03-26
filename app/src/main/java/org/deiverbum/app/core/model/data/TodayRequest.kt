@@ -1,5 +1,7 @@
 package org.deiverbum.app.core.model.data
 
+import org.deiverbum.app.core.model.data.ui.ItemUI
+
 /**
  * <p>Recoge los parámetros que son enviados a las peticiones para el módulo Today.</p>
  *
@@ -12,3 +14,5 @@ class TodayRequest(
     val isNightMode: Boolean,
     val isMultipleInvitatory: Boolean
 )
+
+data class TopicRequest(val topic: ItemUI, val currentDate: Int)

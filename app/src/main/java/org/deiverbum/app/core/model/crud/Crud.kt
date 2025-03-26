@@ -2,7 +2,7 @@ package org.deiverbum.app.core.model.data.crud
 
 import android.util.Log
 import org.deiverbum.app.core.database.dao.TodayDao
-import org.deiverbum.app.core.model.data.breviarium.LHPsalmodyJoin
+import org.deiverbum.app.core.model.breviarium.LHPsalmodyJoin
 
 /**
  * Clase para manejar las operaciones de creación, lectura, actualización y borrado de datos.

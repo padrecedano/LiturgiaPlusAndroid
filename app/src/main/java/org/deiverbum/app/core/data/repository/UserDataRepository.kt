@@ -1,12 +1,12 @@
 package org.deiverbum.app.core.data.repository
 
 import kotlinx.coroutines.flow.Flow
-import org.deiverbum.app.core.model.data.UserData
-import org.deiverbum.app.core.model.data.configuration.DarkThemeConfig
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig
-import org.deiverbum.app.core.model.data.configuration.ThemeBrand
-import org.deiverbum.app.core.model.data.configuration.VoiceReaderConfig
-
+import org.deiverbum.app.core.model.configuration.DarkThemeConfig
+import org.deiverbum.app.core.model.configuration.FontSizeConfig
+import org.deiverbum.app.core.model.configuration.RosariumConfig
+import org.deiverbum.app.core.model.configuration.ThemeBrand
+import org.deiverbum.app.core.model.configuration.UserData
+import org.deiverbum.app.core.model.configuration.VoiceReaderConfig
 
 interface UserDataRepository {
 
@@ -33,6 +33,10 @@ interface UserDataRepository {
     suspend fun setVoiceReaderPreference(useVoiceReader: VoiceReaderConfig)
 
     suspend fun setMultipleInvitatoryPreference(useMultipleInvitatory: Boolean)
+    suspend fun setRosariumPreference(
+        rosariumConfig: RosariumConfig,
+        useAnalytics: Boolean
+    )
 
     suspend fun setFontSizePreference(fontSize: FontSizeConfig)
 

@@ -32,10 +32,10 @@ import org.deiverbum.app.core.database.model.relation.LiturgyTimeAssoc
 import org.deiverbum.app.core.database.model.relation.MassReadingWithAll
 import org.deiverbum.app.core.database.model.relation.SaintShortWithAll
 import org.deiverbum.app.core.database.model.relation.asExternalModel
-import org.deiverbum.app.core.model.data.breviarium.Breviarium
-import org.deiverbum.app.core.model.data.breviarium.BreviariumMixtus
-import org.deiverbum.app.core.model.data.breviarium.LHOfficiumLectionis
-import org.deiverbum.app.core.model.data.breviarium.LHPsalmody
+import org.deiverbum.app.core.model.breviarium.Breviarium
+import org.deiverbum.app.core.model.breviarium.BreviariumMixtus
+import org.deiverbum.app.core.model.breviarium.LHOfficiumLectionis
+import org.deiverbum.app.core.model.breviarium.LHPsalmody
 import org.deiverbum.app.core.model.data.missae.MissaeLectionum
 import org.deiverbum.app.core.model.data.missae.MissaeLectionumList
 import org.deiverbum.app.core.model.liturgia.Liturgy

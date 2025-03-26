@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.ritualis
+package org.deiverbum.app.core.model.ritualis
 
 import android.text.SpannableStringBuilder
 
@@ -12,6 +12,22 @@ import android.text.SpannableStringBuilder
  *
  */
 abstract class Content
+    (open val type: String) {
+    open fun getHeaders(): SpannableStringBuilder {
+        return SpannableStringBuilder()
+    }
+
+    open fun forView(): SpannableStringBuilder {
+        return SpannableStringBuilder()
+    }
+
+    open fun forRead(): StringBuilder {
+        return StringBuilder("")
+    }
+
+}
+
+abstract class ContentBody
     (open val type: String) {
     open fun getHeaders(): SpannableStringBuilder {
         return SpannableStringBuilder()

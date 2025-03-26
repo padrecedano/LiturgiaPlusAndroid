@@ -8,28 +8,28 @@ import org.deiverbum.app.core.designsystem.component.textFromHtmlAudio
 import org.deiverbum.app.core.designsystem.component.textFromListAudio
 import org.deiverbum.app.core.designsystem.component.transformEpigraphAudio
 import org.deiverbum.app.core.designsystem.component.transformTextAudio
-import org.deiverbum.app.core.model.data.alteri.AlteriRosarium
-import org.deiverbum.app.core.model.data.alteri.AlteriSanctii
-import org.deiverbum.app.core.model.data.breviarium.Breviarium
-import org.deiverbum.app.core.model.data.breviarium.BreviariumCompletorium
-import org.deiverbum.app.core.model.data.breviarium.BreviariumIntermedia
-import org.deiverbum.app.core.model.data.breviarium.BreviariumLaudes
-import org.deiverbum.app.core.model.data.breviarium.BreviariumMixtus
-import org.deiverbum.app.core.model.data.breviarium.BreviariumOfficium
-import org.deiverbum.app.core.model.data.breviarium.BreviariumVesperas
-import org.deiverbum.app.core.model.data.breviarium.LHAntiphon
-import org.deiverbum.app.core.model.data.breviarium.LHHymn
-import org.deiverbum.app.core.model.data.breviarium.LHIntercession
-import org.deiverbum.app.core.model.data.breviarium.LHInvitatory
-import org.deiverbum.app.core.model.data.breviarium.LHLectioBrevis
-import org.deiverbum.app.core.model.data.breviarium.LHOfficiumLectioAltera
-import org.deiverbum.app.core.model.data.breviarium.LHOfficiumLectioPrior
-import org.deiverbum.app.core.model.data.breviarium.LHOfficiumLectionis
-import org.deiverbum.app.core.model.data.breviarium.LHPsalm
-import org.deiverbum.app.core.model.data.breviarium.LHPsalmody
-import org.deiverbum.app.core.model.data.breviarium.LHResponsoriumBrevis
-import org.deiverbum.app.core.model.data.breviarium.LHSanctus
-import org.deiverbum.app.core.model.data.breviarium.normalizeForRead
+import org.deiverbum.app.core.model.alteri.AlteriRosarium
+import org.deiverbum.app.core.model.alteri.AlteriSanctii
+import org.deiverbum.app.core.model.breviarium.Breviarium
+import org.deiverbum.app.core.model.breviarium.BreviariumCompletorium
+import org.deiverbum.app.core.model.breviarium.BreviariumIntermedia
+import org.deiverbum.app.core.model.breviarium.BreviariumLaudes
+import org.deiverbum.app.core.model.breviarium.BreviariumMixtus
+import org.deiverbum.app.core.model.breviarium.BreviariumOfficium
+import org.deiverbum.app.core.model.breviarium.BreviariumVesperas
+import org.deiverbum.app.core.model.breviarium.LHAntiphon
+import org.deiverbum.app.core.model.breviarium.LHHymn
+import org.deiverbum.app.core.model.breviarium.LHIntercession
+import org.deiverbum.app.core.model.breviarium.LHInvitatory
+import org.deiverbum.app.core.model.breviarium.LHLectioBrevis
+import org.deiverbum.app.core.model.breviarium.LHOfficiumLectioAltera
+import org.deiverbum.app.core.model.breviarium.LHOfficiumLectioPrior
+import org.deiverbum.app.core.model.breviarium.LHOfficiumLectionis
+import org.deiverbum.app.core.model.breviarium.LHPsalm
+import org.deiverbum.app.core.model.breviarium.LHPsalmody
+import org.deiverbum.app.core.model.breviarium.LHResponsoriumBrevis
+import org.deiverbum.app.core.model.breviarium.LHSanctus
+import org.deiverbum.app.core.model.breviarium.normalizeForRead
 import org.deiverbum.app.core.model.data.missae.Missae
 import org.deiverbum.app.core.model.data.traditio.Commentarii
 import org.deiverbum.app.core.model.liturgia.Introitus
@@ -242,14 +242,14 @@ fun audioCompletorium(
 /**
  * Devuelve el contenido de la Misa para audio.
  *
- * @param data Un objeto [Missae] con el contenido de la hora.
+ * @param data Un objeto [MissaeContent] con el contenido de la hora.
  * @param id Un valor numérico para diferenciar entre Homilías o Lecturas de la Misa.
  *
  * @return Un objeto [AnnotatedString] con el texto a ser leído.
  *
  * @since 2025.1
  *
- * @see [Missae]
+ * @see [MissaeContent]
  */
 
 fun audioMissae(
@@ -295,13 +295,13 @@ fun audioCommentarii(
 /**
  * Devuelve el contenido de las Homilías para audio.
  *
- * @param data Un objeto [Missae] con el contenido de las homilías
+ * @param data Un objeto [MissaeContent] con el contenido de las homilías
  *
  * @return Un objeto [AnnotatedString] con el texto a ser leído.
  *
  * @since 2025.1
  *
- * @see [Missae]
+ * @see [MissaeContent]
  */
 
 fun audioHomiliae(

@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.ritualis
+package org.deiverbum.app.core.model.ritualis
 
 import android.text.SpannableStringBuilder
 import org.deiverbum.app.util.Utils

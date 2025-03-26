@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.breviarium.LHHymnJoin
+import org.deiverbum.app.core.model.breviarium.LHHymnJoin
 
 class CrudLHHymnJoin {
     var c: List<LHHymnJoin>? = null

@@ -48,10 +48,11 @@ import org.deiverbum.app.core.designsystem.component.NiaTextButton
 import org.deiverbum.app.core.designsystem.component.UniversalisSingleAppBar
 import org.deiverbum.app.core.designsystem.theme.NiaTypography
 import org.deiverbum.app.core.designsystem.theme.supportsDynamicTheming
-import org.deiverbum.app.core.model.data.configuration.DarkThemeConfig
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig
-import org.deiverbum.app.core.model.data.configuration.ThemeBrand
-import org.deiverbum.app.core.model.data.configuration.VoiceReaderConfig
+import org.deiverbum.app.core.model.configuration.DarkThemeConfig
+import org.deiverbum.app.core.model.configuration.FontSizeConfig
+import org.deiverbum.app.core.model.configuration.ThemeBrand
+import org.deiverbum.app.core.model.configuration.VoiceReaderConfig
+import org.deiverbum.app.core.model.data.ui.SwitchItem
 import org.deiverbum.app.core.ui.TrackScreenViewEvent
 
 
@@ -313,6 +314,8 @@ private fun LinksPanel() {
 @Composable
 fun SettingsScreen(
     onChangeFontSize: (fontSize: FontSizeConfig) -> Unit,
+    onChangeSwitch: (switchItem: SwitchItem, isChecked: Boolean, useAnalytics: Boolean) -> Unit,
+
     settingsUiState: SettingsUiState,
     onBackClick: () -> Unit,
 
@@ -350,7 +353,7 @@ fun SettingsScreen(
                 is SettingsUiState.Success -> {
                     var selectedIndex by remember { mutableIntStateOf(settingsUiState.settings.dynamic.fontSize.ordinal) }
                     val fontSizes = FontSizeConfig.entries
-
+                    val settings = settingsUiState.settings
                     LargeDropdownMenu(
                         items = fontSizes,
                         selectedIndex = selectedIndex,
@@ -360,7 +363,25 @@ fun SettingsScreen(
                         },
                     )
 
-                    LPlusSwitch(label = stringResource(R.string.pref_title_brevis))
+                    LPlusSwitch(
+                        settings = settings,
+                        switch = SwitchItem(
+                            id = 1,
+                            label = stringResource(R.string.pref_title_brevis),
+                            checked = settings.dynamic.useMysteriumBrevis.name == "ON"
+                        ),
+                        onChangeSwitch = onChangeSwitch
+                    )
+                    LPlusSwitch(
+                        settings = settings,
+                        switch = SwitchItem(
+                            id = 2,
+                            label = stringResource(R.string.pref_key_enable_analytics),
+                            checked = settings.dynamic.useMysteriumBrevis.name == "BREVIS"
+                        ),
+                        onChangeSwitch = onChangeSwitch
+                    )
+
                     //SwitchWithLabel("Rosario forma breve",true,{})
                 }
             }
@@ -380,6 +401,8 @@ fun SettingsScreen(
     SettingsScreen(
         settingsUiState = settingsUiState,
         onChangeFontSize = viewModel::updateFontSizePreference,
+        onChangeSwitch = viewModel::updateSwitchPreference,
+
         onBackClick = onBackClick
     )
 }

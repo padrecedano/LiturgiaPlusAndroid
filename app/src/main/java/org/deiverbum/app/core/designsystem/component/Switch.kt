@@ -21,22 +21,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import org.deiverbum.app.core.model.data.ui.SwitchItem
+import org.deiverbum.app.feature.settings.UserEditableSettings
 
 @Composable
-fun LPlusSwitch(label: String) {
-    var checked by remember { mutableStateOf(true) }
+fun LPlusSwitch(
+    switch: SwitchItem,
+    onChangeSwitch: (switch: SwitchItem, isChecked: Boolean, useAnalytics: Boolean) -> Unit,
+    settings: UserEditableSettings
+) {
+    var checked by remember { mutableStateOf(switch.checked) }
     Row(
         modifier = Modifier
             .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically
 
     ) {
-        Text(text = label)
+        Text(text = switch.label)
         Spacer(modifier = Modifier.padding(start = 8.dp))
         Switch(
             checked = checked,
             onCheckedChange = {
                 checked = it
+                onChangeSwitch(switch, checked, settings.dynamic.useAnalytics.name == "ON")
             },
             thumbContent = if (checked) {
                 {

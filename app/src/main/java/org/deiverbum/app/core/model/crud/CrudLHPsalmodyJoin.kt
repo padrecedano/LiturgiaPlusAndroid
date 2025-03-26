@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.breviarium.LHPsalmodyJoin
+import org.deiverbum.app.core.model.breviarium.LHPsalmodyJoin
 
 class CrudLHPsalmodyJoin {
     var c: List<LHPsalmodyJoin>? = null

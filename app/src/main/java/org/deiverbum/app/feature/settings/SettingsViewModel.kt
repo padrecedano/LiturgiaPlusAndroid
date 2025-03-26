@@ -9,11 +9,13 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.deiverbum.app.core.data.repository.UserDataRepository
-import org.deiverbum.app.core.model.data.UserDataDynamic
-import org.deiverbum.app.core.model.data.configuration.DarkThemeConfig
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig
-import org.deiverbum.app.core.model.data.configuration.ThemeBrand
-import org.deiverbum.app.core.model.data.configuration.VoiceReaderConfig
+import org.deiverbum.app.core.model.configuration.DarkThemeConfig
+import org.deiverbum.app.core.model.configuration.FontSizeConfig
+import org.deiverbum.app.core.model.configuration.RosariumConfig
+import org.deiverbum.app.core.model.configuration.ThemeBrand
+import org.deiverbum.app.core.model.configuration.UserDataDynamic
+import org.deiverbum.app.core.model.configuration.VoiceReaderConfig
+import org.deiverbum.app.core.model.data.ui.SwitchItem
 import org.deiverbum.app.feature.settings.SettingsUiState.Success
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
@@ -73,6 +75,21 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             userDataRepository.setFontSizePreference(fontSize)
         }
+    }
+
+    fun updateSwitchPreference(switch: SwitchItem, isChecked: Boolean, useAnalytics: Boolean) {
+        when (switch.id) {
+            1 -> {
+                val rosariumConfig = when (isChecked) {
+                    true -> RosariumConfig.ON
+                    false -> RosariumConfig.OFF
+                }
+                viewModelScope.launch {
+                    userDataRepository.setRosariumPreference(rosariumConfig, useAnalytics)
+                }
+            }
+        }
+
     }
 }
 

@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.book
+package org.deiverbum.app.core.model.book
 
 import android.text.SpannableStringBuilder
 import com.squareup.moshi.JsonClass
@@ -7,11 +7,11 @@ import org.deiverbum.app.util.Constants.LS2
 import org.deiverbum.app.util.Utils
 
 @JsonClass(generateAdapter = true)
-class BookSacramentum {
-    var cic: String = ""
-    var numbers: List<SacramentumNumber>? = null
+data class BookSacramentum(
+    var cic: String = "",
+    var numbers: List<SacramentumNumber>? = null,
     var title: String = ""
-
+) {
     fun getForView(isNightMode: Boolean): SpannableStringBuilder {
         ColorUtils.isNightMode = isNightMode
 

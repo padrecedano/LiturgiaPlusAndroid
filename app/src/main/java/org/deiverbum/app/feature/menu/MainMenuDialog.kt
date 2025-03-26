@@ -36,10 +36,6 @@ import org.deiverbum.app.core.analytics.LocalAnalyticsHelper
 import org.deiverbum.app.core.data.repository.logMainMenuOptionOpened
 import org.deiverbum.app.core.designsystem.component.MenuButton
 import org.deiverbum.app.core.designsystem.theme.NiaTypography
-import org.deiverbum.app.core.designsystem.theme.supportsDynamicTheming
-import org.deiverbum.app.core.model.data.configuration.DarkThemeConfig
-import org.deiverbum.app.core.model.data.configuration.ThemeBrand
-import org.deiverbum.app.core.model.data.configuration.VoiceReaderConfig
 import org.deiverbum.app.core.model.data.ui.MenuItem
 import org.deiverbum.app.core.ui.TrackScreenViewEvent
 import org.deiverbum.app.feature.settings.SettingsViewModel
@@ -57,27 +53,15 @@ fun MainMenuDialog(
     MainMenuDialog(
         onDismiss = onDismiss,
         onClick = onClick,
-        //settingsUiState = settingsUiState,
-        onChangeThemeBrand = viewModel::updateThemeBrand,
-        onChangeDynamicColorPreference = viewModel::updateDynamicColorPreference,
-        onChangeVoiceReaderPreference = viewModel::updateVoiceReaderPreference,
-        onChangeMultipleInvitatoryPreference = viewModel::updateMultipleInvitatoryPreference,
-        onChangeDarkThemeConfig = viewModel::updateDarkThemeConfig,
     )
 }
 
 @Composable
 fun MainMenuDialog(
-    //settingsUiState: SettingsUiState,
-    supportDynamicColor: Boolean = supportsDynamicTheming(),
     onDismiss: () -> Unit,
     onClick: (String) -> Unit,
-    onChangeThemeBrand: (themeBrand: ThemeBrand) -> Unit,
-    onChangeDynamicColorPreference: (useDynamicColor: Boolean) -> Unit,
-    onChangeVoiceReaderPreference: (useVoiceReader: VoiceReaderConfig) -> Unit,
-    onChangeMultipleInvitatoryPreference: (useMultipleInvitatory: Boolean) -> Unit,
-    onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
-) {
+
+    ) {
     val configuration = LocalConfiguration.current
     val analyticsHelper = LocalAnalyticsHelper.current
 
@@ -102,18 +86,10 @@ fun MainMenuDialog(
             HorizontalDivider()
             Column(Modifier.verticalScroll(rememberScrollState())) {
                 MenuPanel(
-                    //settings = settingsUiState.settings,
-                    supportDynamicColor = supportDynamicColor,
-                    onChangeThemeBrand = onChangeThemeBrand,
-                    onChangeDynamicColorPreference = onChangeDynamicColorPreference,
-                    onChangeVoiceReaderPreference = onChangeVoiceReaderPreference,
-                    onChangeMultipleInvitatoryPreference = onChangeMultipleInvitatoryPreference,
-                    onChangeDarkThemeConfig = onChangeDarkThemeConfig,
                     onClick = onClick,
                     onDismiss = onDismiss,
                     analyticsHelper = analyticsHelper
                 )
-
                 HorizontalDivider(Modifier.padding(top = 8.dp))
                 AppNamePanel()
             }
@@ -137,13 +113,6 @@ fun MainMenuDialog(
 // [ColumnScope] is used for using the [ColumnScope.AnimatedVisibility] extension overload composable.
 @Composable
 private fun MenuPanel(
-    //settings: UserEditableSettings,
-    supportDynamicColor: Boolean,
-    onChangeThemeBrand: (themeBrand: ThemeBrand) -> Unit,
-    onChangeDynamicColorPreference: (useDynamicColor: Boolean) -> Unit,
-    onChangeVoiceReaderPreference: (useVoiceReader: VoiceReaderConfig) -> Unit,
-    onChangeMultipleInvitatoryPreference: (useMultipleInvitatory: Boolean) -> Unit,
-    onChangeDarkThemeConfig: (darkThemeConfig: DarkThemeConfig) -> Unit,
     onClick: (String) -> Unit,
     onDismiss: () -> Unit,
     analyticsHelper: AnalyticsHelper

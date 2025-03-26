@@ -6,8 +6,8 @@ import org.deiverbum.app.core.database.model.entity.LHNightPrayerEntity
 import org.deiverbum.app.core.database.model.entity.LiturgyEntity
 import org.deiverbum.app.core.database.model.entity.UniversalisEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.breviarium.BreviariumCompletorium
-import org.deiverbum.app.core.model.data.breviarium.ConclusioCompletorium
+import org.deiverbum.app.core.model.breviarium.BreviariumCompletorium
+import org.deiverbum.app.core.model.breviarium.ConclusioCompletorium
 import org.deiverbum.app.core.model.liturgia.Liturgy
 import org.deiverbum.app.core.model.universalis.Universalis
 

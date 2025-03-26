@@ -6,7 +6,7 @@ import org.deiverbum.app.core.database.model.entity.BibleReadingEntity
 import org.deiverbum.app.core.database.model.entity.LHOfficeBiblicalEntity
 import org.deiverbum.app.core.database.model.entity.LHResponsoryEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.breviarium.LHOfficiumLectioPrior
+import org.deiverbum.app.core.model.breviarium.LHOfficiumLectioPrior
 
 /**
  *

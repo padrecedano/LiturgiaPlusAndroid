@@ -160,6 +160,4 @@ open class LectioBiblica(
     open fun setOrden(theOrder: Int) {
         //theOrder = theOrder
     }
-
-
 }

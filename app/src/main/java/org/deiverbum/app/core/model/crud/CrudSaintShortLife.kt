@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.breviarium.SanctusVitaBrevis
+import org.deiverbum.app.core.model.breviarium.SanctusVitaBrevis
 
 class CrudSaintShortLife {
     var c: List<SanctusVitaBrevis>? = null

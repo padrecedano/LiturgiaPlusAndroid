@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.deiverbum.app.core.designsystem.theme.LPlusTheme
 import org.deiverbum.app.core.designsystem.theme.NiaTypography
-import org.deiverbum.app.core.model.data.UserDataDynamic
+import org.deiverbum.app.core.model.configuration.UserDataDynamic
 import timber.log.Timber
 
 

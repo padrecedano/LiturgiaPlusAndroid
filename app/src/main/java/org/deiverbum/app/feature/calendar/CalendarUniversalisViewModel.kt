@@ -15,7 +15,7 @@ import org.deiverbum.app.core.domain.GetUniversalisFromCalendarUseCase
 import org.deiverbum.app.core.domain.GetUniversalisUseCase
 import org.deiverbum.app.core.model.universalis.UniversalisResource
 import org.deiverbum.app.feature.calendar.navigation.CalendarRoute
-import org.deiverbum.app.util.LiturgyHelper
+import org.deiverbum.app.feature.universalis.navigation.UniversalisRoute
 import org.deiverbum.app.util.Utils
 import timber.log.Timber
 import javax.inject.Inject
@@ -33,7 +33,8 @@ class CalendarUniversalisViewModel @Inject constructor(
     private val selectedDateKey = "selectedDateKey"
 
     //private val route: CalendarRoute = savedStateHandle.toRoute()
-    private val route: CalendarRoute = savedStateHandle.toRoute()
+    private val routee: CalendarRoute = savedStateHandle.toRoute()
+    private val route: UniversalisRoute = savedStateHandle.toRoute()
 
     val selectedTopicIdd: StateFlow<String?> = savedStateHandle.getStateFlow(
         key = selectedTopicIdKey,
@@ -71,10 +72,9 @@ class CalendarUniversalisViewModel @Inject constructor(
         selectedTopicId,
         getTopicWithDate.invoke(
             //sortBy = HomeSortField.ID,
-            date = selectedDate.value,
+            date = route.initialDate,
             title = selectedTopicId.value,
-            selectedTopicId = LiturgyHelper.liturgyByName(selectedTopicId.value)
-                .toString()//selectedTopicId.value!!,
+            selectedTopicId = route.initialTopicId!!//selectedTopicId.value!!,
         ),
         CalendarUniversalisUiState::UniversalisData,
     ).stateIn(
@@ -95,9 +95,12 @@ class CalendarUniversalisViewModel @Inject constructor(
 */
 
 
-    fun onTopicClick(topicId: String?) {
+    fun onTopicClick(topicId: String?, date: Int) {
         Timber.d("axy")
-        //savedStateHandle[selectedTopicIdKey] = topicId
+        //route.copy(initialDate =20250313)
+        savedStateHandle[selectedTopicIdKey] = topicId
+        savedStateHandle[selectedDateKey] = date
+
         // topicIdd = topicId!!
         //selectedTopicId.value= topicId!!.toInt()
     }

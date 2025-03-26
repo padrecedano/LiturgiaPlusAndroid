@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.alteri.SanctusVita
+import org.deiverbum.app.core.model.alteri.SanctusVita
 
 class CrudSaintLife {
     var c: List<SanctusVita>? = null

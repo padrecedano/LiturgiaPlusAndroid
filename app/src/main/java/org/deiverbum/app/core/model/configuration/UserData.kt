@@ -1,10 +1,4 @@
-package org.deiverbum.app.core.model.data
-
-import org.deiverbum.app.core.model.data.configuration.DarkThemeConfig
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig
-import org.deiverbum.app.core.model.data.configuration.RubricColorConfig
-import org.deiverbum.app.core.model.data.configuration.ThemeBrand
-import org.deiverbum.app.core.model.data.configuration.VoiceReaderConfig
+package org.deiverbum.app.core.model.configuration
 
 /**
  * Clase para guardar las preferencias del usuario.
@@ -21,8 +15,10 @@ data class UserData(
 data class UserDataDynamic(
     val darkThemeConfig: DarkThemeConfig,
     val useDynamicColor: Boolean,
-    val useVoiceReader: VoiceReaderConfig,//Boolean = true,
+    val useVoiceReader: VoiceReaderConfig,
     val useMultipleInvitatory: Boolean,
+    val useMysteriumBrevis: RosariumConfig,
+    val useAnalytics: AnalyticsConfig,
     val rubricColor: RubricColorConfig,
     val fontSize: FontSizeConfig
 )

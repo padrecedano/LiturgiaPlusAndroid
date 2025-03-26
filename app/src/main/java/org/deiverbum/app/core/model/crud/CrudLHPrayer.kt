@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.breviarium.LHOratio
+import org.deiverbum.app.core.model.breviarium.LHOratio
 
 class CrudLHPrayer {
     var c: List<LHOratio>? = null

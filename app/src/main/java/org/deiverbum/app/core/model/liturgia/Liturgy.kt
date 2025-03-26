@@ -5,9 +5,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Ignore
 import com.google.firebase.firestore.PropertyName
 import com.squareup.moshi.JsonClass
+import org.deiverbum.app.core.model.alteri.Sanctus
+import org.deiverbum.app.core.model.breviarium.LHSanctus
 import org.deiverbum.app.core.model.data.Today
-import org.deiverbum.app.core.model.data.alteri.Sanctus
-import org.deiverbum.app.core.model.data.breviarium.LHSanctus
 import org.deiverbum.app.core.model.data.missae.MissaeLectionumList
 import org.deiverbum.app.core.model.data.traditio.BibleCommentList
 import org.deiverbum.app.core.model.data.traditio.HomilyList

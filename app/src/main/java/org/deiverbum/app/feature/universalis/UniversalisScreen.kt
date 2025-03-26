@@ -38,12 +38,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -56,25 +52,21 @@ import org.deiverbum.app.core.designsystem.component.NiaIconToggleButton
 import org.deiverbum.app.core.designsystem.component.NiaLoadingWheel
 import org.deiverbum.app.core.designsystem.component.NiaTab
 import org.deiverbum.app.core.designsystem.component.NiaTabRow
+import org.deiverbum.app.core.designsystem.component.TextError
 import org.deiverbum.app.core.designsystem.component.UniversalisSingleAppBar
 import org.deiverbum.app.core.designsystem.component.UniversalisTopAppBar
 import org.deiverbum.app.core.designsystem.theme.getPersonalizedTypography
-import org.deiverbum.app.core.model.data.Normalizable
-import org.deiverbum.app.core.model.data.Sortable
-import org.deiverbum.app.core.model.data.UserData
-import org.deiverbum.app.core.model.data.UserDataDynamic
-import org.deiverbum.app.core.model.data.alteri.AlteriSanctii
+import org.deiverbum.app.core.model.alteri.AlteriSanctii
+import org.deiverbum.app.core.model.configuration.UserData
+import org.deiverbum.app.core.model.configuration.UserDataDynamic
 import org.deiverbum.app.core.model.universalis.UniversalisResource
 import org.deiverbum.app.core.ui.TrackScrollJank
-import org.deiverbum.app.core.ui.contentSpace
-import org.deiverbum.app.core.ui.sectionTitle
+import org.deiverbum.app.core.ui.UniversalisBodyForView
 import org.deiverbum.app.core.ui.universalisBodyForRead
-import org.deiverbum.app.core.ui.universalisBodyForVieww
 import org.deiverbum.app.feature.calendar.ErrorState
 import org.deiverbum.app.feature.tts.ScreenTtsPlayer
 import org.deiverbum.app.feature.tts.TtsMediaViewModel
 import org.deiverbum.app.util.Utils
-
 
 /**
  * Es llamada desde la pantalla inicial para obtener el contenido
@@ -129,7 +121,6 @@ fun UniversalisFromHomeScreen(
  *
  */
 
-//@ExperimentalStdlibApi
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi
 @Composable
@@ -159,11 +150,11 @@ internal fun UniversalisFromHomeScreen(
             } else {*/
             //Text(uiState.topics[0].data.rosarium!!.getForView().toString())
             //return
-                UniversalisResourceData(
-                    onBackClick = onBackClick,
-                    universalisResource = uiState.topics,
-                    analyticsHelper = analyticsHelper
-                )
+            UniversalisResourceData(
+                onBackClick = onBackClick,
+                universalisResource = uiState.topics,
+                analyticsHelper = analyticsHelper
+            )
             //}
         }
 
@@ -291,38 +282,37 @@ fun UniversalisToolbar(
                 }
             )
 
-                //TextToSpeechScreenB(text = sb)
-                //TextToSpeechScreenA(text = sb)
-                //ExoPlayerView(text = sb)
-                //ExoPlayerVieww(text = sb)
-                //Media3TtsView(sb)
+            //TextToSpeechScreenB(text = sb)
+            //TextToSpeechScreenA(text = sb)
+            //ExoPlayerView(text = sb)
+            //ExoPlayerVieww(text = sb)
+            //Media3TtsView(sb)
 
-                //ScreenTts(viewModelSimpleMedia,sb)
+            //ScreenTts(viewModelSimpleMedia,sb)
             //ScreenTtsPlayer(viewModelTts, sb)
-                //TtsMediaScreen(viewModelTts,{})
-                /*
-                BottomPlayerTab(
-                    selectedSong = selectedSong!!,
-                    onUIEvents = viewModelSong::onUiEvents,
-                    onBottomTabClick = {
-                        Timber.d("a","a")
+            //TtsMediaScreen(viewModelTts,{})
+            /*
+            BottomPlayerTab(
+                selectedSong = selectedSong!!,
+                onUIEvents = viewModelSong::onUiEvents,
+                onBottomTabClick = {
+                    Timber.d("a","a")
+                }
+            )*/
+            //Media3PlayerView(videoUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
+            /*Button(onClick = {
+                scope.launch { sheetState.hide() }.invokeOnCompletion {
+                    if (!sheetState.isVisible) {
+                        showBottomSheet = false
                     }
-                )*/
-                //Media3PlayerView(videoUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
-                /*Button(onClick = {
-                    scope.launch { sheetState.hide() }.invokeOnCompletion {
-                        if (!sheetState.isVisible) {
-                            showBottomSheet = false
-                        }
-                    }
-                }) {
-                    Text("Hide bottom sheet")
-                }*/
-            }
+                }
+            }) {
+                Text("Hide bottom sheet")
+            }*/
         }
-
     }
 
+}
 
 
 /**
@@ -359,74 +349,19 @@ fun LoadingState(modifier: Modifier = Modifier) {
  * [UniversalisResourceCardExpanded] card usada en `UniversalisScreen`
  */
 
-@OptIn(ExperimentalMaterial3Api::class)
+//@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UniversalisResourceCardExpanded(
     typusId: Int,
     resource: UniversalisResource,
     userData: UserData
-    ) {
-
-    /*Column {
-        Box(
-            modifier = Modifier.padding(7.dp),
-        ) {*/
-            Column {
-                val data = resource.data
-                if (data.liturgia!!.liturgiaTypus is Sortable) {
-                    data.liturgia!!.liturgiaTypus?.sort()
-                }
-                if (data.liturgia!!.liturgiaTypus is Normalizable) {
-                    data.liturgia!!.liturgiaTypus?.normalizeByTime(data.timeFK)
-                }
-
-                /*Row(verticalAlignment = Alignment.CenterVertically) {
-                    if (data.todayDate > 0) {
-                        Text(
-                            Utils.formatDate(
-                                data.todayDate.toString(),
-                                "yyyyMMdd",
-                                "EEEE d 'de' MMMM 'de' yyyy"
-                            ),
-                            //modifier = Modifier.padding(top = 10.dp),
-                            style = NiaTypography.bodyLarge,
-                        )
-                    }
-                }*/
-                Spacer(modifier = Modifier.height(14.dp))
-                /*Row {
-
-                    //UniversalisHeader("universalis.selectedTopicId!!", data.todayDate)
-                    UniversalisResourceTitle(
-                        resource.metaData.tempus,
-                        userData.dynamic,
-                        modifier = Modifier.fillMaxWidth((.8f)),
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                }*/
-                //Spacer(modifier = Modifier.height(14.dp))
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    //UniversalisResourceMetaData(resource)
-
-                    //Spacer(modifier = Modifier.height(14.dp))
-                    val text = universalisBodyForVieww(resource)
-                    val onTap = { _: Offset -> }
-
-                    //TextZoomable(onTap = onTap, text = text)
-
-                    //Text(text)
-                }
-
-
-                /*UniversalisBody(
-                    resource = resource,
-                    topicId = typusId,
-                    userData = userData,
-                )*/
-
-            }
-    //}
-    //}
+) {
+    Column {
+        Spacer(modifier = Modifier.height(14.dp))
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            UniversalisBodyForView(resource)
+        }
+    }
 }
 
 /**
@@ -452,6 +387,7 @@ fun UniversalisResourceData(
         -1 -> {
             "Error"
         }
+
         20 -> {
             val sancti = universalisResource.data.liturgia!!.liturgiaTypus as AlteriSanctii
             sancti.sanctus.monthName
@@ -504,11 +440,11 @@ fun UniversalisResourceData(
                             ErrorState("")
                         } else {
                             //universalisResource.data.liturgia.liturgiaTypus
-                        UniversalisResourceCardExpanded(
-                            resource = universalisResource,
-                            typusId = typusId,
-                            userData = userData
-                        )
+                            UniversalisResourceCardExpanded(
+                                resource = universalisResource,
+                                typusId = typusId,
+                                userData = userData
+                            )
                         }
                     }
                 }
@@ -531,7 +467,7 @@ fun UniversalisResourceData(
                     ScreenTtsPlayer(viewModelTts)
                 },
             ) //{
-                //Timber.d("aaa-",plainTextFromHTML.text)
+            //Timber.d("aaa-",plainTextFromHTML.text)
 //Text(plainTextFromHTML.text)
             //ScreenTtsPlayer(viewModelTts)
             //}
@@ -573,48 +509,15 @@ fun NoDataScaffold(
         ) {
             //UniversalisEmptyScreen()
             //val text=uiState.
-            Text(
-                text = stringResource(id = R.string.error_title),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+
+            TextError(
+                buildString {
+                    append(uiState.message)
+                    append("\n\nFecha: ${uiState.date}")
+                    append("\n\nLocalización: ${uiState.topic}")
+                }
             )
-            Text(
-                text = uiState.message,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyLarge,
-            )
-            Text(
-                text = "Fecha: ${uiState.date}",//"" ,//stringResource(id = R.string.feature_bookmarks_empty_error),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(5.dp),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyLarge,
-            )
-            Text(
-                text = "Localización: ${uiState.topic}",//"" ,//stringResource(id = R.string.feature_bookmarks_empty_error),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(5.dp),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyLarge,
-            )
-            Text(
-                text = "${stringResource(id = R.string.version)}: ${stringResource(id = R.string.app_version_and_name)}",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(5.dp),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodySmall,
-                fontWeight = FontWeight.Bold
-            )
+
 
         }
     }
@@ -654,28 +557,6 @@ fun ReaderButton(
                 contentDescription = "stringResource(R.string.core_ui_unbookmark)",
             )
         },
-    )
-}
-
-@Composable
-fun UniversalisResourceMetaData(
-    resource: UniversalisResource,
-) {
-    val userData = resource.dynamic
-    val color = MaterialTheme.colorScheme.error
-    val typography = getPersonalizedTypography(userData.dynamic.fontSize)
-    val fontSize = typography.bodyLarge.fontSize
-    val text = buildAnnotatedString {
-        //append(contentHead(resource.metaData.tempus,3,userData.dynamic,color,false))
-        //append(textLines(1,fontSize))
-        append(contentSpace(1))
-
-        append(sectionTitle(resource.metaData.nomen, 2, resource.dynamic.dynamic, false))
-        append(contentSpace(2))
-        //append(contentHead(resource.metaData.liturgia,1,userData.dynamic,color,false,true))
-    }
-    Text(
-        text = text
     )
 }
 

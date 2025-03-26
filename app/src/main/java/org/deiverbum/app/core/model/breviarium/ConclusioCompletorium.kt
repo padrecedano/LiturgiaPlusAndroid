@@ -1,6 +1,4 @@
-package org.deiverbum.app.core.model.data.breviarium
-
-import org.deiverbum.app.core.model.breviarium.VirginAntiphon
+package org.deiverbum.app.core.model.breviarium
 
 /**
  * Representa la conclusión de [BreviariumCompletorium] para la capa de datos externa.

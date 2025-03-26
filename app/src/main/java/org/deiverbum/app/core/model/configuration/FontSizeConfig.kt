@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.configuration
+package org.deiverbum.app.core.model.configuration
 
 import kotlinx.serialization.Serializable
 

@@ -6,7 +6,7 @@ import org.deiverbum.app.core.database.model.entity.LHReadingShortEntity
 import org.deiverbum.app.core.database.model.entity.LHReadingShortJoinEntity
 import org.deiverbum.app.core.database.model.entity.LHResponsoryShortEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.breviarium.LHLectioBrevis
+import org.deiverbum.app.core.model.breviarium.LHLectioBrevis
 
 /**
  *

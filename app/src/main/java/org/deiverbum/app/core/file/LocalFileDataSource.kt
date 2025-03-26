@@ -6,7 +6,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.deiverbum.app.AssetManager
-import org.deiverbum.app.core.model.data.book.BookTest
+import org.deiverbum.app.core.model.book.BookTest
 import org.deiverbum.app.core.network.Dispatcher
 import org.deiverbum.app.core.network.NiaDispatchers
 import javax.inject.Inject

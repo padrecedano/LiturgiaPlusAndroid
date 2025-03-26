@@ -1,14 +1,16 @@
 package org.deiverbum.app.feature.mas.navigation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
-import androidx.compose.runtime.remember
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
-import org.deiverbum.app.core.model.data.FileRequest
+import org.deiverbum.app.feature.file.navigation.FileRoute
+import org.deiverbum.app.feature.mas.MoreRoute
+import org.deiverbum.app.util.FileNameUtil
 
 @Serializable
 data class MasRoute(
@@ -16,22 +18,42 @@ data class MasRoute(
 )
 
 fun NavController.navigateToMas(
-    initialTopicId: String? = null,
+    initialTopicId: String = "",
     navOptions: NavOptions? = null,
 ) {
-    navigate(route = MasRoute(initialTopicId), navOptions)
+    //val fileName = FileNameUtil.fileMap[initialTopicId]
+    navigate(route = MasRoute(), navOptions = navOptions)
+
+    //navigate(route = MasRoute(initialTopicId), navOptions)
 }
 
+fun NavController.navigateToFile(
+    initialTopicId: String = "",
+    navOptions: NavOptions? = null,
+) {
+    val fileName = FileNameUtil.fileMap[initialTopicId]
+    navigate(route = FileRoute(initialTopicId, fileName), navOptions = navOptions)
+
+    //navigate(route = MasRoute(initialTopicId), navOptions)
+}
+
+@OptIn(ExperimentalFoundationApi::class)
 @ExperimentalLayoutApi
 @ExperimentalMaterial3AdaptiveApi
 fun NavGraphBuilder.masScreen(
     onTopicClick: (String) -> Unit,
-    //onBackClick: () -> Unit,
+    //currentTimeZone: StateFlow<TimeZone>,
+    //currentDate: StateFlow<LocalDateTime>,
 ) {
     composable<MasRoute> {
+        MoreRoute(onTopicClick)
+
+    }
+    /*
+    composable<MasRoute> {
         val fileRequest = remember {
-            FileRequest(
-                listOf("raw/oratio/letanias.json", "raw/oratio/rosario.json"), 1, 6, false,
+            FileRequestt(
+                listOf(FileItem("raw/oratio/letanias.json","a"), FileItem("raw/oratio/rosario.json","b")), 1, 6, false,
                 isVoiceOn = true,
                 isBrevis = true
             )
@@ -41,8 +63,10 @@ fun NavGraphBuilder.masScreen(
             isVoiceOn = true,
             isBrevis = true
         )
-        //MasScreen(onTopicClick = onTopicClick, fileRequest = fileRequest)
+        MasScreen(onTopicClick = onTopicClick, fileRequest = fileRequest)
+
     }
+    */
 }
 
 

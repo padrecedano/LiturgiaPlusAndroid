@@ -15,7 +15,7 @@ class FileRequest(
 )
 
 class FileRequestt(
-    var fileName: List<FileItem>,
+    var fileName: FileItem,
     var dayOfWeek: Int,
     var timeId: Int,
     var isNightMode: Boolean = false,

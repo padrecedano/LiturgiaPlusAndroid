@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.book
+package org.deiverbum.app.core.model.book
 
 import android.text.SpannableStringBuilder
 import org.deiverbum.app.util.Constants

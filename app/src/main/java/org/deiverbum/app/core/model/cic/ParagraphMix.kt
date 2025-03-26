@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.cic
+package org.deiverbum.app.core.model.cic
 
 class ParagraphMix(
     var txt: List<String>? = null,

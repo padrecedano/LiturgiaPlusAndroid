@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
@@ -48,14 +49,19 @@ class FileViewModel @Inject constructor(
         key = fileTitleKey,
         initialValue = route.fileTitle,
     )
+    private val query = MutableStateFlow(FileRequestt(FileItem("", ""), 1, 1, true, true, true))
+
     private val fileRequest = MutableStateFlow<FileRequestt?>(
-        FileRequestt(listOf(FileItem(fileName.value!!, fileTitle.value!!)), 1, 1, true, true, true)
+        FileRequestt(FileItem(fileName.value!!, fileTitle.value!!), 1, 1, true, true, true)
     )
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val uiState: StateFlow<FileUiState> = fileRequest
         .flatMapLatest {
             it?.let(::loadDataFlow) ?: flowOf(FileUiState.Empty)
+        }
+        .catch {
+            emit(FileUiState.Empty)
         }
         .stateIn(
             scope = viewModelScope,

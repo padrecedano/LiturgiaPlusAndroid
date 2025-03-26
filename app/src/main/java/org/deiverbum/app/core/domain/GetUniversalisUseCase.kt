@@ -76,7 +76,7 @@ class GetUniversalisUseCase @Inject constructor(
                 "30" -> MetaData(
                     liturgia = title,
                     tempus = "Santo Rosario",//universalis.liturgia!!.liturgiaTypus!!.typus,
-                    nomen = DateTimeUtil.dayName(date).uppercase(),
+                    nomen = DateTimeUtil.dayName(date),
 
                     )
 

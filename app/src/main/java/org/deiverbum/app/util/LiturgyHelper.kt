@@ -6,6 +6,7 @@ class LiturgyHelper {
     companion object {
         const val V = "V./ "
         const val R = "R./ "
+        const val EMDASH = "—"
         val liturgyMap = hashMapOf(
             1 to "Mixto",
             2 to "Oficio",
@@ -53,7 +54,7 @@ class LiturgyHelper {
             //9 to "misa",
             //10 to "homilias",
             11 to "Misa: Lecturas",
-            12 to "Mida: Comentarios",
+            12 to "Misa: Comentarios",
             13 to "Misa: Homilías",
             20 to "Santos",
             30 to "Santo Rosario"

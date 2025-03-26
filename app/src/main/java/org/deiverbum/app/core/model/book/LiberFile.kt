@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.book
+package org.deiverbum.app.core.model.book
 
 
 /**
@@ -18,8 +18,8 @@ package org.deiverbum.app.core.model.data.book
  */
 
 
-abstract class LiberFile(typus: String) :
-    LiberTypus(typus) {
+abstract class LiberFile(typus: String, bookType: Int) :
+    LiberTypus(typus, bookType) {
     /* fun forView(): SpannableStringBuilder {
          return super.getHeaders()
      }

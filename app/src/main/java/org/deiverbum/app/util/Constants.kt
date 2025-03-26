@@ -117,12 +117,13 @@ object Constants {
     const val FILE_BAPTISMUS = "raw/sacramentum/baptismus.json"
     const val CIC_BAPTISMUS = "raw/sacramentum/cic_baptismus.json"
     const val CIC_UNCTIONIS = "raw/sacramentum/cic_unctionis.json"
+
     const val UNCTIONIS_ORDINARIUM = "raw/sacramentum/unctionis_ordinarium.json"
     const val FILE_UNCTIONIS_ARTICULO_MORTIS = "raw/sacramentum/unctionis_periculo_mortis.json"
-    const val FILE_VIATICUM = "raw/sacramentum/viaticum.json"
     const val FILE_UNCTIONIS_SINE_VIATICUM = "raw/sacramentum/unctionis_sine_viaticum.json"
     const val FILE_UNCTIONIS_IN_DUBIO = "raw/sacramentum/unctionis_in_dubio.json"
     const val FILE_COMMENDATIONE_MORIENTIUM = "raw/sacramentum/commendatione_morientium.json"
+    const val FILE_VIATICUM = "raw/sacramentum/viaticum.json"
 
 
     const val PREF_ACCEPT = "accept_terms"
@@ -232,6 +233,10 @@ object Constants {
     const val TITLE_CONCLUSION = "Conclusión"
     const val TITLE_MASS_GOSPEL = "Evangelio de la Misa"
     const val TITLE_GOSPEL = "Evangelio"
+    const val TITLE_HOMILIEAE = "Homilías"
+    const val TITLE_COMMENTARII = "Comentarios"
+
+
 
     const val TITLE_LECTIO_PRIOR = "Primera lectura"
     const val TITLE_LECTIO_ALTERA = "Segunda lectura"

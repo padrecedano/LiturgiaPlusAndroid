@@ -1,6 +1,8 @@
 package org.deiverbum.app.core.model.data
 
-import org.deiverbum.app.core.model.data.book.Book
+import org.deiverbum.app.core.model.book.Book
+import org.deiverbum.app.core.model.configuration.UserData
+import org.deiverbum.app.core.model.configuration.UserDataDynamic
 
 /**
  * A [NewsResource] with additional user information such as whether the user is following the

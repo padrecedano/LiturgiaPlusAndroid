@@ -3,9 +3,12 @@ package org.deiverbum.app.core.designsystem.component
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -18,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.ParagraphStyle
@@ -30,8 +34,10 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.style.LineHeightStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextIndent
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.TextUnit
@@ -42,19 +48,60 @@ import net.engawapg.lib.zoomable.zoomable
 import org.deiverbum.app.core.designsystem.theme.Orange90
 import org.deiverbum.app.core.designsystem.theme.Red40
 import org.deiverbum.app.core.designsystem.theme.getPersonalizedTypography
-import org.deiverbum.app.core.model.data.UserData
-import org.deiverbum.app.core.model.data.UserDataDynamic
+import org.deiverbum.app.core.model.book.BaseHead
+import org.deiverbum.app.core.model.book.Canon
+import org.deiverbum.app.core.model.book.CanonWithList
+import org.deiverbum.app.core.model.book.LiberBiblical
+import org.deiverbum.app.core.model.book.LiberDialog
+import org.deiverbum.app.core.model.book.LiberHeadComplex
+import org.deiverbum.app.core.model.book.LiberHeadSingle
+import org.deiverbum.app.core.model.book.LiberMixtus
+import org.deiverbum.app.core.model.book.LiberMixtusB
+import org.deiverbum.app.core.model.book.LiberOratio
+import org.deiverbum.app.core.model.book.LiberOratioo
+import org.deiverbum.app.core.model.book.LiberParagraphus
+import org.deiverbum.app.core.model.book.LiberPreces
+import org.deiverbum.app.core.model.book.LiberText
+import org.deiverbum.app.core.model.book.ParagraphusPriest
+import org.deiverbum.app.core.model.book.ParagraphusResponsum
+import org.deiverbum.app.core.model.book.ParagraphusRubricaNew
+import org.deiverbum.app.core.model.book.ParagraphusRubricaNumerus
+import org.deiverbum.app.core.model.book.ParagraphusVersiculus
+import org.deiverbum.app.core.model.book.ParagraphusVersiculusResponsum
+import org.deiverbum.app.core.model.book.Priest
+import org.deiverbum.app.core.model.configuration.UserData
+import org.deiverbum.app.core.model.configuration.UserDataDynamic
+import org.deiverbum.app.core.ui.ContentLabel
+import org.deiverbum.app.core.ui.ContentTitle
 import org.deiverbum.app.util.AudioHelper
 import org.deiverbum.app.util.Constants.PRECES_R
+import org.deiverbum.app.util.LiturgyHelper.Companion.EMDASH
 import org.deiverbum.app.util.LiturgyHelper.Companion.R
 import org.deiverbum.app.util.LiturgyHelper.Companion.V
 import org.deiverbum.app.util.Utils.getFormato
 import org.deiverbum.app.util.marksAndHtml
 import org.deiverbum.app.util.replaceChars
+import org.deiverbum.app.util.splitParts
 
 @Composable
-fun TextSmall(text: String, userData: UserDataDynamic, style: TextStyle) {
-    val typography = getPersonalizedTypography(userData.fontSize)
+fun TextSmall(text: String, userData: UserData, style: TextStyle) {
+    val typography = getPersonalizedTypography(userData.dynamic.fontSize)
+    val textFinal = buildAnnotatedString {
+        withStyle(SpanStyle(fontSize = typography.bodySmall.fontSize)) {
+            append(text)
+        }
+    }
+    Text(
+        text = textFinal,
+        style = style,
+        fontSize = typography.bodySmall.fontSize,
+        fontWeight = FontWeight.Light
+    )
+}
+
+@Composable
+fun TextSmall(text: AnnotatedString, userData: UserData, style: TextStyle) {
+    val typography = getPersonalizedTypography(userData.dynamic.fontSize)
     val textFinal = buildAnnotatedString {
         withStyle(SpanStyle(fontSize = typography.bodySmall.fontSize)) {
             append(text)
@@ -91,30 +138,6 @@ fun textSmall(text: String, userData: UserDataDynamic): AnnotatedString {
 }
 
 @Composable
-fun textSmalll(text: String, userData: UserDataDynamic) {
-    val typography = getPersonalizedTypography(userData.fontSize)
-    val paragraphStyle = ParagraphStyle(
-        platformStyle = PlatformParagraphStyle(includeFontPadding = false),
-        lineHeightStyle = LineHeightStyle(
-            alignment = LineHeightStyle.Alignment.Bottom,
-            trim = LineHeightStyle.Trim.LastLineBottom
-        )
-    )
-    val text = buildAnnotatedString {
-        withStyle(style = paragraphStyle) {
-            withStyle(
-                SpanStyle(
-                    fontSize = typography.bodySmall.fontSize
-                )
-            ) {
-                append(text)
-            }
-        }
-    }
-    Text(text = text, style = typography.bodySmall)
-}
-
-@Composable
 fun textRubric(text: String): AnnotatedString {
     return buildAnnotatedString {
         withStyle(spanRubric()) {
@@ -124,10 +147,21 @@ fun textRubric(text: String): AnnotatedString {
 }
 
 @Composable
-fun textusRubrica(text: String): AnnotatedString {
+fun textusRubrica(text: String, isBold: Boolean = false): AnnotatedString {
     return buildAnnotatedString {
-        withStyle(SpanStyle(color = MaterialTheme.colorScheme.error)) {
-            append(text)
+        if (isBold) {
+            withStyle(
+                SpanStyle(
+                    color = MaterialTheme.colorScheme.error,
+                    fontWeight = FontWeight.Bold
+                )
+            ) {
+                append(text)
+            }
+        } else {
+            withStyle(SpanStyle(color = MaterialTheme.colorScheme.error)) {
+                append(text)
+            }
         }
     }
 }
@@ -139,9 +173,9 @@ fun textusRubrica(text: String): AnnotatedString {
  * @since 2025.1
  */
 
-fun transformEpigraph(text: String, userData: UserDataDynamic): AnnotatedString {
+fun transformEpigraph(text: String, userData: UserData): AnnotatedString {
     //val typography= getPersonalizedTypography(userData.fontSize)
-    val typography = getPersonalizedTypography(userData.fontSize)
+    val typography = getPersonalizedTypography(userData.dynamic.fontSize)
     return buildAnnotatedString {
         withStyle(
             SpanStyle(
@@ -187,11 +221,6 @@ fun textFromHtml(data: String): AnnotatedString {
  * Aquí no entra el formato, por ejemplo en el caso del Salmo Responsorial
  * (ver para ese caso [textFromHtml]
  */
-@Composable
-fun TextFromHtmlWithMarks(data: String, style: TextStyle) {
-    Text(text = AnnotatedString.fromHtml(data.marksAndHtml()), style = style)
-}
-
 fun textFromHtmlWithMarks(data: String): AnnotatedString {
     return buildAnnotatedString {
         //pushStyle(normalStyle(fontSize = fontSize))
@@ -202,6 +231,22 @@ fun textFromHtmlWithMarks(data: String): AnnotatedString {
 fun textFromHtmlAudio(data: String): AnnotatedString {
     return buildAnnotatedString {
         append(AnnotatedString.fromHtml(transformStringAudio(data)))
+    }
+}
+
+@Composable
+fun textVersiculus(data: ParagraphusVersiculus): AnnotatedString {
+    return buildAnnotatedString {
+        append(textusRubrica(V))
+        append(textBold(data.txt[0], data.isBold))
+    }
+}
+
+@Composable
+fun textResponsum(data: ParagraphusResponsum): AnnotatedString {
+    return buildAnnotatedString {
+        append(textusRubrica(R))
+        append(data.txt[0])
     }
 }
 
@@ -220,18 +265,26 @@ fun textVR(texts: List<String>): AnnotatedString {
 }
 
 @Composable
-fun TextVR(texts: List<String>, style: TextStyle) {
+fun TextVR(texts: List<String>, style: TextStyle, isBold: Boolean = false, lineBreak: Int = 1) {
     val text = buildAnnotatedString {
         withStyle(style = spanRubric()) {
             append(V)
         }
-        append(" ${texts[0]}\n")
+        append(" ${texts[0]}")
+        when (lineBreak) {
+            1 -> append("\n")
+            2 -> append("\n\n")
+
+        }
         withStyle(style = spanRubric()) {
             append(R)
         }
         append(" ${texts[1]}")
     }
-    Text(text = text, style = style)
+    when (isBold) {
+        true -> Text(text = text, style = style, fontWeight = FontWeight.Bold)
+        false -> Text(text = text, style = style)
+    }
 }
 
 @Composable
@@ -282,48 +335,6 @@ fun textIndent(first: String, second: String, rubricColor: Color): AnnotatedStri
     }
 }
 
-fun textParagraph(text: String): AnnotatedString {
-    return buildAnnotatedString {
-        withStyle(style = ParagraphStyle(lineHeight = 30.sp)) {
-        }
-        append(text)
-    }
-}
-
-fun textDefaultt(text: String, userData: UserDataDynamic): AnnotatedString {
-    val t = userData.fontSize
-    val typography = getPersonalizedTypography(userData.fontSize)
-    val def = typography.bodyLarge
-
-    return buildAnnotatedString {
-        withStyle(style = ParagraphStyle(lineHeight = def.lineHeight)) {
-
-            withStyle(
-                SpanStyle(
-                    fontSize = def.fontSize,
-                )
-            ) {
-                append(text)
-            }
-        }
-    }
-}
-
-fun textDefault(text: String, fontSize: TextUnit): AnnotatedString {
-    return buildAnnotatedString {
-        //withStyle(style = ParagraphStyle(lineHeight = fontSize)) {
-
-        withStyle(
-            SpanStyle(
-                fontSize = fontSize,
-            )
-        ) {
-            append(text)
-        }
-        //}
-    }
-}
-
 fun textDefaultItalic(text: String): AnnotatedString {
     return buildAnnotatedString {
         withStyle(
@@ -347,6 +358,69 @@ fun textLines(lines: Int = 1, fontSize: TextUnit): AnnotatedString {
     }
 }
 
+@Composable
+fun TextFromList(
+    list: List<String>,
+    style: TextStyle,
+    isRubric: Boolean = true,
+    isBold: Boolean = false
+) {
+    var i = 0
+    val text = buildAnnotatedString {
+        if (isRubric) {
+            pushStyle(spanRubric())
+        }
+        list.forEach {
+            append(it)
+            if (i++ != list.size - 1) {
+                // Last iteration
+                append("\n\n")
+            }
+            //append("\n\n")
+        }
+    }
+    if (isBold) {
+        Text(text = text, style = style, fontWeight = FontWeight.Bold)
+    } else {
+        Text(text = text, style = style)
+    }
+    //withStyle(style = ParagraphStyle(lineHeight = TextUnit.Unspecified)) {}
+    //append(text)
+
+}
+
+@Composable
+fun TextLiberPriest(
+    liber: Priest,
+    style: TextStyle,
+) {
+    var i = 0
+    val text = buildAnnotatedString {
+
+        liber.txt.forEach {
+            append(it)
+            when (liber.lineBreak) {
+                1 -> append("\n")
+                2 -> append("\n\n")
+
+            }
+            /*if (i++ != list.size - 1) {
+                // Last iteration
+                append("\n\n")
+            }*/
+            //append("\n\n")
+        }
+    }
+    if (liber.isBold) {
+        Text(text = text, style = style, fontWeight = FontWeight.Bold)
+    } else {
+        Text(text = text, style = style)
+    }
+    //withStyle(style = ParagraphStyle(lineHeight = TextUnit.Unspecified)) {}
+    //append(text)
+
+}
+
 fun textFromList(text: List<String>): AnnotatedString {
     return buildAnnotatedString {
         text.forEach {
@@ -363,6 +437,15 @@ fun textBold(text: String): AnnotatedString {
         withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
             append(text)
         }
+    }
+}
+
+fun textBold(text: String, isBold: Boolean): AnnotatedString {
+    if (isBold) {
+        return textBold(text)
+    }
+    return buildAnnotatedString {
+        append(text)
     }
 }
 
@@ -429,9 +512,6 @@ fun ZoomableText(text: AnnotatedString, userData: UserData) {
         textScale *= zoomChange
     }
     val fontSize = userData.dynamic.fontSize.key.toInt()
-    //var fontSizee=userData.dynamic.fontSize.
-
-
     Text(
         modifier = Modifier
             .fillMaxSize()
@@ -528,6 +608,586 @@ fun transformBodyText(text: String) = buildAnnotatedString {
     //}
 }
 
+@Composable
+fun transformMixtus(texts: String, replaces: List<String>) = buildAnnotatedString {
+    //withStyle(style = ParagraphStyle(lineHeight = fontSize)) {
+    texts.forEach { c ->
+        when (c) {
+            '9' -> {
+                append("\t")
+            }
+
+            '≀', '_', '~', '⊣' -> {
+                append("\n\t\t")
+            }
+
+            '§' -> {
+                append("\n\n")
+            }
+
+            '1' -> {
+                //append(replaces)
+                withStyle(spanRubric()) { append(replaces[0]) }
+            }
+
+            'ƞ' -> {
+                append(" ")
+                withStyle(spanRubric()) { append("N.") }
+                append(" ")
+            }
+
+            /*'∞' -> {
+                withStyle(SpanStyle(fontSize = fontSize)) { append("\n\n") }
+                withStyle(SpanStyle(color = rubricColor, fontSize = fontSize)) {
+                    append(PRECES_IL)
+                }
+                withStyle(SpanStyle(fontSize = fontSize)) {
+                    append("\n\n")
+                }
+            }*/
+            '℣', '℟' -> withStyle(spanRubric()) { append(c) }
+            '†' -> {
+                withStyle(spanRubric()) { append(c) }
+                append(" ")
+            }
+
+            '⟨' -> {
+                withStyle(spanRubric()) { append("(") }
+            }
+
+            '⟩' -> {
+                withStyle(spanRubric()) { append(")") }
+            }
+
+            'Ɽ' -> {
+                withStyle(spanRubric()) { append("R. ") }
+            }
+
+            else -> {
+                append(c)
+            }
+        }
+    }
+    //}
+}
+
+@Composable
+fun TextRubricaNumerus(
+    data: ParagraphusRubricaNumerus,
+    style: TextStyle,
+    colorCode: Int
+) {
+    val text =
+        buildString {
+            data.txt.forEach {
+                append(it)
+                when (data.extraSpace) {
+                    1 -> append("\n")
+                    2 -> append("\n\n")
+                }
+            }
+        }
+
+    TextMixtus(
+        texts = listOf("${data.n}. ", text),
+        style = style,
+        colorCode = colorCode,
+        isBold = data.isBold
+    )
+}
+
+@Composable
+fun TextRubrica(
+    data: ParagraphusRubricaNew,
+    style: TextStyle
+) {
+    Text(
+        text = buildAnnotatedString {
+            data.txt.forEach {
+                append(textusRubrica(it))
+                if (!data.isLast) {
+                    append("\n\n")
+                }
+            }
+        },
+        style = style
+    )
+}
+
+@Composable
+fun TextRubricaNumerus(
+    data: ParagraphusRubricaNumerus,
+    style: TextStyle
+) {
+    val i = data.txt.size - 1
+
+    val text =
+        buildString {
+            data.txt.forEachIndexed { index, it ->
+                append(it)
+                if (index < i) {
+                    when (data.extraSpace) {
+                        1 -> append("\n")
+                        2 -> append("\n\n")
+                    }
+                }
+                //if (data.extraSpace) append("\n\n")
+            }
+            if (data.isLast) append("\n\n")
+        }
+
+    TextMixtus(
+        texts = listOf("${data.n}. ", text),
+        style = style,
+        colorCode = data.colorCode,
+        isBold = data.isBold
+    )
+}
+
+
+@Composable
+fun TextHead(
+    data: BaseHead,
+    userData: UserData
+) {
+    when (data) {
+        is LiberHeadComplex -> {
+            ContentTitle(
+                data = data.title,
+                level = data.level,
+                userData = userData,
+                uppercase = false
+            )
+            ContentLabel(
+                data = data.subTitle,
+                level = data.level - 1,
+                userData = userData,
+                uppercase = false,
+                withColor = true
+            )
+        }
+
+        is LiberHeadSingle -> ContentTitle(
+            data = data.title,
+            level = data.level,
+            userData = userData,
+            uppercase = false
+        )
+    }
+}
+
+@Composable
+fun TextParagraphusPriest(
+    data: ParagraphusPriest,
+    style: TextStyle
+) {
+    val i = data.txt.size - 1
+    val text =
+        buildString {
+            data.txt.forEachIndexed { index, it ->
+                when (data.isBold) {
+                    true -> append(textBold(it))
+                    false -> append(it)
+                }
+                if (index < i) {
+                    when (data.extraSpace) {
+                        1 -> append("\n")
+                        2 -> append("\n\n")
+                    }
+                }
+            }
+            if (data.isLast) append("\n\n")
+        }
+    when (data.isBold) {
+        true -> Text(text = text, style = style, fontWeight = FontWeight.Bold)
+        false -> Text(text = text, style = style)
+    }
+}
+
+@Composable
+fun TextResponsum(
+    data: ParagraphusResponsum,
+    style: TextStyle
+) {
+
+    Text(text = textResponsum(data), style = style)
+}
+
+@Composable
+fun TextVersiculusResponsum(
+    data: ParagraphusVersiculusResponsum,
+    style: TextStyle
+) {
+    val text =
+        buildAnnotatedString {
+            data.items.forEach {
+                when (it) {
+                    is ParagraphusVersiculus -> {
+                        append(textVersiculus(it))
+                        append("\n\n")
+                    }
+
+                    is ParagraphusResponsum -> {
+                        append(textResponsum(it))
+                        if (it.isLast) {
+                            append("\n\n")
+                        }
+                    }
+
+
+                }
+                //append(it)
+                //if (data.extraSpace) append("\n\n")
+            }
+            //if (data.isLast) append("\n\n")
+        }
+
+    Text(text = text, style = style)
+}
+
+@Composable
+fun TextLiberOratio(
+    data: LiberOratio,
+    style: TextStyle
+) {
+    val i = data.txt.size - 1
+
+    val text = buildString {
+        data.txt.forEachIndexed { index, it ->
+            append(it)
+            append(" ")
+            when (data.lineBreak) {
+                1 -> append("\n")
+                2 -> append("\n\n")
+            }
+            /*when (index == i) {
+                true -> append("\n")
+                false -> append("\n\n")
+            }*/
+        }
+    }
+    TextVR(listOf(text, data.responsum), style, data.isBold, 2)
+}
+
+@Composable
+fun TextLiberOratioo(
+    data: LiberOratioo,
+    style: TextStyle
+) {
+    val text = buildAnnotatedString {
+        data.paragraphus.forEach {
+            it.txt.forEach {
+                append(it)
+            }
+        }
+    }
+    Text(text)
+    Text(data.responsum)
+
+}
+
+@Composable
+fun textParagraphus(data: LiberParagraphus, style: TextUnit) {
+    /*when(data.type){
+        "mixtusB"->  TextLiberMixtusB(
+            data.,
+            style
+        )
+    }
+
+}*/
+}
+
+@Composable
+fun TextLiberBiblical(
+    data: LiberBiblical,
+    style: TextStyle
+) {
+    val i = data.txt.size - 1
+
+    Text(
+        text = buildAnnotatedString {
+            append(data.book)
+            append(" ")
+            append(textusRubrica(data.pericopa))
+            append("\n\n")
+            data.txt.forEachIndexed { index, it ->
+                append(it)
+                when (index == i) {
+                    true -> append("\n")
+                    false -> append("\n\n")
+                }
+            }
+        },
+        style = style
+    )
+}
+
+@Composable
+fun TextLiberPrecess(
+    data: LiberPreces,
+    style: TextStyle
+) {
+
+    val responsum = textDefaultItalic(data.responsum)
+    Text(
+        text = buildAnnotatedString {
+            append(data.intro)
+            append("\n\n")
+            append(responsum)
+            append("\n\n")
+            data.txt.forEach {
+                append(it)
+                append("\n\n")
+                append(textusRubrica("- "))
+                append(responsum)
+                append("\n\n")
+
+            }
+        },
+        style = style
+    )
+}
+
+@Composable
+fun TextLiberPreces(
+    data: LiberPreces,
+    style: TextStyle
+) {
+
+    val responsum = textDefaultItalic(data.responsum)
+    Text(
+        text = buildAnnotatedString {
+            append(data.intro)
+            append("\n\n")
+            append(responsum)
+            append("\n\n")
+            data.txt.forEach {
+                append(it)
+                append("\n\n")
+                append(textusRubrica("- "))
+                append(responsum)
+
+                append("\n\n")
+
+            }
+        },
+        style = style
+    )
+}
+
+@Composable
+fun textResponsum(
+    text: String
+): AnnotatedString {
+    return buildAnnotatedString {
+        append(textusRubrica(R))
+        append(" ")
+        append(textDefaultItalic(text))
+    }
+}
+
+@Composable
+fun TextLiberDialog(
+    liber: LiberDialog,
+    style: TextStyle
+) {
+    val i = liber.txt.size - 1
+    val responsum = textResponsum(liber.responsum)
+    Text(
+        text = buildAnnotatedString {
+            if (liber is LiberPreces) {
+                append(" ")
+                append(liber.intro)
+                append("\n\n")
+                append(responsum)
+                append("\n\n")
+            }
+            liber.txt.forEachIndexed { index, it ->
+                append(textusRubrica(EMDASH))
+                append(" ")
+                append(it)
+                append("\n\n")
+                append(responsum)
+                when (index == i) {
+                    true -> append("\n")
+                    false -> append("\n\n")
+                }
+            }
+        },
+        style = style
+    )
+}
+
+@Composable
+fun liberText(
+    text: String,
+    isRed: Boolean = false
+): AnnotatedString {
+    return buildAnnotatedString {
+        pushStyle(SpanStyle(fontWeight = FontWeight.Bold))
+
+        when (isRed) {
+            true -> append(textusRubrica(text))
+            false -> append(text)
+        }
+    }
+}
+
+@Composable
+fun liberText(
+    liber: LiberText,
+): AnnotatedString {
+    return buildAnnotatedString {
+        when (liber.isRed) {
+            true -> append(textusRubrica(liber.txt))
+            false -> {
+                if (liber.isBold) {
+                    pushStyle(SpanStyle(fontWeight = FontWeight.Bold))
+                }
+                append(liber.txt)
+            }
+        }
+        when (liber.lineBreak) {
+            1 -> append("\n")
+            2 -> append("\n\n")
+        }
+    }
+}
+
+
+@Composable
+fun LiberText(
+    liber: LiberText,
+    style: TextStyle
+) {
+    val text = buildAnnotatedString {
+        pushStyle(SpanStyle(fontWeight = FontWeight.Bold))
+        when (liber.isRed) {
+            true -> append(textusRubrica(liber.txt))
+            false -> append(liber.txt)
+        }
+
+        when (liber.lineBreak) {
+            1 -> append("\n")
+            2 -> append("\n\n")
+        }
+
+    }
+    when (liber.isBold) {
+        true -> Text(text = text, style = style, fontWeight = FontWeight.Bold)
+        false -> Text(text = text, style = style)
+    }
+}
+
+@Composable
+fun TextLiberMixtusB(
+    liber: LiberMixtusB,
+    style: TextStyle
+) {
+
+    val split = liber.base.txt.splitParts("\\|")
+    var i = split.size - 1
+
+    Text(
+        text = buildAnnotatedString {
+            split.forEachIndexed { index, s ->
+                //if (index != i && index<i) {
+                val new = LiberText(
+                    txt = s,
+                    isRed = liber.base.isRed,
+                    isBold = liber.base.isBold,
+                    lineBreak = liber.base.lineBreak
+                )
+                //if(index==i){
+                append(liberText(new))
+                /*when (liber.base.isRed) {
+                    true -> append(textusRubrica(s))
+                    false -> append(s)
+                }*/
+                if (index < i) {
+                    val sub = liber.replace[index]
+                    //val newSub=LiberText(txt=s,isRed=liber.base.isRed, isBold = liber.base.isBold, lineBreak = liber.base.lineBreak)
+
+                    append(liberText(sub))
+                }
+                /*when (sub.isRed) {
+                    true -> append(textusRubrica(sub.txt))
+                    false -> append(sub.txt)
+                }*/
+            }
+            //}
+        },
+        style = style
+    )
+}
+
+@Composable
+fun TextLiberMixtus(
+    liber: LiberMixtus,
+    style: TextStyle
+) {
+    val text = buildAnnotatedString {
+        liber.data.forEachIndexed { index, s ->
+            append(liberText(s))
+        }
+    }
+    Text(text = text, style = style)
+}
+
+
+/**
+ * Crea un elementos `Text`, con combinaciones de color según los códigos.
+ * Se usa el parámetro `colorCode` para determinar qué combinación de colores tendrán los textos:
+ * - `0` Ambos en rojo
+ * - `1` Ambos en negro
+ * - `2` El primero en rojo, el segundo en negro
+ * - `3` El primero en negro, el segundo en rojo
+ */
+
+@Composable
+fun TextMixtus(
+    texts: List<String>,
+    style: TextStyle,
+    colorCode: Int,
+    isBold: Boolean
+) {
+    val text = buildAnnotatedString {
+        when (colorCode) {
+            0 -> {
+                withStyle(spanRubric()) { append(texts.joinToString(separator = " ")) }
+                //second.withStyle(spanRubric()) { append(texts[1]) }
+            }
+
+            1 -> {
+                append(texts.joinToString(separator = " "))
+            }
+
+            2 -> {
+                withStyle(spanRubric()) { append(texts[0]) }
+                append(texts[1])
+            }
+
+            3 -> {
+                append(texts[0])
+                withStyle(spanRubric()) { append(texts[1]) }
+            }
+
+            else -> {
+                append(texts[0])
+                append(texts[1])
+            }
+        }
+    }
+    when (isBold) {
+        true -> Text(text = text, style = style, fontWeight = FontWeight.Bold)
+        false -> Text(text = text, style = style)
+    }
+
+
+}
+
+
 /**
  * Crea dos elementos `Text`, el primero pegado al margen izquierdo, y el segundo al margen derecho.
  * Se usa el parámetro `colorCode` para determinar qué combinación de colores tendrán los textos:
@@ -536,8 +1196,15 @@ fun transformBodyText(text: String) = buildAnnotatedString {
  * - `2` El primero en rojo, el segundo en negro
  * - `3` El primero en negro, el segundo en rojo
  */
+
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun TextLeftRight(texts: List<String>, style: TextStyle, colorCode: Int) {
+fun ExpandableText(
+    modifier: Modifier = Modifier,
+    texts: List<String>,
+    style: TextStyle,
+    colorCode: Int
+) {
     val first = AnnotatedString.Builder()
     val second = AnnotatedString.Builder()
     when (colorCode) {
@@ -566,21 +1233,284 @@ fun TextLeftRight(texts: List<String>, style: TextStyle, colorCode: Int) {
             second.append(texts[1])
         }
     }
-
-    Row {
+    FlowRow(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
         Text(
             modifier = Modifier
-                .weight(1f)
                 .padding(top = 16.dp, bottom = 8.dp),
             text = first.toAnnotatedString(),
-            style = style
+            style = style,
+            overflow = TextOverflow.Visible,
+            maxLines = 1
         )
+
+        Text(
+            modifier = Modifier
+                .padding(top = 16.dp, bottom = 8.dp),
+            text = second.toAnnotatedString(),
+            style = style,
+        )
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun ExpandableTextt(
+    modifier: Modifier = Modifier,
+    texts: List<String>,
+    style: TextStyle,
+    colorCode: Int
+) {
+    val first = AnnotatedString.Builder()
+    val second = AnnotatedString.Builder()
+    when (colorCode) {
+        0 -> {
+            first.withStyle(spanRubric()) { append(texts[0]) }
+            second.withStyle(spanRubric()) { append(texts[1]) }
+        }
+
+        1 -> {
+            first.append(texts[0])
+            second.append(texts[1])
+        }
+
+        2 -> {
+            first.withStyle(spanRubric()) { append(texts[1]) }
+            second.append(texts[0])
+        }
+
+        3 -> {
+            first.append(texts[0])
+            second.withStyle(spanRubric()) { append(texts[1]) }
+        }
+
+        else -> {
+            first.append(texts[0])
+            second.append(texts[1])
+        }
+    }
+    FlowRow(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
+            text = first.toAnnotatedString(),
+            style = style,
+            //overflow = TextOverflow.Ellipsis,
+            maxLines = 1
+        )
+
         Text(
             modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
             text = second.toAnnotatedString(),
-            style = style
+            style = style,
         )
     }
+}
+
+@Composable
+fun Test(data: String, withSpace: Boolean = true, modifier: Modifier) {
+    if (withSpace) {
+        modifier.padding(top = 160.dp, bottom = 80.dp)
+    }
+    Text(text = data, modifier = modifier)
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun TextLeftRightB(
+    texts: List<String>,
+    style: TextStyle,
+    colorCode: Int,
+    withSpace: Boolean = true,
+    modifier: Modifier
+) {
+    val first = AnnotatedString.Builder()
+    val second = AnnotatedString.Builder()
+
+    when (colorCode) {
+        0 -> {
+            first.withStyle(spanRubric()) { append(texts[0]) }
+            second.withStyle(spanRubric()) { append(texts[1]) }
+        }
+
+        1 -> {
+            first.append(texts[0])
+            second.append(texts[1])
+        }
+
+        2 -> {
+            first.withStyle(spanRubric()) { append(texts[1]) }
+            second.append(texts[0])
+        }
+
+        3 -> {
+            first.append(texts[0])
+            second.withStyle(spanRubric()) { append(texts[1]) }
+        }
+
+        else -> {
+            first.append(texts[0])
+            second.append(texts[1])
+        }
+    }
+    if (withSpace) {
+        modifier.padding(top = 160.dp, bottom = 80.dp)
+    }
+    FlowRow(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            modifier = modifier,
+            text = first.toAnnotatedString(),
+            style = style,
+            overflow = TextOverflow.Ellipsis
+        )
+
+        Text(
+            modifier = modifier,
+            text = second.toAnnotatedString(),
+            style = style,
+        )
+    }
+}
+
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun TextLeftRight(texts: List<String>, style: TextStyle, colorCode: Int) {
+    val first = AnnotatedString.Builder()
+    val second = AnnotatedString.Builder()
+
+    when (colorCode) {
+        0 -> {
+            first.withStyle(spanRubric()) { append(texts[0]) }
+            second.withStyle(spanRubric()) { append(texts[1]) }
+        }
+
+        1 -> {
+            first.append(texts[0])
+            second.append(texts[1])
+        }
+
+        2 -> {
+            first.withStyle(spanRubric()) { append(texts[1]) }
+            second.append(texts[0])
+        }
+
+        3 -> {
+            first.append(texts[0])
+            second.withStyle(spanRubric()) { append(texts[1]) }
+        }
+
+        else -> {
+            first.append(texts[0])
+            second.append(texts[1])
+        }
+    }
+
+    FlowRow(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            modifier = Modifier
+                .padding(top = 16.dp, bottom = 8.dp),
+            text = first.toAnnotatedString(),
+            style = style,
+            overflow = TextOverflow.Ellipsis,
+            //maxLines = 1
+        )
+
+        Text(
+            modifier = Modifier
+                .padding(top = 16.dp, bottom = 8.dp),
+            text = second.toAnnotatedString(),
+            style = style,
+        )
+    }
+}
+
+@Composable
+fun TextSpaced(text: AnnotatedString, style: TextStyle) {
+    Text(
+        modifier = Modifier
+            .padding(top = 16.dp, bottom = 8.dp),
+        text = text,
+        style = style,
+    )
+}
+
+@Composable
+fun TextCanon(data: Canon, style: TextStyle) {
+    val i = data.txt.size - 1
+    Text(
+        text = buildAnnotatedString {
+            append(textusRubrica(data.n.toString(), true))
+            append(" ")
+            data.txt.forEachIndexed { index, item ->
+                append(item)
+                when (index == i) {
+                    true -> append("\n")
+                    false -> append("\n\n")
+                }
+            }
+        },
+        style = style
+    )
+}
+
+@Composable
+fun TextCanonWithList(data: CanonWithList, style: TextStyle) {
+    val i = data.txt.size - 1
+    TextCanon(data, style)
+    Text(
+        text = buildAnnotatedString {
+            data.list.forEachIndexed { index, item ->
+                append("\t- ")
+                append(item)
+                when (index == i) {
+                    true -> append("\n\n")
+                    false -> append("\n")
+                }
+            }
+        },
+        style = style
+    )
+}
+
+@Composable
+fun TextError(message: String) {
+    Text(
+        text = stringResource(id = org.deiverbum.app.R.string.error_title),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(20.dp),
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.titleLarge,
+        fontWeight = FontWeight.Bold
+    )
+    Text(
+        text = message,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(20.dp),
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.bodyLarge,
+    )
+    Text(
+        text = "${stringResource(id = org.deiverbum.app.R.string.version)}: ${stringResource(id = org.deiverbum.app.R.string.app_version_and_name)}",
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(5.dp),
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.bodyLarge,
+        fontWeight = FontWeight.Bold
+    )
 }
 
 /**
@@ -610,5 +1540,4 @@ fun transformTextAudio(text: String) = buildAnnotatedString {
  */
 
 fun transformStringAudio(text: String) = text.replaceChars(AudioHelper.charsToReplace)
-
 

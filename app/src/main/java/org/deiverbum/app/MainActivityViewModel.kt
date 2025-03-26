@@ -13,10 +13,10 @@ import kotlinx.coroutines.flow.update
 import org.deiverbum.app.MainActivityUiState.Loading
 import org.deiverbum.app.MainActivityUiState.Success
 import org.deiverbum.app.core.data.repository.UserDataRepository
-import org.deiverbum.app.core.model.data.UserData
-import org.deiverbum.app.core.model.data.configuration.DarkThemeConfig
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig
-import org.deiverbum.app.core.model.data.configuration.ThemeBrand
+import org.deiverbum.app.core.model.configuration.DarkThemeConfig
+import org.deiverbum.app.core.model.configuration.FontSizeConfig
+import org.deiverbum.app.core.model.configuration.ThemeBrand
+import org.deiverbum.app.core.model.configuration.UserData
 import javax.inject.Inject
 
 

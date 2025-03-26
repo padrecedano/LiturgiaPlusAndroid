@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.breviarium.LHOfficeBiblicalJoin
+import org.deiverbum.app.core.model.breviarium.LHOfficeBiblicalJoin
 
 class CrudLHOfficeBiblicalJoin {
     var c: List<LHOfficeBiblicalJoin>? = null

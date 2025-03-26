@@ -13,9 +13,9 @@ import org.deiverbum.app.core.database.model.entity.LiturgyEntity
 import org.deiverbum.app.core.database.model.entity.LiturgySaintJoinEntity
 import org.deiverbum.app.core.database.model.entity.UniversalisEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.breviarium.BreviariumOfficium
-import org.deiverbum.app.core.model.data.breviarium.LHOfficiumLectionis
-import org.deiverbum.app.core.model.data.breviarium.LHPsalmody
+import org.deiverbum.app.core.model.breviarium.BreviariumOfficium
+import org.deiverbum.app.core.model.breviarium.LHOfficiumLectionis
+import org.deiverbum.app.core.model.breviarium.LHPsalmody
 import org.deiverbum.app.core.model.liturgia.Liturgy
 import org.deiverbum.app.core.model.universalis.Universalis
 import org.deiverbum.app.util.Constants.EASTER_CODE

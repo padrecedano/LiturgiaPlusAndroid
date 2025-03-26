@@ -19,7 +19,6 @@ import org.deiverbum.app.core.model.universalis.UniversalisResource
 import org.deiverbum.app.feature.universalis.UniversalisUiState.Loading
 import org.deiverbum.app.feature.universalis.navigation.UniversalisRoute
 import org.deiverbum.app.util.LiturgyHelper
-import org.deiverbum.app.util.Utils
 import javax.inject.Inject
 
 @HiltViewModel
@@ -44,7 +43,7 @@ class UniversalisViewModel @Inject constructor(
     )
     private val selectedDate = savedStateHandle.getStateFlow(
         key = "date",
-        initialValue = Utils.hoy.toInt(),
+        initialValue = route.initialDate//,Utils.hoy.toInt(),
     )
 
 
@@ -75,6 +74,8 @@ class UniversalisViewModel @Inject constructor(
 
     fun onTopicClick(topicId: String?) {
         savedStateHandle[selectedTopicIdKey] = topicId
+        savedStateHandle["date"] = 20250313
+
     }
 
 }

@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.breviarium.LHVirginAntiphonJoin
+import org.deiverbum.app.core.model.breviarium.LHVirginAntiphonJoin
 
 class CrudLHVirginAntiphonJoin {
     var c: List<LHVirginAntiphonJoin>? = null

@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.book
+package org.deiverbum.app.core.model.book
 
 
 /**
@@ -10,8 +10,9 @@ package org.deiverbum.app.core.model.data.book
 
 data class LiberFileNormalis(
     override var typus: String = "normalis",
+    override val bookType: Int,
     var content: String = "",
     //var chapters: List<Chapter>? = null
 
     //, override var tempore: LiturgyTime
-) : LiberFile(typus)
+) : LiberFile(typus, bookType)

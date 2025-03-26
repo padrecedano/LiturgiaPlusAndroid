@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.breviarium
+package org.deiverbum.app.core.model.breviarium
 
 class LHGospelCanticle(var typeID: Int = 0, override var antiphonae: MutableList<LHAntiphon>) :
     LHPsalmody(antiphonae, 0) {

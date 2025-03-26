@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.alteri
+package org.deiverbum.app.core.model.alteri
 
 class Misterio {
     val ordinalName: MutableList<String> = mutableListOf(

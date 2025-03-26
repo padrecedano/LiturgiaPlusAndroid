@@ -21,6 +21,8 @@ import org.deiverbum.app.core.database.model.external.TertiamExternal
 import org.deiverbum.app.core.database.model.external.UniversalisExternal
 import org.deiverbum.app.core.database.model.external.VesperasExternal
 import org.deiverbum.app.core.database.model.external.asExternalModel
+import org.deiverbum.app.core.database.model.relation.LocalOfficiumPascua
+import org.deiverbum.app.core.database.model.relation.asExternalModel
 import org.deiverbum.app.core.datastore.ChangeListVersions
 import org.deiverbum.app.core.model.universalis.Universalis
 import org.deiverbum.app.core.model.universalis.UniversalisResourceQuery
@@ -55,13 +57,26 @@ class OfflineFirstUniversalisRepository @Inject constructor(
         //val count=universalisDao.countUniversalis(query.filterDate)
         //count.collect()
         return when (query.filterTopicId) {
-            1 -> universalisDao.getMixtusByDate(
-                filterDate = query.filterDate,
-            ).map(MixtusExternal::asExternalModel)
+            1 -> {
+                if (DateTimeUtil.isPasqua(query.filterDate)) {
+                    universalisDao.getOfficiumPasqua(1).map(LocalOfficiumPascua::asExternalModel)
+                } else {
+                    universalisDao.getMixtusByDate(
+                        filterDate = query.filterDate,
+                    ).map(MixtusExternal::asExternalModel)
+                }
 
-            2 -> universalisDao.getOfficiumByDate(
+            }
+
+            2 -> {
+                if (DateTimeUtil.isPasqua(query.filterDate)) {
+                    universalisDao.getOfficiumPasqua(1).map(LocalOfficiumPascua::asExternalModel)
+                } else {
+                    universalisDao.getOfficiumByDate(
                 filterDate = query.filterDate,
-            ).map(OfficiumExternal::asExternalModel)
+                    ).map(OfficiumExternal::asExternalModel)
+                }
+            }
 
             3 -> universalisDao.getLaudesByDate(
                 filterDate = query.filterDate,

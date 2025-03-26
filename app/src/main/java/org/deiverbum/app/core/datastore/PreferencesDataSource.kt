@@ -14,7 +14,6 @@ import org.deiverbum.app.core.datastore.FontSizeProto.TEXT6XL
 import org.deiverbum.app.core.datastore.FontSizeProto.TEXT7XL
 import org.deiverbum.app.core.datastore.FontSizeProto.TEXT8XL
 import org.deiverbum.app.core.datastore.FontSizeProto.TEXT9XL
-
 import org.deiverbum.app.core.datastore.FontSizeProto.TEXTLG
 import org.deiverbum.app.core.datastore.FontSizeProto.TEXTMD
 import org.deiverbum.app.core.datastore.FontSizeProto.TEXTSM
@@ -23,31 +22,33 @@ import org.deiverbum.app.core.datastore.FontSizeProto.TEXTXS
 import org.deiverbum.app.core.datastore.VoiceReaderProto.UNRECOGNIZED
 import org.deiverbum.app.core.datastore.VoiceReaderProto.VOICE_OFF
 import org.deiverbum.app.core.datastore.VoiceReaderProto.VOICE_ON
-import org.deiverbum.app.core.model.data.UserData
-import org.deiverbum.app.core.model.data.UserDataDynamic
-import org.deiverbum.app.core.model.data.configuration.DarkThemeConfig
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.DEFAULT
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.LG
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.MD
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.SM
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL10
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL11
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL12
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL2
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL3
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL4
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL5
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL6
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL7
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL8
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XL9
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XS
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig.XS2
-import org.deiverbum.app.core.model.data.configuration.RubricColorConfig
-import org.deiverbum.app.core.model.data.configuration.ThemeBrand
-import org.deiverbum.app.core.model.data.configuration.VoiceReaderConfig
+import org.deiverbum.app.core.model.configuration.AnalyticsConfig
+import org.deiverbum.app.core.model.configuration.DarkThemeConfig
+import org.deiverbum.app.core.model.configuration.FontSizeConfig
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.DEFAULT
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.LG
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.MD
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.SM
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.XL
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.XL10
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.XL11
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.XL12
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.XL2
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.XL3
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.XL4
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.XL5
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.XL6
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.XL7
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.XL8
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.XL9
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.XS
+import org.deiverbum.app.core.model.configuration.FontSizeConfig.XS2
+import org.deiverbum.app.core.model.configuration.RosariumConfig
+import org.deiverbum.app.core.model.configuration.RubricColorConfig
+import org.deiverbum.app.core.model.configuration.ThemeBrand
+import org.deiverbum.app.core.model.configuration.UserData
+import org.deiverbum.app.core.model.configuration.UserDataDynamic
+import org.deiverbum.app.core.model.configuration.VoiceReaderConfig
 import javax.inject.Inject
 
 class PreferencesDataSource @Inject constructor(
@@ -66,7 +67,6 @@ class PreferencesDataSource @Inject constructor(
                     ThemeBrandProto.THEME_BRAND_ANDROID -> ThemeBrand.ANDROID
                 },
                 shouldHideOnboarding = it.shouldHideOnboarding,
-
                 dynamic = UserDataDynamic(
                     darkThemeConfig = when (it.darkThemeConfig) {
                         null,
@@ -93,7 +93,6 @@ class PreferencesDataSource @Inject constructor(
 
                         RubricColorProto.UNRECOGNIZED -> RubricColorConfig.LIGHT
                     },
-
                     useDynamicColor = it.useDynamicColor,
                     useVoiceReader = when (it.useVoiceReader) {
                         null,
@@ -104,15 +103,26 @@ class PreferencesDataSource @Inject constructor(
                         VOICE_OFF,
                             ->
                             VoiceReaderConfig.OFF
-
                         UNRECOGNIZED -> VoiceReaderConfig.ON
                     },
+                    useAnalytics = when (it.useAnalytics) {
+                        null,
+                        AnalyticsProto.UNRECOGNIZED,
+                        AnalyticsProto.ANALYTICS_OFF -> AnalyticsConfig.OFF
 
+                        AnalyticsProto.ANALYTICS_ON -> AnalyticsConfig.ON
+                    },
                     useMultipleInvitatory = it.useMultipleInvitatory,
+                    useMysteriumBrevis = when (it.rosariumConfig) {
+                        null,
+                        RosariumConfigProto.UNRECOGNIZED,
+                        RosariumConfigProto.BREVIS -> RosariumConfig.ON
+
+                        RosariumConfigProto.OMNIS -> RosariumConfig.OFF
+                    },
                     fontSize = when (it.fontSize) {
                         null,
                         FontSizeProto.UNRECOGNIZED -> SM
-
                         TEXT2XS -> XS2
                         TEXTXS -> XS
                         TEXTSM -> SM
@@ -131,7 +141,7 @@ class PreferencesDataSource @Inject constructor(
                         TEXT11XL -> XL11
                         TEXT12XL -> XL12
                         FontSizeProto.DEFAULT -> SM
-                    }
+                    },
                 )
             )
         }
@@ -168,9 +178,6 @@ class PreferencesDataSource @Inject constructor(
         userPreferences.updateData {
             it.copy {
                 this.fontSize = when (fontSize) {
-                    //FontSizeConfig.SMALL -> S
-                    //FontSizeConfig.LARGE -> L
-                    //FontSizeConfig.EXTRA_LARGE -> XL
                     XS2 -> TEXT2XS
                     XS -> TEXTXS
                     SM -> TEXTSM
@@ -197,6 +204,17 @@ class PreferencesDataSource @Inject constructor(
     suspend fun setMultipleInvitatoryPreference(useMultipleInvitatory: Boolean) {
         userPreferences.updateData {
             it.copy { this.useMultipleInvitatory = useMultipleInvitatory }
+        }
+    }
+
+    suspend fun setRosariumPreference(useRosariumBrevis: RosariumConfig) {
+        userPreferences.updateData {
+            it.copy {
+                this.rosariumConfig = when (useRosariumBrevis) {
+                    RosariumConfig.ON -> RosariumConfigProto.BREVIS
+                    RosariumConfig.OFF -> RosariumConfigProto.OMNIS
+                }
+            }
         }
     }
 
@@ -227,14 +245,7 @@ class PreferencesDataSource @Inject constructor(
                 }
             }
         }
-
     }
-
-
-
-
-
-
 
     suspend fun setShouldHideOnboarding(shouldHideOnboarding: Boolean) {
         userPreferences.updateData {
@@ -242,5 +253,3 @@ class PreferencesDataSource @Inject constructor(
         }
     }
 }
-
-

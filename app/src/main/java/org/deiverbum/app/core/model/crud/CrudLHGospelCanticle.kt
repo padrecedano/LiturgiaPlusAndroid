@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.breviarium.LHGospelCanticleTable
+import org.deiverbum.app.core.model.breviarium.LHGospelCanticleTable
 
 class CrudLHGospelCanticle {
     var c: List<LHGospelCanticleTable>? = null

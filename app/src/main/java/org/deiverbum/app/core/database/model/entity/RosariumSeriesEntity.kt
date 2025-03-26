@@ -3,7 +3,7 @@ package org.deiverbum.app.core.database.model.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import org.deiverbum.app.core.model.data.alteri.RosariumSeries
+import org.deiverbum.app.core.model.alteri.RosariumSeries
 import org.deiverbum.app.util.Constants
 
 /**

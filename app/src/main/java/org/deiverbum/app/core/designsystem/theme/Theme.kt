@@ -15,7 +15,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import org.deiverbum.app.core.model.data.configuration.FontSizeConfig
+import org.deiverbum.app.core.model.configuration.FontSizeConfig
 
 /**
  * Light default theme color scheme

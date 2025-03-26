@@ -7,7 +7,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
-import org.deiverbum.app.core.model.data.book.BookTest
+import org.deiverbum.app.core.model.book.BookTest
 import org.deiverbum.app.util.FileUtils
 import timber.log.Timber
 import javax.inject.Inject

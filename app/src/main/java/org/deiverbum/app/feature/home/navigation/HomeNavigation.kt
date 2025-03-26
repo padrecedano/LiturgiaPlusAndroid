@@ -28,8 +28,7 @@ fun NavGraphBuilder.homeScreen(
 ) {
     composable<HomeRoute> {
         HomeScreen(
-            onNextButtonClicked = onTopicClick,
-            currentTimeZone = currentTimeZone,
+            onTopicClick = onTopicClick,
             currentDate = currentDate
         )
     }

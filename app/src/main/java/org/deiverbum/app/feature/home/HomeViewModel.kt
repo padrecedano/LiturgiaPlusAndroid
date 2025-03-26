@@ -20,6 +20,7 @@ import org.deiverbum.app.core.data.util.TimeZoneMonitor
 import org.deiverbum.app.core.domain.GetHomeUseCase
 import org.deiverbum.app.core.model.universalis.HomeResource
 import org.deiverbum.app.feature.universalis.navigation.UniversalisRoute
+import org.deiverbum.app.util.DateTimeUtil
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -35,11 +36,18 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val selectedTopicIdKey = "selectedTopicIdKey"
+    private val easterKey = "easterKey"
+
     private val route: UniversalisRoute = savedStateHandle.toRoute()
 
     private val selectedTopicId = savedStateHandle.getStateFlow(
         key = selectedTopicIdKey,
         initialValue = route.initialTopicId.toString(),
+    )
+
+    private val easter = savedStateHandle.getStateFlow(
+        key = easterKey,
+        initialValue = DateTimeUtil.year(20250101),
     )
 
 
@@ -60,9 +68,10 @@ class HomeViewModel @Inject constructor(
 
     private var selectedDate = savedStateHandle.getStateFlow(
         key = "date",
-        initialValue = newD.value.format(DateTimeFormatter.ofPattern("yyyyMMdd")).toInt(),
+        initialValue = route.initialDate
+        //initialValue = newD.value.format(DateTimeFormatter.ofPattern("yyyyMMdd")).toInt(),
     )
-
+    val d = DateTimeUtil.isPasqua(selectedDate.value)
     private val _timer =
         MutableStateFlow<Int>(time.format(DateTimeFormatter.ofPattern("yyyyMMdd")).toInt())
     val timer: StateFlow<Int> = _timer

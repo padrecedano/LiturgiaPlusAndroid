@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.alteri
+package org.deiverbum.app.core.model.alteri
 
 import org.deiverbum.app.util.Utils
 

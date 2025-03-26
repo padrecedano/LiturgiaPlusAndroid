@@ -1,7 +1,7 @@
 package org.deiverbum.app.core.model.data.missae
 
 import android.text.SpannableStringBuilder
-import org.deiverbum.app.core.model.data.breviarium.LHSanctus
+import org.deiverbum.app.core.model.breviarium.LHSanctus
 import org.deiverbum.app.core.model.data.sacramentis.Sacramentis
 import org.deiverbum.app.core.model.data.traditio.Homilieae
 import org.deiverbum.app.core.model.data.traditio.Homily

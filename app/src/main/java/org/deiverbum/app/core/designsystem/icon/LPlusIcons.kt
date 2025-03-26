@@ -1,8 +1,12 @@
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.ShortText
+import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.HealthAndSafety
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Badge
@@ -16,11 +20,13 @@ import androidx.compose.material.icons.outlined.Face
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.NewReleases
+import androidx.compose.material.icons.outlined.OilBarrel
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.Shop
 import androidx.compose.material.icons.outlined.Sync
 import androidx.compose.material.icons.outlined.Upcoming
 import androidx.compose.material.icons.outlined.ViewDay
+import androidx.compose.material.icons.outlined.Water
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Bookmark
 import androidx.compose.material.icons.rounded.BookmarkBorder
@@ -49,6 +55,7 @@ object LPlusIcons {
 
     val Add = Icons.Rounded.Add
     val ArrowBack = Icons.AutoMirrored.Rounded.ArrowBack
+    val ArrowForward = Icons.AutoMirrored.Default.ArrowForward
     val Author = Icons.Outlined.Face
 
     val Bookmark = Icons.Rounded.Bookmark
@@ -67,10 +74,15 @@ object LPlusIcons {
     val Check = Icons.Rounded.Check
     val Close = Icons.Rounded.Close
     val Grid3x3 = Icons.Rounded.Grid3x3
+    val OilBarrel = Icons.Outlined.OilBarrel
+
     val Help = Icons.AutoMirrored.Outlined.HelpOutline
 
     val Home = Icons.Rounded.Home
     val HomeBorder = Icons.Outlined.Home
+    val Iuris = Icons.Default.Description
+    val KeyboardArrowDown = Icons.Filled.KeyboardArrowDown
+
     val Menu = Icons.Rounded.Menu
 
 
@@ -91,6 +103,8 @@ object LPlusIcons {
 
     val Reader = Icons.Rounded.PlayArrow
     val ReaderBorder = Icons.Rounded.PlayArrow
+    val Sacramentis = Icons.Default.HealthAndSafety
+
     val Search = Icons.Rounded.Search
     val Settings = Icons.Rounded.Settings
     val Share = Icons.Outlined.Share
@@ -105,5 +119,6 @@ object LPlusIcons {
 
     val ViewDay = Icons.Rounded.ViewDay
     val ViewDayBorder = Icons.Outlined.ViewDay
+    val Water = Icons.Outlined.Water
 
 }

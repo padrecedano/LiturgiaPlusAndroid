@@ -17,9 +17,9 @@ import org.deiverbum.app.core.database.model.entity.LiturgySaintJoinEntity
 import org.deiverbum.app.core.database.model.entity.MassReadingEntity
 import org.deiverbum.app.core.database.model.entity.UniversalisEntity
 import org.deiverbum.app.core.database.model.entity.asExternalModel
-import org.deiverbum.app.core.model.data.breviarium.BreviariumMixtus
-import org.deiverbum.app.core.model.data.breviarium.LHOfficiumLectionis
-import org.deiverbum.app.core.model.data.breviarium.LHPsalmody
+import org.deiverbum.app.core.model.breviarium.BreviariumMixtus
+import org.deiverbum.app.core.model.breviarium.LHOfficiumLectionis
+import org.deiverbum.app.core.model.breviarium.LHPsalmody
 import org.deiverbum.app.core.model.data.missae.MissaeLectionum
 import org.deiverbum.app.core.model.data.missae.MissaeLectionumList
 import org.deiverbum.app.core.model.liturgia.Liturgy

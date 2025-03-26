@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.book
+package org.deiverbum.app.core.model.book
 
 
 import android.text.SpannableStringBuilder
@@ -17,8 +17,9 @@ import org.deiverbum.app.core.model.data.Sortable
  *
  */
 
+//@JsonClass(generateAdapter = true)
 abstract class LiberTypus
-    (open val typus: String) : Sortable {
+    (open val typus: String, open val bookType: Int) : Sortable {
     open fun getHeaders(): SpannableStringBuilder {
         return SpannableStringBuilder()
     }

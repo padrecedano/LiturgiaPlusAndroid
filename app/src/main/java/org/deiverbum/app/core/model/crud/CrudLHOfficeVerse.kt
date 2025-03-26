@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.breviarium.LHOfficeVerse
+import org.deiverbum.app.core.model.breviarium.LHOfficeVerse
 
 class CrudLHOfficeVerse {
     var c: List<LHOfficeVerse>? = null

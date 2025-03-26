@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.universalis
 
-import org.deiverbum.app.core.model.data.UserData
+import org.deiverbum.app.core.model.configuration.UserData
 
 /**
  * Representación de un recurso del tipo **`Universalis`** para la capa de datos externa.

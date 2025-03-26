@@ -4,12 +4,11 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import org.deiverbum.app.core.database.model.entity.LHEasterBiblicalEntity
 import org.deiverbum.app.core.database.model.entity.LHEasterBiblicalJoinEntity
-import org.deiverbum.app.core.database.model.entity.UniversalisEntity
-import org.deiverbum.app.core.model.data.breviarium.LHAntiphon
-import org.deiverbum.app.core.model.data.breviarium.LHOfficeBiblicalEaster
-import org.deiverbum.app.core.model.data.breviarium.LHOfficiumPascua
-import org.deiverbum.app.core.model.data.breviarium.LHPsalm
-import org.deiverbum.app.core.model.data.breviarium.LHPsalmody
+import org.deiverbum.app.core.model.breviarium.LHAntiphon
+import org.deiverbum.app.core.model.breviarium.LHOfficeBiblicalEaster
+import org.deiverbum.app.core.model.breviarium.LHOfficiumPascua
+import org.deiverbum.app.core.model.breviarium.LHPsalm
+import org.deiverbum.app.core.model.breviarium.LHPsalmody
 import org.deiverbum.app.core.model.liturgia.Liturgy
 import org.deiverbum.app.core.model.liturgia.LiturgyTime
 import org.deiverbum.app.core.model.liturgia.Oratio
@@ -31,13 +30,13 @@ data class LocalOfficiumPascua(
         entityColumn = "groupFK"
     )
     var group: List<LHOfficeEasterAll>,
-
-    @Relation(
-        entity = UniversalisEntity::class,
-        parentColumn = "groupID",
-        entityColumn = "oBiblicalFK"
-    )
-    var universalis: UniversalisEntity,
+    /*
+        @Relation(
+            entity = UniversalisEntity::class,
+            parentColumn = "groupID",
+            entityColumn = "oBiblicalFK"
+        )
+        var universalis: UniversalisEntity,*/
 )
 
 fun LocalOfficiumPascua.asExternalModel(): Universalis {
@@ -60,7 +59,8 @@ fun LocalOfficiumPascua.asExternalModel(): Universalis {
     }
 
     return Universalis(
-        universalis.todayDate,
+        20250420,
+        //universalis.todayDate,
         //universalis.timeFK,
         Liturgy(
             1,

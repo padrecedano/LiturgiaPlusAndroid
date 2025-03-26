@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.breviarium.LHOfficiumLectioAltera
+import org.deiverbum.app.core.model.breviarium.LHOfficiumLectioAltera
 
 class CrudLHOfficePatristic {
     var c: List<LHOfficiumLectioAltera>? = null

@@ -1,4 +1,4 @@
-package org.deiverbum.app.core.model.data.alteri
+package org.deiverbum.app.core.model.alteri
 
 /**
  * Clase que representa las cuatro series de misterios del Rosario.

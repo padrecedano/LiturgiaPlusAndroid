@@ -7,9 +7,9 @@ import org.deiverbum.app.core.database.model.entity.LHAntiphonEntity
 import org.deiverbum.app.core.database.model.entity.LHEasterBiblicalEntity
 import org.deiverbum.app.core.database.model.entity.LHPsalmEntity
 import org.deiverbum.app.core.database.model.entity.PrayerEntity
-import org.deiverbum.app.core.model.data.breviarium.LHAntiphon
-import org.deiverbum.app.core.model.data.breviarium.LHOfficeBiblicalEaster
-import org.deiverbum.app.core.model.data.breviarium.LHPsalm
+import org.deiverbum.app.core.model.breviarium.LHAntiphon
+import org.deiverbum.app.core.model.breviarium.LHOfficeBiblicalEaster
+import org.deiverbum.app.core.model.breviarium.LHPsalm
 import org.deiverbum.app.core.model.liturgia.Oratio
 
 /**

@@ -4,7 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import org.deiverbum.app.core.database.model.entity.LHOfficeBiblicalEntity
 import org.deiverbum.app.core.database.model.entity.LHOfficeBiblicalJoinEntity
-import org.deiverbum.app.core.model.data.breviarium.LHOfficiumLectioPrior
+import org.deiverbum.app.core.model.breviarium.LHOfficiumLectioPrior
 
 /**
  *

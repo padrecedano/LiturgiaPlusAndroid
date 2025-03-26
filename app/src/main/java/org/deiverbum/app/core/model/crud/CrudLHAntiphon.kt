@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.breviarium.LHAntiphon
+import org.deiverbum.app.core.model.breviarium.LHAntiphon
 
 class CrudLHAntiphon {
     var c: List<LHAntiphon>? = null

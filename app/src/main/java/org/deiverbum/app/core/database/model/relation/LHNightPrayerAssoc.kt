@@ -11,9 +11,9 @@ import org.deiverbum.app.core.database.model.entity.LHPrayerEntity
 import org.deiverbum.app.core.database.model.entity.LHPsalmJoinEntity
 import org.deiverbum.app.core.database.model.entity.LHReadingShortJoinEntity
 import org.deiverbum.app.core.database.model.entity.LHVirginAntiphonJoinEntity
-import org.deiverbum.app.core.model.data.breviarium.LHAntiphon
-import org.deiverbum.app.core.model.data.breviarium.LHPsalm
-import org.deiverbum.app.core.model.data.breviarium.LHPsalmody
+import org.deiverbum.app.core.model.breviarium.LHAntiphon
+import org.deiverbum.app.core.model.breviarium.LHPsalm
+import org.deiverbum.app.core.model.breviarium.LHPsalmody
 
 /**
  * @author A. Cedano

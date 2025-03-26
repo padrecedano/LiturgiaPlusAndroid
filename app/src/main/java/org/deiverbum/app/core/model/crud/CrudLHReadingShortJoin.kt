@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.breviarium.LHReadingShortJoin
+import org.deiverbum.app.core.model.breviarium.LHReadingShortJoin
 
 class CrudLHReadingShortJoin {
     var c: List<LHReadingShortJoin>? = null

@@ -19,6 +19,9 @@ message UserPreferences {
   bool use_multiple_invitatory = 7;
   RubricColorProto rubric_color = 8;
   FontSizeProto font_size = 9;
+  RosariumConfigProto rosarium_config = 10;
+  AnalyticsProto use_analytics = 11;
+  CrashlyticsProto use_crashlytics = 12;
 
 }
 
@@ -43,6 +46,21 @@ enum RubricColorProto {
 enum VoiceReaderProto {
   VOICE_ON = 0;
   VOICE_OFF = 1;
+}
+
+enum AnalyticsProto {
+  ANALYTICS_ON = 0;
+  ANALYTICS_OFF = 1;
+}
+
+enum CrashlyticsProto {
+  CRASHLYTICS_ON = 0;
+  CRASHLYTICS_OFF = 1;
+}
+
+enum RosariumConfigProto {
+  BREVIS = 0;
+  OMNIS = 1;
 }
 
 enum FontSizeProto {

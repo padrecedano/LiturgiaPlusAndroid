@@ -1,6 +1,6 @@
 package org.deiverbum.app.core.model.data.crud
 
-import org.deiverbum.app.core.model.data.breviarium.LHIntercessionsJoin
+import org.deiverbum.app.core.model.breviarium.LHIntercessionsJoin
 
 class CrudLHIntercessionsJoin {
     var c: List<LHIntercessionsJoin>? = null

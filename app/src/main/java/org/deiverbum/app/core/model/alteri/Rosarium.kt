@@ -1,10 +1,10 @@
-package org.deiverbum.app.core.model.data.alteri
+package org.deiverbum.app.core.model.alteri
 
 /**
  * Clase que representa el **`Rosario`** en la capa de datos externa.
  *
  * @property series Un objeto [RosariumSeries] con los misterios según el día de la semana.
- * @property mysterium Una lista de objetos del tipo  [RosariumMysterium] con los misterios correspondientes.
+ * @property mysteriorum Una lista de objetos del tipo  [RosariumMysterium] con los misterios correspondientes.
  *
  *  @author A. Cedano
  * @version 1.0
@@ -20,7 +20,6 @@ data class Rosarium(
 
     override var typus: String = "rosarium"
 ) : Alteri(typus) {
-
 
     companion object {
         var LITANIAE = listOf(
@@ -125,29 +124,12 @@ data class Rosarium(
             )
         )
     }
-
-
-    fun getForView(): StringBuilder {
-        val sb = StringBuilder()
-        mysteriorum.forEach {
-            sb.append("${it.ordo} ")
-            sb.append(it.mysterium.mysterium)
-            sb.append("\n\n\n\n")
-        }
-        return sb
-    }
-
-
 }
 
 data class Litaniae(
     var textus: String,
     var responsum: String
-) {
-    fun getList(): List<String> {
-        return listOf(textus, responsum)
-    }
-}
+)
 
 data class LiturgiaOratio(
     var textus: List<String>
