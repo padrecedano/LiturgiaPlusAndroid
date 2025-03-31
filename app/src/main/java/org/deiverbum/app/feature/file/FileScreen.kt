@@ -14,6 +14,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -26,6 +27,9 @@ import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import org.deiverbum.app.core.designsystem.component.TextBase
+import org.deiverbum.app.core.designsystem.component.TextBiblicaBrevis
+import org.deiverbum.app.core.designsystem.component.TextBiblicaLonga
 import org.deiverbum.app.core.designsystem.component.TextCanon
 import org.deiverbum.app.core.designsystem.component.TextCanonWithList
 import org.deiverbum.app.core.designsystem.component.TextError
@@ -38,7 +42,12 @@ import org.deiverbum.app.core.designsystem.component.TextLiberMixtusB
 import org.deiverbum.app.core.designsystem.component.TextLiberOratio
 import org.deiverbum.app.core.designsystem.component.TextLiberOratioo
 import org.deiverbum.app.core.designsystem.component.TextLiberPriest
+import org.deiverbum.app.core.designsystem.component.TextParagraphusDialog
+import org.deiverbum.app.core.designsystem.component.TextParagraphusMixtus
+import org.deiverbum.app.core.designsystem.component.TextParagraphusOratio
+import org.deiverbum.app.core.designsystem.component.TextParagraphusPreces
 import org.deiverbum.app.core.designsystem.component.TextParagraphusPriest
+import org.deiverbum.app.core.designsystem.component.TextRationarium
 import org.deiverbum.app.core.designsystem.component.TextResponsum
 import org.deiverbum.app.core.designsystem.component.TextRubrica
 import org.deiverbum.app.core.designsystem.component.TextRubricaNumerus
@@ -63,7 +72,15 @@ import org.deiverbum.app.core.model.book.LiberPreces
 import org.deiverbum.app.core.model.book.LiberSacramentumNew
 import org.deiverbum.app.core.model.book.LiberSection
 import org.deiverbum.app.core.model.book.ParagraphusBase
+import org.deiverbum.app.core.model.book.ParagraphusBiblicaBrevis
+import org.deiverbum.app.core.model.book.ParagraphusBiblicaLonga
+import org.deiverbum.app.core.model.book.ParagraphusDialog
+import org.deiverbum.app.core.model.book.ParagraphusDivider
+import org.deiverbum.app.core.model.book.ParagraphusMixtus
+import org.deiverbum.app.core.model.book.ParagraphusOratio
+import org.deiverbum.app.core.model.book.ParagraphusPreces
 import org.deiverbum.app.core.model.book.ParagraphusPriest
+import org.deiverbum.app.core.model.book.ParagraphusRationarium
 import org.deiverbum.app.core.model.book.ParagraphusResponsum
 import org.deiverbum.app.core.model.book.ParagraphusRubricaNew
 import org.deiverbum.app.core.model.book.ParagraphusRubricaNumerus
@@ -72,6 +89,7 @@ import org.deiverbum.app.core.model.book.Priest
 import org.deiverbum.app.core.model.book.Rubrica
 import org.deiverbum.app.core.model.book.Title
 import org.deiverbum.app.core.model.configuration.UserData
+import org.deiverbum.app.core.ui.ContentHeadd
 import org.deiverbum.app.core.ui.ContentTitle
 import org.deiverbum.app.feature.calendar.EmptyState
 import org.deiverbum.app.feature.calendar.ErrorState
@@ -250,19 +268,78 @@ fun RenderLiber(liber: LiberBase, userData: UserData, bodyStyle: TextStyle) {
 
 @Composable
 fun RenderLiberC(liber: LiberBaseC, userData: UserData, style: TextStyle) {
+    //ContentLabel(liber.title,1,userData)
+    ContentHeadd(
+        text = liber.title,
+        level = 2,
+        userData = userData,
+        uppercase = false,
+        withColor = false
+    )
+    ContentHeadd(
+        text = liber.subTitle,
+        level = 3,
+        userData = userData,
+        uppercase = false,
+        withColor = false
+    )
     liber.sections.forEach {
         TextHead(it.head, userData)
         it.paragraphus.forEach {
             when (it) {
-                is ParagraphusResponsum -> TextResponsum(it, style)
-                is ParagraphusPriest -> TextParagraphusPriest(it, style)
-                is ParagraphusRubricaNumerus -> TextRubricaNumerus(it, style)
-                is ParagraphusRubricaNew -> TextRubrica(it, style)
-                is ParagraphusVersiculusResponsum -> TextVersiculusResponsum(it, style)
-                is ParagraphusBase -> {
+                is ParagraphusDivider -> HorizontalDivider(
+                    color = MaterialTheme.colorScheme.error,
+                    thickness = 1.dp
+                )
 
+                is ParagraphusDialog -> {
+                    TextParagraphusDialog(it, style)
                 }
 
+                is ParagraphusPreces -> {
+                    TextParagraphusPreces(it, style)
+                }
+
+                is ParagraphusMixtus -> {
+                    TextParagraphusMixtus(it, style)
+                }
+
+                is ParagraphusResponsum -> {
+                    TextResponsum(it, style)
+                }
+
+                is ParagraphusOratio -> {
+                    TextParagraphusOratio(it, style)
+                }
+
+                is ParagraphusPriest -> {
+                    TextParagraphusPriest(it, style)
+                }
+
+                is ParagraphusRubricaNumerus -> {
+                    TextRubricaNumerus(it, style)
+                }
+
+                is ParagraphusRubricaNew -> {
+                    TextRubrica(it, style)
+                }
+
+                is ParagraphusVersiculusResponsum -> {
+                    TextVersiculusResponsum(it, style)
+                }
+
+                is ParagraphusBiblicaBrevis -> {
+                    TextBiblicaBrevis(it, style)
+                }
+
+                is ParagraphusBiblicaLonga -> {
+                    TextBiblicaLonga(it, style)
+                }
+
+                is ParagraphusRationarium -> TextRationarium(it, style)
+                is ParagraphusBase -> {
+                    TextBase(it, style)
+                }
             }
         }
     }

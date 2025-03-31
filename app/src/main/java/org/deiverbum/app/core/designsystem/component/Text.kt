@@ -62,7 +62,15 @@ import org.deiverbum.app.core.model.book.LiberOratioo
 import org.deiverbum.app.core.model.book.LiberParagraphus
 import org.deiverbum.app.core.model.book.LiberPreces
 import org.deiverbum.app.core.model.book.LiberText
+import org.deiverbum.app.core.model.book.ParagraphusBase
+import org.deiverbum.app.core.model.book.ParagraphusBiblicaBrevis
+import org.deiverbum.app.core.model.book.ParagraphusBiblicaLonga
+import org.deiverbum.app.core.model.book.ParagraphusDialog
+import org.deiverbum.app.core.model.book.ParagraphusMixtus
+import org.deiverbum.app.core.model.book.ParagraphusOratio
+import org.deiverbum.app.core.model.book.ParagraphusPreces
 import org.deiverbum.app.core.model.book.ParagraphusPriest
+import org.deiverbum.app.core.model.book.ParagraphusRationarium
 import org.deiverbum.app.core.model.book.ParagraphusResponsum
 import org.deiverbum.app.core.model.book.ParagraphusRubricaNew
 import org.deiverbum.app.core.model.book.ParagraphusRubricaNumerus
@@ -238,7 +246,7 @@ fun textFromHtmlAudio(data: String): AnnotatedString {
 fun textVersiculus(data: ParagraphusVersiculus): AnnotatedString {
     return buildAnnotatedString {
         append(textusRubrica(V))
-        append(textBold(data.txt[0], data.isBold))
+        append(textBold(data.txt, data.isBold))
     }
 }
 
@@ -246,7 +254,7 @@ fun textVersiculus(data: ParagraphusVersiculus): AnnotatedString {
 fun textResponsum(data: ParagraphusResponsum): AnnotatedString {
     return buildAnnotatedString {
         append(textusRubrica(R))
-        append(data.txt[0])
+        append(data.txt)
     }
 }
 
@@ -445,6 +453,40 @@ fun textBold(text: String, isBold: Boolean): AnnotatedString {
         return textBold(text)
     }
     return buildAnnotatedString {
+        append(text)
+    }
+}
+
+@Composable
+fun TextBase(data: ParagraphusBase, style: TextStyle) {
+    /*val i = data.txt.size - 1
+    val text = buildAnnotatedString {
+
+        data.txt.forEachIndexed  { index, it ->
+            append(it)
+            if(index < i) append("\n\n")
+
+        }
+
+
+    }*/
+    Text(text = data.txt, style = style)
+}
+
+
+@Composable
+fun textBase(text: String, isBold: Boolean, isRed: Boolean): AnnotatedString {
+    return buildAnnotatedString {
+
+        if (isBold && isRed) {
+            return textusRubrica(text, isBold)
+        } else if (isBold) {
+            return textBold(text)
+        } else if (isRed) {
+            return textusRubrica(text)
+        } else {
+            append(text)
+        }
         append(text)
     }
 }
@@ -681,10 +723,10 @@ fun TextRubricaNumerus(
         buildString {
             data.txt.forEach {
                 append(it)
-                when (data.extraSpace) {
+                /*when (data.extraSpace) {
                     1 -> append("\n")
                     2 -> append("\n\n")
-                }
+                }*/
             }
         }
 
@@ -703,12 +745,12 @@ fun TextRubrica(
 ) {
     Text(
         text = buildAnnotatedString {
-            data.txt.forEach {
-                append(textusRubrica(it))
-                if (!data.isLast) {
-                    append("\n\n")
-                }
+            //data.txt.forEach {
+            append(textusRubrica(data.txt, data.isBold))
+            if (!data.isLast) {
+                append("\n\n")
             }
+            //}
         },
         style = style
     )
@@ -719,20 +761,20 @@ fun TextRubricaNumerus(
     data: ParagraphusRubricaNumerus,
     style: TextStyle
 ) {
-    val i = data.txt.size - 1
+    //val i = data.txt.size - 1
 
     val text =
         buildString {
-            data.txt.forEachIndexed { index, it ->
-                append(it)
-                if (index < i) {
-                    when (data.extraSpace) {
-                        1 -> append("\n")
-                        2 -> append("\n\n")
-                    }
-                }
-                //if (data.extraSpace) append("\n\n")
-            }
+            //data.txt.forEachIndexed { index, it ->
+            append(data.txt)
+            //if (index < i) {
+            /*when (data.extraSpace) {
+                1 -> append("\n")
+                2 -> append("\n\n")
+            }*/
+            //}
+            //if (data.extraSpace) append("\n\n")
+            //}
             if (data.isLast) append("\n\n")
         }
 
@@ -781,21 +823,21 @@ fun TextParagraphusPriest(
     data: ParagraphusPriest,
     style: TextStyle
 ) {
-    val i = data.txt.size - 1
     val text =
-        buildString {
-            data.txt.forEachIndexed { index, it ->
-                when (data.isBold) {
-                    true -> append(textBold(it))
-                    false -> append(it)
-                }
-                if (index < i) {
-                    when (data.extraSpace) {
-                        1 -> append("\n")
-                        2 -> append("\n\n")
-                    }
-                }
+        buildAnnotatedString {
+            //data.txt.forEachIndexed { index, it ->
+            when (data.isBold) {
+                true -> append(textBold(data.txt))
+                false -> append(data.txt)
             }
+            //if (index < i) {
+            append(" ")
+            /*when (data.extraSpace) {
+                1 -> append("\n")
+                2 -> append("\n\n")
+            }*/
+
+
             if (data.isLast) append("\n\n")
         }
     when (data.isBold) {
@@ -843,6 +885,39 @@ fun TextVersiculusResponsum(
         }
 
     Text(text = text, style = style)
+}
+
+@Composable
+fun TextBiblicaBrevis(
+    data: ParagraphusBiblicaBrevis,
+    style: TextStyle
+) {
+
+    Text(text = textusRubrica(data.pericopa), style = style)
+    Text(
+        text = data.txt,
+        style = style
+    )
+}
+
+@Composable
+fun TextBiblicaLonga(
+    data: ParagraphusBiblicaLonga,
+    style: TextStyle
+) {
+    Text(
+        text = buildAnnotatedString {
+            append(data.book)
+            append("   ")
+            append(textusRubrica(data.pericopa))
+            append("\n\n")
+            append(data.txt)
+            if (!data.isLast) {
+                append("\n")
+            }
+        },
+        style = style
+    )
 }
 
 @Composable
@@ -1039,12 +1114,15 @@ fun liberText(
     liber: LiberText,
 ): AnnotatedString {
     return buildAnnotatedString {
+        if (liber.isBold) {
+            pushStyle(SpanStyle(fontWeight = FontWeight.Bold))
+        }
         when (liber.isRed) {
             true -> append(textusRubrica(liber.txt))
             false -> {
-                if (liber.isBold) {
+                /*if (liber.isBold) {
                     pushStyle(SpanStyle(fontWeight = FontWeight.Bold))
-                }
+                }*/
                 append(liber.txt)
             }
         }
@@ -1079,6 +1157,108 @@ fun LiberText(
         false -> Text(text = text, style = style)
     }
 }
+
+@Composable
+fun TextParagraphusDialog(
+    liber: ParagraphusDialog,
+    style: TextStyle
+) {
+
+    //val split = liber.base.txt.splitParts("\\|")
+    var i = liber.txt.size - 1
+    val previous = if (liber.withDash) EMDASH else V
+    Text(
+        text = buildAnnotatedString {
+            liber.txt.forEachIndexed { index, it ->
+                append(textusRubrica(previous))
+                append(" ")
+                append(textBase(it, isBold = true, isRed = false))
+                append("\n\n")
+                append(textResponsum(liber.responsum))
+                if (index < i) append("\n\n")
+            }
+        },
+        style = style
+    )
+}
+
+@Composable
+fun TextRationarium(
+    liber: ParagraphusRationarium,
+    style: TextStyle
+) {
+
+    //val split = liber.base.txt.splitParts("\\|")
+    var i = liber.txt.size - 1
+    val previous = if (liber.withDash) EMDASH else V
+    Text(
+        text = buildAnnotatedString {
+            liber.txt.forEachIndexed { index, it ->
+                append(textusRubrica(previous))
+                append(" ")
+                append(textBase(it, isBold = true, isRed = false))
+                //append("\n\n")
+                //append(textResponsum(liber.responsum))
+                if (index < i) append("\n\n")
+            }
+        },
+        style = style
+    )
+}
+
+@Composable
+fun TextParagraphusOratio(
+    liber: ParagraphusOratio,
+    style: TextStyle
+) {
+
+    //val split = liber.base.txt.splitParts("\\|")
+
+    Text(
+        text = buildAnnotatedString {
+            //liber.txt.forEachIndexed { index, it ->
+            append(textusRubrica(V))
+            append(" ")
+            append(textBase(liber.txt, isBold = true, isRed = false))
+            append("\n\n")
+            append(textResponsum(liber.responsum))
+
+        },
+        style = style
+    )
+}
+
+
+@Composable
+fun TextParagraphusPreces(
+    liber: ParagraphusPreces,
+    style: TextStyle
+) {
+    var i = liber.txt.size - 1
+    when (liber.intro) {
+        is ParagraphusBase -> Text(text = liber.intro.txt, style = style)
+        is ParagraphusMixtus -> TextParagraphusMixtus(liber.intro, style)
+    }
+    Text(
+        text = buildAnnotatedString {
+            //append(textBold(liber.intro))
+            //append("\n\n")
+            append(textResponsum(liber.responsum))
+            append("\n\n")
+
+            liber.txt.forEachIndexed { index, it ->
+                append(textusRubrica(EMDASH))
+                append(" ")
+                append(textBase(it, isBold = true, isRed = false))
+                append("\n\n")
+                append(textResponsum(liber.responsum))
+                if (index < i) append("\n\n")
+            }
+        },
+        style = style
+    )
+}
+
 
 @Composable
 fun TextLiberMixtusB(
@@ -1121,6 +1301,49 @@ fun TextLiberMixtusB(
         style = style
     )
 }
+
+@Composable
+fun TextParagraphusMixtus(
+    liber: ParagraphusMixtus,
+    style: TextStyle
+) {
+
+    val split = liber.base.txt.splitParts("\\|")
+    var i = split.size - 1
+
+    Text(
+        text = buildAnnotatedString {
+            split.forEachIndexed { index, s ->
+                //if (index != i && index<i) {
+                val new = LiberText(
+                    txt = s,
+                    isRed = liber.base.isRed,
+                    isBold = liber.base.isBold,
+                    lineBreak = liber.base.lineBreak
+                )
+                //if(index==i){
+                append(liberText(new))
+                /*when (liber.base.isRed) {
+                    true -> append(textusRubrica(s))
+                    false -> append(s)
+                }*/
+                if (index < i) {
+                    val sub = liber.replace[index]
+                    //val newSub=LiberText(txt=s,isRed=liber.base.isRed, isBold = liber.base.isBold, lineBreak = liber.base.lineBreak)
+
+                    append(liberText(sub))
+                }
+                /*when (sub.isRed) {
+                    true -> append(textusRubrica(sub.txt))
+                    false -> append(sub.txt)
+                }*/
+            }
+            //}
+        },
+        style = style
+    )
+}
+
 
 @Composable
 fun TextLiberMixtus(

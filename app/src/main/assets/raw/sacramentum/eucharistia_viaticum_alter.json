@@ -1,0 +1,432 @@
+{
+  "typus": "sacramentum",
+  "title": "El Viático llevados a los Enfermos por un Ministro Extraordinario",
+  "subTitle": "Viático llevado a los Enfermos",
+  "shortTitle": "Viático: Ministro extraordinario.",
+  "sections": [
+    {
+      "head": {
+        "type": "single",
+        "title": "Introducción",
+        "level": 1
+      },
+      "paragraphus": [
+        {
+          "type": "rubricaNumerus",
+          "n": 54,
+          "txt": "La sagrada comunión y el Viático se administran a los enfermos por el sacerdote o diácono según el Ritual de la Unción y de la pastoral de enfermos. Cuando la sagrada Eucaristía se lleva a los enfermos por un acólito, o por un ministro extraordinario de la sagrada comunión designado según las normas del derecho, se observan los ritos siguientes."
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 55,
+          "txt": "Se puede dar la comunión bajo la sola especie de vino a quienes no la pueden recibir bajo la especie de pan. \n\nLa Sangre del Señor llévese al enfermo en un recipiente cerrado para evitar cualquier riesgo de que se derrame. Para administrar el Sacramento, elíjase en cada caso el modo más apto entre los que se proponen en el rito de la comunión bajo las dos especies. Si una vez dada la comunión, quedase algo de la preciosísima Sangre del Señor, deberá sumirla el ministro, que hará también las oportunas abluciones."
+        }
+      ]
+    },
+    {
+      "head": {
+        "type": "single",
+        "title": "Ritos iniciales",
+        "level": 1
+      },
+      "paragraphus": [
+        {
+          "type": "rubricaNumerus",
+          "n": 68,
+          "txt": "Los ministros extraordinarios de la Comunión lleven o el vestido litúrgico tradicional en la región, o un vestido que no desdiga de este ministerio y que el Ordinario apruebe. \n\nPara administrar la comunión fuera de la iglesia, llévese la Eucaristía en una cajita u otro vaso cerrado, con la vestidura y el modo apropiado a las circunstancias de cada lugar. \n\nEl ministro, vestido cual conviene al ministerio que va a realizar, llega a la habitación, y saluda con sencillez y afecto al enfermo y a los circunstantes. Puede decir, si le parece, este saludo:"
+        },
+        {
+          "type": "priest",
+          "txt": "La paz del Señor a esta casa y a todos los aquí presentes."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "También pueden emplearse otras palabras de la Sagrada Escritura, con las que se acostumbra a saludar a los fieles. \n\nUna vez colocado el Sacramento sobre la mesa, lo adora junto con los presentes.\n\nLuego, con esta monición o con otra más adaptada a la situación del enfermo, se dirige a los presentes:"
+        },
+        {
+          "type": "priest",
+          "txt": "Queridos hermanos: Nuestro Señor Jesucristo, antes de pasar de este mundo al Padre, nos legó el sacramento de su Cuerpo y de su Sangre, para que, robustecidos con su Viático, prenda de resurrección, nos sintamos protegidos a la hora de pasar también nosotros de esta vida a Dios. Unidos por la caridad con nuestro hermano, oremos por él."
+        },
+        {
+          "type": "rubrica",
+          "txt": "Y todos ruegan en silencio durante un momento."
+        },
+        {
+          "n": 70,
+          "type": "rubricaNumerus",
+          "txt": "El ministro invita al enfermo y a los circunstantes a hacer el acto penitencial:"
+        },
+        {
+          "type": "priest",
+          "txt": "Hermanos: para participar con fruto en esta celebración, comencemos por reconocer nuestros pecados."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Se hace una breve pausa en silencio. Después, todos juntos, hacen la confesión:"
+        },
+        {
+          "type": "rubrica",
+          "isBold": true,
+          "txt": "Primera fórmula"
+        },
+        {
+          "type": "priest",
+          "txt": "Yo confieso ante Dios todopoderoso y ante vosotros, hermanos, que he pecado mucho de pensamiento, palabra, obra y omisión."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Dándose golpes de pecho añaden:"
+        },
+        {
+          "type": "priest",
+          "txt": "Por mi culpa, por mi culpa, por mi gran culpa."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Y a continuación:"
+        },
+        {
+          "type": "priest",
+          "txt": "Por eso ruego a Santa María, siempre Virgen, a los ángeles, a los santos y a vosotros, hermanos, que intercedáis por mí ante Dios, nuestro Señor."
+        },
+        {
+          "type": "rubrica",
+          "isBold": true,
+          "txt": "Segunda fórmula",
+          "bold": true
+        },
+        {
+          "type": "oratio",
+          "txt": "Señor, ten misericordia de nosotros.",
+          "responsum": "Porque hemos pecado contra ti."
+        },
+        {
+          "type": "oratio",
+          "txt": "Muéstranos, Señor, tu misericordia.",
+          "responsum": "Y danos tu salvación."
+        },
+        {
+          "type": "rubrica",
+          "isBold": true,
+          "txt": "Tercera fórmula"
+        },
+        {
+          "type": "oratio",
+          "txt": "Tú que por el misterio pascual nos has obtenido la salvación: Señor, ten piedad.",
+          "responsum": "Señor, ten piedad."
+        },
+        {
+          "type": "oratio",
+          "txt": "Tú que no cesas de actualizar entre nosotros las maravillas de tu pasión: Cristo, ten piedad.",
+          "responsum": "Cristo, ten piedad."
+        },
+        {
+          "type": "oratio",
+          "txt": "Tú que por la comunión de tu cuerpo nos haces participar del sacrificio pascual: Señor, ten piedad.",
+          "responsum": "Señor, ten piedad."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "El ministro concluye:"
+        },
+        {
+          "type": "oratio",
+          "txt": "Dios todopoderoso \ntenga misericordia de nosotros, \nperdone nuestros pecados \ny nos lleve a la vida eterna.",
+          "responsum": "Amén."
+        }
+      ]
+    },
+    {
+      "head": {
+        "type": "single",
+        "title": "Lectura breve de la Palabra de Dios",
+        "level": 1
+      },
+      "paragraphus": [
+        {
+          "n": 71,
+          "type": "rubricaNumerus",
+          "txt": "Es muy conveniente que uno de los presentes, o el mismo ministro, lea un breve texto de la Sagrada Escritura, por ejemplo:"
+        },
+        {
+          "type": "biblicalShort",
+          "pericopa": "Jn 6, 54-55",
+          "txt": "El que come mi carne y bebe mi sangre tiene vida eterna, y yo lo resucitaré en el último día. \n\nMi carne es verdadera comida, y mi sangre es verdadera bebida."
+        },
+        {
+          "type": "biblicalShort",
+          "pericopa": "Jn 6, 54-58",
+          "txt": "El que come mi carne y bebe mi sangre tiene vida eterna, y yo lo resucitaré en el último día. \n\nMi carne es verdadera comida, y mi sangre es verdadera bebida. \n\nEl que come mi carne y bebe mi sangre habita en mí y yo en él. \n\nEl Padre que vive me ha enviado, y yo vivo por el Padre; del mismo modo, el que me come vivirá por mí. \n\nEste es el pan que ha bajado del cielo: no como el de vuestros padres, que lo comieron y murieron; el que come este pan vivirá para siempre."
+        },
+        {
+          "type": "biblicalShort",
+          "pericopa": "Jn 14, 6",
+          "txt": "Yo soy el camino, y la verdad, y la vida. Nadie va al Padre, sino por mí."
+        },
+        {
+          "type": "biblicalShort",
+          "pericopa": "Jn 14, 23",
+          "txt": "El que me ama guardará mi palabra, y mi Padre lo amará, y vendremos a él y haremos morada en él."
+        },
+        {
+          "type": "biblicalShort",
+          "pericopa": "Jn 14, 27",
+          "txt": "La paz os dejo, mi paz os doy: no os la doy yo como la da el mundo. Que no tiemble vuestro corazón ni se acobarde."
+        },
+        {
+          "type": "biblicalShort",
+          "pericopa": "Jn 15, 4",
+          "txt": "Permaneced en mí, y yo en vosotros. Como el sarmiento no puede dar fruto por sí, si no permanece en la vid, así tampoco vosotros, si no permanecéis en mí."
+        },
+        {
+          "type": "biblicalShort",
+          "pericopa": "Jn 15, 5",
+          "txt": "Yo soy la vid, vosotros los sarmientos; el que permanece en mí y yo en é1, ése da fruto abundante; porque sin mí no podéis hacer nada."
+        },
+        {
+          "type": "biblicalShort",
+          "pericopa": "1 Co 11, 26",
+          "txt": "Cada vez que coméis de este pan y bebéis del cáliz, proclamáis la muerte del Señor, hasta que vuelva."
+        },
+        {
+          "type": "biblicalShort",
+          "isLast": true,
+          "pericopa": "1 Jn 4, 16",
+          "txt": "Nosotros hemos conocido el amor que Dios nos tiene y hemos creído en él. Dios es amor, y quien permanece en el amor permanece en Dios, y Dios en él."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Puede elegirse también algún otro texto adecuado entre los que se proponen en el Ritual de la Unción y de la pastoral de enfermos (o un texto de la liturgia del día)."
+        }
+      ]
+    },
+    {
+      "head": {
+        "type": "single",
+        "title": "Profesión de fe bautismal",
+        "level": 1
+      },
+      "paragraphus": [
+        {
+          "n": 72,
+          "type": "rubricaNumerus",
+          "txt": "Conviene también que, antes de recibir el Viático, el enfermo renueve la profesión de fe bautismal. Para ello, el ministro, después de una breve introducción, hecha con las palabras adecuadas, preguntará al enfermo:"
+        },
+        {
+          "type": "dialog",
+          "txt": [
+            "¿Crees en Dios, Padre todopoderoso, creador del cielo y de la tierra?",
+            "¿Crees en Jesucristo, su único Hijo, nuestro Señor, que nació de santa María Virgen, murió, fue sepultado, resucitó de entre los muertos y está sentado a la derecha del Padre?",
+            "¿Crees en el Espíritu Santo, en la santa Iglesia católica, en la comunión de los santos, en el perdón de los pecados, en la resurrección de la carne y en la vida eterna?"
+          ],
+          "responsum": "Sí, creo."
+        }
+      ]
+    },
+    {
+      "head": {
+        "type": "single",
+        "title": "Súplicas por el enfermo",
+        "level": 1
+      },
+      "paragraphus": [
+        {
+          "n": 73,
+          "type": "rubricaNumerus",
+          "txt": "Luego, si las condiciones del enfermo lo permiten, se hacen unas breves súplicas con este o parecido formulario, respondiendo al enfermo, si es posible, y todos los presentes:"
+        },
+        {
+          "type": "preces",
+          "intro": {
+            "type": "base",
+            "txt": "Invoquemos, queridos hermanos, con un solo corazón a nuestro Señor Jesucristo, y digámosle:"
+          },
+          "txt": [
+            "A ti, Señor, que nos amaste hasta el extremo y te entregaste a la muerte para darnos la vida.",
+            "A ti, Señor, que dijiste: «El que come mi carne y bebe mi sangre tiene vida eterna».",
+            "A ti, Señor, que nos invitas al banquete en que ya no habrá ni dolor, ni llanto, ni tristeza, ni separación."
+          ],
+          "responsum": "Te rogamos por nuestro hermano."
+        }
+      ]
+    },
+    {
+      "head": {
+        "type": "single",
+        "title": "Viático",
+        "level": 1
+      },
+      "paragraphus": [
+        {
+          "n": 59,
+          "type": "rubricaNumerus",
+          "txt": "El ministro introduce la oración dominical con estas o parecidas palabras:"
+        },
+        {
+          "type": "priest",
+          "txt": "Y ahora, todos juntos, invoquemos a Dios con la oración que el mismo Cristo nos enseñó:"
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Y todos juntos prosiguen:"
+        },
+        {
+          "type": "priest",
+          "txt": "Padre nuestro, que estás en el cielo, \nsantificado sea tu Nombre; \nvenga a nosotros tu reino; \nhágase tu voluntad \nen la tierra como en el cielo. \nDanos hoy nuestro pan de cada día; \nperdona nuestras ofensas, \ncomo también nosotros \nperdonamos a los que nos ofenden; \nno nos dejes caer en la tentación, \ny líbranos del mal."
+        },
+        {
+          "n": 75,
+          "type": "rubricaNumerus",
+          "txt": "Entonces el ministro muestra el Santísimo Sacramento, diciendo:"
+        },
+        {
+          "type": "priest",
+          "txt": "Éste es el Cordero de Dios,\nque quita el pecado del mundo.\nDichosos los invitados a la cena del Señor."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "El enfermo, si puede, y los que van a comulgar dicen una sola vez:"
+        },
+        {
+          "type": "base",
+          "txt": "Señor, no soy digno de que entres en mi casa, pero una palabra tuya bastará para sanarme."
+        },
+        {
+          "n": 76,
+          "type": "rubricaNumerus",
+          "txt": "El ministro se acerca al enfermo y, mostrándole el Sacramento, dice:"
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "El Cuerpo de Cristo |La Sangre de Cristo|."
+          },
+          "replace": [
+            {
+              "txt": "(o bien:",
+              "isRed": true,
+              "isBold": true
+            },
+            {
+              "txt": ")",
+              "isRed": true,
+              "isBold": true
+            }
+          ]
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "El enfermo responde:"
+        },
+        {
+          "type": "responsum",
+          "txt": "Amén."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Y ahora, o después de dar la comunión, añade el ministro:"
+        },
+        {
+          "type": "priest",
+          "txt": "Él mismo te guarde y te lleve a la vida eterna."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "El enfermo responde:"
+        },
+        {
+          "type": "responsum",
+          "txt": "Amén."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Los presentes que hayan de comulgar reciben el Sacramento del modo acostumbrado."
+        },
+        {
+          "n": 77,
+          "type": "rubricaNumerus",
+          "txt": "Una vez distribuida la comunión, el ministro hace la purificación en la forma acostumbrada. \n\nPueden seguir unos momentos de sagrado silencio."
+        }
+      ]
+    },
+    {
+      "head": {
+        "type": "single",
+        "title": "Rito de conclusión",
+        "level": 1
+      },
+      "paragraphus": [
+        {
+          "n": 78,
+          "type": "rubricaNumerus",
+          "txt": "A continuación, el ministro concluye con esta oración:"
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "Oremos.\n\nDios todopoderoso, \ncuyo Hijo es para nosotros \nel camino, la verdad y la vida, \nmira con piedad a tu siervo |, \ny concédele que, \nconfiando en tus promesas \ny fortalecido con el Cuerpo y la Sangre de tu Hijo, \nllegue en paz a tu reino.\n\nPor Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "N.",
+              "isRed": true,
+              "isBold": true
+            }
+          ]
+        },
+        {
+          "type": "rubrica",
+          "txt": "Todos responden:"
+        },
+        {
+          "type": "base",
+          "txt": "Amén."
+        },
+        {
+          "type": "rubrica",
+          "txt": "O bien, otra oración \"ad libitum\", n. 192."
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "Señor, \ntú que eres la salvación eterna \nde los que creen en ti, \nconcede a tu hijo |, \nque, fortalecido con el pan y el vino del Viático, \nllegue seguro a tu reino de luz y de vida.\n\nPor Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "N.",
+              "isRed": true,
+              "isBold": true
+            }
+          ]
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Finalmente, el ministro dice:"
+        },
+        {
+          "type": "priest",
+          "txt": "El Señor esté siempre contigo, \nte proteja con su poder\ny te guarde en paz."
+        }
+      ]
+    }
+  ]
+}

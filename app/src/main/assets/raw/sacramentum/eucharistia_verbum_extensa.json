@@ -1,0 +1,720 @@
+{
+  "typus": "sacramentum",
+  "type": "a",
+  "title": "Sagrada Comunión fuera de la Misa",
+  "subTitle": "Rito con una celebración extensa de la Palabra de Dios",
+  "shortTitle": "Comunión: Celebración extensa.",
+  "sections": [
+    {
+      "head": {
+        "type": "single",
+        "title": "Introducción",
+        "level": 1
+      },
+      "paragraphus": [
+        {
+          "type": "rubricaNumerus",
+          "n": 19,
+          "txt": "Cuando se administra la sagrada comunión es una iglesia u oratorio, póngase el corporal sobre el altar cubierto con un mantel; enciéndase dos cirios como señal de veneración y de banquete festivo; utilícese la patena.\n\nPero cuando la sagrada comunión se administra en otros lugares, prepárese una mesa decente cubierta con un mantel; ténganse también preparados los cirios."
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 20,
+          "txt": "El ministro de la sagrada comunión, si es presbítero o diácono, vaya revestido de alba, o sobrepelliz sobre el traje talar, y lleve estola.\nLos otros ministros lleven o el vestido litúrgico tradicional en la región, o un vestido que no desdiga de este ministerio y que el Ordinario apruebe.\nPara administrar la comunión fuera de la iglesia, llévese la Eucaristía en una cajita u otro vaso cerrado, con la vestidura y el modo apropiado a las circunstancias de cada lugar."
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 26,
+          "txt": "Esta forma se ha de emplear principalmente cuando no se celebra la Misa o cuando la sagrada comunión se distribuye a horas fijas, de modo que los fieles también se alimenten en la mesa de la Palabra de Dios. Porque, oyendo la Palabra de Dios, conocen que las maravillas divinas que se proclaman culminan en el misterio pascual, cuyo memorial se celebra sacramentalmente en la Misa, y en el cual participan por la comunión. Además, recibiendo la palabra de Dios y alimentados con ella, son llevados a la participación fructuosa de los misterios de la salvación en la acción de gracias."
+        }
+      ]
+    },
+    {
+      "head": {
+        "type": "single",
+        "title": "Ritos iniciales",
+        "level": 1
+      },
+      "paragraphus": [
+        {
+          "type": "rubricaNumerus",
+          "n": 27,
+          "txt": "Una vez preparado todo (según los nn. 19-20), y congregados los fieles, el ministro saluda a los presentes."
+        },
+        {
+          "type": "rubrica",
+          "txt": "Si es sacerdote o diácono, dice:"
+        },
+        {
+          "type": "priest",
+          "txt": "La gracia de nuestro Señor Jesucristo, \nel amor del Padre \ny la comunión del Espíritu Santo \nestén con todos vosotros."
+        },
+        {
+          "type": "rubrica",
+          "txt": "O bien:"
+        },
+        {
+          "type": "priest",
+          "txt": "La gracia y la paz \nde parte de Dios, nuestro Padre, \ny de Jesucristo, el Señor, \nestén con todos vosotros."
+        },
+        {
+          "type": "rubrica",
+          "txt": "O bien:"
+        },
+        {
+          "type": "priest",
+          "txt": "El Señor esté con vosotros."
+        },
+        {
+          "type": "rubrica",
+          "txt": "Todos responden:"
+        },
+        {
+          "type": "base",
+          "txt": "Y con tu espíritu."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "rubrica",
+          "txt": "Si el ministro no es sacerdote o diácono, saluda a los presentes con estas o parecidas palabras:"
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "Hermanos, bendecid al Señor,\n que nos | os| invita benignamente \na la mesa del Cuerpo de Cristo."
+          },
+          "replace": [
+            {
+              "txt": "(o bien:",
+              "isRed": true,
+              "isBold": true
+            },
+            {
+              "txt": ")",
+              "isRed": true,
+              "isBold": true
+            }
+          ]
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Todos responden:"
+        },
+        {
+          "type": "base",
+          "txt": "Bendito seas por siempre, Señor."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "También pueden emplearse otras palabras de la Sagrada Escritura, con las que se acostumbra a saludar a los fieles."
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 28,
+          "txt": "Se hace después el acto penitencial."
+        },
+        {
+          "type": "rubrica",
+          "isBold": true,
+          "txt": "Primera fórmula"
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "El ministro invita a los comulgantes al arrepentimiento, diciendo:"
+        },
+        {
+          "type": "priest",
+          "txt": "Hermanos: para participar con fruto en esta celebración, comencemos por reconocer nuestros pecados."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Se hace una breve pausa en silencio. Después, todos juntos, hacen la confesión:"
+        },
+        {
+          "type": "priest",
+          "txt": "Yo confieso ante Dios todopoderoso y ante vosotros, hermanos, que he pecado mucho de pensamiento, palabra, obra y omisión."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Dándose golpes de pecho añaden:"
+        },
+        {
+          "type": "priest",
+          "txt": "Por mi culpa, por mi culpa, por mi gran culpa."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Y a continuación:"
+        },
+        {
+          "type": "priest",
+          "txt": "Por eso ruego a Santa María, siempre Virgen, a los ángeles, a los santos y a vosotros, hermanos, que intercedáis por mí ante Dios, nuestro Señor."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "El ministro concluye:"
+        },
+        {
+          "type": "priest",
+          "txt": "Dios todopoderoso \ntenga misericordia de nosotros, \nperdone nuestros pecados \ny nos lleve a la vida eterna."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Todos responden:"
+        },
+        {
+          "type": "base",
+          "txt": "Amén."
+        },
+        {
+          "type": "rubrica",
+          "isBold": true,
+          "txt": "Segunda fórmula",
+          "bold": true
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "El ministro invita a los fieles al arrepentimiento:"
+        },
+        {
+          "type": "priest",
+          "txt": "Hermanos: para participar con fruto en esta celebración, comencemos por reconocer nuestros pecados."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Se hace una breve pausa en silencio. Después el ministro dice:"
+        },
+        {
+          "type": "oratio",
+          "txt": "Señor, ten misericordia de nosotros.",
+          "responsum": "Porque hemos pecado contra ti."
+        },
+        {
+          "type": "oratio",
+          "txt": "Muéstranos, Señor, tu misericordia.",
+          "responsum": "Y danos tu salvación."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "El ministro concluye:"
+        },
+        {
+          "type": "priest",
+          "txt": "Dios todopoderoso \ntenga misericordia de nosotros, \nperdone nuestros pecados \ny nos lleve a la vida eterna."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Todos responden:"
+        },
+        {
+          "type": "base",
+          "txt": "Amén."
+        },
+        {
+          "type": "rubrica",
+          "isBold": true,
+          "txt": "Tercera fórmula"
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "El ministro invita a los fieles al arrepentimiento:"
+        },
+        {
+          "type": "priest",
+          "txt": "Hermanos: para participar con fruto en esta celebración, comencemos por reconocer nuestros pecados."
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isRed": true,
+            "txt": "Se hace una breve pausa en silencio. \n\nDespués el ministro, o uno de los asistentes; hace las siguientes u otras invocaciones con el |."
+          },
+          "replace": [
+            {
+              "txt": "Señor, ten piedad",
+              "isRed": false,
+              "isBold": false
+            }
+          ]
+        },
+        {
+          "type": "oratio",
+          "txt": "Tú que por el misterio pascual nos has obtenido la salvación: Señor, ten piedad.",
+          "responsum": "Señor, ten piedad."
+        },
+        {
+          "type": "oratio",
+          "txt": "Tú que no cesas de actualizar entre nosotros las maravillas de tu pasión: Cristo, ten piedad.",
+          "responsum": "Cristo, ten piedad."
+        },
+        {
+          "type": "oratio",
+          "txt": "Tú que por la comunión de tu cuerpo nos haces participar del sacrificio pascual: Señor, ten piedad.",
+          "responsum": "Señor, ten piedad."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "El ministro concluye:"
+        },
+        {
+          "type": "oratio",
+          "txt": "Dios todopoderoso \ntenga misericordia de nosotros, \nperdone nuestros pecados \ny nos lleve a la vida eterna.",
+          "responsum": "Amén."
+        }
+      ]
+    },
+    {
+      "head": {
+        "type": "single",
+        "title": "Celebración de la Palabra de Dios",
+        "level": 1
+      },
+      "paragraphus": [
+        {
+          "n": 29,
+          "type": "rubricaNumerus",
+          "txt": "Después se tiene la celebración de la Palabra, del mismo modo que en la Misa. Los textos se toman, según convenga, de la liturgia del día, o de las lecturas de las Misas votivas de la santísima Eucaristía (Leccionario VI, pp. 359-384), o de la Preciosísima Sangre de Jesús (ibid., pp. 394- 403), o las que se proponen en los nn. 113-151 del Ritual de la Comunión fuera de la Misa.\n\nTambién pueden elegirse otros textos de los leccionarios, si se juzga oportuno, más adaptados a las peculiares circunstancias, principalmente las lecturas de la Misa votiva del Sagrado Corazón de Jesús (Leccionario VI, pp. 404-425).\n\nSe pueden emplear una o varias lecturas, según parezca oportuno. Después de la primera lectura póngase un salmo u otro canto, o también puede observarse en su lugar una pausa de sagrado silencio. La celebración de la Palabra se concluye con la oración universal o de los fieles."
+        }
+      ]
+    },
+    {
+      "head": {
+        "type": "single",
+        "title": "Sagrada comunión",
+        "level": 1
+      },
+      "paragraphus": [
+        {
+          "n": 30,
+          "type": "rubricaNumerus",
+          "txt": "Acabada la oración de los fieles, el ministro se acerca al lugar en que se guarda la Eucaristía, toma el vaso o copón con el Cuerpo del Señor, lo pone sobre el altar y hace genuflexión. Después introduce la oración dominical con estas o parecidas palabras:"
+        },
+        {
+          "type": "priest",
+          "txt": "Fieles a la recomendación del Salvador \ny siguiendo su divina enseñanza,\nnos atrevemos a decir:"
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Y todos juntos prosiguen:"
+        },
+        {
+          "type": "priest",
+          "txt": "Padre nuestro, que estás en el cielo, \nsantificado sea tu Nombre; \nvenga a nosotros tu reino; \nhágase tu voluntad \nen la tierra como en el cielo. \nDanos hoy nuestro pan de cada día; \nperdona nuestras ofensas, \ncomo también nosotros \nperdonamos a los que nos ofenden; \nno nos dejes caer en la tentación, \ny líbranos del mal."
+        },
+        {
+          "n": 31,
+          "type": "rubricaNumerus",
+          "txt": "Después, si lo juzga oportuno, invita a los fieles con estas o parecidas palabras:"
+        },
+        {
+          "type": "priest",
+          "txt": "Daos fraternalmente la paz."
+        },
+        {
+          "type": "rubrica",
+          "txt": "Y todos, según la costumbre del lugar, se dan la paz, manifestando la caridad común."
+        },
+        {
+          "n": 32,
+          "type": "rubricaNumerus",
+          "txt": "A continuación, el ministro hace genuflexión, toma la hostia y, elevándola un poco sobre el vaso o copón, vuelto hacia los comulgantes, dice:"
+        },
+        {
+          "type": "priest",
+          "txt": "Éste es el Cordero de Dios,\nque quita el pecado del mundo.\nDichosos los invitados a la cena del Señor."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Y los que van a comulgar añaden una sola vez:"
+        },
+        {
+          "type": "base",
+          "txt": "Señor, no soy digno de que entres en mi casa, pero una palabra tuya bastará para sanarme."
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 33,
+          "txt": "Si también el ministro comulga, dice en secreto:"
+        },
+        {
+          "type": "priest",
+          "txt": "El Cuerpo de Cristo me guarde para la vida eterna."
+        },
+        {
+          "type": "rubrica",
+          "txt": "Y con reverencia sume el Cuerpo de Cristo."
+        },
+        {
+          "n": 34,
+          "type": "rubricaNumerus",
+          "txt": "Después toma el vaso o copón, se acerca a los comulgantes y, elevando un poco la hostia, la muestra a cada uno y dice:"
+        },
+        {
+          "type": "priest",
+          "txt": "El Cuerpo de Cristo."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Y el que va a comulgar responde:"
+        },
+        {
+          "type": "base",
+          "txt": "Amén."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Y comulga."
+        },
+        {
+          "n": 35,
+          "type": "rubricaNumerus",
+          "txt": "Mientras se distribuye la comunión, puede cantarse algún canto oportuno."
+        },
+        {
+          "n": 36,
+          "type": "rubricaNumerus",
+          "txt": "Acabada la distribución de la comunión, si queda algún fragmento sobre la patena, el ministro lo echa en el copón y se purifica las manos, si lo juzga necesario. Si quedan algunas formas, guarda el Sacramento en el sagrario y hace genuflexión."
+        },
+        {
+          "n": 37,
+          "type": "rubricaNumerus",
+          "txt": "Entonces, si se juzga conveniente, se puede observar algún momento de sagrado silencio, o se puede entonar algún salmo o cántico de alabanza."
+        },
+        {
+          "n": 38,
+          "type": "rubricaNumerus",
+          "txt": "A continuación, el ministro concluye con esta oración:"
+        },
+        {
+          "type": "priest",
+          "txt": "Oremos.\nOh Dios, que en este sacramento admirable\nnos dejaste el memorial de tu pasión,\nte pedimos nos concedas venerar de tal modo\nlos sagrados misterios de tu Cuerpo y de tu Sangre, \nque experimentemos constantemente en nosotros \nel fruto de tu redención.\nTú que vives y reinas \npor los siglos de los siglos."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Todos responden:"
+        },
+        {
+          "type": "base",
+          "txt": "Amén."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "O bien una de estas oraciones \"ad libitum\" (nn. 179-188.).\n\nDurante el tiempo pascual son preferibles las oraciones indicadas en los nn. 189-191."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nSeñor, \nque por el misterio pascual de tu Hijo \nrealizaste la redención de los hombres, \nconcédenos avanzar por el camino de la salvación \na quienes, celebrando los sacramentos, \nproclamamos con fe \nla muerte y resurrección de Cristo. \n\nÉl, que vive y reina por los siglos de los siglos."
+          },
+          "replace": [
+            {
+              "txt": "179."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nDerrama, Señor, sobre nosotros \ntu espíritu de caridad, \npara que vivamos siempre unidos en tu amor \nlos que hemos participado en un mismo sacramento pascual. \nPor Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "180."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "| \nTe rogamos, Señor, que nos santifique nuestra participación en esta Eucaristía, para que, en el Cuerpo y en la Sangre de Cristo, se estreche cada vez más la fraternidad universal de todos los hombres. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "181."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nAlimentados con esta Eucaristía, te pedimos, Señor, que, por la comunión de tu Sacramento, nos des sabiduría para sopesar los bienes de la tierra amando intensamente los del cielo. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "182."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nTe damos gracias, Señor, porque al darnos en este sacramento el Cuerpo glorioso de tu Hijo nos haces partícipes, ya en este mundo, de los bienes eternos de tu reino. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "183."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nTe suplicamos, Dios todopoderoso, que concedas a quienes alimentas con tus sacramentos la gracia de poder servirte llevando una vida según tu voluntad. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "184."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nOh Dios, que has querido hacernos partícipes de un mismo pan y de un mismo cáliz, concédenos vivir tan unidos en Cristo que fructifiquemos con gozo para la salvación del mundo. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "185."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nSaciados con el pan del cielo, te pedimos, Señor, que el amor con que nos alimentas fortalezca nuestros corazones y nos mueva a servirte en nuestros hermanos. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "186."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nAlimentados con esta Eucaristía, te hacemos presente, Señor, nuestra acción de gracias, implorando de tu misericordia que el Espíritu Santo mantenga siempre vivo el amor a la verdad en quienes han recibido la fuerza de lo alto. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "187."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nDespués de comer el mismo pan, te rogamos, Señor, humildemente, que nos mantengas en tu amor y siempre caminemos como hombres nuevos en una vida nueva. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "188."
+            }
+          ]
+        },
+        {
+          "type": "rubrica",
+          "isBold": true,
+          "isLast": true,
+          "txt": "En el tiempo pascual:"
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nDerrama, Señor, sobre nosotros tu espíritu de caridad, para que vivamos siempre unidos en tu amor los que hemos participado en un mismo sacramento pascual. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "189."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "\n|Te pedimos, Señor, que la participación en los sacramentos de tu Hijo nos libre de nuestros antiguos pecados y nos transforme en hombres nuevos. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "190."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nDios todopoderoso y eterno, que en la resurrección de Jesucristo nos has hecho renacer a la vida eterna, haz que los sacramentos pascuales den en nosotros fruto abundante, y que el alimento de salvación que acabamos de recibir fortalezca nuestras vidas. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "191."
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        }
+      ]
+    },
+    {
+      "head": {
+        "type": "single",
+        "title": "Rito de conclusión",
+        "level": 1
+      },
+      "paragraphus": [
+        {
+          "n": 39,
+          "type": "rubricaNumerus",
+          "txt": "Después el ministro, si es sacerdote o diácono, vuelto al pueblo, extiende las manos y dice:"
+        },
+        {
+          "type": "priest",
+          "txt": "El Señor esté con vosotros."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Todos:"
+        },
+        {
+          "type": "base",
+          "txt": "Y con tu espíritu."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Y bendice al pueblo, diciendo:"
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "txt": "La bendición de Dios todopoderoso, \nPadre, Hijo | y Espíritu Santo, \ndescienda sobre vosotros \ny os acompañe siempre.",
+            "isBold": true
+          },
+          "replace": [
+            {
+              "txt": "†",
+              "isRed": true,
+              "isBold": true
+            }
+          ]
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Todos responden:"
+        },
+        {
+          "type": "base",
+          "txt": "Amén."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "En lugar de esta fórmula se puede emplear también la bendición solemne o la oración sobre el pueblo, según vienen en el Misal romano para la bendición al fin de la Misa."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 40,
+          "txt": "Si el ministro no es sacerdote ni diácono, invocando la bendición de Dios y santiguándose, dice:"
+        },
+        {
+          "type": "priest",
+          "txt": "El Señor nos bendiga,\nnos guarde de todo mal\ny nos lleve a la vida eterna."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "O bien:"
+        },
+        {
+          "type": "priest",
+          "txt": "El Señor omnipotente y misericordioso, \nPadre, Hijo y Espíritu Santo,\nnos bendiga y nos guarde."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Todos responden:"
+        },
+        {
+          "type": "base",
+          "txt": "Amén."
+        },
+        {
+          "type": "rubrica",
+          "txt": "En lugar de esta fórmula se puede emplear también la bendición solemne o la oración sobre el pueblo, según vienen en el Misal romano para la bendición al fin de la Misa."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 40,
+          "txt": "Finalmente el ministro dice:"
+        },
+        {
+          "type": "priest",
+          "txt": "Podéis ir en paz."
+        },
+        {
+          "type": "rubrica",
+          "txt": "Todos responden:"
+        },
+        {
+          "type": "base",
+          "txt": "Demos gracias a Dios."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Entonces, hecha la debida reverencia, el ministro se retira."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,266 @@
+{
+  "typus": "sacramentum",
+  "title": "La Comunión y el Viático llevados a los Enfermos por un Ministro Extraordinario:\nRito más breve",
+  "shortTitle": "Viático: Ministro extraordinario.",
+  "sections": [
+    {
+      "head": {
+        "type": "single",
+        "title": "Rito breve",
+        "level": 1
+      },
+      "paragraphus": [
+        {
+          "type": "rubricaNumerus",
+          "n": 64,
+          "txt": "Este rito más breve se emplea cuando la sagrada comunión se ha de distribuir a varios enfermos repartidos en distintas habitaciones de la misma casa, por ejemplo, de la misma enfermería, hospital, añadiendo, si lo piden las circunstancias, algunos elementos tomados del rito ordinario."
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 65,
+          "txt": "El rito puede empezar en la iglesia, o en la capilla, o en la primera habitación, diciendo el ministro la antífona:"
+        },
+        {
+          "type": "priest",
+          "txt": "¡Oh sagrado banquete, \nen que Cristo es nuestra comida, \nse celebra el memorial de su pasión, \nel alma se llena de gracia \ny se nos da la prenda de la gloria futura!"
+        },
+        {
+          "type": "rubrica",
+          "txt": "O bien:"
+        },
+        {
+          "type": "priest",
+          "txt": "¡Qué bueno es, Señor, tu espíritu!\nPara demostrar a tus hijos tu ternura,\nles has dado un pan delicioso bajado del cielo, \nque colma de bienes a los hambrientos,\ny deja vacíos a los ricos hastiados."
+        },
+        {
+          "type": "rubrica",
+          "txt": "O bien:"
+        },
+        {
+          "type": "priest",
+          "txt": "Salve, Cuerpo verdadero, \nnacido de María Virgen, \nverdaderamente atormentado,\ninmolado en la cruz por el hombre,\nde cuyo costado traspasado \nmanó agua y sangre.\nSeas saboreado por nosotros \nen el trance de la muerte, \noh Jesús dulce, \noh Jesús piadoso, \noh Jesús hijo de María."
+        },
+        {
+          "type": "rubrica",
+          "txt": "O bien:"
+        },
+        {
+          "type": "priest",
+          "txt": "Yo soy el pan vivo que ha bajado del cielo;\nel que coma de este pan vivirá para siempre;\ny el pan que yo daré \nes mi carne para la vida del mundo."
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 66,
+          "txt": "Luego el ministro, acompañado, según la oportunidad, por alguna persona que porte un cirio, se acerca a los enfermos y dice, una sola vez a todos los enfermos que están en la misma sala, o a cada uno en particular:"
+        },
+        {
+          "type": "priest",
+          "txt": "Éste es el Cordero de Dios,\nque quita el pecado del mundo.\nDichosos los invitados a la cena del Señor."
+        },
+        {
+          "type": "rubrica",
+          "txt": "Cada uno de los comulgantes añade una sola vez:"
+        },
+        {
+          "type": "priest",
+          "txt": "Señor no soy digno de que entres en mi casa, \npero una palabra tuya bastará para sanarme."
+        },
+        {
+          "type": "rubrica",
+          "txt": "Y recibe la comunión del modo acostumbrado."
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 67,
+          "txt": "El rito concluye con la oración (cf. n. 62), que se puede decir en la iglesia, o en la capilla, o en la última habitación."
+        },
+        {
+          "n": 62,
+          "type": "rubricaNumerus",
+          "txt": "Una vez distribuida la comunión, el ministro hace la purificación. \n\nPueden seguir unos momentos de sagrado silencio. \n\nA continuación, el ministro concluye con esta oración:"
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "Oremos. \nSeñor Padre santo, \nDios todopoderoso y eterno, \nte suplicamos con fe viva \nque el Cuerpo |la Sangre| \nde nuestro Señor Jesucristo, tu Hijo, \nque nuestro hermano |nuestra hermana| \nacaba de recibir,\nle conceda la salud corporal \ny la salvación eterna.\n\nPor Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "(",
+              "isRed": true,
+              "isBold": true
+            },
+            {
+              "txt": ")",
+              "isRed": true,
+              "isBold": true
+            },
+            {
+              "txt": "(",
+              "isRed": true,
+              "isBold": true
+            },
+            {
+              "txt": ")",
+              "isRed": true,
+              "isBold": true
+            }
+          ]
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Todos responden:"
+        },
+        {
+          "type": "base",
+          "txt": "Amén."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "O bien una de estas oraciones \"ad libitum\" (nn. 181-193.).\n\nDurante el tiempo pascual son preferibles las oraciones indicadas en los nn. 189-191."
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "| \nTe rogamos, Señor, que nos santifique nuestra participación en esta Eucaristía, para que, en el Cuerpo y en la Sangre de Cristo, se estreche cada vez más la fraternidad universal de todos los hombres. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "181."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nAlimentados con esta Eucaristía, te pedimos, Señor, que, por la comunión de tu Sacramento, nos des sabiduría para sopesar los bienes de la tierra amando intensamente los del cielo. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "182."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nTe damos gracias, Señor, porque al darnos en este sacramento el Cuerpo glorioso de tu Hijo nos haces partícipes, ya en este mundo, de los bienes eternos de tu reino. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "183."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nTe suplicamos, Dios todopoderoso, que concedas a quienes alimentas con tus sacramentos la gracia de poder servirte llevando una vida según tu voluntad. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "184."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nOh Dios, que has querido hacernos partícipes de un mismo pan y de un mismo cáliz, concédenos vivir tan unidos en Cristo que fructifiquemos con gozo para la salvación del mundo. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "185."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nSaciados con el pan del cielo, te pedimos, Señor, que el amor con que nos alimentas fortalezca nuestros corazones y nos mueva a servirte en nuestros hermanos. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "186."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nAlimentados con esta Eucaristía, te hacemos presente, Señor, nuestra acción de gracias, implorando de tu misericordia que el Espíritu Santo mantenga siempre vivo el amor a la verdad en quienes han recibido la fuerza de lo alto. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "187."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nDespués de comer el mismo pan, te rogamos, Señor, humildemente, que nos mantengas en tu amor y siempre caminemos como hombres nuevos en una vida nueva. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "188."
+            }
+          ]
+        },
+        {
+          "type": "rubrica",
+          "isBold": true,
+          "isLast": true,
+          "txt": "En el tiempo pascual:"
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nDerrama, Señor, sobre nosotros tu espíritu de caridad, para que vivamos siempre unidos en tu amor los que hemos participado en un mismo sacramento pascual. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "189."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "| Te pedimos, Señor, que la participación en los sacramentos de tu Hijo nos libre de nuestros antiguos pecados y nos transforme en hombres nuevos. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "190."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nDios todopoderoso y eterno, que en la resurrección de Jesucristo nos has hecho renacer a la vida eterna, haz que los sacramentos pascuales den en nosotros fruto abundante, y que el alimento de salvación que acabamos de recibir fortalezca nuestras vidas. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "191."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

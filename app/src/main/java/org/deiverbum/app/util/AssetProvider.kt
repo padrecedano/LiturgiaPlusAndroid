@@ -29,13 +29,16 @@ import org.deiverbum.app.core.model.book.LiberSection
 import org.deiverbum.app.core.model.book.LiberText
 import org.deiverbum.app.core.model.book.LiberTextBase
 import org.deiverbum.app.core.model.book.LiberTextDefault
-import org.deiverbum.app.core.model.book.LiberTextRubric
 import org.deiverbum.app.core.model.book.ParagraphusBase
-import org.deiverbum.app.core.model.book.ParagraphusBiblica
+import org.deiverbum.app.core.model.book.ParagraphusBiblicaBrevis
+import org.deiverbum.app.core.model.book.ParagraphusBiblicaLonga
 import org.deiverbum.app.core.model.book.ParagraphusDialog
+import org.deiverbum.app.core.model.book.ParagraphusDivider
+import org.deiverbum.app.core.model.book.ParagraphusMixtus
 import org.deiverbum.app.core.model.book.ParagraphusOratio
 import org.deiverbum.app.core.model.book.ParagraphusPreces
 import org.deiverbum.app.core.model.book.ParagraphusPriest
+import org.deiverbum.app.core.model.book.ParagraphusRationarium
 import org.deiverbum.app.core.model.book.ParagraphusResponsum
 import org.deiverbum.app.core.model.book.ParagraphusRubricaNew
 import org.deiverbum.app.core.model.book.ParagraphusRubricaNumerus
@@ -50,6 +53,7 @@ import org.deiverbum.app.core.model.data.FileResourceNew
 import org.deiverbum.app.core.model.data.FileResponse
 import org.deiverbum.app.util.Constants.CIC_BAPTISMUS
 import org.deiverbum.app.util.Constants.CIC_UNCTIONIS
+import org.deiverbum.app.util.Constants.EUCHARISTIA_VIATICUM_SACERDOS
 import org.deiverbum.app.util.Constants.FILE_ABOUT
 import org.deiverbum.app.util.Constants.FILE_AUTHOR
 import org.deiverbum.app.util.Constants.FILE_BAPTISMUS
@@ -62,7 +66,6 @@ import org.deiverbum.app.util.Constants.FILE_THANKS
 import org.deiverbum.app.util.Constants.FILE_UNCTIONIS_ARTICULO_MORTIS
 import org.deiverbum.app.util.Constants.FILE_UNCTIONIS_IN_DUBIO
 import org.deiverbum.app.util.Constants.FILE_UNCTIONIS_SINE_VIATICUM
-import org.deiverbum.app.util.Constants.FILE_VIATICUM
 import org.deiverbum.app.util.Constants.UNCTIONIS_ORDINARIUM
 import javax.inject.Inject
 
@@ -82,7 +85,7 @@ class AssetProvider @Inject constructor(
         FILE_BAPTISMUS, UNCTIONIS_ORDINARIUM,
         FILE_UNCTIONIS_ARTICULO_MORTIS, FILE_UNCTIONIS_SINE_VIATICUM,
         FILE_UNCTIONIS_IN_DUBIO,
-        FILE_COMMENDATIONE_MORIENTIUM, FILE_VIATICUM
+        FILE_COMMENDATIONE_MORIENTIUM, EUCHARISTIA_VIATICUM_SACERDOS
     )
 
     fun getFiles(filesPath: List<FileItem>): List<FileResponse> {
@@ -127,9 +130,12 @@ class AssetProvider @Inject constructor(
                         .withSubtype(ParagraphusPriest::class.java, "priest")
                         .withSubtype(ParagraphusOratio::class.java, "oratio")
                         .withSubtype(ParagraphusDialog::class.java, "dialog")
-                        .withSubtype(ParagraphusPreces::class.java, "preces")
+                        .withSubtype(ParagraphusRationarium::class.java, "rationarium")
 
-                        .withSubtype(ParagraphusBiblica::class.java, "biblicalShort")
+                        .withSubtype(ParagraphusPreces::class.java, "preces")
+                        .withSubtype(ParagraphusMixtus::class.java, "mixtus")
+                        .withSubtype(ParagraphusBiblicaBrevis::class.java, "biblicalShort")
+                        .withSubtype(ParagraphusBiblicaLonga::class.java, "biblicaLonga")
 
                         .withSubtype(
                             ParagraphusVersiculusResponsum::class.java,
@@ -137,6 +143,7 @@ class AssetProvider @Inject constructor(
                         )
                         .withSubtype(ParagraphusVersiculus::class.java, "versiculus")
                         .withSubtype(ParagraphusResponsum::class.java, "responsum")
+                        .withSubtype(ParagraphusDivider::class.java, "divider")
 
                 )
                 .add(
@@ -147,7 +154,7 @@ class AssetProvider @Inject constructor(
                 .add(
                     PolymorphicJsonAdapterFactory.of(LiberTextBase::class.java, "typus")
                         .withSubtype(LiberTextDefault::class.java, "base")
-                        .withSubtype(LiberTextRubric::class.java, "rubric")
+                    //.withSubtype(LiberTextRubric::class.java, "rubric")
                 )
                 .add(
                     PolymorphicJsonAdapterFactory.of(TextBody::class.java, "type")
@@ -160,7 +167,7 @@ class AssetProvider @Inject constructor(
                         .withSubtype(LiberSection::class.java, "section")
                         .withSubtype(
                             org.deiverbum.app.core.model.book.Rubrica::class.java,
-                            "rubric"
+                            "rubrica"
                         )
                         .withSubtype(RubricaNumerus::class.java, "rubricWithNumber")
                         .withSubtype(Priest::class.java, "priest")
@@ -187,7 +194,7 @@ class AssetProvider @Inject constructor(
                 .use { it.readText() }
             FileResourceNew(moshii.adapter(LiberBase::class.java).fromJson(jsonString)!!)
         } catch (ex: Exception) {
-            FileResourceNew(LiberError("error", "Error", ex.message.toString()))
+            FileResourceNew(LiberError("error", "Error", "", ex.message.toString()))
         }
     }
 }

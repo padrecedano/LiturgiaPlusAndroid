@@ -1,23 +1,27 @@
 {
   "typus": "sacramentum",
-  "title": "Bautismo de un niño en peligro de muerte.\nRitual abreviado.",
+  "title": "Bautismo de un niño en peligro de muerte.",
   "shortTitle": "Bautismo in articulo mortis",
   "bookType": 0,
-  "contents": [
+  "sections": [
     {
-      "type": "section",
-      "title": "Ritual abreviado",
-      "contents": [
+      "head": {
+        "type": "single",
+        "title": "Ritual abreviado",
+        "level": 1
+      },
+      "paragraphus": [
         {
-          "type": "rubricWithNumber",
+          "type": "rubricaNumerus",
           "n": 161,
-          "txt": [
-            "Preparada el agua, aunque no esté bendecida, y reunidos en torno al niño enfermo los padres, padrinos y si es posible, algunos familiares y amigos, el ministro (sacerdote, diácono o laico) comienza esta breve oración de los fieles:"
-          ]
+          "txt": "Preparada el agua, aunque no esté bendecida, y reunidos en torno al niño enfermo los padres, padrinos y si es posible, algunos familiares y amigos, el ministro (sacerdote, diácono o laico) comienza esta breve oración de los fieles:"
         },
         {
           "type": "preces",
-          "intro": "Hermanos: Invoquemos la misericordia de Dios todopoderoso para este niño que va a recibir la gracia del Bautismo, por sus padres y padrinos, y por todo el pueblo santo de Dios.",
+          "intro": {
+            "type": "base",
+            "txt": "Hermanos: Invoquemos la misericordia de Dios todopoderoso para este niño que va a recibir la gracia del Bautismo, por sus padres y padrinos, y por todo el pueblo santo de Dios."
+          },
           "responsum": "Te rogamos, óyenos",
           "txt": [
             "Para que Dios se digne agregar este niño a su Iglesia por el Bautismo. Roguemos al Señor.",
@@ -28,82 +32,45 @@
           ]
         },
         {
-          "type": "rubricWithNumber",
+          "type": "rubricaNumerus",
           "n": 162,
-          "txt": [
-            "La oración de los fieles se concluye así:"
-          ]
-        },
-        {
-          "type": "oratioo",
-          "paragraphuss": [
-            {
-              "type": "base",
-              "paragraphuss": "Lorem"
-            }
-          ],
-          "paragraphus": [
-            {
-              "type": "base",
-              "txt": [
-                "Dios, fuente de vida y amor,",
-                "Padre de nuestro Señor Jesucristo:",
-                "Tú quieres revelar tu designio de amor",
-                "a estos padres que temen por la vida de su hijo,",
-                "dándoles a conocer que no ha de perderse para siempre",
-                "esta vida que renacerá en el Bautismo."
-              ]
-            },
-            {
-              "type": "base",
-              "txt": [
-                "Escucha nuestras súplicas:",
-                "No permitas que este niño permanezca bajo el poder del mal,",
-                "sino admítelo en el Reino de tu Hijo."
-              ]
-            },
-            {
-              "type": "mixtusB",
-              "base": {
-                "txt": "Concede que este niño, a quien damos el nombre de |,",
-                "replace": [
-                  {
-                    "txt": "168. "
-                  }
-                ]
-              },
-              "txt": [
-                "Concede que este niño, a quien damos el nombre de ⊓,",
-                "por esta agua vivificada por el Espíritu,",
-                "participe en el misterio de la muerte y resurrección de Cristo,",
-                "sea hijo de adopción,",
-                "alcance tu heredad",
-                "y se alegre como miembro de tu Iglesia",
-                "con el Hijo y el Espíritu Santo,",
-                "por los siglos de los siglos."
-              ]
-            }
-          ],
-          "responsum": "Amén."
-        },
-        {
-          "type": "rubricWithNumber",
-          "n": 163,
-          "txt": [
-            "Seguidamente se hace la profesión de fe. El ministro invita a los presentes con estas palabras:"
-          ]
+          "txt": "La oración de los fieles se concluye así:"
         },
         {
           "type": "priest",
-          "txt": [
-            "Recordando nuestro Bautismo, confesemos nuestra fe en Jesucristo, que es la fe de la Iglesia, en la que este niño va a ser bautizado."
+          "txt": "Dios, fuente de vida y amor, \nPadre de nuestro Señor Jesucristo: \nTú quieres revelar tu designio de amor \na estos padres que temen por la vida de su hijo, \ndándoles a conocer que no ha de perderse para siempre \nesta vida que renacerá en el Bautismo.\n\nEscucha nuestras súplicas: \nNo permitas que este niño permanezca bajo el poder del mal, \nsino admítelo en el Reino de tu Hijo."
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "txt": "Concede que este niño, \na quien damos el nombre de |, \npor esta agua vivificada por el Espíritu, \nparticipe en el misterio \nde la muerte y resurrección de Cristo, \nsea hijo de adopción, \nalcance tu heredad \ny se alegre como miembro de tu Iglesia \ncon el Hijo y el Espíritu Santo, \npor los siglos de los siglos.",
+            "isBold": true
+          },
+          "replace": [
+            {
+              "txt": "N.",
+              "isRed": true,
+              "isBold": true
+            }
           ]
         },
         {
-          "type": "rubric",
-          "txt": [
-            "Y después pregunta:"
-          ]
+          "type": "responsum",
+          "txt": "Amén."
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 163,
+          "txt": "Seguidamente se hace la profesión de fe. El ministro invita a los presentes con estas palabras:"
+        },
+        {
+          "type": "priest",
+          "txt": "Recordando nuestro Bautismo, \nconfesemos nuestra fe en Jesucristo, \nque es la fe de la Iglesia, \nen la que este niño va a ser bautizado."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Y después pregunta:"
         },
         {
           "type": "dialog",
@@ -115,128 +82,94 @@
           ]
         },
         {
-          "type": "rubricWithNumber",
+          "type": "rubricaNumerus",
           "n": 164,
-          "txt": [
-            "La profesión de fe, oportunamente, puede hacerse también con la recitación del Credo."
-          ]
+          "txt": "La profesión de fe, oportunamente, puede hacerse también con la recitación del Credo."
         },
         {
           "type": "priest",
-          "txt": [
-            "Creo en Dios Padre todopoderoso, Creador del cielo y de la tierra.\n",
-            "Creo en Jesucristo, su único Hijo, nuestro Señor;",
-            "que fue concebido por obra y gracia del Espíritu Santo,",
-            "nació de santa María Virgen;",
-            "padeció bajo el poder de Poncio Pilato,",
-            "fue crucificado, muerto y sepultado;",
-            "descendió a los infiernos,",
-            "al tercer día resucitó de entre los muertos;",
-            "subió a los cielos y está sentado a la derecha de Dios Padre;",
-            "desde allí ha de venir a juzgar a los vivos y a los muertos.\n",
-            "Creo en el Espíritu Santo,",
-            "la santa Iglesia católica,",
-            "la comunión de los santos,",
-            "el perdón de los pecados,",
-            "la resurrección de los muertos y la vida eterna. Amén."
-          ]
+          "txt": "Creo en Dios Padre todopoderoso, \nCreador del cielo y de la tierra.\n\nCreo en Jesucristo, \nsu único Hijo, nuestro Señor; \nque fue concebido \npor obra y gracia del Espíritu Santo, \nnació de santa María Virgen; \npadeció bajo el poder de Poncio Pilato, \nfue crucificado, muerto y sepultado; \ndescendió a los infiernos, \nal tercer día \nresucitó de entre los muertos; \nsubió a los cielos \ny está sentado a la derecha de Dios Padre; \ndesde allí ha de venir a juzgar \na los vivos y a los muertos.\n\nCreo en el Espíritu Santo, \nla santa Iglesia católica, \nla comunión de los santos, \nel perdón de los pecados, \nla resurrección de los muertos \ny la vida eterna. \n\nAmén."
         },
         {
-          "type": "rubricWithNumber",
+          "type": "rubricaNumerus",
           "n": 165,
-          "txt": [
-            "Después el ministro bautiza al niño diciendo:"
-          ]
+          "txt": "Después el ministro bautiza al niño diciendo:"
         },
         {
           "type": "mixtus",
-          "data": [
+          "base": {
+            "txt": "| yo te bautizo en el nombre del Padre,",
+            "isBold": true
+          },
+          "replace": [
             {
-              "type": "text",
               "txt": "N.",
               "isRed": true,
               "isBold": true
-            },
-            {
-              "type": "text",
-              "txt": "yo te bautizo en el nombre del Padre,",
-              "isBold": true,
-              "lineBreak": 2
-            },
-            {
-              "type": "text",
-              "txt": "primera inmersión o infusión de agua",
-              "lineBreak": 2,
-              "isRed": true
-            },
-            {
-              "type": "text",
-              "txt": "y del Hijo,",
-              "isBold": true,
-              "lineBreak": 2
-            },
-            {
-              "type": "text",
-              "txt": "segunda inmersión o infusión de agua",
-              "isRed": true,
-              "lineBreak": 2
-            },
-            {
-              "type": "text",
-              "txt": "y del Espíritu Santo.",
-              "isBold": true,
-              "lineBreak": 2
-            },
-            {
-              "type": "text",
-              "isRed": true,
-              "txt": "tercera inmersión o infusión de agua."
             }
           ]
         },
         {
-          "type": "rubricWithNumber",
-          "n": 166,
-          "txt": [
-            "Omitidos los restantes ritos, puede hacerse la imposición de la vestidura blanca. El ministro dice:"
-          ]
-        },
-        {
-          "type": "mixtus",
-          "data": [
-            {
-              "txt": "N. ",
-              "isRed": true
-            },
-            {
-              "txt": "eres ya nueva criatura y has sido revestido de Cristo. Esta vestidura blanca sea signo de tu dignidad de cristiano, que debes conservar sin mancha hasta la vida eterna."
-            }
-          ],
-          "responsum": "Amén."
-        },
-        {
-          "type": "rubricWithNumber",
-          "n": 167,
-          "txt": [
-            "La celebración se concluye con la recitación de la oración dominical:"
-          ]
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "primera inmersión o infusión de agua"
         },
         {
           "type": "priest",
-          "txt": [
-            "Padre nuestro, que estás en el cielo,",
-            "santificado sea tu Nombre;",
-            "venga a nosotros tu reino;",
-            "hágase tu voluntad en la tierra como en el cielo.",
-            "Danos hoy nuestro Pan de cada día;",
-            "perdona nuestras ofensas,",
-            "como también nosotros perdonamos a los que nos ofenden;",
-            "no nos dejes caer en la tentación,",
-            "y líbranos del mal. Amén."
+          "txt": "y del Hijo,",
+          "isBold": true,
+          "lineBreak": 2
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "segunda inmersión o infusión de agua"
+        },
+        {
+          "type": "priest",
+          "txt": "y del Espíritu Santo.",
+          "isBold": true,
+          "lineBreak": 2
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "tercera inmersión o infusión de agua."
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 166,
+          "txt": "Omitidos los restantes ritos, puede hacerse la imposición de la vestidura blanca. El ministro dice:"
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "txt": "| eres ya nueva criatura \ny has sido revestido de Cristo. \nEsta vestidura blanca \nsea signo de tu dignidad de cristiano, \nque debes conservar sin mancha \nhasta la vida eterna.",
+            "isBold": true
+          },
+          "replace": [
+            {
+              "txt": "N.",
+              "isRed": true,
+              "isBold": true
+            }
           ]
         },
         {
-          "type": "mixtusB",
+          "type": "responsum",
+          "txt": "Amén."
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 167,
+          "txt": "La celebración se concluye con la recitación de la oración dominical:"
+        },
+        {
+          "type": "priest",
+          "txt": "Padre nuestro, \nque estás en el cielo, \nsantificado sea tu Nombre; \nvenga a nosotros tu reino; \nhágase tu voluntad en la tierra como en el cielo. \nDanos hoy nuestro pan de cada día; \nperdona nuestras ofensas, \ncomo también nosotros perdonamos a los que nos ofenden; \nno nos dejes caer en la tentación, \ny líbranos del mal. \n\nAmén."
+        },
+        {
+          "type": "mixtus",
           "base": {
             "txt": " |Si entre los presentes ninguno es capaz de dirigir la celebración aquí descrita, cualquier fiel puede bautizar, recitando el | y después derramando el agua sobre el bautizando con la fórmula propia (cf. n. |). Incluso la recitación del |, oportunamente, puede omitirse.",
             "isRed": true
@@ -257,7 +190,7 @@
           ]
         },
         {
-          "type": "mixtusB",
+          "type": "mixtus",
           "base": {
             "txt": "En peligro de muerte inminente, omitidos los restantes ritos, es suficiente que el ministro derrame agua sobre el niño, diciendo las palabras acostumbradas (cf. n. |). En cuanto sea posible, conviene que el ministro tenga presente uno o dos testigos.",
             "isRed": true
@@ -272,7 +205,3 @@
     }
   ]
 }
-
-
-
-

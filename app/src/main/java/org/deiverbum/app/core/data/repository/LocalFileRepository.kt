@@ -35,6 +35,7 @@ import org.deiverbum.app.util.AssetProvider
 import org.deiverbum.app.util.Constants.CIC_BAPTISMUS
 import org.deiverbum.app.util.Constants.CIC_UNCTIONIS
 import org.deiverbum.app.util.Constants.DATA_NOTFOUND
+import org.deiverbum.app.util.Constants.EUCHARISTIA_VIATICUM_SACERDOS
 import org.deiverbum.app.util.Constants.FILE_ABOUT
 import org.deiverbum.app.util.Constants.FILE_ANGELUS
 import org.deiverbum.app.util.Constants.FILE_AUTHOR
@@ -51,7 +52,6 @@ import org.deiverbum.app.util.Constants.FILE_THANKS
 import org.deiverbum.app.util.Constants.FILE_UNCTIONIS_ARTICULO_MORTIS
 import org.deiverbum.app.util.Constants.FILE_UNCTIONIS_IN_DUBIO
 import org.deiverbum.app.util.Constants.FILE_UNCTIONIS_SINE_VIATICUM
-import org.deiverbum.app.util.Constants.FILE_VIATICUM
 import org.deiverbum.app.util.Constants.FILE_VIA_CRUCIS_2003
 import org.deiverbum.app.util.Constants.FILE_VIA_CRUCIS_2005
 import org.deiverbum.app.util.Constants.UNCTIONIS_ORDINARIUM
@@ -81,7 +81,7 @@ class LocalFileRepository @Inject constructor(
     )
     private val ritualis = listOf(
         UNCTIONIS_ORDINARIUM,
-        FILE_VIATICUM,
+        EUCHARISTIA_VIATICUM_SACERDOS,
         FILE_UNCTIONIS_ARTICULO_MORTIS,
         FILE_UNCTIONIS_SINE_VIATICUM,
         FILE_UNCTIONIS_IN_DUBIO,

@@ -4,6 +4,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.ShortText
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.HealthAndSafety
 import androidx.compose.material.icons.filled.KeyboardArrowDown
@@ -84,6 +85,7 @@ object LPlusIcons {
     val KeyboardArrowDown = Icons.Filled.KeyboardArrowDown
 
     val Menu = Icons.Rounded.Menu
+    val Missae = Icons.Default.AddCircle
 
 
     val MoreVert = Icons.Default.MoreVert

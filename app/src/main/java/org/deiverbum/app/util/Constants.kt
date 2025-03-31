@@ -123,8 +123,14 @@ object Constants {
     const val FILE_UNCTIONIS_SINE_VIATICUM = "raw/sacramentum/unctionis_sine_viaticum.json"
     const val FILE_UNCTIONIS_IN_DUBIO = "raw/sacramentum/unctionis_in_dubio.json"
     const val FILE_COMMENDATIONE_MORIENTIUM = "raw/sacramentum/commendatione_morientium.json"
-    const val FILE_VIATICUM = "raw/sacramentum/viaticum.json"
 
+    const val EUCHARISTIA_VIATICUM_SACERDOS = "raw/sacramentum/eucharistia_viaticum_sacerdos.json"
+
+    const val EUCHARISTIA_VIATICUM_ALTER = "raw/sacramentum/eucharistia_viaticum_alter.json"
+    const val EUCHARISTIA_BREVIS_ALTER = "raw/sacramentum/eucharistia_brevis_alter.json"
+    const val EUCHARISTIA_ORDINARIUM_ALTER = "raw/sacramentum/eucharistia_ordinarium_alter.json"
+    const val EUCHARISTIA_VERBUM_EXTENSA = "raw/sacramentum/eucharistia_verbum_extensa.json"
+    const val EUCHARISTIA_VERBUM_BREVIS = "raw/sacramentum/eucharistia_verbum_brevis.json"
 
     const val PREF_ACCEPT = "accept_terms"
     const val PREF_ANALYTICS = "enable_analytics"

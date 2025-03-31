@@ -75,13 +75,19 @@ sealed class CICTitle {
         LiberParagraph()
 }*/
 
-abstract class LiberBase(open val typus: String, open val shortTitle: String)
+abstract class LiberBase(
+    open val typus: String,
+    open val title: String,
+    open val shortTitle: String
+)
 abstract class LiberTextBase(open val typus: String, open val contents: List<TextBody>)
 
 @JsonClass(generateAdapter = true)
 open class ParagraphusBase(
     override val type: String = "base",
-    open val txt: List<String>, override val isLast: Boolean = false, override val isBold: Boolean,
+    open val txt: String,
+    override val isLast: Boolean = false,
+    override val isBold: Boolean = false
 ) : BaseParagraphus, Boldable
 
 @JsonClass(generateAdapter = true)
@@ -93,13 +99,13 @@ open class ParagraphusVersiculusResponsum(
 @JsonClass(generateAdapter = true)
 open class ParagraphusResponsum(
     override val type: String = "responsum",
-    open val txt: List<String>, override val isLast: Boolean = false,
+    open val txt: String, override val isLast: Boolean = false,
 ) : BaseParagraphus
 
 @JsonClass(generateAdapter = true)
 open class ParagraphusVersiculus(
     override val type: String = "versiculus",
-    open val txt: List<String>,
+    open val txt: String,
     override val isLast: Boolean = false,
     override val isBold: Boolean = true,
 ) : BaseParagraphus, Boldable
@@ -107,46 +113,70 @@ open class ParagraphusVersiculus(
 @JsonClass(generateAdapter = true)
 open class ParagraphusPriest(
     override val type: String = "priest",
-    open val txt: List<String>,
+    open val txt: String,
     override val isLast: Boolean = false,
     open val extraSpace: Int = 0,
     open val isBold: Boolean = true
 ) : BaseParagraphus
 
 @JsonClass(generateAdapter = true)
+data class ParagraphusDivider(
+    override val type: String = "divider", override val isLast: Boolean = true,
+) : BaseParagraphus
+
+
+@JsonClass(generateAdapter = true)
 data class ParagraphusOratio(
     override val type: String,
-    override val txt: List<String>,
+    override val txt: String,
     override val isLast: Boolean = false,
     override val extraSpace: Int = 0,
     override val isBold: Boolean = true,
     val responsum: String,
 ) : ParagraphusPriest(type, txt, isLast, extraSpace, isBold)
 
+//: ParagraphusPriest(type, txt, isLast)
+
 @JsonClass(generateAdapter = true)
-data class ParagraphusDialog(
+data class ParagraphusMixtus(
     override val type: String,
-    override val txt: List<String>,
+    val base: LiberText,
+    val replace: List<LiberText>,
     override val isLast: Boolean = false,
-    val responsum: String,
-) : ParagraphusPriest(type, txt, isLast)
+) : BaseParagraphus
 
 @JsonClass(generateAdapter = true)
 data class ParagraphusPreces(
     override val type: String,
-    override val txt: List<String>,
+    val txt: List<String>,
     override val isLast: Boolean = false,
-
-    val intro: String,
+    val intro: BaseParagraphus,
     val responsum: String,
-) : ParagraphusPriest(type, txt, isLast)
+) : BaseParagraphus
+
+@JsonClass(generateAdapter = true)
+data class ParagraphusDialog(
+    override val type: String,
+    val txt: List<String>,
+    override val isLast: Boolean = false,
+    val responsum: String,
+    val withDash: Boolean = true,
+) : BaseParagraphus
+
+@JsonClass(generateAdapter = true)
+data class ParagraphusRationarium(
+    override val type: String,
+    val txt: List<String>,
+    override val isLast: Boolean = false,
+    val withDash: Boolean = true,
+) : BaseParagraphus
 
 @JsonClass(generateAdapter = true)
 open class ParagraphusRubricaNew(
     override val type: String,
-    open val txt: List<String>,
+    open val txt: String,
     open val extraSpace: Int = 0,
-    override val isLast: Boolean = false,
+    override val isLast: Boolean = true,
     override val isBold: Boolean = false,
 
     ) :
@@ -155,7 +185,7 @@ open class ParagraphusRubricaNew(
 @JsonClass(generateAdapter = true)
 open class ParagraphusBiblica(
     override val type: String,
-    open val txt: List<String>,
+    open val txt: String,
     override val isLast: Boolean = false,
 ) :
     BaseParagraphus
@@ -163,9 +193,17 @@ open class ParagraphusBiblica(
 @JsonClass(generateAdapter = true)
 data class ParagraphusBiblicaBrevis(
     override val type: String,
-    override val txt: List<String>,
+    override val txt: String,
     override val isLast: Boolean = false,
+    val pericopa: String,
+) : ParagraphusBiblica(type, txt, isLast)
 
+@JsonClass(generateAdapter = true)
+data class ParagraphusBiblicaLonga(
+    override val type: String,
+    override val txt: String,
+    override val isLast: Boolean = false,
+    val book: String,
     val pericopa: String,
 ) : ParagraphusBiblica(type, txt, isLast)
 
@@ -173,7 +211,7 @@ data class ParagraphusBiblicaBrevis(
 data class ParagraphusRubricaNumerus(
     override val type: String,
     val n: Int,
-    override val txt: List<String>,
+    override val txt: String,
     override val extraSpace: Int = 0,
     override val isLast: Boolean = false,
     override val isBold: Boolean = false,
@@ -199,16 +237,20 @@ data class LiberTextRubric(
 @JsonClass(generateAdapter = true)
 data class LiberBaseA(
     override val typus: String,
+    override val title: String,
     override val shortTitle: String,
     val contents: List<TextBody>
-) : LiberBase(typus, shortTitle)
+) : LiberBase(typus, title, shortTitle)
 
 @JsonClass(generateAdapter = true)
 data class LiberBaseC(
     override val typus: String,
+    override val title: String,
+    val subTitle: String,
+
     override val shortTitle: String,
     val sections: List<LiberSectionNew>,
-) : LiberBase(typus, shortTitle)
+) : LiberBase(typus, title, shortTitle)
 
 @JsonClass(generateAdapter = true)
 data class LiberSectionNew(
@@ -235,9 +277,10 @@ open class LiberHeadComplex(
 @JsonClass(generateAdapter = true)
 data class LiberError(
     override val typus: String = "error",
+    override val title: String,
     override val shortTitle: String,
     val msg: String
-) : LiberBase(typus, shortTitle)
+) : LiberBase(typus, title, shortTitle)
 
 abstract class ContentNew(open val type: String)
 
@@ -300,9 +343,9 @@ data class CICData(override val type: String, val txt: List<String>, val n: Int)
 
 @JsonClass(generateAdapter = true)
 data class LiberSacramentumNew(
-    override val typus: String, val title: String,
+    override val typus: String, override val title: String,
     override val shortTitle: String, val contents: List<TextBody>
-) : LiberBase(typus, shortTitle)
+) : LiberBase(typus, title, shortTitle)
 
 @JsonClass(generateAdapter = true)
 class LiberSection(

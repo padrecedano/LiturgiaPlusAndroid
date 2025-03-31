@@ -39,12 +39,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.deiverbum.app.util.Constants.CIC_BAPTISMUS
 import org.deiverbum.app.util.Constants.CIC_UNCTIONIS
+import org.deiverbum.app.util.Constants.EUCHARISTIA_BREVIS_ALTER
+import org.deiverbum.app.util.Constants.EUCHARISTIA_ORDINARIUM_ALTER
+import org.deiverbum.app.util.Constants.EUCHARISTIA_VERBUM_BREVIS
+import org.deiverbum.app.util.Constants.EUCHARISTIA_VERBUM_EXTENSA
+import org.deiverbum.app.util.Constants.EUCHARISTIA_VIATICUM_ALTER
+import org.deiverbum.app.util.Constants.EUCHARISTIA_VIATICUM_SACERDOS
 import org.deiverbum.app.util.Constants.FILE_BAPTISMUS
 import org.deiverbum.app.util.Constants.FILE_COMMENDATIONE_MORIENTIUM
 import org.deiverbum.app.util.Constants.FILE_UNCTIONIS_ARTICULO_MORTIS
 import org.deiverbum.app.util.Constants.FILE_UNCTIONIS_IN_DUBIO
 import org.deiverbum.app.util.Constants.FILE_UNCTIONIS_SINE_VIATICUM
-import org.deiverbum.app.util.Constants.FILE_VIATICUM
 import org.deiverbum.app.util.Constants.UNCTIONIS_ORDINARIUM
 
 @ExperimentalLayoutApi
@@ -114,7 +119,7 @@ val unctionis = listOf(
         title = "Viático fuera de la Misa",
         icon = LPlusIcons.Sacramentis,
         description = "Viático fuera de la Misa",
-        file = FILE_VIATICUM
+        file = EUCHARISTIA_VIATICUM_SACERDOS
     ),
     MoreItem(
         title = "Encomendación del alma",
@@ -131,6 +136,73 @@ val unctionis = listOf(
     )
 )
 
+val missae = listOf(
+    MoreItem(
+        title = "*Comunión: Rito ordinario-Sacerdote",
+        icon = LPlusIcons.Sacramentis,
+        description = "Comunión: Rito ordinario-Sacerdote",
+        file = EUCHARISTIA_ORDINARIUM_ALTER
+    ),
+    MoreItem(
+        title = "*Con Celebración de Palabra extensa",
+        icon = LPlusIcons.Sacramentis,
+        description = "Comunión: con Celebración de Palabra",
+        file = EUCHARISTIA_VERBUM_EXTENSA
+    ),
+    MoreItem(
+        title = "*Con Celebración de Palabra breve",
+        icon = LPlusIcons.Sacramentis,
+        description = "Comunión: con Celebración de Palabra breve",
+        file = EUCHARISTIA_VERBUM_BREVIS
+    ),
+    MoreItem(
+        title = "*Comunión: Rito ordinario-Ministro",
+        icon = LPlusIcons.Sacramentis,
+        description = "Comunión: Rito ordinario-Ministro",
+        file = EUCHARISTIA_ORDINARIUM_ALTER
+    ),
+    MoreItem(
+        title = "*Comunión: Rito breve-Ministro",
+        icon = LPlusIcons.Sacramentis,
+        description = "Comunión: Rito breve-Ministro",
+        file = EUCHARISTIA_BREVIS_ALTER
+    ),
+    MoreItem(
+        title = "Comunión a los enfermos: Rito breve",
+        icon = LPlusIcons.Sacramentis,
+        description = "Comunión enfermos: Breve",
+        file = FILE_COMMENDATIONE_MORIENTIUM
+    ),
+
+    MoreItem(
+        title = "*Viático por un Sacerdote",
+        icon = LPlusIcons.Sacramentis,
+        description = "Viático fuera de la Misa: Sacerdote",
+        file = EUCHARISTIA_VIATICUM_SACERDOS
+    ),
+
+    MoreItem(
+        title = "*Viático por un Ministro",
+        icon = LPlusIcons.Sacramentis,
+        description = "Viático fuera de la Misa: Ministro",
+        file = EUCHARISTIA_VIATICUM_ALTER
+    ),
+    MoreItem(
+        title = "Comunión: Rito más breve",
+        icon = LPlusIcons.Sacramentis,
+        description = "Comunión: Rito más breve",
+        file = "FILE_EUCHARISTIA_ALTER_BREVIS"
+    ),
+
+    MoreItem(
+        title = "Normativa Canónica",
+        icon = LPlusIcons.Iuris,
+        description = "Unción CIC",
+        file = CIC_UNCTIONIS
+    )
+)
+
+
 @Composable
 fun MoreItemsMain(
     onClick: (String) -> Unit
@@ -140,6 +212,7 @@ fun MoreItemsMain(
             addAll(
                 listOf(
                     MoreGroup("Bautismo", LPlusIcons.Water, true, baptismus),
+                    MoreGroup("Comunión fuera de Misa", LPlusIcons.Missae, true, missae),
                     MoreGroup("Unción", LPlusIcons.OilBarrel, true, unctionis)
                 )
             )
