@@ -4,17 +4,21 @@ import org.deiverbum.app.util.Constants.CIC_BAPTISMUS
 import org.deiverbum.app.util.Constants.CIC_UNCTIONIS
 import org.deiverbum.app.util.Constants.EUCHARISTIA_BREVIS_ALTER
 import org.deiverbum.app.util.Constants.EUCHARISTIA_ORDINARIUM_ALTER
+import org.deiverbum.app.util.Constants.EUCHARISTIA_ORDINARIUM_SACERDOS
 import org.deiverbum.app.util.Constants.EUCHARISTIA_VERBUM_BREVIS
 import org.deiverbum.app.util.Constants.EUCHARISTIA_VERBUM_EXTENSA
 import org.deiverbum.app.util.Constants.EUCHARISTIA_VIATICUM_ALTER
 import org.deiverbum.app.util.Constants.EUCHARISTIA_VIATICUM_SACERDOS
 import org.deiverbum.app.util.Constants.FILE_ABOUT
+import org.deiverbum.app.util.Constants.FILE_ANGELUS
 import org.deiverbum.app.util.Constants.FILE_AUTHOR
 import org.deiverbum.app.util.Constants.FILE_BAPTISMUS
 import org.deiverbum.app.util.Constants.FILE_COMMENDATIONE_MORIENTIUM
 import org.deiverbum.app.util.Constants.FILE_HELP
+import org.deiverbum.app.util.Constants.FILE_LITANIES
 import org.deiverbum.app.util.Constants.FILE_NEW
 import org.deiverbum.app.util.Constants.FILE_PRIVACY
+import org.deiverbum.app.util.Constants.FILE_REGINA
 import org.deiverbum.app.util.Constants.FILE_TERMS
 import org.deiverbum.app.util.Constants.FILE_THANKS
 import org.deiverbum.app.util.Constants.FILE_UNCTIONIS_ARTICULO_MORTIS
@@ -46,7 +50,11 @@ class FileNameUtil {
             "Unción sin Viático" to FILE_UNCTIONIS_SINE_VIATICUM,
             "Encomendación del Alma a Dios" to FILE_COMMENDATIONE_MORIENTIUM,
             "Comunión: con Celebración de Palabra" to EUCHARISTIA_VERBUM_EXTENSA,
-            "Comunión: con Celebración de Palabra breve" to EUCHARISTIA_VERBUM_BREVIS
+            "Comunión: con Celebración de Palabra breve" to EUCHARISTIA_VERBUM_BREVIS,
+            "Ángelus" to FILE_ANGELUS,
+            "Regina Coeli" to FILE_REGINA,
+            "Letanías" to FILE_LITANIES,
+            "Comunión: Rito ordinario-Sacerdote" to EUCHARISTIA_ORDINARIUM_SACERDOS,
 
         )
 

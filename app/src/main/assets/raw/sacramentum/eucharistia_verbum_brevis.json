@@ -3,6 +3,9 @@
   "title": "Sagrada Comunión fuera de la Misa",
   "subTitle": "Rito con una breve celebración de la Palabra de Dios",
   "shortTitle": "Comunión: Celebración breve.",
+  "source": "Ritual de la Sagrada Comunión y del Culto a la Eucaristía fuera de la Misa (nn. 42-53)",
+  "info": "Esta celebración la puede hacer el Sacerdote, el Diácono o un Ministro Extraordinario",
+
   "sections": [
     {
       "head": {
@@ -407,22 +410,12 @@
           "txt": "Y comulga."
         },
         {
-          "n": 35,
+          "n": 49,
           "type": "rubricaNumerus",
-          "txt": "Mientras se distribuye la comunión, puede cantarse algún canto oportuno."
+          "txt": "Acabada la distribución de la comunión, si queda algún fragmento sobre la patena, el ministro lo echa en el copón y se purifica las manos, si lo juzga necesario. Si quedan algunas formas, guarda el Sacramento en el sagrario y hace genuflexión. \n\nEntonces, si se juzga conveniente, se puede observar algún momento de sagrado silencio, o se puede entonar algún salmo o cántico de alabanza."
         },
         {
-          "n": 36,
-          "type": "rubricaNumerus",
-          "txt": "Acabada la distribución de la comunión, si queda algún fragmento sobre la patena, el ministro lo echa en el copón y se purifica las manos, si lo juzga necesario. Si quedan algunas formas, guarda el Sacramento en el sagrario y hace genuflexión."
-        },
-        {
-          "n": 37,
-          "type": "rubricaNumerus",
-          "txt": "Entonces, si se juzga conveniente, se puede observar algún momento de sagrado silencio, o se puede entonar algún salmo o cántico de alabanza."
-        },
-        {
-          "n": 38,
+          "n": 50,
           "type": "rubricaNumerus",
           "txt": "A continuación, el ministro concluye con esta oración:"
         },
@@ -475,7 +468,7 @@
           "type": "mixtus",
           "base": {
             "isBold": true,
-            "txt": "| \nTe rogamos, Señor, que nos santifique nuestra participación en esta Eucaristía, para que, en el Cuerpo y en la Sangre de Cristo, se estreche cada vez más la fraternidad universal de todos los hombres. Por Jesucristo, nuestro Señor."
+            "txt": "|\nTe rogamos, Señor, que nos santifique nuestra participación en esta Eucaristía, para que, en el Cuerpo y en la Sangre de Cristo, se estreche cada vez más la fraternidad universal de todos los hombres. Por Jesucristo, nuestro Señor."
           },
           "replace": [
             {
@@ -622,7 +615,7 @@
       },
       "paragraphus": [
         {
-          "n": 39,
+          "n": 51,
           "type": "rubricaNumerus",
           "txt": "Después el ministro, si es sacerdote o diácono, vuelto al pueblo, extiende las manos y dice:"
         },
@@ -668,16 +661,11 @@
           "txt": "Amén."
         },
         {
-          "type": "rubrica",
-          "isLast": true,
-          "txt": "En lugar de esta fórmula se puede emplear también la bendición solemne o la oración sobre el pueblo, según vienen en el Misal romano para la bendición al fin de la Misa."
-        },
-        {
           "type": "divider"
         },
         {
           "type": "rubricaNumerus",
-          "n": 40,
+          "n": 52,
           "txt": "Si el ministro no es sacerdote ni diácono, invocando la bendición de Dios y santiguándose, dice:"
         },
         {
@@ -701,10 +689,6 @@
         {
           "type": "base",
           "txt": "Amén."
-        },
-        {
-          "type": "rubrica",
-          "txt": "En lugar de esta fórmula se puede emplear también la bendición solemne o la oración sobre el pueblo, según vienen en el Misal romano para la bendición al fin de la Misa."
         },
         {
           "type": "divider"

@@ -1,4 +1,73 @@
 {
-  "titulo": "Ángelus",
-  "texto": "℣El ángel del Señor anunció a María. <br /><br />℟Y concibió por obra del Espíritu Santo. <br /><br />℣Dios te salve, María, llena eres de gracia, el Señor es contigo, bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús. <br /><br />℟Santa María, Madre de Dios, ruega por nosotros pecadores, ahora y en la hora de nuestra muerte. Amén. <br /><br />℣He aquí la esclava del Señor. <br /><br />℟Hágase en mí según tu palabra. <br /><br />℣Dios te salve, María, llena eres de gracia, el Señor es contigo, bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús. <br /><br />℟Santa María, Madre de Dios, ruega por nosotros pecadores, ahora y en la hora de nuestra muerte. Amén. <br /><br />℣Y el Verbo se hizo carne. <br /><br />℟Y habitó entre nosotros. <br /><br />℣Dios te salve, María, llena eres de gracia, el Señor es contigo, bendita tú eres entre todas las mujeres, y bendito es el fruto de tu vientre, Jesús. <br /><br />℣Santa María, Madre de Dios, ruega por nosotros pecadores, ahora y en la hora de nuestra muerte. Amén. <br /><br />℣Ruega por nosotros, Santa Madre de Dios. <br /><br />℣Para que seamos dignos de alcanzar las promesas de Jesucristo. <br /><br />Oremos. <br />Infunde, Señor, tu gracia en nuestras almas para que, habiendo conocido por el anuncio del ángel la encarnación de Jesucristo, tu Hijo, por su Pasión y su cruz seamos llevados a la gloria de la resurrección. Por Jesucristo nuestro Señor. Amén."
+  "typus": "oratio",
+  "title": "Ángelus",
+  "shortTitle": "Ángelus",
+  "subTitle": "Fuera del Tiempo Pascual",
+  "sections": [
+    {
+      "head": {
+        "type": "blank"
+      },
+      "paragraphus": [
+        {
+          "type": "oratio",
+          "txt": "El ángel del Señor anunció a María.",
+          "responsum": "Y concibió por obra del Espíritu Santo."
+        },
+        {
+          "type": "base",
+          "txt": "Dios te salve, María, \nllena eres de gracia, \nel Señor es contigo, \nbendita tú eres entre todas las mujeres, \ny bendito es el fruto de tu vientre, Jesús."
+        },
+        {
+          "type": "base",
+          "txt": "Santa María, Madre de Dios, \nruega por nosotros pecadores, \nahora y en la hora de nuestra muerte. \nAmén."
+        },
+        {
+          "type": "oratio",
+          "txt": "He aquí la esclava del Señor.",
+          "responsum": "Hágase en mí según tu palabra.."
+        },
+        {
+          "type": "base",
+          "txt": "Dios te salve, María, \nllena eres de gracia, \nel Señor es contigo, \nbendita tú eres entre todas las mujeres, \ny bendito es el fruto de tu vientre, Jesús."
+        },
+        {
+          "type": "base",
+          "txt": "Santa María, Madre de Dios, \nruega por nosotros pecadores, \nahora y en la hora de nuestra muerte. \nAmén."
+        },
+        {
+          "type": "oratio",
+          "txt": "Y el Verbo se hizo carne.",
+          "responsum": "Y habitó entre nosotros."
+        },
+        {
+          "type": "base",
+          "txt": "Dios te salve, María, \nllena eres de gracia, \nel Señor es contigo, \nbendita tú eres entre todas las mujeres, \ny bendito es el fruto de tu vientre, Jesús."
+        },
+        {
+          "type": "base",
+          "txt": "Santa María, Madre de Dios, \nruega por nosotros pecadores, \nahora y en la hora de nuestra muerte. \nAmén."
+        },
+        {
+          "type": "oratio",
+          "txt": "Ruega por nosotros, Santa Madre de Dios.",
+          "responsum": "Para que seamos dignos de alcanzar las promesas de Jesucristo."
+        }
+      ]
+    },
+    {
+      "head": {
+        "type": "single",
+        "title": "Oración",
+        "level": 1
+      },
+      "paragraphus": [
+        {
+          "type": "oratio",
+          "responsum": "Amén.",
+          "txt": "Infunde, Señor, \ntu gracia en nuestras almas \npara que, habiendo conocido \npor el anuncio del ángel \nla encarnación de Jesucristo, tu Hijo, \npor su Pasión y su cruz \nseamos llevados a la gloria de la resurrección. \nPor Jesucristo nuestro Señor. \nAmén."
+        }
+      ]
+    }
+  ]
 }

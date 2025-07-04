@@ -131,7 +131,8 @@ object Constants {
     const val EUCHARISTIA_ORDINARIUM_ALTER = "raw/sacramentum/eucharistia_ordinarium_alter.json"
     const val EUCHARISTIA_VERBUM_EXTENSA = "raw/sacramentum/eucharistia_verbum_extensa.json"
     const val EUCHARISTIA_VERBUM_BREVIS = "raw/sacramentum/eucharistia_verbum_brevis.json"
-
+    const val EUCHARISTIA_ORDINARIUM_SACERDOS =
+        "raw/sacramentum/eucharistia_ordinarium_sacerdos.json"
     const val PREF_ACCEPT = "accept_terms"
     const val PREF_ANALYTICS = "enable_analytics"
     const val PREF_CRASHLYTICS = "enable_crashlytics"

@@ -22,8 +22,8 @@
         android:theme="@style/Theme.LiturgiaPlusNew">
 
 
-    <activity
-        android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true">
             <intent-filter>
@@ -52,10 +52,40 @@
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="true" />
-
+        <!--
         <service
             android:name=".core.media.service.TtsMediaService"
             android:foregroundServiceType="mediaPlayback" />
+
+            <service
+            android:name=".core.media.service.SimpleMediaService"
+            android:exported="true"
+            android:foregroundServiceType="mediaPlayback">
+            <intent-filter>
+        <action android:name="androidx.media3.session.MediaSessionService" />
+
+        <action android:name="androidx.media3.session.MediaLibraryService.SERVICE_INTERFACE" />
+    </intent-filter>
+</service>
+        -->
+        <service
+            android:name=".core.media.service.TtsMediaService"
+            android:exported="true"
+            android:foregroundServiceType="mediaPlayback">
+            <intent-filter>
+                <!-- ESTA LÍNEA DEBE SER EXACTAMENTE ASÍ -->
+                <action android:name="androidx.media3.session.MediaSessionService" />
+
+                <action android:name="androidx.media3.session.MediaLibraryService.SERVICE_INTERFACE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".feature.tts.TextToSpeechService"
+            android:exported="false">  <!-- Generalmente false si solo tu app lo usa -->
+            <!-- Si apuntas a Android 14 (API 34) o superior y es para reproducción multimedia -->
+            <!-- android:foregroundServiceType="mediaPlayback" -->
+        </service>
     </application>
 
 </manifest>

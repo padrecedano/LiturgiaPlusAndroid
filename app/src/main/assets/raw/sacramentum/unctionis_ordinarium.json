@@ -2,6 +2,7 @@
   "typus": "sacramentum",
   "title": "Unción del Enfermo.\nRito ordinario.",
   "shortTitle": "Unción: Rito Ordinario",
+  "info": "Esta celebración sólo puede hacerla el Sacerdote.",
   "sections": [
     {
       "head": {
@@ -187,32 +188,14 @@
           "txt": "Se hace una breve pausa en silencio. Después el sacerdote dice:"
         },
         {
-          "type": "versiculusResponsum",
-          "items": [
-            {
-              "type": "versiculus",
-              "isBold": true,
-              "txt": "Señor, ten misericordia de nosotros."
-            },
-            {
-              "type": "responsum",
-              "txt": "Porque hemos pecado contra ti."
-            }
-          ]
+          "type": "oratio",
+          "txt": "Señor, ten misericordia de nosotros.",
+          "responsum": "Porque hemos pecado contra ti."
         },
         {
-          "type": "versiculusResponsum",
-          "items": [
-            {
-              "type": "versiculus",
-              "isBold": true,
-              "txt": "Muéstranos, Señor, tu misericordia."
-            },
-            {
-              "type": "responsum",
-              "txt": "Y danos tu salvación."
-            }
-          ]
+          "type": "oratio",
+          "txt": "Muéstranos, Señor, tu misericordia.",
+          "responsum": "Y danos tu salvación."
         },
         {
           "type": "rubrica",
@@ -240,40 +223,33 @@
           "txt": "Hermanos: para participar con fruto en esta celebración, comencemos por reconocer nuestros pecados."
         },
         {
-          "type": "rubrica",
-          "isLast": true,
-          "txt": "Se hace una breve pausa en silencio.\n\nDespués el sacerdote, o uno de los presentes; hace las siguientes u otras invocaciones con el Señor, ten piedad."
-        },
-        {
-          "type": "versiculusResponsum",
-          "items": [
+          "type": "mixtus",
+          "base": {
+            "isRed": true,
+            "txt": "Se hace una breve pausa en silencio. \n\nDespués el ministro, o uno de los asistentes; hace las siguientes u otras invocaciones con el |."
+          },
+          "replace": [
             {
-              "type": "versiculus",
-              "txt": "Tú que por el misterio pascual nos has obtenido la salvación: Señor, ten piedad."
-            },
-            {
-              "type": "responsum",
-              "isLast": true,
-              "txt": "Señor, ten piedad."
-            },
-            {
-              "type": "versiculus",
-              "txt": "Tú que no cesas de actualizar entre nosotros las maravillas de tu pasión: Cristo, ten piedad."
-            },
-            {
-              "type": "responsum",
-              "isLast": true,
-              "txt": "Cristo, ten piedad."
-            },
-            {
-              "type": "versiculus",
-              "txt": "Tú que por la comunión de tu cuerpo nos haces participar del sacrificio pascual: Señor, ten piedad."
-            },
-            {
-              "type": "responsum",
-              "txt": "Señor, ten piedad."
+              "txt": "Señor, ten piedad",
+              "isRed": false,
+              "isBold": false
             }
           ]
+        },
+        {
+          "type": "oratio",
+          "txt": "Tú que por el misterio pascual nos has obtenido la salvación: Señor, ten piedad.",
+          "responsum": "Señor, ten piedad."
+        },
+        {
+          "type": "oratio",
+          "txt": "Tú que no cesas de actualizar entre nosotros las maravillas de tu pasión: Cristo, ten piedad.",
+          "responsum": "Cristo, ten piedad."
+        },
+        {
+          "type": "oratio",
+          "txt": "Tú que por la comunión de tu cuerpo nos haces participar del sacrificio pascual: Señor, ten piedad.",
+          "responsum": "Señor, ten piedad."
         },
         {
           "type": "rubrica",
@@ -662,8 +638,23 @@
           "txt": "El sacerdote se acerca al enfermo y, mostrándole el Sacramento, dice:"
         },
         {
-          "type": "priest",
-          "txt": "El Cuerpo de Cristo (o la Sangre de Cristo)."
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "El Cuerpo de Cristo | La Sangre de Cristo|."
+          },
+          "replace": [
+            {
+              "txt": "(o bien:",
+              "isRed": true,
+              "isBold": true
+            },
+            {
+              "txt": ")",
+              "isRed": true,
+              "isBold": true
+            }
+          ]
         },
         {
           "type": "rubrica",
@@ -713,7 +704,6 @@
             }
           ]
         },
-
         {
           "type": "rubricaNumerus",
           "n": 108,

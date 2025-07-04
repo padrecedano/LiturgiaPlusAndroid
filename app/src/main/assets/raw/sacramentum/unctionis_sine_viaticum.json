@@ -156,8 +156,18 @@
           "txt": "Hermanos: para participar con fruto en esta celebración, comencemos por reconocer nuestros pecados."
         },
         {
-          "type": "rubrica",
-          "txt": "Se hace una breve pausa en silencio. \n\nDespués el sacerdote, o uno de los presentes; hace las siguientes u otras invocaciones con el Señor, ten piedad."
+          "type": "mixtus",
+          "base": {
+            "isRed": true,
+            "txt": "Se hace una breve pausa en silencio. \n\nDespués el ministro, o uno de los asistentes; hace las siguientes u otras invocaciones con el |."
+          },
+          "replace": [
+            {
+              "txt": "Señor, ten piedad",
+              "isRed": false,
+              "isBold": false
+            }
+          ]
         },
         {
           "type": "oratio",

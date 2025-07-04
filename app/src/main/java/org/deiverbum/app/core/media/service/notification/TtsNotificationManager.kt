@@ -28,7 +28,7 @@ private const val NOTIFICATION_CHANNEL_ID = "notification channel id 1"
 class TtsNotificationManager @OptIn(UnstableApi::class)
 @Inject constructor(
     @ApplicationContext private val context: Context,
-    //private val player: TtsPlayerNew
+    //private val player: TtsPlayer
     private val player: ExoPlayer
 
 ) {
@@ -63,7 +63,8 @@ class TtsNotificationManager @OptIn(UnstableApi::class)
             .setSmallIconResourceId(R.drawable.ic_help)
             .build()
             .also {
-                it.setMediaSessionToken(mediaSession.sessionCompatToken)
+                // it.setMediaSessionToken(mediaSession.sessionCompatToken)
+                it.setMediaSessionToken(mediaSession.platformToken)
                 it.setUseFastForwardActionInCompactView(true)
                 it.setUseRewindActionInCompactView(true)
                 it.setUseNextActionInCompactView(false)

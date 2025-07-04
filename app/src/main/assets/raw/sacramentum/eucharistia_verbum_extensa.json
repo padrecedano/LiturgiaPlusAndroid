@@ -1,9 +1,10 @@
 {
   "typus": "sacramentum",
-  "type": "a",
   "title": "Sagrada Comunión fuera de la Misa",
   "subTitle": "Rito con una celebración extensa de la Palabra de Dios",
   "shortTitle": "Comunión: Celebración extensa.",
+  "source": "Ritual de la Sagrada Comunión y del Culto a la Eucaristía fuera de la Misa (nn. 26-41)",
+  "info": "Esta celebración la puede hacer el Sacerdote, el Diácono o un Ministro Extraordinario",
   "sections": [
     {
       "head": {

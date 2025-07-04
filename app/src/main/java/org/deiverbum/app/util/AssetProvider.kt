@@ -18,6 +18,7 @@ import org.deiverbum.app.core.model.book.LiberBiblical
 import org.deiverbum.app.core.model.book.LiberBodyWithRubric
 import org.deiverbum.app.core.model.book.LiberDialog
 import org.deiverbum.app.core.model.book.LiberError
+import org.deiverbum.app.core.model.book.LiberHeadBlank
 import org.deiverbum.app.core.model.book.LiberHeadComplex
 import org.deiverbum.app.core.model.book.LiberHeadSingle
 import org.deiverbum.app.core.model.book.LiberMixtus
@@ -121,6 +122,8 @@ class AssetProvider @Inject constructor(
                         .withSubtype(LiberBaseA::class.java, "cic")
                         //.withSubtype(LiberSacramentumNew::class.java, "sacramentum")
                         .withSubtype(LiberBaseC::class.java, "sacramentum")
+                        .withSubtype(LiberBaseC::class.java, "oratio")
+
                 )
                 .add(
                     PolymorphicJsonAdapterFactory.of(BaseParagraphus::class.java, "type")
@@ -150,6 +153,8 @@ class AssetProvider @Inject constructor(
                     PolymorphicJsonAdapterFactory.of(BaseHead::class.java, "type")
                         .withSubtype(LiberHeadSingle::class.java, "single")
                         .withSubtype(LiberHeadComplex::class.java, "complex")
+                        .withSubtype(LiberHeadBlank::class.java, "blank")
+
                 )
                 .add(
                     PolymorphicJsonAdapterFactory.of(LiberTextBase::class.java, "typus")

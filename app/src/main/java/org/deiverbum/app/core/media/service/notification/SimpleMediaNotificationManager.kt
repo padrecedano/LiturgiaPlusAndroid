@@ -55,7 +55,7 @@ class SimpleMediaNotificationManager @Inject constructor(
             .setSmallIconResourceId(R.drawable.ic_help)
             .build()
             .also {
-                it.setMediaSessionToken(mediaSession.sessionCompatToken)
+                it.setMediaSessionToken(mediaSession.platformToken)
                 it.setUseFastForwardActionInCompactView(true)
                 it.setUseRewindActionInCompactView(true)
                 it.setUseNextActionInCompactView(false)

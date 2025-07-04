@@ -1,8 +1,11 @@
 {
   "typus": "sacramentum",
-  "title": "La Comunión y el Viático llevados a los Enfermos por un Ministro Extraordinario",
+  "title": "La Comunión llevada a los Enfermos por un Ministro Extraordinario",
   "subTitle": "Rito Ordinario de la Comunión a los Enfermos",
   "shortTitle": "Comunión: Ministro extraordinario.",
+  "source": "Ritual de la Sagrada Comunión y del Culto a la Eucaristía fuera de la Misa (nn. 54-63)",
+  "info": "Este esquema de celebración está pensado para los Ministros Extraordinarios de la Eucaristía",
+
   "sections": [
     {
       "head": {
@@ -156,9 +159,18 @@
           "txt": "Hermanos: para participar con fruto en esta celebración, comencemos por reconocer nuestros pecados."
         },
         {
-          "type": "rubrica",
-          "isLast": true,
-          "txt": "Se hace una breve pausa en silencio. \n\nDespués el ministro, o uno de los asistentes; hace las siguientes u otras invocaciones con el Señor, ten piedad."
+          "type": "mixtus",
+          "base": {
+            "isRed": true,
+            "txt": "Se hace una breve pausa en silencio. \n\nDespués el ministro, o uno de los asistentes; hace las siguientes u otras invocaciones con el |."
+          },
+          "replace": [
+            {
+              "txt": "Señor, ten piedad",
+              "isRed": false,
+              "isBold": false
+            }
+          ]
         },
         {
           "type": "oratio",
@@ -296,7 +308,7 @@
           "txt": "Señor, no soy digno de que entres en mi casa, pero una palabra tuya bastará para sanarme."
         },
         {
-          "n": 76,
+          "n": 61,
           "type": "rubricaNumerus",
           "txt": "El ministro se acerca al enfermo y, mostrándole el Sacramento, dice:"
         },
@@ -304,7 +316,7 @@
           "type": "mixtus",
           "base": {
             "isBold": true,
-            "txt": "El Cuerpo de Cristo |La Sangre de Cristo|."
+            "txt": "El Cuerpo de Cristo | La Sangre de Cristo|."
           },
           "replace": [
             {
@@ -337,20 +349,6 @@
           "n": 62,
           "type": "rubricaNumerus",
           "txt": "Una vez distribuida la comunión, el ministro hace la purificación. \n\nPueden seguir unos momentos de sagrado silencio. \n\nA continuación, el ministro concluye con esta oración:"
-        }
-      ]
-    },
-    {
-      "head": {
-        "type": "single",
-        "title": "Rito de conclusión",
-        "level": 1
-      },
-      "paragraphus": [
-        {
-          "n": 78,
-          "type": "rubricaNumerus",
-          "txt": "A continuación, el ministro concluye con esta oración:"
         },
         {
           "type": "mixtus",
@@ -393,7 +391,7 @@
         {
           "type": "rubrica",
           "isLast": true,
-          "txt": "O bien una de estas oraciones \"ad libitum\" (nn. 181-193.).\n\nDurante el tiempo pascual son preferibles las oraciones indicadas en los nn. 189-191."
+          "txt": "O bien una de estas oraciones \"ad libitum\" (nn. 181-191.).\n\nDurante el tiempo pascual son preferibles las oraciones indicadas en los nn. 189-191."
         },
         {
           "type": "mixtus",

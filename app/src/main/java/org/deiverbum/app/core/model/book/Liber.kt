@@ -245,10 +245,10 @@ data class LiberBaseA(
 @JsonClass(generateAdapter = true)
 data class LiberBaseC(
     override val typus: String,
-    override val title: String,
-    val subTitle: String,
+    override val title: String = "",
+    val subTitle: String = "",
 
-    override val shortTitle: String,
+    override val shortTitle: String = "",
     val sections: List<LiberSectionNew>,
 ) : LiberBase(typus, title, shortTitle)
 
@@ -272,6 +272,12 @@ open class LiberHeadComplex(
     override val level: Int,
     val subTitle: String,
 ) : LiberHeadSingle(type, title, level)
+
+@JsonClass(generateAdapter = true)
+data class LiberHeadBlank(
+    override val type: String = "blank",
+    override val level: Int = 0,
+) : BaseHead
 
 
 @JsonClass(generateAdapter = true)
@@ -350,7 +356,7 @@ data class LiberSacramentumNew(
 @JsonClass(generateAdapter = true)
 class LiberSection(
     @Json(name = "type") override val type: String,
-    val title: String,
+    val title: String = "",
     val subTitle: String = "",
     val contents: List<TextBody>
 ) : TextBody

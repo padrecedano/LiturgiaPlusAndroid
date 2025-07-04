@@ -1,26 +1,24 @@
 package org.deiverbum.app.feature.tts
 
 
-import android.net.Uri
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi
 import androidx.lifecycle.viewmodel.compose.saveable
-import androidx.media3.common.MediaItem
-import androidx.media3.common.MediaMetadata
 import androidx.media3.common.util.UnstableApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.deiverbum.app.core.media.service.TtsMediaState
-import org.deiverbum.app.core.media.service.TtsPlayerEvent
 import org.deiverbum.app.core.media.service.TtsServiceHandler
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(SavedStateHandleSaveableApi::class)
 @HiltViewModel
 class TtsMediaViewModel @androidx.annotation.OptIn(UnstableApi::class)
@@ -30,6 +28,8 @@ class TtsMediaViewModel @androidx.annotation.OptIn(UnstableApi::class)
 ) : ViewModel() {
 
     var duration by savedStateHandle.saveable { mutableStateOf(0L) }
+    // ...
+
     var progress by savedStateHandle.saveable { mutableStateOf(0f) }
     var progressString by savedStateHandle.saveable { mutableStateOf("00:00") }
     var isPlaying by savedStateHandle.saveable { mutableStateOf(false) }
@@ -43,11 +43,17 @@ class TtsMediaViewModel @androidx.annotation.OptIn(UnstableApi::class)
 
             simpleMediaServiceHandler.simpleMediaState.collect { mediaState ->
                 when (mediaState) {
-                    is TtsMediaState.Buffering -> calculateProgressValues(mediaState.progress)
-                    TtsMediaState.Initial -> _uiState.value = UIStateTts.Initial
-                    is TtsMediaState.Playing -> isPlaying = mediaState.isPlaying
-                    is TtsMediaState.Progress -> calculateProgressValues(mediaState.progress)
-                    is TtsMediaState.Ready -> {
+                    is TtsServiceHandler.TtsMediaState.Buffering -> calculateProgressValues(
+                        mediaState.progress
+                    )
+
+                    TtsServiceHandler.TtsMediaState.Initial -> _uiState.value = UIStateTts.Initial
+                    is TtsServiceHandler.TtsMediaState.Playing -> isPlaying = mediaState.isPlaying
+                    is TtsServiceHandler.TtsMediaState.Progress -> calculateProgressValues(
+                        mediaState.progress
+                    )
+
+                    is TtsServiceHandler.TtsMediaState.Ready -> {
                         duration = mediaState.duration
                         _uiState.value = UIStateTts.Ready
                     }
@@ -59,26 +65,26 @@ class TtsMediaViewModel @androidx.annotation.OptIn(UnstableApi::class)
     @androidx.annotation.OptIn(UnstableApi::class)
     override fun onCleared() {
         viewModelScope.launch {
-            simpleMediaServiceHandler.onPlayerEvent(TtsPlayerEvent.Stop)
+            simpleMediaServiceHandler.onPlayerEvent(TtsServiceHandler.TtsPlayerEvent.Stop)
         }
     }
 
     @androidx.annotation.OptIn(UnstableApi::class)
     fun onUIEvent(uiEvent: UIEventTts) = viewModelScope.launch {
         when (uiEvent) {
-            UIEventTts.Backward -> simpleMediaServiceHandler.onPlayerEvent(TtsPlayerEvent.Backward)
-            UIEventTts.Forward -> simpleMediaServiceHandler.onPlayerEvent(TtsPlayerEvent.Forward)
-            UIEventTts.PlayPause -> simpleMediaServiceHandler.onPlayerEvent(TtsPlayerEvent.PlayPause)
+            UIEventTts.Backward -> simpleMediaServiceHandler.onPlayerEvent(TtsServiceHandler.TtsPlayerEvent.Backward)
+            UIEventTts.Forward -> simpleMediaServiceHandler.onPlayerEvent(TtsServiceHandler.TtsPlayerEvent.Forward)
+            UIEventTts.PlayPause -> simpleMediaServiceHandler.onPlayerEvent(TtsServiceHandler.TtsPlayerEvent.PlayPause)
             is UIEventTts.UpdateProgress -> {
                 progress = uiEvent.newProgress
                 simpleMediaServiceHandler.onPlayerEvent(
-                    TtsPlayerEvent.UpdateProgress(
+                    TtsServiceHandler.TtsPlayerEvent.UpdateProgress(
                         uiEvent.newProgress
                     )
                 )
             }
 
-            UIEventTts.Stop -> simpleMediaServiceHandler.onPlayerEvent(TtsPlayerEvent.Stop)
+            UIEventTts.Stop -> simpleMediaServiceHandler.onPlayerEvent(TtsServiceHandler.TtsPlayerEvent.Stop)
         }
     }
 
@@ -95,21 +101,8 @@ class TtsMediaViewModel @androidx.annotation.OptIn(UnstableApi::class)
     }
 
     @androidx.annotation.OptIn(UnstableApi::class)
-    fun loadData(mediaUri: String, text: String) {
-        val mediaItem = MediaItem.Builder()
-            .setUri(mediaUri)
-            .setMediaMetadata(
-                MediaMetadata.Builder()
-                    .setFolderType(MediaMetadata.FOLDER_TYPE_ALBUMS)
-                    .setArtworkUri(Uri.parse("https://i.pinimg.com/736x/4b/02/1f/4b021f002b90ab163ef41aaaaa17c7a4.jpg"))
-                    .setAlbumTitle("SoundHelix")
-                    .setDisplayTitle("Tercia 19-01-2025")
-                    .build()
-            ).build()
-        duration = text.split(".").toTypedArray().size.toLong()
-
-        simpleMediaServiceHandler.addMediaItem(mediaItem, text)
-        //simpleMediaServiceHandler.addMediaItemList(mediaItemList)
+    fun loadData(text: String) {
+        //simpleMediaServiceHandler.addMediaItem(text)
     }
 
 }

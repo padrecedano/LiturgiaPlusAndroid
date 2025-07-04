@@ -1,6 +1,8 @@
 package org.deiverbum.app.feature.universalis
 
 import LPlusIcons
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -83,6 +85,7 @@ import org.deiverbum.app.util.Utils
  */
 
 //@ExperimentalStdlibApi
+@RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi
 @ExperimentalMaterial3AdaptiveApi
@@ -121,6 +124,7 @@ fun UniversalisFromHomeScreen(
  *
  */
 
+@RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi
 @Composable
@@ -182,6 +186,7 @@ internal fun UniversalisFromHomeScreen(
  *
  */
 
+@RequiresApi(Build.VERSION_CODES.O)
 @androidx.annotation.OptIn(UnstableApi::class)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -240,7 +245,7 @@ fun UniversalisToolbar(
             //val sb = uiState[0].data.getAllForRead()
             //viewModelSimpleMedia.loadData("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3")
             viewModelTts.loadData(
-                "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                //"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
                 "sb.toString()"
             )
 
@@ -369,6 +374,7 @@ fun UniversalisResourceCardExpanded(
  */
 
 //@ExperimentalStdlibApi
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UniversalisResourceData(
@@ -460,10 +466,7 @@ fun UniversalisResourceData(
                 content = {
                     analyticsHelper.logUniversalisTtsEvent(universalisResource.title)
                     val read = universalisBodyForRead(universalisResource)
-                    viewModelTts.loadData(
-                        "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                        read.text
-                    )
+                    viewModelTts.loadData(read.text)
                     ScreenTtsPlayer(viewModelTts)
                 },
             ) //{

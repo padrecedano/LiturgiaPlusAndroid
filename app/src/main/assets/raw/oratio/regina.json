@@ -1,5 +1,44 @@
 {
-  "titulo": "Regina Coeli",
-  "info": "Durante el tiempo pascual, en lugar del Ángelus, se dice el Regina Coeli",
-  "texto": "℣Reina del cielo, alégrate. <br /><br />℟Aleluya. <br /><br />℣Porque el Señor, a quien mereciste llevar. <br /><br />℟Aleluya. <br /><br />℣Ha resucitado, como lo había dicho. <br /><br />℟Aleluya. <br /><br />℣Ruega al Señor por nosotros. <br /><br />℟Aleluya. <br /><br />℣Goza y alégrate, Virgen María. Aleluya. <br /><br />℟Porque verdaderamente ha resucitado el Señor. Aleluya.<br /><br />Oremos:<br /> Oh Dios, que por la resurrección de tu Hijo, nuestro Señor Jesucristo, has llenado el mundo de alegría, concédenos, por intercesión de su Madre, la Virgen María, llegar a alcanzar los gozos eternos. Por el mismo Jesucristo, nuestro Señor."
+  "typus": "oratio",
+  "title": "Regina Coeli",
+  "shortTitle": "Regina Coeli",
+  "subTitle": "Durante el Tiempo Pascual",
+  "sections": [
+    {
+      "head": {
+        "type": "blank"
+      },
+      "paragraphus": [
+        {
+          "type": "oratio",
+          "txt": "Reina del cielo, alégrate. Aleluya.",
+          "responsum": "Porque el Señor, a quien mereciste llevar en tu seno. Aleluya."
+        },
+        {
+          "type": "oratio",
+          "txt": "Ha resucitado, como lo había dicho. Aleluya.",
+          "responsum": "Ruega por nosotros a Dios. Aleluya."
+        },
+        {
+          "type": "oratio",
+          "txt": "Goza y alégrate, Virgen María. Aleluya.",
+          "responsum": "Porque verdaderamente ha resucitado el Señor. Aleluya."
+        }
+      ]
+    },
+    {
+      "head": {
+        "type": "single",
+        "title": "Oración",
+        "level": 1
+      },
+      "paragraphus": [
+        {
+          "type": "oratio",
+          "responsum": "Amén.",
+          "txt": "Oremos \nOh Dios, \nque por la resurrección de tu Hijo, \nnuestro Señor Jesucristo, \nhas llenado el mundo de alegría, \nconcédenos, por intercesión de su Madre, la Virgen María, \nllegar a alcanzar los gozos eternos. \nPor el mismo Jesucristo, nuestro Señor."
+        }
+      ]
+    }
+  ]
 }

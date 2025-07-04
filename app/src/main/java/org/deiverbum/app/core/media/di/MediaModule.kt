@@ -2,6 +2,7 @@ package org.deiverbum.app.core.media.di
 
 import android.content.Context
 import android.os.Build
+import android.os.Looper
 import androidx.annotation.OptIn
 import androidx.annotation.RequiresApi
 import androidx.media3.common.AudioAttributes
@@ -17,6 +18,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.deiverbum.app.core.media.service.TtsServiceHandler
 import org.deiverbum.app.core.media.service.notification.TtsNotificationManager
+import org.deiverbum.app.feature.tts.MinimalTtsPlayer
+import org.deiverbum.app.feature.tts.TtsPlayerOld
+import javax.inject.Named
 import javax.inject.Singleton
 
 
@@ -24,6 +28,36 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    @OptIn(UnstableApi::class)
+    @Provides
+    @Singleton
+    fun provideTtsPlayer(
+        @ApplicationContext context: Context,
+        @Named("MainLooper") mainLooper: Looper
+    ): TtsPlayerOld {
+        // Asumiendo la Opción 3 de refactorización para TtsPlayerForApi26
+        return TtsPlayerOld(mainLooper, context)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    @OptIn(UnstableApi::class)
+    @Provides
+    @Singleton
+    fun provideMinimalTtsPlayer(
+        @ApplicationContext context: Context,
+        @Named("MainLooper") mainLooper: Looper
+    ): MinimalTtsPlayer {
+        // Asumiendo la Opción 3 de refactorización para TtsPlayerForApi26
+        return MinimalTtsPlayer(context, mainLooper)
+    }
+
+    @Provides
+    @Singleton
+    @Named("MainLooper")
+    fun provideMainLooper(): Looper {
+        return Looper.getMainLooper()
+    }
 
     @Provides
     @Singleton
@@ -45,11 +79,14 @@ object AppModule {
         .build()
 
 
+    @OptIn(UnstableApi::class)
     @Provides
     @Singleton
     fun provideMediaSession(
         @ApplicationContext context: Context,
-        player: ExoPlayer,
+        //player: ExoPlayer,
+        player: TtsPlayerOld
+
     ): MediaSession =
         MediaSession.Builder(context, player)
             .build()
@@ -62,6 +99,8 @@ object AppModule {
     fun provideTtsNotificationManager(
         @ApplicationContext context: Context,
         player: ExoPlayer
+        //player: TtsPlayer
+
 
     ): TtsNotificationManager =
         TtsNotificationManager(
@@ -69,16 +108,17 @@ object AppModule {
             player = player
         )
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @OptIn(UnstableApi::class)
     @Provides
     @Singleton
     fun provideTtsServiceHandler(
         @ApplicationContext context: Context,
-
-        //player: TtsPlayer,
+        player: TtsPlayerOld,
+        //player: ExoPlayer,
     ): TtsServiceHandler =
         TtsServiceHandler(
-            //player = player,
+            ttsPlayer = player,
             context = context
         )
 

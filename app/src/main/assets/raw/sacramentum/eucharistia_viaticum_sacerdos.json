@@ -2,6 +2,8 @@
   "typus": "sacramentum",
   "title": "El Viático fuera de la Misa.",
   "shortTitle": "Viático fuera de la Misa.",
+  "source": "Ritual de la Unción y de la Pastoral de Enfermos (nn. 54-55; 68-78)",
+
   "sections": [
     {
       "head": {
@@ -255,9 +257,18 @@
           "txt": "Hermanos: para participar con fruto en esta celebración, comencemos por reconocer nuestros pecados."
         },
         {
-          "type": "rubrica",
-          "isLast": true,
-          "txt": "Se hace una breve pausa en silencio. \n\nDespués el sacerdote, o uno de los presentes; hace las siguientes u otras invocaciones con el Señor, ten piedad."
+          "type": "mixtus",
+          "base": {
+            "isRed": true,
+            "txt": "Se hace una breve pausa en silencio. \n\nDespués el ministro, o uno de los asistentes; hace las siguientes u otras invocaciones con el |."
+          },
+          "replace": [
+            {
+              "txt": "Señor, ten piedad",
+              "isRed": false,
+              "isBold": false
+            }
+          ]
         },
         {
           "type": "oratio",
@@ -474,8 +485,23 @@
           "txt": "El sacerdote se acerca al enfermo y, mostrándole el Sacramento, dice:"
         },
         {
-          "type": "priest",
-          "txt": "El Cuerpo de Cristo (o la Sangre de Cristo)."
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "El Cuerpo de Cristo | La Sangre de Cristo|."
+          },
+          "replace": [
+            {
+              "txt": "(o bien:",
+              "isRed": true,
+              "isBold": true
+            },
+            {
+              "txt": ")",
+              "isRed": true,
+              "isBold": true
+            }
+          ]
         },
         {
           "type": "rubrica",

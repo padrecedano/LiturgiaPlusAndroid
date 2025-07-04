@@ -1,8 +1,11 @@
 {
   "typus": "sacramentum",
-  "title": "El Viático llevados a los Enfermos por un Ministro Extraordinario",
-  "subTitle": "Viático llevado a los Enfermos",
+  "title": "El Viático llevado a los Enfermos por un Ministro Extraordinario",
+  "subTitle": "Viático llevado a los Enfermos por un Ministro Extraordinario",
   "shortTitle": "Viático: Ministro extraordinario.",
+  "source": "Ritual de la Sagrada Comunión y del Culto a la Eucaristía fuera de la Misa (nn. 54-55; 68-78)",
+  "info": "Este esquema de celebración está pensado para los Ministros Extraordinarios de la Eucaristía",
+
   "sections": [
     {
       "head": {
@@ -42,8 +45,14 @@
         {
           "type": "rubrica",
           "isLast": true,
-          "txt": "También pueden emplearse otras palabras de la Sagrada Escritura, con las que se acostumbra a saludar a los fieles. \n\nUna vez colocado el Sacramento sobre la mesa, lo adora junto con los presentes.\n\nLuego, con esta monición o con otra más adaptada a la situación del enfermo, se dirige a los presentes:"
+          "txt": "También pueden emplearse otras palabras de la Sagrada Escritura, con las que se acostumbra a saludar a los fieles. \n\nUna vez colocado el Sacramento sobre la mesa, lo adora junto con los presentes."
         },
+        {
+          "n": 69,
+          "type": "rubricaNumerus",
+          "txt": "Luego, con esta monición o con otra más adaptada a la situación del enfermo, se dirige a los presentes:"
+        },
+
         {
           "type": "priest",
           "txt": "Queridos hermanos: Nuestro Señor Jesucristo, antes de pasar de este mundo al Padre, nos legó el sacramento de su Cuerpo y de su Sangre, para que, robustecidos con su Viático, prenda de resurrección, nos sintamos protegidos a la hora de pasar también nosotros de esta vida a Dios. Unidos por la caridad con nuestro hermano, oremos por él."
@@ -267,7 +276,7 @@
       },
       "paragraphus": [
         {
-          "n": 59,
+          "n": 74,
           "type": "rubricaNumerus",
           "txt": "El ministro introduce la oración dominical con estas o parecidas palabras:"
         },
@@ -311,7 +320,7 @@
           "type": "mixtus",
           "base": {
             "isBold": true,
-            "txt": "El Cuerpo de Cristo |La Sangre de Cristo|."
+            "txt": "El Cuerpo de Cristo | La Sangre de Cristo|."
           },
           "replace": [
             {

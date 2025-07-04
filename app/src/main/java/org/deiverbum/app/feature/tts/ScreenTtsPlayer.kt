@@ -1,6 +1,8 @@
 package org.deiverbum.app.feature.tts
 
 import LPlusIcons
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,6 +27,7 @@ import org.deiverbum.app.core.designsystem.component.NiaIconToggleButton
 import org.deiverbum.app.core.designsystem.component.media.PlayerBarTts
 import org.deiverbum.app.core.designsystem.component.media.PlayerControlsTts
 
+@RequiresApi(Build.VERSION_CODES.O)
 @androidx.annotation.OptIn(UnstableApi::class)
 @Composable
 fun ScreenTtsPlayer(

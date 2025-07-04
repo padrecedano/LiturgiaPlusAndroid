@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Slider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,7 +49,7 @@ internal fun PlayerBarTts(
             modifier = Modifier
                 .padding(horizontal = 8.dp)
         )
-        /*Row(
+        Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .fillMaxWidth()
@@ -56,7 +57,7 @@ internal fun PlayerBarTts(
         ) {
             Text(text = progressString)
             Text(text = durationString)
-        }*/
+        }
     }
 }
 

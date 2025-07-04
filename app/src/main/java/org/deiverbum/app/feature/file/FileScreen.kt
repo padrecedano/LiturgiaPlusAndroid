@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -53,8 +54,11 @@ import org.deiverbum.app.core.designsystem.component.TextRubrica
 import org.deiverbum.app.core.designsystem.component.TextRubricaNumerus
 import org.deiverbum.app.core.designsystem.component.TextVersiculusResponsum
 import org.deiverbum.app.core.designsystem.component.UniversalisSingleAppBar
+import org.deiverbum.app.core.designsystem.component.textFromList
+import org.deiverbum.app.core.designsystem.component.textIndent
 import org.deiverbum.app.core.designsystem.theme.LocalCustomColorsPalette
 import org.deiverbum.app.core.designsystem.theme.getPersonalizedTypography
+import org.deiverbum.app.core.model.alteri.Rosarium
 import org.deiverbum.app.core.model.book.Canon
 import org.deiverbum.app.core.model.book.CanonWithList
 import org.deiverbum.app.core.model.book.IurisChapter
@@ -91,6 +95,7 @@ import org.deiverbum.app.core.model.book.Title
 import org.deiverbum.app.core.model.configuration.UserData
 import org.deiverbum.app.core.ui.ContentHeadd
 import org.deiverbum.app.core.ui.ContentTitle
+import org.deiverbum.app.core.ui.contentSpace
 import org.deiverbum.app.feature.calendar.EmptyState
 import org.deiverbum.app.feature.calendar.ErrorState
 import org.deiverbum.app.feature.home.HomeViewModel
@@ -269,6 +274,27 @@ fun RenderLiber(liber: LiberBase, userData: UserData, bodyStyle: TextStyle) {
 @Composable
 fun RenderLiberC(liber: LiberBaseC, userData: UserData, style: TextStyle) {
     //ContentLabel(liber.title,1,userData)
+    if (liber.shortTitle == "Letanías") {
+        ContentHeadd(
+            text = liber.title,
+            level = 2,
+            userData = userData,
+            uppercase = false,
+            withColor = false
+        )
+        val litanie = buildAnnotatedString {
+            Rosarium.LITANIAE.forEach {
+                append(textIndent(it.textus, it.responsum, MaterialTheme.colorScheme.error))
+                append(contentSpace(4))
+            }
+        }
+        Text(text = litanie, style = style)
+        ContentTitle("Oración", 1, userData, false)
+
+        Text(text = textFromList(Rosarium.oratio.textus), style = style)
+
+
+    } else {
     ContentHeadd(
         text = liber.title,
         level = 2,
@@ -284,7 +310,9 @@ fun RenderLiberC(liber: LiberBaseC, userData: UserData, style: TextStyle) {
         withColor = false
     )
     liber.sections.forEach {
-        TextHead(it.head, userData)
+        if (it.head.type != "blank") {
+            TextHead(it.head, userData)
+        }
         it.paragraphus.forEach {
             when (it) {
                 is ParagraphusDivider -> HorizontalDivider(
@@ -343,7 +371,7 @@ fun RenderLiberC(liber: LiberBaseC, userData: UserData, style: TextStyle) {
             }
         }
     }
-
+    }
 }
 
 @Composable

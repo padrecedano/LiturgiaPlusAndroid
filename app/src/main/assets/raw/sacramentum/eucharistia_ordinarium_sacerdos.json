@@ -1,0 +1,619 @@
+{
+  "typus": "sacramentum",
+  "title": "Rito ordinario de la Comunión de los Enfermos.",
+  "shortTitle": "Comunión: Rito Ordinario",
+  "info": "Este esquema de celebración sólo puede hacerlo el Sacerdote.",
+  "sections": [
+    {
+      "head": {
+        "type": "single",
+        "title": "Preparativos de la celebración",
+        "level": 1
+      },
+      "paragraphus": [
+        {
+          "type": "rubricaNumerus",
+          "n": 169,
+          "txt": "Los pastores de almas deben esmerarse en facilitar al máximo el acceso de los enfermos y ancianos a la Eucaristía, aun cuando su estado no sea grave ni haya peligro de muerte. Siempre que sea posible, déseles la comunión cada día, sobre todo durante el tiempo pascual. La comunión puede administrarse a cualquier hora del día.\n\nObservando lo que se dice más abajo en el n. 169, puede darse la Eucaristía bajo la sola especie de vino a los enfermos que no pueden recibirla bajo la especie de pan. \n\nLos que asisten al enfermo pueden recibir la comunión junto con él, respetando lo establecido por el derecho."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 169,
+          "txt": "Se puede dar la comunión bajo la sola especie de vino a aquellos enfermos que no la puedan recibir bajo la especie de pan.\n\nSi no se celebra la Misa junto al enfermo, guárdese después de la Misa y en el sagrario la Sangre del Señor en un cáliz debidamente cubierto, y llévese al enfermo en un recipiente cerrado para evitar cualquier riesgo de derram e. Para administrar el Sacramento, elíjase en cada caso el modo más apto entre los que se proponen en el rito de la comunión bajo las dos especies. Si, una vez dada la comunión, quedase algo de la preciosísima Sangre del Señor, deberá sumirla el ministro, que hará también las oportunas abluciones."
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 170,
+          "txt": "Todos cuantos participan en la celebración pueden comulgar bajo las dos especies."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 92,
+          "txt": "Al llevar la sagrada Eucaristía para administrar la comunión fuera de la iglesia, deben llevarse las sagradas especies guardadas en un estuche u otro recipiente, según las costumbres y maneras propias de cada lugar."
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 93,
+          "txt": "Los que viven con el enfermo o los que los cuidan procuren preparar adecuadamente la habitación y provean una mesa cubierta con un mantel para colocar sobre ella el Sacramento. Dispóngase también, si es costumbre, un vaso con agua bendita y el hisopo o un ramo pequeño apto para la aspersión, y cirios sobre la mesa."
+        }
+      ]
+    },
+    {
+      "head": {
+        "type": "single",
+        "title": "Ritos iniciales",
+        "level": 1
+      },
+      "paragraphus": [
+        {
+          "type": "rubricaNumerus",
+          "n": 94,
+          "txt": "El sacerdote, vestido cual conviene al sagrado ministerio que va a realizar, llega al enfermo y, con sencillas y afectuosas palabras, saluda al enfermo y a cuantos están con él. Puede decir, si le parece, este saludo:"
+        },
+        {
+          "type": "oratio",
+          "txt": "La paz del Señor a esta casa y a todos los aquí presentes.",
+          "responsum": "Y con tu espíritu."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "O bien:"
+        },
+        {
+          "type": "oratio",
+          "txt": "La paz del Señor sea con vosotros (contigo).",
+          "responsum": "Y con tu espíritu."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "n": 95,
+          "type": "rubricaNumerus",
+          "txt": "Otras fórmulas de saludo:"
+        },
+        {
+          "type": "oratio",
+          "txt": "La gracia de nuestro Señor Jesucristo, \nel amor del Padre \ny la comunión del Espíritu Santo \nestén con todos vosotros.",
+          "responsum": "Y con tu espíritu."
+        },
+        {
+          "n": 96,
+          "type": "rubricaNumerus",
+          "txt": "O bien:"
+        },
+        {
+          "type": "oratio",
+          "txt": "La gracia y la paz \nde parte de Dios, nuestro Padre, \ny de Jesucristo, el Señor, \nestén con todos vosotros.",
+          "responsum": "Bendito sea Dios, Padre de nuestro Señor Jesucristo."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "O bien:"
+        },
+        {
+          "type": "responsum",
+          "txt": "Y con tu espíritu."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Una vez colocado el Sacramento sobre la mesa, lo adora junto con los presentes."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 97,
+          "txt": "Luego, si es oportuno, rocía con agua bendita (si hay que bendecir el agua, se hace con la oración propuesta en el n. 259) al enfermo y a la habitación, diciendo esta fórmula:"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "n": 259,
+          "type": "rubricaNumerus",
+          "txt": "Si el agua no está bendecida, se bendice con la siguiente oración:"
+        },
+        {
+          "type": "oratio",
+          "responsum": "Amén",
+          "txt": "Bendito seas, Señor, Dios todopoderoso, \nque te has dignado bendecirnos \ny transformarnos interiormente en Cristo, \nagua viva de nuestra salvación; \nhaz, te pedimos, que los que nos protegemos \ncon la aspersión o el uso de esta agua \nsintamos, por la fuerza del Espíritu Santo, \nrenovada la juventud de nuestra alma \ny andemos siempre en una vida nueva. \nPor Jesucristo, nuestro Señor."
+        },
+        {
+          "type": "rubrica",
+          "txt": "O bien:"
+        },
+        {
+          "type": "oratio",
+          "responsum": "Amén",
+          "txt": "Señor, Padre santo, \ndirige tu mirada sobre nosotros, \nque, redimidos por tu Hijo, \nhemos nacido de nuevo del agua \ny del Espíritu Santo en la fuente bautismal; \nconcédenos, te pedimos, \nque todos los que reciban la aspersión de esta agua \nqueden renovados en el cuerpo y en el alma \ny te sirvan con limpieza de vida. \nPor Jesucristo, nuestro Señor."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "priest",
+          "txt": "Que esta agua nos recuerde nuestro bautismo en Cristo, que nos redimió con su muerte y resurrección."
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 98,
+          "txt": "Si es necesario, escuche el sacerdote la confesión sacramental del enfermo."
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 99,
+          "txt": "Pero cuando no se celebra dentro del rito la confesión sacramental del enfermo o hay otros que han de comulgar, el sacerdote invita a todos al acto penitencial."
+        },
+        {
+          "type": "rubrica",
+          "txt": "Primera fórmula",
+          "isBold": true
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 100,
+          "txt": "El sacerdote invita a los fieles a la penitencia:"
+        },
+        {
+          "type": "priest",
+          "txt": "Hermanos: para participar con fruto en esta celebración, comencemos por reconocer nuestros pecados."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Se hace una breve pausa en silencio. Después, todos juntos, hacen la confesión:"
+        },
+        {
+          "type": "priest",
+          "txt": "Yo confieso ante Dios todopoderoso y ante vosotros, hermanos, que he pecado mucho de pensamiento, palabra, obra y omisión."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Dándose golpes de pecho añaden:"
+        },
+        {
+          "type": "priest",
+          "txt": "Por mi culpa, por mi culpa, por mi gran culpa."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Y a continuación:"
+        },
+        {
+          "type": "priest",
+          "txt": "Por eso ruego a Santa María, siempre Virgen, a los ángeles, a los santos y a vosotros, hermanos, que intercedáis por mí ante Dios, nuestro Señor."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "El sacerdote concluye:"
+        },
+        {
+          "type": "oratio",
+          "txt": "Dios todopoderoso tenga misericordia de nosotros, perdone nuestros pecados y nos lleve a la vida eterna.",
+          "responsum": "Amén."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 101,
+          "txt": "El sacerdote invita a los fieles a la penitencia:"
+        },
+        {
+          "type": "rubrica",
+          "txt": "Segunda fórmula",
+          "isBold": true
+        },
+        {
+          "type": "priest",
+          "txt": "Hermanos: para participar con fruto en esta celebración, comencemos por reconocer nuestros pecados."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Se hace una breve pausa en silencio. Después el sacerdote dice:"
+        },
+        {
+          "type": "oratio",
+          "txt": "Señor, ten misericordia de nosotros.",
+          "responsum": "Porque hemos pecado contra ti."
+        },
+        {
+          "type": "oratio",
+          "txt": "Muéstranos, Señor, tu misericordia.",
+          "responsum": "Y danos tu salvación."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "El sacerdote concluye:"
+        },
+        {
+          "type": "oratio",
+          "txt": "Dios todopoderoso tenga misericordia de nosotros, perdone nuestros pecados y nos lleve a la vida eterna.",
+          "responsum": "Amén."
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 102,
+          "txt": "El sacerdote invita a los fieles a la penitencia:"
+        },
+        {
+          "type": "rubrica",
+          "txt": "Tercera fórmula",
+          "isBold": true
+        },
+        {
+          "type": "priest",
+          "txt": "Hermanos: para participar con fruto en esta celebración, comencemos por reconocer nuestros pecados."
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isRed": true,
+            "txt": "Se hace una breve pausa en silencio. \n\nDespués el ministro, o uno de los asistentes; hace las siguientes u otras invocaciones con el |."
+          },
+          "replace": [
+            {
+              "txt": "Señor, ten piedad",
+              "isRed": false,
+              "isBold": false
+            }
+          ]
+        },
+        {
+          "type": "oratio",
+          "txt": "Tú que por el misterio pascual nos has obtenido la salvación: Señor, ten piedad.",
+          "responsum": "Señor, ten piedad."
+        },
+        {
+          "type": "oratio",
+          "txt": "Tú que no cesas de actualizar entre nosotros las maravillas de tu pasión: Cristo, ten piedad.",
+          "responsum": "Cristo, ten piedad."
+        },
+        {
+          "type": "oratio",
+          "txt": "Tú que por la comunión de tu cuerpo nos haces participar del sacrificio pascual: Señor, ten piedad.",
+          "responsum": "Señor, ten piedad."
+        },
+        {
+          "type": "rubrica",
+          "txt": "El sacerdote concluye:"
+        },
+        {
+          "type": "oratio",
+          "txt": "Dios todopoderoso tenga misericordia de nosotros, perdone nuestros pecados y nos lleve a la vida eterna.",
+          "responsum": "Amén."
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "n": 103,
+          "type": "rubricaNumerus",
+          "txt": "A continuación, puede leerse por uno de los presentes o por el mismo sacerdote algún texto de la Sagrada Escritura, V. g.:"
+        },
+        {
+          "type": "biblicalShort",
+          "pericopa": "Jn 6, 54-55",
+          "txt": "El que come mi carne y bebe mi sangre tiene vida eterna, y yo lo resucitaré en el último día. \n\nMi carne es verdadera comida, y mi sangre es verdadera bebida."
+        },
+        {
+          "type": "biblicalShort",
+          "pericopa": "Jn 6, 54-58",
+          "txt": "El que come mi carne y bebe mi sangre tiene vida eterna, y yo lo resucitaré en el último día. \n\nMi carne es verdadera comida, y mi sangre es verdadera bebida. \n\nEl que come mi carne y bebe mi sangre habita en mí y yo en él. \n\nEl Padre que vive me ha enviado, y yo vivo por el Padre; del mismo modo, el que me come vivirá por mí. \n\nEste es el pan que ha bajado del cielo: no como el de vuestros padres, que lo comieron y murieron; el que come este pan vivirá para siempre."
+        },
+        {
+          "type": "biblicalShort",
+          "pericopa": "Jn 14, 6",
+          "txt": "—Yo soy el camino, y la verdad, y la vida. Nadie va al Padre, sino por mí."
+        },
+        {
+          "type": "biblicalShort",
+          "pericopa": "Jn 14, 23",
+          "txt": "—El que me ama guardará mi palabra, y mi Padre lo amará, y vendremos a él y haremos morada en él."
+        },
+        {
+          "type": "biblicalShort",
+          "pericopa": "Jn 15, 4",
+          "txt": "Permaneced en mí, y yo en vosotros. Como el sarmiento no puede dar fruto por sí, si no permanece en la vid, así tampoco vosotros, si no permanecéis en mí."
+        },
+        {
+          "type": "biblicalShort",
+          "isLast": true,
+          "pericopa": "1 Co 11, 26",
+          "txt": "Cada vez que coméis de este pan y bebéis del cáliz, proclamáis la muerte del Señor, hasta que vuelva."
+        },
+        {
+          "type": "biblicalShort",
+          "pericopa": "Jn 14, 27",
+          "txt": "La paz os dejo, mi paz os doy: no os la doy yo como la da el mundo. Que no tiemble vuestro corazón ni se acobarde."
+        },
+        {
+          "type": "biblicalShort",
+          "pericopa": "Jn 15, 5",
+          "txt": "Yo soy la vid, vosotros los sarmientos; el que permanece en mí y yo en é1, ése da fruto abundante; porque sin mí no podéis hacer nada."
+        },
+        {
+          "type": "biblicalShort",
+          "isLast": true,
+          "pericopa": "1 Jn 4, 16",
+          "txt": "Nosotros hemos conocido el amor que Dios nos tiene y hemos creído en él. Dios es amor, y quien permanece en el amor permanece en Dios, y Dios en él."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Si parece oportuno, puede hacerse una breve explicación de estos textos."
+        },
+        {
+          "n": 104,
+          "type": "rubricaNumerus",
+          "txt": "El sacerdote introduce la oración dominical con estas o parecidas palabras:"
+        },
+        {
+          "type": "priest",
+          "txt": "Y ahora, todos juntos, invoquemos a Dios con la oración que el mismo Cristo nos enseñó:"
+        },
+        {
+          "type": "rubrica",
+          "txt": "Y todos juntos dicen:"
+        },
+        {
+          "type": "priest",
+          "txt": "Padre nuestro, \nque estás en el cielo, \nsantificado sea tu Nombre; \nvenga a nosotros tu reino; \nhágase tu voluntad en la tierra como en el cielo. \nDanos hoy nuestro pan de cada día; \nperdona nuestras ofensas, \ncomo también nosotros perdonamos a los que nos ofenden; \nno nos dejes caer en la tentación, \ny líbranos del mal. \n\nAmén."
+        },
+        {
+          "n": 105,
+          "type": "rubricaNumerus",
+          "txt": "El sacerdote muestra el Santísimo Sacramento, diciendo:"
+        },
+        {
+          "type": "priest",
+          "txt": "Éste es el Cordero de Dios,\nque quita el pecado del mundo.\nDichosos los invitados a la cena del Señor."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "El enfermo y los que van a comulgar dicen una sola vez:"
+        },
+        {
+          "type": "base",
+          "txt": "Señor, no soy digno de que entres en mi casa, pero una palabra tuya bastará para sanarme."
+        },
+        {
+          "n": 106,
+          "type": "rubricaNumerus",
+          "txt": "El sacerdote se acerca al enfermo y, mostrándole el Sacramento, dice:"
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "El Cuerpo de Cristo | La Sangre de Cristo|."
+          },
+          "replace": [
+            {
+              "txt": "(o bien:",
+              "isRed": true,
+              "isBold": true
+            },
+            {
+              "txt": ")",
+              "isRed": true,
+              "isBold": true
+            }
+          ]
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "El enfermo responde:"
+        },
+        {
+          "type": "responsum",
+          "txt": "Amén."
+        },
+        {
+          "type": "rubrica",
+          "txt": "Y comulga. \n\nLos demás comulgantes reciben el Sacramento en la forma acostumbrada."
+        },
+        {
+          "n": 107,
+          "type": "rubricaNumerus",
+          "txt": "Una vez distribuida la comunión, el ministro purifica los vasos sagrados. Pueden seguir unos momentos de silencio. \n\nLuego, el sacerdote concluye con esta oración:"
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "Oremos. \nSeñor Padre santo, \nDios todopoderoso y eterno, \nte suplicamos con fe viva \nque el Cuerpo |la Sangre| \nde nuestro Señor Jesucristo, tu Hijo, \nque nuestro hermano |nuestra hermana| \nacaba de recibir,\nle conceda la salud corporal \ny la salvación eterna.\n\nPor Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "(",
+              "isRed": true,
+              "isBold": true
+            },
+            {
+              "txt": ")",
+              "isRed": true,
+              "isBold": true
+            },
+            {
+              "txt": "(",
+              "isRed": true,
+              "isBold": true
+            },
+            {
+              "txt": ")",
+              "isRed": true,
+              "isBold": true
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "rubrica",
+          "txt": "Puede utilizar también una de las siguientes oraciones:"
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nSeñor, \nque por el misterio pascual de tu Hijo \nrealizaste la redención de los hombres, \nconcédenos avanzar por el camino de la salvación \na quienes, celebrando los sacramentos, \nproclamamos con fe \nla muerte y resurrección de Cristo. \n\nÉl, que vive y reina por los siglos de los siglos."
+          },
+          "replace": [
+            {
+              "txt": "108."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nOh Dios, que has querido hacernos partícipes de un mismo pan y de un mismo cáliz, concédenos vivir tan unidos en Cristo que fructifiquemos con gozo para la salvación del mundo. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "109."
+            }
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "isBold": true,
+            "txt": "|\nAlimentados con esta Eucaristía, te pedimos, Señor, que, por la comunión de tu Sacramento, nos des sabiduría para sopesar los bienes de la tierra amando intensamente los del cielo. Por Jesucristo, nuestro Señor."
+          },
+          "replace": [
+            {
+              "txt": "110."
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 111,
+          "txt": "Finalmente, el sacerdote bendice al enfermo y a los presentes, bien haciendo sobre ellos la señal de la cruz con el copón si ha quedado sacramento, bien utilizando alguna de las siguientes fórmulas:"
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 112,
+          "txt": "O bien utilizando alguna de las siguientes fórmulas:"
+        },
+        {
+          "type": "dialog",
+          "responsum": "Amén.",
+          "txt": [
+            "Que Dios Padre te bendiga.",
+            "Que el Hijo de Dios te devuelva la salud.",
+            "Que el Espíritu Santo te ilumine.",
+            "Que el Señor proteja tu cuerpo y salve tu alma.",
+            "Que haga brillar su rostro sobre ti y te lleve a la vida eterna."
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "txt": "| Y a todos vosotros, \nque estáis aquí presentes, \nos bendiga Dios todopoderoso, \nPadre, Hijo | y Espíritu Santo.",
+            "isBold": true
+          },
+          "replace": [
+            {
+              "txt": "—",
+              "isRed": true,
+              "isBold": true
+            },
+            {
+              "txt": "†",
+              "isRed": true,
+              "isBold": true
+            }
+          ]
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 113,
+          "txt": "O bien:"
+        },
+        {
+          "type": "dialog",
+          "responsum": "Amén.",
+          "txt": [
+            "Jesucristo, el Señor, esté siempre a tu lado para defenderte.",
+            "Que él vaya delante de ti para guiarte y vaya tras de ti para guardarte.",
+            "Que él vele por ti, te sostenga y te bendiga."
+          ]
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "txt": "| Y a todos vosotros, \nque estáis aquí presentes, \nos bendiga Dios todopoderoso, \nPadre, Hijo | y Espíritu Santo.",
+            "isBold": true
+          },
+          "replace": [
+            {
+              "txt": "—",
+              "isRed": true,
+              "isBold": true
+            },
+            {
+              "txt": "†",
+              "isRed": true,
+              "isBold": true
+            }
+          ]
+        },
+        {
+          "type": "rubricaNumerus",
+          "n": 114,
+          "txt": "O bien:"
+        },
+        {
+          "type": "mixtus",
+          "base": {
+            "txt": "La bendición de Dios todopoderoso, \nPadre, Hijo | y Espíritu Santo, \ndescienda sobre vosotros \ny os acompañe siempre.",
+            "isBold": true
+          },
+          "replace": [
+            {
+              "txt": "†",
+              "isRed": true,
+              "isBold": true
+            }
+          ]
+        },
+        {
+          "type": "responsum",
+          "txt": "Amén."
+        },
+        {
+          "type": "rubrica",
+          "isLast": true,
+          "txt": "Puede emplearse también algunas de las fórmulas del Misal para el final de la Misa."
+        }
+      ]
+    }
+  ]
+}
