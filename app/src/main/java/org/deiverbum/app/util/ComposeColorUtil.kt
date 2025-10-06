@@ -1,9 +1,7 @@
 package org.deiverbum.app.util
 
 import android.graphics.Color
-import android.os.Build
 import android.text.style.ForegroundColorSpan
-import androidx.annotation.RequiresApi
 import androidx.compose.ui.graphics.toArgb
 import org.deiverbum.app.core.designsystem.theme.Red40
 
@@ -29,7 +27,6 @@ object ComposeColorUtil {
     val redCode: String
         get() = rubricColor.toArgb().toHexString(HexFormat.UpperCase).takeLast(6)
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @OptIn(ExperimentalStdlibApi::class)
     fun getHexColor(rubricColor: androidx.compose.ui.graphics.Color): String {
         return rubricColor.toArgb().toHexString(HexFormat.UpperCase).takeLast(6)

@@ -1,6 +1,9 @@
 package org.deiverbum.app.feature.tts
 
+import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.FastForward
 import androidx.compose.material.icons.filled.FastRewind
@@ -35,6 +39,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -52,14 +57,194 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import org.deiverbum.app.core.model.tts.TtsProgressData
 import timber.log.Timber
 import java.text.DecimalFormat
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TtsScreenWithBottomSheetControls(
-    viewModel: TtsViewModel = hiltViewModel()
+    viewModel: TtsViewModel, // Recibe el ViewModel como parámetro obligatorio
+    onNavigateBack: (() -> Unit)? = null // Opcional: para manejar la navegación hacia atrás
+) {
+    val inputText by viewModel.inputText.collectAsState()
+    val ttsUiState by viewModel.ttsUiState.collectAsState()
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    var showBottomSheet by remember { mutableStateOf(false) }
+
+    // Efecto para mostrar el BottomSheet cuando la reproducción comienza/pausa,
+    // o si hay texto cargado y el sheet no está visible.
+    LaunchedEffect(ttsUiState.playbackState, inputText, sheetState.isVisible) {
+        val shouldBeVisibleBasedOnState =
+            (ttsUiState.playbackState == TtsPlaybackState.PLAYING ||
+                    ttsUiState.playbackState == TtsPlaybackState.PAUSED ||
+                    (inputText.isNotBlank() && ttsUiState.playbackState == TtsPlaybackState.IDLE && ttsUiState.currentSegment == 0 && ttsUiState.totalSegments == 0))
+
+        if (shouldBeVisibleBasedOnState) {
+            if (!sheetState.isVisible && !showBottomSheet) {
+                showBottomSheet = true
+            }
+        }
+    }
+
+    // Sincronizar showBottomSheet con el estado real del sheet para cierre por arrastre
+    LaunchedEffect(sheetState.targetValue) {
+        if (sheetState.targetValue == SheetValue.Hidden && showBottomSheet) {
+            showBottomSheet = false
+        }
+    }
+
+    // Controlar la visibilidad del sheet desde showBottomSheet
+    LaunchedEffect(showBottomSheet) {
+        if (showBottomSheet && !sheetState.isVisible) {
+            try {
+                sheetState.show()
+            } catch (e: Exception) {
+                Log.w("BottomSheet", "Error showing sheet: ${e.message}")
+            }
+        } else if (!showBottomSheet && sheetState.isVisible) {
+            try {
+                sheetState.hide()
+            } catch (e: Exception) {
+                Log.w("BottomSheet", "Error hiding sheet: ${e.message}")
+            }
+        }
+    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Lector de Voz") },
+                navigationIcon = {
+                    if (onNavigateBack != null) {
+                        IconButton(onClick = onNavigateBack) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Atrás"
+                            )
+                        }
+                    }
+                }
+            )
+        },
+        floatingActionButton = {
+            if (inputText.isNotBlank()) {
+                ExtendedFloatingActionButton(
+                    text = { Text(if (showBottomSheet) "Ocultar Controles" else "Mostrar Controles") },
+                    icon = { Icon(Icons.Filled.RecordVoiceOver, null) },
+                    onClick = { showBottomSheet = !showBottomSheet }
+                )
+            }
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            if (inputText.isNotBlank()) {
+                Text(
+                    text = "Texto para lectura:",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f) // Permite que ocupe el espacio disponible
+                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f))
+                        .padding(12.dp)
+                ) {
+                    Text(
+                        text = inputText,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+            } else {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text(
+                        "No hay texto cargado para leer.",
+                        style = MaterialTheme.typography.bodyLarge,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+
+            // Indicador de progreso lineal si no se muestra el bottom sheet pero está reproduciendo/pausado
+            val isPlayingOrPaused =
+                ttsUiState.playbackState == TtsPlaybackState.PLAYING || ttsUiState.playbackState == TtsPlaybackState.PAUSED
+            if (!showBottomSheet && isPlayingOrPaused && ttsUiState.totalSegments > 0) {
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Text(
+                        text = if (ttsUiState.playbackState == TtsPlaybackState.PLAYING) "Reproduciendo..." else "Pausado...",
+                        style = MaterialTheme.typography.labelMedium
+                    )
+                    val progress = if (ttsUiState.totalSegments > 1) {
+                        (ttsUiState.currentSegment.toFloat() / (ttsUiState.totalSegments - 1).coerceAtLeast(
+                            1
+                        ))
+                    } else { // Manejo para un solo segmento
+                        if (ttsUiState.playbackState == TtsPlaybackState.COMPLETED) 1f else if (isPlayingOrPaused) 0.5f else 0f
+                    }
+                    LinearProgressIndicator(
+                        progress = { progress.coerceIn(0f, 1f) },
+                        modifier = Modifier.weight(1f)
+                    )
+                    Text(
+                        "${ttsUiState.currentSegment + 1}/${ttsUiState.totalSegments}",
+                        style = MaterialTheme.typography.labelSmall
+                    )
+                }
+            }
+        } // Fin de Column (contenido principal)
+    } // Fin de Scaffold
+
+    if (showBottomSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showBottomSheet = false },
+            sheetState = sheetState,
+            // Puedes ajustar el windowInsets si es necesario para evitar solapamientos con la barra de navegación
+            // windowInsets = WindowInsets(0) // Ejemplo para quitar insets, ajusta según necesidad
+        ) {
+            TtsControlsContent( // Este es el Composable que definiste en otro lugar
+                ttsProgress = ttsUiState,
+                onPlay = { viewModel.playText() },
+                onPause = { viewModel.pausePlayback() },
+                onResume = { viewModel.resumePlayback() },
+                onStop = {
+                    viewModel.stopPlayback()
+                    // Opcionalmente, podrías querer ocultar el sheet al detener
+                    // showBottomSheet = false
+                },
+                onSeek = { position -> viewModel.seekToRelativePosition(position) },
+                currentRate = ttsUiState.speechRate,
+                currentPitch = ttsUiState.speechPitch,
+                onRateChange = { rate -> viewModel.setSpeechRate(rate) },
+                onPitchChange = { pitch -> viewModel.setSpeechPitch(pitch) },
+                onCloseSheet = { showBottomSheet = false }
+            )
+        }
+    }
+} // Fin de TtsScreenWithBottomSheetControls Composable
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TtsScreenWithBottomSheetControlss(
+    //viewModel: TtsViewModel = hiltViewModel()
+    viewModel: TtsViewModel // Recibe el ViewModel como parámetro, ya no tiene valor por defecto con hiltViewModel()
+
 ) {
     val inputText by viewModel.inputText.collectAsState()
     val ttsUiState by viewModel.ttsUiState.collectAsState()

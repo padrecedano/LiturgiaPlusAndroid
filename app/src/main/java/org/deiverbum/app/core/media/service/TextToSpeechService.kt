@@ -1,4 +1,4 @@
-package org.deiverbum.app.feature.tts
+package org.deiverbum.app.core.media.service
 
 
 import android.app.Notification
@@ -6,7 +6,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.os.Binder
 import android.os.Build
@@ -15,6 +14,7 @@ import android.os.IBinder
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -25,6 +25,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.deiverbum.app.MainActivity
 import org.deiverbum.app.R
+import org.deiverbum.app.core.model.tts.TtsProgressData
+import org.deiverbum.app.feature.tts.TtsPlaybackState
 import java.util.Locale
 
 // import javax.inject.Inject // No se necesita @Inject aquí si el servicio es @AndroidEntryPoint
@@ -77,6 +79,7 @@ class TextToSpeechService : Service(), TextToSpeech.OnInitListener {
     }
 
     // --- Service Lifecycle Methods ---
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate() {
         super.onCreate()
         Log.d(TAG, "onCreate")
@@ -704,7 +707,7 @@ class TextToSpeechService : Service(), TextToSpeech.OnInitListener {
             if (currentState == TtsPlaybackState.IDLE || currentState == TtsPlaybackState.ERROR) {
                 // Si está realmente inactivo o en error, quitar la notificación.
                 val notificationManager =
-                    getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                    getSystemService(NOTIFICATION_SERVICE) as NotificationManager
                 notificationManager.cancel(NOTIFICATION_ID)
             }
         } else {
@@ -716,17 +719,17 @@ class TextToSpeechService : Service(), TextToSpeech.OnInitListener {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val serviceChannel = NotificationChannel(
                 NOTIFICATION_CHANNEL_ID,
                 "TTS Service Channel",
                 NotificationManager.IMPORTANCE_LOW // Usar LOW para que no sea tan intrusivo
             )
             serviceChannel.description = "Channel for Text-to-Speech background service"
-            val manager = getSystemService(NotificationManager::class.java)
-            manager?.createNotificationChannel(serviceChannel)
-        }
+        getSystemService(NotificationManager::class.java)
+        //manager?.createNotificationChannel(serviceChannel)
+
     }
 
     @OptIn(ExperimentalStdlibApi::class)
@@ -767,7 +770,7 @@ class TextToSpeechService : Service(), TextToSpeech.OnInitListener {
         if (_ttsProgressFlow.value.playbackState == TtsPlaybackState.IDLE && !isPlaybackActive) {
             // Si estamos realmente IDLE y no hay reproducción activa, no debería haber notificación.
             val notificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.cancel(NOTIFICATION_ID)
             return
         }
@@ -776,7 +779,7 @@ class TextToSpeechService : Service(), TextToSpeech.OnInitListener {
         if (isPlaybackActive || _ttsProgressFlow.value.playbackState != TtsPlaybackState.IDLE) {
             val notification = createNotification(contentText)
             val notificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.notify(NOTIFICATION_ID, notification)
         }
     }

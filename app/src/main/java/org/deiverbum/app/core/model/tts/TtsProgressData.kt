@@ -1,4 +1,6 @@
-package org.deiverbum.app.feature.tts
+package org.deiverbum.app.core.model.tts
+
+import org.deiverbum.app.feature.tts.TtsPlaybackState
 
 /**
  * Contiene la información sobre el progreso actual de la lectura TTS.

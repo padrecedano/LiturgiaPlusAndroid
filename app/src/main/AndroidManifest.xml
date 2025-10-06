@@ -81,7 +81,7 @@
         </service>
 
         <service
-            android:name=".feature.tts.TextToSpeechService"
+            android:name=".core.media.service.TextToSpeechService"
             android:exported="false">  <!-- Generalmente false si solo tu app lo usa -->
             <!-- Si apuntas a Android 14 (API 34) o superior y es para reproducción multimedia -->
             <!-- android:foregroundServiceType="mediaPlayback" -->

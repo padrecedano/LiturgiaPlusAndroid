@@ -72,7 +72,7 @@ class CalendarUniversalisViewModel @Inject constructor(
         selectedTopicId,
         getTopicWithDate.invoke(
             //sortBy = HomeSortField.ID,
-            date = route.initialDate,
+            date = 20250715,//route.initialDate,
             title = selectedTopicId.value,
             selectedTopicId = route.initialTopicId!!//selectedTopicId.value!!,
         ),

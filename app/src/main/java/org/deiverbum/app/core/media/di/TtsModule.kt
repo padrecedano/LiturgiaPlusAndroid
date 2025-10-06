@@ -1,9 +1,11 @@
-package org.deiverbum.app.feature.tts
+package org.deiverbum.app.core.media.di
 
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import org.deiverbum.app.core.data.repository.TtsRepository
+import org.deiverbum.app.core.data.repository.TtsRepositoryImpl
 import javax.inject.Singleton
 
 @Module

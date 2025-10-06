@@ -2,7 +2,6 @@
 
 package org.deiverbum.app
 
-import android.content.ComponentName
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -19,18 +18,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.util.trace
-import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.media3.common.MediaItem
-import androidx.media3.common.MediaMetadata
-import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
-import androidx.media3.session.MediaController
-import androidx.media3.session.SessionToken
 import androidx.metrics.performance.JankStats
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -53,7 +46,6 @@ import org.deiverbum.app.feature.tts.TtsMediaViewModel
 import org.deiverbum.app.ui.LPlusApp
 import org.deiverbum.app.ui.rememberNiaAppState
 import org.deiverbum.app.util.isSystemInDarkTheme
-import timber.log.Timber
 import javax.inject.Inject
 import kotlin.system.exitProcess
 
@@ -88,54 +80,6 @@ class MainActivity : ComponentActivity() {
     private val viewModelTts: TtsMediaViewModel by viewModels()
 
     private var isServiceRunning = false
-
-    private var mediaController: MediaController? = null
-
-    private fun initializeMediaController() {
-        val serviceComponent = ComponentName(this, SimpleMediaService::class.java)
-        val sessionToken = SessionToken(this, serviceComponent)
-        val controllerFuture = MediaController.Builder(this, sessionToken)
-            .buildAsync()
-
-        controllerFuture.addListener({
-            try {
-                mediaController = controllerFuture.get()
-                // Conectado: usa el mediaController
-                mediaController?.addListener(object : Player.Listener {
-                    override fun onPlaybackStateChanged(playbackState: Int) {
-                        Timber.d("MainActivity: PlaybackState: $playbackState")
-                    }
-
-                    override fun onMediaMetadataChanged(mediaMetadata: MediaMetadata) {
-                        Timber.d("MainActivity: Metadata: ${mediaMetadata.title}")
-                    }
-                    // ... otros callbacks ...
-                })
-                setupPlayerWithMedia()
-            } catch (e: Exception) {
-                Timber.e(e, "Error al conectar con MediaController")
-            }
-        }, ContextCompat.getMainExecutor(this))
-    }
-
-    override fun onStart() {
-        super.onStart()
-        //initializeMediaController()
-    }
-
-    private fun setupPlayerWithMedia() {
-        mediaController?.let { controller ->
-            if (controller.mediaItemCount == 0) {
-                val mediaItem =
-                    MediaItem.fromUri("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
-                // O: val mediaItem = MediaItem.Builder().setMediaId("id1").build()
-                controller.setMediaItem(mediaItem)
-                controller.prepare()
-                controller.play()
-            }
-        }
-    }
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     @OptIn(
@@ -232,12 +176,11 @@ class MainActivity : ComponentActivity() {
         lazyStats.get().isTrackingEnabled = false
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun startService() {
         if (!isServiceRunning) {
             val intent = Intent(this, SimpleMediaService::class.java)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startForegroundService(intent)
-            }
+            startForegroundService(intent)
             isServiceRunning = true
         }
     }
@@ -252,13 +195,13 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @androidx.annotation.OptIn(UnstableApi::class)
     private fun startServiceTts() {
         if (!isServiceRunning) {
             val intent = Intent(this, TtsMediaService::class.java)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startForegroundService(intent)
-            }
+            //TODO("What about API < 26?")
+            startForegroundService(intent)
             isServiceRunning = true
         }
     }
@@ -278,8 +221,8 @@ class MainActivity : ComponentActivity() {
         //stopService(Intent(this, SimpleMediaService::class.java))
         isServiceRunning = false
 //TODO: Compare this
-        //stopServiceTts()
-        stopService()
+        stopServiceTts()
+        //stopService()
     }
 }
 

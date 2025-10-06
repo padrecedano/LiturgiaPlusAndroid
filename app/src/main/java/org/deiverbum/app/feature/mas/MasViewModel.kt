@@ -64,7 +64,7 @@ class MasViewModel @Inject constructor(
 
 
     fun onTopicClick(topicId: String?) {
-        savedStateHandle.toRoute<UniversalisRoute>().initialTopicId = topicId
+        //savedStateHandle.toRoute<UniversalisRoute>().initialTopicId = topicId
         savedStateHandle[selectedTopicIdKey] = topicId
     }
 

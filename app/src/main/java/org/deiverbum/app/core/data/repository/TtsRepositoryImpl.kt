@@ -1,4 +1,4 @@
-package org.deiverbum.app.feature.tts
+package org.deiverbum.app.core.data.repository
 
 
 import android.content.ComponentName
@@ -17,6 +17,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.deiverbum.app.core.media.service.TextToSpeechService
+import org.deiverbum.app.core.model.tts.TtsProgressData
+import org.deiverbum.app.feature.tts.TtsPlaybackState
 import javax.inject.Inject
 import javax.inject.Singleton
 

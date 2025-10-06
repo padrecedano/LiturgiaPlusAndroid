@@ -18,8 +18,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.deiverbum.app.core.media.service.TtsServiceHandler
 import org.deiverbum.app.core.media.service.notification.TtsNotificationManager
-import org.deiverbum.app.feature.tts.MinimalTtsPlayer
-import org.deiverbum.app.feature.tts.TtsPlayerOld
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -28,7 +26,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    /*
     @OptIn(UnstableApi::class)
     @Provides
     @Singleton
@@ -38,19 +36,9 @@ object AppModule {
     ): TtsPlayerOld {
         // Asumiendo la Opción 3 de refactorización para TtsPlayerForApi26
         return TtsPlayerOld(mainLooper, context)
-    }
+    }*/
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    @OptIn(UnstableApi::class)
-    @Provides
-    @Singleton
-    fun provideMinimalTtsPlayer(
-        @ApplicationContext context: Context,
-        @Named("MainLooper") mainLooper: Looper
-    ): MinimalTtsPlayer {
-        // Asumiendo la Opción 3 de refactorización para TtsPlayerForApi26
-        return MinimalTtsPlayer(context, mainLooper)
-    }
+
 
     @Provides
     @Singleton
@@ -84,16 +72,16 @@ object AppModule {
     @Singleton
     fun provideMediaSession(
         @ApplicationContext context: Context,
-        //player: ExoPlayer,
-        player: TtsPlayerOld
+        player: ExoPlayer,
+        //player: TtsPlayerOld
 
     ): MediaSession =
         MediaSession.Builder(context, player)
             .build()
 
 
-    @OptIn(UnstableApi::class)
     @RequiresApi(Build.VERSION_CODES.O)
+    @OptIn(UnstableApi::class)
     @Provides
     @Singleton
     fun provideTtsNotificationManager(
@@ -108,14 +96,13 @@ object AppModule {
             player = player
         )
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @OptIn(UnstableApi::class)
     @Provides
     @Singleton
     fun provideTtsServiceHandler(
         @ApplicationContext context: Context,
-        player: TtsPlayerOld,
-        //player: ExoPlayer,
+        //player: TtsPlayerOld,
+        player: ExoPlayer,
     ): TtsServiceHandler =
         TtsServiceHandler(
             ttsPlayer = player,

@@ -1,8 +1,6 @@
 package org.deiverbum.app.feature.tts
 
 import LPlusIcons
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,10 +11,6 @@ import androidx.compose.material.icons.rounded.PlayCircle
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,14 +21,12 @@ import org.deiverbum.app.core.designsystem.component.NiaIconToggleButton
 import org.deiverbum.app.core.designsystem.component.media.PlayerBarTts
 import org.deiverbum.app.core.designsystem.component.media.PlayerControlsTts
 
-@RequiresApi(Build.VERSION_CODES.O)
 @androidx.annotation.OptIn(UnstableApi::class)
 @Composable
 fun ScreenTtsPlayer(
     vm: TtsMediaViewModel,
     //text: StringBuilder
 ) {
-    var isSpeaking by remember { mutableStateOf(false) }
 
     BottomPlayerUITts(
         durationString = vm.formatDuration(vm.duration),

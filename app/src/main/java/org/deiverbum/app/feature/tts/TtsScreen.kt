@@ -40,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import org.deiverbum.app.core.model.tts.TtsProgressData
 import timber.log.Timber
 import java.text.DecimalFormat
 

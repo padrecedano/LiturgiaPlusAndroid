@@ -1,8 +1,6 @@
 package org.deiverbum.app.feature.tts
 
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -18,7 +16,6 @@ import org.deiverbum.app.core.media.service.TtsServiceHandler
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(SavedStateHandleSaveableApi::class)
 @HiltViewModel
 class TtsMediaViewModel @androidx.annotation.OptIn(UnstableApi::class)

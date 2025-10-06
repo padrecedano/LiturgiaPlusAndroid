@@ -2,6 +2,9 @@ package org.deiverbum.app.ui
 
 import LPlusIcons
 import NiaNavigationSuiteScaffold
+import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -65,6 +68,8 @@ import org.deiverbum.app.navigation.NiaNavHost
 import org.deiverbum.app.navigation.TopLevelDestination
 import kotlin.reflect.KClass
 
+@SuppressLint("RestrictedApi")
+@RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalStdlibApi
 @ExperimentalFoundationApi
 @ExperimentalCoroutinesApi
@@ -81,7 +86,7 @@ fun LPlusApp(
     var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
     var showMainMenu by rememberSaveable { mutableStateOf(false) }
     val density = LocalDensity.current
-    val textSize = with(density) { 15.dp.toSp() }
+    with(density) { 15.dp.toSp() }
 
     LPlusBackground(modifier = modifier) {
         LPlusGradientBackground(
@@ -95,6 +100,33 @@ fun LPlusApp(
 
             val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
+            //TODO:Borrar
+            appState.navController
+            //val currentBackStackEntry by navController.currentBackStackEntryAsState()
+            /*
+            LaunchedEffect(currentBackStackEntry) {
+                val destination = currentBackStackEntry?.destination
+                val arguments = currentBackStackEntry?.arguments
+                val route = destination?.route // Esta es la cadena de la ruta o el FQN de la clase serializable
+                val routeString = destination?.route // Esta es la cadena de la ruta
+
+                val logMessage = StringBuilder()
+                logMessage.append("---------------- NavigationObserver ----------------\n")
+                logMessage.append("  Destino Actual (route string): ${routeString ?: "null"}\n")
+                logMessage.append("  ID del Destino: ${destination?.id}\n")
+                logMessage.append("  Display Name: ${destination?.displayName}\n")
+                logMessage.append("  Argumentos: $arguments\n")
+                logMessage.append("----------------------------------------------------")
+
+                Log.d("NavigationObserver", logMessage.toString())
+                // Si usas rutas serializables, puedes intentar obtener el objeto de ruta
+                // Esto requiere un poco más de trabajo si quieres el objeto tipado aquí,
+                // pero la cadena 'route' ya es muy informativa.
+                // Por ejemplo, si es una ruta serializable, 'route' será algo como:
+                // "kotlinx.serialization. रास्ता.org.deiverbum.app.feature.universalis.navigation.UniversalisRoute"
+                // o el nombre completo de la clase.
+            }
+*/
             // If user is not connected to the internet show a snack bar to inform them.
             val notConnectedMessage = stringResource(R.string.not_connected)
             LaunchedEffect(isOffline) {
@@ -123,6 +155,7 @@ fun LPlusApp(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalStdlibApi
 @ExperimentalFoundationApi
 @ExperimentalCoroutinesApi

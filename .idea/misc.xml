@@ -111,6 +111,7 @@
       <item index="4" class="java.lang.String" itemvalue="dagger.Module" />
     </list>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Descargas" />
     <option name="OPTION_SCOPE" value="public" />

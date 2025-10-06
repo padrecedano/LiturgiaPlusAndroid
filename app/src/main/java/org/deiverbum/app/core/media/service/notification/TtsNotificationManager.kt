@@ -23,8 +23,8 @@ private const val NOTIFICATION_CHANNEL_NAME = "notification channel 1"
 private const val NOTIFICATION_CHANNEL_ID = "notification channel id 1"
 
 
-@UnstableApi
 @RequiresApi(Build.VERSION_CODES.O)
+@UnstableApi
 class TtsNotificationManager @OptIn(UnstableApi::class)
 @Inject constructor(
     @ApplicationContext private val context: Context,
@@ -43,6 +43,7 @@ class TtsNotificationManager @OptIn(UnstableApi::class)
     }
 
     @UnstableApi
+    @RequiresApi(Build.VERSION_CODES.O)
     fun startNotificationService(
         mediaSessionService: MediaSessionService,
         mediaSession: MediaSession

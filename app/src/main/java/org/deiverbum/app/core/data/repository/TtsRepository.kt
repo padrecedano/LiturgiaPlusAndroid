@@ -1,7 +1,8 @@
-package org.deiverbum.app.feature.tts
+package org.deiverbum.app.core.data.repository
 
 
 import kotlinx.coroutines.flow.StateFlow
+import org.deiverbum.app.core.model.tts.TtsProgressData
 
 /**
  * Interfaz para el repositorio que maneja las operaciones de Text-to-Speech.

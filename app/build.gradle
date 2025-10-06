@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId "org.deiverbum.app"
         compileSdk 35
-        minSdkVersion 25
+        minSdkVersion 26
         targetSdkVersion 35
         versionCode project.APP_VERSION_CODE.toInteger()
         versionName project.APP_VERSION_AND_NAME

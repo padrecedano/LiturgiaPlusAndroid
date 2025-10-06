@@ -34,6 +34,7 @@ class SimpleMediaNotificationManager @Inject constructor(
         createNotificationChannel()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @UnstableApi
     fun startNotificationService(
         mediaSessionService: MediaSessionService,

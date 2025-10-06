@@ -2,6 +2,7 @@ package org.deiverbum.app.feature.universalis
 
 import LPlusIcons
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -46,6 +47,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.media3.common.util.UnstableApi
+import androidx.navigation.NavController
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.deiverbum.app.R
 import org.deiverbum.app.core.analytics.AnalyticsHelper
 import org.deiverbum.app.core.analytics.LocalAnalyticsHelper
@@ -66,8 +69,9 @@ import org.deiverbum.app.core.ui.TrackScrollJank
 import org.deiverbum.app.core.ui.UniversalisBodyForView
 import org.deiverbum.app.core.ui.universalisBodyForRead
 import org.deiverbum.app.feature.calendar.ErrorState
-import org.deiverbum.app.feature.tts.ScreenTtsPlayer
 import org.deiverbum.app.feature.tts.TtsMediaViewModel
+import org.deiverbum.app.feature.tts.TtsViewModel
+import org.deiverbum.app.feature.tts.navigation.navigateToTts
 import org.deiverbum.app.util.Utils
 
 /**
@@ -85,6 +89,7 @@ import org.deiverbum.app.util.Utils
  */
 
 //@ExperimentalStdlibApi
+@ExperimentalCoroutinesApi
 @RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi
@@ -92,8 +97,13 @@ import org.deiverbum.app.util.Utils
 @Composable
 fun UniversalisFromHomeScreen(
     onBackClick: () -> Unit,
+    navController: NavController, // <--- PASO 4: Aceptar navController aquí
+
     modifier: Modifier = Modifier,
-    viewModel: UniversalisViewModel = hiltViewModel()
+    viewModel: UniversalisViewModel = hiltViewModel(),
+    //viewModelTts: TtsViewModel = hiltViewModel()
+    viewModelTts: TtsViewModel,
+
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -103,6 +113,8 @@ fun UniversalisFromHomeScreen(
         uiState = uiState,
         modifier = modifier,
         onBackClick = onBackClick,
+        viewModelTts = viewModelTts,
+        navController = navController, // <--- PASO 5: Pasar navController a la pantalla
         //analyticsHelper=analyticsHelper
     )
 }
@@ -132,6 +144,8 @@ internal fun UniversalisFromHomeScreen(
     uiState: UniversalisUiState,
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit,
+    viewModelTts: TtsViewModel,
+    navController: NavController,
 ) {
     val analyticsHelper = LocalAnalyticsHelper.current
 
@@ -157,7 +171,9 @@ internal fun UniversalisFromHomeScreen(
             UniversalisResourceData(
                 onBackClick = onBackClick,
                 universalisResource = uiState.topics,
-                analyticsHelper = analyticsHelper
+                analyticsHelper = analyticsHelper,
+                viewModelTts = viewModelTts,
+                navController = navController
             )
             //}
         }
@@ -380,13 +396,17 @@ fun UniversalisResourceCardExpanded(
 fun UniversalisResourceData(
     universalisResource: UniversalisResource,
     onBackClick: () -> Unit,
-    viewModelTts: TtsMediaViewModel = hiltViewModel(),
-    analyticsHelper: AnalyticsHelper
+    viewModelTts: TtsViewModel,// = hiltViewModel(),
+    analyticsHelper: AnalyticsHelper,
+    navController: NavController,
+    //navController: NavController, // Para la navegación
+
 ) {
+    //val viewModelTts: TtsViewModel = hiltViewModel()
     val scrollState = rememberScrollState()
     var showBottomSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState()
-    val universalis = universalisResource.data
+    universalisResource.data
     val typusId = universalisResource.id
     val userData = universalisResource.dynamic
     val subTitle = when (universalisResource.id) {
@@ -413,8 +433,29 @@ fun UniversalisResourceData(
                 title = universalisResource.metaData.liturgia,
                 subtitle = subTitle,
                 onReaderClick = {
-                    showBottomSheet = true
+                    val read = universalisBodyForRead(universalisResource)
+                    val textToSpeak = read.text
+
+                    if (textToSpeak.isNotBlank()) {
+                        analyticsHelper.logUniversalisTtsEvent(universalisResource.title) // Tu log
+
+                        // 1. Carga el texto en el ViewModel compartido
+                        //    Asume que loadAndPlayText también podría iniciar la reproducción
+                        //    o al menos preparar el motor TTS.
+                        viewModelTts.loadAndPlayText(textToSpeak)
+
+                        // 2. Navega a la pantalla TTS usando la ruta tipada
+                        //navController.to("reader_graph")
+                        navController.navigateToTts()
+                    } else {
+                        // Manejar caso de texto vacío si es necesario
+                        Log.w("ReaderButton", "Texto para leer está vacío.")
+                        // Podrías mostrar un Snackbar o Toast
+                    }
                 },
+                /*onReaderClick = {
+                    showBottomSheet = true
+                },*/
                 navigationIcon = LPlusIcons.ArrowBack,
                 readerIcon = LPlusIcons.Reader,
                 calendarIcon = LPlusIcons.Calendar,
@@ -465,9 +506,9 @@ fun UniversalisResourceData(
 
                 content = {
                     analyticsHelper.logUniversalisTtsEvent(universalisResource.title)
-                    val read = universalisBodyForRead(universalisResource)
-                    viewModelTts.loadData(read.text)
-                    ScreenTtsPlayer(viewModelTts)
+                    universalisBodyForRead(universalisResource)
+                    //viewModelTts.loadData(read.text)
+                    //ScreenTtsPlayer(viewModelTts)
                 },
             ) //{
             //Timber.d("aaa-",plainTextFromHTML.text)
@@ -485,7 +526,7 @@ fun NoDataScaffold(
     uiState: UniversalisUiState.UniversalisError,
     onBackClick: () -> Unit,
 ) {
-    val scrollState = rememberScrollState()
+    rememberScrollState()
 
     Scaffold(
         topBar = {
